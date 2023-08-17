@@ -69,26 +69,8 @@ public:
     /// @brief Perform layout
     virtual void layout();
 
-    /// @brief Return true if combobox is editable
-    FXbool isEditable() const;
-
-    /// @brief Set editable state
-    void setEditable(FXbool edit = TRUE);
-
     /// @brief Get the text
     FXString getText() const;
-
-    /// @brief Set the number of columns
-    void setNumColumns(FXint cols);
-
-    /// @brief Get the number of columns
-    FXint getNumColumns() const;
-
-    /// @brief Change text justification mode; default is JUSTIFY_LEFT
-    void setJustify(FXuint mode);
-
-    /// @brief Return text justification mode
-    FXuint getJustify() const;
 
     /// @brief Return the number of items in the list
     FXint getNumItems() const;
@@ -116,10 +98,7 @@ public:
 
     /// @brief Replace the item at index
     FXint setIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
-
-    /// @brief Insert a new item at index
-    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr,  FXColor bgColor = FXRGB(255, 255, 255),  void* ptr = nullptr);
-
+    
     /// @brief append icon
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
@@ -128,15 +107,6 @@ public:
 
     /// @brief set custom text
     void setCustomText(const FXString text);
-
-    /// @brief Prepend an item to the list
-    FXint prependItem(const FXString& text, void* ptr = NULL);
-
-    /// @brief Move item from oldindex to newindex
-    FXint moveItem(FXint newindex, FXint oldindex);
-
-    /// @brief Remove this item from the list
-    void removeItem(FXint index);
 
     /// @brief Remove all items from the list
     void clearItems();
@@ -152,15 +122,6 @@ public:
     * Return -1 if no matching item is found.
     */
     FXint findItem(const FXString& text, FXint start = -1, FXuint flags = SEARCH_FORWARD | SEARCH_WRAP) const;
-
-    /**
-    * Search items by associated user data,  beginning from item start. If the
-    * start item is -1 the search will start at the first item in the list.
-    * Flags may be SEARCH_FORWARD or SEARCH_BACKWARD to control the
-    * search direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
-    * to control whether the search wraps at the start or end of the list.
-    */
-    FXint findItemByData(const void* ptr, FXint start = -1, FXuint flags = SEARCH_FORWARD | SEARCH_WRAP) const;
 
     /// @brief Get text for specified item
     FXString getItemText(FXint index) const;
@@ -213,12 +174,6 @@ public:
     /// @brief Return selected text color
     FXColor getSelTextColor() const;
 
-    /// @brief Return sort function
-    FXListSortFunc getSortFunc() const;
-
-    /// @brief Change sort function
-    void setSortFunc(FXListSortFunc func);
-
     /// @brief Set the combobox help text
     void setHelpText(const FXString& txt);
 
@@ -233,6 +188,7 @@ public:
 
     /// @brief Commands
     /// @{
+
     long onFocusUp(FXObject*, FXSelector, void*);
     long onFocusDown(FXObject*, FXSelector, void*);
     long onFocusSelf(FXObject*, FXSelector, void*);
@@ -243,6 +199,7 @@ public:
     long onListClicked(FXObject*, FXSelector, void*);
     long onFwdToText(FXObject*, FXSelector, void*);
     long onUpdFmText(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

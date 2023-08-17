@@ -184,33 +184,9 @@ MFXComboBoxIcon::layout() {
 }
 
 
-FXbool
-MFXComboBoxIcon::isEditable() const {
-    return myTextFieldIcon->isEditable();
-}
-
-
-void
-MFXComboBoxIcon::setEditable(FXbool edit) {
-    myTextFieldIcon->setEditable(edit);
-}
-
-
 FXString
 MFXComboBoxIcon::getText() const {
     return myTextFieldIcon->getText();
-}
-
-
-void
-MFXComboBoxIcon::setNumColumns(FXint cols) {
-    myTextFieldIcon->setNumColumns(cols);
-}
-
-
-FXint
-MFXComboBoxIcon::getNumColumns() const {
-    return myTextFieldIcon->getNumColumns();
 }
 
 
@@ -305,23 +281,6 @@ MFXComboBoxIcon::setIconItem(FXint index, const FXString& text, FXIcon* icon, FX
 
 
 FXint
-MFXComboBoxIcon::insertIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
-    if (index < 0 || myList->getNumItems() < index) {
-        fxerror("%s::insertItem: index out of range.\n", getClassName());
-    }
-    myList->insertItem(index, text, NULL, ptr);
-    if (isItemCurrent(index)) {
-        myTextFieldIcon->setText(text);
-        myTextFieldIcon->setBackColor(bgColor);
-        myIconLabel->setIcon(icon);
-        myIconLabel->setBackColor(bgColor);
-    }
-    recalc();
-    return index;
-}
-
-
-FXint
 MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     FXint index = myList->appendItem(new MFXListItemIcon(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
@@ -361,60 +320,6 @@ MFXComboBoxIcon::setCustomText(const FXString text) {
 }
 
 
-FXint
-MFXComboBoxIcon::prependItem(const FXString& text, void* ptr) {
-    FXint index = myList->prependItem(text, NULL, ptr);
-    if (isItemCurrent(0)) {
-        myTextFieldIcon->setText(text);
-        myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
-        myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255, 255, 255));
-    }
-    recalc();
-    return index;
-}
-
-
-FXint
-MFXComboBoxIcon::moveItem(FXint newindex, FXint oldindex) {
-    if (newindex < 0 || myList->getNumItems() <= newindex || oldindex < 0 || myList->getNumItems() <= oldindex) {
-        fxerror("%s::moveItem: index out of range.\n", getClassName());
-    }
-    FXint current = myList->getCurrentItem();
-    myList->moveItem(newindex, oldindex);
-    if (current != myList->getCurrentItem()) {
-        current = myList->getCurrentItem();
-        if (0 <= current) {
-            myTextFieldIcon->setText(myList->getItemText(current));
-        } else {
-            myTextFieldIcon->setText(" ");
-        }
-        myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255, 255, 255));
-    }
-    recalc();
-    return newindex;
-}
-
-
-void
-MFXComboBoxIcon::removeItem(FXint index) {
-    FXint current = myList->getCurrentItem();
-    myList->removeItem(index);
-    if (index == current) {
-        current = myList->getCurrentItem();
-        if (0 <= current) {
-            myTextFieldIcon->setText(myList->getItemText(current));
-        } else {
-            myTextFieldIcon->setText(FXString::null);
-        }
-        myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255, 255, 255));
-    }
-    recalc();
-}
-
-
 void
 MFXComboBoxIcon::clearItems() {
     myTextFieldIcon->resetTextField();
@@ -426,12 +331,6 @@ MFXComboBoxIcon::clearItems() {
 FXint
 MFXComboBoxIcon::findItem(const FXString& text, FXint start, FXuint flgs) const {
     return myList->findItem(text, start, flgs);
-}
-
-
-FXint
-MFXComboBoxIcon::findItemByData(const void* ptr, FXint start, FXuint flgs) const {
-    return myList->findItemByData(ptr, start, flgs);
 }
 
 
@@ -500,18 +399,6 @@ MFXComboBoxIcon::getComboStyle() const {
 
 
 void
-MFXComboBoxIcon::setJustify(FXuint style) {
-    myTextFieldIcon->setJustify(style);
-}
-
-
-FXuint
-MFXComboBoxIcon::getJustify() const {
-    return myTextFieldIcon->getJustify();
-}
-
-
-void
 MFXComboBoxIcon::setBackColor(FXColor clr) {
     myTextFieldIcon->setBackColor(clr);
     myIconLabel->setBackColor(clr);
@@ -567,18 +454,6 @@ MFXComboBoxIcon::getSelTextColor() const {
 void
 MFXComboBoxIcon::sortItems() {
     myList->sortItems();
-}
-
-
-FXListSortFunc
-MFXComboBoxIcon::getSortFunc() const {
-    return myList->getSortFunc();
-}
-
-
-void
-MFXComboBoxIcon::setSortFunc(FXListSortFunc func) {
-    myList->setSortFunc(func);
 }
 
 
@@ -669,19 +544,6 @@ MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
                 if (0 <= index) {
                     setIconItem(index, (FXchar*)ptr, nullptr, FXRGB(255, 255, 255), getItemData(index));
                 }
-                break;
-            case COMBOBOX_INSERT_BEFORE:
-                if (0 <= index) {
-                    insertIconItem(index, (FXchar*)ptr);
-                }
-                break;
-            case COMBOBOX_INSERT_AFTER:
-                if (0 <= index) {
-                    insertIconItem(index + 1, (FXchar*)ptr);
-                }
-                break;
-            case COMBOBOX_INSERT_FIRST:
-                insertIconItem(0, (FXchar*)ptr);
                 break;
             case COMBOBOX_INSERT_LAST:
                 appendIconItem((FXchar*)ptr);
