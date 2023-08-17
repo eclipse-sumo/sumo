@@ -42,7 +42,7 @@ FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(MFXListItemIcon,    FXListItem, nullptr, 0)
+FXIMPLEMENT(MFXListIconItem,    FXListItem, nullptr, 0)
 FXIMPLEMENT(MFXListIcon,        FXList,     MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
 
 // ===========================================================================
@@ -50,17 +50,17 @@ FXIMPLEMENT(MFXListIcon,        FXList,     MFXListIconMap, ARRAYNUMBER(MFXListI
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// MFXListItemIcon - methods
+// MFXListIconItem - methods
 // ---------------------------------------------------------------------------
 
-MFXListItemIcon::MFXListItemIcon(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
+MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
     FXListItem(text, ic, ptr),
     myBackGroundColor(backGroundColor) {
 }
 
 
 void
-MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
+MFXListIconItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     FXFont* font = myList->getFont();
     FXint ih = 0, th = 0;
     ih = ICON_SIZE;
@@ -95,12 +95,12 @@ MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint 
 }
 
 const FXColor&
-MFXListItemIcon::getBackGroundColor() const {
+MFXListIconItem::getBackGroundColor() const {
     return myBackGroundColor;
 }
 
 
-MFXListItemIcon::MFXListItemIcon() :
+MFXListIconItem::MFXListIconItem() :
     FXListItem("", nullptr),
     myBackGroundColor(FXRGB(0, 0, 0)) {
 }
@@ -132,7 +132,7 @@ MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     // Paint items
     y = pos_y;
     for (i = 0; i < items.no(); i++) {
-        const auto listIcon = dynamic_cast<MFXListItemIcon*>(items[i]);
+        const auto listIcon = dynamic_cast<MFXListIconItem*>(items[i]);
         if (listIcon) {
             h = listIcon->getHeight(this);
             if (event->rect.y <= (y + h) && y < (event->rect.y + event->rect.h)) {

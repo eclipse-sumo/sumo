@@ -231,8 +231,8 @@ MFXComboBoxIcon::setCurrentItem(FXint index, FXbool notify) {
         myList->setCurrentItem(index);
         myList->makeItemVisible(index);
         if (0 <= index) {
-            // cast MFXListItemIcon
-            const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem(index));
+            // cast MFXListIconItem
+            const MFXListIconItem* item = dynamic_cast<MFXListIconItem*>(myList->getItem(index));
             // set icon and background color
             if (item) {
                 myTextFieldIcon->setText(item->getText());
@@ -286,7 +286,7 @@ MFXComboBoxIcon::setIconItem(FXint index, const FXString& text, FXIcon* icon, FX
 
 FXint
 MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
-    FXint index = myList->appendItem(new MFXListItemIcon(text, icon, bgColor, ptr));
+    FXint index = myList->appendItem(new MFXListIconItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
         myTextFieldIcon->setBackColor(bgColor);
@@ -301,8 +301,8 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 bool
 MFXComboBoxIcon::setItem(const FXString& text, FXIcon* icon) {
     for (int i = 0; i < myList->getNumItems(); i++) {
-        // cast MFXListItemIcon
-        const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem(i));
+        // cast MFXListIconItem
+        const MFXListIconItem* item = dynamic_cast<MFXListIconItem*>(myList->getItem(i));
         // set icon and background color
         if (item && (item->getText() == text) && (item->getIcon() == icon)) {
             myTextFieldIcon->setText(item->getText());
@@ -501,8 +501,8 @@ long
 MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
     myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
-        // cast MFXListItemIcon
-        const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem((FXint)(FXival)ptr));
+        // cast MFXListIconItem
+        const MFXListIconItem* item = dynamic_cast<MFXListIconItem*>(myList->getItem((FXint)(FXival)ptr));
         // set icon and background color
         if (item) {
             myTextFieldIcon->setText(item->getText());

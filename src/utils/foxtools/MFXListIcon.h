@@ -25,15 +25,15 @@
 
 
 /// @brief A list item which allows for custom coloring
-class MFXListItemIcon : public FXListItem {
+class MFXListIconItem : public FXListItem {
     /// @brief FOX declaration
-    FXDECLARE(MFXListItemIcon)
+    FXDECLARE(MFXListIconItem)
 
 public:
     /// @brief Construct new item with given text, icon, and user-data
-    MFXListItemIcon(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr = NULL);
+    MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr = NULL);
 
-    /// @brief draw MFXListItemIcon
+    /// @brief draw MFXListIconItem
     void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
 
     /// @brief get background color
@@ -41,7 +41,7 @@ public:
 
 protected:
     /// @brief fox need this
-    MFXListItemIcon();
+    MFXListIconItem();
 
     /// @brief backGround color
     FXColor myBackGroundColor;
