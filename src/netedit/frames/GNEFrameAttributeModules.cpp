@@ -157,7 +157,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             myValueTextField->show();
         }
         // check if update lane buttons
-        if (myMoveLaneUpButton && myMoveLaneDownButton) {
+        if (myValueLaneUpButton && myValueLaneDownButton) {
             updateMoveLaneButtons(value);
         }
         // Show AttributesEditorRow
@@ -549,23 +549,6 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         if (disableElement) {
             myAttributeColorButton->disable();
         }
-	} else if ((myACAttr.getAttr() == SUMO_ATTR_LANE) && !myACAttr.getTagPropertyParent().isNetworkElement()) {
-        // Create label
-        myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(54));
-        // set tip text
-        myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
-        myAttributeLabel->setHelpText(myACAttr.getDefinition().c_str());
-        // create arrows
-        myMoveLaneUpButton = new MFXButtonTooltip(this, tooltipMenu, "",
-            GUIIconSubSys::getIcon(GUIIcon::ARROW_UP_TICKED), this, MID_GNE_MOVEUP, GUIDesignButtonIconTickedArrow);
-        // set tip texts
-        myMoveLaneUpButton->setTipText(TL("Move element lane up"));
-        myMoveLaneUpButton->setHelpText(TL("Move element lane up"));
-        myMoveLaneDownButton = new MFXButtonTooltip(this, tooltipMenu, "",
-            GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN_TICKED), this, MID_GNE_MOVEDOWN, GUIDesignButtonIconTickedArrow);
-        // set tip texts
-        myMoveLaneDownButton->setTipText(TL("Move element lane down"));
-        myMoveLaneDownButton->setHelpText(TL("Move element lane down"));
 	} else {
         // Create label
         myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
@@ -600,11 +583,34 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
     myValueCheckButton->hide();
     // set color text depending of computed
     myValueCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    // check if create move up/down lanes
+    if ((myACAttr.getAttr() == SUMO_ATTR_LANE) && !myACAttr.getTagPropertyParent().isNetworkElement()) {
+        // get static tooltip menu
+        const auto tooltipMenu = myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+        // create move lane up
+        myValueLaneUpButton = new MFXButtonTooltip(this, tooltipMenu, "",
+            GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_MOVEUP, GUIDesignButtonIcon);
+        // set tip texts
+        myValueLaneUpButton->setTipText(TL("Move element up one lane"));
+        myValueLaneUpButton->setHelpText(TL("Move element up one lane"));
+        // create move lane down
+        myValueLaneDownButton = new MFXButtonTooltip(this, tooltipMenu, "",
+            GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_MOVEDOWN, GUIDesignButtonIcon);
+        // set tip texts
+        myValueLaneDownButton->setTipText(TL("Move element down one lane"));
+        myValueLaneDownButton->setHelpText(TL("Move element down one lane"));
+    }
     // check if disable
     if (!attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
         myValueTextField->disable();
         myValueComboBox->disable();
         myValueCheckButton->disable();
+        if (myValueLaneUpButton) {
+            myValueLaneUpButton->disable();
+        }
+        if (myValueLaneDownButton) {
+            myValueLaneDownButton->disable();
+        }
     }
 }
 
@@ -654,7 +660,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
         }
     }
     // check if update lane buttons
-    if (myMoveLaneUpButton && myMoveLaneDownButton) {
+    if (myValueLaneUpButton && myValueLaneDownButton) {
         updateMoveLaneButtons(value);
     }
 }
@@ -751,17 +757,17 @@ GNEFrameAttributeModules::AttributesEditorRow::updateMoveLaneButtons(const std::
     const auto lane = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(value, false);
     // check lane
     if (lane) {
-        // check if disable move down
-        if ((lane->getIndex() - 1) < 0) {
-            myMoveLaneDownButton->disable();
-        } else {
-            myMoveLaneDownButton->enable();
-        }
         // check if disable move up
         if ((lane->getIndex() + 1) >= (int)lane->getParentEdge()->getLanes().size()) {
-            myMoveLaneUpButton->disable();
+            myValueLaneUpButton->disable();
         } else {
-            myMoveLaneUpButton->enable();
+            myValueLaneUpButton->enable();
+        }
+        // check if disable move down
+        if ((lane->getIndex() - 1) < 0) {
+            myValueLaneDownButton->disable();
+        } else {
+            myValueLaneDownButton->enable();
         }
     }
 }

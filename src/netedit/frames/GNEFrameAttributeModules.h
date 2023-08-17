@@ -130,12 +130,6 @@ public:
         /// @brief Button for inspect parents
         MFXButtonTooltip* myAttributeParentButton = nullptr;
 
-		/// @brief Button for move lane up
-        MFXButtonTooltip* myMoveLaneUpButton = nullptr;
-
-		/// @brief Button for move lane down
-        MFXButtonTooltip* myMoveLaneDownButton = nullptr;
-
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
@@ -144,6 +138,12 @@ public:
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
+
+        /// @brief Button for move lane up
+        MFXButtonTooltip* myValueLaneUpButton = nullptr;
+
+		/// @brief Button for move lane down
+        MFXButtonTooltip* myValueLaneDownButton = nullptr;
 
         /// @brief pointer to AC Parent
         GNEAttributeCarrier* myACParent = nullptr;
