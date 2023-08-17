@@ -161,7 +161,7 @@ public:
         void refreshValueElements(const std::string &value,  const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute);
 
         /// @brief fill comboBox with discrete values
-        void fillComboBox();
+        void fillComboBox(const std::string &value);
 
         /// @brief update move lane buttons
         void updateMoveLaneButtons(const std::string &value);

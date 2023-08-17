@@ -140,16 +140,12 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->show();
             } else {
                 // fill comboBox
-                fillComboBox();
-                // set comboBox value
-                myValueComboBox->setCurrentItem(myValueComboBox->findItem(value.c_str()));
+                fillComboBox(value);
                 myValueComboBox->show();
             }
-        } else if (ACParent && myACAttr.isVType()) {
+        } else if (myACAttr.isVType()) {
             // fill comboBox
-            fillComboBox();
-            // set comboBox value
-            myValueComboBox->setCurrentItem(myValueComboBox->findItem(value.c_str()));
+            fillComboBox(value);
             myValueComboBox->show();
         } else {
             // In any other case (String, list, etc.), show value as String
@@ -178,10 +174,8 @@ GNEFrameAttributeModules::AttributesEditorRow::destroy() {
 void
 GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
         const bool forceRefreshAttribute, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent) {
-    // check if update AC Parent
-    if (ACParent) {
-        myACParent = ACParent;
-    }
+    // update ACParent
+    myACParent = ACParent;
     // refresh attribute elements
     refreshAttributeElements(value, attributeEnabled, computed);
     refreshValueElements(value, attributeEnabled, computed, forceRefreshAttribute);
@@ -334,13 +328,9 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             // Get value of ComboBox
             newVal = myValueComboBox->getText().text();
         }
-    } else if (myACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+    } else if (myACAttr.isVType()) {
         // Get value of ComboBox
-        if (myValueComboBox->shown()) {
-            newVal = myValueComboBox->getText().text();
-        } else {
-            newVal = myValueTextField->getText().text();
-        }
+        newVal = myValueComboBox->getText().text();
     } else {
         // Check if default value of attribute must be set
         if (myValueTextField->getText().empty() && myACAttr.hasDefaultValue()) {
@@ -565,21 +555,16 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
     myValueTextField = new MFXTextFieldTooltip(this,
             myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // buy default hidden
     myValueTextField->hide();
     // set color text depending of computed
     myValueTextField->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // Create and hide ComboBox
     myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (myACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
-    // buy default hidden
-    myValueComboBox->hide();
     // set color text depending of computed
     myValueComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myValueCheckButton->hide();
-    // buy default hidden
     myValueCheckButton->hide();
     // set color text depending of computed
     myValueCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
@@ -686,9 +671,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
         }
     } else if (myValueComboBox->shown()) {
         // fill comboBox
-        fillComboBox();
-        // set comboBox value
-        myValueComboBox->setCurrentItem(myValueComboBox->findItem(value.c_str()));
+        fillComboBox(value);
         // set color text depending of computed
         myValueComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check if disable
@@ -710,7 +693,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
 
 
 void
-GNEFrameAttributeModules::AttributesEditorRow::fillComboBox() {
+GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &value) {
     // clear all comboBox
     myValueComboBox->clearItems();
     // fill depeding of ACAttr
@@ -719,18 +702,19 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox() {
         for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
             myValueComboBox->appendIconItem(vClassStr.c_str(), VClassIcons::getVClassIcon(getVehicleClassID(vClassStr)));
         }
-    } else if ((myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
-            myACParent && myACAttr.isVType()) {
+    } else if (myACAttr.isVType()) {
+        // get ACs
+        const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         // fill comboBox with all vTypes and vType distributions sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
-        for (const auto& type : myACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        for (const auto& type : ACs->getDemandElements().at(SUMO_TAG_VTYPE)) {
             sortedTypes[type->getID()] = type;
         }
         for (const auto& sortedType : sortedTypes) {
             myValueComboBox->appendIconItem(sortedType.first.c_str(), sortedType.second->getACIcon());
         }
         sortedTypes.clear();
-        for (const auto& typeDistribution : myACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        for (const auto& typeDistribution : ACs->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
             sortedTypes[typeDistribution->getID()] = typeDistribution;
         }
         for (const auto& sortedType : sortedTypes) {
@@ -742,11 +726,18 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox() {
             myValueComboBox->appendIconItem(discreteValue.c_str(), nullptr);
         }
     }
-    // show values
+    // set num visible values
     if (myACAttr.showAllDiscreteValues()) {
         myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
     } else {
         myValueComboBox->setNumVisible(myValueComboBox->getNumItems() < 10 ? myValueComboBox->getNumItems() : 10);
+    }
+    // set current value
+    const auto index = myValueComboBox->findItem(value.c_str());
+    if (index < 0) {
+        myValueComboBox->setText(value.c_str());
+    } else {
+        myValueComboBox->setCurrentItem(index);
     }
 }
 
