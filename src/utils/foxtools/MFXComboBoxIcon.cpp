@@ -176,14 +176,7 @@ MFXComboBoxIcon::layout() {
     myIconLabel->position(border, border, iconSize, iconSize);
     myTextFieldIcon->position(border + iconSize, border, textWidth, itemHeight);
     myButton->position(border + textWidth + iconSize, border, buttonWidth, itemHeight);
-
-    int size = -1;
-    for (int i = 0; i < myList->getNumItems(); i++) {
-        if (myList->getItemWidth(i) > size) {
-            size = myList->getItemWidth(i);
-        }
-    }
-    myPane->resize(size + 17, myPane->getDefaultHeight());
+    myPane->resize(width, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
 }
 

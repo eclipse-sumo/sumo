@@ -62,8 +62,8 @@ MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backG
 void
 MFXListIconItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     FXFont* font = myList->getFont();
-    FXint ih = 0, th = 0;
-    ih = ICON_SIZE;
+    FXint ih = icon? ICON_SIZE : 0;
+    FXint th = 0;
     if (!label.empty()) {
         th = font->getFontHeight();
     }
@@ -80,7 +80,9 @@ MFXListIconItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint 
     if (icon) {
         dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
     }
-    xx += ICON_SPACING + ICON_SIZE;
+    if (icon) {
+        xx += ICON_SPACING + ICON_SIZE;
+    }
     if (!label.empty()) {
         dc.setFont(font);
         if (!isEnabled()) {
