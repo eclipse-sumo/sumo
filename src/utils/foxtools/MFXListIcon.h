@@ -63,6 +63,9 @@ public:
     /// @brief Draw item list
     long onPaint(FXObject*, FXSelector, void*);
 
+    /// @brief autoscroll (used for disable it)
+    long onAutoScroll(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief fox need this
     MFXListIcon();

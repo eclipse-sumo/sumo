@@ -38,7 +38,8 @@
 // ===========================================================================
 
 FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
-    FXMAPFUNC(SEL_PAINT, 0, MFXListIcon::onPaint),
+    FXMAPFUNC(SEL_PAINT,    0,                          MFXListIcon::onPaint),
+    FXMAPFUNC(SEL_TIMEOUT,  FXWindow::ID_AUTOSCROLL,    MFXListIcon::onAutoScroll),
 };
 
 // Object implementation
@@ -150,6 +151,14 @@ MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     }
     return 1;
 }
+
+
+long
+MFXListIcon::onAutoScroll(FXObject*, FXSelector, void*) {
+    // nothing to do
+    return 1;
+}
+
 
 MFXListIcon::MFXListIcon() :
     FXList() {
