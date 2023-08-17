@@ -33,6 +33,7 @@ title: ChangeLog
   - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093
   - Fixed crash opening undo-redo dialog after setting a simple attribute. #13673
   - Fixed invalid checks setting IDs. #13690
+  - Now vType is a combobox when a selection of vehicles is inspected. #12719
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -68,6 +69,7 @@ title: ChangeLog
   - Added support for route distributions. #12660
   - Implemented frame for edit vType distributions. #13393
   - Implemented frame for edit route distributions. #13635
+  - Added buttons next to lane attribute to shift element between edge's lanes. #13387
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
