@@ -30,8 +30,6 @@ set(utils_foxtools_STAT_SRCS
    MFXLinkLabel.h
    MFXListIcon.cpp
    MFXListIcon.h
-   MFXListItemIcon.cpp
-   MFXListItemIcon.h
    MFXMenuButtonTooltip.cpp
    MFXMenuButtonTooltip.h
    MFXMenuCheckIcon.cpp

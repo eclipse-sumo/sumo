@@ -25,11 +25,13 @@
 #include <utils/common/UtilExceptions.h>
 
 #include "MFXListIcon.h"
-#include "MFXListItemIcon.h"
 
 
+#define SIDE_SPACING    6   // Left or right spacing between items
+#define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
 #define LINE_SPACING    4   // Line spacing between items
 #define ICON_SIZE       16
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -40,11 +42,72 @@ FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(MFXListIcon, FXList, MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
+FXIMPLEMENT(MFXListItemIcon,    FXListItem, nullptr, 0)
+FXIMPLEMENT(MFXListIcon,        FXList,     MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// MFXListItemIcon - methods
+// ---------------------------------------------------------------------------
+
+MFXListItemIcon::MFXListItemIcon(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
+    FXListItem(text, ic, ptr),
+    myBackGroundColor(backGroundColor) {
+}
+
+
+void
+MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
+    FXFont* font = myList->getFont();
+    FXint ih = 0, th = 0;
+    ih = ICON_SIZE;
+    if (!label.empty()) {
+        th = font->getFontHeight();
+    }
+    if (isSelected()) {
+        dc.setForeground(myList->getSelBackColor());
+    } else {
+        dc.setForeground(myBackGroundColor);     // FIXME maybe paint background in onPaint?
+    }
+    dc.fillRectangle(xx, yy, ww, hh);
+    if (hasFocus()) {
+        dc.drawFocusRectangle(xx + 1, yy + 1, ww - 2, hh - 2);
+    }
+    xx += SIDE_SPACING / 2;
+    if (icon) {
+        dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
+    }
+    xx += ICON_SPACING + ICON_SIZE;
+    if (!label.empty()) {
+        dc.setFont(font);
+        if (!isEnabled()) {
+            dc.setForeground(makeShadowColor(myList->getBackColor()));
+        } else if (isSelected()) {
+            dc.setForeground(myList->getSelTextColor());
+        } else {
+            dc.setForeground(myList->getTextColor());
+        }
+        dc.drawText(xx, yy + (hh - th) / 2 + font->getFontAscent(), label);
+    }
+}
+
+const FXColor&
+MFXListItemIcon::getBackGroundColor() const {
+    return myBackGroundColor;
+}
+
+
+MFXListItemIcon::MFXListItemIcon() :
+    FXListItem("", nullptr),
+    myBackGroundColor(FXRGB(0, 0, 0)) {
+}
+
+// ---------------------------------------------------------------------------
+// MFXListIcon - methods
+// ---------------------------------------------------------------------------
 
 MFXListIcon::MFXListIcon(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXList(p, tgt, sel, opts, x, y, w, h) {
