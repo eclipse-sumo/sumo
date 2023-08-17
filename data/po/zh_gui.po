@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-17 11:28+0200\n"
-"PO-Revision-Date: 2023-08-17 13:29+0000\n"
+"PO-Revision-Date: 2023-08-17 13:56+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -10392,19 +10392,19 @@ msgstr "对面车道'%'与路段%'不能连接在同一节点!"
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1848
 #, c-format
 msgid "Edge operations (% selected)"
-msgstr ""
+msgstr "道路操作（% 已选择）"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1850
 msgid "Edge operations"
-msgstr ""
+msgstr "道路操作"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1853
 msgid "Split edge here"
-msgstr ""
+msgstr "在此处分割道路"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1854
 msgid "Split edge in both directions here (no symmetric opposite edge)"
-msgstr ""
+msgstr "在此处双向分割道路（不对称的反向道路）"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1859
 msgid "Split edge in both directions here (no opposite edge)"
