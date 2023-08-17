@@ -1141,43 +1141,75 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
-    std::string currentConfig = myRecentConfigs.getFile(1).text();
+    std::string currentConfig = myRecentConfigs.getFile(1).text()  ;
     std::string sumoUnity = "Sumo-UnityPython.exe";
     const char* sumoPath = getenv("SUMO_HOME");
 
     if (sumoPath != nullptr) {
+        std::string newPath = "";
+        if (sumoPath && *sumoPath) {
+            const char* lastChar = sumoPath + std::strlen(sumoPath) - 1;
 
-        std::string newPath = std::string(sumoPath) + "/bin/Sumo-UnityPython";
+            if (*lastChar == '/' || *lastChar == '\\') {
+                 
+               newPath =  std::string(sumoPath) + "bin/Sumo-UnityPython";
+                 
+            }
+            else {
+                newPath = std::string(sumoPath) + "/bin/Sumo-UnityPython";
+            }
+        }
+
+        
 
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumoUnity = "\"" + newPath + ".exe" + "\"";
+            if (newPath.find(' ') != std::string::npos) {
+                sumoUnity = "\"" + newPath + ".exe" + "\"";
+            }
+            else
+            {
+                sumoUnity =   newPath + ".exe" ;
+            }
         }
+
+        std::string cmd = sumoUnity;
+        // start in background
+
+        if (currentConfig.find(' ') != std::string::npos) {
+            currentConfig = "\"" + currentConfig + "\"";
+        }
+        
+
+        cmd = cmd + " -n " +  currentConfig  ;
+        //std::vector<GUISUMOAbstractView::Decal> myDecals = GUISettingsHandler::getDecals();
+
+
+
+        //GUISettingsHandler::getDecals()
+        //    3:31 PM
+
+
+        //    Behrisch, Michael
+
+
+
+        //    GUISUMOAbstractView::drawDecals()
+
+        //// GUISettingsHandler::getDecals();
+
+        // traci.simulation.getOption
+
+        WRITE_MESSAGE(TL("Running ") + cmd);
+        // yay! fun with dangerous commands... Never use this over the internet
+        SysUtils::runHiddenCommand(cmd);
     }
-    std::string cmd = sumoUnity;
-    // start in background
+    else
+    {
+        WRITE_MESSAGE(TL("Error. Please define SUMO_HOME varible.") );
+    }
 
-    cmd = cmd + " -n " + currentConfig;
-    //std::vector<GUISUMOAbstractView::Decal> myDecals = GUISettingsHandler::getDecals();
-
-
-
-    //GUISettingsHandler::getDecals()
-    //    3:31 PM
-
-
-    //    Behrisch, Michael
-
-
-
-    //    GUISUMOAbstractView::drawDecals()
-
-    //// GUISettingsHandler::getDecals();
-
-    // traci.simulation.getOption
-
-    WRITE_MESSAGE(TL("Running ") + cmd);
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
+    
+    
     return 0;
 }
 

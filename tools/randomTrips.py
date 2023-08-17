@@ -227,7 +227,10 @@ def get_options(args=None):
         options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
     if options.insertionRate:
-        options.period = [3600.0 / rate for rate in options.insertionRate]
+        try:
+            options.period = [3600.0 / rate for rate in options.insertionRate]
+        except:
+            options.period = [1]
 
     if options.period:
         if any(options.period) <= 0:

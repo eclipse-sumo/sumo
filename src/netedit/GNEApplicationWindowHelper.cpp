@@ -2070,7 +2070,7 @@ void
 GNEApplicationWindowHelper::ReportsMenuCommands::buildReportsMenuCommands(FXMenuPane* locateMenu) {
     // build locate menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-        TL("&Reports App"), "", "Opens an app for quick reports.",
+        TL("&Reports App"), "", TL("Opens an app for quick reports."),
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_REPORTS_NETDIFF);
 }
 
