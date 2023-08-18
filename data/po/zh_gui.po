@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 11:31+0000\n"
+"PO-Revision-Date: 2023-08-18 13:08+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -12779,7 +12779,7 @@ msgstr "在单击时按住 <Shift> 以创建牢固 (unyielding) 连接 (pass=tru
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions"
-msgstr ""
+msgstr "在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 msgid "Possible Target"
@@ -12903,35 +12903,35 @@ msgstr "删除车道类型"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "ESC:"
-msgstr ""
+msgstr "ESC："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Deselect origin"
-msgstr ""
+msgstr "取消选择原点"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control + 鼠标左键："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 msgid "Move view"
-msgstr ""
+msgstr "移动视图"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift + 鼠标左键："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:630
 msgid "Splits edge in both directions"
-msgstr ""
+msgstr "在双向分割道路"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:631
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+鼠标左键："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:632
 msgid "Splits edge in one direction"
-msgstr ""
+msgstr "在单向分割道路"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
 msgid "Create Edge"
@@ -13009,11 +13009,11 @@ msgstr "在路口已经有另一个具有相同路段的交叉口；重复的交
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over junction to mark candidate edges."
-msgstr ""
+msgstr "在交叉口单击以标记候选道路。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over candidate edges for selecting."
-msgstr ""
+msgstr "在候选道路单击以选择。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 msgid " Candidate"
@@ -13282,12 +13282,12 @@ msgstr "设定零边缘概率。"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "切换成员身份："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
 msgid "Create new Sources/Sinks with given weights."
-msgstr ""
+msgstr "以给定的权重创建新的源(Sources) / 汇(Sinks)。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:563
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:655
@@ -13332,7 +13332,7 @@ msgstr "切换"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "Keep Membership:"
-msgstr ""
+msgstr "保持成员身份："
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "  Select Sources/Sinks."
@@ -13340,7 +13340,7 @@ msgstr "  选择源/汇。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:669
 msgid "Press ESC to clear the current selection."
-msgstr ""
+msgstr "按下Esc以清空当前的选择。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:846
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
@@ -13566,11 +13566,11 @@ msgstr "脱离当前的交通信号（TLS）。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:923
 msgid "Finish join."
-msgstr ""
+msgstr "完成合并。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:925
 msgid "Cancel Join."
-msgstr ""
+msgstr "取消合并。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:962
 msgid "no junction selected"
@@ -13920,15 +13920,15 @@ msgstr "加载选择时出现错误"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:78
 msgid "Dynamic"
-msgstr ""
+msgstr "动态"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
@@ -14004,44 +14004,44 @@ msgstr "对象必须是一个车道"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:292
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "复制名称到剪贴板"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:293
 msgid "Copy typed name to clipboard"
-msgstr ""
+msgstr "复制类型名称到剪贴板"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:303
 msgid "Remove From Selected"
-msgstr ""
+msgstr "从选择中移除"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:315
 msgid "Show Parameter"
-msgstr ""
+msgstr "显示参数"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:324
 msgid "Show Type Parameter"
-msgstr ""
+msgstr "显示类型参数"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:333
 msgid "Copy cursor position to clipboard"
-msgstr ""
+msgstr "复制光标位置到剪贴板"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Copy cursor geo-position to clipboard"
-msgstr ""
+msgstr "复制光标的几何位置到剪贴板"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:339
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "显示光标的几何位置于 "
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:357
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "打开操纵器…"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:396
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:419
 msgid "type: %"
-msgstr ""
+msgstr "类型：%"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
@@ -14109,65 +14109,65 @@ msgstr " 无法解码断点'%'"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1689
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1690
 msgid "uniform"
-msgstr ""
+msgstr "均一"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:643
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1516
 msgid "road"
-msgstr ""
+msgstr "马路"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:644
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1517
 msgid "sidewalk"
-msgstr ""
+msgstr "人行道"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:645
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1518
 msgid "bike lane"
-msgstr ""
+msgstr "自行车道"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
 msgid "green verge"
-msgstr ""
+msgstr "绿化带"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
 msgid "waterway"
-msgstr ""
+msgstr "水系"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1163
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
 msgid "railway"
-msgstr ""
+msgstr "铁路"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
 msgid "rails on road"
-msgstr ""
+msgstr "路轨"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
 msgid "no passenger"
-msgstr ""
+msgstr "无乘客"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:651
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1524
 msgid "closed"
-msgstr ""
+msgstr "关闭"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1305
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
 msgid "connector"
-msgstr ""
+msgstr "连接器"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
 msgid "forbidden"
-msgstr ""
+msgstr "禁止的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1000
@@ -14186,7 +14186,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1677
 msgid "unselected"
-msgstr ""
+msgstr "未选择的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1001
@@ -14205,12 +14205,12 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1664
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1678
 msgid "selected"
-msgstr ""
+msgstr "选中的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:672
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1215
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "按限速（车道级）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1218
