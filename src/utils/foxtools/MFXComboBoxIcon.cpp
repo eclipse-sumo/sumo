@@ -23,8 +23,8 @@
 // included modules
 // =========================================================================
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include "MFXComboBoxIcon.h"
-
 
 // =========================================================================
 // defines
@@ -57,6 +57,7 @@ FXDEFMAP(MFXComboBoxIcon) MFXComboBoxIconMap[] = {
     FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETINTVALUE,       MFXComboBoxIcon::onFwdToText),
     FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETREALVALUE,      MFXComboBoxIcon::onFwdToText),
     FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETSTRINGVALUE,    MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          MID_MTEXTFIELDSEARCH_UPDATED,   MFXComboBoxIcon::onCmdFilter),
 };
 
 // Object implementation
@@ -82,6 +83,10 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcon
         myTextFieldIcon->setEditable(FALSE);
     }
     myPane = new FXPopup(this, FRAME_LINE);
+    // check if create search button
+    if (canSearch) {
+        myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+    }
     myList = new MFXListIcon(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | SCROLLERS_TRACK | HSCROLLER_NEVER);
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
@@ -177,6 +182,9 @@ MFXComboBoxIcon::layout() {
     myIconLabel->position(border, border, iconSize, iconSize);
     myTextFieldIcon->position(border + iconSize, border, textWidth, itemHeight);
     myButton->position(border + textWidth + iconSize, border, buttonWidth, itemHeight);
+    if(myTextFieldSearch) {
+        myTextFieldSearch->resize(width, height);
+    }
     myPane->resize(width, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
 }
@@ -443,6 +451,12 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 
 
 long
+MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
 MFXComboBoxIcon::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
     return myTextFieldIcon->handle(sender, sel, ptr);
 }
@@ -450,19 +464,20 @@ MFXComboBoxIcon::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
+    // hide pane
     myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
         // cast MFXListIconItem
-        const MFXListIconItem* item = dynamic_cast<MFXListIconItem*>(myList->getItem((FXint)(FXival)ptr));
+        const MFXListIconItem* item = myList->getItem((FXint)(FXival)ptr);
         // set icon and background color
-        if (item) {
-            myTextFieldIcon->setText(item->getText());
-            myTextFieldIcon->setBackColor(item->getBackGroundColor());
-            myIconLabel->setIcon(item->getIcon());
-            myIconLabel->setBackColor(item->getBackGroundColor());
-        }
+        myTextFieldIcon->setText(item->getText());
+        myTextFieldIcon->setBackColor(item->getBackGroundColor());
+        myIconLabel->setIcon(item->getIcon());
+        myIconLabel->setBackColor(item->getBackGroundColor());
+        // reset search label
+        myTextFieldSearch->setText("");
+        // Select if editable
         if (!(options & COMBOBOX_STATIC)) {
-            // Select if editable
             myTextFieldIcon->selectAll();
         }
         if (target) {

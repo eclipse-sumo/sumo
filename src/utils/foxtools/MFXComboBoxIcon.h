@@ -24,6 +24,7 @@
 
 #include "MFXTextFieldIcon.h"
 #include "MFXListIcon.h"
+#include "MFXTextFieldSearch.h"
 
 
 /// @brief ComboBox with icon
@@ -36,6 +37,7 @@ public:
     enum {
         ID_LIST = FXPacker::ID_LAST,
         ID_TEXT,
+        ID_SEARCH,
         ID_LAST
     };
 
@@ -187,7 +189,8 @@ public:
     long onListClicked(FXObject*, FXSelector, void*);
     long onFwdToText(FXObject*, FXSelector, void*);
     long onUpdFmText(FXObject*, FXSelector, void*);
-
+    long onCmdFilter(FXObject*, FXSelector, void*);
+    
     /// @}
 
 protected:
@@ -203,10 +206,13 @@ protected:
     /// @brief myButton
     FXMenuButton* myButton = nullptr;
 
-    /// @brief list
+    /// @brief list with all items
     MFXListIcon* myList = nullptr;
 
-    /// @brief popup
+    /// @brief text field search
+    MFXTextFieldSearch* myTextFieldSearch = nullptr;
+
+    /// @brief popup in which place search label and list
     FXPopup* myPane = nullptr;
 
     /// @brief check if this iconComboBox have icons
