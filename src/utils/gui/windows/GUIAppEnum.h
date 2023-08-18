@@ -1564,7 +1564,7 @@ enum {
     /// @brief callback for MFXTextFieldSearch
     /// @{
 
-    MID_MTFS_UPDATED,
+    MID_MTEXTFIELDSEARCH_UPDATED,
 
     /// @}
 

@@ -51,7 +51,7 @@ MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tg
 long
 MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
     FXTextField::onKeyPress(obj, sel, ptr);
-    return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTFS_UPDATED), ptr);
+    return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTEXTFIELDSEARCH_UPDATED), ptr);
 }
 
 
