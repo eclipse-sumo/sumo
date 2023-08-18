@@ -23,24 +23,24 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
-#include <netedit/frames/demand/GNETypeDistributionFrame.h>
-#include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
+#include <netedit/frames/demand/GNEStopFrame.h>
+#include <netedit/frames/demand/GNETypeDistributionFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
@@ -1470,21 +1470,6 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
 }
 
 
-GNEDemandElement*
-GNENetHelper::AttributeCarriers::retrieveFirstDemandElement(SumoXMLTag type) const {
-    if (myDemandElements.at(type).size() == 0) {
-        return nullptr;
-    } else {
-        // map with elements sorted by ID
-        std::map<std::string, GNEDemandElement* > map;
-        for (const auto& demandElement : myDemandElements.at(type)) {
-            map[demandElement->getID()] = demandElement;
-        }
-        return map.begin()->second;
-    }
-}
-
-
 std::vector<GNEDemandElement*>
 GNENetHelper::AttributeCarriers::getSelectedDemandElements() const {
     std::vector<GNEDemandElement*> result;
@@ -2691,8 +2676,10 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                     myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 }
                 break;
-            case DemandEditMode::DEMAND_STOP:
-                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
+            case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
+                if (tagProperty.isRoute()) {
+                    myNet->getViewNet()->getViewParent()->getRouteDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
+                }
                 break;
             case DemandEditMode::DEMAND_PERSON:
                 if (tagProperty.isType()) {
@@ -2713,6 +2700,9 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 if (tagProperty.isContainer()) {
                     myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
                 }
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
                 break;
             default:
                 // nothing to update

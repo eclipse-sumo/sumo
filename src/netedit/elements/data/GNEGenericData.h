@@ -100,7 +100,7 @@ public:
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
 
-    /// @brief check if current data set is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data set is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isGenericDataValid() const;
 
     /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)

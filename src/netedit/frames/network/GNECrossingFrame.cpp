@@ -559,19 +559,19 @@ GNECrossingFrame::Information::~Information() {}
 
 GNECrossingFrame::GNECrossingFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Crossings")) {
-    // create JunctionInformation modul
+    // create JunctionInformation module
     myJunctionInformation = new JunctionInformation(this);
 
-    // Create edge Selector modul
+    // Create edge Selector module
     myEdgeSelector = new EdgesSelector(this);
 
-    // Create CrossingParameters modul
+    // Create CrossingParameters module
     myCrossingParameters = new CrossingParameters(this);
 
-    // create CreateCrossing modul
+    // create CreateCrossing module
     myCreateCrossing = new CreateCrossing(this);
 
-    // create information modul
+    // create information module
     myInformation = new Information(this);
 
     // disable edge selector
@@ -624,7 +624,7 @@ GNECrossingFrame::addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& object
 void
 GNECrossingFrame::createCrossingHotkey() {
     if (myEdgeSelector->getCurrentJunction()) {
-        // simply call onCmdCreateCrossing of CreateCrossing modul
+        // simply call onCmdCreateCrossing of CreateCrossing module
         myCreateCrossing->onCmdCreateCrossing(0, 0, 0);
     }
 }

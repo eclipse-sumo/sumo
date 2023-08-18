@@ -38,7 +38,7 @@ GNEChange_Distribution::addKey(GNEDemandElement* distribution, const GNEDemandEl
     // create change
     auto change = new GNEChange_Distribution(distribution, key, value, true);
     // add into undoList
-    undoList->begin(distribution, TLF("add '%' key in % '%'", key, distribution->getTagStr(), distribution->getID()));
+    undoList->begin(distribution, TLF("add '%' key in % '%'", key->getID(), distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
     undoList->end();
 }
@@ -49,7 +49,7 @@ GNEChange_Distribution::removeKey(GNEDemandElement* distribution, const GNEDeman
     // create change
     auto change = new GNEChange_Distribution(distribution, key, 0, false);
     // add into undoList
-    undoList->begin(distribution, TLF("remove '%' key from % '%'", key, distribution->getTagStr(), distribution->getID()));
+    undoList->begin(distribution, TLF("remove '%' key from % '%'", key->getID(), distribution->getTagStr(), distribution->getID()));
     undoList->add(change, true);
     undoList->end();
 }
@@ -60,7 +60,7 @@ GNEChange_Distribution::editValue(GNEDemandElement* distribution, const GNEDeman
     // create change
     auto change = new GNEChange_Distribution(distribution, key, distribution->getAttributeDistributionValue(key), newValue);
     // add into undoList
-    undoList->begin(distribution, TLF("change '%' key value from % to %", key, newValue, newValue));
+    undoList->begin(distribution, TLF("change '%' key value from % to %", key->getID(), newValue, newValue));
     undoList->add(change, true);
     undoList->end();
 }

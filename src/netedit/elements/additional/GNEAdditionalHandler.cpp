@@ -939,7 +939,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
     } else if (end < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END);
     } else if (end < begin) {
-        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greather than end.", rerouter->getID()));
+        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greater than end.", rerouter->getID()));
     } else {
         // check if new interval will produce a overlapping
         if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
@@ -1244,7 +1244,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
         } else if (endTime < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_END);
         } else if (endTime < beginTime) {
-            writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greather than end.", edge->getID()));
+            writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greater than end.", edge->getID()));
         } else {
             // build vaporizer
             GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, beginTime, endTime, name, parameters);
@@ -1509,7 +1509,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
         GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(tractionSubstation, TL("add taction substation '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(tractionSubstation, TL("add traction substation '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(tractionSubstation, true), true);
             myNet->getViewNet()->getUndoList()->end();

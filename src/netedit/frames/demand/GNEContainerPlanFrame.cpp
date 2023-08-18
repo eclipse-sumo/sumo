@@ -37,10 +37,10 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "ContainerPlans"),
+    GNEFrame(viewParent, viewNet, TL("ContainerPlans")),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
-    // create container types selector modul
+    // create container types selector module
     myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create tag selector for container plan
@@ -52,7 +52,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     // create myPathCreator Module
     myPathCreator = new GNEPathCreator(this);
 
-    // Create GNEElementTree modul
+    // Create GNEElementTree module
     myContainerHierarchy = new GNEElementTree(this);
 
     // create legend label

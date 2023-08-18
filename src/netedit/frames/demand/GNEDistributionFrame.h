@@ -51,10 +51,13 @@ public:
 
     public:
         /// @brief constructor
-        DistributionEditor(GNEFrame* frameParent, GUIIcon icon);
+        DistributionEditor(GNEFrame* frameParent, SumoXMLTag distributionTag, GUIIcon icon);
 
         /// @brief destructor
         ~DistributionEditor();
+
+        /// @brief get distribution tag
+        SumoXMLTag getDistributionTag() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -78,14 +81,17 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent;
 
+        /// @briuef distribution tag
+        SumoXMLTag myDistributionTag;
+
         /// @brief distribution selector
         DistributionSelector* myDistributionSelector = nullptr;
 
         /// @brief "create Distribution" button
-        FXButton* myCreateDistributionButton = nullptr;
+        MFXButtonTooltip* myCreateDistributionButton = nullptr;
 
         /// @brief "delete Distribution" button
-        FXButton* myDeleteDistributionButton = nullptr;
+        MFXButtonTooltip* myDeleteDistributionButton = nullptr;
     };
 
     // ===========================================================================
@@ -101,17 +107,20 @@ public:
 
     public:
         /// @brief constructor
-        DistributionSelector(GNEFrame* frameParent, SumoXMLTag distributionTag);
+        DistributionSelector(GNEFrame* frameParent);
 
         /// @brief destructor
         ~DistributionSelector();
 
-        /// @brief get distribution tag
-        SumoXMLTag getDistributionTag() const;
+        /// @brief refresh modul
+        void setDistribution(GNEDemandElement* distribution);
 
         /// @brief current distribution
         GNEDemandElement *getCurrentDistribution() const;
-
+        
+        /// @brief refresh distribution IDs (only call when user change ID in internal attributes)
+        void refreshDistributionIDs();
+        
         /// @brief refresh modul
         void refreshDistributionSelector();
 
@@ -130,12 +139,12 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(DistributionSelector)
 
+        /// @brief fill distribution comboBox
+        std::map<std::string, GNEDemandElement*> fillDistributionComboBox();
+
     private:
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
-
-        /// @brief distribution tag
-        SumoXMLTag myDistributionTag;
 
         /// @brief pointer to distribution editor
         DistributionEditor* myDistributionEditor = nullptr;
@@ -149,11 +158,8 @@ public:
         /// @brief comboBox with the list of distributions
         FXComboBox* myDistributionsComboBox = nullptr;
 
-        /// @brief current distribution
-        std::string myCurrentDistribution;
-
-        /// @brief map with the original vTypeDistribution attributes
-        std::pair<std::string, std::string> myOriginalValues;
+        /// @brief current distribution element
+        GNEDemandElement* myCurrentDistribution = nullptr;
     };
 
     // ===========================================================================
@@ -169,17 +175,11 @@ public:
         DistributionRow(DistributionValuesEditor* attributeEditorParent,
             const GNEDemandElement* key, const double probability);
 
-        /// @brief destroy GNEAttributesCreatorRow (but don't delete)
+        /// @brief destroy DistributionRow (but don't delete)
         void destroy();
 
-        /// @brief refresh current row
-        void refreshDistributionRow(const GNEDemandElement* key, const double value);
-
         /// @brief refresh comboBox
-        void refreshComboBox();
-
-        /// @brief check if current attribute of TextField/ComboBox is valid
-        bool isDistributionRowValid() const;
+        void refreshRow();
 
         /// @brief get current probability
         double getProbability() const;
@@ -211,6 +211,9 @@ public:
 
         /// @brief delete row button
         MFXButtonTooltip* myDeleteRowButton = nullptr;
+
+        /// @brief label
+        FXLabel* myIconLabel = nullptr;
 
         /// @brief comboBox with keys
         FXComboBox* myComboBoxKeys = nullptr;
@@ -249,11 +252,17 @@ public:
         /// @brief hide attribute editor
         void hideDistributionValuesEditor();
 
-        /// @brief refresh attribute editor (only the valid values will be refresh)
-        void refreshDistributionValuesEditor();
+        /// @brief destroy and remake rows
+        void remakeRows();
+
+        /// @brief refresh rows
+        void refreshRows();
 
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
+
+        /// @brief update sum label
+        void updateSumLabel();
 
         /// @name FOX-callbacks
         /// @{

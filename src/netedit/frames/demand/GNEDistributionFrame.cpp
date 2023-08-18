@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2023
 ///
-// The Widget for edit type distribution elements
+// The Widget for edit distribution elements
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
@@ -25,6 +25,7 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/demand/GNEVTypeDistribution.h>
+#include <netedit/elements/demand/GNERouteDistribution.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDistributionFrame.h"
@@ -72,17 +73,21 @@ FXIMPLEMENT(GNEDistributionFrame::DistributionValuesEditor, MFXGroupBoxModule,  
 // GNEDistributionFrame::DistributionEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* frameParent, GUIIcon icon) :
+GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* frameParent, SumoXMLTag distributionTag, GUIIcon icon) :
     MFXGroupBoxModule(frameParent, TL("Distribution Editor")),
-    myFrameParent(frameParent) {
-    // Create new vehicle type
-    myCreateDistributionButton = new FXButton(getCollapsableFrame(), TL("New"), GUIIconSubSys::getIcon(icon), this, MID_GNE_CREATE, GUIDesignButton);
-    
-    // Agregar TOOLTIP
-
-    // Create delete/reset vehicle type
-    myDeleteDistributionButton = new FXButton(getCollapsableFrame(), TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
-    // show type editor
+    myFrameParent(frameParent),
+    myDistributionTag(distributionTag) {
+    // get staticTooltip menu
+    auto staticTooltipMenu = myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
+    // Create new distribution
+    myCreateDistributionButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("New"),
+        GUIIconSubSys::getIcon(icon), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateDistributionButton->setTipText(TLF("Create new %", toString(myDistributionTag)).c_str()), 
+    // Delete distribution
+    myDeleteDistributionButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Delete"),
+        GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteDistributionButton->setTipText(TLF("Delete current edited %", toString(myDistributionTag)).c_str()), 
+    // show editor
     show();
 }
 
@@ -90,19 +95,32 @@ GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* framePare
 GNEDistributionFrame::DistributionEditor::~DistributionEditor() {}
 
 
+SumoXMLTag
+GNEDistributionFrame::DistributionEditor::getDistributionTag() const {
+    return myDistributionTag;
+}
+
+
 long
 GNEDistributionFrame::DistributionEditor::onCmdCreateDistribution(FXObject*, FXSelector, void*) {
     auto undoList = myFrameParent->getViewNet()->getUndoList();
-    // obtain a new valid Type ID
-    const std::string typeDistributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionSelector->getDistributionTag());
-    // create new vehicle type
-    GNEDemandElement* type = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), typeDistributionID);
+    // obtain a new valid ID
+    const auto distributionID = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(myDistributionTag);
+    // create new distribution
+    GNEDemandElement* distribution = nullptr;
+    if (myDistributionTag == SUMO_TAG_VTYPE_DISTRIBUTION) {
+        distribution = new GNEVTypeDistribution(myFrameParent->getViewNet()->getNet(), distributionID, -1);
+    } else if (myDistributionTag == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        distribution = new GNERouteDistribution(myFrameParent->getViewNet()->getNet(), distributionID);
+    } else {
+        throw ProcessError("Invalid distribution");
+    }
     // add it using undoList (to allow undo-redo)
-    undoList->begin(type->getTagProperty().getGUIIcon(), "create vehicle type distribution");
-    undoList->add(new GNEChange_DemandElement(type, true), true);
+    undoList->begin(distribution->getTagProperty().getGUIIcon(), "create distribution");
+    undoList->add(new GNEChange_DemandElement(distribution, true), true);
     undoList->end();
-    // refresh type distribution
-    myDistributionSelector->refreshDistributionSelector();
+    // refresh selector using created distribution
+    myDistributionSelector->setDistribution(distribution);
     return 1;
 }
 
@@ -114,11 +132,11 @@ GNEDistributionFrame::DistributionEditor::onCmdDeleteDistribution(FXObject*, FXS
     if (currentDistribution) {
         // begin undo list operation
         undoList->begin(currentDistribution->getTagProperty().getGUIIcon(), "delete " + currentDistribution->getTagProperty().getTagStr() + " distribution");
-        // remove vehicle type (and all of their children)
+        // remove distribution
         myFrameParent->getViewNet()->getNet()->deleteDemandElement(myDistributionSelector->getCurrentDistribution(), undoList);
         // end undo list operation
         undoList->end();
-        // refresh type distribution
+        // refresh selector
         myDistributionSelector->refreshDistributionSelector();
             }
     return 1;
@@ -127,7 +145,7 @@ GNEDistributionFrame::DistributionEditor::onCmdDeleteDistribution(FXObject*, FXS
 
 long
 GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* sender, FXSelector, void*) {
-    // first check if selected VType is valid
+    // check if we have a selected distribution
     if (myDistributionSelector->getCurrentDistribution()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
@@ -139,22 +157,11 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* send
 // GNETypeFrame::DistributionSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent, SumoXMLTag distributionTag) :
-    MFXGroupBoxModule(frameParent, TL("Current type dist.")),
-    myFrameParent(frameParent),
-    myDistributionTag(distributionTag) {
+GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, TL("Distribution selector")),
+    myFrameParent(frameParent) {
     // Create FXComboBox
     myDistributionsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // add default Types (always first)
-    for (const auto& vType : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionTag)) {
-        myDistributionsComboBox->appendItem(vType->getID().c_str(), vType->getACIcon());
-    }
-    // Set visible items
-    if (myDistributionsComboBox->getNumItems() <= 20) {
-        myDistributionsComboBox->setNumVisible((int)myDistributionsComboBox->getNumItems());
-    } else {
-        myDistributionsComboBox->setNumVisible(20);
-    }
     // DistributionSelector is always shown
     show();
 }
@@ -163,64 +170,59 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
 GNEDistributionFrame::DistributionSelector::~DistributionSelector() {}
 
 
-SumoXMLTag
-GNEDistributionFrame::DistributionSelector::getDistributionTag() const {
-    return myDistributionTag;
+void
+GNEDistributionFrame::DistributionSelector::setDistribution(GNEDemandElement* distribution) {
+    myCurrentDistribution = distribution;
+    refreshDistributionSelector();
 }
 
 
 GNEDemandElement*
 GNEDistributionFrame::DistributionSelector::getCurrentDistribution() const {
-    return myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myDistributionTag, myCurrentDistribution, false);
+    return myCurrentDistribution;
+
+}
+
+
+void
+GNEDistributionFrame::DistributionSelector::refreshDistributionIDs() {
+    // fill distributions
+    fillDistributionComboBox();
+    // set current item
+    for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
+        if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+            myDistributionsComboBox->setCurrentItem(i);
+        }
+    }
 }
 
 
 void
 GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
-    // get ACs
-    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
-    // clear items
-    myDistributionsComboBox->clearItems();
-    // fill myTypeMatchBox with list of type distributions sorted by ID
-    std::map<std::string, GNEDemandElement*> typeDistributions;
-    for (const auto& vTypeDistribution : ACs->getDemandElements().at(myDistributionTag)) {
-        typeDistributions[vTypeDistribution->getID()] = vTypeDistribution;
-    }
-    for (const auto& vTypeDistribution : typeDistributions) {
-        myDistributionsComboBox->appendItem(vTypeDistribution.first.c_str(), vTypeDistribution.second->getACIcon());
-    }
-    // Set visible items
-    if (myDistributionsComboBox->getNumItems() <= 20) {
-        myDistributionsComboBox->setNumVisible((int)myDistributionsComboBox->getNumItems());
-    } else {
-        myDistributionsComboBox->setNumVisible(20);
-    }
-    // check current type
-    bool validCurrentTypeDistribution = false;
-    for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
-        if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution) {
-            myDistributionsComboBox->setCurrentItem(i);
-            validCurrentTypeDistribution = true;
+    // fill distributions
+    const auto distributions = fillDistributionComboBox();
+    // update current distribution (used if myCurrentDistribution was deleted during undo-redo)
+    myCurrentDistribution = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myCurrentDistribution, false);
+    // update comboBox
+    if (myCurrentDistribution) {
+        for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
+            if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+                myDistributionsComboBox->setCurrentItem(i);
+            }
         }
+    } else if (distributions.size() > 0) {
+        // set first distribution
+        myCurrentDistribution = distributions.begin()->second;
     }
-    // Check that give vType type is valid
-    GNEDemandElement* vTypeDistribution = nullptr;
-    if (validCurrentTypeDistribution) {
-        vTypeDistribution = ACs->retrieveDemandElement(myDistributionTag, myCurrentDistribution);
-    } else {
-        vTypeDistribution = ACs->retrieveFirstDemandElement(myDistributionTag);
-    }
-    // Check that give vType type is valid
-    if (vTypeDistribution) {
-        myCurrentDistribution = vTypeDistribution->getID();
-        // set myCurrentType as inspected element
-        myFrameParent->getViewNet()->setInspectedAttributeCarriers({vTypeDistribution});
+    // continue depending of myCurrentDistribution
+    if (myCurrentDistribution) {
+        // set distribtution as inspected element
+        myFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentDistribution});
         // show modules
         myAttributesEditor->showAttributeEditorModule(true);
         myDistributionValuesEditor->showDistributionValuesEditor();
     } else {
-        myCurrentDistribution.clear();
-        // set myCurrentType as inspected element
+        // remove inspected elements
         myFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         // hide modules
         myAttributesEditor->hideAttributesEditorModule();
@@ -232,16 +234,16 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
 long
 GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, FXSelector, void*) {
     const auto viewNet = myFrameParent->getViewNet();
-    const auto& vTypeDistributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionTag);
+    const auto& distributions = viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(myDistributionEditor->getDistributionTag());
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& vTypeDistribution : vTypeDistributions) {
-        if (vTypeDistribution->getID() == myDistributionsComboBox->getText().text()) {
+    for (const auto& distribution : distributions) {
+        if (distribution->getID() == myDistributionsComboBox->getText().text()) {
             // set pointer
-            myCurrentDistribution = vTypeDistribution->getID();
+            myCurrentDistribution = distribution;
             // set color of myTypeMatchBox to black (valid)
             myDistributionsComboBox->setTextColor(FXRGB(0, 0, 0));
             // set myCurrentType as inspected element
-            viewNet->setInspectedAttributeCarriers({vTypeDistribution});
+            viewNet->setInspectedAttributeCarriers({distribution});
             // show modules
             myAttributesEditor->showAttributeEditorModule(true);
             myDistributionValuesEditor->showDistributionValuesEditor();
@@ -252,7 +254,8 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
             return 1;
         }
     }
-    myCurrentDistribution.clear();
+    // not found, then reset myCurrentDistribution
+    myCurrentDistribution = nullptr;
     // hide modules
     myAttributesEditor->hideAttributesEditorModule();
     myDistributionValuesEditor->hideDistributionValuesEditor();
@@ -269,11 +272,36 @@ GNEDistributionFrame::DistributionSelector::onCmdSelectDistribution(FXObject*, F
 long
 GNEDistributionFrame::DistributionSelector::onCmdUpdateDistribution(FXObject* sender, FXSelector, void*) {
     const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
-    if (demandElements.at(myDistributionTag).size() > 0) {
+    if (demandElements.at(myDistributionEditor->getDistributionTag()).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
+}
+
+
+std::map<std::string, GNEDemandElement*>
+GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
+    // get ACs
+    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    // clear items
+    myDistributionsComboBox->clearItems();
+    // fill with distributions sorted by ID
+    std::map<std::string, GNEDemandElement*> distributions;
+    for (const auto& distribution : ACs->getDemandElements().at(myDistributionEditor->getDistributionTag())) {
+        distributions[distribution->getID()] = distribution;
+    }
+    for (const auto& distribution : distributions) {
+        myDistributionsComboBox->appendItem(distribution.first.c_str(), distribution.second->getACIcon());
+    }
+    // Set visible items
+    if (myDistributionsComboBox->getNumItems() <= 20) {
+        myDistributionsComboBox->setNumVisible((int)myDistributionsComboBox->getNumItems());
+    } else {
+        myDistributionsComboBox->setNumVisible(20);
+    }
+    // return distributions sorted by ID
+    return distributions;
 }
 
 // ---------------------------------------------------------------------------
@@ -288,7 +316,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // get staticTooltip menu
     auto staticTooltipMenu = attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create label
-    new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
+    myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
     myComboBoxKeys = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
@@ -297,16 +325,13 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create delete buton
     myDeleteRowButton = new MFXButtonTooltip(this, staticTooltipMenu,
         "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_BUTTON_REMOVE, GUIDesignButtonIcon);
+    myDeleteRowButton->setTipText(TL("Delete distribution value"));
     // only create if parent was created
     if (getParent()->id() && attributeEditorParent->myDistributionSelector->getCurrentDistribution()) {
         // create DistributionRow
         FXHorizontalFrame::create();
-        // refresh combo Box
-        refreshComboBox();
-        // set probability
-        myProbabilityTextField->setText(toString(myProbability).c_str());
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
-        myProbabilityTextField->killFocus();
+        // refresh row
+        refreshRow();
         // Show DistributionRow
         show();
     }
@@ -323,18 +348,7 @@ GNEDistributionFrame::DistributionRow::destroy() {
 
 
 void
-GNEDistributionFrame::DistributionRow::refreshDistributionRow(const GNEDemandElement* key, const double value) {
-    // set key
-    myComboBoxKeys->setText(key->getID().c_str());
-    // set probability
-    myProbabilityTextField->setText(toString(value).c_str());
-    myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
-    myProbabilityTextField->killFocus();
-}
-
-
-void
-GNEDistributionFrame::DistributionRow::refreshComboBox() {
+GNEDistributionFrame::DistributionRow::refreshRow() {
     // get distribution selector
     const auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
     // get possible keys
@@ -343,19 +357,17 @@ GNEDistributionFrame::DistributionRow::refreshComboBox() {
     myComboBoxKeys->clearItems();
     myComboBoxKeys->appendItem(myKey->getID().c_str());
     for (const auto &possibleKey : possibleKeys) {
-        myComboBoxKeys->appendItem(possibleKey->getID().c_str());
+        myComboBoxKeys->appendItem(possibleKey.first.c_str());
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box
     myComboBoxKeys->setNumVisible(myComboBoxKeys->getNumItems() <= 10? myComboBoxKeys->getNumItems() : 10);
     myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
     myComboBoxKeys->killFocus();
-}
-
-
-bool
-GNEDistributionFrame::DistributionRow::isDistributionRowValid() const {
-    return myKey != nullptr;
+    // set probability
+    myProbabilityTextField->setText(toString(myProbability).c_str());
+    myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+    myProbabilityTextField->killFocus();
 }
 
 
@@ -384,17 +396,22 @@ GNEDistributionFrame::DistributionRow::onCmdSetKey(FXObject*, FXSelector, void*)
         const auto newKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
         // only change if is different of current key
         if (myKey != newKey) {
-            // change distribution key removing and adding it
+            // begin undo list
             undoList->begin(myKey, "edit distribution key");
+            // remove distribution key
             currentDistribution->removeDistributionKey(myKey, undoList);
+            // sert key and icon
             myKey = ACs->retrieveDemandElement(myDistributionValuesEditorParent->myDistributionValueTag, myComboBoxKeys->getText().text());
+            myIconLabel->setIcon(myKey->getACIcon());
+            // add distribution key (and probability)
             currentDistribution->addDistributionKey(myKey, myProbability, undoList);
+            // end undo list
             undoList->end();
+            // refresh all rows 
+            myDistributionValuesEditorParent->refreshRows();
         }
-        // refresh rows
-        myDistributionValuesEditorParent->refreshDistributionValuesEditor();
     } else {
-        myComboBoxKeys->setBackColor(FXRGB(255, 255, 255));
+        myComboBoxKeys->setTextColor(FXRGB(255, 0, 0));
         myComboBoxKeys->killFocus();
     }
     return 1;
@@ -414,13 +431,16 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
     const double probability = GNEAttributeCarrier::canParse<double>(probabilityStr)? GNEAttributeCarrier::parse<double>(probabilityStr) : -1;
     // Check if set new probability
     if (probability >= 0) {
-        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        // set new probability
+        myProbability = probability;
         // edit distribution value
         currentDistribution->editDistributionValue(myKey, probability, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
-        // refresh editor
-        myDistributionValuesEditorParent->refreshDistributionValuesEditor();
+        // reset color
+        myProbabilityTextField->setTextColor(FXRGB(0, 0, 0));
+        // update sum label
+        myDistributionValuesEditorParent->updateSumLabel();
     } else {
-        myProbabilityTextField->setBackColor(FXRGB(255, 255, 255));
+        myProbabilityTextField->setTextColor(FXRGB(255, 0, 0));
         myProbabilityTextField->killFocus();
     }
     return 1;
@@ -429,7 +449,16 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
 
 long
 GNEDistributionFrame::DistributionRow::onCmdRemoveRow(FXObject*, FXSelector, void*) {
-
+    // get current distribution
+    auto currentDistribution = myDistributionValuesEditorParent->myDistributionSelector->getCurrentDistribution();
+    // continue if we have a distribution to edit
+    if (currentDistribution == nullptr) {
+        return 1;
+    }
+    // remove distribution key
+    currentDistribution->removeDistributionKey(myKey, myDistributionValuesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+    // remake rows
+    myDistributionValuesEditorParent->remakeRows();
     return 1;
 }
 
@@ -454,7 +483,7 @@ GNEDistributionFrame::DistributionRow::isValidNewKey() const {
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
         DistributionSelector* distributionSelector, GNEFrameAttributeModules::AttributesEditor* attributesEditor, SumoXMLTag distributionValueTag) :
-    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
+    MFXGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),
@@ -480,12 +509,10 @@ GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFram
 
 void
 GNEDistributionFrame::DistributionValuesEditor::showDistributionValuesEditor() {
-    // refresh
-    refreshDistributionValuesEditor();
+    // remake rows
+    remakeRows();
     // show DistributionValuesEditor
     show();
-    // reparent help button (to place it at bottom)
-    myBotFrame->reparent(getCollapsableFrame());
 }
 
 
@@ -497,7 +524,7 @@ GNEDistributionFrame::DistributionValuesEditor::hideDistributionValuesEditor() {
 
 
 void
-GNEDistributionFrame::DistributionValuesEditor::refreshDistributionValuesEditor() {
+GNEDistributionFrame::DistributionValuesEditor::remakeRows() {
     // first remove all rows
     for (auto& row : myDistributionRows) {
         // destroy and delete all rows
@@ -518,6 +545,17 @@ GNEDistributionFrame::DistributionValuesEditor::refreshDistributionValuesEditor(
             myDistributionRows.push_back(distributionRow);
         }
     }
+    // reparent bot frame button (to place it at bottom)
+    myBotFrame->reparent(getCollapsableFrame());
+}
+
+
+void
+GNEDistributionFrame::DistributionValuesEditor::refreshRows() {
+    // refresh rows
+    for (const auto &row : myDistributionRows) {
+        row->refreshRow();
+    }
 }
 
 
@@ -527,8 +565,31 @@ GNEDistributionFrame::DistributionValuesEditor::getFrameParent() const {
 }
 
 
+void
+GNEDistributionFrame::DistributionValuesEditor::updateSumLabel() {
+    // update probability
+    double sumProbability = 0;
+    for (const auto &row : myDistributionRows) {
+        sumProbability += row->getProbability();
+    }
+    mySumLabel->setText(toString(sumProbability).c_str());
+}
+
+
 long
 GNEDistributionFrame::DistributionValuesEditor::onCmdAddRow(FXObject*, FXSelector, void*) {
+    if (myDistributionSelector->getCurrentDistribution() == nullptr) {
+        return 1;
+    }
+    // get next free key
+    const auto possibleKeys = myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionValueTag);
+    if (possibleKeys.empty()) {
+        return 1;
+    }
+    // add first possible key
+    myDistributionSelector->getCurrentDistribution()->addDistributionKey(possibleKeys.begin()->second, 0.5, myFrameParent->getViewNet()->getUndoList());
+    // remake rows
+    remakeRows();
     return 1;
 }
 
@@ -539,14 +600,10 @@ GNEDistributionFrame::DistributionValuesEditor::onUpdAddRow(FXObject* sender, FX
         mySumLabel->setText("");
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        // update probability
-        double sumProbability = 0;
-        for (const auto &row : myDistributionRows) {
-            sumProbability += row->getProbability();
-        }
-        mySumLabel->setText(toString(sumProbability).c_str());
+        // update sum label
+        updateSumLabel();
         // enable or disable add button depending of existents distributions
-        if (myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionSelector->getDistributionTag()).size() > 0) {
+        if (myDistributionSelector->getCurrentDistribution()->getPossibleDistributionKeys(myDistributionValueTag).size() > 0) {
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
         } else {
             return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);

@@ -897,7 +897,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
+    myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
     // fill comboBox (only certain TL types)
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());

@@ -768,7 +768,7 @@ class VehicleDomain(VTypeDomain):
 
     @deprecated()
     def getNextStops(self, vehID):
-        """getNextStop(string) -> [(string, double, string, int, double, double), ...]
+        """getNextStops(string) -> [(string, double, string, int, double, double), ...]
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:

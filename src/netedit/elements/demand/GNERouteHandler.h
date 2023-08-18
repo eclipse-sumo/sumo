@@ -80,7 +80,7 @@ public:
                             const Parameterised::Map& routeParameters);
 
     /// @brief build route distribution
-    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                 const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
 
     /// @brief build a vehicle over an existent route
@@ -261,7 +261,7 @@ protected:
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previos person/container plan edge
+    /// @brief get previous person/container plan edge
     GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
     /// @brief get previous person/container plan junction
@@ -275,7 +275,7 @@ protected:
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief remove overwrited demand element
+    /// @brief remove overwritten demand element
     void overwriteDemandElement();
 
 private:
@@ -291,7 +291,7 @@ private:
     /// @brief check if overwrite
     const bool myOverwrite;
 
-    /// @brief demand to overwrite (using undor-redo
+    /// @brief demand to overwrite (using undo-redo
     GNEDemandElement* myDemandToOverwrite = nullptr;
 };
 

@@ -27,13 +27,13 @@
 // ===========================================================================
 
 GNERouteDistributionFrame::GNERouteDistributionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Route Distributions") {
+    GNEFrame(viewParent, viewNet, TL("Route Distributions")) {
 
     /// @brief route editor
-    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, GUIIcon::ROUTEDISTRIBUTION);
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_ROUTE_DISTRIBUTION, GUIIcon::ROUTEDISTRIBUTION);
 
     /// @brief route distribution selector
-    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this, SUMO_TAG_ROUTE_DISTRIBUTION);
+    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
 
     /// @brief distribution attributes editor
     myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
@@ -62,8 +62,11 @@ GNERouteDistributionFrame::getDistributionSelector() const {
 
 
 void
-GNERouteDistributionFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
-
+GNERouteDistributionFrame::attributeUpdated(SumoXMLAttr attribute) {
+    if (attribute == SUMO_ATTR_ID) {
+        // refresh distribution selector IDs
+        myDistributionSelector->refreshDistributionIDs();
+    }
 }
 
 /****************************************************************************/

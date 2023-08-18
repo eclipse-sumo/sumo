@@ -42,6 +42,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/router/DijkstraRouter.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
@@ -5623,8 +5624,8 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
             if (myStops.front().getSpeed() <= 0) {
-                WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
-                              + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
+                WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
+                time2string(MSNet::getInstance()->getCurrentTimeStep()))
                 myStops.pop_front();
             } else {
                 MSStop& stop = myStops.front();

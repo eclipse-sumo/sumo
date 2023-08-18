@@ -43,7 +43,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
+    FXTopWindow(GNEApp->getApp(), TL("Undo/Redo history"), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
     myGNEApp(GNEApp) {
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);

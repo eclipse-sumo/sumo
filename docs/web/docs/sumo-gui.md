@@ -214,7 +214,7 @@ When moving the mouse over a plot window, plot point closest to the mouse cursor
 **sumo-gui** allows for the selection of arbitrary
 network elements such as edges, lanes and junctions, which can be saved
 to a file (and also loaded from a file) for further processing.
-Selection is done by either choosing "Add To Selected" from the context
+Selection is done by either choosing "Add to Selected" from the context
 menu (right click) of the element or by clicking left on an element
 while pressing the "Control" key.
 

@@ -185,17 +185,17 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Routes"),
+    GNEFrame(viewParent, viewNet, TL("Routes")),
     myRouteHandler("", myViewNet->getNet(), true, false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create route mode Selector modul
+    // create route mode Selector module
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
     myRouteAttributes = new GNEAttributesCreator(this);
 
-    // create consecutive edges modul
+    // create consecutive edges module
     myPathCreator = new GNEPathCreator(this);
 
     // create legend label
@@ -263,6 +263,8 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
             myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
         }
+        // add probability (needed for distributions)
+        myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 0.5);
         // declare edge vector
         std::vector<std::string> edges;
         for (const auto& path : myPathCreator->getPath()) {
@@ -277,7 +279,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         }
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-        // creare route
+        // create route
         myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
         myPathCreator->abortPathCreation();

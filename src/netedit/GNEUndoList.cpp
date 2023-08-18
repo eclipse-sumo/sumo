@@ -69,10 +69,6 @@ GNEUndoList::Iterator::getIndex() const {
 const std::string
 GNEUndoList::Iterator::getDescription() const {
     std::string redoName = myCurrentChange->redoName();
-    // remove "redo "
-    if (redoName.size() >= 5) {
-        redoName.erase(0, 5);
-    }
     return redoName;
 }
 

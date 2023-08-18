@@ -120,11 +120,11 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Vehicles"),
+    GNEFrame(viewParent, viewNet, TL("Vehicles")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // Create item Selector modul for vehicles
+    // Create item Selector module for vehicles
     myVehicleTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element

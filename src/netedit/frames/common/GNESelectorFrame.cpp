@@ -94,40 +94,40 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
     const auto ACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of supermode
     if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        updateInformationLabel("Junctions", ACs->getNumberOfSelectedJunctions());
-        updateInformationLabel("Edges", ACs->getNumberOfSelectedEdges());
-        updateInformationLabel("Lanes", ACs->getNumberOfSelectedLanes());
-        updateInformationLabel("Connections", ACs->getNumberOfSelectedConnections());
-        updateInformationLabel("Crossings", ACs->getNumberOfSelectedCrossings());
-        updateInformationLabel("WalkingAreas", ACs->getNumberOfSelectedWalkingAreas());
-        updateInformationLabel("Additionals", ACs->getNumberOfSelectedPureAdditionals());
-        updateInformationLabel("Wires", ACs->getNumberOfSelectedWires());
-        updateInformationLabel("TAZs", ACs->getNumberOfSelectedTAZs());
-        updateInformationLabel("TAZSources", ACs->getNumberOfSelectedTAZSources());
-        updateInformationLabel("TAZSinks", ACs->getNumberOfSelectedTAZSinks());
-        updateInformationLabel("Polygons", ACs->getNumberOfSelectedPolygons());
-        updateInformationLabel("POIs", ACs->getNumberOfSelectedPOIs());
-        updateInformationLabel("JuPedSims", ACs->getNumberOfSelectedJpsWalkableAreas() + 
+        updateInformationLabel(TL("Junctions"), ACs->getNumberOfSelectedJunctions());
+        updateInformationLabel(TL("Edges"), ACs->getNumberOfSelectedEdges());
+        updateInformationLabel(TL("Lanes"), ACs->getNumberOfSelectedLanes());
+        updateInformationLabel(TL("Connections"), ACs->getNumberOfSelectedConnections());
+        updateInformationLabel(TL("Crossings"), ACs->getNumberOfSelectedCrossings());
+        updateInformationLabel(TL("WalkingAreas"), ACs->getNumberOfSelectedWalkingAreas());
+        updateInformationLabel(TL("Additionals"), ACs->getNumberOfSelectedPureAdditionals());
+        updateInformationLabel(TL("Wires"), ACs->getNumberOfSelectedWires());
+        updateInformationLabel(TL("TAZs"), ACs->getNumberOfSelectedTAZs());
+        updateInformationLabel(TL("TAZSources"), ACs->getNumberOfSelectedTAZSources());
+        updateInformationLabel(TL("TAZSinks"), ACs->getNumberOfSelectedTAZSinks());
+        updateInformationLabel(TL("Polygons"), ACs->getNumberOfSelectedPolygons());
+        updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
+        updateInformationLabel(TL("JuPedSim elements"), ACs->getNumberOfSelectedJpsWalkableAreas() + 
             ACs->getNumberOfSelectedJpsObstacles() +
             ACs->getNumberOfSelectedJpsWaitingAreas() +
             ACs->getNumberOfSelectedJpsWaypoints() +
             ACs->getNumberOfSelectedJpsSources() +
             ACs->getNumberOfSelectedJpsSinks());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-        updateInformationLabel("Routes", ACs->getNumberOfSelectedRoutes());
-        updateInformationLabel("Vehicles", ACs->getNumberOfSelectedVehicles());
-        updateInformationLabel("Persons", ACs->getNumberOfSelectedPersons());
-        updateInformationLabel("Person trips", ACs->getNumberOfSelectedPersonTrips());
-        updateInformationLabel("Walks", ACs->getNumberOfSelectedWalks());
-        updateInformationLabel("Rides", ACs->getNumberOfSelectedRides());
-        updateInformationLabel("Containers", ACs->getNumberOfSelectedContainers());
-        updateInformationLabel("Transport", ACs->getNumberOfSelectedTransport());
-        updateInformationLabel("Tranships", ACs->getNumberOfSelectedTranships());
-        updateInformationLabel("Stops", ACs->getNumberOfSelectedStops());
+        updateInformationLabel(TL("Routes"), ACs->getNumberOfSelectedRoutes());
+        updateInformationLabel(TL("Vehicles"), ACs->getNumberOfSelectedVehicles());
+        updateInformationLabel(TL("Persons"), ACs->getNumberOfSelectedPersons());
+        updateInformationLabel(TL("Person trips"), ACs->getNumberOfSelectedPersonTrips());
+        updateInformationLabel(TL("Walks"), ACs->getNumberOfSelectedWalks());
+        updateInformationLabel(TL("Rides"), ACs->getNumberOfSelectedRides());
+        updateInformationLabel(TL("Containers"), ACs->getNumberOfSelectedContainers());
+        updateInformationLabel(TL("Transport"), ACs->getNumberOfSelectedTransport());
+        updateInformationLabel(TL("Tranships"), ACs->getNumberOfSelectedTranships());
+        updateInformationLabel(TL("Stops"), ACs->getNumberOfSelectedStops());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        updateInformationLabel("EdgeDatas", ACs->getNumberOfSelectedEdgeDatas());
-        updateInformationLabel("EdgeRelDatas", ACs->getNumberOfSelectedEdgeRelDatas());
-        updateInformationLabel("EdgeTAZRel", ACs->getNumberOfSelectedEdgeTAZRel());
+        updateInformationLabel(TL("EdgeDatas"), ACs->getNumberOfSelectedEdgeDatas());
+        updateInformationLabel(TL("EdgeRelDatas"), ACs->getNumberOfSelectedEdgeRelDatas());
+        updateInformationLabel(TL("EdgeTAZRel"), ACs->getNumberOfSelectedEdgeTAZRel());
     }
     // adjust format
     const auto numberLines = std::count(myInformation.begin(), myInformation.end(), ':');
@@ -227,7 +227,7 @@ GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFramePa
     mySelectionScaling->setIncrement(0.5);
     mySelectionScaling->setRange(1, 100000);
     mySelectionScaling->setValue(1);
-    mySelectionScaling->setHelpText("Enlarge selected objects");
+    mySelectionScaling->setHelpText(TL("Enlarge selected objects"));
 }
 
 
@@ -287,7 +287,7 @@ GNESelectorFrame::SelectionOperation::loadFromFile(const std::string& file) cons
         for (const auto& GLObject : GLObjects) {
             // try to parse GLObject to AC
             GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(GLObject);
-            // if was sucesfully parsed and is NOT a template, add into GLFUllNameAC using fullName
+            // if was successfully parsed and is NOT a template, add into GLFUllNameAC using fullName
             if (AC && !AC->isTemplate()) {
                 GLFUllNameAC[GUIGlObject::TypeNames.getString(GLObject->getType()) + ":" + AC->getID()] = AC;
             }
@@ -316,7 +316,7 @@ GNESelectorFrame::SelectionOperation::loadFromFile(const std::string& file) cons
         }
         // change selected attribute in loaded ACs allowing undo/redo
         if (loadedACs.size() > 0) {
-            mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "load selection");
+            mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("load selection"));
             mySelectorFrameParent->handleIDs(loadedACs);
             mySelectorFrameParent->myViewNet->getUndoList()->end();
         }
@@ -382,7 +382,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
             (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) ||
             (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-        mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "invert selection");
+        mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("invert selection"));
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             processNetworkElementSelection(false, true, ignoreLocking);
@@ -413,7 +413,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) ||
             (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-        mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "invert selection");
+        mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("invert selection"));
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // invert network elements
@@ -435,7 +435,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
 long
 GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) {
     // begin undoList operation
-    mySelectorFrameParent->getViewNet()->getUndoList()->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, "simplify network");
+    mySelectorFrameParent->getViewNet()->getUndoList()->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, TL("simplify network"));
     // invert and clear
     onCmdInvert(0, 0, 0);
     onCmdDelete(0, 0, 0);
@@ -468,7 +468,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
             ignoreLocking = askContinueIfLock();
             return true;
         }
-        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+        // due we iterate over all junctions, only it's necessary iterate over incoming edges
         for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
             // special case for clear
             if (onlyUnselect) {
@@ -1109,7 +1109,7 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
     WRITE_DEBUG("Opening FXMessageBox 'confirm selection operation'");
     // open question box
     const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(),
-                          MBOX_YES_NO, "Confirm selection operation", "There are locked elements in currentselection.\nApply operation to locked elements?");
+                          MBOX_YES_NO, "Confirm selection operation", "There are locked elements in the current selection.\nApply operation to locked elements?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2) {
@@ -1386,7 +1386,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
         // select HE
         if (HEToSelect.size() > 0) {
             if (HEToSelect.size() > 1) {
-                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, "select children");
+                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, TL("select children"));
             }
             for (const auto& HE : HEToSelect) {
                 if (obj == mySelectChildrenButton) {
@@ -1414,7 +1414,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
     MFXGroupBoxModule(selectorFrameParent, TL("Information")) {
     // Create Selection Hint
-    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + "Hold <SHIFT> for rectangle selection." + std::string("\n- ") + "Press <DEL> to delete selected objects.").c_str(), nullptr, GUIDesignLabelFrameInformation);
+    new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Hold <SHIFT> for rectangle selection.") + std::string("\n- ") + TL("Press <DEL> to delete selected objects.")).c_str(), nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -1425,7 +1425,7 @@ GNESelectorFrame::Information::~Information() {}
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Selection") {
+    GNEFrame(viewParent, viewNet, TL("Selection")) {
     // create selection information
     mySelectionInformation = new SelectionInformation(this);
     // create Modification Mode modul
@@ -1606,7 +1606,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     // only continue if there is ACs to select or unselect
     if ((ACsToSelect.size() + ACsToUnselect.size()) > 0) {
         // first unselect AC of ACsToUnselect and then selects AC of ACsToSelect
-        myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "selection");
+        myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, TL("selection"));
         for (const auto& ACToUnselect : ACsToUnselect) {
             if (ACToUnselect.second->getTagProperty().isSelectable()) {
                 ACToUnselect.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());

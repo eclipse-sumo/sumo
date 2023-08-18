@@ -2929,7 +2929,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
         myNet->getPathManager()->getPathCalculator()->calculateReachability(vClass, laneAtPopupPosition->getParentEdge());
-        // select all lanes with reachability greather than 0
+        // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
             for (const auto& lane : edge.second->getLanes()) {
@@ -5202,10 +5202,10 @@ GNEViewNet::updateControls() {
                 myViewParent->getTypeFrame()->show();
                 break;
             case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
-                myViewParent->getTypeDistributionFrame()->show();
+                myViewParent->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 break;
-            case DemandEditMode::DEMAND_STOP:
-                myViewParent->getStopFrame()->show();
+            case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
+                myViewParent->getRouteDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 break;
             case DemandEditMode::DEMAND_PERSON:
                 myViewParent->getPersonFrame()->show();
@@ -5218,6 +5218,9 @@ GNEViewNet::updateControls() {
                 break;
             case DemandEditMode::DEMAND_CONTAINERPLAN:
                 myViewParent->getContainerPlanFrame()->show();
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myViewParent->getStopFrame()->show();
                 break;
             default:
                 break;

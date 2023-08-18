@@ -405,7 +405,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // check if draw junction as shape
     const bool junctionShape = ((myNBNode->getShape().size() > 0) && s.drawJunctionShape);
     const bool junctionBubble = drawAsBubble(s);
-    // only continue if exaggeration is greather than 0
+    // only continue if exaggeration is greater than 0
     if (junctionExaggeration > 0) {
         // get mouse position
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -1364,7 +1364,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s) const {
         return true;
     }
     if (myNBNode->getShape().area() > 4) {
-        // don't draw if shape area is greather than 4
+        // don't draw if shape area is greater than 4
         return false;
     }
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {

@@ -435,8 +435,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                     GNEApplicationWindow::onUpdRequireViewNet),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToogleTimeFormat),
-    FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToogleTimeFormat),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToggleTimeFormat),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
 };
 
 // Object implementation
@@ -2134,7 +2134,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().switchTimeFormat();
@@ -2152,7 +2152,7 @@ GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdToogleTimeFormat(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().updateButtonLabel();
@@ -2282,7 +2282,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
         myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
-        // now check that numericalKeyPressed isn't greather than visible view options
+        // now check that numericalKeyPressed isn't greater than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
             return 1;
         }

@@ -201,7 +201,7 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
                 i += 1
         for replaceRule in replaceRules:
             if options.strict and replaceRule[0] == entry.msgstr:
-                replaced = replaceRule[0]
+                replaced = replaceRule[1]
             elif replaceRule[3] and not replaceRule[4] and entry.msgstr.startswith(replaceRule[0]):  # starts with ...
                 replaced = replaceRule[1] + entry.msgstr[len(replaceRule[0]):]
             elif not replaceRule[3] and replaceRule[4] and entry.msgstr.endswith(replaceRule[0]):  # ends with ...

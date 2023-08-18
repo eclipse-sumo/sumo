@@ -48,7 +48,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
-    FXMAPFUNC(SEL_COMMAND,  MID_MTFS_UPDATED,               GNEOptionsDialog::onCmdSearch),
+    FXMAPFUNC(SEL_COMMAND,  MID_MTEXTFIELDSEARCH_UPDATED,   GNEOptionsDialog::onCmdSearch),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,          GNEOptionsDialog::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,               GNEOptionsDialog::onCmdSaveOptions),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,               GNEOptionsDialog::onCmdLoadOptions),

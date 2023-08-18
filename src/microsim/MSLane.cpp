@@ -251,6 +251,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
     myFrictionCoefficient(friction),
+    myControlledByVSS(false),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -275,8 +276,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
 #ifdef HAVE_FOX
     mySimulationTask(*this, 0),
 #endif
-    myStopWatch(3),
-    myControlledByVSS(false) {
+    myStopWatch(3) {
     // initialized in MSEdge::initialize
     initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
     assert(myRNGs.size() > 0);

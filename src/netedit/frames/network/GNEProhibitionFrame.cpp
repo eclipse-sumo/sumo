@@ -235,7 +235,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(GNEViewParent* viewParent, GNEViewNet* 
     // create legend
     myLegend = new Legend(this);
 
-    // create Selection modul
+    // create Selection module
     mySelectionModul = new Selection(this);
 }
 

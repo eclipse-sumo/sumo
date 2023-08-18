@@ -52,7 +52,7 @@ netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "dummy", False)
 # Change parameter 1 with a non valid value (negative)
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "-10", False)
 
-# Change parameter 1 with a non valid value (greather than end)
+# Change parameter 1 with a non valid value (greater than end)
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.begin, "50", False)
 
 # Change parameter 1 with a valid value

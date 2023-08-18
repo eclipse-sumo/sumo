@@ -33,6 +33,8 @@ title: ChangeLog
   - Avoid mixing edges and lanes in overlapping module when inspecting edges or lanes. #13093
   - Fixed crash opening undo-redo dialog after setting a simple attribute. #13673
   - Fixed invalid checks setting IDs. #13690
+  - Now vType is a combobox when a selection of vehicles is inspected. #12719
+  - Fixed error with FXIconComboBox size. #12623
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -64,8 +66,11 @@ title: ChangeLog
   - Add checkbox in Move Frame for forcing draw edge start/end geometry points. #13426
   - Add tooltip in GroupBox expand button. #12236
   - Add locate containers dialog. #13692
-  - Added support for vTypesDistributions #12845 #12845
-  - Added support for route #12660
+  - Added support for vType distributions. #12845
+  - Added support for route distributions. #12660
+  - Implemented frame for edit vType distributions. #13393
+  - Implemented frame for edit route distributions. #13635
+  - Added buttons next to lane attribute to shift element between edge's lanes. #13387
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
@@ -83,7 +88,7 @@ title: ChangeLog
 
 - Other
   - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646
-  - Improved integration of JuPedSim in sumo #13307 #13491 #13308
+  - Improved integration of JuPedSim in sumo. #13307, #13491, #13308
 
 ## Version 1.18.0 (29.06.2023)
 

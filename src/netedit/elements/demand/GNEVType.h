@@ -56,7 +56,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML
+    /// @brief check if current demand element is valid to be written into XML
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem

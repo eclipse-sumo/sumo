@@ -63,7 +63,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create FXComboBox
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
@@ -166,7 +166,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
 void
 GNETypeFrame::TypeSelector::refreshTypeSelectorIDs() {
     if (myCurrentType) {
-        myTypeComboBox->setIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getACIcon());
+        myTypeComboBox->updateIconItem(myTypeComboBox->getCurrentItem(), myCurrentType->getID().c_str(), myCurrentType->getACIcon());
     }
 }
 
@@ -404,7 +404,7 @@ GNETypeFrame::TypeEditor::deleteType() {
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Types") {
+    GNEFrame(viewParent, viewNet, TL("Types")) {
 
     // create module for edit vehicle types (Create, copy, etc.)
     myTypeEditor = new TypeEditor(this);
@@ -418,7 +418,7 @@ GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create module for open extended attributes dialog
     myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
-    /// create module for edit parameteres
+    /// create module for edit parameters
     myParametersEditor = new GNEFrameAttributeModules::ParametersEditor(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type

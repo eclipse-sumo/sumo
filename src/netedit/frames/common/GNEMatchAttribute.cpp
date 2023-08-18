@@ -49,7 +49,7 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
     // Create MFXComboBoxIcon for tags
-    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create FXComboBox for Attributes
     myMatchAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string

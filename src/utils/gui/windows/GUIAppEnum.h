@@ -951,8 +951,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trough dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief inspect attribute vType/vTypeDistribution
-    MID_GNE_SET_ATTRIBUTE_VTYPE,
+    /// @brief inspect attribute parent element
+    MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)
@@ -1009,6 +1009,10 @@ enum {
     MID_GNE_PROTECT_ALL,
     /// @brief unprotect all elements
     MID_GNE_UNPROTECT_ALL,
+    /// @brief move up
+    MID_GNE_MOVEUP,
+    /// @brief move down
+    MID_GNE_MOVEDOWN,
 
     /// @}
 
@@ -1560,7 +1564,7 @@ enum {
     /// @brief callback for MFXTextFieldSearch
     /// @{
 
-    MID_MTFS_UPDATED,
+    MID_MTEXTFIELDSEARCH_UPDATED,
 
     /// @}
 

@@ -1599,7 +1599,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(NamespaceIDs::vehicles, value);
         case SUMO_ATTR_TYPE:
-            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
+            return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
@@ -2327,7 +2327,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVehicle::toggleAttribute(SumoXMLAttr key, const bool value) {
-    // toogle flow attributes
+    // toggle flow attributes
     toggleFlowAttribute(key, value);
 }
 

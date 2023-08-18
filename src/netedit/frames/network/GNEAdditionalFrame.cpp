@@ -133,7 +133,7 @@ GNEAdditionalFrame::HelpCreationModule::addTLString(const std::string &str) {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Additionals") {
+    GNEFrame(viewParent, viewNet, TL("Additionals")) {
 
     // create item Selector module for additionals
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);

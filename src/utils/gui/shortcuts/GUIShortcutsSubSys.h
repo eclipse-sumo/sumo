@@ -34,7 +34,7 @@ public:
     /// @brief build accelerators
     static void buildAccelerators(FXAccelTable* accelTable, FXObject* target, const bool sumogui);
 
-    /// @brief change acelerator (used for toogle dynamically binding space key with start/end simulation)
+    /// @brief change accelerator (used for toggle dynamically binding space key with start/end simulation)
     static void changeAccelerator(FXAccelTable* accelTable, FXObject* target, GUIShortcut keysym, long msg);
 
 private:
