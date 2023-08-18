@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-17 13:56+0000\n"
+"PO-Revision-Date: 2023-08-18 09:00+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -10659,48 +10659,48 @@ msgstr "公交车道"
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1977
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1983
 msgid "Green verge"
-msgstr ""
+msgstr "绿化带"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1967
 msgid "Green verge (front)"
-msgstr ""
+msgstr "绿化带（前）"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1968
 msgid "Green verge (back)"
-msgstr ""
+msgstr "绿化带（后）"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1985
 msgid "Add restricted %"
-msgstr ""
+msgstr "添加受限制的 %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1986
 msgid "Remove restricted %"
-msgstr ""
+msgstr "移除受限制的 %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1987
 msgid "Transform to restricted %"
-msgstr ""
+msgstr "转换为受限制的 %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2028
 #, c-format
 msgid "Template operations (% selected)"
-msgstr ""
+msgstr "模板操作（已选择 %）"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2030
 msgid "Template operations"
-msgstr ""
+msgstr "模板操作"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Use edge as template"
-msgstr ""
+msgstr "使用边作为模板"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2034
 msgid "Apply template"
-msgstr ""
+msgstr "应用模板"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Select reachable (compute junctions)"
-msgstr ""
+msgstr "选择可达车道（计算交叉口）"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:771
@@ -10855,19 +10855,19 @@ msgstr "终止绘图"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 msgid "'Start drawing' or ENTER to create a shape."
-msgstr ""
+msgstr "“开始绘图”或按 Enter 键创建形状。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "'Stop drawing' or ENTER to finish shape creation."
-msgstr ""
+msgstr "“停止绘图”或按 Enter 键完成形状创建。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 msgid "'Abort drawing' or ESC to abort shape creation."
-msgstr ""
+msgstr "“放弃绘图”或 按 ESC 以放弃形状创建。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
-msgstr ""
+msgstr "“Shift+鼠标左键”以删除最后插入的点。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:134
 msgid "A new point cannot be added if drawing wasn't started"
@@ -11081,7 +11081,7 @@ msgstr "禁用属性'"
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:625
 #, c-format
 msgid "Inspect % parent"
-msgstr ""
+msgstr "检查 % 的父项 (parent)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:525
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:526
@@ -11096,12 +11096,12 @@ msgstr "打开编辑颜色的对话框"
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:579
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:580
 msgid "Move element up one lane"
-msgstr ""
+msgstr "将元素上移一条车道"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:585
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:586
 msgid "Move element down one lane"
-msgstr ""
+msgstr "将元素下移一条车道"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1012
 msgid "Extended attributes"
