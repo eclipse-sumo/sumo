@@ -25,105 +25,115 @@
 
 
 /// @brief A list item which allows for custom coloring
-class MFXListIconItem : public FXListItem {
+class MFXListIconItem : public FXObject {
     /// @brief FOX declaration
     FXDECLARE(MFXListIconItem)
 
-  friend class MFXListIcon;
-protected:
-  FXString  label;
-  FXIcon   *icon;
-  void     *data;
-  FXuint    state;
-  FXint     x,y;
-private:
-  MFXListIconItem(const MFXListIconItem&);
-  MFXListIconItem& operator=(const MFXListIconItem&);
-protected:
-  MFXListIconItem():icon(NULL),data(NULL),state(0),x(0),y(0){}
-  virtual void draw(const MFXListIcon* list,FXDC& dc,FXint x,FXint y,FXint w,FXint h);
-  virtual FXint hitItem(const MFXListIcon* list,FXint x,FXint y) const;
+    /// @brief declare friend class
+    friend class MFXListIcon;
+
 public:
-  enum {
-    SELECTED  = 1,      /// Selected
-    FOCUS     = 2,      /// Focus
-    DISABLED  = 4,      /// Disabled
-    DRAGGABLE = 8,      /// Draggable
-    ICONOWNED = 16      /// Icon owned by item
+    enum {
+        SELECTED  = 1,      /// Selected
+        FOCUS     = 2,      /// Focus
+        DISABLED  = 4,      /// Disabled
+        DRAGGABLE = 8,      /// Draggable
+        ICONOWNED = 16      /// Icon owned by item
     };
-public:
 
-  /// Construct new item with given text, icon, and user-data
-  MFXListIconItem(const FXString& text,FXIcon* ic=NULL, FXColor backGroundColor = 0, void* ptr=NULL):label(text),icon(ic), myBackGroundColor(backGroundColor), data(ptr),state(0),x(0),y(0){}
+    /// @brief Construct new item with given text, icon, and user-data
+    MFXListIconItem(const FXString& text,FXIcon* ic=NULL, FXColor backGroundColor = 0, void* ptr=NULL);
 
-  /// Change item's text label
-  virtual void setText(const FXString& txt);
+    /// @brief Destroy item and free icons if owned
+    ~MFXListIconItem();
 
-  /// Return item's text label
-  const FXString& getText() const { return label; }
+    /// @brief Change item's text label
+    void setText(const FXString& txt);
 
-  /// Change item's icon, deleting the old icon if it was owned
-  virtual void setIcon(FXIcon* icn,FXbool owned=FALSE);
+    /// @brief Return item's text label
+    const FXString& getText() const;
 
-  /// Return item's icon
-  FXIcon* getIcon() const { return icon; }
+    /// @brief Change item's icon, deleting the old icon if it was owned
+    void setIcon(FXIcon* icn,FXbool owned=FALSE);
 
-  const FXColor& getBackGroundColor() const;
+    /// @brief Return item's icon
+    FXIcon* getIcon() const;
 
-  /// Change item's user data
-  void setData(void* ptr){ data=ptr; }
+    /// @brief get background color
+    const FXColor& getBackGroundColor() const;
 
-  /// Get item's user data
-  void* getData() const { return data; }
+    /// @brief Make item draw as focused
+    void setFocus(FXbool focus);
 
-  /// Make item draw as focused
-  virtual void setFocus(FXbool focus);
+    /// @brief Return true if item has focus
+    FXbool hasFocus() const;
 
-  /// Return true if item has focus
-  FXbool hasFocus() const { return (state&FOCUS)!=0; }
+    /// @brief Select item
+    void setSelected(FXbool selected);
 
-  /// Select item
-  virtual void setSelected(FXbool selected);
+    /// @brief Return true if this item is selected
+    FXbool isSelected() const;
 
-  /// Return true if this item is selected
-  FXbool isSelected() const { return (state&SELECTED)!=0; }
+    /// @brief Enable or disable item
+    void setEnabled(FXbool enabled);
 
-  /// Enable or disable item
-  virtual void setEnabled(FXbool enabled);
+    /// @brief Return true if this item is enabled
+    FXbool isEnabled() const;
 
-  /// Return true if this item is enabled
-  FXbool isEnabled() const { return (state&DISABLED)==0; }
+    /// @brief Make item draggable
+    void setDraggable(FXbool draggable);
 
-  /// Make item draggable
-  virtual void setDraggable(FXbool draggable);
+    /// @brief Return true if this item is draggable
+    FXbool isDraggable() const;
 
-  /// Return true if this item is draggable
-  FXbool isDraggable() const { return (state&DRAGGABLE)!=0; }
+    /// @brief Return width of item as drawn in list
+    FXint getWidth(const MFXListIcon* list) const;
 
-  /// Return width of item as drawn in list
-  virtual FXint getWidth(const MFXListIcon* list) const;
+    /// @brief Return height of item as drawn in list
+    FXint getHeight(const MFXListIcon* list) const;
 
-  /// Return height of item as drawn in list
-  virtual FXint getHeight(const MFXListIcon* list) const;
+    /// @brief Create server-side resources
+    void create();
 
-  /// Create server-side resources
-  virtual void create();
+    /// @brief Detach server-side resources
+    void detach();
 
-  /// Detach server-side resources
-  virtual void detach();
+    /// @brief Destroy server-side resources
+    void destroy();
 
-  /// Destroy server-side resources
-  virtual void destroy();
+protected:
+    /// @brief FOX need this
+    MFXListIconItem();
 
-  /// Save to stream
-  virtual void save(FXStream& store) const;
+    /// @brief daraw
+    void draw(const MFXListIcon* list,FXDC& dc,FXint x,FXint y,FXint w,FXint h);
 
-  /// Load from stream
-  virtual void load(FXStream& store);
+    /// @brief hit item
+    FXint hitItem(const MFXListIcon* list,FXint x,FXint y) const;
 
-  /// Destroy item and free icons if owned
-  virtual ~MFXListIconItem();
+    /// @brief label
+    FXString label;
+
+    /// @brief icon
+    FXIcon *icon = nullptr;
+
+    /// @brief data
+    void *data = nullptr;
+
+    /// @brief state
+    FXuint state = 0;
+
+    /// @brief position
+    FXint x = 0;
+    FXint y = 0;
 
     /// @brief backGround color
-    FXColor myBackGroundColor;
+    FXColor myBackGroundColor = 0;
+
+private:
+    /// @brief invalidate copy constructor
+    MFXListIconItem(const MFXListIconItem&) = delete;
+
+    /// @brief invalidate assign constructor
+    MFXListIconItem& operator=(const MFXListIconItem&) = delete;
 };
