@@ -35,7 +35,7 @@ public:
     };
 
     /// @brief Construct a list with initially no items in it
-    MFXListIcon(FXComposite *p, FXObject* tgt=NULL, FXSelector sel=0, FXuint opts=LIST_NORMAL, FXint x=0, FXint y=0, FXint w=0, FXint h=0);
+    MFXListIcon(FXComposite *p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LIST_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief Destructor
     ~MFXListIcon();
@@ -86,46 +86,46 @@ public:
     MFXListIconItem *getItem(FXint index) const;
 
     /// @brief Replace the item with a [possibly subclassed] item
-    FXint setItem(FXint index, MFXListIconItem* item, FXbool notify=FALSE);
+    FXint setItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Replace items text,  icon,  and user-data pointer
-    FXint setItem(FXint index, const FXString& text, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint setItem(FXint index, const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Fill list by appending items from array of strings
-    FXint fillItems(const FXchar** strings, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint fillItems(const FXchar** strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Fill list by appending items from newline separated strings
-    FXint fillItems(const FXString& strings, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint fillItems(const FXString& strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Insert a new [possibly subclassed] item at the give index
-    FXint insertItem(FXint index, MFXListIconItem* item, FXbool notify=FALSE);
+    FXint insertItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Insert item at index with given text,  icon,  and user-data pointer
-    FXint insertItem(FXint index, const FXString& text, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint insertItem(FXint index, const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Append a [possibly subclassed] item to the list
-    FXint appendItem(MFXListIconItem* item, FXbool notify=FALSE);
+    FXint appendItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Append new item with given text and optional icon,  and user-data pointer
-    FXint appendItem(const FXString& text, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint appendItem(const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Prepend a [possibly subclassed] item to the list
-    FXint prependItem(MFXListIconItem* item, FXbool notify=FALSE);
+    FXint prependItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Prepend new item with given text and optional icon,  and user-data pointer
-    FXint prependItem(const FXString& text, FXIcon *icon=NULL, void* ptr=NULL, FXbool notify=FALSE);
+    FXint prependItem(const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Move item from oldindex to newindex
-    FXint moveItem(FXint newindex, FXint oldindex, FXbool notify=FALSE);
+    FXint moveItem(FXint newindex, FXint oldindex, FXbool notify = FALSE);
 
     /// @brief Extract item from list
-    MFXListIconItem* extractItem(FXint index, FXbool notify=FALSE);
+    MFXListIconItem* extractItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Remove item from list
-    void removeItem(FXint index, FXbool notify=FALSE);
+    void removeItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Remove all items from list
-    void clearItems(FXbool notify=FALSE);
+    void clearItems(FXbool notify = FALSE);
 
     /// @brief Return item width
     FXint getItemWidth(FXint index) const;
@@ -149,7 +149,7 @@ public:
     * passing SEARCH_PREFIX causes searching for a prefix of the item name.
     * Return -1 if no matching item is found.
     */
-    FXint findItem(const FXString& text, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItem(const FXString& text, FXint start = -1, FXuint flags = SEARCH_FORWARD|SEARCH_WRAP) const;
 
     /// @brief Scroll to bring item into view
     void makeItemVisible(FXint index);
@@ -182,22 +182,22 @@ public:
     FXbool disableItem(FXint index);
 
     /// @brief Select item
-    FXbool selectItem(FXint index, FXbool notify=FALSE);
+    FXbool selectItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Deselect item
-    FXbool deselectItem(FXint index, FXbool notify=FALSE);
+    FXbool deselectItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Toggle item selection state
-    FXbool toggleItem(FXint index, FXbool notify=FALSE);
+    FXbool toggleItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Extend selection from anchor item to index
-    FXbool extendSelection(FXint index, FXbool notify=FALSE);
+    FXbool extendSelection(FXint index, FXbool notify = FALSE);
 
     /// @brief Deselect all items
-    FXbool killSelection(FXbool notify=FALSE);
+    FXbool killSelection(FXbool notify = FALSE);
 
     /// @brief Change current item
-    void setCurrentItem(FXint index, FXbool notify=FALSE);
+    void setCurrentItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Return current item,  if any
     FXint getCurrentItem() const { return current; }
@@ -336,5 +336,5 @@ private:
      MFXListIcon(const FXList&) = delete;
 
      /// @brief @brief invalidate assignement operator
-     MFXListIcon &operator=(const FXList&) = delete;
+     MFXListIcon &operator = (const FXList&) = delete;
 };

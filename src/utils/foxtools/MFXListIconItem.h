@@ -42,7 +42,7 @@ public:
     };
 
     /// @brief Construct new item with given text, icon, and user-data
-    MFXListIconItem(const FXString& text,FXIcon* ic=NULL, FXColor backGroundColor = 0, void* ptr=NULL);
+    MFXListIconItem(const FXString& text,FXIcon* ic = NULL, FXColor backGroundColor = 0, void* ptr = NULL);
 
     /// @brief Destroy item and free icons if owned
     ~MFXListIconItem();
@@ -132,5 +132,5 @@ private:
     MFXListIconItem(const MFXListIconItem&) = delete;
 
     /// @brief invalidate assign constructor
-    MFXListIconItem& operator=(const MFXListIconItem&) = delete;
+    MFXListIconItem& operator = (const MFXListIconItem&) = delete;
 };

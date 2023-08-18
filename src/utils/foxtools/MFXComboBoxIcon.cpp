@@ -438,7 +438,7 @@ MFXComboBoxIcon::getTipText() const {
 
 long
 MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
-    return target && !isPaneShown() && target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL);
+    return (target && !isPaneShown())? target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL) : 0;
 }
 
 
@@ -486,13 +486,12 @@ MFXComboBoxIcon::onTextButton(FXObject*, FXSelector, void*) {
 
 long
 MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
-    return target && target->tryHandle(this, FXSEL(SEL_CHANGED, message), ptr);
+    return target? target->tryHandle(this, FXSEL(SEL_CHANGED, message), ptr) : 0;
 }
 
 
 long
 MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
-    FXint index = myList->getCurrentItem();
     if (!(options & COMBOBOX_STATIC)) {
         switch (options & COMBOBOX_INS_MASK) {
             case COMBOBOX_INSERT_LAST:
@@ -504,7 +503,7 @@ MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
     myIconLabel->setIcon(nullptr);
     myIconLabel->setBackColor(FXRGB(255, 255, 255));
-    return target && target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr);
+    return target? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
 }
 
 
