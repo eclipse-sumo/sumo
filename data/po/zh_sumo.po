@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-07 09:29+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hans/>\n"
+"PO-Revision-Date: 2023-08-18 13:08+0000\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4489,7 +4490,7 @@ msgstr "路段 '%' 以未定义的优先级别 (%) 被载入，但具有明确�
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1359
 msgid "Added % rail signals at % stops."
-msgstr "在 % 个站点增加了 % 个轨道信号灯。"
+msgstr "增加了 % 个轨道信号灯 (在 % 个站点)。"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:116
 #, c-format
@@ -4603,7 +4604,7 @@ msgstr "无法在路段 '%' 上应用转弯标志信息，因为有 % 的方向,
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
-msgstr "无法为边缘 '%' 应用转弯标志信息，因为目标边缘 '%' 没有合适的车道"
+msgstr "无法於路段 '%' 应用转弯标志信息，因为目标路段 '%' 没有合适的车道"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:2703
 msgid ""
@@ -6861,7 +6862,7 @@ msgstr "路段 '%' 连接相同的节点, 跳过。"
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr "边缘'%'不是唯一的。"
+msgstr "路段 '%' 不是唯一的。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
@@ -7225,7 +7226,7 @@ msgstr "忽略无效的 pRange 值 '%' (在道路 '%')。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2479
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr "忽略控制器'%'中缺少的信号'%'。"
+msgstr "忽略缺少的信号'%' (位于控制器'%'中)。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2517
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2724
