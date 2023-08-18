@@ -22,8 +22,8 @@
 // included modules
 // ===========================================================================
 
-#include  <utils/common/UtilExceptions.h>
-#include  <fxkeys.h>
+#include <utils/common/UtilExceptions.h>
+#include <fxkeys.h>
 
 #include "MFXListIconItem.h"
 #include "MFXListIcon.h"

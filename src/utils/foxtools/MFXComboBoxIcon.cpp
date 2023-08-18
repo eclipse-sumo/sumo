@@ -104,6 +104,9 @@ MFXComboBoxIcon::~MFXComboBoxIcon() {
     myIconLabel = (FXLabel*) - 1L;
     myTextFieldIcon = (MFXTextFieldIcon*) - 1L;
     myButton = (FXMenuButton*) - 1L;
+    if (myTextFieldSearch) {
+        myTextFieldSearch = (MFXTextFieldSearch*) - 1L;
+    }
     myList = (MFXListIcon*) - 1L;
 }
 

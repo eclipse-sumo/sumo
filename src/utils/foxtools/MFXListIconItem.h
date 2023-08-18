@@ -19,12 +19,20 @@
 /****************************************************************************/
 
 #pragma once
-#include  < config.h>
+#include <config.h>
 
 #include "fxheader.h"
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
 
-/// @brief A list item which allows for custom coloring
+class MFXListIcon;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
 class MFXListIconItem : public FXObject {
     /// @brief FOX declaration
     FXDECLARE(MFXListIconItem)
