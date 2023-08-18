@@ -5624,7 +5624,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
             if (myStops.front().getSpeed() <= 0) {
-                WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%s."), getID(), myStops.front().lane->getID(),
+                WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
                 time2string(MSNet::getInstance()->getCurrentTimeStep()))
                 myStops.pop_front();
             } else {

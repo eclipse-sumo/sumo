@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-17 15:45+0200\n"
+"POT-Creation-Date: 2023-08-18 10:07+0200\n"
 "PO-Revision-Date: 2023-08-16 12:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
-"sumo-gui-netedit/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -644,11 +643,11 @@ msgstr "\tPaso\tLleva a cabo un solo paso en la simulación."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:705
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
-"seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and "
+"hour:minute:seconds display."
 msgstr ""
-"Tiempo:\tAlternar entre formatos de tiempo\tAlterna entre segundos y horas:"
-"minutos:segundos en el contador."
+"Tiempo:\tAlternar entre formatos de tiempo\tAlterna entre segundos y "
+"horas:minutos:segundos en el contador."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:719
 msgid ""
@@ -3069,7 +3068,8 @@ msgid "Save TLS Programs As..."
 msgstr "Guardar programas de semáforos (TLS) como..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:385
-msgid "Save all traffic light programs of the current network to another file."
+msgid ""
+"Save all traffic light programs of the current network to another file."
 msgstr ""
 "Guardar todos los programas semafóricos (de la red actual) en un archivo "
 "aparte."
@@ -3905,8 +3905,8 @@ msgstr "Limpiar elementos de ruta inválidos"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1909
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
-"Eliminar elementos de demanda con un camino inválido (rutas, viajes, flujos, "
-"etc.)."
+"Eliminar elementos de demanda con un camino inválido (rutas, viajes, flujos,"
+" etc.)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1915
 msgid "Configure sumo Options."
@@ -4238,8 +4238,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Opción de inicio para la red inválida. Abrir con configuración de sumo/"
-"netedit/netconvert o con la opción -new"
+"Opción de inicio para la red inválida. Abrir con configuración de "
+"sumo/netedit/netconvert o con la opción -new"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:136
 msgid "Invalid Options. Nothing loaded"
@@ -4627,7 +4627,8 @@ msgstr "crear rotonda (roundabout)"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1276
 msgid "Forced computing junctions with volatile options ..."
-msgstr "Forzar computación de los cruces (junctions) con opciones volátiles..."
+msgstr ""
+"Forzar computación de los cruces (junctions) con opciones volátiles..."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1278
 msgid "Forced computing junctions ..."
@@ -4667,7 +4668,8 @@ msgstr "Posición de la unión de cruces"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1463
 msgid ""
-"There is another unselected junction in the same position of joined junction."
+"There is another unselected junction in the same position of joined "
+"junction."
 msgstr ""
 "Hay otro cruce (junction) no seleccionado en la misma posición que la unión "
 "de cruces."
@@ -5343,8 +5345,9 @@ msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
 msgstr ""
-"Mostrar cuadrícula y restringir el movimiento a la cuadrícula - El tamaño de "
-"la cuadrícula se puede modificar en las opciones de visualización. (Ctrl + G)"
+"Mostrar cuadrícula y restringir el movimiento a la cuadrícula - El tamaño de"
+" la cuadrícula se puede modificar en las opciones de visualización. (Ctrl + "
+"G)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2368
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2666
@@ -5420,8 +5423,8 @@ msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
 msgstr ""
-"Alternar si clicar debe aplicar o no los cambios de estado a todas las fases "
-"del plan actual del semáforo (TLS)."
+"Alternar si clicar debe aplicar o no los cambios de estado a todas las fases"
+" del plan actual del semáforo (TLS)."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2447
 msgid "Automatic merging junction"
@@ -5456,7 +5459,8 @@ msgid "Edge chain mode"
 msgstr "Modo cadenas de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2470
-msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid ""
+"Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 "Crear aristas consecutivas con un solo clic (pulse ESC para cancelar la "
 "cadena)."
@@ -6026,17 +6030,19 @@ msgid "Graphical editor for road networks and infrastructure."
 msgstr "Editor gráfico de redes viales e infraestructura."
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
-msgid "This application is based on code provided by the Eclipse SUMO project."
+msgid ""
+"This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
-"Esta aplicación se basa en código proporcionado por el proyecto Eclipse SUMO."
+"Esta aplicación se basa en código proporcionado por el proyecto Eclipse "
+"SUMO."
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:67
 msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
 msgstr ""
-"Estos componentes básicos están disponibles en las condiciones de la Eclipse "
-"Public License v2."
+"Estos componentes básicos están disponibles en las condiciones de la Eclipse"
+" Public License v2."
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:923
@@ -6522,11 +6528,11 @@ msgstr "- Los parámetros se definen con una Clave y un valor.\n"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format key1=parameter1|"
-"key2=parameter2|...\n"
+"- In Netedit can be defined using format "
+"key1=parameter1|key2=parameter2|...\n"
 msgstr ""
-"- en netedit se pueden definir usando el formato key1=parameter1|"
-"key2=parameter2|...\n"
+"- en netedit se pueden definir usando el formato "
+"key1=parameter1|key2=parameter2|...\n"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:403
@@ -6539,8 +6545,8 @@ msgstr " - Las claves duplicadas o vacías no son válidas.\n"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:399
 msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 msgstr ""
-" - Espacios en blanco y ciertos caracteres no están permitidos (@$%^&/|"
-"\\....)\n"
+" - Espacios en blanco y ciertos caracteres no están permitidos "
+"(@$%^&/|\\....)\n"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:449
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:449
@@ -7045,8 +7051,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1139
 msgid ""
-"If the shape is given it should start and end with the positions of the from-"
-"node and to-node"
+"If the shape is given it should start and end with the positions of the "
+"from-node and to-node"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1144
@@ -7062,7 +7068,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1167
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1248
 msgid "Move the stop line back from the intersection by the given amount"
-msgstr "Mueve la linea de stop hacia atrás de la intersección la cantidad dada"
+msgstr ""
+"Mueve la linea de stop hacia atrás de la intersección la cantidad dada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1173
 msgid ""
@@ -7098,8 +7105,8 @@ msgstr "ID del carril (lane) (Automático, no editable)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1220
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
-"is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
+" is the leftmost one)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1225
@@ -7112,7 +7119,8 @@ msgstr "Ancho en metros (usado para la visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1254
 msgid "Enable or disable lane as acceleration lane"
-msgstr "Activa o desactiva el uso del carril (lane) como carril de aceleración"
+msgstr ""
+"Activa o desactiva el uso del carril (lane) como carril de aceleración"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1260
 msgid "If the shape is given it overrides the computation based on edge shape"
@@ -7205,8 +7213,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1411
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
-"worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
+" worry about blocking the intersection"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1417
@@ -7317,7 +7325,8 @@ msgstr "Nombre de la parada de bus"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4342
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4712
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5158
-msgid "If set, no error will be reported if element is placed behind the lane."
+msgid ""
+"If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1562
@@ -7359,11 +7368,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1574
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1638
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the "
-"sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the"
+" sidewalk"
 msgstr ""
-"Un gran número de personas que intentan entrar crearán un atasco en la acera "
-"corriente arriba"
+"Un gran número de personas que intentan entrar crearán un atasco en la acera"
+" corriente arriba"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1580
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1644
@@ -7497,8 +7506,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1813
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station, "
-"before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station,"
+" before the energy transfer (charging) begins"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1827
@@ -7525,8 +7534,8 @@ msgstr ""
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
-"Si se establece, los vehículos se estacionarán en el carril de la vía y, por "
-"lo tanto, reducirán la capacidad"
+"Si se establece, los vehículos se estacionarán en el carril de la vía y, por"
+" lo tanto, reducirán la capacidad"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1877
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1920
@@ -7535,8 +7544,8 @@ msgstr "El ancho de los espacios de parqueo al costado de la vía"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1883
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) / "
-"roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) /"
+" roadsideCapacity"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1889
@@ -7572,11 +7581,11 @@ msgstr "El ID del E1"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2250
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2282
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of "
-"the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of"
+" the network used"
 msgstr ""
-"El ID del carril en el que se colocará el detector. El carril debe ser parte "
-"de la red utilizada"
+"El ID del carril en el que se colocará el detector. El carril debe ser parte"
+" de la red utilizada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1960
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2287
@@ -7867,8 +7876,8 @@ msgstr "La probabilidad de cambio de ruta del vehículo (0-1)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2611
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting "
-"(default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting"
+" (default -1 which disables the threshold)"
 msgstr ""
 "El umbral de tiempo de espera (en s) que se debe alcanzar para activar el "
 "cambio de ruta (por defecto es -1, lo que deshabilita el umbral)"
@@ -7878,8 +7887,8 @@ msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
 msgstr ""
-"La lista de tipos de vehículos que se verán afectados por este desvío (dejar "
-"vacío para afectar a todos los tipos)"
+"La lista de tipos de vehículos que se verán afectados por este desvío (dejar"
+" vacío para afectar a todos los tipos)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2622
 msgid ""
@@ -8057,8 +8066,8 @@ msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr ""
-"La posición en el carril (lane) o en la red en metros en la que se encuentra "
-"el punto de interés (POI)"
+"La posición en el carril (lane) o en la red en metros en la que se encuentra"
+" el punto de interés (POI)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2981
 msgid "The lateral offset on the named lane at which the POI is located at"
@@ -8163,8 +8172,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3316
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp "
-"is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp"
+" is connected"
 msgstr ""
 "ID del segmento de catenaria (overhead wire) que en su final está conectada "
 "la abrazadera de la catenaria (overhead wire clamp)"
@@ -8248,11 +8257,11 @@ msgstr "El ID de la ruta"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3505
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3551
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using "
-"spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using"
+" spaces"
 msgstr ""
-"Lista de IDs de las aristas por las que el vehículo debe circular, separadas "
-"por espacios"
+"Lista de IDs de las aristas por las que el vehículo debe circular, separadas"
+" por espacios"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3510
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3556
@@ -8270,8 +8279,8 @@ msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
-"Si se ha definido una ruta con repetición y paradas, y estas paradas usan el "
-"atributo 'until',"
+"Si se ha definido una ruta con repetición y paradas, y estas paradas usan el"
+" atributo 'until',"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3522
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3568
@@ -8327,7 +8336,8 @@ msgstr ""
 "La velocidad máxima deseada para el vehículo (interactúa con speedFactor)."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3640
-msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid ""
+"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 "A aplicar cuando no haya límite de velocidad (bicicletas, algunas "
 "autopistas) [m/s]"
@@ -8350,8 +8360,8 @@ msgstr "La altura del vehículo [m] (solo se usa al dibujar)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3669
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow "
-"functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow"
+" functional coloring)"
 msgstr ""
 "Archivo de imagen para renderizar vehículos de este tipo (debe estar en "
 "escala de grises para permitir la coloración funcional)"
@@ -8612,7 +8622,8 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "El nombre del carril donde el punto de referencia deberá ubicarse"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4350
-msgid "The lateral offset on the named lane at which the vehicle must waypoint"
+msgid ""
+"The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4366
@@ -8877,8 +8888,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5297
 msgid ""
-"A string specifying the id of a public transport line which can be used when "
-"specifying person rides"
+"A string specifying the id of a public transport line which can be used when"
+" specifying person rides"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5302
@@ -8942,8 +8953,8 @@ msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr ""
-"Insertar el flujo esperado de vehículos por segundo con la tasa de inserción "
-"distribuida de Poisson"
+"Insertar el flujo esperado de vehículos por segundo con la tasa de inserción"
+" distribuida de Poisson"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5380
 msgid "(not together with period or vehsPerHour or probability)"
@@ -8959,8 +8970,8 @@ msgstr "La capacidad de desaceleración de los vehículos de este tipo [m/s^2]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5405
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model [m/"
-"s^2]"
+"The apparent deceleration of the vehicle as used by the standard model "
+"[m/s^2]"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5411
@@ -9030,8 +9041,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5510
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
-"s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) "
+"[m/s^2]"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5516
@@ -9049,8 +9060,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5534
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration "
-"calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration"
+" calculation [0/1]"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5540
@@ -9134,16 +9145,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5690
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red "
-"phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red"
+" phase is lower than the given threshold."
 msgstr ""
 "Este valor hace que los vehículos transgredan una luz roja, si la duración "
 "de la fase roja es inferior al umbral dado."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5696
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
-"violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
+" violating a red light."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5702
@@ -9248,8 +9259,8 @@ msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
-"Tiempo para alcanzar la impaciencia máxima (de 1). La impaciencia crece cada "
-"vez que se bloquea una maniobra de cambio de carril (lane-change)."
+"Tiempo para alcanzar la impaciencia máxima (de 1). La impaciencia crece cada"
+" vez que se bloquea una maniobra de cambio de carril (lane-change)."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5807
 msgid "Maximum lateral acceleration per second."
@@ -9257,8 +9268,8 @@ msgstr "Aceleración lateral máxima por segundo."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5813
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the "
-"left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the"
+" left is necessary (relative to right lookahead)."
 msgstr ""
 "Factor para configurar la distancia de anticipación estratégica cuando es "
 "necesario un cambio a la izquierda (en relación con la anticipación a la "
@@ -9269,8 +9280,8 @@ msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
-"Factor para configurar la el umbral de asimetría al cambiar a la izquierda o "
-"a la derecha para ganar velocidad."
+"Factor para configurar la el umbral de asimetría al cambiar a la izquierda o"
+" a la derecha para ganar velocidad."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5825
 msgid "Upper bound on lateral speed when standing."
@@ -9286,10 +9297,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5837
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the alignment"
+"Distance to an upcoming turn on the vehicles route, below which the "
+"alignment"
 msgstr ""
-"Distancia al próximo giro en la ruta del vehículo, por debajo de la linea en "
-"la cual"
+"Distancia al próximo giro en la ruta del vehículo, por debajo de la linea en"
+" la cual"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5838
 msgid "should be dynamically adapted to match the turn direction."
@@ -9371,8 +9383,8 @@ msgstr "Si el vehículo para en la carretera o en los laterales"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5977
 msgid "Activity displayed for stopped person in GUI and output files"
 msgstr ""
-"Actividad mostrada para la persona detenida (en la visualización) y para los "
-"archivos de salida"
+"Actividad mostrada para la persona detenida (en la visualización) y para los"
+" archivos de salida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5982
 msgid ""
@@ -9398,7 +9410,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5999
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or disembark"
+"Whether the stop may be skipped if no passengers wants to embark or "
+"disembark"
 msgstr ""
 "Si se puede omitir la parada si ningún pasajero desea embarcar o desembarcar"
 
@@ -9515,8 +9528,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6232
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single "
-"value"
+"Whether the traffic statistic of all edges shall be aggregated into a single"
+" value"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
@@ -9531,8 +9544,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:100
 msgid ""
-"element can be only a networkElement, additional, demandElement, dataElement "
-"or meanData at the same time"
+"element can be only a networkElement, additional, demandElement, dataElement"
+" or meanData at the same time"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:104
@@ -9687,8 +9700,8 @@ msgstr "añadir zona de estacionamiento '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:355
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute width cannot be parse to"
+" float."
 msgstr ""
 "No se puede crear el espacio de estacionamiento en Netedit; El attributo "
 "'width\" no se puede convertir a float."
@@ -9703,8 +9716,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:359
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute angle cannot be parse to"
+" float."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:380
@@ -10366,7 +10379,8 @@ msgstr "Los vehículos no admiten paradas en aristas"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1219
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
-"Una parada debe ser definida sobre un lugar de parada, una arista o un carril"
+"Una parada debe ser definida sobre un lugar de parada, una arista o un "
+"carril"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1221
 msgid "A stop requires only a stoppingPlace, edge or lane"
@@ -11333,7 +11347,8 @@ msgid "Current selected reference point isn't valid"
 msgstr "El punto de referencia actual seleccionado no es válido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
-msgid "- Reference point: Mark the initial position of the additional element."
+msgid ""
+"- Reference point: Mark the initial position of the additional element."
 msgstr ""
 "- Punto de referencia: Marca la posición inicial del elemento adicional."
 
@@ -11362,8 +11377,8 @@ msgstr ""
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
 msgstr ""
-"  - Referencia central la creará con una posición de inicio (startPos) de 85 "
-"y una posición final (endPos) de 115."
+"  - Referencia central la creará con una posición de inicio (startPos) de 85"
+" y una posición final (endPos) de 115."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
 msgid ""
@@ -11375,10 +11390,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
-msgstr "  el ratón. Esta opción se puede modificar inspeccionando el elemento."
+msgstr ""
+"  el ratón. Esta opción se puede modificar inspeccionando el elemento."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
-msgid "- Center view: if is enabled, view will be center over created element."
+msgid ""
+"- Center view: if is enabled, view will be center over created element."
 msgstr ""
 "- Centrar vista: si está activo, la vista se centrará sobre el elemento "
 "creado."
@@ -11822,8 +11839,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
-"- Close shape: Add or remove the last vertex with the same position of first "
-"edge'."
+"- Close shape: Add or remove the last vertex with the same position of first"
+" edge'."
 msgstr ""
 "- Cerrar forma: Añadir o eliminar el último vértice con la misma posición "
 "que la primera arista."
@@ -11856,7 +11873,8 @@ msgstr " en grados decimales sin símblolos extra. (N,W...)\n"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:550
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
 msgstr ""
-" - Longitud: posición este-oeste de un punto en la superficie de la tierra.\n"
+" - Longitud: posición este-oeste de un punto en la superficie de la "
+"tierra.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:551
 msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
@@ -11920,8 +11938,8 @@ msgstr "Conjunto desconocido"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:270
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are "
-"then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are"
+" then applied to the current selection\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:271
@@ -11954,8 +11972,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:277
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison "
-"operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison"
+" operator ('<', '>', '=') and a number.\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
@@ -12002,7 +12020,8 @@ msgstr "- Ejemplos:\n"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:287
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:476
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
+"id\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
@@ -12128,8 +12147,8 @@ msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
 msgstr ""
-"Variar forma de la geometría ortogonalmente en la dirección establecida para "
-"todas las formas seleccionadas"
+"Variar forma de la geometría ortogonalmente en la dirección establecida para"
+" todas las formas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Click over edge to create or edit geometry point."
@@ -12745,7 +12764,8 @@ msgstr "Seleccione dos cruces para crear un viaje."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr "Seleccione dos zonas de análisis de tráfico (TAZ) para crear un viaje."
+msgstr ""
+"Seleccione dos zonas de análisis de tráfico (TAZ) para crear un viaje."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
@@ -12765,7 +12785,8 @@ msgstr "Seleccione dos cruces para crear un flujo."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr "Seleccione dos zonas de análisis de tráfico (TAZ) para crear un flujo."
+msgstr ""
+"Seleccione dos zonas de análisis de tráfico (TAZ) para crear un flujo."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
@@ -12986,8 +13007,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:312
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
+" nodes or with incompatible permissions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
@@ -13914,7 +13935,8 @@ msgid "Clean unused states from all phase"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1921
-msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid ""
+"Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1925
@@ -14284,10 +14306,11 @@ msgid "Invalid vClass"
 msgstr "Clase de vehículo (vClass) inválida"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
-msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid ""
+"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
-"El atributo 'value' está obsoleto para los puntos de interrupción. Por favor "
-"utilice 'time'."
+"El atributo 'value' está obsoleto para los puntos de interrupción. Por favor"
+" utilice 'time'."
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
@@ -15752,12 +15775,13 @@ msgstr "Se requiere reiniciar"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:415
 msgid "Changing display language needs restart to take effect."
 msgstr ""
-"Al cambiar el idioma de visualización se requiere reiniciar el programa para "
-"que surta efecto."
+"Al cambiar el idioma de visualización se requiere reiniciar el programa para"
+" que surta efecto."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:418
 msgid ""
-"For the Debug build you might also need to set the LANG environment variable."
+"For the Debug build you might also need to set the LANG environment "
+"variable."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:421
@@ -15845,8 +15869,8 @@ msgstr ""
 #~ "Scale traffic from flows and vehicles that are loaded incrementally from "
 #~ "route files."
 #~ msgstr ""
-#~ "Escalar el tráfico de flujos y vehículos que se cargan de forma "
-#~ "incremental desde los archivos de rutas."
+#~ "Escalar el tráfico de flujos y vehículos que se cargan de forma incremental "
+#~ "desde los archivos de rutas."
 
 #~ msgid "EdgeType files (*.tll.xml)"
 #~ msgstr "Archivos EdgeType (*.tll.xml)"
@@ -16054,12 +16078,10 @@ msgstr ""
 #~ msgstr "La ID del vehículo"
 
 #~ msgid "The name of the edge the flow starts at"
-#~ msgstr ""
-#~ "El nombre de la calle (edge) en la que el flujo (flow) debe comenzar"
+#~ msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe comenzar"
 
 #~ msgid "The name of the edge the flow ends at"
-#~ msgstr ""
-#~ "El nombre de la calle (edge) en la que el flujo (flow) debe terminar"
+#~ msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe terminar"
 
 #~ msgid "The name of the edge the stop shall be located at"
 #~ msgstr "El nombre de la calle (edge) en el que se ubicará la parada"
@@ -16079,8 +16101,8 @@ msgstr ""
 #~ "If attribute mask the start and end position, bot attribute has to be "
 #~ "defined"
 #~ msgstr ""
-#~ "Si un atributo enmascara las posiciones de inicio y final, ambos "
-#~ "atributos deben estar definidos"
+#~ "Si un atributo enmascara las posiciones de inicio y final, ambos atributos "
+#~ "deben estar definidos"
 
 #~ msgid "RecomputeData"
 #~ msgstr "Recalcular datos"
@@ -16231,11 +16253,11 @@ msgstr ""
 #~ msgstr "cargando elementos adicionales y meanDatas desde '"
 
 #~ msgid ""
-#~ "  Example: If you want to create a busStop with a length of 30 in the "
-#~ "point 100 of the lane:\n"
+#~ "  Example: If you want to create a busStop with a length of 30 in the point "
+#~ "100 of the lane:\n"
 #~ msgstr ""
-#~ "  Ejemplo: Si tu quieres crear una parada de bus (busStop) con un largo "
-#~ "de 30 en el punto 100 del carril (lane):\n"
+#~ "  Ejemplo: Si tu quieres crear una parada de bus (busStop) con un largo de "
+#~ "30 en el punto 100 del carril (lane):\n"
 
 #~ msgid ""
 #~ "- Block movement: if is enabled, the created additional element will be "
@@ -16248,8 +16270,8 @@ msgstr ""
 #~ "element must be at leas networkElement, additional, TAZ, demandElement or "
 #~ "dataElement"
 #~ msgstr ""
-#~ "Un elemento debe ser al menos networkElement, additional, TAZ, "
-#~ "demandElement o dataElement"
+#~ "Un elemento debe ser al menos networkElement, additional, TAZ, demandElement"
+#~ " o dataElement"
 
 #~ msgid ""
 #~ "element can be only a networkElement, additional, demandElement or "
@@ -16288,5 +16310,5 @@ msgstr ""
 
 #~ msgid "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui."
 #~ msgstr ""
-#~ "Cargar elementos adicionales en sumo-gui\t\tCargar elementos adicionales "
-#~ "en sumo-gui."
+#~ "Cargar elementos adicionales en sumo-gui\t\tCargar elementos adicionales en "
+#~ "sumo-gui."
