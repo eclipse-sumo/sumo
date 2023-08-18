@@ -43,7 +43,6 @@ protected:
   FXint          listHeight;        // List height
   FXint          visible;           // Number of rows high
   FXString       help;              // Help text
-  FXListSortFunc sortfunc;          // Item sort function
   FXint          grabx;             // Grab point x
   FXint          graby;             // Grab point y
   FXString       lookup;            // Lookup string
@@ -52,9 +51,7 @@ protected:
   MFXListIcon();
   void recompute();
   virtual MFXListIconItem *createItem(const FXString& text,FXIcon* icon,void* ptr);
-private:
-  MFXListIcon(const FXList&) = delete;
-  MFXListIcon &operator=(const FXList&) = delete;
+
 public:
   long onPaint(FXObject*,FXSelector,void*);
   long onEnter(FXObject*,FXSelector,void*);
@@ -81,11 +78,7 @@ public:
   long onCmdSetValue(FXObject*,FXSelector,void*);public:
   long onCmdGetIntValue(FXObject*,FXSelector,void*);
   long onCmdSetIntValue(FXObject*,FXSelector,void*);
-public:
-  static FXint ascending(const MFXListIconItem* a,const MFXListIconItem* b);
-  static FXint descending(const MFXListIconItem* a,const MFXListIconItem* b);
-  static FXint ascendingCase(const MFXListIconItem* a,const MFXListIconItem* b);
-  static FXint descendingCase(const MFXListIconItem* a,const MFXListIconItem* b);
+
 public:
   enum {
     ID_LOOKUPTIMER=FXScrollArea::ID_LAST,
@@ -207,15 +200,6 @@ public:
   */
   FXint findItem(const FXString& text,FXint start=-1,FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
 
-  /**
-  * Search items by associated user data, beginning from item start. If the
-  * start item is -1 the search will start at the first item in the list.
-  * Flags may be SEARCH_FORWARD or SEARCH_BACKWARD to control the
-  * search direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
-  * to control whether the search wraps at the start or end of the list.
-  */
-  FXint findItemByData(const void *ptr,FXint start=-1,FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
-
   /// Scroll to bring item into view
   virtual void makeItemVisible(FXint index);
 
@@ -224,18 +208,6 @@ public:
 
   /// Return item text
   FXString getItemText(FXint index) const;
-
-  /// Change item icon, deleting the old icon if it was owned
-  void setItemIcon(FXint index,FXIcon* icon,FXbool owned=FALSE);
-
-  /// Return item icon, if any
-  FXIcon* getItemIcon(FXint index) const;
-
-  /// Change item user-data pointer
-  void setItemData(FXint index,void* ptr);
-
-  /// Return item user-data pointer
-  void* getItemData(FXint index) const;
 
   /// Return TRUE if item is selected
   FXbool isItemSelected(FXint index) const;
@@ -288,18 +260,6 @@ public:
   /// Get item under the cursor, if any
   FXint getCursorItem() const { return cursor; }
 
-  /// Sort items using current sort function
-  void sortItems();
-
-  /// Return sort function
-  FXListSortFunc getSortFunc() const { return sortfunc; }
-
-  /// Change sort function
-  void setSortFunc(FXListSortFunc func){ sortfunc=func; }
-
-  /// Change text font
-  void setFont(FXFont* fnt);
-
   /// Return text font
   FXFont* getFont() const { return font; }
 
@@ -312,14 +272,8 @@ public:
   /// Return selected text background
   FXColor getSelBackColor() const { return selbackColor; }
 
-  /// Change selected text background
-  void setSelBackColor(FXColor clr);
-
   /// Return selected text color
   FXColor getSelTextColor() const { return seltextColor; }
-
-  /// Change selected text color
-  void setSelTextColor(FXColor clr);
 
   /// Return list style
   FXuint getListStyle() const;
@@ -333,12 +287,10 @@ public:
   /// Get the status line help text for this list
   const FXString& getHelpText() const { return help; }
 
-  /// Save list to a stream
-  virtual void save(FXStream& store) const;
-
-  /// Load list from a stream
-  virtual void load(FXStream& store);
-
   /// Destructor
   virtual ~MFXListIcon();
+
+private:
+  MFXListIcon(const FXList&) = delete;
+  MFXListIcon &operator=(const FXList&) = delete;
 };

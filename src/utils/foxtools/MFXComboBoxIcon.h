@@ -129,20 +129,11 @@ public:
     /// @brief Get text for specified item
     FXString getItemText(FXint index) const;
 
-    /// @brief Set data pointer for specified item
-    void setItemData(FXint index, void* ptr) const;
-
-    /// @brief Get data pointer for specified item
-    void* getItemData(FXint index) const;
-
     /// @brief Is the pane shown
     FXbool isPaneShown() const;
 
     /// @brief Sort items using current sort function
     void sortItems();
-
-    /// @brief Set text font
-    void setFont(FXFont* fnt);
 
     /// @brief Get text font
     FXFont* getFont() const;
@@ -165,14 +156,8 @@ public:
     /// @brief Return text color
     FXColor getTextColor() const;
 
-    /// @brief Change selected background color
-    void setSelBackColor(FXColor clr);
-
     /// @brief Return selected background color
     FXColor getSelBackColor() const;
-
-    /// @brief Change selected text color
-    void setSelTextColor(FXColor clr);
 
     /// @brief Return selected text color
     FXColor getSelTextColor() const;

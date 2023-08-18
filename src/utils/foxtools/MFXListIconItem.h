@@ -53,9 +53,6 @@ public:
     /// @brief Return item's text label
     const FXString& getText() const;
 
-    /// @brief Change item's icon, deleting the old icon if it was owned
-    void setIcon(FXIcon* icn,FXbool owned=FALSE);
-
     /// @brief Return item's icon
     FXIcon* getIcon() const;
 

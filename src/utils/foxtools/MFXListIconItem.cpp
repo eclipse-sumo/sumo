@@ -48,8 +48,8 @@ FXIMPLEMENT(MFXListIconItem, FXObject, nullptr, 0)
 MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
     label(text),
     icon(ic),
-    myBackGroundColor(backGroundColor),
-    data(ptr) {
+    data(ptr),
+    myBackGroundColor(backGroundColor) {
 }
 
 
@@ -130,21 +130,6 @@ MFXListIconItem::setText(const FXString& txt) {
 const FXString&
 MFXListIconItem::getText() const {
     return label;
-}
-
-
-void
-MFXListIconItem::setIcon(FXIcon* icn,FXbool owned) {
-    if (icon && (state&ICONOWNED)) {
-        if (icon!=icn) {
-            delete icon;
-        }
-        state&=~ICONOWNED;
-    }
-    icon=icn;
-    if (icon && owned) {
-        state|=ICONOWNED;
-    }
 }
 
 

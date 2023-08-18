@@ -338,32 +338,9 @@ MFXComboBoxIcon::getItemText(FXint index) const {
 }
 
 
-void
-MFXComboBoxIcon::setItemData(FXint index, void* ptr) const {
-    myList->setItemData(index, ptr);
-}
-
-
-void*
-MFXComboBoxIcon::getItemData(FXint index) const {
-    return myList->getItemData(index);
-}
-
-
 FXbool
 MFXComboBoxIcon::isPaneShown() const {
     return myPane->shown();
-}
-
-
-void
-MFXComboBoxIcon::setFont(FXFont* fnt) {
-    if (!fnt) {
-        fxerror("%s::setFont: NULL font specified.\n", getClassName());
-    }
-    myTextFieldIcon->setFont(fnt);
-    myList->setFont(fnt);
-    recalc();
 }
 
 
@@ -423,35 +400,15 @@ MFXComboBoxIcon::getTextColor() const {
 }
 
 
-void
-MFXComboBoxIcon::setSelBackColor(FXColor clr) {
-    myTextFieldIcon->setSelBackColor(clr);
-    myList->setSelBackColor(clr);
-}
-
-
 FXColor
 MFXComboBoxIcon::getSelBackColor() const {
     return myTextFieldIcon->getSelBackColor();
 }
 
 
-void
-MFXComboBoxIcon::setSelTextColor(FXColor clr) {
-    myTextFieldIcon->setSelTextColor(clr);
-    myList->setSelTextColor(clr);
-}
-
-
 FXColor
 MFXComboBoxIcon::getSelTextColor() const {
     return myTextFieldIcon->getSelTextColor();
-}
-
-
-void
-MFXComboBoxIcon::sortItems() {
-    myList->sortItems();
 }
 
 
@@ -538,11 +495,6 @@ MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     FXint index = myList->getCurrentItem();
     if (!(options & COMBOBOX_STATIC)) {
         switch (options & COMBOBOX_INS_MASK) {
-            case COMBOBOX_REPLACE:
-                if (0 <= index) {
-                    setIconItem(index, (FXchar*)ptr, nullptr, FXRGB(255, 255, 255), getItemData(index));
-                }
-                break;
             case COMBOBOX_INSERT_LAST:
                 appendIconItem((FXchar*)ptr);
                 break;
