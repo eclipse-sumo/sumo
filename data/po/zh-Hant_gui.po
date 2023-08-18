@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-04-26 09:39+0000\n"
+"PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
 "Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -192,27 +193,27 @@ msgstr "開啟對話窗以編輯觀看區域, 放大和旋轉。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "在netedit載入附加檔案 (additionals)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "在netedit載入附加檔案 (additionals)."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "在netedit載入交通需求(demand)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "在netedit載入交通需求 (demand)."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "在netedit內開啟"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "在netedit內開啟現有模擬."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -472,7 +473,7 @@ msgstr "圖磚&水平方向"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "水平地平舖視窗."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
@@ -480,7 +481,7 @@ msgstr "圖磚&垂直方向"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "垂直地平鋪視窗."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
