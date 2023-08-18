@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 13:08+0000\n"
+"PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -14210,83 +14210,83 @@ msgstr "选中的"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:672
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1215
 msgid "by allowed speed (lanewise)"
-msgstr "按限速（车道级）"
+msgstr "按限速（分车道）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1218
 msgid "by current occupancy (lanewise, brutto)"
-msgstr ""
+msgstr "按当前载客率（分车道，包括驾驶员）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:685
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1221
 msgid "by current occupancy (lanewise, netto)"
-msgstr ""
+msgstr "按当前载客率（分车道，除去驾驶员）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:691
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1224
 msgid "by first vehicle waiting time (lanewise)"
-msgstr ""
+msgstr "按第一辆车的等待时间（分车道）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:697
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1227
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "按车道数（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:701
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:940
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1231
 msgid "by CO2 emissions"
-msgstr ""
+msgstr "按CO2排放量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:709
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:948
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1234
 msgid "by CO emissions"
-msgstr ""
+msgstr "按CO排放量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:717
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:956
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1237
 msgid "by PMx emissions"
-msgstr ""
+msgstr "按PMx排放量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:725
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:964
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1240
 msgid "by NOx emissions"
-msgstr ""
+msgstr "按NOx排放量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:733
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:972
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1243
 msgid "by HC emissions"
-msgstr ""
+msgstr "按HC排放量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:741
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:980
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1246
 msgid "by fuel consumption"
-msgstr ""
+msgstr "按燃油消耗量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:749
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1249
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "按释放声音强度（噪声强度）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1253
 msgid "by global travel time"
-msgstr ""
+msgstr "按全局行程时间"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1257
 msgid "by global speed percentage"
-msgstr ""
+msgstr "按全局速度百分数"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:767
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1261
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "按给定的长度/几何长度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:775
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1094
@@ -14295,67 +14295,67 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1342
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1566
 msgid "by angle"
-msgstr ""
+msgstr "按角度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:776
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
 msgid "by loaded weight"
-msgstr ""
+msgstr "按载重"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:780
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1269
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1568
 msgid "by priority"
-msgstr ""
+msgstr "按优先级"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:785
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1573
 msgid "by height at start"
-msgstr ""
+msgstr "按起始时的高度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:793
 msgid "by height at geometry-segment start"
-msgstr ""
+msgstr "按几何段起始处的高度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:801
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1587
 msgid "by inclination"
-msgstr ""
+msgstr "按倾斜度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:808
 msgid "by geometry-segment inclination"
-msgstr ""
+msgstr "按几何段的倾斜度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:815
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1274
 msgid "by average speed"
-msgstr ""
+msgstr "按平均速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:822
 msgid "by average relative speed "
-msgstr ""
+msgstr "按平均相对速度 "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:829
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "按路由设备预定的速度 "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:836
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1032
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1282
 msgid "by electricity consumption"
-msgstr ""
+msgstr "按电量消耗"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:844
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1285
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1370
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1405
 msgid "by insertion-backlog (streetwise)"
-msgstr ""
+msgstr "按插入积压（分车道）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:849
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "by TAZ (streetwise)"
-msgstr ""
+msgstr "按交通小区（TAZ，分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:857
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:884
@@ -14365,19 +14365,19 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1616
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1682
 msgid "missing data"
-msgstr ""
+msgstr "缺失数据"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
 msgid "by distance (kilometrage)"
-msgstr ""
+msgstr "按距离（单位为km）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:867
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "按绝对距离（单位为km）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by reachability (traveltime)"
-msgstr ""
+msgstr "按可达性（以行程时间计）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by thread index"
