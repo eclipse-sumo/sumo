@@ -152,7 +152,7 @@ private:
     static const Position& getAnchor(const MSLane* const lane, const MSJunction* const junction);
     static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
-    static bool hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
+    static const MSEdge* hasWalkingAreasInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     GEOSGeometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
     GEOSGeometry* createShapeFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
