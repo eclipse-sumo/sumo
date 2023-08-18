@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #pragma once
-#include <config.h>
+#include  < config.h>
 
 #include "MFXListIconItem.h"
 
@@ -89,31 +89,31 @@ public:
     FXint setItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Replace items text,  icon,  and user-data pointer
-    FXint setItem(FXint index, const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    FXint setItem(FXint index, const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Fill list by appending items from array of strings
     FXint fillItems(const FXchar** strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Fill list by appending items from newline separated strings
-    FXint fillItems(const FXString& strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    FXint fillItems(const FXString &strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Insert a new [possibly subclassed] item at the give index
     FXint insertItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Insert item at index with given text,  icon,  and user-data pointer
-    FXint insertItem(FXint index, const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    FXint insertItem(FXint index, const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Append a [possibly subclassed] item to the list
     FXint appendItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Append new item with given text and optional icon,  and user-data pointer
-    FXint appendItem(const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Prepend a [possibly subclassed] item to the list
     FXint prependItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Prepend new item with given text and optional icon,  and user-data pointer
-    FXint prependItem(const FXString& text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    FXint prependItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Move item from oldindex to newindex
     FXint moveItem(FXint newindex, FXint oldindex, FXbool notify = FALSE);
@@ -149,13 +149,13 @@ public:
     * passing SEARCH_PREFIX causes searching for a prefix of the item name.
     * Return -1 if no matching item is found.
     */
-    FXint findItem(const FXString& text, FXint start = -1, FXuint flags = SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItem(const FXString &text, FXint start = -1, FXuint flags = SEARCH_FORWARD|SEARCH_WRAP) const;
 
     /// @brief Scroll to bring item into view
     void makeItemVisible(FXint index);
 
     /// @brief Change item text
-    void setItemText(FXint index, const FXString& text);
+    void setItemText(FXint index, const FXString &text);
 
     /// @brief Return item text
     FXString getItemText(FXint index) const;
@@ -233,10 +233,10 @@ public:
     void setListStyle(FXuint style);
 
     /// @brief Set the status line help text for this list
-    void setHelpText(const FXString& text);
+    void setHelpText(const FXString &text);
 
     /// @brief Get the status line help text for this list
-    const FXString& getHelpText() const { return help; }
+    const FXString &getHelpText() const { return help; }
 
     /// @name call functions
     /// @{
@@ -275,10 +275,10 @@ protected:
     void recompute();
 
     /// @brief @brief create item
-    MFXListIconItem *createItem(const FXString& text, FXIcon* icon, void* ptr);
+    MFXListIconItem *createItem(const FXString &text, FXIcon* icon, void* ptr);
 
     /// @brief Item list
-    FXObjectListOf<MFXListIconItem> items;
+    FXObjectListOf < MFXListIconItem> items;
  
     /// @brief Anchor item
     FXint anchor;
@@ -333,8 +333,8 @@ protected:
 
 private:
      /// @brief @brief invalidate copy constructor
-     MFXListIcon(const FXList&) = delete;
+     MFXListIcon(const FXList & ) = delete;
 
      /// @brief @brief invalidate assignement operator
-     MFXListIcon &operator = (const FXList&) = delete;
+     MFXListIcon  & operator = (const FXList & ) = delete;
 };

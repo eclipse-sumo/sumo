@@ -18,34 +18,37 @@
 //
 /****************************************************************************/
 
-/* == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==  = 
- * included modules
- * == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == =  */
+// ===========================================================================
+// included modules
+// ===========================================================================
 
-#include <utils/common/UtilExceptions.h>
-#include <fxkeys.h>
+#include  < utils/common/UtilExceptions.h>
+#include  < fxkeys.h>
 
 #include "MFXListIconItem.h"
 #include "MFXListIcon.h"
 
+// ===========================================================================
+// Macross
+// ===========================================================================
 
 #define SIDE_SPACING    6   // Left or right spacing between items
 #define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
 #define LINE_SPACING    4   // Line spacing between items
 #define ICON_SIZE       16
 
-// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = 
+// ===========================================================================
 // FOX callback mapping
-// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = 
+// ===========================================================================
 
 // Object implementation
 FXIMPLEMENT(MFXListIconItem, FXObject, nullptr, 0)
 
-// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = 
+// =========================================================================== 
 // member method definitions
-// == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = 
+// ===========================================================================
 
-MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
+MFXListIconItem::MFXListIconItem(const FXString &text, FXIcon* ic, FXColor backGroundColor, void* ptr):
     label(text),
     icon(ic),
     data(ptr),
@@ -54,7 +57,7 @@ MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backG
 
 
 MFXListIconItem::~MFXListIconItem() {
-    if (state&ICONOWNED) {
+    if (state & ICONOWNED) {
         delete icon;
     }
     icon = (FXIcon*)-1L;
@@ -122,12 +125,12 @@ MFXListIconItem::isDraggable() const {
 
 
 void
-MFXListIconItem::setText(const FXString& txt) {
+MFXListIconItem::setText(const FXString &txt) {
     label = txt;
 }
 
 
-const FXString&
+const FXString & 
 MFXListIconItem::getText() const {
     return label;
 }
@@ -149,7 +152,7 @@ MFXListIconItem::create() {
 
 void
 MFXListIconItem::destroy() {
-    if ((state&ICONOWNED) && icon) {
+    if ((state & ICONOWNED) && icon) {
         icon->destroy();
     }
 }
@@ -191,12 +194,12 @@ MFXListIconItem::getHeight(const MFXListIcon* list) const {
     if (!label.empty()) {
         th = font->getFontHeight();
     }
-    return LINE_SPACING+FXMAX(th,ih);
+    return LINE_SPACING+FXMAX(th, ih);
 }
 
 
 
-const FXColor&
+const FXColor & 
 MFXListIconItem::getBackGroundColor() const {
     return myBackGroundColor;
 }
@@ -206,7 +209,7 @@ MFXListIconItem::MFXListIconItem() {}
 
 
 void
-MFXListIconItem::draw(const MFXListIcon* list,FXDC& dc,FXint xx,FXint yy,FXint ww,FXint hh) {
+MFXListIconItem::draw(const MFXListIcon* list,FXDC &  dc,FXint xx,FXint yy,FXint ww,FXint hh) {
     FXFont* font = list->getFont();
     FXint ih = icon? ICON_SIZE : 0;
     FXint th = 0;
@@ -252,25 +255,25 @@ MFXListIconItem::hitItem(const MFXListIcon* list,FXint xx,FXint yy) const {
         ih = icon->getHeight();
     }
     if (!label.empty()) {
-        tw = 4+font->getTextWidth(label.text(),label.length());
-        th = 4+font->getFontHeight();
+        tw = 4 + font->getTextWidth(label.text(),label.length());
+        th = 4 + font->getFontHeight();
     }
     h = LINE_SPACING+FXMAX(th,ih);
-    ix = SIDE_SPACING/2;
-    tx = SIDE_SPACING/2;
+    ix = SIDE_SPACING / 2;
+    tx = SIDE_SPACING / 2;
     if (iw) {
         tx += iw+ICON_SPACING;
     }
-    iy = (h-ih)/2;
-    ty = (h-th)/2;
+    iy = (h-ih) / 2;
+    ty = (h-th) / 2;
 
     // In icon?
-    if (ix <= xx && iy <= yy && xx<ix+iw && yy<iy+ih) {
+    if (ix <= xx && iy <= yy && xx < ix+iw && yy < iy+ih) {
         return 1;
     }
 
     // In text?
-    if (tx <= xx && ty <= yy && xx<tx+tw && yy<ty+th) {
+    if (tx <= xx && ty <= yy && xx < tx+tw && yy < ty+th) {
         return 2;
     }
 

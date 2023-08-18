@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #pragma once
-#include <config.h>
+#include  < config.h>
 
 #include "fxheader.h"
 
@@ -42,22 +42,22 @@ public:
     };
 
     /// @brief Construct new item with given text, icon, and user-data
-    MFXListIconItem(const FXString& text,FXIcon* ic = NULL, FXColor backGroundColor = 0, void* ptr = NULL);
+    MFXListIconItem(const FXString &text,FXIcon* ic = NULL, FXColor backGroundColor = 0, void* ptr = NULL);
 
     /// @brief Destroy item and free icons if owned
     ~MFXListIconItem();
 
     /// @brief Change item's text label
-    void setText(const FXString& txt);
+    void setText(const FXString &txt);
 
     /// @brief Return item's text label
-    const FXString& getText() const;
+    const FXString &getText() const;
 
     /// @brief Return item's icon
     FXIcon* getIcon() const;
 
     /// @brief get background color
-    const FXColor& getBackGroundColor() const;
+    const FXColor &  getBackGroundColor() const;
 
     /// @brief Make item draw as focused
     void setFocus(FXbool focus);
@@ -103,7 +103,7 @@ protected:
     MFXListIconItem();
 
     /// @brief daraw
-    void draw(const MFXListIcon* list,FXDC& dc,FXint x,FXint y,FXint w,FXint h);
+    void draw(const MFXListIcon* list,FXDC &  dc,FXint x,FXint y,FXint w,FXint h);
 
     /// @brief hit item
     FXint hitItem(const MFXListIcon* list,FXint x,FXint y) const;
@@ -129,8 +129,8 @@ protected:
 
 private:
     /// @brief invalidate copy constructor
-    MFXListIconItem(const MFXListIconItem&) = delete;
+    MFXListIconItem(const MFXListIconItem & ) = delete;
 
     /// @brief invalidate assign constructor
-    MFXListIconItem& operator = (const MFXListIconItem&) = delete;
+    MFXListIconItem &  operator = (const MFXListIconItem & ) = delete;
 };
