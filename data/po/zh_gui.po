@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 09:00+0000\n"
+"PO-Revision-Date: 2023-08-18 10:31+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -11283,11 +11283,11 @@ msgstr "只允许有两个路口"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:440
 msgid "Double TAZs aren't allowed"
-msgstr ""
+msgstr "不允许有双向的交通小区 (TAZs)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:448
 msgid "Only two TAZs are allowed"
-msgstr ""
+msgstr "只允许有两个交通小区 (TAZs)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:483
 msgid "Double edges aren't allowed"
@@ -11552,19 +11552,19 @@ msgstr "保护要素"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:240
 msgid "Protect all"
-msgstr ""
+msgstr "保护全体"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:240
 msgid "Protect all elements"
-msgstr ""
+msgstr "保护所有元素"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:242
 msgid "Unprotect all"
-msgstr ""
+msgstr "全部取消保护"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:242
 msgid "Unprotect all elements"
-msgstr ""
+msgstr "对所有元素取消保护"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:244
 msgid "Protect additional elements"
@@ -11584,7 +11584,7 @@ msgstr "保护数据元素"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:362
 msgid "remove selected items"
-msgstr ""
+msgstr "移除选择的项目"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:48
 msgid "Element Set"
@@ -11852,7 +11852,7 @@ msgstr "移动整个多边形"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:105
 msgid "Force draw geom. points"
-msgstr ""
+msgstr "强制绘制几何点 (geom. points)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:160
 msgid "Demand move options"
@@ -11905,19 +11905,19 @@ msgstr "将Z值应用于所有选定的结点"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:531
 msgid "- Num geometry points: "
-msgstr ""
+msgstr "- 几何点总数： "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:532
 msgid "- Selection minimum Z: "
-msgstr ""
+msgstr "- 选择的最小Z值： "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:533
 msgid "- Selection maximum Z: "
-msgstr ""
+msgstr "- 选择的最大Z值： "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 msgid "- Selection average Z: "
-msgstr ""
+msgstr "- 选择的平均Z值： "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:545
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:561
@@ -11932,11 +11932,11 @@ msgstr "对于所有选定的形状，将形状的几何形状正交于驱动方
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Click over edge to create or edit geometry point."
-msgstr ""
+msgstr "在边上单击以创建或编辑几何点。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Shift+click over edge to edit start or end geometry point."
-msgstr ""
+msgstr "在边上使用“Shift+鼠标左键”以编辑起始或终止的几何点。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:645
 msgid "-Move geometry point"
@@ -11948,7 +11948,7 @@ msgstr "-合并几何点"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 msgid "Move"
-msgstr ""
+msgstr "移动"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
@@ -11961,7 +11961,7 @@ msgstr "交叉口"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
-msgstr ""
+msgstr "连接器"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
@@ -11970,30 +11970,30 @@ msgstr "交叉"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
-msgstr ""
+msgstr "步行区"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
-msgstr ""
+msgstr "附属物"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
-msgstr ""
+msgstr "电缆"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1445
 msgid "TAZs"
-msgstr "交通分区"
+msgstr "交通小区"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:106
 msgid "TAZSources"
-msgstr ""
+msgstr "交通小区的源 (TAZSources)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:107
 msgid "TAZSinks"
-msgstr ""
+msgstr "交通小区的汇 (TAZSinks)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
@@ -12007,12 +12007,12 @@ msgstr "兴趣点"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 msgid "JuPedSim elements"
-msgstr ""
+msgstr "JupedSim的元素"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
 msgid "Routes"
-msgstr ""
+msgstr "路径"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
@@ -12022,23 +12022,23 @@ msgstr "容器"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:124
 msgid "Transport"
-msgstr ""
+msgstr "运输工具"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
 msgid "Tranships"
-msgstr ""
+msgstr "运输船"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:128
 msgid "EdgeDatas"
-msgstr ""
+msgstr "道路数据 (EdgeDatas)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:129
 msgid "EdgeRelDatas"
-msgstr ""
+msgstr "道路关系数据 (EdgeRelDatas)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:130
 msgid "EdgeTAZRel"
-msgstr ""
+msgstr "道路-交通小区关系 (EdgeTAZRel)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 msgid "Modification Mode"
@@ -12083,7 +12083,7 @@ msgstr "视觉缩放"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
 msgid "Enlarge selected objects"
-msgstr ""
+msgstr "放大选中的对象"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
@@ -12127,7 +12127,7 @@ msgstr "无法打开'%'。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
 msgid "load selection"
-msgstr ""
+msgstr "加载所选"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
@@ -12142,11 +12142,11 @@ msgstr "保存所选项目的清单"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
 msgid "invert selection"
-msgstr ""
+msgstr "插入所选"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
 msgid "simplify network"
-msgstr ""
+msgstr "简化路网"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
@@ -12154,7 +12154,7 @@ msgstr "层次结构操作"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
 msgid "Select parents"
-msgstr ""
+msgstr "选择父项 (parents)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1144
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1154
@@ -12168,23 +12168,23 @@ msgstr "未选择"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1148
 msgid "Select children"
-msgstr ""
+msgstr "选择子项 (children)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
-msgstr ""
+msgstr "选择父项 (parents)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
 msgid "select children"
-msgstr ""
+msgstr "选择子项 (parents)"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Hold <SHIFT> for rectangle selection."
-msgstr ""
+msgstr "按住<Shift> 进行矩形框选。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Press <DEL> to delete selected objects."
-msgstr ""
+msgstr "按<DEL> 删除所选对象。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
@@ -12195,7 +12195,7 @@ msgstr "选择"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1609
 msgid "selection"
-msgstr ""
+msgstr "选择"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
@@ -12267,7 +12267,7 @@ msgstr "当前的 MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:451
 msgid "MeanData"
-msgstr ""
+msgstr "平均数据"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
@@ -12339,39 +12339,39 @@ msgstr "无效的容器参数。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:40
 msgid "ContainerPlans"
-msgstr ""
+msgstr "容器计划"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:77
 msgid "Distribution Editor"
-msgstr ""
+msgstr "分配编辑器"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:83
 msgid "New"
-msgstr ""
+msgstr "新建"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:85
 msgid "Create new %"
-msgstr ""
+msgstr "新建 %"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:89
 msgid "Delete current edited %"
-msgstr ""
+msgstr "删除当前编辑的 %"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:161
 msgid "Distribution selector"
-msgstr ""
+msgstr "分布选择器"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:328
 msgid "Delete distribution value"
-msgstr ""
+msgstr "删除分布的值"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:486
 msgid "Distribution values"
-msgstr ""
+msgstr "分布的值"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:502
 msgid "Add new distribution value"
-msgstr ""
+msgstr "添加新的分布值"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
@@ -12402,11 +12402,11 @@ msgstr "无效的人员参数。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr ""
+msgstr "人员计划"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
 msgid "Route Distributions"
-msgstr ""
+msgstr "路径分布"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -12419,35 +12419,35 @@ msgstr "路径模式"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "按住“Shift+鼠标左键”以选择父项 (parent)"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
-msgstr ""
+msgstr "单击公交车站以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
 msgid "Click over a train stop to create a stop."
-msgstr ""
+msgstr "单击火车站以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
 msgid "Click over a container stop to create a stop."
-msgstr ""
+msgstr "单击货运站以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
 msgid "Click over a charging station to create a stop."
-msgstr ""
+msgstr "单击收费站以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
-msgstr ""
+msgstr "单击停车区域以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr ""
+msgstr "单击车道以创建停靠点。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
-msgstr ""
+msgstr "在当前路网中没有停靠点父项 (stop parents)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
@@ -12479,7 +12479,7 @@ msgstr "必须在嵌入路线的路段上设置停车位"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
-msgstr ""
+msgstr "类型分布"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
@@ -12508,59 +12508,59 @@ msgstr "重置类型"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:284
 msgid "create vehicle type"
-msgstr ""
+msgstr "创建交通实体类型"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "copy vehicle type"
-msgstr ""
+msgstr "复制交通实体类型"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
 msgid "reset default vehicle type values"
-msgstr ""
+msgstr "重置默认的交通实体类型值"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
 msgid "Types"
-msgstr ""
+msgstr "类型"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
-msgstr ""
+msgstr "单击路径以创建车辆。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
-msgstr ""
+msgstr "选择两条道路以创建出行 (trip)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:80
 msgid "Select two edges to create a vehicle with embedded route."
-msgstr ""
+msgstr "选择两条道路以创建一个嵌入路径的车辆。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:84
 msgid "Select two junctions to create a trip."
-msgstr ""
+msgstr "选择两个交叉口以创建出行 (trip)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr ""
+msgstr "选择两个交通小区 (TAZs) 以创建出行 (trip)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
-msgstr ""
+msgstr "单击一条路径以创建路径流 (routeFlow)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
-msgstr ""
+msgstr "选择两条道路以创建流 (flow)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:101
 msgid "Select two edges to create a flow with embedded route."
-msgstr ""
+msgstr "选择两条道路以创建嵌入路径的流 (flow)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "Select two junctions to create a flow."
-msgstr ""
+msgstr "选择两个交叉口以创建流 (flow)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr ""
+msgstr "选择两个交通小区 (TAZs) 以创建流 (flow)。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
@@ -12579,17 +12579,19 @@ msgstr "图例"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:91
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:93
 msgid "-Click over lane to create it"
-msgstr ""
+msgstr "- 单击一条车道以创建它"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:95
 msgid "-Click over view to create it"
-msgstr ""
+msgstr "- 单击一种视图以创建它"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
 "-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
+"- 需要至少一个入口\n"
+" 和一个出口"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
@@ -12597,6 +12599,8 @@ msgid ""
 "-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
+"- 需要进出口检测器 (EntryExitDetector)\n"
+" 父项\n"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:99
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:102
@@ -12606,6 +12610,10 @@ msgid ""
 " clicking over one in view\n"
 " oder selecting in list"
 msgstr ""
+"- 选择进出口检测器 (EntryExitDetector)\n"
+" 在创建两者之前\n"
+" 单击视图中的一个\n"
+" 或在列表中选择"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:190
 msgid "Current selected additional isn't valid."
@@ -12629,7 +12637,7 @@ msgstr "'不能大于属性'"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:435
 msgid "List of edges cannot be empty"
-msgstr ""
+msgstr "道路列表不能为空"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:445
 msgid "List of lanes cannot be empty"
@@ -12689,7 +12697,7 @@ msgstr "保存连接操作错误"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:131
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
-msgstr ""
+msgstr "无法保存连接器的版本，因为路径 '%' 是断开的。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -12765,7 +12773,7 @@ msgstr "从选定的车道重置连接"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:311
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
-msgstr ""
+msgstr "在单击时按住 <Shift> 以创建冲突 (unyielding) 连接 (pass=true)。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:312
 msgid ""
