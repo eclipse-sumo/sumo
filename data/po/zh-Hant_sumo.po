@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 11:31+0000\n"
+"PO-Revision-Date: 2023-08-18 13:08+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hant/>\n"
@@ -3519,7 +3519,7 @@ msgstr ""
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
-msgstr ""
+msgstr "車輛'%'不提供車輛參數 'device.ssm.mdrac.prt' . 使用預設值 '%' ."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3925
 #, c-format
@@ -3599,44 +3599,44 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:46
 msgid ""
 "Time to wait for a rescue vehicle on the road side when the battery is empty"
-msgstr ""
+msgstr "當電池耗盡時, 在路邊等待救援車輛的時間"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:48
 msgid ""
 "Additional battery buffer for unexpected traffic situation when estimating "
 "the battery need"
-msgstr ""
+msgstr "估計電池需要量時,為突發交通狀況考量的額外電池量"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:50
 msgid "Battery percentage to go into rescue mode"
-msgstr ""
+msgstr "進入救援模式時的電池百分比"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:52
 msgid "Search radius in travel time seconds"
-msgstr ""
+msgstr "以旅行時間(秒)為單位的尋找半徑"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:54
 msgid "When to trigger a new search if no station has been found"
-msgstr ""
+msgstr "如果沒有找到充電站, 何時啟動新的搜尋"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:56
 msgid "The maximum charging speed of the vehicle battery"
-msgstr ""
+msgstr "車輛電池的最大充電速度"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:58
 msgid "Type of energy transfer"
-msgstr ""
+msgstr "能量轉換型式"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:60
 msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
-msgstr ""
+msgstr "當初始充電站已被占用時, 車輛將在此停等時間後搜尋一個新的充電站"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:124
 msgid ""
 "Rerouting using station finder removes all upcoming stops for vehicle '%'."
-msgstr ""
+msgstr "使用充電站尋找器重新進行的路徑導引將移除車輛 '%' 所有即將到來停靠點."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:84
 msgid ""
@@ -3886,7 +3886,7 @@ msgstr "車輛 '%' 在囊底路停止空轉/怠速"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:183
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
-msgstr ""
+msgstr "無法決定車輛 '%' 的計程車停靠站(時間= %)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
@@ -4158,6 +4158,11 @@ msgid ""
 "  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit\n"
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building."
 msgstr ""
+"時制計畫 '%' (位於tlLogic '%' ) 與路口 '%' 的號誌邏輯不相容 (連接線索引(link "
+"indices) %,% 號誌索引(tl indices) %,% 相位 (phase) % 相互衝突):\n"
+"   為了避免堵死/碰撞, 使用新版本的netconvert/netedit 重新建立號誌計畫;\n"
+"   或是在建立重新路網時, 使用選項 '--tls.ignore-internal-junction-jam', "
+"或在建立路網時, 包含號誌計畫(program)."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:468
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -4517,7 +4522,7 @@ msgstr "路段 '%' 以未定義的優先級別 (%) 被載入，但具有明確�
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1359
 msgid "Added % rail signals at % stops."
-msgstr ""
+msgstr "已增加 % 個鐵路信號 (位於 % 個停靠站)."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:116
 #, c-format
@@ -4631,7 +4636,7 @@ msgstr "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,�
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
-msgstr ""
+msgstr "無法於路段 '%' 使用轉彎標誌訊息, 因為目標路段 '%'沒有合適的車道"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:2703
 msgid ""
@@ -5067,7 +5072,7 @@ msgstr "在所有載入的停靠點增加迴轉的連接線(turn-around connecti
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:242
 msgid ""
 "Penalty factor for adding new bidi edges to connect public transport stops"
-msgstr ""
+msgstr "增加新bidi路段連接大眾運輸停靠站的懲罰因素 (penalty factor)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:245
 msgid "Make all rails usable in both direction"
@@ -5087,7 +5092,7 @@ msgstr "根據估計的主方向來擴展載入的路段的優先級別值"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:257
 msgid "Guess signals that guard public transport stops"
-msgstr ""
+msgstr "猜測看管大眾運輸停靠站的號誌"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:260
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -5214,7 +5219,7 @@ msgstr "不要在 FLOAT 中由行人路口連接的人行道之間建立步行�
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:512
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
-msgstr ""
+msgstr "將 STR[] 解釋為在整合(joining)時, 要排除的號誌識別號(tls ids) 的列表"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:621
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -6147,7 +6152,7 @@ msgstr "正在猜測連接索引(link index) % 的號誌識別名(ID) (交通號
 msgid ""
 "Was not able to apply the OpenDRIVE signal group information onto the signal"
 " program of traffic light % generated by SUMO."
-msgstr ""
+msgstr "無法將OpenDRIVE號誌群族訊息用於SUMO產生的交通號誌 % 的號誌計畫."
 
 #: C:\Repos\sumo/src\netconvert_main.cpp:98
 msgid ""
@@ -6799,7 +6804,7 @@ msgstr "使用自定車道形狀來補償廢除的車道類型"
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:368
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
-msgstr ""
+msgstr "使用 OpenDRIVE 的控制器訊息來產生號誌計畫"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:379
 msgid ""
@@ -6888,7 +6893,7 @@ msgstr "路段 '%' 連接相同的節點, 跳過。"
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr ""
+msgstr "路段 '%' 不是唯一的."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
@@ -7169,7 +7174,7 @@ msgstr "無法找到 '%' 的 fromEdge 表示法 (位於連接線 '%'內)。"
 msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
-msgstr ""
+msgstr "目前尚未完成用同一個控制器 '%' 控制多個路口."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:789
 #, c-format
@@ -7195,6 +7200,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
+"從 '%' to '%' (控制器 '%') 的連接線(connection)的號誌不明確, 因為它被號誌 "
+"'%' (控制器為 '%') 覆寫 (overwritten)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:892
 msgid ""
@@ -7206,6 +7213,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"從 '%' to '%' (控制器 為 '%') 的連接線(connection)的號誌不明確, 因為它被號誌 "
+"'%' (控制器為 '%') 覆寫 (overwritten)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1363
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1395
@@ -7252,7 +7261,7 @@ msgstr "忽略無效的 pRange 值 '%' (在道路 '%')。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2479
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "忽略缺少的號誌'%' (位於控制器'%')。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2517
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2724
