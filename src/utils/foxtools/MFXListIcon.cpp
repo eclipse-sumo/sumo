@@ -273,7 +273,7 @@ MFXListIcon::isItemVisible(FXint index) const {
     if (index < 0 || items.no() <= index) {
         fxerror("%s::isItemVisible: index out of range.\n", getClassName());
     }
-    return (0  <  (pos_y+items[index]->y+items[index]->getHeight(this))) && ((pos_y+items[index]->y)  <  viewport_h);
+    return (0 < (pos_y+items[index]->y+items[index]->getHeight(this))) && ((pos_y+items[index]->y) < viewport_h);
 }
 
 
@@ -687,18 +687,18 @@ MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXint i,  y,  h;
     // Paint items
     y = pos_y;
-    for (i = 0; i  <  items.no(); i++) {
+    for (i = 0; i < items.no(); i++) {
         const auto listIcon = dynamic_cast < MFXListIconItem*>(items[i]);
         if (listIcon) {
             h = listIcon->getHeight(this);
-            if (event->rect.y  <=  (y + h) && y  <  (event->rect.y + event->rect.h)) {
+            if (event->rect.y  <=  (y + h) && y < (event->rect.y + event->rect.h)) {
                 listIcon->draw(this,  dc,  pos_x,  y,  FXMAX(listWidth,  viewport_w),  h);
             }
             y += h;
         }
     }
     // Paint blank area below items
-    if (y  <  (event->rect.y + event->rect.h)) {
+    if (y < (event->rect.y + event->rect.h)) {
         dc.setForeground(backColor);
         dc.fillRectangle(event->rect.x,  y,  event->rect.w,  event->rect.y + event->rect.h - y);
     }
