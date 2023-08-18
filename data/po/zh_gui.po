@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 13:41+0000\n"
+"PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -14381,142 +14381,142 @@ msgstr "按可达性（以行程时间计）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by thread index"
-msgstr ""
+msgstr "按线程索引"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:878
 msgid "free parking spaces"
-msgstr ""
+msgstr "免费停车位"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:889
 msgid "given vehicle/type/route color"
-msgstr ""
+msgstr "给定 车辆/类型/路径 颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:891
 msgid "given/assigned vehicle color"
-msgstr ""
+msgstr "给定/指定的车辆颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:892
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1100
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
 msgid "given/assigned type color"
-msgstr ""
+msgstr "给定/指定的类型颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
 msgid "given/assigned route color"
-msgstr ""
+msgstr "给定/指定的路径颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
 msgid "depart position as HSV"
-msgstr ""
+msgstr "以出发位置作为HSV着色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:895
 msgid "arrival position as HSV"
-msgstr ""
+msgstr "以到达位置作为HSV着色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:896
 msgid "direction/distance as HSV"
-msgstr ""
+msgstr "以方向/距离作为HSV着色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:897
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1101
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1136
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1426
 msgid "by speed"
-msgstr ""
+msgstr "按速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "by action step"
-msgstr ""
+msgstr "按行动步骤"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "no action"
-msgstr ""
+msgstr "无行动"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:908
 msgid "action in next step"
-msgstr ""
+msgstr "在下一（仿真）步行动"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:909
 msgid "had action step"
-msgstr ""
+msgstr "有行动步骤"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:911
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1432
 msgid "by waiting time"
-msgstr ""
+msgstr "按等待时间"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:917
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1438
 msgid "by accumulated waiting time"
-msgstr ""
+msgstr "按累计等待时间"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:923
 msgid "by time since lane change"
-msgstr ""
+msgstr "按换道后的时间"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:932
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1441
 msgid "by max speed"
-msgstr ""
+msgstr "按最大速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:996
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1448
 msgid "by reroute number"
-msgstr ""
+msgstr "按改变线路编号"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1003
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1452
 msgid "by offset from best lane"
-msgstr ""
+msgstr "按从最佳车道的偏移量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1004
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1453
 msgid "opposite lane"
-msgstr ""
+msgstr "反向车道"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1011
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1460
 msgid "by acceleration"
-msgstr ""
+msgstr "按加速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1020
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1469
 msgid "by time gap on lane"
-msgstr ""
+msgstr "按车道上的时间间隔"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1026
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1475
 msgid "by depart delay"
-msgstr ""
+msgstr "按出发延迟"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1040
 msgid "by relative battery charge"
-msgstr ""
+msgstr "按相对电量"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1049
 msgid "by charged energy"
-msgstr ""
+msgstr "按充电效率"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1058
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1481
 msgid "by time loss"
-msgstr ""
+msgstr "按损失时间"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1064
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1487
 msgid "by stop delay"
-msgstr ""
+msgstr "按停止延误"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1073
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1496
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "按停止到达延误"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1083
 msgid "by lateral speed"
-msgstr ""
+msgstr "按横向速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1093
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1129
@@ -14524,225 +14524,225 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1205
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1667
 msgid "random"
-msgstr ""
+msgstr "随机"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
 msgid "given person/type color"
-msgstr ""
+msgstr "给定的人员/类型颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1099
 msgid "given/assigned person color"
-msgstr ""
+msgstr "给定/指定的人员颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "by mode"
-msgstr ""
+msgstr "按模式"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "waiting for insertion"
-msgstr ""
+msgstr "等待插入的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1110
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1142
 msgid "stopped"
-msgstr ""
+msgstr "停止的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1111
 msgid "walking"
-msgstr ""
+msgstr "步行的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
 msgid "riding"
-msgstr ""
+msgstr "乘车的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1113
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1144
 msgid "accessing trainStop"
-msgstr ""
+msgstr "前往火车站"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1114
 msgid "waiting for ride"
-msgstr ""
+msgstr "等待乘车的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1122
 msgid "by jammed state"
-msgstr ""
+msgstr "按拥堵状态"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1132
 msgid "given container/type color"
-msgstr ""
+msgstr "按容器/类型颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1134
 msgid "given/assigned container color"
-msgstr ""
+msgstr "给定/指定的容器颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1143
 msgid "transport"
-msgstr ""
+msgstr "货运中的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
 msgid "waiting for transport"
-msgstr ""
+msgstr "等待运输的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 msgid "tranship"
-msgstr ""
+msgstr "运输船"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1183
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1645
 msgid "by height"
-msgstr ""
+msgstr "按高度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1193
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1655
 msgid "given POI color"
-msgstr ""
+msgstr "按兴趣点 (POI) 颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1200
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1662
 msgid "given polygon color"
-msgstr ""
+msgstr "给定的多边形颜色"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1209
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1671
 msgid "default"
-msgstr ""
+msgstr "默认的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1277
 msgid "by average relative speed"
-msgstr ""
+msgstr "按平均相对速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "按目的（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
 msgid "normal"
-msgstr ""
+msgstr "普通的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1306
 msgid "internal"
-msgstr ""
+msgstr "内部的"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1390
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "按限速（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1315
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1393
 msgid "by current occupancy (streetwise, brutto)"
-msgstr ""
+msgstr "按当前载客率（分道路，含驾驶员）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1318
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1396
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "按当前速度（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1325
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1399
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "按当前流量（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1402
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "按相对速度（分道路）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1335
 msgid "by routing device assumed speed"
-msgstr ""
+msgstr "按路由设备预定的速度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "按路段（交替）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "odd"
-msgstr ""
+msgstr "奇数"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1344
 msgid "even"
-msgstr ""
+msgstr "偶数"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "以拥堵状态（分路段）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "free"
-msgstr ""
+msgstr "自由流"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
 msgid "limitedControl"
-msgstr ""
+msgstr "受限流"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1348
 msgid "jammed"
-msgstr ""
+msgstr "堵塞流"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
 msgid "by current occupancy (segmentwise, brutto)"
-msgstr ""
+msgstr "按当前载客率（分路段，含驾驶员）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1353
 msgid "by current speed (segmentwise)"
-msgstr ""
+msgstr "按当前速度（分路段）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1360
 msgid "by current flow (segmentwise)"
-msgstr ""
+msgstr "按当前流量（分路段）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1363
 msgid "by relative speed (segmentwise)"
-msgstr ""
+msgstr "按相对速度（分路段）"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "no TAZ"
-msgstr ""
+msgstr "无交通小区 (TAZ)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1527
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1625
 msgid "data mode"
-msgstr ""
+msgstr "数据模式"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1532
 msgid "by permission code"
-msgstr ""
+msgstr "按权限代码"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1580
 msgid "by height at segment start"
-msgstr ""
+msgstr "按路段起始处的高度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1594
 msgid "by segment inclination"
-msgstr ""
+msgstr "按路段的倾斜度"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1621
 msgid "junction bubble"
-msgstr ""
+msgstr "交叉口气泡"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1622
 msgid "geometry points"
-msgstr ""
+msgstr "几何点"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1623
 msgid "connections missing"
-msgstr ""
+msgstr "连接缺失"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
 msgid "custom shape"
-msgstr ""
+msgstr "自定义形状"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1680
 msgid "by origin taz"
-msgstr ""
+msgstr "按起点交通小区 (taz)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1681
 msgid "by destination taz"
-msgstr ""
+msgstr "按终点交通小区 (taz)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2367
 msgid "No color defined for LinkState '%'"
@@ -15511,11 +15511,11 @@ msgstr "意大利语"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
 msgid "simplified chinese"
-msgstr ""
+msgstr "中文（简体）"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:392
 msgid "traditional chinese"
-msgstr ""
+msgstr "中文（繁體）"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:396
 msgid "turkish"
