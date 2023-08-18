@@ -127,6 +127,9 @@ public:
     /// @brief Remove all items from list
     void clearItems(FXbool notify = FALSE);
 
+    /// @brief filter items in list
+    void setFilter(const FXString &value);
+
     /// @brief Return item width
     FXint getItemWidth(FXint index) const;
 
@@ -331,7 +334,13 @@ protected:
     /// @brief State of item
     FXbool state;
 
+    /// @brief filter
+    FXString filter;
+
 private:
+    /// @brief typedef used for comparing elements
+    typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
+
      /// @brief @brief invalidate copy constructor
      MFXListIcon(const FXList & ) = delete;
 

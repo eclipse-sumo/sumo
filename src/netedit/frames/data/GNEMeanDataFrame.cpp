@@ -400,7 +400,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
 void
 GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelectorIDs() {
     if (myCurrentMeanData) {
-        myMeanDataComboBox->setIconItem(myMeanDataComboBox->getCurrentItem(), myCurrentMeanData->getID().c_str(), myCurrentMeanData->getACIcon());
+        myMeanDataComboBox->updateIconItem(myMeanDataComboBox->getCurrentItem(), myCurrentMeanData->getID().c_str(), myCurrentMeanData->getACIcon());
     }
 }
 

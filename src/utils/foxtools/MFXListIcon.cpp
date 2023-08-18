@@ -177,7 +177,9 @@ MFXListIcon::recalc() {
 
 void
 MFXListIcon::setNumVisible(FXint nvis) {
-    if (nvis < 0) nvis = 0;
+    if (nvis < 0) {
+        nvis = 0;
+    }
     if (visible != nvis) {
         visible = nvis;
         recalc();
@@ -1563,7 +1565,10 @@ MFXListIcon::clearItems(FXbool notify) {
 }
 
 
-typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
+void
+MFXListIcon::setFilter(const FXString &value) {
+    filter = value;
+}
 
 
 FXint

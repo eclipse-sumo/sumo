@@ -270,7 +270,7 @@ MFXComboBoxIcon::getItem(FXint index) const {
 
 
 FXint
-MFXComboBoxIcon::setIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
+MFXComboBoxIcon::updateIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     if (index < 0 || myList->getNumItems() <= index) {
         fxerror("%s::setItem: index out of range.\n", getClassName());
     }
@@ -452,6 +452,8 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 
 long
 MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void*) {
+    myList->setFilter(myTextFieldSearch->getText());
+    myPane->resize(width, myPane->getDefaultHeight());
     return 1;
 }
 
@@ -476,6 +478,7 @@ MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
         myIconLabel->setBackColor(item->getBackGroundColor());
         // reset search label
         myTextFieldSearch->setText("");
+        myList->setFilter("");
         // Select if editable
         if (!(options & COMBOBOX_STATIC)) {
             myTextFieldIcon->selectAll();
