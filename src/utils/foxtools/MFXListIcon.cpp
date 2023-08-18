@@ -273,7 +273,7 @@ MFXListIcon::isItemVisible(FXint index) const {
     if (index < 0 || items.no() <= index) {
         fxerror("%s::isItemVisible: index out of range.\n", getClassName());
     }
-    return (0 < (pos_y+items[index]->y+items[index]->getHeight(this))) && ((pos_y+items[index]->y) < viewport_h);
+    return (0 < (pos_y + items[index]->y + items[index]->getHeight(this))) && ((pos_y + items[index]->y) < viewport_h);
 }
 
 
@@ -354,7 +354,7 @@ MFXListIcon::hitItem(FXint index, FXint x, FXint y) const {
 void
 MFXListIcon::updateItem(FXint index) const {
     if (0 <= index && index < items.no()) {
-        update(0, pos_y+items[index]->y, viewport_w, items[index]->getHeight(this));
+        update(0, pos_y + items[index]->y, viewport_w, items[index]->getHeight(this));
     }
 }
 
@@ -857,7 +857,6 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             }
             return 1;
     }
-    return 0;
 }
 
 
@@ -1125,8 +1124,8 @@ MFXListIcon::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         flags |= FLAG_SCROLLING;
-        grabx = event->win_x-pos_x;
-        graby = event->win_y-pos_y;
+        grabx = event->win_x - pos_x;
+        graby = event->win_y - pos_y;
         return 1;
     }
     return 0;
