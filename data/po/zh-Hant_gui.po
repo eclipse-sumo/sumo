@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
-"PO-Revision-Date: 2023-08-18 13:41+0000\n"
+"PO-Revision-Date: 2023-08-18 13:50+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -489,7 +489,7 @@ msgstr "級聯 (Cascade)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade the views."
-msgstr ""
+msgstr "堆疊(Cascade)視窗."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
