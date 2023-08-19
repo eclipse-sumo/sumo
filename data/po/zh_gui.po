@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-18 10:07+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
-"Last-Translator: YY C <3070832194@qq.com>\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -1277,7 +1277,7 @@ msgstr "充电效率 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 msgid "charge in transit [true/false]"
-msgstr "为公交充电 [是/否]"
+msgstr "在转乘中充电 [是/否]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge delay [s]"
@@ -1628,7 +1628,7 @@ msgstr "阻塞阈值"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
-msgstr "连接点控制"
+msgstr "路口控制"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
@@ -1644,7 +1644,7 @@ msgstr "轻微惩罚"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
-msgstr "超越"
+msgstr "超车"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
@@ -1656,7 +1656,7 @@ msgstr "车辆长度 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr "空闲时间 [s]"
+msgstr "无车时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 msgid "occupied time [s]"
@@ -1833,11 +1833,11 @@ msgstr "平均相对速度"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr "已加载的行人数 [#]"
+msgstr "已加载的人数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr "运行中的行人数 [#]"
+msgstr "运行中的人数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
@@ -1950,7 +1950,7 @@ msgstr "仿真开始时间后没有资料被定义。"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr "占有率 [#]"
+msgstr "占有数 [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
@@ -1970,7 +1970,7 @@ msgstr "到达位置 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
-msgstr "交通实体 [id]"
+msgstr "车辆 [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:242
 msgid "stop duration [s]"
@@ -2198,11 +2198,11 @@ msgstr "换道机动距离 [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr "当前剩余电量 [Wh]"
+msgstr "当前电量状态 [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr "相对剩余电量 (SoC) [-]"
+msgstr "相对电量状态 (SoC) [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
@@ -2290,7 +2290,7 @@ msgstr "人员容量"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr "停靠时长 [s]"
+msgstr "上车时间 [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
@@ -6372,11 +6372,11 @@ msgstr "选择冲突路口"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
 msgid "delete invalid crossings"
-msgstr "删除无效路口"
+msgstr "删除无效的人行穿越道"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
 msgid "select invalid crossings"
-msgstr "选择无效路口"
+msgstr "选择无效的人行穿越道"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
