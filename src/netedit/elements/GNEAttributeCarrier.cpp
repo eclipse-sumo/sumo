@@ -4980,7 +4980,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // to trainStop
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Id of the destination train stop"));
+                                              TL("ID of the destination train stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WALK_EDGES;

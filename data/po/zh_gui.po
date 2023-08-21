@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-18 10:07+0200\n"
+"POT-Creation-Date: 2023-08-21 12:14+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -8670,8 +8670,9 @@ msgid "Id of the destination bus stop"
 msgstr "公交车终点站的识别名(id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4983
-msgid "Id of the destination train stop"
-msgstr "火车终点站的编号 (id)"
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5120
+msgid "ID of the destination train stop"
+msgstr "目的地火车站的编号 (ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5015
 msgid "The id of the route to walk"
@@ -8704,10 +8705,6 @@ msgstr "乘车时可以使用的替代车辆清单"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5096
 msgid "ID of the destination bus stop"
 msgstr "目的地公车站的识别名(ID)"
-
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5120
-msgid "ID of the destination train stop"
-msgstr "目的地火车站的编号 (ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5179
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5211
@@ -12779,7 +12776,8 @@ msgstr "在单击时按住 <Shift> 以创建牢固 (unyielding) 连接 (pass=tru
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions"
-msgstr "在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
+msgstr ""
+"在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 msgid "Possible Target"
@@ -15557,6 +15555,9 @@ msgstr " (未定義投影方式)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "无法转换以%为单位的坐标。"
+
+#~ msgid "Id of the destination train stop"
+#~ msgstr "火车终点站的编号 (id)"
 
 #~ msgid "Inspect vehicle "
 #~ msgstr "检查车辆 "
