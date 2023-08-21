@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-21 13:45+0000\n"
+"PO-Revision-Date: 2023-08-21 14:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -656,7 +656,7 @@ msgid ""
 "to toggle between the last two delay values."
 msgstr ""
 "Retardo (ms)\tRetardo por segundo simulado\tRetardo por segundo simulado. "
-"Hacer click para alternar entre los dos últimos valores."
+"Hacer clic para alternar entre los dos últimos valores."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:743
 msgid "Scale Traffic:"
@@ -1078,7 +1078,7 @@ msgstr "Recargar simulación tras finalizar (modo demostración)"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr "Localizar elementos al hacer click en mensajes"
+msgstr "Localizar elementos al hacer clic en mensajes"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
@@ -2372,16 +2372,16 @@ msgstr "cargando programa TLS desde '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:907
 msgid "Loaded edge types from '"
-msgstr "Edge types cargados desde '"
+msgstr "Tipos de arista cargados desde '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:909
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:942
 msgid "load edgeTypes"
-msgstr "cargar edgeTypes"
+msgstr "cargar tipos de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:940
 msgid "Reloaded edge types from '"
-msgstr "Recargados edge types desde '"
+msgstr "Tipos de arista recargados desde '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:997
 msgid "Reloading netedit config file '"
@@ -3556,7 +3556,7 @@ msgstr "Seleccionar múltiples aristas automáticamente selecciona su cruce"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:875
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
-"Clickar debe aplicar el cambio de estado a todas las fases del plán del "
+"Cliquear debe aplicar el cambio de estado a todas las fases del plan del "
 "semáforo (TLS)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:880
@@ -3789,7 +3789,7 @@ msgstr "&Paradas (stops)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1445
 msgid "&EdgeDatas"
-msgstr "&Datos sobre aristas (edgeDatas)"
+msgstr "&Datos sobre aristas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
 msgid "E&dgeRelDatas"
@@ -4614,7 +4614,7 @@ msgstr "añadir arista inversa"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1046
 msgid "merge junctions"
-msgstr "unir calles (junctions)"
+msgstr "combinar cruces"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1082
 msgid "select roundabout"
@@ -5185,12 +5185,11 @@ msgstr "añadir semáforo (TLS) en múltiples cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5727
 msgid "Shift + click to create two additionals in the same position"
-msgstr ""
-"Shift + click para crear dos elementos adicionales en la misma posición"
+msgstr "Shift + clic para crear dos elementos adicionales en la misma posición"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5981
 msgid "Control + click to create two stop in the same position"
-msgstr "Control + click para crear dos paradas en la misma posición"
+msgstr "Control + clic para crear dos paradas en la misma posición"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1489
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1510
@@ -6693,11 +6692,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:361
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:363
 msgid "Include description in search"
-msgstr ""
+msgstr "Incluir la descripción en la búsqueda"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
@@ -6731,11 +6730,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:63
 msgid "Grid"
-msgstr ""
+msgstr "Cuadrícula"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:64
 msgid "Spider"
-msgstr ""
+msgstr "Telaraña"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:65
 msgid "Random grid"
@@ -6743,7 +6742,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:66
 msgid "Random"
-msgstr ""
+msgstr "Aleatorio"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "Advanced"
@@ -6824,7 +6823,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
-msgstr ""
+msgstr "red"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:392
 msgid "additional"
@@ -6832,11 +6831,11 @@ msgstr "adicional"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:435
 msgid "route"
-msgstr ""
+msgstr "ruta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:478
 msgid "data"
-msgstr ""
+msgstr "datos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
@@ -10011,7 +10010,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:147
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:141
 msgid " and "
-msgstr ""
+msgstr " y "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:115
 msgid "' needs at least one entry and one exit"
@@ -10927,7 +10926,7 @@ msgstr "Mostrar carriles candidatos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
-msgstr "-BACKSPACE: deshacer click"
+msgstr "-BACKSPACE: deshacer clic"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-ESC: Abort path creation"
@@ -10975,7 +10974,7 @@ msgstr "-Seleccionar un ítem en la lista o"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:110
 msgid "click over an element in view"
-msgstr "click sobre un elemento en la vista"
+msgstr "clic sobre un elemento en la vista"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:133
 msgid "select sub-item..."
@@ -10983,7 +10982,7 @@ msgstr "seleccionar subelemento..."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:136
 msgid "-Clicked over multiple"
-msgstr "- Click sobre múltiples"
+msgstr "- Clic sobre múltiples"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:137
 msgid "elements"
@@ -10995,7 +10994,7 @@ msgstr " - Selecciona un elemento en la"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:139
 msgid " list or click over an"
-msgstr " lista o clicka sobre un"
+msgstr " lista o clic sobre un"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:140
 msgid " element in view"
@@ -11043,7 +11042,7 @@ msgstr "'Cancelar dibujo' o ESC para cancelar la creación de la forma."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "'Shift + Click' to remove the last inserted point."
-msgstr "'Shift + Click' para eliminar el último punto insertado."
+msgstr "'Shift + Clic' para eliminar el último punto insertado."
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:134
 msgid "A new point cannot be added if drawing wasn't started"
@@ -11393,7 +11392,7 @@ msgstr "-Cliquear sobre una arista para seleccionarla"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
-msgstr "-Click sobre un carril (lane) para seleccionarla"
+msgstr "-Clic sobre un carril para seleccionarlo"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:74
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:183
@@ -11414,7 +11413,7 @@ msgstr "Ayuda para GEO Attributes"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:292
 msgid " - Click in the same position"
-msgstr " - Click en la misma posición"
+msgstr " - Clic en la misma posición"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:293
 msgid "   for inspect next element"
@@ -11422,7 +11421,7 @@ msgstr "   para inspeccionar el siguiente elemento"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:294
 msgid " - Shift + Click in the same"
-msgstr " - Shift + click en la misma"
+msgstr " - Shift + clic en la misma"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:295
 msgid "   position for inspect"
@@ -12644,7 +12643,7 @@ msgstr "Hacer clic sobre una zona de estacionamiento para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr "Hacer click sobre el carril para crear una parada."
+msgstr "Hacer clic sobre el carril para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
@@ -12725,7 +12724,7 @@ msgstr "Tipos"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
-msgstr "Hacer click sobre una ruta para crear un vehículo."
+msgstr "Hacer clic sobre una ruta para crear un vehículo."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
@@ -13200,7 +13199,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1608
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1612
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:488
 msgid "Create crossing"
@@ -13222,15 +13221,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 msgid " Candidate"
-msgstr ""
+msgstr " Candidato"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:545
 msgid " Selected"
-msgstr ""
+msgstr " Seleccionado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:548
 msgid " Invalid"
-msgstr ""
+msgstr " No válido"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
@@ -13319,7 +13318,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "Prohibiciones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:57
 msgid "GEO POI Creator"
@@ -13385,7 +13384,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
 msgid "TAZ"
-msgstr ""
+msgstr "Zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:161
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:205
@@ -13525,7 +13524,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid "Add "
-msgstr ""
+msgstr "Agregar "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid " edges to selection"
@@ -13567,7 +13566,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:850
 msgid " TAZs?"
-msgstr ""
+msgstr " zonas de análisis de tráfico?"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:865
@@ -13662,7 +13661,7 @@ msgstr "Editar semáforo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:185
 msgid "Click over a junction to edit a TLS"
-msgstr "Haga click sobre un cruce para editar semáforos"
+msgstr "Haga clic sobre un cruce para editar semáforos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:197
 msgid "Save TLS Changes"
@@ -13879,7 +13878,7 @@ msgstr "debe tener por lo menos una conexión controlada."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1650
 msgid "reset current program"
@@ -13899,7 +13898,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1908
 msgid "Phases"
-msgstr ""
+msgstr "Fases"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1919
 msgid "Clean States"
@@ -14116,7 +14115,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:87
 msgid "Cl&ose"
-msgstr ""
+msgstr "Cerrar"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
@@ -15153,11 +15152,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1676
 msgid "Viewport"
-msgstr ""
+msgstr "Vista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1677
 msgid "Delay"
-msgstr ""
+msgstr "Retardo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1679
 msgid "Breakpoints"
@@ -15185,11 +15184,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1712
 msgid "x-spacing"
-msgstr ""
+msgstr "espaciado-x"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1717
 msgid "y-spacing"
-msgstr ""
+msgstr "espaciado-y"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1726
 msgid "Streets"
@@ -15206,7 +15205,7 @@ msgstr "Calles"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2160
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2221
 msgid "Interpolate"
-msgstr ""
+msgstr "Interpolar"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1746
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2008
@@ -15507,7 +15506,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2184
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Misceláneos"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2233
 msgid "hide below threshold"
@@ -15539,7 +15538,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2281
 msgid "Dither"
-msgstr ""
+msgstr "Tramado (dither)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2287
 msgid "Draw boundaries"
