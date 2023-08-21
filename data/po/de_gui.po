@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-21 13:45+0000\n"
+"PO-Revision-Date: 2023-08-21 14:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -6117,80 +6117,80 @@ msgstr "Auf Auslieferung spezialisierte Fahrzeuge"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:249
 msgid "Vehicle designed to transport cargo"
-msgstr ""
+msgstr "Güterverkehr"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:250
 msgid "Truck with trailer"
-msgstr ""
+msgstr "Sattelzug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:251
 msgid "Vehicle designated to respond to an emergency"
-msgstr ""
+msgstr "Einsatzfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:254
 msgid "Two- or three-wheeled motor vehicle"
-msgstr ""
+msgstr "Zwei-/dreirädriges Kraftfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:255
 msgid "Motorcycle not allowed in motorways"
-msgstr ""
+msgstr "Motorrad (nicht auf Autobahn zugelassen)"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:256
 msgid "Human-powered, pedal-driven vehicle"
-msgstr ""
+msgstr "mit Muskelkraft über Pedale betriebenes Gefährt"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
 msgid "Person traveling on foot"
-msgstr ""
+msgstr "Fußgänger"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
 msgid "Rail vehicle which runs on tracks"
-msgstr ""
+msgstr "Schienengebundenes Fahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:259
 msgid "Rail electric vehicle"
-msgstr ""
+msgstr "Elektrisch angetriebenes Schienenfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:260
 msgid "High-speed rail vehicle"
-msgstr ""
+msgstr "Hochgeschwindigkeitsschienenfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:261
 msgid "Heavier than tram"
-msgstr ""
+msgstr "Schwerer als eine Straßenbahn"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:262
 msgid "Heavy rail vehicle"
-msgstr ""
+msgstr "Schweres Schienenfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
 msgid "Future electric mobility vehicles"
-msgstr ""
+msgstr "Zukünftige elektrische Fahrzeugkonzepte"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:266
 msgid "Vehicle designed for military forces"
-msgstr ""
+msgstr "Militärfahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:267
 msgid "Basic class for navigating waterway"
-msgstr ""
+msgstr "Grundklasse für Wasserfahrzeuge"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:268
 msgid "Vehicle of a governmental security agency"
-msgstr ""
+msgstr "Polizeifahrzeug"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 msgid "A civilian security armored car used by VIPs"
-msgstr ""
+msgstr "Ziviles gepanzertes Fahrzeug für Prominente"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:270
 msgid "High-Occupancy Vehicle (two or more passengers)"
-msgstr ""
+msgstr "Fahrgemeinschaft (mindestens zwei Passagiere)"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:271
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:272
 msgid "Reserved for user-defined semantics"
-msgstr ""
+msgstr "Für nutzerdefinierte Bedeutung reserviert"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:650
@@ -6426,11 +6426,11 @@ msgstr "Ungültige Kanten auswählen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
 msgid "delete invalid edges"
-msgstr ""
+msgstr "ungültige Kanten löschen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
 msgid "select invalid edges"
-msgstr ""
+msgstr "ungültige Kanten auswählen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
@@ -6446,11 +6446,11 @@ msgstr "Ungültige Kreuzungen auswählen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
 msgid "delete invalid crossings"
-msgstr ""
+msgstr "ungültige Fußgängerfurten löschen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
 msgid "select invalid crossings"
-msgstr ""
+msgstr "ungültige Fußgängerfurten auswählen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
@@ -6613,7 +6613,7 @@ msgstr "Das Netz enthält keine Parkplätze"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
 msgid "Undo/Redo history"
-msgstr ""
+msgstr "Rückgängig/Wiederherstellen-Chronik"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
