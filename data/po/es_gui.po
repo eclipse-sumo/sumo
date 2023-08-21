@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-21 09:54+0000\n"
+"PO-Revision-Date: 2023-08-21 13:45+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -253,12 +253,12 @@ msgstr "&Localizar"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1309
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2034
 msgid "&Junctions"
-msgstr "&Cruces (Junctions)"
+msgstr "&Cruces"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2034
 msgid "Open a dialog for locating a Junction."
-msgstr "Abrir ventana para localizar cruces (junctions)."
+msgstr "Abrir ventana para localizar cruces."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:539
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1314
@@ -3325,7 +3325,7 @@ msgstr "Semáforo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "Modes traffic lights over junctions."
-msgstr "Modo para crear semáforos (TLS) sobre cruces (junctions)."
+msgstr "Modo para crear semáforos (TLS) sobre cruces."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
 msgid "&Connection"
@@ -3512,7 +3512,7 @@ msgstr "Mostrar rejilla"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2666
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
 msgid "Hide junction shape"
-msgstr "Ocultar la forma del cruce (junction)"
+msgstr "Ocultar las formas de los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:835
 msgid "Draw vehicles spread in lane or in depart position"
@@ -3533,7 +3533,7 @@ msgstr "Cliquear debe referirse a carriles"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:850
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2399
 msgid "Show connections over junctions"
-msgstr "Mostrar conexiones sobre los cruces (junctions)"
+msgstr "Mostrar conexiones sobre los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:855
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2407
@@ -3565,7 +3565,7 @@ msgstr "Preguntar por confirmación antes de fusionar cruce (junction)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:885
 msgid "Show bubbles over junctions shapes"
-msgstr "Mostrar burbujas sobre las formas de los cruces (junctions)"
+msgstr "Mostrar burbujas sobre las formas de los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:890
 msgid "Apply mouse movement to elevation"
@@ -3704,7 +3704,7 @@ msgstr "&Conexiones"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1329
 msgid "C&rossings"
-msgstr "&Cruces"
+msgstr "&Cruces peatonales"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1334
 msgid "Walkin&gAreas"
@@ -3821,36 +3821,35 @@ msgstr "Desbloquear todos los elementos"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1873
 msgid "Compute Junctions"
-msgstr "Computar cruces (junctions)"
+msgstr "Computar cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1873
 msgid "Compute junction shape and logic."
-msgstr "Computar forma y lógica de los cruces (junctions)."
+msgstr "Computar forma y lógica de los cruces."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1876
 msgid "Compute Junctions with volatile options"
-msgstr "Computar cruces (junctions) con opciones volátiles"
+msgstr "Computar cruces con opciones volátiles"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1876
 msgid "Compute junction shape and logic using volatile junctions."
-msgstr ""
-"Computar forma y lógica de los cruces (junctions) usando opciones volátiles."
+msgstr "Computar forma y lógica de los cruces usando opciones volátiles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1879
 msgid "Clean Junctions"
-msgstr "Limpiar cruces (junctions)"
+msgstr "Limpiar cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1879
 msgid "Remove solitary junctions."
-msgstr "Eliminar cruces (junctions) solitarios."
+msgstr "Eliminar cruces solitarios."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1882
 msgid "Join Selected Junctions"
-msgstr "Unir cruces (junctions) seleccionados"
+msgstr "Combinar cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1882
 msgid "Join selected junctions into a single junction."
-msgstr "Unir cruces (junctions) seleccionados en un solo cruce (junction)."
+msgstr "Combinar cruces seleccionados en un solo cruce."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1885
 msgid "Clean invalid crossings"
@@ -4324,7 +4323,7 @@ msgstr "Ignorar elementos de ruta durante la carga de configuraciones de sumo"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
-msgstr "Prefijo para el nombre de los cruces (junctions)"
+msgstr "Prefijo para el nombre de los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:335
 msgid "Prefix for edge naming"
@@ -4627,23 +4626,23 @@ msgstr "crear rotonda (roundabout)"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1276
 msgid "Forced computing junctions with volatile options ..."
-msgstr "Forzar computación de los cruces (junctions) con opciones volátiles..."
+msgstr "Forzar computación de los cruces con opciones volátiles..."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1278
 msgid "Forced computing junctions ..."
-msgstr "Forzar computación de los cruces (junctions)..."
+msgstr "Forzar computación de los cruces ..."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1285
 msgid "Computing junctions with volatile options ..."
-msgstr "Computar cruces (junctions) con opciones volátiles..."
+msgstr "Computar cruces con opciones volátiles..."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1287
 msgid "Computing junctions ..."
-msgstr "Computar cruces (junctions)..."
+msgstr "Computar cruces ..."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1350
 msgid "Finished computing junctions."
-msgstr "Computación de cruces (junctions) finalizada."
+msgstr "Computación de cruces finalizada."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1356
 msgid "Computing demand elements ..."
@@ -4674,7 +4673,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1464
 msgid "It will be joined with the other selected junctions. Continue?"
-msgstr "Se unirá con los otros cruces (junctions) seleccionados. ¿Continuar?"
+msgstr "Se combinará con los demás cruces seleccionados. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1585
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1595
@@ -4695,7 +4694,7 @@ msgstr "Limpiar pasos peatonales"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1620
 msgid "clear junctions"
-msgstr "limpiar cruces (junctions)"
+msgstr "limpiar cruces"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1649
 msgid "clear unused routes"
@@ -4731,11 +4730,11 @@ msgstr "No se puede renombrar el cruce (junction) dividido a '%'"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1949
 msgid "clear junction connections"
-msgstr "limpiar conexiones de cruces (junctions)"
+msgstr "limpiar conexiones de cruces"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1961
 msgid "reset junction connections"
-msgstr "resetear conexiones de cruces (junctions)"
+msgstr "resetear conexiones de cruces"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1972
 msgid "clear additional elements"
@@ -5350,7 +5349,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2666
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2945
 msgid "Toggle hiding junction shape. (Ctrl+J)"
-msgstr "Alternar mostrar formas de los cruces (junction). (Ctrl+J)"
+msgstr "Alternar si mostrar o no las formas de los cruces. (Ctrl+J)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2376
 msgid "Draw vehicles spread in lane or depart position"
@@ -5381,7 +5380,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2399
 msgid "Toggle show connections over junctions."
-msgstr "Alternar mostrar conexiones sobre cruces (junctions)."
+msgstr "Alternar mostrar conexiones sobre cruces."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2407
 msgid "Toggle hide connections."
@@ -5401,7 +5400,7 @@ msgstr "Alternar mostrar elementos de zona de análisis de tráfico (TAZ)."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2431
 msgid "Automatic select junctions"
-msgstr "Seleccionar cruces (junctions) automáticamente"
+msgstr "Seleccionar cruces automáticamente"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2431
 msgid ""
@@ -5437,9 +5436,7 @@ msgstr "Mostrar burbujas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2454
 msgid "Toggle show bubbles over junctions shapes."
-msgstr ""
-"Alternar entre mostrar o no burbujas sobre la forma de los cruces "
-"(junctions)."
+msgstr "Alternar entre mostrar o no burbujas sobre la forma de los cruces."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2462
 msgid "Move elevation"
@@ -5581,7 +5578,7 @@ msgstr "Ir al modo de semáforos (TLS)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3561
 msgid "Mode for editing traffic lights over junctions. (T)"
-msgstr "Modo para editar semáforos (TLS) sobre cruces (junctions). (T)"
+msgstr "Modo para editar semáforos (TLS) sobre cruces. (T)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3567
 msgid "Set connection mode"
@@ -10387,7 +10384,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1376
 msgid "A person trip from junction to junction needs two junctions junction"
-msgstr "Un person trip de cruce (junction) a cruce necesita dos cruces"
+msgstr "Un person trip desde un cruce a otro cruce necesita dos cruces"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1387
 msgid "A walk to edge needs a busStop and an edge"
@@ -11467,11 +11464,11 @@ msgstr "Mostrar aristas candidatas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:393
 msgid "Double junctions aren't allowed"
-msgstr "Los cruces (junctions) dobles no están permitidos"
+msgstr "Los cruces dobles no están permitidos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:401
 msgid "Only two junctions are allowed"
-msgstr "Solo dos cruces (junctions) están permitidos"
+msgstr "Solo dos cruces están permitidos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:440
 msgid "Double TAZs aren't allowed"
@@ -12099,7 +12096,7 @@ msgstr "Aplicar valor Z"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:293
 msgid "Apply Z value to all selected junctions"
-msgstr "Aplicar valor Z a todos los cruces (junctions) seleccionados"
+msgstr "Aplicar valor Z a todos los cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:531
 msgid "- Num geometry points: "
@@ -12157,7 +12154,7 @@ msgstr "Información de la selección"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
 msgid "Junctions"
-msgstr "Cruces (junctions)"
+msgstr "Cruces"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
@@ -13274,15 +13271,15 @@ msgstr "Sin conflicto"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr ""
+msgstr "No hay conflicto con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "Cede el paso"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
-msgstr ""
+msgstr "La conexión le cede el paso a la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
