@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-20 12:53+0000\n"
-"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2023-08-21 13:45+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5661,7 +5661,7 @@ msgstr "Routenverteilungsmodus einstellen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3706
 msgid "Mode for creating and editing rout distributions. (W)"
-msgstr ""
+msgstr "Modus zum Erstellen und Bearbeiten von Routenverteilungen. (W)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3712
 msgid "Create vehicle mode"
@@ -5685,7 +5685,7 @@ msgstr "Typenverteilungsmodus einstellen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3724
 msgid "Mode for creating and editing type distribution. (U)"
-msgstr ""
+msgstr "Modus zum Erstellen und Bearbeiten von Typenverteilungen. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3730
 msgid "Create stop mode"
@@ -5840,7 +5840,7 @@ msgstr "Löschen wiederholen "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
 msgid "change '%' attribute in % '%' to '%'"
-msgstr ""
+msgstr "setze Attribut '%' in % '%' auf '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
@@ -5903,23 +5903,23 @@ msgstr "Fußgängerfurt löschen wiederholen"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
-msgstr ""
+msgstr "füge den Schlüssel '%' in % '%' hinzu"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
-msgstr ""
+msgstr "entferne den Schlüssel '%' aus % '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:63
 msgid "change '%' key value from % to %"
-msgstr ""
+msgstr "ändere den Schlüssel '%' zugewiesenen Wert von % auf %"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
-msgstr ""
+msgstr "Verteilung in '%' bearbeiten rückgängig machen"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
-msgstr ""
+msgstr "Verteilung in '%' bearbeiten wiederholen"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
@@ -6003,11 +6003,11 @@ msgstr "LSA löschen wiederholen '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:112
 msgid "Undo toggle % attribute in '%'"
-msgstr ""
+msgstr "Attribut % in '%' umschalten rückgängig machen"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:118
 msgid "Redo toggle % attribute in '%'"
-msgstr ""
+msgstr "Attribut % in '%' umschalten wiederholen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
@@ -6069,51 +6069,51 @@ msgstr "Auf vorherige Werte zurücksetzen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:66
 msgid "Edit allow vClasses"
-msgstr ""
+msgstr "Zufahrtsrechte der Fahrzeugklassen bearbeiten"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:223
 msgid "Selection options"
-msgstr ""
+msgstr "Auswahloptionen"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:227
 msgid "Allow all vehicles"
-msgstr ""
+msgstr "Alle Fahrzeuge erlauben"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:230
 msgid "Allow only road vehicles"
-msgstr ""
+msgstr "Nur Straßenfahrzeuge erlauben"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:233
 msgid "Allow only rail vehicles"
-msgstr ""
+msgstr "Nur Schienenfahrzeuge erlauben"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:236
 msgid "Disallow all vehicles"
-msgstr ""
+msgstr "Allen Fahrzeugen die Zufahrt verweigern"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:243
 msgid "Default vehicle class"
-msgstr ""
+msgstr "Standardfahrzeugklasse"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:244
 msgid "A passenger car assigned for private use"
-msgstr ""
+msgstr "Ein Personenfahrzeug in Privatgebrauch"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:245
 msgid "Vehicle for hire with a driver"
-msgstr ""
+msgstr "Mietwagen mit Fahrer"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:246
 msgid "Urban line traffic"
-msgstr ""
+msgstr "Städtischer Linienverkehr"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:247
 msgid "Overland transport"
-msgstr ""
+msgstr "Überlandverkehr"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:248
 msgid "Vehicles specialized in delivering goods"
-msgstr ""
+msgstr "Auf Auslieferung spezialisierte Fahrzeuge"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:249
 msgid "Vehicle designed to transport cargo"
