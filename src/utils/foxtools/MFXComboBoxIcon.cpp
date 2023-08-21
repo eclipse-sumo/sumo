@@ -481,7 +481,7 @@ MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
         myIconLabel->setBackColor(item->getBackGroundColor());
         // reset search label
         myTextFieldSearch->setText("");
-        myList->setFilter(myPane, "", ptr);
+        myList->setFilter(myPane, "", nullptr);
         // Select if editable
         if (!(options & COMBOBOX_STATIC)) {
             myTextFieldIcon->selectAll();
