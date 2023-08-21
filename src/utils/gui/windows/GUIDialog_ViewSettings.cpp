@@ -599,6 +599,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         if (tmpSettings.vehicleColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
             tmpSettings.vehicleParam = myVehicleParamKey->getText().text();
         }
+    } else if (sender == myVehicleScalingParamKey) {
+        if (tmpSettings.vehicleScaler.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+            tmpSettings.vehicleScaleParam = myVehicleScalingParamKey->getText().text();
+        }
     } else if (sender == myDataParamKey) {
         if (tmpSettings.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             tmpSettings.relDataAttr = myDataParamKey->getText().text();
@@ -1456,6 +1460,14 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     myVehicleScaleSettingFrame->getParent()->recalc();
+    activeScaleSchemeName = myVehicleScaleMode->getText().text();
+    if (activeScaleSchemeName == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
+
+        myVehicleScalingParamKey->enable();
+    } else {
+        myVehicleScalingParamKey->disable();
+    }
+
 
     m = rebuildColorMatrix(myPersonColorSettingFrame, myPersonColors, myPersonThresholds, myPersonButtons, myPersonColorInterpolation, mySettings->personColorer.getScheme());
     if (doCreate) {
@@ -1517,14 +1529,18 @@ void
 GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleParamKey->clearItems();
     myVehicleTextParamKey->clearItems();
+    myVehicleScalingParamKey->clearItems();
     myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
     myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
+    myVehicleScalingParamKey->appendItem(mySettings->vehicleScaleParam.c_str());
     for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
         myVehicleParamKey->appendItem(attr.c_str());
         myVehicleTextParamKey->appendItem(attr.c_str());
+        myVehicleScalingParamKey->appendItem(attr.c_str());
     }
     myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
+    myVehicleScalingParamKey->setNumVisible(myVehicleScalingParamKey->getNumItems());
 }
 
 
@@ -1864,10 +1880,13 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
 
     //  vehicle scale settings
     FXVerticalFrame* verticalFrameScale = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame6);
-    FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 3, GUIDesignViewSettingsMatrix3);
+    FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 4, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixScale, TL("Scale size"), nullptr, GUIDesignViewSettingsLabel1);
     myVehicleScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myVehicleScalingParamKey = new FXComboBox(matrixScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleScalingParamKey->setEditable(true);
+    myVehicleScalingParamKey->disable();
     myVehicleScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
     mySettings->vehicleScaler.fill(*myVehicleScaleMode);
     myVehicleScaleMode->setNumVisible((int)mySettings->vehicleScaler.size());

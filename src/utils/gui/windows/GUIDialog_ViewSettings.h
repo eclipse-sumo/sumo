@@ -347,6 +347,7 @@ protected:
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
     FXComboBox* myVehicleParamKey = nullptr;
+    FXComboBox* myVehicleScalingParamKey = nullptr;
     FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
