@@ -166,10 +166,10 @@ MFXListIcon::getDefaultHeight() {
             numShow++;
         }
     }
-    if (numShow) {
+    if (visible > numShow) {
         return numShow * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
     } else {
-        return FXScrollArea::getDefaultHeight();
+        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
     }
 }
 
@@ -700,7 +700,7 @@ MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
         const auto listIcon = dynamic_cast < MFXListIconItem*>(items[i]);
         if (listIcon && listIcon->show) {
             h = listIcon->getHeight(this);
-            if (event->rect.y  <=  (y + h) && y < (event->rect.y + event->rect.h)) {
+            if (event->rect.y <= (y + h) && y < (event->rect.y + event->rect.h)) {
                 listIcon->draw(this,  dc,  pos_x,  y,  FXMAX(listWidth,  viewport_w),  h);
             }
             y += h;
@@ -1573,12 +1573,10 @@ MFXListIcon::clearItems(FXbool notify) {
 
 
 void
-MFXListIcon::setFilter(FXPopup *pane, const FXString &value, void* ptr) {
+MFXListIcon::setFilter(const FXString &value) {
     filter = value;
     recompute();
-    if (ptr) {
-        pane->onPaint(0, 0, ptr);
-    }
+    recalc();
 }
 
 
@@ -1688,15 +1686,17 @@ MFXListIcon::recompute() {
         auto item = items[i];
         // check if filter element
         item->show = showElement(item->getText().text());
-        // set position and size
-        item->x = x;
-        item->y = y;
-        w = item->getWidth(this);
-        h = item->getHeight(this);
-        if (w > listWidth) {
-            listWidth = w;
+        if (item->show) {
+            // set position and size
+            item->x = x;
+            item->y = y;
+            w = item->getWidth(this);
+            h = item->getHeight(this);
+            if (w > listWidth) {
+                listWidth = w;
+            }
+            y += h;
         }
-        y += h;
     }
     listHeight = y;
     flags &= ~FLAG_RECALC;

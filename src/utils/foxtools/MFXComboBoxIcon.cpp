@@ -455,8 +455,10 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 
 long
 MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void* ptr) {
-    myList->setFilter(myPane, myTextFieldSearch->getText(), ptr);
+    myList->setFilter(myTextFieldSearch->getText());
     myPane->resize(width, myPane->getDefaultHeight());
+    myPane->recalc();
+    myPane->onPaint(0, 0, ptr);
     return 1;
 }
 
