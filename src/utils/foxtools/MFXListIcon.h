@@ -21,6 +21,8 @@
 #pragma once
 #include <config.h>
 
+#include <string>
+
 #include "MFXListIconItem.h"
 
 /// @brief @brief A list item which allows for custom coloring
@@ -281,7 +283,7 @@ protected:
     MFXListIconItem *createItem(const FXString &text, FXIcon* icon, void* ptr);
 
     /// @brief Item list
-    FXObjectListOf < MFXListIconItem> items;
+    FXObjectListOf <MFXListIconItem> items;
  
     /// @brief Anchor item
     FXint anchor;
@@ -341,9 +343,15 @@ private:
     /// @brief typedef used for comparing elements
     typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
 
-     /// @brief @brief invalidate copy constructor
-     MFXListIcon(const FXList & ) = delete;
+    /// @brief check if filter element
+    bool showElement(const std::string &itemName) const;
 
-     /// @brief @brief invalidate assignement operator
-     MFXListIcon  & operator = (const FXList & ) = delete;
+    /// @brief tolower string
+    std::string tolowerString(const std::string &str) const;
+
+    /// @brief @brief invalidate copy constructor
+    MFXListIcon(const FXList & ) = delete;
+
+    /// @brief @brief invalidate assignement operator
+    MFXListIcon  & operator = (const FXList & ) = delete;
 };

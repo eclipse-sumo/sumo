@@ -1576,7 +1576,9 @@ void
 MFXListIcon::setFilter(FXPopup *pane, const FXString &value, void* ptr) {
     filter = value;
     recompute();
-    pane->onPaint(0, 0, ptr);
+    if (ptr) {
+        pane->onPaint(0, 0, ptr);
+    }
 }
 
 
@@ -1676,24 +1678,21 @@ MFXListIcon::MFXListIcon() {
 
 void
 MFXListIcon::recompute() {
-    register FXint x, y, w, h, i;
+    register FXint x, y, w, h;
     x = 0;
     y = 0;
     listWidth = 0;
     listHeight = 0;
-    for (i = 0; i < items.no(); i++) {
+    for (int i = 0; i < items.no(); i++) {
         // get item
         auto item = items[i];
-        // check if filter is active
-        if (!filter.empty() && (item->getText().find(filter.text()) == std::string::npos)) {
-            item->show = false;
-        } else {
-            item->show = true;
-        }
-        items[i]->x = x;
-        items[i]->y = y;
-        w = items[i]->getWidth(this);
-        h = items[i]->getHeight(this);
+        // check if filter element
+        item->show = showElement(item->getText().text());
+        // set position and size
+        item->x = x;
+        item->y = y;
+        w = item->getWidth(this);
+        h = item->getHeight(this);
         if (w > listWidth) {
             listWidth = w;
         }
@@ -1707,4 +1706,26 @@ MFXListIcon::recompute() {
 MFXListIconItem*
 MFXListIcon::createItem(const FXString &text, FXIcon* icon, void* ptr) {
     return new MFXListIconItem(text, icon, 0, ptr);
+}
+
+
+bool
+MFXListIcon::showElement(const std::string &itemName) const {
+    if (filter.empty()) {
+        return true;
+    } else {
+        const auto itemNameLower = tolowerString(itemName);
+        const auto filterLower = tolowerString(filter.text());
+        return itemNameLower.find(filterLower) != std::string::npos;
+    }
+}
+
+
+std::string
+MFXListIcon::tolowerString(const std::string &str) const {
+    std::string result;
+    for (int i = 0; i < (int)str.size(); i++) {
+        result.push_back((char)::tolower(str[i]));
+    }
+    return result;
 }
