@@ -65,7 +65,7 @@ public:
     FXIcon* getIcon() const;
 
     /// @brief get background color
-    const FXColor &  getBackGroundColor() const;
+    const FXColor &getBackGroundColor() const;
 
     /// @brief Make item draw as focused
     void setFocus(FXbool focus);
@@ -134,6 +134,9 @@ protected:
 
     /// @brief backGround color
     FXColor myBackGroundColor = 0;
+
+    /// @brief flag for show/hidde element
+    bool show = true;
 
 private:
     /// @brief invalidate copy constructor

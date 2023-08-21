@@ -168,33 +168,41 @@ MFXListIconItem::detach() {
 
 FXint
 MFXListIconItem::getWidth(const MFXListIcon* list) const {
-    register FXFont *font = list->getFont();
-    register FXint w = 0;
-    if (icon) {
-        w = icon->getWidth();
-    }
-    if (!label.empty()) {
-        if (w) {
-            w += ICON_SPACING;
+    if (show) {
+        register FXFont *font = list->getFont();
+        register FXint w = 0;
+        if (icon) {
+            w = icon->getWidth();
         }
-        w += font->getTextWidth(label.text(),label.length());
+        if (!label.empty()) {
+            if (w) {
+                w += ICON_SPACING;
+            }
+            w += font->getTextWidth(label.text(),label.length());
+        }
+        return SIDE_SPACING+w;
+    } else {
+        return 0;
     }
-    return SIDE_SPACING+w;
 }
 
 
 
 FXint
 MFXListIconItem::getHeight(const MFXListIcon* list) const {
-    register FXFont *font = list->getFont();
-    register FXint th = 0,ih = 0;
-    if (icon) {
-        ih = icon->getHeight();
+    if (show) {
+        register FXFont *font = list->getFont();
+        register FXint th = 0,ih = 0;
+        if (icon) {
+            ih = icon->getHeight();
+        }
+        if (!label.empty()) {
+            th = font->getFontHeight();
+        }
+        return LINE_SPACING+FXMAX(th, ih);
+    } else {
+        return 0;
     }
-    if (!label.empty()) {
-        th = font->getFontHeight();
-    }
-    return LINE_SPACING+FXMAX(th, ih);
 }
 
 

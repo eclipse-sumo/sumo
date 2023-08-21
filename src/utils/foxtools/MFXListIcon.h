@@ -128,7 +128,7 @@ public:
     void clearItems(FXbool notify = FALSE);
 
     /// @brief filter items in list
-    void setFilter(const FXString &value);
+    void setFilter(FXPopup *pane, const FXString &value, void* ptr);
 
     /// @brief Return item width
     FXint getItemWidth(FXint index) const;

@@ -454,8 +454,8 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 
 
 long
-MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void*) {
-    myList->setFilter(myTextFieldSearch->getText());
+MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void* ptr) {
+    myList->setFilter(myPane, myTextFieldSearch->getText(), ptr);
     myPane->resize(width, myPane->getDefaultHeight());
     return 1;
 }
@@ -481,7 +481,7 @@ MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
         myIconLabel->setBackColor(item->getBackGroundColor());
         // reset search label
         myTextFieldSearch->setText("");
-        myList->setFilter("");
+        myList->setFilter(myPane, "", ptr);
         // Select if editable
         if (!(options & COMBOBOX_STATIC)) {
             myTextFieldIcon->selectAll();
