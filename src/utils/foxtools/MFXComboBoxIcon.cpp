@@ -277,7 +277,7 @@ MFXComboBoxIcon::updateIconItem(FXint index, const FXString& text, FXIcon* icon,
     if (index < 0 || myList->getNumItems() <= index) {
         fxerror("%s::setItem: index out of range.\n", getClassName());
     }
-    myList->setItem(index, text, NULL, ptr);
+    myList->editItem(index, text, NULL, ptr);
     if (isItemCurrent(index)) {
         myTextFieldIcon->setText(text);
         myTextFieldIcon->setBackColor(bgColor);
