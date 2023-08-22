@@ -201,7 +201,7 @@ MFXListIcon::layout() {
     }
     update();
     // We were supposed to make this item viewable
-    if (0 <= viewable) {
+    if (viewable) {
         makeItemVisible(viewable);
     }
     // No more dirty
@@ -210,8 +210,13 @@ MFXListIcon::layout() {
 
 
 FXbool
-MFXListIcon::isItemCurrent(MFXListIconItem* item) const {
-    return currentItem == item;
+MFXListIcon::isItemCurrent(FXint index) const {
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i] == currentItem) {
+            return i == index;
+        }
+    }
+    return false;
 }
 
 
@@ -224,30 +229,33 @@ MFXListIcon::isItemVisible(MFXListIconItem* item) const {
 void
 MFXListIcon::makeItemVisible(MFXListIconItem* item) {
     register FXint y, h;
-    const auto filteredItems = getFilteredItems();
-    if (item) {
-        // Remember for later
-        viewable = item;
-        // Was realized
-        if (xid) {
-            // Force layout if dirty
-            if (flags & FLAG_RECALC) {
-                layout();
-            }
-            y = pos_y;
-            h = item->getHeight(this);
-            if (viewport_h <= y + item->y + h) {
-                y = viewport_h - item->y - h;
-            }
-            if (y + item->y <= 0) {
-                y =- item->y;
-            }
-            // Scroll into view
-            setPosition(pos_x, y);
-            // Done it
-            viewable = nullptr;
+    // Remember for later
+    viewable = item;
+    // Was realized
+    if (xid) {
+        // Force layout if dirty
+        if (flags & FLAG_RECALC) {
+            layout();
         }
+        y = pos_y;
+        h = item->getHeight(this);
+        if (viewport_h <= y + item->y + h) {
+            y = viewport_h - item->y - h;
+        }
+        if (y + item->y <= 0) {
+            y =- item->y;
+        }
+        // Scroll into view
+        setPosition(pos_x, y);
+        // Done it
+        viewable = nullptr;
     }
+}
+
+
+void
+MFXListIcon::makeItemVisible(FXint index) {
+    makeItemVisible(items[index]);
 }
 
 
@@ -290,6 +298,17 @@ MFXListIcon::getItemAt(FXint y) const {
         }
     }
     return nullptr;
+}
+
+
+int
+MFXListIcon::findItem(const FXString& text) const {
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i]->getText().text() == text) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 
@@ -490,7 +509,7 @@ MFXListIcon::onLookupTimer(FXObject*, FXSelector, void*) {
 long
 MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    FXint index = getCurrentItem();
+    FXint index = getCurrentItemIndex();
     flags &= ~FLAG_TIP;
     if (!isEnabled()) {
         return 0;
@@ -857,20 +876,10 @@ MFXListIcon::setCurrentItem(MFXListIconItem* item, FXbool notify) {
 
 
 FXint
-MFXListIcon::getCurrentItem() const {
-    // continue depending if we're filtering
-    if (filter.empty()) {
-        for (int i = 0; i < items.no(); i++) {
-            if (items[i] == currentItem) {
-                return i;
-            }
-        }
-    } else {
-        const auto filteredItems = getFilteredItems();
-        for (int i = 0; i < (int)filteredItems.size(); i++) {
-            if (filteredItems[i] == currentItem) {
-                return i;
-            }
+MFXListIcon::getCurrentItemIndex() const {
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i] == currentItem) {
+            return i;
         }
     }
     return -1;
@@ -1004,7 +1013,7 @@ MFXListIcon::insertItem(FXint index, MFXListIconItem* item, FXbool notify) {
     if (extent >= index) {
         extent++;
     }
-    if (getCurrentItem() >= index) {
+    if (getCurrentItemIndex() >= index) {
         currentItem = items[index];
     }
     if (getViewableItem() >= index) {

@@ -121,14 +121,20 @@ public:
     /// @brief Return index of item at y, if any
     MFXListIconItem *getItemAt(FXint y) const;
 
+    /// @brief Search items by name (In all items)
+    int findItem(const FXString& text) const;
+
     /// @brief Return item hit code: 0 no hit; 1 hit the icon; 2 hit the text
     FXint hitItem(MFXListIconItem* item, FXint x, FXint y) const;
 
     /// @brief Scroll to bring item into view
     void makeItemVisible(MFXListIconItem* item);
 
+    /// @brief Scroll to bring item into view
+    void makeItemVisible(FXint index);
+
     /// @brief Return TRUE if item is current
-    FXbool isItemCurrent(MFXListIconItem* item) const;
+    FXbool isItemCurrent(FXint index) const;
 
     /// @brief Return TRUE if item is visible
     FXbool isItemVisible(MFXListIconItem* item) const;
@@ -152,7 +158,7 @@ public:
     void setCurrentItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Return current item, if any
-    FXint getCurrentItem() const;
+    FXint getCurrentItemIndex() const;
 
     /// @brief Return viewable item, if any
     FXint getViewableItem() const;
