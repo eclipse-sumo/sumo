@@ -230,10 +230,10 @@ MFXComboBoxIcon::isItemCurrent(FXint index) const {
 
 
 void
-MFXComboBoxIcon::setCurrentItem(const FXint index, const bool ignoreFilter, FXbool notify) {
-    FXint current = myList->getCurrentItem();
+MFXComboBoxIcon::setCurrentItem(const FXint index, FXbool notify) {
+    FXint current = myList->getCurrentItemIndex();
     if (current != index) {
-        myList->setCurrentItem(index, ignoreFilter);
+        myList->setCurrentItem(myList->getItem(index));
         myList->makeItemVisible(index);
         if (0 <= index) {
             // cast MFXListIconItem
@@ -262,7 +262,7 @@ MFXComboBoxIcon::setCurrentItem(const FXint index, const bool ignoreFilter, FXbo
 
 FXint
 MFXComboBoxIcon::getCurrentItem() const {
-    return myList->getCurrentItem();
+    return myList->getCurrentItemIndex();
 }
 
 
@@ -338,14 +338,14 @@ MFXComboBoxIcon::clearItems() {
 
 
 FXint
-MFXComboBoxIcon::findItem(const FXString& text, FXint start, FXuint flgs) const {
-    return myList->findItem(text, start, flgs);
+MFXComboBoxIcon::findItem(const FXString& text) const {
+    return myList->findItem(text);
 }
 
 
 FXString
 MFXComboBoxIcon::getItemText(FXint index) const {
-    return myList->getItemText(index);
+    return myList->getItem(index)->getText();
 }
 
 
@@ -475,7 +475,7 @@ MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
     myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
         // cast MFXListIconItem
-        const MFXListIconItem* item = myList->getItem((FXint)(FXival)ptr);
+        const MFXListIconItem* item = (MFXListIconItem*)ptr;
         // set icon and background color
         myTextFieldIcon->setText(item->getText());
         myTextFieldIcon->setBackColor(item->getBackGroundColor());

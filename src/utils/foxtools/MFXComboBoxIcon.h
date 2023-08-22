@@ -93,7 +93,7 @@ public:
     FXbool isItemCurrent(FXint index) const;
 
     /// @brief Set the current item (index is zero-based)
-    void setCurrentItem(const FXint index, const bool ignoreFilter = true, FXbool notify = FALSE);
+    void setCurrentItem(const FXint index, FXbool notify = FALSE);
 
     /// @brief Get the current item's index
     FXint getCurrentItem() const;
@@ -116,26 +116,14 @@ public:
     /// @brief Remove all items from the list
     void clearItems();
 
-    /**
-    * Search items by name,  beginning from item start.  If the start item
-    * is -1 the search will start at the first item in the list.  Flags
-    * may be SEARCH_FORWARD or SEARCH_BACKWARD to control the search
-    * direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
-    * to control whether the search wraps at the start or end of the list.
-    * The option SEARCH_IGNORECASE causes a case-insensitive match.  Finally,
-    * passing SEARCH_PREFIX causes searching for a prefix of the item name.
-    * Return -1 if no matching item is found.
-    */
-    FXint findItem(const FXString& text, FXint start = -1, FXuint flags = SEARCH_FORWARD | SEARCH_WRAP) const;
+    /// @brief find item
+    FXint findItem(const FXString& text) const;
 
     /// @brief Get text for specified item
     FXString getItemText(FXint index) const;
 
     /// @brief Is the pane shown
     FXbool isPaneShown() const;
-
-    /// @brief Sort items using current sort function
-    void sortItems();
 
     /// @brief Get text font
     FXFont* getFont() const;
