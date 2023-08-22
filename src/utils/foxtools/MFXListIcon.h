@@ -155,22 +155,22 @@ public:
     FXbool isItemEnabled(FXint index) const;
 
     /// @brief Repaint item
-    void updateItem(FXint index) const;
+    void updateItem(MFXListIconItem* item) const;
 
     /// @brief Select item by index
-    FXbool selectItem(FXint index, FXbool notify = FALSE);
+    FXbool selectItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Deselect item
-    FXbool deselectItem(FXint index, FXbool notify = FALSE);
+    FXbool deselectItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Toggle item selection state
-    FXbool toggleItem(FXint index, FXbool notify = FALSE);
+    FXbool toggleItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Deselect all items
     FXbool killSelection(FXbool notify = FALSE);
 
     /// @brief Change current item
-    void setCurrentItem(FXint index, FXbool notify = FALSE);
+    void setCurrentItem(const FXint index, const bool ignoreFilter, FXbool notify = FALSE);
 
     /// @brief Return current item,  if any
     FXint getCurrentItem() const { return current; }
@@ -229,9 +229,6 @@ public:
     long onQueryHelp(FXObject*, FXSelector, void*);
     long onTipTimer(FXObject*, FXSelector, void*);
     long onLookupTimer(FXObject*, FXSelector, void*);
-    long onCmdSetValue(FXObject*, FXSelector, void*);public:
-    long onCmdGetIntValue(FXObject*, FXSelector, void*);
-    long onCmdSetIntValue(FXObject*, FXSelector, void*);
     /// @}
 
 protected:

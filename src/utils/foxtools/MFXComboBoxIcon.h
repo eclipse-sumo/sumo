@@ -93,7 +93,7 @@ public:
     FXbool isItemCurrent(FXint index) const;
 
     /// @brief Set the current item (index is zero-based)
-    void setCurrentItem(FXint index, FXbool notify = FALSE);
+    void setCurrentItem(const FXint index, const bool ignoreFilter = true, FXbool notify = FALSE);
 
     /// @brief Get the current item's index
     FXint getCurrentItem() const;

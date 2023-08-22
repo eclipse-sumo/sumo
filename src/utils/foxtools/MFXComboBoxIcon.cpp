@@ -230,10 +230,10 @@ MFXComboBoxIcon::isItemCurrent(FXint index) const {
 
 
 void
-MFXComboBoxIcon::setCurrentItem(FXint index, FXbool notify) {
+MFXComboBoxIcon::setCurrentItem(const FXint index, const bool ignoreFilter, FXbool notify) {
     FXint current = myList->getCurrentItem();
     if (current != index) {
-        myList->setCurrentItem(index);
+        myList->setCurrentItem(index, ignoreFilter);
         myList->makeItemVisible(index);
         if (0 <= index) {
             // cast MFXListIconItem
