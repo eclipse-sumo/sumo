@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-21 14:39+0000\n"
+"PO-Revision-Date: 2023-08-22 16:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5115,7 +5115,7 @@ msgstr "Agregar vClass para "
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3083
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3178
 msgid " restrictions for "
-msgstr ""
+msgstr " restricciones para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3084
 msgid " will be added. Continue?"
@@ -6688,7 +6688,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:310
 msgid "Topics"
-msgstr ""
+msgstr "Temas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:361
 msgid "Search"
@@ -6726,7 +6726,7 @@ msgstr "falso"
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:458
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:82
 msgid "Select filename"
-msgstr ""
+msgstr "Seleccionar nombre de archivo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:63
 msgid "Grid"
@@ -6864,7 +6864,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
 msgid "Rerun"
-msgstr ""
+msgstr "Ejecutar de nuevo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
@@ -6874,7 +6874,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
@@ -7025,7 +7025,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2664
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2712
 msgid "Edge ID"
-msgstr ""
+msgstr "ID de la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1095
 msgid "The name of a node within the nodes-file the edge shall start at"
@@ -9406,7 +9406,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6044
 msgid "Interval ID"
-msgstr ""
+msgstr "ID del intervalo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6050
 msgid "Data interval begin time"
@@ -9418,7 +9418,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6072
 msgid "edge ID"
-msgstr ""
+msgstr "ID de la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6086
 msgid "The ID of the edge the edgeRel starts at"
@@ -10034,7 +10034,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Simplify Shape"
-msgstr ""
+msgstr "Simplificar forma"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:238
 msgid "Replace current shape with a rectangle"
@@ -10042,7 +10042,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open shape"
-msgstr ""
+msgstr "Abrir forma"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:246
 msgid "Open polygon's shape"
@@ -10175,7 +10175,7 @@ msgstr "Abrir diálogo %"
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:316
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdgeType.cpp:155
 msgid "Invalid index"
-msgstr ""
+msgstr "Índice no válido"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 msgid "Could not build meanDataEdge; "
@@ -10479,7 +10479,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:463
 msgid "Invalid parent"
-msgstr ""
+msgstr "Elemento padre no válido"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:94
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:108
@@ -10696,15 +10696,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:762
 msgid "Distance: "
-msgstr ""
+msgstr "Distancia: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:764
 msgid "Height: "
-msgstr ""
+msgstr "Altura: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:765
 msgid "Angle: "
-msgstr ""
+msgstr "Ángulo: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:813
 msgid "Lane Parametric Length cannot be never 0"
@@ -13193,7 +13193,7 @@ msgstr "Invertir aristas"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:197
 msgid "Crossing parameters"
-msgstr ""
+msgstr "Parámetros de paso peatonal"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:485
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1608
@@ -13203,7 +13203,7 @@ msgstr "Crear"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:488
 msgid "Create crossing"
-msgstr ""
+msgstr "Crear paso peatonal"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:515
 msgid ""
@@ -13238,7 +13238,7 @@ msgstr "Imágenes de fondo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr ""
+msgstr "Conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
@@ -13246,7 +13246,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
-msgstr ""
+msgstr "- Cruce: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
@@ -13290,7 +13290,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "Conflicto no regulado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
 msgid "Connection has a unregulated conflict with the selected connection"
@@ -13298,7 +13298,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "Conflicto mutuo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
@@ -13310,7 +13310,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "Deseleccionar conexión"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
@@ -13326,11 +13326,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:60
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "Formato: Lon-Lat"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:61
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "Formato: Lat-Lon"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:67
 msgid "Center View after creation"
@@ -13393,7 +13393,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:174
 msgid "Current TAZ: "
-msgstr ""
+msgstr "Zona de análisis de tráfico actual: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:337
 msgid "Invalid TAZ Child"
@@ -13554,7 +13554,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:846
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
 msgid " sources and "
-msgstr ""
+msgstr " fuentes y "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:847
 msgid " sinks from TAZ '"
@@ -13562,7 +13562,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:850
 msgid " sinks from "
-msgstr ""
+msgstr " sumideros de "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:850
 msgid " TAZs?"
@@ -13783,7 +13783,7 @@ msgstr "no hay cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:984
 msgid "Junction IDs"
-msgstr ""
+msgstr "IDs de los cruces"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1064
 msgid "rename TLS"
@@ -13823,7 +13823,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1387
 msgid "Reset single"
-msgstr ""
+msgstr "Restablecer individual"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1387
 msgid "Reset current TLS program."
@@ -13831,7 +13831,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1390
 msgid "Reset all"
-msgstr ""
+msgstr "Restablecer todo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1390
 msgid "Reset all TLS programs."
@@ -13886,7 +13886,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1689
 msgid "reset TLS"
-msgstr ""
+msgstr "restablecer semáforos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1850
 msgid "duplicate program '%' of traffic light '%'"
@@ -14641,7 +14641,7 @@ msgstr "sin acción"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:908
 msgid "action in next step"
-msgstr ""
+msgstr "acción en el siguiente paso"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:909
 msgid "had action step"
@@ -14815,7 +14815,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1209
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1671
 msgid "default"
-msgstr ""
+msgstr "por defecto"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1277
 msgid "by average relative speed"
@@ -14827,11 +14827,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1306
 msgid "internal"
-msgstr ""
+msgstr "interno"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1390
@@ -14868,11 +14868,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "odd"
-msgstr ""
+msgstr "impar"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1344
 msgid "even"
-msgstr ""
+msgstr "par"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "by jammed state (segmentwise)"
@@ -14880,7 +14880,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "free"
-msgstr ""
+msgstr "libre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
 msgid "limitedControl"
@@ -14888,7 +14888,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1348
 msgid "jammed"
-msgstr ""
+msgstr "atascado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
 msgid "by current occupancy (segmentwise, brutto)"
@@ -15272,11 +15272,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1809
 msgid "Secondary shape"
-msgstr ""
+msgstr "Forma secundaria"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1814
 msgid "Exaggerate width by"
-msgstr ""
+msgstr "Exagerar el ancho por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1820
 msgid "Minimum size"
@@ -15288,7 +15288,7 @@ msgstr "Mostrar ID de la arista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 msgid "Show street name"
-msgstr ""
+msgstr "Mostrar nombre de la calle"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1828
 msgid "Show edge color value"
@@ -15325,7 +15325,7 @@ msgstr "'formas simples'"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1928
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1968
 msgid "'raster images'"
-msgstr ""
+msgstr "'imágenes ráster'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1846
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1926
