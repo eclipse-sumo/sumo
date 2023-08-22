@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <string>
+#include <vector>
 
 #include "MFXListIconItem.h"
 
@@ -93,12 +94,6 @@ public:
     /// @brief Replace items text,  icon,  and user-data pointer
     FXint setItem(FXint index, const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
-    /// @brief Fill list by appending items from array of strings
-    FXint fillItems(const FXchar** strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
-    /// @brief Fill list by appending items from newline separated strings
-    FXint fillItems(const FXString &strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
     /// @brief Insert a new [possibly subclassed] item at the give index
     FXint insertItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
@@ -110,12 +105,6 @@ public:
 
     /// @brief Append new item with given text and optional icon,  and user-data pointer
     FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
-    /// @brief Prepend a [possibly subclassed] item to the list
-    FXint prependItem(MFXListIconItem* item, FXbool notify = FALSE);
-
-    /// @brief Prepend new item with given text and optional icon,  and user-data pointer
-    FXint prependItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Move item from oldindex to newindex
     FXint moveItem(FXint newindex, FXint oldindex, FXbool notify = FALSE);
@@ -343,8 +332,11 @@ private:
     /// @brief typedef used for comparing elements
     typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
 
+    /// @brief get filtered items
+    std::vector<MFXListIconItem*> getFilteredItems() const;
+
     /// @brief check if filter element
-    bool showElement(const std::string &itemName) const;
+    bool showItem(const std::string &itemName) const;
 
     /// @brief tolower string
     std::string tolowerString(const std::string &str) const;
