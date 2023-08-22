@@ -106,15 +106,6 @@ public:
     /// @brief Append new item with given text and optional icon,  and user-data pointer
     FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
-    /// @brief Move item from oldindex to newindex
-    FXint moveItem(FXint newindex, FXint oldindex, FXbool notify = FALSE);
-
-    /// @brief Extract item from list
-    MFXListIconItem* extractItem(FXint index, FXbool notify = FALSE);
-
-    /// @brief Remove item from list
-    void removeItem(FXint index, FXbool notify = FALSE);
-
     /// @brief Remove all items from list
     void clearItems(FXbool notify = FALSE);
 
@@ -148,9 +139,6 @@ public:
     /// @brief Scroll to bring item into view
     void makeItemVisible(FXint index);
 
-    /// @brief Change item text
-    void setItemText(FXint index, const FXString &text);
-
     /// @brief Return item text
     FXString getItemText(FXint index) const;
 
@@ -169,13 +157,7 @@ public:
     /// @brief Repaint item
     void updateItem(FXint index) const;
 
-    /// @brief Enable item
-    FXbool enableItem(FXint index);
-
-    /// @brief Disable item
-    FXbool disableItem(FXint index);
-
-    /// @brief Select item
+    /// @brief Select item by index
     FXbool selectItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Deselect item
@@ -183,9 +165,6 @@ public:
 
     /// @brief Toggle item selection state
     FXbool toggleItem(FXint index, FXbool notify = FALSE);
-
-    /// @brief Extend selection from anchor item to index
-    FXbool extendSelection(FXint index, FXbool notify = FALSE);
 
     /// @brief Deselect all items
     FXbool killSelection(FXbool notify = FALSE);
@@ -219,12 +198,6 @@ public:
 
     /// @brief Return selected text color
     FXColor getSelTextColor() const { return seltextColor; }
-
-    /// @brief Return list style
-    FXuint getListStyle() const;
-
-    /// @brief Change list style
-    void setListStyle(FXuint style);
 
     /// @brief Set the status line help text for this list
     void setHelpText(const FXString &text);
