@@ -95,6 +95,9 @@ public:
     /// @brief Set the current item (index is zero-based)
     long setCurrentItem(const FXint index, FXbool notify = FALSE);
 
+    /// @brief Set the current item
+    long setCurrentItem(const FXString& text, FXbool notify = FALSE);
+    
     /// @brief Get the current item's index
     FXint getCurrentItem() const;
 
@@ -106,9 +109,6 @@ public:
     
     /// @brief append icon
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
-
-    /// @brief set Item
-    bool setItem(const FXString& text, FXIcon* icon);
 
     /// @brief set custom text
     void setCustomText(const FXString text);
@@ -196,9 +196,6 @@ protected:
 
     /// @brief popup in which place search label and list
     FXPopup* myPane = nullptr;
-
-    /// @brief check if this iconComboBox have icons
-    const bool myHaveIcons;
 
 private:
     /// @brief invalidate copy constructor

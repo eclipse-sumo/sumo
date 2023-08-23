@@ -113,7 +113,7 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
         // check that demandElement tag correspond to a tag of myDemandElementTags
         if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsMatchBox
-            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getACIcon());
+            myDemandElementsMatchBox->setCurrentItem(demandElement->getID().c_str());
         }
         myInfoLabel->hide();
     }
@@ -149,11 +149,11 @@ DemandElementSelector::showDemandElementSelector() {
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
-        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getACIcon());
+        myDemandElementsMatchBox->setCurrentItem(myCurrentDemandElement->getID().c_str());
     } else if (myDemandElementTags.size() == 1) {
         if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
             const auto defaultVType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
-            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getACIcon());
+            myDemandElementsMatchBox->setCurrentItem(defaultVType->getID().c_str());
         }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
