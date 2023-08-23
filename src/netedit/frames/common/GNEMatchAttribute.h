@@ -93,7 +93,7 @@ private:
     MFXComboBoxIcon* myMatchTagComboBox;
 
     /// @brief attributes of the match box
-    FXComboBox* myMatchAttrComboBox;
+    MFXComboBoxIcon* myMatchAttrComboBox;
 
     /// @brief current SumoXMLTag tag
     SumoXMLTag myCurrentTag;

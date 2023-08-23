@@ -3136,7 +3136,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myGenericDataTypesComboBox->appendItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
     myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_EDGEREL).c_str());
     myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_TAZREL).c_str());
-    myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
+    myGenericDataTypesComboBox->setNumVisible(10);
     // create dataSet label
     FXLabel* dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
                                         "Data sets", 0, GUIDesignLabelThickedFixed(100));
@@ -3263,16 +3263,8 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
             }
         }
         // set visible elements
-        if (myDataSetsComboBox->getNumItems() < 10) {
-            myDataSetsComboBox->setNumVisible(myDataSetsComboBox->getNumItems());
-        } else {
-            myDataSetsComboBox->setNumVisible(10);
-        }
-        if (myParametersComboBox->getNumItems() < 10) {
-            myParametersComboBox->setNumVisible(myParametersComboBox->getNumItems());
-        } else {
-            myParametersComboBox->setNumVisible(10);
-        }
+        myDataSetsComboBox->setNumVisible(10);
+        myParametersComboBox->setNumVisible(10);
         // check if enable or disable
         if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
                 (myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT) ||

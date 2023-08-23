@@ -1404,7 +1404,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
             myMeanDataID->enable();
             myMeanDataID->setEditable(false);
             myMeanDataID->show();
-            myMeanDataID->setNumVisible(myMeanDataID->getNumItems());
+            myMeanDataID->setNumVisible(10);
             myParamKey->appendItem(mySettings->edgeData.c_str());
             for (const std::string& attr : myParent->getMeanDataAttrs(mySettings->edgeDataID)) {
                 if (attr != mySettings->edgeData) {

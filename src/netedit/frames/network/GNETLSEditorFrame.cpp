@@ -985,7 +985,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
-            myTLSTypeComboBox->setNumVisible(myTLSTypeComboBox->getNumItems());
+            myTLSTypeComboBox->setNumVisible(10);
             // set TLS type
             const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
             if (index == -1) {
@@ -1451,7 +1451,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
         if (myTLSDefinitions.size() > 0) {
             myProgramComboBox->enable();
             myProgramComboBox->setCurrentItem(0);
-            myProgramComboBox->setNumVisible(myProgramComboBox->getNumItems());
+            myProgramComboBox->setNumVisible(10);
             // switch TLS Program
             return switchProgram();
         }

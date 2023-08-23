@@ -126,7 +126,7 @@ GUIParameterTracker::buildToolBar() {
     myAggregationInterval->appendItem("15min");
     myAggregationInterval->appendItem("30min");
     myAggregationInterval->appendItem("60min");
-    myAggregationInterval->setNumVisible(6);
+    myAggregationInterval->setNumVisible(10);
 
     myMultiPlot = new FXCheckButton(myToolBar, TL("Multiplot"), this, MID_MULTIPLOT);
     myMultiPlot->setCheck(false);

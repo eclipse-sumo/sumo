@@ -79,11 +79,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     // set DEFAULT_VEHTYPE as default VType
     myCurrentType = myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // Set visible items
-    if (myTypeComboBox->getNumItems() <= 20) {
-        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
-    } else {
-        myTypeComboBox->setNumVisible(20);
-    }
+    myTypeComboBox->setNumVisible(20);
     // TypeSelector is always shown
     show();
 }
@@ -127,11 +123,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getACIcon());
     }
     // Set visible items
-    if (myTypeComboBox->getNumItems() <= 20) {
-        myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
-    } else {
-        myTypeComboBox->setNumVisible(20);
-    }
+    myTypeComboBox->setNumVisible(20);
     // make sure that tag is in myTypeMatchBox
     if (myCurrentType) {
         for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {

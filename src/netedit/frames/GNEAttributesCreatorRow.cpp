@@ -248,11 +248,7 @@ GNEAttributesCreatorRow::refreshRow() {
                 myValueComboBox->appendItem(item.c_str());
             }
             // set number of visible items
-            if (myAttrProperties.showAllDiscreteValues()) {
-                myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
-            } else {
-                myValueComboBox->setNumVisible(10);
-            }
+            myValueComboBox->setNumVisible(10);
             myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));

@@ -124,13 +124,13 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     for (const auto& vType : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendItem(vType->getID().c_str());
     }
-    myComboBoxVehicleType->setNumVisible((int)myComboBoxVehicleType->getNumItems());
+    myComboBoxVehicleType->setNumVisible(10);
 
     // fill comboBox of Routes
     for (const auto& route : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         myComboBoxRoute->appendItem(route->getID().c_str());
     }
-    myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());
+    myComboBoxRoute->setNumVisible(10);
 
     // update tables
     updateCalibratorFlowValues();

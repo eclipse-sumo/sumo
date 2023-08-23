@@ -74,13 +74,13 @@ GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
     myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
     myTerminateComboBox->appendItem(toString(SUMO_ATTR_NUMBER).c_str());
     myTerminateComboBox->appendItem((toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)).c_str());
-    myTerminateComboBox->setNumVisible(3);
+    myTerminateComboBox->setNumVisible(10);
     // fill comboBox B
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
     mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
     mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-    mySpacingComboBox->setNumVisible(4);
+    mySpacingComboBox->setNumVisible(10);
 }
 
 
@@ -107,7 +107,7 @@ GNEFlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlow
         mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
         mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
         mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-        mySpacingComboBox->setNumVisible(4);
+        mySpacingComboBox->setNumVisible(10);
         // refresh
         refreshFlowEditor();
         // show

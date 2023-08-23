@@ -79,7 +79,7 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     /// build MatchGenericAttribute
     myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this, defaultTag, defaultAttr, defaultValue);
     // set visible items
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    mySetComboBox->setNumVisible(10);
 }
 
 

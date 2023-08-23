@@ -73,7 +73,7 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     // Create help button
     helpReferencePoint = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
-    myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
+    myReferencePointMatchBox->setNumVisible(10);
 }
 
 

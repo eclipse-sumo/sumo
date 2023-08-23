@@ -63,7 +63,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
         myRouteModeMatchBox->appendItem(routeMode.second.c_str());
     }
     // Set visible items
-    myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
+    myRouteModeMatchBox->setNumVisible(10);
     // Create FXComboBox for VClass
     myVClassMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
@@ -73,7 +73,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // set Passenger als default VCLass
     myVClassMatchBox->setCurrentItem(7);
     // Set visible items
-    myVClassMatchBox->setNumVisible((int)myVClassMatchBox->getNumItems());
+    myVClassMatchBox->setNumVisible(10);
     // RouteModeSelector is always shown
     show();
 }

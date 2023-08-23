@@ -410,12 +410,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     for (const auto& edgeType : edgeTypes) {
         myEdgeTypesComboBox->appendItem(edgeType.second->getID().c_str(), nullptr);
     }
-    // set num visible antes
-    if (myEdgeTypesComboBox->getNumItems() <= 10) {
-        myEdgeTypesComboBox->setNumVisible(myEdgeTypesComboBox->getNumItems());
-    } else {
-        myEdgeTypesComboBox->setNumVisible(10);
-    }
+    // set num visible
+    myEdgeTypesComboBox->setNumVisible(10);
     // set current item
     if ((myCurrentIndex < 0) || (myCurrentIndex >= myEdgeTypesComboBox->getNumItems())) {
         myCurrentIndex = myEdgeTypesComboBox->getNumItems() - 1;
@@ -606,11 +602,7 @@ GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
     // set current item
     myLaneTypesComboBox->setCurrentItem(myLaneIndex);
     // set num visible items
-    if (myLaneTypesComboBox->getNumItems() <= 10) {
-        myLaneTypesComboBox->setNumVisible(myLaneTypesComboBox->getNumItems());
-    } else {
-        myLaneTypesComboBox->setNumVisible(10);
-    }
+    myLaneTypesComboBox->setNumVisible(10);
 }
 
 // ---------------------------------------------------------------------------

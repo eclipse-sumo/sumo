@@ -77,7 +77,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     // set DEFAULT_VEHTYPE as default VType
     myCurrentMeanData = meanDataTypes.front();
     // Set visible items
-    myTypeComboBox->setNumVisible((int)myTypeComboBox->getNumItems());
+    myTypeComboBox->setNumVisible(10);
     // MeanDataTypeSelector is always shown
     show();
 }
@@ -290,11 +290,7 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
         myCurrentMeanData = nullptr;
     }
     // Set visible items
-    if (myMeanDataComboBox->getNumItems() <= 20) {
-        myMeanDataComboBox->setNumVisible((int)myMeanDataComboBox->getNumItems());
-    } else {
-        myMeanDataComboBox->setNumVisible(20);
-    }
+    myMeanDataComboBox->setNumVisible(20);
     // MeanDataSelector is always shown
     show();
 }
@@ -350,11 +346,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
         myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
     // Set visible items
-    if (myMeanDataComboBox->getNumItems() <= 20) {
-        myMeanDataComboBox->setNumVisible((int)myMeanDataComboBox->getNumItems());
-    } else {
-        myMeanDataComboBox->setNumVisible(20);
-    }
+    myMeanDataComboBox->setNumVisible(20);
     // make sure that mean data exists
     if (myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveMeanData(myCurrentMeanData, false)) {
         bool validMeanData = false;

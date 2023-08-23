@@ -295,11 +295,7 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
         myDistributionsComboBox->appendItem(distribution.first.c_str(), distribution.second->getACIcon());
     }
     // Set visible items
-    if (myDistributionsComboBox->getNumItems() <= 20) {
-        myDistributionsComboBox->setNumVisible((int)myDistributionsComboBox->getNumItems());
-    } else {
-        myDistributionsComboBox->setNumVisible(20);
-    }
+    myDistributionsComboBox->setNumVisible(20);
     // return distributions sorted by ID
     return distributions;
 }
@@ -361,7 +357,7 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box
-    myComboBoxKeys->setNumVisible(myComboBoxKeys->getNumItems() <= 10? myComboBoxKeys->getNumItems() : 10);
+    myComboBoxKeys->setNumVisible(10);
     myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
     myComboBoxKeys->killFocus();
     // set probability

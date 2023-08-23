@@ -107,7 +107,7 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* c
         myDataSetsComboBox->appendItem(dataSet->getID().c_str());
     }
     // Set visible items
-    myDataSetsComboBox->setNumVisible((int)myDataSetsComboBox->getNumItems());
+    myDataSetsComboBox->setNumVisible(10);
     // check if we have to set current element
     if (currentItemIndex != -1) {
         myDataSetsComboBox->setCurrentItem(currentItemIndex, FALSE);
@@ -445,11 +445,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         // enable combo Box
         myAttributesComboBox->enable();
         // adjust visible items
-        if (myAttributesComboBox->getNumItems() < 10) {
-            myAttributesComboBox->setNumVisible(myAttributesComboBox->getNumItems());
-        } else {
-            myAttributesComboBox->setNumVisible(10);
-        }
+        myAttributesComboBox->setNumVisible(10);
         // set current item
         for (int i = 0; i < myAttributesComboBox->getNumItems(); i++) {
             if (myAttributesComboBox->getItem(i).text() == currentAttribute) {

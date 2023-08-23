@@ -75,11 +75,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
         myComboBoxVClass->appendIconItem(vClass.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(vClass)));
     }
     // only show as maximum 10 VClasses
-    if (myComboBoxVClass->getNumItems() > 10) {
-        myComboBoxVClass->setNumVisible(10);
-    } else {
-        myComboBoxVClass->setNumVisible(myComboBoxVClass->getNumItems());
-    }
+    myComboBoxVClass->setNumVisible(10);
 }
 
 
@@ -471,11 +467,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
             myComboBox->appendIconItem(value.c_str(), nullptr);
         }
         // set 10 visible elements as maximum
-        if (myComboBox->getNumItems() < 10) {
-            myComboBox->setNumVisible(myComboBox->getNumItems());
-        } else {
-            myComboBox->setNumVisible(10);
-        }
+        myComboBox->setNumVisible(10);
     } else {
         throw ProcessError(TL("Invalid row type"));
     }
@@ -1291,7 +1283,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     for (const auto& CFModel : CFModels) {
         myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), nullptr);
     }
-    myComboBoxCarFollowModel->setNumVisible(myComboBoxCarFollowModel->getNumItems());
+    myComboBoxCarFollowModel->setNumVisible(10);
 
     // 01 create FX and Label for Accel
     myAccelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_ACCEL);

@@ -1159,8 +1159,8 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
         myParentsComboBox->appendItem(item.second.c_str());
         myChildrenComboBox->appendItem(item.second.c_str());
     }
-    myParentsComboBox->setNumVisible(5);
-    myChildrenComboBox->setNumVisible(5);
+    myParentsComboBox->setNumVisible(10);
+    myChildrenComboBox->setNumVisible(10);
 }
 
 

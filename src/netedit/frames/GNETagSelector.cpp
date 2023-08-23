@@ -215,7 +215,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     myTagsMatchBox->killFocus();
     // Set visible items
-    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+    myTagsMatchBox->setNumVisible(10);
     // set first myACTemplate as edited AC
     myCurrentTemplateAC = myACTemplates.front()->getAC();
     // call tag selected function

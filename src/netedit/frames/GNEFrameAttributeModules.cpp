@@ -742,11 +742,7 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
         }
     }
     // set num visible values
-    if (myACAttr.showAllDiscreteValues()) {
-        myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
-    } else {
-        myValueComboBox->setNumVisible(myValueComboBox->getNumItems() < 10 ? myValueComboBox->getNumItems() : 10);
-    }
+    myValueComboBox->setNumVisible(10);
     // set current value
     const auto index = myValueComboBox->findItem(value.c_str());
     if (index < 0) {

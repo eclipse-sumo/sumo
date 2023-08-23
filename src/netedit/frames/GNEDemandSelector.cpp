@@ -204,12 +204,8 @@ DemandElementSelector::refreshDemandElementSelector() {
             }
         }
     }
-    // Set number of  items (maximum 10)
-    if (myDemandElementsMatchBox->getNumItems() < 10) {
-        myDemandElementsMatchBox->setNumVisible((int)myDemandElementsMatchBox->getNumItems());
-    } else {
-        myDemandElementsMatchBox->setNumVisible(10);
-    }
+    // Set visble items
+    myDemandElementsMatchBox->setNumVisible(10);
     // update myCurrentDemandElement
     if (myDemandElementsMatchBox->getNumItems() == 0) {
         myCurrentDemandElement = nullptr;
