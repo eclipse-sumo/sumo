@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-21 12:14+0200\n"
-"PO-Revision-Date: 2023-08-22 16:02+0000\n"
+"PO-Revision-Date: 2023-08-24 10:55+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6621,7 +6621,7 @@ msgstr "OK\tCerrar ventana"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exists"
-msgstr ""
+msgstr "La clave '%' ya existe"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:446
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1200
@@ -6810,7 +6810,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:245
 #, c-format
 msgid "Use current % file"
-msgstr ""
+msgstr "Usar el archivo % actual"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
@@ -6819,7 +6819,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
-msgstr ""
+msgstr "Usar las aristas seleccionadas actualmente"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
@@ -9949,7 +9949,7 @@ msgstr "No se pudo construir % en netedit"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2111
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "% '%' doesn't exist."
-msgstr ""
+msgstr "% '%' no existe."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2113
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2194
@@ -10063,7 +10063,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:251
 msgid "Select elements within polygon boundary"
-msgstr ""
+msgstr "Seleccionar elementos dentro del límite del polígono"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Remove geometry point"
@@ -10079,7 +10079,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:474
 msgid "Number of remaining points insufficient"
-msgstr ""
+msgstr "Número de puntos restantes insuficiente"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:501
 msgid "Polygon already opened"
@@ -10149,7 +10149,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "Could not build %"
-msgstr ""
+msgstr "No se pudo construir %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataInterval.cpp:173
 msgid "GenericData was already inserted"
@@ -12972,7 +12972,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:290
 msgid "reset connections from selected lanes"
-msgstr ""
+msgstr "restablecer conexiones de los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:311
 msgid ""
