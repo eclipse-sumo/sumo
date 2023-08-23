@@ -1746,7 +1746,8 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrameColor = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
     FXMatrix* matrixColor = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixColor, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
-    myLaneEdgeColorMode = new MFXComboBoxIcon(matrixColor, 30, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneEdgeColorMode = new MFXComboBoxIcon(matrixColor, 30, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneEdgeColorMode->setNumVisible(10);
     myLaneColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorSettingFrame = new FXVerticalFrame(verticalFrameColor, GUIDesignViewSettingsVerticalFrame4);
     myMeanDataID = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
@@ -1775,7 +1776,8 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrameScale = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
     FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 5, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixScale, TL("Scale width"), nullptr, GUIDesignViewSettingsLabel1);
-    myLaneEdgeScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneEdgeScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneEdgeScaleMode->setNumVisible(10);
     myLaneScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
     myScalingParamKey = new FXComboBox(matrixScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
@@ -1785,13 +1787,9 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     if (GUIVisualizationSettings::UseMesoSim) {
         mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
         mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
-        myLaneEdgeColorMode->setNumVisible((int)mySettings->edgeColorer.size());
-        myLaneEdgeScaleMode->setNumVisible((int)mySettings->edgeScaler.size());
     } else {
         mySettings->laneColorer.fill(*myLaneEdgeColorMode);
         mySettings->laneScaler.fill(*myLaneEdgeScaleMode);
-        myLaneEdgeColorMode->setNumVisible((int)mySettings->laneColorer.size());
-        myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
     }
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
@@ -1854,22 +1852,22 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
 
     FXMatrix* matrixShowAs = new FXMatrix(verticalframe, 2, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixShowAs, TL("Show As"), nullptr, GUIDesignViewSettingsLabel1);
-    myVehicleShapeDetail = new MFXComboBoxIcon(matrixShowAs, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleShapeDetail = new MFXComboBoxIcon(matrixShowAs, 20, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleShapeDetail->appendIconItem(TL("'triangles'"));
     myVehicleShapeDetail->appendIconItem(TL("'boxes'"));
     myVehicleShapeDetail->appendIconItem(TL("'simple shapes'"));
     myVehicleShapeDetail->appendIconItem(TL("'raster images'"));
     myVehicleShapeDetail->appendIconItem(TL("'circles'"));
-    myVehicleShapeDetail->setNumVisible(5);
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
+    myVehicleShapeDetail->setNumVisible(10);
 
     new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixColor = new FXMatrix(verticalframe, 4, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixColor, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
-    myVehicleColorMode = new MFXComboBoxIcon(matrixColor, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleColorMode = new MFXComboBoxIcon(matrixColor, 20, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->vehicleColorer.fill(*myVehicleColorMode);
-    myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
+    myVehicleColorMode->setNumVisible(10);
     myVehicleColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myVehicleParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleParamKey->setEditable(true);
@@ -1882,14 +1880,14 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrameScale = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame6);
     FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 4, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixScale, TL("Scale size"), nullptr, GUIDesignViewSettingsLabel1);
-    myVehicleScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myVehicleScalingParamKey = new FXComboBox(matrixScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleScalingParamKey->setEditable(true);
     myVehicleScalingParamKey->disable();
     myVehicleScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
     mySettings->vehicleScaler.fill(*myVehicleScaleMode);
-    myVehicleScaleMode->setNumVisible((int)mySettings->vehicleScaler.size());
+    myVehicleScaleMode->setNumVisible(10);
     new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixVehicle = new FXMatrix(verticalframe, 2, GUIDesignMatrixViewSettings);
@@ -1945,7 +1943,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     myPersonShapeDetail->appendIconItem(TL("'circles'"));
     myPersonShapeDetail->appendIconItem(TL("'simple shapes'"));
     myPersonShapeDetail->appendIconItem(TL("'raster images'"));
-    myPersonShapeDetail->setNumVisible(4);
+    myPersonShapeDetail->setNumVisible(10);
     myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
@@ -1954,7 +1952,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     new FXLabel(m102, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
     myPersonColorMode = new MFXComboBoxIcon(m102, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->personColorer.fill(*myPersonColorMode);
-    myPersonColorMode->setNumVisible(mySettings->personColorer.size());
+    myPersonColorMode->setNumVisible(10);
     myPersonColorInterpolation = new FXCheckButton(m102, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myPersonColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
@@ -1985,7 +1983,7 @@ GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
     myContainerShapeDetail->appendIconItem(TL("'boxes'"));
     myContainerShapeDetail->appendIconItem(TL("'simple shapes'"));
     myContainerShapeDetail->appendIconItem(TL("'raster images'"));
-    myContainerShapeDetail->setNumVisible(4);
+    myContainerShapeDetail->setNumVisible(10);
     myContainerShapeDetail->setCurrentItem(mySettings->containerQuality);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
@@ -2020,7 +2018,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
     new FXLabel(m41, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
     myJunctionColorMode = new MFXComboBoxIcon(m41, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->junctionColorer.fill(*myJunctionColorMode);
-    myJunctionColorMode->setNumVisible(4);
+    myJunctionColorMode->setNumVisible(10);
     myJunctionColorInterpolation = new FXCheckButton(m41, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
@@ -2140,7 +2138,7 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     new FXLabel(m63, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
     myPOIColorMode = new MFXComboBoxIcon(m63, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->poiColorer.fill(*myPOIColorMode);
-    myPOIColorMode->setNumVisible(3);
+    myPOIColorMode->setNumVisible(10);
     myPOIColorInterpolation = new FXCheckButton(m63, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myPOIColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
 
@@ -2175,7 +2173,7 @@ GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
     new FXLabel(m63, TL("Color"), nullptr, GUIDesignViewSettingsLabel1);
     myPolyColorMode = new MFXComboBoxIcon(m63, 20, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->polyColorer.fill(*myPolyColorMode);
-    myPolyColorMode->setNumVisible(mySettings->polyColorer.size());
+    myPolyColorMode->setNumVisible(10);
     myPolyColorInterpolation = new FXCheckButton(m63, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myPolyColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
 
@@ -2243,7 +2241,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     myDataParamKey->disable();
     myDataParamKey->setEditable(true);
     mySettings->dataColorer.fill(*myDataColorMode);
-    myDataColorMode->setNumVisible((int)mySettings->dataColorer.size());
+    myDataColorMode->setNumVisible(10);
 
     // rainbow settings
     FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
