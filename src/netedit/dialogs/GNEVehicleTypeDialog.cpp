@@ -307,7 +307,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVariable() {
 
 void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::updateValues() {
-    myComboBoxShape->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    // set value
+    const int index = myComboBoxShape->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    if (index == -1) {
+        myComboBoxShape->disable();
+    } else {
+        myComboBoxShape->setCurrentItem(index);
+        myComboBoxShape->enable();
+    }
     setVShapeLabelImage();
 }
 
@@ -316,7 +323,14 @@ void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::updateValue(SUMOVehicleClass vClass) {
     // create new VClassDefaultValues using the new VClass
     SUMOVTypeParameter::VClassDefaultValues newVClass(vClass);
-    myComboBoxShape->setText(SumoVehicleShapeStrings.getString(newVClass.shape).c_str());
+    // set value
+    const int index = myComboBoxShape->findItem(SumoVehicleShapeStrings.getString(newVClass.shape).c_str());
+    if (index == -1) {
+        myComboBoxShape->disable();
+    } else {
+        myComboBoxShape->setCurrentItem(index);
+        myComboBoxShape->enable();
+    }
     myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
     myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
             myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
@@ -451,7 +465,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME) || (rowAttrType == ROWTYPE_PARAMETERS)) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
     } else if (rowAttrType == ROWTYPE_COMBOBOX) {
-        myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
+        myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, true, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
         // fill combo Box with values
         for (const auto& value : values) {
             myComboBox->appendIconItem(value.c_str(), nullptr);
@@ -550,8 +564,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable(const std:
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
     if (myRowAttrType == ROWTYPE_COMBOBOX) {
-        // set text of myComboBox using current value of VType
-        myComboBox->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set value
+        const int index = myComboBox->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        if (index == -1) {
+            myComboBox->disable();
+        } else {
+            myComboBox->setCurrentItem(index);
+            myComboBox->enable();
+        }
         // set color depending if is a default value
         if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myComboBox->getText().text()) {
             myComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -602,8 +622,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue(const std::string& defaultValue) {
     if (myComboBox) {
-        // set text of myComboBox using current value of VType
-        myComboBox->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set value
+        const int index = myComboBox->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        if (index == -1) {
+            myComboBox->disable();
+        } else {
+            myComboBox->setCurrentItem(index);
+            myComboBox->enable();
+        }
         // set color depending if is a default value
         if (defaultValue != myComboBox->getText().text()) {
             myComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -1258,7 +1284,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     // declare combo box
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelThickedFixed(150));
-    myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, false, false, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, false, true, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
 
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
@@ -1682,7 +1708,14 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).empty()) {
         myComboBoxCarFollowModel->setCurrentItem(0);
     } else {
-        myComboBoxCarFollowModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+        // set value
+        const int index = myComboBoxCarFollowModel->findItem(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+        if (index == -1) {
+            myComboBoxCarFollowModel->disable();
+        } else {
+            myComboBoxCarFollowModel->setCurrentItem(index);
+            myComboBoxCarFollowModel->enable();
+        }
     }
     // refresh fields
     refreshCFMFields();
