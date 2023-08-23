@@ -206,7 +206,7 @@ first applicable value is used):
 - the current (smoothed) travel times in the network are used if the
    vehicle is equipped with a [rerouting
    device](../Demand/Automatic_Routing.md)
-- subjective edge costs for the current vehicle if set via[TraCI
+- subjective edge costs for the current vehicle if set via [TraCI
    command *change edge travel time
    information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
 - edge weights loaded via the [sumo](../sumo.md) option **--weight-files**
