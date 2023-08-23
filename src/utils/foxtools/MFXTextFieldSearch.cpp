@@ -23,6 +23,13 @@
 
 #include "MFXTextFieldSearch.h"
 
+// =========================================================================
+// defines
+// =========================================================================
+
+#define ICON_SIZE           16
+#define ICON_SPACING        ICON_SIZE + 4   // Spacing between icon and label (2 + 2)
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -56,37 +63,36 @@ MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
 
 
 long
-MFXTextFieldSearch::onPaint(FXObject* obj, FXSelector sel, void* ptr) {
-    if (hasFocus() || (contents.count() > 0)) {
-        return FXTextField::onPaint(obj, sel, ptr);
+MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
+    FXEvent* ev = (FXEvent*)ptr;
+    FXDCWindow dc(this, ev);
+    // Draw frame
+    drawFrame(dc, 0, 0, width, height);
+    // Gray background if disabled
+    if (isEnabled()) {
+        dc.setForeground(backColor);
     } else {
-        FXEvent* ev = (FXEvent*)ptr;
-        FXDCWindow dc(this, ev);
-        // declare text to search
-        std::string searchString = TL("Type to search...");
-        // Draw frame
-        drawFrame(dc, 0, 0, width, height);
-        // Gray background if disabled
-        if (isEnabled()) {
-            dc.setForeground(backColor);
-        } else {
-            dc.setForeground(baseColor);
-        }
-        // Draw background
-        dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
-        // Draw text,  clipped against frame interior
-        dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
-        drawSearchTextRange(searchString.c_str(), dc);
-        // Draw caret
-        if (flags & FLAG_CARET) {
-            int xx = coord(cursor) - 1;
-            dc.setForeground(cursorColor);
-            dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
-            dc.fillRectangle(xx - 2, padtop + border, 5, 1);
-            dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
-        }
-        return 1;
+        dc.setForeground(baseColor);
     }
+    // Draw background
+    dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
+    // Draw text,  clipped against frame interior
+    dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
+    // continue depending of search string
+    if (hasFocus() || (contents.count() > 0)) {
+        drawTextRange(dc, 0, contents.length());
+    } else {
+        drawSearchTextRange(TL("Type to search..."), dc);
+    }
+    // Draw caret
+    if (flags & FLAG_CARET) {
+        int xx = coord(cursor) - 1;
+        dc.setForeground(cursorColor);
+        dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
+        dc.fillRectangle(xx - 2, padtop + border, 5, 1);
+        dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
+    }
+    return 1;
 }
 
 
