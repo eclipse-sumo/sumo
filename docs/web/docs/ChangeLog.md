@@ -35,7 +35,7 @@ title: ChangeLog
   - Fixed invalid checks setting IDs. #13690
   - Now vType is a combobox when a selection of vehicles is inspected. #12719
   - Fixed error with FXIconComboBox size. #12623
-  - Added search field in comboBox. #12394
+  - Disabled invalid combinations for node 'type' and 'rightOfWay'. #13436
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -72,6 +72,7 @@ title: ChangeLog
   - Implemented frame for edit vType distributions. #13393
   - Implemented frame for edit route distributions. #13635
   - Added buttons next to lane attribute to shift element between edge's lanes. #13387
+  - Added search field in comboBox. #12394
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
