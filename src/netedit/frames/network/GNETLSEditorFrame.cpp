@@ -898,12 +898,6 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
-    // fill comboBox (only certain TL types)
-    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
-    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
-    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
-    myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
-    myTLSTypeComboBox->setNumVisible(myTLSTypeComboBox->getNumItems());
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
@@ -985,8 +979,21 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
             }
             // update TLS ID text field
             myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
+            // fill comboBox (only certain TL types)
+            myTLSTypeComboBox->clearItems();
+            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
+            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
+            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
+            myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
+            myTLSTypeComboBox->setNumVisible(myTLSTypeComboBox->getNumItems());
             // set TLS type
-            myTLSTypeComboBox->setText(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+            const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
+            if (index == -1) {
+                myTLSTypeComboBox->disable();
+            } else {
+                myTLSTypeComboBox->setCurrentItem(index);
+                myTLSTypeComboBox->enable();
+            }
         }
     }
 }
@@ -1114,7 +1121,14 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
     if (newTLType.empty() || (newTLType == currentTLType)) {
         // same ID or empty, don't change
         myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
-        myTLSTypeComboBox->setText(currentTLType.c_str());
+         // set value
+        const int index = myTLSTypeComboBox->findItem(currentTLType.c_str());
+        if (index == -1) {
+            myTLSTypeComboBox->disable();
+        } else {
+            myTLSTypeComboBox->setCurrentItem(index);
+            myTLSTypeComboBox->enable();
+        }
         myTLSTypeComboBox->killFocus();
         myTLSEditorParent->update();
         // show all moduls
@@ -1160,7 +1174,7 @@ long
 GNETLSEditorFrame::TLSJunction::onUpdTLSType(FXObject*, FXSelector, void*) {
     if (myCurrentJunction == nullptr) {
         // no junction, disable and clear
-        myTLSTypeComboBox->setText("");
+        myTLSTypeComboBox->clearItems();
         myTLSTypeComboBox->disable();
     } else if (myTLSEditorParent->myTLSAttributes->isSetDetectorsToggleButtonEnabled()) {
         // selecting E1, disable button

@@ -82,9 +82,6 @@ public:
     /// @brief Return the number of visible items
     FXint getNumVisible() const;
 
-    /// @brief Set text
-    void setText(FXString text);
-
     /// @brief Set the number of visible items in the drop down list
     void setNumVisible(FXint nvis);
 

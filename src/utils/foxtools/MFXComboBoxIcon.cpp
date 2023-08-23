@@ -211,12 +211,6 @@ MFXComboBoxIcon::getNumVisible() const {
 
 
 void
-MFXComboBoxIcon::setText(FXString text) {
-    myTextField->setText(text);
-}
-
-
-void
 MFXComboBoxIcon::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
 }
