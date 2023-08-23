@@ -86,7 +86,7 @@ public:
     void setNumVisible(FXint nvis);
 
     /// @brief Return the item at the given index
-    MFXListIconItem *getItem(FXint index) const;
+    MFXListIconItem* getItem(FXint index) const;
 
     /// @brief Replace the item with a [possibly subclassed] item
     FXint setItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
@@ -193,6 +193,9 @@ public:
     /// @brief Get the status line help text for this list
     const FXString &getHelpText() const { return help; }
 
+    /// @brief tolower string
+    FXString tolowerString(const FXString &str) const;
+
     /// @name call functions
     /// @{
     long onPaint(FXObject*, FXSelector, void*);
@@ -294,10 +297,7 @@ private:
     std::vector<MFXListIconItem*> getFilteredItems() const;
 
     /// @brief check if filter element
-    bool showItem(const std::string &itemName) const;
-
-    /// @brief tolower string
-    std::string tolowerString(const std::string &str) const;
+    bool showItem(const FXString &itemName) const;
 
     /// @brief @brief invalidate copy constructor
     MFXListIcon(const FXList & ) = delete;

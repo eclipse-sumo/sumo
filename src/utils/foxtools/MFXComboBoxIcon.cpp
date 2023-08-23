@@ -32,8 +32,6 @@
 
 #define ICON_SPACING        4   // Spacing between icon and label (2 + 2)
 #define ICON_SIZE           16
-#define COMBOBOX_INS_MASK   (COMBOBOX_REPLACE | COMBOBOX_INSERT_BEFORE | COMBOBOX_INSERT_AFTER | COMBOBOX_INSERT_FIRST | COMBOBOX_INSERT_LAST)
-#define COMBOBOX_MASK       (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
 
 // ===========================================================================
 // FOX callback mapping
@@ -229,34 +227,27 @@ MFXComboBoxIcon::isItemCurrent(FXint index) const {
 }
 
 
-void
+long
 MFXComboBoxIcon::setCurrentItem(const FXint index, FXbool notify) {
-    FXint current = myList->getCurrentItemIndex();
-    if (current != index) {
-        myList->setCurrentItem(myList->getItem(index));
+    if (index >= 0 && index <= myList->getNumItems()) {
+        // get item
+        MFXListIconItem* item = myList->getItem(index);
+        // set it as current item and make it visible
+        myList->setCurrentItem(item);
         myList->makeItemVisible(index);
-        if (0 <= index) {
-            // cast MFXListIconItem
-            const MFXListIconItem* item = dynamic_cast<MFXListIconItem*>(myList->getItem(index));
-            // set icon and background color
-            if (item) {
-                myTextFieldIcon->setText(item->getText());
-                myTextFieldIcon->setBackColor(item->getBackGroundColor());
-                myIconLabel->setIcon(item->getIcon());
-                myIconLabel->setBackColor(item->getBackGroundColor());
-            } else {
-                myTextFieldIcon->resetTextField();
-                myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
-                myIconLabel->setIcon(nullptr);
-                myIconLabel->setBackColor(FXRGB(255, 255, 255));
-            }
-        } else {
-            myTextFieldIcon->resetTextField();
-        }
+        // update both text fields
+        myTextFieldIcon->setText(item->getText());
+        myTextFieldIcon->setBackColor(item->getBackGroundColor());
+        myIconLabel->setIcon(item->getIcon());
+        myIconLabel->setBackColor(item->getBackGroundColor());
+        // check if notify
         if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)getText().text());
+            return target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)item);
         }
+    } else {
+        fxerror("%s::setItem: index out of range.\n", getClassName());
     }
+    return 0;
 }
 
 
@@ -358,29 +349,6 @@ MFXComboBoxIcon::isPaneShown() const {
 FXFont*
 MFXComboBoxIcon::getFont() const {
     return myTextFieldIcon->getFont();
-}
-
-
-void
-MFXComboBoxIcon::setComboStyle(FXuint mode) {
-    FXuint opts = (options & ~COMBOBOX_MASK) | (mode & COMBOBOX_MASK);
-    if (opts != options) {
-        options = opts;
-        if (options & COMBOBOX_STATIC) {
-            myTextFieldIcon->setEditable(FALSE);                                // Non-editable
-            myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);   // No scrolling
-        } else {
-            myTextFieldIcon->setEditable(TRUE);                                 // Editable
-            myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLER_NEVER);  // Scrollable, but no scrollbar
-        }
-        recalc();
-    }
-}
-
-
-FXuint
-MFXComboBoxIcon::getComboStyle() const {
-    return (options & COMBOBOX_MASK);
 }
 
 
@@ -512,17 +480,23 @@ MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
-    if (!(options & COMBOBOX_STATIC)) {
-        switch (options & COMBOBOX_INS_MASK) {
-            case COMBOBOX_INSERT_LAST:
-                appendIconItem((FXchar*)ptr);
-                break;
+    if (myTextFieldIcon->getText().empty()) {
+        myTextFieldIcon->setBackColor(FXRGB(255, 100, 100));
+        myIconLabel->setBackColor(FXRGB(255, 100, 100));
+    } else {
+        myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+        myIconLabel->setBackColor(FXRGB(255, 255, 255));
+    }
+    // check if item exist
+    for (int i = 0; i < myList->getNumItems(); i++) {
+        const auto itemText = myList->tolowerString(myList->getItem(i)->getText());
+        if (myList->tolowerString(myTextFieldIcon->getText()) == itemText) {
+            // use "set curent item" function
+            return setCurrentItem(i, TRUE);
         }
     }
-    // reset icon and color
-    myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+    // no item found, then reset icon label
     myIconLabel->setIcon(nullptr);
-    myIconLabel->setBackColor(FXRGB(255, 255, 255));
     return target? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
 }
 

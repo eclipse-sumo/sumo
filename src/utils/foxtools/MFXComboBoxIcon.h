@@ -93,7 +93,7 @@ public:
     FXbool isItemCurrent(FXint index) const;
 
     /// @brief Set the current item (index is zero-based)
-    void setCurrentItem(const FXint index, FXbool notify = FALSE);
+    long setCurrentItem(const FXint index, FXbool notify = FALSE);
 
     /// @brief Get the current item's index
     FXint getCurrentItem() const;
@@ -127,12 +127,6 @@ public:
 
     /// @brief Get text font
     FXFont* getFont() const;
-
-    /// @brief Set the combobox style.
-    void setComboStyle(FXuint mode);
-
-    /// @brief Get the combobox style.
-    FXuint getComboStyle() const;
 
     /// @brief Set window background color
     virtual void setBackColor(FXColor clr);

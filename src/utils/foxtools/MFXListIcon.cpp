@@ -562,7 +562,6 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
                     makeItemVisible(items[index]);
                 }
             } else {
-                const auto filteredItems = getFilteredItems();
                 if (0 <= index && index < (int)filteredItems.size()) {
                     setCurrentItem(filteredItems[index], TRUE);
                     makeItemVisible(filteredItems[index]);
@@ -944,11 +943,10 @@ MFXListIcon::getCursorItem() const {
 
 MFXListIconItem*
 MFXListIcon::getItem(FXint index) const {
-    const auto filteredItems = getFilteredItems();
-    if (index < 0 || (int)filteredItems.size() <= index) {
+    if (index < 0 || items.no() <= index) {
         fxerror("%s::getItem: index out of range.\n", getClassName());
     }
-    return filteredItems[index];
+    return items[index];
 }
 
 
@@ -1116,6 +1114,16 @@ MFXListIcon::setHelpText(const FXString &text) {
 }
 
 
+FXString
+MFXListIcon::tolowerString(const FXString &str) const {
+    FXString result;
+    for (int i = 0; i < str.count(); i++) {
+        result.append((char)::tolower(str[i]));
+    }
+    return result;
+}
+
+
 MFXListIcon::MFXListIcon() {
     flags |= FLAG_ENABLED;
     font = (FXFont*)-1L;
@@ -1126,7 +1134,7 @@ void
 MFXListIcon::recompute() {
     // first filter items
     for (int i = 0; i < items.no(); i++) {
-        items[i]->show = showItem(items[i]->getText().text());
+        items[i]->show = showItem(items[i]->getText());
     }
     register FXint x, y, w, h;
     x = 0;
@@ -1157,13 +1165,11 @@ MFXListIcon::createItem(const FXString &text, FXIcon* icon, void* ptr) {
 
 
 bool
-MFXListIcon::showItem(const std::string &itemName) const {
+MFXListIcon::showItem(const FXString &itemName) const {
     if (filter.empty()) {
         return true;
     } else {
-        const auto itemNameLower = tolowerString(itemName);
-        const auto filterLower = tolowerString(filter.text());
-        return itemNameLower.find(filterLower) != std::string::npos;
+        return tolowerString(itemName).find(tolowerString(filter)) != -1;
     }
 }
 
@@ -1175,16 +1181,6 @@ MFXListIcon::getFilteredItems() const {
         if (items[i]->show) {
             result.push_back(items[i]);
         }
-    }
-    return result;
-}
-
-
-std::string
-MFXListIcon::tolowerString(const std::string &str) const {
-    std::string result;
-    for (int i = 0; i < (int)str.size(); i++) {
-        result.push_back((char)::tolower(str[i]));
     }
     return result;
 }
