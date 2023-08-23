@@ -22,7 +22,6 @@
 #pragma once
 #include <config.h>
 
-#include "MFXTextFieldIcon.h"
 #include "MFXListIcon.h"
 #include "MFXTextFieldSearch.h"
 
@@ -182,8 +181,8 @@ protected:
     /// @brief label for icon
     FXLabel* myIconLabel = nullptr;
 
-    /// @brief textField with icon
-    MFXTextFieldIcon* myTextFieldIcon = nullptr;
+    /// @brief textField
+    FXTextField* myTextField = nullptr;
 
     /// @brief myButton
     FXMenuButton* myButton = nullptr;

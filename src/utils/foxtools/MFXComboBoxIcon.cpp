@@ -77,9 +77,9 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcon
     if (!haveIcons) {
         myIconLabel->hide();
     }
-    myTextFieldIcon = new MFXTextFieldIcon(this, cols, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    myTextField = new FXTextField(this, cols, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
-        myTextFieldIcon->setEditable(FALSE);
+        myTextField->setEditable(FALSE);
     }
     myPane = new FXPopup(this, FRAME_LINE);
     // check if create search button
@@ -101,7 +101,7 @@ MFXComboBoxIcon::~MFXComboBoxIcon() {
     delete myPane;
     myPane = (FXPopup*) - 1L;
     myIconLabel = (FXLabel*) - 1L;
-    myTextFieldIcon = (MFXTextFieldIcon*) - 1L;
+    myTextField = (FXTextField*) - 1L;
     myButton = (FXMenuButton*) - 1L;
     if (myTextFieldSearch) {
         myTextFieldSearch = (MFXTextFieldSearch*) - 1L;
@@ -136,7 +136,7 @@ MFXComboBoxIcon::enable() {
     if (!isEnabled()) {
         FXPacker::enable();
         myIconLabel->enable();
-        myTextFieldIcon->enable();
+        myTextField->enable();
         myButton->enable();
     }
 }
@@ -147,7 +147,7 @@ MFXComboBoxIcon::disable() {
     if (isEnabled()) {
         FXPacker::disable();
         myIconLabel->disable();
-        myTextFieldIcon->disable();
+        myTextField->disable();
         myButton->disable();
     }
 }
@@ -157,9 +157,9 @@ FXint
 MFXComboBoxIcon::getDefaultWidth() {
     FXint ww, pw;
     if (myIconLabel->shown()) {
-        ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+        ww = myIconLabel->getDefaultWidth() + myTextField->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
     } else {
-        ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+        ww = myTextField->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
     }
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
@@ -169,7 +169,7 @@ MFXComboBoxIcon::getDefaultWidth() {
 FXint
 MFXComboBoxIcon::getDefaultHeight() {
     FXint th, bh;
-    th = myTextFieldIcon->getDefaultHeight();
+    th = myTextField->getDefaultHeight();
     bh = myButton->getDefaultHeight();
     return FXMAX(th, bh) + (border << 1);
 }
@@ -182,7 +182,7 @@ MFXComboBoxIcon::layout() {
     const FXint buttonWidth = myButton->getDefaultWidth();
     const FXint textWidth = width - buttonWidth - iconSize - (border << 1);
     myIconLabel->position(border, border, iconSize, iconSize);
-    myTextFieldIcon->position(border + iconSize, border, textWidth, itemHeight);
+    myTextField->position(border + iconSize, border, textWidth, itemHeight);
     myButton->position(border + textWidth + iconSize, border, buttonWidth, itemHeight);
     if(myTextFieldSearch) {
         myTextFieldSearch->resize(width, height);
@@ -194,7 +194,7 @@ MFXComboBoxIcon::layout() {
 
 FXString
 MFXComboBoxIcon::getText() const {
-    return myTextFieldIcon->getText();
+    return myTextField->getText();
 }
 
 
@@ -212,7 +212,7 @@ MFXComboBoxIcon::getNumVisible() const {
 
 void
 MFXComboBoxIcon::setText(FXString text) {
-    myTextFieldIcon->setText(text);
+    myTextField->setText(text);
 }
 
 
@@ -237,9 +237,9 @@ MFXComboBoxIcon::setCurrentItem(const FXint index, FXbool notify) {
         myList->setCurrentItem(item);
         myList->makeItemVisible(index);
         // update both text fields
-        myTextFieldIcon->setText(item->getText());
+        myTextField->setText(item->getText());
         myIconLabel->setIcon(item->getIcon());
-        myTextFieldIcon->setBackColor(item->getBackGroundColor());
+        myTextField->setBackColor(item->getBackGroundColor());
         myIconLabel->setBackColor(item->getBackGroundColor());
         // check if notify
         if (notify && target) {
@@ -285,8 +285,8 @@ MFXComboBoxIcon::updateIconItem(FXint index, const FXString& text, FXIcon* icon,
     }
     myList->editItem(index, text, NULL, ptr);
     if (isItemCurrent(index)) {
-        myTextFieldIcon->setText(text);
-        myTextFieldIcon->setBackColor(bgColor);
+        myTextField->setText(text);
+        myTextField->setBackColor(bgColor);
         myIconLabel->setIcon(icon);
         myIconLabel->setBackColor(bgColor);
     }
@@ -299,8 +299,8 @@ FXint
 MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     FXint index = myList->appendItem(new MFXListIconItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
-        myTextFieldIcon->setText(text);
-        myTextFieldIcon->setBackColor(bgColor);
+        myTextField->setText(text);
+        myTextField->setBackColor(bgColor);
         myIconLabel->setIcon(icon);
         myIconLabel->setBackColor(bgColor);
     }
@@ -311,14 +311,14 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 
 void
 MFXComboBoxIcon::setCustomText(const FXString text) {
-    myTextFieldIcon->setText(text);
-    myTextFieldIcon->setTextColor(FXRGB(128, 128, 128));
+    myTextField->setText(text);
+    myTextField->setTextColor(FXRGB(128, 128, 128));
 }
 
 
 void
 MFXComboBoxIcon::clearItems() {
-    myTextFieldIcon->resetTextField();
+    myTextField->setText("");
     myList->clearItems();
     recalc();
 }
@@ -344,13 +344,13 @@ MFXComboBoxIcon::isPaneShown() const {
 
 FXFont*
 MFXComboBoxIcon::getFont() const {
-    return myTextFieldIcon->getFont();
+    return myTextField->getFont();
 }
 
 
 void
 MFXComboBoxIcon::setBackColor(FXColor clr) {
-    myTextFieldIcon->setBackColor(clr);
+    myTextField->setBackColor(clr);
     myIconLabel->setBackColor(clr);
     myList->setBackColor(clr);
 }
@@ -358,56 +358,56 @@ MFXComboBoxIcon::setBackColor(FXColor clr) {
 
 FXColor
 MFXComboBoxIcon::getBackColor() const {
-    return myTextFieldIcon->getBackColor();
+    return myTextField->getBackColor();
 }
 
 
 void
 MFXComboBoxIcon::setTextColor(FXColor clr) {
-    myTextFieldIcon->setTextColor(clr);
+    myTextField->setTextColor(clr);
     myList->setTextColor(clr);
 }
 
 
 FXColor
 MFXComboBoxIcon::getTextColor() const {
-    return myTextFieldIcon->getTextColor();
+    return myTextField->getTextColor();
 }
 
 
 FXColor
 MFXComboBoxIcon::getSelBackColor() const {
-    return myTextFieldIcon->getSelBackColor();
+    return myTextField->getSelBackColor();
 }
 
 
 FXColor
 MFXComboBoxIcon::getSelTextColor() const {
-    return myTextFieldIcon->getSelTextColor();
+    return myTextField->getSelTextColor();
 }
 
 
 void
 MFXComboBoxIcon::setHelpText(const FXString& txt) {
-    myTextFieldIcon->setHelpText(txt);
+    myTextField->setHelpText(txt);
 }
 
 
 const FXString&
 MFXComboBoxIcon::getHelpText() const {
-    return myTextFieldIcon->getHelpText();
+    return myTextField->getHelpText();
 }
 
 
 void
 MFXComboBoxIcon::setTipText(const FXString& txt) {
-    myTextFieldIcon->setTipText(txt);
+    myTextField->setTipText(txt);
 }
 
 
 const FXString&
 MFXComboBoxIcon::getTipText() const {
-    return myTextFieldIcon->getTipText();
+    return myTextField->getTipText();
 }
 
 
@@ -429,7 +429,7 @@ MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXComboBoxIcon::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
-    return myTextFieldIcon->handle(sender, sel, ptr);
+    return myTextField->handle(sender, sel, ptr);
 }
 
 
@@ -441,13 +441,13 @@ MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
         // cast MFXListIconItem
         const MFXListIconItem* item = (MFXListIconItem*)ptr;
         // set icon and background color
-        myTextFieldIcon->setText(item->getText());
-        myTextFieldIcon->setBackColor(item->getBackGroundColor());
+        myTextField->setText(item->getText());
+        myTextField->setBackColor(item->getBackGroundColor());
         myIconLabel->setIcon(item->getIcon());
         myIconLabel->setBackColor(item->getBackGroundColor());
         // Select if editable
         if (!(options & COMBOBOX_STATIC)) {
-            myTextFieldIcon->selectAll();
+            myTextField->selectAll();
         }
         if (target) {
             target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)getText().text());
@@ -477,12 +477,12 @@ MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
 long
 MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     // reset background colors
-    myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+    myTextField->setBackColor(FXRGB(255, 255, 255));
     myIconLabel->setBackColor(FXRGB(255, 255, 255));
     // check if item exist
     for (int i = 0; i < myList->getNumItems(); i++) {
         const auto itemText = myList->tolowerString(myList->getItem(i)->getText());
-        if (myList->tolowerString(myTextFieldIcon->getText()) == itemText) {
+        if (myList->tolowerString(myTextField->getText()) == itemText) {
             // use "set curent item" function
             return setCurrentItem(i, TRUE);
         }
@@ -495,7 +495,7 @@ MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXComboBoxIcon::onFocusSelf(FXObject* sender, FXSelector, void* ptr) {
-    return myTextFieldIcon->handle(sender, FXSEL(SEL_FOCUS_SELF, 0), ptr);
+    return myTextField->handle(sender, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 }
 
 
