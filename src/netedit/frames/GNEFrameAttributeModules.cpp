@@ -694,8 +694,10 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
 
 void
 GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &value) {
-    // clear all comboBox
+    const auto inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // clear and enable comboBox
     myValueComboBox->clearItems();
+    myValueComboBox->enable();
     // fill depeding of ACAttr
     if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
         // add all vClasses with their icons
@@ -720,6 +722,19 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
         for (const auto& sortedType : sortedTypes) {
             myValueComboBox->appendIconItem(sortedType.first.c_str(), sortedType.second->getACIcon());
         }
+    } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedACs.size() == 1) &&
+               (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION)) {
+        // special case for junction types
+        if (inspectedACs.front()->getAttribute(SUMO_ATTR_TYPE) == "priority") {
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT).c_str(), nullptr);
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::EDGEPRIORITY).c_str(), nullptr);
+        } else if (inspectedACs.front()->getAttribute(SUMO_ATTR_TYPE) == "traffic_light") {
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT).c_str(), nullptr);
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::MIXEDPRIORITY).c_str(), nullptr);
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::ALLWAYSTOP).c_str(), nullptr);
+        } else {
+            myValueComboBox->disable();
+        }
     } else {
         // fill comboBox with discrete values
         for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
@@ -735,7 +750,11 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
     // set current value
     const auto index = myValueComboBox->findItem(value.c_str());
     if (index < 0) {
-        myValueComboBox->setText(value.c_str());
+        if (myValueComboBox->getNumItems() > 0) {
+            myValueComboBox->setCurrentItem(0);
+        } else {
+            myValueComboBox->disable();
+        }
     } else {
         myValueComboBox->setCurrentItem(index);
     }
