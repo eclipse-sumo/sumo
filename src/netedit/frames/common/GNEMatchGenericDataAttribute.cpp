@@ -73,19 +73,16 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create textfield for begin and end
     myTAZHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myFromTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
-    myToTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
+    myFromTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, false, true, this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
+    myToTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, false, true, this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchGenericDataAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchGenericDataAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
     myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
     new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
-    // Set speed of edge as default attribute
-    myMatchGenericDataAttrComboBox->setText(TL("speed"));
-    myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for MatchGenericData string
     myMatchGenericDataString->setText(defaultValue.c_str());
 }
@@ -313,10 +310,10 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         myMatchGenericDataString->enable();
         myMatchGenericDataAttrComboBox->clearItems();
         // add data set parent
-        myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_DATASET).c_str());
+        myMatchGenericDataAttrComboBox->appendIconItem(toString(GNE_ATTR_DATASET).c_str());
         // fill attribute combo box
         for (const auto& attribute : attributes) {
-            myMatchGenericDataAttrComboBox->appendItem(attribute.c_str());
+            myMatchGenericDataAttrComboBox->appendIconItem(attribute.c_str());
         }
         myMatchGenericDataAttrComboBox->setNumVisible(10);
         // check if shown TAZ text fields
@@ -504,12 +501,12 @@ GNEMatchGenericDataAttribute::updateTAZComboBox() {
     myFromTAZComboBox->clearItems();
     myToTAZComboBox->clearItems();
     // add first element
-    myFromTAZComboBox->appendItem("<from TAZ>");
-    myToTAZComboBox->appendItem("<to TAZ>");
+    myFromTAZComboBox->appendIconItem("<from TAZ>");
+    myToTAZComboBox->appendIconItem("<to TAZ>");
     // add all TAZs
     for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-        myFromTAZComboBox->appendItem(TAZ->getID().c_str());
-        myToTAZComboBox->appendItem(TAZ->getID().c_str());
+        myFromTAZComboBox->appendIconItem(TAZ->getID().c_str());
+        myToTAZComboBox->appendIconItem(TAZ->getID().c_str());
     }
     // set num of visible items
     myFromTAZComboBox->setNumVisible(10);

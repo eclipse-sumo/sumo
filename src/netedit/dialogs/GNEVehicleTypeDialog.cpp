@@ -64,7 +64,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
     myVTypeAttributesParent(VTypeAttributesParent) {
     // create two auxiliary frames
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
-    // create FXComboBox for VClass
+    // create MFXComboBoxIcon for VClass
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
     myComboBoxVClass = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true, true,
                                            VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);

@@ -147,7 +147,7 @@ public:
         FXRadioButton* myUseCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
-        FXComboBox* myEdgeTypesComboBox = nullptr;
+        MFXComboBoxIcon* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
         FXButton* myAddEdgeTypeButton = nullptr;
@@ -210,7 +210,7 @@ public:
         /// @brief lane index
         int myLaneIndex;
         /// @brief ComboBox for lane types
-        FXComboBox* myLaneTypesComboBox = nullptr;
+        MFXComboBoxIcon* myLaneTypesComboBox = nullptr;
 
         /// @brief button for create new lane type
         FXButton* myAddLaneTypeButton = nullptr;

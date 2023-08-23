@@ -154,8 +154,8 @@ GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new MFXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                                        GUIDesignComboBoxNCol, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
+    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                                            GUIDesignComboBoxNCol, false, false, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                          myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Edit Coloring Schemes") + std::string("\t") + TL("Opens a menu which lets you edit the coloring schemes. (F9)")).c_str(),
@@ -192,7 +192,7 @@ GUIGlChildWindow::getLocatorPopup() {
 }
 
 
-FXComboBox*
+MFXComboBoxIcon*
 GUIGlChildWindow::getColoringSchemesCombo() {
     return myColoringSchemes;
 }

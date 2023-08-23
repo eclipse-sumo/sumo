@@ -971,10 +971,10 @@ struct GNEViewNetHelper {
         bool myUpdateInterval = true;
 
         /// @brief combo box for generic data types
-        FXComboBox* myGenericDataTypesComboBox = nullptr;
+        MFXComboBoxIcon* myGenericDataTypesComboBox = nullptr;
 
         /// @brief combo box for data sets
-        FXComboBox* myDataSetsComboBox = nullptr;
+        MFXComboBoxIcon* myDataSetsComboBox = nullptr;
 
         /// @brief checkbox for limit data elements by interval
         FXCheckButton* myIntervalCheckBox = nullptr;
@@ -986,7 +986,7 @@ struct GNEViewNetHelper {
         FXTextField* myEndTextField = nullptr;
 
         /// @brief combo box for filtered parameters
-        FXComboBox* myParametersComboBox = nullptr;
+        MFXComboBoxIcon* myParametersComboBox = nullptr;
 
         /// @brief current dataSets
         std::vector<std::string> myDataSets;

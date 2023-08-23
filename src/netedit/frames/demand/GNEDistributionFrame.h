@@ -156,7 +156,7 @@ public:
         DistributionValuesEditor* myDistributionValuesEditor = nullptr;
 
         /// @brief comboBox with the list of distributions
-        FXComboBox* myDistributionsComboBox = nullptr;
+        MFXComboBoxIcon* myDistributionsComboBox = nullptr;
 
         /// @brief current distribution element
         GNEDemandElement* myCurrentDistribution = nullptr;
@@ -216,7 +216,7 @@ public:
         FXLabel* myIconLabel = nullptr;
 
         /// @brief comboBox with keys
-        FXComboBox* myComboBoxKeys = nullptr;
+        MFXComboBoxIcon* myComboBoxKeys = nullptr;
 
         /// @brief textField to modify the probability attribute
         MFXTextFieldTooltip* myProbabilityTextField = nullptr;

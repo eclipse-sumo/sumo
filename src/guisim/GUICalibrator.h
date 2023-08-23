@@ -153,7 +153,7 @@ public:
 
         FXRealSpinner* myUserDefinedSpeed;
 
-        FXComboBox* myPredefinedValues;
+        MFXComboBoxIcon* myPredefinedValues;
 
         GUICalibrator* myObject;
 

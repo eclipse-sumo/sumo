@@ -483,7 +483,7 @@ const std::vector<std::string>&
 GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
     if (view) {
         for (std::string name : myLoadedSettingNames) {
-            FXint index = view->getColoringSchemesCombo()->appendItem(name.c_str());
+            FXint index = view->getColoringSchemesCombo()->appendIconItem(name.c_str());
             view->getColoringSchemesCombo()->setCurrentItem(index);
             view->setColorScheme(name);
         }

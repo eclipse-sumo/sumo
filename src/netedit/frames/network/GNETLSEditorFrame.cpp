@@ -1384,8 +1384,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     // create frame, label and comboBox for programID
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(programFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
-    myProgramComboBox->setEditable(false);
+    myProgramComboBox = new MFXComboBoxIcon(programFrame, GUIDesignComboBoxNCol, false, false, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
     // create auxiliar frames
     FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
@@ -1445,7 +1444,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
             programIDs.insert(TLS->getProgramID());
         }
         for (const auto& programID : programIDs) {
-            myProgramComboBox->appendItem(programID.c_str());
+            myProgramComboBox->appendIconItem(programID.c_str());
         }
         // check if enable TLS definitions
         if (myTLSDefinitions.size() > 0) {

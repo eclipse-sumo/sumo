@@ -70,8 +70,8 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new data set
     myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new dataSet"), this, MID_GNE_SELECT, GUIDesignCheckButton);
-    // Create FXComboBox
-    myDataSetsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
     myHorizontalFrameNewID = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelThickedFixed(100));
@@ -104,7 +104,7 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* c
         if ((currentItemIndex == -1) && (dataSet == currentDataSet)) {
             currentItemIndex = myDataSetsComboBox->getNumItems();
         }
-        myDataSetsComboBox->appendItem(dataSet->getID().c_str());
+        myDataSetsComboBox->appendIconItem(dataSet->getID().c_str(), dataSet->getACIcon());
     }
     // Set visible items
     myDataSetsComboBox->setNumVisible(10);
@@ -394,8 +394,8 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     myGenericDataFrameParent(genericDataFrameParent),
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {
-    // Create FXComboBox
-    myAttributesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
     myMinMaxLabel = buildRainbow(this);
     // refresh interval selector
@@ -418,18 +418,18 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     myMinMaxLabel->setText(TL("Scale: Min -> Max"));
     // fill myAttributesComboBox depending of data sets
     if (myGenericDataFrameParent->myDataSetSelector->getDataSet() == nullptr) {
-        myAttributesComboBox->appendItem("<no dataSet selected>");
+        myAttributesComboBox->appendIconItem("<no dataSet selected>");
         myAttributesComboBox->disable();
     } else {
         // add all item
-        myAttributesComboBox->appendItem("<all>");
+        myAttributesComboBox->appendIconItem("<all>");
         // add attributes depending of interval
         if (myGenericDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
                                         myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag), "", "");
             // add all parameters
             for (const auto& attribute : parameters) {
-                myAttributesComboBox->appendItem(attribute.c_str());
+                myAttributesComboBox->appendIconItem(attribute.c_str());
             }
         } else {
             // retrieve all parameters within begin and end
@@ -439,7 +439,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
                                         myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
             // add all parameters
             for (const auto& attribute : parameters) {
-                myAttributesComboBox->appendItem(attribute.c_str());
+                myAttributesComboBox->appendIconItem(attribute.c_str());
             }
         }
         // enable combo Box
@@ -485,7 +485,7 @@ long
 GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // empty attribute means <all>
     if (myAttributesComboBox->getText().empty()) {
-        myAttributesComboBox->setText("<all>");
+        myAttributesComboBox->setCurrentItem(0);
     }
     if (myAttributesComboBox->getText() == "<all>") {
         myMinMaxLabel->setText(TL("Scale: Min -> Max"));

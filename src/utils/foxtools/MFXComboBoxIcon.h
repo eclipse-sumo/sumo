@@ -103,7 +103,10 @@ public:
     /// @brief Replace the item at index
     FXint updateIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
     
-    /// @brief append icon
+    /// @brief insert icon item in the given position
+    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
+
+    /// @brief append icon item
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
     /// @brief set custom text

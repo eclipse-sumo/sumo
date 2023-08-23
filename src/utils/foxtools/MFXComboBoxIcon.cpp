@@ -290,6 +290,20 @@ MFXComboBoxIcon::updateIconItem(FXint index, const FXString& text, FXIcon* icon,
 
 
 FXint
+MFXComboBoxIcon::insertIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
+    index = myList->insertItem(index, new MFXListIconItem(text, icon, bgColor, ptr));
+    if (isItemCurrent(index)) {
+        myTextField->setText(text);
+        myTextField->setBackColor(bgColor);
+        myIconLabel->setIcon(icon);
+        myIconLabel->setBackColor(bgColor);
+    }
+    recalc();
+    return index;
+}
+
+
+FXint
 MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     FXint index = myList->appendItem(new MFXListIconItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {

@@ -93,10 +93,10 @@ public:
         GNERouteFrame* myRouteFrameParent;
 
         /// @brief comboBox with the list of route modes
-        FXComboBox* myRouteModeMatchBox = nullptr;
+        MFXComboBoxIcon* myRouteModeMatchBox = nullptr;
 
         /// @brief comboBox with the list of VClass
-        FXComboBox* myVClassMatchBox = nullptr;
+        MFXComboBoxIcon* myVClassMatchBox = nullptr;
 
         /// @brief current selected route mode
         RouteMode myCurrentRouteMode = RouteMode::NONCONSECUTIVE_EDGES;

@@ -1777,7 +1777,7 @@ GUIApplicationWindow::eventOccurred() {
                 GUIEvent_AddView* ave = dynamic_cast<GUIEvent_AddView*>(e);
                 auto v = openNewView(ave->in3D() ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL, ave->getCaption());
                 if (ave->getSchemeName() != "") {
-                    FXComboBox* sCombo = v->getColoringSchemesCombo();
+                    MFXComboBoxIcon* sCombo = v->getColoringSchemesCombo();
                     int index = sCombo->findItem(ave->getSchemeName().c_str());
                     if (index >= 0) {
                         sCombo->setCurrentItem(index);
@@ -1860,7 +1860,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                     }
                     if (settings.getSettingName() != "") {
                         view->setColorScheme(settings.getSettingName());
-                        FXComboBox* sCombo = view->getColoringSchemesCombo();
+                        MFXComboBoxIcon* sCombo = view->getColoringSchemesCombo();
                         int index = sCombo->findItem(settings.getSettingName().c_str());
                         if (index >= 0) {
                             sCombo->setCurrentItem(index);

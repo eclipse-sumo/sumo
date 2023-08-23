@@ -294,9 +294,9 @@ protected:
     FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
     FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
-    FXComboBox* myParamKey = nullptr;
-    FXComboBox* myScalingParamKey = nullptr;
-    FXComboBox* myMeanDataID = nullptr;
+    MFXComboBoxIcon* myParamKey = nullptr;
+    MFXComboBoxIcon* myScalingParamKey = nullptr;
+    MFXComboBoxIcon* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler
     MFXComboBoxIcon* myLaneEdgeScaleMode = nullptr;
@@ -346,9 +346,9 @@ protected:
     FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
-    FXComboBox* myVehicleParamKey = nullptr;
-    FXComboBox* myVehicleScalingParamKey = nullptr;
-    FXComboBox* myVehicleTextParamKey = nullptr;
+    MFXComboBoxIcon* myVehicleParamKey = nullptr;
+    MFXComboBoxIcon* myVehicleScalingParamKey = nullptr;
+    MFXComboBoxIcon* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
     MFXComboBoxIcon* myPersonColorMode, *myPersonShapeDetail = nullptr;
@@ -382,7 +382,7 @@ protected:
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation = nullptr;
-    FXComboBox* myPOITextParamKey = nullptr;
+    MFXComboBoxIcon* myPOITextParamKey = nullptr;
     FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
@@ -400,7 +400,7 @@ protected:
     std::vector<FXRealSpinner*> myDataThresholds;
     std::vector<FXButton*> myDataButtons;
     FXCheckButton* myDataColorInterpolation = nullptr;
-    FXComboBox* myDataParamKey = nullptr;
+    MFXComboBoxIcon* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
     FXButton* myDataColorRainbow = nullptr;

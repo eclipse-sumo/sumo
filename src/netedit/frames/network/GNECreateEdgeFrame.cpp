@@ -87,8 +87,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Use edgeType/template"),
                                             this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol,
-                                         this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
+    myEdgeTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true,
+                                             this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
@@ -199,7 +199,7 @@ void
 GNECreateEdgeFrame::EdgeTypeSelector::updateIDinComboBox(const std::string& oldID, const std::string& newID) {
     for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
         if (myEdgeTypesComboBox->getItem(i).text() == oldID) {
-            myEdgeTypesComboBox->setItemText(i, newID.c_str());
+            myEdgeTypesComboBox->updateIconItem(i, newID.c_str());
         }
     }
 }
@@ -404,11 +404,11 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
     // add template
     if (templateEditor->getEdgeTemplate()) {
-        myEdgeTypesComboBox->appendItem((TL("template: ") + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);
+        myEdgeTypesComboBox->appendIconItem((TL("template: ") + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);
     }
     // add edge types
     for (const auto& edgeType : edgeTypes) {
-        myEdgeTypesComboBox->appendItem(edgeType.second->getID().c_str(), nullptr);
+        myEdgeTypesComboBox->appendIconItem(edgeType.second->getID().c_str(), edgeType.second->getACIcon());
     }
     // set num visible
     myEdgeTypesComboBox->setNumVisible(10);
@@ -428,7 +428,7 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
-    myLaneTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECTLANE, GUIDesignComboBoxAttribute);
+    myLaneTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, false, this, MID_GNE_CREATEEDGEFRAME_SELECTLANE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new lane type button
@@ -473,7 +473,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         const GNEEdgeTemplate* edgeTemplate = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate();
         // fill comboBox
         for (const auto& laneTemplate : edgeTemplate->getLaneTemplates()) {
-            myLaneTypesComboBox->appendItem(laneTemplate->getAttribute(SUMO_ATTR_ID).c_str(), nullptr);
+            myLaneTypesComboBox->appendIconItem(laneTemplate->getAttribute(SUMO_ATTR_ID).c_str(), laneTemplate->getACIcon());
         }
         // update comboBox
         updateComboBox();
@@ -489,7 +489,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         const GNEEdgeType* edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
         // fill comboBox
         for (const auto& laneType : edgeType->getLaneTypes()) {
-            myLaneTypesComboBox->appendItem(laneType->getAttribute(SUMO_ATTR_ID).c_str(), nullptr);
+            myLaneTypesComboBox->appendIconItem(laneType->getAttribute(SUMO_ATTR_ID).c_str(), laneType->getACIcon());
         }
         // update comboBox
         updateComboBox();

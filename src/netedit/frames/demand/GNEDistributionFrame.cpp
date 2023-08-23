@@ -160,8 +160,8 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* send
 GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
-    // Create FXComboBox
-    myDistributionsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
     show();
 }
@@ -292,7 +292,7 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
         distributions[distribution->getID()] = distribution;
     }
     for (const auto& distribution : distributions) {
-        myDistributionsComboBox->appendItem(distribution.first.c_str(), distribution.second->getACIcon());
+        myDistributionsComboBox->appendIconItem(distribution.first.c_str(), distribution.second->getACIcon());
     }
     // Set visible items
     myDistributionsComboBox->setNumVisible(20);
@@ -314,7 +314,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
-    myComboBoxKeys = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
@@ -351,9 +351,9 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
     const auto possibleKeys = currentDistribution->getPossibleDistributionKeys(myDistributionValuesEditorParent->myDistributionValueTag);
     // refill combo Box with possible values
     myComboBoxKeys->clearItems();
-    myComboBoxKeys->appendItem(myKey->getID().c_str());
+    myComboBoxKeys->appendIconItem(myKey->getID().c_str());
     for (const auto &possibleKey : possibleKeys) {
-        myComboBoxKeys->appendItem(possibleKey.first.c_str());
+        myComboBoxKeys->appendIconItem(possibleKey.first.c_str());
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box

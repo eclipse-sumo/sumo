@@ -62,7 +62,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     MFXGroupBoxModule(typeFrameParent, TL("Current Type")),
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
-    // Create FXComboBox
+    // Create MFXComboBoxIcon
     myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {

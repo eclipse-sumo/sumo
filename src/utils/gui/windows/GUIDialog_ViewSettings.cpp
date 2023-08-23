@@ -893,7 +893,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // - the comboBox of all other views (only append) XXX @todo
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
-        myParent->getColoringSchemesCombo()->appendItem(tmpSettings.name.c_str());
+        myParent->getColoringSchemesCombo()->appendIconItem(tmpSettings.name.c_str());
     }
     myParent->getColoringSchemesCombo()->setCurrentItem(
         myParent->getColoringSchemesCombo()->findItem(tmpSettings.name.c_str()));
@@ -1016,16 +1016,16 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     tmpSettings.name = name;
     if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {
         gSchemeStorage.remove(mySettings->name);
-        myParent->getColoringSchemesCombo()->setItemText(index, name.c_str());
+        myParent->getColoringSchemesCombo()->insertIconItem(index, name.c_str());
     } else {
         gSchemeStorage.get(mySettings->name).copy(myBackup);
         index = mySchemeName->appendItem(name.c_str());
-        myParent->getColoringSchemesCombo()->appendItem(name.c_str());
+        myParent->getColoringSchemesCombo()->appendIconItem(name.c_str());
         myParent->getColoringSchemesCombo()->setCurrentItem(
             myParent->getColoringSchemesCombo()->findItem(name.c_str()));
     }
     gSchemeStorage.add(tmpSettings);
-    mySchemeName->setItemText(index, name.c_str());
+    mySchemeName->insertItem(index, name.c_str());
     myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
     myBackup.copy(*mySettings);
@@ -1364,37 +1364,36 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     myMeanDataID->clearItems();
     myMeanDataID->hide();
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
-        myParamKey->appendItem(mySettings->edgeParam.c_str());
+        myParamKey->appendIconItem(mySettings->edgeParam.c_str());
         for (const std::string& attr : myParent->getEdgeLaneParamKeys(true)) {
             if (attr != mySettings->edgeParam) {
-                myParamKey->appendItem(attr.c_str());
+                myParamKey->appendIconItem(attr.c_str());
             }
         }
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
-        myParamKey->appendItem(mySettings->laneParam.c_str());
+        myParamKey->appendIconItem(mySettings->laneParam.c_str());
         for (const std::string& attr : myParent->getEdgeLaneParamKeys(false)) {
             if (attr != mySettings->laneParam) {
-                myParamKey->appendItem(attr.c_str());
+                myParamKey->appendIconItem(attr.c_str());
             }
         }
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
-        myParamKey->appendItem(mySettings->edgeData.c_str());
+        myParamKey->appendIconItem(mySettings->edgeData.c_str());
         for (const std::string& attr : myParent->getEdgeDataAttrs()) {
             if (attr != mySettings->edgeData) {
-                myParamKey->appendItem(attr.c_str());
+                myParamKey->appendIconItem(attr.c_str());
             }
         }
         myParamKey->enable();
-        myParamKey->setEditable(false);
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE) {
         if (mySettings->edgeDataID != "") {
-            myMeanDataID->appendItem(mySettings->edgeDataID.c_str());
+            myMeanDataID->appendIconItem(mySettings->edgeDataID.c_str());
         }
         for (const std::string& attr : myParent->getMeanDataIDs()) {
             if (attr != mySettings->edgeDataID) {
-                myMeanDataID->appendItem(attr.c_str());
+                myMeanDataID->appendIconItem(attr.c_str());
             }
         }
         if (myMeanDataID->getNumItems() > 0) {
@@ -1402,31 +1401,28 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
                 mySettings->edgeDataID = myMeanDataID->getItemText(0).text();
             }
             myMeanDataID->enable();
-            myMeanDataID->setEditable(false);
             myMeanDataID->show();
             myMeanDataID->setNumVisible(10);
-            myParamKey->appendItem(mySettings->edgeData.c_str());
+            myParamKey->appendIconItem(mySettings->edgeData.c_str());
             for (const std::string& attr : myParent->getMeanDataAttrs(mySettings->edgeDataID)) {
                 if (attr != mySettings->edgeData) {
-                    myParamKey->appendItem(attr.c_str());
+                    myParamKey->appendIconItem(attr.c_str());
                 }
             }
             myParamKey->enable();
-            myParamKey->setEditable(false);
         }
     } else {
         myParamKey->disable();
     }
 
     if (activeScaleSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
-        myScalingParamKey->appendItem(mySettings->edgeDataScaling.c_str());
+        myScalingParamKey->appendIconItem(mySettings->edgeDataScaling.c_str());
         for (const std::string& attr : myParent->getEdgeDataAttrs()) {
             if (attr != mySettings->edgeDataScaling) {
-                myScalingParamKey->appendItem(attr.c_str());
+                myScalingParamKey->appendIconItem(attr.c_str());
             }
         }
         myScalingParamKey->enable();
-        myScalingParamKey->setEditable(false);
     } else {
         myScalingParamKey->disable();
     }
@@ -1446,7 +1442,6 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     activeSchemeName = myVehicleColorMode->getText().text();
-    myVehicleParamKey->setEditable(true);
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
         updateVehicleParams();
         myVehicleParamKey->enable();
@@ -1504,13 +1499,12 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
             m->create();
         }
         activeSchemeName = myDataColorMode->getText().text();
-        myDataParamKey->setEditable(true);
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
-            myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+            myDataParamKey->appendIconItem(mySettings->relDataAttr.c_str());
             for (const std::string& attr : myParent->getRelDataAttrs()) {
                 if (attr != mySettings->relDataAttr) {
-                    myDataParamKey->appendItem(attr.c_str());
+                    myDataParamKey->appendIconItem(attr.c_str());
                 }
             }
             myDataParamKey->enable();
@@ -1530,13 +1524,13 @@ GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleParamKey->clearItems();
     myVehicleTextParamKey->clearItems();
     myVehicleScalingParamKey->clearItems();
-    myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
-    myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
-    myVehicleScalingParamKey->appendItem(mySettings->vehicleScaleParam.c_str());
+    myVehicleParamKey->appendIconItem(mySettings->vehicleParam.c_str());
+    myVehicleTextParamKey->appendIconItem(mySettings->vehicleTextParam.c_str());
+    myVehicleScalingParamKey->appendIconItem(mySettings->vehicleScaleParam.c_str());
     for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
-        myVehicleParamKey->appendItem(attr.c_str());
-        myVehicleTextParamKey->appendItem(attr.c_str());
-        myVehicleScalingParamKey->appendItem(attr.c_str());
+        myVehicleParamKey->appendIconItem(attr.c_str());
+        myVehicleTextParamKey->appendIconItem(attr.c_str());
+        myVehicleScalingParamKey->appendIconItem(attr.c_str());
     }
     myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
@@ -1547,9 +1541,9 @@ GUIDialog_ViewSettings::updateVehicleParams() {
 void
 GUIDialog_ViewSettings::updatePOIParams() {
     myPOITextParamKey->clearItems();
-    myPOITextParamKey->appendItem(mySettings->poiTextParam.c_str());
+    myPOITextParamKey->appendIconItem(mySettings->poiTextParam.c_str());
     for (const std::string& attr : myParent->getPOIParamKeys()) {
-        myPOITextParamKey->appendItem(attr.c_str());
+        myPOITextParamKey->appendIconItem(attr.c_str());
     }
     myPOITextParamKey->setNumVisible(myPOITextParamKey->getNumItems());
 }
@@ -1750,13 +1744,11 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     myLaneEdgeColorMode->setNumVisible(10);
     myLaneColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorSettingFrame = new FXVerticalFrame(verticalFrameColor, GUIDesignViewSettingsVerticalFrame4);
-    myMeanDataID = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myMeanDataID = new MFXComboBoxIcon(matrixColor, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myMeanDataID->disable();
     myMeanDataID->hide();
-    myMeanDataID->setEditable(false);
-    myParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myParamKey = new MFXComboBoxIcon(matrixColor, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myParamKey->disable();
-    myParamKey->setEditable(true);
 
     // rainbow settings
     FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
@@ -1780,9 +1772,8 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     myLaneEdgeScaleMode->setNumVisible(10);
     myLaneScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
-    myScalingParamKey = new FXComboBox(matrixScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myScalingParamKey = new MFXComboBoxIcon(matrixScale, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myScalingParamKey->disable();
-    myScalingParamKey->setEditable(true);
 
     if (GUIVisualizationSettings::UseMesoSim) {
         mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
@@ -1869,8 +1860,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     mySettings->vehicleColorer.fill(*myVehicleColorMode);
     myVehicleColorMode->setNumVisible(10);
     myVehicleColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myVehicleParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myVehicleParamKey->setEditable(true);
+    myVehicleParamKey = new MFXComboBoxIcon(matrixColor, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleParamKey->disable();
 
     myVehicleColorSettingFrame = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame4);
@@ -1882,8 +1872,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     new FXLabel(matrixScale, TL("Scale size"), nullptr, GUIDesignViewSettingsLabel1);
     myVehicleScaleMode = new MFXComboBoxIcon(matrixScale, 30, true, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myVehicleScalingParamKey = new FXComboBox(matrixScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myVehicleScalingParamKey->setEditable(true);
+    myVehicleScalingParamKey = new MFXComboBoxIcon(matrixScale, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleScalingParamKey->disable();
     myVehicleScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
     mySettings->vehicleScaler.fill(*myVehicleScaleMode);
@@ -1895,8 +1884,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myVehicleValuePanel = new NamePanel(matrixVehicle, this, TL("Show vehicle color value"), mySettings->vehicleValue);
     myVehicleScaleValuePanel = new NamePanel(matrixVehicle, this, TL("Show vehicle scale value"), mySettings->vehicleScaleValue);
     myVehicleTextPanel = new NamePanel(matrixVehicle, this, TL("Show vehicle text param"), mySettings->vehicleText);
-    myVehicleTextParamKey = new FXComboBox(myVehicleTextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myVehicleTextParamKey->setEditable(true);
+    myVehicleTextParamKey = new MFXComboBoxIcon(myVehicleTextPanel->myMatrix0, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
 
     //new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
@@ -2154,8 +2142,7 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     myPOINamePanel = new NamePanel(m61, this, TL("Show poi id"), mySettings->poiName);
     myPOITypePanel = new NamePanel(m61, this, TL("Show poi type"), mySettings->poiType);
     myPOITextPanel = new NamePanel(m61, this, TL("Show poi text param"), mySettings->poiText);
-    myPOITextParamKey = new FXComboBox(myPOITextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myPOITextParamKey->setEditable(true);
+    myPOITextParamKey = new MFXComboBoxIcon(myPOITextPanel->myMatrix0, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m62 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
@@ -2237,9 +2224,8 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     myDataColorMode = new MFXComboBoxIcon(m111, 30, true, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataColorInterpolation = new FXCheckButton(m111, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataColorSettingFrame = new FXVerticalFrame(verticalFrame2, GUIDesignViewSettingsVerticalFrame4);
-    myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataParamKey = new MFXComboBoxIcon(m111, 1, false, false, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataParamKey->disable();
-    myDataParamKey->setEditable(true);
     mySettings->dataColorer.fill(*myDataColorMode);
     myDataColorMode->setNumVisible(10);
 

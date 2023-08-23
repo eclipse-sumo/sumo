@@ -276,7 +276,7 @@ class MFXMenuCheckIcon;
 /// @}
 
 
-/// @name FXComboBox
+/// @name MFXComboBoxIcon
 /// @{
 /// @brief Combo box editable extended over the all frame
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

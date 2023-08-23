@@ -414,7 +414,7 @@ public:
     FXMutex& getDecalsLockMutex();
 
     /// @brief get coloring schemes combo
-    FXComboBox* getColoringSchemesCombo();
+    MFXComboBoxIcon* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
     virtual Position getPositionInformation() const;

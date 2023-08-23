@@ -3128,22 +3128,23 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
                                             "Data type", 0, GUIDesignLabelThickedFixed(100));
     genericDataLabel->create();
     // create combo box for generic datas
-    myGenericDataTypesComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
+    myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                                     GUIDesignComboBoxNCol, false, false, myViewNet,
+                                                     MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
     myGenericDataTypesComboBox->create();
     // fill combo box
-    myGenericDataTypesComboBox->appendItem("<all>");
-    myGenericDataTypesComboBox->appendItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
-    myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_EDGEREL).c_str());
-    myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_TAZREL).c_str());
+    myGenericDataTypesComboBox->appendIconItem("<all>");
+    myGenericDataTypesComboBox->appendIconItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
+    myGenericDataTypesComboBox->appendIconItem(toString(SUMO_TAG_EDGEREL).c_str());
+    myGenericDataTypesComboBox->appendIconItem(toString(SUMO_TAG_TAZREL).c_str());
     myGenericDataTypesComboBox->setNumVisible(10);
     // create dataSet label
     FXLabel* dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
                                         "Data sets", 0, GUIDesignLabelThickedFixed(100));
     dataSetLabel->create();
     // create combo box for sets
-    myDataSetsComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                        GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
+    myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                             GUIDesignComboBoxNCol, false, false, myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
     myIntervalCheckBox = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3162,8 +3163,8 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
                                           "Parameter", 0, GUIDesignLabelThickedFixed(100));
     parameterLabel->create();
     // create combo box for attributes
-    myParametersComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                          GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
+    myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                              GUIDesignComboBoxNCol, false, false, myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
     myParametersComboBox->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -3230,18 +3231,18 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         myDataSetsComboBox->clearItems();
         myParametersComboBox->clearItems();
         // add first item (all)
-        myDataSetsComboBox->appendItem("<all>");
-        myParametersComboBox->appendItem("<all>");
+        myDataSetsComboBox->appendIconItem("<all>");
+        myParametersComboBox->appendIconItem("<all>");
         // fill dataSet comboBox
         for (const auto& dataSet : myDataSets) {
-            myDataSetsComboBox->appendItem(dataSet.c_str());
+            myDataSetsComboBox->appendIconItem(dataSet.c_str());
         }
         // set begin/end
         myBeginTextField->setText(toString(begin).c_str());
         myEndTextField->setText(toString(end).c_str());
         // fill parameter comboBox
         for (const auto& parameter : myParameters) {
-            myParametersComboBox->appendItem(parameter.c_str());
+            myParametersComboBox->appendIconItem(parameter.c_str());
         }
         // check previous dataSet
         myDataSetsComboBox->setCurrentItem(0, FALSE);
