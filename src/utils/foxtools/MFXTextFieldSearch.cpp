@@ -82,7 +82,7 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
     if (hasFocus() || (contents.count() > 0)) {
         drawTextRange(dc, 0, contents.length());
     } else {
-        drawSearchTextRange(TL("Type to search..."), dc);
+        drawSearchTextRange(dc, 0, TL("Type to search..."));
     }
     // Draw caret
     if (flags & FLAG_CARET) {
@@ -125,12 +125,11 @@ MFXTextFieldSearch::MFXTextFieldSearch() :
 
 
 void
-MFXTextFieldSearch::drawSearchTextRange(const FXString& searchString, FXDCWindow& dc) {
+MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString& searchString) {
     FXint xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     FXint rr = width - border - padright;
     FXint ll = border + padleft;
     FXint mm = (ll + rr) / 2;
-    FXint fm = 0;
     FXint to = (int)searchString.length();
     if (to <= fm) {
         return;

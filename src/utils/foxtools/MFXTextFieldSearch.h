@@ -59,5 +59,5 @@ private:
     FXObject* myTarget = nullptr;
 
     /// @brief draw search text range
-    void drawSearchTextRange(const FXString& searchString, FXDCWindow& dc);
+    void drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString& searchString);
 };
