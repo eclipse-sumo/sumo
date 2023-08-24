@@ -34,7 +34,7 @@ class MFXTextFieldIcon : public FXFrame {
 
 public:
     /// @brief Construct text field wide enough to display ncols columns
-    MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = TEXTFIELD_NORMAL,
+    MFXTextFieldIcon(FXComposite* p, FXint ncols, FXIcon* ic, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = TEXTFIELD_NORMAL,
                      FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
@@ -264,43 +264,46 @@ protected:
     FXString contents;
 
     /// @brief Set of delimiters
-    const FXchar* delimiters;
+    const FXchar* delimiters = FXTextField::textDelimiters;
 
     /// @brief Text font
     FXFont* font;
 
     /// @brief Text color
-    FXColor textColor;
+    FXColor textColor = 0;
 
     /// @brief Selected background color
-    FXColor selbackColor;
+    FXColor selbackColor = 0;
 
     /// @brief Selected text color
-    FXColor seltextColor;
+    FXColor seltextColor = 0;
 
     /// @brief Color of the Cursor
-    FXColor cursorColor;
+    FXColor cursorColor = 0;
 
     /// @brief Cursor position
-    FXint cursor;
+    FXint cursor = 0;
 
     /// @brief Anchor position
-    FXint anchor;
+    FXint anchor = 0;
 
     /// @brief Number of columns visible
-    FXint columns;
+    FXint columns = 0;
 
     /// @brief Shift amount
-    FXint shift;
-    
+    FXint shift = 0;
+
     /// @brief Clipped text
     FXString clipped;
 
     /// @brief Help string
     FXString help;
-    
+
     /// @brief Tooltip
-    FXString tip;            
+    FXString tip;
+
+    /// @brief icon
+    FXIcon* icon = nullptr;
 
     /// @brief FOX need this
     MFXTextFieldIcon();
@@ -310,18 +313,19 @@ protected:
 
     /// @brief coordinates
     FXint coord(FXint i) const;
-    
+
     /// @brief draw cursor
     void drawCursor(FXuint state);
-    
+
     /// @brief draw text range
     void drawTextRange(FXDCWindow& dc, FXint fm, FXint to);
-    
+
     /// @brief draw text fragment
     void drawTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to);
-    
+
     /// @brief draw password text fragment
     void drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to);
+
     /// @brief right word
 
     FXint rightWord(FXint pos) const;
@@ -331,7 +335,6 @@ protected:
     /// @brief word start
 
     FXint wordStart(FXint pos) const;
-    
     /// @brief word end
     FXint wordEnd(FXint pos) const;
 

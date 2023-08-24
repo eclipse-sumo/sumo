@@ -38,11 +38,12 @@
 
 #define JUSTIFY_MASK    (JUSTIFY_HZ_APART|JUSTIFY_VT_APART)
 #define TEXTFIELD_MASK  (TEXTFIELD_PASSWD|TEXTFIELD_INTEGER|TEXTFIELD_REAL|TEXTFIELD_READONLY|TEXTFIELD_ENTER_ONLY|TEXTFIELD_LIMITED|TEXTFIELD_OVERSTRIKE|TEXTFIELD_AUTOHIDE|TEXTFIELD_AUTOGRAY)
+#define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
+#define ICON_SIZE       16
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-
 
 // Map
 FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
@@ -113,35 +114,35 @@ FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
     FXMAPFUNC(SEL_COMMAND,              FXTextField::ID_GETTIPSTRING,       MFXTextFieldIcon::onCmdGetTip), 
 };
 
-
 // Object implementation
 FXIMPLEMENT(MFXTextFieldIcon, FXFrame, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextFieldIconMap))
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
-    FXFrame(p, opts, x, y, w, h, pl, pr, pt, pb) {
-    if (ncols<0) ncols = 0;
+MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXIcon* ic, FXObject* tgt, FXSelector sel, 
+        FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+    FXFrame(p, opts, x, y, w, h, pl, pr, pt, pb),
+    icon(ic) {
+    if (ncols<0) {
+        ncols = 0;
+    }
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
-    if (!(options & JUSTIFY_RIGHT)) options |= JUSTIFY_LEFT;
+    if (!(options & JUSTIFY_RIGHT)) {
+        options |= JUSTIFY_LEFT;
+    }
     defaultCursor = getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
     dragCursor = getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
-    delimiters = FXTextField::textDelimiters;
     font = getApp()->getNormalFont();
     backColor = getApp()->getBackColor();
     textColor = getApp()->getForeColor();
     selbackColor = getApp()->getSelbackColor();
     seltextColor = getApp()->getSelforeColor();
     cursorColor = getApp()->getForeColor();
-    cursor = 0;
-    anchor = 0;
     columns = ncols;
-    shift = 0;
 }
 
 
@@ -824,15 +825,16 @@ MFXTextFieldIcon::drawCursor(FXuint state) {
             FXDCWindow dc(this);
             FXASSERT(0 <= cursor && cursor <= contents.length());
             FXASSERT(0 <= anchor && anchor <= contents.length());
-            xx = coord(cursor)-1;
-
+            xx = coord(cursor) - 1;
+            // add icon spacing
+            if (icon) {
+                xx += ICON_SPACING + ICON_SIZE;
+            }
             // Clip rectangle around cursor
             xlo = FXMAX(xx-2, border);
             xhi = FXMIN(xx+3, width-border);
-
             // Cursor can overhang padding but not borders
             dc.setClipRectangle(xlo, border, xhi-xlo, height-(border<<1));
-
             // Draw I beam
             if (state & FLAG_CARET) {
                 // Draw I-beam
@@ -844,7 +846,6 @@ MFXTextFieldIcon::drawCursor(FXuint state) {
                 // Erase I-beam,  plus the text immediately surrounding it
                 dc.setForeground(backColor);
                 dc.fillRectangle(xx-2, border, 5, height-(border<<1));
-
                 // Draw two characters before and after cursor
                 cl = ch = cursor;
                 if (0<cl) {
@@ -1068,17 +1069,15 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
     register FXint rr = width-border-padright;
     register FXint ll = border+padleft;
     register FXint mm = (ll+rr)/2;
-
-    if (to <= fm) return;
-
+    if (to <= fm) {
+        return;
+    }
+    // set font
     dc.setFont(font);
-
     // Text color
     dc.setForeground(textColor);
-
     // Height
     hh = font->getFontHeight();
-
     // Text sticks to top of field
     if (options & JUSTIFY_TOP) {
         yy = padtop+border;
@@ -1089,18 +1088,17 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
         // Text centered in y
         yy = border+padtop+(height-padbottom-padtop-(border<<1)-hh)/2;
     }
-
     if (anchor<cursor) {
-        si = anchor;ei = cursor;
+        si = anchor;
+        ei = cursor;
     } else {
-        si = cursor;ei = anchor;
+        si = cursor;
+        ei = anchor;
     }
-
     // Password mode
     if (options & TEXTFIELD_PASSWD) {
         cw = font->getTextWidth("*", 1);
         ww = cw*contents.count();
-
         // Text sticks to right of field
         if (options & JUSTIFY_RIGHT) {
             xx = shift+rr-ww;
@@ -1111,24 +1109,30 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
             // Text centered in field
             xx = shift+mm-ww/2;
         }
-
+        // check if add icon spacing
+        if (icon) {
+            xx += ICON_SPACING + ICON_SIZE;
+        }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx+cw*contents.index(fm);
         rx = xx+cw*contents.index(to);
-        while(fm<to) {
+        while (fm<to) {
             if (lx+cw >= 0) break;
             lx += cw;
             fm = contents.inc(fm);
         }
-        while(fm<to) {
+        while (fm<to) {
             if (rx-cw<width) break;
             rx -= cw;
             to = contents.dec(to);
         }
-
         // Adjust selected range
-        if (si<fm) si = fm;
-        if (ei>to) ei = to;
+        if (si<fm) {
+            si = fm;
+        }
+        if (ei>to) {
+            ei = to;
+        }
 
         // Nothing selected
         if (!hasSelection() || to <= si || ei <= fm) {
@@ -1163,7 +1167,6 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
     } else {
         // Normal mode
         ww = font->getTextWidth(contents.text(), contents.length());
-
         // Text sticks to right of field
         if (options & JUSTIFY_RIGHT) {
             xx = shift+rr-ww;
@@ -1174,18 +1177,21 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
             // Text centered in field
             xx = shift+mm-ww/2;
         }
-
+        // check if add icon spacing
+        if (icon) {
+            xx += ICON_SPACING + ICON_SIZE;
+        }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx+font->getTextWidth(&contents[0], fm);
         rx = lx+font->getTextWidth(&contents[fm], to-fm);
-        while(fm<to) {
+        while (fm<to) {
             t = contents.inc(fm);
             cw = font->getTextWidth(&contents[fm], t-fm);
             if (lx+cw >= 0) break;
             lx += cw;
             fm = t;
         }
-        while(fm<to) {
+        while (fm<to) {
             t = contents.dec(to);
             cw = font->getTextWidth(&contents[t], to-t);
             if (rx-cw<width) break;
@@ -1194,8 +1200,12 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
         }
 
         // Adjust selected range
-        if (si<fm) si = fm;
-        if (ei>to) ei = to;
+        if (si<fm) {
+            si = fm;
+        }
+        if (ei>to) {
+            ei = to;
+        }
 
         // Nothing selected
         if (!hasSelection() || to <= si || ei <= fm) {
@@ -1249,7 +1259,7 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     // Draw background
     dc.fillRectangle(border, border, width-(border<<1), height-(border<<1));
 
-    // Draw text,  clipped against frame interior
+    // Draw text, clipped against frame interior
     dc.setClipRectangle(border, border, width-(border<<1), height-(border<<1));
     drawTextRange(dc, 0, contents.length());
 
@@ -1312,13 +1322,16 @@ MFXTextFieldIcon::leftWord(FXint pos) const {
     FXASSERT(0 <= pos && pos <= contents.length());
 
     // Back up until space or delimiter
-    while(0 <= (p = contents.dec(pp)) && !Unicode::isSpace(contents.wc(p)) && !isdelimiter(delimiters, contents.wc(p))) pp = p;
+    while (0 <= (p = contents.dec(pp)) && !Unicode::isSpace(contents.wc(p)) && !isdelimiter(delimiters, contents.wc(p)))
+        pp = p;
 
     // Back up over run of spaces
-    while(0 <= (p = contents.dec(pp)) && Unicode::isSpace(contents.wc(p))) pp = p;
+    while (0 <= (p = contents.dec(pp)) && Unicode::isSpace(contents.wc(p)))
+        pp = p;
 
     // One more in case we didn't move
-    if ((pos == pp) && 0 <= (p = contents.dec(pp))) pp = p;
+    if ((pos == pp) && 0 <= (p = contents.dec(pp)))
+        pp = p;
 
     return pp;
 }
@@ -1332,13 +1345,16 @@ MFXTextFieldIcon::rightWord(FXint pos) const {
     FXASSERT(0 <= pos && pos <= contents.length());
 
     // Advance until space or delimiter
-    while(pp<contents.length() && !Unicode::isSpace(contents.wc(pp)) && !isdelimiter(delimiters, contents.wc(pp))) pp = contents.inc(pp);
+    while (pp<contents.length() && !Unicode::isSpace(contents.wc(pp)) && !isdelimiter(delimiters, contents.wc(pp)))
+        pp = contents.inc(pp);
 
     // Advance over run of spaces
-    while(pp<contents.length() && Unicode::isSpace(contents.wc(pp))) pp = contents.inc(pp);
+    while (pp<contents.length() && Unicode::isSpace(contents.wc(pp)))
+        pp = contents.inc(pp);
 
     // One more in case we didn't move
-    if ((pos == pp) && pp<contents.length()) pp = contents.inc(pp);
+    if ((pos == pp) && pp<contents.length())
+        pp = contents.inc(pp);
 
     return pp;
 }
@@ -1349,11 +1365,14 @@ MFXTextFieldIcon::wordStart(FXint pos) const {
     register FXint p;
     FXASSERT(0 <= pos && pos <= contents.length());
     if (pos == contents.length() || Unicode::isSpace(contents.wc(pos))) {
-        while(0 <= (p = contents.dec(pos)) && Unicode::isSpace(contents.wc(p))) pos = p;
+        while (0 <= (p = contents.dec(pos)) && Unicode::isSpace(contents.wc(p)))
+            pos = p;
     } else if (isdelimiter(delimiters, contents.wc(pos))) {
-        while(0 <= (p = contents.dec(pos)) && isdelimiter(delimiters, contents.wc(p))) pos = p;
+        while (0 <= (p = contents.dec(pos)) && isdelimiter(delimiters, contents.wc(p)))
+            pos = p;
     } else {
-        while(0 <= (p = contents.dec(pos)) && !isdelimiter(delimiters, contents.wc(p)) && !Unicode::isSpace(contents.wc(p))) pos = p;
+        while (0 <= (p = contents.dec(pos)) && !isdelimiter(delimiters, contents.wc(p)) && !Unicode::isSpace(contents.wc(p)))
+            pos = p;
     }
     return pos;
 }
@@ -1363,11 +1382,14 @@ FXint
 MFXTextFieldIcon::wordEnd(FXint pos) const {
     FXASSERT(0 <= pos && pos <= contents.length());
     if (pos == contents.length() || Unicode::isSpace(contents.wc(pos))) {
-        while(pos<contents.length() && Unicode::isSpace(contents.wc(pos))) pos = contents.inc(pos);
+        while (pos<contents.length() && Unicode::isSpace(contents.wc(pos)))
+            pos = contents.inc(pos);
     } else if (isdelimiter(delimiters, contents.wc(pos))) {
-        while(pos<contents.length() && isdelimiter(delimiters, contents.wc(pos))) pos = contents.inc(pos);
+        while (pos<contents.length() && isdelimiter(delimiters, contents.wc(pos)))
+            pos = contents.inc(pos);
     } else {
-        while(pos<contents.length() && !isdelimiter(delimiters, contents.wc(pos)) && !Unicode::isSpace(contents.wc(pos))) pos = contents.inc(pos);
+        while (pos<contents.length() && !isdelimiter(delimiters, contents.wc(pos)) && !Unicode::isSpace(contents.wc(pos)))
+            pos = contents.inc(pos);
     }
     return pos;
 }
@@ -1717,26 +1739,26 @@ MFXTextFieldIcon::onVerify(FXObject*, FXSelector, void* ptr) {
 
     // Integer input
     if (options & TEXTFIELD_INTEGER) {
-        while(Ascii::isSpace(*p)) p++;
+        while (Ascii::isSpace(*p)) p++;
         if (*p == '-' || *p == '+') p++;
-        while(Ascii::isDigit(*p)) p++;
-        while(Ascii::isSpace(*p)) p++;
+        while (Ascii::isDigit(*p)) p++;
+        while (Ascii::isSpace(*p)) p++;
         if (*p != '\0') return 1;    // Objection!
     }
 
     // Real input
     if (options & TEXTFIELD_REAL) {
-        while(Ascii::isSpace(*p)) p++;
+        while (Ascii::isSpace(*p)) p++;
         if (*p == '-' || *p == '+') p++;
-        while(Ascii::isDigit(*p)) p++;
+        while (Ascii::isDigit(*p)) p++;
         if (*p == '.') p++;
-        while(Ascii::isDigit(*p)) p++;
+        while (Ascii::isDigit(*p)) p++;
         if (*p == 'E' || *p == 'e') {
             p++;
             if (*p == '-' || *p == '+') p++;
-            while(Ascii::isDigit(*p)) p++;
+            while (Ascii::isDigit(*p)) p++;
         }
-        while(Ascii::isSpace(*p)) p++;
+        while (Ascii::isSpace(*p)) p++;
         if (*p != '\0') return 1;    // Objection!
     }
 
@@ -2157,14 +2179,5 @@ MFXTextFieldIcon::load(FXStream& store) {
 
 MFXTextFieldIcon::MFXTextFieldIcon() {
     flags |= FLAG_ENABLED;
-    delimiters = FXTextField::textDelimiters;
     font = (FXFont*)-1L;
-    textColor = 0;
-    selbackColor = 0;
-    seltextColor = 0;
-    cursorColor = 0;
-    cursor = 0;
-    anchor = 0;
-    columns = 0;
-    shift = 0;
 }
