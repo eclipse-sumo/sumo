@@ -45,7 +45,7 @@
 
 
 // Map
-    FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
+FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
     FXMAPFUNC(SEL_PAINT,                0,                                  MFXTextFieldIcon::onPaint), 
     FXMAPFUNC(SEL_UPDATE,               0,                                  MFXTextFieldIcon::onUpdate), 
     FXMAPFUNC(SEL_MOTION,               0,                                  MFXTextFieldIcon::onMotion), 
@@ -124,31 +124,31 @@ FXIMPLEMENT(MFXTextFieldIcon, FXFrame, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextF
 
 MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXFrame(p, opts, x, y, w, h, pl, pr, pt, pb) {
-    if (ncols<0) ncols=0;
-    flags|=FLAG_ENABLED;
-    target=tgt;
-    message=sel;
-    if (!(options&JUSTIFY_RIGHT)) options|=JUSTIFY_LEFT;
-    defaultCursor=getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
-    dragCursor=getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
-    delimiters=FXTextField::textDelimiters;
-    font=getApp()->getNormalFont();
-    backColor=getApp()->getBackColor();
-    textColor=getApp()->getForeColor();
-    selbackColor=getApp()->getSelbackColor();
-    seltextColor=getApp()->getSelforeColor();
-    cursorColor=getApp()->getForeColor();
-    cursor=0;
-    anchor=0;
-    columns=ncols;
-    shift=0;
+    if (ncols<0) ncols = 0;
+    flags |= FLAG_ENABLED;
+    target = tgt;
+    message = sel;
+    if (!(options & JUSTIFY_RIGHT)) options |= JUSTIFY_LEFT;
+    defaultCursor = getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
+    dragCursor = getApp()->getDefaultCursor(DEF_TEXT_CURSOR);
+    delimiters = FXTextField::textDelimiters;
+    font = getApp()->getNormalFont();
+    backColor = getApp()->getBackColor();
+    textColor = getApp()->getForeColor();
+    selbackColor = getApp()->getSelbackColor();
+    seltextColor = getApp()->getSelforeColor();
+    cursorColor = getApp()->getForeColor();
+    cursor = 0;
+    anchor = 0;
+    columns = ncols;
+    shift = 0;
 }
 
 
 MFXTextFieldIcon::~MFXTextFieldIcon() {
     getApp()->removeTimeout(this, FXTextField::ID_BLINK);
     getApp()->removeTimeout(this, ID_AUTOSCROLL);
-    font=(FXFont*)-1L;
+    font = (FXFont*)-1L;
 }
 
 
@@ -156,13 +156,13 @@ void
 MFXTextFieldIcon::create() {
     FXFrame::create();
     if (!textType) {
-        textType=getApp()->registerDragType(textTypeName);
+        textType = getApp()->registerDragType(textTypeName);
     }
     if (!utf8Type) {
-        utf8Type=getApp()->registerDragType(utf8TypeName);
+        utf8Type = getApp()->registerDragType(utf8TypeName);
     }
     if (!utf16Type) {
-        utf16Type=getApp()->registerDragType(utf16TypeName);
+        utf16Type = getApp()->registerDragType(utf16TypeName);
     }
     font->create();
 }
@@ -173,8 +173,8 @@ MFXTextFieldIcon::setFont(FXFont* fnt) {
     if (!fnt) {
         fxerror("%s::setFont: NULL font specified.\n", getClassName());
     }
-    if (font!=fnt) {
-        font=fnt;
+    if (font != fnt) {
+        font = fnt;
         recalc();
         update();
     }
@@ -183,7 +183,7 @@ MFXTextFieldIcon::setFont(FXFont* fnt) {
 
 void
 MFXTextFieldIcon::enable() {
-    if (!(flags&FLAG_ENABLED)) {
+    if (!(flags & FLAG_ENABLED)) {
         FXFrame::enable();
         update();
     }
@@ -192,7 +192,7 @@ MFXTextFieldIcon::enable() {
 
 void
 MFXTextFieldIcon::disable() {
-    if (flags&FLAG_ENABLED) {
+    if (flags & FLAG_ENABLED) {
         FXFrame::disable();
         update();
     }
@@ -215,13 +215,13 @@ MFXTextFieldIcon::getDefaultHeight() {
 long
 MFXTextFieldIcon::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     if (!FXFrame::onUpdate(sender, sel, ptr)) {
-        if (options&TEXTFIELD_AUTOHIDE) {
+        if (options & TEXTFIELD_AUTOHIDE) {
             if (shown()) {
                 hide();
                 recalc();
             }
         }
-        if (options&TEXTFIELD_AUTOGRAY) {
+        if (options & TEXTFIELD_AUTOGRAY) {
             disable();
         }
     }
@@ -247,45 +247,45 @@ MFXTextFieldIcon::onSelectionLost(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXTextFieldIcon::onSelectionRequest(FXObject* sender, FXSelector sel, void* ptr) {
-    FXEvent *event=(FXEvent*)ptr;
+    FXEvent *event = (FXEvent*)ptr;
     FXString string;
     FXuint   start;
     FXuint   len;
 
     // Make sure
-    FXASSERT(0<=anchor && anchor<=contents.length());
-    FXASSERT(0<=cursor && cursor<=contents.length());
+    FXASSERT(0 <= anchor && anchor <= contents.length());
+    FXASSERT(0 <= cursor && cursor <= contents.length());
 
     // Perhaps the target wants to supply its own data for the selection
     if (FXFrame::onSelectionRequest(sender, sel, ptr))
         return 1;
 
     // Recognize the request?
-    if (event->target==stringType || event->target==textType || event->target==utf8Type || event->target==utf16Type) {
+    if (event->target == stringType || event->target == textType || event->target == utf8Type || event->target == utf16Type) {
 
         // Figure selected bytes
         if (anchor<cursor) {
-            start=anchor; len=cursor-anchor;
+            start = anchor; len = cursor-anchor;
         } else {
-            start=cursor;len=anchor-cursor;
+            start = cursor;len = anchor-cursor;
         }
 
         // Get selected fragment
-        string=contents.mid(start, len);
+        string = contents.mid(start, len);
 
         // If password mode,  replace by stars
-        if (options&TEXTFIELD_PASSWD)
+        if (options & TEXTFIELD_PASSWD)
             string.assign('*', string.count());
 
         // Return text of the selection as UTF-8
-        if (event->target==utf8Type) {
+        if (event->target == utf8Type) {
             FXTRACE((100, "Request UTF8\n"));
             setDNDData(FROM_SELECTION, event->target, string);
             return 1;
         }
 
         // Return text of the selection translated to 8859-1
-        if (event->target==stringType || event->target==textType) {
+        if (event->target == stringType || event->target == textType) {
             FX88591Codec ascii;
             FXTRACE((100, "Request ASCII\n"));
             setDNDData(FROM_SELECTION, event->target, ascii.utf2mb(string));
@@ -293,7 +293,7 @@ MFXTextFieldIcon::onSelectionRequest(FXObject* sender, FXSelector sel, void* ptr
         }
 
         // Return text of the selection translated to UTF-16
-        if (event->target==utf16Type) {
+        if (event->target == utf16Type) {
             FXUTF16LECodec unicode;           // FIXME maybe other endianness for unix
             FXTRACE((100, "Request UTF16\n"));
             setDNDData(FROM_SELECTION, event->target, unicode.utf2mb(string));
@@ -322,7 +322,7 @@ MFXTextFieldIcon::onClipboardLost(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXTextFieldIcon::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr) {
-    FXEvent *event=(FXEvent*)ptr;
+    FXEvent *event = (FXEvent*)ptr;
     FXString string;
 
     // Perhaps the target wants to supply its own data for the clipboard
@@ -330,23 +330,23 @@ MFXTextFieldIcon::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr
         return 1;
 
     // Recognize the request?
-    if (event->target==stringType || event->target==textType || event->target==utf8Type || event->target==utf16Type) {
+    if (event->target == stringType || event->target == textType || event->target == utf8Type || event->target == utf16Type) {
 
         // Get clipped string
-        string=clipped;
+        string = clipped;
 
         // If password mode,  replace by stars
-        if (options&TEXTFIELD_PASSWD) string.assign('*', string.count());
+        if (options & TEXTFIELD_PASSWD) string.assign('*', string.count());
 
         // Return clipped text as as UTF-8
-        if (event->target==utf8Type) {
+        if (event->target == utf8Type) {
             FXTRACE((100, "Request UTF8\n"));
             setDNDData(FROM_CLIPBOARD, event->target, string);
             return 1;
         }
 
         // Return clipped text translated to 8859-1
-        if (event->target==stringType || event->target==textType) {
+        if (event->target == stringType || event->target == textType) {
             FX88591Codec ascii;
             FXTRACE((100, "Request ASCII\n"));
             setDNDData(FROM_CLIPBOARD, event->target, ascii.utf2mb(string));
@@ -354,7 +354,7 @@ MFXTextFieldIcon::onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr
         }
 
         // Return text of the selection translated to UTF-16
-        if (event->target==utf16Type) {
+        if (event->target == utf16Type) {
             FXUTF16LECodec unicode;             // FIXME maybe other endianness for unix
             FXTRACE((100, "Request UTF16\n"));
             setDNDData(FROM_CLIPBOARD, event->target, unicode.utf2mb(string));
@@ -402,8 +402,8 @@ MFXTextFieldIcon::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXTextFieldIcon::onFocusSelf(FXObject* sender, FXSelector sel, void* ptr) {
     if (FXFrame::onFocusSelf(sender, sel, ptr)) {
-        FXEvent *event=(FXEvent*)ptr;
-        if (event->type==SEL_KEYPRESS || event->type==SEL_KEYRELEASE) {
+        FXEvent *event = (FXEvent*)ptr;
+        if (event->type == SEL_KEYPRESS || event->type == SEL_KEYRELEASE) {
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_SELECT_ALL), NULL);
         }
         return 1;
@@ -422,7 +422,7 @@ void
 MFXTextFieldIcon::setFocus() {
     FXFrame::setFocus();
     setDefault(TRUE);
-    flags&=~FLAG_UPDATE;
+    flags &= ~FLAG_UPDATE;
     if (getApp()->hasInputMethod()) {
         createComposeContext();
     }
@@ -433,10 +433,10 @@ void
 MFXTextFieldIcon::killFocus() {
     FXFrame::killFocus();
     setDefault(MAYBE);
-    flags|=FLAG_UPDATE;
-    if (flags&FLAG_CHANGED) {
-        flags&=~FLAG_CHANGED;
-        if (!(options&TEXTFIELD_ENTER_ONLY)) {
+    flags |= FLAG_UPDATE;
+    if (flags & FLAG_CHANGED) {
+        flags &= ~FLAG_CHANGED;
+        if (!(options & TEXTFIELD_ENTER_ONLY)) {
             if (target) target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)contents.text());
         }
     }
@@ -455,7 +455,7 @@ MFXTextFieldIcon::onCmdSetHelp(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onCmdGetHelp(FXObject*, FXSelector, void* ptr) {
-    *((FXString*)ptr)=getHelpText();
+    *((FXString*)ptr) = getHelpText();
     return 1;
 }
 
@@ -469,7 +469,7 @@ MFXTextFieldIcon::onCmdSetTip(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onCmdGetTip(FXObject*, FXSelector, void* ptr) {
-    *((FXString*)ptr)=getTipText();
+    *((FXString*)ptr) = getTipText();
     return 1;
 }
 
@@ -478,7 +478,7 @@ long
 MFXTextFieldIcon::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
     if (FXWindow::onQueryTip(sender, sel, ptr))
         return 1;
-    if ((flags&FLAG_TIP) && !tip.empty()) {
+    if ((flags & FLAG_TIP) && !tip.empty()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), (void*)&tip);
         return 1;
     }
@@ -490,7 +490,7 @@ long
 MFXTextFieldIcon::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
     if (FXWindow::onQueryHelp(sender, sel, ptr))
         return 1;
-    if ((flags&FLAG_HELP) && !help.empty()) {
+    if ((flags & FLAG_HELP) && !help.empty()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), (void*)&help);
         return 1;
     }
@@ -528,44 +528,44 @@ MFXTextFieldIcon::onCmdSetStringValue(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
-    *((FXint*)ptr)=FXIntVal(contents);
+    *((FXint*)ptr) = FXIntVal(contents);
     return 1;
 }
 
 
 long
 MFXTextFieldIcon::onCmdGetRealValue(FXObject*, FXSelector, void* ptr) {
-    *((FXdouble*)ptr)=FXDoubleVal(contents);
+    *((FXdouble*)ptr) = FXDoubleVal(contents);
     return 1;
 }
 
 
 long
 MFXTextFieldIcon::onCmdGetStringValue(FXObject*, FXSelector, void* ptr) {
-    *((FXString*)ptr)=getText();
+    *((FXString*)ptr) = getText();
     return 1;
 }
 
 
 long 
 MFXTextFieldIcon::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
-    FXEvent* ev=(FXEvent*)ptr;
-    flags&=~FLAG_TIP;
+    FXEvent* ev = (FXEvent*)ptr;
+    flags &= ~FLAG_TIP;
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled()) {
         grab();
         if (target && target->tryHandle(this, FXSEL(SEL_LEFTBUTTONPRESS, message), ptr)) return 1;
-        flags&=~FLAG_UPDATE;
-        if (ev->click_count==1) {
+        flags &= ~FLAG_UPDATE;
+        if (ev->click_count == 1) {
             setCursorPos(index(ev->win_x));
-            if (ev->state&SHIFTMASK) {
+            if (ev->state & SHIFTMASK) {
                 extendSelection(cursor);
             } else {
                 killSelection();
                 setAnchorPos(cursor);
             }
             makePositionVisible(cursor);
-            flags|=FLAG_PRESSED;
+            flags |= FLAG_PRESSED;
         } else {
             setAnchorPos(0);
             setCursorPos(contents.length());
@@ -582,9 +582,10 @@ long
 MFXTextFieldIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
     if (isEnabled()) {
         ungrab();
-        flags&=~FLAG_PRESSED;
-        if (target && target->tryHandle(this, FXSEL(SEL_LEFTBUTTONRELEASE, message), ptr)) 
-            return 1;
+        flags &= ~FLAG_PRESSED;
+        if (target) {
+            target->tryHandle(this, FXSEL(SEL_LEFTBUTTONRELEASE, message), ptr);
+        }
         return 1;
     }
     return 0;
@@ -593,8 +594,8 @@ MFXTextFieldIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
-    FXEvent* ev=(FXEvent*)ptr;
-    flags&=~FLAG_TIP;
+    FXEvent* ev = (FXEvent*)ptr;
+    flags &= ~FLAG_TIP;
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled()) {
         grab();
@@ -604,7 +605,7 @@ MFXTextFieldIcon::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
         setAnchorPos(cursor);
         makePositionVisible(cursor);
         update(border, border, width-(border<<1), height-(border<<1));
-        flags&=~FLAG_UPDATE;
+        flags &= ~FLAG_UPDATE;
         return 1;
     }
     return 0;
@@ -625,19 +626,19 @@ MFXTextFieldIcon::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onMotion(FXObject*, FXSelector, void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
+    FXEvent* event = (FXEvent*)ptr;
     FXint t;
-    if (flags&FLAG_PRESSED) {
+    if (flags & FLAG_PRESSED) {
         if (event->win_x<(border+padleft) || (width-border-padright)<event->win_x) {
             if (!getApp()->hasTimeout(this, ID_AUTOSCROLL)) {
                 getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
             }
         } else {
             getApp()->removeTimeout(this, ID_AUTOSCROLL);
-            t=index(event->win_x);
-            if (t!=cursor) {
+            t = index(event->win_x);
+            if (t != cursor) {
                 drawCursor(0);
-                cursor=t;
+                cursor = t;
                 extendSelection(cursor);
             }
         }
@@ -649,101 +650,101 @@ MFXTextFieldIcon::onMotion(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onAutoScroll(FXObject*, FXSelector, void* ptr) {
-    register FXEvent* event=(FXEvent*)ptr;
-    if (flags&FLAG_PRESSED) {
-        register FXint newcursor=cursor;
-        register FXint ll=border+padleft;
-        register FXint rr=width-border-padright;
-        register FXint ww=rr-ll;
+    register FXEvent* event = (FXEvent*)ptr;
+    if (flags & FLAG_PRESSED) {
+        register FXint newcursor = cursor;
+        register FXint ll = border+padleft;
+        register FXint rr = width-border-padright;
+        register FXint ww = rr-ll;
         register FXint tw;
 
-        if (options&TEXTFIELD_PASSWD)
-            tw=font->getTextWidth("*", 1)*contents.count();
+        if (options & TEXTFIELD_PASSWD)
+            tw = font->getTextWidth("*", 1)*contents.count();
         else
-            tw=font->getTextWidth(contents.text(), contents.length());
+            tw = font->getTextWidth(contents.text(), contents.length());
 
         // Text right-aligned
-        if (options&JUSTIFY_RIGHT) {
+        if (options & JUSTIFY_RIGHT) {
 
             // Scroll left
             if (event->win_x<ll) {
                 if (tw>ww) {
-                    shift+=ll-event->win_x;
+                    shift += ll-event->win_x;
                     if (ww>tw-shift)
-                        shift=tw-ww;
+                        shift = tw-ww;
                     else
                         getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
                 }
-                newcursor=index(ll);
+                newcursor = index(ll);
             }
 
             // Scroll right
             if (rr<event->win_x) {
                 if (tw>ww) {
-                    shift+=rr-event->win_x;
-                    if (shift<=0)
-                        shift=0;
+                    shift += rr-event->win_x;
+                    if (shift <= 0)
+                        shift = 0;
                     else
                         getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
                 }
-                newcursor=index(rr);
+                newcursor = index(rr);
             }
         }
 
         // Text left-aligned
-        else if (options&JUSTIFY_LEFT) {
+        else if (options & JUSTIFY_LEFT) {
 
         // Scroll left
         if (event->win_x<ll) {
             if (tw>ww) {
-                shift+=ll-event->win_x;
-                if (shift>=0)
-                    shift=0;
+                shift += ll-event->win_x;
+                if (shift >= 0)
+                    shift = 0;
                 else
                     getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
             }
-            newcursor=index(ll);
+            newcursor = index(ll);
         }
 
         // Scroll right
         if (rr<event->win_x) {
             if (tw>ww) {
-                shift+=rr-event->win_x;
+                shift += rr-event->win_x;
                 if (shift+tw<ww)
-                    shift=ww-tw;
+                    shift = ww-tw;
                 else
                     getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
             }
-            newcursor=index(rr);
+            newcursor = index(rr);
             }
         } else {
             // Text centered, Scroll left
             if (event->win_x<ll) {
                 if (tw>ww) {
-                    shift+=ll-event->win_x;
+                    shift += ll-event->win_x;
                     if (shift>tw/2-ww/2)
-                        shift=tw/2-ww/2;
+                        shift = tw/2-ww/2;
                     else
                         getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
                 }
-                newcursor=index(ll);
+                newcursor = index(ll);
             }
             // Scroll right
             if (rr<event->win_x) {
                 if (tw>ww) {
-                    shift+=rr-event->win_x;
+                    shift += rr-event->win_x;
                     if (shift<(ww-ww/2)-tw/2)
-                        shift=(ww-ww/2)-tw/2;
+                        shift = (ww-ww/2)-tw/2;
                     else
                         getApp()->addTimeout(this, ID_AUTOSCROLL, getApp()->getScrollSpeed(), event);
                 }
-                newcursor=index(rr);
+                newcursor = index(rr);
             }
         }
         // Extend the selection
-        if (newcursor!=cursor) {
+        if (newcursor != cursor) {
             drawCursor(0);
-            cursor=newcursor;
+            cursor = newcursor;
             extendSelection(cursor);
         }
     }
@@ -799,10 +800,10 @@ MFXTextFieldIcon::onUpdSelectAll(FXObject* sender, FXSelector, void* ptr) {
 
 void
 MFXTextFieldIcon::setCursorPos(FXint pos) {
-    pos=contents.validate(FXCLAMP(0, pos, contents.length()));
-    if (cursor!=pos) {
+    pos = contents.validate(FXCLAMP(0, pos, contents.length()));
+    if (cursor != pos) {
         drawCursor(0);
-        cursor=pos;
+        cursor = pos;
         if (isEditable() && hasFocus())
             drawCursor(FLAG_CARET);
     }
@@ -811,29 +812,29 @@ MFXTextFieldIcon::setCursorPos(FXint pos) {
 
 void
 MFXTextFieldIcon::setAnchorPos(FXint pos) {
-    anchor=contents.validate(FXCLAMP(0, pos, contents.length()));
+    anchor = contents.validate(FXCLAMP(0, pos, contents.length()));
 }
 
 
 void
 MFXTextFieldIcon::drawCursor(FXuint state) {
     FXint cl, ch, xx, xlo, xhi;
-    if ((state^flags)&FLAG_CARET) {
+    if ((state^flags) & FLAG_CARET) {
         if (xid) {
             FXDCWindow dc(this);
-            FXASSERT(0<=cursor && cursor<=contents.length());
-            FXASSERT(0<=anchor && anchor<=contents.length());
-            xx=coord(cursor)-1;
+            FXASSERT(0 <= cursor && cursor <= contents.length());
+            FXASSERT(0 <= anchor && anchor <= contents.length());
+            xx = coord(cursor)-1;
 
             // Clip rectangle around cursor
-            xlo=FXMAX(xx-2, border);
-            xhi=FXMIN(xx+3, width-border);
+            xlo = FXMAX(xx-2, border);
+            xhi = FXMIN(xx+3, width-border);
 
             // Cursor can overhang padding but not borders
             dc.setClipRectangle(xlo, border, xhi-xlo, height-(border<<1));
 
             // Draw I beam
-            if (state&FLAG_CARET) {
+            if (state & FLAG_CARET) {
                 // Draw I-beam
                 dc.setForeground(cursorColor);
                 dc.fillRectangle(xx, padtop+border, 1, height-padbottom-padtop-(border<<1));
@@ -845,63 +846,63 @@ MFXTextFieldIcon::drawCursor(FXuint state) {
                 dc.fillRectangle(xx-2, border, 5, height-(border<<1));
 
                 // Draw two characters before and after cursor
-                cl=ch=cursor;
+                cl = ch = cursor;
                 if (0<cl) {
-                    cl=contents.dec(cl);
+                    cl = contents.dec(cl);
                     if (0<cl) {
-                        cl=contents.dec(cl);
+                        cl = contents.dec(cl);
                     }
                 }
                 if (ch<contents.length()) {
-                    ch=contents.inc(ch);
+                    ch = contents.inc(ch);
                     if (ch<contents.length()) {
-                        ch=contents.inc(ch);
+                        ch = contents.inc(ch);
                     }
                 }
                 drawTextRange(dc, cl, ch);
             }
         }
-        flags^=FLAG_CARET;
+        flags ^= FLAG_CARET;
     }
 }
 
 
 void
 MFXTextFieldIcon::layout() {
-    register FXint rr=width-border-padright;
-    register FXint ll=border+padleft;
-    register FXint ww=rr-ll;
+    register FXint rr = width-border-padright;
+    register FXint ll = border+padleft;
+    register FXint ww = rr-ll;
     register FXint tw;
     if (!xid) return;
 
     // Figure text width
-    if (options&TEXTFIELD_PASSWD)
-        tw=font->getTextWidth("*", 1)*contents.count();
+    if (options & TEXTFIELD_PASSWD)
+        tw = font->getTextWidth("*", 1)*contents.count();
     else
-        tw=font->getTextWidth(contents.text(), contents.length());
+        tw = font->getTextWidth(contents.text(), contents.length());
 
     // Constrain shift
-    if (options&JUSTIFY_RIGHT) {
-        if (ww>=tw)
-            shift=0;
+    if (options & JUSTIFY_RIGHT) {
+        if (ww >= tw)
+            shift = 0;
         else if (shift<0)
-            shift=0;
+            shift = 0;
         else if (shift>tw-ww)
-            shift=tw-ww;
-    } else if (options&JUSTIFY_LEFT) {
-        if (ww>=tw)
-            shift=0;
+            shift = tw-ww;
+    } else if (options & JUSTIFY_LEFT) {
+        if (ww >= tw)
+            shift = 0;
         else if (shift>0)
-            shift=0;
+            shift = 0;
         else if (shift<ww-tw)
-            shift=ww-tw;
+            shift = ww-tw;
     } else {
-        if (ww>=tw)
-            shift=0;
+        if (ww >= tw)
+            shift = 0;
         else if (shift>tw/2-ww/2)
-            shift=tw/2-ww/2;
+            shift = tw/2-ww/2;
         else if (shift<(ww-ww/2)-tw/2)
-            shift=(ww-ww/2)-tw/2;
+            shift = (ww-ww/2)-tw/2;
     }
 
     // Keep cursor in the picture if resizing field
@@ -910,48 +911,48 @@ MFXTextFieldIcon::layout() {
     // Always redraw
     update();
 
-    flags&=~FLAG_DIRTY;
+    flags &= ~FLAG_DIRTY;
 }
 
 
 void
 MFXTextFieldIcon::makePositionVisible(FXint pos) {
-    register FXint rr=width-border-padright;
-    register FXint ll=border+padleft;
-    register FXint ww=rr-ll;
-    register FXint oldshift=shift;
+    register FXint rr = width-border-padright;
+    register FXint ll = border+padleft;
+    register FXint ww = rr-ll;
+    register FXint oldshift = shift;
     register FXint xx;
     if (!xid) return;
-    pos=contents.validate(FXCLAMP(0, pos, contents.length()));
-    if (options&JUSTIFY_RIGHT) {
-        if (options&TEXTFIELD_PASSWD)
-            xx=font->getTextWidth("*", 1)*contents.count(pos, contents.length());
+    pos = contents.validate(FXCLAMP(0, pos, contents.length()));
+    if (options & JUSTIFY_RIGHT) {
+        if (options & TEXTFIELD_PASSWD)
+            xx = font->getTextWidth("*", 1)*contents.count(pos, contents.length());
         else
-            xx=font->getTextWidth(&contents[pos], contents.length()-pos);
+            xx = font->getTextWidth(&contents[pos], contents.length()-pos);
         if (shift-xx>0)
-            shift=xx;
+            shift = xx;
         else if (shift-xx<-ww)
-            shift=xx-ww;
-    } else if (options&JUSTIFY_LEFT) {
-        if (options&TEXTFIELD_PASSWD)
-            xx=font->getTextWidth("*", 1)*contents.index(pos);
+            shift = xx-ww;
+    } else if (options & JUSTIFY_LEFT) {
+        if (options & TEXTFIELD_PASSWD)
+            xx = font->getTextWidth("*", 1)*contents.index(pos);
         else
-            xx=font->getTextWidth(contents.text(), pos);
+            xx = font->getTextWidth(contents.text(), pos);
         if (shift+xx<0)
-            shift=-xx;
-        else if (shift+xx>=ww)
-            shift=ww-xx;
+            shift = -xx;
+        else if (shift+xx >= ww)
+            shift = ww-xx;
     } else {
-        if (options&TEXTFIELD_PASSWD)
-            xx=font->getTextWidth("*", 1)*contents.index(pos)-(font->getTextWidth("*", 1)*contents.count())/2;
+        if (options & TEXTFIELD_PASSWD)
+            xx = font->getTextWidth("*", 1)*contents.index(pos)-(font->getTextWidth("*", 1)*contents.count())/2;
         else
-            xx=font->getTextWidth(contents.text(), pos)-font->getTextWidth(contents.text(), contents.length())/2;
+            xx = font->getTextWidth(contents.text(), pos)-font->getTextWidth(contents.text(), contents.length())/2;
         if (shift+ww/2+xx<0)
-            shift=-ww/2-xx;
-        else if (shift+ww/2+xx>=ww)
-            shift=ww-ww/2-xx;
+            shift = -ww/2-xx;
+        else if (shift+ww/2+xx >= ww)
+            shift = ww-ww/2-xx;
     }
-    if (shift!=oldshift) {
+    if (shift != oldshift) {
         update(border, border, width-(border<<1), height-(border<<1));
     }
 }
@@ -959,66 +960,66 @@ MFXTextFieldIcon::makePositionVisible(FXint pos) {
 
 FXint
 MFXTextFieldIcon::index(FXint x) const {
-    register FXint rr=width-border-padright;
-    register FXint ll=border+padleft;
-    register FXint mm=(ll+rr)/2;
+    register FXint rr = width-border-padright;
+    register FXint ll = border+padleft;
+    register FXint mm = (ll+rr)/2;
     register FXint pos, xx, cw;
-    if (options&TEXTFIELD_PASSWD) {
-        cw=font->getTextWidth("*", 1);
-        if (options&JUSTIFY_RIGHT)
-            xx=rr-cw*contents.count();
-        else if (options&JUSTIFY_LEFT)
-            xx=ll;
+    if (options & TEXTFIELD_PASSWD) {
+        cw = font->getTextWidth("*", 1);
+        if (options & JUSTIFY_RIGHT)
+            xx = rr-cw*contents.count();
+        else if (options & JUSTIFY_LEFT)
+            xx = ll;
         else
-            xx=mm-(cw*contents.count())/2;
-        xx+=shift;
-        pos=contents.offset((x-xx+(cw>>1))/cw);
+            xx = mm-(cw*contents.count())/2;
+        xx += shift;
+        pos = contents.offset((x-xx+(cw>>1))/cw);
     } else {
-        if (options&JUSTIFY_RIGHT)
-            xx=rr-font->getTextWidth(contents.text(), contents.length());
-        else if (options&JUSTIFY_LEFT)
-            xx=ll;
+        if (options & JUSTIFY_RIGHT)
+            xx = rr-font->getTextWidth(contents.text(), contents.length());
+        else if (options & JUSTIFY_LEFT)
+            xx = ll;
         else
-            xx=mm-font->getTextWidth(contents.text(), contents.length())/2;
-        xx+=shift;
-        for (pos=0; pos<contents.length(); pos=contents.inc(pos)) {
-            cw=font->getTextWidth(&contents[pos], contents.extent(pos));
+            xx = mm-font->getTextWidth(contents.text(), contents.length())/2;
+        xx += shift;
+        for (pos = 0; pos<contents.length(); pos = contents.inc(pos)) {
+            cw = font->getTextWidth(&contents[pos], contents.extent(pos));
             if (x<(xx+(cw>>1))) break;
-                xx+=cw;
+                xx += cw;
         }
     }
     if (pos<0) 
-        pos=0;
+        pos = 0;
     if (pos>contents.length())
-        pos=contents.length();
+        pos = contents.length();
     return pos;
 }
 
 
 FXint
 MFXTextFieldIcon::coord(FXint i) const {
-    register FXint rr=width-border-padright;
-    register FXint ll=border+padleft;
-    register FXint mm=(ll+rr)/2;
+    register FXint rr = width-border-padright;
+    register FXint ll = border+padleft;
+    register FXint mm = (ll+rr)/2;
     register FXint pos;
-    FXASSERT(0<=i && i<=contents.length());
-    if (options&JUSTIFY_RIGHT) {
-        if (options&TEXTFIELD_PASSWD) {
-            pos=rr-font->getTextWidth("*", 1)*(contents.count()-contents.index(i));
+    FXASSERT(0 <= i && i <= contents.length());
+    if (options & JUSTIFY_RIGHT) {
+        if (options & TEXTFIELD_PASSWD) {
+            pos = rr-font->getTextWidth("*", 1)*(contents.count()-contents.index(i));
         } else {
-            pos=rr-font->getTextWidth(&contents[i], contents.length()-i);
+            pos = rr-font->getTextWidth(&contents[i], contents.length()-i);
         }
-    } else if (options&JUSTIFY_LEFT) {
-        if (options&TEXTFIELD_PASSWD) {
-            pos=ll+font->getTextWidth("*", 1)*contents.index(i);
+    } else if (options & JUSTIFY_LEFT) {
+        if (options & TEXTFIELD_PASSWD) {
+            pos = ll+font->getTextWidth("*", 1)*contents.index(i);
         } else {
-            pos=ll+font->getTextWidth(contents.text(), i);
+            pos = ll+font->getTextWidth(contents.text(), i);
         }
     } else {
-        if (options&TEXTFIELD_PASSWD) {
-            pos=mm+font->getTextWidth("*", 1)*contents.index(i)-(font->getTextWidth("*", 1)*contents.count())/2;
+        if (options & TEXTFIELD_PASSWD) {
+            pos = mm+font->getTextWidth("*", 1)*contents.index(i)-(font->getTextWidth("*", 1)*contents.count())/2;
         } else {
-            pos=mm+font->getTextWidth(contents.text(), i)-font->getTextWidth(contents.text(), contents.length())/2;
+            pos = mm+font->getTextWidth(contents.text(), i)-font->getTextWidth(contents.text(), contents.length())/2;
         }
     }
     return pos+shift;
@@ -1027,9 +1028,9 @@ MFXTextFieldIcon::coord(FXint i) const {
 
 FXbool
 MFXTextFieldIcon::isPosVisible(FXint pos) const {
-    if (0<=pos && pos<=contents.length()) {
-        register FXint x=coord(contents.validate(pos));
-        return border+padleft<=x && x<=width-border-padright;
+    if (0 <= pos && pos <= contents.length()) {
+        register FXint x = coord(contents.validate(pos));
+        return border+padleft <= x && x <= width-border-padright;
     }
     return FALSE;
 }
@@ -1037,25 +1038,25 @@ MFXTextFieldIcon::isPosVisible(FXint pos) const {
 
 FXbool
 MFXTextFieldIcon::isPosSelected(FXint pos) const {
-    return hasSelection() && FXMIN(anchor, cursor)<=pos && pos<=FXMAX(anchor, cursor);
+    return hasSelection() && FXMIN(anchor, cursor) <= pos && pos <= FXMAX(anchor, cursor);
 }
 
 
 void
 MFXTextFieldIcon::drawTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to) {
-    x+=font->getTextWidth(contents.text(), fm);
-    y+=font->getFontAscent();
+    x += font->getTextWidth(contents.text(), fm);
+    y += font->getFontAscent();
     dc.drawText(x, y, &contents[fm], to-fm);
 }
 
 
 void
 MFXTextFieldIcon::drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to) {
-    register FXint cw=font->getTextWidth("*", 1);
+    register FXint cw = font->getTextWidth("*", 1);
     register FXint i;
-    y+=font->getFontAscent();
-    x+=cw*contents.index(fm);
-    for (i=fm; i<to; i=contents.inc(i), x+=cw) {
+    y += font->getFontAscent();
+    x += cw*contents.index(fm);
+    for (i = fm; i<to; i = contents.inc(i), x += cw) {
         dc.drawText(x, y, "*", 1);
     }
 }
@@ -1064,11 +1065,11 @@ MFXTextFieldIcon::drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm
 // Draw range of text
 void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
     register FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
-    register FXint rr=width-border-padright;
-    register FXint ll=border+padleft;
-    register FXint mm=(ll+rr)/2;
+    register FXint rr = width-border-padright;
+    register FXint ll = border+padleft;
+    register FXint mm = (ll+rr)/2;
 
-    if (to<=fm) return;
+    if (to <= fm) return;
 
     dc.setFont(font);
 
@@ -1076,76 +1077,76 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
     dc.setForeground(textColor);
 
     // Height
-    hh=font->getFontHeight();
+    hh = font->getFontHeight();
 
     // Text sticks to top of field
-    if (options&JUSTIFY_TOP) {
-        yy=padtop+border;
-    } else if (options&JUSTIFY_BOTTOM) {
+    if (options & JUSTIFY_TOP) {
+        yy = padtop+border;
+    } else if (options & JUSTIFY_BOTTOM) {
         // Text sticks to bottom of field
-        yy=height-padbottom-border-hh;
+        yy = height-padbottom-border-hh;
     } else {
         // Text centered in y
-        yy=border+padtop+(height-padbottom-padtop-(border<<1)-hh)/2;
+        yy = border+padtop+(height-padbottom-padtop-(border<<1)-hh)/2;
     }
 
     if (anchor<cursor) {
-        si=anchor;ei=cursor;
+        si = anchor;ei = cursor;
     } else {
-        si=cursor;ei=anchor;
+        si = cursor;ei = anchor;
     }
 
     // Password mode
-    if (options&TEXTFIELD_PASSWD) {
-        cw=font->getTextWidth("*", 1);
-        ww=cw*contents.count();
+    if (options & TEXTFIELD_PASSWD) {
+        cw = font->getTextWidth("*", 1);
+        ww = cw*contents.count();
 
         // Text sticks to right of field
-        if (options&JUSTIFY_RIGHT) {
-            xx=shift+rr-ww;
-        } else if (options&JUSTIFY_LEFT) {
+        if (options & JUSTIFY_RIGHT) {
+            xx = shift+rr-ww;
+        } else if (options & JUSTIFY_LEFT) {
             // Text sticks on left of field
-            xx=shift+ll;
+            xx = shift+ll;
         } else {
             // Text centered in field
-            xx=shift+mm-ww/2;
+            xx = shift+mm-ww/2;
         }
 
         // Reduce to avoid drawing excessive amounts of text
-        lx=xx+cw*contents.index(fm);
-        rx=xx+cw*contents.index(to);
+        lx = xx+cw*contents.index(fm);
+        rx = xx+cw*contents.index(to);
         while(fm<to) {
-            if (lx+cw>=0) break;
-            lx+=cw;
-            fm=contents.inc(fm);
+            if (lx+cw >= 0) break;
+            lx += cw;
+            fm = contents.inc(fm);
         }
         while(fm<to) {
             if (rx-cw<width) break;
-            rx-=cw;
-            to=contents.dec(to);
+            rx -= cw;
+            to = contents.dec(to);
         }
 
         // Adjust selected range
-        if (si<fm) si=fm;
-        if (ei>to) ei=to;
+        if (si<fm) si = fm;
+        if (ei>to) ei = to;
 
         // Nothing selected
-        if (!hasSelection() || to<=si || ei<=fm) {
+        if (!hasSelection() || to <= si || ei <= fm) {
             drawPWDTextFragment(dc, xx, yy, fm, to);
         } else {
             // Stuff selected
             if (fm<si) {
             drawPWDTextFragment(dc, xx, yy, fm, si);
             } else {
-                si=fm;
+                si = fm;
             } if (ei<to) {
                 drawPWDTextFragment(dc, xx, yy, ei, to);
             } else {
-                ei=to;
+                ei = to;
             }
             if (si<ei) {
-                sx=xx+cw*contents.index(si);
-                ex=xx+cw*contents.index(ei);
+                sx = xx+cw*contents.index(si);
+                ex = xx+cw*contents.index(ei);
                 if (hasFocus()) {
                     dc.setForeground(selbackColor);
                     dc.fillRectangle(sx, padtop+border, ex-sx, height-padtop-padbottom-(border<<1));
@@ -1161,59 +1162,59 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
         }
     } else {
         // Normal mode
-        ww=font->getTextWidth(contents.text(), contents.length());
+        ww = font->getTextWidth(contents.text(), contents.length());
 
         // Text sticks to right of field
-        if (options&JUSTIFY_RIGHT) {
-            xx=shift+rr-ww;
-        } else if (options&JUSTIFY_LEFT) {
+        if (options & JUSTIFY_RIGHT) {
+            xx = shift+rr-ww;
+        } else if (options & JUSTIFY_LEFT) {
             // Text sticks on left of field
-            xx=shift+ll;
+            xx = shift+ll;
         } else {
             // Text centered in field
-            xx=shift+mm-ww/2;
+            xx = shift+mm-ww/2;
         }
 
         // Reduce to avoid drawing excessive amounts of text
-        lx=xx+font->getTextWidth(&contents[0], fm);
-        rx=lx+font->getTextWidth(&contents[fm], to-fm);
+        lx = xx+font->getTextWidth(&contents[0], fm);
+        rx = lx+font->getTextWidth(&contents[fm], to-fm);
         while(fm<to) {
-            t=contents.inc(fm);
-            cw=font->getTextWidth(&contents[fm], t-fm);
-            if (lx+cw>=0) break;
-            lx+=cw;
-            fm=t;
+            t = contents.inc(fm);
+            cw = font->getTextWidth(&contents[fm], t-fm);
+            if (lx+cw >= 0) break;
+            lx += cw;
+            fm = t;
         }
         while(fm<to) {
-            t=contents.dec(to);
-            cw=font->getTextWidth(&contents[t], to-t);
+            t = contents.dec(to);
+            cw = font->getTextWidth(&contents[t], to-t);
             if (rx-cw<width) break;
-            rx-=cw;
-            to=t;
+            rx -= cw;
+            to = t;
         }
 
         // Adjust selected range
-        if (si<fm) si=fm;
-        if (ei>to) ei=to;
+        if (si<fm) si = fm;
+        if (ei>to) ei = to;
 
         // Nothing selected
-        if (!hasSelection() || to<=si || ei<=fm) {
+        if (!hasSelection() || to <= si || ei <= fm) {
             drawTextFragment(dc, xx, yy, fm, to);
         } else {
             // Stuff selected
             if (fm<si) {
                 drawTextFragment(dc, xx, yy, fm, si);
             } else {
-                si=fm;
+                si = fm;
             }
             if (ei<to) {
                 drawTextFragment(dc, xx, yy, ei, to);
             } else {
-                ei=to;
+                ei = to;
             }
             if (si<ei) {
-                sx=xx+font->getTextWidth(contents.text(), si);
-                ex=xx+font->getTextWidth(contents.text(), ei);
+                sx = xx+font->getTextWidth(contents.text(), si);
+                ex = xx+font->getTextWidth(contents.text(), ei);
                 if (hasFocus()) {
                     dc.setForeground(selbackColor);
                     dc.fillRectangle(sx, padtop+border, ex-sx, height-padtop-padbottom-(border<<1));
@@ -1233,7 +1234,7 @@ void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
 
 long
 MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
-    FXEvent *ev=(FXEvent*)ptr;
+    FXEvent *ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
 
     // Draw frame
@@ -1253,8 +1254,8 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     drawTextRange(dc, 0, contents.length());
 
     // Draw caret
-    if (flags&FLAG_CARET) {
-        int xx=coord(cursor)-1;
+    if (flags & FLAG_CARET) {
+        int xx = coord(cursor)-1;
         dc.setForeground(cursorColor);
         dc.fillRectangle(xx, padtop+border, 1, height-padbottom-padtop-(border<<1));
         dc.fillRectangle(xx-2, padtop+border, 5, 1);
@@ -1299,25 +1300,25 @@ MFXTextFieldIcon::onCmdCursorLeft(FXObject*, FXSelector, void*) {
 
 static FXbool
 isdelimiter(const FXchar *delimiters, FXwchar w) {
-    return w<128 && strchr(delimiters, w); // FIXME for w>=128
+    return w<128 && strchr(delimiters, w); // FIXME for w >= 128
 }
 
 
 FXint
 MFXTextFieldIcon::leftWord(FXint pos) const {
-    register FXint pp=pos, p;
+    register FXint pp = pos, p;
 
     // Ensure input is valid
-    FXASSERT(0<=pos && pos<=contents.length());
+    FXASSERT(0 <= pos && pos <= contents.length());
 
     // Back up until space or delimiter
-    while(0<=(p=contents.dec(pp)) && !Unicode::isSpace(contents.wc(p)) && !isdelimiter(delimiters, contents.wc(p))) pp=p;
+    while(0 <= (p = contents.dec(pp)) && !Unicode::isSpace(contents.wc(p)) && !isdelimiter(delimiters, contents.wc(p))) pp = p;
 
     // Back up over run of spaces
-    while(0<=(p=contents.dec(pp)) && Unicode::isSpace(contents.wc(p))) pp=p;
+    while(0 <= (p = contents.dec(pp)) && Unicode::isSpace(contents.wc(p))) pp = p;
 
     // One more in case we didn't move
-    if ((pos==pp) && 0<=(p=contents.dec(pp))) pp=p;
+    if ((pos == pp) && 0 <= (p = contents.dec(pp))) pp = p;
 
     return pp;
 }
@@ -1325,19 +1326,19 @@ MFXTextFieldIcon::leftWord(FXint pos) const {
 
 FXint
 MFXTextFieldIcon::rightWord(FXint pos) const {
-    register FXint pp=pos;
+    register FXint pp = pos;
 
     // Ensure input is valid
-    FXASSERT(0<=pos && pos<=contents.length());
+    FXASSERT(0 <= pos && pos <= contents.length());
 
     // Advance until space or delimiter
-    while(pp<contents.length() && !Unicode::isSpace(contents.wc(pp)) && !isdelimiter(delimiters, contents.wc(pp))) pp=contents.inc(pp);
+    while(pp<contents.length() && !Unicode::isSpace(contents.wc(pp)) && !isdelimiter(delimiters, contents.wc(pp))) pp = contents.inc(pp);
 
     // Advance over run of spaces
-    while(pp<contents.length() && Unicode::isSpace(contents.wc(pp))) pp=contents.inc(pp);
+    while(pp<contents.length() && Unicode::isSpace(contents.wc(pp))) pp = contents.inc(pp);
 
     // One more in case we didn't move
-    if ((pos==pp) && pp<contents.length()) pp=contents.inc(pp);
+    if ((pos == pp) && pp<contents.length()) pp = contents.inc(pp);
 
     return pp;
 }
@@ -1346,13 +1347,13 @@ MFXTextFieldIcon::rightWord(FXint pos) const {
 FXint
 MFXTextFieldIcon::wordStart(FXint pos) const {
     register FXint p;
-    FXASSERT(0<=pos && pos<=contents.length());
-    if (pos==contents.length() || Unicode::isSpace(contents.wc(pos))) {
-        while(0<=(p=contents.dec(pos)) && Unicode::isSpace(contents.wc(p))) pos=p;
+    FXASSERT(0 <= pos && pos <= contents.length());
+    if (pos == contents.length() || Unicode::isSpace(contents.wc(pos))) {
+        while(0 <= (p = contents.dec(pos)) && Unicode::isSpace(contents.wc(p))) pos = p;
     } else if (isdelimiter(delimiters, contents.wc(pos))) {
-        while(0<=(p=contents.dec(pos)) && isdelimiter(delimiters, contents.wc(p))) pos=p;
+        while(0 <= (p = contents.dec(pos)) && isdelimiter(delimiters, contents.wc(p))) pos = p;
     } else {
-        while(0<=(p=contents.dec(pos)) && !isdelimiter(delimiters, contents.wc(p)) && !Unicode::isSpace(contents.wc(p))) pos=p;
+        while(0 <= (p = contents.dec(pos)) && !isdelimiter(delimiters, contents.wc(p)) && !Unicode::isSpace(contents.wc(p))) pos = p;
     }
     return pos;
 }
@@ -1360,13 +1361,13 @@ MFXTextFieldIcon::wordStart(FXint pos) const {
 
 FXint
 MFXTextFieldIcon::wordEnd(FXint pos) const {
-    FXASSERT(0<=pos && pos<=contents.length());
-    if (pos==contents.length() || Unicode::isSpace(contents.wc(pos))) {
-        while(pos<contents.length() && Unicode::isSpace(contents.wc(pos))) pos=contents.inc(pos);
+    FXASSERT(0 <= pos && pos <= contents.length());
+    if (pos == contents.length() || Unicode::isSpace(contents.wc(pos))) {
+        while(pos<contents.length() && Unicode::isSpace(contents.wc(pos))) pos = contents.inc(pos);
     } else if (isdelimiter(delimiters, contents.wc(pos))) {
-        while(pos<contents.length() && isdelimiter(delimiters, contents.wc(pos))) pos=contents.inc(pos);
+        while(pos<contents.length() && isdelimiter(delimiters, contents.wc(pos))) pos = contents.inc(pos);
     } else {
-        while(pos<contents.length() && !isdelimiter(delimiters, contents.wc(pos)) && !Unicode::isSpace(contents.wc(pos))) pos=contents.inc(pos);
+        while(pos<contents.length() && !isdelimiter(delimiters, contents.wc(pos)) && !Unicode::isSpace(contents.wc(pos))) pos = contents.inc(pos);
     }
     return pos;
 }
@@ -1438,15 +1439,15 @@ MFXTextFieldIcon::onCmdCutSel(FXObject*, FXSelector, void*) {
     if (isEditable()) {
         if (hasSelection()) {
             FXDragType types[4];
-            types[0]=stringType;
-            types[1]=textType;
-            types[2]=utf8Type;
-            types[3]=utf16Type;
+            types[0] = stringType;
+            types[1] = textType;
+            types[2] = utf8Type;
+            types[3] = utf16Type;
             if (acquireClipboard(types, 4)) {
                 if (anchor<cursor)
-                    clipped=contents.mid(anchor, cursor-anchor);
+                    clipped = contents.mid(anchor, cursor-anchor);
                 else
-                    clipped=contents.mid(cursor, anchor-cursor);
+                    clipped = contents.mid(cursor, anchor-cursor);
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DELETE_SEL), NULL);
             }
         }
@@ -1461,15 +1462,15 @@ long
 MFXTextFieldIcon::onCmdCopySel(FXObject*, FXSelector, void*) {
     if (hasSelection()) {
         FXDragType types[4];
-        types[0]=stringType;
-        types[1]=textType;
-        types[2]=utf8Type;
-        types[3]=utf16Type;
+        types[0] = stringType;
+        types[1] = textType;
+        types[2] = utf8Type;
+        types[3] = utf16Type;
         if (acquireClipboard(types, 4)) {
             if (anchor<cursor)
-                clipped=contents.mid(anchor, cursor-anchor);
+                clipped = contents.mid(anchor, cursor-anchor);
             else
-                clipped=contents.mid(cursor, anchor-cursor);
+                clipped = contents.mid(cursor, anchor-cursor);
         }
     }
     return 1;
@@ -1553,15 +1554,15 @@ long
 MFXTextFieldIcon::onCmdDeleteSel(FXObject*, FXSelector, void*) {
     if (isEditable()) {
         if (!hasSelection()) return 1;
-        FXint st=FXMIN(anchor, cursor);
-        FXint en=FXMAX(anchor, cursor);
+        FXint st = FXMIN(anchor, cursor);
+        FXint en = FXMAX(anchor, cursor);
         setCursorPos(st);
         setAnchorPos(st);
         contents.erase(st, en-st);
         layout();
         makePositionVisible(st);
         killSelection();
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1581,7 +1582,7 @@ MFXTextFieldIcon::onCmdDeleteAll(FXObject*, FXSelector, void*) {
         layout();
         makePositionVisible(0);
         killSelection();
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1595,13 +1596,13 @@ MFXTextFieldIcon::onCmdDeleteAll(FXObject*, FXSelector, void*) {
 long
 MFXTextFieldIcon::onCmdOverstString(FXObject*, FXSelector, void* ptr) {
     if (isEditable()) {
-        FXString tentative=contents;
-        FXint len=strlen((FXchar*)ptr);
-        FXint reppos=cursor;
-        FXint replen=len;
+        FXString tentative = contents;
+        FXint len = strlen((FXchar*)ptr);
+        FXint reppos = cursor;
+        FXint replen = len;
         if (hasSelection()) {
-            reppos=FXMIN(anchor, cursor);
-            replen=FXMAX(anchor, cursor)-reppos;
+            reppos = FXMIN(anchor, cursor);
+            replen = FXMAX(anchor, cursor)-reppos;
         }
         tentative.replace(reppos, replen, (FXchar*)ptr, len);
         if (handle(this, FXSEL(SEL_VERIFY, 0), (void*)tentative.text())) {
@@ -1610,14 +1611,14 @@ MFXTextFieldIcon::onCmdOverstString(FXObject*, FXSelector, void* ptr) {
         }
         setCursorPos(reppos);
         setAnchorPos(reppos);
-        contents=tentative;
+        contents = tentative;
         layout();
         setCursorPos(reppos+len);
         setAnchorPos(reppos+len);
         makePositionVisible(reppos+len);
         killSelection();
         update(border, border, width-(border<<1), height-(border<<1));
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1631,13 +1632,13 @@ MFXTextFieldIcon::onCmdOverstString(FXObject*, FXSelector, void* ptr) {
 long
 MFXTextFieldIcon::onCmdInsertString(FXObject*, FXSelector, void* ptr) {
     if (isEditable()) {
-        FXString tentative=contents;
-        FXint len=strlen((FXchar*)ptr);
-        FXint reppos=cursor;
-        FXint replen=0;
+        FXString tentative = contents;
+        FXint len = strlen((FXchar*)ptr);
+        FXint reppos = cursor;
+        FXint replen = 0;
         if (hasSelection()) {
-            reppos=FXMIN(anchor, cursor);
-            replen=FXMAX(anchor, cursor)-reppos;
+            reppos = FXMIN(anchor, cursor);
+            replen = FXMAX(anchor, cursor)-reppos;
         }
         tentative.replace(reppos, replen, (FXchar*)ptr, len);
         if (handle(this, FXSEL(SEL_VERIFY, 0), (void*)tentative.text())) {
@@ -1646,14 +1647,14 @@ MFXTextFieldIcon::onCmdInsertString(FXObject*, FXSelector, void* ptr) {
         }
         setCursorPos(reppos);
         setAnchorPos(reppos);
-        contents=tentative;
+        contents = tentative;
         layout();
         setCursorPos(reppos+len);
         setAnchorPos(reppos+len);
         makePositionVisible(reppos+len);
         killSelection();
         update(border, border, width-(border<<1), height-(border<<1));
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1674,7 +1675,7 @@ MFXTextFieldIcon::onCmdBackspace(FXObject*, FXSelector, void*) {
         layout();
         makePositionVisible(cursor);
         update(border, border, width-(border<<1), height-(border<<1));
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1694,7 +1695,7 @@ MFXTextFieldIcon::onCmdDelete(FXObject*, FXSelector, void*) {
         setAnchorPos(cursor);
         makePositionVisible(cursor);
         update(border, border, width-(border<<1), height-(border<<1));
-        flags|=FLAG_CHANGED;
+        flags |= FLAG_CHANGED;
         if (target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)contents.text());
         }
@@ -1707,36 +1708,36 @@ MFXTextFieldIcon::onCmdDelete(FXObject*, FXSelector, void*) {
 
 long
 MFXTextFieldIcon::onVerify(FXObject*, FXSelector, void* ptr) {
-    register FXchar *p=(FXchar*)ptr;
+    register FXchar *p = (FXchar*)ptr;
 
     // Limit number of columns
-    if (options&TEXTFIELD_LIMITED) {
+    if (options & TEXTFIELD_LIMITED) {
         if ((FXint)wcslen(p)>columns) return 1;
     }
 
     // Integer input
-    if (options&TEXTFIELD_INTEGER) {
+    if (options & TEXTFIELD_INTEGER) {
         while(Ascii::isSpace(*p)) p++;
-        if (*p=='-' || *p=='+') p++;
+        if (*p == '-' || *p == '+') p++;
         while(Ascii::isDigit(*p)) p++;
         while(Ascii::isSpace(*p)) p++;
-        if (*p!='\0') return 1;    // Objection!
+        if (*p != '\0') return 1;    // Objection!
     }
 
     // Real input
-    if (options&TEXTFIELD_REAL) {
+    if (options & TEXTFIELD_REAL) {
         while(Ascii::isSpace(*p)) p++;
-        if (*p=='-' || *p=='+') p++;
+        if (*p == '-' || *p == '+') p++;
         while(Ascii::isDigit(*p)) p++;
-        if (*p=='.') p++;
+        if (*p == '.') p++;
         while(Ascii::isDigit(*p)) p++;
-        if (*p=='E' || *p=='e') {
+        if (*p == 'E' || *p == 'e') {
             p++;
-            if (*p=='-' || *p=='+') p++;
+            if (*p == '-' || *p == '+') p++;
             while(Ascii::isDigit(*p)) p++;
         }
         while(Ascii::isSpace(*p)) p++;
-        if (*p!='\0') return 1;    // Objection!
+        if (*p != '\0') return 1;    // Objection!
     }
 
     // Target has chance to object to the proposed change
@@ -1749,24 +1750,24 @@ MFXTextFieldIcon::onVerify(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
-    flags&=~FLAG_TIP;
+    FXEvent* event = (FXEvent*)ptr;
+    flags &= ~FLAG_TIP;
     if (isEnabled()) {
-    FXTRACE((200, "%s::onKeyPress keysym=0x%04x state=%04x\n", getClassName(), event->code, event->state));
+    FXTRACE((200, "%s::onKeyPress keysym = 0x%04x state = %04x\n", getClassName(), event->code, event->state));
     if (target && target->tryHandle(this, FXSEL(SEL_KEYPRESS, message), ptr)) return 1;
-    flags&=~FLAG_UPDATE;
+    flags &= ~FLAG_UPDATE;
     switch(event->code) {
         case KEY_Right:
         case KEY_KP_Right:
-            if (!(event->state&SHIFTMASK)) {
+            if (!(event->state & SHIFTMASK)) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DESELECT_ALL), NULL);
             }
-            if (event->state&CONTROLMASK) {
+            if (event->state & CONTROLMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_WORD_RIGHT), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_RIGHT), NULL);
             }
-            if (event->state&SHIFTMASK) {
+            if (event->state & SHIFTMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_EXTEND), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_MARK), NULL);
@@ -1774,15 +1775,15 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         case KEY_Left:
         case KEY_KP_Left:
-            if (!(event->state&SHIFTMASK)) {
+            if (!(event->state & SHIFTMASK)) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DESELECT_ALL), NULL);
             }
-            if (event->state&CONTROLMASK) {
+            if (event->state & CONTROLMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_WORD_LEFT), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_LEFT), NULL);
             }
-                if (event->state&SHIFTMASK) {
+                if (event->state & SHIFTMASK) {
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_EXTEND), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_MARK), NULL);
@@ -1790,11 +1791,11 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         case KEY_Home:
         case KEY_KP_Home:
-            if (!(event->state&SHIFTMASK)) {
+            if (!(event->state & SHIFTMASK)) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DESELECT_ALL), NULL);
             }
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_HOME), NULL);
-            if (event->state&SHIFTMASK) {
+            if (event->state & SHIFTMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_EXTEND), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_MARK), NULL);
@@ -1802,11 +1803,11 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         case KEY_End:
         case KEY_KP_End:
-            if (!(event->state&SHIFTMASK)) {
+            if (!(event->state & SHIFTMASK)) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DESELECT_ALL), NULL);
             }
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CURSOR_END), NULL);
-            if (event->state&SHIFTMASK) {
+            if (event->state & SHIFTMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_EXTEND), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_MARK), NULL);
@@ -1814,9 +1815,9 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         case KEY_Insert:
         case KEY_KP_Insert:
-            if (event->state&CONTROLMASK) {
+            if (event->state & CONTROLMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_COPY_SEL), NULL);
-            } else if (event->state&SHIFTMASK) {
+            } else if (event->state & SHIFTMASK) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_PASTE_SEL), NULL);
             } else {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_TOGGLE_OVERSTRIKE), NULL);
@@ -1825,7 +1826,7 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
         case KEY_Delete:
         case KEY_KP_Delete:
             if (hasSelection())     {
-                if (event->state&SHIFTMASK) {
+                if (event->state & SHIFTMASK) {
                     handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CUT_SEL), NULL);
                 } else {
                     handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_DELETE_SEL), NULL);
@@ -1844,34 +1845,34 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
         case KEY_Return:
         case KEY_KP_Enter:
             if (isEditable()) {
-                flags|=FLAG_UPDATE;
-                flags&=~FLAG_CHANGED;
+                flags |= FLAG_UPDATE;
+                flags &= ~FLAG_CHANGED;
                 if (target) target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)contents.text());
             } else {
                 getApp()->beep();
             }
             return 1;
         case KEY_a:
-            if (!(event->state&CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) goto ins;
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_SELECT_ALL), NULL);
             return 1;
         case KEY_x:
-            if (!(event->state&CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) goto ins;
         case KEY_F20:                             // Sun Cut key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CUT_SEL), NULL);
             return 1;
         case KEY_c:
-            if (!(event->state&CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) goto ins;
         case KEY_F16:                             // Sun Copy key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_COPY_SEL), NULL);
             return 1;
         case KEY_v:
-            if (!(event->state&CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) goto ins;
         case KEY_F18:                             // Sun Paste key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_PASTE_SEL), NULL);
             return 1;
         default:
-            ins:    if ((event->state&(CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
+            ins:    if ((event->state & (CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
             if (isOverstrike()) {
                 handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_OVERST_STRING), (void*)event->text.text());
             } else {
@@ -1886,9 +1887,9 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
-    FXEvent* event=(FXEvent*)ptr;
+    FXEvent* event = (FXEvent*)ptr;
     if (isEnabled()) {
-        FXTRACE((200, "%s::onKeyRelease keysym=0x%04x state=%04x\n", getClassName(), ((FXEvent*)ptr)->code, ((FXEvent*)ptr)->state));
+        FXTRACE((200, "%s::onKeyRelease keysym = 0x%04x state = %04x\n", getClassName(), ((FXEvent*)ptr)->code, ((FXEvent*)ptr)->state));
         if (target && target->tryHandle(this, FXSEL(SEL_KEYRELEASE, message), ptr)) return 1;
         switch(event->code) {
             case KEY_Right:
@@ -1905,17 +1906,17 @@ MFXTextFieldIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
             case KEY_KP_Delete:
             case KEY_BackSpace:
             case KEY_Return:
-            case KEY_F20:                             // Sun Cut key
-            case KEY_F16:                             // Sun Copy key
-            case KEY_F18:                             // Sun Paste key
-            return 1;
+            case KEY_F20:   // Sun Cut key
+            case KEY_F16:   // Sun Copy key
+            case KEY_F18:   // Sun Paste key
+                return 1;
             case KEY_a:
             case KEY_x:
             case KEY_c:
             case KEY_v:
-                if (event->state&CONTROLMASK) return 1;
+                if (event->state & CONTROLMASK) return 1;
             default:
-                if ((event->state&(CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
+                if ((event->state & (CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
                 return 1;
         }
     }
@@ -1957,14 +1958,14 @@ MFXTextFieldIcon::extendSelection(FXint pos) {
     FXDragType types[4];
 
     // Validate position to start of character
-    pos=contents.validate(FXCLAMP(0, pos, contents.length()));
+    pos = contents.validate(FXCLAMP(0, pos, contents.length()));
 
     // Got a selection at all?
-    if (anchor!=pos) {
-        types[0]=stringType;
-        types[1]=textType;
-        types[2]=utf8Type;
-        types[3]=utf16Type;
+    if (anchor != pos) {
+        types[0] = stringType;
+        types[1] = textType;
+        types[2] = utf8Type;
+        types[3] = utf16Type;
         if (!hasSelection()) {
             acquireSelection(types, 4);
         }
@@ -1983,10 +1984,10 @@ MFXTextFieldIcon::extendSelection(FXint pos) {
 void
 MFXTextFieldIcon::setText(const FXString& text, FXbool notify) {
     killSelection();
-    if (contents!=text) {
-        contents=text;
-        anchor=contents.length();
-        cursor=contents.length();
+    if (contents != text) {
+        contents = text;
+        anchor = contents.length();
+        cursor = contents.length();
         if (xid) layout();
         if (notify && target) {
             target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)contents.text());
@@ -1997,8 +1998,8 @@ MFXTextFieldIcon::setText(const FXString& text, FXbool notify) {
 
 void
 MFXTextFieldIcon::setTextColor(FXColor clr) {
-    if (textColor!=clr) {
-        textColor=clr;
+    if (textColor != clr) {
+        textColor = clr;
         update();
     }
 }
@@ -2007,8 +2008,8 @@ MFXTextFieldIcon::setTextColor(FXColor clr) {
 
 void
 MFXTextFieldIcon::setSelBackColor(FXColor clr) {
-    if (selbackColor!=clr) {
-        selbackColor=clr;
+    if (selbackColor != clr) {
+        selbackColor = clr;
         update();
     }
 }
@@ -2016,8 +2017,8 @@ MFXTextFieldIcon::setSelBackColor(FXColor clr) {
 
 void
 MFXTextFieldIcon::setSelTextColor(FXColor clr) {
-    if (seltextColor!=clr) {
-        seltextColor=clr;
+    if (seltextColor != clr) {
+        seltextColor = clr;
         update();
     }
 }
@@ -2026,8 +2027,8 @@ MFXTextFieldIcon::setSelTextColor(FXColor clr) {
 
 void
 MFXTextFieldIcon::setCursorColor(FXColor clr) {
-    if (clr!=cursorColor) {
-        cursorColor=clr;
+    if (clr != cursorColor) {
+        cursorColor = clr;
         update();
     }
 }
@@ -2036,10 +2037,10 @@ MFXTextFieldIcon::setCursorColor(FXColor clr) {
 
 void
 MFXTextFieldIcon::setNumColumns(FXint ncols) {
-    if (ncols<0) ncols=0;
-    if (columns!=ncols) {
-        shift=0;
-        columns=ncols;
+    if (ncols<0) ncols = 0;
+    if (columns != ncols) {
+        shift = 0;
+        columns = ncols;
         layout();   // This may not be necessary!
         recalc();
         update();
@@ -2050,7 +2051,7 @@ MFXTextFieldIcon::setNumColumns(FXint ncols) {
 
 FXbool
 MFXTextFieldIcon::isEditable() const {
-    return (options&TEXTFIELD_READONLY)==0;
+    return (options & TEXTFIELD_READONLY) == 0;
 }
 
 
@@ -2058,9 +2059,9 @@ MFXTextFieldIcon::isEditable() const {
 void
 MFXTextFieldIcon::setEditable(FXbool edit) {
     if (edit) {
-        options&=~TEXTFIELD_READONLY;
+        options &= ~TEXTFIELD_READONLY;
     } else {
-        options|=TEXTFIELD_READONLY;
+        options |= TEXTFIELD_READONLY;
     }
 }
 
@@ -2068,7 +2069,7 @@ MFXTextFieldIcon::setEditable(FXbool edit) {
 
 FXbool
 MFXTextFieldIcon::isOverstrike() const {
-    return (options&TEXTFIELD_OVERSTRIKE)!=0;
+    return (options & TEXTFIELD_OVERSTRIKE) != 0;
 }
 
 
@@ -2076,19 +2077,19 @@ MFXTextFieldIcon::isOverstrike() const {
 void
 MFXTextFieldIcon::setOverstrike(FXbool over) {
     if (over) {
-        options|=TEXTFIELD_OVERSTRIKE;
+        options |= TEXTFIELD_OVERSTRIKE;
     } else {
-        options&=~TEXTFIELD_OVERSTRIKE;
+        options &= ~TEXTFIELD_OVERSTRIKE;
     }
 }
 
 
 void
 MFXTextFieldIcon::setTextStyle(FXuint style) {
-    FXuint opts=(options&~TEXTFIELD_MASK) | (style&TEXTFIELD_MASK);
-    if (options!=opts) {
-        shift=0;
-        options=opts;
+    FXuint opts = (options & ~TEXTFIELD_MASK) | (style & TEXTFIELD_MASK);
+    if (options != opts) {
+        shift = 0;
+        options = opts;
         recalc();
         update();
     }
@@ -2098,17 +2099,17 @@ MFXTextFieldIcon::setTextStyle(FXuint style) {
 
 FXuint
 MFXTextFieldIcon::getTextStyle() const {
-    return (options&TEXTFIELD_MASK);
+    return (options & TEXTFIELD_MASK);
 }
 
 
 
 void
 MFXTextFieldIcon::setJustify(FXuint style) {
-    FXuint opts=(options&~JUSTIFY_MASK) | (style&JUSTIFY_MASK);
-    if (options!=opts) {
-        shift=0;
-        options=opts;
+    FXuint opts = (options & ~JUSTIFY_MASK) | (style & JUSTIFY_MASK);
+    if (options != opts) {
+        shift = 0;
+        options = opts;
         recalc();
         update();
     }
@@ -2118,7 +2119,7 @@ MFXTextFieldIcon::setJustify(FXuint style) {
 
 FXuint
 MFXTextFieldIcon::getJustify() const {
-    return (options&JUSTIFY_MASK);
+    return (options & JUSTIFY_MASK);
 }
 
 
@@ -2155,15 +2156,15 @@ MFXTextFieldIcon::load(FXStream& store) {
 
 
 MFXTextFieldIcon::MFXTextFieldIcon() {
-    flags|=FLAG_ENABLED;
-    delimiters=FXTextField::textDelimiters;
-    font=(FXFont*)-1L;
-    textColor=0;
-    selbackColor=0;
-    seltextColor=0;
-    cursorColor=0;
-    cursor=0;
-    anchor=0;
-    columns=0;
-    shift=0;
+    flags |= FLAG_ENABLED;
+    delimiters = FXTextField::textDelimiters;
+    font = (FXFont*)-1L;
+    textColor = 0;
+    selbackColor = 0;
+    seltextColor = 0;
+    cursorColor = 0;
+    cursor = 0;
+    anchor = 0;
+    columns = 0;
+    shift = 0;
 }
