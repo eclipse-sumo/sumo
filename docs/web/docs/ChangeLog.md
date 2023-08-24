@@ -72,7 +72,7 @@ title: ChangeLog
   - Implemented frame for edit vType distributions. #13393
   - Implemented frame for edit route distributions. #13635
   - Added buttons next to lane attribute to shift element between edge's lanes. #13387
-  - Added search field in comboBox. #12394
+  - Added search field in comboBox. #12394, #13735
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
