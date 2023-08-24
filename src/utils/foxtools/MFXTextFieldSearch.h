@@ -21,11 +21,11 @@
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
+#include "MFXTextFieldIcon.h"
 
 
 /// @brief FXTextFieldIcon (based on FXTextFieldIcon)
-class MFXTextFieldSearch : public FXTextField {
+class MFXTextFieldSearch : public MFXTextFieldIcon {
     /// @brief FOX declaration
     FXDECLARE(MFXTextFieldSearch)
 

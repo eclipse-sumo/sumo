@@ -1273,7 +1273,7 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     }
     // draw icon
     if (icon) {
-        dc.drawIcon(icon, ICON_SPACING / 2, ICON_SPACING / 2);
+        dc.drawIcon(icon, ICON_SPACING / 2, border + padtop + (height - padbottom - padtop - (border<<1) - ICON_SIZE) / 2);
     }
     return 1;
 }
