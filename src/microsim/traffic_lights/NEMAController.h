@@ -32,7 +32,6 @@
 #include "microsim/output/MSE2Collector.h"
 #include "MSPhaseDefinition.h"
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -52,7 +51,6 @@ enum class LightState {
     GreenXfer,
     GreenRest,
 };
-
 
 // ===========================================================================
 // class definitions
@@ -104,7 +102,6 @@ public:
               const std::map<std::string, std::string>& parameter,
               const std::string& basePath);
 
-
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
@@ -125,7 +122,6 @@ public:
      */
     const MSPhaseDefinition& getCurrentPhaseDef() const override;
     /// @}
-
 
     void activateProgram() override;
     void deactivateProgram() override;
@@ -155,7 +151,6 @@ public:
      * @return SUMOTime
      */
     SUMOTime ModeCycle(SUMOTime a, SUMOTime b);
-
 
     /**
      * @brief returns the IDs of the phase's controlled lanes.
@@ -221,7 +216,6 @@ public:
     inline SUMOTime getTimeInCycle() const {
         return (simTime - cycleRefPoint - offset) % myCycleLength;
     }
-
 
     /// @brief set the active phase
     void setActivePhase(PhasePtr phase);
@@ -383,7 +377,6 @@ protected:
     /// @brief storing the detector info in a vector
     std::vector<DetectorInfo> myDetectorInfoVector;
 
-
     /// @brief return whether there is a major link from the given lane in the given phase
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
 
@@ -523,7 +516,6 @@ protected:
         }
     }
 
-
     /// @brief calculate the initial phases for the TS2 style controller to start in
     void calculateInitialPhasesTS2();
     /// @brief calculate the initial phases for Type 170
@@ -541,7 +533,6 @@ protected:
         }
     }
 };
-
 
 /**
  * @class NEMAPhase
@@ -626,7 +617,6 @@ public:
         return myDetectorInfo.detectors;
     }
 
-
     /// @brief sets the detectors for the phase
     inline void setDetectors(std::vector<MSE2Collector*> detectors) {
         myDetectorInfo.detectors = detectors;
@@ -662,6 +652,28 @@ public:
      * @param nextPhases the next phases that the controller wants to transition to
      */
     void exit(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]);
+
+    /**
+     * @brief handles the transition into a green rest state
+     *
+     * @param controller a reference to the NEMAController
+     * @param nextPhases the next phases that the controller wants to transition to
+     */
+    void handleGreenRestOrTransfer(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]);
+
+    /**
+     * @brief handles the transition into yellow
+     *
+     * @param controller a reference to the NEMAController
+     */
+    void enterYellow(NEMALogic* controller);
+
+    /**
+     * @brief handles the transition into a red xfer state, which is roughly the same as green rest
+     *
+     * @param controller a reference to the NEMAController
+     */
+    void handleRedXferOrNextPhase(NEMALogic* controller, PhaseTransitionLogic* nextPhases[2]);
 
     /// @brief simple method to check if there is a recall on the phase.
     inline bool hasRecall(void) {
@@ -767,6 +779,17 @@ public:
     SUMOTime vehExt;
     /// @}
 
+    /// @brief public method to set whether phase is active or not
+    inline void cleanupExit(void) {
+        transitionActive = false;
+        readyToSwitch = false;
+    }
+
+    /// @brief simple internal check to see if done okay to transition
+    inline bool okay2ForceSwitch(NEMALogic* controller) {
+        return readyToSwitch && !transitionActive && (getTransitionTime(controller) <= TIME2STEPS(0));
+    }
+
 private:
     /// @brief A reference to the core phase of which NEMAPhase wraps
     MSPhaseDefinition* myCorePhase = nullptr;
@@ -831,7 +854,6 @@ private:
     PhaseTransitionLogic* lastTransitionDecision;
 
 };
-
 
 /**
  * @class PhaseTransitionLogic
