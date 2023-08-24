@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-27 09:26:32 by Eclipse SUMO sumo Version v1_12_0+2303-3f772f1
+<!-- generated on 2023-08-24 13:13:43 by Eclipse SUMO sumo Version v1_18_0+1053-09504391860
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,7 +14,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="50963"/>
+        <remote-port value="56549"/>
     </traci_server>
 
 </configuration>
@@ -157,21 +157,21 @@
     <tlsState time="133.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
     <tlsState time="134.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
     <tlsState time="135.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="136.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="137.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="138.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="139.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="140.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="141.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="142.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="143.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="144.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="145.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="146.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
-    <tlsState time="147.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
-    <tlsState time="148.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
-    <tlsState time="149.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
-    <tlsState time="150.00" id="2881" programID="NEMA" phase="0" state="grrrrGGrrrrr" name="1+6"/>
+    <tlsState time="136.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
+    <tlsState time="137.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
+    <tlsState time="138.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
+    <tlsState time="139.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
+    <tlsState time="140.00" id="2881" programID="NEMA" phase="0" state="grrrrGGrrrrr" name="1+6"/>
+    <tlsState time="141.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="142.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="143.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="144.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="145.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="146.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="147.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="148.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="149.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="150.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
     <tlsState time="151.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
     <tlsState time="152.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
     <tlsState time="153.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
