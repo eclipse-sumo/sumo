@@ -67,29 +67,35 @@ FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXC
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, const bool canSearch, 
+MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
+    // create icon label
     myIconLabel = new FXLabel(this, "", nullptr, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (!haveIcons) {
         myIconLabel->hide();
     }
+    // create text field
     myTextField = new FXTextField(this, cols, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextField->setEditable(FALSE);
     }
+    // create pane for list
     myPane = new FXPopup(this, FRAME_LINE);
     // check if create search button
     if (canSearch) {
         myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
     }
+    // create list icon
     myList = new MFXListIcon(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | SCROLLERS_TRACK | HSCROLLER_NEVER);
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
     }
+    myList->setNumVisible(visibleItems);
+    // create button
     myButton = new FXMenuButton(this, FXString::null, NULL, myPane, FRAME_RAISED | FRAME_THICK | MENUBUTTON_DOWN | MENUBUTTON_ATTACH_RIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     myButton->setXOffset(border);
     myButton->setYOffset(border);
@@ -204,12 +210,6 @@ MFXComboBoxIcon::getNumItems() const {
 }
 
 
-FXint
-MFXComboBoxIcon::getNumVisible() const {
-    return myList->getNumVisible();
-}
-
-
 void
 MFXComboBoxIcon::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
@@ -263,12 +263,6 @@ MFXComboBoxIcon::setCurrentItem(const FXString& text, FXbool notify) {
 FXint
 MFXComboBoxIcon::getCurrentItem() const {
     return myList->getCurrentItemIndex();
-}
-
-
-FXString
-MFXComboBoxIcon::getItem(FXint index) const {
-    return myList->getItem(index)->getText();
 }
 
 
@@ -338,9 +332,9 @@ MFXComboBoxIcon::findItem(const FXString& text) const {
 }
 
 
-FXString
+std::string
 MFXComboBoxIcon::getItemText(FXint index) const {
-    return myList->getItem(index)->getText();
+    return myList->getItem(index)->getText().text();
 }
 
 

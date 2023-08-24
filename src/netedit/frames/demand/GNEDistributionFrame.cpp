@@ -161,7 +161,7 @@ GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frame
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
-    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
     show();
 }
@@ -190,7 +190,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionIDs() {
     fillDistributionComboBox();
     // set current item
     for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
-        if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+        if (myDistributionsComboBox->getItemText(i) == myCurrentDistribution->getID()) {
             myDistributionsComboBox->setCurrentItem(i);
         }
     }
@@ -206,7 +206,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // update comboBox
     if (myCurrentDistribution) {
         for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
-            if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+            if (myDistributionsComboBox->getItemText(i) == myCurrentDistribution->getID()) {
                 myDistributionsComboBox->setCurrentItem(i);
             }
         }
@@ -294,8 +294,6 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
     for (const auto& distribution : distributions) {
         myDistributionsComboBox->appendIconItem(distribution.first.c_str(), distribution.second->getACIcon());
     }
-    // Set visible items
-    myDistributionsComboBox->setNumVisible(20);
     // return distributions sorted by ID
     return distributions;
 }
@@ -314,7 +312,7 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
-    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
@@ -357,7 +355,6 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box
-    myComboBoxKeys->setNumVisible(10);
     myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
     myComboBoxKeys->killFocus();
     // set probability

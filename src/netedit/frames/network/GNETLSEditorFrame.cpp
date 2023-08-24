@@ -897,7 +897,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
+    myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
     // create frame for join buttons
     FXHorizontalFrame* joinButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create join states button
@@ -985,7 +985,6 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::ACTUATED).c_str());
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::DELAYBASED).c_str());
             myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::NEMA).c_str());
-            myTLSTypeComboBox->setNumVisible(10);
             // set TLS type
             const int index = myTLSTypeComboBox->findItem(myCurrentJunction->getAttribute(SUMO_ATTR_TLTYPE).c_str());
             if (index == -1) {
@@ -1384,7 +1383,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     // create frame, label and comboBox for programID
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(programFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
-    myProgramComboBox = new MFXComboBoxIcon(programFrame, GUIDesignComboBoxNCol, false, false, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
+    myProgramComboBox = new MFXComboBoxIcon(programFrame, GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
     // create auxiliar frames
     FXHorizontalFrame* horizontalFrameAux = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
@@ -1450,7 +1449,6 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
         if (myTLSDefinitions.size() > 0) {
             myProgramComboBox->enable();
             myProgramComboBox->setCurrentItem(0);
-            myProgramComboBox->setNumVisible(10);
             // switch TLS Program
             return switchProgram();
         }
@@ -1675,7 +1673,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdResetCurrentProgram(FXObject*, FXSelector
     // switch to programID
     int index = -1;
     for (int i = 0; i < myProgramComboBox->getNumItems(); i++) {
-        if (myProgramComboBox->getItem(i).text() == programID) {
+        if (myProgramComboBox->getItemText(i) == programID) {
             index = i;
         }
     }

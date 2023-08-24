@@ -63,7 +63,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create MFXComboBoxIcon
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, 15, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
@@ -78,8 +78,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     }
     // set DEFAULT_VEHTYPE as default VType
     myCurrentType = myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
-    // Set visible items
-    myTypeComboBox->setNumVisible(20);
+    myTypeComboBox->setCurrentItem(myTypeComboBox->findItem(DEFAULT_VTYPE_ID.c_str()));
     // TypeSelector is always shown
     show();
 }
@@ -122,12 +121,10 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
     for (const auto& vType : types) {
         myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getACIcon());
     }
-    // Set visible items
-    myTypeComboBox->setNumVisible(20);
     // make sure that tag is in myTypeMatchBox
     if (myCurrentType) {
         for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
-            if (myTypeComboBox->getItem(i).text() == myCurrentType->getID()) {
+            if (myTypeComboBox->getItemText(i) == myCurrentType->getID()) {
                 myTypeComboBox->setCurrentItem(i);
                 valid = true;
             }
@@ -139,7 +136,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
         myCurrentType = myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
         // refresh myTypeMatchBox again
         for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
-            if (myTypeComboBox->getItem(i).text() == myCurrentType->getID()) {
+            if (myTypeComboBox->getItemText(i) == myCurrentType->getID()) {
                 myTypeComboBox->setCurrentItem(i);
             }
         }

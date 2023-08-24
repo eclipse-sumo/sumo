@@ -68,7 +68,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create MFXComboBoxIcon
-    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add mean data types
     const auto meanDataTypes = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::MEANDATA);
     for (const auto& meanDataType : meanDataTypes) {
@@ -76,8 +76,6 @@ GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* m
     }
     // set DEFAULT_VEHTYPE as default VType
     myCurrentMeanData = meanDataTypes.front();
-    // Set visible items
-    myTypeComboBox->setNumVisible(10);
     // MeanDataTypeSelector is always shown
     show();
 }
@@ -104,7 +102,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
     // make sure that tag is in myTypeMatchBox
     if (myCurrentMeanData.getTagStr() != myInvalidMeanData.getTagStr()) {
         for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
-            if (myTypeComboBox->getItem(i).text() == myCurrentMeanData.getTagStr()) {
+            if (myTypeComboBox->getItemText(i) == myCurrentMeanData.getTagStr()) {
                 myTypeComboBox->setCurrentItem(i);
             }
         }
@@ -279,7 +277,7 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // Create MFXComboBoxIcon
-    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add meanDatas
     for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
         myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon());
@@ -289,8 +287,6 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     } else {
         myCurrentMeanData = nullptr;
     }
-    // Set visible items
-    myMeanDataComboBox->setNumVisible(20);
     // MeanDataSelector is always shown
     show();
 }
@@ -345,13 +341,11 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     for (const auto& sortedMeanData : sortedMeanDatas) {
         myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
-    // Set visible items
-    myMeanDataComboBox->setNumVisible(20);
     // make sure that mean data exists
     if (myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveMeanData(myCurrentMeanData, false)) {
         bool validMeanData = false;
         for (int i = 0; i < (int)myMeanDataComboBox->getNumItems(); i++) {
-            if (myMeanDataComboBox->getItem(i).text() == myCurrentMeanData->getID()) {
+            if (myMeanDataComboBox->getItemText(i) == myCurrentMeanData->getID()) {
                 myMeanDataComboBox->setCurrentItem(i);
                 validMeanData = true;
             }

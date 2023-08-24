@@ -87,7 +87,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Use edgeType/template"),
                                             this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true,
+    myEdgeTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, true, 10,
                                              this, MID_GNE_CREATEEDGEFRAME_SELECTTEMPLATE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -198,7 +198,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
 void
 GNECreateEdgeFrame::EdgeTypeSelector::updateIDinComboBox(const std::string& oldID, const std::string& newID) {
     for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
-        if (myEdgeTypesComboBox->getItem(i).text() == oldID) {
+        if (myEdgeTypesComboBox->getItemText(i) == oldID) {
             myEdgeTypesComboBox->updateIconItem(i, newID.c_str());
         }
     }
@@ -272,7 +272,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
 void
 GNECreateEdgeFrame::EdgeTypeSelector::setCurrentEdgeType(const GNEEdgeType* edgeType) {
     for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
-        if (myEdgeTypesComboBox->getItem(i).text() == edgeType->getID()) {
+        if (myEdgeTypesComboBox->getItemText(i) == edgeType->getID()) {
             // set current item and index
             myEdgeTypesComboBox->setCurrentItem(i);
             myCurrentIndex = i;
@@ -410,8 +410,6 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     for (const auto& edgeType : edgeTypes) {
         myEdgeTypesComboBox->appendIconItem(edgeType.second->getID().c_str(), edgeType.second->getACIcon());
     }
-    // set num visible
-    myEdgeTypesComboBox->setNumVisible(10);
     // set current item
     if ((myCurrentIndex < 0) || (myCurrentIndex >= myEdgeTypesComboBox->getNumItems())) {
         myCurrentIndex = myEdgeTypesComboBox->getNumItems() - 1;
@@ -428,7 +426,7 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
-    myLaneTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, false, this, MID_GNE_CREATEEDGEFRAME_SELECTLANE, GUIDesignComboBoxAttribute);
+    myLaneTypesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_CREATEEDGEFRAME_SELECTLANE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new lane type button
@@ -601,8 +599,6 @@ GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
     }
     // set current item
     myLaneTypesComboBox->setCurrentItem(myLaneIndex);
-    // set num visible items
-    myLaneTypesComboBox->setNumVisible(10);
 }
 
 // ---------------------------------------------------------------------------
