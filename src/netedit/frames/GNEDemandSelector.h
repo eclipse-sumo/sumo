@@ -93,9 +93,6 @@ private:
     /// @brief comboBox with the list of elements type
     MFXComboBoxIcon* myDemandElementsComboBox;
 
-    /// @brief info label
-    FXLabel* myInfoLabel;
-
     /// @brief current demand element
     GNEDemandElement* myCurrentDemandElement;
 

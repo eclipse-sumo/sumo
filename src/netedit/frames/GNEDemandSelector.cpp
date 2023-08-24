@@ -49,11 +49,9 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}),
-mySelectingMultipleElements(false) {
+    mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // create info label
-    myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -75,8 +73,6 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
     }
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // create info label
-    myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -104,18 +100,12 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     mySelectingMultipleElements = false;
     // Set new current demand element
     myCurrentDemandElement = demandElement;
-    if (demandElement == nullptr) {
-        myDemandElementsComboBox->setCustomText(TL("select item..."));
-        // set info label
-        myInfoLabel->setText((TL("-Select an item in the list or") + std::string("\n") + TL("click over an element in view")).c_str());
-        myInfoLabel->show();
-    } else {
+    if (demandElement != nullptr) {
         // check that demandElement tag correspond to a tag of myDemandElementTags
         if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsComboBox
             myDemandElementsComboBox->setCurrentItem(demandElement->getID().c_str());
         }
-        myInfoLabel->hide();
     }
     // call demandElementSelected function
     myFrameParent->demandElementSelected();
@@ -130,16 +120,6 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
     for (const auto& demandElement : demandElements) {
         myDemandElementsComboBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
     }
-    myDemandElementsComboBox->setCustomText(TL("select sub-item..."));
-    // set info label
-    const std::string info =
-        TL("-Clicked over multiple") + std::string("\n") +
-        TL("elements") + std::string("\n") +
-        TL(" - Select an item in the") + std::string("\n") +
-        TL(" list or click over an") + std::string("\n") +
-        TL(" element in view");
-    myInfoLabel->setText(info.c_str());
-    myInfoLabel->show();
 }
 
 
@@ -329,7 +309,6 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG((TL("Selected item '") + myDemandElementsComboBox->getText() + TL("' in DemandElementSelector")).text());
-                myInfoLabel->hide();
                 return 1;
             }
         }
