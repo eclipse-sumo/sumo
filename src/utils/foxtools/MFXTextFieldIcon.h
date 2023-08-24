@@ -95,6 +95,9 @@ public:
     /// @brief Change the text and move cursor to end
     void setText(const FXString& text, FXbool notify = FALSE);
 
+    /// @brief Change the icon
+    void setIcon(FXIcon *ic);
+
     /// @brief Get the text for this label
     FXString getText() const { return contents; }
 

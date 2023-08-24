@@ -1246,30 +1246,34 @@ long
 MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent *ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
-
     // Draw frame
     drawFrame(dc, 0, 0, width, height);
-
     // Gray background if disabled
-    if (isEnabled())
+    if (isEnabled()) {
         dc.setForeground(backColor);
-    else
+    } else {
         dc.setForeground(baseColor);
-
+    }
     // Draw background
     dc.fillRectangle(border, border, width-(border<<1), height-(border<<1));
-
     // Draw text, clipped against frame interior
     dc.setClipRectangle(border, border, width-(border<<1), height-(border<<1));
     drawTextRange(dc, 0, contents.length());
-
     // Draw caret
     if (flags & FLAG_CARET) {
         int xx = coord(cursor)-1;
+        // check if add icon spacing
+        if (icon) {
+            xx += ICON_SPACING + ICON_SIZE;
+        }
         dc.setForeground(cursorColor);
         dc.fillRectangle(xx, padtop+border, 1, height-padbottom-padtop-(border<<1));
         dc.fillRectangle(xx-2, padtop+border, 5, 1);
         dc.fillRectangle(xx-2, height-border-padbottom-1, 5, 1);
+    }
+    // draw icon
+    if (icon) {
+        dc.drawIcon(icon, ICON_SPACING / 2, ICON_SPACING / 2);
     }
     return 1;
 }
@@ -1619,7 +1623,7 @@ long
 MFXTextFieldIcon::onCmdOverstString(FXObject*, FXSelector, void* ptr) {
     if (isEditable()) {
         FXString tentative = contents;
-        FXint len = strlen((FXchar*)ptr);
+        FXint len = (int)strlen((FXchar*)ptr);
         FXint reppos = cursor;
         FXint replen = len;
         if (hasSelection()) {
@@ -1655,7 +1659,7 @@ long
 MFXTextFieldIcon::onCmdInsertString(FXObject*, FXSelector, void* ptr) {
     if (isEditable()) {
         FXString tentative = contents;
-        FXint len = strlen((FXchar*)ptr);
+        FXint len = (int)strlen((FXchar*)ptr);
         FXint reppos = cursor;
         FXint replen = 0;
         if (hasSelection()) {
@@ -2010,10 +2014,24 @@ MFXTextFieldIcon::setText(const FXString& text, FXbool notify) {
         contents = text;
         anchor = contents.length();
         cursor = contents.length();
-        if (xid) layout();
+        if (xid) {
+            layout();
+        }
         if (notify && target) {
             target->tryHandle(this, FXSEL(SEL_COMMAND, message), (void*)contents.text());
         }
+    }
+}
+
+
+void
+MFXTextFieldIcon::setIcon(FXIcon *ic) {
+    killSelection();
+    icon = ic;
+    anchor = contents.length();
+    cursor = contents.length();
+    if (xid) {
+        layout();
     }
 }
 
