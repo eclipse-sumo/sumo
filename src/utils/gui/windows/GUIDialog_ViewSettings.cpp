@@ -234,9 +234,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     if (ptr != nullptr) {
         FXString dataS = (char*) ptr; // !!!unicode
         // check whether this item has been added twice
-        if (dataS == mySchemeName->getItemText(mySchemeName->getNumItems() - 1)) {
+        if (dataS.text() == mySchemeName->getItemText(mySchemeName->getNumItems() - 1)) {
             for (int i = 0; i < mySchemeName->getNumItems() - 1; ++i) {
-                if (dataS == mySchemeName->getItemText(i)) {
+                if (dataS.text() == mySchemeName->getItemText(i)) {
                     mySchemeName->removeItem(i);
                 }
             }
@@ -891,7 +891,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // - the comboBox mySchemeName of this dialog
         // - the comboBox of the parent view (set as active)
         // - the comboBox of all other views (only append) XXX @todo
-        index = mySchemeName->appendItem(tmpSettings.name.c_str());
+        index = mySchemeName->appendIconItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
         myParent->getColoringSchemesCombo()->appendIconItem(tmpSettings.name.c_str());
     }
@@ -915,7 +915,7 @@ void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     GUISettingsHandler handler(file, true, mySettings->netedit);
     for (std::string settingsName : handler.addSettings(myParent)) {
-        FXint index = mySchemeName->appendItem(settingsName.c_str());
+        FXint index = mySchemeName->appendIconItem(settingsName.c_str());
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);
     }
@@ -1019,13 +1019,13 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         myParent->getColoringSchemesCombo()->insertIconItem(index, name.c_str());
     } else {
         gSchemeStorage.get(mySettings->name).copy(myBackup);
-        index = mySchemeName->appendItem(name.c_str());
+        index = mySchemeName->appendIconItem(name.c_str());
         myParent->getColoringSchemesCombo()->appendIconItem(name.c_str());
         myParent->getColoringSchemesCombo()->setCurrentItem(
             myParent->getColoringSchemesCombo()->findItem(name.c_str()));
     }
     gSchemeStorage.add(tmpSettings);
-    mySchemeName->insertItem(index, name.c_str());
+    mySchemeName->insertIconItem(index, name.c_str());
     myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
     myBackup.copy(*mySettings);
@@ -1050,10 +1050,10 @@ GUIDialog_ViewSettings::onCmdDeleteSetting(FXObject*, FXSelector, void* /*data*/
     if (index < (int) gSchemeStorage.getNumInitialSettings()) {
         return 1;
     }
-    std::string name = mySchemeName->getItem(index).text();
+    std::string name = mySchemeName->getItemText(index);
     gSchemeStorage.remove(name);
     mySchemeName->removeItem(index);
-    onCmdNameChange(nullptr, 0, (void*) mySchemeName->getItem(0).text());
+    onCmdNameChange(nullptr, 0, (void*) mySchemeName->getItemText(0).c_str());
     gSchemeStorage.writeSettings(getApp());
     return 1;
 }
@@ -1550,7 +1550,7 @@ GUIDialog_ViewSettings::updatePOIParams() {
 
 std::string
 GUIDialog_ViewSettings::getCurrentScheme() const {
-    return mySchemeName->getItem(mySchemeName->getCurrentItem()).text();
+    return mySchemeName->getItemText(mySchemeName->getCurrentItem());
 }
 
 
@@ -1666,14 +1666,13 @@ GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel
 void
 GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
-    mySchemeName = new FXComboBox(horizontalFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
+    mySchemeName = new MFXComboBoxIcon(horizontalFrame, 20, false, true, 5, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
     for (const auto& name : gSchemeStorage.getNames()) {
-        const int index = mySchemeName->appendItem(name.c_str());
+        const int index = mySchemeName->appendIconItem(name.c_str());
         if (name == mySettings->name) {
             mySchemeName->setCurrentItem((FXint)index);
         }
     }
-    mySchemeName->setNumVisible(5);
 
     new FXButton(horizontalFrame, (std::string("\t\t") + TL("Save the setting to registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
     new FXButton(horizontalFrame, (std::string("\t\t") + TL("Remove the setting from registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);

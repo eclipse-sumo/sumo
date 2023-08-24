@@ -216,6 +216,12 @@ MFXComboBoxIcon::setNumVisible(FXint nvis) {
 }
 
 
+void
+MFXComboBoxIcon::setText(const FXString& text) {
+    myTextField->setText(text);
+}
+
+
 FXbool
 MFXComboBoxIcon::isItemCurrent(FXint index) const {
     return myList->isItemCurrent(index);
@@ -308,6 +314,21 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
     }
     recalc();
     return index;
+}
+
+
+void
+MFXComboBoxIcon::removeItem(FXint index){
+    const auto isCurrent = myList->isItemCurrent(index);
+    myList->removeItem(index);
+    if (isCurrent == TRUE) {
+        if ((index > 0) && (index < (int)myList->getNumItems())) {
+            setCurrentItem(index - 1);
+        } else if (myList->getNumItems() > 0) {
+            setCurrentItem(0);
+        }
+    }
+    recalc();
 }
 
 

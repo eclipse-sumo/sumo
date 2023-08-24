@@ -1063,6 +1063,60 @@ MFXListIcon::appendItem(const FXString &text, FXIcon *icon, void* ptr, FXbool no
 
 
 void
+MFXListIcon::removeItem(FXint index, FXbool notify) {
+    MFXListIconItem *old = currentItem;
+    // Must be in range
+    if ((index < 0) || (items.no() <= index)) {
+        fxerror("%s::removeItem: index out of range.\n",getClassName());
+    }
+    // Notify item will be deleted
+    if (notify && target){
+        target->tryHandle(this,FXSEL(SEL_DELETED,message),(void*)(FXival)index);
+    }
+    // Delete item
+    delete items[index];
+    // Remove item from list
+    items.erase(index);
+    // Adjust indices
+    if (anchor >= index) {
+        anchor++;
+    }
+    if (extent >= index) {
+        extent++;
+    }
+    if (getCurrentItemIndex() >= index) {
+        currentItem = items[index];
+    }
+    if (getViewableItem() >= index) {
+        viewable = items[index];
+    }
+    if ((currentItem == nullptr) && (items.no() == 1)) {
+        currentItem = items[0];
+    }
+    // Notify item has been inserted
+    if (notify && target) {
+        target->tryHandle(this, FXSEL(SEL_INSERTED, message), (void*)(FXival)index);
+    }
+    // Current item may have changed
+    if (old != currentItem) {
+        if (notify && target) {
+            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)currentItem);
+        }
+    }
+    // Was new item
+    if (currentItem && currentItem == items[index]) {
+        if (hasFocus()) {
+            currentItem->setFocus(TRUE);
+        }
+    }
+    // recompute (due filter)
+    recompute();
+    // Redo layout
+    recalc();
+}
+
+
+void
 MFXListIcon::clearItems(FXbool notify) {
     // Delete items
     for (FXint index = items.no()-1; 0 <= index; index--) {

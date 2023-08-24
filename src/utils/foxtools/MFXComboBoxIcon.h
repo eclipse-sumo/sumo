@@ -82,6 +82,9 @@ public:
     /// @brief Set the number of visible items in the drop down list
     void setNumVisible(FXint nvis);
 
+    /// @brief Set the text in the textField
+    void setText(const FXString& text);
+
     /// @brief Return true if current item
     FXbool isItemCurrent(FXint index) const;
 
@@ -102,6 +105,9 @@ public:
 
     /// @brief append icon item in the last position
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
+
+    /// @brief Remove this item from the list
+    void removeItem(FXint index);
 
     /// @brief Remove all items from the list
     void clearItems();

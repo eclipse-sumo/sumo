@@ -230,7 +230,7 @@ protected:
     /// @name Dialog elements
     /// @{
 
-    FXComboBox* mySchemeName = nullptr;
+    MFXComboBoxIcon* mySchemeName = nullptr;
     FXCheckButton* myShowGrid = nullptr;
     FXRealSpinner* myGridXSizeDialer = nullptr;
     FXRealSpinner* myGridYSizeDialer = nullptr;

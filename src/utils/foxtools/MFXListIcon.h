@@ -106,6 +106,9 @@ public:
     /// @brief Append new item with given text and optional icon,  and user-data pointer
     FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
+    /// @brief Remove node from list
+    void removeItem(FXint index, FXbool notify = FALSE);
+
     /// @brief Remove all items from list
     void clearItems(FXbool notify = FALSE);
 
