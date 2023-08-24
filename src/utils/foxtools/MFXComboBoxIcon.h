@@ -103,9 +103,6 @@ public:
     /// @brief append icon item in the last position
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
-    /// @brief set custom text
-    void setCustomText(const FXString text);
-
     /// @brief Remove all items from the list
     void clearItems();
 
@@ -115,35 +112,14 @@ public:
     /// @brief Get text for specified item
     std::string getItemText(FXint index) const;
 
-    /// @brief Is the pane shown
-    FXbool isPaneShown() const;
-
-    /// @brief Get text font
-    FXFont* getFont() const;
-
     /// @brief Set window background color
     void setBackColor(FXColor clr);
-
-    /// @brief Get background color
-    FXColor getBackColor() const;
 
     /// @brief Change text color
     void setTextColor(FXColor clr);
 
     /// @brief Return text color
     FXColor getTextColor() const;
-
-    /// @brief Return selected background color
-    FXColor getSelBackColor() const;
-
-    /// @brief Return selected text color
-    FXColor getSelTextColor() const;
-
-    /// @brief Set the combobox help text
-    void setHelpText(const FXString& txt);
-
-    /// @brief Get the combobox help text
-    const FXString& getHelpText() const;
 
     /// @brief Set the tool tip message for this combobox
     void setTipText(const FXString& txt);

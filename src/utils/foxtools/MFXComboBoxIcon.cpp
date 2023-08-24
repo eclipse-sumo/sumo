@@ -312,13 +312,6 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 
 
 void
-MFXComboBoxIcon::setCustomText(const FXString text) {
-    myTextField->setText(text);
-    myTextField->setTextColor(FXRGB(128, 128, 128));
-}
-
-
-void
 MFXComboBoxIcon::clearItems() {
     myTextField->setText("");
     myList->clearItems();
@@ -338,29 +331,11 @@ MFXComboBoxIcon::getItemText(FXint index) const {
 }
 
 
-FXbool
-MFXComboBoxIcon::isPaneShown() const {
-    return myPane->shown();
-}
-
-
-FXFont*
-MFXComboBoxIcon::getFont() const {
-    return myTextField->getFont();
-}
-
-
 void
 MFXComboBoxIcon::setBackColor(FXColor clr) {
     myTextField->setBackColor(clr);
     myIconLabel->setBackColor(clr);
     myList->setBackColor(clr);
-}
-
-
-FXColor
-MFXComboBoxIcon::getBackColor() const {
-    return myTextField->getBackColor();
 }
 
 
@@ -374,30 +349,6 @@ MFXComboBoxIcon::setTextColor(FXColor clr) {
 FXColor
 MFXComboBoxIcon::getTextColor() const {
     return myTextField->getTextColor();
-}
-
-
-FXColor
-MFXComboBoxIcon::getSelBackColor() const {
-    return myTextField->getSelBackColor();
-}
-
-
-FXColor
-MFXComboBoxIcon::getSelTextColor() const {
-    return myTextField->getSelTextColor();
-}
-
-
-void
-MFXComboBoxIcon::setHelpText(const FXString& txt) {
-    myTextField->setHelpText(txt);
-}
-
-
-const FXString&
-MFXComboBoxIcon::getHelpText() const {
-    return myTextField->getHelpText();
 }
 
 
@@ -415,7 +366,7 @@ MFXComboBoxIcon::getTipText() const {
 
 long
 MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
-    return (target && !isPaneShown())? target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL) : 0;
+    return (target && !myPane->shown())? target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL) : 0;
 }
 
 
