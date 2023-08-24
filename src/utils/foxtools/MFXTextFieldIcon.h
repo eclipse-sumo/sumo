@@ -327,14 +327,14 @@ protected:
     void drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to);
 
     /// @brief right word
-
     FXint rightWord(FXint pos) const;
+
     /// @brief left word
-
     FXint leftWord(FXint pos) const;
-    /// @brief word start
 
+    /// @brief word start
     FXint wordStart(FXint pos) const;
+
     /// @brief word end
     FXint wordEnd(FXint pos) const;
 
