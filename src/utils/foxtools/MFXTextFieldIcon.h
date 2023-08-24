@@ -38,6 +38,9 @@ public:
                      FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
+    /// @brief Destructor
+    virtual ~MFXTextFieldIcon();
+
     /// @brief Create server-side resources
     virtual void create();
 
@@ -187,9 +190,6 @@ public:
 
     /// @brief Load text field from a stream
     virtual void load(FXStream& store);
-
-    /// @brief Destructor
-    virtual ~MFXTextFieldIcon();
 
     /// @brief fox callbacks
     /// @{
