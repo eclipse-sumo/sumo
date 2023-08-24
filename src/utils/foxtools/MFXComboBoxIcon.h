@@ -154,11 +154,8 @@ protected:
     /// @brief FOX need this
     MFXComboBoxIcon();
 
-    /// @brief label for icon
-    FXLabel* myIconLabel = nullptr;
-
-    /// @brief textField
-    FXTextField* myTextField = nullptr;
+    /// @brief textField icon
+    MFXTextFieldIcon* myTextFieldIcon = nullptr;
 
     /// @brief myButton
     FXMenuButton* myButton = nullptr;
