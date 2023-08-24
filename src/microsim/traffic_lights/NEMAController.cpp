@@ -628,7 +628,6 @@ NEMALogic::validate_timing() {
 
 void
 NEMALogic::setNewSplits(std::vector<double> newSplits) {
-    // TODO: What is the difference between splits and max greens?
     assert(newSplits.size() == 8);
     for (auto& p : myPhaseObjs) {
         if (newSplits[p->phaseName - 1] > 0) {
@@ -852,13 +851,13 @@ NEMALogic::calculateForceOffs170() {
         SUMOTime runningTime = 0;
         // loop through the phases for ring 0 and then 1
         for (auto& p : getPhasesByRing(i)) {
-            runningTime += p->maxDuration + p->getTransitionTime(this);
+            runningTime += p->maxDuration + p->getTransitionTimeStateless();
             // in 170, the cycle "starts" when the coordinated phase goes to yellow.
             // See https://ops.fhwa.dot.gov/publications/fhwahop08024/chapter6.html
             if (p->coordinatePhase) {
                 zeroTime[i] = runningTime;
             }
-            p->forceOffTime = runningTime - p->getTransitionTime(this);
+            p->forceOffTime = runningTime - p->getTransitionTimeStateless();
             p->greatestStartTime = p->forceOffTime - p->minDuration;
         }
     }
@@ -1497,7 +1496,7 @@ NEMAPhase::getTransitionTime(NEMALogic* controller) {
     }
     if (!transitionActive) {
         // if a transition is not active, the transition is just yellow + red time
-        return (yellow + red);
+        return getTransitionTimeStateless();
     }
     // if a transition is active, then return the time left in the transition
     return MAX2(TIME2STEPS(0), ((yellow + red) - (controller->getCurrentTime() - myLastEnd)));

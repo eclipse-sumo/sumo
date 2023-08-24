@@ -720,12 +720,22 @@ public:
     bool readyToSwitch;
 
     /**
-     * @brief Get the Transition Time
+     * @brief Get the Transition Time give the current simulation time and phase state
      *
      * @param controller
      * @return SUMOTime
      */
     SUMOTime getTransitionTime(NEMALogic* controller);
+
+    /**
+     * @brief Get the Transition time given
+     *
+     * @param controller
+     * @return SUMOTime
+     */
+    inline SUMOTime getTransitionTimeStateless(void) {
+        return yellow + red;
+    }
 
     /// @brief get the prior phase
     inline PhasePtr getSequentialPriorPhase(void) {
@@ -783,6 +793,7 @@ public:
     inline void cleanupExit(void) {
         transitionActive = false;
         readyToSwitch = false;
+        myLightState = LightState::Red;
     }
 
     /// @brief simple internal check to see if done okay to transition
