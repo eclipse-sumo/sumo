@@ -45,7 +45,8 @@
 FXDEFMAP(GNEFrameAttributeModules::AttributesEditorRow) AttributesEditorRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                  GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,             GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,           GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_COLOR,            GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_ALLOW,            GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,    GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectParent),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVEUP,                         GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneUp),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_MOVEDOWN,                       GNEFrameAttributeModules::AttributesEditorRow::onCmdMoveElementLaneDown)
@@ -134,7 +135,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             }
         } else if (myACAttr.isDiscrete()) {
             // Check if are VClasses
-            if (myAttributeAllowButton) {
+            if (myAttributeButton) {
                 // Show string with the values
                 myValueTextField->setText(value.c_str());
                 myValueTextField->show();
@@ -190,72 +191,75 @@ GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() cons
 
 
 long
-GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject* obj, FXSelector, void*) {
     GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
-    if (obj == myAttributeColorButton) {
-        // create FXColorDialog
-        FXColorDialog colordialog(this, TL("Color Dialog"));
-        colordialog.setTarget(this);
-        // If previous attribute wasn't correct, set black as default color
-        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-        } else if (!myACAttr.getDefaultValue().empty()) {
-            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myACAttr.getDefaultValue())));
-        } else {
-            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
-        }
-        // execute dialog to get a new color
-        if (colordialog.execute()) {
-            std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
-            myValueTextField->setText(newValue.c_str());
-            if (viewNet->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
-                // if its valid for the first AC than its valid for all (of the same type)
-                if (ACs.size() > 1) {
-                    viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
-                }
-                // Set new value of attribute in all selected ACs
-                for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
-                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, viewNet->getUndoList());
-                }
-                // finish change multiple attributes
-                if (ACs.size() > 1) {
-                    viewNet->getUndoList()->end();
-                }
-                // If previously value was incorrect, change font color to black
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                myValueTextField->killFocus();
+    // create FXColorDialog
+    FXColorDialog colordialog(this, TL("Color Dialog"));
+    colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
+    } else if (!myACAttr.getDefaultValue().empty()) {
+        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myACAttr.getDefaultValue())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+    }
+    // execute dialog to get a new color
+    if (colordialog.execute()) {
+        std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
+        myValueTextField->setText(newValue.c_str());
+        if (viewNet->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
+            // if its valid for the first AC than its valid for all (of the same type)
+            if (ACs.size() > 1) {
+                viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
             }
-        }
-        return 0;
-    } else if (obj == myAttributeAllowButton) {
-        // if its valid for the first AC than its valid for all (of the same type)
-        if (ACs.size() > 1) {
-            viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
-        }
-        // declare accept changes
-        bool acceptChanges = false;
-        // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowVClassesDialog(viewNet,
-                               viewNet->getInspectedAttributeCarriers().front(), myACAttr.getAttr(), &acceptChanges).execute();
-        // continue depending of acceptChanges
-        if (acceptChanges) {
-            std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(myACAttr.getAttr());
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
-                inspectedAC->setAttribute(myACAttr.getAttr(), allowed, viewNet->getUndoList());
+                inspectedAC->setAttribute(myACAttr.getAttr(), newValue, viewNet->getUndoList());
             }
             // finish change multiple attributes
             if (ACs.size() > 1) {
                 viewNet->getUndoList()->end();
             }
-            // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
+            // If previously value was incorrect, change font color to black
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->killFocus();
         }
-        return 1;
-    } else {
-        throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
     }
+    return 1;
+}
+
+
+long
+GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog(FXObject* obj, FXSelector, void*) {
+    GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // if its valid for the first AC than its valid for all (of the same type)
+    if (ACs.size() > 1) {
+        viewNet->getUndoList()->begin(ACs.front(), TL("change multiple attributes"));
+    }
+    // declare accept changes
+    bool acceptChanges = false;
+    // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
+    GNEAllowVClassesDialog(viewNet, viewNet->getInspectedAttributeCarriers().front(),
+                           myACAttr.getAttr(), &acceptChanges).execute();
+    // continue depending of acceptChanges
+    if (acceptChanges) {
+        std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(myACAttr.getAttr());
+        // Set new value of attribute in all selected ACs
+        for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
+            inspectedAC->setAttribute(myACAttr.getAttr(), allowed, viewNet->getUndoList());
+        }
+        // finish change multiple attributes
+        if (ACs.size() > 1) {
+            viewNet->getUndoList()->end();
+        }
+        // update frame parent after attribute successfully set
+        myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
+    }
+    return 1;
 }
 
 
@@ -500,16 +504,16 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
     const bool disableElement = !attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of attribute
     if (myACParent) {
-		myAttributeParentButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
+		myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
             myACParent->getACIcon(), this, MID_GNE_SET_ATTRIBUTE_INSPECTPARENT, GUIDesignButtonAttribute);
         // set color text depending of computed
-        myAttributeParentButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
-        myAttributeParentButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
-        myAttributeParentButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
+        myAttributeButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
+        myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
         // check if disable
         if (disableElement) {
-            myAttributeParentButton->disable();
+            myAttributeButton->disable();
         }
     } else if (myACAttr.isActivatable()) {
         myAttributeCheckButton = new FXCheckButton(this, myACAttr.getAttrStr().c_str(), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
@@ -520,24 +524,24 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
             myAttributeCheckButton->disable();
         }
     } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
-        myAttributeAllowButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+        myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_ALLOW, GUIDesignButtonAttribute);
         // set tip text
-        myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
-        myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
+        myAttributeButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+        myAttributeButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
         // check if disable
         if (disableElement) {
-            myAttributeAllowButton->disable();
+            myAttributeButton->disable();
         }
     } else if (myACAttr.isColor()) {
-        myAttributeColorButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+        myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_COLOR, GUIDesignButtonAttribute);
         // set color text depending of computed
-        myAttributeColorButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
-        myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
-        myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
+        myAttributeButton->setTipText(TL("Open dialog for editing color"));
+        myAttributeButton->setHelpText(TL("Open dialog for editing color"));
         // check if disable
         if (disableElement) {
-            myAttributeColorButton->disable();
+            myAttributeButton->disable();
         }
 	} else {
         // Create label
@@ -613,36 +617,31 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
         if (disableElement) {
             myAttributeCheckButton->disable();
         }
-    } else if (myAttributeParentButton) {
-        // update text and icon
-        if (myACParent->getTagProperty().getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
-            myAttributeParentButton->setText("vTypeDist.");
+    } else if (myAttributeButton) {
+        if (myAttributeButton->getSelector() == MID_GNE_SET_ATTRIBUTE_INSPECTPARENT) {
+            // update text and icon
+            if (myACParent->getTagProperty().getTag() == SUMO_TAG_VTYPE_DISTRIBUTION) {
+                myAttributeButton->setText("vTypeDist.");
+            } else {
+                myAttributeButton->setText(myACParent->getTagStr().c_str());
+            }
+            myAttributeButton->setIcon(myACParent->getACIcon());
+            // set tip text
+            myAttributeButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
+            myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
+            // set color text depending of computed
+            myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+            // check if disable
+            if (disableElement) {
+                myAttributeButton->disable();
+            }
         } else {
-            myAttributeParentButton->setText(myACParent->getTagStr().c_str());
-        }
-        myAttributeParentButton->setIcon(myACParent->getACIcon());
-        // set tip text
-        myAttributeParentButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
-        myAttributeParentButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
-        // set color text depending of computed
-        myAttributeParentButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // check if disable
-        if (disableElement) {
-            myAttributeParentButton->disable();
-        }
-    } else if (myAttributeAllowButton) {
-        // set color text depending of computed
-        myAttributeAllowButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // check if disable
-        if (disableElement) {
-            myAttributeAllowButton->disable();
-        }
-    } else if (myAttributeColorButton) {
-        // set color text depending of computed
-        myAttributeColorButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-        // check if disable
-        if (disableElement) {
-            myAttributeColorButton->disable();
+            // set color text depending of computed
+            myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+            // check if disable
+            if (disableElement) {
+                myAttributeButton->disable();
+            }
         }
     }
     // check if update lane buttons

@@ -448,6 +448,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     // first check if we have to create a button or a label
     if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
         myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonFixed(150));
+        myButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
         myButton = new FXButton(this, TL("Edit parameters"), nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
     } else {
@@ -647,6 +648,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     // create FXColorDialog
     FXColorDialog colordialog(this, TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text())));

@@ -209,6 +209,11 @@ GNEAttributesCreatorRow::refreshRow() {
             myAttributeButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeButton->killFocus();
             myAttributeButton->setText(myAttrProperties.getAttrStr().c_str());
+            if (myAttrProperties.isColor()) {
+                myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+            } else {
+                myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::ALLOW));
+            }
             myAttributeButton->show();
         } else if (myAttrProperties.isActivatable()) {
             // show check button
@@ -420,6 +425,7 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         // create FXColorDialog
         FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
+        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
