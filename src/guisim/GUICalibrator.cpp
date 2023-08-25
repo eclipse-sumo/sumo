@@ -119,8 +119,8 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new MFXComboBoxIcon(gf2, 10, false, false, GUIDesignComboBoxSizeSmall, this, MID_PRE_DEF,
-                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
+            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxSizeSmall, this, MID_PRE_DEF,
+                                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
         myPredefinedValues->appendIconItem("60 km/h");

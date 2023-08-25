@@ -64,11 +64,11 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
 
     // 1 create combobox for type
     new FXLabel(columnLeftLabel, toString(SUMO_TAG_VTYPE).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myComboBoxVehicleType = new MFXComboBoxIcon(columnLeftValue, GUIDesignComboBoxNCol, true, true, GUIDesignComboBoxSizeMedium,
+    myComboBoxVehicleType = new MFXComboBoxIcon(columnLeftValue, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeLarge,
                                                 this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     // 2 create combobox for route
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ROUTE).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myComboBoxRoute = new MFXComboBoxIcon(columnLeftValue, GUIDesignComboBoxNCol, true, true, GUIDesignComboBoxSizeMedium,
+    myComboBoxRoute = new MFXComboBoxIcon(columnLeftValue, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeLarge,
                                           this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     // 3 create textfield for vehs per hour
     new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));

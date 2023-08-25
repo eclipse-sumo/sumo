@@ -3129,7 +3129,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                                     GUIDesignComboBoxNCol, false, false, GUIDesignComboBoxSizeMedium, myViewNet,
+                                                     GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium, myViewNet,
                                                      MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
     myGenericDataTypesComboBox->create();
     // fill combo box
@@ -3143,7 +3143,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                             GUIDesignComboBoxNCol, false, false, GUIDesignComboBoxSizeMedium,
+                                             GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
                                              myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
@@ -3164,7 +3164,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                               GUIDesignComboBoxNCol, false, false, GUIDesignComboBoxSizeMedium,
+                                               GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
                                                myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
     myParametersComboBox->create();
     // always recalc after creating new elements

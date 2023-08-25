@@ -67,7 +67,7 @@ FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXC
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, const bool canSearch, const int visibleItems,
+MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
     flags |= FLAG_ENABLED;
