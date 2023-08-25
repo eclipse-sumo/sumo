@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>

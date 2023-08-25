@@ -317,10 +317,10 @@ public:
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief comboBox for parents
-        FXComboBox* myParentsComboBox = nullptr;
+        MFXComboBoxIcon* myParentsComboBox = nullptr;
 
         /// @brief comboBox for children
-        FXComboBox* myChildrenComboBox = nullptr;
+        MFXComboBoxIcon* myChildrenComboBox = nullptr;
 
         /// @brief select parents button
         FXButton* mySelectParentsButton = nullptr;

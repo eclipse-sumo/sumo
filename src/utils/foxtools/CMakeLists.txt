@@ -9,8 +9,6 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXComboBox.cpp
-   MFXComboBox.h
    MFXComboBoxIcon.cpp
    MFXComboBoxIcon.h
    MFXDecalsTable.cpp

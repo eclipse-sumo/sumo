@@ -64,21 +64,15 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
     myVTypeAttributesParent(VTypeAttributesParent) {
     // create two auxiliary frames
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
-    // create FXComboBox for VClass
+    // create MFXComboBoxIcon for VClass
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
-    myComboBoxVClass = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true, true,
+    myComboBoxVClass = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
                                            VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all allowed VClass for the current edited VType
     for (const auto& vClass : myVTypeAttributesParent->myVehicleTypeDialog->getEditedDemandElement()->getTagProperty().getAttributeProperties(SUMO_ATTR_VCLASS).getDiscreteValues()) {
         myComboBoxVClass->appendIconItem(vClass.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(vClass)));
-    }
-    // only show as maximum 10 VClasses
-    if (myComboBoxVClass->getNumItems() > 10) {
-        myComboBoxVClass->setNumVisible(10);
-    } else {
-        myComboBoxVClass->setNumVisible(myComboBoxVClass->getNumItems());
     }
 }
 
@@ -159,7 +153,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::updateValue() {
     const auto vClass = myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS);
     int index = 0;
     for (int i = 0; i < myComboBoxVClass->getNumItems(); i++) {
-        if (myComboBoxVClass->getItem(i).text() == vClass) {
+        if (myComboBoxVClass->getItemText(i) == vClass) {
             index = i;
         }
     }
@@ -273,7 +267,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::VShapeRow(VTypeAttributes* VTy
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create combo for vehicle shapes
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
-    myComboBoxShape = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, false, true,
+    myComboBoxShape = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
                                           VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxShapeLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
@@ -284,8 +278,6 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::VShapeRow(VTypeAttributes* VTy
             myComboBoxShape->appendIconItem(VShapeString.c_str(), nullptr);
         }
     }
-    // only show 10 Shapes
-    myComboBoxShape->setNumVisible(10);
 }
 
 
@@ -307,7 +299,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVariable() {
 
 void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::updateValues() {
-    myComboBoxShape->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    // set value
+    const int index = myComboBoxShape->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    if (index == -1) {
+        myComboBoxShape->disable();
+    } else {
+        myComboBoxShape->setCurrentItem(index);
+        myComboBoxShape->enable();
+    }
     setVShapeLabelImage();
 }
 
@@ -316,7 +315,14 @@ void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::updateValue(SUMOVehicleClass vClass) {
     // create new VClassDefaultValues using the new VClass
     SUMOVTypeParameter::VClassDefaultValues newVClass(vClass);
-    myComboBoxShape->setText(SumoVehicleShapeStrings.getString(newVClass.shape).c_str());
+    // set value
+    const int index = myComboBoxShape->findItem(SumoVehicleShapeStrings.getString(newVClass.shape).c_str());
+    if (index == -1) {
+        myComboBoxShape->disable();
+    } else {
+        myComboBoxShape->setCurrentItem(index);
+        myComboBoxShape->enable();
+    }
     myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
     myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
             myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
@@ -442,6 +448,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     // first check if we have to create a button or a label
     if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
         myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonFixed(150));
+        myButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
         myButton = new FXButton(this, TL("Edit parameters"), nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
     } else {
@@ -451,16 +458,11 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME) || (rowAttrType == ROWTYPE_PARAMETERS)) {
         myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
     } else if (rowAttrType == ROWTYPE_COMBOBOX) {
-        myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
+        myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                         VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
         // fill combo Box with values
         for (const auto& value : values) {
             myComboBox->appendIconItem(value.c_str(), nullptr);
-        }
-        // set 10 visible elements as maximum
-        if (myComboBox->getNumItems() < 10) {
-            myComboBox->setNumVisible(myComboBox->getNumItems());
-        } else {
-            myComboBox->setNumVisible(10);
         }
     } else {
         throw ProcessError(TL("Invalid row type"));
@@ -550,8 +552,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setVariable(const std:
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
     if (myRowAttrType == ROWTYPE_COMBOBOX) {
-        // set text of myComboBox using current value of VType
-        myComboBox->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set value
+        const int index = myComboBox->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        if (index == -1) {
+            myComboBox->disable();
+        } else {
+            myComboBox->setCurrentItem(index);
+            myComboBox->enable();
+        }
         // set color depending if is a default value
         if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myComboBox->getText().text()) {
             myComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -602,8 +610,14 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue() {
 void
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::updateValue(const std::string& defaultValue) {
     if (myComboBox) {
-        // set text of myComboBox using current value of VType
-        myComboBox->setText(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set value
+        const int index = myComboBox->findItem(myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        if (index == -1) {
+            myComboBox->disable();
+        } else {
+            myComboBox->setCurrentItem(index);
+            myComboBox->enable();
+        }
         // set color depending if is a default value
         if (defaultValue != myComboBox->getText().text()) {
             myComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -634,6 +648,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::openColorDialog() {
     // create FXColorDialog
     FXColorDialog colordialog(this, TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextField->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextField->getText().text())));
@@ -1258,14 +1273,14 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     // declare combo box
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelThickedFixed(150));
-    myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, false, false, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                                   this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
 
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
     for (const auto& CFModel : CFModels) {
         myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), nullptr);
     }
-    myComboBoxCarFollowModel->setNumVisible(myComboBoxCarFollowModel->getNumItems());
 
     // 01 create FX and Label for Accel
     myAccelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_ACCEL);
@@ -1682,7 +1697,14 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).empty()) {
         myComboBoxCarFollowModel->setCurrentItem(0);
     } else {
-        myComboBoxCarFollowModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+        // set value
+        const int index = myComboBoxCarFollowModel->findItem(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+        if (index == -1) {
+            myComboBoxCarFollowModel->disable();
+        } else {
+            myComboBoxCarFollowModel->setCurrentItem(index);
+            myComboBoxCarFollowModel->enable();
+        }
     }
     // refresh fields
     refreshCFMFields();

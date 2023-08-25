@@ -168,6 +168,8 @@
 #include "uncollapse.xpm"
 #include "extend.xpm"
 #include "current.xpm"
+#include "search.xpm"
+#include "allow.xpm"
 
 #include "arrowup.xpm"
 #include "arrowdown.xpm"
@@ -675,7 +677,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
     myIcons[GUIIcon::EXTEND] = new FXXPMIcon(a, extend_xpm);
     myIcons[GUIIcon::CURRENT] = new FXXPMIcon(a, current_xpm);
-
+    myIcons[GUIIcon::SEARCH] = new FXXPMIcon(a, search_xpm);
+    myIcons[GUIIcon::ALLOW] = new FXXPMIcon(a, allow_xpm);
+    
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);

@@ -52,10 +52,11 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    myReferencePointMatchBox->appendItem(TL("reference left"));
-    myReferencePointMatchBox->appendItem(TL("reference right"));
-    myReferencePointMatchBox->appendItem(TL("reference center"));
+    myReferencePointMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                                   this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myReferencePointMatchBox->appendIconItem(TL("reference left"));
+    myReferencePointMatchBox->appendIconItem(TL("reference right"));
+    myReferencePointMatchBox->appendIconItem(TL("reference center"));
     // Create Frame for Length Label and textField
     myLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelThickedFixed(100));
@@ -72,8 +73,6 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
     helpReferencePoint = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
-    // Set visible items
-    myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
 }
 
 

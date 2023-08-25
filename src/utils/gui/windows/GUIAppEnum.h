@@ -953,6 +953,10 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief inspect attribute parent element
     MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
+    /// @brief edit attribute allow
+    MID_GNE_SET_ATTRIBUTE_ALLOW,
+    /// @brief edit attribute color
+    MID_GNE_SET_ATTRIBUTE_COLOR,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)

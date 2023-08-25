@@ -21,6 +21,9 @@
 #pragma once
 #include <config.h>
 
+#include <string>
+#include <vector>
+
 #include "MFXListIconItem.h"
 
 /// @brief @brief A list item which allows for custom coloring
@@ -83,19 +86,13 @@ public:
     void setNumVisible(FXint nvis);
 
     /// @brief Return the item at the given index
-    MFXListIconItem *getItem(FXint index) const;
+    MFXListIconItem* getItem(FXint index) const;
 
     /// @brief Replace the item with a [possibly subclassed] item
     FXint setItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
 
-    /// @brief Replace items text,  icon,  and user-data pointer
-    FXint setItem(FXint index, const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
-    /// @brief Fill list by appending items from array of strings
-    FXint fillItems(const FXchar** strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
-    /// @brief Fill list by appending items from newline separated strings
-    FXint fillItems(const FXString &strings, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
+    /// @brief Replace items text, icon, and user-data pointer
+    FXint editItem(FXint index, const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
     /// @brief Insert a new [possibly subclassed] item at the give index
     FXint insertItem(FXint index, MFXListIconItem* item, FXbool notify = FALSE);
@@ -109,19 +106,7 @@ public:
     /// @brief Append new item with given text and optional icon,  and user-data pointer
     FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
-    /// @brief Prepend a [possibly subclassed] item to the list
-    FXint prependItem(MFXListIconItem* item, FXbool notify = FALSE);
-
-    /// @brief Prepend new item with given text and optional icon,  and user-data pointer
-    FXint prependItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
-
-    /// @brief Move item from oldindex to newindex
-    FXint moveItem(FXint newindex, FXint oldindex, FXbool notify = FALSE);
-
-    /// @brief Extract item from list
-    MFXListIconItem* extractItem(FXint index, FXbool notify = FALSE);
-
-    /// @brief Remove item from list
+    /// @brief Remove node from list
     void removeItem(FXint index, FXbool notify = FALSE);
 
     /// @brief Remove all items from list
@@ -136,83 +121,59 @@ public:
     /// @brief Return item height
     FXint getItemHeight(FXint index) const;
 
-    /// @brief Return index of item at x, y,  if any
-    FXint getItemAt(FXint x, FXint y) const;
+    /// @brief Return index of item at y, if any
+    MFXListIconItem *getItemAt(FXint y) const;
+
+    /// @brief Search items by name (In all items)
+    int findItem(const FXString& text) const;
 
     /// @brief Return item hit code: 0 no hit; 1 hit the icon; 2 hit the text
-    FXint hitItem(FXint index, FXint x, FXint y) const;
+    FXint hitItem(MFXListIconItem* item, FXint x, FXint y) const;
 
-    /**
-    * Search items by name,  beginning from item start. If the start
-    * item is -1 the search will start at the first item in the list.
-    * Flags may be SEARCH_FORWARD or SEARCH_BACKWARD to control the
-    * search direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
-    * to control whether the search wraps at the start or end of the list.
-    * The option SEARCH_IGNORECASE causes a case-insensitive match. Finally, 
-    * passing SEARCH_PREFIX causes searching for a prefix of the item name.
-    * Return -1 if no matching item is found.
-    */
-    FXint findItem(const FXString &text, FXint start = -1, FXuint flags = SEARCH_FORWARD|SEARCH_WRAP) const;
+    /// @brief Scroll to bring item into view
+    void makeItemVisible(MFXListIconItem* item);
 
     /// @brief Scroll to bring item into view
     void makeItemVisible(FXint index);
-
-    /// @brief Change item text
-    void setItemText(FXint index, const FXString &text);
-
-    /// @brief Return item text
-    FXString getItemText(FXint index) const;
-
-    /// @brief Return TRUE if item is selected
-    FXbool isItemSelected(FXint index) const;
 
     /// @brief Return TRUE if item is current
     FXbool isItemCurrent(FXint index) const;
 
     /// @brief Return TRUE if item is visible
-    FXbool isItemVisible(FXint index) const;
-
-    /// @brief Return TRUE if item is enabled
-    FXbool isItemEnabled(FXint index) const;
+    FXbool isItemVisible(MFXListIconItem* item) const;
 
     /// @brief Repaint item
-    void updateItem(FXint index) const;
+    void updateItem(MFXListIconItem* item) const;
 
-    /// @brief Enable item
-    FXbool enableItem(FXint index);
-
-    /// @brief Disable item
-    FXbool disableItem(FXint index);
-
-    /// @brief Select item
-    FXbool selectItem(FXint index, FXbool notify = FALSE);
+    /// @brief Select item by index
+    FXbool selectItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Deselect item
-    FXbool deselectItem(FXint index, FXbool notify = FALSE);
+    FXbool deselectItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Toggle item selection state
-    FXbool toggleItem(FXint index, FXbool notify = FALSE);
-
-    /// @brief Extend selection from anchor item to index
-    FXbool extendSelection(FXint index, FXbool notify = FALSE);
+    FXbool toggleItem(MFXListIconItem* item, FXbool notify = FALSE);
 
     /// @brief Deselect all items
     FXbool killSelection(FXbool notify = FALSE);
 
     /// @brief Change current item
-    void setCurrentItem(FXint index, FXbool notify = FALSE);
+    void setCurrentItem(MFXListIconItem* item, FXbool notify = FALSE);
 
-    /// @brief Return current item,  if any
-    FXint getCurrentItem() const { return current; }
+    /// @brief Return current item, if any
+    FXint getCurrentItemIndex() const;
+
+    /// @brief Return viewable item, if any
+    FXint getViewableItem() const;
 
     /// @brief Change anchor item
-    void setAnchorItem(FXint index);
+    void setAnchorItem(MFXListIconItem* item);
 
     /// @brief Return anchor item,  if any
-    FXint getAnchorItem() const { return anchor; }
+    FXint getAnchorItem() const;
 
-    /// @brief Get item under the cursor,  if any
-    FXint getCursorItem() const { return cursor; }
+    /// @brief Get item under the cursor, if any
+    MFXListIconItem *getCursorItem() const;
 
     /// @brief Return text font
     FXFont* getFont() const { return font; }
@@ -229,17 +190,14 @@ public:
     /// @brief Return selected text color
     FXColor getSelTextColor() const { return seltextColor; }
 
-    /// @brief Return list style
-    FXuint getListStyle() const;
-
-    /// @brief Change list style
-    void setListStyle(FXuint style);
-
     /// @brief Set the status line help text for this list
     void setHelpText(const FXString &text);
 
     /// @brief Get the status line help text for this list
     const FXString &getHelpText() const { return help; }
+
+    /// @brief tolower string
+    FXString tolowerString(const FXString &str) const;
 
     /// @name call functions
     /// @{
@@ -265,9 +223,6 @@ public:
     long onQueryHelp(FXObject*, FXSelector, void*);
     long onTipTimer(FXObject*, FXSelector, void*);
     long onLookupTimer(FXObject*, FXSelector, void*);
-    long onCmdSetValue(FXObject*, FXSelector, void*);public:
-    long onCmdGetIntValue(FXObject*, FXSelector, void*);
-    long onCmdSetIntValue(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -281,58 +236,58 @@ protected:
     MFXListIconItem *createItem(const FXString &text, FXIcon* icon, void* ptr);
 
     /// @brief Item list
-    FXObjectListOf < MFXListIconItem> items;
+    FXObjectListOf <MFXListIconItem> items;
  
     /// @brief Anchor item
-    FXint anchor;
+    FXint anchor = -1;
 
     /// @brief Current item
-    FXint current;
+    MFXListIconItem *currentItem = nullptr;
 
     /// @brief Extent item
-    FXint extent;
+    FXint extent = -1;
 
     /// @brief Cursor item
-    FXint cursor;
+    MFXListIconItem* cursor = nullptr;
 
     /// @brief Viewable item
-    FXint viewable;
+    MFXListIconItem* viewable = nullptr;
 
     /// @brief Font
-    FXFont *font;
+    FXFont *font = nullptr;
 
     /// @brief Text color
-    FXColor textColor;
+    FXColor textColor = 0;
 
     /// @brief Selected back color
-    FXColor selbackColor;
+    FXColor selbackColor = 0;
 
     /// @brief Selected text color
-    FXColor seltextColor;
+    FXColor seltextColor = 0;
 
     /// @brief List width
-    FXint listWidth;
+    FXint listWidth = 0;
 
     /// @brief List height
-    FXint listHeight;
+    FXint listHeight = 0;
 
     /// @brief Number of rows high
-    FXint visible;
+    FXint visible = 0;
 
     /// @brief Help text
     FXString help;
 
     /// @brief Grab point x
-    FXint grabx;
+    FXint grabx = 0;
 
     /// @brief Grab point y
-    FXint graby;
+    FXint graby = 0;
 
     /// @brief Lookup string
     FXString lookup;
 
     /// @brief State of item
-    FXbool state;
+    FXbool state = FALSE;
 
     /// @brief filter
     FXString filter;
@@ -341,9 +296,15 @@ private:
     /// @brief typedef used for comparing elements
     typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
 
-     /// @brief @brief invalidate copy constructor
-     MFXListIcon(const FXList & ) = delete;
+    /// @brief get filtered items
+    std::vector<MFXListIconItem*> getFilteredItems() const;
 
-     /// @brief @brief invalidate assignement operator
-     MFXListIcon  & operator = (const FXList & ) = delete;
+    /// @brief check if filter element
+    bool showItem(const FXString &itemName) const;
+
+    /// @brief @brief invalidate copy constructor
+    MFXListIcon(const FXList & ) = delete;
+
+    /// @brief @brief invalidate assignement operator
+    MFXListIcon  & operator = (const FXList & ) = delete;
 };

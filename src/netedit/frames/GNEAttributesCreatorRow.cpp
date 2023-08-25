@@ -69,7 +69,8 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     myValueTextField->hide();
     myValueCheckButton = new FXCheckButton(this, TL("Disabled"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
-    myValueComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                          this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // only create if parent was created
     if (getParent()->id()) {
@@ -208,6 +209,11 @@ GNEAttributesCreatorRow::refreshRow() {
             myAttributeButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeButton->killFocus();
             myAttributeButton->setText(myAttrProperties.getAttrStr().c_str());
+            if (myAttrProperties.isColor()) {
+                myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
+            } else {
+                myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::ALLOW));
+            }
             myAttributeButton->show();
         } else if (myAttrProperties.isActivatable()) {
             // show check button
@@ -245,15 +251,9 @@ GNEAttributesCreatorRow::refreshRow() {
             // fill textField
             myValueComboBox->clearItems();
             for (const auto& item : myAttrProperties.getDiscreteValues()) {
-                myValueComboBox->appendItem(item.c_str());
+                myValueComboBox->appendIconItem(item.c_str());
             }
-            // set number of visible items
-            if (myAttrProperties.showAllDiscreteValues()) {
-                myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
-            } else {
-                myValueComboBox->setNumVisible(10);
-            }
-            myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            myValueComboBox->setCurrentItem(myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str()));
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
@@ -425,6 +425,7 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         // create FXColorDialog
         FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
+        colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));

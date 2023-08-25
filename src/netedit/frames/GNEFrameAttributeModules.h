@@ -84,8 +84,11 @@ public:
         /// @brief called when user press a check button
         long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
 
-        /// @brief open model dialog for more comfortable attribute editing
-        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+        /// @brief open model dialog for edit color
+        long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
+
+        /// @brief open model dialog for edit allow
+        long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
 
         /// @brief inspect parent
         long onCmdInspectParent(FXObject*, FXSelector, void*);
@@ -122,13 +125,7 @@ public:
         FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief pointer to attributeAllowButton
-        MFXButtonTooltip* myAttributeAllowButton = nullptr;
-
-        /// @brief Button for open color editor
-        MFXButtonTooltip* myAttributeColorButton = nullptr;
-
-        /// @brief Button for inspect parents
-        MFXButtonTooltip* myAttributeParentButton = nullptr;
+        MFXButtonTooltip* myAttributeButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;

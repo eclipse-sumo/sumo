@@ -160,8 +160,9 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* send
 GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
-    // Create FXComboBox
-    myDistributionsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                                  this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // DistributionSelector is always shown
     show();
 }
@@ -190,7 +191,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionIDs() {
     fillDistributionComboBox();
     // set current item
     for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
-        if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+        if (myDistributionsComboBox->getItemText(i) == myCurrentDistribution->getID()) {
             myDistributionsComboBox->setCurrentItem(i);
         }
     }
@@ -206,7 +207,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // update comboBox
     if (myCurrentDistribution) {
         for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {
-            if (myDistributionsComboBox->getItem(i).text() == myCurrentDistribution->getID()) {
+            if (myDistributionsComboBox->getItemText(i) == myCurrentDistribution->getID()) {
                 myDistributionsComboBox->setCurrentItem(i);
             }
         }
@@ -292,13 +293,7 @@ GNEDistributionFrame::DistributionSelector::fillDistributionComboBox() {
         distributions[distribution->getID()] = distribution;
     }
     for (const auto& distribution : distributions) {
-        myDistributionsComboBox->appendItem(distribution.first.c_str(), distribution.second->getACIcon());
-    }
-    // Set visible items
-    if (myDistributionsComboBox->getNumItems() <= 20) {
-        myDistributionsComboBox->setNumVisible((int)myDistributionsComboBox->getNumItems());
-    } else {
-        myDistributionsComboBox->setNumVisible(20);
+        myDistributionsComboBox->appendIconItem(distribution.first.c_str(), distribution.second->getACIcon());
     }
     // return distributions sorted by ID
     return distributions;
@@ -318,7 +313,8 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
-    myComboBoxKeys = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                         this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));
@@ -355,13 +351,12 @@ GNEDistributionFrame::DistributionRow::refreshRow() {
     const auto possibleKeys = currentDistribution->getPossibleDistributionKeys(myDistributionValuesEditorParent->myDistributionValueTag);
     // refill combo Box with possible values
     myComboBoxKeys->clearItems();
-    myComboBoxKeys->appendItem(myKey->getID().c_str());
+    myComboBoxKeys->appendIconItem(myKey->getID().c_str());
     for (const auto &possibleKey : possibleKeys) {
-        myComboBoxKeys->appendItem(possibleKey.first.c_str());
+        myComboBoxKeys->appendIconItem(possibleKey.first.c_str());
     }
     myComboBoxKeys->setCurrentItem(0);
     // adjust combo Box
-    myComboBoxKeys->setNumVisible(myComboBoxKeys->getNumItems() <= 10? myComboBoxKeys->getNumItems() : 10);
     myComboBoxKeys->setTextColor(FXRGB(0, 0, 0));
     myComboBoxKeys->killFocus();
     // set probability

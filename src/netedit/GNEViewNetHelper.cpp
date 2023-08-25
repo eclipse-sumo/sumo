@@ -3128,22 +3128,23 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
                                             "Data type", 0, GUIDesignLabelThickedFixed(100));
     genericDataLabel->create();
     // create combo box for generic datas
-    myGenericDataTypesComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-            GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
+    myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                                     GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium, myViewNet,
+                                                     MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
     myGenericDataTypesComboBox->create();
     // fill combo box
-    myGenericDataTypesComboBox->appendItem("<all>");
-    myGenericDataTypesComboBox->appendItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
-    myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_EDGEREL).c_str());
-    myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_TAZREL).c_str());
-    myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
+    myGenericDataTypesComboBox->appendIconItem("<all>");
+    myGenericDataTypesComboBox->appendIconItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
+    myGenericDataTypesComboBox->appendIconItem(toString(SUMO_TAG_EDGEREL).c_str());
+    myGenericDataTypesComboBox->appendIconItem(toString(SUMO_TAG_TAZREL).c_str());
     // create dataSet label
     FXLabel* dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
                                         "Data sets", 0, GUIDesignLabelThickedFixed(100));
     dataSetLabel->create();
     // create combo box for sets
-    myDataSetsComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                        GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
+    myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                             GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                             myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
     myIntervalCheckBox = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3162,8 +3163,9 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
                                           "Parameter", 0, GUIDesignLabelThickedFixed(100));
     parameterLabel->create();
     // create combo box for attributes
-    myParametersComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                          GUIDesignComboBoxNCol, myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
+    myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
+                                               GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                               myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
     myParametersComboBox->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -3230,23 +3232,23 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         myDataSetsComboBox->clearItems();
         myParametersComboBox->clearItems();
         // add first item (all)
-        myDataSetsComboBox->appendItem("<all>");
-        myParametersComboBox->appendItem("<all>");
+        myDataSetsComboBox->appendIconItem("<all>");
+        myParametersComboBox->appendIconItem("<all>");
         // fill dataSet comboBox
         for (const auto& dataSet : myDataSets) {
-            myDataSetsComboBox->appendItem(dataSet.c_str());
+            myDataSetsComboBox->appendIconItem(dataSet.c_str());
         }
         // set begin/end
         myBeginTextField->setText(toString(begin).c_str());
         myEndTextField->setText(toString(end).c_str());
         // fill parameter comboBox
         for (const auto& parameter : myParameters) {
-            myParametersComboBox->appendItem(parameter.c_str());
+            myParametersComboBox->appendIconItem(parameter.c_str());
         }
         // check previous dataSet
         myDataSetsComboBox->setCurrentItem(0, FALSE);
         for (int i = 0; i < myDataSetsComboBox->getNumItems(); i++) {
-            if (myDataSetsComboBox->getItem(i).text() == previousDataSet) {
+            if (myDataSetsComboBox->getItemText(i) == previousDataSet) {
                 myDataSetsComboBox->setCurrentItem(i);
             }
         }
@@ -3258,20 +3260,9 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         // check previous parameter
         myParametersComboBox->setCurrentItem(0, FALSE);
         for (int i = 0; i < myParametersComboBox->getNumItems(); i++) {
-            if (myParametersComboBox->getItem(i).text() == previousParameter) {
+            if (myParametersComboBox->getItemText(i) == previousParameter) {
                 myParametersComboBox->setCurrentItem(i);
             }
-        }
-        // set visible elements
-        if (myDataSetsComboBox->getNumItems() < 10) {
-            myDataSetsComboBox->setNumVisible(myDataSetsComboBox->getNumItems());
-        } else {
-            myDataSetsComboBox->setNumVisible(10);
-        }
-        if (myParametersComboBox->getNumItems() < 10) {
-            myParametersComboBox->setNumVisible(myParametersComboBox->getNumItems());
-        } else {
-            myParametersComboBox->setNumVisible(10);
         }
         // check if enable or disable
         if ((myViewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||

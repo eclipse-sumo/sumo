@@ -34,7 +34,6 @@
 #define LINE_SPACING    4   // Line spacing between items
 #define ICON_SIZE       16
 
-#define SELECT_MASK (LIST_SINGLESELECT | LIST_BROWSESELECT)
 #define LIST_MASK   (SELECT_MASK | LIST_AUTOSELECT)
 
 // ===========================================================================
@@ -65,9 +64,6 @@ FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
     FXMAPFUNC(SEL_COMMAND,              0,                              MFXListIcon::onCommand), 
     FXMAPFUNC(SEL_QUERY_TIP,            0,                              MFXListIcon::onQueryTip), 
     FXMAPFUNC(SEL_QUERY_HELP,           0,                              MFXListIcon::onQueryHelp), 
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETVALUE,          MFXListIcon::onCmdSetValue), 
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_SETINTVALUE,       MFXListIcon::onCmdSetIntValue), 
-    FXMAPFUNC(SEL_COMMAND,              FXWindow::ID_GETINTVALUE,       MFXListIcon::onCmdGetIntValue), 
 };
 
 
@@ -83,21 +79,10 @@ MFXListIcon::MFXListIcon(FXComposite *p, FXObject* tgt, FXSelector sel, FXuint o
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
-    anchor = -1;
-    current = -1;
-    extent = -1;
-    cursor = -1;
-    viewable = -1;
     font = getApp()->getNormalFont();
     textColor = getApp()->getForeColor();
     selbackColor = getApp()->getSelbackColor();
     seltextColor = getApp()->getSelforeColor();
-    listWidth = 0;
-    listHeight = 0;
-    visible = 0;
-    grabx = 0;
-    graby = 0;
-    state = FALSE;
 }
 
 
@@ -111,9 +96,8 @@ MFXListIcon::~MFXListIcon() {
 
 void
 MFXListIcon::create() {
-    register FXint i;
     FXScrollArea::create();
-    for (i = 0; i < items.no(); i++) {
+    for (int i = 0; i < items.no(); i++) {
         items[i]->create();
     }
     font->create();
@@ -122,9 +106,8 @@ MFXListIcon::create() {
 
 void
 MFXListIcon::detach() {
-    register FXint i;
     FXScrollArea::detach();
-    for (i = 0; i < items.no(); i++) {
+    for (int i = 0; i < items.no(); i++) {
         items[i]->detach();
     }
     font->detach();
@@ -159,10 +142,11 @@ MFXListIcon::getDefaultWidth() {
 
 FXint
 MFXListIcon::getDefaultHeight() {
-    if (visible) {
-        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
+    int filteredItems = (int)getFilteredItems().size();
+    if (visible > filteredItems) {
+        return filteredItems * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
     } else {
-        return FXScrollArea::getDefaultHeight();
+        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(),  ICON_SIZE));
     }
 }
 
@@ -171,7 +155,7 @@ void
 MFXListIcon::recalc() {
     FXScrollArea::recalc();
     flags |= FLAG_RECALC;
-    cursor = -1;
+    cursor = nullptr;
 }
 
 
@@ -209,14 +193,15 @@ void
 MFXListIcon::layout() {
     // Calculate contents
     FXScrollArea::layout();
+    const auto filteredItems = getFilteredItems();
     // Determine line size for scroll bars
-    if (0 < items.no()) {
-        vertical->setLine(items[0]->getHeight(this));
-        horizontal->setLine(items[0]->getWidth(this)/10);
+    if (0 < filteredItems.size()) {
+        vertical->setLine(filteredItems[0]->getHeight(this));
+        horizontal->setLine(filteredItems[0]->getWidth(this)/10);
     }
     update();
     // We were supposed to make this item viewable
-    if (0 <= viewable) {
+    if (viewable) {
         makeItemVisible(viewable);
     }
     // No more dirty
@@ -224,115 +209,103 @@ MFXListIcon::layout() {
 }
 
 
-void
-MFXListIcon::setItemText(FXint index, const FXString &text) {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::setItemText: index out of range.\n", getClassName());
-    }
-    if (items[index]->getText() != text) {
-        items[index]->setText(text);
-        recalc();
-    }
-}
-
-
-FXString
-MFXListIcon::getItemText(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::getItemText: index out of range.\n", getClassName());
-    }
-    return items[index]->getText();
-}
-
-
-FXbool
-MFXListIcon::isItemSelected(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::isItemSelected: index out of range.\n", getClassName());
-    }
-    return items[index]->isSelected();
-}
-
-
 FXbool
 MFXListIcon::isItemCurrent(FXint index) const {
-    return (0 <= index) && (index == current);
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i] == currentItem) {
+            return i == index;
+        }
+    }
+    return false;
 }
 
 
 FXbool
-MFXListIcon::isItemEnabled(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::isItemEnabled: index out of range.\n", getClassName());
-    }
-    return items[index]->isEnabled();
+MFXListIcon::isItemVisible(MFXListIconItem* item) const {
+    return (0 < (pos_y + item->y + item->getHeight(this))) && ((pos_y + item->y) < viewport_h);
 }
 
 
-
-FXbool
-MFXListIcon::isItemVisible(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::isItemVisible: index out of range.\n", getClassName());
+void
+MFXListIcon::makeItemVisible(MFXListIconItem* item) {
+    register FXint y, h;
+    // Remember for later
+    viewable = item;
+    // Was realized
+    if (xid) {
+        // Force layout if dirty
+        if (flags & FLAG_RECALC) {
+            layout();
+        }
+        y = pos_y;
+        h = item->getHeight(this);
+        if (viewport_h <= y + item->y + h) {
+            y = viewport_h - item->y - h;
+        }
+        if (y + item->y <= 0) {
+            y =- item->y;
+        }
+        // Scroll into view
+        setPosition(pos_x, y);
+        // Done it
+        viewable = nullptr;
     }
-    return (0 < (pos_y + items[index]->y + items[index]->getHeight(this))) && ((pos_y + items[index]->y) < viewport_h);
 }
 
 
 void
 MFXListIcon::makeItemVisible(FXint index) {
-    register FXint y, h;
-    if (0 <= index && index < items.no()) {
-        // Remember for later
-        viewable = index;
-        // Was realized
-        if (xid) {
-            // Force layout if dirty
-            if (flags & FLAG_RECALC) {
-                layout();
-            }
-            y = pos_y;
-            h = items[index]->getHeight(this);
-            if (viewport_h <= y+items[index]->y+h) {
-                y = viewport_h-items[index]->y-h;
-            }
-            if (y+items[index]->y <= 0) {
-                y = -items[index]->y;
-            }
-            // Scroll into view
-            setPosition(pos_x, y);
-            // Done it
-            viewable = -1;
-        }
-    }
+    makeItemVisible(items[index]);
 }
 
 
 FXint
 MFXListIcon::getItemWidth(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::getItemWidth: index out of range.\n", getClassName());
+    const auto filteredItems = getFilteredItems();
+    if (index < 0 || (int)filteredItems.size() <= index) {
+        fxerror("%s::isItemSelected: index out of range.\n", getClassName());
     }
-    return items[index]->getWidth(this);
+    return filteredItems[index]->getWidth(this);
 }
 
 
 FXint
 MFXListIcon::getItemHeight(FXint index) const {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::getItemHeight: index out of range.\n", getClassName());
+    const auto filteredItems = getFilteredItems();
+    if (index < 0 || (int)filteredItems.size() <= index) {
+        fxerror("%s::isItemSelected: index out of range.\n", getClassName());
     }
-    return items[index]->getHeight(this);
+    return filteredItems[index]->getHeight(this);
 }
 
 
-FXint
-MFXListIcon::getItemAt(FXint, FXint y) const {
-    register FXint index;
+MFXListIconItem*
+MFXListIcon::getItemAt(FXint y) const {
     y -= pos_y;
-    for (index = 0; index < items.no(); index++) {
-        if (items[index]->y <= y && y < items[index]->y+items[index]->getHeight(this)) {
-            return index;
+    // continue depending if we're filtering
+    if (filter.empty()) {
+        for (int i = 0; i < items.no(); i++) {
+            if (items[i]->y <= y && y < items[i]->y + items[i]->getHeight(this)) {
+                return items[i];
+            }
+        }
+    } else {
+        const auto filteredItems = getFilteredItems();
+        for (const auto &item : filteredItems) {
+            if (item->y <= y && y < item->y + item->getHeight(this)) {
+                return item;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
+int
+MFXListIcon::findItem(const FXString& text) const {
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i]->getText().text() == text) {
+            return i;
         }
     }
     return -1;
@@ -340,230 +313,73 @@ MFXListIcon::getItemAt(FXint, FXint y) const {
 
 
 FXint
-MFXListIcon::hitItem(FXint index, FXint x, FXint y) const {
+MFXListIcon::hitItem(MFXListIconItem* item, FXint x, FXint y) const {
     FXint ix, iy, hit = 0;
-    if (0 <= index && index < items.no()) {
+    if (item) {
         x -= pos_x;
         y -= pos_y;
-        ix = items[index]->x;
-        iy = items[index]->y;
-        hit = items[index]->hitItem(this, x-ix, y-iy);
+        ix = item->x;
+        iy = item->y;
+        hit = item->hitItem(this, x - ix, y - iy);
     }
     return hit;
 }
 
 
 void
-MFXListIcon::updateItem(FXint index) const {
-    if (0 <= index && index < items.no()) {
-        update(0, pos_y + items[index]->y, viewport_w, items[index]->getHeight(this));
-    }
+MFXListIcon::updateItem(MFXListIconItem* item) const {
+    update(0, pos_y + item->y, viewport_w, item->getHeight(this));
 }
 
 
 FXbool
-MFXListIcon::enableItem(FXint index) {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::enableItem: index out of range.\n", getClassName());
-    }
-    if (!items[index]->isEnabled()) {
-        items[index]->setEnabled(TRUE);
-        updateItem(index);
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-FXbool
-MFXListIcon::disableItem(FXint index) {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::disableItem: index out of range.\n", getClassName());
-    }
-    if (items[index]->isEnabled()) {
-        items[index]->setEnabled(FALSE);
-        updateItem(index);
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-FXbool
-MFXListIcon::selectItem(FXint index, FXbool notify) {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::selectItem: index out of range.\n", getClassName());
-    }
-    if (!items[index]->isSelected()) {
-        switch(options & SELECT_MASK) {
-            case LIST_SINGLESELECT:
-            case LIST_BROWSESELECT:
-                killSelection(notify);
-            case LIST_EXTENDEDSELECT:
-            case LIST_MULTIPLESELECT:
-                items[index]->setSelected(TRUE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)index);
-                }
-                break;
+MFXListIcon::selectItem(MFXListIconItem* item, FXbool notify) {
+    if (!item->isSelected()) {
+        killSelection(notify);
+        item->setSelected(TRUE);
+        updateItem(item);
+        if (notify && target) {
+            target->tryHandle(this, FXSEL(SEL_SELECTED, message), nullptr);
         }
         return TRUE;
+    } else {
+        return FALSE;
     }
-    return FALSE;
 }
 
 
 FXbool
-MFXListIcon::deselectItem(FXint index, FXbool notify) {
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::deselectItem: index out of range.\n", getClassName());
-    }
-    if (items[index]->isSelected()) {
-        switch(options & SELECT_MASK) {
-            case LIST_EXTENDEDSELECT:
-            case LIST_MULTIPLESELECT:
-            case LIST_SINGLESELECT:
-                items[index]->setSelected(FALSE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)index);
-                }
-            break;
+MFXListIcon::deselectItem(MFXListIconItem* item, FXbool notify) {
+    if (item->isSelected()) {
+        item->setSelected(FALSE);
+        updateItem(item);
+        if (notify && target) {
+            target->tryHandle(this, FXSEL(SEL_DESELECTED, message), nullptr);
         }
         return TRUE;
+    } else {
+        return FALSE;
     }
-    return FALSE;
 }
 
 
 FXbool
-MFXListIcon::toggleItem(FXint index, FXbool notify) {
-    if (index < 0 || items.no() <= index) { fxerror("%s::toggleItem: index out of range.\n", getClassName()); }
-    switch(options & SELECT_MASK) {
-        case LIST_BROWSESELECT:
-            if (!items[index]->isSelected()) {
-                killSelection(notify);
-                items[index]->setSelected(TRUE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)index);
-                }
-            }
-            break;
-        case LIST_SINGLESELECT:
-            if (!items[index]->isSelected()) {
-                killSelection(notify);
-                items[index]->setSelected(TRUE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)index);
-                }
-            } else {
-                items[index]->setSelected(FALSE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)index);
-                }
-            }
-            break;
-        case LIST_EXTENDEDSELECT:
-        case LIST_MULTIPLESELECT:
-            if (!items[index]->isSelected()) {
-                items[index]->setSelected(TRUE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)index);
-                }
-            } else {
-                items[index]->setSelected(FALSE);
-                updateItem(index);
-                if (notify && target) {
-                    target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)index);
-                }
-            }
-            break;
+MFXListIcon::toggleItem(MFXListIconItem* item, FXbool notify) {
+    if (!item->isSelected()) {
+        killSelection(notify);
+        item->setSelected(TRUE);
+        updateItem(item);
+        if (notify && target) {
+            target->tryHandle(this, FXSEL(SEL_SELECTED, message), nullptr);
+        }
+    } else {
+        item->setSelected(FALSE);
+        updateItem(item);
+        if (notify && target) {
+            target->tryHandle(this, FXSEL(SEL_DESELECTED, message), nullptr);
+        }
     }
     return TRUE;
-}
-
-
-FXbool
-MFXListIcon::extendSelection(FXint index, FXbool notify) {
-    register FXbool changes = FALSE;
-    FXint i1, i2, i3, i;
-    if (0 <= index && 0 <= anchor && 0 <= extent) {
-
-        // Find segments
-        i1 = index;
-        if (anchor < i1) {
-            i2 = i1;i1 = anchor;
-        } else {
-            i2 = anchor;
-        }
-        if (extent < i1) {
-            i3 = i2;i2 = i1;i1 = extent;
-        } else if (extent < i2) {
-            i3 = i2;i2 = extent;
-        } else {
-            i3 = extent;
-        }
-
-        // First segment
-        for (i = i1; i < i2; i++) {
-            if (i1 == index) {
-                // item === extent---anchor
-                // item === anchor---extent
-                if (!items[i]->isSelected()) {
-                    items[i]->setSelected(TRUE);
-                    updateItem(i);
-                    changes = TRUE;
-                    if (notify && target) {
-                        target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)i);
-                    }
-                }
-            } else if (i1 == extent) {
-                // extent ==  = anchor---item
-                // extent ==  = item-----anchor
-                if (items[i]->isSelected()) {
-                    items[i]->setSelected(FALSE);
-                    updateItem(i);
-                    changes = TRUE;
-                    if (notify && target) {
-                        target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)i);
-                    }
-                }
-            }
-        }
-        // Second segment
-        for (i = i2+1; i <= i3; i++) {
-            if (i3 == index) {
-                // extent---anchor === item
-                // anchor---extent === item
-                if (!items[i]->isSelected()) {
-                    items[i]->setSelected(TRUE);
-                    updateItem(i);
-                    changes = TRUE;
-                    if (notify && target) {
-                        target->tryHandle(this, FXSEL(SEL_SELECTED, message), (void*)(FXival)i);
-                    }
-                }
-            } else if (i3 == extent) {
-                // item-----anchor === extent
-                // anchor---item ===== extent
-                if (items[i]->isSelected()) {
-                    items[i]->setSelected(FALSE);
-                    updateItem(i);
-                    changes = TRUE;
-                    if (notify && target) {
-                        target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)i);
-                    }
-                }
-            }
-        }
-        extent = index;
-    }
-    return changes;
 }
 
 
@@ -574,7 +390,7 @@ MFXListIcon::killSelection(FXbool notify) {
     for (i = 0; i < items.no(); i++) {
         if (items[i]->isSelected()) {
             items[i]->setSelected(FALSE);
-            updateItem(i);
+            updateItem(items[i]);
             changes = TRUE;
             if (notify && target) {
                 target->tryHandle(this, FXSEL(SEL_DESELECTED, message), (void*)(FXival)i);
@@ -586,31 +402,10 @@ MFXListIcon::killSelection(FXbool notify) {
 
 
 long
-MFXListIcon::onCmdSetValue(FXObject*, FXSelector, void* ptr) {
-    setCurrentItem((FXint)(FXival)ptr);
-    return 1;
-}
-
-
-long
-MFXListIcon::onCmdGetIntValue(FXObject*, FXSelector, void* ptr) {
-    *((FXint*)ptr) = getCurrentItem();
-    return 1;
-}
-
-
-long
-MFXListIcon::onCmdSetIntValue(FXObject*, FXSelector, void* ptr) {
-    setCurrentItem(*((FXint*)ptr));
-    return 1;
-}
-
-
-long
 MFXListIcon::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     FXScrollArea::onEnter(sender, sel, ptr);
     getApp()->addTimeout(this, ID_TIPTIMER, getApp()->getMenuPause());
-    cursor = -1;
+    cursor = nullptr;
     return 1;
 }
 
@@ -619,7 +414,7 @@ long
 MFXListIcon::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     FXScrollArea::onLeave(sender, sel, ptr);
     getApp()->removeTimeout(this, ID_TIPTIMER);
-    cursor = -1;
+    cursor = nullptr;
     return 1;
 }
 
@@ -627,10 +422,9 @@ MFXListIcon::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXListIcon::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
     FXScrollArea::onFocusIn(sender, sel, ptr);
-    if (0 <= current) {
-        FXASSERT(current < items.no());
-        items[current]->setFocus(TRUE);
-        updateItem(current);
+    if (currentItem) {
+        currentItem->setFocus(TRUE);
+        updateItem(currentItem);
     }
     return 1;
 }
@@ -648,8 +442,8 @@ MFXListIcon::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
     if (FXWindow::onQueryTip(sender, sel, ptr)) {
         return 1;
     }
-    if ((flags & FLAG_TIP) && !(options & LIST_AUTOSELECT) && (0 <= cursor)) {    // No tip when autoselect!
-        FXString string = items[cursor]->getText();
+    if (cursor && (flags & FLAG_TIP) && !(options & LIST_AUTOSELECT)) {    // No tip when autoselect!
+        FXString string = cursor->getText();
         sender->handle(this, FXSEL(SEL_COMMAND, ID_SETSTRINGVALUE), (void*) & string);
         return 1;
     }
@@ -673,10 +467,9 @@ MFXListIcon::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXListIcon::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
     FXScrollArea::onFocusOut(sender, sel, ptr);
-    if (0 <= current) {
-        FXASSERT(current < items.no());
-        items[current]->setFocus(FALSE);
-        updateItem(current);
+    if (currentItem) {
+        currentItem->setFocus(FALSE);
+        updateItem(currentItem);
     }
     return 1;
 }
@@ -686,18 +479,16 @@ long
 MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     FXDCWindow dc(this,  event);
-    FXint i,  y,  h;
+    FXint y,  h;
+    const auto filteredItems = getFilteredItems();
     // Paint items
     y = pos_y;
-    for (i = 0; i < items.no(); i++) {
-        const auto listIcon = dynamic_cast < MFXListIconItem*>(items[i]);
-        if (listIcon) {
-            h = listIcon->getHeight(this);
-            if (event->rect.y  <=  (y + h) && y < (event->rect.y + event->rect.h)) {
-                listIcon->draw(this,  dc,  pos_x,  y,  FXMAX(listWidth,  viewport_w),  h);
-            }
-            y += h;
+    for (const auto &item : filteredItems) {
+        h = item->getHeight(this);
+        if (event->rect.y <= (y + h) && y < (event->rect.y + event->rect.h)) {
+            item->draw(this,  dc,  pos_x,  y,  FXMAX(listWidth,  viewport_w),  h);
         }
+        y += h;
     }
     // Paint blank area below items
     if (y < (event->rect.y + event->rect.h)) {
@@ -718,7 +509,7 @@ MFXListIcon::onLookupTimer(FXObject*, FXSelector, void*) {
 long
 MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    FXint index = current;
+    FXint index = getCurrentItemIndex();
     flags &= ~FLAG_TIP;
     if (!isEnabled()) {
         return 0;
@@ -726,6 +517,7 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     if (target && target->tryHandle(this, FXSEL(SEL_KEYPRESS, message), ptr)) {
         return 1;
     }
+    const auto filteredItems = getFilteredItems();
     switch(event->code) {
         case KEY_Control_L:
         case KEY_Control_R:
@@ -761,102 +553,46 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             goto hop;
         case KEY_End:
         case KEY_KP_End:
-            index = items.no()-1;
+            index = (int)filteredItems.size() - 1;
             hop: lookup = FXString::null;
-            if (0 <= index && index < items.no()) {
-                setCurrentItem(index, TRUE);
-                makeItemVisible(index);
-                if (items[index]->isEnabled()) {
-                    if ((options & SELECT_MASK) == LIST_EXTENDEDSELECT) {
-                        if (event->state & SHIFTMASK) {
-                            if (0 <= anchor) {
-                                selectItem(anchor, TRUE);
-                                extendSelection(index, TRUE);
-                            } else {
-                                selectItem(index, TRUE);
-                                setAnchorItem(index);
-                            }
-                        } else if (!(event->state & CONTROLMASK)) {
-                            killSelection(TRUE);
-                            selectItem(index, TRUE);
-                            setAnchorItem(index);
-                        }
-                    }
+            // continue depending of filter
+            if (filter.empty()) {
+                if (0 <= index && index < items.no()) {
+                    setCurrentItem(items[index], TRUE);
+                    makeItemVisible(items[index]);
+                }
+            } else {
+                if (0 <= index && index < (int)filteredItems.size()) {
+                    setCurrentItem(filteredItems[index], TRUE);
+                    makeItemVisible(filteredItems[index]);
                 }
             }
-            handle(this, FXSEL(SEL_CLICKED, 0), (void*)(FXival)current);
-            if (0 <= current && items[current]->isEnabled()) {
-                handle(this, FXSEL(SEL_COMMAND, 0), (void*)(FXival)current);
+            handle(this, FXSEL(SEL_CLICKED, 0), (void*)currentItem);
+            if (currentItem && currentItem->isEnabled()) {
+                handle(this, FXSEL(SEL_COMMAND, 0), (void*)currentItem);
             }
             return 1;
         case KEY_space:
         case KEY_KP_Space:
             lookup = FXString::null;
-            if (0 <= current && items[current]->isEnabled()) {
-                switch(options & SELECT_MASK) {
-                    case LIST_EXTENDEDSELECT:
-                        if (event->state & SHIFTMASK) {
-                            if (0 <= anchor) {
-                                selectItem(anchor, TRUE);
-                                extendSelection(current, TRUE);
-                            } else {
-                                selectItem(current, TRUE);
-                            }
-                        } else if (event->state & CONTROLMASK) {
-                            toggleItem(current, TRUE);
-                        } else {
-                            killSelection(TRUE);
-                            selectItem(current, TRUE);
-                            }
-                        break;
-                    case LIST_MULTIPLESELECT:
-                    case LIST_SINGLESELECT:
-                        toggleItem(current, TRUE);
-                        break;  
-                }   
-                setAnchorItem(current);
+            if (currentItem && currentItem->isEnabled()) {
+                toggleItem(currentItem, TRUE);
+                setAnchorItem(currentItem);
             }
-            handle(this, FXSEL(SEL_CLICKED, 0), (void*)(FXival)current);
-            if (0 <= current && items[current]->isEnabled()) {
-                handle(this, FXSEL(SEL_COMMAND, 0), (void*)(FXival)(FXival)current);
+            handle(this, FXSEL(SEL_CLICKED, 0), (void*)currentItem);
+            if (currentItem && currentItem->isEnabled()) {
+                handle(this, FXSEL(SEL_COMMAND, 0), (void*)currentItem);
             }
             return 1;
         case KEY_Return:
         case KEY_KP_Enter:
             lookup = FXString::null;
-            handle(this, FXSEL(SEL_DOUBLECLICKED, 0), (void*)(FXival)current);
-            if (0 <= current && items[current]->isEnabled()) {
-                handle(this, FXSEL(SEL_COMMAND, 0), (void*)(FXival)current);
+            handle(this, FXSEL(SEL_DOUBLECLICKED, 0), (void*)currentItem);
+            if (currentItem && currentItem->isEnabled()) {
+                handle(this, FXSEL(SEL_COMMAND, 0), (void*)currentItem);
             }
             return 1;
         default:
-            if ((FXuchar)event->text[0] < ' ') {
-                return 0;
-            }
-            if (event->state & (CONTROLMASK|ALTMASK)) {
-                return 0;
-            }
-            if (!Ascii::isPrint(event->text[0])) {
-                return 0;
-            }
-            lookup.append(event->text);
-            getApp()->addTimeout(this, ID_LOOKUPTIMER, getApp()->getTypingSpeed());
-            index = findItem(lookup, current, SEARCH_FORWARD|SEARCH_WRAP|SEARCH_PREFIX);
-            if (0 <= index) {
-                setCurrentItem(index, TRUE);
-                makeItemVisible(index);
-                if ((options & SELECT_MASK) == LIST_EXTENDEDSELECT) {
-                    if (items[index]->isEnabled()) {
-                        killSelection(TRUE);
-                        selectItem(index, TRUE);
-                    }
-                }
-                setAnchorItem(index);
-            }
-            handle(this, FXSEL(SEL_CLICKED, 0), (void*)(FXival)current);
-            if (0 <= current && items[current]->isEnabled()) {
-                handle(this, FXSEL(SEL_COMMAND, 0), (void*)(FXival)current);
-            }
             return 1;
     }
 }
@@ -896,7 +632,7 @@ MFXListIcon::onAutoScroll(FXObject*,  FXSelector,  void*) {
 long
 MFXListIcon::onMotion(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    FXint oldcursor = cursor;
+    MFXListIconItem* oldcursor = cursor;
     FXuint flg = flags;
 
     // Kill the tip
@@ -936,16 +672,11 @@ MFXListIcon::onMotion(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // Find item
-        FXint index = getItemAt(event->win_x, event->win_y);
+        auto element = getItemAt(event->win_y);
         // Got an item different from before
-        if (0 <= index && index != current) {
+        if (element) {
             // Make it the current item
-            setCurrentItem(index, TRUE);
-            // Extend the selection
-            if ((options & SELECT_MASK) == LIST_EXTENDEDSELECT) {
-                state = FALSE;
-                extendSelection(index, TRUE);
-            }
+            setCurrentItem(element, TRUE);
             return 1;
         }
     }
@@ -954,17 +685,17 @@ MFXListIcon::onMotion(FXObject*, FXSelector, void* ptr) {
     getApp()->addTimeout(this, ID_TIPTIMER, getApp()->getMenuPause());
 
     // Get item we're over
-    cursor = getItemAt(event->win_x, event->win_y);
+    cursor = getItemAt(event->win_y);
 
     // Force GUI update only when needed
-    return (cursor != oldcursor)||(flg & FLAG_TIP);
+    return (cursor != oldcursor) || (flg & FLAG_TIP);
 }
 
 
 long
 MFXListIcon::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
-    FXint index, code;
+    FXint code;
     flags &= ~FLAG_TIP;
     handle(this, FXSEL(SEL_FOCUS_SELF, 0), ptr);
     if (isEnabled()) {
@@ -979,57 +710,22 @@ MFXListIcon::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // Locate item
-        index = getItemAt(event->win_x, event->win_y);
+        auto item = getItemAt(event->win_y);
         // No item
-        if (index < 0) {
-            if ((options & SELECT_MASK) == LIST_EXTENDEDSELECT) {
-                if (!(event->state & (SHIFTMASK|CONTROLMASK))) {
-                    killSelection(TRUE);
-                }
-            }
+        if (item == nullptr) {
             return 1;
         }
         // Find out where hit
-        code = hitItem(index, event->win_x, event->win_y);
+        code = hitItem(item, event->win_x, event->win_y);
         // Change current item
-        setCurrentItem(index, TRUE);
+        setCurrentItem(item, TRUE);
         // Change item selection
-        state = items[index]->isSelected();
-            switch(options & SELECT_MASK) {
-            case LIST_EXTENDEDSELECT:
-                if (event->state & SHIFTMASK) {
-                    if (0 <= anchor) {
-                        if (items[anchor]->isEnabled()) {
-                            selectItem(anchor, TRUE);
-                        }
-                        extendSelection(index, TRUE);
-                    } else {
-                        if (items[index]->isEnabled()) {
-                            selectItem(index, TRUE);
-                        }
-                        setAnchorItem(index);
-                    }
-                } else if (event->state & CONTROLMASK) {
-                    if (items[index]->isEnabled() && !state) {
-                        selectItem(index, TRUE);
-                    }
-                    setAnchorItem(index);
-                } else {
-                    if (items[index]->isEnabled() && !state) {
-                        killSelection(TRUE); selectItem(index, TRUE);
-                    }
-                    setAnchorItem(index);
-                }
-                break;
-            case LIST_MULTIPLESELECT:
-            case LIST_SINGLESELECT:
-                if (items[index]->isEnabled() && !state) {
-                    selectItem(index, TRUE);
-                }
-                break;
+        state = item->isSelected();
+        if (item->isEnabled() && !state) {
+            selectItem(item, TRUE);
         }
         // Start drag if actually pressed text or icon only
-        if (code && items[index]->isSelected() && items[index]->isDraggable()) {
+        if (code && item->isSelected() && item->isDraggable()) {
             flags |= FLAG_TRYDRAG;
         }
         flags |= FLAG_PRESSED;
@@ -1044,6 +740,7 @@ MFXListIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     FXuint flg = flags;
     if (isEnabled()) {
+        const auto filteredItems = getFilteredItems();
         ungrab();
         stopAutoScroll();
         flags |= FLAG_UPDATE;
@@ -1061,52 +758,26 @@ MFXListIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
             handle(this, FXSEL(SEL_ENDDRAG, 0), ptr);
             return 1;
         }
-
-        // Selection change
-        switch(options & SELECT_MASK) {
-            case LIST_EXTENDEDSELECT:
-                if (0 <= current && items[current]->isEnabled()) {
-                    if (event->state & CONTROLMASK) {
-                        if (state) {
-                            deselectItem(current, TRUE);
-                        }
-                    } else if (!(event->state & SHIFTMASK)) {
-                        if (state) {
-                            killSelection(TRUE); selectItem(current, TRUE);
-                        }
-                    }
-                }
-                break;
-            case LIST_MULTIPLESELECT:
-            case LIST_SINGLESELECT:
-                if (0 <= current && items[current]->isEnabled()) {
-                    if (state) {
-                        deselectItem(current, TRUE);
-                    }
-                }
-                break;
+        if (currentItem && currentItem->isEnabled()) {
+            if (state) {
+                deselectItem(currentItem, TRUE);
+            }
         }
-
         // Scroll to make item visibke
-        makeItemVisible(current);
-
+        makeItemVisible(currentItem);
         // Update anchor
-        setAnchorItem(current);
-
+        setAnchorItem(currentItem);
         // Generate clicked callbacks
         if (event->click_count == 1) {
-        handle(this, FXSEL(SEL_CLICKED, 0), (void*)(FXival)current);
+            handle(this, FXSEL(SEL_CLICKED, 0), (void*)currentItem);
+        } else if (event->click_count == 2) {
+            handle(this, FXSEL(SEL_DOUBLECLICKED, 0), (void*)currentItem);
+        } else if (event->click_count == 3) {
+            handle(this, FXSEL(SEL_TRIPLECLICKED, 0), (void*)currentItem);
         }
-        else if (event->click_count == 2) {
-        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), (void*)(FXival)current);
-        }
-        else if (event->click_count == 3) {
-        handle(this, FXSEL(SEL_TRIPLECLICKED, 0), (void*)(FXival)current);
-        }
-
         // Command callback only when clicked on item
-        if (0 <= current && items[current]->isEnabled()) {
-        handle(this, FXSEL(SEL_COMMAND, 0), (void*)(FXival)current);
+        if (currentItem && currentItem->isEnabled()) {
+            handle(this, FXSEL(SEL_COMMAND, 0), (void*)currentItem);
         }
         return 1;
     }
@@ -1182,47 +853,91 @@ MFXListIcon::onTripleClicked(FXObject*, FXSelector, void* ptr) {
 
 
 void
-MFXListIcon::setCurrentItem(FXint index, FXbool notify) {
-    if (index < -1 || items.no() <= index) {
-        fxerror("%s::setCurrentItem: index out of range.\n", getClassName());
-    }
-    if (index != current) {
+MFXListIcon::setCurrentItem(MFXListIconItem* item, FXbool notify) {
+    if (item) {
         // Deactivate old item
-        if (0 <= current) {
-            // No visible change if it doen't have the focus
-            if (hasFocus()) {
-                items[current]->setFocus(FALSE);
-                updateItem(current);
-            }
+        if (currentItem) {
+            currentItem->setFocus(FALSE);
+            updateItem(currentItem);
         }
-        current = index;
+        currentItem = item;
         // Activate new item
-        if (0 <= current) {
-            // No visible change if it doen't have the focus
-            if (hasFocus()) {
-                items[current]->setFocus(TRUE);
-                updateItem(current);
-            }
+        if (currentItem) {
+            currentItem->setFocus(TRUE);
+            updateItem(currentItem);
         }
         // Notify item change
         if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)current);
+            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)currentItem);
         }
-    }
-    // In browse select mode,  select this item
-    if ((options & SELECT_MASK) == LIST_BROWSESELECT && 0 <= current && items[current]->isEnabled()) {
-        selectItem(current, notify);
     }
 }
 
 
+FXint
+MFXListIcon::getCurrentItemIndex() const {
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i] == currentItem) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+FXint
+MFXListIcon::getViewableItem() const {
+    // continue depending if we're filtering
+    if (filter.empty()) {
+        for (int i = 0; i < items.no(); i++) {
+            if (items[i] == viewable) {
+                return i;
+            }
+        }
+    } else {
+        const auto filteredItems = getFilteredItems();
+        for (int i = 0; i < (int)filteredItems.size(); i++) {
+            if (filteredItems[i] == viewable) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+
 void
-MFXListIcon::setAnchorItem(FXint index) {
-    if (index < -1 || items.no() <= index) {
-        fxerror("%s::setAnchorItem: index out of range.\n", getClassName());
+MFXListIcon::setAnchorItem(MFXListIconItem* item) {
+    int index = 0;
+    // continue depending if we're filtering
+    if (filter.empty()) {
+        for (int i = 0; i < items.no(); i++) {
+            if (items[i] == item) {
+                index = i;
+            }
+        }
+    } else {
+        const auto filteredItems = getFilteredItems();
+        for (int i = 0; i < (int)filteredItems.size(); i++) {
+            if (filteredItems[i] == item) {
+                index = i;
+            }
+        }
     }
     anchor = index;
     extent = index;
+}
+
+
+FXint
+MFXListIcon::getAnchorItem() const {
+    return anchor;
+}
+
+
+MFXListIconItem*
+MFXListIcon::getCursorItem() const {
+    return cursor;
 }
 
 
@@ -1237,7 +952,6 @@ MFXListIcon::getItem(FXint index) const {
 
 FXint
 MFXListIcon::setItem(FXint index, MFXListIconItem* item, FXbool notify) {
-
     // Must have item
     if (!item) {
         fxerror("%s::setItem: item is NULL.\n", getClassName());
@@ -1262,6 +976,9 @@ MFXListIcon::setItem(FXint index, MFXListIconItem* item, FXbool notify) {
     // Add new
     items[index] = item;
 
+    // recompute (due filter)
+    recompute();
+
     // Redo layout
     recalc();
     return index;
@@ -1269,57 +986,58 @@ MFXListIcon::setItem(FXint index, MFXListIconItem* item, FXbool notify) {
 
 
 FXint
-MFXListIcon::setItem(FXint index, const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
+MFXListIcon::editItem(FXint index, const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
     return setItem(index, createItem(text, icon, ptr), notify);
 }
 
 
 FXint
 MFXListIcon::insertItem(FXint index, MFXListIconItem* item, FXbool notify) {
-    register FXint old = current;
-
+    MFXListIconItem *old = currentItem;
     // Must have item
     if (!item) {
         fxerror("%s::insertItem: item is NULL.\n", getClassName());
     }
-
     // Must be in range
     if (index < 0 || items.no() < index) {
         fxerror("%s::insertItem: index out of range.\n", getClassName());
     }
-
     // Add item to list
     items.insert(index, item);
-
     // Adjust indices
-    if (anchor >= index) anchor++;
-    if (extent >= index) extent++;
-    if (current >= index) current++;
-    if (viewable >= index) viewable++;
-    if (current < 0 && items.no() == 1) current = 0;
-
+    if (anchor >= index) {
+        anchor++;
+    }
+    if (extent >= index) {
+        extent++;
+    }
+    if (getCurrentItemIndex() >= index) {
+        currentItem = items[index];
+    }
+    if (getViewableItem() >= index) {
+        viewable = items[index];
+    }
+    if ((currentItem == nullptr) && (items.no() == 1)) {
+        currentItem = items[0];
+    }
     // Notify item has been inserted
     if (notify && target) {
         target->tryHandle(this, FXSEL(SEL_INSERTED, message), (void*)(FXival)index);
     }
-
     // Current item may have changed
-    if (old != current) {
+    if (old != currentItem) {
         if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)current);
+            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)currentItem);
         }
     }
-
     // Was new item
-    if (0 <= current && current == index) {
+    if (currentItem && currentItem == items[index]) {
         if (hasFocus()) {
-            items[current]->setFocus(TRUE);
-        }
-        if ((options & SELECT_MASK) == LIST_BROWSESELECT && items[current]->isEnabled()) {
-            selectItem(current, notify);
+            currentItem->setFocus(TRUE);
         }
     }
-
+    // recompute (due filter)
+    recompute();
     // Redo layout
     recalc();
     return index;
@@ -1344,189 +1062,55 @@ MFXListIcon::appendItem(const FXString &text, FXIcon *icon, void* ptr, FXbool no
 }
 
 
-FXint
-MFXListIcon::prependItem(MFXListIconItem* item, FXbool notify) {
-    return insertItem(0, item, notify);
-}
-
-
-FXint
-MFXListIcon::prependItem(const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
-    return insertItem(0, createItem(text, icon, ptr), notify);
-}
-
-
-FXint
-MFXListIcon::fillItems(const FXchar** strings, FXIcon *icon, void* ptr, FXbool notify) {
-    register FXint n = 0;
-    if (strings) {
-        while(strings[n]) {
-        appendItem(strings[n++], icon, ptr, notify);
-        }
-    }
-    return n;
-}
-
-
-FXint
-MFXListIcon::fillItems(const FXString &strings, FXIcon *icon, void* ptr, FXbool notify) {
-    register FXint n = 0;
-    FXString text;
-    while(!(text = strings.section('\n', n)).empty()) {
-        appendItem(text, icon, ptr, notify);
-        n++;
-    }
-    return n;
-}
-
-
-FXint
-MFXListIcon::moveItem(FXint newindex, FXint oldindex, FXbool notify) {
-    register FXint old = current;
-    register MFXListIconItem *item;
-
-    // Must be in range
-    if (newindex < 0 || oldindex < 0 || items.no() <= newindex || items.no() <= oldindex) {
-        fxerror("%s::moveItem: index out of range.\n", getClassName());
-    }
-
-    // Did it change?
-    if (oldindex != newindex) {
-
-        // Move item
-        item = items[oldindex];
-        items.erase(oldindex);
-        items.insert(newindex, item);
-
-        if (newindex < oldindex) {
-            // Move item down
-            if (newindex <= anchor && anchor < oldindex) anchor++;
-            if (newindex <= extent && extent < oldindex) extent++;
-            if (newindex <= current && current < oldindex) current++;
-            if (newindex <= viewable && viewable < oldindex) viewable++;
-        } else {
-            // Move item up
-            if (oldindex < anchor && anchor <= newindex) anchor--;
-            if (oldindex < extent && extent <= newindex) extent--;
-            if (oldindex < current && current <= newindex) current--;
-            if (oldindex < viewable && viewable <= newindex) viewable--;
-        }
-
-        // Adjust if it was equal
-        if (anchor == oldindex) anchor = newindex;
-        if (extent == oldindex) extent = newindex;
-        if (current == oldindex) current = newindex;
-        if (viewable == oldindex) viewable = newindex;
-
-        // Current item may have changed
-        if (old != current) {
-            if (notify && target) {
-                target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)current);
-            }
-        }
-
-        // Redo layout
-        recalc();
-    }
-    return newindex;
-}
-
-
-MFXListIconItem*
-MFXListIcon::extractItem(FXint index, FXbool notify) {
-    register MFXListIconItem *result;
-    register FXint old = current;
-
-    // Must be in range
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::extractItem: index out of range.\n", getClassName());
-    }
-
-    // Notify item will be deleted
-    if (notify && target) {
-        target->tryHandle(this, FXSEL(SEL_DELETED, message), (void*)(FXival)index);
-    }
-
-    // Extract item
-    result = items[index];
-
-    // Remove item from list
-    items.erase(index);
-
-    // Adjust indices
-    if (anchor>index || anchor >= items.no())  anchor--;
-    if (extent>index || extent >= items.no())  extent--;
-    if (current>index || current >= items.no()) current--;
-    if (viewable>index || viewable >= items.no()) viewable--;
-
-    // Current item has changed
-    if (index <= old) {
-        if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)current);
-        }
-    }
-
-    // Deleted current item
-    if (0 <= current && index == old) {
-        if (hasFocus()) {
-            items[current]->setFocus(TRUE);
-        }
-        if ((options & SELECT_MASK) == LIST_BROWSESELECT && items[current]->isEnabled()) {
-            selectItem(current, notify);
-        }
-    }
-
-    // Redo layout
-    recalc();
-
-    // Return the item
-    return result;
-}
-
-
 void
 MFXListIcon::removeItem(FXint index, FXbool notify) {
-    register FXint old = current;
-
+    MFXListIconItem *old = currentItem;
     // Must be in range
-    if (index < 0 || items.no() <= index) {
-        fxerror("%s::removeItem: index out of range.\n", getClassName());
+    if ((index < 0) || (items.no() <= index)) {
+        fxerror("%s::removeItem: index out of range.\n",getClassName());
     }
-
     // Notify item will be deleted
-    if (notify && target) {
-        target->tryHandle(this, FXSEL(SEL_DELETED, message), (void*)(FXival)index);
+    if (notify && target){
+        target->tryHandle(this,FXSEL(SEL_DELETED,message),(void*)(FXival)index);
     }
-
     // Delete item
     delete items[index];
-
     // Remove item from list
     items.erase(index);
-
     // Adjust indices
-    if (anchor>index || anchor >= items.no())  anchor--;
-    if (extent>index || extent >= items.no())  extent--;
-    if (current>index || current >= items.no()) current--;
-    if (viewable>index || viewable >= items.no()) viewable--;
-
-    // Current item has changed
-    if (index <= old) {
+    if (anchor >= index) {
+        anchor++;
+    }
+    if (extent >= index) {
+        extent++;
+    }
+    if (getCurrentItemIndex() >= index) {
+        currentItem = items[index];
+    }
+    if (getViewableItem() >= index) {
+        viewable = items[index];
+    }
+    if ((currentItem == nullptr) && (items.no() == 1)) {
+        currentItem = items[0];
+    }
+    // Notify item has been inserted
+    if (notify && target) {
+        target->tryHandle(this, FXSEL(SEL_INSERTED, message), (void*)(FXival)index);
+    }
+    // Current item may have changed
+    if (old != currentItem) {
         if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)current);
+            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)currentItem);
         }
     }
-
-    // Deleted current item
-    if (0 <= current && index == old) {
+    // Was new item
+    if (currentItem && currentItem == items[index]) {
         if (hasFocus()) {
-            items[current]->setFocus(TRUE);
-        }
-        if ((options & SELECT_MASK) == LIST_BROWSESELECT && items[current]->isEnabled()) {
-            selectItem(current, notify);
+            currentItem->setFocus(TRUE);
         }
     }
-
+    // recompute (due filter)
+    recompute();
     // Redo layout
     recalc();
 }
@@ -1534,8 +1118,6 @@ MFXListIcon::removeItem(FXint index, FXbool notify) {
 
 void
 MFXListIcon::clearItems(FXbool notify) {
-    register FXint old = current;
-
     // Delete items
     for (FXint index = items.no()-1; 0 <= index; index--) {
         if (notify && target) {
@@ -1543,23 +1125,21 @@ MFXListIcon::clearItems(FXbool notify) {
         }
         delete items[index];
     }
-
     // Free array
     items.clear();
-
     // Adjust indices
-    current = -1;
     anchor = -1;
     extent = -1;
-    viewable = -1;
-
     // Current item has changed
-    if (old != -1) {
+    if (currentItem) {
         if (notify && target) {
             target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)-1);
         }
+        currentItem = nullptr;
     }
-
+    viewable = nullptr;
+    // recompute (due filter)
+    recompute();
     // Redo layout
     recalc();
 }
@@ -1568,53 +1148,8 @@ MFXListIcon::clearItems(FXbool notify) {
 void
 MFXListIcon::setFilter(const FXString &value) {
     filter = value;
-}
-
-
-FXint
-MFXListIcon::findItem(const FXString &text, FXint start, FXuint flgs) const {
-    register FXCompareFunc comparefunc;
-    register FXint index, len;
-    if (0 < items.no()) {
-        comparefunc = (flgs & SEARCH_IGNORECASE) ? (FXCompareFunc)comparecase : (FXCompareFunc)compare;
-        len = (flgs & SEARCH_PREFIX)? text.length() : 2147483647;
-        if (flgs & SEARCH_BACKWARD) {
-            if (start < 0) {
-                start = items.no()-1;
-            }
-            for (index = start; 0 <= index; index--) {
-                if ((*comparefunc)(items[index]->getText(), text, len) == 0) {
-                    return index;
-                }
-            }
-            if (!(flgs & SEARCH_WRAP)) {
-                return -1;
-            }
-            for (index = items.no()-1; start < index; index--) {
-                if ((*comparefunc)(items[index]->getText(), text, len) == 0) {
-                    return index;
-                }
-            }
-        } else {
-            if (start < 0) {
-                start = 0;
-            }
-            for (index = start; index < items.no(); index++) {
-                if ((*comparefunc)(items[index]->getText(), text, len) == 0) {
-                    return index;
-                }
-            }
-            if (!(flgs & SEARCH_WRAP)) {
-                return -1;
-            }
-            for (index = 0; index < start; index++) {
-                if ((*comparefunc)(items[index]->getText(), text, len) == 0) {
-                    return index;
-                }
-            }
-        }
-    }
-    return -1;
+    recompute();
+    recalc();
 }
 
 
@@ -1628,56 +1163,46 @@ MFXListIcon::setTextColor(FXColor clr) {
 
 
 void
-MFXListIcon::setListStyle(FXuint style) {
-    options = (options & ~LIST_MASK) | (style & LIST_MASK);
-}
-
-
-FXuint
-MFXListIcon::getListStyle() const {
-    return (options & LIST_MASK);
-}
-
-
-void
 MFXListIcon::setHelpText(const FXString &text) {
     help = text;
 }
 
 
+FXString
+MFXListIcon::tolowerString(const FXString &str) const {
+    FXString result;
+    for (int i = 0; i < str.count(); i++) {
+        result.append((char)::tolower(str[i]));
+    }
+    return result;
+}
+
+
 MFXListIcon::MFXListIcon() {
     flags |= FLAG_ENABLED;
-    anchor = -1;
-    current = -1;
-    extent = -1;
-    cursor = -1;
-    viewable = -1;
     font = (FXFont*)-1L;
-    textColor = 0;
-    selbackColor = 0;
-    seltextColor = 0;
-    listWidth = 0;
-    listHeight = 0;
-    visible = 0;
-    grabx = 0;
-    graby = 0;
-    state = FALSE;
 }
 
 
 void
 MFXListIcon::recompute() {
-    register FXint x, y, w, h, i;
+    // first filter items
+    for (int i = 0; i < items.no(); i++) {
+        items[i]->show = showItem(items[i]->getText());
+    }
+    register FXint x, y, w, h;
     x = 0;
     y = 0;
     listWidth = 0;
     listHeight = 0;
-    for (i = 0; i < items.no(); i++) {
-        items[i]->x = x;
-        items[i]->y = y;
-        w = items[i]->getWidth(this);
-        h = items[i]->getHeight(this);
-        if (w>listWidth) {
+    const auto filteredItems = getFilteredItems();
+    for (const auto &item : filteredItems) {
+        // set position and size
+        item->x = x;
+        item->y = y;
+        w = item->getWidth(this);
+        h = item->getHeight(this);
+        if (w > listWidth) {
             listWidth = w;
         }
         y += h;
@@ -1690,4 +1215,26 @@ MFXListIcon::recompute() {
 MFXListIconItem*
 MFXListIcon::createItem(const FXString &text, FXIcon* icon, void* ptr) {
     return new MFXListIconItem(text, icon, 0, ptr);
+}
+
+
+bool
+MFXListIcon::showItem(const FXString &itemName) const {
+    if (filter.empty()) {
+        return true;
+    } else {
+        return tolowerString(itemName).find(tolowerString(filter)) != -1;
+    }
+}
+
+
+std::vector<MFXListIconItem*>
+MFXListIcon::getFilteredItems() const {
+    std::vector<MFXListIconItem*> result;
+    for (int i = 0; i < items.no(); i++) {
+        if (items[i]->show) {
+            result.push_back(items[i]);
+        }
+    }
+    return result;
 }

@@ -275,6 +275,8 @@ enum class GUIIcon {
     UNCOLLAPSE,
     EXTEND,
     CURRENT,
+    SEARCH,
+    ALLOW,
     /// @}
 
     /// @name Netedit common mode specific icons

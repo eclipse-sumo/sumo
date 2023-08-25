@@ -84,7 +84,7 @@ public:
     FXPopup* getLocatorPopup();
 
     /// @brief return combobox with the current coloring schemes (standard, fastest standard, real world...)
-    FXComboBox* getColoringSchemesCombo();
+    MFXComboBoxIcon* getColoringSchemesCombo();
 
     /// @brief get menu for tooltips menu
     MFXCheckableButton* getShowToolTipsMenu() const;
@@ -132,7 +132,7 @@ protected:
     FXVerticalFrame* myChildWindowContentFrame = nullptr;
 
     /// @brief The coloring schemes
-    FXComboBox* myColoringSchemes = nullptr;
+    MFXComboBoxIcon* myColoringSchemes = nullptr;
 
     /// @brief build navigation toolbar
     void buildNavigationToolBar();

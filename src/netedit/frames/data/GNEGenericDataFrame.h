@@ -98,7 +98,7 @@ public:
         FXButton* myCreateDataSetButton;
 
         /// @brief comboBox with intervals
-        FXComboBox* myDataSetsComboBox;
+        MFXComboBoxIcon* myDataSetsComboBox;
     };
 
     // ===========================================================================
@@ -213,7 +213,7 @@ public:
         GNEGenericDataFrame* myGenericDataFrameParent;
 
         /// @brief combo box for attributes
-        FXComboBox* myAttributesComboBox;
+        MFXComboBoxIcon* myAttributesComboBox;
 
         /// @brief label for min/max attribute
         FXLabel* myMinMaxLabel;

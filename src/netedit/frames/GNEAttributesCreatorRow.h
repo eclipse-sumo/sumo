@@ -122,5 +122,5 @@ private:
     FXCheckButton* myValueCheckButton = nullptr;
 
     /// @brief comboBox for discrete vaues
-    FXComboBox* myValueComboBox = nullptr;
+    MFXComboBoxIcon* myValueComboBox = nullptr;
 };

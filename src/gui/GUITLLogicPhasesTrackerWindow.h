@@ -270,10 +270,10 @@ private:
     FXRealSpinner* myBeginOffset;
 
     /// @brief The time mode
-    FXComboBox* myTimeMode;
+    MFXComboBoxIcon* myTimeMode;
 
     /// @brief Whether green durations are printed
-    FXComboBox* myGreenMode;
+    MFXComboBoxIcon* myGreenMode;
 
     /// @brief Whether phase names shall be printed instead of indices
     FXCheckButton* myIndexMode;

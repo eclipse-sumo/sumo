@@ -187,14 +187,14 @@ MFXListIconItem::getWidth(const MFXListIcon* list) const {
 FXint
 MFXListIconItem::getHeight(const MFXListIcon* list) const {
     register FXFont *font = list->getFont();
-    register FXint th = 0,ih = 0;
+    register FXint th = 0, ih = 0;
     if (icon) {
         ih = icon->getHeight();
     }
     if (!label.empty()) {
         th = font->getFontHeight();
     }
-    return LINE_SPACING+FXMAX(th, ih);
+    return LINE_SPACING + FXMAX(th, ih);
 }
 
 

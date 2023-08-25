@@ -49,9 +49,11 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
     // Create MFXComboBoxIcon for tags
-    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, false, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
-    // Create FXComboBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                             this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for Attributes
+    myMatchAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                              this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
@@ -329,8 +331,6 @@ GNEMatchAttribute::updateTag() {
             tagIndex = i;
         }
     }
-    // set num visible items
-    myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
     // check tagIndex
     if (tagIndex == -1) {
         myMatchTagComboBox->setCurrentItem(0);
@@ -355,7 +355,7 @@ GNEMatchAttribute::updateAttribute() {
         int attrIndex = -1;
         // fill attribute combo box
         for (int i = 0; i < (int)tagProperty.getNumberOfAttributes(); i++) {
-            myMatchAttrComboBox->appendItem(tagProperty.at(i).getAttrStr().c_str());
+            myMatchAttrComboBox->appendIconItem(tagProperty.at(i).getAttrStr().c_str());
             // check attr index
             if (tagProperty.at(i).getAttr() == myCurrentAttribute) {
                 attrIndex = i;
@@ -363,27 +363,25 @@ GNEMatchAttribute::updateAttribute() {
         }
         // Check if are allowed "Parameter"
         if (tagProperty.hasParameters()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARAMETERS).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can close shape
         if (tagProperty.canCloseShape()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
             if (myCurrentAttribute == GNE_ATTR_CLOSE_SHAPE) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can have parent
         if (tagProperty.isChild()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARENT).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARENT) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
-        // set num visible items
-        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
         // check attrIndex
         if (attrIndex == -1) {
             myMatchAttrComboBox->setCurrentItem(0);

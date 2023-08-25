@@ -91,10 +91,7 @@ private:
     GNEFrame* myFrameParent;
 
     /// @brief comboBox with the list of elements type
-    MFXComboBoxIcon* myDemandElementsMatchBox;
-
-    /// @brief info label
-    FXLabel* myInfoLabel;
+    MFXComboBoxIcon* myDemandElementsComboBox;
 
     /// @brief current demand element
     GNEDemandElement* myCurrentDemandElement;

@@ -60,10 +60,7 @@ public:
         void setCurrentType(GNEDemandElement* vType);
 
         /// @brief refresh vehicle type selector
-        void refreshTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshTypeSelectorIDs();
+        void refreshTypeSelector(const bool updateModuls);
 
         /// @name FOX-callbacks
         /// @{

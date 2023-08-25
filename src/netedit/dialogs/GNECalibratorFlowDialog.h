@@ -76,10 +76,10 @@ protected:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief ComboBox for Type
-    FXComboBox* myComboBoxVehicleType;
+    MFXComboBoxIcon* myComboBoxVehicleType;
 
     /// @brief TextField for Route
-    FXComboBox* myComboBoxRoute;
+    MFXComboBoxIcon* myComboBoxRoute;
 
     /// @brief TextField for VehsPerHour
     FXTextField* myTextFieldVehsPerHour;

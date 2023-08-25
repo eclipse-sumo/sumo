@@ -21,11 +21,11 @@
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
+#include "MFXTextFieldIcon.h"
 
 
 /// @brief FXTextFieldIcon (based on FXTextFieldIcon)
-class MFXTextFieldSearch : public FXTextField {
+class MFXTextFieldSearch : public MFXTextFieldIcon {
     /// @brief FOX declaration
     FXDECLARE(MFXTextFieldSearch)
 
@@ -59,5 +59,5 @@ private:
     FXObject* myTarget = nullptr;
 
     /// @brief draw search text range
-    void drawSearchTextRange(const FXString& searchString, FXDCWindow& dc);
+    void drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString& searchString);
 };

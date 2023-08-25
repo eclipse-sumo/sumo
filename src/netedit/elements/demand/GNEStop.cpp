@@ -911,19 +911,16 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_TRIGGERED:
-            if (value.empty()) {
-                return false;
-            } else {
-                const std::set<std::string> expectedValues = {"true", "false", "person", "container", "join"};
-                const std::vector<std::string> triggeredValues = parse<std::vector<std::string> >(value);
-                for (const auto& triggeredValue : triggeredValues) {
-                    if (expectedValues.find(triggeredValue) == expectedValues.end()) {
-                        return false;
-                    }
+        case SUMO_ATTR_TRIGGERED: {
+            const auto expectedValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
+            const auto triggeredValues = parse<std::vector<std::string> >(value);
+            for (const auto& triggeredValue : triggeredValues) {
+                if (std::find(expectedValues.begin(), expectedValues.end(), triggeredValue) == expectedValues.end()) {
+                    return false;
                 }
-                return true;
             }
+            return true;
+        }
         case SUMO_ATTR_EXPECTED:
             if (value.empty()) {
                 return false;
@@ -945,12 +942,19 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             }
             return true;
         }
-        case SUMO_ATTR_PARKING:
+        case SUMO_ATTR_PARKING: {
             if (value == "opportunistic") {
                 return false; // Currrently deactivated opportunistic in netedit waiting for the implementation in SUMO
-            } else {
-                return canParse<bool>(value);
             }
+            const auto expectedValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
+            const auto triggeredValues = parse<std::vector<std::string> >(value);
+            for (const auto& triggeredValue : triggeredValues) {
+                if (std::find(expectedValues.begin(), expectedValues.end(), triggeredValue) == expectedValues.end()) {
+                    return false;
+                }
+            }
+            return true;
+        }
         case SUMO_ATTR_ACTTYPE:
             return true;
         case SUMO_ATTR_TRIP_ID:

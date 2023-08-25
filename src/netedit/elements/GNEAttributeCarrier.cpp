@@ -4980,7 +4980,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // to trainStop
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Id of the destination train stop"));
+                                              TL("ID of the destination train stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = GNE_TAG_WALK_EDGES;
@@ -5950,8 +5950,8 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("Whether a person or container or both may end the stop"),
-                                              "0");
-        attrProperty.setDiscreteValues({"0", "person", "container", "join"}, true);
+                                              "false");
+        attrProperty.setDiscreteValues({"false", "person", "container", "join"}, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED,
@@ -5968,8 +5968,8 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("Whether the vehicle stops on the road or beside"),
-                                          "0");
-    attrProperty.setDiscreteValues({"1", "0", "opportunistic"}, true);
+                                          "false");
+    attrProperty.setDiscreteValues({"true", "false", "opportunistic"}, true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,

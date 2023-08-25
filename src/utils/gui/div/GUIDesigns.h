@@ -45,6 +45,19 @@ class MFXMenuCheckIcon;
 /// @brief elements with big images
 #define GUIDesignBigSizeElement 138
 
+/// @name ComboBox sizes
+/// @{
+/// @brief combo box size small
+#define GUIDesignComboBoxSizeSmall  5
+
+/// @brief combo box medium small
+#define GUIDesignComboBoxSizeMedium 10
+
+/// @brief combo box large small
+#define GUIDesignComboBoxSizeLarge  15
+
+/// @}
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -276,7 +289,7 @@ class MFXMenuCheckIcon;
 /// @}
 
 
-/// @name FXComboBox
+/// @name MFXComboBoxIcon
 /// @{
 /// @brief Combo box editable extended over the all frame
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

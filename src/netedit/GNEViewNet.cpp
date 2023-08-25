@@ -328,12 +328,11 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
     {
         for (auto it_names : gSchemeStorage.getNames()) {
-            v->getColoringSchemesCombo()->appendItem(it_names.c_str());
+            v->getColoringSchemesCombo()->appendIconItem(it_names.c_str());
             if (it_names == myVisualizationSettings->name) {
                 v->getColoringSchemesCombo()->setCurrentItem(v->getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)gSchemeStorage.getNames().size() + 1));
     }
     // for junctions
     new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),

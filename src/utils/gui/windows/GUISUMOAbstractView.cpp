@@ -1713,7 +1713,7 @@ GUISUMOAbstractView::getDecalsLockMutex() {
 }
 
 
-FXComboBox*
+MFXComboBoxIcon*
 GUISUMOAbstractView::getColoringSchemesCombo() {
     return myGlChildWindowParent->getColoringSchemesCombo();
 }
