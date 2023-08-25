@@ -52,7 +52,8 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myReferencePointMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, false, GUIDesignComboBoxSizeMedium,
+                                                   this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myReferencePointMatchBox->appendIconItem(TL("reference left"));
     myReferencePointMatchBox->appendIconItem(TL("reference right"));
     myReferencePointMatchBox->appendIconItem(TL("reference center"));

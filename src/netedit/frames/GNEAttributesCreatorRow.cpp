@@ -69,7 +69,8 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     myValueTextField->hide();
     myValueCheckButton = new FXCheckButton(this, TL("Disabled"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
-    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, true, 10, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, true, GUIDesignComboBoxSizeMedium,
+                                          this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // only create if parent was created
     if (getParent()->id()) {

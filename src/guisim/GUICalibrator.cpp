@@ -44,29 +44,18 @@
 #include <guisim/GUICalibrator.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GUICalibrator.h"
-
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * GUICalibrator::GUICalibratorPopupMenu - mapping
- * ----------------------------------------------------------------------- */
-FXDEFMAP(GUICalibrator::GUICalibratorPopupMenu)
-GUICalibratorPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip),
 
+FXDEFMAP(GUICalibrator::GUICalibratorPopupMenu) GUICalibratorPopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,  GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip),
 };
 
-// Object implementation
-FXIMPLEMENT(GUICalibrator::GUICalibratorPopupMenu, GUIGLObjectPopupMenu, GUICalibratorPopupMenuMap, ARRAYNUMBER(GUICalibratorPopupMenuMap))
-
-
-/* -------------------------------------------------------------------------
- * GUICalibrator::GUIManip_Calibrator - mapping
- * ----------------------------------------------------------------------- */
 FXDEFMAP(GUICalibrator::GUIManip_Calibrator) GUIManip_CalibratorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUICalibrator::GUIManip_Calibrator::MID_USER_DEF, GUICalibrator::GUIManip_Calibrator::onCmdUserDef),
     FXMAPFUNC(SEL_UPDATE,   GUICalibrator::GUIManip_Calibrator::MID_USER_DEF, GUICalibrator::GUIManip_Calibrator::onUpdUserDef),
@@ -76,12 +65,14 @@ FXDEFMAP(GUICalibrator::GUIManip_Calibrator) GUIManip_CalibratorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUICalibrator::GUIManip_Calibrator::MID_CLOSE,    GUICalibrator::GUIManip_Calibrator::onCmdClose),
 };
 
-FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator, GUIManipulator, GUIManip_CalibratorMap, ARRAYNUMBER(GUIManip_CalibratorMap))
-
+// Object implementation
+FXIMPLEMENT(GUICalibrator::GUICalibratorPopupMenu,  GUIGLObjectPopupMenu,   GUICalibratorPopupMenuMap,  ARRAYNUMBER(GUICalibratorPopupMenuMap))
+FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator,     GUIManipulator,         GUIManip_CalibratorMap,     ARRAYNUMBER(GUIManip_CalibratorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 /* -------------------------------------------------------------------------
  * GUICalibrator::GUIManip_Calibrator - methods
  * ----------------------------------------------------------------------- */
@@ -128,7 +119,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new MFXComboBoxIcon(gf2, 10, false, false, 5, this, MID_PRE_DEF,
+            new MFXComboBoxIcon(gf2, 10, false, false, GUIDesignComboBoxSizeSmall, this, MID_PRE_DEF,
                            ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");

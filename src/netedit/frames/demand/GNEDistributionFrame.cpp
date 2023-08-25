@@ -312,7 +312,8 @@ GNEDistributionFrame::DistributionRow::DistributionRow(DistributionValuesEditor*
     // create label
     myIconLabel = new FXLabel(this, "", key->getACIcon(), GUIDesignLabelIconThick);
     // Create and hide MFXTextFieldTooltip for string attributes
-    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myComboBoxKeys = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, false, GUIDesignComboBoxSizeMedium,
+                                         this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // Create and hide MFXTextFieldTooltip for string attributes
     myProbabilityTextField = new MFXTextFieldTooltip(this, staticTooltipMenu,
         GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(50, TEXTFIELD_REAL));

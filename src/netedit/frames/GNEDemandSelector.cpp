@@ -51,7 +51,8 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
     myDemandElementTags({demandElementTag}),
     mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, GUIDesignComboBoxSizeMedium,
+                                                   this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -72,7 +73,8 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
         }
     }
     // Create MFXComboBoxIcon
-    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, 10, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, GUIDesignComboBoxSizeMedium,
+                                                   this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation

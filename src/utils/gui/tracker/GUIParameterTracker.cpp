@@ -118,8 +118,8 @@ GUIParameterTracker::buildToolBar() {
 
     // aggregation interval combo
     myAggregationInterval =
-        new MFXComboBoxIcon(myToolBar, 8, false, false, 10, this, MID_AGGREGATIONINTERVAL,
-                       GUIDesignComboBoxStatic);
+        new MFXComboBoxIcon(myToolBar, 8, false, false, GUIDesignComboBoxSizeMedium,
+                            this, MID_AGGREGATIONINTERVAL, GUIDesignComboBoxStatic);
     myAggregationInterval->appendIconItem("1s");
     myAggregationInterval->appendIconItem("1min");
     myAggregationInterval->appendIconItem("5min");
