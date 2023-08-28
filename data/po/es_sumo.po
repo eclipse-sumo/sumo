@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-28 09:40+0200\n"
-"PO-Revision-Date: 2023-08-28 12:01+0000\n"
+"PO-Revision-Date: 2023-08-28 12:47+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -233,7 +233,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "Cambia al modo autopista"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
@@ -2208,7 +2208,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:654
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "Habilita la simulación mesoscópica"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:656
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -2250,7 +2250,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:690
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "Habilita el adelantamiento mesoscópico"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:692
 msgid ""
@@ -4874,7 +4874,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:117
 msgid "Omits internal links"
-msgstr ""
+msgstr "Omite enlaces internos"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:120
 msgid ""
@@ -5249,7 +5249,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:666
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "Remueve aristas aisladas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:673
 msgid "All nodes will be unregulated"
@@ -5299,7 +5299,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:718
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Evita la división de aristas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:728
 #, c-format
@@ -6515,7 +6515,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Eliminar todos los datos z"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
@@ -6537,7 +6537,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:181
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Importa datos de elevación"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:184
 msgid ""
@@ -10900,7 +10900,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr ""
+msgstr " En el archivo '"
 
 #: C:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:210
 msgid " At line/column "
