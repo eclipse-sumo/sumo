@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-28 09:40+0200\n"
-"PO-Revision-Date: 2023-08-28 11:10+0000\n"
+"PO-Revision-Date: 2023-08-28 11:50+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -406,12 +406,12 @@ msgstr "Tipos de detectores computados:"
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr ""
+msgstr " % detector fuente"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:144
 #, c-format
 msgid " % sink detectors"
-msgstr ""
+msgstr " % detectores sumidero"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:145
 #, c-format
@@ -944,7 +944,7 @@ msgstr ""
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1246
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1374
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "Parámetro no soportado '%'"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1326
 msgid "Waypoint (speed = %) at index % does not support triggers"
@@ -2339,7 +2339,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:819
 msgid "Invalid scaling factor."
-msgstr ""
+msgstr "Factor de escala no válido."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:823
 msgid "A vehroute-output file is needed for exit times."
@@ -2554,7 +2554,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSLeaderInfo.h:232
 #: C:\Repos\sumo/src\microsim\MSLeaderInfo.h:239
 msgid "Method not supported"
-msgstr ""
+msgstr "Método no soportado"
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:187
 #: C:\Repos\sumo/src\router\RONet.cpp:60
@@ -2865,7 +2865,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:756
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:171
 msgid "should not happen"
-msgstr ""
+msgstr "no debería suceder"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:945
 msgid ""
@@ -2893,7 +2893,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:4517
 msgid " for unknown reasons"
-msgstr ""
+msgstr " por razones desconocidas"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:4519
 msgid ""
@@ -3835,7 +3835,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1000
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1021
 msgid "Unknown ToCState '%'"
-msgstr ""
+msgstr "Estado ToC desconocido '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:97
 msgid ""
@@ -3845,7 +3845,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:200
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "Reservas de grupo inconsistentes."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:204
 msgid "Inconsistent group reservations (2)."
@@ -3997,7 +3997,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1093
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "Condición no soportada '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1156
 msgid "Division by 0 in condition '%'"
@@ -4010,7 +4010,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1219
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "Expresión vacía no válida"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1315
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -4050,7 +4050,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
-msgstr ""
+msgstr "Listando carriles de salida"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:243
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:277
@@ -5461,15 +5461,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:98
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "Encontrando caminos aislados"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:103
 msgid "Finding largest components"
-msgstr ""
+msgstr "Encontrando componentes más grandes"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:110
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "Eliminando aristas no deseadas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:117
 msgid "Processing public transport stops"
@@ -5494,7 +5494,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:186
 msgid "Joining tram edges"
-msgstr ""
+msgstr "Combinando aristas de tranvía"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:190
 msgid " Joined % tram edges into roads."
@@ -5502,7 +5502,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:228
 msgid "Joining junction clusters"
-msgstr ""
+msgstr "Combinando grupos de cruces"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:233
 #, c-format
@@ -5530,7 +5530,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:258
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % nodos eliminados."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:278
 msgid "Reducing geometries"
@@ -5538,7 +5538,7 @@ msgstr "Reduciendo geometrías"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:285
 msgid "Joining similar edges"
-msgstr ""
+msgstr "Combinando aristas similares"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:295
 msgid "guessing opposite direction edges"
@@ -5555,7 +5555,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:313
 msgid "Computing turning directions"
-msgstr ""
+msgstr "Computando direcciones de giro"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:322
 msgid "Assigning nodes to traffic lights"
@@ -5572,7 +5572,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:372
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "Se estimaron % aceras."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:382
 #, c-format
@@ -5593,11 +5593,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:423
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "Aplicando modificaciones de velocidad"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:436
 msgid "Computing node types"
-msgstr ""
+msgstr "Computando tipos de nodos"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:447
 #, c-format
@@ -5667,7 +5667,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:588
 msgid "Building inner edges"
-msgstr ""
+msgstr "Creando aristas internas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:601
 msgid "stretching junctions to smooth geometries"
@@ -5675,11 +5675,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:630
 msgid "Generating street signs"
-msgstr ""
+msgstr "Generando señales de tráfico"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:641
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "Comprobando aristas superpuestas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:646
 msgid "Checking edge grade"
@@ -6902,7 +6902,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
-msgstr ""
+msgstr "Cargando nombres de las calles"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
@@ -6914,19 +6914,19 @@ msgstr "Cargando aristas"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr ""
+msgstr "Cargando semáforos"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
-msgstr ""
+msgstr "Cargando maniobras prohibidas"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:132
 msgid "Loading connected lanes"
-msgstr ""
+msgstr "Cargando carriles conectados"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "Cargando restricciones de tiempo"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
@@ -6994,7 +6994,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Columna % faltante."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
@@ -7278,7 +7278,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
-msgstr ""
+msgstr "Removiendo aristas duplicadas"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:207
 #, c-format
@@ -7824,11 +7824,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:112
 msgid "No nodes loaded."
-msgstr ""
+msgstr "No se cargaron nodos."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:115
 msgid "No edges loaded."
-msgstr ""
+msgstr "No se cargaron aristas."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:126
 msgid " Import done:"
@@ -7837,21 +7837,21 @@ msgstr " Importación realizada:"
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:128
 #, c-format
 msgid "   % districts loaded."
-msgstr ""
+msgstr "   % distritos cargados."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:130
 #, c-format
 msgid "   % nodes loaded."
-msgstr ""
+msgstr "   % nodos cargados."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:132
 msgid "   % types loaded."
-msgstr ""
+msgstr "   % tipos cargados."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:134
 #, c-format
 msgid "   % edges loaded."
-msgstr ""
+msgstr "   % aristas cargadas."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:136
 #, c-format
@@ -8880,11 +8880,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:276
 msgid "No districts loaded."
-msgstr ""
+msgstr "No se cargaron distritos."
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:282
 msgid "No vehicles loaded."
-msgstr ""
+msgstr "No se cargaron vehículos."
 
 #: C:\Repos\sumo/src\od\ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
@@ -9540,7 +9540,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\RONetHandler.cpp:137
 msgid "Unknown node '%'."
-msgstr ""
+msgstr "Nodo desconocido '%'."
 
 #: C:\Repos\sumo/src\router\RONetHandler.cpp:243
 msgid "Ignoring lane '%' with broken shape."
@@ -9786,7 +9786,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:245
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "Archivo ilegible '%'."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:276
 msgid "Missing an entry in line '%'."
@@ -10098,7 +10098,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:137
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "Fuera de los límites"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:151
 msgid "Unknown Element"
@@ -10230,7 +10230,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\geom\GeomHelper.cpp:238
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
-msgstr ""
+msgstr "GeomHelper::makeCircle() requiere nPoints>=3"
 
 #: C:\Repos\sumo/src\utils\geom\PositionVector.cpp:607
 msgid "Splitting vector close to end (pos: %, length: %)"
