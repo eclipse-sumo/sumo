@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-21 12:14+0200\n"
+"POT-Creation-Date: 2023-08-28 09:40+0200\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -9282,20 +9282,20 @@ msgstr "目前處於 % 相機模式。 按 [F] 進行切換。"
 msgid "Could not load traffic light files."
 msgstr "無法載入交通號誌檔案。"
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:454
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:453
 msgid "Invalid link index in '%'."
 msgstr "'%' 中有無效的連接索引(link index)。"
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:456
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:455
 msgid "Unknown traffic light in '%'."
 msgstr "'%' 中有未知的交通號誌。"
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:992
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
 msgid " (No projection defined)"
 msgstr " 投影方式未定義"
 
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:997
 msgid "N/A"
 msgstr "不適用"
 
@@ -10404,6 +10404,10 @@ msgstr "車輛裝置設備 '%' 的參數 % 沒有有效的值 (%)。"
 msgid "An acceleration given by the power was not found."
 msgstr "未找到電力(power)給定的加速度。"
 
+#: C:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
+msgid "No matches found"
+msgstr ""
+
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
 msgid "Add decal"
 msgstr "增加貼印"
@@ -10454,7 +10458,7 @@ msgstr "展開 (Expand)"
 msgid "Expand frame to show all contents"
 msgstr "展開框架以顯示所有內容"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:66
+#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
 msgstr "鍵入搜尋..."
 
@@ -10569,12 +10573,12 @@ msgid "Parameters must be defined within an object."
 msgstr "參數必須定義於一個物件(object)內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1956
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:933
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "參數無法定義於附加檔案(additional file)的根(root)中內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1958
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:935
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
 msgid "Parameters cannot be defined within another parameter."
 msgstr "參數無法定義於其它參數內。"
 
@@ -10597,61 +10601,61 @@ msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:399
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "無法在 netedit 中構建 % (其識別名(ID)為 '%'); ID 含有無效字元。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:406
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr "無法在netedit內建立% (ID為 '%'); 不同數量的分佈值和機率。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路徑必須定義於一個車輛/流量內, 或是用一個識別名(ID)屬性"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:478
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "週期時間(cycleTime) % 必須大於或等於 0"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:531
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:611
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:533
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:613
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:577
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 "旅次(trip)定義需要 'from/to' 或 'fromJunction/toJunction' 或 'fromTaz/toTaz'"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:931
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
 msgid "Parameters must be defined within an object"
 msgstr "參數必須定義在一個物件(object)內"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:943
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:945
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -10660,22 +10664,22 @@ msgstr ""
 "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用"
 "屬性(attributes)!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1055
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1071
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1074
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"

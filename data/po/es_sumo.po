@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-21 12:14+0200\n"
+"POT-Creation-Date: 2023-08-28 09:40+0200\n"
 "PO-Revision-Date: 2023-08-16 10:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -9017,20 +9017,20 @@ msgstr ""
 msgid "Could not load traffic light files."
 msgstr ""
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:454
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:453
 msgid "Invalid link index in '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:456
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:455
 msgid "Unknown traffic light in '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:992
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
 msgid " (No projection defined)"
 msgstr " (Sin proyección definida)"
 
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:997
 msgid "N/A"
 msgstr "N/A"
 
@@ -10118,6 +10118,10 @@ msgstr ""
 msgid "An acceleration given by the power was not found."
 msgstr ""
 
+#: C:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
+msgid "No matches found"
+msgstr ""
+
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
 msgid "Add decal"
 msgstr ""
@@ -10168,7 +10172,7 @@ msgstr ""
 msgid "Expand frame to show all contents"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:66
+#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
 msgstr ""
 
@@ -10279,12 +10283,12 @@ msgid "Parameters must be defined within an object."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1956
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:933
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1958
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:935
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
@@ -10307,82 +10311,82 @@ msgstr ""
 msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:399
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:406
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:478
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:531
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:611
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:533
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:613
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:577
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:931
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:943
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:945
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1055
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1071
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1074
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 
