@@ -16,7 +16,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Fixed startup delay in railway simulation when begin time is set to a high value. Issue #6321
   - Fixed invalid state file names when using human-readable times. Issue #6365
   - Fixed invalid energy usage (battery parameters ignored) in emission-ouput, full-output, tripinfo-output and edgeData-emissions. Issue #6364, #6359
-  
+
 - netedit
   - Fixed crash when defining walks between disconnected locations. Issue #5369
   - Fixed crash transforming trips to flows. Issue #6050
@@ -44,7 +44,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Fixed invalid error message when loading .tll-file with tlLogid-programID other than '0'. Issue #6160
   - Fixed missing bidirectional edges due to invalid geometry-manipulations. Issue #6370, #6366
   - Avoiding superfluous nodes when using options **--geometry.remove** and **--ptline-output**
-  
+
 - MESO
   - device.emissions now collects data. Issue #6086
   - Fixed crash when using device.btsender or device.btreceiver. Issue #6087
@@ -63,7 +63,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Fixed crash when loading network imported from VISUM. Issue #6358
 
 - TraCI
-  - TraaS functions *Trafficlight.getControlledJunctions*, *Edge.setEffort*, *Edge.getEffort*, *Edge.adaptTraveltime*", *Edge.getAdaptedTraveltime* are now working. Issue #6019  
+  - TraaS functions *Trafficlight.getControlledJunctions*, *Edge.setEffort*, *Edge.getEffort*, *Edge.adaptTraveltime*", *Edge.getAdaptedTraveltime* are now working. Issue #6019
   - Vehicles being controlled by moveToXY are no longer ignored by cross-traffic while on an intersection. Issue #6140
   - Traffic light programs of type 'actuated' and 'delay_based' can now be created. Issue #4324
 
@@ -71,8 +71,8 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 ### Enhancements
 - All Applications
   - Environment variables can now be referenced in configuration files using a shell-like syntax: `<net-file value="${NETFILENAME}.net.xml"/>`. Issue #1901
-  - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occured.
-  
+  - The new option **--aggregate-warnings** can be used to group warnings of the same type and give only their count after the first N warnings occurred.
+
 - Simulation
   - Simulation of parking vehicles now optionally takes into account [maneuvering times](../Simulation/ParkingArea.md#modelling_maneuvering_times_when_entering_and_leaving_the_parking_space). Issue #5956
   - Vehicle stop elements now support attribute 'speed'. This can be used to force a vehicle to drive with a fixed speed on a particular stretch of lane. Issue #1020
@@ -91,7 +91,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - MESO
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
-  
+
 - netconvert
   - Railway network input with sharp angles along an edge is now corrected by default. (The previous behavior can be enabled with option **--geometry.min-angle.fix.railways false**). Issue #6921
   - Pedestrian paths are no longer checked for minimum turning angles (greatly reducing superfluous warnings). Issue #6022
@@ -107,33 +107,33 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
   - Now TAZ imported from VISUM can be written to a separate file using option **--taz-output**. Issue #6349
 
 - netedit
-  - Now additionals and routes can optionally be loaded using option "Open in sumo-gui"). Issue #6049
+  - Now additionals and routes can optionally be loaded using option "Open in sumo-gui". Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
   - Improved support of GNEStops. Issue #5367
-  
+
 - sumo-gui
   - Added 'select reachable' function to the lane context-menu to select all lanes that can be reached by a given vehicle class from the origin lane. After such an operation, the coloring scheme 'by reachability' can be used to render an isochrone travel time map. Issue #3650
-  - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707  
+  - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707
   - The object locator dialog now allows filtering the object list by matching all ids/names that include a given text string.
   - Added option for rendering the (relative) route index for each edge when drawing a vehicles route. Issue #6199
   - Traffic light parameter dialog now includes more values describing the current phase (phase, phase name, duration, minDur, maxDur, running duration)
   - Shift-left-clicking on a vehicle now starts tracking
   - The speedFactor for the currently tracked vehicle can now be set via a new slider
   - The probabilities for routeProbReroute can now be toggled between 100% and 0% by shift-clicking on the rerouter symbol or on the new route-direction arrows.
-  
+
 - TraCI
   - Added function 'traci.trafficlight.getServedPersonCount' to return the number of pedestrians that would be served by all the crossings for a given phase index. Issue #6088
   - Can now access vehicle device parameters 'device.ssm.minTTC', 'device.ssm.maxDRAC', 'device.ssm.minPET'. Issue #4983
   - Added function 'traci.simulation.writeMessage' to append a custom message to the log file (and sumo-gui message window). Issue #6249
   - Added context subscription filter for viewing angle 'traci.vehicle.addSubscriptionFilterFieldOfVision'. Issue #6273
-  
+
 - Tools
   - When importing public transport traffic with osmWebWizard, vehicles from incomplete lines now start and end their routes at the network border instead of starting at the first stop. Issue #6025
   - Added new tool [analyzePersonPlans.py](../Tools/Routes.md) to count the different types of plans in a route file. Issue #6083
   - Added new tool [matsim_importPlans.py](../Tools/Import/MATSim.md) to import intermodal traffic plans from MATSim
   - Added new tool [generateContinuousRerouters.py](../Tools/Misc.md#generatecontinuousrerouterspy) to easily create a simulation where vehicles circulate according to configured turning ratios without ever arriving. #6310
-  
+
 ### Other
 - sumo-gui, netedit
   - The hotkey for 'Edit Visualization' was changed to 'F9' to avoid conflicts when pasting clipboard.
@@ -227,7 +227,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - sumo-gui
   - Fixed crash when rendering short vehicles as *simple shapes* with guiShape *truck/trailer* and *truck/semitrailer*. Issue #5510 (regression in 1.2.0)
-  - Pedestrian crossings and walkingareas are no longer listed in the edge locator dialog by default (they can still be enabled by checking *Show internal structures*. Issue #5613
+  - Pedestrian crossings and walkingareas are no longer listed in the edge locator dialog by default (they can still be enabled by checking *Show internal structures*). Issue #5613
   - Fixed invalid image position and size when rendering vehicles as raster images. Issue #5688 (regression in 1.2.0)
   - Fixed invalid vehicle coloring in mesoscopic mode. (regression in 0.32.0).
   - Fixed invalid vehicle angle when using the sublane model in lefthand-networks. Issue #5737
