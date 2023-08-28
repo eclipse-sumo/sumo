@@ -1248,6 +1248,7 @@ GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*)
     // create FXColorDialog
     FXColorDialog colordialog(getCollapsableFrame(), TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text())));
