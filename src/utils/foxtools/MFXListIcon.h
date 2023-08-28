@@ -77,7 +77,7 @@ public:
     void killFocus();
 
     /// @brief Return the number of items in the list
-    FXint getNumItems() const { return items.no(); }
+    FXint getNumItems() const { return (int)items.size(); }
 
     /// @brief Return number of visible items
     FXint getNumVisible() const { return visible; }
@@ -236,8 +236,11 @@ protected:
     MFXListIconItem *createItem(const FXString &text, FXIcon* icon, void* ptr);
 
     /// @brief Item list
-    FXObjectListOf <MFXListIconItem> items;
+    std::vector<MFXListIconItem*> items;
  
+    /// @brief Selected item list
+    std::vector<MFXListIconItem*> itemFiltered;
+
     /// @brief Anchor item
     FXint anchor = -1;
 
@@ -295,9 +298,6 @@ protected:
 private:
     /// @brief typedef used for comparing elements
     typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
-
-    /// @brief get filtered items
-    std::vector<MFXListIconItem*> getFilteredItems() const;
 
     /// @brief check if filter element
     bool showItem(const FXString &itemName) const;
