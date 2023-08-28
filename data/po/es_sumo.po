@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-28 09:40+0200\n"
-"PO-Revision-Date: 2023-08-28 09:25+0000\n"
+"PO-Revision-Date: 2023-08-28 11:10+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5534,7 +5534,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:278
 msgid "Reducing geometries"
-msgstr ""
+msgstr "Reduciendo geometrías"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:285
 msgid "Joining similar edges"
@@ -5606,7 +5606,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:475
 msgid "Computing priorities"
-msgstr ""
+msgstr "Computando prioridades"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:479
 msgid "Computing approached edges"
@@ -6892,7 +6892,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
-msgstr ""
+msgstr "Cargando nodos"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:80
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:105
@@ -6910,7 +6910,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
-msgstr ""
+msgstr "Cargando aristas"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
@@ -8744,7 +8744,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:186
 msgid "Writing network"
-msgstr ""
+msgstr "Escribiendo red"
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:91
 msgid ""
@@ -9444,7 +9444,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:233
 msgid "No output specified."
-msgstr ""
+msgstr "No se ha especificado ninguna salida."
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:238
 msgid "A positive number of alternatives must be enabled."
@@ -10078,11 +10078,11 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:43
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:184
 msgid "Process Error"
-msgstr ""
+msgstr "Error de proceso"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "Datos vacíos"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:99
 msgid "Invalid Number Format %"
@@ -10102,7 +10102,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "Elemento desconocido"
 
 #: C:\Repos\sumo/src\utils\distribution\Distribution_Parameterized.cpp:74
 #: C:\Repos\sumo/src\utils\distribution\Distribution_Parameterized.cpp:76
