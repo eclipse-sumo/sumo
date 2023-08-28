@@ -113,7 +113,7 @@ public:
     void clearItems(FXbool notify = FALSE);
 
     /// @brief filter items in list
-    void setFilter(const FXString &value);
+    void setFilter(const FXString &value, FXLabel *label);
 
     /// @brief Return item width
     FXint getItemWidth(FXint index) const;

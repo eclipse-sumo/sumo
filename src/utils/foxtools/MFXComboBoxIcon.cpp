@@ -23,8 +23,9 @@
 // included modules
 // =========================================================================
 
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "MFXComboBoxIcon.h"
 
@@ -83,6 +84,10 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     // check if create search button
     if (canSearch) {
         myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+        // create label for empty icon
+        myNoItemsLabel = new FXLabel(myPane, TL("No matches Found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+        myNoItemsLabel->setTextColor(FXRGB(255, 0, 0));
+        myNoItemsLabel->hide();
     }
     // create list icon
     myList = new MFXListIcon(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | SCROLLERS_TRACK | HSCROLLER_NEVER);
@@ -95,6 +100,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     myButton->setXOffset(border);
     myButton->setYOffset(border);
     flags &= ~FLAG_UPDATE;  // Never GUI update
+
 }
 
 
@@ -105,6 +111,7 @@ MFXComboBoxIcon::~MFXComboBoxIcon() {
     myButton = (FXMenuButton*) - 1L;
     if (myTextFieldSearch) {
         myTextFieldSearch = (MFXTextFieldSearch*) - 1L;
+        myNoItemsLabel = (FXLabel*) - 1L;
     }
     myList = (MFXListIcon*) - 1L;
 }
@@ -177,6 +184,7 @@ MFXComboBoxIcon::layout() {
     myButton->position(border + textWidth, border, buttonWidth, itemHeight);
     if(myTextFieldSearch) {
         myTextFieldSearch->resize(width, height);
+        myNoItemsLabel->resize(width, height);
     }
     myPane->resize(width, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
@@ -373,7 +381,7 @@ MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
 
 long
 MFXComboBoxIcon::onCmdFilter(FXObject*, FXSelector, void* ptr) {
-    myList->setFilter(myTextFieldSearch->getText());
+    myList->setFilter(myTextFieldSearch->getText(), myNoItemsLabel);
     myPane->resize(width, myPane->getDefaultHeight());
     myPane->recalc();
     myPane->onPaint(0, 0, ptr);

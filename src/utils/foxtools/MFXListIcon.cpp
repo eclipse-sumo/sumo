@@ -1146,8 +1146,13 @@ MFXListIcon::clearItems(FXbool notify) {
 
 
 void
-MFXListIcon::setFilter(const FXString &value) {
+MFXListIcon::setFilter(const FXString &value, FXLabel *label) {
     filter = value;
+    if (!value.empty() && getFilteredItems().empty()) {
+        label->show();
+    } else {
+        label->hide();
+    }
     recompute();
     recalc();
 }
