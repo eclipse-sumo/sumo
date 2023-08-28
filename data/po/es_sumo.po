@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-28 09:40+0200\n"
-"PO-Revision-Date: 2023-08-28 08:53+0000\n"
+"PO-Revision-Date: 2023-08-28 09:22+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6389,7 +6389,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:267
 msgid " Generation done;"
-msgstr ""
+msgstr " Generación realizada;"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:268
 #, c-format
@@ -7832,7 +7832,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:126
 msgid " Import done:"
-msgstr ""
+msgstr " Importación realizada:"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:128
 #, c-format
@@ -9224,7 +9224,7 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:177
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:181
 msgid "Pruning"
-msgstr ""
+msgstr "Recorte"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
@@ -9478,7 +9478,7 @@ msgstr ""
 #: C:\Repos\sumo/src\router\ROLoader.cpp:281
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:183
 msgid "failed."
-msgstr ""
+msgstr "falló."
 
 #: C:\Repos\sumo/src\router\RONet.cpp:162
 #, c-format
@@ -9884,7 +9884,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:347
 msgid "  client connected"
-msgstr ""
+msgstr "  cliente conectado"
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:480
 msgid ""
@@ -9912,7 +9912,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:180
 msgid "done."
-msgstr ""
+msgstr "terminado."
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:278
 msgid "Could not set locale to '%'."
@@ -10120,7 +10120,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
 msgid "No matches found"
-msgstr ""
+msgstr "No hay resultados"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
 msgid "Add decal"
@@ -10166,7 +10166,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
