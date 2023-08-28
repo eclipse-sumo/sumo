@@ -108,7 +108,7 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                     const std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
+                     const std::string tooltip, std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
 
     /// @brief destructor
     ~GNETagProperties();
@@ -333,6 +333,9 @@ private:
     /// @brief Attribute properties
     int myTagProperty;
 
+    /// @brief tooltip text
+    std::string myTooltipText;
+
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<GNEAttributeProperties> myAttributeProperties;
 
@@ -350,9 +353,6 @@ private:
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor;
-
-    /// @brief max number of attributes allowed for every tag
-    static const size_t MAXNUMBEROFATTRIBUTES;
 };
 
 /****************************************************************************/

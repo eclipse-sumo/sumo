@@ -20,17 +20,16 @@
 
 
 // ===========================================================================
+// defines
+// ===========================================================================
+
+#define MAXNUMBEROFATTRIBUTES 128
+
+// ===========================================================================
 // included modules
 // ===========================================================================
 
 #include "GNETagProperties.h"
-
-
-// ===========================================================================
-// static members
-// ===========================================================================
-
-const size_t GNETagProperties::MAXNUMBEROFATTRIBUTES = 128;
 
 // ===========================================================================
 // method definitions
@@ -47,13 +46,14 @@ GNETagProperties::GNETagProperties() :
 
 
 GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
+                                   const std::string tooltip, const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
     myXMLTag(XMLTag),
+    myTooltipText(tooltip),
     myParentTags(parentTags),
     myFieldString(toString(tag)),
     myBackgroundColor(backgroundColor) {
