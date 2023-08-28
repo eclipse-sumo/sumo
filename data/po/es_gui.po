@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-25 13:33+0200\n"
-"PO-Revision-Date: 2023-08-24 10:55+0000\n"
+"PO-Revision-Date: 2023-08-28 14:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -15050,11 +15050,11 @@ msgstr "Eliminar"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1580
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1625
 msgid "Only for selected"
-msgstr ""
+msgstr "Sólo para seleccionados"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1582
 msgid "constant text size"
-msgstr ""
+msgstr "tamaño de texto constante"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1585
 msgid "Size"
@@ -15084,11 +15084,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1628
 msgid "Minimum Size"
-msgstr ""
+msgstr "Tamaño mínimo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1632
 msgid "Exaggerate by"
-msgstr ""
+msgstr "Exagerar por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
 msgid "Save the setting to registry"
@@ -15108,7 +15108,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1684
 msgid "Export includes:"
-msgstr ""
+msgstr "La exportación incluye:"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1685
 msgid "Viewport"
@@ -15140,7 +15140,7 @@ msgstr "Borrar imágenes"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1717
 msgid "Toggle grid"
-msgstr ""
+msgstr "Habilitar cuadrícula"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1721
 msgid "x-spacing"
@@ -15171,15 +15171,15 @@ msgstr "Interpolar"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2018
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2241
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "Recalibrar arcoíris"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1758
 msgid "hide below"
-msgstr ""
+msgstr "ocultar menor a"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1762
 msgid "hide above"
-msgstr ""
+msgstr "ocultar mayor a"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1771
 msgid "Scale width"
@@ -15207,7 +15207,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1803
 msgid "Show lane direction"
-msgstr ""
+msgstr "Mostrar dirección del carril"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
 msgid "Hide macro connectors"
@@ -15358,7 +15358,7 @@ msgstr "Mostrar ID del contenedor"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2024
 msgid "Draw junction shape"
-msgstr "Dibujar forma para el cruce (junction)"
+msgstr "Dibujar forma del cruce"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2026
 msgid "Draw crossings/walkingareas"
@@ -15366,7 +15366,7 @@ msgstr "Dibujar pasos peatonales / áreas (WalkingArea) peatonales"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 msgid "Show lane to lane connections"
-msgstr "Mostrar conexiones carril (lane) a carril"
+msgstr "Mostrar conexiones carril a carril"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2032
 msgid "Show link tls index"
@@ -15402,7 +15402,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2040
 msgid "Show junction name"
-msgstr "Mostrar nombre del cruce (junction)"
+msgstr "Mostrar nombre del cruce"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2046
 msgid "Additional"
@@ -15470,15 +15470,15 @@ msgstr "Misceláneos"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2243
 msgid "hide below threshold"
-msgstr ""
+msgstr "ocultar menor al umbral"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2250
 msgid "Exaggerate edgeRelation width by"
-msgstr ""
+msgstr "Exagerar ancho de edgeRelation por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2255
 msgid "Exaggerate tazRelation width by"
-msgstr ""
+msgstr "Exagerar ancho de tazRelation por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2261
 msgid "Show data color value"
