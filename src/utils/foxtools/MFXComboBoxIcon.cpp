@@ -85,7 +85,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     if (canSearch) {
         myTextFieldSearch = new MFXTextFieldSearch(myPane, 1, this, ID_SEARCH, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         // create label for empty icon
-        myNoItemsLabel = new FXLabel(myPane, TL("No matches Found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
+        myNoItemsLabel = new FXLabel(myPane, TL("No matches found"), nullptr, FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT, 0, 0, 0, 0, 2, 2, 2, 2);
         myNoItemsLabel->setTextColor(FXRGB(255, 0, 0));
         myNoItemsLabel->hide();
     }
