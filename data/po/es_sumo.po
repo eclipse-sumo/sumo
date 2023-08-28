@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-28 09:40+0200\n"
-"PO-Revision-Date: 2023-08-28 12:47+0000\n"
+"PO-Revision-Date: 2023-08-28 14:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -333,42 +333,42 @@ msgstr ""
 #: C:\Repos\sumo/src\od2trips_main.cpp:167
 #: C:\Repos\sumo/src\router\ROFrame.cpp:199
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "Asigna un carril de salida por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:212
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:127
 #: C:\Repos\sumo/src\od2trips_main.cpp:170
 #: C:\Repos\sumo/src\router\ROFrame.cpp:202
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "Asigna una posición de salida por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:215
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:131
 #: C:\Repos\sumo/src\od2trips_main.cpp:173
 #: C:\Repos\sumo/src\router\ROFrame.cpp:205
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "Asigna una velocidad de salida por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:218
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:135
 #: C:\Repos\sumo/src\od2trips_main.cpp:176
 #: C:\Repos\sumo/src\router\ROFrame.cpp:208
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "Asigna un carril de llegada por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:221
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:139
 #: C:\Repos\sumo/src\od2trips_main.cpp:179
 #: C:\Repos\sumo/src\router\ROFrame.cpp:211
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "Asigna una posición de llegada por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:224
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:143
 #: C:\Repos\sumo/src\od2trips_main.cpp:182
 #: C:\Repos\sumo/src\router\ROFrame.cpp:214
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "Asigna una velocidad de llegada por defecto"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
@@ -527,7 +527,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:198
 msgid "Writing emitters"
-msgstr ""
+msgstr "Escribiendo emitters"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:210
 msgid "Writing emitter pois"
@@ -617,7 +617,7 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:117
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "Usar FLOAT como beta de Gawron"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:121
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:210
@@ -699,7 +699,7 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:176
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:605
 msgid "Estimated time for taxi pickup"
-msgstr ""
+msgstr "Tiempo estimado para la recogida del taxi"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:179
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:608
@@ -764,7 +764,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
-msgstr ""
+msgstr "Leer relaciones de giro desde FILE(s)"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:69
 msgid "Use STR[] as default turn definition"
@@ -784,7 +784,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
-msgstr ""
+msgstr "Permitir reutilizar una vía"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:85
 msgid "Use all source edges as sink edges."
@@ -1042,7 +1042,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr ""
+msgstr "Ignorar atributos 'fromTaz' y 'toTaz'"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:106
 msgid ""
@@ -1393,11 +1393,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr ""
+msgstr "Cargar descripciones de ruta desde FILE(s)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr ""
+msgstr "Cargar más descripciones de FILE(s)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
@@ -1602,7 +1602,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:232
 msgid "Write the last route only"
-msgstr ""
+msgstr "Escribir solo la última ruta"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:236
 msgid "Sorts the output by departure time"
@@ -1614,7 +1614,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:243
 msgid "Write costs for all routes"
-msgstr ""
+msgstr "Escribir costos para todas las rutas"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:247
 msgid "Write the output with the intended instead of the real departure time"
@@ -1692,7 +1692,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:302
 msgid "Write collision information into FILE"
-msgstr ""
+msgstr "Escribir información de colisión en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:305
 msgid "Write aggregated traffic statistics for all edges into FILE"
@@ -1704,7 +1704,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:311
 msgid "Write overall statistics into FILE"
-msgstr ""
+msgstr "Escribir estadísticas generales en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:315
 msgid "Save movereminder states of selected vehicles into FILE"
@@ -1740,7 +1740,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:333
 msgid "Save random number generator states"
-msgstr ""
+msgstr "Guardar estados del generador de números aleatorios"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:335
 msgid "Save person and container states (experimental)"
@@ -1840,7 +1840,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
-msgstr ""
+msgstr "Habilitar comprobación de colisiones en cruces"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:395
 msgid "Increase or decrease sensitivity for junction collision check"
@@ -1957,7 +1957,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:461
 msgid "Switches off all traffic lights."
-msgstr ""
+msgstr "Apaga todos los semáforos."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:464
 msgid "Sets default visibility for actuation detectors"
@@ -2299,7 +2299,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:735
 msgid "Do not load background pictures"
-msgstr ""
+msgstr "No cargar imágenes de fondo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:738
 msgid "Load current viewport from registry"
