@@ -108,7 +108,8 @@ public:
 
     /// @brief parameter constructor
     GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                     const std::string tooltip, std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
+                     const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
+                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
 
     /// @brief destructor
     ~GNETagProperties();
@@ -130,9 +131,6 @@ public:
 
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
-
-    /// @brief set field that will be drawn in TextFields/ComboBox/etc,
-    void setFieldString(const std::string& fieldString);
 
     /// @brief get background color
     unsigned int getBackGroundColor() const;

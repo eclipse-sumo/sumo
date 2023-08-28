@@ -45,8 +45,9 @@ GNETagProperties::GNETagProperties() :
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                                   const std::string tooltip, const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon,
+                                   const SumoXMLTag XMLTag, const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
+                                   const unsigned int backgroundColor, const std::string fieldString) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
@@ -55,7 +56,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
     myParentTags(parentTags),
-    myFieldString(toString(tag)),
+    myFieldString(fieldString.empty()? toString(tag) : fieldString),
     myBackgroundColor(backgroundColor) {
 }
 
@@ -180,12 +181,6 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
 const std::string&
 GNETagProperties::getFieldString() const {
     return myFieldString;
-}
-
-
-void
-GNETagProperties::setFieldString(const std::string& fieldString) {
-    myFieldString = fieldString;
 }
 
 

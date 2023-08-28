@@ -3824,8 +3824,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
                                       GUIIcon::TRIP, currentTag, TL("TripEdges"),
-                                      {}, FXRGBA(253, 255, 206, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to edges)");
+                                      {}, FXRGBA(253, 255, 206, 255), "trip (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3870,8 +3869,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
                                       GUIIcon::TRIP_JUNCTIONS, SUMO_TAG_TRIP, TL("TripJunctions"),
-                                      {}, FXRGBA(255, 213, 213, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to junctions)");
+                                      {}, FXRGBA(255, 213, 213, 255), "trip (from-to junctions)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3911,8 +3909,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
                                       GUIIcon::TRIP_TAZS, SUMO_TAG_TRIP, TL("TripTAZs"),
-                                      {}, FXRGBA(240, 255, 205, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to TAZs)");
+                                      {}, FXRGBA(240, 255, 205, 255), "trip (from-to TAZs)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3952,8 +3949,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_ROUTE,
                                       GUIIcon::VEHICLE, currentTag, TL("VehicleRoute"),
-                                      {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("vehicle (over route)");
+                                      {}, FXRGBA(210, 233, 255, 255), "vehicle (over route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3998,8 +3994,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_EMBEDDED_ROUTE,
                                       GUIIcon::VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleEmbeddedRoute"),
-                                      {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("vehicle (embedded route)");
+                                      {}, FXRGBA(210, 233, 255, 255), "vehicle (embedded route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4039,8 +4034,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
                                       GUIIcon::FLOW, currentTag, TL("FlowEdges"),
-                                      {}, FXRGBA(253, 255, 206, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to edges)");
+                                      {}, FXRGBA(253, 255, 206, 255), "flow (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4082,8 +4076,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
                                       GUIIcon::FLOW_JUNCTIONS, SUMO_TAG_FLOW, TL("FlowJunctions"),
-                                      {}, FXRGBA(255, 213, 213, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
+                                      {}, FXRGBA(255, 213, 213, 255), "flow (from-to junctions)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4120,8 +4113,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
                                       GUIIcon::FLOW_TAZS, SUMO_TAG_FLOW, TL("FlowTAZs"),
-                                      {}, FXRGBA(240, 255, 205, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to TAZs)");
+                                      {}, FXRGBA(240, 255, 205, 255), "flow (from-to TAZs)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4158,8 +4150,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_ROUTE,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRoute"),
-                                      {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("flow (over route)");
+                                      {}, FXRGBA(210, 233, 255, 255), "flow (over route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4201,8 +4192,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_EMBEDDED_ROUTE,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowEmbeddedRoute"),
-                                      {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("flow (embedded route)");
+                                      {}, FXRGBA(210, 233, 255, 255), "flow (embedded route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
