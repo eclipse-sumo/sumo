@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-25 13:33+0200\n"
-"PO-Revision-Date: 2023-08-28 14:09+0000\n"
+"PO-Revision-Date: 2023-08-30 07:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3188,11 +3188,11 @@ msgstr "Recargar elementos de demanda."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:475
 msgid "Load Data Elements..."
-msgstr "Cargar elementos de demanda..."
+msgstr "Cargar elementos de datos..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:475
 msgid "Load data elements."
-msgstr "Cargar elementos de demanda."
+msgstr "Cargar elementos de datos."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:481
 msgid "Save Data Elements"
@@ -4286,7 +4286,7 @@ msgstr "Abrir elementos de demanda desde archivo(s)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:297
 msgid "Load data elements descriptions from FILE(s)"
-msgstr "Abrir elementos de datos desde archivo(s)"
+msgstr "Abrir elementos de datos desde FILE(s)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:301
 msgid "Load meanData descriptions from FILE(s)"
