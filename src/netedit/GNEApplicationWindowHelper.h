@@ -198,7 +198,7 @@ struct GNEApplicationWindowHelper {
         /// @brief build meanData section
         void buildMeanDataSection(FXMenuPane* menuPane);
 
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp = nullptr;
 
         /// @brief FXMenuCascade for neteditConfig
@@ -471,7 +471,7 @@ struct GNEApplicationWindowHelper {
         DataMenuCommands dataMenuCommands;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -551,7 +551,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -613,7 +613,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -666,7 +666,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator = nullptr;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -728,7 +728,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* openInSUMOGUI = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -887,7 +887,7 @@ struct GNEApplicationWindowHelper {
         FXHotKey parseHotKey(const FXwchar character);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -979,7 +979,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* optionMenus = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief separator for optionsMenu
@@ -1005,7 +1005,7 @@ struct GNEApplicationWindowHelper {
         void buildLocateMenuCommands(FXMenuPane* locateMenu);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1058,7 +1058,7 @@ struct GNEApplicationWindowHelper {
         /// @brief run netgenerate dialog
         GNERunNetgenerateDialog* myRunNetgenerateDialog = nullptr;
 
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1066,6 +1066,26 @@ struct GNEApplicationWindowHelper {
 
         /// @brief Invalidated assignment operator.
         ToolsMenuCommands& operator=(const ToolsMenuCommands&) = delete;
+    };
+
+    /// @brief struct for views menu commands
+    struct ViewsMenuCommands {
+
+        /// @brief constructor
+        ViewsMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildViewsMenuCommands(FXMenuPane* viewsMenu);
+
+    private:
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow* myGNEApp;
+
+        /// @brief Invalidated copy constructor.
+        ViewsMenuCommands(const ViewsMenuCommands&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ViewsMenuCommands& operator=(const ViewsMenuCommands&) = delete;
     };
 
     /// @brief struct for windows menu commands
@@ -1078,7 +1098,7 @@ struct GNEApplicationWindowHelper {
         void buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1133,7 +1153,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* dataMode = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.

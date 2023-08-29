@@ -609,42 +609,43 @@ protected:
     bool myAmLoading = false;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu = nullptr,
-                *myFileMenuNeteditConfig = nullptr,
-                 *myFileMenuSumoConfig = nullptr,
-                  *myFileMenuTLS = nullptr,
-                   *myFileMenuEdgeTypes = nullptr,
-                    *myFileMenuAdditionals = nullptr,
-                     *myFileMenuDemandElements = nullptr,
-                      *myFileMenuDataElements = nullptr,
-                       *myFileMenuMeanDataElements = nullptr,
-                        *myFileMenuRecentNetworks = nullptr,
-                         *myFileMenuRecentConfigs = nullptr,
-                          *myModesMenu = nullptr,
-                           *myEditMenu = nullptr,
-                            *myLockMenu = nullptr,
-                             *myProcessingMenu = nullptr,
-                              *myLocatorMenu = nullptr,
-                               *myToolsMenu = nullptr,
-                                *myToolsDetectorMenu = nullptr,
-                                 *myToolsDistrictMenu = nullptr,
-                                  *myToolsDRTMenu = nullptr,
-                                   *myToolsEmissionsMenu = nullptr,
-                                    *myToolsImportMenu = nullptr,
-                                     *myToolsImportCityBrainMenu = nullptr,
-                                      *myToolsImportGTFSMenu = nullptr,
-                                       *myToolsImportVissim = nullptr,
-                                        *myToolsImportVisum = nullptr,
-                                         *myToolsNetMenu = nullptr,
-                                          *myToolsRouteMenu = nullptr,
-                                           *myToolsOutputMenu = nullptr,
-                                            *myToolsShapes = nullptr,
-                                             *myToolsTLS = nullptr,
-                                              *myToolsTurnDefs = nullptr,
-                                               *myToolsVisualizationMenu = nullptr,
-                                                *myToolsXML = nullptr,
-                                                 *myWindowMenu = nullptr,
-                                                  *myHelpMenu = nullptr;
+    FXMenuPane *myFileMenu = nullptr,
+               *myFileMenuNeteditConfig = nullptr,
+               *myFileMenuSumoConfig = nullptr,
+               *myFileMenuTLS = nullptr,
+               *myFileMenuEdgeTypes = nullptr,
+               *myFileMenuAdditionals = nullptr,
+               *myFileMenuDemandElements = nullptr,
+               *myFileMenuDataElements = nullptr,
+               *myFileMenuMeanDataElements = nullptr,
+               *myFileMenuRecentNetworks = nullptr,
+               *myFileMenuRecentConfigs = nullptr,
+               *myModesMenu = nullptr,
+               *myEditMenu = nullptr,
+               *myLockMenu = nullptr,
+               *myProcessingMenu = nullptr,
+               *myLocatorMenu = nullptr,
+               *myToolsMenu = nullptr,
+               *myToolsDetectorMenu = nullptr,
+               *myToolsDistrictMenu = nullptr,
+               *myToolsDRTMenu = nullptr,
+               *myToolsEmissionsMenu = nullptr,
+               *myToolsImportMenu = nullptr,
+               *myToolsImportCityBrainMenu = nullptr,
+               *myToolsImportGTFSMenu = nullptr,
+               *myToolsImportVissim = nullptr,
+               *myToolsImportVisum = nullptr,
+               *myToolsNetMenu = nullptr,
+               *myToolsRouteMenu = nullptr,
+               *myToolsOutputMenu = nullptr,
+               *myToolsShapes = nullptr,
+               *myToolsTLS = nullptr,
+               *myToolsTurnDefs = nullptr,
+               *myToolsVisualizationMenu = nullptr,
+               *myToolsXML = nullptr,
+               *myViewsMenu = nullptr,
+               *myWindowMenu = nullptr,
+               *myHelpMenu = nullptr;
 
     /// @brief map with menu pane tools and strings
     std::map<std::string, FXMenuPane*> myMenuPaneToolMaps;
@@ -733,6 +734,9 @@ private:
 
     /// @brief Tools Menu Commands
     GNEApplicationWindowHelper::ToolsMenuCommands myToolsMenuCommands;
+
+    /// @brief Views Menu Commands
+    GNEApplicationWindowHelper::ViewsMenuCommands myViewsMenuCommands;
 
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;

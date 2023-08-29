@@ -2169,6 +2169,30 @@ GNEApplicationWindowHelper::ToolsMenuCommands::runNetgenerateDialog(const Option
 }
 
 // ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::ViewsMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::ViewsMenuCommands::ViewsMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::ViewsMenuCommands::buildViewsMenuCommands(FXMenuPane* viewsMenu) {
+    // build windows menu commands
+    GUIDesigns::buildFXMenuCheckbox(viewsMenu,
+                                    TL("Show Status Line"), TL("Toggle this Status Bar on/off."),
+                                    nullptr, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(viewsMenu,
+                                    TL("Show Message Window"), TL("Toggle the Message Window on/off."),
+                                    nullptr, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuSeparator(viewsMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(viewsMenu,
+                                           TL("Clear Message Window"), "", TL("Clear the Message Window."),
+                                           GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), myGNEApp, MID_CLEARMESSAGEWINDOW);
+}
+
+// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::WindowsMenuCommands - methods
 // ---------------------------------------------------------------------------
 

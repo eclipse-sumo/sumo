@@ -460,6 +460,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
+    myViewsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
@@ -626,6 +627,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myToolsTurnDefs;
     delete myToolsVisualizationMenu;
     delete myToolsXML;
+    delete myViewsMenu;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLanguageMenu;
@@ -1469,10 +1471,15 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuPaneToolMaps["xml"] = myToolsXML;
     // build tools
     myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
+    // build views menu
+    myViewsMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Views"), nullptr, myViewsMenu);
+    myViewsMenuCommands.buildViewsMenuCommands(myViewsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
+    // build language menu
     buildLanguageMenu(myToolbarsGrip.menu);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
@@ -4928,6 +4935,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
+    myViewsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this) {
