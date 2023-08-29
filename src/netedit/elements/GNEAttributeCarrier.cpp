@@ -1818,6 +1818,18 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins"),
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGETYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Battery charging type"));
+        attrProperty.setDiscreteValues({"normal", "electric", "fuel"}, true);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WAITINGTIME,
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Waiting time before start charging"),
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {
