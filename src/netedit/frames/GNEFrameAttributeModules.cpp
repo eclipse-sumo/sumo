@@ -191,7 +191,7 @@ GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() cons
 
 
 long
-GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // create FXColorDialog
@@ -233,7 +233,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenColorDialog(FXObject* ob
 
 
 long
-GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAllowDialog(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // if its valid for the first AC than its valid for all (of the same type)
