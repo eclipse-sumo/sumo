@@ -118,7 +118,7 @@ protected:
     SUMOTime myChargeDelay = 0;
 
     /// @brief charging type
-    std::string myChargeType = "electric";
+    std::string myChargeType = "normal";
 
     /// @brief waiting time before start charging
     SUMOTime myWaitingTime = 0;

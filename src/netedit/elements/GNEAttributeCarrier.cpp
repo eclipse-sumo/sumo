@@ -1821,7 +1821,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGETYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Battery charging type"));
+                                              TL("Battery charging type"),
+                                              "normal");
         attrProperty.setDiscreteValues({"normal", "electric", "fuel"}, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
         

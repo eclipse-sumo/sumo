@@ -331,9 +331,6 @@ private:
     /// @brief Attribute properties
     int myTagProperty;
 
-    /// @brief tooltip text
-    std::string myTooltipText;
-
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<GNEAttributeProperties> myAttributeProperties;
 
@@ -342,6 +339,9 @@ private:
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
     SumoXMLTag myXMLTag;
+
+    /// @brief tooltip text
+    std::string myTooltipText;
 
     /// @brief vector with master tags (used by child elements)
     std::vector<SumoXMLTag> myParentTags;
