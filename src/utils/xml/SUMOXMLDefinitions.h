@@ -713,8 +713,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_EFFICIENCY,
     /// @brief Allow/disallow charge in transit in Charging Stations
     SUMO_ATTR_CHARGEINTRANSIT,
-    /// @brief Delay in the charge of charging stations
+    /// @brief Delay in the charge of charging stations (different of waiting time)
     SUMO_ATTR_CHARGEDELAY,
+    /// @brief Charge type (fuel or electric)
+    SUMO_ATTR_CHARGETYPE,
     /// @}
 
     /// @name battery device parameters
