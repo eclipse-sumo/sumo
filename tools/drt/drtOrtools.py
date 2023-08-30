@@ -126,6 +126,16 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end, fi
     dropoff_indices = range(1 + n_dp_reservations, 1 + 2*n_dp_reservations + n_do_reservations)
     cost_matrix, time_matrix = get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices)
 
+    # safe cost and time matrix
+    #if verbose:
+    #    import csv
+    #    with open("cost_matrix.csv", 'a') as cost_file:
+    #        wr = csv.writer(cost_file)
+    #        wr.writerows(cost_matrix)
+    #    with open("time_matrix.csv", 'a') as time_file:
+    #        wr = csv.writer(time_file)
+    #        wr.writerows(time_matrix)
+
     # add "direct route cost" to the requests:
     for res in reservations:
         if hasattr(res, 'direct_route_cost'):
@@ -414,6 +424,17 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, wai
 
         fleet = traci.vehicle.getTaxiFleet(-1)
         reservations_not_assigned = traci.person.getTaxiReservations(3)
+        
+        # find and remove unassigned reservations that cannot be picked up by time
+        reservations_removed = [res for res in reservations_not_assigned if res.reservationTime + waiting_time < timestep]
+        for res in reservations_removed:
+            for person in res.persons:
+                traci.person.removeStages(person)
+        reservations_new = [res for res in reservations_new if res not in reservations_removed]
+        if verbose:
+            if reservations_removed:
+                print(f"Reservations rejected: {[res.id for res in reservations_removed]}")
+
         # if fix_allocation=True only take new reservations from traci
         # and add to all_reservations to keep the vehicle allocation for the older reservations
         current_reservations = traci.person.getTaxiReservations(0)
