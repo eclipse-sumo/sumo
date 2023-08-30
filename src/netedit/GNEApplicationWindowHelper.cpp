@@ -2200,6 +2200,20 @@ GNEApplicationWindowHelper::ViewsMenuCommands::setView(FXSelector sel) {
         myDefaultView->setCheck(FALSE);
         myJuPedSimView->setCheck(TRUE);
     }
+    // update GNEApp
+    myGNEApp->viewUpdated();
+}
+
+
+bool
+GNEApplicationWindowHelper::ViewsMenuCommands::isDefaultView() const {
+    return myDefaultView->getCheck() == TRUE;
+}
+
+
+bool
+GNEApplicationWindowHelper::ViewsMenuCommands::isJuPedSimView() const {
+    return myJuPedSimView->getCheck() == TRUE;
 }
 
 // ---------------------------------------------------------------------------

@@ -1080,6 +1080,12 @@ struct GNEApplicationWindowHelper {
         /// @brief set view
         void setView(FXSelector sel);
 
+        /// @brief check if default view is enabled
+        bool isDefaultView() const;
+
+        /// @brief check if default view is enabled
+        bool isJuPedSimView() const;
+
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
@@ -1151,6 +1157,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief hide all menu commands
         void hideSupermodeCommands();
+
+        /// @brief called when user update view
+        void viewUpdated();
 
         /// @brief FXMenuCommand for network supermode
         FXMenuCommand* networkMode = nullptr;

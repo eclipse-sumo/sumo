@@ -110,7 +110,7 @@ enum class DemandEditMode {
     DEMAND_CONTAINERPLAN
 };
 
-/// @brie enum for data edit modes
+/// @brief enum for data edit modes
 enum class DataEditMode {
     /// @brief empty Data mode
     DATA_NONE,

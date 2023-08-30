@@ -81,6 +81,9 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
+    /// @brief called when view is updated
+    void viewUpdated();
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred

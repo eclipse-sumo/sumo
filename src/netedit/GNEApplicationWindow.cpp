@@ -1792,6 +1792,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     }
 }
 
+
 bool
 GNEApplicationWindow::consoleOptionsLoaded() {
     if (myConsoleOptionsLoaded) {
@@ -1800,6 +1801,11 @@ GNEApplicationWindow::consoleOptionsLoaded() {
     } else {
         return false;
     }
+}
+
+
+void
+GNEApplicationWindow::viewUpdated() {
 }
 
 
