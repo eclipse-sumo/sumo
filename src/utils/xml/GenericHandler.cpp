@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2022
 ///
-// A handler which converts occuring elements and attributes into strings
+// A handler which converts occurring elements and attributes into strings
 /****************************************************************************/
 #include <config.h>
 

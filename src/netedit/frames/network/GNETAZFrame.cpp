@@ -1176,6 +1176,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
@@ -1248,6 +1249,7 @@ GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*)
     // create FXColorDialog
     FXColorDialog colordialog(getCollapsableFrame(), TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text())));

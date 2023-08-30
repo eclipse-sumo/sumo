@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occurring elements and attributes into enums
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -39,7 +39,7 @@
 // ===========================================================================
 /**
  * @class GenericSAXHandler
- * @brief A handler which converts occuring elements and attributes into enums
+ * @brief A handler which converts occurring elements and attributes into enums
  *
  * Normally, when using a standard SAX-handler, we would have to compare
  *  the incoming XMLCh*-element names with the ones we can parse. The same
@@ -76,9 +76,9 @@ public:
      *  internal container. This container is cleared within the destructor.
      *
      * @param[in] tags The list of known tags
-     * @param[in] terminatorTag The tag which signales the end of tags (usually the last entry)
+     * @param[in] terminatorTag The tag which indicates the end of tags (usually the last entry)
      * @param[in] attrs The list of known attributes
-     * @param[in] terminatorAttr The attr which signales the end of attrs (usually the last entry)
+     * @param[in] terminatorAttr The attr which indicates the end of attrs (usually the last entry)
      * @param[in] file The name of the processed file
      * @param[in] expectedRoot The expected root element, empty string disables the check
      *

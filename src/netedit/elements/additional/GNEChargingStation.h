@@ -43,12 +43,14 @@ public:
      * @param[in] efficiency efficiency of the charge [0,1]
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in timeSteps in the charge
+     * @param[in] chargeType charge type (fuel or electric)
+     * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                       bool friendlyPosition, const Parameterised::Map& parameters);
+                       const std::string &chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEChargingStation();
@@ -104,16 +106,22 @@ public:
 
 protected:
     /// @brief Charging power pro timestep
-    double myChargingPower;
+    double myChargingPower = 0;
 
     /// @brief efficiency of the charge
-    double myEfficiency;
+    double myEfficiency = 0;
 
     /// @brief enable or disable charge in transit
-    bool myChargeInTransit;
+    bool myChargeInTransit = false;
 
     /// @brief delay in the starting of charge
-    SUMOTime myChargeDelay;
+    SUMOTime myChargeDelay = 0;
+
+    /// @brief charging type
+    std::string myChargeType = "normal";
+
+    /// @brief waiting time before start charging
+    SUMOTime myWaitingTime = 0;
 
 private:
     /// @brief set attribute after validation

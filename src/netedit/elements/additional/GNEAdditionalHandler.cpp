@@ -253,8 +253,8 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
 void
 GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
         const std::string& laneID, const double startPos, const double endPos, const std::string& name, const double chargingPower,
-        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
-        const Parameterised::Map& parameters) {
+        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+        const SUMOTime waitingTime, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CHARGING_STATION, id);
@@ -275,7 +275,7 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         } else {
             // build chargingStation
             GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit,
-                    chargeDelay, friendlyPosition, parameters);
+                    chargeDelay, chargeType, waitingTime, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(chargingStation, TL("add charging station '") + id + "'");

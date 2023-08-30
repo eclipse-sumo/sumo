@@ -323,6 +323,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                                  obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
                                  obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                                 obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
+                                 obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                                  obj->getParameters());
             break;
@@ -905,7 +907,14 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), parsedOk, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), parsedOk, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, 0);
+    const std::string chargeType = attrs.getOpt<std::string>(SUMO_ATTR_CHARGETYPE, id.c_str(), parsedOk, "normal");
+    const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, 900);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    // check charge type
+    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+        writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
+        parsedOk = false;
+    }
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -921,6 +930,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_EFFICIENCY, efficiency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT, chargeInTransit);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CHARGETYPE, chargeType);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_WAITINGTIME, waitingTime);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }

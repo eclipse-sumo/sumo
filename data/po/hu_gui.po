@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-21 12:14+0200\n"
+"POT-Creation-Date: 2023-08-25 13:33+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -416,8 +416,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:263
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1393
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2897
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1407
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2910
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save"
 msgstr ""
@@ -431,7 +431,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:265
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2895
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2908
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load"
 msgstr ""
@@ -947,83 +947,83 @@ msgstr ""
 msgid "Overflow in time computation occurred."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:114
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:340
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:113
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:339
 msgid "Locate Junctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:114
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:113
 msgid "Locate a junction within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:344
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:118
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
 msgid "Locate Edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:119
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:118
 msgid "Locate an edge within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:124
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:352
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:123
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:351
 msgid "Locate Vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:124
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:123
 msgid "Locate a vehicle within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:129
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:356
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:128
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:355
 msgid "Locate Persons"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:129
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:128
 msgid "Locate a person within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:134
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:133
 msgid "Locate Container"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:134
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:133
 msgid "Locate a container within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:139
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:379
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:138
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:378
 msgid "Locate TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:139
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:138
 msgid "Locate a tls within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:144
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:383
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:143
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:382
 msgid "Locate Additional"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:144
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:143
 msgid "Locate an additional structure within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:149
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:387
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:148
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:386
 msgid "Locate PoI"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:149
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:148
 msgid "Locate a PoI within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:154
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:391
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:153
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:390
 msgid "Locate Polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:154
+#: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:153
 msgid "Locate a Polygon within the network."
 msgstr ""
 
@@ -1035,12 +1035,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:408
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:374
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:234
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:247
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:246
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:299
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:380
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:555
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:298
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:487
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:300
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:481
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:97
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:173
 msgid "OK"
@@ -1073,8 +1073,8 @@ msgstr ""
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:101
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:76
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:133
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:995
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2354
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:999
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2364
 msgid "&OK"
 msgstr ""
 
@@ -1084,8 +1084,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:639
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:390
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:134
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:996
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2355
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1000
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2365
 msgid "&Cancel"
 msgstr ""
 
@@ -1120,10 +1120,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:175
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:155
-#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:258
+#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:257
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:240
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1102
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1183
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1106
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1187
 msgid "Storing failed!"
 msgstr ""
 
@@ -1211,55 +1211,55 @@ msgstr ""
 msgid "waiting for:"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:306
 msgid "interval start"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:307
 msgid "interval end"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:318
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:308
 msgid "aspired flow [veh/h]"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:319
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:309
 msgid "aspired speed"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:320
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:310
 msgid "current flow [veh/h]"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:321
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:311
 msgid "current speed"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:322
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:312
 msgid "default speed"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:323
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:313
 msgid "required vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:314
 msgid "passed vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:325
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:315
 msgid "inserted vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:326
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 msgid "removed vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:327
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 msgid "cleared in jam"
 msgstr ""
 
-#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:334
+#: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 msgid "inactive until"
 msgstr ""
 
@@ -1356,7 +1356,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:187
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:254
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2076
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2086
 msgid "width"
 msgstr ""
 
@@ -3417,7 +3417,7 @@ msgid "Create person plans."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:728
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:180
 msgid "Container"
 msgstr ""
 
@@ -4537,7 +4537,7 @@ msgid "Trying to delete a default Vehicle Type"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:737
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2819
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2818
 msgid "duplicate lane"
 msgstr ""
 
@@ -4720,415 +4720,415 @@ msgstr ""
 msgid "Undo replace in TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:340
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:339
 msgid "Locate a junction within the network. (Shift+J)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:344
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
 msgid "Locate an edge within the network. (Shift+E)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:348
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:347
 msgid "Locate WalkingAreas"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:348
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:347
 msgid "Locate a walkingArea within the network. (Shift+W)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:352
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:351
 msgid "Locate a vehicle within the network. (Shift+V)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:356
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:355
 msgid "Locate a person within the network. (Shift+P)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:359
 msgid "Locate Containers"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:360
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:359
 msgid "Locate a container within the network. (Shift+C)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:364
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:363
 msgid "Locate Route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:364
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:363
 msgid "Locate a route within the network. (Shift+R)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:368
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:367
 msgid "Locate Stops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:368
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:367
 msgid "Locate a stop within the network. (Shift+S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:379
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:378
 msgid "Locate a tls within the network. (Shift+T)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:383
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:382
 msgid "Locate an additional structure within the network. (Shift+A)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:387
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:386
 msgid "Locate a PoI within the network. (Shift+O)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:391
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:390
 msgid "Locate a Polygon within the network. (Shift+L)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:465
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:464
 msgid "Remove from Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:467
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:466
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:305
 msgid "Add to Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:624
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:623
 msgid "GUI-Settings cannot be saved in "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:817
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:816
 msgid "Confirm Junction Merger"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:818
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:817
 msgid "Do you wish to merge junctions '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:819
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:818
 msgid "' and '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:820
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:819
 msgid "' will be eliminated and its roads added to '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:852
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:851
 msgid " requires switch to network mode. Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:854
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:853
 msgid " requires switch to demand mode. Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:856
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:855
 msgid " requires switch to data mode. Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:861
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:860
 msgid "Confirm switch mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1446
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1445
 msgid "Cannot delete in this mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1449
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1448
 msgid "delete network inspected elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1457
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1456
 msgid "delete network selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1465
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1464
 msgid "delete demand inspected elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1473
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1472
 msgid "delete demand selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1481
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1480
 msgid "delete data inspected elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1489
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1488
 msgid "delete data selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2192
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2191
 msgid "Reverse selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2199
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2198
 msgid "Reverse edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2213
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2212
 msgid "Add Reverse edge for selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2220
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2219
 msgid "Add reverse edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2234
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2233
 msgid "Add Reverse disconnected edge for selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2241
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2240
 msgid "Add reverse disconnected edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2270
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2269
 msgid "reset geometry points"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2291
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2290
 msgid "straighten selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2299
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2298
 msgid "straighten edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2313
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2312
 msgid "smooth selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2320
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2319
 msgid "smooth edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2334
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2333
 msgid "straighten elevation of selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2341
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2340
 msgid "straighten edge elevation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2355
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2354
 msgid "smooth elevation of selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2362
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2361
 msgid "smooth edge elevation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2376
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2375
 msgid "reset edge lengths"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2405
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2404
 msgid "copy edge template"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2426
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2425
 msgid "simplify shapes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2473
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2472
 msgid "close polygon shapes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2509
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2508
 msgid "open polygon shapes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2563
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2562
 msgid "select within polygon boundary"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2608
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2607
 #, c-format
 msgid "No lanes around % to attach it"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2631
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2630
 msgid "attach POI into lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2644
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2643
 msgid "release POI from lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2663
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2662
 msgid "reverse % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2677
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2676
 msgid "add reverse '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2706
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2705
 msgid "change edge Geometry Point position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2738
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2737
 msgid "change polygon Geometry Point position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2758
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2757
 msgid "change TAZ Geometry Point position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2782
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2781
 msgid "reset end points of selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2793
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2792
 msgid "reset end points of edge '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2812
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2811
 msgid "duplicate selected lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2849
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2848
 msgid "reset custom lane shapes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2856
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2855
 msgid "reset custom lane shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2872
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2871
 msgid "reset opposite lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2879
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2878
 msgid "reset opposite lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2933
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2932
 msgid "select lane reachability"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2975
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2974
 msgid "Multiple lane in the same edge selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2976
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2975
 msgid "There are selected lanes that belong to the same edge."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2977
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2976
 msgid "Only one lane per edge will be restricted for "
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2991
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2999
+msgid "Set vclass for "
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2992
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3000
-msgid "Set vclass for "
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2993
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3001
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3074
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3082
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3073
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3081
 msgid " to selected lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2994
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3075
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2993
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3074
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3002
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3001
 msgid " lanes will be restricted for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3003
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3002
 msgid ". Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3030
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3029
 msgid "restrict lane to "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3073
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3081
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3072
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3080
 msgid "Add vclass for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3083
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3178
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3082
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3177
 msgid " restrictions for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3084
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3083
 msgid " will be added. Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3101
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3100
 msgid "add restrictions for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3111
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3110
 msgid "add vclass for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3168
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3176
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3206
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3167
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3175
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3205
 msgid "Remove vclass for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3169
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3168
 msgid " from selected lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3170
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3169
 msgid "Selected lanes and edges haven't a restriction for "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3177
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3176
 msgid " in selected lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3179
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3178
 msgid " will be removed. Continue?"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3348
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3347
 msgid "reset edge endpoints"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3393
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3660
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3695
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3718
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3392
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3659
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3694
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3717
 msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3412
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3411
 msgid "reset custom junction shapes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3419
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3418
 msgid "reset custom junction shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3530
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3529
 msgid "clear connections of selected junctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3562
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3561
 msgid "reset connections of selected junctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3586
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3613
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3585
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3612
 msgid "add TLS in multiple junctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5727
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5726
 msgid "Shift + click to create two additionals in the same position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5981
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5980
 msgid "Control + click to create two stop in the same position"
 msgstr ""
 
@@ -5231,7 +5231,7 @@ msgid "Set mode for edit network elements. (F2)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2105
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2069
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2079
 msgid "Demand"
 msgstr ""
 
@@ -5244,7 +5244,7 @@ msgid "Set mode for edit traffic demand. (F3)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2112
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2213
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2223
 msgid "Data"
 msgstr ""
 
@@ -5453,229 +5453,229 @@ msgstr ""
 msgid "Toggle draw TAZRel only to"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3484
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3475
 msgid "Set inspect mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3484
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3475
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3490
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3481
 msgid "Set delete mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3490
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3481
 msgid "Mode for deleting elements. (D)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3496
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3487
 msgid "Set select mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3496
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3487
 msgid "Mode for selecting elements. (S)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3549
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3694
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3540
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3685
 msgid "Set move mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3549
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3694
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3540
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3685
 msgid "Mode for moving elements. (M)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3555
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3546
 msgid "Set create edge mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3555
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3546
 msgid "Mode for creating junction and edges. (E)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3561
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3552
 msgid "Set traffic light mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3561
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3552
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3567
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3558
 msgid "Set connection mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3567
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3558
 msgid "Mode for edit connections between lanes. (C)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3573
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3564
 msgid "Set prohibition mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3573
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3564
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3579
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3570
 msgid "Set crossing mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3579
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3570
 msgid "Mode for creating crossings between edges. (R)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3585
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3576
 msgid "Set additional mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3585
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3576
 msgid "Mode for adding additional elements. (A)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3591
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3582
 msgid "Set wire mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3591
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3582
 msgid "Mode for editing wires. (W)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3597
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3588
 msgid "Set TAZ mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3597
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3588
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3603
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3594
 msgid "Set polygon mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3603
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3594
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3609
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3600
 msgid "Set decal mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3609
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3600
 msgid "Mode for editing decals. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3691
 msgid "Create route mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3700
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3691
 msgid "Mode for creating routes. (R)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3706
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3697
 msgid "Set route distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3706
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3697
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3712
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3703
 msgid "Create vehicle mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3712
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3703
 msgid "Mode for creating vehicles. (V)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3718
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3709
 msgid "Create type mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3718
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3709
 msgid "Mode for creating types (vehicles, person and containers). (T)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3724
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3715
 msgid "Create type distribution mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3724
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3715
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3730
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3721
 msgid "Create stop mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3730
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3721
 msgid "Mode for creating stops. (A)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3736
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3727
 msgid "Create person mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3736
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3727
 msgid "Mode for creating persons. (P)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3742
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3733
 msgid "Create person plan mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3742
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3733
 msgid "Mode for creating person plans. (L)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3739
 msgid "Create container mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3739
 msgid "Mode for creating containers. (C)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3745
 msgid "Create container plan mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3745
 msgid "Mode for creating container plans. (H)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3839
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3830
 msgid "Create edge data mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3839
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3830
 msgid "Mode for creating edge datas. (E)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3845
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3836
 msgid "Create edge relation data mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3845
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3836
 msgid "Mode for creating edge relation datas. (R)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3851
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3842
 msgid "Create TAZ relation data mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3851
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3842
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3857
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3848
 msgid "MeanData mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3857
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3848
 msgid "Mode for MeanData elements. (M)"
 msgstr ""
 
@@ -5952,7 +5952,7 @@ msgid ""
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:923
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Accept"
 msgstr ""
 
@@ -5964,8 +5964,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:376
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:94
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:925
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1410
 msgid "Cancel"
 msgstr ""
 
@@ -6132,12 +6132,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:494
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:495
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:234
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:247
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:246
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:299
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:380
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:555
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:298
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:487
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:300
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:481
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:134
 msgid "close"
 msgstr ""
@@ -6381,13 +6381,13 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:781
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:74
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:795
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:75
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:416
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:83
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:62
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:88
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:37
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:40
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:83
@@ -6530,28 +6530,28 @@ msgstr ""
 msgid "Key '%' already exists"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:446
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1200
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1209
+#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:452
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1214
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1223
 msgid "Edit parameters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:466
+#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:467
 msgid "Invalid row type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:635
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:426
+#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:648
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:421
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:198
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1249
 msgid "Color Dialog"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:660
+#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:673
 msgid "Open Image"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:687
+#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:700
 msgid "Open OSG File"
 msgstr ""
 
@@ -6664,12 +6664,12 @@ msgid "Close dialog"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggle Menu Tooltips"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:145
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr ""
 
@@ -9834,7 +9834,7 @@ msgid "Open polygon's shape"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:248
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:66
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:67
 msgid "Close shape"
 msgstr ""
 
@@ -10364,10 +10364,10 @@ msgid "Flows (only %)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:168
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:123
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 msgid "Vehicles"
 msgstr ""
 
@@ -10656,7 +10656,7 @@ msgid "Select reachable (compute junctions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:771
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:785
 msgid "Internal attributes"
 msgstr ""
 
@@ -10673,7 +10673,7 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:477
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:472
 msgid "Unsupported additional ID"
 msgstr ""
 
@@ -10738,55 +10738,19 @@ msgstr ""
 msgid "Parent "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:65
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:64
 msgid "Parent element"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:108
-msgid "select item..."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:110
-msgid "-Select an item in the list or"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:110
-msgid "click over an element in view"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:133
-msgid "select sub-item..."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:136
-msgid "-Clicked over multiple"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:137
-msgid "elements"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:138
-msgid " - Select an item in the"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:139
-msgid " list or click over an"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:140
-msgid " element in view"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:337
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:313
 msgid "Selected item '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:337
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:313
 msgid "' in DemandElementSelector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:350
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:325
 msgid "Selected invalid item in DemandElementSelector"
 msgstr ""
 
@@ -10852,7 +10816,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:442
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1384
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1398
 msgid "Delete"
 msgstr ""
 
@@ -10929,26 +10893,26 @@ msgstr ""
 msgid "Flow attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:171
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:470
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:597
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:169
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:468
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:595
 msgid "rate"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:344
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:342
 msgid "change multiple flow attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:370
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:368
 msgid "enable multiple flow attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:386
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:384
 msgid "disable multiple flow attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:541
-#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:569
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:539
+#: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:567
 msgid "different: "
 msgstr ""
 
@@ -10986,7 +10950,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:319
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:418
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:495
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:489
 msgid "Scale: Min -> Max"
 msgstr ""
 
@@ -11030,8 +10994,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:508
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:509
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:624
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:625
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:626
 #, c-format
 msgid "Inspect % parent"
 msgstr ""
@@ -11046,34 +11010,34 @@ msgstr ""
 msgid "Open dialog for editing color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:579
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:580
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:581
 msgid "Move element up one lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:585
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:586
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:587
 msgid "Move element down one lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1012
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1026
 msgid "Extended attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1015
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1029
 msgid "Open attributes editor"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1046
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1060
 msgid "Attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1050
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1064
 msgid "Edit attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1196
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1205
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1210
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1219
 msgid "Parameters"
 msgstr ""
 
@@ -11082,64 +11046,64 @@ msgstr ""
 msgid "Netedit attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:196
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:195
 msgid "reference left"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:201
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:58
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:200
 msgid "reference right"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:58
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:206
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:59
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:205
 msgid "reference center"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:70
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:71
 msgid "Center view"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:138
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:137
 msgid "Current selected reference point isn't valid"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:230
 msgid "- Reference point: Mark the initial position of the additional element."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:234
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:235
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:235
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:237
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
 msgid "  the mouse. This option can be modified inspecting element."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:237
 msgid "- Center view: if is enabled, view will be center over created element."
 msgstr ""
 
@@ -11283,7 +11247,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1415
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:323
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:621
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:615
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:536
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:85
 msgid "Information"
@@ -11435,63 +11399,63 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:152
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:153
 msgid "network elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:155
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:156
 msgid "Additional elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:158
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:159
 msgid "Shape elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:161
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:162
 msgid "TAZ elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:164
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:165
 msgid "Wire elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:171
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
 msgid "Stops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:174
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:39
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1918
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1928
 msgid "Persons"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:176
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
 msgid "Person plans"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:182
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:183
 msgid "Container plans"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:186
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
 msgid "Person trips"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:189
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Walks"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:192
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 msgid "Rides"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:194
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:195
 msgid "Person stops"
 msgstr ""
 
@@ -11543,7 +11507,7 @@ msgstr ""
 msgid "Element Set"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:75
+#: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:76
 msgid "Invalid supermode"
 msgstr ""
 
@@ -11655,118 +11619,114 @@ msgstr ""
 msgid "Open VSS dialog"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:58
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:60
 msgid "Apply selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:112
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:114
 msgid "Unknown set"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:271
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
 msgid "  according to the current 'Modification Mode'.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:455
 msgid "     1. Select an object type from the first input box\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:462
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:275
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:456
 msgid "     2. Select an attribute from the second input box\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:457
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 msgid "- The empty expression matches all objects\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:277
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:281
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
 msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 msgid "     '=' matches if string is an exact match.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:285
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 msgid "     '!' matches if string is not a substring.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:473
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
 msgid "     '^' matches if string is not an exact match.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:475
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
 msgid "- Examples:\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:287
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:476
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:477
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:478
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:87
-msgid "speed"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
@@ -11897,7 +11857,7 @@ msgid "Selection information"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1997
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2007
 msgid "Junctions"
 msgstr ""
 
@@ -11938,12 +11898,12 @@ msgid "TAZSinks"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2151
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2161
 msgid "Polygons"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:109
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2116
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2126
 msgid "POIs"
 msgstr ""
 
@@ -11952,13 +11912,13 @@ msgid "JuPedSim elements"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
+#: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:186
 msgid "Routes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1958
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1968
 msgid "Containers"
 msgstr ""
 
@@ -12098,17 +12058,17 @@ msgstr ""
 msgid "Select parents"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1144
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1154
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1145
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1156
 msgid "Select"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1146
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1156
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1147
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1158
 msgid "Unselect"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1148
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1149
 msgid "Select children"
 msgstr ""
 
@@ -12131,7 +12091,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2186
 msgid "Selection"
 msgstr ""
 
@@ -12151,35 +12111,35 @@ msgstr ""
 msgid "Create new dataSet"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:83
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:84
 msgid "Create dataSet"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:140
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:139
 msgid "Invalid dataSet ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:142
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:141
 msgid "Invalid empty dataSet ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:144
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:143
 msgid "Invalid duplicated dataSet ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:198
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:197
 msgid "Interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:201
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:200
 msgid "Create new interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:219
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:218
 msgid "create interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:393
+#: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
 msgstr ""
 
@@ -12187,27 +12147,27 @@ msgstr ""
 msgid "MeanData Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:161
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:160
 msgid "MeanData Editor"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:164
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:163
 msgid "Create MeanData"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:167
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:166
 msgid "Delete MeanData"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:170
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:169
 msgid "Copy MeanData"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:276
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:275
 msgid "Current MeanData"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:451
+#: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:439
 msgid "MeanData"
 msgstr ""
 
@@ -12303,15 +12263,15 @@ msgstr ""
 msgid "Distribution selector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:328
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:324
 msgid "Delete distribution value"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:486
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:481
 msgid "Distribution values"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:502
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:497
 msgid "Add new distribution value"
 msgstr ""
 
@@ -12427,40 +12387,40 @@ msgstr ""
 msgid "Current Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:218
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:203
 msgid "Type Editor"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:221
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:206
 msgid "Create Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:223
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:268
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:208
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:253
 msgid "Delete Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:225
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:210
 msgid "Copy Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:256
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:241
 msgid "Reset Type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:284
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:269
 msgid "create vehicle type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:301
 msgid "copy vehicle type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:331
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "reset default vehicle type values"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:407
+#: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:392
 msgid "Types"
 msgstr ""
 
@@ -12513,7 +12473,7 @@ msgid "Current selected vehicle type isn't valid."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2257
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2267
 msgid "Legend"
 msgstr ""
 
@@ -12781,8 +12741,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1247
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1312
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1251
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1316
 msgid "Add"
 msgstr ""
 
@@ -12815,7 +12775,7 @@ msgstr ""
 msgid "template: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:431
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:430
 msgid "LaneType selector"
 msgstr ""
 
@@ -12835,64 +12795,64 @@ msgstr ""
 msgid "remove laneType"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:619
 msgid "ESC:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:620
 msgid "Deselect origin"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:621
 msgid "Control+Click:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:622
 msgid "Move view"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:623
 msgid "Shift+Click:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:630
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
 msgid "Splits edge in both directions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:631
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "Alt+Shift+Click:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:632
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Splits edge in one direction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:645
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:639
 msgid "Create Edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:669
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:663
 msgid "Select either default edgeType or a custom edgeType or template"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:671
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:665
 msgid "Invalid edge attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:673
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:667
 msgid "Invalid lane attributes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:684
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:749
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:678
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:743
 msgid "create new edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:754
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:748
 msgid "An edge with the same geometry already exists!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:757
+#: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:751
 msgid "Start- and endpoint for an edge must be distinct!"
 msgstr ""
 
@@ -12926,8 +12886,8 @@ msgid "Crossing parameters"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:485
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1608
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1612
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1621
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1625
 msgid "Create"
 msgstr ""
 
@@ -12962,7 +12922,7 @@ msgid " Invalid"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1687
 msgid "Decals"
 msgstr ""
 
@@ -13407,7 +13367,7 @@ msgid "tlLogic '%', program '%' could not be built"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:257
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2956
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2969
 msgid "Loaded "
 msgstr ""
 
@@ -13458,7 +13418,7 @@ msgid "Traffic Light"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:886
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:955
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:950
 msgid "Junction ID"
 msgstr ""
 
@@ -13466,258 +13426,258 @@ msgstr ""
 msgid "TLS ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:912
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Join"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:912
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 msgid "Enable join mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:912
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Join TLS and junctions in the current junction."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 msgid "Disable join mode"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:913
 msgid "Disjoin current TLS."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:923
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Finish join."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:925
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Cancel Join."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:962
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:957
 msgid "no junction selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:984
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:979
 msgid "Junction IDs"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1064
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1071
 msgid "rename TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1143
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1157
 msgid "change TLS type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1227
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1241
 msgid "join TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1289
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1303
 msgid "disjoin TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1368
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1382
 msgid "Traffic Light Programs"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1381
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1381
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create a new traffic light program."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1384
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1398
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1387
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset single"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1387
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset current TLS program."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1390
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1390
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all TLS programs."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1393
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1407
 msgid "Save program modifications. (Enter)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1410
 msgid "Discard program modifications. (Esc)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1491
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1504
 msgid "TLSDefinition cannot be found"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1533
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1546
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1565
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1559
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1578
 msgid "TLS cannot be created"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1534
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
 msgid "Traffic Light cannot be created because junction must have"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1535
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
 msgid "at least one incoming edge and one outgoing edge."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1560
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1579
 msgid "Traffic Light cannot be created because junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1561
 msgid "must have at least one connection."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1567
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1580
 msgid "must have at least one controlled connection."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1623
 msgid "Duplicate"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1650
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1663
 msgid "reset current program"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1689
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1702
 msgid "reset TLS"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1850
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1863
 msgid "duplicate program '%' of traffic light '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1896
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1909
 msgid "Traffic light does not control any links"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1908
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1921
 msgid "Phases"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1919
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
 msgid "Clean States"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1920
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
 msgid "Clean unused states from all phase"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1921
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1925
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
 msgid "Add States"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1926
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
 msgid "Extend the state vector for all phases by one entry"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1927
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1940
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1931
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1937
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2067
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2080
 msgid "invalid column"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2626
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2639
 msgid "Error deleting phase '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2891
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2904
 msgid "TLS Program File"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2895
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2908
 msgid "Load TLS program from additional file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2897
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2910
 msgid "Save TLS program to additional file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2956
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2969
 msgid " new programs for tlLogic '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2961
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2974
 msgid "Updated program '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2961
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2974
 msgid "' for tlLogic '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2965
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2978
 msgid "No programs found for traffic light '"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2984
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2997
 msgid "Save TLS Program as"
 msgstr ""
 
@@ -13990,7 +13950,7 @@ msgstr ""
 msgid "Replacing polygon '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1017
+#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1021
 msgid "Instance was previously created"
 msgstr ""
 
@@ -14679,11 +14639,11 @@ msgstr ""
 msgid "Save the data..."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:131
+#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:130
 msgid "Multiplot"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:219
+#: C:\Repos\sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:218
 msgid "Save Data"
 msgstr ""
 
@@ -14772,603 +14732,603 @@ msgstr ""
 msgid "View Settings"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:989
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:993
 msgid "Enter a name"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:991
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:995
 msgid "Please enter an alphanumeric name: "
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1070
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1074
 msgid "Export view settings"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1121
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1125
 msgid "Import view settings"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1138
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1155
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1142
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1159
 msgid "Load Decals"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1172
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1176
 msgid "Save Decals"
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1244
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1309
-msgid "No Data"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1248
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1313
+msgid "No Data"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1252
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1317
 msgid "Remove"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1571
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1616
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1580
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1625
 msgid "Only for selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1573
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1582
 msgid "constant text size"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1576
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1585
 msgid "Size"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1581
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1694
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1732
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1853
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1935
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1975
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2001
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2121
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2156
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2219
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1590
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1703
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1741
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1860
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1945
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1985
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2011
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2131
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2229
 msgid "Color"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1583
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1689
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1592
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
 msgid "Background"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1614
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1623
 msgid "Draw with constant size when zoomed out"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1619
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1628
 msgid "Minimum Size"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1623
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1632
 msgid "Exaggerate by"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1669
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1678
 msgid "Save the setting to registry"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1670
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1679
 msgid "Remove the setting from registry"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1671
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1680
 msgid "Export setting to file"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1672
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1681
 msgid "Load setting from file"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1675
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1684
 msgid "Export includes:"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1676
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1685
 msgid "Viewport"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1677
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1686
 msgid "Delay"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1679
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1688
 msgid "Breakpoints"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1707
 msgid "Decals:"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1710
 msgid "&Load XML Decals"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1702
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1711
 msgid "&Save XML Decals"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1703
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1712
 msgid "&Clear Decals"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1708
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1717
 msgid "Toggle grid"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1712
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1721
 msgid "x-spacing"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1717
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1726
 msgid "y-spacing"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1726
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1735
 msgid "Streets"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1734
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1763
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1857
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1870
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1939
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1979
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2005
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2125
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2160
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2221
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1744
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1774
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1864
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1878
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1949
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2015
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2135
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2170
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2232
 msgid "Interpolate"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1746
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2008
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2231
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1756
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2018
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2241
 msgid "Recalibrate Rainbow"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1748
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1758
 msgid "hide below"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1752
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1762
 msgid "hide above"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1761
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1771
 msgid "Scale width"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1784
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1791
 msgid "Show bike markings"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1786
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1793
 msgid "Show turning arrows"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1789
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1796
 msgid "Show right-of-way rules"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1791
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1798
 msgid "Realistic stop line colors"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1794
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1801
 msgid "Show lane borders"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1796
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1803
 msgid "Show lane direction"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1799
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
 msgid "Hide macro connectors"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1801
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1808
 msgid "Show sublanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1811
 msgid "Show rails"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1813
 msgid "Spread bidirectional railways/roads"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1813
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1809
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1816
 msgid "Secondary shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1814
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1821
 msgid "Exaggerate width by"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1820
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 msgid "Minimum size"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1833
 msgid "Show edge id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1834
 msgid "Show street name"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1828
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1835
 msgid "Show edge color value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1829
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1836
 msgid "Show edge scale value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1840
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1963
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1847
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1933
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1973
 msgid "Show As"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1965
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1850
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1936
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1976
 msgid "'triangles'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1843
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1966
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1851
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1977
 msgid "'boxes'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1844
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1927
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1967
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1852
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1938
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1978
 msgid "'simple shapes'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1845
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1928
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1968
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1853
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1939
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1979
 msgid "'raster images'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1846
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1926
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1854
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1937
 msgid "'circles'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1868
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1875
 msgid "Scale size"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1877
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1887
 msgid "Show vehicle id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1878
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1888
 msgid "Show vehicle color value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1879
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1889
 msgid "Show vehicle scale value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1880
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1890
 msgid "Show vehicle text param"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1887
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1897
 msgid "Show blinker / brake lights"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1889
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1899
 msgid "Show minimum gap"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1891
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1901
 msgid "Show brake gap"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1893
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1903
 msgid "Show Bluetooth range"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1895
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1905
 msgid "Show route index"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1897
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1907
 msgid "Scale length with geometry"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1899
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1909
 msgid "Show parking info"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1901
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1911
 msgid "Draw reversed vehicles in reverse"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1946
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1956
 msgid "Show person id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1947
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1957
 msgid "Show person color value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1986
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1996
 msgid "Show container id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2024
 msgid "Draw junction shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2016
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2026
 msgid "Draw crossings/walkingareas"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2018
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 msgid "Show lane to lane connections"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2022
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2032
 msgid "Show link tls index"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2023
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2033
 msgid "Show link junction index"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2024
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2034
 msgid "Show junction id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2025
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2035
 msgid "Show internal junction id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2026
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2036
 msgid "Show internal edge id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2027
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2037
 msgid "Show crossing and walkingarea id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2038
 msgid "Show traffic light phase index"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2029
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2039
 msgid "Show traffic light phase name"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2030
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2040
 msgid "Show junction name"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2036
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2046
 msgid "Additional"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2041
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2051
 msgid "Show object id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2042
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2052
 msgid "Show full name"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2049
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2059
 msgid "StoppingPlace"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2050
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2060
 msgid "body"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2051
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2061
 msgid "sign"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2074
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2084
 msgid "element"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2075
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2085
 msgid "color"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2132
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2142
 msgid "POI detail"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2137
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2147
 msgid "Show poi id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2138
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2148
 msgid "Show poi type"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2139
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2149
 msgid "Show poi text param"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2166
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2176
 msgid "Show polygon id"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2167
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2177
 msgid "Show polygon types"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2181
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2191
 msgid "Default Selection Color"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2184
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2194
 msgid "Miscellaneous"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2233
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2243
 msgid "hide below threshold"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2240
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2250
 msgid "Exaggerate edgeRelation width by"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2245
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2255
 msgid "Exaggerate tazRelation width by"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2251
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2261
 msgid "Show data color value"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2262
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2272
 msgid "Show Size Legend"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2265
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2275
 msgid "Show Edge Color Legend"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2268
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2278
 msgid "Show Vehicle Color Legend"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2281
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2291
 msgid "Dither"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2287
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2297
 msgid "Draw boundaries"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2290
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2300
 msgid "Force draw for position selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2293
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2303
 msgid "Force draw for rectangle selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2296
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2306
 msgid "Disable dotted contours during selection/deletion"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2299
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2309
 msgid "Recalculate boundaries"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2302
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2312
 msgid "Show geometry point indices"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2308
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2318
 msgid "3D view"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2313
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2323
 msgid "Show TLS link markers"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2316
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2326
 msgid "Show domes around TLS models from decals"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2319
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2329
 msgid "Show auto-generated TLS models"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2321
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2331
 msgid "Show head-up display"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2327
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2337
 msgid "Sun brightness"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2339
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2349
 msgid "Sky color"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:120
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter View"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:120
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter view to the simulated area."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:124
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1596
 msgctxt "Labels"
 msgid "Edit Viewport"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:124
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:128
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:127
 msgid "Toggle Zooming Style"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:128
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:127
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:135
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:134
 msgid "Locate Structures"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:135
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:134
 msgid "Locate structures within the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:138
 msgid "Toggle View Tooltips"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:139
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:138
 msgid "Toggles whether tooltips in the view shall be shown."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:161
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:160
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:172
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:171
 msgid "Make Snapshot"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:172
+#: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:171
 msgid "Makes a snapshot of the view."
 msgstr ""
 

@@ -907,7 +907,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JUNCTION, currentTag);
+                                      GUIIcon::JUNCTION, currentTag, TL("Junction"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -987,7 +987,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::EDGETYPE, currentTag);
+                                      GUIIcon::EDGETYPE, currentTag, TL("EdgeType"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -1052,7 +1052,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::LANETYPE, currentTag);
+                                      GUIIcon::LANETYPE, currentTag, TL("LaneType"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
@@ -1083,7 +1083,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::EDGE, currentTag);
+                                      GUIIcon::EDGE, currentTag, TL("Edge"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1208,7 +1208,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       0,
-                                      GUIIcon::LANE, currentTag);
+                                      GUIIcon::LANE, currentTag, TL("Lane"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1302,7 +1302,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       0,
-                                      GUIIcon::CROSSING, currentTag);
+                                      GUIIcon::CROSSING, currentTag, TL("Crossing"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1349,7 +1349,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALKINGAREA, currentTag);
+                                      GUIIcon::WALKINGAREA, currentTag, TL("WalkingArea"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1378,7 +1378,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
                                       0,
-                                      GUIIcon::CONNECTION, currentTag);
+                                      GUIIcon::CONNECTION, currentTag, TL("Connection"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1512,7 +1512,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::INTERNALLANE,
                                       0,
-                                      GUIIcon::JUNCTION, currentTag);
+                                      GUIIcon::JUNCTION, currentTag, TL("InternalLanes"));
         //  internal lanes does't have attributes
     }
 }
@@ -1529,7 +1529,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
                                       GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::BUSSTOP, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::BUSSTOP, currentTag, TL("BusStop"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1593,7 +1594,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
                                       GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::TRAINSTOP, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::TRAINSTOP, currentTag, TL("TrainStop"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1657,7 +1659,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::REPARENT,
-                                      GUIIcon::ACCESS, currentTag, {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::ACCESS, currentTag, TL("Access"),
+                                      {SUMO_TAG_BUS_STOP, SUMO_TAG_TRAIN_STOP}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -1691,7 +1694,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
                                       GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::CONTAINERSTOP, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::CONTAINERSTOP, currentTag, TL("ContainerStop"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1754,7 +1758,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
                                       GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::CHARGINGSTATION, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::CHARGINGSTATION, currentTag, TL("ChargingStation"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1813,6 +1818,19 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins"),
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGETYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Battery charging type"),
+                                              "normal");
+        attrProperty.setDiscreteValues({"normal", "electric", "fuel"}, true);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WAITINGTIME,
+                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Waiting time before start charging"),
+                                              "900.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_PARKING_AREA;
     {
@@ -1820,7 +1838,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::STOPPINGPLACE,
                                       GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::PARKINGAREA, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::PARKINGAREA, currentTag, TL("ParkingArea"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1903,7 +1922,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::REPARENT | GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::PARKINGSPACE, currentTag, {SUMO_TAG_PARKING_AREA}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::PARKINGSPACE, currentTag, TL("ParkingSpace"),
+                                      {SUMO_TAG_PARKING_AREA}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_POSITION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::POSITION | GNEAttributeProperties::UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
@@ -1943,7 +1963,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       0,
-                                      GUIIcon::E1, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E1, currentTag, TL("E1 InductionLoop"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -1995,7 +2016,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       0,
-                                      GUIIcon::E2, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E2, currentTag, TL("E2 LaneAreaDetector"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2076,7 +2098,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       0,
-                                      GUIIcon::E2, SUMO_TAG_LANE_AREA_DETECTOR, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E2, SUMO_TAG_LANE_AREA_DETECTOR, TL("E2 MultiLaneAreaDetector"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2157,7 +2180,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::E3, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E3, currentTag, TL("E3 EntryExitDetector"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2216,7 +2240,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::REPARENT,
-                                      GUIIcon::E3ENTRY, currentTag, {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E3ENTRY, currentTag, TL("E3 DetEntry"),
+                                      {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2243,7 +2268,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::REPARENT,
-                                      GUIIcon::E3EXIT, currentTag, {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E3EXIT, currentTag, TL("E3 DetExit"),
+                                      {SUMO_TAG_ENTRY_EXIT_DETECTOR}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2270,7 +2296,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
                                       0,
-                                      GUIIcon::E1INSTANT, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::E1INSTANT, currentTag, TL("E3 DetExit"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2316,7 +2343,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CENTERAFTERCREATION,
-                                      GUIIcon::ROUTEPROBE, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::ROUTEPROBE, currentTag, TL("RouteProbe"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2356,7 +2384,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::DIALOG,
-                                      GUIIcon::VARIABLESPEEDSIGN, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::VARIABLESPEEDSIGN, currentTag, TL("VariableSpeedSign"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2390,7 +2419,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::LANE, currentTag, {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::LANE, currentTag, TL("VaribleSpeedSign Symbol"),
+                                      {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
     }
     currentTag = SUMO_TAG_STEP;
     {
@@ -2398,7 +2428,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::VSSSTEP, currentTag, {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::VSSSTEP, currentTag, TL("VariableSpeedSign Step"),
+                                      {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TIME,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::UNIQUE,
@@ -2417,7 +2448,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::CALIBRATOR,
                                       GNETagProperties::TagProperty::DIALOG | GNETagProperties::TagProperty::CENTERAFTERCREATION,
-                                      GUIIcon::CALIBRATOR, currentTag, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::CALIBRATOR, currentTag, TL("Calibrator"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2473,7 +2505,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::CALIBRATOR,
                                       GNETagProperties::TagProperty::DIALOG | GNETagProperties::TagProperty::CENTERAFTERCREATION,
-                                      GUIIcon::CALIBRATOR, SUMO_TAG_CALIBRATOR, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::CALIBRATOR, SUMO_TAG_CALIBRATOR, TL("CalibratorLane"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2529,7 +2562,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::CALIBRATOR,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::FLOW, SUMO_TAG_FLOW, {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::FLOW, SUMO_TAG_FLOW, TL("CalibratorFlow"),
+                                      {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2576,7 +2610,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::DIALOG,
-                                      GUIIcon::REROUTER, currentTag, {}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::REROUTER, currentTag, TL("Rerouter"),
+                                      {}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2629,7 +2664,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::EDGE, currentTag, {GNE_TAG_REROUTER_SYMBOL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::EDGE, currentTag, TL("Rerouter Symbol"),
+                                      {GNE_TAG_REROUTER_SYMBOL}, FXRGBA(255, 213, 213, 255));
     }
     currentTag = SUMO_TAG_INTERVAL;
     {
@@ -2637,7 +2673,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::REROUTERINTERVAL, currentTag, {SUMO_TAG_REROUTER}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::REROUTERINTERVAL, currentTag, TL("Rerouter Interval"),
+                                      {SUMO_TAG_REROUTER}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE,
@@ -2657,7 +2694,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::CLOSINGREROUTE, currentTag, {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::CLOSINGREROUTE, currentTag, TL("ClosingReroute"),
+                                      {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2681,7 +2719,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::CLOSINGLANEREROUTE, currentTag, {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::CLOSINGLANEREROUTE, currentTag, TL("ClosingLaneReroute"),
+                                      {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2705,7 +2744,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::DESTPROBREROUTE, currentTag, {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::DESTPROBREROUTE, currentTag, TL("DestinyProbabilityReroute"),
+                                      {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2725,7 +2765,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PARKINGZONEREROUTE, currentTag, {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::PARKINGZONEREROUTE, currentTag, TL("ParkingAreaReroute"),
+                                      {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM,
@@ -2751,7 +2792,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::ROUTEPROBREROUTE, currentTag, {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::ROUTEPROBREROUTE, currentTag, TL("RouteProbabilityReroute"),
+                                      {SUMO_TAG_INTERVAL}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -2771,7 +2813,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT,
                                       GNETagProperties::TagProperty::CENTERAFTERCREATION,
-                                      GUIIcon::VAPORIZER, currentTag, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::VAPORIZER, currentTag, TL("Vaporizer"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::AUTOMATICID,
@@ -2809,7 +2852,8 @@ GNEAttributeCarrier::fillShapeElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE,
                                       GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CLOSESHAPE | GNETagProperties::TagProperty::GEOSHAPE,
-                                      GUIIcon::POLY, currentTag, {}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::POLY, currentTag, TL("Polygon"),
+                                      {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2880,7 +2924,8 @@ GNEAttributeCarrier::fillShapeElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::POI, currentTag, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::POI, currentTag, TL("PointOfInterest"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -2951,7 +2996,8 @@ GNEAttributeCarrier::fillShapeElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE,
                                       0,
-                                      GUIIcon::POILANE, SUMO_TAG_POI, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::POILANE, SUMO_TAG_POI, TL("PointOfInterestLane"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3041,7 +3087,8 @@ GNEAttributeCarrier::fillShapeElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE,
                                       GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::REQUIRE_PROJ,
-                                      GUIIcon::POIGEO, SUMO_TAG_POI, {}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::POIGEO, SUMO_TAG_POI, TL("PointOfInterestGeo"),
+                                      {}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3126,7 +3173,7 @@ GNEAttributeCarrier::fillTAZElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZELEMENT,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::TAZ, currentTag);
+                                      GUIIcon::TAZ, currentTag, TL("TrafficAssignmentZones"));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3166,7 +3213,8 @@ GNEAttributeCarrier::fillTAZElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZELEMENT,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::TAZEDGE, currentTag, {SUMO_TAG_TAZ});
+                                      GUIIcon::TAZEDGE, currentTag, TL("TAZ Source"),
+                                      {SUMO_TAG_TAZ});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -3186,7 +3234,8 @@ GNEAttributeCarrier::fillTAZElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZELEMENT,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::TAZEDGE, currentTag, {SUMO_TAG_TAZ});
+                                      GUIIcon::TAZEDGE, currentTag, TL("TAZ Sink"),
+                                      {SUMO_TAG_TAZ});
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -3215,7 +3264,7 @@ GNEAttributeCarrier::fillWireElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::WIRE,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::TRACTION_SUBSTATION, currentTag);
+                                      GUIIcon::TRACTION_SUBSTATION, currentTag, TL("TractionSubstation"));
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3246,7 +3295,7 @@ GNEAttributeCarrier::fillWireElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::WIRE,
                                       0,
-                                      GUIIcon::OVERHEADWIRE, currentTag);
+                                      GUIIcon::OVERHEADWIRE, currentTag, TL("WireSection"));
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3294,7 +3343,7 @@ GNEAttributeCarrier::fillWireElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::WIRE,
                                       0,
-                                      GUIIcon::OVERHEADWIRE_CLAMP, currentTag);
+                                      GUIIcon::OVERHEADWIRE_CLAMP, currentTag, TL("OverheadWireClamp"));
         // set attribute properties
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -3335,7 +3384,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_WALKABLEAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WALKABLEAREA, SUMO_TAG_POLY, TL("JuPedSim WalkableArea"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3359,7 +3409,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_OBSTACLE, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_OBSTACLE, SUMO_TAG_POLY, TL("JuPedSim Obstacle"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3383,7 +3434,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_WAITINGAREA, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WAITINGAREA, SUMO_TAG_POLY, TL("JuPedSim WaitingAera"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3407,7 +3459,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_SOURCE, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_SOURCE, SUMO_TAG_POLY, TL("JuPedSim Source"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3431,7 +3484,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_SINK, SUMO_TAG_POLY, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_SINK, SUMO_TAG_POLY, TL("JuPedSim Destiny"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3455,7 +3509,8 @@ GNEAttributeCarrier::fillJuPedSimElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
                                       GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_WAYPOINT, SUMO_TAG_POI, {}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::JPS_WAYPOINT, SUMO_TAG_POI, TL("JuPedSim Waypoint"),
+                                      {}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -3487,7 +3542,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
                                       0,
-                                      GUIIcon::ROUTE, currentTag);
+                                      GUIIcon::ROUTE, currentTag, TL("Route"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3529,7 +3584,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::ROUTEDISTRIBUTION, currentTag);
+                                      GUIIcon::ROUTEDISTRIBUTION, currentTag, TL("RouteDistribution"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3543,7 +3598,8 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::ROUTE, SUMO_TAG_ROUTE, {GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE});
+                                      GUIIcon::ROUTE, SUMO_TAG_ROUTE, TL("RouteEmbedded"),
+                                      {GNE_TAG_VEHICLE_WITHROUTE, GNE_TAG_FLOW_WITHROUTE});
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -3569,27 +3625,13 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VTYPE,
-                                      GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::VTYPEDISTRIBUTION, currentTag);
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("The id of VehicleType distribution"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VTYPE,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::VCLASS_ICON,
-                                      GUIIcon::VTYPE, currentTag);
+                                      GUIIcon::VTYPE, currentTag, TL("VehicleType"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3766,6 +3808,20 @@ GNEAttributeCarrier::fillDemandElements() {
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
         fillLaneChangingModelAttributes(currentTag);
     }
+    currentTag = SUMO_TAG_VTYPE_DISTRIBUTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VTYPE,
+                                      GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::VTYPEDISTRIBUTION, currentTag, TL("VehicleTypeDistribution"));
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("The id of VehicleType distribution"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
@@ -3780,8 +3836,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
-                                      GUIIcon::TRIP, currentTag, {}, FXRGBA(253, 255, 206, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to edges)");
+                                      GUIIcon::TRIP, currentTag, TL("TripEdges"),
+                                      {}, FXRGBA(253, 255, 206, 255), "trip (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3825,8 +3881,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
-                                      GUIIcon::TRIP_JUNCTIONS, SUMO_TAG_TRIP, {}, FXRGBA(255, 213, 213, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to junctions)");
+                                      GUIIcon::TRIP_JUNCTIONS, SUMO_TAG_TRIP, TL("TripJunctions"),
+                                      {}, FXRGBA(255, 213, 213, 255), "trip (from-to junctions)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3865,8 +3921,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
-                                      GUIIcon::TRIP_TAZS, SUMO_TAG_TRIP, {}, FXRGBA(240, 255, 205, 255));
-        myTagProperties[currentTag].setFieldString("trip (from-to TAZs)");
+                                      GUIIcon::TRIP_TAZS, SUMO_TAG_TRIP, TL("TripTAZs"),
+                                      {}, FXRGBA(240, 255, 205, 255), "trip (from-to TAZs)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3905,8 +3961,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_ROUTE,
-                                      GUIIcon::VEHICLE, currentTag, {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("vehicle (over route)");
+                                      GUIIcon::VEHICLE, currentTag, TL("VehicleRoute"),
+                                      {}, FXRGBA(210, 233, 255, 255), "vehicle (over route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3950,8 +4006,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE,
                                       GNETagProperties::TagProperty::OVER_EMBEDDED_ROUTE,
-                                      GUIIcon::VEHICLE, SUMO_TAG_VEHICLE, {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("vehicle (embedded route)");
+                                      GUIIcon::VEHICLE, SUMO_TAG_VEHICLE, TL("VehicleEmbeddedRoute"),
+                                      {}, FXRGBA(210, 233, 255, 255), "vehicle (embedded route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3990,8 +4046,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_EDGES,
-                                      GUIIcon::FLOW, currentTag, {}, FXRGBA(253, 255, 206, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to edges)");
+                                      GUIIcon::FLOW, currentTag, TL("FlowEdges"),
+                                      {}, FXRGBA(253, 255, 206, 255), "flow (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4032,8 +4088,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_JUNCTIONS,
-                                      GUIIcon::FLOW_JUNCTIONS, SUMO_TAG_FLOW, {}, FXRGBA(255, 213, 213, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
+                                      GUIIcon::FLOW_JUNCTIONS, SUMO_TAG_FLOW, TL("FlowJunctions"),
+                                      {}, FXRGBA(255, 213, 213, 255), "flow (from-to junctions)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4069,8 +4125,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_FROMTO_TAZS,
-                                      GUIIcon::FLOW_TAZS, SUMO_TAG_FLOW, {}, FXRGBA(240, 255, 205, 255));
-        myTagProperties[currentTag].setFieldString("flow (from-to TAZs)");
+                                      GUIIcon::FLOW_TAZS, SUMO_TAG_FLOW, TL("FlowTAZs"),
+                                      {}, FXRGBA(240, 255, 205, 255), "flow (from-to TAZs)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4106,8 +4162,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_ROUTE,
-                                      GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("flow (over route)");
+                                      GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowRoute"),
+                                      {}, FXRGBA(210, 233, 255, 255), "flow (over route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4148,8 +4204,8 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLE | GNETagProperties::TagType::FLOW,
                                       GNETagProperties::TagProperty::OVER_EMBEDDED_ROUTE,
-                                      GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {}, FXRGBA(210, 233, 255, 255));
-        myTagProperties[currentTag].setFieldString("flow (embedded route)");
+                                      GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, TL("FlowEmbeddedRoute"),
+                                      {}, FXRGBA(210, 233, 255, 255), "flow (embedded route)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -4193,7 +4249,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopLane"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4232,7 +4289,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopBusStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4248,7 +4306,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopTrainStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4264,7 +4323,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopContainerStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4280,7 +4340,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopChargingStation"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4296,7 +4357,8 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopParkingArea"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4320,7 +4382,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointLane"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4359,7 +4422,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointBusStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4375,7 +4439,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointTrainStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4391,7 +4456,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointContainerStop"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4407,7 +4473,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointChargingStation"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4423,7 +4490,8 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointParkingArea"),
+                                      {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4447,7 +4515,7 @@ GNEAttributeCarrier::fillPersonElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSON,
                                       0,
-                                      GUIIcon::PERSON, currentTag);
+                                      GUIIcon::PERSON, currentTag, TL("Person"));
 
         // add flow attributes
         fillCommonPersonAttributes(currentTag);
@@ -4466,7 +4534,7 @@ GNEAttributeCarrier::fillPersonElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSON | GNETagProperties::TagType::FLOW,
                                       0,
-                                      GUIIcon::PERSONFLOW, currentTag);
+                                      GUIIcon::PERSONFLOW, currentTag, TL("PersonFlow"));
 
         // add flow attributes
         fillCommonPersonAttributes(currentTag);
@@ -4488,7 +4556,7 @@ GNEAttributeCarrier::fillContainerElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINER,
                                       0,
-                                      GUIIcon::CONTAINER, currentTag);
+                                      GUIIcon::CONTAINER, currentTag, TL("Container"));
 
         // add flow attributes
         fillCommonContainerAttributes(currentTag);
@@ -4505,7 +4573,7 @@ GNEAttributeCarrier::fillContainerElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINER | GNETagProperties::TagType::FLOW,
                                       0,
-                                      GUIIcon::CONTAINERFLOW, currentTag);
+                                      GUIIcon::CONTAINERFLOW, currentTag, TL("ContainerFlow"));
 
         // add common container attribute
         fillCommonContainerAttributes(currentTag);
@@ -4527,7 +4595,8 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("TransportEdge"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4557,7 +4626,8 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("TransportContainerStop"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4589,7 +4659,8 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW }, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("TranshipEdge"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4625,7 +4696,8 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("TranshipContainerStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4655,7 +4727,8 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, TL("TranshipEdges"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
         // edges
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4694,7 +4767,8 @@ GNEAttributeCarrier::fillContainerStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopContainer Edge"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
@@ -4739,7 +4813,8 @@ GNEAttributeCarrier::fillContainerStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopContainerContainerStop"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
@@ -4779,7 +4854,8 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, TL("TransportEdge"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4819,7 +4895,8 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTripBusStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4853,7 +4930,8 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersontripTrainStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4887,7 +4965,8 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_JUNCTIONS, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      GUIIcon::PERSONTRIP_JUNCTIONS, SUMO_TAG_PERSONTRIP, TL("PersonTripJunctions"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4929,7 +5008,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, TL("WalkEdge"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4953,7 +5033,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("WalkBusStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4971,7 +5052,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("WalkTrainStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4989,7 +5071,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_EDGES, SUMO_TAG_WALK, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_EDGES, SUMO_TAG_WALK, TL("WalkEdges"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // edges
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5008,7 +5091,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_ROUTE, SUMO_TAG_WALK, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_ROUTE, SUMO_TAG_WALK, TL("WalkRoute"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // route
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5028,7 +5112,8 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_JUNCTIONS, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WALK_JUNCTIONS, SUMO_TAG_WALK, TL("WalkJunctions"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5054,7 +5139,8 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, TL("RideEdge"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5084,7 +5170,8 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, TL("RideBusStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5108,7 +5195,8 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::RIDE_TRAINSTOP, SUMO_TAG_RIDE, TL("RideTrainStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5140,7 +5228,8 @@ GNEAttributeCarrier::fillStopPersonElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopPersonEdge"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
@@ -5185,7 +5274,8 @@ GNEAttributeCarrier::fillStopPersonElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopPersonBusStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
@@ -5217,7 +5307,8 @@ GNEAttributeCarrier::fillStopPersonElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopPersonTrainStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
@@ -6020,7 +6111,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::DATASET, currentTag);
+                                      GUIIcon::DATASET, currentTag, TL("DataSet"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -6036,7 +6127,8 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::DATAINTERVAL, currentTag, {SUMO_TAG_DATASET});
+                                      GUIIcon::DATAINTERVAL, currentTag, TL("DataInterval"),
+                                      {SUMO_TAG_DATASET});
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -6064,7 +6156,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT | GNETagProperties::TagType::GENERICDATA,
                                       0,
-                                      GUIIcon::EDGEDATA, SUMO_TAG_EDGE);
+                                      GUIIcon::EDGEDATA, SUMO_TAG_EDGE, TL("EdgeRelationSingle"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -6078,7 +6170,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT | GNETagProperties::TagType::GENERICDATA,
                                       0,
-                                      GUIIcon::EDGERELDATA, currentTag);
+                                      GUIIcon::EDGERELDATA, currentTag, TL("EdgeRelation"));
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -6097,7 +6189,8 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT | GNETagProperties::TagType::GENERICDATA,
                                       GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD,
-                                      GUIIcon::TAZRELDATA, currentTag, {SUMO_TAG_DATAINTERVAL});
+                                      GUIIcon::TAZRELDATA, currentTag, TL("TAZRelation"),
+                                      {SUMO_TAG_DATAINTERVAL});
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -6116,7 +6209,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::MEANDATA,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::MEANDATAEDGE, currentTag);
+                                      GUIIcon::MEANDATAEDGE, currentTag, TL("MeanDataEdge"));
 
         // set values of attributes
         fillCommonMeanDataAttributes(currentTag);
@@ -6128,7 +6221,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::MEANDATA,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::MEANDATALANE, currentTag);
+                                      GUIIcon::MEANDATALANE, currentTag, TL("MeanDataLane"));
 
         // set values of attributes
         fillCommonMeanDataAttributes(currentTag);

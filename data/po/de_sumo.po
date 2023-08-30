@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-08-21 12:14+0200\n"
+"POT-Creation-Date: 2023-08-28 09:40+0200\n"
 "PO-Revision-Date: 2023-07-19 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10189,20 +10189,20 @@ msgstr "Derzeit im Kameramodus %. Drücke [F] zum Umschalten."
 msgid "Could not load traffic light files."
 msgstr "LSA-Dateien konnten nicht geladen werden."
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:454
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:453
 msgid "Invalid link index in '%'."
 msgstr "Ungültiger Verbindungsindex in '%'."
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:456
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:455
 msgid "Unknown traffic light in '%'."
 msgstr "Unbekannte LSA in '%'."
 
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:992
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
 msgid " (No projection defined)"
 msgstr " (Keine Projektion definiert)"
 
+#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
-#: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:997
 msgid "N/A"
 msgstr "Nicht verfügbar"
 
@@ -11414,6 +11414,10 @@ msgstr "Fahrzeugeinrichtung '%' hat keinen gültigen Wert für Parameter % (%)."
 msgid "An acceleration given by the power was not found."
 msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
+#: C:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
+msgid "No matches found"
+msgstr ""
+
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
 msgid "Add decal"
 msgstr "Hintergrund hinzufügen"
@@ -11464,7 +11468,7 @@ msgstr ""
 msgid "Expand frame to show all contents"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:66
+#: C:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
 msgstr ""
 
@@ -11586,14 +11590,14 @@ msgid "Parameters must be defined within an object."
 msgstr "Parameter müssen innerhalb eines Objektes definiert werden."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1956
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:933
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 "Parameter könne nicht im Stammverzeichnis der zusätzlichen Datei definiert "
 "werden."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1958
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:935
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 "Parameter können nicht innerhalb eines anderen Parameters definiert werden."
@@ -11621,60 +11625,60 @@ msgstr "Datenelemente können keine Attribute laden wie Parameter"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "MeanData-Elemente können keine Attribute als Parameter laden"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:399
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 "Konnte % mit der ID '%' nicht in netedit erstellen; ID beinhaltet ungültige "
 "Zeichen."
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:406
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:460
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 "eine Route muss entweder innerhalb eines Fahrzeuges/Flusses oder mit einem "
 "ID-Attribut definiert werden"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:478
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "Durchlaufzeit von % muss gleich oder größer als 0 sein"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:531
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:611
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:533
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:613
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:577
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:931
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
 msgid "Parameters must be defined within an object"
 msgstr "Parameter müssen innerhalb eines Objektes definiert werden"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:943
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Fehler beim Einlesen des Schlüssels von % generischem Parameter. Schlüssel "
 "kann nicht leer sein"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:945
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -11682,7 +11686,7 @@ msgstr ""
 "Fehler beim Einlesen des Schlüssels von % generischem Parameter. Schlüssel "
 "beinhaltet ungültige Zeichen"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -11691,24 +11695,24 @@ msgstr ""
 "Die Definition von Fahrzeugfolgeparametern als Kindelemente des vType '%' is "
 "veraltet —verwende stattdessen Attribute!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
 msgid "Invalid parsing embedded VType"
 msgstr "Ungültiger eingelesener eingebetteter VType"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1055
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 "Ein Halt muss entweder mit einer Kante oder mit einen Fahrstreifen definiert "
 "werden, nicht beides"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1071
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "Ein Halt darf nur innerhalb eines Halteplatzes definiert werden"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1074
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "Ein Halt muss innerhalb einer Kante, Fahrstreifen oder in einem Halteplatz "

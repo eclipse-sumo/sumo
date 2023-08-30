@@ -36,35 +36,38 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
-                                     const std::string& name,
-                                     double chargingPower, double efficency, bool chargeInTransit, SUMOTime chargeDelay) :
+                                     const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
+                                     SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime) :
     MSStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION, std::vector<std::string>(), lane, startPos, endPos, name),
-    myChargingPower(0),
-    myEfficiency(0),
     myChargeInTransit(chargeInTransit),
-    myChargeDelay(0),
-    myChargingVehicle(false),
-    myTotalCharge(0) {
+    myChargingVehicle(false) {
     if (chargingPower < 0)
-        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGINGPOWER) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(chargingPower) + ").")
-        else {
-            myChargingPower = chargingPower;
-        }
-
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGINGPOWER), getID(), toString(chargingPower)))
+    else {
+        myChargingPower = chargingPower;
+    }
     if (efficency < 0 || efficency > 1) {
-        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_EFFICIENCY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getEfficency()) + ").")
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_EFFICIENCY), getID(), toString(efficency)))
     } else {
         myEfficiency = efficency;
     }
-
     if (chargeDelay < 0) {
-        WRITE_WARNING("Parameter " + toString(SUMO_ATTR_CHARGEDELAY) + " for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " is invalid (" + toString(getEfficency()) + ").")
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGEDELAY), getID(), toString(chargeDelay)))
     } else {
         myChargeDelay = chargeDelay;
     }
-
+    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGETYPE), getID(), chargeType))
+    } else {
+        myChargeDelay = chargeDelay;
+    }
+    if (waitingTime < 0) {
+        WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_WAITINGTIME), getID(), toString(waitingTime)))
+    } else {
+        myChargeDelay = chargeDelay;
+    }
     if (getBeginLanePosition() > getEndLanePosition()) {
-        WRITE_WARNING(toString(SUMO_TAG_CHARGING_STATION) + " with ID = " + getID() + " doesn't have a valid range (" + toString(getBeginLanePosition()) + " < " + toString(getEndLanePosition()) + ").");
+        WRITE_WARNING(TLF("ChargingStation with ID='getID()' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
     }
 }
 
@@ -99,6 +102,18 @@ MSChargingStation::getChargeInTransit() const {
 SUMOTime
 MSChargingStation::getChargeDelay() const {
     return myChargeDelay;
+}
+
+
+const std::string&
+MSChargingStation::getChargeType() const {
+    return myChargeType;
+}
+
+
+SUMOTime
+MSChargingStation::getWaitingTime() const {
+    return myWaitingTime;
 }
 
 

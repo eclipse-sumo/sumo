@@ -169,6 +169,9 @@ protected:
     /// @brief popup in which place search label and list
     FXPopup* myPane = nullptr;
 
+    /// @brief no items label
+    FXLabel* myNoItemsLabel = nullptr;
+
 private:
     /// @brief invalidate copy constructor
     MFXComboBoxIcon(const MFXComboBoxIcon&);
