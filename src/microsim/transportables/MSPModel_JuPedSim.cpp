@@ -550,7 +550,10 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 
 void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
     for (auto shape: myNetwork->getShapeContainer().getPolygons()) {
-        std::vector<JPS_Point> coordinates = convertToJPSPoints(shape.second->getShape());
+        PositionVector translatedShape = shape.second->getShape();
+        Position netOffset = GeoConvHelper::getFinal()::getOffset();
+        translatedShape.add(netOffset);
+        std::vector<JPS_Point> coordinates = convertToJPSPoints(translatedShape);
         if (shape.second->getShapeType() == "jupedsim.walkable_area") {
             JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
         }
