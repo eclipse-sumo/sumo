@@ -2009,13 +2009,19 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
         case MID_HOTKEY_F2_SUPERMODE_NETWORK:
-            myEditModes.setSupermode(Supermode::NETWORK, false);
+            if (myEditModes.networkButton->isEnabled()) {
+                myEditModes.setSupermode(Supermode::NETWORK, false);
+            }
             break;
         case MID_HOTKEY_F3_SUPERMODE_DEMAND:
-            myEditModes.setSupermode(Supermode::DEMAND, false);
+            if (myEditModes.demandButton->isEnabled()) {
+                myEditModes.setSupermode(Supermode::DEMAND, false);
+            }
             break;
         case MID_HOTKEY_F4_SUPERMODE_DATA:
-            myEditModes.setSupermode(Supermode::DATA, false);
+            if (myEditModes.dataButton->isEnabled()) {
+                myEditModes.setSupermode(Supermode::DATA, false);
+            }
             break;
         default:
             break;

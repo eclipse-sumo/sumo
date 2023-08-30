@@ -1806,6 +1806,21 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 
 void
 GNEApplicationWindow::viewUpdated() {
+    if (myViewsMenuCommands.isDefaultView()) {
+        mySupermodeCommands.dataMode->enable();
+        if (myViewNet) {
+            myViewNet->getEditModes().dataButton->enable();
+        }
+    } else if (myViewsMenuCommands.isJuPedSimView()) {
+        mySupermodeCommands.dataMode->disable();
+        if (myViewNet) {
+            myViewNet->getEditModes().dataButton->disable();
+            // go to network mode
+            if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+                myViewNet->forceSupermodeNetwork();
+            }
+        }
+    }
 }
 
 
