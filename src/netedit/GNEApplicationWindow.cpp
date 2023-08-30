@@ -364,8 +364,11 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onUpdPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
+    // toolbar views
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_DEFAULT,   GNEApplicationWindow::onCmdSetView),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_JUPEDSIM,   GNEApplicationWindow::onCmdSetView),
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
@@ -1184,6 +1187,14 @@ GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdSetView(FXObject*, FXSelector sel, void*) {
+   myViewsMenuCommands.setView(FXSELID(sel));
+   update();
+   return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     myMessageWindow->clear();
     return 1;
@@ -1781,6 +1792,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     }
 }
 
+
 bool
 GNEApplicationWindow::consoleOptionsLoaded() {
     if (myConsoleOptionsLoaded) {
@@ -1788,6 +1800,26 @@ GNEApplicationWindow::consoleOptionsLoaded() {
         return true;
     } else {
         return false;
+    }
+}
+
+
+void
+GNEApplicationWindow::viewUpdated() {
+    if (myViewsMenuCommands.isDefaultView()) {
+        mySupermodeCommands.dataMode->enable();
+        if (myViewNet) {
+            myViewNet->getEditModes().dataButton->enable();
+        }
+    } else if (myViewsMenuCommands.isJuPedSimView()) {
+        mySupermodeCommands.dataMode->disable();
+        if (myViewNet) {
+            myViewNet->getEditModes().dataButton->disable();
+            // go to network mode
+            if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+                myViewNet->forceSupermodeNetwork();
+            }
+        }
     }
 }
 

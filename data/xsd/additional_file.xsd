@@ -432,7 +432,7 @@
         <xsd:attribute name="efficiency" type="floatType" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
         <xsd:attribute name="chargeDelay" type="floatType" use="optional"/>
-        <xsd:attribute name="chargeType" use="optional"/>
+        <xsd:attribute name="chargeType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="normal"/>
@@ -440,6 +440,7 @@
                     <xsd:enumeration value="fuel"/>
                 </xsd:restriction>
             </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="waitingTime" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 

@@ -768,6 +768,16 @@ enum {
 
     /// @}
 
+    /// @name Toolbar view messages
+    /// @{
+
+    /// @brief set default view
+    MID_GNE_VIEW_DEFAULT,
+    /// @brief set juPedSim view
+    MID_GNE_VIEW_JUPEDSIM,
+
+    /// @}
+
     /// @name Toolbar windows messages
     /// @{
 

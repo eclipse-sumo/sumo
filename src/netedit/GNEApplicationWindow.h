@@ -81,6 +81,9 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
+    /// @brief called when view is updated
+    void viewUpdated();
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
@@ -370,7 +373,10 @@ public:
 
     /// @brief called when the command/FXCall on update open executed
     long onUpdOpen(FXObject*, FXSelector, void*);
-
+    
+    /// @brief called when a new view is set
+    long onCmdSetView(FXObject*, FXSelector sel, void*);
+    
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
