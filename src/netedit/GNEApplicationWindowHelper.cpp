@@ -2180,16 +2180,26 @@ GNEApplicationWindowHelper::ViewsMenuCommands::ViewsMenuCommands(GNEApplicationW
 void
 GNEApplicationWindowHelper::ViewsMenuCommands::buildViewsMenuCommands(FXMenuPane* viewsMenu) {
     // build windows menu commands
-    GUIDesigns::buildFXMenuCheckbox(viewsMenu,
-                                    TL("Show Status Line"), TL("Toggle this Status Bar on/off."),
-                                    nullptr, FXWindow::ID_TOGGLESHOWN);
-    GUIDesigns::buildFXMenuCheckbox(viewsMenu,
-                                    TL("Show Message Window"), TL("Toggle the Message Window on/off."),
-                                    nullptr, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuSeparator(viewsMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(viewsMenu,
-                                           TL("Clear Message Window"), "", TL("Clear the Message Window."),
-                                           GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), myGNEApp, MID_CLEARMESSAGEWINDOW);
+    myDefaultView = GUIDesigns::buildFXMenuCheckbox(viewsMenu,
+                                                    TL("Default"), TL("Toggle the default mode."),
+                                                    myGNEApp, MID_GNE_VIEW_DEFAULT);
+    myJuPedSimView = GUIDesigns::buildFXMenuCheckbox(viewsMenu,
+                                                     TL("JuPedSim"), TL("Toggle the JuPedSim view."),
+                                                     myGNEApp, MID_GNE_VIEW_JUPEDSIM);
+    // set default view
+    myDefaultView->setCheck(TRUE);
+}
+
+
+void
+GNEApplicationWindowHelper::ViewsMenuCommands::setView(FXSelector sel) {
+    if (sel == MID_GNE_VIEW_DEFAULT) {
+        myDefaultView->setCheck(TRUE);
+        myJuPedSimView->setCheck(FALSE);
+    } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
+        myDefaultView->setCheck(FALSE);
+        myJuPedSimView->setCheck(TRUE);
+    }
 }
 
 // ---------------------------------------------------------------------------

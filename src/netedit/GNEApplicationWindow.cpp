@@ -364,8 +364,11 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onUpdPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
+    // toolbar views
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_DEFAULT,   GNEApplicationWindow::onCmdSetView),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_JUPEDSIM,   GNEApplicationWindow::onCmdSetView),
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
@@ -1180,6 +1183,14 @@ long
 GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
     sender->handle(this, myAmLoading ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSetView(FXObject*, FXSelector sel, void*) {
+   myViewsMenuCommands.setView(FXSELID(sel));
+   update();
+   return 1;
 }
 
 

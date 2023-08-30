@@ -1077,9 +1077,18 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildViewsMenuCommands(FXMenuPane* viewsMenu);
 
+        /// @brief set view
+        void setView(FXSelector sel);
+
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
+
+        /// @brief view for default mode
+        FXMenuCheck* myDefaultView = nullptr;
+
+        /// @brief view for default mode
+        FXMenuCheck* myJuPedSimView = nullptr;
 
         /// @brief Invalidated copy constructor.
         ViewsMenuCommands(const ViewsMenuCommands&) = delete;
