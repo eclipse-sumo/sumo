@@ -4,8 +4,8 @@ Simulation parameters:
   time_limit: 10
   cost_type: CostType.DISTANCE
   drf: 1.5
-  waiting_time: 900
-  fix_allocation: False
+  waiting_time: 300.0
+  fix_allocation: True
 timestep:  0.0
 Reservations waiting: ['0', '1']
 Taxis empty: ('v0',)
@@ -31,25 +31,26 @@ allow to reject new reservation 1
 reservation 0 with direct route cost 680 * drf 1.5 = max cost 1020
 reservation 1 with direct route cost 385 * drf 1.5 = max cost 578
  Add dropoff constraints...
+ Add "no re-allocation" constraints...
  Add capacity constraints...
  Add time windows constraints...
 window for node 1: [1, 600]
-window for node 2: [200, 600]
-window for node 3: [1, 190]
+window for node 2: [1, 600]
+window for node 3: [1, 600]
 window for node 4: [1, 600]
 window for node 5: [1, 600]
  Add waiting time constraints...
-reservation 0 has a maximum (hard) pickup time at 900
-reservation 1 has a maximum (hard) pickup time at 900
+reservation 0 has a maximum (hard) pickup time at 300
+reservation 1 has a maximum (hard) pickup time at 300
 ## Done
  Set solution heuristic...
 Start solving the problem.
 Objective: 2628
 Route for vehicle 0:
-     5 (L: 0, C: 0, T: (1,35))
- ->  1 (L: 1, C: 588, T: (43,77))
- ->  3 (L: 0, C: 1268, T: (156,190))
- ->  2 (L: 1, C: 2243, T: (233,509))
+     5 (L: 0, C: 0, T: (1,68))
+ ->  1 (L: 1, C: 588, T: (43,110))
+ ->  3 (L: 0, C: 1268, T: (156,223))
+ ->  2 (L: 1, C: 2243, T: (233,300))
  ->  4 (L: 0, C: 2628, T: (324,600))
  ->  0 (L: 0, C: 2628, T: (324,600))
 Costs of the route: 2628

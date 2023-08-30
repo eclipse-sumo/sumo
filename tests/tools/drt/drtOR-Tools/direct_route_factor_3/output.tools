@@ -4,6 +4,7 @@ Simulation parameters:
   time_limit: 10
   cost_type: CostType.DISTANCE
   drf: 3.0
+  waiting_time: 900
   fix_allocation: False
 timestep:  0.0
 Reservations waiting: ['0', '1']
@@ -37,6 +38,9 @@ window for node 2: [1, 600]
 window for node 3: [1, 600]
 window for node 4: [1, 600]
 window for node 5: [1, 600]
+ Add waiting time constraints...
+reservation 0 has a maximum (hard) pickup time at 900
+reservation 1 has a maximum (hard) pickup time at 900
 ## Done
  Set solution heuristic...
 Start solving the problem.
