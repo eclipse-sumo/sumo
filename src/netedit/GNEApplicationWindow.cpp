@@ -1807,14 +1807,19 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 void
 GNEApplicationWindow::viewUpdated() {
     if (myViewsMenuCommands.isDefaultView()) {
-        mySupermodeCommands.dataMode->enable();
+        mySupermodeCommands.dataMode->show();
         if (myViewNet) {
-            myViewNet->getEditModes().dataButton->enable();
+            // show data button (and adjust width)
+            myViewNet->getEditModes().dataButton->show();
+            myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes->setWidth(27 + (3 * 100));
         }
     } else if (myViewsMenuCommands.isJuPedSimView()) {
         mySupermodeCommands.dataMode->disable();
         if (myViewNet) {
-            myViewNet->getEditModes().dataButton->disable();
+            // show data button (and adjust width)
+            myViewNet->getEditModes().dataButton->hide();
+            myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes->setWidth(23 + (2 * 100));
+
             // go to network mode
             if (myViewNet->getEditModes().isCurrentSupermodeData()) {
                 myViewNet->forceSupermodeNetwork();
