@@ -63,7 +63,13 @@ enum class GUIIcon {
     HELP,
     HALL_OF_FAME,
     CLEARMESSAGEWINDOW,
+    /// @}
+
+    /// @name netedit view icons
+    /// @{
     NETEDITVIEWS,
+    VIEWDEFAULT,
+    VIEWJUPEDSIM,
     /// @}
 
     /// @brief open icons
