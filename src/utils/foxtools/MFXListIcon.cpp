@@ -226,7 +226,7 @@ MFXListIcon::isItemVisible(MFXListIconItem* item) const {
 
 void
 MFXListIcon::makeItemVisible(MFXListIconItem* item) {
-    register FXint y, h;
+    FXint y, h;
     // Remember for later
     viewable = item;
     // Was realized
@@ -241,7 +241,7 @@ MFXListIcon::makeItemVisible(MFXListIconItem* item) {
             y = viewport_h - item->y - h;
         }
         if (y + item->y <= 0) {
-            y =- item->y;
+            y = -item->y;
         }
         // Scroll into view
         setPosition(pos_x, y);
@@ -380,8 +380,8 @@ MFXListIcon::toggleItem(MFXListIconItem* item, FXbool notify) {
 
 FXbool
 MFXListIcon::killSelection(FXbool notify) {
-    register FXbool changes = FALSE;
-    register FXint i;
+    FXbool changes = FALSE;
+    FXint i;
     for (i = 0; i < (int)items.size(); i++) {
         if (items[i]->isSelected()) {
             items[i]->setSelected(FALSE);
@@ -1178,7 +1178,7 @@ MFXListIcon::MFXListIcon() {
 
 void
 MFXListIcon::recompute() {
-    register FXint x, y, w, h;
+    FXint x, y, w, h;
     x = 0;
     y = 0;
     listWidth = 0;

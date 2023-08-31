@@ -651,13 +651,13 @@ MFXTextFieldIcon::onMotion(FXObject*, FXSelector, void* ptr) {
 
 long
 MFXTextFieldIcon::onAutoScroll(FXObject*, FXSelector, void* ptr) {
-    register FXEvent* event = (FXEvent*)ptr;
+    FXEvent* event = (FXEvent*)ptr;
     if (flags & FLAG_PRESSED) {
-        register FXint newcursor = cursor;
-        register FXint ll = border+padleft;
-        register FXint rr = width-border-padright;
-        register FXint ww = rr-ll;
-        register FXint tw;
+        FXint newcursor = cursor;
+        FXint ll = border+padleft;
+        FXint rr = width-border-padright;
+        FXint ww = rr-ll;
+        FXint tw;
 
         if (options & TEXTFIELD_PASSWD)
             tw = font->getTextWidth("*", 1)*contents.count();
@@ -870,10 +870,10 @@ MFXTextFieldIcon::drawCursor(FXuint state) {
 
 void
 MFXTextFieldIcon::layout() {
-    register FXint rr = width-border-padright;
-    register FXint ll = border+padleft;
-    register FXint ww = rr-ll;
-    register FXint tw;
+    FXint rr = width-border-padright;
+    FXint ll = border+padleft;
+    FXint ww = rr-ll;
+    FXint tw;
     if (!xid) return;
 
     // Figure text width
@@ -918,11 +918,11 @@ MFXTextFieldIcon::layout() {
 
 void
 MFXTextFieldIcon::makePositionVisible(FXint pos) {
-    register FXint rr = width-border-padright;
-    register FXint ll = border+padleft;
-    register FXint ww = rr-ll;
-    register FXint oldshift = shift;
-    register FXint xx;
+    FXint rr = width-border-padright;
+    FXint ll = border+padleft;
+    FXint ww = rr-ll;
+    FXint oldshift = shift;
+    FXint xx;
     if (!xid) return;
     pos = contents.validate(FXCLAMP(0, pos, contents.length()));
     if (options & JUSTIFY_RIGHT) {
@@ -961,10 +961,10 @@ MFXTextFieldIcon::makePositionVisible(FXint pos) {
 
 FXint
 MFXTextFieldIcon::index(FXint x) const {
-    register FXint rr = width-border-padright;
-    register FXint ll = border+padleft;
-    register FXint mm = (ll+rr)/2;
-    register FXint pos, xx, cw;
+    FXint rr = width-border-padright;
+    FXint ll = border+padleft;
+    FXint mm = (ll+rr)/2;
+    FXint pos, xx, cw;
     if (options & TEXTFIELD_PASSWD) {
         cw = font->getTextWidth("*", 1);
         if (options & JUSTIFY_RIGHT)
@@ -999,10 +999,10 @@ MFXTextFieldIcon::index(FXint x) const {
 
 FXint
 MFXTextFieldIcon::coord(FXint i) const {
-    register FXint rr = width-border-padright;
-    register FXint ll = border+padleft;
-    register FXint mm = (ll+rr)/2;
-    register FXint pos;
+    FXint rr = width-border-padright;
+    FXint ll = border+padleft;
+    FXint mm = (ll+rr)/2;
+    FXint pos;
     FXASSERT(0 <= i && i <= contents.length());
     if (options & JUSTIFY_RIGHT) {
         if (options & TEXTFIELD_PASSWD) {
@@ -1030,7 +1030,7 @@ MFXTextFieldIcon::coord(FXint i) const {
 FXbool
 MFXTextFieldIcon::isPosVisible(FXint pos) const {
     if (0 <= pos && pos <= contents.length()) {
-        register FXint x = coord(contents.validate(pos));
+        FXint x = coord(contents.validate(pos));
         return border+padleft <= x && x <= width-border-padright;
     }
     return FALSE;
@@ -1053,8 +1053,8 @@ MFXTextFieldIcon::drawTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, F
 
 void
 MFXTextFieldIcon::drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm, FXint to) {
-    register FXint cw = font->getTextWidth("*", 1);
-    register FXint i;
+    FXint cw = font->getTextWidth("*", 1);
+    FXint i;
     y += font->getFontAscent();
     x += cw*contents.index(fm);
     for (i = fm; i<to; i = contents.inc(i), x += cw) {
@@ -1065,10 +1065,10 @@ MFXTextFieldIcon::drawPWDTextFragment(FXDCWindow& dc, FXint x, FXint y, FXint fm
 
 // Draw range of text
 void MFXTextFieldIcon::drawTextRange(FXDCWindow& dc, FXint fm, FXint to) {
-    register FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
-    register FXint rr = width-border-padright;
-    register FXint ll = border+padleft;
-    register FXint mm = (ll+rr)/2;
+    FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
+    FXint rr = width-border-padright;
+    FXint ll = border+padleft;
+    FXint mm = (ll+rr)/2;
     if (to <= fm) {
         return;
     }
@@ -1320,7 +1320,7 @@ isdelimiter(const FXchar *delimiters, FXwchar w) {
 
 FXint
 MFXTextFieldIcon::leftWord(FXint pos) const {
-    register FXint pp = pos, p;
+    FXint pp = pos, p;
 
     // Ensure input is valid
     FXASSERT(0 <= pos && pos <= contents.length());
@@ -1343,7 +1343,7 @@ MFXTextFieldIcon::leftWord(FXint pos) const {
 
 FXint
 MFXTextFieldIcon::rightWord(FXint pos) const {
-    register FXint pp = pos;
+    FXint pp = pos;
 
     // Ensure input is valid
     FXASSERT(0 <= pos && pos <= contents.length());
@@ -1366,7 +1366,7 @@ MFXTextFieldIcon::rightWord(FXint pos) const {
 
 FXint
 MFXTextFieldIcon::wordStart(FXint pos) const {
-    register FXint p;
+    FXint p;
     FXASSERT(0 <= pos && pos <= contents.length());
     if (pos == contents.length() || Unicode::isSpace(contents.wc(pos))) {
         while (0 <= (p = contents.dec(pos)) && Unicode::isSpace(contents.wc(p)))
@@ -1734,7 +1734,7 @@ MFXTextFieldIcon::onCmdDelete(FXObject*, FXSelector, void*) {
 
 long
 MFXTextFieldIcon::onVerify(FXObject*, FXSelector, void* ptr) {
-    register FXchar *p = (FXchar*)ptr;
+    FXchar *p = (FXchar*)ptr;
 
     // Limit number of columns
     if (options & TEXTFIELD_LIMITED) {

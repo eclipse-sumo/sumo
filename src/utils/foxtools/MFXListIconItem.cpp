@@ -168,8 +168,8 @@ MFXListIconItem::detach() {
 
 FXint
 MFXListIconItem::getWidth(const MFXListIcon* list) const {
-    register FXFont *font = list->getFont();
-    register FXint w = 0;
+    FXFont *font = list->getFont();
+    FXint w = 0;
     if (icon) {
         w = icon->getWidth();
     }
@@ -186,8 +186,8 @@ MFXListIconItem::getWidth(const MFXListIcon* list) const {
 
 FXint
 MFXListIconItem::getHeight(const MFXListIcon* list) const {
-    register FXFont *font = list->getFont();
-    register FXint th = 0, ih = 0;
+    FXFont *font = list->getFont();
+    FXint th = 0, ih = 0;
     if (icon) {
         ih = icon->getHeight();
     }
@@ -248,8 +248,8 @@ MFXListIconItem::draw(const MFXListIcon* list,FXDC &  dc,FXint xx,FXint yy,FXint
 
 FXint
 MFXListIconItem::hitItem(const MFXListIcon* list,FXint xx,FXint yy) const {
-    register FXint iw = 0,ih = 0,tw = 0,th = 0,ix,iy,tx,ty,h;
-    register FXFont *font = list->getFont();
+    FXint iw = 0,ih = 0,tw = 0,th = 0,ix,iy,tx,ty,h;
+    FXFont *font = list->getFont();
     if (icon) {
         iw = icon->getWidth();
         ih = icon->getHeight();
