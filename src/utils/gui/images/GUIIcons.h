@@ -67,7 +67,6 @@ enum class GUIIcon {
 
     /// @name netedit view icons
     /// @{
-    NETEDITVIEWS,
     VIEWDEFAULT,
     VIEWJUPEDSIM,
     /// @}
