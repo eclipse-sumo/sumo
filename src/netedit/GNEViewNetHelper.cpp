@@ -2118,8 +2118,19 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     // build views button
     myNeteditViewsButton = new MFXMenuButtonTooltip(gripSupermodes, toolTipMenu,
             (std::string("\t") + TL("Change netedit views") + std::string("\t") + TL("Change netedit views.")).c_str(),
-            GUIIconSubSys::getIcon(GUIIcon::NETEDITVIEWS), myNeteditViewsPopup, nullptr, GUIDesignButtonToolbarLocator);
+            GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT), myNeteditViewsPopup, nullptr, GUIDesignTLSTableCheckableButtonIcon);
     myNeteditViewsButton->create();
+    // build default view button
+    myDefaultViewButton = new MFXButtonTooltip(myNeteditViewsPopup, toolTipMenu,
+            (std::string("Default\t") + TL("Set default view") + std::string("\t") + TL("Set default view.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT), myViewNet, MID_GNE_VIEW_DEFAULT, GUIDesignButtonLeft);
+    myDefaultViewButton->create();
+    // build jupedsim view button
+    myJuPedSimViewButton = new MFXButtonTooltip(myNeteditViewsPopup, toolTipMenu,
+            (std::string("JuPedSim\t") + TL("Set JuPedSim view") + std::string("\t") + TL("Set JuPedSim view.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM), myViewNet, MID_GNE_VIEW_JUPEDSIM, GUIDesignButtonLeft);
+    myJuPedSimViewButton->create();
+    myNeteditViewsPopup->recalc();
     // set width (grip + 3 large buttons + icon button)
     gripSupermodes->setWidth(353);
     // show menu bar modes

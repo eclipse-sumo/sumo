@@ -86,6 +86,9 @@ class MFXMenuCheckIcon;
 /// @brief button extended over over Frame with thick and raise frame
 #define GUIDesignButton                         (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief button extended over over Frame with thick and raise frame
+#define GUIDesignButtonLeft                     (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief button extended over over column with thick and raise frame
 #define GUIDesignButtonAttribute                (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 

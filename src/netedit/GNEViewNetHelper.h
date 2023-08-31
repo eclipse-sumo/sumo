@@ -623,6 +623,12 @@ struct GNEViewNetHelper {
         /// @brief The netedit views button
         MFXMenuButtonTooltip* myNeteditViewsButton = nullptr;
 
+        /// @brief The default view button
+        MFXButtonTooltip* myDefaultViewButton = nullptr;
+
+        /// @brief The jupedsim view button
+        MFXButtonTooltip* myJuPedSimViewButton = nullptr;
+
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;
 
