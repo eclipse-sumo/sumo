@@ -109,6 +109,12 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", TL("Writes all warnings and errors to FILE"));
 
+    oc.doRegister("log.timestamps", new Option_Bool(false));
+    oc.addDescription("log.timestamps", "Report", TL("Writes timestamps in front of all messages"));
+
+    oc.doRegister("log.processid", new Option_Bool(false));
+    oc.addDescription("log.processid", "Report", TL("Writes process ID in front of all messages"));
+
     oc.doRegister("language", new Option_String("C"));
     oc.addDescription("language", "Report", TL("Language to use in messages"));
 
