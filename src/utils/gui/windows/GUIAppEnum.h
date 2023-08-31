@@ -40,7 +40,7 @@ enum {
     /// @{
 
     /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
-    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
+    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,
     /// @brief hotkey for mode connecting lanes AND container
     MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit

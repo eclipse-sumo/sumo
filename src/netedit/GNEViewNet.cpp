@@ -89,7 +89,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,  GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,       GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                     GNEViewNet::onCmdSetMode),
@@ -400,8 +400,53 @@ GNEViewNet::updateViewNet() const {
 
 
 void
-GNEViewNet::forceSupermodeNetwork() {
+GNEViewNet::forceSupemodeNetwork() {
     myEditModes.setSupermode(Supermode::NETWORK, true);
+}
+
+
+void
+GNEViewNet::viewUpdated() {
+    if (myViewParent->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+        // hide data button (and adjust width)
+        myEditModes.dataButton->hide();
+        // check network modes
+        switch (myEditModes.networkEditMode) {
+            case NetworkEditMode::NETWORK_CONNECT:
+            case NetworkEditMode::NETWORK_TLS:
+            case NetworkEditMode::NETWORK_PROHIBITION:
+            case NetworkEditMode::NETWORK_WIRE:
+            case NetworkEditMode::NETWORK_DECAL:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_INSPECT);
+                break;
+            default:
+                break;
+        }
+        // check demand modes
+        switch (myEditModes.demandEditMode) {
+            case DemandEditMode::DEMAND_MOVE:
+            case DemandEditMode::DEMAND_VEHICLE:
+            case DemandEditMode::DEMAND_STOP:
+            case DemandEditMode::DEMAND_CONTAINER:
+            case DemandEditMode::DEMAND_CONTAINERPLAN:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_INSPECT);
+                break;
+            default:
+                break;
+        }
+        // go to network mode if we're in data mode
+        if (myEditModes.isCurrentSupermodeData()) {
+            forceSupemodeNetwork();
+        } else {
+            // refresh current supermode
+            myEditModes.setSupermode(myEditModes.currentSupermode, true);
+        }
+    } else {
+        // show data button
+        myEditModes.dataButton->show();
+        // refresh current supermode
+        myEditModes.setSupermode(myEditModes.currentSupermode, true);
+    }
 }
 
 
@@ -2009,17 +2054,17 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
         case MID_HOTKEY_F2_SUPERMODE_NETWORK:
-            if (myEditModes.networkButton->isEnabled()) {
+            if (myEditModes.networkButton->shown()) {
                 myEditModes.setSupermode(Supermode::NETWORK, false);
             }
             break;
         case MID_HOTKEY_F3_SUPERMODE_DEMAND:
-            if (myEditModes.demandButton->isEnabled()) {
+            if (myEditModes.demandButton->shown()) {
                 myEditModes.setSupermode(Supermode::DEMAND, false);
             }
             break;
         case MID_HOTKEY_F4_SUPERMODE_DATA:
-            if (myEditModes.dataButton->isEnabled()) {
+            if (myEditModes.dataButton->shown()) {
                 myEditModes.setSupermode(Supermode::DATA, false);
             }
             break;
@@ -2031,6 +2076,56 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
+    // first filter modes depending of view
+    if (myViewParent->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+        // network
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            switch (FXSELID(sel)) {
+                // common
+                case MID_HOTKEY_I_MODE_INSPECT:
+                case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
+                case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
+                // infrastructure
+                case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
+                case MID_HOTKEY_E_MODE_EDGE_EDGEDATA:
+                case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
+                case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
+                // shapes
+                case MID_HOTKEY_P_MODE_POLYGON_PERSON:
+                case MID_HOTKEY_Z_MODE_TAZ_TAZREL:
+                    break;
+                default:
+                    return 0;
+            }
+        }
+        // demand
+        if (myEditModes.isCurrentSupermodeDemand()) {
+            switch (FXSELID(sel)) {
+                // common
+                case MID_HOTKEY_I_MODE_INSPECT:
+                case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
+                case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
+                // persons
+                case MID_HOTKEY_P_MODE_POLYGON_PERSON:
+                case MID_HOTKEY_L_MODE_PERSONPLAN:
+                // routes
+                case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
+                case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
+                // types
+                case MID_HOTKEY_T_MODE_TLS_TYPE:
+                case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
+                    break;
+                default:
+                    return 0;
+            }
+        }
+        // data
+        if (myEditModes.isCurrentSupermodeData()) {
+            // all modes disabled
+            return 0;
+        }
+    }
+    // continue depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
         // check what network mode will be set
         switch (FXSELID(sel)) {
@@ -2055,7 +2150,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
-            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_ADDITIONAL);
                 break;
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
@@ -2115,7 +2210,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
                 break;
-            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
             case MID_HOTKEY_P_MODE_POLYGON_PERSON:
@@ -2150,6 +2245,8 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
                 myEditModes.setDataEditMode(DataEditMode::DATA_MEANDATA);
+                break;
+            default:
                 break;
         }
     }

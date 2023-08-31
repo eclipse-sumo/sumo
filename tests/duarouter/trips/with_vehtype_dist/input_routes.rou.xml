@@ -1,4 +1,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vTypeDistribution id="0" vTypes="DEFAULT_VEHTYPE"/>
     <trip id="0" type="0" depart="0" from="beg" to="rend" />
+
+    <vTypeDistribution id="vd1">
+        <vType sigma="0" id="v1.1" probability="0.5"/>
+        <vType sigma="0" id="v1.2" probability="0.5"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="vd2">
+        <vType sigma="0" id="v2.1" probability="0.5"/>
+        <vType sigma="0" id="v2.2" probability="0.5"/>
+    </vTypeDistribution>
+
+    <vTypeDistribution id="vt2" vTypes="vd1 vd2" probabilities="0.8 0.2"/>
+    <flow id="2" begin="30" period="2" number="50" type="vt2">
+        <route edges="beg end"/>
+    </flow>
 </routes>

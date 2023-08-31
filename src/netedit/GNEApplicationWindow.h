@@ -573,18 +573,21 @@ public:
 
     /// @brief check if undo-redo is enabled
     const std::string& isUndoRedoEnabled() const;
-
-    /// @brief getEdit Menu Commands (needed for show/hide menu commands)
-    GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
-
-    /// @brief get lock Menu Commands
-    GNEApplicationWindowHelper::LockMenuCommands& getLockMenuCommands();
-
+    
     /// @brief clear undo list
     void clearUndoList();
-
+    
+    /// @brief getEdit Menu Commands (needed for show/hide menu commands)
+    GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
+    
     /// @brief get processing Menu Commands
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
+    
+    /// @brief get lock Menu Commands
+    GNEApplicationWindowHelper::LockMenuCommands& getLockMenuCommands();
+    
+    /// @brief Views Menu Commands
+    const GNEApplicationWindowHelper::ViewsMenuCommands &getViewsMenuCommands() const;
 
     /// @brief get SUMO options container
     OptionsCont& getSumoOptions();

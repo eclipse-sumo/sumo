@@ -435,6 +435,9 @@ class MFXMenuCheckIcon;
 /// @brief design for toolbar
 #define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
 
+/// @brief design for toolbar supermodes (grip + buttons)
+#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, 23 + (3 * 100)
+
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
 

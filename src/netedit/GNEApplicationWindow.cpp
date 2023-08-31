@@ -191,7 +191,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,      GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                    GNEApplicationWindow::onCmdSetMode),
@@ -1308,7 +1308,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
         if (myViewNet) {
-            myViewNet->forceSupermodeNetwork();
+            myViewNet->forceSupemodeNetwork();
         }
         if (myViewNet && ec->viewportFromRegistry) {
             Position off;
@@ -1806,20 +1806,17 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 
 void
 GNEApplicationWindow::viewUpdated() {
-    if (myViewsMenuCommands.isDefaultView()) {
-        mySupermodeCommands.dataMode->enable();
-        if (myViewNet) {
-            myViewNet->getEditModes().dataButton->enable();
-        }
-    } else if (myViewsMenuCommands.isJuPedSimView()) {
-        mySupermodeCommands.dataMode->disable();
-        if (myViewNet) {
-            myViewNet->getEditModes().dataButton->disable();
-            // go to network mode
-            if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-                myViewNet->forceSupermodeNetwork();
-            }
-        }
+    // adjust supermode commmand
+    if (myViewsMenuCommands.isJuPedSimView()) {
+        mySupermodeCommands.dataMode->hide();
+        myToolbarsGrip.superModes->setWidth(23 + (2 * 100));
+    } else {
+        mySupermodeCommands.dataMode->show();
+        myToolbarsGrip.superModes->setWidth(27 + (3 * 100));
+    }
+    // update view
+    if (myViewNet) {
+        myViewNet->viewUpdated();
     }
 }
 
@@ -4761,6 +4758,18 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 }
 
 
+void
+GNEApplicationWindow::clearUndoList() {
+    if (myViewNet) {
+        // destroy Popup (to avoid crashes)
+        myViewNet->destroyPopup();
+    }
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->clear();
+}
+
+
+
 GNEApplicationWindowHelper::EditMenuCommands&
 GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
@@ -4773,20 +4782,15 @@ GNEApplicationWindow::getLockMenuCommands() {
 }
 
 
-void
-GNEApplicationWindow::clearUndoList() {
-    if (myViewNet) {
-        // destroy Popup (to avoid crashes)
-        myViewNet->destroyPopup();
-    }
-    // clear undo list and return true to continue with closing/reload
-    myUndoList->clear();
-}
-
-
 const GNEApplicationWindowHelper::ProcessingMenuCommands&
 GNEApplicationWindow::getProcessingMenuCommands() const {
     return myProcessingMenuCommands;
+}
+
+
+const GNEApplicationWindowHelper::ViewsMenuCommands&
+GNEApplicationWindow::getViewsMenuCommands() const {
+    return myViewsMenuCommands;
 }
 
 

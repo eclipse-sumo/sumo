@@ -3574,7 +3574,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
         std::string("\t") + TL("Set additional mode") + std::string("\t") + TL("Mode for adding additional elements. (A)"),
-        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP, GUIDesignMFXCheckableButtonSquare);
+        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, GUIDesignMFXCheckableButtonSquare);
     additionalButton->create();
     // wire mode
     wireButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3607,17 +3607,32 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
 
 void
 GNEViewNetHelper::NetworkCheckableButtons::showNetworkCheckableButtons() {
-    moveNetworkElementsButton->show();
-    createEdgeButton->show();
-    connectionButton->show();
-    trafficLightButton->show();
-    additionalButton->show();
-    crossingButton->show();
-    TAZButton->show();
-    shapeButton->show();
-    prohibitionButton->show();
-    wireButton->show();
-    decalButton->show();
+    // continue depending of view
+    if (myViewNet->getViewParent()->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+        moveNetworkElementsButton->show();
+        createEdgeButton->show();
+        connectionButton->hide();
+        trafficLightButton->hide();
+        additionalButton->show();
+        crossingButton->show();
+        TAZButton->show();
+        shapeButton->show();
+        prohibitionButton->hide();
+        wireButton->hide();
+        decalButton->hide();
+    } else {
+        moveNetworkElementsButton->show();
+        createEdgeButton->show();
+        connectionButton->show();
+        trafficLightButton->show();
+        additionalButton->show();
+        crossingButton->show();
+        TAZButton->show();
+        shapeButton->show();
+        prohibitionButton->show();
+        wireButton->show();
+        decalButton->show();
+    }
 }
 
 
@@ -3719,7 +3734,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
         std::string("\t") + TL("Create stop mode") + std::string("\t") + TL("Mode for creating stops. (A)"),
-        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP, GUIDesignMFXCheckableButtonSquare);
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, GUIDesignMFXCheckableButtonSquare);
     stopButton->create();
     // person mode
     personButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3752,17 +3767,31 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
 
 void
 GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
-    moveDemandElementsButton->show();
-    routeButton->show();
-    routeDistributionButton->show();
-    vehicleButton->show();
-    typeButton->show();
-    typeDistributionButton->show();
-    stopButton->show();
-    personButton->show();
-    personPlanButton->show();
-    containerButton->show();
-    containerPlanButton->show();
+    if (myViewNet->getViewParent()->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+        moveDemandElementsButton->hide();
+        routeButton->show();
+        routeDistributionButton->show();
+        vehicleButton->hide();
+        typeButton->show();
+        typeDistributionButton->show();
+        stopButton->hide();
+        personButton->show();
+        personPlanButton->show();
+        containerButton->hide();
+        containerPlanButton->hide();
+    } else {
+        moveDemandElementsButton->show();
+        routeButton->show();
+        routeDistributionButton->show();
+        vehicleButton->show();
+        typeButton->show();
+        typeDistributionButton->show();
+        stopButton->show();
+        personButton->show();
+        personPlanButton->show();
+        containerButton->show();
+        containerPlanButton->show();
+    }
 }
 
 
