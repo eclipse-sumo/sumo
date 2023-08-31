@@ -2365,12 +2365,17 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
 
 void
 GNEViewNetHelper::EditModes::setView(FXSelector sel) {
+    // grip supermodes
+    auto gripSupermodes = myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes;
+    // continue depending of selector
     if (sel == MID_GNE_VIEW_DEFAULT) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT));
+        gripSupermodes->setWidth(353);
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
+        gripSupermodes->setWidth(250);
     }
-    // update GNEApp
+    // update viewNet
     myViewNet->viewUpdated();
 }
 
