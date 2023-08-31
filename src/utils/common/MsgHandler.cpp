@@ -42,8 +42,10 @@ MsgHandler* MsgHandler::myErrorInstance = nullptr;
 MsgHandler* MsgHandler::myWarningInstance = nullptr;
 MsgHandler* MsgHandler::myMessageInstance = nullptr;
 bool MsgHandler::myAmProcessingProcess = false;
-bool MsgHandler::myWriteDebugMessages(false);
-bool MsgHandler::myWriteDebugGLMessages(false);
+bool MsgHandler::myWriteDebugMessages = false;
+bool MsgHandler::myWriteDebugGLMessages = false;
+bool MsgHandler::myWriteTimestamps = false;
+bool MsgHandler::myWriteProcessId = false;
 
 
 // ===========================================================================
@@ -317,6 +319,12 @@ MsgHandler::initOutputOptions() {
             getWarningInstance()->addRetriever(logFile);
         }
         getMessageInstance()->addRetriever(logFile);
+        if (oc.getBool("log.timestamps")) {
+            myWriteTimestamps = true;
+        }
+        if (oc.getBool("log.processid")) {
+            myWriteProcessId = true;
+        }
     }
     if (oc.isSet("message-log", false)) {
         OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
