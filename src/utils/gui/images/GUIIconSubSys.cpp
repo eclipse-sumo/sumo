@@ -233,6 +233,7 @@
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
 #include "clear_message_window.xpm"
+#include "neteditviews.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -546,6 +547,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+    myIcons[GUIIcon::NETEDITVIEWS] = new FXXPMIcon(a, neteditviews_xpm);
 
     myIcons[GUIIcon::OPEN] = new FXXPMIcon(a, open_xpm);
     myIcons[GUIIcon::OPEN_NETEDITCONFIG] = new FXXPMIcon(a, open_neteditconfig_xpm);

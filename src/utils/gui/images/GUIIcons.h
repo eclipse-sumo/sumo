@@ -63,6 +63,7 @@ enum class GUIIcon {
     HELP,
     HALL_OF_FAME,
     CLEARMESSAGEWINDOW,
+    NETEDITVIEWS,
     /// @}
 
     /// @brief open icons
