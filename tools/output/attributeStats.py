@@ -63,8 +63,10 @@ def get_options():
                     help="use fast parser (does not track missing data)")
     op.add_argument("-p", "--precision", type=int, default=2, category="output",
                     help="Set output precision")
-    op.add_argument("--abs", dest="abs", default=False, action="store_true",
+    op.add_argument("--abs", default=False, action="store_true",
                     help="include statistics on absolute values")
+    op.add_argument("--sum", default=False, action="store_true",
+                    help="include sum of values")
     op.add_argument("-H", "--human-readable-time", dest="hrTime", default=False, action="store_true", category="output",
                     help="interpret values as times and write them as h:m:s")
     options = op.parse_args()
@@ -135,7 +137,7 @@ def main():
                 if key not in allStats:
                     allStats[key] = Statistics("%s %s" % (tag, attr),
                                                histogram=options.binwidth > 0, scale=options.binwidth,
-                                               printDev=True, abs=options.abs)
+                                               printDev=True, abs=options.abs, printSum=options.sum)
 
                 stats = allStats[key]
                 stats.add(val, elementID)
