@@ -367,8 +367,10 @@ Processing Options:
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
                                         points to smooth out lanes within the
                                         walkingarea
-  --pedestrian.remote.address STR      The address (host:port) of the external
-                                        simulation
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to the destination
+                                        point considered as arrival (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops

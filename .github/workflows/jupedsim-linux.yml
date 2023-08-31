@@ -1,0 +1,75 @@
+name: jupedsim-linux
+
+on:
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning jpscore
+      uses: actions/checkout@v3
+      with:
+        repository: PedestrianDynamics/jupedsim
+        path: jpscore
+
+    - name: Preparing Build System
+      run: |
+        sudo apt-get update
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev gettext
+        sudo apt-get install wget unzip ninja-build clang clang-format-14 libglm-dev qtbase5-dev libvtk9-dev libvtk9-qt-dev libopengl-dev
+        sudo apt-get install libgeos-dev
+        sudo pip3 install texttest
+
+    - name: Building jpscore
+      run: |
+        mkdir jpscore-build jpscore-install
+        cd jpscore-build
+        cmake -GNinja -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . -j4 --config Release
+        cmake --install . --config Release
+
+    - name: Cloning SUMO
+      uses: actions/checkout@v3
+      with:
+        path: sumo
+        fetch-depth: 0
+ 
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2
+
+    - name: Configuring and building SUMO
+      run: |
+        mkdir -p sumo/sumo-build 
+        cd sumo/sumo-build 
+        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
+        cmake --build . -j4 --config Release
+        make traas
+        sudo cmake --install . --config Release
+
+    - name: Building Examples and Tests
+      run: |
+        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf
+        sudo pip3 install ortools==9.5.2237
+        sudo pip3 install -r sumo/tools/requirements.txt
+        cd sumo/sumo-build
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+        ../tests/runTests.sh -a sumo.extra.ci -b ci

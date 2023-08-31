@@ -535,14 +535,16 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     }
     // get the positions
     bool ok = true;
-    double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    const bool random = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, "access", ok) == "random";
+    double startPos = random ? 0. : attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    double endPos = random ? lane->getLength() : startPos;
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
-    if (!ok || (myHandler->checkStopPos(pos, pos, lane->getLength(), 0, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
-        throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
+    if (!ok || (myHandler->checkStopPos(startPos, endPos, lane->getLength(), 0, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
+        throw InvalidArgument("Invalid position " + attrs.getString(SUMO_ATTR_POSITION) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
-    if (!myCurrentStop->addAccess(lane, pos, length)) {
+    if (!myCurrentStop->addAccess(lane, startPos, endPos, length)) {
         throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
     }
 }

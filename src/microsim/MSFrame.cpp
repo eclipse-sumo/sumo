@@ -550,8 +550,11 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
     oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
-    oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
-    oc.addDescription("pedestrian.remote.address", "Processing", TL("The address (host:port) of the external simulation"));
+    oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
+    oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
+
+    oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
+    oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to the destination point considered as arrival (in meters)"));
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
     oc.addDescription("ride.stop-tolerance", "Processing", TL("Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"));

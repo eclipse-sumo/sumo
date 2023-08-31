@@ -40,10 +40,27 @@
     } \
 } \
 
+
+#define EXPECT_POSITIONVEC_EQUAL(v1, v2) \
+{ \
+    EXPECT_EQ(v1.size(), v2.size()); \
+    if (v1.size() == v2.size()) { \
+        for (int i = 0; i < (int)v1.size(); ++i) { \
+            EXPECT_DOUBLE_EQ((v1[i].x()), (v2[i].x())); \
+            EXPECT_DOUBLE_EQ((v1[i].y()), (v2[i].y())); \
+            EXPECT_DOUBLE_EQ((v1[i].z()), (v2[i].z())); \
+        } \
+    } \
+} \
+
+
 class PositionVectorTest : public testing::Test {
 protected :
     PositionVector* vectorPolygon;
     PositionVector* vectorLine;
+    PositionVector* vectorTrianglePositiveCoords;
+    PositionVector* vectorTriangleNegativeCoords;
+    PositionVector* vectorRectangleOriginAlignedCorners;
 
     virtual void SetUp() {
         vectorPolygon = new PositionVector();
@@ -56,11 +73,30 @@ protected :
         vectorLine = new PositionVector();
         vectorLine->push_back(Position(0, 0));
         vectorLine->push_back(Position(2, 2));
+
+        vectorTrianglePositiveCoords = new PositionVector();
+        vectorTrianglePositiveCoords->push_back(Position(1, 1));
+        vectorTrianglePositiveCoords->push_back(Position(3, 0));
+        vectorTrianglePositiveCoords->push_back(Position(2, 3));
+
+        vectorTriangleNegativeCoords = new PositionVector();
+        vectorTriangleNegativeCoords->push_back(Position(2, -1));
+        vectorTriangleNegativeCoords->push_back(Position(1, -1));
+        vectorTriangleNegativeCoords->push_back(Position(2, -3));
+
+        vectorRectangleOriginAlignedCorners = new PositionVector();
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 3));
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 3));
     }
 
     virtual void TearDown() {
         delete vectorPolygon;
         delete vectorLine;
+        delete vectorTrianglePositiveCoords;
+        delete vectorTriangleNegativeCoords;
+        delete vectorRectangleOriginAlignedCorners;
     }
 
 };
@@ -530,6 +566,7 @@ TEST_F(PositionVectorTest, test_method_distances) {
 
 }
 
+
 /* Test the method 'overlapsWith'*/
 TEST_F(PositionVectorTest, test_method_overlapsWith) {
     PositionVector vec1;
@@ -581,4 +618,38 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_TRUE(vec1.overlapsWith(vec5, 3));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 6));
     EXPECT_FALSE(vec1.overlapsWith(empty));
+}
+
+
+/* Test the method 'sortAsPolyCWByAngle'*/
+TEST_F(PositionVectorTest, test_method_sortAsPolyCWByAngle) {
+    PositionVector vectorTrianglePositiveCoordsClockwiseOrdered;
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(2, 3));
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(3, 0));
+    vectorTrianglePositiveCoordsClockwiseOrdered.push_back(Position(1, 1));
+    vectorTrianglePositiveCoords->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorTrianglePositiveCoords), vectorTrianglePositiveCoordsClockwiseOrdered);
+
+    PositionVector vectorTriangleNegativeCoordsClockwiseOrdered;
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(1, -1));
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(2, -1));
+    vectorTriangleNegativeCoordsClockwiseOrdered.push_back(Position(2, -3));
+    vectorTriangleNegativeCoords->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorTriangleNegativeCoords), vectorTriangleNegativeCoordsClockwiseOrdered);
+
+    PositionVector vectorRectangleOriginAlignedCornersClockwiseOrdered;
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 1));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 1));
+    vectorRectangleOriginAlignedCorners->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorRectangleOriginAlignedCorners), vectorRectangleOriginAlignedCornersClockwiseOrdered);
+}
+
+
+/* Test the method 'isClockwiseOriented'*/
+TEST_F(PositionVectorTest, test_method_isClockwiseOriented) {
+    EXPECT_FALSE(vectorTrianglePositiveCoords->isClockwiseOriented());
+    EXPECT_FALSE(vectorTriangleNegativeCoords->isClockwiseOriented());
+    EXPECT_FALSE(vectorRectangleOriginAlignedCorners->isClockwiseOriented());
 }

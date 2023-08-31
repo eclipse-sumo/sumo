@@ -87,6 +87,7 @@ copy_test_path:sim.sumocfg
 copy_test_path:sim2.sumocfg
 copy_test_path:gtfs.zip
 copy_test_path:battery.xml
+copy_test_path:input.dxf
 copy_test_path:log.txt
 
 [collate_file]

@@ -251,6 +251,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     }
 }
 
+
 void
 MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
     // check if the ride can be conducted and reserve it
@@ -259,23 +260,23 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
         double toPos = getArrivalPos();
         if ((to->getPermissions() & SVC_TAXI) == 0 && getDestinationStop() != nullptr) {
             // try to find usable access edge
-            for (const auto& tuple : getDestinationStop()->getAllAccessPos()) {
-                const MSEdge* access = &std::get<0>(tuple)->getEdge();
-                if ((access->getPermissions() & SVC_TAXI) != 0) {
-                    to = access;
-                    toPos = std::get<1>(tuple);
+            for (const auto& access : getDestinationStop()->getAllAccessPos()) {
+                const MSEdge* accessEdge = &access.lane->getEdge();
+                if ((accessEdge->getPermissions() & SVC_TAXI) != 0) {
+                    to = accessEdge;
+                    toPos = access.endPos;
                     break;
                 }
             }
         }
         if ((myWaitingEdge->getPermissions() & SVC_TAXI) == 0 && myOriginStop != nullptr) {
             // try to find usable access edge
-            for (const auto& tuple : myOriginStop->getAllAccessPos()) {
-                const MSEdge* access = &std::get<0>(tuple)->getEdge();
-                if ((access->getPermissions() & SVC_TAXI) != 0) {
-                    myWaitingEdge = access;
+            for (const auto& access : myOriginStop->getAllAccessPos()) {
+                const MSEdge* accessEdge = &access.lane->getEdge();
+                if ((accessEdge->getPermissions() & SVC_TAXI) != 0) {
+                    myWaitingEdge = accessEdge;
                     myStopWaitPos = Position::INVALID;
-                    myWaitingPos = std::get<1>(tuple);
+                    myWaitingPos = access.endPos;
                     break;
                 }
             }

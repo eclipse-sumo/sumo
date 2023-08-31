@@ -519,8 +519,11 @@
         <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
         <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
 
-        <!-- The address (host:port) of the external simulation -->
-        <pedestrian.remote.address value="localhost:9000" type="STR"/>
+        <!-- The update interval of the JuPedSim simulation (in seconds) -->
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
+
+        <!-- The distance to the destination point considered as arrival (in meters) -->
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
 
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>

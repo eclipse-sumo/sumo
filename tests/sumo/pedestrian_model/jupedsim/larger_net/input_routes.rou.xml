@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-12 07:30:38.590109 by randomTrips.py v1_16_0+1733-d07cba99c49
+<configuration>
+    <net-file value="geometry_building_test_netgenerate.net.xml"/>
+    <persontrips value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <personTrip from="325" to="-128"/>
+    </person>
+    <person id="1" depart="1.00">
+        <personTrip from="1033" to="-728"/>
+    </person>
+    <person id="2" depart="2.00">
+        <personTrip from="496" to="344"/>
+    </person>
+    <person id="3" depart="3.00">
+        <personTrip from="674" to="-1774"/>
+    </person>
+    <person id="4" depart="4.00">
+        <personTrip from="1404" to="-1323"/>
+    </person>
+    <person id="5" depart="5.00">
+        <personTrip from="-696" to="1523"/>
+    </person>
+    <person id="6" depart="6.00">
+        <personTrip from="-128" to="-612"/>
+    </person>
+    <person id="7" depart="7.00">
+        <personTrip from="330" to="1767"/>
+    </person>
+    <person id="8" depart="8.00">
+        <personTrip from="-728" to="1882"/>
+    </person>
+    <person id="9" depart="9.00">
+        <personTrip from="592" to="-1011"/>
+    </person>
+    <person id="10" depart="10.00">
+        <personTrip from="589" to="361"/>
+    </person>
+    <person id="11" depart="11.00">
+        <personTrip from="126" to="-383"/>
+    </person>
+    <person id="12" depart="12.00">
+        <personTrip from="840" to="125"/>
+    </person>
+    <person id="13" depart="13.00">
+        <personTrip from="-1783" to="-1797"/>
+    </person>
+    <person id="14" depart="14.00">
+        <personTrip from="618" to="1891"/>
+    </person>
+    <person id="15" depart="15.00">
+        <personTrip from="589" to="492"/>
+    </person>
+    <person id="16" depart="16.00">
+        <personTrip from="17" to="867"/>
+    </person>
+    <person id="17" depart="17.00">
+        <personTrip from="1357" to="1771"/>
+    </person>
+    <person id="18" depart="18.00">
+        <personTrip from="612" to="25"/>
+    </person>
+    <person id="19" depart="19.00">
+        <personTrip from="625" to="1783"/>
+    </person>
+    <person id="20" depart="20.00">
+        <personTrip from="365" to="-138"/>
+    </person>
+</routes>
