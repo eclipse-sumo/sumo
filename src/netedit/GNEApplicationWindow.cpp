@@ -1809,10 +1809,12 @@ GNEApplicationWindow::viewUpdated() {
     // adjust supermode commmand
     if (myViewsMenuCommands.isJuPedSimView()) {
         mySupermodeCommands.dataMode->hide();
-        myToolbarsGrip.superModes->setWidth(23 + (2 * 100));
+        // set width (grip + 2 large buttons + icon button)
+        myToolbarsGrip.superModes->setWidth(250);
     } else {
         mySupermodeCommands.dataMode->show();
-        myToolbarsGrip.superModes->setWidth(27 + (3 * 100));
+        // set width (grip + 3 large buttons + icon button)
+        myToolbarsGrip.superModes->setWidth(353);
     }
     // update view
     if (myViewNet) {

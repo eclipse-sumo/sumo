@@ -2089,33 +2089,44 @@ GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
 }
 
 
+GNEViewNetHelper::EditModes::~EditModes() {
+    delete myNeteditViewsPopup;
+}
+
+
 void
 GNEViewNetHelper::EditModes::buildSuperModeButtons() {
+    // grip supermodes
+    auto gripSupermodes = myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes;
+    // static toolTip menu
+    auto toolTipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // create network button
-    networkButton = new MFXCheckableButton(false,
-                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
-                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                           TL("Network") + std::string("\t") + TL("Edit network elements") + std::string("\t") + TL("Set mode for edit network elements. (F2)"),
-                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
+    networkButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
+        TL("Network") + std::string("\t") + TL("Edit network elements") + std::string("\t") + TL("Set mode for edit network elements. (F2)"),
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
     networkButton->create();
     // create demand button
-    demandButton = new MFXCheckableButton(false,
-                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
-                                          myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          TL("Demand") + std::string("\t") + TL("Edit traffic demand elements") + std::string("\t") + TL("Set mode for edit traffic demand. (F3)"),
-                                          GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
+    demandButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
+        TL("Demand") + std::string("\t") + TL("Edit traffic demand elements") + std::string("\t") + TL("Set mode for edit traffic demand. (F3)"),
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
     demandButton->create();
     // create data button
-    dataButton = new MFXCheckableButton(false,
-                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
-                                        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                        TL("Data") + std::string("\t") + TL("Edit data elements") + std::string("\t") + TL("Set mode for edit data demand. (F4)"),
-                                        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
+    dataButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
+        TL("Data") + std::string("\t") + TL("Edit data elements") + std::string("\t") + TL("Set mode for edit data demand. (F4)"),
+        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
     dataButton->create();
-    // recalc menu bar because there is new elements
-    myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
+    // build the views popup
+    myNeteditViewsPopup = new FXPopup(gripSupermodes, POPUP_VERTICAL);
+    myNeteditViewsPopup->create();
+    // build views button
+    myNeteditViewsButton = new MFXMenuButtonTooltip(gripSupermodes, toolTipMenu,
+        (std::string("\t") + TL("Change netedit views") + std::string("\t") + TL("Change netedit views.")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::NETEDITVIEWS), myNeteditViewsPopup, nullptr, GUIDesignButtonToolbarLocator);
+    myNeteditViewsButton->create();
+    // set width (grip + 3 large buttons + icon button)
+    gripSupermodes->setWidth(353);
     // show menu bar modes
-    myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes->show();
+    gripSupermodes->show();
 }
 
 

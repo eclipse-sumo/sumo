@@ -562,9 +562,12 @@ struct GNEViewNetHelper {
     /// @brief struct used to group all variables related with Supermodes
     struct EditModes {
 
-        /// @brief default constructor
+        /// @brief constructor
         EditModes(GNEViewNet* viewNet);
-
+        
+        /// @brief destructor
+        ~EditModes();
+        
         /// @brief build checkable buttons
         void buildSuperModeButtons();
 
@@ -613,6 +616,12 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief The netedit views menu
+        FXPopup* myNeteditViewsPopup = nullptr;
+
+        /// @brief The netedit views button
+        MFXMenuButtonTooltip* myNeteditViewsButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;
