@@ -25,6 +25,14 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <chrono>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <utils/common/StringUtils.h>
 #include <utils/common/Translation.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -170,27 +178,44 @@ public:
 protected:
     /// @brief Builds the string which includes the mml-message type
     inline std::string build(const std::string& msg, bool addType) {
+        std::stringstream decoratedMessage;
+        if (myWriteTimestamps) {
+            std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
+            std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
+            std::tm tm = *std::localtime(&now_time_t);
+            decoratedMessage << std::put_time(&tm, "[%d-%m-%Y %T");
+            decoratedMessage << ':' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
+        }
+        if (myWriteProcessId) {
+#ifdef WIN32
+            decoratedMessage << "[PID: " << GetCurrentProcessId() << "] ";
+#else
+            decoratedMessage << "[PID: " << getpid() << "] ";
+#endif
+        }
         if (addType) {
             switch (myType) {
                 case MsgType::MT_MESSAGE:
                     break;
                 case MsgType::MT_WARNING:
-                    return "Warning: " + msg;
+                    decoratedMessage << "Warning: ";
                     break;
                 case MsgType::MT_ERROR:
-                    return "Error: " + msg;
+                    decoratedMessage << "Error: ";
                     break;
                 case MsgType::MT_DEBUG:
-                    return "Debug: " + msg;
+                    decoratedMessage << "Debug: ";
                     break;
                 case MsgType::MT_GLDEBUG:
-                    return "GLDebug: " + msg;
+                    decoratedMessage << "GLDebug: ";
                     break;
                 default:
                     break;
             }
         }
-        return msg;
+        decoratedMessage << msg;
+        return decoratedMessage.str();
     }
 
     virtual bool aggregationThresholdReached(const std::string& format) {
@@ -261,6 +286,8 @@ private:
      */
     static bool myWriteDebugMessages;
     static bool myWriteDebugGLMessages;
+    static bool myWriteTimestamps;
+    static bool myWriteProcessId;
 };
 
 
