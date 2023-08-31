@@ -221,6 +221,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Geometry Points
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
+    // toolbar views
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_DEFAULT,   GNEViewNet::onCmdSetNeteditView),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_JUPEDSIM,  GNEViewNet::onCmdSetNeteditView),
     // IntervalBar
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,     GNEViewNet::onCmdIntervalBarGenericDataType),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,             GNEViewNet::onCmdIntervalBarDataSet),
@@ -407,7 +410,7 @@ GNEViewNet::forceSupemodeNetwork() {
 
 void
 GNEViewNet::viewUpdated() {
-    if (myViewParent->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+    if (myEditModes.isJuPedSimView()) {
         // hide data button (and adjust width)
         myEditModes.dataButton->hide();
         // check network modes
@@ -2074,10 +2077,11 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     return 1;
 }
 
+
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
     // first filter modes depending of view
-    if (myViewParent->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+    if (myEditModes.isJuPedSimView()) {
         // network
         if (myEditModes.isCurrentSupermodeNetwork()) {
             switch (FXSELID(sel)) {
@@ -4625,6 +4629,14 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
         makeNonCurrent();
     }
     return 1;
+}
+
+
+long
+GNEViewNet::onCmdSetNeteditView(FXObject*, FXSelector sel, void*) {
+   myEditModes.setView(FXSELID(sel));
+   update();
+   return 1;
 }
 
 // ===========================================================================

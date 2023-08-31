@@ -2362,6 +2362,30 @@ GNEViewNetHelper::EditModes::isCurrentSupermodeData() const {
     return (currentSupermode == Supermode::DATA);
 }
 
+
+void
+GNEViewNetHelper::EditModes::setView(FXSelector sel) {
+    if (sel == MID_GNE_VIEW_DEFAULT) {
+        myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT));
+    } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
+        myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
+    }
+    // update GNEApp
+    myViewNet->viewUpdated();
+}
+
+
+bool
+GNEViewNetHelper::EditModes::isDefaultView() const {
+    return myNeteditViewsButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT);
+}
+
+
+bool
+GNEViewNetHelper::EditModes::isJuPedSimView() const {
+    return myNeteditViewsButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM);
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::NetworkViewOptions - methods
 // ---------------------------------------------------------------------------
@@ -3592,7 +3616,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
 void
 GNEViewNetHelper::NetworkCheckableButtons::showNetworkCheckableButtons() {
     // continue depending of view
-    if (myViewNet->getViewParent()->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+    if (myViewNet->getEditModes().isJuPedSimView()) {
         moveNetworkElementsButton->show();
         createEdgeButton->show();
         connectionButton->hide();
@@ -3744,7 +3768,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
 
 void
 GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
-    if (myViewNet->getViewParent()->getGNEAppWindows()->getViewsMenuCommands().isJuPedSimView()) {
+    if (myViewNet->getEditModes().isJuPedSimView()) {
         moveDemandElementsButton->hide();
         routeButton->show();
         routeDistributionButton->show();

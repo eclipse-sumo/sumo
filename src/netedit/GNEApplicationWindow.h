@@ -373,10 +373,7 @@ public:
 
     /// @brief called when the command/FXCall on update open executed
     long onUpdOpen(FXObject*, FXSelector, void*);
-    
-    /// @brief called when a new view is set
-    long onCmdSetView(FXObject*, FXSelector sel, void*);
-    
+
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
@@ -586,9 +583,6 @@ public:
     /// @brief get lock Menu Commands
     GNEApplicationWindowHelper::LockMenuCommands& getLockMenuCommands();
     
-    /// @brief Views Menu Commands
-    const GNEApplicationWindowHelper::ViewsMenuCommands &getViewsMenuCommands() const;
-
     /// @brief get SUMO options container
     OptionsCont& getSumoOptions();
 
@@ -652,7 +646,6 @@ protected:
                *myToolsTurnDefs = nullptr,
                *myToolsVisualizationMenu = nullptr,
                *myToolsXML = nullptr,
-               *myViewsMenu = nullptr,
                *myWindowMenu = nullptr,
                *myHelpMenu = nullptr;
 
@@ -743,9 +736,6 @@ private:
 
     /// @brief Tools Menu Commands
     GNEApplicationWindowHelper::ToolsMenuCommands myToolsMenuCommands;
-
-    /// @brief Views Menu Commands
-    GNEApplicationWindowHelper::ViewsMenuCommands myViewsMenuCommands;
 
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;

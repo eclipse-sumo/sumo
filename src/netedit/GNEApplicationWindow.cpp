@@ -364,9 +364,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onUpdPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
-    // toolbar views
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_DEFAULT,   GNEApplicationWindow::onCmdSetView),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_JUPEDSIM,   GNEApplicationWindow::onCmdSetView),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -463,7 +460,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
-    myViewsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
@@ -630,7 +626,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myToolsTurnDefs;
     delete myToolsVisualizationMenu;
     delete myToolsXML;
-    delete myViewsMenu;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLanguageMenu;
@@ -1187,14 +1182,6 @@ GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSetView(FXObject*, FXSelector sel, void*) {
-   myViewsMenuCommands.setView(FXSELID(sel));
-   update();
-   return 1;
-}
-
-
-long
 GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     myMessageWindow->clear();
     return 1;
@@ -1482,10 +1469,6 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuPaneToolMaps["xml"] = myToolsXML;
     // build tools
     myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
-    // build views menu
-    myViewsMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Views"), nullptr, myViewsMenu);
-    myViewsMenuCommands.buildViewsMenuCommands(myViewsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
@@ -1806,18 +1789,17 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 
 void
 GNEApplicationWindow::viewUpdated() {
-    // adjust supermode commmand
-    if (myViewsMenuCommands.isJuPedSimView()) {
-        mySupermodeCommands.dataMode->hide();
-        // set width (grip + 2 large buttons + icon button)
-        myToolbarsGrip.superModes->setWidth(250);
-    } else {
-        mySupermodeCommands.dataMode->show();
-        // set width (grip + 3 large buttons + icon button)
-        myToolbarsGrip.superModes->setWidth(353);
-    }
-    // update view
     if (myViewNet) {
+        // adjust supermode commmand
+        if (myViewNet->getEditModes().isJuPedSimView()) {
+            mySupermodeCommands.dataMode->hide();
+            // set width (grip + 2 large buttons + icon button)
+            myToolbarsGrip.superModes->setWidth(250);
+        } else {
+            mySupermodeCommands.dataMode->show();
+            // set width (grip + 3 large buttons + icon button)
+            myToolbarsGrip.superModes->setWidth(353);
+        }
         myViewNet->viewUpdated();
     }
 }
@@ -4790,12 +4772,6 @@ GNEApplicationWindow::getProcessingMenuCommands() const {
 }
 
 
-const GNEApplicationWindowHelper::ViewsMenuCommands&
-GNEApplicationWindow::getViewsMenuCommands() const {
-    return myViewsMenuCommands;
-}
-
-
 OptionsCont&
 GNEApplicationWindow::getSumoOptions() {
     return mySumoOptions;
@@ -4973,7 +4949,6 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
-    myViewsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this) {

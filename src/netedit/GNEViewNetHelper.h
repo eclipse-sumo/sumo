@@ -592,6 +592,15 @@ struct GNEViewNetHelper {
         /// @check if current supermode is Data
         bool isCurrentSupermodeData() const;
 
+        /// @brief set view
+        void setView(FXSelector sel);
+
+        /// @brief check if default view is enabled
+        bool isDefaultView() const;
+
+        /// @brief check if default view is enabled
+        bool isJuPedSimView() const;
+
         /// @brief the current supermode
         Supermode currentSupermode;
 

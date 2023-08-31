@@ -2169,54 +2169,6 @@ GNEApplicationWindowHelper::ToolsMenuCommands::runNetgenerateDialog(const Option
 }
 
 // ---------------------------------------------------------------------------
-// GNEApplicationWindowHelper::ViewsMenuCommands - methods
-// ---------------------------------------------------------------------------
-
-GNEApplicationWindowHelper::ViewsMenuCommands::ViewsMenuCommands(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp) {
-}
-
-
-void
-GNEApplicationWindowHelper::ViewsMenuCommands::buildViewsMenuCommands(FXMenuPane* viewsMenu) {
-    // build windows menu commands
-    myDefaultView = GUIDesigns::buildFXMenuCheckbox(viewsMenu,
-                                                    TL("Default"), TL("Toggle the default mode."),
-                                                    myGNEApp, MID_GNE_VIEW_DEFAULT);
-    myJuPedSimView = GUIDesigns::buildFXMenuCheckbox(viewsMenu,
-                                                     TL("JuPedSim"), TL("Toggle the JuPedSim view."),
-                                                     myGNEApp, MID_GNE_VIEW_JUPEDSIM);
-    // set default view
-    myDefaultView->setCheck(TRUE);
-}
-
-
-void
-GNEApplicationWindowHelper::ViewsMenuCommands::setView(FXSelector sel) {
-    if (sel == MID_GNE_VIEW_DEFAULT) {
-        myDefaultView->setCheck(TRUE);
-        myJuPedSimView->setCheck(FALSE);
-    } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
-        myDefaultView->setCheck(FALSE);
-        myJuPedSimView->setCheck(TRUE);
-    }
-    // update GNEApp
-    myGNEApp->viewUpdated();
-}
-
-
-bool
-GNEApplicationWindowHelper::ViewsMenuCommands::isDefaultView() const {
-    return myDefaultView->getCheck() == TRUE;
-}
-
-
-bool
-GNEApplicationWindowHelper::ViewsMenuCommands::isJuPedSimView() const {
-    return myJuPedSimView->getCheck() == TRUE;
-}
-
-// ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::WindowsMenuCommands - methods
 // ---------------------------------------------------------------------------
 
