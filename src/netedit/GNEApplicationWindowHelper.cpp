@@ -633,7 +633,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
     additionalMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&Additional"), "A", TL("Create additional elements."),
         GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp,
-        MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
+        MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS);
     wireMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&Wire"), "W", TL("Create wires."),
         GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myModesMenuCommandsParent->myGNEApp,
@@ -717,7 +717,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
         GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("Stop"), "A", TL("Create stops."),
-        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS);
     personMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("Person"), "P", TL("Create persons."),
         GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
