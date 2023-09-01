@@ -168,8 +168,41 @@ public:
     }
 
 protected:
+    
+    std::string buildTimestampPrefix(void) const;
+    std::string buildProcessIdPrefix(void) const;
+    
     /// @brief Builds the string which includes the mml-message type
-    std::string build(const std::string& msg, bool addType);
+    inline std::string build(const std::string& msg, bool addType) {
+        std::string prefix;
+        if (myWriteTimestamps) {
+            prefix += buildTimestampPrefix();
+        }
+        if (myWriteProcessId) {
+            prefix += buildProcessIdPrefix();
+        }
+        if (addType) {
+            switch (myType) {
+                case MsgType::MT_MESSAGE:
+                    break;
+                case MsgType::MT_WARNING:
+                    return prefix += "Warning: ";
+                    break;
+                case MsgType::MT_ERROR:
+                    return prefix += "Error: ";
+                    break;
+                case MsgType::MT_DEBUG:
+                    return prefix += "Debug: ";
+                    break;
+                case MsgType::MT_GLDEBUG:
+                    return prefix += "GLDebug: ";
+                    break;
+                default:
+                    break;
+            }
+        }
+        return prefix + msg;
+    }
 
     virtual bool aggregationThresholdReached(const std::string& format) {
         return myAggregationThreshold >= 0 && myAggregationCount[format]++ >= myAggregationThreshold;
