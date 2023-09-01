@@ -372,9 +372,9 @@ MsgHandler::buildTimestampPrefix(void) const {
     std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
     auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
     std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
-    std::tm tm = *std::localtime(&now_time_t);
-    prefix << std::put_time(&tm, "[%d-%m-%Y %T");
-    prefix << ':' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
+    std::tm* tm = std::localtime(&now_time_t);
+    prefix << std::put_time(tm, "[%d-%m-%Y %T");
+    prefix << '.' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
     return prefix.str();
 }
 
@@ -385,7 +385,7 @@ MsgHandler::buildProcessIdPrefix(void) const {
 #ifdef WIN32
     prefix << "[PID: " << GetCurrentProcessId() << "] ";
 #else
-    decoratedMessage << "[PID: " << getpid() << "] ";
+    prefix << "[PID: " << getpid() << "] ";
 #endif
     return prefix.str();
 }
