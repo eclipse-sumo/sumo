@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-25 13:33+0200\n"
-"PO-Revision-Date: 2023-03-15 09:30+0000\n"
-"Last-Translator: kyasin <yasingoka@gmail.com>\n"
+"PO-Revision-Date: 2023-09-01 10:41+0000\n"
+"Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -195,27 +195,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Netedit'e ekleri yükle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:510
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Netedit'e ekleri yükle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Netedit'e talebi yükle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Netedit'e talebi yükle"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
-msgstr ""
+msgstr "Netedit'te aç"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "NETEDIT'te mevcut simülasyonu açar."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
@@ -477,7 +477,7 @@ msgstr "Yatay Döşeme"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Tile the views horizontally."
-msgstr ""
+msgstr "Görünümleri yatay olarak yerleştirin."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile &Vertically"
@@ -485,7 +485,7 @@ msgstr "Dikey Döşeme"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:608
 msgid "Tile the views vertically."
-msgstr ""
+msgstr "Görünümleri dikey olarak yerleştirin."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade"
@@ -493,7 +493,7 @@ msgstr "Kademeli"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:611
 msgid "Cascade the views."
-msgstr ""
+msgstr "Görünümleri basamaklandırın."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
@@ -503,7 +503,7 @@ msgstr "Kapat"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:615
 msgid "Close the selected view."
-msgstr ""
+msgstr "Seçilen görünümü kapatın."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "&Others..."
@@ -665,6 +665,8 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
+"Devam eden akışlardan ve rota dosyalarından artımlı olarak yüklenen "
+"araçlardan gelen trafik hacmini ölçeklendirin."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:769
 msgid "Waiting Time:"
@@ -763,11 +765,11 @@ msgstr "Kesim Verisi (EdgeData) Aç"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1151
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Otomatik Yeniden Yükleme."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1151
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "TraCI-Yükleniyor."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1153
 msgid "Reloading."
@@ -822,11 +824,11 @@ msgstr "Durum '%' (%) konumundan yüklenemedi."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1464
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "Simülasyondaki araçların ölçek sayısı"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1481
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "Sumo config'i netedit'te açın"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1485
 msgid "Open network in netedit"
@@ -844,7 +846,7 @@ msgstr "'%' yüklendi."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2028
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "Simülasyon şu saatte sona erdi: %. (%)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2034
 msgid "Simulation ended"
@@ -859,7 +861,7 @@ msgstr "'%' Yükleniyor."
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2288
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2289
 msgid "seconds"
-msgstr ""
+msgstr "saniye"
 
 #: C:\Repos\sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -965,7 +967,7 @@ msgstr "Kavşakları belirle"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:113
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "Ağ içinde bir bağlantı noktası bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:118
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
@@ -974,7 +976,7 @@ msgstr "Kesimleri Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:118
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "Ağ içinde bir kenar bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:123
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:351
@@ -983,7 +985,7 @@ msgstr "Araçları Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:123
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "Ağ içinde bir araç bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:128
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:355
@@ -992,15 +994,15 @@ msgstr "Yolcuları Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:128
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "Ağdaki bir kişiyi bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:133
 msgid "Locate Container"
-msgstr ""
+msgstr "Konteyneri Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:133
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "Ağ içinde bir konteynırı bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:138
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:378
@@ -1009,7 +1011,7 @@ msgstr "TIS Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:138
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "Ağ içinde bir tls bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:143
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:382
@@ -1018,7 +1020,7 @@ msgstr "Ek Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:143
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "Ağ içinde ek bir yapı bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:148
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:386
@@ -1027,7 +1029,7 @@ msgstr "EN Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:148
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "Ağ içinde bir POI bulun."
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:153
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:390
@@ -1036,7 +1038,7 @@ msgstr "Çokgen Bul"
 
 #: C:\Repos\sumo/src\gui\GUIViewTraffic.cpp:153
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "Ağ içinde bir Çokgen bulun."
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
@@ -1190,7 +1192,7 @@ msgstr "Ad"
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:107
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:108
 msgid "begin position [m]"
-msgstr ""
+msgstr "başlangıç konumu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:136
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:95
@@ -1198,85 +1200,85 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIOverheadWire.cpp:108
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:109
 msgid "end position [m]"
-msgstr ""
+msgstr "bitiş posizyonu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:137
 msgid "lines"
-msgstr ""
+msgstr "çizgiler"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:138
 msgid "parking length [m]"
-msgstr ""
+msgstr "park uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:142
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:96
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "durdurulan araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:143
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:97
 msgid "last free pos [m]"
-msgstr ""
+msgstr "son serbest konum [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIBusStop.cpp:157
 msgid "waiting for:"
-msgstr ""
+msgstr "beklemek için:"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:306
 msgid "interval start"
-msgstr ""
+msgstr "aralık başlangıcı"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:307
 msgid "interval end"
-msgstr ""
+msgstr "aralık sonu"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:308
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "çekilen akış [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:309
 msgid "aspired speed"
-msgstr ""
+msgstr "çekilen hız"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:310
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "akım akışı [veh/h]"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:311
 msgid "current speed"
-msgstr ""
+msgstr "Geçerli hız"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:312
 msgid "default speed"
-msgstr ""
+msgstr "varsayılan hız"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:313
 msgid "required vehicles"
-msgstr ""
+msgstr "araç gereksinimi"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:314
 msgid "passed vehicles"
-msgstr ""
+msgstr "geçen araçlar"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:315
 msgid "inserted vehicles"
-msgstr ""
+msgstr "eklenen araçlar"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:316
 msgid "removed vehicles"
-msgstr ""
+msgstr "çıkarılan araçlar"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:317
 msgid "cleared in jam"
-msgstr ""
+msgstr "sıkışmadan temizlendi"
 
 #: C:\Repos\sumo/src\guisim\GUICalibrator.cpp:324
 msgid "inactive until"
-msgstr ""
+msgstr "kadar aktif değil"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:98
 msgid "charging power [W]"
-msgstr ""
+msgstr "şarj gücü [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
 msgid "charging efficiency [#]"
@@ -1404,7 +1406,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:145
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:98
 msgid "lane"
-msgstr ""
+msgstr "şerit"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:134
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:82
@@ -6800,7 +6802,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:435
 msgid "route"
-msgstr ""
+msgstr "rota"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:478
 msgid "data"
@@ -13404,7 +13406,7 @@ msgstr "ENŞeridi sadece şeritlerin üzerine yerleştirilebilir"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
 msgid "TAZ"
-msgstr "TAB"
+msgstr "TAZ"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:161
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:205
