@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-14 20:38:39 by Eclipse SUMO sumo Version v1_17_0+0346-147b0cca96e
+<!-- generated on 2023-09-01 11:05:25 by Eclipse SUMO sumo Version v1_17_0+2470-b55cba8942c
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -277,6 +277,8 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.disable" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.statistics" type="boolOptionType" minOccurs="0"/>
