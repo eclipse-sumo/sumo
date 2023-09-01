@@ -60,14 +60,16 @@ jobs:
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
 
-    - name: Cloning jpscore
+    - name: Cloning jupedsim
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       uses: actions/checkout@v3
       with:
         repository: PedestrianDynamics/jupedsim
         ref: 'v0.10.0'
+        path: jupedsim
+        fetch-depth: 0
 
-    - name: Building jpscore
+    - name: Building libjupedsim
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
         sudo apt-get install ninja-build libgeos-dev
