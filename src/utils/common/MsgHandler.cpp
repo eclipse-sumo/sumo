@@ -26,6 +26,14 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <chrono>
+#ifdef WIN32
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#else
+#include <unistd.h>
+#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -355,6 +363,49 @@ MsgHandler::cleanupOnEnd() {
     myDebugInstance = nullptr;
     delete myGLDebugInstance;
     myGLDebugInstance = nullptr;
+}
+
+
+std::string 
+MsgHandler::build(const std::string& msg, bool addType) {
+    std::stringstream decoratedMessage;
+    if (myWriteTimestamps) {
+        std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
+        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
+        std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
+        std::tm tm = *std::localtime(&now_time_t);
+        decoratedMessage << std::put_time(&tm, "[%d-%m-%Y %T");
+        decoratedMessage << ':' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
+    }
+    if (myWriteProcessId) {
+#ifdef WIN32
+        decoratedMessage << "[PID: " << GetCurrentProcessId() << "] ";
+#else
+        decoratedMessage << "[PID: " << getpid() << "] ";
+#endif
+    }
+    if (addType) {
+        switch (myType) {
+            case MsgType::MT_MESSAGE:
+                break;
+            case MsgType::MT_WARNING:
+                decoratedMessage << "Warning: ";
+                break;
+            case MsgType::MT_ERROR:
+                decoratedMessage << "Error: ";
+                break;
+            case MsgType::MT_DEBUG:
+                decoratedMessage << "Debug: ";
+                break;
+            case MsgType::MT_GLDEBUG:
+                decoratedMessage << "GLDebug: ";
+                break;
+            default:
+                break;
+        }
+    }
+    decoratedMessage << msg;
+    return decoratedMessage.str();
 }
 
 
