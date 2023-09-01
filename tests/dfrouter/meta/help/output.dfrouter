@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_16_0+0594-4f41766741c
+Eclipse SUMO dfrouter Version v1_17_0+2470-b55cba8942c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -130,6 +130,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
   --language STR                       Language to use in messages
   --report-empty-detectors             Lists detectors with no flow (enable -v)
   --print-absolute-flows               Prints aggregated detector flows
