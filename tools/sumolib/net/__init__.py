@@ -186,10 +186,7 @@ class Net:
         self._location["projParameter"] = projParameter
 
     def loadSelection(self, selectionFile):
-        for edge in self._edges:
-            edge.select(value=False)
-        for node in self._nodes:
-            node.select(value=False)
+        self.resetSelection()
         with io.open(selectionFile, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
@@ -203,10 +200,10 @@ class Net:
                         self.getNode(nodeID).select()
 
     def resetSelection(self):
-        for node in self._nodes:
-            node.select(value=False)
-        for edge in self._edges:
-            edge.select(value=False)
+        for n in self._nodes:
+            n.select(False)
+        for e in self._edges:
+            e.select(False)
 
     def addNode(self, id, type=None, coord=None, incLanes=None, intLanes=None):
         if id is None:

@@ -129,7 +129,8 @@ def main(options):
                         if options.randCapacity:
                             capacity *= random.random()
                         if options.verbose and options.min > capacity:
-                            print("ParkingArea on edge '%s' exceeds the available space by %.2f spaces due to minimum capacity %d." % (edge.getID(), options.min - capacity, options.min))
+                            print("ParkingArea on edge '%s' exceeds the available space by %.2f spaces "
+                                  "due to minimum capacity %d." % (edge.getID(), options.min - capacity, options.min))
                         capacity = min(options.max, max(options.min, int(capacity)))
                         if capacity > 0 or capacity == options.max or options.keepAll:
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle

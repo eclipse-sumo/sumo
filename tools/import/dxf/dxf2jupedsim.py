@@ -32,17 +32,18 @@ def create_test_dxf(args):
     doc = ezdxf.new(dxfversion='R2000')
     msp = doc.modelspace()
     doc.layers.new(name=args.walkable_layer)
-    msp.add_lwpolyline(((0,0), (10,0), (10,10), (0,10)), dxfattribs={'layer': args.walkable_layer})
-    msp.add_lwpolyline(((100,100), (110,100), (110,110), (100,110)), dxfattribs={'layer': args.walkable_layer})
+    msp.add_lwpolyline(((0, 0), (10, 0), (10, 10), (0, 10)), dxfattribs={'layer': args.walkable_layer})
+    msp.add_lwpolyline(((100, 100), (110, 100), (110, 110), (100, 110)), dxfattribs={'layer': args.walkable_layer})
     doc.layers.new(name=args.obstacle_layer)
-    msp.add_lwpolyline(((5,5), (8,5), (8,8), (5,8)), dxfattribs={'layer': args.obstacle_layer})
-    msp.add_circle((2,2), 1, dxfattribs={'layer': args.obstacle_layer})
+    msp.add_lwpolyline(((5, 5), (8, 5), (8, 8), (5, 8)), dxfattribs={'layer': args.obstacle_layer})
+    msp.add_circle((2, 2), 1, dxfattribs={'layer': args.obstacle_layer})
     doc.saveas(args.file)
 
 
 def polygon_as_XML_element(polygon, typename, index, color, layer):
     poly = " ".join(["%.2f,%.2f" % c[:2] for c in polygon])
-    return '    <poly id="jps.%s_%s" type="%s" color="%s" fill="True" layer="%s" shape="%s"/>\n' % (typename[9:], index, typename, color, layer, poly)
+    return ('    <poly id="jps.%s_%s" type="%s" color="%s" fill="True" layer="%s" shape="%s"/>\n' %
+            (typename[9:], index, typename, color, layer, poly))
 
 
 def generate_circle_vertices(center, radius, nbr_vertices=20):
@@ -84,9 +85,11 @@ def main():
                 if vertices[-1] != vertices[0]:
                     vertices.append(vertices[0])
             if entity.dxf.layer == args.walkable_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle, args.walkable_color, args.sumo_layer))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.walkable_area", entity.dxf.handle,
+                                                 args.walkable_color, args.sumo_layer))
             elif entity.dxf.layer == args.obstacle_layer:
-                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle, args.obstacle_color, args.sumo_layer+1))
+                add.write(polygon_as_XML_element(vertices, "jupedsim.obstacle", entity.dxf.handle,
+                                                 args.obstacle_color, args.sumo_layer+1))
             else:
                 warnings.warn("Polygon '%s' belonging to unknown layer '%s'." % (entity.dxf.handle, entity.dxf.layer))
         add.write("</additional>\n")
