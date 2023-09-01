@@ -60,6 +60,23 @@ jobs:
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
 
+    - name: Cloning jpscore
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      uses: actions/checkout@v3
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: 'v0.10.0'
+
+    - name: Building jpscore
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      run: |
+        sudo apt-get install ninja-build libgeos-dev
+        mkdir jupedsim-build jupedsim-install
+        cd jupedsim-build
+        cmake -GNinja -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
+        cmake --build . -j4 --config Release
+        cmake --install . --config Release
+
     - name: Configuring SUMO
       run: |
         mkdir -p sumo/cmake-build 
@@ -108,7 +125,7 @@ jobs:
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
         sudo apt-get install python2
-        sumo/tests/runTests.sh -b ci -a sumo.meso.ci
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
         sumo/tests/runTests.sh -b ci -a tools.python2.ci
 

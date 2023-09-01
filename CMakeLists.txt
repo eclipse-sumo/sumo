@@ -290,27 +290,20 @@ if (GNU_COMPILER AND WIN32)
     set(MINGW32 1)
 endif ()
 
-# JuPedSim
-option(JUPEDSIM_ENABLE "Enable JuPedSim)" OFF)
-# set JuPedSim directory if JuPedSim is enabled
-if (JUPEDSIM_ENABLE)
+if (NOT JUPEDSIM_DIR)
 #     check if set JuPedSim directory from SUMOLibraries
     if (SUMO_LIBRARIES AND WIN32)
         file(GLOB JUPEDSIM_DIR_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
-        set(JUPEDSIM_DIR "${JUPEDSIM_DIR_SUMOLIBRARIES}" CACHE PATH "Location of JuPedSim directory")
-    else()
-        set(JUPEDSIM_DIR "" CACHE PATH "Location of JuPedSim directory")
+        set(JUPEDSIM_DIR "${JUPEDSIM_DIR_SUMOLIBRARIES}")
+    else ()
+        if (EXISTS "${CMAKE_SOURCE_DIR}/../jupedsim-install")
+            set(JUPEDSIM_DIR "${CMAKE_SOURCE_DIR}/../jupedsim-install")
+        endif ()
     endif ()
-    # avoid empty JuPedSim directory
-    if ("${JUPEDSIM_DIR}" EQUAL "")
-        message(FATAL_ERROR "if JuPedSim is enabled, folder cannot be empty")
-    else()
+    if (JUPEDSIM_DIR)
         message(STATUS "Using JuPedSim from ${JUPEDSIM_DIR}")
     endif ()
-else(JUPEDSIM_ENABLE)
-    # unset JuPedSim directory
-    unset(JUPEDSIM_DIR CACHE)
-endif (JUPEDSIM_ENABLE)
+endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
 if (SUMO_LIBRARIES AND WIN32)
