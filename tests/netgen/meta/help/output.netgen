@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_17_0+1205-534747fc3a6
+Eclipse SUMO netgenerate Version v1_18_0+1365-349c37377b6
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -117,6 +117,8 @@ Output Options:
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
                                         dlr-navteq files with the given PREFIX
+  --dlr-navteq.version STR             The dlr-navteq output format version to
+                                        write
   --dlr-navteq.precision INT           The network coordinates are written with
                                         the specified level of output precision
   --output.street-names                Street names will be included in the
