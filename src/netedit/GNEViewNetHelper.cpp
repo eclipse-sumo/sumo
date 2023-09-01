@@ -2117,7 +2117,7 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     myNeteditViewsPopup->create();
     // build views button
     myNeteditViewsButton = new MFXMenuButtonTooltip(gripSupermodes, toolTipMenu,
-            (std::string("\t") + TL("Change netedit views") + std::string("\t") + TL("Change netedit views.")).c_str(),
+            (std::string("\t") + TL("Change netedit view") + std::string("\t") + TL("Change netedit view.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT), myNeteditViewsPopup, nullptr, GUIDesignTLSTableCheckableButtonIcon);
     myNeteditViewsButton->create();
     // build default view button
