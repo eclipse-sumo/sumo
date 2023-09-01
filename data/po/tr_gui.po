@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-25 13:33+0200\n"
-"PO-Revision-Date: 2023-09-01 10:41+0000\n"
+"PO-Revision-Date: 2023-09-01 11:19+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -1530,90 +1530,90 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:187
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1026
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "bekleyen eklemeler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:188
 msgid "mean friction [%]"
-msgstr ""
+msgstr "ortalama sürtünme [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:189
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "ortalama araç hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:190
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1021
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "yönlendirme hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:191
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1023
 msgid "time penalty [s]"
-msgstr ""
+msgstr "zaman cezası [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:192
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1024
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "kaba doluluk oranı [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:193
 msgid "flow [veh/h/lane]"
-msgstr ""
+msgstr "akış [veh/h/lane]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:197
 msgid "segment index"
-msgstr ""
+msgstr "bölüm dizini"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:198
 msgid "segment queues"
-msgstr ""
+msgstr "segment kuyrukları"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:199
 msgid "segment length [m]"
-msgstr ""
+msgstr "segment uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:200
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "segmentin izin verdiği hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "segment sıkışma eşiği [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "segmentin kaba doluluğu [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "segment ortalama araç hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
-msgstr ""
+msgstr "segment akışı [araç/s/şerit]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "segment araçları [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "segment lideri izin süresi"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "segment ilerlemesi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "segment girişi blok süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "Tür Bilgisi:"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "Tür [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
 msgid "tauff"
@@ -1637,156 +1637,156 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "kavşak kontrolü"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "tls cezası"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "tls akış cezası"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "küçük ceza"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "sollama"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "girilen araçlar [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "araç uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "boş zaman [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "işgal edilen süre [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "aralıklarla girilen araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "son aralığa girilen araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIJunctionWrapper.cpp:114
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1028
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "tür"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Kenar adını panoya kopyala"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
-msgstr ""
+msgstr "pos: "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "height: "
-msgstr ""
+msgstr "yükseklik: "
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:981
 msgid "Reopen lane"
-msgstr ""
+msgstr "Şeridi yeniden aç"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:982
 msgid "Reopen edge"
-msgstr ""
+msgstr "Kenarı yeniden aç"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:984
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "Şeridi yeniden aç (yeniden yönlendiriciyi geçersiz kıl)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:985
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "Kenarı yeniden aç (yeniden yönlendiriciyi geçersiz kıl)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:988
 msgid "Close lane"
-msgstr ""
+msgstr "Şeridi kapat"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:989
 msgid "Close edge"
-msgstr ""
+msgstr "Kenarı kapat"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:991
 msgid "Add rerouter"
-msgstr ""
+msgstr "Yeniden yönlendirici ekle"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2049
 msgid "Select reachable"
-msgstr ""
+msgstr "Ulaşılabilir olanı seç"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "izin verilen hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 msgid "width [m]"
-msgstr ""
+msgstr "genişlik [m]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1019
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "kayıtlı seyahat süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1020
 msgid "loaded weight"
-msgstr ""
+msgstr "yüklü ağırlık"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1022
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "şerit sürtünme katsayısı [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "net doluluk [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
-msgstr ""
+msgstr "kenar tipi"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "öncelik"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1030
 msgid "distance [km]"
-msgstr ""
+msgstr "mesafe [km]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1031
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "izin verilen araç sınıfı"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1032
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "izin verilmeyen araç sınıfı"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
-msgstr ""
+msgstr "izin kodu"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
-msgstr ""
+msgstr "renk değeri"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1036
 msgid "bidi-lane"
-msgstr ""
+msgstr "çift şeritli"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1795,155 +1795,155 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
-msgstr ""
+msgstr "yüklü araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:483
 msgid "insertion-backlogged vehicles [#]"
-msgstr ""
+msgstr "ekleme-birikmiş araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:485
 msgid "departed vehicles [#]"
-msgstr ""
+msgstr "ayrılan araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:487
 msgid "running vehicles [#]"
-msgstr ""
+msgstr "çalışan araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:489
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "gelen araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:491
 msgid "discarded vehicles [#]"
-msgstr ""
+msgstr "atılan araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:493
 msgid "collisions [#]"
-msgstr ""
+msgstr "çarpışmalar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:495
 msgid "teleports [#]"
-msgstr ""
+msgstr "ışınlanmalar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:497
 msgid "halting [#]"
-msgstr ""
+msgstr "durduruluyor [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "durduruldu [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "ortalama hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "ortalama bağıl hız"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "yüklü kişiler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "çalışan kişiler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "sıkışmış kişiler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "son zamanlar [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "başlangıç zamanı [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "adım süresi [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "simülasyon süresi [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "boşta kalma süresi [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "süre faktörü"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
-msgstr ""
+msgstr "saniye başına güncelleme"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:533
 msgid "avg. updates per second"
-msgstr ""
+msgstr "ortalama saniye başına güncelleme"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:536
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "ortalama yolculuk uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:537
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "ortalama  yolculuk süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:538
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "ortalama yolculuk bekleme süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:539
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "ortalama yolculuk süresi kaybı [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:540
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "ortalama yolculuk kalkış gecikmesi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:541
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "ortalama  yolculuk hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:543
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "ortalama yürüyüş uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:544
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "ortalama yürüyüş süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "ortalama yürüyüş süresi kaybı [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
-msgstr ""
+msgstr "düğümler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:549
 msgid "edges [#]"
-msgstr ""
+msgstr "kenarlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:550
 msgid "total edge length [km]"
-msgstr ""
+msgstr "toplam kenar uzunluğu [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:551
 msgid "total lane length [km]"
-msgstr ""
+msgstr "toplam şerit uzunluğu [km]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:552
 msgid "network version "
-msgstr ""
+msgstr "ağ sürümü "
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1962,15 +1962,15 @@ msgstr "Simülasyon Başlama Zamanından Sonra Tanımlı Veri Yok."
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr ""
+msgstr "doluluk [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
-msgstr ""
+msgstr "kapasite [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:112
 msgid "alternatives [#]"
-msgstr ""
+msgstr "alternatifler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
