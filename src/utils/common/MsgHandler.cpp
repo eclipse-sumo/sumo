@@ -367,45 +367,27 @@ MsgHandler::cleanupOnEnd() {
 
 
 std::string 
-MsgHandler::build(const std::string& msg, bool addType) {
-    std::stringstream decoratedMessage;
-    if (myWriteTimestamps) {
-        std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
-        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
-        std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
-        std::tm tm = *std::localtime(&now_time_t);
-        decoratedMessage << std::put_time(&tm, "[%d-%m-%Y %T");
-        decoratedMessage << ':' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
-    }
-    if (myWriteProcessId) {
+MsgHandler::buildTimestampPrefix(void) const {
+    std::stringstream prefix;
+    std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
+    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
+    std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
+    std::tm tm = *std::localtime(&now_time_t);
+    prefix << std::put_time(&tm, "[%d-%m-%Y %T");
+    prefix << ':' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
+    return prefix.str();
+}
+
+
+std::string 
+MsgHandler::buildProcessIdPrefix(void) const {
+    std::stringstream prefix;
 #ifdef WIN32
-        decoratedMessage << "[PID: " << GetCurrentProcessId() << "] ";
+    prefix << "[PID: " << GetCurrentProcessId() << "] ";
 #else
-        decoratedMessage << "[PID: " << getpid() << "] ";
+    decoratedMessage << "[PID: " << getpid() << "] ";
 #endif
-    }
-    if (addType) {
-        switch (myType) {
-            case MsgType::MT_MESSAGE:
-                break;
-            case MsgType::MT_WARNING:
-                decoratedMessage << "Warning: ";
-                break;
-            case MsgType::MT_ERROR:
-                decoratedMessage << "Error: ";
-                break;
-            case MsgType::MT_DEBUG:
-                decoratedMessage << "Debug: ";
-                break;
-            case MsgType::MT_GLDEBUG:
-                decoratedMessage << "GLDebug: ";
-                break;
-            default:
-                break;
-        }
-    }
-    decoratedMessage << msg;
-    return decoratedMessage.str();
+    return prefix.str();
 }
 
 
