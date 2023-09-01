@@ -231,9 +231,9 @@ def add_capacity_constraint(data, routing, manager, verbose):
         'Capacity')
 
 
-def add_time_windows_constraint(data, routing, manager, verbose):
+def create_time_dimension(data, routing, manager, verbose):
     if verbose:
-        print(' Add time windows constraints...')
+        print(' Create time dimension.')
 
     def time_callback(from_index, to_index):
         """Returns the travel time between the two nodes."""
@@ -252,6 +252,12 @@ def add_time_windows_constraint(data, routing, manager, verbose):
         False,  # Don't force start cumul to zero.
         dimension_name)
     time_dimension = routing.GetDimensionOrDie(dimension_name)
+    return time_dimension
+
+def add_time_windows_constraint(data, time_dimension, manager, verbose):
+    if verbose:
+        print(' Add time windows constraints...')
+
     # Add time window constraints for each location except depot.
     for location_idx, time_window in enumerate(data['time_windows']):
         # if location_idx == data['depot']:
@@ -275,7 +281,6 @@ def add_time_windows_constraint(data, routing, manager, verbose):
     #         time_dimension.CumulVar(routing.Start(i)))
     #     routing.AddVariableMinimizedByFinalizer(
     #         time_dimension.CumulVar(routing.End(i)))
-    return time_dimension
 
 
 def add_waiting_time_constraints(data, routing, manager, solver, time_dimension, verbose):
@@ -406,6 +411,7 @@ def main(data: dict, time_limit_seconds=10, verbose=False):
 
     # define transit_callback and set travel cost
     transit_callback_index = set_travel_cost(data, routing, manager, verbose)
+    time_dimension = create_time_dimension(data, routing, manager, verbose)
     # Add costs/distance constraint.
     distance_dimension = add_cost_constraint(data, routing, transit_callback_index, verbose)
 
@@ -426,7 +432,7 @@ def main(data: dict, time_limit_seconds=10, verbose=False):
     add_capacity_constraint(data, routing, manager, verbose)
 
     # Add time window constraints.
-    time_dimension = add_time_windows_constraint(data, routing, manager, verbose)
+    add_time_windows_constraint(data, time_dimension, manager, verbose)
 
     # Add waiting time constraints.
     add_waiting_time_constraints(data, routing, manager, solver, time_dimension, verbose)

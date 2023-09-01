@@ -21,6 +21,7 @@ Reservation 0 has direct route costs 680
 Reservation 1 has direct route costs 385
 Start solving the problem.
  Register distance callback.
+ Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
 pickup/dropoff nodes: 1/3

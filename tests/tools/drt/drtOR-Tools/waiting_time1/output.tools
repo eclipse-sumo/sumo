@@ -21,6 +21,7 @@ Reservation 0 has direct route costs 680
 Reservation 1 has direct route costs 385
 Start solving the problem.
  Register distance callback.
+ Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
 pickup/dropoff nodes: 1/3
@@ -68,6 +69,7 @@ Reservation 0 ends at edge C1D1
 Reservation 1 ends at edge D0D1
 Start solving the problem.
  Register distance callback.
+ Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
 pickup/dropoff nodes: 1/3
@@ -114,6 +116,7 @@ dp reservations: []
 do reservations: []
 Start solving the problem.
  Register distance callback.
+ Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
  Add direct route factor constraints...
