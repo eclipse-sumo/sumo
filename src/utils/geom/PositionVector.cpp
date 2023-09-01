@@ -660,7 +660,7 @@ PositionVector::sortAsPolyCWByAngle() {
     // that will follow but other points could be taken (the center of the bounding 
     // box of the polygon for instance). Each of these can potentially lead 
     // to a different result in the case of a non-convex polygon.
-    Position centroid = std::accumulate(begin(), end(), Position(0, 0)) / size();
+    const Position centroid = std::accumulate(begin(), end(), Position(0, 0)) / (double)size();
     sub(centroid);
     std::sort(begin(), end(), as_poly_cw_sorter());
     add(centroid);
@@ -1904,17 +1904,17 @@ bool PositionVector::isClockwiseOriented() {
     // the polygon has points with both positive and negative y-coordinates, we translate 
     // the polygon to apply the above simple area-based test.
     double area = 0.0;
-    double y_min = std::min_element(begin(), end(), [](Position p1, Position p2) { return p1.y() < p2.y(); })->y();
-    double gap = y_min > 0.0 ? 0.0 : y_min;
-    sub(Position(0.0, -gap));
-    int last = size() - 1;
+    const double y_min = std::min_element(begin(), end(), [](Position p1, Position p2) { return p1.y() < p2.y(); })->y();
+    const double gap = y_min > 0.0 ? 0.0 : y_min;
+    add(0., gap, 0.);
+    const int last = (int)size() - 1;
     for (int i = 0; i < last; i++) {
-        Position firstPoint = at(i);
-        Position secondPoint = at(i + 1);
+        const Position& firstPoint = at(i);
+        const Position& secondPoint = at(i + 1);
         area += (secondPoint.x() - firstPoint.x()) / (secondPoint.y() + firstPoint.y()) / 2.0;
     }
     area += (at(0).x() - at(last).x()) / (at(0).y() + at(last).y()) / 2.0;
-    add(Position(0.0, -gap));
+    add(0., -gap, 0.);
     return area < 0.0;
 }
 

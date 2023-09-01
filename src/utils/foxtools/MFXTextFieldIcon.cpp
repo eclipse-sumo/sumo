@@ -23,6 +23,7 @@
 // ===========================================================================
 
 
+#include <utils/common/StdDefs.h>
 #include "MFXTextFieldIcon.h"
 
 #include <fxkeys.h>
@@ -33,7 +34,7 @@
 
 
 // ===========================================================================
-// Macross
+// Macros
 // ===========================================================================
 
 #define JUSTIFY_MASK    (JUSTIFY_HZ_APART|JUSTIFY_VT_APART)
@@ -1879,33 +1880,37 @@ MFXTextFieldIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
             }
             return 1;
         case KEY_a:
-            if (!(event->state & CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) break;
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_SELECT_ALL), NULL);
             return 1;
         case KEY_x:
-            if (!(event->state & CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) break;
+            FALLTHROUGH;
         case KEY_F20:                             // Sun Cut key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_CUT_SEL), NULL);
             return 1;
         case KEY_c:
-            if (!(event->state & CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) break;
+            FALLTHROUGH;
         case KEY_F16:                             // Sun Copy key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_COPY_SEL), NULL);
             return 1;
         case KEY_v:
-            if (!(event->state & CONTROLMASK)) goto ins;
+            if (!(event->state & CONTROLMASK)) break;
+            FALLTHROUGH;
         case KEY_F18:                             // Sun Paste key
             handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_PASTE_SEL), NULL);
             return 1;
         default:
-            ins:    if ((event->state & (CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
-            if (isOverstrike()) {
-                handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_OVERST_STRING), (void*)event->text.text());
-            } else {
-                handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_INSERT_STRING), (void*)event->text.text());
-            }
-            return 1;
+            break;
         }
+        if ((event->state & (CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
+        if (isOverstrike()) {
+            handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_OVERST_STRING), (void*)event->text.text());
+        } else {
+            handle(this, FXSEL(SEL_COMMAND, FXTextField::ID_INSERT_STRING), (void*)event->text.text());
+        }
+        return 1;
     }
     return 0;
 }
@@ -1941,6 +1946,7 @@ MFXTextFieldIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
             case KEY_c:
             case KEY_v:
                 if (event->state & CONTROLMASK) return 1;
+                FALLTHROUGH;
             default:
                 if ((event->state & (CONTROLMASK|ALTMASK)) || ((FXuchar)event->text[0]<32)) return 0;
                 return 1;
