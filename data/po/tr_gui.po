@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-08-25 13:33+0200\n"
-"PO-Revision-Date: 2023-09-01 11:19+0000\n"
+"PO-Revision-Date: 2023-09-02 14:54+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -1282,44 +1282,44 @@ msgstr "şarj gücü [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:99
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "şarj verimliliği [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:100
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "nakliye sırasında ücretlendirme [doğru/yanlış]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge delay [s]"
-msgstr ""
+msgstr "şarj gecikmesi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:164
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:228
 msgid "stage"
-msgstr ""
+msgstr "aşama"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:166
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:230
 msgid "stage index"
-msgstr ""
+msgstr "aşama indeksi"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:231
 msgid "start edge [id]"
-msgstr ""
+msgstr "başlangıç kenarı [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:168
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:232
 msgid "dest edge [id]"
-msgstr ""
+msgstr "hedef kenar [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "varışKon [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:170
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:235
 msgid "edge [id]"
-msgstr ""
+msgstr "kenar [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:171
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:131
@@ -1328,7 +1328,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:236
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:114
 msgid "position [m]"
-msgstr ""
+msgstr "konum [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:172
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:152
@@ -1336,36 +1336,36 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:237
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:118
 msgid "speed [m/s]"
-msgstr ""
+msgstr "hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:173
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:238
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:128
 msgid "speed factor"
-msgstr ""
+msgstr "hız faktörü"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:174
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:239
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:124
 msgid "angle [degree]"
-msgstr ""
+msgstr "açı [derece]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:175
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:240
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:132
 msgid "waiting time [s]"
-msgstr ""
+msgstr "bekleme süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:176
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:243
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:144
 msgid "desired depart [s]"
-msgstr ""
+msgstr "istenilen kalkış [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:186
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:253
 msgid "length"
-msgstr ""
+msgstr "uzunluk"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:187
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:254
@@ -1376,31 +1376,31 @@ msgstr "genişlik"
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:188
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:255
 msgid "height"
-msgstr ""
+msgstr "yükseklik"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:189
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:256
 msgid "minGap"
-msgstr ""
+msgstr "minGap"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:190
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:257
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:227
 msgid "mass [kg]"
-msgstr ""
+msgstr "kütle [kg]"
 
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:191
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:259
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "maksimum hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:130
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:185
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1016
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:221
 msgid "length [m]"
-msgstr ""
+msgstr "uzunluk [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:132
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:145
@@ -1413,119 +1413,119 @@ msgstr "şerit"
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:147
 #: C:\Repos\sumo/src\guisim\GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "vTürleri"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:137
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:194
 msgid "vehicles [#]"
-msgstr ""
+msgstr "Araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:139
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:154
 msgid "occupancy [%]"
-msgstr ""
+msgstr "doluluk [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:141
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "ortalama hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "ortalama araç uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:145
 msgid "jam number [#]"
-msgstr ""
+msgstr "sıkışıklık numarası [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:147
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "maksimum sıkışma uzunluğu [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:149
 msgid "max jam length [m]"
-msgstr ""
+msgstr "maksimum sıkışma uzunluğu [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:151
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "sıkışıklık toplam uzunluğu [veh]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "sıkışıklık toplam uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:155
 msgid "started halts [#]"
-msgstr ""
+msgstr "durma başlangıcı [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "aralıklarla görülen araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:159
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "aralık hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:166
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "aralıklı doluluk [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:163
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "aralık maksimum sıkışma uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "son aralıklarla görülen araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:167
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "son aralık hızı [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:169
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "son aralık doluluğu [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "son aralık maksimum sıkışma uzunluğu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "dahilindeki araçlar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:88
 msgid "haltings [#]"
-msgstr ""
+msgstr "duraklamalar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:90
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "son aralık ortalama seyahat süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:92
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "son aralıkta duraklamalar [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "son aralık ortalama zaman kaybı [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "son aralık ortalama araç sayısı [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:184
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "maksimum hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:186
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1018
 msgid "street name"
-msgstr ""
+msgstr "cadde adı"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:187
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1026
@@ -1633,7 +1633,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "sıkışma eşiği"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
@@ -1974,360 +1974,360 @@ msgstr "alternatifler [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
-msgstr ""
+msgstr "hedef durağı [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 msgid "arrival position [m]"
-msgstr ""
+msgstr "varış konumu [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
-msgstr ""
+msgstr "araç [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:242
 msgid "stop duration [s]"
-msgstr ""
+msgstr "durma süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:258
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "istenilen maksimum hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic [id]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
-msgstr ""
+msgstr "program"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:243
 msgid "phase"
-msgstr ""
+msgstr "faz"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:244
 msgid "phase name"
-msgstr ""
+msgstr "faz adı"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:245
 msgid "duration"
-msgstr ""
+msgstr "süre"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:246
 msgid "minDur"
-msgstr ""
+msgstr "minDur"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:247
 msgid "maxDur"
-msgstr ""
+msgstr "maxsure"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
-msgstr ""
+msgstr "çalışma süresi"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
-msgstr ""
+msgstr "enErkenSon"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:250
 msgid "latestEnd"
-msgstr ""
+msgstr "enSon"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "döngüdeki zaman"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "döngü süresi"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking"
-msgstr ""
+msgstr "engelleniyor"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
-msgstr ""
+msgstr "rakip"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:258
 msgid "constraint"
-msgstr ""
+msgstr "kısıtlama"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:104
 msgid "lane [id]"
-msgstr ""
+msgstr "şerit [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:106
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "gölge şerit [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:109
 msgid "target lane [id]"
-msgstr ""
+msgstr "hedef şerit [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "geri şeritleri [id,..]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "yanal ofset [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:120
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "yanal hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:122
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "ivme [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:126
 msgid "slope [degree]"
-msgstr ""
+msgstr "eğim [derece]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:130
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "şeritteki zaman boşluğu [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
-msgstr ""
+msgstr "başlangıçtan bu yana geçen süre [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:138
 msgid "time loss [s]"
-msgstr ""
+msgstr "zaman kaybı [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:140
 msgid "impatience"
-msgstr ""
+msgstr "sabırsızlık"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:142
 msgid "last lane change [s]"
-msgstr ""
+msgstr "son şerit değiştirme [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
-msgstr ""
+msgstr "kalkış gecikmesi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:146
 msgid "odometer [m]"
-msgstr ""
+msgstr "kilometre sayacı [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:149
 msgid "remaining [#]"
-msgstr ""
+msgstr "kalan [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:152
 msgid "insertion period [s]"
-msgstr ""
+msgstr "ekleme süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:155
 msgid "insertion probability"
-msgstr ""
+msgstr "ekleme olasılığı"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:157
 msgid "stop info"
-msgstr ""
+msgstr "dur bilgisi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
 msgid "line"
-msgstr ""
+msgstr "çizgi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:163
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:165
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:167
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:169
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "yakıt [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:171
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "elektrik [Wh/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:173
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "gürültü (Harmonoise) [dB]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
-msgstr ""
+msgstr "cihazlar"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:176
 msgid "persons"
-msgstr ""
+msgstr "kişiler"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:178
 msgid "containers"
-msgstr ""
+msgstr "konteynerler"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
-msgstr ""
+msgstr "lcState sağ"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:181
 msgid "lcState left"
-msgstr ""
+msgstr "lcState sol"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:184
 msgid "lcState center"
-msgstr ""
+msgstr "lcState orta"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:185
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "kenarda sağ taraf [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:186
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "kenarda sol taraf [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:187
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "en sağ kenar alt şerit [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:188
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "en sol kenar alt şeridi [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "şerit değiştirme manevra mesafesi [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "mevcut şarj durumu [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "göreli şarj durumu (SoC) [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
-msgstr ""
+msgstr "şu anda şarj oluyor [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:202
 msgid "present electric current [A]"
-msgstr ""
+msgstr "mevcut elektrik akımı [A]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
-msgstr ""
+msgstr "hız modu"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:210
 msgid "lane change mode"
-msgstr ""
+msgstr "şerit değiştirme modu"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:223
 msgid "height [m]"
-msgstr ""
+msgstr "yükseklik [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:224
 msgid "minGap [m]"
-msgstr ""
+msgstr "minGap [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:225
 msgid "vehicle class"
-msgstr ""
+msgstr "araç sınıfı"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
 msgid "emission class"
-msgstr ""
+msgstr "emi̇syon sinifi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "car-following model"
-msgstr ""
+msgstr "araç takip modeli"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "lane-change model"
-msgstr ""
+msgstr "şerit değiştirme modeli"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
-msgstr ""
+msgstr "guiShape"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "istenen maksimum hız [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "maksimum ivme [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "maksimum yavaşlama [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "acil durum yavaşlaması [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "görünür yavaşlama [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "kusurluluk (sigma)"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "istenen ilerleme mesafesi (tau) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
-msgstr ""
+msgstr "hız faktörü"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
-msgstr ""
+msgstr "eylem adımı uzunluğu [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
-msgstr ""
+msgstr "kişi kapasitesi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr ""
+msgstr "biniş süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
-msgstr ""
+msgstr "konteyner kapasitesi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "loading time [s]"
-msgstr ""
+msgstr "yükleme süresi [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "minGapLat [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "maxSpeedLat [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
-msgstr ""
+msgstr "enlemHizalama"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "Manevra Açısı vs Zamanlar"
 
 #: C:\Repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -2427,39 +2427,39 @@ msgstr "Araçlar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "Detectors"
-msgstr ""
+msgstr "Dedektörler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1433
 msgid "Districts"
-msgstr ""
+msgstr "İlçeler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "DRT"
-msgstr ""
+msgstr "DRT"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
 msgid "CityBrain"
-msgstr ""
+msgstr "CityBrain"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1440
 msgid "Import"
-msgstr ""
+msgstr "İçe Aktarma"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
 msgid "Net"
-msgstr ""
+msgstr "Net"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1442
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
@@ -2477,15 +2477,15 @@ msgstr "TIS"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1446
 msgid "Turn-defs"
-msgstr ""
+msgstr "Turn-defs"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1447
 msgid "Visualization"
-msgstr ""
+msgstr "Görselleştirme"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1448
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1535
 msgid "Network computed"
@@ -2563,7 +2563,7 @@ msgstr "' sumo yapılandırması yükleniyor"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2361
 msgid "Netedit options"
-msgstr ""
+msgstr "Netedit ayarları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2378
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1915
@@ -2572,7 +2572,7 @@ msgstr "Sumo seçenekleri"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2395
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Netgenerate ayarları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2412
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1248
@@ -2598,7 +2598,7 @@ msgstr "Ağ ' dosyasına kaydedildi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3198
 msgid "Could not save network in '"
-msgstr ""
+msgstr "' içinde ağ kaydedilemedi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3254
 msgid "Plain XML saved with prefix '"
@@ -2676,15 +2676,15 @@ msgstr "Ekler dosyaya kaydedildi '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3773
 msgid "Saving additionals failed!"
-msgstr ""
+msgstr "İlaveleri kaydetme başarısız oldu!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3827
 msgid "JuPedSim elements saved in '"
-msgstr ""
+msgstr "JuPedSim öğeleri 'da kaydedildi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3836
 msgid "Saving JuPedSim elements failed!"
-msgstr ""
+msgstr "JuPedSim elemanları kaydedilemedi!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3875
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4825
@@ -2712,7 +2712,7 @@ msgstr "Talep Elemanları dosyaya kaydedildi '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3966
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "Talep unsurlarını kaydetme başarısız oldu!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4038
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4894
@@ -2743,7 +2743,7 @@ msgstr "Veri elemanları dosyaya kaydedildi '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4130
 msgid "Saving data elements failed!"
-msgstr ""
+msgstr "Veri elemanları kaydedilemedi!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4202
 msgid "load meanDatas from '"
@@ -2770,7 +2770,7 @@ msgstr "Ortalama Veriler (MeanDatas) dosyaya kaydedildi '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4287
 msgid "Saving meanData failed!"
-msgstr ""
+msgstr "MeanData kaydedilemedi!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4336
 msgid "Confirm close Network"
@@ -2862,11 +2862,11 @@ msgstr "Yeni bir netedit penceresi aç."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:209
 msgid "Generate Network"
-msgstr ""
+msgstr "Ağ Oluştur"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:209
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "Netgenerate kullanarak ağ oluşturun."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:216
 msgid "Load Netedit config..."
@@ -3127,11 +3127,11 @@ msgstr "Ek elemanları başka bir dosyaya kaydet."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
 msgid "Save JuPedSim Elements As..."
-msgstr ""
+msgstr "JuPedSim Elemanları Olarak Kaydet..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:437
 msgid "Save JuPedSim elements in a separated file."
-msgstr ""
+msgstr "JuPedSim elemanlarını ayrı bir dosyaya kaydedin."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:443
 msgid "Reload Additionals"
@@ -3244,7 +3244,7 @@ msgstr "Ağ"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "Supermode network."
-msgstr ""
+msgstr "Supermode ağı."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2256
@@ -3253,7 +3253,7 @@ msgstr "Talep"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 msgid "Supermode demand."
-msgstr ""
+msgstr "Supermode talep."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2259
@@ -3262,7 +3262,7 @@ msgstr "Veri"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 msgid "Supermode data."
-msgstr ""
+msgstr "Supermode veri."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:555
 msgid "&Inspect"
@@ -3308,7 +3308,7 @@ msgstr "Kesim ve kavşak oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "&Traffic light"
-msgstr ""
+msgstr "&Trafik lambası"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:618
 msgid "Modes traffic lights over junctions."
@@ -3360,7 +3360,7 @@ msgstr "Trafik Atama Bölgeleri Oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "&POI-Poly"
-msgstr ""
+msgstr "&POI-Poly"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:646
 msgid "Create Points-Of-Interest and polygons."
@@ -3368,11 +3368,11 @@ msgstr "Etki Noktaları ve çokgenler oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Deca&ls"
-msgstr ""
+msgstr "Etiket&ler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:650
 msgid "Create decals."
-msgstr ""
+msgstr "Etiketler oluşturun."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 msgid "Create Routes."
@@ -3381,11 +3381,11 @@ msgstr "Rota oluştur."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3500
 msgid "Route distribution"
-msgstr ""
+msgstr "Rota dağılımı"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:706
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "Rota dağıtımları oluşturun ve düzenleyin."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:710
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:125
@@ -3406,11 +3406,11 @@ msgstr "Tip oluştur (araçlar, kişiler ve konteynerler)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "TypeDistribution"
-msgstr ""
+msgstr "TürDağıtım"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:716
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "Tür dağılımları oluşturun ve düzenleyin."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:719
 msgid "Stop"
@@ -3718,27 +3718,27 @@ msgstr "ENler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 msgid "WalkableAreas"
-msgstr ""
+msgstr "Yürünebilir Alanlar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1369
 msgid "Obstacles"
-msgstr ""
+msgstr "Engeller"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 msgid "WaitingAreas"
-msgstr ""
+msgstr "Bekleme Alanları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1379
 msgid "Sources"
-msgstr ""
+msgstr "Kaynaklar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "Sinks"
-msgstr ""
+msgstr "Çukurlar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Waypoints"
-msgstr ""
+msgstr "Yol Noktaları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1395
 msgid "&Routes"
@@ -3970,7 +3970,7 @@ msgstr "netedit yapılandırması yüklenemedi '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2795
 msgid "Save file as"
-msgstr ""
+msgstr "Dosyayı farklı kaydet"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2796
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2800
@@ -4025,7 +4025,7 @@ msgstr "Tüm dosyalar (*)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2799
 msgid "Open file"
-msgstr ""
+msgstr "Dosya aç"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2809
 msgid "Save Network file as"
@@ -4077,11 +4077,11 @@ msgstr "Kavşak dosyaları (*.nod.xml)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2850
 msgid "Save tool log"
-msgstr ""
+msgstr "Araç günlüğünü kaydet"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2851
 msgid "Text file (*.txt)"
-msgstr ""
+msgstr "Metin dosyası (*.txt)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2858
 msgid "Open OSM file"
@@ -4098,7 +4098,7 @@ msgstr "netedit Yapılandırma dosyasını farklı kaydet"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2867
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2871
 msgid "Netedit Config files (*.netecfg)"
-msgstr ""
+msgstr "Netedit Yapılandırma dosyaları (*.netecfg)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2870
 msgid "Open netedit Config file"
@@ -4201,11 +4201,11 @@ msgstr "MeanData dosyası aç"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2991
 msgid "Save options file as"
-msgstr ""
+msgstr "Ayarlar dosyasını şu şekilde kaydet"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2995
 msgid "Open options file"
-msgstr ""
+msgstr "Ayarlar dosyasını aç"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:100
 #, c-format
@@ -4296,14 +4296,16 @@ msgstr "Öznitelik yardımını dosyaya yaz"
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
+"Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu "
+"yok sayma"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
-msgstr ""
+msgstr "Sumo-config'lerin yüklenmesi sırasında ek öğeleri yoksayma"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
-msgstr ""
+msgstr "Sumo-config'lerin yüklenmesi sırasında rota öğelerini yok sayma"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
@@ -4387,27 +4389,27 @@ msgstr "EN adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:394
 msgid "Prefix for jps walkable area naming"
-msgstr ""
+msgstr "JPS yürünebilir alan adlandırması için ön ek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:397
 msgid "Prefix for jps obstacle naming"
-msgstr ""
+msgstr "JPS engel isimlendirmesi için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:400
 msgid "Prefix for jps waiting area naming"
-msgstr ""
+msgstr "JPS bekleme alanı isimlendirmesi için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:403
 msgid "Prefix for jps source naming"
-msgstr ""
+msgstr "JPS kaynak adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:406
 msgid "Prefix for jps sink naming"
-msgstr ""
+msgstr "JPS çukur isimlendirmesi için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:409
 msgid "Prefix for jps waypoints naming"
-msgstr ""
+msgstr "JPS yol noktaları adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:414
 msgid "Prefix for route naming"
@@ -4415,15 +4417,15 @@ msgstr "Rota adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:417
 msgid "Prefix for route distribution naming"
-msgstr ""
+msgstr "Rota dağıtım adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:420
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "Tür adlandırma için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:423
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "Tür dağıtım adlandırması için önek"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:426
 msgid "Prefix for vehicle naming"
@@ -4787,11 +4789,11 @@ msgstr "Ağdaki bir yolcuyu bul. (Shift+P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:359
 msgid "Locate Containers"
-msgstr ""
+msgstr "Konteynerlerin Yerini Belirleme"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:359
 msgid "Locate a container within the network. (Shift+C)"
-msgstr ""
+msgstr "Ağ içinde bir konteyner bulun. (Shift+C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:363
 msgid "Locate Route"
