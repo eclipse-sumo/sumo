@@ -201,7 +201,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
            << "NAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\t"
            << "AREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION";
     if (oc.getString("dlr-navteq.version") != "6.5") {
-        device << "\tMAXHEIGHT\tMAXWIDTh\tMAXWEIGHT\tSURFACE";
+        device << "\tMAXHEIGHT\tMAXWIDTH\tMAXWEIGHT\tSURFACE";
     }
     device << "\n";
     // write edges
