@@ -135,9 +135,13 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
+#ifdef NEW_API
+    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription_AddStage(journey, waypointId);
+#else
+    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, NULL, NULL);
+#endif
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, arrivalPosition);
@@ -357,7 +361,7 @@ MSPModel_JuPedSim::createGeometryFromAnchors(const Position& anchor, const MSLan
 GEOSGeometry*
 MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     std::vector<GEOSGeometry*> dilatedPedestrianLanes;
-    for (const std::pair<std::string, MSJunction*>& junctionWithID : network->getJunctionControl()) {
+    for (const auto& junctionWithID : network->getJunctionControl()) {
         const MSJunction* const junction = junctionWithID.second;
         const ConstMSEdgeVector& incoming = junction->getIncoming();
         std::unordered_set<const MSEdge*> adjacent(incoming.begin(), incoming.end());
@@ -551,7 +555,7 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
     for (auto shape: myNetwork->getShapeContainer().getPolygons()) {
         PositionVector translatedShape = shape.second->getShape();
-        Position netOffset = GeoConvHelper::getFinal()::getOffset();
+        Position netOffset = GeoConvHelper::getFinal().getOffset();
         translatedShape.add(netOffset);
         std::vector<JPS_Point> coordinates = convertToJPSPoints(translatedShape);
         if (shape.second->getShapeType() == "jupedsim.walkable_area") {
