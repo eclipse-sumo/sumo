@@ -185,8 +185,8 @@
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JPS
+/* defined and set to version if JuPedSim is available */
+#cmakedefine JPS_VERSION @JPS_VERSION@
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG

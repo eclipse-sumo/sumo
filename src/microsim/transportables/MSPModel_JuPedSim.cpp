@@ -43,21 +43,14 @@
 #include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
 
-
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT= 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10.0;
 
 
-unsigned int toUINT(size_t bigInteger)
-{
-    if (bigInteger > UINT_MAX) {
-       throw std::bad_cast();
-    }
-    return static_cast<unsigned int>(bigInteger);
-}
-
-
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")) {
@@ -136,7 +129,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
-#ifdef NEW_API
+#if JPS_VERSION > 1000
     const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription_AddStage(journey, waypointId);
 #else
@@ -193,7 +186,10 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         // Updates the agent position.
         JPS_VelocityModelAgentParameters agent{};
+#if JPS_VERSION > 1000
+#else
         JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
+#endif
         state->setPreviousPosition(state->getPosition(*stage, DELTA_T));
         state->setPosition(agent.position.x, agent.position.y);
 
@@ -301,7 +297,7 @@ MSPModel_JuPedSim::getWalkingAreaInbetween(const MSEdge* const edge, const MSEdg
 
 GEOSGeometry*
 MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle) {
-    unsigned int size = toUINT(centerLine.size());
+    const unsigned int size = (unsigned int)centerLine.size();
     GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create(size, 2);
     for (unsigned int i = 0; i < size; i++) {
         GEOSCoordSeq_setXY(coordinateSequence, i, centerLine[i].x(), centerLine[i].y());
@@ -318,7 +314,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape) {
     if (shape.back() != shape.front()) {
         shape.push_back(shape.front());
     }
-    GEOSCoordSequence* coordSeq = GEOSCoordSeq_create(toUINT(shape.size()), 2);
+    GEOSCoordSequence* coordSeq = GEOSCoordSeq_create((unsigned int)shape.size(), 2);
     for (unsigned int i = 0; i < shape.size(); i++) {
         GEOSCoordSeq_setXY(coordSeq, i, shape[i].x(), shape[i].y());
     }
@@ -424,7 +420,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         }
     }
 
-    GEOSGeometry* disjointDilatedPedestrianLanes = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, dilatedPedestrianLanes.data(), toUINT(dilatedPedestrianLanes.size()));
+    GEOSGeometry* disjointDilatedPedestrianLanes = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, dilatedPedestrianLanes.data(), (unsigned int)dilatedPedestrianLanes.size());
     GEOSGeometry* pedestrianNetwork = GEOSUnaryUnion(disjointDilatedPedestrianLanes);
     GEOSGeom_destroy(disjointDilatedPedestrianLanes);
     return pedestrianNetwork;
@@ -451,11 +447,11 @@ MSPModel_JuPedSim::getCoordinates(const GEOSGeometry* geometry) {
 std::vector<JPS_Point> 
 MSPModel_JuPedSim::convertToJPSPoints(const PositionVector& coordinates) {
     std::vector<JPS_Point> pointVector;
-    // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
-    for (unsigned int i = 0; i < toUINT(coordinates.size()) - 1; i++) {
-        Position c = coordinates[i];
-        pointVector.push_back({c.x(), c.y()});
+    for (const Position& p : coordinates) {
+        pointVector.push_back({p.x(), p.y()});
     }
+    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream
+    pointVector.pop_back();
     return pointVector;
 }
 
@@ -468,7 +464,7 @@ MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
     GEOSCoordSeq_getSize(coordinateSequence, &coordinateSequenceSize);
     double x;
     double y;
-    // Remove the last point so that CGAL doesn't complain of the simplicity of the polygon downstream.
+    // Remove the last point so that CGAL doesn't complain about the simplicity of the polygon downstream
     for (unsigned int i = 0; i < coordinateSequenceSize - 1; i++) {
         GEOSCoordSeq_getX(coordinateSequence, i, &x);
         GEOSCoordSeq_getY(coordinateSequence, i, &y);

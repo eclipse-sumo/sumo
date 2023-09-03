@@ -1,4 +1,4 @@
-if (HAVE_JPS)
+if (JPS_VERSION)
     set(microsim_transportables_JPS_SRCS
         MSPModel_JuPedSim.cpp
         MSPModel_JuPedSim.h
@@ -34,6 +34,6 @@ set(microsim_transportables_STAT_SRCS
 
 add_library(microsim_transportables STATIC ${microsim_transportables_STAT_SRCS} ${remote_model})
 target_link_libraries(microsim_transportables 
-    PUBLIC $<$<BOOL:${HAVE_JPS}>:jupedsim::jupedsim>
+    PUBLIC $<$<BOOL:${JPS_VERSION}>:jupedsim::jupedsim>
 )
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
