@@ -4706,8 +4706,10 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
     // continue depending of view
     if (myViewNet) {
         if (myViewNet->getEditModes().isDefaultView()) {
+            mySupermodeCommands.setDefaultView();
             myModesMenuCommands.setDefaultView(supermode);
         } else if (myViewNet->getEditModes().isJuPedSimView()) {
+            mySupermodeCommands.setJuPedSimView();
             myModesMenuCommands.setJuPedSimView(supermode);
         }
     }

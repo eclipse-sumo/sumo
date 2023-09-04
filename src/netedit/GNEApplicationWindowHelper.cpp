@@ -2295,6 +2295,18 @@ GNEApplicationWindowHelper::SupermodeCommands::hideSupermodeCommands() {
 
 
 void
+GNEApplicationWindowHelper::SupermodeCommands::setDefaultView() {
+    showSupermodeCommands();
+}
+
+
+void
+GNEApplicationWindowHelper::SupermodeCommands::setJuPedSimView() {
+    dataMode->hide();
+}
+
+
+void
 GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane* editMenu) {
     // build supermode menu commands
     networkMode = GUIDesigns::buildFXMenuCommandShortcut(editMenu,

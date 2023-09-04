@@ -1135,6 +1135,12 @@ struct GNEApplicationWindowHelper {
         /// @brief hide all menu commands
         void hideSupermodeCommands();
 
+        /// @brief set default view
+        void setDefaultView();
+
+        /// @brief set JuPedSim view
+        void setJuPedSimView();
+
         /// @brief FXMenuCommand for network supermode
         FXMenuCommand* networkMode = nullptr;
 
