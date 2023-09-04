@@ -47,7 +47,7 @@ TEST(GeoConvHelper, test_method_cartesian2geo) {
         "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
         Position(), Boundary(), Boundary(), 1, false);
 
-    // Use the outputs of the `x2catesian` test hence making the combination of tests circular: geo -> cartesian -> geo
+    // Use the outputs of the `x2cartesian` test - hence making the combination of tests circular: geo -> cartesian -> geo
     Position cartesian(400235.50494557252, 5809666.826070101);
     gch.cartesian2geo(cartesian);
 
