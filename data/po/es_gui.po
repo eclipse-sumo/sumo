@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 12:41+0200\n"
-"PO-Revision-Date: 2023-08-30 07:09+0000\n"
+"PO-Revision-Date: 2023-09-04 13:27+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5325,27 +5325,27 @@ msgstr "Establecer modo para editar elementos de datos. (F4)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2120
 msgid "Change netedit view"
-msgstr ""
+msgstr "Cambiar la interfaz de netedit"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2120
 msgid "Change netedit view."
-msgstr ""
+msgstr "Cambiar la interfaz gráfica de netedit."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2125
 msgid "Set default view"
-msgstr ""
+msgstr "Usar la interfaz predeterminada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2125
 msgid "Set default view."
-msgstr ""
+msgstr "Usar la interfaz gráfica predeterminada."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Set JuPedSim view"
-msgstr ""
+msgstr "Usar la interfaz especial para JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Set JuPedSim view."
-msgstr ""
+msgstr "Usar la interfaz gráfica especial para JuPedSim."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2144
 msgid "Mode already selected"
@@ -6837,7 +6837,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:97
 msgid "reset to default values"
-msgstr ""
+msgstr "restablecer valores predeterminados"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:245
 #, c-format
@@ -6847,7 +6847,7 @@ msgstr "Usar el archivo % actual"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
 msgid "Select % file"
-msgstr ""
+msgstr "Seleccionar archivo %"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
@@ -6871,7 +6871,7 @@ msgstr "datos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
-msgstr ""
+msgstr "configuración de sumo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
@@ -6881,7 +6881,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:72
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:73
 msgid "Console output"
-msgstr ""
+msgstr "Salida de consola"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
@@ -6891,7 +6891,7 @@ msgstr "Cancelar"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
 msgid "abort running"
-msgstr ""
+msgstr "cancelar la ejecución"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
@@ -6901,7 +6901,7 @@ msgstr "Ejecutar de nuevo"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
 msgid "rerun tool"
-msgstr ""
+msgstr "volver a ejecutar la herramienta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
@@ -6911,12 +6911,12 @@ msgstr "Atrás"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
 msgid "back to tool dialog"
-msgstr ""
+msgstr "regresar al diálogo de la herramienta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:94
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:95
 msgid "close dialog"
-msgstr ""
+msgstr "cerrar diálogo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:134
 msgid "Nothing to enable, implement in Children"
@@ -6960,6 +6960,7 @@ msgstr "Forma personalizada para el cruce (junction)"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:935
 msgid "Optional turning radius (for all corners) for that node in meters"
 msgstr ""
+"Radio de giro opcional (para todas las esquinas) para ese nodo (en metros)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:941
 msgid ""
@@ -6968,15 +6969,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:947
 msgid "How to compute right of way rules at this node"
-msgstr ""
+msgstr "Cómo calcular las reglas de derecho de paso en este nodo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:954
 msgid "Whether this junction is at the fringe of the network"
-msgstr ""
+msgstr "Si este cruce está al margen de la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:961
 msgid "Optional name of junction"
-msgstr ""
+msgstr "Nombre opcional del cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:966
 msgid "An optional type for the traffic light algorithm"
@@ -6996,17 +6997,17 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:994
 msgid "The id of the edge"
-msgstr ""
+msgstr "El ID de la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:999
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1117
 msgid "The number of lanes of the edge"
-msgstr ""
+msgstr "El número de carriles de la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1005
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1105
 msgid "The maximum speed allowed on the edge in m/s"
-msgstr ""
+msgstr "La velocidad máxima permitida sobre la arista, en m/s"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1011
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1065
@@ -7016,6 +7017,8 @@ msgstr ""
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
+"Permite explícitamente las clases de vehículos dadas (no se permitirán las "
+"que no se nombren)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1017
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1071
@@ -7025,6 +7028,8 @@ msgstr ""
 msgid ""
 "Explicitly disallows the given vehicle classes (not given will be allowed)"
 msgstr ""
+"Prohibir explícitamente las clases de vehículos dadas (se permitirán las que "
+"no se nombren)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1022
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1149
@@ -7036,13 +7041,15 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1029
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1111
 msgid "The priority of the edge"
-msgstr ""
+msgstr "La prioridad de la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1035
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1161
 msgid ""
 "Lane width for all lanes of this edge in meters (used for visualization)"
 msgstr ""
+"Ancho de carril para todos los carriles de esta arista en metros (usado para "
+"visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1041
 msgid "The width of the sidewalk that should be added as an additional lane"
@@ -7059,12 +7066,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1059
 msgid "The maximum speed allowed on the lane in m/s"
-msgstr ""
+msgstr "La velocidad máxima permitida en el carril, en m/s"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1076
 msgid ""
 "Lane width for all lanes of this lane in meters (used for visualization)"
 msgstr ""
+"Ancho de carril para todos los carriles de este carril en metros (usado para "
+"visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1086
 msgid "Edge"
@@ -7176,11 +7185,13 @@ msgstr "Define la dirección opuesta del carril (lane)"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1475
 msgid "Permit changing left only for to the given vehicle classes"
 msgstr ""
+"Permitir el cambio hacia la izquierda solo para las clases de vehículo dadas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1277
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1482
 msgid "Permit changing right only for to the given vehicle classes"
 msgstr ""
+"Permitir el cambio hacia la derecha solo para las clases de vehículo dadas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1284
 msgid "Lane type description (optional)"
@@ -7188,7 +7199,7 @@ msgstr "Descripción del tipo de carril (lane) (Opcional)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1305
 msgid "Crossing"
-msgstr ""
+msgstr "Paso peatonal"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1309
 msgid "Crossing ID"
@@ -7203,6 +7214,8 @@ msgid ""
 "Whether the pedestrians have priority over the vehicles (automatically set "
 "to true at tls-controlled intersections)"
 msgstr ""
+"Si los peatones tienen prioridad sobre los vehículos (se establece "
+"automáticamente en verdadero en las intersecciones controladas por semáforos)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1325
 msgid "The width of the crossings"
@@ -7230,23 +7243,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1361
 msgid "The width of the WalkingArea"
-msgstr ""
+msgstr "El ancho del WalkingArea"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1367
 msgid "The length of the WalkingArea in meter"
-msgstr ""
+msgstr "La longitud del WalkingArea, en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1372
 msgid "Overrides default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "Sobrescribe la forma predeterminada de la acera peatonal"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1381
 msgid "Connection"
-msgstr ""
+msgstr "Conexión"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1385
 msgid "The ID of the edge the vehicles leave"
-msgstr ""
+msgstr "El ID de la arista desde la que parten los vehículos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1390
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
@@ -7666,7 +7679,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1966
 msgid "E1 InductionLoop"
-msgstr ""
+msgstr "E1 InductionLoop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1971
 msgid "The id of E1"
@@ -7702,6 +7715,8 @@ msgstr ""
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
 msgstr ""
+"El período de agregación en el que se deben sumar los valores que recopila "
+"el detector"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1992
 msgid "Name of induction loop"
@@ -7726,7 +7741,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2019
 msgid "E2 LaneAreaDetector"
-msgstr ""
+msgstr "E2 LaneAreaDetector"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2024
 msgid "The id of E2"
