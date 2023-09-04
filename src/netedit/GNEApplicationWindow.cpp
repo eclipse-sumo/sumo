@@ -4703,6 +4703,14 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
     }
+    // continue depending of view
+    if (myViewNet) {
+        if (myViewNet->getEditModes().isDefaultView()) {
+            myModesMenuCommands.setDefaultView(supermode);
+        } else if (myViewNet->getEditModes().isJuPedSimView()) {
+            myModesMenuCommands.setJuPedSimView(supermode);
+        }
+    }
 }
 
 
@@ -4738,6 +4746,12 @@ GNEApplicationWindow::clearUndoList() {
 GNEApplicationWindowHelper::FileMenuCommands&
 GNEApplicationWindow::getFileMenuCommands() {
     return myFileMenuCommands;
+}
+
+
+GNEApplicationWindowHelper::ModesMenuCommands&
+GNEApplicationWindow::getModesMenuCommands() {
+    return myModesMenuCommands;
 }
 
 

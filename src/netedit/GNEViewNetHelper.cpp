@@ -2374,14 +2374,12 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT));
         gripSupermodes->setWidth(353);
         // show menu commands
-        fileMenuCommands.showTLSMenuCommand();
-        fileMenuCommands.showDataMenuCommands();
+        fileMenuCommands.setDefaultView();
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
         gripSupermodes->setWidth(250);
         // hide menu commands
-        fileMenuCommands.hideTLSMenuCommand();
-        fileMenuCommands.hideDataMenuCommands();
+        fileMenuCommands.setJuPedSimView();
     }
     // update viewNet
     myViewNet->viewUpdated();

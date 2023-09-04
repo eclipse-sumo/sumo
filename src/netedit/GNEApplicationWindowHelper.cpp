@@ -334,26 +334,16 @@ GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::showTLSMenuCommand() {
+GNEApplicationWindowHelper::FileMenuCommands::setDefaultView() {
     myTLSMenuCascade->show();
-}
-
-
-void
-GNEApplicationWindowHelper::FileMenuCommands::hideTLSMenuCommand() {
-    myTLSMenuCascade->hide();
-}
-
-
-void
-GNEApplicationWindowHelper::FileMenuCommands::showDataMenuCommands() {
     myDataMenuCascade->show();
     myMeanDataMenuCascade->show();
 }
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::hideDataMenuCommands() {
+GNEApplicationWindowHelper::FileMenuCommands::setJuPedSimView() {
+    myTLSMenuCascade->hide();
     myDataMenuCascade->hide();
     myMeanDataMenuCascade->hide();
 }
@@ -833,6 +823,38 @@ GNEApplicationWindowHelper::ModesMenuCommands::buildModesMenuCommands(FXMenuPane
     // build Data Modes commands
     dataMenuCommands.buildDataMenuCommands(modesMenu);
     dataMenuCommands.hideDataMenuCommands();
+}
+
+
+void
+GNEApplicationWindowHelper::ModesMenuCommands::setDefaultView(Supermode supermode) {
+    if (supermode == Supermode::NETWORK) {
+        networkMenuCommands.showNetworkMenuCommands();
+    } else if (supermode == Supermode::DEMAND) {
+        demandMenuCommands.showDemandMenuCommands();
+    } else if (supermode == Supermode::DATA) {
+        dataMenuCommands.showDataMenuCommands();
+    }
+}
+
+
+void
+GNEApplicationWindowHelper::ModesMenuCommands::setJuPedSimView(Supermode supermode) {
+    if (supermode == Supermode::NETWORK) {
+        networkMenuCommands.connectMode->hide();
+        networkMenuCommands.TLSMode->hide();
+        networkMenuCommands.prohibitionMode->hide();
+        networkMenuCommands.wireMode->hide();
+        networkMenuCommands.decalMode->hide();
+    } else if (supermode == Supermode::DEMAND) {
+        demandMenuCommands.moveMode->hide();
+        demandMenuCommands.vehicleMode->hide();
+        demandMenuCommands.stopMode->hide();
+        demandMenuCommands.containerMode->hide();
+        demandMenuCommands.containerPlanMode->hide();
+    } else if (supermode == Supermode::DATA) {
+        dataMenuCommands.hideDataMenuCommands();
+    }
 }
 
 // ---------------------------------------------------------------------------

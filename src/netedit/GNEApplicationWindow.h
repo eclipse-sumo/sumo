@@ -574,6 +574,9 @@ public:
     /// @brief get file Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::FileMenuCommands& getFileMenuCommands();
 
+    /// @brief get modes Menu Commands (needed for show/hide menu commands)
+    GNEApplicationWindowHelper::ModesMenuCommands& getModesMenuCommands();
+
     /// @brief get Edit Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
     

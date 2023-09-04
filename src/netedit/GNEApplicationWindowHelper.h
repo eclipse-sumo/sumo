@@ -173,17 +173,11 @@ struct GNEApplicationWindowHelper {
         /// @brief disable menu cascades
         void disableMenuCascades();
 
-        /// @brief show TLS menuCommand
-        void showTLSMenuCommand();
+        /// @brief set default view
+        void setDefaultView();
 
-        /// @brief hide TLS menuCommand (used in JuPedSim mode)
-        void hideTLSMenuCommand();
-
-        /// @brief show data menuCommands
-        void showDataMenuCommands();
-
-        /// @brief hide data menuCommands (used in JuPedSim mode)
-        void hideDataMenuCommands();
+        /// @brief set JuPedSim view
+        void setJuPedSimView();
 
     private:
         /// @brief build netedit config section
@@ -466,6 +460,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build modes menu commands
         void buildModesMenuCommands(FXMenuPane* modesMenu);
+
+        /// @brief set default view
+        void setDefaultView(Supermode supermode);
+
+        /// @brief set JuPedSim view
+        void setJuPedSimView(Supermode supermode);
 
         /// @brief Supermodes Menu Commands
         SupermodeMenuCommands supermodeMenuCommands;
