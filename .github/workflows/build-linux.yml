@@ -24,10 +24,10 @@ jobs:
         build_type: [full, minimal]
         compiler: [gcc, clang]
         jps_version: ['v0.10.0']
-        include:
-          - build_type: full
-            jps_version: master
-            compiler: gcc
+        # include:
+        #   - build_type: full
+        #     jps_version: master
+        #     compiler: gcc
 
     steps:
     - name: Cloning SUMO
