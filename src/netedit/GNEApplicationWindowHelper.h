@@ -173,6 +173,18 @@ struct GNEApplicationWindowHelper {
         /// @brief disable menu cascades
         void disableMenuCascades();
 
+        /// @brief show TLS menuCommand
+        void showTLSMenuCommand();
+
+        /// @brief hide TLS menuCommand (used in JuPedSim mode)
+        void hideTLSMenuCommand();
+
+        /// @brief show data menuCommands
+        void showDataMenuCommands();
+
+        /// @brief hide data menuCommands (used in JuPedSim mode)
+        void hideDataMenuCommands();
+
     private:
         /// @brief build netedit config section
         void buildNeteditConfigSection(FXMenuPane* menuPane);

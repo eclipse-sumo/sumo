@@ -1787,24 +1787,6 @@ GNEApplicationWindow::consoleOptionsLoaded() {
 }
 
 
-void
-GNEApplicationWindow::viewUpdated() {
-    if (myViewNet) {
-        // adjust supermode commmand
-        if (myViewNet->getEditModes().isJuPedSimView()) {
-            mySupermodeCommands.dataMode->hide();
-            // set width (grip + 2 large buttons + icon button)
-            myToolbarsGrip.superModes->setWidth(250);
-        } else {
-            mySupermodeCommands.dataMode->show();
-            // set width (grip + 3 large buttons + icon button)
-            myToolbarsGrip.superModes->setWidth(353);
-        }
-        myViewNet->viewUpdated();
-    }
-}
-
-
 long
 GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View
@@ -4752,6 +4734,11 @@ GNEApplicationWindow::clearUndoList() {
     myUndoList->clear();
 }
 
+
+GNEApplicationWindowHelper::FileMenuCommands&
+GNEApplicationWindow::getFileMenuCommands() {
+    return myFileMenuCommands;
+}
 
 
 GNEApplicationWindowHelper::EditMenuCommands&

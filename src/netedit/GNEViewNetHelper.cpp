@@ -2367,13 +2367,21 @@ void
 GNEViewNetHelper::EditModes::setView(FXSelector sel) {
     // grip supermodes
     auto gripSupermodes = myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes;
+    // file menu commands
+    auto &fileMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getFileMenuCommands();
     // continue depending of selector
     if (sel == MID_GNE_VIEW_DEFAULT) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT));
         gripSupermodes->setWidth(353);
+        // show menu commands
+        fileMenuCommands.showTLSMenuCommand();
+        fileMenuCommands.showDataMenuCommands();
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
         gripSupermodes->setWidth(250);
+        // hide menu commands
+        fileMenuCommands.hideTLSMenuCommand();
+        fileMenuCommands.hideDataMenuCommands();
     }
     // update viewNet
     myViewNet->viewUpdated();

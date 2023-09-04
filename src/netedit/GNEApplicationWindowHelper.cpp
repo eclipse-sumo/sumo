@@ -334,6 +334,32 @@ GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
 
 
 void
+GNEApplicationWindowHelper::FileMenuCommands::showTLSMenuCommand() {
+    myTLSMenuCascade->show();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::hideTLSMenuCommand() {
+    myTLSMenuCascade->hide();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::showDataMenuCommands() {
+    myDataMenuCascade->show();
+    myMeanDataMenuCascade->show();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::hideDataMenuCommands() {
+    myDataMenuCascade->hide();
+    myMeanDataMenuCascade->hide();
+}
+
+
+void
 GNEApplicationWindowHelper::FileMenuCommands::buildNeteditConfigSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
                                            TL("Save Netedit Config"), "Ctrl+Shift+E", TL("Save netedit configuration file."),

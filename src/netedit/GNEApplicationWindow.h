@@ -81,9 +81,6 @@ public:
     /// @brief check if console options was already loaded
     bool consoleOptionsLoaded();
 
-    /// @brief called when view is updated
-    void viewUpdated();
-
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
@@ -574,7 +571,10 @@ public:
     /// @brief clear undo list
     void clearUndoList();
     
-    /// @brief getEdit Menu Commands (needed for show/hide menu commands)
+    /// @brief get file Menu Commands (needed for show/hide menu commands)
+    GNEApplicationWindowHelper::FileMenuCommands& getFileMenuCommands();
+
+    /// @brief get Edit Menu Commands (needed for show/hide menu commands)
     GNEApplicationWindowHelper::EditMenuCommands& getEditMenuCommands();
     
     /// @brief get processing Menu Commands
