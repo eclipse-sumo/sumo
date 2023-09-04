@@ -94,8 +94,8 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
         device.writeAttr(SUMO_ATTR_CHARGETYPE, myChargeType);
     }
-    if (getAttribute(SUMO_ATTR_WAITINGTIME) != myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) {
-        device.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTime);
+    if (string2time(myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
+        device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
