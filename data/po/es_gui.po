@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 12:41+0200\n"
-"PO-Revision-Date: 2023-09-04 13:27+0000\n"
+"PO-Revision-Date: 2023-09-04 13:45+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -14505,7 +14505,7 @@ msgstr "cargar formas desde '"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:181
 msgid "Loading of shape file failed: "
-msgstr ""
+msgstr "La carga del archivo shape falló: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 msgid "Loading of shape file successfully: "
@@ -14518,22 +14518,22 @@ msgstr "Ejecutar la herramienta de python '"
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:188
 #, c-format
 msgid "Loaded % configuration."
-msgstr ""
+msgstr "Configuración % cargada."
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:217
 #, c-format
 msgid "Saved % configuration."
-msgstr ""
+msgstr "Configuración % guardada."
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:95
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:61
 msgid "cancelled by user\n"
-msgstr ""
+msgstr "cancelado por el usuario\n"
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:139
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:105
 msgid "starting process...\n"
-msgstr ""
+msgstr "iniciando proceso...\n"
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:157
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:123
@@ -14543,7 +14543,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:172
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:138
 msgid "process finished\n"
-msgstr ""
+msgstr "proceso finalizado\n"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
@@ -14567,7 +14567,7 @@ msgstr "Cerrar"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "Error al cargar la selección"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
@@ -14595,15 +14595,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "¡Formato desconocido!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:91
 msgid "Unknown codec, falling back to HEVC!"
-msgstr ""
+msgstr "¡Códec desconocido, recurriendo a HEVC!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "¡Códec desconocido!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
