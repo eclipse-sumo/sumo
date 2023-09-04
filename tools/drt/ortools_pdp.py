@@ -258,16 +258,31 @@ def add_time_windows_constraint(data, time_dimension, manager, verbose):
     if verbose:
         print(' Add time windows constraints...')
 
+    depot = data['depot']
+    new_requests_nodes = [node for req in data['pickups_deliveries'] for node in (req.from_node, req.to_node) if req.is_new]
+    old_requests_nodes = ([req.to_node for req in data['dropoffs']] +
+            [node for req in data['pickups_deliveries'] for node in (req.from_node, req.to_node) if not req.is_new])
     # Add time window constraints for each location except depot.
     for location_idx, time_window in enumerate(data['time_windows']):
-        # if location_idx == data['depot']:
-        # if location_idx in data['starts'] or location_idx == 0:
-        if location_idx == 0:
+        # no time window for depot:
+        if location_idx == depot:
             continue
         index = manager.NodeToIndex(location_idx)
-        if verbose:
-            print('window for node %s: [%s, %s]' % (location_idx, time_window[0], time_window[1]))
-        time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  # TODO: check if set, else ignore it
+        # hard time window for vehicles and new requests:
+        if location_idx in data['starts'] + new_requests_nodes:
+            if verbose:
+                print(f'hard time window for node {location_idx}: [{time_window[0]}, {time_window[1]}]')
+            time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  # TODO: check if set, else ignore it
+        # soft time window for old requests:
+        if location_idx in old_requests_nodes:
+            if verbose:
+                print(f'soft time window for node {location_idx}: [{time_window[0]}, {time_window[1]}]')
+            time_dimension.SetCumulVarSoftLowerBound(index, time_window[0], 100)
+            time_dimension.SetCumulVarSoftUpperBound(index, time_window[1], 100)
+            #time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
+
+    
+    
     # TODO: check if the followwing is needed
     # # Add time window constraints for each vehicle start node.
     # depot_idx = data['depot']

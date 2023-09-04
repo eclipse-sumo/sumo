@@ -195,6 +195,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end, fi
     time_windows = get_time_windows(reservations, fleet, end)
 
     data = {}
+    data['depot'] = 0  # node_id of the depot
     data['cost_matrix'] = cost_matrix
     data['time_matrix'] = time_matrix
     data['pickups_deliveries'] = dp_reservations
