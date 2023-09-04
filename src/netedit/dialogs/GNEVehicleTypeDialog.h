@@ -69,7 +69,7 @@ public:
             /// @brief pointer to VTypeAttributes parent
             VTypeAttributes* myVTypeAttributesParent;
 
-            /// @brief FXComboBox for VClass
+            /// @brief MFXComboBoxIcon for VClass
             MFXComboBoxIcon* myComboBoxVClass;
 
             /// @brief label with image of VClass
@@ -99,7 +99,7 @@ public:
             /// @brief pointer to VTypeAttributes parent
             VTypeAttributes* myVTypeAttributesParent;
 
-            /// @brief FXComboBox for Shape
+            /// @brief MFXComboBoxIcon for Shape
             MFXComboBoxIcon* myComboBoxShape;
 
             /// @brief label with image of Shape

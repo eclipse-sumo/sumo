@@ -276,9 +276,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELan
 // ---------------------------------------------------------------------------
 
 bool
-GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEAdditional::isValidAdditionalID(const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
     } else {
         return false;
     }
@@ -286,9 +288,35 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 
 bool
-GNEAdditional::isValidDetectorID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEAdditional::isValidDetectorID(const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
     } else {
         return false;
     }
@@ -659,6 +687,134 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
                                     false, shift ? GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND : GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH_SECOND);
     } else {
         return nullptr;
+    }
+}
+
+
+std::string
+GNEAdditional::getJuPedSimType(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return "jupedsim.walkable_area";
+        case GNE_TAG_JPS_OBSTACLE:
+            return "jupedsim.obstacle";
+        case GNE_TAG_JPS_WAITINGAREA:
+            return "jupedsim.waiting_area";
+        case GNE_TAG_JPS_SOURCE:
+            return "jupedsim.source";
+        case GNE_TAG_JPS_SINK:
+            return "jupedsim.sink";
+        case GNE_TAG_JPS_WAYPOINT:
+            return "jupedsim.waypoint";
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+RGBColor
+GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return RGBColor(179,217,255);
+        case GNE_TAG_JPS_OBSTACLE:
+            return RGBColor(255,204,204);
+        case GNE_TAG_JPS_WAITINGAREA:
+            return RGBColor(50, 200, 50);
+        case GNE_TAG_JPS_SOURCE:
+            return RGBColor(255, 244, 0);
+        case GNE_TAG_JPS_SINK:
+            return RGBColor(207, 99, 246);
+        case GNE_TAG_JPS_WAYPOINT:
+            return RGBColor(0, 255, 255);
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+bool
+GNEAdditional::getJuPedSimFill(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+            return true;
+        case GNE_TAG_JPS_SOURCE:
+        case GNE_TAG_JPS_SINK:
+        case GNE_TAG_JPS_WAYPOINT:
+            return false;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+double
+GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return 1;
+        case GNE_TAG_JPS_OBSTACLE:
+            return 2;
+        case GNE_TAG_JPS_WAITINGAREA:
+            return 3;
+        case GNE_TAG_JPS_SOURCE:
+            return 4;
+        case GNE_TAG_JPS_SINK:
+            return 5;
+        case GNE_TAG_JPS_WAYPOINT:
+            return 6;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+GUIGlObjectType
+GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return GLO_JPS_WALKABLEAREA;
+        case GNE_TAG_JPS_OBSTACLE:
+            return GLO_JPS_OBSTACLE;
+        case GNE_TAG_JPS_WAITINGAREA:
+            return GLO_JPS_WAITINGAREA;
+        case GNE_TAG_JPS_SOURCE:
+            return GLO_JPS_SOURCE;
+        case GNE_TAG_JPS_SINK:
+            return GLO_JPS_SINK;
+        case GNE_TAG_JPS_WAYPOINT:
+            return GLO_JPS_WAYPOINT;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+FXIcon*
+GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA);
+        case GNE_TAG_JPS_OBSTACLE:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
+        case GNE_TAG_JPS_WAITINGAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA);
+        case GNE_TAG_JPS_SOURCE:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_SOURCE);
+        case GNE_TAG_JPS_SINK:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_SINK);
+        case GNE_TAG_JPS_WAYPOINT:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAYPOINT);
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
     }
 }
 

@@ -77,7 +77,7 @@ the *rerouting device* are used. Note, that these can also be modified via TraCI
 
 ## Randomimzed travel times
 
-[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. traveltimes) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
+[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. travel times) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
 
 Randomized edge weights can be useful in grid networks where there are many paths have the same (or almost the same) travel cost and the default routing algorithm would send all vehicles on the same path. It can also be used to model imperfection in travel time estimation.
 
@@ -94,7 +94,7 @@ Randomized edge weights can be useful in grid networks where there are many path
   command supports an additional boolean parameter *currentTravelTime*
   (default *True*). When this parameter is set to *True*, the vehicle will temporarily use ROUTING_MODE_AGGREGATED
   
-# Routing by Traveltime and Edge Priority
+# Routing by Travel time and Edge Priority
 Sometimes it is useful to guide route search with additional information while still taking travel times into account.
 For this use case the option **--weights.priority-factor FLOAT** can be used with [sumo](../sumo.md) and [duarouter](../duarouter.md).
 
@@ -110,13 +110,13 @@ When this option is set, the priority value of each edge is factored into the ro
 As a consequence:
 
 - the highest priority edge will get no penalty
-- the traveltime of the lowest priority edge is multiplied with 1+PriorityFactor, 
+- the travel time of the lowest priority edge is multiplied with 1+PriorityFactor, 
 - edges with in-between priorities will get a scaled penalty
 
 # Routing by *effort*
 
 By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
-The traveltime can either be computed from the speed limits and vehicle maximum speed, it can be estimated at runtime from the simulation state or it can be loaded from a data file. The latter option allows defining travel times for the future.
+The travel time can either be computed from the speed limits and vehicle maximum speed, it can be estimated at runtime from the simulation state or it can be loaded from a data file. The latter option allows defining travel times for the future.
 An example for the relevance of future travel times would be this:
 - a vehicle departs for a long trip at a time where there is no jamming
 - it is known that parts of the network will be jammed later
@@ -128,7 +128,7 @@ When these quantities are meant to change over time, the routing algorithm needs
 - the **effort** that shall be minimized
 - the **travel time** for the edge.
 
-The travel time is needed to compute at which time a certain edge is reached so that effors which change over time can be used correctly.
+The travel time is needed to compute at which time a certain edge is reached so that efforts which change over time can be used correctly.
 
 !!! note
     When the effort values do not change over time, routing by effort can be achieved by loading weight-files with a modified `traveltime` attribute (the effort value is written into the traveltime attribute) and the option **--weight-attribute** can be omitted.

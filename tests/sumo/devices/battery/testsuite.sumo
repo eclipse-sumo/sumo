@@ -40,3 +40,6 @@ recuperateByDecel
 
 # compare battery output with aggregated consumption
 tripinfo_emission
+
+# charging stations placed in internal lanes
+chargingStations_internalLanes

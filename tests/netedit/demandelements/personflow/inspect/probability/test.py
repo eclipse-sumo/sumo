@@ -44,9 +44,6 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create person
 netedit.typeEnter()
 
-# change zoom
-netedit.setZoom("0", "5", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 

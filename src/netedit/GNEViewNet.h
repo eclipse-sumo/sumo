@@ -74,8 +74,11 @@ public:
     /// @brief Mark the entire GNEViewNet to be repainted later
     void updateViewNet() const;
 
-    /// @brief set supermode Network (used after load/create new network)
-    void forceSupermodeNetwork();
+    /// @brief force supermode network(used after load/create new network)
+    void forceSupemodeNetwork();
+
+    /// @brief called when view is updated
+    void viewUpdated();
 
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
@@ -467,7 +470,10 @@ public:
 
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
-
+        
+    /// @brief called when a new view is set
+    long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
+    
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 

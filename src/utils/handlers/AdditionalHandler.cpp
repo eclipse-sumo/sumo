@@ -163,14 +163,23 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
                 parsePOIAttributes(attrs);
                 break;
             // JuPedSim
-            case GNE_TAG_WALKABLEAREA:
-                parseWalkableAreaAttributes(attrs);
+            case GNE_TAG_JPS_WALKABLEAREA:
+                parseJpsWalkableAreaAttributes(attrs);
                 break;
-            case GNE_TAG_OBSTACLE:
-                parseObstacleAttributes(attrs);
+            case GNE_TAG_JPS_OBSTACLE:
+                parseJpsObstacleAttributes(attrs);
                 break;
-            case GNE_TAG_POIWAYPOINT:
-                parsePOIWaypointAttributes(attrs);
+            case GNE_TAG_JPS_WAITINGAREA:
+                parseJpsWaitingAreaAttributes(attrs);
+                break;
+            case GNE_TAG_JPS_SOURCE:
+                parseJpsWaitingAreaAttributes(attrs);
+                break;
+            case GNE_TAG_JPS_SINK:
+                parseJpsWaitingAreaAttributes(attrs);
+                break;
+            case GNE_TAG_JPS_WAYPOINT:
+                parseJpsWaypointAttributes(attrs);
                 break;
             // parameters
             case SUMO_TAG_PARAM:
@@ -231,9 +240,12 @@ AdditionalHandler::endParseAttributes() {
         case SUMO_TAG_POLY:
         case SUMO_TAG_POI:
         // JuPedSim
-        case GNE_TAG_WALKABLEAREA:
-        case GNE_TAG_OBSTACLE:
-        case GNE_TAG_POIWAYPOINT:
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+        case GNE_TAG_JPS_SOURCE:
+        case GNE_TAG_JPS_SINK:
+        case GNE_TAG_JPS_WAYPOINT:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
             // delete object (and all of their childrens)
@@ -311,6 +323,8 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                  obj->getDoubleAttribute(SUMO_ATTR_EFFICIENCY),
                                  obj->getBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT),
                                  obj->getTimeAttribute(SUMO_ATTR_CHARGEDELAY),
+                                 obj->getStringAttribute(SUMO_ATTR_CHARGETYPE),
+                                 obj->getTimeAttribute(SUMO_ATTR_WAITINGTIME),
                                  obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                                  obj->getParameters());
             break;
@@ -673,26 +687,50 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getParameters());
             }
             break;
-        // WalkableArea
-        case GNE_TAG_WALKABLEAREA:
-            buildWalkableArea(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                              obj->getStringAttribute(SUMO_ATTR_NAME),
-                              obj->getParameters());
+        // Jps WalkableArea
+        case GNE_TAG_JPS_WALKABLEAREA:
+            buildJpsWalkableArea(obj,
+                                 obj->getStringAttribute(SUMO_ATTR_ID),
+                                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                 obj->getStringAttribute(SUMO_ATTR_NAME),
+                                 obj->getParameters());
             break;
-        // Obstacle
-        case GNE_TAG_OBSTACLE:
-            buildObstacle(obj,
-                          obj->getStringAttribute(SUMO_ATTR_ID),
-                          obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                          obj->getStringAttribute(SUMO_ATTR_NAME),
-                          obj->getParameters());
+        // Jps Obstacle
+        case GNE_TAG_JPS_OBSTACLE:
+            buildJpsObstacle(obj,
+                             obj->getStringAttribute(SUMO_ATTR_ID),
+                             obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                             obj->getStringAttribute(SUMO_ATTR_NAME),
+                             obj->getParameters());
             break;
-        // POI waypoint
-        case GNE_TAG_POIWAYPOINT:
-            // build POI Waypoint over view
-            buildPOIWaypoint(obj,
+        // Jps Waiting area
+        case GNE_TAG_JPS_WAITINGAREA:
+            buildJpsWaitingArea(obj,
+                                obj->getStringAttribute(SUMO_ATTR_ID),
+                                obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                obj->getStringAttribute(SUMO_ATTR_NAME),
+                                obj->getParameters());
+            break;
+        // Jps Waiting area
+        case GNE_TAG_JPS_SOURCE:
+            buildJpsSource(obj,
+                           obj->getStringAttribute(SUMO_ATTR_ID),
+                           obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                           obj->getStringAttribute(SUMO_ATTR_NAME),
+                           obj->getParameters());
+            break;
+        // Jps Waiting area
+        case GNE_TAG_JPS_SINK:
+            buildJpsSink(obj,
+                         obj->getStringAttribute(SUMO_ATTR_ID),
+                         obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                         obj->getStringAttribute(SUMO_ATTR_NAME),
+                         obj->getParameters());
+    break;
+        // Jps Waypoint
+        case GNE_TAG_JPS_WAYPOINT:
+            // build jps Waypoint over view
+            buildJpsWaypoint(obj,
                              obj->getStringAttribute(SUMO_ATTR_ID),
                              obj->getDoubleAttribute(SUMO_ATTR_X),
                              obj->getDoubleAttribute(SUMO_ATTR_Y),
@@ -869,7 +907,14 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
     const double efficiency = attrs.getOpt<double>(SUMO_ATTR_EFFICIENCY, id.c_str(), parsedOk, 0.95);
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), parsedOk, 0);
     const SUMOTime chargeDelay = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CHARGEDELAY, id.c_str(), parsedOk, 0);
+    const std::string chargeType = attrs.getOpt<std::string>(SUMO_ATTR_CHARGETYPE, id.c_str(), parsedOk, "normal");
+    const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), parsedOk, 900);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
+    // check charge type
+    if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
+        writeError(TLF("Invalid charge type '%' defined in chargingStation '%'.", chargeType, id));
+        parsedOk = false;
+    }
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -885,6 +930,8 @@ AdditionalHandler::parseChargingStationAttributes(const SUMOSAXAttributes& attrs
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_EFFICIENCY, efficiency);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_CHARGEINTRANSIT, chargeInTransit);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CHARGEDELAY, chargeDelay);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CHARGETYPE, chargeType);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_WAITINGTIME, waitingTime);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
 }
@@ -1777,7 +1824,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs) {
+AdditionalHandler::parseJpsWalkableAreaAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
@@ -1788,7 +1835,7 @@ AdditionalHandler::parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_WALKABLEAREA);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_WALKABLEAREA);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
@@ -1798,7 +1845,7 @@ AdditionalHandler::parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::parseObstacleAttributes(const SUMOSAXAttributes& attrs) {
+AdditionalHandler::parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
@@ -1809,7 +1856,7 @@ AdditionalHandler::parseObstacleAttributes(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_OBSTACLE);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_OBSTACLE);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
@@ -1819,7 +1866,70 @@ AdditionalHandler::parseObstacleAttributes(const SUMOSAXAttributes& attrs) {
 
 
 void
-AdditionalHandler::parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs) {
+AdditionalHandler::parseJpsWaitingAreaAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_WAITINGAREA);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseJpsSourceAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_SOURCE);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseJpsSinkAttributes(const SUMOSAXAttributes& attrs) {
+    // declare Ok Flag
+    bool parsedOk = true;
+    // needed attributes
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
+    // optional attributes
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
+    // continue if flag is ok
+    if (parsedOk) {
+        // set tag
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_SINK);
+        // add all attributes
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
+    }
+}
+
+
+void
+AdditionalHandler::parseJpsWaypointAttributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
@@ -1832,7 +1942,7 @@ AdditionalHandler::parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_POIWAYPOINT);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_WAYPOINT);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);

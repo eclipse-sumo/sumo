@@ -57,7 +57,6 @@ void
 MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, MSDevice_StationFinder* sf) {
     // Check if vehicle should get a battery
     if (sf != nullptr || equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
-        const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
         // obtain parameter values
         const double maximumBatteryCapacity = readParameterValue(v, SUMO_ATTR_MAXIMUMBATTERYCAPACITY, DEFAULT_MAX_CAPACITY);
         const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);

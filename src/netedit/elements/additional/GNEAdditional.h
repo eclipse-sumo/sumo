@@ -340,10 +340,16 @@ protected:
     /// @{
 
     /// @brief check if a new additional ID is valid
-    bool isValidAdditionalID(const std::string& newID) const;
+    bool isValidAdditionalID(const std::string& value) const;
+
+    /// @brief check if a new additional ID is valid
+    bool isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
     /// @brief check if a new detector ID is valid
-    bool isValidDetectorID(const std::string& newID) const;
+    bool isValidDetectorID(const std::string& value) const;
+
+    /// @brief check if a new detector ID is valid
+    bool isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
     /// @brief set additional ID
     void setAdditionalID(const std::string& newID);
@@ -393,6 +399,29 @@ protected:
 
     /// @brief get moveOperation for an element over multi lane
     GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
+
+    /// @name JuPedSim values
+    /// @{
+
+    /// @brief get JuPedSim type
+    static std::string getJuPedSimType(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static RGBColor getJuPedSimColor(SumoXMLTag tag);
+
+    /// @brief get JuPedSim fill
+    static bool getJuPedSimFill(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static double getJuPedSimLayer(SumoXMLTag tag);
+
+    /// @brief get GLO color
+    static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
+
+    /// @brief get JuPedSim icon
+    static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
+
+    /// @}
 
 private:
     /**@brief check restriction with the number of children

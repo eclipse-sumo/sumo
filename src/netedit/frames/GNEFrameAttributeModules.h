@@ -70,7 +70,7 @@ public:
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
+        void refreshAttributesEditorRow(const std::string& value, const bool forceRefreshAttribute, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isAttributesEditorRowValid() const;
@@ -84,11 +84,21 @@ public:
         /// @brief called when user press a check button
         long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
 
-        /// @brief open model dialog for more comfortable attribute editing
-        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+        /// @brief open model dialog for edit color
+        long onCmdOpenColorDialog(FXObject*, FXSelector, void*);
+
+        /// @brief open model dialog for edit allow
+        long onCmdOpenAllowDialog(FXObject*, FXSelector, void*);
+
+        /// @brief inspect parent
+        long onCmdInspectParent(FXObject*, FXSelector, void*);
 
         /// @brief inspect vType/VTypeDistribution parent
-        long onCmdInspectVTypeParent(FXObject*, FXSelector, void*);
+        long onCmdMoveElementLaneUp(FXObject*, FXSelector, void*);
+
+        /// @brief inspect vType/VTypeDistribution parent
+        long onCmdMoveElementLaneDown(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -115,25 +125,49 @@ public:
         FXCheckButton* myAttributeCheckButton = nullptr;
 
         /// @brief pointer to attributeAllowButton
-        MFXButtonTooltip* myAttributeAllowButton = nullptr;
-
-        /// @brief Button for open color editor
-        MFXButtonTooltip* myAttributeColorButton = nullptr;
-
-        /// @brief Button for inspect Vtype/VtypeDistribution parent
-        MFXButtonTooltip* myAttributeVTypeButton = nullptr;
+        MFXButtonTooltip* myAttributeButton = nullptr;
 
         /// @brief textField to modify the value of string attributes
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        MFXComboBoxIcon* myValueChoicesComboBox = nullptr;
+        MFXComboBoxIcon* myValueComboBox = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
 
+        /// @brief Button for move lane up
+        MFXButtonTooltip* myValueLaneUpButton = nullptr;
+
+		/// @brief Button for move lane down
+        MFXButtonTooltip* myValueLaneDownButton = nullptr;
+
         /// @brief pointer to AC Parent
         GNEAttributeCarrier* myACParent = nullptr;
+
+        /// @brief build Attribute elements
+        void buildAttributeElements(const bool attributeEnabled, const bool computed);
+
+        /// @brief build value elements();
+        void buildValueElements(const bool attributeEnabled, const bool computed);
+
+        /// @brief refresh Attribute elements
+        void refreshAttributeElements(const std::string &value, const bool attributeEnabled, const bool computed);
+
+        /// @brief build value elements();
+        void refreshValueElements(const std::string &value,  const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute);
+
+        /// @brief fill comboBox with discrete values
+        void fillComboBox(const std::string &value);
+
+        /// @brief update move lane buttons
+        void updateMoveLaneButtons(const std::string &value);
+
+        /// @brief Invalidated copy constructor.
+        AttributesEditorRow(AttributesEditorRow*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        AttributesEditorRow& operator=(AttributesEditorRow*) = delete;
     };
 
     // ===========================================================================

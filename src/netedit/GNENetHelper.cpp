@@ -23,27 +23,28 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
-#include <netedit/elements/data/GNEMeanData.h>
+#include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNETypeFrame.h>
-#include <netedit/frames/demand/GNETypeDistributionFrame.h>
-#include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNERouteDistributionFrame.h>
+#include <netedit/frames/demand/GNEStopFrame.h>
+#include <netedit/frames/demand/GNETypeDistributionFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNENetHelper.h"
 
@@ -1038,6 +1039,23 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 
 
 GNEAdditional*
+GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
+    for (const auto &type : types) {
+        for (const auto& additional : myAdditionals.at(type)) {
+            if (additional->getID() == id) {
+                return additional;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast additional
     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
@@ -1177,45 +1195,39 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("poi-prefix");
     } else if (tag == SUMO_TAG_TAZ) {
         prefix = toString(SUMO_TAG_TAZ);
-    } else if (tag == GNE_TAG_WALKABLEAREA) {
-        prefix = neteditOptions.getString("walkableArea-prefix");
-    } else if (tag == GNE_TAG_OBSTACLE) {
-        prefix = neteditOptions.getString("obstacle-prefix");
-    } else if (tag == GNE_TAG_POIWAYPOINT) {
-        prefix = neteditOptions.getString("poiWaypoint-prefix");
+    } else if (tag == GNE_TAG_JPS_WALKABLEAREA) {
+        prefix = neteditOptions.getString("jps.walkableArea-prefix");
+    } else if (tag == GNE_TAG_JPS_OBSTACLE) {
+        prefix = neteditOptions.getString("jps.obstacle-prefix");
+    } else if (tag == GNE_TAG_JPS_WAITINGAREA) {
+        prefix = neteditOptions.getString("jps.waitingArea-prefix");
+    } else if (tag == GNE_TAG_JPS_SOURCE) {
+        prefix = neteditOptions.getString("jps.source-prefix");
+    } else if (tag == GNE_TAG_JPS_SINK) {
+        prefix = neteditOptions.getString("jps.sink-prefix");
+    } else if (tag == GNE_TAG_JPS_WAYPOINT) {
+        prefix = neteditOptions.getString("jps.waypoint-prefix");
     }
     int counter = 0;
-    // check special cases
-    if ((tag == SUMO_TAG_BUS_STOP) || (tag == SUMO_TAG_TRAIN_STOP)) {
-        // BusStops and trainStops share namespace
-        while ((retrieveAdditional(SUMO_TAG_BUS_STOP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TRAIN_STOP, prefix + "_" + toString(counter), false) != nullptr)) {
+    // check namespaces
+    if (std::find(NamespaceIDs::busStops.begin(), NamespaceIDs::busStops.end(), tag) != NamespaceIDs::busStops.end()) {
+        while (retrieveAdditionals(NamespaceIDs::busStops, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
-        // Calibrators over edge/lane share namespace
-        while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::calibrators.begin(), NamespaceIDs::calibrators.end(), tag) != NamespaceIDs::calibrators.end()) {
+        while (retrieveAdditionals(NamespaceIDs::calibrators, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POLY) || (tag == SUMO_TAG_TAZ) || (tag == GNE_TAG_WALKABLEAREA) || (tag == GNE_TAG_OBSTACLE)) {
-        // Polys and TAZs share namespace
-        while ((retrieveAdditional(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_WALKABLEAREA, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_OBSTACLE, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::polygons.begin(), NamespaceIDs::polygons.end(), tag) != NamespaceIDs::polygons.end()) {
+        while (retrieveAdditionals(NamespaceIDs::polygons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO) || (tag == GNE_TAG_POIWAYPOINT)) {
-        while ((retrieveAdditional(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_POIWAYPOINT, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::POIs.begin(), NamespaceIDs::POIs.end(), tag) != NamespaceIDs::POIs.end()) {
+        while (retrieveAdditionals(NamespaceIDs::POIs, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-    } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
-        while ((retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::laneAreaDetectors.begin(), NamespaceIDs::laneAreaDetectors.end(), tag) != NamespaceIDs::laneAreaDetectors.end()) {
+        while (retrieveAdditionals(NamespaceIDs::laneAreaDetectors, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
     } else {
@@ -1223,6 +1235,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
             counter++;
         }
     }
+    // return new element ID
     return (prefix + "_" + toString(counter));
 }
 
@@ -1243,9 +1256,15 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
-    return getNumberOfSelectedAdditionals() - getNumberOfSelectedPolygons() - getNumberOfSelectedWalkableAreas() -
-           getNumberOfSelectedObstacles() - getNumberOfSelectedPOIWaypoints() - getNumberOfSelectedPOIs() -
+    return getNumberOfSelectedAdditionals() -
+           // shapes
+           getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() -
+           // JuPedSims
+           getNumberOfSelectedJpsWalkableAreas() - getNumberOfSelectedJpsObstacles() - getNumberOfSelectedJpsWaitingAreas() -
+           getNumberOfSelectedJpsSources() - getNumberOfSelectedJpsSinks() - getNumberOfSelectedJpsWaypoints() -
+           // TAZ
            getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
+           // wires
            getNumberOfSelectedWires();
 }
 
@@ -1263,9 +1282,9 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPolygons() const {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWalkableAreas() const {
     int counter = 0;
-    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_WALKABLEAREA)) {
+    for (const auto& walkableArea : myAdditionals.at(GNE_TAG_JPS_WALKABLEAREA)) {
         if (walkableArea->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1275,9 +1294,9 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkableAreas() const {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsObstacles() const {
     int counter = 0;
-    for (const auto& obstacle : myAdditionals.at(GNE_TAG_OBSTACLE)) {
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_OBSTACLE)) {
         if (obstacle->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1287,9 +1306,45 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedObstacles() const {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIWaypoints() const {
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWaitingAreas() const {
     int counter = 0;
-    for (const auto& obstacle : myAdditionals.at(GNE_TAG_POIWAYPOINT)) {
+    for (const auto& waitingArea : myAdditionals.at(GNE_TAG_JPS_WAITINGAREA)) {
+        if (waitingArea->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsSources() const {
+    int counter = 0;
+    for (const auto& source : myAdditionals.at(GNE_TAG_JPS_SOURCE)) {
+        if (source->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsSinks() const {
+    int counter = 0;
+    for (const auto& sink : myAdditionals.at(GNE_TAG_JPS_SINK)) {
+        if (sink->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWaypoints() const {
+    int counter = 0;
+    for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_WAYPOINT)) {
         if (obstacle->isAttributeCarrierSelected()) {
             counter++;
         }
@@ -1385,6 +1440,23 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
 
 
 GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
+    for (const auto &type : types) {
+        for (const auto& demandElement : myDemandElements.at(type)) {
+            if (demandElement->getID() == id) {
+                return demandElement;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail) const {
     // cast demandElement
     GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(AC);
@@ -1394,21 +1466,6 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
-    }
-}
-
-
-GNEDemandElement*
-GNENetHelper::AttributeCarriers::retrieveFirstDemandElement(SumoXMLTag type) const {
-    if (myDemandElements.at(type).size() == 0) {
-        return nullptr;
-    } else {
-        // map with elements sorted by ID
-        std::map<std::string, GNEDemandElement* > map;
-        for (const auto& demandElement : myDemandElements.at(type)) {
-            map[demandElement->getID()] = demandElement;
-        }
-        return map.begin()->second;
     }
 }
 
@@ -1463,6 +1520,8 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
         prefix = neteditOptions.getString("route-prefix");
+    } else if (tag == SUMO_TAG_ROUTE_DISTRIBUTION) {
+        prefix = neteditOptions.getString("routeDistribution-prefix");
     } else if (tag == SUMO_TAG_VTYPE) {
         prefix = neteditOptions.getString("vType-prefix");
     } else if (tag == SUMO_TAG_VTYPE_DISTRIBUTION) {
@@ -1488,53 +1547,34 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     }
     // declare counter
     int counter = 0;
-    if (tagProperty.isType()) {
-        // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_VTYPE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, prefix + "_" + toString(counter), false) != nullptr)) {
+    if (std::find(NamespaceIDs::types.begin(), NamespaceIDs::types.end(), tag) != NamespaceIDs::types.end()) {
+        while (retrieveDemandElements(NamespaceIDs::types, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new person ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isPerson()) {
-        // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::routes.begin(), NamespaceIDs::routes.end(), tag) != NamespaceIDs::routes.end()) {
+        while (retrieveDemandElements(NamespaceIDs::routes, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new person ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isContainer()) {
-        // special case for containers (container and containerFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_CONTAINER, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::persons.begin(), NamespaceIDs::persons.end(), tag) != NamespaceIDs::persons.end()) {
+        while (retrieveDemandElements(NamespaceIDs::persons, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new container ID
-        return (prefix + "_" + toString(counter));
-    } else if (tagProperty.isVehicle() || tagProperty.isFlow()) {
-        // check all vehicles, because share nameSpaces
-        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_TRIP_TAZS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_TAZS, prefix + "_" + toString(counter), false) != nullptr)) {
+    } else if (std::find(NamespaceIDs::containers.begin(), NamespaceIDs::containers.end(), tag) != NamespaceIDs::containers.end()) {
+        while (retrieveDemandElements(NamespaceIDs::containers, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new vehicle ID
-        return (prefix + "_" + toString(counter));
+    } else if (std::find(NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end(), tag) != NamespaceIDs::vehicles.end()) {
+        while (retrieveDemandElements(NamespaceIDs::vehicles, prefix + "_" + toString(counter), false) != nullptr) {
+            counter++;
+        }
     } else {
         while (retrieveDemandElement(tag, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
-        // return new element ID
-        return (prefix + "_" + toString(counter));
     }
+    // return new element ID
+    return (prefix + "_" + toString(counter));
+
 }
 
 
@@ -2628,16 +2668,18 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 break;
             case DemandEditMode::DEMAND_TYPE:
                 if (tagProperty.isType()) {
-                    myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
+                    myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
                 }
                 break;
             case DemandEditMode::DEMAND_TYPEDISTRIBUTION:
                 if (tagProperty.isType()) {
-                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getTypeDistributionSelector()->refreshTypeDistributionSelector();
+                    myNet->getViewNet()->getViewParent()->getTypeDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
                 }
                 break;
-            case DemandEditMode::DEMAND_STOP:
-                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
+            case DemandEditMode::DEMAND_ROUTEDISTRIBUTION:
+                if (tagProperty.isRoute()) {
+                    myNet->getViewNet()->getViewParent()->getRouteDistributionFrame()->getDistributionSelector()->refreshDistributionSelector();
+                }
                 break;
             case DemandEditMode::DEMAND_PERSON:
                 if (tagProperty.isType()) {
@@ -2658,6 +2700,9 @@ GNENetHelper::AttributeCarriers::updateDemandElementFrames(const GNETagPropertie
                 if (tagProperty.isContainer()) {
                     myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getContainerSelector()->refreshDemandElementSelector();
                 }
+                break;
+            case DemandEditMode::DEMAND_STOP:
+                myNet->getViewNet()->getViewParent()->getStopFrame()->getStopParentSelector()->refreshDemandElementSelector();
                 break;
             default:
                 // nothing to update

@@ -173,6 +173,9 @@ public:
         return myFlowIDs.count(id) != 0;
     }
 
+    /// @brief updates the flow scale value to keep track of TraCI-induced change
+    void updateScale(const std::string vtypeid);
+
 private:
     /** @brief Tries to emit the vehicle
      *

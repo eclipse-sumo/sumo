@@ -177,7 +177,7 @@ def dijkstraBoost(boostGraph, start):
 class DijkstraRouter(handler.ContentHandler):
 
     """standalone class for routing on a sumolib network.
-    The edges from the network recieve new attribute 'cost' based on
+    The edges from the network receive new attribute 'cost' based on
     a loaded meanData output
     """
 
@@ -255,5 +255,5 @@ class DijkstraRouter(handler.ContentHandler):
         if dest in D:
             return D[dest]
         else:
-            raise("No path between %s and %s found" %
+            raise ("No path between %s and %s found" %
                   (start.getID(), dest.getID()))

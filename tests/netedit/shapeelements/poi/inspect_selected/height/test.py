@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 451, 119)
 
 # Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.height, "dummyHeight", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspectSelection.height, "dummyHeight", False)
 
 # Change parameter 7 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.height, "-3", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspectSelection.height, "-3", False)
 
 # Change parameter 7 with a valid value
-netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.height, "5", False)
+netedit.modifyAttribute(netedit.attrs.poi.inspectSelection.height, "5", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

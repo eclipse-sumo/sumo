@@ -71,7 +71,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     // build menu bars
-    superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSupermodes);
     saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
     timeSwitch = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellTimeFormat, GUIDesignToolBarRaisedSame);
     navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
@@ -330,6 +330,32 @@ GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
     myDemandMenuCascade->disable();
     myDataMenuCascade->disable();
     myMeanDataMenuCascade->disable();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::showTLSMenuCommand() {
+    myTLSMenuCascade->show();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::hideTLSMenuCommand() {
+    myTLSMenuCascade->hide();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::showDataMenuCommands() {
+    myDataMenuCascade->show();
+    myMeanDataMenuCascade->show();
+}
+
+
+void
+GNEApplicationWindowHelper::FileMenuCommands::hideDataMenuCommands() {
+    myDataMenuCascade->hide();
+    myMeanDataMenuCascade->hide();
 }
 
 
@@ -633,7 +659,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
     additionalMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&Additional"), "A", TL("Create additional elements."),
         GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp,
-        MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
+        MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS);
     wireMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&Wire"), "W", TL("Create wires."),
         GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myModesMenuCommandsParent->myGNEApp,
@@ -717,7 +743,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
         GUIIconSubSys::getIcon(GUIIcon::MODETYPEDISTRIBUTION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("Stop"), "A", TL("Create stops."),
-        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS);
     personMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("Person"), "P", TL("Create persons."),
         GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
@@ -1281,16 +1307,16 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPane* editMenu) {
     // add open in sumo options
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-            (TL("Load additionals in sumo-gui") + std::string("\t\t") + TL("Load additionals in sumo-gui.")).c_str(),
-            myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
+        (TL("Load additionals in sumo-gui") + std::string("\t\t") + TL("Load additionals in sumo-gui.")).c_str(),
+        myGNEApp, MID_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-                                          (TL("Load demand in sumo-gui") + std::string("\t\t") + TL("Load demand in sumo-gui.")).c_str(),
-                                          myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
+        (TL("Load demand in sumo-gui") + std::string("\t\t") + TL("Load demand in sumo-gui.")).c_str(),
+        myGNEApp, MID_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                    TL("Open in sumo-gui"), "Ctrl+T", TL("Opens the sumo-gui application with the current network."),
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
+        TL("Open in sumo-gui"), "Ctrl+T", TL("Opens the sumo-gui application with the current network."),
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
 }
 
 // ---------------------------------------------------------------------------
@@ -1360,20 +1386,35 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                         GUIIconSubSys::getIcon(GUIIcon::POI),
                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
-    menuCheckLockWalkableAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("WalkableAreas"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::WALKABLEAREA),
+    menuCheckLockJpsWalkableAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                    TL("WalkableAreas"), "", "",
+                                    GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA),
+                                    myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockJpsObstacles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                TL("Obstacles"), "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockJpsWaitingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                   TL("WaitingAreas"), "", "",
+                                   GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA),
+                                   myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockJpsSources = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                              TL("Sources"), "", "",
+                              GUIIconSubSys::getIcon(GUIIcon::JPS_SOURCE),
+                              myGNEApp, MID_GNE_LOCK_ELEMENT);
+
+    menuCheckLockJpsSinks = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                            TL("Sinks"), "", "",
+                            GUIIconSubSys::getIcon(GUIIcon::JPS_SINK),
                             myGNEApp, MID_GNE_LOCK_ELEMENT);
 
-    menuCheckLockObstacles = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("Obstacles"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::OBSTACLE),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
-
-    menuCheckLockPOIWaypoints = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                            TL("POIWaypoints"), "", "",
-                            GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
-                            myGNEApp, MID_GNE_LOCK_ELEMENT);
+    menuCheckLockJpsWaypoints = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
+                                TL("Waypoints"), "", "",
+                                GUIIconSubSys::getIcon(GUIIcon::JPS_WAYPOINT),
+                                myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     // demand
     menuCheckLockRoutes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
@@ -1475,9 +1516,12 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockWires->remHotKey(parseHotKey('w'));
     menuCheckLockPolygons->remHotKey(parseHotKey('p'));
     menuCheckLockPOIs->remHotKey(parseHotKey('o'));
-    menuCheckLockWalkableAreas->remHotKey(parseHotKey('n'));
-    menuCheckLockObstacles->remHotKey(parseHotKey('b'));
-    menuCheckLockPOIWaypoints->remHotKey(parseHotKey('m'));
+    menuCheckLockJpsWalkableAreas->remHotKey(parseHotKey('n'));
+    menuCheckLockJpsObstacles->remHotKey(parseHotKey('b'));
+    menuCheckLockJpsWaitingAreas->remHotKey(parseHotKey('x'));
+    menuCheckLockJpsSources->remHotKey(parseHotKey('k'));
+    menuCheckLockJpsSinks->remHotKey(parseHotKey('i'));
+    menuCheckLockJpsWaypoints->remHotKey(parseHotKey('m'));
     // demand
     menuCheckLockRoutes->remHotKey(parseHotKey('r'));
     menuCheckLockVehicles->remHotKey(parseHotKey('v'));
@@ -1509,9 +1553,12 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockWires->enable();
     menuCheckLockPolygons->enable();
     menuCheckLockPOIs->enable();
-    menuCheckLockWalkableAreas->enable();
-    menuCheckLockObstacles->enable();
-    menuCheckLockPOIWaypoints->enable();
+    menuCheckLockJpsWalkableAreas->enable();
+    menuCheckLockJpsObstacles->enable();
+    menuCheckLockJpsWaitingAreas->enable();
+    menuCheckLockJpsSources->enable();
+    menuCheckLockJpsSinks->enable();
+    menuCheckLockJpsWaypoints->enable();
     // set accels
     menuCheckLockJunction->addHotKey(parseHotKey('j'));
     menuCheckLockEdges->addHotKey(parseHotKey('e'));
@@ -1524,9 +1571,12 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockWires->addHotKey(parseHotKey('w'));
     menuCheckLockPolygons->addHotKey(parseHotKey('p'));
     menuCheckLockPOIs->addHotKey(parseHotKey('o'));
-    menuCheckLockWalkableAreas->remHotKey(parseHotKey('n'));
-    menuCheckLockObstacles->remHotKey(parseHotKey('b'));
-    menuCheckLockPOIWaypoints->remHotKey(parseHotKey('m'));
+    menuCheckLockJpsWalkableAreas->addHotKey(parseHotKey('n'));
+    menuCheckLockJpsObstacles->addHotKey(parseHotKey('b'));
+    menuCheckLockJpsWaitingAreas->addHotKey(parseHotKey('x'));
+    menuCheckLockJpsSources->addHotKey(parseHotKey('k'));
+    menuCheckLockJpsSinks->addHotKey(parseHotKey('i'));
+    menuCheckLockJpsWaypoints->addHotKey(parseHotKey('m'));
     // now show it
     menuCheckLockJunction->show();
     menuCheckLockEdges->show();
@@ -1539,9 +1589,12 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockWires->show();
     menuCheckLockPolygons->show();
     menuCheckLockPOIs->show();
-    menuCheckLockWalkableAreas->show();
-    menuCheckLockObstacles->show();
-    menuCheckLockPOIWaypoints->show();
+    menuCheckLockJpsWalkableAreas->show();
+    menuCheckLockJpsObstacles->show();
+    menuCheckLockJpsWaitingAreas->show();
+    menuCheckLockJpsSources->show();
+    menuCheckLockJpsSinks->show();
+    menuCheckLockJpsWaypoints->show();
 }
 
 
@@ -1558,9 +1611,12 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockTAZs->disable();
     menuCheckLockPolygons->disable();
     menuCheckLockPOIs->disable();
-    menuCheckLockWalkableAreas->disable();
-    menuCheckLockObstacles->disable();
-    menuCheckLockPOIWaypoints->disable();
+    menuCheckLockJpsWalkableAreas->disable();
+    menuCheckLockJpsObstacles->disable();
+    menuCheckLockJpsWaitingAreas->disable();
+    menuCheckLockJpsSources->disable();
+    menuCheckLockJpsSinks->disable();
+    menuCheckLockJpsWaypoints->disable();
     // now hide it
     menuCheckLockJunction->hide();
     menuCheckLockEdges->hide();
@@ -1573,9 +1629,12 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockWires->hide();
     menuCheckLockPolygons->hide();
     menuCheckLockPOIs->hide();
-    menuCheckLockWalkableAreas->hide();
-    menuCheckLockObstacles->hide();
-    menuCheckLockPOIWaypoints->hide();
+    menuCheckLockJpsWalkableAreas->hide();
+    menuCheckLockJpsObstacles->hide();
+    menuCheckLockJpsWaitingAreas->hide();
+    menuCheckLockJpsSources->hide();
+    menuCheckLockJpsSinks->hide();
+    menuCheckLockJpsWaypoints->hide();
 }
 
 
@@ -1687,9 +1746,12 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockWires->setCheck(TRUE);
     menuCheckLockPolygons->setCheck(TRUE);
     menuCheckLockPOIs->setCheck(TRUE);
-    menuCheckLockWalkableAreas->setCheck(TRUE);
-    menuCheckLockObstacles->setCheck(TRUE);
-    menuCheckLockPOIWaypoints->setCheck(TRUE);
+    menuCheckLockJpsWalkableAreas->setCheck(TRUE);
+    menuCheckLockJpsObstacles->setCheck(TRUE);
+    menuCheckLockJpsWaitingAreas->setCheck(TRUE);
+    menuCheckLockJpsSources->setCheck(TRUE);
+    menuCheckLockJpsSinks->setCheck(TRUE);
+    menuCheckLockJpsWaypoints->setCheck(TRUE);
     menuCheckLockRoutes->setCheck(TRUE);
     menuCheckLockVehicles->setCheck(TRUE);
     menuCheckLockPersons->setCheck(TRUE);
@@ -1719,9 +1781,12 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockWires->setCheck(FALSE);
     menuCheckLockPolygons->setCheck(FALSE);
     menuCheckLockPOIs->setCheck(FALSE);
-    menuCheckLockWalkableAreas->setCheck(FALSE);
-    menuCheckLockObstacles->setCheck(FALSE);
-    menuCheckLockPOIWaypoints->setCheck(FALSE);
+    menuCheckLockJpsWalkableAreas->setCheck(FALSE);
+    menuCheckLockJpsObstacles->setCheck(FALSE);
+    menuCheckLockJpsWaitingAreas->setCheck(FALSE);
+    menuCheckLockJpsSources->setCheck(FALSE);
+    menuCheckLockJpsSinks->setCheck(FALSE);
+    menuCheckLockJpsWaypoints->setCheck(FALSE);
     menuCheckLockRoutes->setCheck(FALSE);
     menuCheckLockVehicles->setCheck(FALSE);
     menuCheckLockPersons->setCheck(FALSE);
@@ -1761,15 +1826,21 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockWires->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_POLY) {
         menuCheckLockPolygons->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_WALKABLEAREA) {
-        menuCheckLockWalkableAreas->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_OBSTACLE) {
-        menuCheckLockObstacles->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_POIWAYPOINT) {
-        menuCheckLockPOIWaypoints->setCheck(value);
-    } else if ((AC->getTagProperty().getTag() != SUMO_TAG_POI) ||
-               (AC->getTagProperty().getTag() != GNE_TAG_POILANE) ||
-               (AC->getTagProperty().getTag() != GNE_TAG_POIGEO)) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) {
+        menuCheckLockJpsWalkableAreas->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) {
+        menuCheckLockJpsObstacles->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) {
+        menuCheckLockJpsWaitingAreas->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_SOURCE) {
+        menuCheckLockJpsSources->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_SINK) {
+        menuCheckLockJpsSinks->setCheck(value);
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WAYPOINT) {
+        menuCheckLockJpsWaypoints->setCheck(value);
+    } else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) ||
+               (AC->getTagProperty().getTag() == GNE_TAG_POILANE) ||
+               (AC->getTagProperty().getTag() == GNE_TAG_POIGEO)) {
         menuCheckLockPOIs->setCheck(value);
     } else if (AC->getTagProperty().isRoute()) {
         menuCheckLockRoutes->setCheck(value);
@@ -1789,7 +1860,8 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockTransports->setCheck(value);
     } else if (AC->getTagProperty().isTranshipPlan()) {
         menuCheckLockTranships->setCheck(value);
-    } else if (AC->getTagProperty().isStop() || AC->getTagProperty().isStopPerson()) {
+    } else if (AC->getTagProperty().isStop() ||
+               AC->getTagProperty().isStopPerson()) {
         menuCheckLockStops->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
         menuCheckLockEdgeDatas->setCheck(value);
@@ -1999,6 +2071,9 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Persons"), "Shift+P", TL("Open a dialog for locating a Person."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
+    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
+                                           TL("&Containers"), "Shift+C", TL("Open a dialog for locating a Container."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), myGNEApp, MID_HOTKEY_SHIFT_C_LOCATECONTAINER);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Route"), "Shift+R", TL("Open a dialog for locating a Route."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_HOTKEY_SHIFT_R_LOCATEROUTE);

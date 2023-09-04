@@ -268,8 +268,8 @@ GNELane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->begin(GUIIcon::CROSSING, "remove geometry point of " + getTagStr());
-                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+                undoList->begin(this, "remove geometry point of " + getTagStr());
+                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
         }
@@ -921,7 +921,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // no special handling
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1148,8 +1148,8 @@ GNELane::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->begin(this, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }
 
@@ -1779,11 +1779,11 @@ GNELane::getGNEIncomingConnections() {
     GNEJunction* junctionSource =  myParentEdge->getFromJunction();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
-        for (auto i : junctionSource->getGNEIncomingEdges()) {
+        for (const auto &incomingEdge : junctionSource->getGNEIncomingEdges()) {
             // Iterate over connection of incoming edges
-            for (auto j : i->getGNEConnections()) {
-                if (j->getNBEdgeConnection().fromLane == getIndex()) {
-                    incomingConnections.push_back(j);
+            for (const auto &connection : incomingEdge->getGNEConnections()) {
+                if (connection->getLaneFrom()->getIndex() == getIndex()) {
+                    incomingConnections.push_back(connection);
                 }
             }
         }
@@ -1798,9 +1798,9 @@ GNELane::getGNEOutcomingConnections() {
     const std::vector<GNEConnection*>& edgeConnections = myParentEdge->getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
-    for (auto i : edgeConnections) {
-        if (i->getNBEdgeConnection().fromLane == getIndex()) {
-            outcomingConnections.push_back(i);
+    for (const auto &connection : edgeConnections) {
+        if (connection->getLaneTo()->getIndex() == getIndex()) {
+            outcomingConnections.push_back(connection);
         }
     }
     return outcomingConnections;
@@ -1851,7 +1851,7 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     }
     // create menu commands for all edge operations
     GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge here"), nullptr, &parent, MID_GNE_EDGE_SPLIT);
-    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge in both directions here (no simmetric opposite edge)"), nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
+    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, TL("Split edge in both directions here (no symmetric opposite edge)"), nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
     // check if allow split edge in both directions
     splitBothDirections->disable();
     const auto oppositeEdges = myParentEdge->getOppositeEdges();

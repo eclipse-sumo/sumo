@@ -356,7 +356,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -364,12 +364,12 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextPersonPlan
             if (nextPersonPlan) {
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                undoList->begin(this, "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -381,12 +381,12 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // obtain busStop
                 const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                undoList->begin(this, "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -398,12 +398,12 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 // obtain trainStop
                 const GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                undoList->begin(this, "Change from attribute of next personPlan");
                 nextPersonPlan->setAttribute(SUMO_ATTR_FROM, trainStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -419,7 +419,7 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case GNE_ATTR_TO_TRAINSTOP:
@@ -566,7 +566,7 @@ GNERide::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
+    undoList->begin(this, "arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

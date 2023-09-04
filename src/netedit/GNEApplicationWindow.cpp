@@ -191,7 +191,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,      GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                    GNEApplicationWindow::onCmdSetMode),
@@ -300,10 +300,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onCmdSetFrontElement),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F11_FRONTELEMENT,                GNEApplicationWindow::onUpdNeedsFrontElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADADDITIONALS,        GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,             GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,     GNEApplicationWindow::onUpdNeedsNetworkElement),
     /* Prepared for #6042
@@ -345,6 +345,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_C_LOCATECONTAINER,     GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_C_LOCATECONTAINER,     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_R_LOCATEROUTE,         GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_R_LOCATEROUTE,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_S_LOCATESTOP,          GNEApplicationWindow::onCmdLocate),
@@ -363,7 +365,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
@@ -433,8 +435,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                     GNEApplicationWindow::onUpdRequireViewNet),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToogleTimeFormat),
-    FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToogleTimeFormat),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onCmdToggleTimeFormat),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_TOGGLE_TIMEFORMAT,                  GNEApplicationWindow::onUpdToggleTimeFormat),
 };
 
 // Object implementation
@@ -1293,7 +1295,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
         if (myViewNet) {
-            myViewNet->forceSupermodeNetwork();
+            myViewNet->forceSupemodeNetwork();
         }
         if (myViewNet && ec->viewportFromRegistry) {
             Position off;
@@ -1471,6 +1473,7 @@ GNEApplicationWindow::fillMenuBar() {
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
+    // build language menu
     buildLanguageMenu(myToolbarsGrip.menu);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
@@ -1771,6 +1774,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         return 1;
     }
 }
+
 
 bool
 GNEApplicationWindow::consoleOptionsLoaded() {
@@ -2132,7 +2136,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().switchTimeFormat();
@@ -2150,7 +2154,7 @@ GNEApplicationWindow::onCmdToogleTimeFormat(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdToogleTimeFormat(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdToggleTimeFormat(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getTimeFormat().updateButtonLabel();
@@ -2280,7 +2284,7 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, v
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
         myViewNet->getDataViewOptions().getVisibleDataMenuCommands(visibleMenuCommands);
-        // now check that numericalKeyPressed isn't greather than visible view options
+        // now check that numericalKeyPressed isn't greater than visible view options
         if (numericalKeyPressed >= (int)visibleMenuCommands.size()) {
             return 1;
         }
@@ -2356,7 +2360,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::OPTIONS, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
     if (dialog.first == TRUE) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         NBFrame::checkOptions(neteditOptions);
@@ -2631,11 +2635,17 @@ long
 GNEApplicationWindow::onUpdSaveJuPedSimElementsAs(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_WALKABLEAREA).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_OBSTACLE).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_OBSTACLE).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIWAYPOINT).size() > 0) {
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SOURCE).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SINK).size() > 0) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -4714,6 +4724,23 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 }
 
 
+void
+GNEApplicationWindow::clearUndoList() {
+    if (myViewNet) {
+        // destroy Popup (to avoid crashes)
+        myViewNet->destroyPopup();
+    }
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->clear();
+}
+
+
+GNEApplicationWindowHelper::FileMenuCommands&
+GNEApplicationWindow::getFileMenuCommands() {
+    return myFileMenuCommands;
+}
+
+
 GNEApplicationWindowHelper::EditMenuCommands&
 GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
@@ -4723,17 +4750,6 @@ GNEApplicationWindow::getEditMenuCommands() {
 GNEApplicationWindowHelper::LockMenuCommands&
 GNEApplicationWindow::getLockMenuCommands() {
     return myLockMenuCommands;
-}
-
-
-void
-GNEApplicationWindow::clearUndoList() {
-    if (myViewNet) {
-        // destroy Popup (to avoid crashes)
-        myViewNet->destroyPopup();
-    }
-    // clear undo list and return true to continue with closing/reload
-    myUndoList->clear();
 }
 
 
@@ -4761,8 +4777,14 @@ GNEApplicationWindow::loadAdditionalElements() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
     const auto additionalFiles = neteditOptions.getStringVector("additional-files");
-    // continue depending of network and additional files
-    if (myNet && (additionalFiles.size() > 0)) {
+    // check if ignore loading of additional files
+    const auto ignoreLoadAdditionalFiles = neteditOptions.getBool("ignore.additionalelements");
+    // check conditions
+    if (ignoreLoadAdditionalFiles) {
+        // reset flag
+        neteditOptions.resetWritable();
+        neteditOptions.set("ignore.additionalelements", "false");
+    } else if (myNet && (additionalFiles.size() > 0)) {
         // use first file as output
         neteditOptions.resetWritable();
         neteditOptions.set("additional-files", additionalFiles.front());
@@ -4796,8 +4818,14 @@ GNEApplicationWindow::loadDemandElements() {
     auto& neteditOptions = OptionsCont::getOptions();
     // get demand files
     const auto demandFiles = neteditOptions.getStringVector("route-files");
-    // continue depending of network and additional files
-    if (myNet && (demandFiles.size() > 0)) {
+    // check if ignore loading of additional files
+    const auto ignoreLoadDemandFiles = neteditOptions.getBool("ignore.routeelements");
+    // check conditions
+    if (ignoreLoadDemandFiles) {
+        // reset flag
+        neteditOptions.resetWritable();
+        neteditOptions.set("ignore.routeelements", "false");
+    } else if (myNet && (demandFiles.size() > 0)) {
         // use first file as output
         neteditOptions.resetWritable();
         neteditOptions.set("route-files", demandFiles.front());

@@ -36,20 +36,20 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Containers"),
+    GNEFrame(viewParent, viewNet, TL("Containers")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create tag Selector modul for containers
+    // create tag Selector module for containers
     myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
-    // create container types selector modul and set DEFAULT_CONTAINERTYPE_ID as default element
+    // create container types selector module and set DEFAULT_CONTAINERTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
 
     // create container attributes
     myContainerAttributes = new GNEAttributesCreator(this);
 
-    // create tag Selector modul for container plans
+    // create tag Selector module for container plans
     myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
@@ -187,9 +187,9 @@ GNEContainerFrame::tagSelected() {
                 }
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-                // show Netedit attributes modul
+                // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
-                // show edge path creator modul
+                // show edge path creator module
                 myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                 // show path legend
                 myPathLegend->showPathLegendModule();
@@ -210,7 +210,7 @@ GNEContainerFrame::tagSelected() {
             myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide all moduls if container isn't valid
+        // hide all modules if container isn't valid
         myTypeSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerAttributes->hideAttributesCreatorModule();
@@ -243,9 +243,9 @@ GNEContainerFrame::demandElementSelected() {
             }
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-            // show Netedit attributes modul
+            // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
-            // show edge path creator modul
+            // show edge path creator module
             myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show path legend
             myPathLegend->showPathLegendModule();
@@ -281,7 +281,7 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person

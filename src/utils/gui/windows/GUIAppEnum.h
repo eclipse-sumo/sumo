@@ -40,7 +40,7 @@ enum {
     /// @{
 
     /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
-    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
+    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,
     /// @brief hotkey for mode connecting lanes AND container
     MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
@@ -414,7 +414,7 @@ enum {
     /// @{
 
     /// @brief Change coloring scheme - combo
-    MID_COLOURSCHEMECHANGE,
+    MID_COLORSCHEMECHANGE,
 
     /// @}
 
@@ -666,6 +666,16 @@ enum {
 
     /// @}
 
+    /// @name toolbar edot
+    /// @{
+
+    /// @brief load additionals in sumo-gui/netedit after press ctrl+T
+    MID_TOOLBAREDIT_LOADADDITIONALS,
+    /// @brief load demand in sumo-gui/netedit after press ctrl+T
+    MID_TOOLBAREDIT_LOADDEMAND,
+
+    /// @}
+
     /// @name groupBoxModule messages
     /// @{
     /// @brief collapse groupBoxModule
@@ -758,13 +768,19 @@ enum {
 
     /// @}
 
+    /// @name Toolbar view messages
+    /// @{
+
+    /// @brief set default view
+    MID_GNE_VIEW_DEFAULT,
+    /// @brief set juPedSim view
+    MID_GNE_VIEW_JUPEDSIM,
+
+    /// @}
+
     /// @name Toolbar windows messages
     /// @{
 
-    /// @brief load additionals in SUMO-GUI after press ctrl+T
-    MID_GNE_TOOLBAREDIT_LOADADDITIONALS,
-    /// @brief load demand in SUMO-GUI after press ctrl+T
-    MID_GNE_TOOLBAREDIT_LOADDEMAND,
     /// @brief compute path manager
     MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
     /// @brief enable/disable computing after switchin between supermodes
@@ -945,8 +961,12 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trough dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
-    /// @brief inspect attribute vType/vTypeDistribution
-    MID_GNE_SET_ATTRIBUTE_VTYPE,
+    /// @brief inspect attribute parent element
+    MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
+    /// @brief edit attribute allow
+    MID_GNE_SET_ATTRIBUTE_ALLOW,
+    /// @brief edit attribute color
+    MID_GNE_SET_ATTRIBUTE_COLOR,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)
@@ -1003,6 +1023,10 @@ enum {
     MID_GNE_PROTECT_ALL,
     /// @brief unprotect all elements
     MID_GNE_UNPROTECT_ALL,
+    /// @brief move up
+    MID_GNE_MOVEUP,
+    /// @brief move down
+    MID_GNE_MOVEDOWN,
 
     /// @}
 
@@ -1554,7 +1578,7 @@ enum {
     /// @brief callback for MFXTextFieldSearch
     /// @{
 
-    MID_MTFS_UPDATED,
+    MID_MTEXTFIELDSEARCH_UPDATED,
 
     /// @}
 

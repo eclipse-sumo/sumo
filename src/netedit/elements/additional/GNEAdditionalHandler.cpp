@@ -18,10 +18,12 @@
 // Builds trigger objects for netedit
 /****************************************************************************/
 #include <config.h>
+
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEAccess.h"
@@ -101,7 +103,7 @@ GNEAdditionalHandler::buildBusStop(const CommonXMLStructure::SumoBaseObject* sum
                                                     parkingLength, color, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::BUSSTOP, TL("add bus stop '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(busStop, TL("add bus stop '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -145,7 +147,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
                     parkingLength, color, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TRAINSTOP, TL("add train stop '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(trainStop, TL("add train stop '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(trainStop, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -191,7 +193,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         GNEAdditional* access = new GNEAccess(busStop, lane, myNet, pos, length, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::ACCESS, TL("add access in '") + busStop->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + busStop->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(access, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -232,7 +234,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
                     color, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINERSTOP, TL("add container stop '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(containerStop, TL("add container stop '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -251,8 +253,8 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
 void
 GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
         const std::string& laneID, const double startPos, const double endPos, const std::string& name, const double chargingPower,
-        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
-        const Parameterised::Map& parameters) {
+        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+        const SUMOTime waitingTime, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_CHARGING_STATION, id);
@@ -273,10 +275,10 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
         } else {
             // build chargingStation
             GNEAdditional* chargingStation = new GNEChargingStation(id, lane, myNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit,
-                    chargeDelay, friendlyPosition, parameters);
+                    chargeDelay, chargeType, waitingTime, friendlyPosition, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CHARGINGSTATION, TL("add charging station '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(chargingStation, TL("add charging station '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -328,7 +330,7 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
                     (width == 0) ? SUMO_const_laneWidth : width, length, angle, lefthand, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::PARKINGAREA, TL("add parking area '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(parkingArea, TL("add parking area '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -375,7 +377,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
             GNEAdditional* parkingSpace = new GNEParkingSpace(myNet, parkingArea, Position(x, y, z), width, length, angle, slope, name, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::PARKINGSPACE, TL("add parking space in '") + parkingArea->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(parkingSpace, TL("add parking space in '") + parkingArea->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -419,7 +421,7 @@ GNEAdditionalHandler::buildE1Detector(const CommonXMLStructure::SumoBaseObject* 
             GNEAdditional* detectorE1 = new GNEInductionLoopDetector(id, lane, myNet, position, period, file, vehicleTypes, name, friendlyPos, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::E1, TL("add induction loop '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(detectorE1, TL("add induction loop '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -484,7 +486,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(const CommonXMLStructure::SumoBa
                 friendlyPos, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::E2, TL("add lane area detector '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -545,7 +547,7 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(const CommonXMLStructure::SumoBas
                     friendlyPos, parameters);
                 // insert depending of allowUndoRedo
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::E2, TL("add lane area detector '") + id + "'");
+                    myNet->getViewNet()->getUndoList()->begin(detectorE2, TL("add lane area detector '") + id + "'");
                     overwriteAdditional();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
                     myNet->getViewNet()->getUndoList()->end();
@@ -590,7 +592,7 @@ GNEAdditionalHandler::buildDetectorE3(const CommonXMLStructure::SumoBaseObject* 
         GNEAdditional* E3 = new GNEMultiEntryExitDetector(id, myNet, pos, period, filename, vehicleTypes, name, timeThreshold, speedThreshold, expectedArrival, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::E3, TL("add entry-exit detector '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(E3, TL("add entry-exit detector '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(E3, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -625,7 +627,7 @@ GNEAdditionalHandler::buildDetectorEntry(const CommonXMLStructure::SumoBaseObjec
         GNEAdditional* entry = new GNEEntryExitDetector(SUMO_TAG_DET_ENTRY, myNet, E3, lane, pos, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::E3ENTRY, TL("add entry detector in '") + E3->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(entry, TL("add entry detector in '") + E3->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(entry, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -660,7 +662,7 @@ GNEAdditionalHandler::buildDetectorExit(const CommonXMLStructure::SumoBaseObject
         GNEAdditional* exit = new GNEEntryExitDetector(SUMO_TAG_DET_EXIT, myNet, E3, lane, pos, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::E3EXIT, TL("add exit detector in '") + E3->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(exit, TL("add exit detector in '") + E3->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(exit, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -697,7 +699,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(const CommonXMLStructure::SumoBaseO
             GNEAdditional* detectorE1Instant = new GNEInstantInductionLoopDetector(id, lane, myNet, pos, filename, vehicleTypes, name, friendlyPos, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::E1INSTANT, TL("add instant induction loop '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(detectorE1Instant, TL("add instant induction loop '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1Instant, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -747,7 +749,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
                                         new GNECalibrator(id, myNet, lane, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CALIBRATOR, TL("add lane calibrator '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(calibrator, TL("add lane calibrator '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -801,7 +803,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
                                         new GNECalibrator(id, myNet, edge, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::CALIBRATOR, TL("add calibrator '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(calibrator, TL("add calibrator '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -842,7 +844,7 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
         GNEAdditional* flow = new GNECalibratorFlow(calibrator, vType, route, vehicleParameter);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::FLOW, TL("add calibrator flow in '") + calibrator->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(flow, TL("add calibrator flow in '") + calibrator->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(flow, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -898,7 +900,7 @@ GNEAdditionalHandler::buildRerouter(const CommonXMLStructure::SumoBaseObject* su
             }
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::REROUTER, TL("add rerouter '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(rerouter, TL("add rerouter '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
                 // add symbols
@@ -937,7 +939,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
     } else if (end < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_INTERVAL, rerouter->getID(), SUMO_ATTR_END);
     } else if (end < begin) {
-        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greather than end.", rerouter->getID()));
+        writeError(TLF("Could not build interval with ID '%' in netedit; begin is greater than end.", rerouter->getID()));
     } else {
         // check if new interval will produce a overlapping
         if (checkOverlappingRerouterIntervals(rerouter, begin, end)) {
@@ -945,7 +947,7 @@ GNEAdditionalHandler::buildRerouterInterval(const CommonXMLStructure::SumoBaseOb
             GNEAdditional* rerouterInterval = new GNERerouterInterval(rerouter, begin, end);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::REROUTERINTERVAL, TL("add rerouter interval in '") + rerouter->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(rerouterInterval, TL("add rerouter interval in '") + rerouter->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -976,7 +978,7 @@ GNEAdditionalHandler::buildClosingLaneReroute(const CommonXMLStructure::SumoBase
         GNEAdditional* closingLaneReroute = new GNEClosingLaneReroute(rerouterInterval, lane, permissions);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::CLOSINGLANEREROUTE, TL("add closing lane reroute in '") + lane->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(closingLaneReroute, TL("add closing lane reroute in '") + lane->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1004,7 +1006,7 @@ GNEAdditionalHandler::buildClosingReroute(const CommonXMLStructure::SumoBaseObje
         GNEAdditional* closingLaneReroute = new GNEClosingReroute(rerouterInterval, edge, permissions);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::CLOSINGREROUTE, TL("add closing reroute in '") + edge->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(closingLaneReroute, TL("add closing reroute in '") + edge->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1031,7 +1033,7 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
         GNEAdditional* destProbReroute = new GNEDestProbReroute(rerouterInterval, edge, probability);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::DESTPROBREROUTE, TL("add dest prob reroute in '") + edge->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(destProbReroute, TL("add dest prob reroute in '") + edge->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1059,7 +1061,7 @@ GNEAdditionalHandler::buildParkingAreaReroute(const CommonXMLStructure::SumoBase
         GNEAdditional* parkingAreaReroute = new GNEParkingAreaReroute(rerouterInterval, parkingArea, probability, visible);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::PARKINGZONEREROUTE, TL("add parking area reroute in '") + parkingArea->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(parkingAreaReroute, TL("add parking area reroute in '") + parkingArea->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1087,7 +1089,7 @@ GNEAdditionalHandler::buildRouteProbReroute(const CommonXMLStructure::SumoBaseOb
         GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterInterval, route, probability);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTEPROBREROUTE, TL("add route prob reroute in '") + route->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(routeProbReroute, TL("add route prob reroute in '") + route->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1124,7 +1126,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
             GNEAdditional* routeProbe = new GNERouteProbe(id, myNet, edge, period, name, file, begin, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::ROUTEPROBE, TL("add route probe '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(routeProbe, TL("add route probe '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1170,7 +1172,7 @@ GNEAdditionalHandler::buildVariableSpeedSign(const CommonXMLStructure::SumoBaseO
                 }
                 // insert depending of allowUndoRedo
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::VARIABLESPEEDSIGN, TL("add Variable Speed Sign '") + id + "'");
+                    myNet->getViewNet()->getUndoList()->begin(variableSpeedSign, TL("add Variable Speed Sign '") + id + "'");
                     overwriteAdditional();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
                     for (const auto& VSSSymbol : VSSSymbols) {
@@ -1211,7 +1213,7 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(const CommonXMLStructure::SumoB
         GNEAdditional* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSS, time, speed);
         // add it depending of allow undoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::VSSSTEP, TL("add VSS Step in '") + VSS->getID() + "'");
+            myNet->getViewNet()->getUndoList()->begin(variableSpeedSignStep, TL("add VSS Step in '") + VSS->getID() + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1242,13 +1244,13 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
         } else if (endTime < 0) {
             writeErrorInvalidNegativeValue(SUMO_TAG_VAPORIZER, edge->getID(), SUMO_ATTR_END);
         } else if (endTime < beginTime) {
-            writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greather than end.", edge->getID()));
+            writeError(TLF("Could not build Vaporizer with ID '%' in netedit; begin is greater than end.", edge->getID()));
         } else {
             // build vaporizer
             GNEAdditional* vaporizer = new GNEVaporizer(myNet, edge, beginTime, endTime, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::VAPORIZER, TL("add vaporizer in '") + edge->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(vaporizer, TL("add vaporizer in '") + edge->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1298,7 +1300,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check TAZ
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_TAZ, id);
-    } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE}, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(SUMO_TAG_TAZ, id);
     } else if (TAZShape.size() == 0) {
         writeError(TLF("Could not build TAZ with ID '%' in netedit; Invalid Shape.", id));
@@ -1312,7 +1314,7 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("add TAZ '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
             // create TAZEdges
@@ -1373,7 +1375,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 0);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1396,7 +1398,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
             TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1407,7 +1409,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
         } else {
             // update TAZ Attribute depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("update TAZ Source in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("update TAZ Source in '") + TAZ->getID() + "'");
                 TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), myNet->getViewNet()->getUndoList());
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -1445,7 +1447,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 0);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Source in '") + TAZ->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1467,7 +1469,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
             TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("add TAZ Sink in '") + TAZ->getID() + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1478,7 +1480,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
         } else {
             // update TAZ Attribute depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZ, TL("update TAZ Sink in '") + TAZ->getID() + "'");
+                myNet->getViewNet()->getUndoList()->begin(TAZ, TL("update TAZ Sink in '") + TAZ->getID() + "'");
                 TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), myNet->getViewNet()->getUndoList());
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -1507,7 +1509,7 @@ GNEAdditionalHandler::buildTractionSubstation(const CommonXMLStructure::SumoBase
         GNEAdditional* tractionSubstation = new GNETractionSubstation(id, myNet, pos, voltage, currentLimit, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::TRACTION_SUBSTATION, TL("add taction substation '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(tractionSubstation, TL("add traction substation '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(tractionSubstation, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1551,7 +1553,7 @@ GNEAdditionalHandler::buildOverheadWire(const CommonXMLStructure::SumoBaseObject
                 GNEAdditional* overheadWire = new GNEOverheadWire(id, lanes, tractionSubstation, myNet, startPos, endPos, friendlyPos, forbiddenInnerLanes, parameters);
                 // insert depending of allowUndoRedo
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::OVERHEADWIRE, TL("add overhead wire '") + id + "'");
+                    myNet->getViewNet()->getUndoList()->begin(overheadWire, TL("add overhead wire '") + id + "'");
                     overwriteAdditional();
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(overheadWire, true), true);
                     myNet->getViewNet()->getUndoList()->end();
@@ -1586,12 +1588,18 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
                                    double lineWidth, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (type == "jupedsim.walkable_area") {
-        buildWalkableArea(sumoBaseObject, id, shape, name, parameters);
+        buildJpsWalkableArea(sumoBaseObject, id, shape, name, parameters);
     } else if (type == "jupedsim.obstacle") { 
-        buildObstacle(sumoBaseObject, id, shape, name, parameters);
+        buildJpsObstacle(sumoBaseObject, id, shape, name, parameters);
+    } else if (type == "jupedsim.waiting_area") { 
+        buildJpsWaitingArea(sumoBaseObject, id, shape, name, parameters);
+    } else if (type == "jupedsim.source") { 
+        buildJpsSource(sumoBaseObject, id, shape, name, parameters);
+    } else if (type == "jupedsim.sink") { 
+        buildJpsSink(sumoBaseObject, id, shape, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
-    } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE}, id)) {
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
         writeErrorDuplicated(SUMO_TAG_POLY, id);
     } else if (lineWidth < 0) {
         writeErrorInvalidNegativeValue(SUMO_TAG_POLY, id, SUMO_ATTR_LINEWIDTH);
@@ -1602,7 +1610,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         GNEPoly* poly = new GNEPoly(myNet, id, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, relativePath, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("add polygon '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(poly, TL("add polygon '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(poly, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1621,7 +1629,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
                                double width, double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (type == "jupedsim.waypoint") { 
-        buildPOIWaypoint(sumoBaseObject, id, x, y, name, parameters);
+        buildJpsWaypoint(sumoBaseObject, id, x, y, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
     } else if (width < 0) {
@@ -1630,14 +1638,14 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (checkDuplicatedID({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_POIWAYPOINT}, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
         GNEPOI* POI = new GNEPOI(myNet, id, type, color, x, y, false, layer, angle, imgFile, relativePath, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POI, TL("add POI '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(POI, TL("add POI '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POI, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1665,7 +1673,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
-    } else if (checkDuplicatedID({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_POIWAYPOINT}, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // get lane
@@ -1680,7 +1688,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             GNEAdditional* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::POILANE, TL("add POI '") + id + "'");
+                myNet->getViewNet()->getUndoList()->begin(POILane, TL("add POI '") + id + "'");
                 overwriteAdditional();
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POILane, true), true);
                 myNet->getViewNet()->getUndoList()->end();
@@ -1712,14 +1720,14 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
     } else if (GeoConvHelper::getFinal().getProjString() == "!") {
         writeError(TLF("Could not build POI with ID '%' in netedit", id) + std::string("; ") + TL("Network requires a geo projection."));
-    } else if (checkDuplicatedID({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_POIWAYPOINT}, id)) {
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO
         GNEPOI* POIGEO = new GNEPOI(myNet, id, type, color, lon, lat, true, layer, angle, imgFile, relativePath, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POIGEO, TL("add POI '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(POIGEO, TL("add POI '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POIGEO, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1735,21 +1743,21 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 
 
 void
-GNEAdditionalHandler::buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                         const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        writeInvalidID(GNE_TAG_WALKABLEAREA, id);
-    } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE}, id)) {
-        writeErrorDuplicated(GNE_TAG_WALKABLEAREA, id);
+        writeInvalidID(GNE_TAG_JPS_WALKABLEAREA, id);
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
+        writeErrorDuplicated(GNE_TAG_JPS_WALKABLEAREA, id);
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create walkable area
-        GNEPoly* walkableArea = new GNEPoly(GNE_TAG_WALKABLEAREA, myNet, id, shape, name, parameters);
+        GNEPoly* walkableArea = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet, id, shape, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("add walkable area '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(walkableArea, TL("add jps walkable area '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(walkableArea, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1763,21 +1771,21 @@ GNEAdditionalHandler::buildWalkableArea(const CommonXMLStructure::SumoBaseObject
 
 
 void
-GNEAdditionalHandler::buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                     const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        writeInvalidID(GNE_TAG_OBSTACLE, id);
-    } else if (!checkDuplicatedID({SUMO_TAG_POLY, SUMO_TAG_TAZ, GNE_TAG_WALKABLEAREA, GNE_TAG_OBSTACLE}, id)) {
-        writeErrorDuplicated(GNE_TAG_OBSTACLE, id);
+        writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
+        writeErrorDuplicated(GNE_TAG_JPS_OBSTACLE, id);
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create walkable area
-        GNEPoly* obstacle = new GNEPoly(GNE_TAG_OBSTACLE, myNet, id, shape, name, parameters);
+        GNEPoly* obstacle = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet, id, shape, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POLY, TL("add polygon '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(obstacle, TL("add jps obstacle '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(obstacle, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1791,19 +1799,103 @@ GNEAdditionalHandler::buildObstacle(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNEAdditionalHandler::buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+GNEAdditionalHandler::buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                    const std::string& name, const Parameterised::Map& parameters) {
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
+        writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
+    } else {
+        // get netedit parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // create waiting area
+        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_WAITINGAREA, myNet, id, shape, name, parameters);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(waitingArea, TL("add jps waiting area '") + id + "'");
+            overwriteAdditional();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(waitingArea, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertAdditional(waitingArea);
+            waitingArea->incRef("addWaitingArea");
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::buildJpsSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                    const std::string& name, const Parameterised::Map& parameters) {
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
+        writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
+    } else {
+        // get netedit parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // create waiting area
+        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_SOURCE, myNet, id, shape, name, parameters);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(waitingArea, TL("add jps source '") + id + "'");
+            overwriteAdditional();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(waitingArea, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertAdditional(waitingArea);
+            waitingArea->incRef("addWaitingArea");
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::buildJpsSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                    const std::string& name, const Parameterised::Map& parameters) {
+    // check conditions
+    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
+        writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
+    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
+        writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
+    } else {
+        // get netedit parameters
+        NeteditParameters neteditParameters(sumoBaseObject);
+        // create waiting area
+        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_SINK, myNet, id, shape, name, parameters);
+        // add it depending of allow undoRed
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(waitingArea, TL("add jps sink '") + id + "'");
+            overwriteAdditional();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(waitingArea, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            // insert shape without allowing undo/redo
+            myNet->getAttributeCarriers()->insertAdditional(waitingArea);
+            waitingArea->incRef("addWaitingArea");
+        }
+    }
+}
+
+
+void
+GNEAdditionalHandler::buildJpsWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
                         const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        writeInvalidID(GNE_TAG_POIWAYPOINT, id);
-    } else if (checkDuplicatedID({SUMO_TAG_POI, GNE_TAG_POILANE, GNE_TAG_POIGEO, GNE_TAG_POIWAYPOINT}, id)) {
+        writeInvalidID(GNE_TAG_JPS_WAYPOINT, id);
+    } else if (checkDuplicatedID(NamespaceIDs::POIs, id)) {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
         GNEPOI* POIWaypoint = new GNEPOI(myNet, id, x, y, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POI, TL("add POI Waypoint '") + id + "'");
+            myNet->getViewNet()->getUndoList()->begin(POIWaypoint, TL("add jps waypoint '") + id + "'");
             overwriteAdditional();
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(POIWaypoint, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -1813,7 +1905,7 @@ GNEAdditionalHandler::buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject*
             POIWaypoint->incRef("addPOIWaypoint");
         }
     } else {
-        writeErrorDuplicated(GNE_TAG_POIWAYPOINT, id);
+        writeErrorDuplicated(GNE_TAG_JPS_WAYPOINT, id);
     }
 }
 

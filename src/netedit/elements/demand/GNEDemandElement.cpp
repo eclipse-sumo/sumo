@@ -56,9 +56,10 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GNEPathManager::PathElement(type, id, icon, options),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
     // check if is template
-    myIsTemplate = (id == "");
+    myIsTemplate = id.empty();
 }
 
 
@@ -71,6 +72,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
                                    const std::vector<GNEGenericData*>& genericDataParents) :
     GNEPathManager::PathElement(type, demandElementParent->getID(), icon, options),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
+    GNEDemandElementDistribution(this),
     myStackedLabelNumber(0) {
 }
 
@@ -385,9 +387,23 @@ GNEDemandElement::getPathElementArrivalPos() const {
 // ---------------------------------------------------------------------------
 
 bool
-GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEDemandElement::isValidDemandElementID(const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveDemandElement(myTagProperty.getTag(), value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveDemandElements(tags, value, false) == nullptr);
     } else {
         return false;
     }
@@ -1081,18 +1097,6 @@ GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
 
 
 bool
-GNEDemandElement::demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const {
-    // check if there is a demand element with the given tags and id
-    for (const auto& tag : tags) {
-        if (myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false) != nullptr) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError(StringUtils::format("Calling non-implemented function checkChildDemandElementRestriction during saving of %. It muss be reimplemented in child class", getTagStr()));
@@ -1195,6 +1199,27 @@ GNEDemandElement::getEdgeStopIndex() const {
         }
     }
     return edgeStopIndex;
+}
+
+
+std::string
+GNEDemandElement::getDistributionParents() const {
+    SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;
+    if (myTagProperty.getTag() == SUMO_TAG_VTYPE) {
+        tagDistribution = SUMO_TAG_VTYPE_DISTRIBUTION;
+    } else if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        tagDistribution = SUMO_TAG_ROUTE_DISTRIBUTION;
+    } else {
+        return "";
+    }
+    // check if the current element is in the distributions
+    std::vector<std::string> distributionParents;
+    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
+        if (distribution->keyExists(this)) {
+            distributionParents.push_back(distribution->getID());
+        }
+    }
+    return toString(distributionParents);
 }
 
 

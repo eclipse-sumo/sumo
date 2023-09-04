@@ -29,6 +29,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNELaneAreaDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -634,7 +635,7 @@ GNELaneAreaDetector::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -646,14 +647,7 @@ bool
 GNELaneAreaDetector::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (value == getID()) {
-                return true;
-            } else if (isValidDetectorID(value)) {
-                return (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_MULTI_LANE_AREA_DETECTOR, value, false) == nullptr) &&
-                       (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_LANE_AREA_DETECTOR, value, false) == nullptr);
-            } else {
-                return false;
-            }
+            return isValidDetectorID(NamespaceIDs::laneAreaDetectors, value);
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;
@@ -820,7 +814,7 @@ GNELaneAreaDetector::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNELaneAreaDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
-    undoList->begin(myTagProperty.getGUIIcon(), "position of " + getTagStr());
+    undoList->begin(this, "position of " + getTagStr());
     // set attributes depending of operation type
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) ||
             (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {

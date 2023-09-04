@@ -101,9 +101,13 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
-    {"walkableArea",            GLO_WALKABLEAREA},
-    {"obstacle",                GLO_OBSTACLE},
-    {"poiWaypoint",             GLO_POIWAYPOINT},
+    //
+    {"jps.walkableArea",        GLO_JPS_WALKABLEAREA},
+    {"jps.obstacle",            GLO_JPS_OBSTACLE},
+    {"jps.waitingArea",         GLO_JPS_WAITINGAREA},
+    {"jps.source",              GLO_JPS_SOURCE},
+    {"jps.sink",                GLO_JPS_SINK},
+    {"jps.Waypoint",            GLO_JPS_WAYPOINT},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
@@ -152,7 +156,7 @@ StringBijection<GUIGlObjectType> GUIGlObject::TypeNames(GUIGlObjectTypeNamesInit
 const GUIGlID GUIGlObject::INVALID_ID = 0;
 
 // ===========================================================================
-// method definitionsas
+// method definitions
 // ===========================================================================
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
@@ -298,7 +302,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparat
     if (gSelected.isSelected(getType(), getGlID())) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Remove From Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Add To Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);

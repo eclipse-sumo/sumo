@@ -91,7 +91,8 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType 
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeLarge,
+                                         this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
     // set current tag without notifying
@@ -214,8 +215,6 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     // set color of myTypeMatchBox to black (valid)
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     myTagsMatchBox->killFocus();
-    // Set visible items
-    myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
     // set first myACTemplate as edited AC
     myCurrentTemplateAC = myACTemplates.front()->getAC();
     // call tag selected function
@@ -399,13 +398,14 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = nullptr; // TMP
             break;
         // JuPedSim elements
-        case GNE_TAG_WALKABLEAREA:
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+        case GNE_TAG_JPS_SOURCE:
+        case GNE_TAG_JPS_SINK:
             myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_OBSTACLE:
-            myAC = new GNEPoly(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_POIWAYPOINT:
+        case GNE_TAG_JPS_WAYPOINT:
             myAC = new GNEPOI(tagProperty.getTag(), net);
             break;
         // Demand elements

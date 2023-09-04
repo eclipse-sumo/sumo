@@ -72,7 +72,7 @@ public:
     /// @brief build route
     void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                     const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                    const Parameterised::Map& routeParameters);
+                    const double probability, const Parameterised::Map& routeParameters);
 
     /// @brief build embedded route
     void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
@@ -80,7 +80,7 @@ public:
                             const Parameterised::Map& routeParameters);
 
     /// @brief build route distribution
-    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+    void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                 const std::vector<std::string>& routeIDs, const std::vector<double>& probabilities);
 
     /// @brief build a vehicle over an existent route
@@ -261,16 +261,21 @@ protected:
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previos person/container plan edge
+    /// @brief get previous person/container plan edge
     GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
-    /// @brief get previos person/container plan junction
+    /// @brief get previous person/container plan junction
     GNEJunction* getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get distribution elements
+    bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
+                                 const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
+                                 std::vector<const GNEDemandElement*> &elements);
 
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
 
-    /// @brief remove overwrited demand element
+    /// @brief remove overwritten demand element
     void overwriteDemandElement();
 
 private:
@@ -286,7 +291,7 @@ private:
     /// @brief check if overwrite
     const bool myOverwrite;
 
-    /// @brief demand to overwrite (using undor-redo
+    /// @brief demand to overwrite (using undo-redo
     GNEDemandElement* myDemandToOverwrite = nullptr;
 };
 

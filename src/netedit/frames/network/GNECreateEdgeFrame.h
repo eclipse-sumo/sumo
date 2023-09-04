@@ -147,7 +147,7 @@ public:
         FXRadioButton* myUseCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
-        FXComboBox* myEdgeTypesComboBox = nullptr;
+        MFXComboBoxIcon* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
         FXButton* myAddEdgeTypeButton = nullptr;
@@ -210,7 +210,7 @@ public:
         /// @brief lane index
         int myLaneIndex;
         /// @brief ComboBox for lane types
-        FXComboBox* myLaneTypesComboBox = nullptr;
+        MFXComboBoxIcon* myLaneTypesComboBox = nullptr;
 
         /// @brief button for create new lane type
         FXButton* myAddLaneTypeButton = nullptr;
@@ -242,7 +242,7 @@ public:
     /// @brief Destructor
     ~GNECreateEdgeFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param oppositeEdge automatically create an opposite edge

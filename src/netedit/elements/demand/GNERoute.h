@@ -114,7 +114,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -228,6 +228,11 @@ public:
      */
     Position getAttributePosition(SumoXMLAttr key) const;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -242,11 +247,6 @@ public:
      * @param[in] undoList The undoList on which to register changes
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -279,9 +279,6 @@ protected:
 
     /// @brief SUMOVehicleClass (Only used for drawing)
     SUMOVehicleClass myVClass;
-
-    /// @brief route distributions
-    std::map <std::string, double> myDistributions;
 
 private:
     /// @brief method for setting the attribute and nothing else

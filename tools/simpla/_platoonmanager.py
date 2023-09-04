@@ -69,11 +69,11 @@ class PlatoonManager(traci.StepListener):
         # ego vehicle needs at least this number of future edges in common with leader
         # before agreeing to follow...
         self._edgenumberLookahead = cfg.EDGE_LOOKAHEAD
-        # Or the ego vehicle needs at least this distance of commom route length with leader
+        # Or the ego vehicle needs at least this distance of common route length with leader
         # before agreeing to follow.
         self._distLookahead = cfg.DIST_LOOKAHEAD
         # no lane change advice if vehicle has less than this distance
-        # to the next  juction
+        # to the next  junction
         self._lanechangeMinDist = cfg.LC_MINDIST
         # set the platooning join / split criterion: gap distance or headway
         self._useHeadway = cfg.USE_HEADWAY
@@ -93,7 +93,7 @@ class PlatoonManager(traci.StepListener):
         self._DeltaT = traci.simulation.getDeltaT()
 
         # rate for executing the platoon logic
-        if(1. / cfg.CONTROL_RATE < self._DeltaT):
+        if (1. / cfg.CONTROL_RATE < self._DeltaT):
             if rp.VERBOSITY >= 1:
                 warn(
                     "Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
@@ -291,7 +291,7 @@ class PlatoonManager(traci.StepListener):
                 veh.getID(), self._catchupHeadway*veh.state.speed if self._useHeadway else self._catchupDist)
 
             # check if there is a new, connected leader and if so, verify if this leader
-            # has sufficiend edges in common with the ego vehicle
+            # has sufficient edges in common with the ego vehicle
             if veh.state.leaderInfo is not None:
                 noLeader = True
                 leaderID = veh.state.leaderInfo[0]
@@ -651,7 +651,7 @@ class PlatoonManager(traci.StepListener):
         nVeh = len(vehicles)
         # make a copy to write into
         actualLeaders = list(actualLeaders)
-        while(not done and iter_count < nVeh):
+        while (not done and iter_count < nVeh):
             newVehOrder = None
             registeredLeaders = [None] + vehicles[:-1]
             if rp.VERBOSITY >= 4:

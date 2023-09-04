@@ -35,7 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredTAZ(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
 # go to inspect mode
 netedit.inspectMode()
 
@@ -43,7 +43,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 116, 139)
 
 # Change boolean parameter 3
-netedit.modifyBoolAttribute(netedit.attrs.Poly.inspect.fill, False)
+netedit.modifyBoolAttribute(netedit.attrs.poly.inspect.fill, False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

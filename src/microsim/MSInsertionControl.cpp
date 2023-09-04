@@ -17,6 +17,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Mon, 12 Mar 2001
 ///
 // Inserts vehicles into the network when their departure time is reached
@@ -112,6 +113,16 @@ MSInsertionControl::initScale(const std::string vtypeid) {
     } else {
         // rng is not used since vtypeid is not a distribution
         return vc.getVType(vtypeid, nullptr, true)->getParameter().scale;
+    }
+}
+
+
+void
+MSInsertionControl::updateScale(const std::string vtypeid) {
+    for (std::vector<Flow>::iterator it = myFlows.begin(); it != myFlows.end(); ++it) {
+        if (it->pars->vtypeid == vtypeid) {
+            it->scale = initScale(vtypeid);
+        }
     }
 }
 

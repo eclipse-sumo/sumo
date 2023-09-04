@@ -56,7 +56,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -248,7 +248,7 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     void toggleAttribute(SumoXMLAttr key, const bool value);
 
     /// @brief set move shape

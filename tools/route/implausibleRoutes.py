@@ -243,7 +243,7 @@ def main():
         else:
             oldCosts = float(routeAlts[0].cost)
             newCosts = float(routeAlts[1].cost)
-            assert(routeAlts[0].edges.split() == routeInfos[vehicle.id].edges)
+            assert routeAlts[0].edges.split() == routeInfos[vehicle.id].edges
             routeInfos[vehicle.id].shortest_path_distance = sumolib.route.getLength(net, routeAlts[1].edges.split())
             if oldCosts <= newCosts:
                 routeInfos[vehicle.id].detour = 0

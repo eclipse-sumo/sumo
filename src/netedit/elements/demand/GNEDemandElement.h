@@ -29,6 +29,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEDemandElementDistribution.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -50,7 +52,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
@@ -158,7 +160,7 @@ public:
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -336,7 +338,10 @@ protected:
     int myStackedLabelNumber;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::string& newID) const;
+    bool isValidDemandElementID(const std::string& value) const;
+
+    /// @brief check if a new demand element ID is valid
+    bool isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
     /// @brief set demand element id
     void setDemandElementID(const std::string& newID);
@@ -415,9 +420,6 @@ protected:
 
     /// @}
 
-    /// @brief check if the given demand element exist
-    bool demandElementExist(const std::string &id, const std::vector<SumoXMLTag> tags) const;
-
     /// @brief auxiliar struct used for calculate pathStopIndex
     struct EdgeStopIndex {
 
@@ -442,6 +444,9 @@ protected:
 
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
+
+    /// @brief get distribution in which the given element is part
+    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;

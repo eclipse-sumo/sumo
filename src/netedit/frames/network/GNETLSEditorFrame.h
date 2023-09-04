@@ -256,7 +256,7 @@ public:
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
         /// @brief the comboBox for selecting the tl-definition to edit
-        FXComboBox* myProgramComboBox;
+        MFXComboBoxIcon* myProgramComboBox;
 
         /// @brief whether the current tls was modified
         bool myHaveModifications = false;

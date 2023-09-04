@@ -1080,7 +1080,6 @@ def checkUndoRedo(referencePosition):
     redo(referencePosition, 9)
 
 
-
 def checkParameters(referencePosition, attributeNumber, overlapped):
     """
     @brief Check generic parameters
@@ -1222,7 +1221,7 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
@@ -1240,7 +1239,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     """
     # focus current frame
     focusOnFrame()
-    if(useSelectedEdges and thereIsSelectedEdges):
+    if (useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
@@ -1674,6 +1673,7 @@ def changePersonPlanMode(personPlan):
     pasteIntoTextField(personPlan)
     # type enter to save change
     typeEnter()
+
 
 def selectPerson(person):
     """
@@ -2467,7 +2467,7 @@ def shapeMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def createSquaredPoly(referencePosition, positionx, positiony, size, close):
+def createSquaredShape(referencePosition, positionx, positiony, size, close):
     """
     @brief Create squared Polygon in position with a certain size
     """
@@ -2487,7 +2487,7 @@ def createSquaredPoly(referencePosition, positionx, positiony, size, close):
     typeEnter()
 
 
-def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, close):
+def createRectangledShape(referencePosition, positionx, positiony, sizex, sizey, close):
     """
     @brief Create rectangle Polygon in position with a certain size
     """
@@ -2507,7 +2507,7 @@ def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, 
     typeEnter()
 
 
-def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close):
+def createLineShape(referencePosition, positionx, positiony, sizex, sizey, close):
     """
     @brief Create line Polygon in position with a certain size
     """
@@ -2598,7 +2598,7 @@ def TAZMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
+def createSquaredShape(referencePosition, positionx, positiony, size, close):
     """
     @brief Create squared TAZ in position with a certain size
     """
@@ -2618,7 +2618,7 @@ def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
     typeEnter()
 
 
-def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
+def createLineShape(referencePosition, positionx, positiony, sizex, sizey, close):
     """
     @brief Create line TAZ in position with a certain size
     """

@@ -101,7 +101,7 @@ class GapController(traci.StepListener):
             return
 
         (leaderID, gap) = leaderInfo
-        assert(leaderID != "")
+        assert leaderID != ""
 
         self._egoSpeed = traci.vehicle.getSpeed(self._vehID)
         self._leaderSpeed = traci.vehicle.getSpeed(leaderID)

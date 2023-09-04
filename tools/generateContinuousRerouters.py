@@ -135,10 +135,10 @@ def main(options):
                     if options.longRoutes:
                         # overlapping routes: start behind an intersection and
                         # route across the next intersection to the entry of the
-                        # 2nd intersetion (more rerouters and overlapping routes)
+                        # 2nd intersection (more rerouters and overlapping routes)
                         if getNumAlternatives(edge, routes) > 1:
                             for incomingRoute in sorted(incomingRoutes[edge]):
-                                assert(incomingRoute[-1] == edge.getID())
+                                assert incomingRoute[-1] == edge.getID()
                                 firstEdgeID = incomingRoute[0]
                                 routeIDs = []
                                 for edges in routes:

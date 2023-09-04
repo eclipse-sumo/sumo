@@ -35,6 +35,7 @@
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPOI.h"
 #include "GNEAdditionalHandler.h"
@@ -85,9 +86,10 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, "jupedsim.waypoint", RGBColor::CYAN, Position(x, y), false, "", 0, false, 0, 2, 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, GLO_POIWAYPOINT, GNE_TAG_POIWAYPOINT, GUIIconSubSys::getIcon(GUIIcon::POIWAYPOINT),
-                  "", {}, {}, {}, {}, {}, {}) {
+    PointOfInterest(id, getJuPedSimType(GNE_TAG_JPS_WAYPOINT), getJuPedSimColor(GNE_TAG_JPS_WAYPOINT), Position(x, y),
+                    false, "", 0, false, 0, getJuPedSimLayer(GNE_TAG_JPS_WAYPOINT), 0, "", false, 0, 0, name, parameters),
+    GNEAdditional(id, net, getJuPedSimGLO(GNE_TAG_JPS_WAYPOINT), GNE_TAG_JPS_WAYPOINT, getJuPedSimIcon(GNE_TAG_JPS_WAYPOINT), "",
+                  {}, {}, {}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
     // update centering boundary without updating grid
@@ -528,7 +530,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -540,18 +542,7 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (SUMOXMLDefinitions::isValidTypeID(value)) {
-                if (value == getID()) {
-                    return true;
-                } else {
-                    return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POI, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POILANE, value, false) == nullptr) &&
-                           (myNet->getAttributeCarriers()->retrieveAdditional(GNE_TAG_POIGEO, value, false) == nullptr);
-                }
-            } else {
-                // invalid id
-                return false;
-            }
+            return isValidAdditionalID(NamespaceIDs::POIs, value);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -789,19 +780,19 @@ void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // check what are being updated
     if (moveResult.operationType == GNEMoveOperation::OperationType::HEIGHT) {
-        undoList->begin(myTagProperty.getGUIIcon(), "height of " + getTagStr());
+        undoList->begin(this, "height of " + getTagStr());
         setAttribute(SUMO_ATTR_HEIGHT, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::WIDTH) {
-        undoList->begin(myTagProperty.getGUIIcon(), "width of " + getTagStr());
+        undoList->begin(this, "width of " + getTagStr());
         setAttribute(SUMO_ATTR_WIDTH, toString(moveResult.shapeToUpdate.length2D()), undoList);
         undoList->end();
     } else {
-        undoList->begin(GUIIcon::POI, "position of " + getTagStr());
+        undoList->begin(this, "position of " + getTagStr());
         if (getTagProperty().getTag() == GNE_TAG_POILANE) {
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos)));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.newFirstPos), undoList);
         } else {
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         }
         undoList->end();
     }

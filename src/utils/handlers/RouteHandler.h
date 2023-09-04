@@ -61,7 +61,7 @@ public:
     /// @brief build route
     virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) = 0;
+                            const double probability, const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build embedded route
     virtual void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
@@ -69,7 +69,7 @@ public:
                                     const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route distribution
-    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                         const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
 
     /// @brief build a vehicle over an existent route
@@ -170,6 +170,9 @@ private:
 
     /// @brief write error "invalid id"
     void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid distribution"
+    void writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
 
     /// @name parse route element attributes
     /// @{

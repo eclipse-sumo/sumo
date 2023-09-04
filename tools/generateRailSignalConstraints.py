@@ -270,7 +270,7 @@ def formatStopTimes(arrival, until, started, ended):
     if started is not None:
         times.append(started)
     if ended is not None:
-        assert(started is not None)
+        assert started is not None
         times.append(ended)
     return "(%s)" % ', '.join(map(humanReadableTime, times))
 
@@ -445,7 +445,7 @@ def getStopRoutes(net, options, stopEdges, stopEnds, bidiStops):
             stopEdge = stopEdges[stop.busStop]
             while edges[routeIndex] != stopEdge:
                 routeIndex += 1
-                assert(routeIndex < len(edges))
+                assert routeIndex < len(edges)
             edgesBefore = edges[lastIndex + 1: routeIndex + 1]
             stop.setAttribute("prevTripId", tripId)
             stop.setAttribute("prevLine", line)
@@ -833,7 +833,7 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
     """ add more items to stopRoutes2 for the common
     busStop but keep the edgeBefore of the original stops
     """
-    assert(stop.busStop != stop2.busStop)
+    assert stop.busStop != stop2.busStop
     if stop.vehID == stop2.vehID:
         return
     route = vehicleStopRoutes[stop.vehID]

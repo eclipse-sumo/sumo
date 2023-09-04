@@ -65,6 +65,12 @@ enum class GUIIcon {
     CLEARMESSAGEWINDOW,
     /// @}
 
+    /// @name netedit view icons
+    /// @{
+    VIEWDEFAULT,
+    VIEWJUPEDSIM,
+    /// @}
+
     /// @brief open icons
     /// @{
     OPEN,
@@ -275,6 +281,8 @@ enum class GUIIcon {
     UNCOLLAPSE,
     EXTEND,
     CURRENT,
+    SEARCH,
+    ALLOW,
     /// @}
 
     /// @name Netedit common mode specific icons
@@ -453,9 +461,17 @@ enum class GUIIcon {
     POI,
     POILANE,
     POIGEO,
-    WALKABLEAREA,
-    OBSTACLE,
-    POIWAYPOINT,
+    /// @}
+
+    /// @name juPedSim elements
+    /// @{
+    JPS,
+    JPS_WALKABLEAREA,
+    JPS_OBSTACLE,
+    JPS_WAITINGAREA,
+    JPS_SOURCE,
+    JPS_SINK,
+    JPS_WAYPOINT,
     /// @}
 
     /// @name TAZ elements icons

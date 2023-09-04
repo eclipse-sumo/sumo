@@ -62,7 +62,7 @@ class Reservation(object):
 
 def _readReservation(result):
     # compound size and type
-    assert(result.read("!i")[0] == 10)
+    assert result.read("!i")[0] == 10
     id = result.readTypedString()
     persons = result.readTypedStringList()
     group = result.readTypedString()

@@ -280,11 +280,11 @@ GNESingleParametersDialog::ParametersOperations::ParametersOperations(FXHorizont
     FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton =  new FXButton(this, TL("Sort"),  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
-    myClearButton = new FXButton(this, TL("Clear"), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
-    myLoadButton =  new FXButton(this, TL("Load"),  GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
-    mySaveButton =  new FXButton(this, TL("Save"),  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
-    myHelpButton =  new FXButton(this, TL("Help"),  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
+    mySortButton =  new FXButton(this, TL("Sort"),  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonFixed(100));
+    myClearButton = new FXButton(this, TL("Clear"), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonFixed(100));
+    myLoadButton =  new FXButton(this, TL("Load"),  GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonFixed(100));
+    mySaveButton =  new FXButton(this, TL("Save"),  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonFixed(100));
+    myHelpButton =  new FXButton(this, TL("Help"),  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonFixed(100));
 }
 
 
@@ -619,14 +619,14 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // get inspected AC
             const auto AC = myParametersEditor->getViewNet()->getInspectedAttributeCarriers().front();
             // set parameter in AC using undoList
-            myParametersEditor->getViewNet()->getUndoList()->begin(AC->getTagProperty().getGUIIcon(), "change parameters");
+            myParametersEditor->getViewNet()->getUndoList()->begin(AC, "change parameters");
             AC->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
             myParametersEditor->getViewNet()->getUndoList()->end();
         } else if (myParametersEditor->getTypeFrameParent()) {
             // get type
             const auto type = myParametersEditor->getTypeFrameParent()->getTypeSelector()->getCurrentType();
             // set parameter in AC using undoList
-            myParametersEditor->getViewNet()->getUndoList()->begin(type->getTagProperty().getGUIIcon(), "change parameters");
+            myParametersEditor->getViewNet()->getUndoList()->begin(type, "change parameters");
             type->setACParameters(parameters, myParametersEditor->getViewNet()->getUndoList());
             myParametersEditor->getViewNet()->getUndoList()->end();
         }
@@ -635,7 +635,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         VTypeAttributeRow->setParameters(parameters);
     } else if (myAttributeCarrier) {
         // set parameter in AC using undoList
-        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin(myAttributeCarrier->getTagProperty().getGUIIcon(), "change parameters");
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->begin(myAttributeCarrier, "change parameters");
         myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
         myAttributeCarrier->getNet()->getViewNet()->getUndoList()->end();
     } else if (myTLDef) {

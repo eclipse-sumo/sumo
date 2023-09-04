@@ -168,6 +168,8 @@
 #include "uncollapse.xpm"
 #include "extend.xpm"
 #include "current.xpm"
+#include "search.xpm"
+#include "allow.xpm"
 
 #include "arrowup.xpm"
 #include "arrowdown.xpm"
@@ -231,6 +233,9 @@
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
 #include "clear_message_window.xpm"
+
+#include "viewdefault.xpm"
+#include "viewjupedsim.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -326,12 +331,17 @@
 #include "overheadwire_clamp.xpm"
 
 #include "poly.xpm"
-#include "walkablearea.xpm"
-#include "obstacle.xpm"
 #include "poi.xpm"
 #include "poilane.xpm"
 #include "poigeo.xpm"
-#include "poiwaypoint.xpm"
+
+#include "jps.xpm"
+#include "jps_walkablearea.xpm"
+#include "jps_obstacle.xpm"
+#include "jps_waitingarea.xpm"
+#include "jps_source.xpm"
+#include "jps_sink.xpm"
+#include "jps_waypoint.xpm"
 
 #include "taz.xpm"
 #include "tazedge.xpm"
@@ -539,6 +549,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+    
+    myIcons[GUIIcon::VIEWDEFAULT] = new FXXPMIcon(a, viewdefault_xpm);
+    myIcons[GUIIcon::VIEWJUPEDSIM] = new FXXPMIcon(a, viewjupedsim_xpm);
 
     myIcons[GUIIcon::OPEN] = new FXXPMIcon(a, open_xpm);
     myIcons[GUIIcon::OPEN_NETEDITCONFIG] = new FXXPMIcon(a, open_neteditconfig_xpm);
@@ -670,7 +683,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::UNCOLLAPSE] = new FXXPMIcon(a, uncollapse_xpm);
     myIcons[GUIIcon::EXTEND] = new FXXPMIcon(a, extend_xpm);
     myIcons[GUIIcon::CURRENT] = new FXXPMIcon(a, current_xpm);
-
+    myIcons[GUIIcon::SEARCH] = new FXXPMIcon(a, search_xpm);
+    myIcons[GUIIcon::ALLOW] = new FXXPMIcon(a, allow_xpm);
+    
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);
@@ -810,9 +825,14 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
-    myIcons[GUIIcon::WALKABLEAREA] = new FXXPMIcon(a, walkablearea_xpm);
-    myIcons[GUIIcon::OBSTACLE] = new FXXPMIcon(a, obstacle_xpm);
-    myIcons[GUIIcon::POIWAYPOINT] = new FXXPMIcon(a, poiwaypoint_xpm);
+
+    myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
+    myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
+    myIcons[GUIIcon::JPS_OBSTACLE] = new FXXPMIcon(a, jps_obstacle_xpm);
+    myIcons[GUIIcon::JPS_WAITINGAREA] = new FXXPMIcon(a, jps_waitingarea_xpm);
+    myIcons[GUIIcon::JPS_SOURCE] = new FXXPMIcon(a, jps_source_xpm);
+    myIcons[GUIIcon::JPS_SINK] = new FXXPMIcon(a, jps_sink_xpm);
+    myIcons[GUIIcon::JPS_WAYPOINT] = new FXXPMIcon(a, jps_waypoint_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);

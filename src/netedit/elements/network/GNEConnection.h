@@ -83,7 +83,6 @@ public:
 
     /// @briefthe get lane index of the outgoing lane
     int getToLaneIndex() const;
-
     /// @brief get Edge::Connection
     NBEdge::Connection& getNBEdgeConnection() const;
 
@@ -211,6 +210,9 @@ private:
 
     /// @brief manage change of tlLinkindices
     void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);
+
+    /// @brief check if the edgeConnection vinculated with this connection exists
+    bool existNBEdgeConnection() const;
 
     /// @brief draw arrows over connections
     void drawConnectionArrows(const GUIVisualizationSettings& s) const;

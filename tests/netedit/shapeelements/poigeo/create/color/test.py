@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.POIGEO.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.poiGeo.create.colorButton, 5)
 
 # create poi
 netedit.leftClick(referencePosition, 292, 117)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "Vlue")
 
 # try to create POI
 netedit.leftClick(referencePosition, 337, 117)
 
 # change color manually (valid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.color, "blue")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "blue")
 
 # create POI
 netedit.leftClick(referencePosition, 383, 117)

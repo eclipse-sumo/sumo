@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change pos lat (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "dummyPosLat")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "dummyPosLat")
 
 # try to create poi
 netedit.leftClick(referencePosition, 338, 210)
 
 # change pos lat (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "-5")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "-5")
 
 # create poi
 netedit.leftClick(referencePosition, 405, 210)
 
 # change pos lat (valid)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "7.5")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "7.5")
 
 # create poi
 netedit.leftClick(referencePosition, 473, 210)

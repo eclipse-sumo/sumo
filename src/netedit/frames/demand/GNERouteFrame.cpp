@@ -56,24 +56,22 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
-    // Create FXComboBox for Route mode
-    myRouteModeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for Route mode
+    myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                              this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
-        myRouteModeMatchBox->appendItem(routeMode.second.c_str());
+        myRouteModeMatchBox->appendIconItem(routeMode.second.c_str());
     }
-    // Set visible items
-    myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
-    // Create FXComboBox for VClass
-    myVClassMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for VClass
+    myVClassMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                           this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
-        myVClassMatchBox->appendItem(vClass.c_str());
+        myVClassMatchBox->appendIconItem(vClass.c_str());
     }
     // set Passenger als default VCLass
     myVClassMatchBox->setCurrentItem(7);
-    // Set visible items
-    myVClassMatchBox->setNumVisible((int)myVClassMatchBox->getNumItems());
     // RouteModeSelector is always shown
     show();
 }
@@ -185,17 +183,17 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Routes"),
+    GNEFrame(viewParent, viewNet, TL("Routes")),
     myRouteHandler("", myViewNet->getNet(), true, false),
     myRouteBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create route mode Selector modul
+    // create route mode Selector module
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
     myRouteAttributes = new GNEAttributesCreator(this);
 
-    // create consecutive edges modul
+    // create consecutive edges module
     myPathCreator = new GNEPathCreator(this);
 
     // create legend label
@@ -263,6 +261,8 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         if (!myRouteBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
             myRouteBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE));
         }
+        // add probability (needed for distributions)
+        myRouteBaseObject->addDoubleAttribute(SUMO_ATTR_PROB, 0.5);
         // declare edge vector
         std::vector<std::string> edges;
         for (const auto& path : myPathCreator->getPath()) {
@@ -277,7 +277,7 @@ GNERouteFrame::createPath(const bool /*useLastRoute*/) {
         }
         // set edges in route base object
         myRouteBaseObject->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-        // creare route
+        // create route
         myRouteHandler.parseSumoBaseObject(myRouteBaseObject);
         // abort path creation
         myPathCreator->abortPathCreation();

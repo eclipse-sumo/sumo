@@ -86,7 +86,7 @@ private:
     GNEFrame* myFrameParent;
 
     /// @brief match box with the list of reference points
-    FXComboBox* myReferencePointMatchBox;
+    MFXComboBoxIcon* myReferencePointMatchBox;
 
     /// @brief horizontal frame for length
     FXHorizontalFrame* myLengthFrame;

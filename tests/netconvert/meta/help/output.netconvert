@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+1169-1d29275
+Eclipse SUMO netconvert Version v1_18_0+1356-453c2451b02
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -73,6 +73,8 @@ Output Options:
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
                                         dlr-navteq files with the given PREFIX
+  --dlr-navteq.version STR             The dlr-navteq output format version to
+                                        write
   --dlr-navteq.precision INT           The network coordinates are written with
                                         the specified level of output precision
   --output.street-names                Street names will be included in the

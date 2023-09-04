@@ -56,7 +56,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML
+    /// @brief check if current demand element is valid to be written into XML
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem
@@ -196,9 +196,6 @@ protected:
 
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
-
-    /// @brief vType distributions
-    std::map <std::string, double> myDistributions;
 
 private:
     /// @brief method for setting the attribute and nothing else

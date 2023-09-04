@@ -116,7 +116,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Stops"),
+    GNEFrame(viewParent, viewNet, TL("Stops")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 

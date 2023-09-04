@@ -25,6 +25,7 @@
 #include <vector>
 #include <string>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIManipulator.h>
@@ -156,7 +157,7 @@ public:
 
         FXRealSpinner* myUserDefinedSpeed;
 
-        FXComboBox* myPredefinedValues;
+        MFXComboBoxIcon* myPredefinedValues;
 
         GUILaneSpeedTrigger* myObject;
 

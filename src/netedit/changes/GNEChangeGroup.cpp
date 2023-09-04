@@ -97,13 +97,13 @@ GNEChangeGroup::getGroupIcon() const {
 
 std::string
 GNEChangeGroup::undoName() const {
-    return ("Undo " + myDescription);
+    return (TL("Undo") + std::string(" ") + myDescription);
 }
 
 
 std::string
 GNEChangeGroup::redoName() const {
-    return ("Redo " + myDescription);
+    return (TL("Redo") + std::string(" ") + myDescription);
 }
 
 

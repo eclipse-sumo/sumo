@@ -1,7 +1,7 @@
 This file contains the full names and emails (if they could be retrieved and the authors did not object)
 of all contributors. Please note that the emails may be outdated but are kept here for reference and
 unique identification.
-The last entry is the sourceforge / github account name used when contributing. A * denotes
+The last entry is the sourceforge / github / weblate account name used when contributing. A * denotes
 entries which have been added by automated retrieval and still may need review.
 If you find missing or duplicate authors please open
 an issue or pull request at https://github.com/eclipse/sumo/issues
@@ -59,6 +59,7 @@ Gregor Laemmel <gregor.laemmel@dlr.de> laemmel
 Gregory Albiston *
 Harald Schaefer <fechsaer@gmail.com>
 Hollow Man <hollowman@hollowman.ml> *
+Hongsheng Cui <> 5889e6a4c7c04be2 *
 HONGYC <> iamhyc *
 Ioan-Alexandru Stef <alexstef35@gmail.com>
 Jakob Erdmann <jakob.erdmann@dlr.de> namdre
@@ -114,6 +115,7 @@ Miguel Liebe <miguel@venta-com.de> miguelliebe
 Mirco Sturari <m.sturari@pm.univpm.it> mircosturari
 Mirko Barthauer <m.barthauer@t-online.de> m-kro
 Moritz Gütlein <mrtzz@mail.de> *
+Necip Güzel *
 Niklas Freund *
 Nikolaus Furian <furian@ivt.tugraz.at> nikolausfurian
 Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de> palvarezlopez
@@ -142,6 +144,7 @@ Sven Jankofsky *
 @sxleixer *
 Tamas Kurczveil <kurczveil@iva.ing.tu-bs.de> emilkur
 Tarek Chouaki <tarek.chouaki@irt-systemx.fr>
+TerryCYY *
 Thimor Bohn <bohn@itm.uni-luebeck.de> t-bohn
 Thomas Lockhart <Thomas.G.Lockhart@jpl.nasa.gov>
 Tianxin Li

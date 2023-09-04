@@ -1,0 +1,28 @@
+/* XPM */
+static const char *viewjupedsim_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c gray50",
+". c None",
+"X c #0052A4",
+"o c #71B8FF",
+"O c #C1C1C1",
+"+ c white",
+/* pixels */
+"................",
+"................",
+".              .",
+". OO OO OO     .",
+".              .",
+". ooooo+++++++ .",
+". ooooo++++XX+ .",
+". ooooo+++++X+ .",
+". ooooo+++++X+ .",
+". ooooo+++++X+ .",
+". ooooo++X++X+ .",
+". ooooo+++XX++ .",
+". ooooo+++++++ .",
+".              .",
+"................",
+"................"
+};

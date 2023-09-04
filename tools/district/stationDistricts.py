@@ -152,7 +152,7 @@ def findGroup(mergedStations, station):
     for group in mergedStations:
         if station in group:
             return group
-    assert(False)
+    assert False
 
 
 def mergeGroups(stations, mergedStations, group1, group2):
@@ -248,7 +248,7 @@ def assignByDistance(options, net, stations):
     edgeStation = dict()
     for station in stations.values():
         for edge in station.edges:
-            assert(edge not in edgeStation or not options.merge)
+            assert (edge not in edgeStation or not options.merge)
             edgeStation[edge] = station.name
 
     remaining = set()

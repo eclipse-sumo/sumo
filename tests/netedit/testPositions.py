@@ -24,10 +24,11 @@ class demandElements:
     class edge0:
         x = 450
         y = 440
-    
+
     class edge1:
         x = 885
         y = 225
+
     class edge2:
         x = 375
         y = 30
@@ -128,8 +129,8 @@ class demandElements:
 
     # click over single person / flow over edges
     class person:
-        x = 500
-        y = 210
+        x = 136
+        y = 472
 
     # click over person stop
     class stopPerson:
@@ -150,3 +151,18 @@ class demandElements:
     class singleVehicleTAZ:
         x = 280
         y = 315
+
+    # click over plan that ends in junction
+    class planJunction:
+        x = 134
+        y = 52
+
+    # click over plan in busStop
+    class planBusStop:
+        x = 377
+        y = 14
+
+    # click over plan in edge
+    class planEdge:
+        x = 197
+        y = 36

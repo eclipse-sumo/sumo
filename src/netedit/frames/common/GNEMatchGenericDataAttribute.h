@@ -109,13 +109,13 @@ private:
     FXHorizontalFrame* myTAZHorizontalFrame;
 
     /// @brief TextField for fromTAZ
-    FXComboBox* myFromTAZComboBox;
+    MFXComboBoxIcon* myFromTAZComboBox;
 
     /// @brief TextField for toTAZ
-    FXComboBox* myToTAZComboBox;
+    MFXComboBoxIcon* myToTAZComboBox;
 
     /// @brief attributes of the match box
-    FXComboBox* myMatchGenericDataAttrComboBox;
+    MFXComboBoxIcon* myMatchGenericDataAttrComboBox;
 
     /// @brief current SumoXMLTag tag
     SumoXMLTag myCurrentTag;

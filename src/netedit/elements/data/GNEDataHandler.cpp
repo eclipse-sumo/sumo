@@ -59,7 +59,7 @@ GNEDataHandler::buildDataSet(const std::string& dataSetID) {
     if (myNet->getAttributeCarriers()->retrieveDataSet(dataSetID, false) == nullptr) {
         GNEDataSet* dataSet = new GNEDataSet(myNet, dataSetID);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::DATASET, TL("add data set"));
+            myNet->getViewNet()->getUndoList()->begin(dataSet, TL("add data set"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -84,7 +84,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
         dataSet = new GNEDataSet(myNet, dataSetID);
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::DATASET, TL("add data set and data interval"));
+            myNet->getViewNet()->getUndoList()->begin(dataInterval, TL("add data set and data interval"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
@@ -99,7 +99,7 @@ GNEDataHandler::buildDataInterval(const CommonXMLStructure::SumoBaseObject* /* s
     } else if (dataSet->retrieveInterval(begin, end) == nullptr) {
         GNEDataInterval* dataInterval = new GNEDataInterval(dataSet, begin, end);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::DATAINTERVAL, TL("add data interval"));
+            myNet->getViewNet()->getUndoList()->begin(dataInterval, TL("add data interval"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -127,7 +127,7 @@ GNEDataHandler::buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBase
             if (edge) {
                 GNEGenericData* edgeData = new GNEEdgeData(dataInterval, edge, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::EDGEDATA, TL("add edge rel"));
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -172,7 +172,7 @@ GNEDataHandler::buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* 
                 } else {
                     GNEGenericData* edgeData = new GNEEdgeRelData(dataInterval, fromEdge, toEdge, parameters);
                     if (myAllowUndoRedo) {
-                        myNet->getViewNet()->getUndoList()->begin(GUIIcon::EDGERELDATA, TL("add edge rel"));
+                        myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add edge rel"));
                         myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
                         myNet->getViewNet()->getUndoList()->end();
                     } else {
@@ -217,7 +217,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             } else if (fromTAZ == toTAZ) {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZRELDATA, TL("add TAZ rel"));
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add TAZ rel"));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {
@@ -228,7 +228,7 @@ GNEDataHandler::buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* s
             } else {
                 GNEGenericData* edgeData = new GNETAZRelData(dataInterval, fromTAZ, toTAZ, parameters);
                 if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(GUIIcon::TAZRELDATA, TL("add TAZ rel"));
+                    myNet->getViewNet()->getUndoList()->begin(edgeData, TL("add TAZ rel"));
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
                     myNet->getViewNet()->getUndoList()->end();
                 } else {

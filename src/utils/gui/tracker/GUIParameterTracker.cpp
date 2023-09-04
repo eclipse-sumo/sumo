@@ -118,15 +118,14 @@ GUIParameterTracker::buildToolBar() {
 
     // aggregation interval combo
     myAggregationInterval =
-        new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
-                       GUIDesignComboBoxStatic);
-    myAggregationInterval->appendItem("1s");
-    myAggregationInterval->appendItem("1min");
-    myAggregationInterval->appendItem("5min");
-    myAggregationInterval->appendItem("15min");
-    myAggregationInterval->appendItem("30min");
-    myAggregationInterval->appendItem("60min");
-    myAggregationInterval->setNumVisible(6);
+        new MFXComboBoxIcon(myToolBar, 8, false, GUIDesignComboBoxSizeMedium,
+                            this, MID_AGGREGATIONINTERVAL, GUIDesignComboBoxStatic);
+    myAggregationInterval->appendIconItem("1s");
+    myAggregationInterval->appendIconItem("1min");
+    myAggregationInterval->appendIconItem("5min");
+    myAggregationInterval->appendIconItem("15min");
+    myAggregationInterval->appendIconItem("30min");
+    myAggregationInterval->appendIconItem("60min");
 
     myMultiPlot = new FXCheckButton(myToolBar, TL("Multiplot"), this, MID_MULTIPLOT);
     myMultiPlot->setCheck(false);

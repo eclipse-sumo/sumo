@@ -1,4 +1,3 @@
-POIGEO.create.lonLat
 edge.contextualMenu.addReverseDirection
 edge.contextualMenu.addReverseDirectionDisconnected
 edge.contextualMenu.reverseElementDirection
@@ -29,6 +28,10 @@ junction.contextualMenu.splitJunctionAndReconnect
 lane.contextualMenu.resetCustomLaneShape
 lane.contextualMenu.resetOppositeLaneShape
 lane.contextualMenu.setCustomLaneShape
+poiGeo.create.lonLat
+route.create.routeDistribution
+route.inspect.routeDistribution
+route.inspectSelection.routeDistribution
 routeFlow.reverse.current
 selection.lockSelectionNetwork.TAZs
 trip.reverse.current

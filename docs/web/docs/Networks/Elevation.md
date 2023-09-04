@@ -41,5 +41,5 @@ Furthermore, [sumo-gui](../sumo-gui.md) is [available with support for 3D-Visual
 ## Models that use Elevation Data
 
 - [Electric vehicle model](../Models/Electric.md)
-- [PHEMLigh emission model](../Models/Emissions/PHEMlight.md)
+- [PHEMLight emission model](../Models/Emissions/PHEMlight.md)
 - [carFollowModel="KraussPS"](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models)

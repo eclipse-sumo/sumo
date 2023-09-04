@@ -6,7 +6,7 @@
         splitUrl.shift();
         if (splitUrl[0] == 'docs') splitUrl.shift();
         var homeLink = "{{ 'index.html'|url }}";
-        document.write('<li class="breadcrumb-item"><a href="' + homeLink + '"><i class="fa fa-home"></i></a></li>');
+        document.write('<li class="breadcrumb-item"><a href="' + homeLink + '"><i class="fa-solid fa-house"></i></a></li>');
         var prev = '';
         
         var dirLink = splitUrl.map(function (el) {

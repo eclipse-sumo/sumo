@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-08-02 09:10:52 by Eclipse SUMO netedit Version v1_18_0+0677-13ce7251e4f
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- JuPedSim elements -->
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-40.000000,10.000000 -40.000000,20.000000 -50.000000,20.000000 -50.000000,10.000000 -40.000000,10.000000">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </poly>
+</additional>

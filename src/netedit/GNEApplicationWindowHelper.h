@@ -173,6 +173,18 @@ struct GNEApplicationWindowHelper {
         /// @brief disable menu cascades
         void disableMenuCascades();
 
+        /// @brief show TLS menuCommand
+        void showTLSMenuCommand();
+
+        /// @brief hide TLS menuCommand (used in JuPedSim mode)
+        void hideTLSMenuCommand();
+
+        /// @brief show data menuCommands
+        void showDataMenuCommands();
+
+        /// @brief hide data menuCommands (used in JuPedSim mode)
+        void hideDataMenuCommands();
+
     private:
         /// @brief build netedit config section
         void buildNeteditConfigSection(FXMenuPane* menuPane);
@@ -198,7 +210,7 @@ struct GNEApplicationWindowHelper {
         /// @brief build meanData section
         void buildMeanDataSection(FXMenuPane* menuPane);
 
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp = nullptr;
 
         /// @brief FXMenuCascade for neteditConfig
@@ -471,7 +483,7 @@ struct GNEApplicationWindowHelper {
         DataMenuCommands dataMenuCommands;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -551,7 +563,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -613,7 +625,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -666,7 +678,7 @@ struct GNEApplicationWindowHelper {
             FXMenuSeparator* separator = nullptr;
 
         private:
-            /// @brief pointer to current GNEApplicationWindows
+            /// @brief pointer to current GNEApplicationWindow
             GNEApplicationWindow* myGNEApp;
 
             /// @brief Invalidated copy constructor.
@@ -728,7 +740,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* openInSUMOGUI = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -812,73 +824,82 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock POIs
         MFXMenuCheckIcon* menuCheckLockPOIs = nullptr;
 
-        /// @brief menu check to lock walkableareas
-        MFXMenuCheckIcon* menuCheckLockWalkableAreas = nullptr;
+        /// @brief menu check to lock jps walkableareas
+        MFXMenuCheckIcon* menuCheckLockJpsWalkableAreas = nullptr;
 
-        /// @brief menu check to lock obstacles
-        MFXMenuCheckIcon* menuCheckLockObstacles = nullptr;
+        /// @brief menu check to lock jps obstacles
+        MFXMenuCheckIcon* menuCheckLockJpsObstacles = nullptr;
+        
+        /// @brief menu check to lock jps waiting areas
+        MFXMenuCheckIcon* menuCheckLockJpsWaitingAreas = nullptr;
 
-        /// @brief menu check to lock POI Waypoints
-        MFXMenuCheckIcon* menuCheckLockPOIWaypoints = nullptr;
+        /// @brief menu check to lock jps sources
+        MFXMenuCheckIcon* menuCheckLockJpsSources = nullptr;
+
+        /// @brief menu check to lock jps sinks
+        MFXMenuCheckIcon* menuCheckLockJpsSinks = nullptr;
+        
+        /// @brief menu check to lock jps waypoints
+        MFXMenuCheckIcon* menuCheckLockJpsWaypoints = nullptr;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode
         /// @{
         /// @brief menu check to lock routes
-        MFXMenuCheckIcon* menuCheckLockRoutes;
+        MFXMenuCheckIcon* menuCheckLockRoutes = nullptr;
 
         /// @brief menu check to lock vehicles
-        MFXMenuCheckIcon* menuCheckLockVehicles;
+        MFXMenuCheckIcon* menuCheckLockVehicles = nullptr;
 
         /// @brief menu check to lock persons
-        MFXMenuCheckIcon* menuCheckLockPersons;
+        MFXMenuCheckIcon* menuCheckLockPersons = nullptr;
 
         /// @brief menu check to lock personTrips
-        MFXMenuCheckIcon* menuCheckLockPersonTrip;
+        MFXMenuCheckIcon* menuCheckLockPersonTrip = nullptr;
 
         /// @brief menu check to lock walks
-        MFXMenuCheckIcon* menuCheckLockWalk;
+        MFXMenuCheckIcon* menuCheckLockWalk = nullptr;
 
         /// @brief menu check to lock rides
-        MFXMenuCheckIcon* menuCheckLockRides;
+        MFXMenuCheckIcon* menuCheckLockRides = nullptr;
 
         /// @brief menu check to lock containers
-        MFXMenuCheckIcon* menuCheckLockContainers;
+        MFXMenuCheckIcon* menuCheckLockContainers = nullptr;
 
         /// @brief menu check to lock transports
-        MFXMenuCheckIcon* menuCheckLockTransports;
+        MFXMenuCheckIcon* menuCheckLockTransports = nullptr;
 
         /// @brief menu check to lock tranships
-        MFXMenuCheckIcon* menuCheckLockTranships;
+        MFXMenuCheckIcon* menuCheckLockTranships = nullptr;
 
         /// @brief menu check to lock stops
-        MFXMenuCheckIcon* menuCheckLockStops;
+        MFXMenuCheckIcon* menuCheckLockStops = nullptr;
 
         /// @}
 
         /// @name Processing FXMenuCommands for Data mode
         /// @{
         /// @brief menu check to lock edge datas
-        MFXMenuCheckIcon* menuCheckLockEdgeDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeDatas = nullptr;
 
         /// @brief menu check to lock edgeRelDatas
-        MFXMenuCheckIcon* menuCheckLockEdgeRelDatas;
+        MFXMenuCheckIcon* menuCheckLockEdgeRelDatas = nullptr;
 
         /// @brief menu check to lock edgeTAZRels
-        MFXMenuCheckIcon* menuCheckLockEdgeTAZRels;
+        MFXMenuCheckIcon* menuCheckLockEdgeTAZRels = nullptr;
 
         /// @}
 
         /// @brief menu check for lock selected elements
-        MFXMenuCheckIcon* menuCheckLockSelectedElements;
+        MFXMenuCheckIcon* menuCheckLockSelectedElements = nullptr;
 
     protected:
         /// @brief Parse hot key from string
         FXHotKey parseHotKey(const FXwchar character);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -970,7 +991,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* optionMenus = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief separator for optionsMenu
@@ -996,7 +1017,7 @@ struct GNEApplicationWindowHelper {
         void buildLocateMenuCommands(FXMenuPane* locateMenu);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1049,7 +1070,7 @@ struct GNEApplicationWindowHelper {
         /// @brief run netgenerate dialog
         GNERunNetgenerateDialog* myRunNetgenerateDialog = nullptr;
 
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1069,7 +1090,7 @@ struct GNEApplicationWindowHelper {
         void buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
@@ -1124,7 +1145,7 @@ struct GNEApplicationWindowHelper {
         FXMenuCommand* dataMode = nullptr;
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
+        /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.

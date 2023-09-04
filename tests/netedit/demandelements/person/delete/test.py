@@ -44,9 +44,6 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# change zoom
-netedit.setZoom("0", "5", "5")
-
 # delete person
 netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 

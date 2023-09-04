@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # change height (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.POI.create.height, "dummyHeight")
+netedit.changeDefaultValue(netedit.attrs.poi.create.height, "dummyHeight")
 
 # try to create poi
 netedit.leftClick(referencePosition, 292, 117)
 
 # change height (invalid, negative)
-netedit.changeDefaultValue(netedit.attrs.POI.create.height, "-3")
+netedit.changeDefaultValue(netedit.attrs.poi.create.height, "-3")
 
 # try to create poi
 netedit.leftClick(referencePosition, 337, 117)
 
 # change height (valid)
-netedit.changeDefaultValue(netedit.attrs.POI.create.height, "4.4")
+netedit.changeDefaultValue(netedit.attrs.poi.create.height, "4.4")
 
 # create poi
 netedit.leftClick(referencePosition, 383, 117)

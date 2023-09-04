@@ -67,6 +67,9 @@ complex_intermodal_intersection
 # use osm types for determining FRC (functional road class)
 dlr_navteq
 
+# extended attributes like surface
+dlr_navteq_version
+
 # test import of geo-referenced lefthand network
 geo_from_osm
 

@@ -36,20 +36,20 @@
 // ---------------------------------------------------------------------------
 
 GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Persons"),
+    GNEFrame(viewParent, viewNet, TL("Persons")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create tag Selector modul for persons
+    // create tag Selector module for persons
     myPersonTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
 
-    // create person types selector modul and set DEFAULT_PEDTYPE_ID as default element
+    // create person types selector module and set DEFAULT_PEDTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID));
 
     // create person attributes
     myPersonAttributes = new GNEAttributesCreator(this);
 
-    // create tag Selector modul for person plans
+    // create tag Selector module for person plans
     myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // create person plan attributes
@@ -183,7 +183,7 @@ GNEPersonFrame::tagSelected() {
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
                 // show person plan attributes
                 myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
-                // show Netedit attributes modul
+                // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
                 // show path creator depending of tag
                 if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() ||
@@ -196,7 +196,7 @@ GNEPersonFrame::tagSelected() {
                     } else {
                         myPathCreator->setVClass(SVC_PEDESTRIAN);
                     }
-                    // show edge path creator modul
+                    // show edge path creator module
                     myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                     // show path legend
                     myPathLegend->showPathLegendModule();
@@ -218,7 +218,7 @@ GNEPersonFrame::tagSelected() {
             myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide all moduls if person isn't valid
+        // hide all modules if person isn't valid
         myTypeSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
         myPersonAttributes->hideAttributesCreatorModule();
@@ -251,9 +251,9 @@ GNEPersonFrame::demandElementSelected() {
             }
             // show person plan attributes
             myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
-            // show Netedit attributes modul
+            // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
-            // show edge path creator modul
+            // show edge path creator module
             myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show legend
             myPathLegend->showPathLegendModule();
@@ -289,7 +289,7 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC(), "create " +
                                         myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person

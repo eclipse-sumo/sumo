@@ -69,10 +69,6 @@ GNEUndoList::Iterator::getIndex() const {
 const std::string
 GNEUndoList::Iterator::getDescription() const {
     std::string redoName = myCurrentChange->redoName();
-    // remove "redo "
-    if (redoName.size() >= 5) {
-        redoName.erase(0, 5);
-    }
     return redoName;
 }
 
@@ -211,6 +207,12 @@ GNEUndoList::begin(GUIIcon icon, const std::string& description) {
     } else {
         begin(Supermode::NETWORK, icon, description);
     }
+}
+
+
+void
+GNEUndoList::begin(const GNEAttributeCarrier *AC, const std::string& description) {
+    begin(AC->getTagProperty().getGUIIcon(), description);
 }
 
 
@@ -356,16 +358,6 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
         changeGroup->undoList = change;
     }
     myWorking = false;
-}
-
-
-void
-GNEUndoList::changeAttribute(GNEChange_Attribute* change) {
-    if (change->trueChange()) {
-        add(change, true);
-    } else {
-        delete change;
-    }
 }
 
 

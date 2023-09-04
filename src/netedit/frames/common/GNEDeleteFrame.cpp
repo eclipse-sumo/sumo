@@ -328,10 +328,10 @@ GNEDeleteFrame::ProtectElements::onUpdUnprotectAll(FXObject* sender, FXSelector,
 // ===========================================================================
 
 GNEDeleteFrame::GNEDeleteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Delete") {
-    // create delete options modul
+    GNEFrame(viewParent, viewNet, TL("Delete")) {
+    // create delete options module
     myDeleteOptions = new DeleteOptions(this);
-    // create protect elements modul
+    // create protect elements module
     myProtectElements = new ProtectElements(this);
 }
 
@@ -358,8 +358,8 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
     const auto& attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     // first check if there is additional to remove
     if (selectedACsToDelete()) {
-        // remove all selected attribute carrier susing the following parent-child sequence
-        myViewNet->getUndoList()->begin(GUIIcon::MODEDELETE, "remove selected items");
+        // remove all selected attribute carriers using the following parent-child sequence
+        myViewNet->getUndoList()->begin(GUIIcon::MODEDELETE, TL("remove selected items"));
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // delete selected attribute carriers depending of current supermode
@@ -492,7 +492,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
             if (junction.second->isAttributeCarrierSelected()) {
                 return true;
             }
-            // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+            // since we iterate over all junctions, it's only necessary to iterate over incoming edges
             for (const auto& edge : junction.second->getGNEIncomingEdges()) {
                 if (edge->isAttributeCarrierSelected()) {
                     return true;

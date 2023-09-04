@@ -64,10 +64,10 @@ long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
     GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
-    undoList->begin(GUIIcon::ROUTE, "apply distance along route");
+    undoList->begin(route, "apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
-        undoList->changeAttribute(new GNEChange_Attribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        GNEChange_Attribute::changeAttribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE), undoList);
         dist += edge->getNBEdge()->getFinalLength();
     }
     undoList->end();
@@ -488,8 +488,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                ((templateAC->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (templateAC->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
-                (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+            templateAC->getTagProperty().overRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // declare trim geometry to draw
@@ -561,8 +560,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                ((templateAC->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (templateAC->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
-                (lane2laneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                templateAC->getTagProperty().overRoute() && (lane2laneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // check if mouse is over element
@@ -633,32 +631,13 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
             return time2string(myCycleTime);
-        case GNE_ATTR_ROUTE_DISTRIBUTION: {
-            std::string distributionIDs;
-            for (const auto &distribution : myDistributions) {
-                distributionIDs.append(distribution.first + " ");
-            }
-            // remove last space
-            if (distributionIDs.size() > 0) {
-                distributionIDs.pop_back();
-            }
-            return distributionIDs;
-        }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            std::string distributionProbabilities;
-            for (const auto &distribution : myDistributions) {
-                distributionProbabilities.append(toString(distribution.second) + " ");
-            }
-            // remove last space
-            if (distributionProbabilities.size() > 0) {
-                distributionProbabilities.pop_back();
-            }
-            return distributionProbabilities;
-        }
+
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
+            return getDistributionParents();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -691,6 +670,17 @@ GNERoute::getAttributePosition(SumoXMLAttr key) const {
 }
 
 
+bool
+GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case GNE_ATTR_ROUTE_DISTRIBUTION:
+            return false;
+        default:
+            return true;
+    }
+}
+
+
 void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
@@ -701,11 +691,9 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_REPEAT:
         case SUMO_ATTR_CYCLETIME:
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case due depart and arrival edge vehicles
         case SUMO_ATTR_EDGES: {
@@ -718,22 +706,21 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
             }
             // check vehicles
             if (vehicles.size() > 0) {
-                undoList->begin(GUIIcon::ROUTE, "reset start and end edges");
+                undoList->begin(this, "reset start and end edges");
                 for (const auto& vehicle : vehicles) {
-                    undoList->changeAttribute(new GNEChange_Attribute(vehicle, SUMO_ATTR_DEPARTEDGE, ""));
-                    undoList->changeAttribute(new GNEChange_Attribute(vehicle, SUMO_ATTR_ARRIVALEDGE, ""));
+                    GNEChange_Attribute::changeAttribute(vehicle, SUMO_ATTR_DEPARTEDGE, "", undoList);
+                    GNEChange_Attribute::changeAttribute(vehicle, SUMO_ATTR_ARRIVALEDGE, "", undoList);
                 }
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
-                undoList->begin(GUIIcon::ROUTE, "reset start and end edges");
-                undoList->changeAttribute(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, ""));
-                undoList->changeAttribute(new GNEChange_Attribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, ""));
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                undoList->begin(this, "reset start and end edges");
+                GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, "", undoList);
+                GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, "", undoList);
                 undoList->end();
             } else {
                 // just change edges
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -769,58 +756,12 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case GNE_ATTR_ROUTE_DISTRIBUTION:
-            if (value.empty()) {
-                return true;
-            } else {
-                auto typeDistributionIDs = StringTokenizer(value).getVector();
-                // check every id
-                for (const auto &typeDistributionID : typeDistributionIDs) {
-                    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE_DISTRIBUTION, typeDistributionID, false) == nullptr) {
-                        return false;
-                    }
-                }
-                // all ids OK
-                return true;
-            }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            auto typeDistributionProbs = StringTokenizer(value).getVector();
-            // first check that we have the same number of distributions and probabilities
-            if (typeDistributionProbs.size() != myDistributions.size()) {
-                return false;
-            } else {
-                // check every probability
-                for (const auto &typeDistributionProb : typeDistributionProbs) {
-                    if (canParse<double>(typeDistributionProb)) {
-                        const auto prob = parse<double>(typeDistributionProb);
-                        if ((prob < 0) || (prob > 1)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-                // all probabilities ok
-                return true;
-            }
-        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-bool
-GNERoute::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY:
-            return (myDistributions.size() > 0);
-        default:
-            return true;
     }
 }
 
@@ -884,7 +825,7 @@ GNERoute::copyRoute(const GNERoute* originalRoute) {
     // create new route
     GNERoute* newRoute = new GNERoute(net, newRouteID, originalRoute);
     // add new route using undo-list
-    undoList->begin(originalRoute->getTagProperty().getGUIIcon(), TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
+    undoList->begin(originalRoute, TLF("copy % '%'", originalRoute->getTagStr(), newRouteID));
     net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(newRoute, true), true);
     undoList->end();
     // return new route
@@ -927,34 +868,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CYCLETIME:
             myCycleTime = string2time(value);
             break;
-        case GNE_ATTR_ROUTE_DISTRIBUTION: {
-            // make a copy of distributions
-            const auto copyDistributions = myDistributions;
-            // clear distributions
-            myDistributions.clear();
-            // obtain IDS
-            const auto typeDistributionIDs = StringTokenizer(value).getVector();
-            // iterate over IDs, add into map, and check if previously there is a probability defined
-            for (const auto &typeDistributionID : typeDistributionIDs) {
-                if (copyDistributions.count(typeDistributionID) > 0) {
-                    myDistributions[typeDistributionID] = copyDistributions.at(typeDistributionID);
-                } else {
-                    myDistributions[typeDistributionID] = 1.0;
-                }
-            }
-            break;
-        }
-        case GNE_ATTR_ROUTE_DISTRIBUTION_PROBABILITY: {
-            // obtain probabilities
-            const auto typeDistributionProbs = StringTokenizer(value).getVector();
-            int index = 0;
-            // add every probability to their distribution
-            for (auto &distribution : myDistributions) {
-                distribution.second = parse<double>(typeDistributionProbs.at(index));
-                index++;
-            }
-            break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

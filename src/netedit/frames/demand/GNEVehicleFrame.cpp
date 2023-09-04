@@ -120,11 +120,11 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Vehicles"),
+    GNEFrame(viewParent, viewNet, TL("Vehicles")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // Create item Selector modul for vehicles
+    // Create item Selector module for vehicles
     myVehicleTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
@@ -210,7 +210,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
-    if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == GNE_TAG_FLOW_ROUTE)) {
+    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overRoute()) {
         return buildVehicleOverRoute(vehicleTag, objectsUnderCursor.getDemandElementFront());
     } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
@@ -262,15 +262,10 @@ GNEVehicleFrame::tagSelected() {
         // show path creator modul
         myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         // check if show path legend
-        if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_JUNCTIONS) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_TAZS) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_TAZS)) {
-            myPathLegend->showPathLegendModule();
-        } else {
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overEmbeddedRoute()) {
             myPathLegend->hidePathLegendModule();
+        } else {
+            myPathLegend->showPathLegendModule();
         }
     } else {
         // hide all moduls if tag isn't valid

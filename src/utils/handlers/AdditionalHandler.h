@@ -127,12 +127,15 @@ public:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     virtual void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                       const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                                      const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
+                                      const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+                                      const SUMOTime waitingTime, const bool friendlyPosition,
                                       const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Area
@@ -573,35 +576,66 @@ public:
                              bool relativePath, const double width, const double height, const std::string& name,
                              const Parameterised::Map& parameters) = 0;
     
-    /**@brief Builds a walkable area using the given values
+    /**@brief Builds a JuPedSim walkable area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] name polygon name
+     * @param[in] id The name of the walkable area
+     * @param[in] shape The shape of the walkable area
+     * @param[in] name walkable area name
      * @param[in] parameters generic parameters
      */
-    virtual void buildWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+    virtual void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                    const std::string& name, const Parameterised::Map& parameters) = 0;
 
-    /**@brief Builds a obstacle using the given values
+    /**@brief Builds a JuPedSim obstacle using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the polygon
-     * @param[in] shape The shape of the polygon
-     * @param[in] name polygon name
+     * @param[in] id The name of the obstacle
+     * @param[in] shape The shape of the obstacle
+     * @param[in] name obstacle name
      * @param[in] parameters generic parameters
      */
-    virtual void buildObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+    virtual void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                const std::string& name, const Parameterised::Map& parameters) = 0;
 
-    /**@brief Builds a POIWaypoint using the given values
+    /**@brief Builds a JuPedSim waiting area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the POI
-     * @param[in] x POI's x position
-     * @param[in] y POI's y position
-     * @param[in] name POIWaypoint name
+     * @param[in] id The name of the waiting area
+     * @param[in] shape The shape of the waiting area
+     * @param[in] name waiting area name
      * @param[in] parameters generic parameters
      */
-    virtual void buildPOIWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
+    virtual void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                  const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a JuPedSim source using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the source
+     * @param[in] shape The shape of the source
+     * @param[in] name source name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildJpsSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                const std::string& name, const Parameterised::Map& parameters) = 0;
+
+    /**@brief Builds a JuPedSim sink using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the sink
+     * @param[in] shape The shape of the sink
+     * @param[in] name sink name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildJpsSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                              const std::string& name, const Parameterised::Map& parameters) = 0;
+
+
+    /**@brief Builds a JuPedSim waypoint using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the waypoint
+     * @param[in] x waypoint's x position
+     * @param[in] y waypoint's y position
+     * @param[in] name waypoint name
+     * @param[in] parameters generic parameters
+     */
+    virtual void buildJpsWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
                                   const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /// @}
@@ -724,14 +758,23 @@ private:
     /// @brief parse POI attributes
     void parsePOIAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse walkable area attributes
-    void parseWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse juPedSim walkable area attributes
+    void parseJpsWalkableAreaAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse poly attributes
-    void parseObstacleAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse juPedSim obstacle attributes
+    void parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs);
 
-    // @brief parse poly attributes
-    void parsePOIWaypointAttributes(const SUMOSAXAttributes& attrs);
+    /// @brief parse juPedSim waiting area attributes
+    void parseJpsWaitingAreaAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse juPedSim source attributes
+    void parseJpsSourceAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse juPedSim sink attributes
+    void parseJpsSinkAttributes(const SUMOSAXAttributes& attrs);
+
+    /// @brief parse poi waypoints attributes
+    void parseJpsWaypointAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);

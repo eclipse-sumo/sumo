@@ -87,6 +87,9 @@ NWFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("dlr-navteq-output", new Option_FileName());
     oc.addDescription("dlr-navteq-output", "Output", TL("The generated net will be written to dlr-navteq files with the given PREFIX"));
 
+    oc.doRegister("dlr-navteq.version", new Option_String("6.5"));
+    oc.addDescription("dlr-navteq.version", "Output", TL("The dlr-navteq output format version to write"));
+
     oc.doRegister("dlr-navteq.precision", new Option_Integer(2));
     oc.addDescription("dlr-navteq.precision", "Output", TL("The network coordinates are written with the specified level of output precision"));
 
@@ -167,7 +170,7 @@ NWFrame::checkOptions(OptionsCont& oc) {
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
-        oc.setDefault("osm.extra-attributes", "bridge,tunnel,layer,postal_code");
+        oc.setDefault("osm.extra-attributes", "bridge,tunnel,layer,postal_code,maxheight,maxwidth,maxweight,surface");
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
         WRITE_ERROR(TL("public transport lines output requires 'ptstop-output' to be set"));

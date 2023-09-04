@@ -879,8 +879,14 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 *copyParam = *myVehicleParameter;
                 myVehicleParameter = copyParam;
                 MSTransportable::MSTransportablePlan* copyPlan = new MSTransportable::MSTransportablePlan();
-                for (MSStage* s : *myActiveTransportablePlan) {
+                MSStage* lastStage = nullptr;
+                for (MSStage* const s : *myActiveTransportablePlan) {
                     copyPlan->push_back(s->clone());
+                    if (lastStage != nullptr && s->getStageType() == MSStageType::WALKING && lastStage->getDestinationStop() != nullptr) {
+                        MSStageMoving* walk = static_cast<MSStageMoving*>(copyPlan->back());
+                        walk->setDepartPos(lastStage->getDestinationStop()->getAccessPos(walk->getEdge(), &myParsingRNG));
+                    }
+                    lastStage = s;
                 }
                 myActiveTransportablePlan = copyPlan;
                 if (myVehicleParameter->departPosProcedure == DepartPosDefinition::RANDOM) {
@@ -1354,7 +1360,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         departPos = 0.;
         if (lastStage != nullptr) {
             if (lastStage->getDestinationStop() != nullptr) {
-                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge);
+                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge, &myParsingRNG);
             } else if (lastStage->getDestination() == fromEdge) {
                 departPos = lastStage->getArrivalPos();
             } else if (lastStage->getDestination()->getToJunction() == fromEdge->getToJunction()) {

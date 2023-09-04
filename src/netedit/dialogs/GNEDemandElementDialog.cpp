@@ -123,7 +123,7 @@ GNEDemandElementDialog::changeDemandElementDialogHeader(const std::string& newHe
 void
 GNEDemandElementDialog::initChanges() {
     // init commandGroup
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement->getTagProperty().getGUIIcon(), myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
     // save number of command group changes
     myNumberOfChanges = myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
@@ -150,7 +150,7 @@ void
 GNEDemandElementDialog::resetChanges() {
     // abort last command group an start editing again
     myEditedDemandElement->getNet()->getViewNet()->getUndoList()->abortLastChangeGroup();
-    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement->getTagProperty().getGUIIcon(), myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->begin(myEditedDemandElement, myChangesDescription);
 }
 
 
