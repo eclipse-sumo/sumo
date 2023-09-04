@@ -47,9 +47,9 @@ TEST(GeoConvHelper, test_method_cartesian2geo) {
         "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
         Position(), Boundary(), Boundary(), 1, false);
 
-    Position cartesian(13.5326994, 52.428098100000007);
+    Position cartesian(400235.50494557252, 5809666.826070101);
     gch.cartesian2geo(cartesian);
 
-    EXPECT_NEAR(10.51137735, cartesian.x(), 1e-5);
-    EXPECT_NEAR(0.00047286, cartesian.y(), 1e-5);
+    EXPECT_NEAR(13.5326994, cartesian.x(), 1e-5);
+    EXPECT_NEAR(52.428098100000007, cartesian.y(), 1e-5);
 }
