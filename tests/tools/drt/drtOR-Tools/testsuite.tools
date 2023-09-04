@@ -19,6 +19,9 @@ time_window1
 # Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
 time_window2
 
+# Test, whether the pickup_earliest and dropoff_latest are softly hold.
+time_window3
+
 # Test, whether the custom waiting time is hold and influences the result.
 # short waiting time: 40
 # Should result in no service of both requests.
