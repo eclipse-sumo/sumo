@@ -1,0 +1,6 @@
+[04-09-2023 09:15:01.991] [PID: 964] Loading net-file from 'net.net.xml' ... done (2ms).
+[04-09-2023 09:15:01.994] [PID: 964] Loading done.
+[04-09-2023 09:15:02.004] [PID: 964] Simulation version v1_17_0+2720-3cc6b7f693f started with time: 0.00.
+Step #0.00Step #100.00
+[04-09-2023 09:15:02.005] [PID: 964] Simulation ended at time: 100.00
+[04-09-2023 09:15:02.005] [PID: 964] Reason: The final simulation step has been reached.
