@@ -1121,8 +1121,7 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
-        // hide all Supermode, Network and demand commands
-        mySupermodeCommands.hideSupermodeCommands();
+        // hide all menu commands
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
@@ -1365,7 +1364,8 @@ GNEApplicationWindow::fillMenuBar() {
     myModesMenuTitle->setSelector(MID_GNE_MODESMENUTITLE);
     // build Supermode commands and hide it
     mySupermodeCommands.buildSupermodeCommands(myModesMenu);
-    mySupermodeCommands.hideSupermodeCommands();
+    // add separator
+    new FXSeparator(myModesMenu);
     // build modes menu commands
     myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
