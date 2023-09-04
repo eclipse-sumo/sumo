@@ -292,6 +292,8 @@ configuration:
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
+| **--log.timestamps** | Writes timestamps in front of all messages (if logging is enabled) |
+| **--log.processid** | Writes process ID in front of all messages (if logging is enabled) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
