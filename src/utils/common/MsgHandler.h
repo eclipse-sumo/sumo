@@ -186,16 +186,16 @@ protected:
                 case MsgType::MT_MESSAGE:
                     break;
                 case MsgType::MT_WARNING:
-                    return prefix += "Warning: ";
+                    prefix += "Warning: ";
                     break;
                 case MsgType::MT_ERROR:
-                    return prefix += "Error: ";
+                    prefix += "Error: ";
                     break;
                 case MsgType::MT_DEBUG:
-                    return prefix += "Debug: ";
+                    prefix += "Debug: ";
                     break;
                 case MsgType::MT_GLDEBUG:
-                    return prefix += "GLDebug: ";
+                    prefix += "GLDebug: ";
                     break;
                 default:
                     break;
