@@ -369,10 +369,10 @@ MsgHandler::cleanupOnEnd() {
 std::string 
 MsgHandler::buildTimestampPrefix(void) const {
     std::stringstream prefix;
-    std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
-    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
+    const std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
+    const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(now_timestamp.time_since_epoch()) % 1000;
     std::time_t now_time_t = std::chrono::system_clock::to_time_t(now_timestamp);
-    std::tm* tm = std::localtime(&now_time_t);
+    const std::tm* const tm = std::localtime(&now_time_t);
     prefix << std::put_time(tm, "[%d-%m-%Y %T");
     prefix << '.' << std::setfill('0') << std::setw(3) << milliseconds.count() << "] ";
     return prefix.str();
@@ -382,11 +382,13 @@ MsgHandler::buildTimestampPrefix(void) const {
 std::string 
 MsgHandler::buildProcessIdPrefix(void) const {
     std::stringstream prefix;
+    prefix << "[PID: ";
 #ifdef WIN32
-    prefix << "[PID: " << GetCurrentProcessId() << "] ";
+    prefix << GetCurrentProcessId();
 #else
-    prefix << "[PID: " << getpid() << "] ";
+    prefix << getpid();
 #endif
+    prefix << "] ";
     return prefix.str();
 }
 
