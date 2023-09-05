@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-05 13:53+0000\n"
+"PO-Revision-Date: 2023-09-06 00:05+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -1655,7 +1655,6 @@ msgid "type [id]"
 msgstr "Tür [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
-#, fuzzy
 msgid "tauff"
 msgstr "tauff"
 
@@ -1665,12 +1664,10 @@ msgid "taufj"
 msgstr "taufj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:230
-#, fuzzy
 msgid "taujf"
 msgstr "taujf"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:231
-#, fuzzy
 msgid "taujj"
 msgstr "taujj"
 
@@ -8382,15 +8379,13 @@ msgstr ""
 "Dedektör alanına bir araç geldiğinde uyarı verilmemesi gerekip gerekmediği."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2243
-#, fuzzy
 msgid "E3 DetEntry"
-msgstr "E3 DetEntry"
+msgstr "E3 DetGiriş"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2271
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2299
-#, fuzzy
 msgid "E3 DetExit"
-msgstr "E3 DetExit"
+msgstr "E3 DetÇıkış"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2304
 msgid "The id of Instant Induction Loop (E1Instant)"
@@ -8876,9 +8871,8 @@ msgid "Depart weight associated to this Edge"
 msgstr "Bu kesimle ilişkili kalkış ağırlığı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3237
-#, fuzzy
 msgid "TAZ Sink"
-msgstr "TAZ Sink"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3248
 msgid "Arrival weight associated to this Edge"
@@ -15404,17 +15398,17 @@ msgstr "gürültü emisyonlarına göre (Harmonoise)"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1253
 msgid "by global travel time"
-msgstr ""
+msgstr "küresel seyahat süresine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1257
 msgid "by global speed percentage"
-msgstr ""
+msgstr "küresel hız yüzdesine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:767
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1261
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "verilen uzunluk/geometrik uzunluğa göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:775
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1094
@@ -15423,67 +15417,67 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1342
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1566
 msgid "by angle"
-msgstr ""
+msgstr "açı tarafından"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:776
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
 msgid "by loaded weight"
-msgstr ""
+msgstr "yüklü ağırlığa göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:780
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1269
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1568
 msgid "by priority"
-msgstr ""
+msgstr "öncelikli olarak"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:785
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1573
 msgid "by height at start"
-msgstr ""
+msgstr "başlangıçtaki yüksekliğe göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:793
 msgid "by height at geometry-segment start"
-msgstr ""
+msgstr "geometri segmenti başlangıcındaki yüksekliğe göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:801
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1587
 msgid "by inclination"
-msgstr ""
+msgstr "eğilime göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:808
 msgid "by geometry-segment inclination"
-msgstr ""
+msgstr "geometri segmenti eğimine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:815
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1274
 msgid "by average speed"
-msgstr ""
+msgstr "ortalama hıza göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:822
 msgid "by average relative speed "
-msgstr ""
+msgstr "ortalama bağıl hıza göre "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:829
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "yönlendirme cihazı tarafından varsayılan hız "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:836
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1032
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1282
 msgid "by electricity consumption"
-msgstr ""
+msgstr "elektrik tüketimine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:844
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1285
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1370
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1405
 msgid "by insertion-backlog (streetwise)"
-msgstr ""
+msgstr "ekleme - beklemeye göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:849
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "by TAZ (streetwise)"
-msgstr ""
+msgstr "tarafından TAZ (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:857
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:884
@@ -15493,158 +15487,158 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1616
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1682
 msgid "missing data"
-msgstr ""
+msgstr "eksik veri"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
 msgid "by distance (kilometrage)"
-msgstr ""
+msgstr "mesafeye göre (kilometre)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:867
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "abs mesafesine göre (kilometre)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by reachability (traveltime)"
-msgstr ""
+msgstr "erişilebilirliğe göre (seyahat süresi)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by thread index"
-msgstr ""
+msgstr "sıra listesine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:878
 msgid "free parking spaces"
-msgstr ""
+msgstr "ücretsiz park yerleri"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:889
 msgid "given vehicle/type/route color"
-msgstr ""
+msgstr "verilen araç/tür/rota rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:891
 msgid "given/assigned vehicle color"
-msgstr ""
+msgstr "verilen/atanan araç rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:892
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1100
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
 msgid "given/assigned type color"
-msgstr ""
+msgstr "verilen/atanan tür rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
 msgid "given/assigned route color"
-msgstr ""
+msgstr "verilen/atanan rota rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
 msgid "depart position as HSV"
-msgstr ""
+msgstr "HSV olarak ayrılma pozisyonu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:895
 msgid "arrival position as HSV"
-msgstr ""
+msgstr "HSV olarak varış pozisyonu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:896
 msgid "direction/distance as HSV"
-msgstr ""
+msgstr "HSV olarak yön/mesafe"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:897
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1101
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1136
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1426
 msgid "by speed"
-msgstr ""
+msgstr "hız tarafından"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "by action step"
-msgstr ""
+msgstr "eylem adımına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:907
 msgid "no action"
-msgstr ""
+msgstr "eylem yok"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:908
 msgid "action in next step"
-msgstr ""
+msgstr "sonraki adımdaki eylem"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:909
 msgid "had action step"
-msgstr ""
+msgstr "eylem adımı vardı"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:911
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1432
 msgid "by waiting time"
-msgstr ""
+msgstr "bekleme süresine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:917
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1438
 msgid "by accumulated waiting time"
-msgstr ""
+msgstr "birikmiş bekleme süresine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:923
 msgid "by time since lane change"
-msgstr ""
+msgstr "şerit değiştirmeden bu yana geçen süreye göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:932
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1441
 msgid "by max speed"
-msgstr ""
+msgstr "maksimum hıza göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:996
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1448
 msgid "by reroute number"
-msgstr ""
+msgstr "yeniden yönlendirme numarasına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1003
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1452
 msgid "by offset from best lane"
-msgstr ""
+msgstr "en iyi şeritten sıralamaya göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1004
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1453
 msgid "opposite lane"
-msgstr ""
+msgstr "karşı şerit"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1011
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1460
 msgid "by acceleration"
-msgstr ""
+msgstr "hızlanma ile"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1020
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1469
 msgid "by time gap on lane"
-msgstr ""
+msgstr "şeritteki zaman boşluğuna göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1026
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1475
 msgid "by depart delay"
-msgstr ""
+msgstr "kalkış gecikmesine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1040
 msgid "by relative battery charge"
-msgstr ""
+msgstr "göreceli pil şarjına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1049
 msgid "by charged energy"
-msgstr ""
+msgstr "yüklü enerjiye göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1058
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1481
 msgid "by time loss"
-msgstr ""
+msgstr "zaman kaybına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1064
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1487
 msgid "by stop delay"
-msgstr ""
+msgstr "durma gecikmesine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1073
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1496
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "durak varış gecikmesine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1083
 msgid "by lateral speed"
-msgstr ""
+msgstr "yanal hıza göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1093
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1129
@@ -15652,225 +15646,225 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1205
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1667
 msgid "random"
-msgstr ""
+msgstr "rastgele"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
 msgid "given person/type color"
-msgstr ""
+msgstr "verilen kişi/renk türü"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1099
 msgid "given/assigned person color"
-msgstr ""
+msgstr "verilen/atanan kişi rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "by mode"
-msgstr ""
+msgstr "moduna göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1109
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1141
 msgid "waiting for insertion"
-msgstr ""
+msgstr "yerleştirme için bekliyor"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1110
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1142
 msgid "stopped"
-msgstr ""
+msgstr "Durduruldu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1111
 msgid "walking"
-msgstr ""
+msgstr "yürüyor"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
 msgid "riding"
-msgstr ""
+msgstr "Binicilik"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1113
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1144
 msgid "accessing trainStop"
-msgstr ""
+msgstr "trainStop erişim"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1114
 msgid "waiting for ride"
-msgstr ""
+msgstr "Araç bekliyor"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1122
 msgid "by jammed state"
-msgstr ""
+msgstr "sıkışma durumuna göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1132
 msgid "given container/type color"
-msgstr ""
+msgstr "verilen konteyner/tür rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1134
 msgid "given/assigned container color"
-msgstr ""
+msgstr "verilen/atanan konteyner rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1143
 msgid "transport"
-msgstr ""
+msgstr "taşıma"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
 msgid "waiting for transport"
-msgstr ""
+msgstr "ulaşım için bekliyor"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 msgid "tranship"
-msgstr ""
+msgstr "aktarma"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1183
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1645
 msgid "by height"
-msgstr ""
+msgstr "yüksekliğe göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1193
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1655
 msgid "given POI color"
-msgstr ""
+msgstr "verilen POI rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1200
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1662
 msgid "given polygon color"
-msgstr ""
+msgstr "verilen poligon rengi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1209
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1671
 msgid "default"
-msgstr ""
+msgstr "varsayılan"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1277
 msgid "by average relative speed"
-msgstr ""
+msgstr "ortalama bağıl hıza göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "amaca göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1306
 msgid "internal"
-msgstr ""
+msgstr "dahili"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1390
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "izin verilen hıza göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1315
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1393
 msgid "by current occupancy (streetwise, brutto)"
-msgstr ""
+msgstr "mevcut doluluk durumuna göre (streetwise, brutto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1318
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1396
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "mevcut hıza göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1325
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1399
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "akım akışına göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1402
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "göreceli hıza göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1335
 msgid "by routing device assumed speed"
-msgstr ""
+msgstr "yönlendirme cihazı tarafından varsayılan hız"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "segmentlere göre (dönüşümlü)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1343
 msgid "odd"
-msgstr ""
+msgstr "tek"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1344
 msgid "even"
-msgstr ""
+msgstr "bile"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "sıkışıklık duruma göre (segment bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "free"
-msgstr ""
+msgstr "ücretsiz"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
 msgid "limitedControl"
-msgstr ""
+msgstr "sınırlıKontrol"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1348
 msgid "jammed"
-msgstr ""
+msgstr "Sıkışmış"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
 msgid "by current occupancy (segmentwise, brutto)"
-msgstr ""
+msgstr "mevcut doluluk durumuna göre (segment bazında, brutto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1353
 msgid "by current speed (segmentwise)"
-msgstr ""
+msgstr "mevcut hıza göre (segment bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1360
 msgid "by current flow (segmentwise)"
-msgstr ""
+msgstr "akım akışına göre (segment bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1363
 msgid "by relative speed (segmentwise)"
-msgstr ""
+msgstr "göreli hıza göre (segment bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1375
 msgid "no TAZ"
-msgstr ""
+msgstr "TAZ yok"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1527
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1625
 msgid "data mode"
-msgstr ""
+msgstr "veri modu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1532
 msgid "by permission code"
-msgstr ""
+msgstr "izin koduna göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1580
 msgid "by height at segment start"
-msgstr ""
+msgstr "segment başlangıcındaki yüksekliğe göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1594
 msgid "by segment inclination"
-msgstr ""
+msgstr "segment eğilimine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1621
 msgid "junction bubble"
-msgstr ""
+msgstr "kavşak balonu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1622
 msgid "geometry points"
-msgstr ""
+msgstr "geometri noktaları"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1623
 msgid "connections missing"
-msgstr ""
+msgstr "bağlantılar eksik"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
 msgid "custom shape"
-msgstr ""
+msgstr "özel şekil"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1680
 msgid "by origin taz"
-msgstr ""
+msgstr "origin taz göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1681
 msgid "by destination taz"
-msgstr ""
+msgstr "hedef taz'a göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2367
 msgid "No color defined for LinkState '%'"
@@ -15951,7 +15945,7 @@ msgstr "oto-merkez"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:329
 #, c-format
 msgid "% objects"
-msgstr ""
+msgstr "% nesnesi"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
@@ -16513,11 +16507,11 @@ msgstr "Gökyüzü rengi"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter View"
-msgstr ""
+msgstr "Görünümü Yeniden Ayarla"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "Görünümü simüle edilen alana yeniden yerleştirin."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1596
@@ -16527,49 +16521,51 @@ msgstr "Görüntü Alanını Düzenle"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr ""
+msgstr "Görünüm alanını düzenlemenizi sağlayan bir menü açar. (Ctrl+I)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:127
 msgid "Toggle Zooming Style"
-msgstr ""
+msgstr "Yakınlaştırma Stilini Değiştir"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:127
 msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
 msgstr ""
+"Yakınlaştırmanın imleç konumuna göre mi yoksa görünümün merkezine göre mi "
+"yapılacağını değiştirir."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:134
 msgid "Locate Structures"
-msgstr ""
+msgstr "Yapıların Yerini Belirleyin"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:134
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "Ağ içindeki yapıların yerini belirleyin."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:138
 msgid "Toggle View Tooltips"
-msgstr ""
+msgstr "Görünüm Araç İpuçlarını Değiştir"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:138
 msgid "Toggles whether tooltips in the view shall be shown."
-msgstr ""
+msgstr "Görünümdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:160
 msgid "Edit Coloring Schemes"
-msgstr ""
+msgstr "Renklendirme Şemalarını Düzenleme"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:160
 msgid "Opens a menu which lets you edit the coloring schemes. (F9)"
-msgstr ""
+msgstr "Renklendirme şemalarını düzenlemenizi sağlayan bir menü açar. (F9)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:171
 msgid "Make Snapshot"
-msgstr ""
+msgstr "Anlık Görüntü Oluşturun"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:171
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "Görünümün anlık görüntüsünü oluşturur."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
@@ -16601,7 +16597,7 @@ msgstr "Dili Fransızca olarak değiştirin. (fr)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:350
 msgid "Change language to italian. (it)"
-msgstr ""
+msgstr "Dili İtalyanca olarak değiştirin. (it)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
 msgid "简体中文 (zh)"
