@@ -290,10 +290,10 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         }
         // build geo coordiantes
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, (TL("N/A"), "", TL("Original coordinate (before coordinate transformation in netconvert)")).c_str(), nullptr, LAYOUT_CENTER_Y);
+        myGeoCoordinate = GUIDesigns::buildFXLabel(myGeoFrame, TL("N/A"), "", TL("Original coordinate (before coordinate transformation in netconvert)"), nullptr, LAYOUT_CENTER_Y);
         // build cartesian coordinates
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A"), "", TL("Network coordinate")).c_str(), nullptr, LAYOUT_CENTER_Y);
+        myCartesianCoordinate = GUIDesigns::buildFXLabel(myCartesianFrame, TL("N/A"), "", TL("Network coordinate"), nullptr, LAYOUT_CENTER_Y);
         // build buttons
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
@@ -491,9 +491,8 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Selected..."), "Ctrl+E", TL("Opens a dialog for editing the list of selected items."),
                                            GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
-    mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
-                                                 (TL("Select lanes which allow..."), "", TL("Opens a menu for selecting a vehicle class by which to selected lanes.")).c_str(),
-                                                 GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
+    mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu, TL("Select lanes which allow..."), GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
+    mySelectLanesMenuCascade->setHelpText(TL("Opens a menu for selecting a vehicle class by which to selected lanes."));
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Breakpoints"), "Ctrl+B", TL("Opens a dialog for editing breakpoints."),
@@ -721,9 +720,8 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        myScaleTrafficTooltip = new MFXLabelTooltip(myToolBar8, myStaticTooltipMenu, 
-            (TL("Scale Traffic:"), "", TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files.")).c_str(),
-            nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myScaleTrafficTooltip = new MFXLabelTooltip(myToolBar8, myStaticTooltipMenu, TL("Scale Traffic:"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myScaleTrafficTooltip->setHelpText(TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files."));
         myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
@@ -748,7 +746,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag6 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar6, (TL("Waiting Time:"), "", TL("Time spent waiting accumulated for all vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar6, TL("Waiting Time:"), "", TL("Time spent waiting accumulated for all vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myWaitingTimeLabel = new MFXLCDLabel(myToolBar6, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
         myWaitingTimeLabel->setVertical(6);
@@ -759,7 +757,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag7 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar7, (TL("Time Loss:"), "", TL("Time lost due to being unable to drive with maximum speed for all vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar7, TL("Time Loss:"), "", TL("Time lost due to being unable to drive with maximum speed for all vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myTimeLossLabel = new MFXLCDLabel(myToolBar7, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);
         myTimeLossLabel->setVertical(6);
@@ -770,7 +768,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag9 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar9, (TL("Distance (km):"), "", TL("Total distance driven by DRT vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar9, TL("Distance (km):"), "", TL("Total distance driven by DRT vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myTotalDistanceLabel = new MFXLCDLabel(myToolBar9, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTotalDistanceLabel->setHorizontal(2);
         myTotalDistanceLabel->setVertical(6);
@@ -781,7 +779,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag10 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar10 = new FXToolBar(myTopDock, myToolBarDrag10, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar10, myToolBar10, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar10, (TL("Emergency Vehicle waiting time:"), "", TL("Time spent waiting accumulated for emergency vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar10, TL("Emergency Vehicle waiting time:"), "", TL("Time spent waiting accumulated for emergency vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myEmergencyVehicleLabel = new MFXLCDLabel(myToolBar10, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myEmergencyVehicleLabel->setHorizontal(2);
         myEmergencyVehicleLabel->setVertical(6);

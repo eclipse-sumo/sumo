@@ -454,7 +454,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
         myButton = GUIDesigns::buildFXButton(this, TL("Edit parameters"), "", "", nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
     } else {
-        new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelThickedFixed(150));
+        GUIDesigns::buildFXLabel(this, filterAttributeName(attr), "", "", nullptr, GUIDesignLabelThickedFixed(150));
     }
     // now check if we have to create a textfield or a ComboBox
     if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME) || (rowAttrType == ROWTYPE_PARAMETERS)) {

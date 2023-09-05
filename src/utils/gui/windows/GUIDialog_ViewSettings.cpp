@@ -1810,7 +1810,8 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
 
     myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRails->setCheck(mySettings->showRails);
-    mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads"), "", TL("Make both directional edges for a bidirectional railways or roads visible"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed->setHelpText(TL("Make both directional edges for a bidirectional railways or roads visible"));
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
 
     mySecondaryShape = new FXCheckButton(matrixLanes, TL("Secondary shape"), this, MID_SIMPLE_VIEW_COLORCHANGE);
