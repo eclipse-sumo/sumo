@@ -198,7 +198,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, FXMenuPane* fileMenuMeanDataElements) {
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("&New Network"), "Ctrl+N", TL("Create a new network."),
+                                           TL("New Network"), "Ctrl+N", TL("Create a new network."),
                                            GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -224,41 +224,41 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("&Open Network..."), "Ctrl+O", TL("Open a SUMO network."),
+                                           TL("Open Network..."), "Ctrl+O", TL("Open a SUMO network."),
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Open Netconvert Configura&tion..."), "Ctrl+Shift+O", TL("Open a configuration file with NETCONVERT options."),
+                                           TL("Open Netconvert Configuration..."), "Ctrl+Shift+O", TL("Open a configuration file with NETCONVERT options."),
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Import &Foreign Network..."), "", TL("Import a foreign network such as OSM."),
+                                           TL("Import Foreign Network..."), "", TL("Import a foreign network such as OSM."),
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
 
     // save networks
     new FXMenuSeparator(fileMenu);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("&Save Network"), "Ctrl+S", TL("Save the network."),
+                                           TL("Save Network"), "Ctrl+S", TL("Save the network."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Save Net&work As..."), "", TL("Save the network to another file."),
+                                           TL("Save Network As..."), "", TL("Save the network to another file."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Save Plain XM&L..."), "Ctrl+L", TL("Save a plain XML representation of the network."),
+                                           TL("Save Plain XML..."), "Ctrl+L", TL("Save a plain XML representation of the network."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("Save &Joined Junctions..."), "", TL("Save log of joined junctions (allows reproduction of joins)."),
+                                           TL("Save Joined Junctions..."), "", TL("Save log of joined junctions (allows reproduction of joins)."),
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
 
     // reload
     new FXMenuSeparator(fileMenu);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("&Reload"), "Ctrl+R", TL("Reload the network."),
+                                           TL("Reload"), "Ctrl+R", TL("Reload the network."),
                                            GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -2225,19 +2225,19 @@ GNEApplicationWindowHelper::HelpMenuCommands::HelpMenuCommands(GNEApplicationWin
 void
 GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* helpMenu) {
     // build windows menu commands
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, myGNEApp, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     new FXMenuSeparator(helpMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Changelog"), "", TL("Open Changelog."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Changelog"), "", TL("Open Changelog."),
                                            nullptr, myGNEApp, MID_CHANGELOG);
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Hotkeys"), "", TL("Open Hotkeys."),
                                            nullptr, myGNEApp, MID_HOTKEYS);
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, myGNEApp, MID_TUTORIAL);
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Feedback"), "", TL("Open feedback channels."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("Feedback"), "", TL("Open feedback channels."),
                                            nullptr, myGNEApp, MID_FEEDBACK);
     new FXMenuSeparator(helpMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&About"), "F12", TL("About netedit."),
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("About"), "F12", TL("About netedit."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
 }
 
