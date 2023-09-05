@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-02 14:54+0000\n"
+"PO-Revision-Date: 2023-09-05 08:48+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -3399,7 +3399,7 @@ msgstr "Elemanları seç."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:693
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 msgid "Move"
-msgstr ""
+msgstr "Taşı"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:603
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:693
@@ -3420,7 +3420,7 @@ msgstr "Kesim ve kavşak oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Traffic light"
-msgstr ""
+msgstr "Trafik Işıkları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:644
@@ -3430,7 +3430,7 @@ msgstr "Kavşaklardaki trafik ışıklarını ayarlar."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1381
 msgid "Connection"
-msgstr ""
+msgstr "Bağlantı"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:648
@@ -3618,7 +3618,7 @@ msgstr "Kesim verisi elemanları oluştur."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6173
 msgid "EdgeRelation"
-msgstr ""
+msgstr "Kesimİlişkisi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:795
@@ -3628,7 +3628,7 @@ msgstr "Kesim ilişkili elemanlar oluştur."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6192
 msgid "TAZRelation"
-msgstr ""
+msgstr "TAZİlişkisi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:798
@@ -3638,7 +3638,7 @@ msgstr "TAB ilişkili elemanlar oluştur."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:439
 msgid "MeanData"
-msgstr ""
+msgstr "OrtalamaVeri"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:801
@@ -3933,7 +3933,7 @@ msgstr "Şeritler"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1344
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
-msgstr ""
+msgstr "Bağlantılar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1349
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
@@ -3945,13 +3945,13 @@ msgstr "Geçitler"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2060
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
-msgstr ""
+msgstr "YürüyüşAlanları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1359
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
-msgstr ""
+msgstr "İlaveler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
@@ -3963,7 +3963,7 @@ msgstr "TABlar"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
-msgstr ""
+msgstr "Enerji Hatları"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
@@ -4011,7 +4011,7 @@ msgstr "Yol Noktaları"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:186
 msgid "Routes"
-msgstr ""
+msgstr "Rotalar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1420
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2063
@@ -4034,7 +4034,7 @@ msgstr "Yolcular"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1430
 msgid "PersonTrips"
-msgstr ""
+msgstr "KişiGezileri"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1435
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:189
@@ -4058,12 +4058,12 @@ msgstr "Konteynerler"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
 msgid "Transports"
-msgstr ""
+msgstr "Taşımacılık"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1455
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
 msgid "Tranships"
-msgstr ""
+msgstr "Aktarma gemileri"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1460
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2075
@@ -4076,17 +4076,17 @@ msgstr "Duraklar"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1465
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:128
 msgid "EdgeDatas"
-msgstr ""
+msgstr "KesimVerisi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1470
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:129
 msgid "EdgeRelDatas"
-msgstr ""
+msgstr "EdgeRelDatas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1475
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:130
 msgid "EdgeTAZRel"
-msgstr ""
+msgstr "EdgeTAZRel"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1483
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1489
@@ -4255,12 +4255,12 @@ msgstr "Bir Durak Belirlemek İçin İletişim Kutusu Aç."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2084
 msgid "PoI"
-msgstr ""
+msgstr "Pol"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2087
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2855
 msgid "Polygon"
-msgstr ""
+msgstr "Polygon"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2205
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2211
@@ -5746,27 +5746,27 @@ msgstr "Veri talebini düzenlemek için mod ayarla. (F4)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2120
 msgid "Change netedit view"
-msgstr ""
+msgstr "Netedit görünümünü değiştir"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2120
 msgid "Change netedit view."
-msgstr ""
+msgstr "Netedit görünümünü değiştirin."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2125
 msgid "Set default view"
-msgstr ""
+msgstr "Varsayılan görünümü ayarlama"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2125
 msgid "Set default view."
-msgstr ""
+msgstr "Varsayılan görünümü ayarlayın."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Set JuPedSim view"
-msgstr ""
+msgstr "JuPedSim görünümünü ayarla"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Set JuPedSim view."
-msgstr ""
+msgstr "JuPedSim görünümünü ayarlayın."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2144
 msgid "Mode already selected"
@@ -6046,12 +6046,12 @@ msgstr "Elemanları silmek için mod. (D)"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3513
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Set select mode"
-msgstr ""
+msgstr "Seçim modunu ayarla"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3513
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Mode for selecting elements. (S)"
-msgstr ""
+msgstr "Eleman seçme modu. (S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3569
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3722
@@ -6160,12 +6160,12 @@ msgstr "Çokgen ve EN'ler oluşturmak için mod. (P)"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3619
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Set decal mode"
-msgstr ""
+msgstr "Etiket modunu ayarlama"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3619
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Mode for editing decals. (U)"
-msgstr ""
+msgstr "Etiketleri düzenleme modu. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3727
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3729
@@ -6180,12 +6180,12 @@ msgstr "Rota oluşturmak için mod. (R)"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3734
 msgid "Set route distribution mode"
-msgstr ""
+msgstr "Rota dağıtım modunu ayarlama"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3734
 msgid "Mode for creating and editing rout distributions. (W)"
-msgstr ""
+msgstr "Rota dağıtımları oluşturma ve düzenleme modu. (W)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3739
@@ -6210,12 +6210,12 @@ msgstr "Tip oluşturmak için mod (araç, yolcu ve konteynerler). (T)"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3747
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3749
 msgid "Create type distribution mode"
-msgstr ""
+msgstr "Tür dağıtım modu oluşturma"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3747
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3749
 msgid "Mode for creating and editing type distribution. (U)"
-msgstr ""
+msgstr "Tür dağılımı oluşturma ve düzenleme modu. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3752
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
@@ -6245,7 +6245,7 @@ msgstr "Yolcu planı oluşturma modu"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3762
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3764
 msgid "Mode for creating person plans. (L)"
-msgstr ""
+msgstr "Yolcu planları oluşturma modu. (L)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3767
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3769
@@ -6255,7 +6255,7 @@ msgstr "Konteyner modu oluştur"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3767
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3769
 msgid "Mode for creating containers. (C)"
-msgstr ""
+msgstr "Konteyner oluşturma modu. (C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3772
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3774
@@ -6325,27 +6325,27 @@ msgstr "Yol yöneticisini hesapla."
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:544
 msgid "WalkingArea Chooser"
-msgstr ""
+msgstr "YürüyüşAlanı Seçici"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:582
 msgid "Route Chooser"
-msgstr ""
+msgstr "Rota Seçici"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:589
 msgid "Stop Chooser"
-msgstr ""
+msgstr "Durdurma Seçici"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:600
 msgid "TLS Chooser"
-msgstr ""
+msgstr "TLS Seçici"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:610
 msgid "Additional Chooser"
-msgstr ""
+msgstr "İlave Seçici"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:633
 msgid "Poly Chooser"
-msgstr ""
+msgstr "Poly Seçici"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Additional.cpp:120
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Connection.cpp:96
@@ -6388,7 +6388,7 @@ msgstr "Silmeyi yinele "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
 msgid "change '%' attribute in % '%' to '%'"
-msgstr ""
+msgstr "'%' içindeki '%' niteliğini '%' olarak değiştir"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:154
 msgid "Undo change "
@@ -6451,23 +6451,23 @@ msgstr "Geçit silmeyi yinele"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
-msgstr ""
+msgstr "'%' içine '%' anahtarı ekleyin"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
-msgstr ""
+msgstr "'%' anahtarını % '%'den kaldırın"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:63
 msgid "change '%' key value from % to %"
-msgstr ""
+msgstr "'%' anahtar değerini %'den %'ye değiştir"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
-msgstr ""
+msgstr "'%' içinde düzenleme dağıtımını geri al"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
-msgstr ""
+msgstr "'%' içinde düzenleme dağıtımını yinele"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
@@ -6551,11 +6551,11 @@ msgstr "' TIS silmeyi yinele"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:112
 msgid "Undo toggle % attribute in '%'"
-msgstr ""
+msgstr "'%' içindeki % niteliğini geri al"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:118
 msgid "Redo toggle % attribute in '%'"
-msgstr ""
+msgstr "'%' içindeki % niteliğini geri al"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
@@ -6616,95 +6616,95 @@ msgstr "Önceki değerlere sıfırla"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:66
 msgid "Edit allow vClasses"
-msgstr ""
+msgstr "İzin verilen vClass'ları düzenleme"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:223
 msgid "Selection options"
-msgstr ""
+msgstr "Seçim seçenekleri"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:227
 msgid "Allow all vehicles"
-msgstr ""
+msgstr "Tüm araçlara izin ver"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:230
 msgid "Allow only road vehicles"
-msgstr ""
+msgstr "Sadece karayolu araçlarına izin verin"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:233
 msgid "Allow only rail vehicles"
-msgstr ""
+msgstr "Sadece demiryolu araçlarına izin verin"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:236
 msgid "Disallow all vehicles"
-msgstr ""
+msgstr "Tüm araçlara izin verme"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:243
 msgid "Default vehicle class"
-msgstr ""
+msgstr "Varsayılan araç sınıfı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:244
 msgid "A passenger car assigned for private use"
-msgstr ""
+msgstr "Özel kullanım için tahsis edilmiş bir binek aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:245
 msgid "Vehicle for hire with a driver"
-msgstr ""
+msgstr "Sürücülü kiralık araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:246
 msgid "Urban line traffic"
-msgstr ""
+msgstr "Şehiriçi hat trafiği"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:247
 msgid "Overland transport"
-msgstr ""
+msgstr "Karayolu taşımacılığı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:248
 msgid "Vehicles specialized in delivering goods"
-msgstr ""
+msgstr "Mal tesliminde uzmanlaşmış araçlar"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:249
 msgid "Vehicle designed to transport cargo"
-msgstr ""
+msgstr "Kargo taşımak için tasarlanmış araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:250
 msgid "Truck with trailer"
-msgstr ""
+msgstr "Römorklu kamyon"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:251
 msgid "Vehicle designated to respond to an emergency"
-msgstr ""
+msgstr "Acil bir duruma müdahale etmek üzere görevlendirilmiş araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:254
 msgid "Two- or three-wheeled motor vehicle"
-msgstr ""
+msgstr "İki veya üç tekerlekli motorlu taşıt"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:255
 msgid "Motorcycle not allowed in motorways"
-msgstr ""
+msgstr "Motosikletlerin otoyollara girmesi yasak"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:256
 msgid "Human-powered, pedal-driven vehicle"
-msgstr ""
+msgstr "İnsan gücüyle çalışan, pedallı araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
 msgid "Person traveling on foot"
-msgstr ""
+msgstr "Yaya olarak seyahat eden kişi"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
 msgid "Rail vehicle which runs on tracks"
-msgstr ""
+msgstr "Raylar üzerinde çalışan demiryolu aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:259
 msgid "Rail electric vehicle"
-msgstr ""
+msgstr "Elektrikli demiryolu aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:260
 msgid "High-speed rail vehicle"
-msgstr ""
+msgstr "Yüksek hızlı demiryolu aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:261
 msgid "Heavier than tram"
-msgstr ""
+msgstr "Tramvaydan daha ağır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:262
 msgid "Heavy rail vehicle"
