@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-05 12:50+0000\n"
+"PO-Revision-Date: 2023-09-06 00:05+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -21,46 +21,44 @@ msgstr ""
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "Okuma girişi"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:54
-#, fuzzy
 msgid "Consolidating statistics"
-msgstr " Düğüm Tipi İstatistikleri:"
+msgstr "Düğüm Tipi İstatistikleri:"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Bina sokak temsili"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "İş pozisyonları oluşturma"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Otobüs hatları oluşturma"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:71
-#, fuzzy
 msgid "Generating population"
-msgstr " Üretim Tamamlandı;"
+msgstr "Üretim Tamamlandı;"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Okulların tahsisi"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Çalışma yerlerinin tahsisi"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Araç yeri tahsisi"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Kenar %'nin geçersiz % değeri sıfır olarak kabul edilir."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, fuzzy, c-format
@@ -77,31 +75,32 @@ msgstr ""
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "SUMO-istatistik DOSYASINI yükler"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Oluşturulan yolculukları DOSYA'ya yaz"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
 msgstr ""
+"İlk gün boyunca simülasyonun başlangıç zamanını ayarlar (saniye cinsinden)"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
-msgstr ""
+msgstr "Son gün boyunca simülasyonun bitiş zamanını ayarlar (saniye cinsinden)"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Simülasyonun süresini gün olarak ayarlar"
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:64
 #: C:\Repos\sumo/src\router\ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "Yüklenecek ağ tanımı eksik!"
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:67
 #, fuzzy, c-format
@@ -110,9 +109,8 @@ msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:69
 #: C:\Repos\sumo/src\router\ROLoader.cpp:116
-#, fuzzy
 msgid "Loading net"
-msgstr "Yükleme Tamamlandı."
+msgstr "Ağ yükleniyor"
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:79
 #: C:\Repos\sumo/src\netload\NLEdgeControlBuilder.cpp:226
@@ -132,15 +130,15 @@ msgstr ""
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:113
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "Yüklü % kesimler."
 
 #: C:\Repos\sumo/src\activitygen\city\AGCity.cpp:425
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "Bu şehirde binek araçlara izin veren hiçbir cadde bulunmuyor."
 
 #: C:\Repos\sumo/src\activitygen\city\AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "İş pozisyonu zaten dolu. Başka bir yetişkine veremezsiniz."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
@@ -152,115 +150,120 @@ msgstr "En Az Bir Satır Doğru Sayıda Sütun İçermiyor."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "'%' detektörü için eksik rotalar."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetector.cpp:305
-#, fuzzy, c-format
+#, c-format
 msgid "Detector '%' has no routes!?"
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "Dedektör '%'nin rotası yok mu!?"
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
-msgstr ""
+msgstr "Dedektör '%' eklenemedi (muhtemelen kimlik zaten kullanılıyor)."
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "SUMO-ağ DOSYASI'nı yükler"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Dedektör açıklamalarını DOSYA'dan yükler"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Dedektör akışlarını DOSYA(lar)dan yükler"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Hesaplanan rotaları DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "dfrouter'ı aradaki dedektörler için rota hesaplamaya zorlar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Yazılan dedektörleri DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Dedektör konumlarını pois olarak DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Kaynak dedektörleri için yayıcı tanımlarını DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Yayıcılar dosyasına araç türleri ekleyin (PKW, LKW)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Üretilen araç tiplerini yayıcılar-çıktıya dahil etmek yerine ayrı bir "
+"DOSYAYA yazın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Verici konumlarını pois olarak DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
+"Havuz dedektörleri için değişken tohum işareti tanımlarını DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
 msgstr ""
+"Havuz dedektörleri için yeniden yönlendirici tanımlarını DOSYA'ya kaydeder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Verilen dedektör konumları için indüksiyon döngü tanımlarını DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Doğrulama çıktısına kaynak dedektörleri ekleyin"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
-msgstr ""
+msgstr "Eksik akış değerlerini yukarı veya aşağı akıştan türetme (çalışmıyor!)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "Otoyol moduna geçer"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Yalnızca eşleştirilemeyen dedektörler hakkında uyarın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Verilmiş olsa bile dedektör tiplerini yeniden hesaplar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Verilmiş olsa bile rotaları yeniden hesaplar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
-msgstr ""
+msgstr "Maksimum arama derinliği tükenmiş olsa bile rotaları tutar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Daha kısa bir rota olsa bile rotaları tutar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
-msgstr ""
+msgstr "Bir dedektörü geçmeden bir rotayı takip etmek için kenar sayısı"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "Yalnızca emisyon sürelerini yazar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
