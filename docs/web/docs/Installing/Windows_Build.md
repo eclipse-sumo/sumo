@@ -222,74 +222,25 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
 
 ## How to build JuPedSim and then build SUMO with JuPedSim
 
-### Build JuPedSim
+In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim. First of all, clone the JuPedSim repository:
 
-1\. You need to clone the repository https://github.com/JuPedSim/jpscore and checkout the _SUMO-Integration_ branch.
-
-2\. You need to install vcpkg (documentation available [here](https://vcpkg.io/en/getting-started.html)). We need vcpkg to install JuPedSim's dependencies.
-
-3\. You need to change the default platform used when installing packages. To do so, set the dedicated environment variable as follows:
-
-```
-export VCPKG_DEFAULT_TRIPLET=x64-windows
-```
-Note that the scope of this variable is terminal-bound: if you close your terminal you will have to set the variable again.
-	
-4\. Then we use vcpkg in a certain way to install a specific version of the _fmt_ library (later versions give compilation issues with JuPedSim). To do so, we use the following manifest file:
-```json
-{
-  "name": "jupedsim",
-  "dependencies": [
-    {
-      "name": "fmt",
-      "version>=": "8.0.1"
-    },
-  "builtin-baseline": "35443ee2753f46c52ac342fa6c9c48e9f5eb9105"
-}
+``` bash
+git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
 
-The last line is compulsory. Store it as _vcpkg.json_ and put it at the root directory of vcpkg, on the same level as _vcpkg.exe_. Then simply run `vcpkg.exe install`, vcpkg will detect your manifest file and download the packages inside accordingly. At the moment this is the only way to download a package with a specific version.
+Inside the repository directory, create two directories `jps-build` and `jps-install` (for instance), then type:
 
-5\. Now delete the manifest file. Using vcpkg too, download and compile the other third-party dependencies with the command generic command `vcpkg.exe install package-name:triplet` (a default triplet has been set above):
-    
-```
-vcpkg.exe install boost zlib spdlog poly2tri glm cgal pybind11
-```
-	
-Note that the _triplet_ `x64-windows` is used for both the _Release_ and the _Debug_ compilation modes.
-
-6\. Copy the files for the _fmt_ library that are located in `/c/Users/[username]/[path-to-vcpkg]/vcpkg_installed/x64-windows` into `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows` so that all the third-party libraries share a common tree. In case you want to build the _Debug_ binaries, you also need to copy `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/debug/lib/poly2tri.lib` to `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/lib/poly2tri.lib` (replacement).
- 
-7\. In the 'jpscore' directory, create a 'build' directory (or better: a 'build_release' directory, in case you also want _Debug_ binaries). From that directory, run CMake as follows:
-	
-```
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/ -DBUILD_JPSVIS=OFF -G"Visual Studio 15 2017 Win64" ..
-```
-	
-The flag `BUILD_JPSVIS` is turned off to disable the build of JuPedSim's visualization tool. Use `-DCMAKE_BUILD_TYPE=Debug` for _Debug_ binaries.
- 
-8\. Then open the Visual Studio solution file that has been created in that directory, select either the _Debug_ or _Release_ mode at the bottom of Visual Studio and then build.
-
-9\. You can copy to some place the freshly built binaries by launching the following command from your build directory:
-	
-```console
-cmake --install . --prefix /c/Users/[username]/[path-to-jpscore]/install
+``` bash
+cd jps-build
+cmake -DCMAKE_INSTALL_PREFIX=../jps-install -DBUILD_JPSVIS=OFF ..
+cmake --build . --config Release
+cmake --install . --config Release
 ```
 
-You will need this installation path later when compiling SUMO with JuPedSim. Add `--config Debug` to the previous command line for _Debug_ binaries.
+You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows but with the configuration step of CMake changed to pass to CMake the directory where JuPedSim has been installed:
 
-### Build SUMO with JuPedSim
-
-1\. Build SUMO as usual, Visual Studio will say that it can't find JuPedSim. Then in the CMake cache file, search for the `JUPEDSIM_DIR` variable and set it with the installation path mentioned above:
-
-```console
-JUPEDSIM_DIR:PATH=C:\Users\[username]\[path-to-jpscore]\install
+``` bash
+cmake -DJUPEDSIM_DIR=../../jupedsim/jps-install ..
 ```
 
-Notice how the path is written (Windows-style convention).
-	
-2\. Then rebuild SUMO; JuPedSim is found.
-
-3\. The JuPedSIM and third-party binaries need to be copied to the SUMO 'bin' directory for execution (`jupedsim.dll`, `mpfr-6.dll`, `gmp-10.dll`, `spdlog.dll` and `fmt.dll`). These binaries are located in the 'build/bin' subdirectory of jpscore or in the subdirectory 'installed' of vcpkg (or 'installed/debug' for _Debug_ binaries; in that case some binaries have an additional 'd' at the end).
-
-4\. Also note that in order to use JuPedSim, you need to put `<pedestrian.model value="jupedsim"/>` in your SUMO config file.
+For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md/#jupedsim).
