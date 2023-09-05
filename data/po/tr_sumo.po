@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-03-20 14:25+0000\n"
+"PO-Revision-Date: 2023-09-05 12:50+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6415,9 +6415,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netconvert_main.cpp:124
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:273
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:93
-#, fuzzy
 msgid "Could not build projection!"
-msgstr "Bir Birleştirilmiş tls Yapılandırılamadı."
+msgstr "Projeksiyon Oluşturulamıyor!"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
