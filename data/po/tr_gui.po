@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-05 08:48+0000\n"
+"PO-Revision-Date: 2023-09-05 09:41+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -3439,7 +3439,7 @@ msgstr "Şeritler arasındaki bağlantıları ayarlar."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Prohibition"
-msgstr ""
+msgstr "Yasak"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:652
@@ -3449,7 +3449,7 @@ msgstr "Bağlantı yasaklarını ayarlar."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:623
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1305
 msgid "Crossing"
-msgstr ""
+msgstr "Geçit"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:623
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:656
@@ -3469,7 +3469,7 @@ msgstr "Ek elemanlar oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Wire"
-msgstr ""
+msgstr "Enerji Hattı"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:664
@@ -3493,7 +3493,7 @@ msgstr "Şekiller"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:639
 msgid "Create Shapes."
-msgstr ""
+msgstr "Şekiller Oluşturun."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
@@ -3608,7 +3608,7 @@ msgstr "Konteyner planı oluştur."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 msgid "EdgeData"
-msgstr ""
+msgstr "KesimVerisi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:792
@@ -6708,36 +6708,36 @@ msgstr "Tramvaydan daha ağır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:262
 msgid "Heavy rail vehicle"
-msgstr ""
+msgstr "Ağır demiryolu aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
 msgid "Future electric mobility vehicles"
-msgstr ""
+msgstr "Geleceğin elektrikli ulaşım araçları"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:266
 msgid "Vehicle designed for military forces"
-msgstr ""
+msgstr "Askeri güçler için tasarlanan araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:267
 msgid "Basic class for navigating waterway"
-msgstr ""
+msgstr "Su yolunda seyir için temel sınıf"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:268
 msgid "Vehicle of a governmental security agency"
-msgstr ""
+msgstr "Bir devlet güvenlik kurumuna ait araç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 msgid "A civilian security armored car used by VIPs"
-msgstr ""
+msgstr "VIP'ler tarafından kullanılan bir sivil güvenlik zırhlı aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:270
 msgid "High-Occupancy Vehicle (two or more passengers)"
-msgstr ""
+msgstr "Yüksek Kapasiteli Araç (iki veya daha fazla yolcu)"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:271
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:272
 msgid "Reserved for user-defined semantics"
-msgstr ""
+msgstr "Kullanıcı tanımlı anlamlar için ayrılmıştır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:650
@@ -6972,11 +6972,11 @@ msgstr "Çakışan Kesimleri Seç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:263
 msgid "delete invalid edges"
-msgstr ""
+msgstr "geçersiz kesimleri sil"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:272
 msgid "select invalid edges"
-msgstr ""
+msgstr "geçersiz kesimleri seç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
@@ -6992,11 +6992,11 @@ msgstr "Çakışan Geçitleri Seç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:344
 msgid "delete invalid crossings"
-msgstr ""
+msgstr "geçersiz geçitleri sil"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:353
 msgid "select invalid crossings"
-msgstr ""
+msgstr "geçersi̇z geçi̇tleri seç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
@@ -7145,20 +7145,20 @@ msgstr "Rerouter (Rotalayıcı) Birden Fazla Kesimde Var"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:321
 msgid "There are no lanes in the network"
-msgstr ""
+msgstr "Ağda hiç şerit yok"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:341
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:361
 msgid "There are no edges in the network"
-msgstr ""
+msgstr "Ağda hiç kesim yok"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
-msgstr ""
+msgstr "Ağda park alanı bulunmamaktadır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
 msgid "Undo/Redo history"
-msgstr ""
+msgstr "Geri Al/Yinele geçmişi"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -7167,7 +7167,7 @@ msgstr "Tamam\t\tİletişim Penceresini Kapat"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exists"
-msgstr ""
+msgstr "'%' anahtarı zaten var"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:455
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1213
@@ -7196,58 +7196,58 @@ msgstr "OSG Dosyası Aç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:266
 msgid "Could not load configuration '"
-msgstr ""
+msgstr "Konfigürasyon yüklenemedi '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:270
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:180
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:184
 msgid "Could not load tool configuration '"
-msgstr ""
+msgstr "Araç konfigürasyonu yüklenemedi '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:274
 msgid "Loaded configuration."
-msgstr ""
+msgstr "Konfigürasyon yüklendi."
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:294
 msgid "Save options"
-msgstr ""
+msgstr "Ayarları kaydet"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:296
 msgid "Save configuration file"
-msgstr ""
+msgstr "Konfigürasyon dosyasını kaydet"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:297
 msgid "Load options"
-msgstr ""
+msgstr "Yükleme seçenekleri"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:299
 msgid "Load configuration file"
-msgstr ""
+msgstr "Konfigürasyon dosyasını yükle"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:300
 msgid "Default options"
-msgstr ""
+msgstr "Varsayılan seçenekler"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:302
 msgid "Reset all options to default"
-msgstr ""
+msgstr "Tüm seçenekleri varsayılan olarak sıfırla"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:310
 msgid "Topics"
-msgstr ""
+msgstr "Başlıklar"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:361
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:363
 msgid "Include description in search"
-msgstr ""
+msgstr "Aramaya açıklama ekleme"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
 msgid "Reset value"
-msgstr ""
+msgstr "Değeri sıfırla"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:226
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:238
@@ -7276,103 +7276,103 @@ msgstr "Dosya adı seç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:63
 msgid "Grid"
-msgstr ""
+msgstr "Izgara"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:64
 msgid "Spider"
-msgstr ""
+msgstr "Örümcek"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:65
 msgid "Random grid"
-msgstr ""
+msgstr "Rastgele ızgara"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:66
 msgid "Random"
-msgstr ""
+msgstr "Rastgele"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "Advanced"
-msgstr ""
+msgstr "İleri"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "open advance netgenerate dialog"
-msgstr ""
+msgstr "gelişmiş netgenerate iletişim kutusunu aç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
-msgstr ""
+msgstr "Diyalog kutusunu kapat"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "Menü Araç İpuçlarını Aç/Kapat"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
+msgstr "Menüdeki araç ipuçlarının gösterilip gösterilmeyeceğini değiştirir."
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
-msgstr ""
+msgstr "Toolcfg kaydet"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
-msgstr ""
+msgstr "Dosyayı araç yapılandırması ile kaydet"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
-msgstr ""
+msgstr "Toolcfg yükle"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
-msgstr ""
+msgstr "Araç konfigürasyonunu içeren dosyayı yükle"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
-msgstr ""
+msgstr "İsme göre sırala"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:78
 msgid "Grouped by categories"
-msgstr ""
+msgstr "Kategoriye göre grupla"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
-msgstr ""
+msgstr "Mavi seçenek zorunludur"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
-msgstr ""
+msgstr "python aracını çalıştır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:95
 msgid "close tool dialog"
-msgstr ""
+msgstr "araç iletişim kutusunu kapat"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:97
 msgid "reset to default values"
-msgstr ""
+msgstr "varsayılan değerlere sıfırlayın"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:245
 #, c-format
 msgid "Use current % file"
-msgstr ""
+msgstr "Geçerli % dosyasını kullan"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
 msgid "Select % file"
-msgstr ""
+msgstr "Dosya %'sini seçin"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
-msgstr ""
+msgstr "Mevcut seçili kesimleri kullan"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
-msgstr ""
+msgstr "ağ"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:392
 msgid "additional"
-msgstr ""
+msgstr "ilave"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:435
 msgid "route"
@@ -7380,56 +7380,56 @@ msgstr "rota"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:478
 msgid "data"
-msgstr ""
+msgstr "veri"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
-msgstr ""
+msgstr "sumo config"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
 msgid "Save output"
-msgstr ""
+msgstr "Çıktıyı kaydet"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:72
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:73
 msgid "Console output"
-msgstr ""
+msgstr "Konsol çıktısı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
 msgid "Abort"
-msgstr ""
+msgstr "İptal et"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:82
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:83
 msgid "abort running"
-msgstr ""
+msgstr "çalışmayı iptal et"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
 msgid "Rerun"
-msgstr ""
+msgstr "Yeniden Çalıştır"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:84
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:85
 msgid "rerun tool"
-msgstr ""
+msgstr "yeniden çalıştırma aracı"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
 msgid "Back"
-msgstr ""
+msgstr "Geri"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:86
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:87
 msgid "back to tool dialog"
-msgstr ""
+msgstr "araç iletişim kutusuna geri dön"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:94
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:95
 msgid "close dialog"
-msgstr ""
+msgstr "iletişim kutusunu kapat"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:134
 msgid "Nothing to enable, implement in Children"
@@ -7508,7 +7508,7 @@ msgstr "Trafik ışığı programı için isteğe bağlı bir kimlik"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:990
 msgid "EdgeType"
-msgstr ""
+msgstr "KesimTürü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:994
 msgid "The id of the edge"
@@ -7576,7 +7576,7 @@ msgstr "Ek şerit olarak eklenmesi gereken bisiklet yolunun genişliği"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1055
 msgid "LaneType"
-msgstr ""
+msgstr "ŞeritTürü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1059
 msgid "The maximum speed allowed on the lane in m/s"
@@ -7621,7 +7621,7 @@ msgstr "Metre cinsinden kesim uzunluğu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1156
 msgid "street name (does not need to be unique, used for visualization)"
-msgstr ""
+msgstr "cadde adı (benzersiz olması gerekmez, görselleştirme için kullanılır)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1167
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1248
