@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-05 12:50+0000\n"
+"PO-Revision-Date: 2023-09-05 13:53+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -13474,19 +13474,19 @@ msgstr "Geçerli düzenlenmiş %'yi sil"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:161
 msgid "Distribution selector"
-msgstr ""
+msgstr "Dağıtım seçici"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:324
 msgid "Delete distribution value"
-msgstr ""
+msgstr "Dağıtım değerini sil"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:481
 msgid "Distribution values"
-msgstr ""
+msgstr "Dağıtım değerleri"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:497
 msgid "Add new distribution value"
-msgstr ""
+msgstr "Yeni dağıtım değeri ekleyin"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
@@ -13518,11 +13518,11 @@ msgstr "Geçersiz yolcu parametreleri."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr ""
+msgstr "KişiPlanları"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
 msgid "Route Distributions"
-msgstr ""
+msgstr "Rota Dağılımları"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -13535,35 +13535,35 @@ msgstr "Rota modu"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "Üst ögeyi seçmek için Shift+Tıkla"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir otobüs durağının üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
 msgid "Click over a train stop to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir tren istasyonunun üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
 msgid "Click over a container stop to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir konteyner durağının üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
 msgid "Click over a charging station to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir şarj istasyonunun üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir park alanının üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:102
 msgid "Click over a lane to create a stop."
-msgstr ""
+msgstr "Durak oluşturmak için bir şeridin üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
-msgstr ""
+msgstr "Mevcut ağda durak üst ögeleri yok."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
@@ -13595,7 +13595,7 @@ msgstr "Durak, gömülü bir güzergahın kesimi üzerine yerleştirilmelidir"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
-msgstr ""
+msgstr "Tür Dağılımları"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
@@ -13624,59 +13624,59 @@ msgstr "Türü Sıfırla"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:269
 msgid "create vehicle type"
-msgstr ""
+msgstr "araç türü oluştur"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:301
 msgid "copy vehicle type"
-msgstr ""
+msgstr "araç türünü kopyala"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "reset default vehicle type values"
-msgstr ""
+msgstr "varsayılan araç türü değerleriıniı sıfırlama"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:392
 msgid "Types"
-msgstr ""
+msgstr "Türler"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
-msgstr ""
+msgstr "Bir araç oluşturmak için bir rotanın üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 msgid "Select two edges to create a trip."
-msgstr ""
+msgstr "Bir yolculuk oluşturmak için iki kesim seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:80
 msgid "Select two edges to create a vehicle with embedded route."
-msgstr ""
+msgstr "Yerleşik rotaya sahip bir araç oluşturmak için iki kesim seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:84
 msgid "Select two junctions to create a trip."
-msgstr ""
+msgstr "Bir yolculuk oluşturmak için iki kavşak seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr ""
+msgstr "Bir yolculuk oluşturmak için iki TAZS seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
-msgstr ""
+msgstr "Bir RotaAkışı oluşturmak için bir rotanın üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:97
 msgid "Select two edges to create a flow."
-msgstr ""
+msgstr "Bir akış oluşturmak için iki kenar seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:101
 msgid "Select two edges to create a flow with embedded route."
-msgstr ""
+msgstr "Yerleşik rotaya sahip bir akış oluşturmak için iki kesim seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "Select two junctions to create a flow."
-msgstr ""
+msgstr "Bir akış oluşturmak için iki bağlantı noktası seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr ""
+msgstr "Bir akış oluşturmak için iki TAZ seçin."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
@@ -13695,17 +13695,19 @@ msgstr "Gösterge"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:91
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:93
 msgid "-Click over lane to create it"
-msgstr ""
+msgstr "-Oluşturmak için şeridin üzerine tıklayın"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:95
 msgid "-Click over view to create it"
-msgstr ""
+msgstr "-Oluşturmak için görünümün üzerine tıklayın"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:96
 msgid ""
 "-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
+"-En az bir Giriş gerektirir\n"
+" ve bir Çıkış"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
@@ -13713,6 +13715,8 @@ msgid ""
 "-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
+"-Üst öge EntryExitDetector\n"
+" gerektirir\n"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:99
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:102
@@ -13722,6 +13726,10 @@ msgid ""
 " clicking over one in view\n"
 " oder selecting in list"
 msgstr ""
+"-Select EntryExitDetector\n"
+" oluşturmadan önce\n"
+" görüntüdeki birinin üzerine tıklayarak\n"
+" oder listeden seçme"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:190
 msgid "Current selected additional isn't valid."
@@ -13745,7 +13753,7 @@ msgstr "' öznitelikten büyük olamaz'"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:435
 msgid "List of edges cannot be empty"
-msgstr ""
+msgstr "Kesim listesi boş olamaz"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:445
 msgid "List of lanes cannot be empty"
@@ -13807,7 +13815,7 @@ msgstr "Bağlantı işlemlerini kaydetme hatası"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:131
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
-msgstr ""
+msgstr "'%' rotası bozuk olduğu için bağlantı baskısı kaydedilemiyor."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -13889,12 +13897,16 @@ msgstr "seçilen şeritlerden bağlantıları sıfırla"
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
 msgstr ""
+"Sert bağlantılar oluşturmak için tıklarken <SHIFT> tuşunu basılı tutun "
+"(pass=true)."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:312
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions"
 msgstr ""
+"Çakışan bağlantılar oluşturmak için tıklarken <CTRL> tuşunu basılı tutun ("
+"örn. fermuar düğümlerinde veya uyumsuz izinlerle)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 msgid "Possible Target"
@@ -13954,7 +13966,7 @@ msgstr "Yayalara izin verme"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
 msgid "Add sidewalk"
-msgstr ""
+msgstr "Kaldırım ekleyin"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:87
 msgid "Use edgeType/template"
@@ -14017,36 +14029,38 @@ msgid "remove laneType"
 msgstr "Şerit tipini kaldır"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:619
+#, fuzzy
 msgid "ESC:"
-msgstr ""
+msgstr "ESC:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:620
 msgid "Deselect origin"
-msgstr ""
+msgstr "Orijin seçimini kaldır"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:621
+#, fuzzy
 msgid "Control+Click:"
-msgstr ""
+msgstr "Control+Click:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:622
 msgid "Move view"
-msgstr ""
+msgstr "Görünümü taşı"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:623
 msgid "Shift+Click:"
-msgstr ""
+msgstr "Shift+Click:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
 msgid "Splits edge in both directions"
-msgstr ""
+msgstr "Kesimi her iki yönde de böler"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "Alt+Shift+Click:"
-msgstr ""
+msgstr "Alt+Shift+Click:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 msgid "Splits edge in one direction"
-msgstr ""
+msgstr "Kesimi tek yönde böler"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:639
 msgid "Create Edge"
@@ -14122,11 +14136,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over junction to mark candidate edges."
-msgstr ""
+msgstr "Aday kesimleri işaretlemek için birleşme noktasının üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over candidate edges for selecting."
-msgstr ""
+msgstr "Seçmek için aday kesimlerin üzerine tıklayın."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 msgid " Candidate"
@@ -14382,7 +14396,7 @@ msgstr "Sıfır sınır sorgulaması ayarlayın."
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "Üyeliği Değiştir:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
@@ -14432,7 +14446,7 @@ msgstr "Değiştir"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "Keep Membership:"
-msgstr ""
+msgstr "Üyelik devam etsin:"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:668
 msgid "  Select Sources/Sinks."
@@ -14440,7 +14454,7 @@ msgstr "  Kaynaklar/Alıcıları seç."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:669
 msgid "Press ESC to clear the current selection."
-msgstr ""
+msgstr "Geçerli seçimi silmek için ESC tuşuna basın."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:846
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
@@ -14666,11 +14680,11 @@ msgstr "Mevcut TIS'ı ayır."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:918
 msgid "Finish join."
-msgstr ""
+msgstr "Birleştirmeyi bitir."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Cancel Join."
-msgstr ""
+msgstr "Katılmayı iptal et."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:957
 msgid "no junction selected"
@@ -14900,7 +14914,7 @@ msgstr "Trafik ışığı için program bulunamadı '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2997
 msgid "Save TLS Program as"
-msgstr "TIS Programını Farklı Kaydet"
+msgstr "TLS Programını Farklı Kaydet"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
@@ -14924,85 +14938,85 @@ msgstr "SUMO Ağları Talep ve Ek Altyapılar için Grafiksel Düzenleyici."
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:138
 msgid "Original network"
-msgstr ""
+msgstr "Orijinal ağ"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:141
 msgid "Modified network"
-msgstr ""
+msgstr "Değiştirilmiş ağ"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:144
 msgid "Output prefix network"
-msgstr ""
+msgstr "Çıktı önek ağı"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:148
 msgid "Select modified elements"
-msgstr ""
+msgstr "Değiştirilen elemanları seçme"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:151
 msgid "Select added elements"
-msgstr ""
+msgstr "Eklenen elemanları seçin"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:154
 msgid "Select deleted elements"
-msgstr ""
+msgstr "Silinen elemanları seçme"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:158
 msgid "Load shapes for elements"
-msgstr ""
+msgstr "Elemanlar için yükleme şekilleri"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:161
 msgid "Load shapes for added"
-msgstr ""
+msgstr "Eklenen şekiller için yükleme"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:164
 msgid "Load shapes for deleted elements"
-msgstr ""
+msgstr "Silinen öğeler için şekilleri yükle"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:177
 msgid "load shapes from '"
-msgstr ""
+msgstr "'den şekiller yükleyin"
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:181
 msgid "Loading of shape file failed: "
-msgstr ""
+msgstr "Şekil dosyasının yüklenmesi başarısız oldu: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNENetDiffTool.cpp:184
 msgid "Loading of shape file successfully: "
-msgstr ""
+msgstr "Şekil dosyası başarıyla yükleniyor: "
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:43
 msgid "Execute python tool '"
-msgstr ""
+msgstr "Python aracını çalıştır '"
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:188
 #, c-format
 msgid "Loaded % configuration."
-msgstr ""
+msgstr "Yüklenen % yapılandırması."
 
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:217
 #, c-format
 msgid "Saved % configuration."
-msgstr ""
+msgstr "Kaydedilen % yapılandırması."
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:95
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:61
 msgid "cancelled by user\n"
-msgstr ""
+msgstr "kullanıcı tarafından iptal edildi\n"
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:139
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:105
 msgid "starting process...\n"
-msgstr ""
+msgstr "başlangıç süreci...\n"
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:157
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:123
 msgid "error processing command\n"
-msgstr ""
+msgstr "hata işleme komutu\n"
 
 #: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:172
 #: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:138
 msgid "process finished\n"
-msgstr ""
+msgstr "süreç bitti\n"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
@@ -15030,15 +15044,15 @@ msgstr "Seçim yüklenirken oluşan hatalar"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
-msgstr ""
+msgstr "Adı"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
-msgstr ""
+msgstr "Değer"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:78
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamik"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
@@ -15114,56 +15128,56 @@ msgstr "Nesne bir şerit olmalıdır"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:292
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "Adı panoya kopyala"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:293
 msgid "Copy typed name to clipboard"
-msgstr ""
+msgstr "Yazılan adı panoya kopyala"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:303
 msgid "Remove From Selected"
-msgstr ""
+msgstr "Seçilenden Kaldır"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:315
 msgid "Show Parameter"
-msgstr ""
+msgstr "Parametre Göster"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:324
 msgid "Show Type Parameter"
-msgstr ""
+msgstr "Tür Parametresini Göster"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:333
 msgid "Copy cursor position to clipboard"
-msgstr ""
+msgstr "İmleç konumunu panoya kopyala"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:335
 msgid "Copy cursor geo-position to clipboard"
-msgstr ""
+msgstr "İmleç coğrafi konumunu panoya kopyala"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:339
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "İmleç coğrafi konumunu göster "
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:357
 msgid "Open Manipulator..."
-msgstr ""
+msgstr "Manipülatörü Aç..."
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:396
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:419
 msgid "type: %"
-msgstr ""
+msgstr "tip: %"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:87
 msgid "&Save changes"
-msgstr ""
+msgstr "&Değişiklikleri kaydet"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:88
 msgid "&Don't save"
-msgstr ""
+msgstr "&Kaydetme"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUISaveDialog.cpp:89
 msgid "&Abort"
-msgstr ""
+msgstr "&İptal"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
@@ -15223,65 +15237,65 @@ msgstr " Kesme noktası '%' kodu çözülemedi"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1689
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1690
 msgid "uniform"
-msgstr ""
+msgstr "tek tip"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:643
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1516
 msgid "road"
-msgstr ""
+msgstr "yol"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:644
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1517
 msgid "sidewalk"
-msgstr ""
+msgstr "kaldırım"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:645
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1518
 msgid "bike lane"
-msgstr ""
+msgstr "Bisiklet şeridi"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
 msgid "green verge"
-msgstr ""
+msgstr "yeşil eşik"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
 msgid "waterway"
-msgstr ""
+msgstr "su yolu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1163
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
 msgid "railway"
-msgstr ""
+msgstr "Demiryolu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
 msgid "rails on road"
-msgstr ""
+msgstr "yoldaki raylar"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
 msgid "no passenger"
-msgstr ""
+msgstr "yolcu yok"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:651
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1524
 msgid "closed"
-msgstr ""
+msgstr "kapalı"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1305
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
 msgid "connector"
-msgstr ""
+msgstr "bağlantı"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
 msgid "forbidden"
-msgstr ""
+msgstr "yasak"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1000
@@ -15300,7 +15314,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1677
 msgid "unselected"
-msgstr ""
+msgstr "seçilmemiş"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1001
@@ -15319,73 +15333,73 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1664
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1678
 msgid "selected"
-msgstr ""
+msgstr "seçilmiş"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:672
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1215
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "izin verilen hıza göre (şerit bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1218
 msgid "by current occupancy (lanewise, brutto)"
-msgstr ""
+msgstr "mevcut doluluk durumuna göre (lanewise, brutto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:685
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1221
 msgid "by current occupancy (lanewise, netto)"
-msgstr ""
+msgstr "mevcut doluluk durumuna göre (şerit bazında, netto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:691
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1224
 msgid "by first vehicle waiting time (lanewise)"
-msgstr ""
+msgstr "ilk araç bekleme süresine göre (şerit bazında)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:697
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1227
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "şerit numarasına göre (streetwise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:701
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:940
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1231
 msgid "by CO2 emissions"
-msgstr ""
+msgstr "CO2 emisyonlarına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:709
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:948
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1234
 msgid "by CO emissions"
-msgstr ""
+msgstr "CO emisyonlarına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:717
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:956
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1237
 msgid "by PMx emissions"
-msgstr ""
+msgstr "PMx emisyonlarına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:725
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:964
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1240
 msgid "by NOx emissions"
-msgstr ""
+msgstr "NOx emisyonlarına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:733
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:972
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1243
 msgid "by HC emissions"
-msgstr ""
+msgstr "HC emisyonlarına göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:741
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:980
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1246
 msgid "by fuel consumption"
-msgstr ""
+msgstr "yakıt tüketimine göre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:749
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1249
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "gürültü emisyonlarına göre (Harmonoise)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:758
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1253
@@ -16619,7 +16633,7 @@ msgstr "Fransızca"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:384
 msgid "italian"
-msgstr ""
+msgstr "İtalyanca"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:388
 msgid "simplified chinese"
