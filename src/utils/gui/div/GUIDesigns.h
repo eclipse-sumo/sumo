@@ -723,6 +723,6 @@ public:
 
     /// @brief build  button
     static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
-                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts,
-                                   FXint x, FXint y, FXint w,FXint h, FXint pl, FXint pr, FXint pt, FXint pb);
+                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                   FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 };
