@@ -285,9 +285,9 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
     myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myZValueTextField->setText("0");
     // Create all options buttons
-    myAbsoluteValue = new FXRadioButton(getCollapsableFrame(), TL("Absolute value"), "", TL("Set Z value as absolute"),
+    myAbsoluteValue = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("Absolute value"), "", TL("Set Z value as absolute"),
                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRelativeValue = new FXRadioButton(getCollapsableFrame(), TL("Relative value"), "", TL("Set Z value as relative"),
+    myRelativeValue = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("Relative value"), "", TL("Set Z value as relative"),
                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
     myApplyButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply Z value"), "", TL("Apply Z value to all selected junctions"),

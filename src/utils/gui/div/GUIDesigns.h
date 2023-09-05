@@ -721,8 +721,13 @@ public:
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
 
-    /// @brief build  button
+    /// @brief build button
     static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
-                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                                    FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build radio button
+    static FXRadioButton* buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                             FXObject* tgt, FXSelector sel, FXuint opts = RADIOBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                             FXint pl = DEFAULT_PAD,FXint pr = DEFAULT_PAD,FXint pt = DEFAULT_PAD,FXint pb = DEFAULT_PAD);
 };

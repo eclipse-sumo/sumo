@@ -283,7 +283,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     {
         // build TraCi info
         myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        auto button = GUIDesigns::buildFXButton(myTraCiFrame, "TraCI", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        auto button = GUIDesigns::buildFXButton(myTraCiFrame, "TraCI", "", "", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
         button->setBackColor(FXRGBA(253, 255, 206, 255));
         if (TraCIServer::getInstance() == nullptr) {
             myTraCiFrame->hide();
@@ -295,10 +295,10 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A"), "", TL("Network coordinate")).c_str(), nullptr, LAYOUT_CENTER_Y);
         // build buttons
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
         myStatButtons.back()->hide();
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
     }
     // make the window a mdi-window
@@ -506,13 +506,9 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     // add open in sumo options
-    myLoadAdditionalsInNetedit = new FXMenuCheck(myEditMenu,
-                                                 (TL("Load additionals in netedit"), "", TL("Load additionals in netedit.")).c_str(),
-                                                 this, MID_TOOLBAREDIT_LOADADDITIONALS);
+    myLoadAdditionalsInNetedit = GUIDesigns::buildFXMenuCheckbox(myEditMenu, TL("Load additionals in netedit"), TL("Load additionals in netedit."), this, MID_TOOLBAREDIT_LOADADDITIONALS);
     myLoadAdditionalsInNetedit->setCheck(TRUE);
-    myLoadDemandInNetedit = new FXMenuCheck(myEditMenu,
-                                            (TL("Load demand in netedit"), "", TL("Load demand in netedit.")).c_str(),
-                                            this, MID_TOOLBAREDIT_LOADDEMAND);
+    myLoadDemandInNetedit = GUIDesigns::buildFXMenuCheckbox(myEditMenu, TL("Load demand in netedit"), TL("Load demand in netedit."), this, MID_TOOLBAREDIT_LOADDEMAND);
     myLoadDemandInNetedit->setCheck(FALSE);
     myOpenInNetedit = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                                              TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
@@ -560,16 +556,10 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Po&lygon"), "Shift+L", TL("Open a dialog for locating a Polygon."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_HOTKEY_SHIFT_L_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
-    new FXMenuCheck(myLocatorMenu,
-                    (TL("Show Internal Structures"), "", TL("Show internal junctions and streets in locator dialog.")).c_str(),
-                    this, MID_LISTINTERNAL);
-    FXMenuCheck* listParking = new FXMenuCheck(myLocatorMenu,
-                                               (TL("Show Parking Vehicles"), "", TL("Show parking vehicles in locator dialog.")).c_str(),
-                                               this, MID_LISTPARKING);
+    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Internal Structures"), TL("Show internal junctions and streets in locator dialog."), this, MID_LISTINTERNAL);
+    FXMenuCheck* listParking = GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Parking Vehicles"), TL("Show parking vehicles in locator dialog."), this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
-    new FXMenuCheck(myLocatorMenu,
-                    (TL("Show vehicles outside the road network"), "", TL("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.")).c_str(),
-                    this, MID_LISTTELEPORTING);
+    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show vehicles outside the road network"), ("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog."), this, MID_LISTTELEPORTING);
     // build control menu
     // the shortcut designator is not only at text in the submenu but also defines the real shortcut key assigned with it!
     // secondary shortcuts (ctrl+A, ctrl+S, ctrl+D) are defined in GUIShortcutsSubSys::buildSUMOAccelerators
@@ -625,18 +615,10 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommand(myWindowMenu, TL("&Others..."), nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
 
     new FXMenuSeparator(myWindowMenu);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Status Line"), "", TL("Toggle the Status Bar on/off.")).c_str(),
-                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Message Window"), "", TL("Toggle the Message Window on/off.")).c_str(),
-                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Simulation Time"), "", TL("Toggle the Simulation Time on/off.")).c_str(),
-                    myToolBar3, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Simulation Delay"), "", TL("Toggle the Simulation Delay Entry on/off.")).c_str(),
-                    myToolBar4, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Status Line"), TL("Toggle the Status Bar on/off."), myStatusbar, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Message Window"), TL("Toggle the Message Window on/off."), myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Time"), TL("Toggle the Simulation Time on/off."), myToolBar3, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Delay"), TL("Toggle the Simulation Delay Entry on/off."), myToolBar4, FXWindow::ID_TOGGLESHOWN);
     addToWindowsMenu(myWindowMenu);
 
     new FXMenuSeparator(myWindowMenu);

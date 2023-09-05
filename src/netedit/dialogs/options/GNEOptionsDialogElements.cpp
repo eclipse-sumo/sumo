@@ -78,7 +78,7 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
     // create content frame
     myContentFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create reset button
-    myResetButton = GUIDesigns::buildFXButton(this, (std::string("\t\t") + TL("Reset value")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
+    myResetButton = GUIDesigns::buildFXButton(this, "", "", TL("Reset value"), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
 }
 
 

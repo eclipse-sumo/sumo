@@ -105,3 +105,13 @@ GUIDesigns::buildFXButton(FXComposite* p, const std::string& text, const std::st
     button->setHelpText(help.c_str());
     return button;
 }
+
+
+FXRadioButton*
+GUIDesigns::buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXObject* tgt,
+                               FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl,FXint pr,FXint pt,FXint pb) {
+    FXRadioButton* radioButton = new FXRadioButton(p, text.c_str(), tgt, sel, opts, x, y, w, h, pl, pr, pt, pb);
+    radioButton->setTipText(tip.c_str());
+    radioButton->setHelpText(help.c_str());
+    return radioButton;
+}
