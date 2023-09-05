@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 12:40+0200\n"
+"POT-Creation-Date: 2023-09-04 16:15+0200\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -9330,8 +9330,8 @@ msgid "Unknown traffic light in '%'."
 msgstr "'%' 中有未知的交通號誌。"
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
-msgid " (No projection defined)"
-msgstr " 投影方式未定義"
+msgid "(No projection defined)"
+msgstr "投影方式未定義"
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
@@ -9795,7 +9795,7 @@ msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr "% 的載入器(位於檔案 '%' 中)無法進行初始化 (%)。"
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:281
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:183
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:193
 msgid "failed."
 msgstr "失敗。"
 
@@ -10230,25 +10230,25 @@ msgstr "在路徑 '%' 內有無效的隨動者索引(follower index)!"
 msgid "An edge within the route '%' is not known!"
 msgstr "在路徑 '%' 內的一個路段是未知的!"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:178
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
 msgid "done (%ms)."
 msgstr "完成 (%毫秒)。"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:180
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:190
 msgid "done."
 msgstr "完成。"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:278
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:288
 msgid "Could not set locale to '%'."
 msgstr "無法將環境(locale)設置為 '%'。"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:283
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:293
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr "未設置環境變量 SUMO_HOME,找不到定位(localized)訊息。"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:289
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:299
 msgid "Could not find localized messages."
 msgstr "找不到定位(localized)訊息。"
 
@@ -10373,28 +10373,36 @@ msgid "Writes all warnings and errors to FILE"
 msgstr "將所警告及錯誤寫入檔案"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
+msgid "Writes timestamps in front of all messages"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
+msgid "Writes process ID in front of all messages"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
 msgstr "在訊息中使用的語言"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
 msgid "Include license info into every output file"
 msgstr "每個輸出檔案中將包含許可證資訊"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr "應用於所有輸出檔案的字首(prefix)。 特殊字串 'TIME' 被目前時間替換。"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr "定義浮點數輸出的逗號後的位數"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr "定義經緯度(lon,lat)輸出的逗號後的位數"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:134
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"

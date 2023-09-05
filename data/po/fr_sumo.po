@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 12:40+0200\n"
+"POT-Creation-Date: 2023-09-04 16:15+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -9009,7 +9009,7 @@ msgid "Unknown traffic light in '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
-msgid " (No projection defined)"
+msgid "(No projection defined)"
 msgstr ""
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
@@ -9460,7 +9460,7 @@ msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr ""
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:281
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:183
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:193
 msgid "failed."
 msgstr ""
 
@@ -9889,25 +9889,25 @@ msgstr ""
 msgid "An edge within the route '%' is not known!"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:178
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
 msgid "done (%ms)."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:180
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:190
 msgid "done."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:278
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:288
 msgid "Could not set locale to '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:283
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:293
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:289
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:299
 msgid "Could not find localized messages."
 msgstr ""
 
@@ -10032,28 +10032,36 @@ msgid "Writes all warnings and errors to FILE"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
-msgid "Language to use in messages"
+msgid "Writes timestamps in front of all messages"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
-msgid "Include license info into every output file"
+msgid "Writes process ID in front of all messages"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
+msgid "Language to use in messages"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
+msgid "Include license info into every output file"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:134
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"

@@ -988,7 +988,7 @@ GUIOSGView::updatePositionInformation() const {
         if (GeoConvHelper::getFinal().usingGeoProjection()) {
             myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
         } else {
-            myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + TL(" (No projection defined)")).c_str());
+            myApp->getGeoLabel()->setText(TL("(No projection defined)"));
         }
     } else {
         // set placeholder

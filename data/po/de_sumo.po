@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 12:40+0200\n"
+"POT-Creation-Date: 2023-09-04 16:15+0200\n"
 "PO-Revision-Date: 2023-07-19 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10236,8 +10236,8 @@ msgid "Unknown traffic light in '%'."
 msgstr "Unbekannte LSA in '%'."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
-msgid " (No projection defined)"
-msgstr " (Keine Projektion definiert)"
+msgid "(No projection defined)"
+msgstr "(Keine Projektion definiert)"
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
@@ -10736,7 +10736,7 @@ msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr "Der Lader für % aus Datei '%' konnte nicht initialisiert werden (%)."
 
 #: C:\Repos\sumo/src\router\ROLoader.cpp:281
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:183
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:193
 msgid "failed."
 msgstr "fehlgeschlagen."
 
@@ -11225,27 +11225,27 @@ msgstr "Ungültiger Verfolgerindex in der Route '%'!"
 msgid "An edge within the route '%' is not known!"
 msgstr "Eine Kante in der Route '%' ist nicht bekannt!"
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:178
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
 msgid "done (%ms)."
 msgstr "abgeschlossen (%ms)."
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:180
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:190
 msgid "done."
 msgstr "abgeschlossen."
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:278
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:288
 msgid "Could not set locale to '%'."
 msgstr "Gebietsschema konnte nicht angewendet werden auf '%'."
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:283
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:293
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
 "Umgebungsvariable SUMO_HOME ist nicht gesetzt, es können keine lokalen "
 "Meldungen gefunden werden."
 
-#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:289
+#: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:299
 msgid "Could not find localized messages."
 msgstr "Lokalisierte Meldungen konnten nicht gefunden werden."
 
@@ -11376,14 +11376,22 @@ msgid "Writes all warnings and errors to FILE"
 msgstr "Schreibt alle Warnungen und Fehler in FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
+msgid "Writes timestamps in front of all messages"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
+msgid "Writes process ID in front of all messages"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
 msgstr "Sprache die für Meldungen verwendet wird"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
 msgid "Include license info into every output file"
 msgstr "Lizenzinformationen jeder Ausgabedatei beifügen"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
@@ -11391,17 +11399,17 @@ msgstr ""
 "Auf alle Ausgabedateien anzuwendendes Präfix. Die besondere Zeichenfolge "
 "'TIME' wird durch die aktuelle Uhrzeit ersetzt."
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr "Definiert die Anzahl der Nachkommastellen für die Fließkommaausgabe"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
 "Definiert die Anzahl der Nachkommastellen für die Ausgabe von geographischen "
 "Koordinaten (Länge, Breite)"
 
-#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
+#: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:134
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
