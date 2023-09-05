@@ -95,3 +95,13 @@ GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text
     // return menuCommand
     return menuCommand;
 }
+
+
+FXButton*
+GUIDesigns::buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXIcon* ic, FXObject* tgt,
+                          FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) {
+    FXButton* button = new FXButton(p, text.c_str(), ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb);
+    button->setTipText(tip.c_str());
+    button->setHelpText(help.c_str());
+    return button;
+}

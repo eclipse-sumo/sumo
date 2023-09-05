@@ -720,4 +720,9 @@ public:
 
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
+
+    /// @brief build  button
+    static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts,
+                                   FXint x, FXint y, FXint w,FXint h, FXint pl, FXint pr, FXint pt, FXint pb);
 };
