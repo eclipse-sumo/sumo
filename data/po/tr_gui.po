@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-05 09:41+0000\n"
+"PO-Revision-Date: 2023-09-05 10:52+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -1655,20 +1655,24 @@ msgid "type [id]"
 msgstr "Tür [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
+#, fuzzy
 msgid "tauff"
-msgstr ""
+msgstr "tauff"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:229
+#, fuzzy
 msgid "taufj"
-msgstr ""
+msgstr "taufj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:230
+#, fuzzy
 msgid "taujf"
-msgstr ""
+msgstr "taujf"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:231
+#, fuzzy
 msgid "taujj"
-msgstr ""
+msgstr "taujj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
@@ -7738,7 +7742,7 @@ msgstr "bu geçiş için ters yöndeki tıs indeksini ayarlar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1343
 msgid "Overrides default shape of pedestrian crossing"
-msgstr ""
+msgstr "Yaya geçidinin varsayılan şeklini geçersiz kılar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1352
 msgid "WalkingArea"
@@ -7758,15 +7762,15 @@ msgstr "Yürüme Alanının metre cinsinden uzunluğu (WalkingArea)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1372
 msgid "Overrides default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "Yaya kaldırımının varsayılan şeklini geçersiz kılar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1385
 msgid "The ID of the edge the vehicles leave"
-msgstr ""
+msgstr "Araçların ayrıldığı kesimin ID'si"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1390
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
-msgstr ""
+msgstr "Araçların 'dan' ayrılırken ulaşabileceği kesimin ID'si"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1395
 msgid "the lane index of the incoming lane (numbers starting with 0)"
@@ -7856,11 +7860,11 @@ msgstr "bu bağlantı için bağlantı durumu (hesaplanmış)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1515
 msgid "InternalLanes"
-msgstr ""
+msgstr "İçYollar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1532
 msgid "BusStop"
-msgstr ""
+msgstr "OtobüsDurağı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1537
 msgid "The id of bus stop"
@@ -7981,7 +7985,7 @@ msgstr "Otobüs durağının görüntüleneceği RGBA rengi (busStop)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1597
 msgid "TrainStop"
-msgstr ""
+msgstr "TrenDurağı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1602
 msgid "The id of train stop"
@@ -8032,7 +8036,7 @@ msgstr "Tren durağının görüntüleneceği RGBA rengi (trainStop)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1662
 msgid "Access"
-msgstr ""
+msgstr "Erişim"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1667
 msgid "The name of the lane the stop access shall be located at"
@@ -8048,7 +8052,7 @@ msgstr "Erişimin metre cinsinden yürüme uzunluğu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
 msgid "ContainerStop"
-msgstr ""
+msgstr "KonteynerDurdur"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1702
 msgid "The id of container stop"
@@ -8083,7 +8087,7 @@ msgstr "Konteyner durağının (containerStop) görüntüleneceği RGBA rengi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1761
 msgid "ChargingStation"
-msgstr ""
+msgstr "Şarjistasyonu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1766
 msgid "The id of charging station"
@@ -8131,15 +8135,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1824
 msgid "Battery charging type"
-msgstr ""
+msgstr "Akü şarj tipi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1831
 msgid "Waiting time before start charging"
-msgstr ""
+msgstr "Şarj işlemi başlamadan önce bekleme süresi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1841
 msgid "ParkingArea"
-msgstr ""
+msgstr "ParkAlanı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1846
 msgid "The id of ParkingArea"
@@ -8192,11 +8196,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1914
 msgid "Enable or disable lefthand position"
-msgstr ""
+msgstr "Sol el konumunu etkinleştirme veya devre dışı bırakma"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1925
 msgid "ParkingSpace"
-msgstr ""
+msgstr "Park Alanı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1935
 msgid "Name of parking space"
@@ -8212,7 +8216,7 @@ msgstr "Yol kenarındaki park yerlerinin eğimi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1966
 msgid "E1 InductionLoop"
-msgstr ""
+msgstr "E1 Endüksiyon Döngüsü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1971
 msgid "The id of E1"
@@ -8270,7 +8274,7 @@ msgstr "Dikkate alınacak araç türü kimliklerinin boşlukla ayrılmış liste
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2019
 msgid "E2 LaneAreaDetector"
-msgstr ""
+msgstr "E2 ŞeritAlanDetektörü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2024
 msgid "The id of E2"
@@ -8326,7 +8330,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2101
 msgid "E2 MultiLaneAreaDetector"
-msgstr ""
+msgstr "E2 ÇokluŞeritAlanDedektörü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2106
 msgid "The id of Multilane E2"
@@ -8346,7 +8350,7 @@ msgstr "Çok şeritli E2 dedektörünün adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2183
 msgid "E3 EntryExitDetector"
-msgstr ""
+msgstr "E3 GirişÇıkışDedektörü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2188
 msgid "The id of E3"
@@ -8375,15 +8379,18 @@ msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr ""
+"Dedektör alanına bir araç geldiğinde uyarı verilmemesi gerekip gerekmediği."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2243
+#, fuzzy
 msgid "E3 DetEntry"
-msgstr ""
+msgstr "E3 DetEntry"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2271
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2299
+#, fuzzy
 msgid "E3 DetExit"
-msgstr ""
+msgstr "E3 DetExit"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2304
 msgid "The id of Instant Induction Loop (E1Instant)"
@@ -8395,7 +8402,7 @@ msgstr "Anlık indüksiyon döngüsünün adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2346
 msgid "RouteProbe"
-msgstr ""
+msgstr "RotaAraştırması"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2351
 msgid "The id of RouteProbe"
@@ -8423,7 +8430,7 @@ msgstr "Çıktı üretmeye başlama zamanı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2387
 msgid "VariableSpeedSign"
-msgstr ""
+msgstr "DeğişkenHızİşareti"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2392
 msgid "The id of Variable Speed Signal"
@@ -8447,11 +8454,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2422
 msgid "VaribleSpeedSign Symbol"
-msgstr ""
+msgstr "DeğişkenHızİşareti Sembolü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2431
 msgid "VariableSpeedSign Step"
-msgstr ""
+msgstr "DeğişkenHızİşareti Adımı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2441
 msgid "Speed"
@@ -8459,7 +8466,7 @@ msgstr "Hız"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2451
 msgid "Calibrator"
-msgstr ""
+msgstr "Kalibratör"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2456
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2513
@@ -8520,7 +8527,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2508
 msgid "CalibratorLane"
-msgstr ""
+msgstr "KalibratörYolu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2518
 msgid "The id of lane in the simulation network"
@@ -8532,7 +8539,7 @@ msgstr "Kalibratör şeridinin adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2565
 msgid "CalibratorFlow"
-msgstr ""
+msgstr "KalibratörAkışı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2570
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3981
@@ -8554,7 +8561,7 @@ msgstr "Bu kalibratör akımı için kullanılacak araç tipinin kimliği"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2597
 msgid "Number of vehicles per hour, equally spaced"
-msgstr ""
+msgstr "Saat başına araç sayısı, eşit aralıklarla"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2603
 msgid "Vehicle's speed"
@@ -8562,7 +8569,7 @@ msgstr "Aracın hızı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2613
 msgid "Rerouter"
-msgstr ""
+msgstr "Yeniden Yönlendirici"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2619
 msgid "The id of Rerouter"
@@ -8611,11 +8618,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2667
 msgid "Rerouter Symbol"
-msgstr ""
+msgstr "Yeniden Yönlendirici Sembol"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2676
 msgid "Rerouter Interval"
-msgstr ""
+msgstr "Yeniden Yönlendirme Aralığı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2681
 msgid "Begin"
@@ -8627,7 +8634,7 @@ msgstr "Son"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2697
 msgid "ClosingReroute"
-msgstr ""
+msgstr "KapanışYönlendirme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2708
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2733
@@ -8641,7 +8648,7 @@ msgstr "izin verilmeyen araçlar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2722
 msgid "ClosingLaneReroute"
-msgstr ""
+msgstr "KapananŞeritYönlendirme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2727
 msgid "Lane ID"
@@ -8659,7 +8666,7 @@ msgstr "SUMO Olasılığı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2768
 msgid "ParkingAreaReroute"
-msgstr ""
+msgstr "ParkAlanıYönlendirme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2773
 msgid "ParkingArea ID"
@@ -8673,11 +8680,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2795
 msgid "RouteProbabilityReroute"
-msgstr ""
+msgstr "RotaOlasılıkYenidenYönlendirme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2816
 msgid "Vaporizer"
-msgstr ""
+msgstr "Buharlaştırıcı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2821
 msgid "Edge in which vaporizer is placed"
@@ -8749,7 +8756,7 @@ msgstr "İşlenen görüntünün derece cinsinden açısı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2927
 msgid "PointOfInterest"
-msgstr ""
+msgstr "POI"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2932
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3004
@@ -8807,7 +8814,7 @@ msgstr "Bu EN'i işlemek için kullanılacak bir bitmap"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2999
 msgid "PointOfInterestLane"
-msgstr ""
+msgstr "POIHattı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3009
 msgid "The name of the lane at which the POI is located at"
@@ -8826,19 +8833,19 @@ msgstr "EN'in bulunduğu adlandırılmış şeritteki yanal öteleme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3090
 msgid "PointOfInterestGeo"
-msgstr ""
+msgstr "POIGeo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3101
 msgid "The longitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "Park eden aracın görünümdeki boylam konumu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3106
 msgid "The latitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "Park eden aracın görünümdeki enlem konumu"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3176
 msgid "TrafficAssignmentZones"
-msgstr ""
+msgstr "TrafikAtamaBölgeleri"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3180
 msgid "The id of the TAZ"
@@ -8862,15 +8869,16 @@ msgstr "TAB'ın görüntüleneceği RGBA rengi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3216
 msgid "TAZ Source"
-msgstr ""
+msgstr "TAZ Kaynak"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3227
 msgid "Depart weight associated to this Edge"
 msgstr "Bu kesimle ilişkili kalkış ağırlığı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3237
+#, fuzzy
 msgid "TAZ Sink"
-msgstr ""
+msgstr "TAZ Sink"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3248
 msgid "Arrival weight associated to this Edge"
@@ -8894,7 +8902,7 @@ msgstr "Besleme hattının akım limiti"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3298
 msgid "WireSection"
-msgstr ""
+msgstr "EnerjihattıBölümü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3302
 msgid "Overhead wire segment ID"
@@ -8922,7 +8930,7 @@ msgstr "Havai tel yerleştirmenin kısıtlı olduğu iç şeritler"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3346
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "HavaiTelKelepçe"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3350
 msgid "Overhead wire clamp ID"
@@ -8954,35 +8962,35 @@ msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3387
 msgid "JuPedSim WalkableArea"
-msgstr ""
+msgstr "JuPedSim YürünebilirAlan"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3392
 msgid "The id of the walkable area"
-msgstr ""
+msgstr "Yürünebilir bölgenin ID'si"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3397
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "Yürünebilir bölgenin şekli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3403
 msgid "Walkable area's name"
-msgstr ""
+msgstr "Yürünebilir alan adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3412
 msgid "JuPedSim Obstacle"
-msgstr ""
+msgstr "JuPedSim Engeli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3417
 msgid "The id of the obstacle"
-msgstr ""
+msgstr "Engelin ID'si"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3422
 msgid "The shape of the obstacle"
-msgstr ""
+msgstr "Engel şekli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3428
 msgid "Obstacle's name"
-msgstr ""
+msgstr "Engelin adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3437
 msgid "JuPedSim WaitingAera"
@@ -8990,19 +8998,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3442
 msgid "The id of the waiting area"
-msgstr ""
+msgstr "Bekleme alanı ID'si"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3447
 msgid "The shape of the waiting area"
-msgstr ""
+msgstr "Bekleme alanının şekli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3453
 msgid "Waiting area's name"
-msgstr ""
+msgstr "Bekleme alanının adı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3462
 msgid "JuPedSim Source"
-msgstr ""
+msgstr "JuPedSim Kaynağı"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3467
 msgid "The id of the source"
