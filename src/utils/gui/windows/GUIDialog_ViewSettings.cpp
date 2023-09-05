@@ -996,8 +996,8 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         FXTextField* text = new FXTextField(content, 40, &dialog, FXDialogBox::ID_ACCEPT, GUIDesignViewSettingsTextField1);
         new FXHorizontalSeparator(content, GUIDesignHorizontalSeparator);
         FXHorizontalFrame* buttons = new FXHorizontalFrame(content, GUIDesignViewSettingsHorizontalFrame3);
-        new FXButton(buttons, TL("&OK"), nullptr, &dialog, FXDialogBox::ID_ACCEPT, GUIDesignViewSettingsButton4);
-        new FXButton(buttons, TL("&Cancel"), nullptr, &dialog, FXDialogBox::ID_CANCEL, GUIDesignViewSettingsButton5);
+        GUIDesigns::buildFXButton(buttons, TL("&OK"), "", "", nullptr, &dialog, FXDialogBox::ID_ACCEPT, GUIDesignViewSettingsButton4);
+        GUIDesigns::buildFXButton(buttons, TL("&Cancel"), "", "", nullptr, &dialog, FXDialogBox::ID_CANCEL, GUIDesignViewSettingsButton5);
         dialog.create();
         text->setFocus();
         if (!dialog.execute()) {
@@ -1243,13 +1243,13 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             if (*threshIt == GUIVisualizationSettings::MISSING_DATA) {
                 threshDialer->disable();
                 threshDialer->hide();
-                buttons.push_back(new FXButton(m, "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, "", "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.back()->hide();
-                buttons.push_back(new FXButton(m, TL("No Data"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("No Data"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.back()->disable();
             } else {
-                buttons.push_back(new FXButton(m, TL("Add"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-                buttons.push_back(new FXButton(m, TL("Remove"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("Add"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("Remove"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
             }
         }
         colIt++;
@@ -1308,13 +1308,13 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             if (*threshIt == GUIVisualizationSettings::MISSING_DATA) {
                 threshDialer->disable();
                 threshDialer->hide();
-                buttons.push_back(new FXButton(m, "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, "", "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.back()->hide();
-                buttons.push_back(new FXButton(m, TL("No Data"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("No Data"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
                 buttons.back()->disable();
             } else {
-                buttons.push_back(new FXButton(m, TL("Add"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-                buttons.push_back(new FXButton(m, TL("Remove"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("Add"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(GUIDesigns::buildFXButton(m, TL("Remove"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
             }
         }
         scaleIt++;
@@ -1675,10 +1675,10 @@ GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
         }
     }
 
-    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Save the setting to registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Remove the setting from registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Export setting to file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Load setting from file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+    GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Save the setting to registry"), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+    GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Remove the setting from registry"), GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+    GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Export setting to file"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+    GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Load setting from file"), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
     new FXVerticalSeparator(horizontalFrame);
     new FXLabel(horizontalFrame, TL("Export includes:"), nullptr, GUIDesignViewSettingsLabel1);
@@ -1707,9 +1707,9 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     new FXLabel(verticalFrameDecals, TL("Decals:"));
     myDecalsTable = new MFXDecalsTable(this, verticalFrameDecals);
     FXHorizontalFrame* horizontalFrameButtonsDecals = new FXHorizontalFrame(verticalFrameDecals, GUIDesignViewSettingsHorizontalFrame2);
-    new FXButton(horizontalFrameButtonsDecals, TL("&Load XML Decals"), nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS_XML, GUIDesignViewSettingsButton1);
-    new FXButton(horizontalFrameButtonsDecals, TL("&Save XML Decals"), nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS_XML, GUIDesignViewSettingsButton1);
-    new FXButton(horizontalFrameButtonsDecals, TL("&Clear Decals"), nullptr, this, MID_SIMPLE_VIEW_CLEAR_DECALS, GUIDesignViewSettingsButton1);
+    GUIDesigns::buildFXButton(horizontalFrameButtonsDecals, TL("&Load XML Decals"), "", "", nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS_XML, GUIDesignViewSettingsButton1);
+    GUIDesigns::buildFXButton(horizontalFrameButtonsDecals, TL("&Save XML Decals"), "", "", nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS_XML, GUIDesignViewSettingsButton1);
+    GUIDesigns::buildFXButton(horizontalFrameButtonsDecals, TL("&Clear Decals"), "", "", nullptr, this, MID_SIMPLE_VIEW_CLEAR_DECALS, GUIDesignViewSettingsButton1);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
@@ -1753,8 +1753,8 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
 
     // rainbow settings
     FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
-    myLaneColorRainbow = new FXButton(matrixRainbow, TL("Recalibrate Rainbow"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                      (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myLaneColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+        (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, TL("hide below"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myLaneColorRainbowThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
@@ -1810,7 +1810,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
 
     myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRails->setCheck(mySettings->showRails);
-    mySpreadSuperposed = new FXCheckButton(matrixLanes, (TL("Spread bidirectional railways/roads") + std::string("\t\t") + TL("Make both directional edges for a bidirectional railways or roads visible")).c_str(), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads"), "", TL("Make both directional edges for a bidirectional railways or roads visible"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
 
     mySecondaryShape = new FXCheckButton(matrixLanes, TL("Secondary shape"), this, MID_SIMPLE_VIEW_COLORCHANGE);
@@ -2015,7 +2015,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
     myJunctionColorInterpolation = new FXCheckButton(m41, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
-    myJunctionColorRainbow = new FXButton(verticalFrame, TL("Recalibrate Rainbow"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+    myJunctionColorRainbow = GUIDesigns::buildFXButton(verticalFrame, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
@@ -2238,7 +2238,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
 
     // rainbow settings
     FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
-    myDataColorRainbow = new FXButton(m113, TL("Recalibrate Rainbow"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+    myDataColorRainbow = GUIDesigns::buildFXButton(m113, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                       (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myDataColorRainbowCheck = new FXCheckButton(m113, TL("hide below threshold"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
@@ -2306,7 +2306,7 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     myDisableDottedContours = new FXCheckButton(m87, TL("Disable dotted contours during selection/deletion"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myDisableDottedContours->setCheck(mySettings->disableDottedContours);
     FXMatrix* m88 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myRecalculateBoundaries = new FXButton(m88, TL("Recalculate boundaries"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+    myRecalculateBoundaries = GUIDesigns::buildFXButton(m88, TL("Recalculate boundaries"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     FXMatrix* m89 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     myGeometryIndicesPanel = new NamePanel(m89, this, TL("Show geometry point indices"), mySettings->geometryIndices);
@@ -2361,8 +2361,8 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
 void
 GUIDialog_ViewSettings::buildButtons(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
-    FXButton* OK = new FXButton(horizontalFrameButtons, TL("&OK"), nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
-    new FXButton(horizontalFrameButtons, TL("&Cancel"), nullptr, this, MID_SETTINGS_CANCEL, GUIDesignViewSettingsButton3);
+    FXButton* OK = GUIDesigns::buildFXButton(horizontalFrameButtons, TL("&OK"), "", "", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
+    GUIDesigns::buildFXButton(horizontalFrameButtons, TL("&Cancel"), "", "", nullptr, this, MID_SETTINGS_CANCEL, GUIDesignViewSettingsButton3);
     OK->setFocus();
 }
 

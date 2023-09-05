@@ -60,10 +60,10 @@ GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandEle
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, (TL("&Accept") + std::string("\t\t") + TL("close accepting changes")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, (TL("&Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame, (TL("&Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    myFocusButton = new FXButton(buttonsFrame,  "&F", nullptr, this, MID_GNE_BUTTON_FOCUS, GUIDesignButtonFocus);
+    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Accept"), "", TL("close accepting changes"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Cancel"), "", TL("close discarding changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, TL("&Reset"), "", TL("reset to previous values"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myFocusButton = GUIDesigns::buildFXButton(buttonsFrame, "&F", "", "", nullptr, this, MID_GNE_BUTTON_FOCUS, GUIDesignButtonFocus);
 
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }

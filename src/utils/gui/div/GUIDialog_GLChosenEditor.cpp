@@ -72,19 +72,19 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISel
     // build the layout
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // "Load"
-    new FXButton(layout, (TL("&Load selection") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Load selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layout, (TL("&Save selection") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Save selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Deselect Chosen"
-    new FXButton(layout, (TL("&Deselect chosen") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_DESELECT, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Deselect chosen"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_DESELECT, GUIDesignChooserButtons);
     // "Clear List"
-    new FXButton(layout, (TL("&Clear selection") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("&Clear selection"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     // extra separator
     new FXHorizontalSeparator(layout, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layout, (TL("Cl&ose") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layout, TL("Cl&ose"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myParent->addChild(this);
     loadWindowPos();
 }

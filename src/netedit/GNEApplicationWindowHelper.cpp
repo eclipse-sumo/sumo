@@ -1301,11 +1301,11 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPane* editMenu) {
     // add open in sumo options
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-        (TL("Load additionals in sumo-gui") + std::string("\t\t") + TL("Load additionals in sumo-gui.")).c_str(),
+        TL("Load additionals in sumo-gui"), "", TL("Load additionals in sumo-gui."),
         myGNEApp, MID_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-        (TL("Load demand in sumo-gui") + std::string("\t\t") + TL("Load demand in sumo-gui.")).c_str(),
+        TL("Load demand in sumo-gui"), "", TL("Load demand in sumo-gui."),
         myGNEApp, MID_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,

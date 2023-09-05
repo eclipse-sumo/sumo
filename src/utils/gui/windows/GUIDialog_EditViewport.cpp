@@ -62,9 +62,9 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     FXVerticalFrame* contentsFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
     // create frame for file icons
     FXHorizontalFrame* frameFiles = new FXHorizontalFrame(contentsFrame, GUIDesignHorizontalFrameIcons);
-    myLoadButton = new FXButton(frameFiles, (TL("Load") + std::string("\t\t") + TL("Load viewport from file")).c_str(),
+    myLoadButton = GUIDesigns::buildFXButton(frameFiles, TL("Load"), "", TL("Load viewport from file"),
                                 GUIIconSubSys::getIcon(GUIIcon::OPEN), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
-    mySaveButton = new FXButton(frameFiles, (TL("Save") + std::string("\t\t") + TL("Save viewport to file")).c_str(),
+    mySaveButton = GUIDesigns::buildFXButton(frameFiles, TL("Save"), "", TL("Save viewport to file"),
                                 GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
     // create horizontalframe for zoom elements and OSG
     FXHorizontalFrame* editElementsFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -130,8 +130,8 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     new FXHorizontalSeparator(contentsFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
-    myOKButton = new FXButton(frameButtons, (TL("&OK") + std::string("\t\t") + TL("accept")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
-    myCancelButton = new FXButton(frameButtons, (TL("&Cancel") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
+    myOKButton = GUIDesigns::buildFXButton(frameButtons, TL("&OK"), "", TL("accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, GUIDialog_EditViewport::MID_OK, GUIDesignButtonOK);
+    myCancelButton = GUIDesigns::buildFXButton(frameButtons, TL("&Cancel"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, GUIDialog_EditViewport::MID_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(frameButtons, GUIDesignAuxiliarHorizontalFrame);
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT));

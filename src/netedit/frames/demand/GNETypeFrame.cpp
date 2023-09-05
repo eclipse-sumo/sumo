@@ -203,11 +203,11 @@ GNETypeFrame::TypeEditor::TypeEditor(GNETypeFrame* typeFrameParent) :
     MFXGroupBoxModule(typeFrameParent, TL("Type Editor")),
     myTypeFrameParent(typeFrameParent) {
     // Create new vehicle type
-    myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("Create Type"), GUIIconSubSys::getIcon(GUIIcon::VTYPE), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateTypeButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create Type"), "", "", GUIIconSubSys::getIcon(GUIIcon::VTYPE), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset vehicle type
-    myDeleteResetTypeButton = new FXButton(getCollapsableFrame(), TL("Delete Type"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteResetTypeButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Delete Type"), "", "", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy vehicle type
-    myCopyTypeButton = new FXButton(getCollapsableFrame(), TL("Copy Type"), GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
+    myCopyTypeButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Copy Type"), "", "", GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 
 

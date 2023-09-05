@@ -135,35 +135,35 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
 
     // Create labels and tables
     FXHorizontalFrame* buttonAndLabelClosingLaneReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingLaneReroutes = new FXButton(buttonAndLabelClosingLaneReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
+    myAddClosingLaneReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosingLaneReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGLANEREROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelClosingLaneReroute, ("Add new " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myClosingLaneRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGLANEREROUTE, GUIDesignTableAdditionals);
     myClosingLaneRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myClosingLaneRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelClosinReroute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddClosingReroutes = new FXButton(buttonAndLabelClosinReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
+    myAddClosingReroutes = GUIDesigns::buildFXButton(buttonAndLabelClosinReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_CLOSINGREROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelClosinReroute, ("Add new " + toString(SUMO_TAG_CLOSING_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myClosingRerouteTable = new FXTable(columnLeft, this, MID_GNE_REROUTEDIALOG_TABLE_CLOSINGREROUTE, GUIDesignTableAdditionals);
     myClosingRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myClosingRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelDestProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddDestProbReroutes = new FXButton(buttonAndLabelDestProbReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
+    myAddDestProbReroutes = GUIDesigns::buildFXButton(buttonAndLabelDestProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_DESTPROBREROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelDestProbReroute, ("Add new " + toString(SUMO_TAG_DEST_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myDestProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_DESTPROBREROUTE, GUIDesignTableAdditionals);
     myDestProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myDestProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelRouteProbReroute = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddRouteProbReroute = new FXButton(buttonAndLabelRouteProbReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
+    myAddRouteProbReroute = GUIDesigns::buildFXButton(buttonAndLabelRouteProbReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_ROUTEPROBREROUTE, GUIDesignButtonIcon);
     FXLabel* routeProbRerouteLabel = new FXLabel(buttonAndLabelRouteProbReroute, ("Add new " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myRouteProbRerouteTable = new FXTable(columnRight, this, MID_GNE_REROUTEDIALOG_TABLE_ROUTEPROBREROUTE, GUIDesignTableAdditionals);
     myRouteProbRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myRouteProbRerouteTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
 
     FXHorizontalFrame* buttonAndLabelParkingAreaReroute = new FXHorizontalFrame(columnRight2, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* parkingAreaRerouteButton = myAddParkingAreaReroute = new FXButton(buttonAndLabelParkingAreaReroute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
+    FXButton* parkingAreaRerouteButton = myAddParkingAreaReroute = GUIDesigns::buildFXButton(buttonAndLabelParkingAreaReroute, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_PARKINGAREAREROUTE, GUIDesignButtonIcon);
     FXLabel* parkingAreaRerouteLabel = new FXLabel(buttonAndLabelParkingAreaReroute, ("Add new " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myParkingAreaRerouteTable = new FXTable(columnRight2, this, MID_GNE_REROUTEDIALOG_TABLE_PARKINGAREAREROUTE, GUIDesignTableAdditionals);
     myParkingAreaRerouteTable->setSelBackColor(FXRGBA(255, 255, 255, 255));

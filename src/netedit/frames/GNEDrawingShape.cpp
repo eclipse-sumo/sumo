@@ -50,9 +50,9 @@ GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(getCollapsableFrame(), TL("Start drawing"), 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(getCollapsableFrame(), TL("Stop drawing"), 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(getCollapsableFrame(), TL("Abort drawing"), 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Start drawing"), "", "", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Stop drawing"), "", "", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Abort drawing"), "", "", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
     // create information label
     std::ostringstream information;
     information

@@ -72,7 +72,7 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
-    helpReferencePoint = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
+    helpReferencePoint = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -243,7 +243,7 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening GNENeteditAttributes help dialog");

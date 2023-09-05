@@ -149,7 +149,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
         myUserDefinedSpeed->setValue(0);
         //static_cast<GUICalibrator*>(myObject)->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     //static_cast<GUICalibrator*>(myObject)->setOverriding(true);
 }

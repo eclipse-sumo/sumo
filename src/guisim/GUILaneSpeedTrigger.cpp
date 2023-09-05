@@ -152,7 +152,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(myObject->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     myObject->setOverriding(true);
 }

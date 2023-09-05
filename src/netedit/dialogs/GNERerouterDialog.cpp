@@ -53,10 +53,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
-    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
+    myAddInterval = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create Button and Label for sort intervals
-    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
+    mySortIntervals = GUIDesigns::buildFXButton(myAddIntervalFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
 
     // Create table

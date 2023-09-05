@@ -516,16 +516,20 @@ GNEApplicationWindow::dependentBuild() {
     // build geo coordinates label
     auto requireRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myRequireRecomputingButton = new MFXButtonTooltip(requireRecomputingFrame, myStaticTooltipMenu,
-            (TL("Recomputing") + std::string("\t\t") + TL("Recomputing is needed")).c_str(), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+            TL("Recomputing"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+    myRequireRecomputingButton->setHelpText(TL("Recomputing is needed"));
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, (TL("N/A") + std::string("\t\t") + TL("Original coordinate (before coordinate transformation in netconvert)")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myGeoCoordinate = new FXLabel(myGeoFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myGeoCoordinate->setHelpText(TL("Original coordinate (before coordinate transformation in netconvert)"));
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A") + std::string("\t\t") + TL("Network coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myCartesianCoordinate->setHelpText(TL("Network coordinate"));
     // build test coordinates label (only if gui-testing is enabled)
     myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myTestCoordinate = new FXLabel(myTestFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myTestCoordinate->setHelpText(TL("Test coordinate"));
     myTestCoordinate->setTextColor(FXRGB(255, 0, 0));
     myTestFrame->hide();
     // make the window a mdi-window

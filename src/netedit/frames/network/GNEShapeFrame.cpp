@@ -66,7 +66,7 @@ GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     // create checkBox
     myCenterViewAfterCreationCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Center View after creation"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // create button for create GEO POIs
-    myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateGEOPOIButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), "", "", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
     myLabelCartesianPosition = new MFXDynamicLabel(getCollapsableFrame(),
             (TL("Cartesian equivalence:") + std::string("\n") +

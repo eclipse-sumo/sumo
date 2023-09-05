@@ -237,9 +237,9 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
     MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
     // Create "Protect all" Button
-    new FXButton(getCollapsableFrame(), (TL("Protect all") + std::string("\t\t") + TL("Protect all elements")).c_str(), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Protect all"), "", TL("Protect all elements"), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
     // Create "Unprotect all" Button
-    new FXButton(getCollapsableFrame(), (TL("Unprotect all") + std::string("\t\t") + TL("Unprotect all elements")).c_str(), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Unprotect all"), "", TL("Unprotect all elements"), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);

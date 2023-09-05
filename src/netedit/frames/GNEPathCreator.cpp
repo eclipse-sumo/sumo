@@ -151,16 +151,16 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameInformation);
     // create button for use last route
-    myUseLastRoute = new FXButton(getCollapsableFrame(), TL("Use last route"), GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
+    myUseLastRoute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use last route"), "", "", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish route creation"), nullptr, this, MID_GNE_PATHCREATOR_FINISH, GUIDesignButton);
+    myFinishCreationButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Finish route creation"), "", "", nullptr, this, MID_GNE_PATHCREATOR_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), TL("Abort route creation"), nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
+    myAbortCreationButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Abort route creation"), "", "", nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), TL("Remove last edge"), nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last edge"), "", "", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
     myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), TL("Show candidate edges"), this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);

@@ -447,12 +447,12 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     myComboBox(nullptr) {
     // first check if we have to create a button or a label
     if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
-        myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonFixed(150));
+        myButton = GUIDesigns::buildFXButton(this, filterAttributeName(attr), "", "", nullptr, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonFixed(150));
         if (rowAttrType == ROWTYPE_COLOR) {
             myButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         }
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
-        myButton = new FXButton(this, TL("Edit parameters"), nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
+        myButton = GUIDesigns::buildFXButton(this, TL("Edit parameters"), "", "", nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonFixed(150));
     } else {
         new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelThickedFixed(150));
     }
@@ -764,7 +764,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::setParameters(const st
 }
 
 
-FXString
+std::string
 GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::filterAttributeName(const SumoXMLAttr attr) const {
     switch (attr) {
         // JM
@@ -831,7 +831,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::filterAttributeName(co
             return "experimental1";
         */
         default:
-            return toString(attr).c_str();
+            return toString(attr);
     }
 }
 

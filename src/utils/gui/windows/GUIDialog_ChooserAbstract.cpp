@@ -81,23 +81,23 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListSingle);
     // build the buttons
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
-    myCenterButton = new FXButton(layoutRight, (TL("Center") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
-    myTrackButton = new FXButton(layoutRight, (TL("Track") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
+    myCenterButton = GUIDesigns::buildFXButton(layoutRight, TL("Center"), "", "", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
+    myTrackButton = GUIDesigns::buildFXButton(layoutRight, TL("Track"), "", "", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
     // only enable Track Button if we're locating vehicles
     if (title.text() != std::string(TL("Vehicle Chooser"))) {
         myTrackButton->disable();
         myTrackButton->hide();
     }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
-    new FXButton(layoutRight, (TL("&Hide Unselected") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("By &Name") + std::string("\t") + TL("Locate item by name") + "\t").c_str(), nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("&Select/deselect") + std::string("\t\t") + TL("Select/deselect current object")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("&Filter substring") + std::string("\t\t")).c_str(), nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("Select &all") + std::string("\t\t") + TL("Select all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("&Deselect all") + std::string("\t\t") + TL("Deselect all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("&Update") + std::string("\t\t") + TL("Reload all ids")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Hide Unselected"), "", "", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("By &Name"), TL("Locate item by name"), "", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Select/deselect"), "", TL("Select/deselect current object"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Filter substring"), "", "", nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("Select &all"), "", TL("Select all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Deselect all"), "", TL("Deselect all items in list"), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Update"), "", TL("Reload all ids"), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
-    new FXButton(layoutRight, (TL("&Close") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    GUIDesigns::buildFXButton(layoutRight, TL("&Close"), "", "", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
     myCaseSensitive = new FXCheckButton(layoutRight, TL("case-sensitive search"));
     myCaseSensitive->setCheck(getApp()->reg().readIntEntry("LOCATOR", "caseSensitive", 0) == 1);

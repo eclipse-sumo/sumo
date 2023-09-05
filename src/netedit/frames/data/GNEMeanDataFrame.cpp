@@ -160,13 +160,13 @@ GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrame
     MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Editor")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
-    myCreateMeanDataButton = new FXButton(getCollapsableFrame(), TL("Create MeanData"),
+    myCreateMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create MeanData"), "", "",
                                           GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset meanData
-    myDeleteMeanDataButton = new FXButton(getCollapsableFrame(), TL("Delete MeanData"),
+    myDeleteMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Delete MeanData"), "", "",
                                           GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy meanData
-    myCopyMeanDataButton = new FXButton(getCollapsableFrame(), TL("Copy MeanData"),
+    myCopyMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Copy MeanData"), "", "",
                                         GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 

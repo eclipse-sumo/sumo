@@ -54,7 +54,7 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

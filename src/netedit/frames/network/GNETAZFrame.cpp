@@ -396,10 +396,10 @@ GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
     MFXGroupBoxModule(TAZFrameParent, TL("Modifications")),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(getCollapsableFrame(), TL("Confirm changes"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Confirm changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(getCollapsableFrame(), TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Cancel changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelChangesButton->disable();
 }
 
@@ -503,9 +503,9 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(getCollapsableFrame(), TL("Use selected edges"), nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myUseSelectedEdges = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected edges"), "", "", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
-    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), TL("Set zero fringe prob."), nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
+    myZeroFringeProbabilities = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Set zero fringe prob."), "", "", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -1175,7 +1175,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor = GUIDesigns::buildFXButton(colorParameter, toString(SUMO_ATTR_COLOR), "", "", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myColorEditor->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
@@ -1189,7 +1189,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
-    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpTAZAttribute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 

@@ -791,7 +791,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* framePare
     // leave it hidden
     myAttributesEditorFlow->hideFlowEditor();
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1025,7 +1025,7 @@ GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNE
     MFXGroupBoxModule(frameParent, TL("Extended attributes")),
     myFrameParent(frameParent) {
     // Create open dialog button
-    new FXButton(getCollapsableFrame(), TL("Open attributes editor"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Open attributes editor"), "", "", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -1060,7 +1060,7 @@ GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame*
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getCollapsableFrame(), TL("Edit attributes"), nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myButtonEditParameters = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit attributes"), "", "", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -1210,7 +1210,7 @@ GNEFrameAttributeModules::ParametersEditor::ParametersEditor(GNEInspectorFrame* 
     myInspectorFrameParent(inspectorFrameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getCollapsableFrame(), TL("Edit parameters"), nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myButtonEditParameters = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -1219,7 +1219,7 @@ GNEFrameAttributeModules::ParametersEditor::ParametersEditor(GNETypeFrame* typeF
     myTypeFrameParent(typeFrameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getCollapsableFrame(), TL("Edit parameters"), nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myButtonEditParameters = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Edit parameters"), "", "", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 

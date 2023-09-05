@@ -90,11 +90,11 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue options are mandatory"), nullptr, GUIDesignLabelFixed(200));
     blueLabel->setTextColor(FXRGB(0, 0, 255));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Run"), "", TL("run python tool"),
                  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(horizontalButtonsFrame, (TL("Close") + std::string("\t\t") + TL("close tool dialog")).c_str(),
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Close"), "", TL("close tool dialog"),
                  GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(),
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Reset"), "", TL("reset to default values"),
                  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
