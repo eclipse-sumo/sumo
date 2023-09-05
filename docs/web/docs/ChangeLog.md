@@ -80,6 +80,7 @@ title: ChangeLog
     - WaitingArea
     - Source
     - Sink
+  - Add new view "JuPedSim". #13750
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
