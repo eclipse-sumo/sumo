@@ -80,6 +80,20 @@ public:
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
+    /**@brief parameter constructor for person TAZ->TAZ
+     * @param[in] net Network in which this PersonTrip is placed
+     * @param[in] personParent person parent
+     * @param[in] fromTAZ from TAZ
+     * @param[in] toTAZ to TAZ
+     * @param[in] arrivalPosition arrival position on the destination TAZ
+     * @param[in] types list of possible vehicle types to take
+     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
+     */
+    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
+
     /// @brief destructor
     ~GNEPersonTrip();
 
