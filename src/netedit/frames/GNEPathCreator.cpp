@@ -312,6 +312,13 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
             break;
+        // junction->junction
+        case GNE_TAG_PERSONTRIP_TAZS:
+        case GNE_TAG_WALK_TAZS:
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_TAZ;
+            myCreationMode |= ONLY_FROMTO;
+            break;
         // stops (person and containers)
         case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= STOP;
