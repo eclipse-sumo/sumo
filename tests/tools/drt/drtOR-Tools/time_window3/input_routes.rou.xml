@@ -3,10 +3,14 @@
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>
-
+    
     <vehicle id="v0" depart="0" line="taxi" type="taxi">
-	<route edges="A0B0"/>
+        <route edges="A0B0"/>
         <stop lane="A0B0_1" triggered="person"/>
+    </vehicle>
+    <vehicle id="v1" depart="0">
+        <route edges="B0C0 C0D0"/>
+        <stop lane="B0C0_1" endPos="250" until="80"/>
     </vehicle>
     
 </routes>
