@@ -84,7 +84,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJun
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_TAZS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
@@ -269,7 +269,7 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
     // force draw path
     myNet->getPathManager()->forceDrawPath(s, this);
     // special case for junction walks
-    if (getParentJunctions().size() > 0) {
+    if ((getParentJunctions().size() > 0) || (getParentAdditionals().size() > 1)) {
         // get person parent
         const GNEDemandElement* personParent = getParentDemandElements().front();
         if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == this)) {
@@ -295,7 +295,7 @@ GNEPersonTrip::computePathElement() {
         } else {
             myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getLastPathLane()->getParentEdge()->getToJunction(), getParentJunctions().back()});
         }
-    } else {
+    } else if (getParentEdges().size() > 0) {
         // calculate path
         myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPathLane(), getLastPathLane()});
     }
@@ -584,6 +584,8 @@ GNEPersonTrip::getHierarchyName() const {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_JUNCTIONS) {
         return "personTrip: " + getParentJunctions().front()->getID() + " -> " + getParentJunctions().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TAZS) {
+        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {

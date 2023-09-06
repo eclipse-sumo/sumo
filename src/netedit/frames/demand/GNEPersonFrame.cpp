@@ -136,6 +136,8 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
+    } else if (clickedACTag == SUMO_TAG_TAZ) {
+        return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
