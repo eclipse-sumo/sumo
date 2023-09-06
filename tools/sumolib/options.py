@@ -107,10 +107,10 @@ def assign_prefixed_options(args, allowed_programs):
                 if program in allowed_programs:
                     try:
                         if '--' in args[arg_index+1]:
-                            raise NotImplementedError()
+                            raise ValueError()
                         option = [arg[separator_index+1:], args[arg_index+1]]
-                    except (IndexError, NotImplementedError):
-                        raise NotImplementedError("Please amend prefixed argument %s with a value." % arg)
+                    except (IndexError, ValueError):
+                        raise ValueError("Please amend prefixed argument %s with a value." % arg)
                     prefixed_options.setdefault(program, []).append(option)
                     consumed = True
         if not consumed:
