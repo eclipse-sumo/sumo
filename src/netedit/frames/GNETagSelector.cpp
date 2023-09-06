@@ -473,6 +473,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_PERSONTRIP_BUSSTOP:
         case GNE_TAG_PERSONTRIP_TRAINSTOP:
         case GNE_TAG_PERSONTRIP_JUNCTIONS:
+        case GNE_TAG_PERSONTRIP_TAZS:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
             break;
         case GNE_TAG_WALK_EDGE:
@@ -481,6 +482,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_ROUTE:
         case GNE_TAG_WALK_JUNCTIONS:
+        case GNE_TAG_WALK_TAZS:
             myAC = new GNEWalk(tagProperty.getTag(), net);
             break;
         case GNE_TAG_RIDE_EDGE:
