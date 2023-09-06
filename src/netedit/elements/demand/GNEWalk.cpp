@@ -37,7 +37,7 @@
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+    myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,28 +46,28 @@ myArrivalPosition(0) {
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, isTrain ? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain ? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toAdditional}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {personParent, route}, {}),
-myArrivalPosition(arrivalPosition) {
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -75,8 +75,15 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJ
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::WALK_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
     fromJunction, toJunction
-}, {}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition) {
+    }, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
+}
+
+
+GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, double arrivalPosition) :
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_TAZS, GUIIconSubSys::getIcon(GUIIcon::WALK_TAZS),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -149,18 +156,23 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
                 device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
             } else if (getParentJunctions().size() > 0) {
                 device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
+            } else if (getParentJunctions().size() > 0) {
+                device.writeAttr(SUMO_ATTR_FROM_TAZ, getParentAdditionals().front()->getID());
             }
         }
         // write to depending if personplan ends in a busStop, edge or junction
         if (getParentAdditionals().size() > 0) {
-            if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-                device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+            auto toAdditional = getParentAdditionals().back();
+            if (toAdditional->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+                device.writeAttr(SUMO_ATTR_BUS_STOP, toAdditional->getID());
+            } else if (toAdditional->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+                device.writeAttr(SUMO_ATTR_TRAIN_STOP, toAdditional->getID());
             } else {
-                device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+                device.writeAttr(SUMO_ATTR_TO_TAZ, toAdditional->getID());
             }
         } else if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-        } else {
+        } else if (getParentJunctions().size() > 0) {
             device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
         }
     }
@@ -378,6 +390,10 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             return getParentJunctions().front()->getID();
         case SUMO_ATTR_TOJUNCTION:
             return getParentJunctions().back()->getID();
+        case SUMO_ATTR_FROM_TAZ:
+            return getParentAdditionals().front()->getID();
+        case SUMO_ATTR_TO_TAZ:
+            return getParentAdditionals().back()->getID();
         case GNE_ATTR_TO_BUSSTOP:
         case GNE_ATTR_TO_TRAINSTOP:
             return getParentAdditionals().back()->getID();
@@ -452,6 +468,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             }
             break;
         case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
@@ -459,7 +476,8 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO:
-        case SUMO_ATTR_TOJUNCTION: {
+        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_TAZ: {
             if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
                 // get next personPlan
                 GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
@@ -563,6 +581,9 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_TOJUNCTION:
             return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_TO_TAZ:
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case GNE_ATTR_TO_TRAINSTOP:
@@ -614,6 +635,7 @@ GNEWalk::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_TAZ:
             return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
         default:
             return true;
@@ -633,6 +655,8 @@ GNEWalk::getHierarchyName() const {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_JUNCTIONS) {
         return "walk: " + getParentJunctions().front()->getID() + " -> " + getParentJunctions().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_TAZS) {
+        return "walk: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else if ((myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_WALK_TRAINSTOP)) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
@@ -679,6 +703,18 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TOJUNCTION:
             // change last junction
             replaceLastParentJunction(value);
+            // compute walk
+            computePathElement();
+            break;
+        case SUMO_ATTR_FROM_TAZ:
+            // change first TAZ
+            replaceFirstParentAdditional(SUMO_TAG_TAZ, value);
+            // compute walk
+            computePathElement();
+            break;
+        case SUMO_ATTR_TO_TAZ:
+            // change last TAZ
+            replaceLastParentAdditional(SUMO_TAG_TAZ, value);
             // compute walk
             computePathElement();
             break;
