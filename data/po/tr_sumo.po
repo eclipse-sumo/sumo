@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-04 16:15+0200\n"
-"PO-Revision-Date: 2023-09-06 00:05+0000\n"
+"PO-Revision-Date: 2023-09-07 09:24+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -61,9 +61,9 @@ msgid "Invalid % value of edge % is treated as zero."
 msgstr "Kenar %'nin geçersiz % değeri sıfır olarak kabul edilir."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
-#, fuzzy, c-format
+#, c-format
 msgid "Edge '%' is not known."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "Kesim '%' bilinmiyor."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:337
 msgid "Unknown bus station '%'."
@@ -71,7 +71,7 @@ msgstr "Bilinmeyen '%' Otobüs Durağı."
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "Yolculuğu oluşturmak için FILE'ı SUMO ağı olarak kullanın"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
@@ -103,9 +103,9 @@ msgid "Missing definition of network to load!"
 msgstr "Yüklenecek ağ tanımı eksik!"
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:67
-#, fuzzy, c-format
+#, c-format
 msgid "The network file '%' could not be accessed."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "'%' ağ dosyasına erişilemedi."
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:69
 #: C:\Repos\sumo/src\router\ROLoader.cpp:116
@@ -115,9 +115,9 @@ msgstr "Ağ yükleniyor"
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:79
 #: C:\Repos\sumo/src\netload\NLEdgeControlBuilder.cpp:226
 #: C:\Repos\sumo/src\router\ROLoader.cpp:133
-#, fuzzy, c-format
+#, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr "Girdi Kesim Dosyalarında Kullanımdan Kaldırılan Araç Sınıf(lar)ı '%'."
+msgstr "Giriş ağında kullanımdan kaldırılan araç sınıfları '%'."
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:89
 msgid ""
@@ -267,169 +267,177 @@ msgstr "Yalnızca emisyon sürelerini yazar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "Bu kesimler üzerinde rota oluşturmayın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
-msgstr ""
+msgstr "Yalnızca verilen vclass'a izin veren kesimlere rota çizin"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "Dönüşlere rota devamı olarak izin verin"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
 msgstr ""
+"Her rotanın başlangıç ve bitiş düğümü arasındaki metre cinsinden minimum "
+"mesafe"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
-msgstr ""
+msgstr "Yayınlanan araçlar için rastgele kalkış zamanları oluşturmak"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
-msgstr ""
+msgstr "Saniyeleri elde etmek için akış sürelerini ZAMAN ile çarpın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "(Ölçeklendirilmiş) akış sürelerinden ZAMAN saniyelerini çıkarır"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "İki ardışık veri seti arasında beklenen uzaklık"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Kalibratörleri DOSYA'ya yaz"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Araç bulunmayan rotaları çıktıya dahil edin"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Hesaplanan akış 0 olan dedektörlerin ek trafik çekip çekemeyeceğini kontrol "
+"eder"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Listeden boş dedektörleri kaldırır"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:198
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
+"Durumu bilinmeyen kesimlerin bir kenarın kaynak olmasını engelleyip "
+"engelleyemeyeceği"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:201
 msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Bölünme olasılıklarını hesaplarken aradaki bir dedektöre daha fazla giriş "
+"olup olmadığını belirlemeye çalışın"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Akışlar için ölçek faktörü"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:209
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:123
 #: C:\Repos\sumo/src\od2trips_main.cpp:167
 #: C:\Repos\sumo/src\router\ROFrame.cpp:199
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "Varsayılan bir kalkış şeridi atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:212
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:127
 #: C:\Repos\sumo/src\od2trips_main.cpp:170
 #: C:\Repos\sumo/src\router\ROFrame.cpp:202
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "Varsayılan bir kalkış konumu atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:215
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:131
 #: C:\Repos\sumo/src\od2trips_main.cpp:173
 #: C:\Repos\sumo/src\router\ROFrame.cpp:205
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "Varsayılan bir kalkış hızı atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:218
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:135
 #: C:\Repos\sumo/src\od2trips_main.cpp:176
 #: C:\Repos\sumo/src\router\ROFrame.cpp:208
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "Varsayılan bir varış şeridi atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:221
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:139
 #: C:\Repos\sumo/src\od2trips_main.cpp:179
 #: C:\Repos\sumo/src\router\ROFrame.cpp:211
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "Varsayılan bir varış konumu atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:224
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:143
 #: C:\Repos\sumo/src\od2trips_main.cpp:182
 #: C:\Repos\sumo/src\router\ROFrame.cpp:214
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "Varsayılan bir varış hızı atar"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "Araçların varsayılan hız sapması"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "Başlangıç zamanını tanımlar; Önceki tanımlar atılacaktır"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Bitiş zamanını tanımlar; Daha sonraki tanımlar atılır; Varsayılan değer bir "
+"gündür"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "Akışı olmayan dedektörleri listeler (enable -v)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "Toplu dedektör akışlarını yazdırır"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:246
 #: C:\Repos\sumo/src\router\ROFrame.cpp:225
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "Rota ayrıştırma adımının konsol çıktısını devre dışı bırakma"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:113
-#, fuzzy
 msgid "Computing detector types"
-msgstr "Hesaplanan Dedektör Tipleri:"
+msgstr "Hesaplanan dedektör tipleri"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:142
 msgid "Computed detector types:"
 msgstr "Hesaplanan Dedektör Tipleri:"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:143
-#, fuzzy, c-format
+#, c-format
 msgid " % source detectors"
-msgstr "Hesaplanan Dedektör Tipleri:"
+msgstr " % kaynak dedektörleri"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:144
 #, c-format
 msgid " % sink detectors"
-msgstr ""
+msgstr " % havuz dedektörleri"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:145
 #, c-format
 msgid " % in-between detectors"
-msgstr ""
+msgstr " dedektörler arasında %"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:146
 #, c-format
 msgid " % invalid detectors"
-msgstr ""
+msgstr " % geçersiz dedektörler"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:281
-#, fuzzy
 msgid "Could not close route for '%'"
-msgstr "Kesim '%' İçin Çapraz Çarpım Belirlenemedi."
+msgstr "'%' için rota kapatılamadı"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:439
 #, c-format
@@ -437,6 +445,8 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"'%' dedektöründe akış yok.\n"
+" Yeniden oluşturulmaya çalışılıyor."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:467
 msgid " Could not build list of previous flows."
@@ -448,18 +458,20 @@ msgstr " Sonraki Akışların Listesi Oluşturulmadı."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
-msgstr ""
+msgstr "Dedektör '%' kaldırıldı çünkü onun için herhangi bir akış mevcut değil."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:614
-#, fuzzy, c-format
+#, c-format
 msgid "Detector '%' has no flow."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "'%' dedektöründe akış yok."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:693
 #, c-format
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
+"Görülen kesim sınırı nedeniyle '%' dedektörü için bir kaynak olma "
+"kontrolünden çıkılıyor."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:793
 #, c-format
@@ -467,6 +479,8 @@ msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Görülen kesim sınırı nedeniyle '%' dedektörü için bir hedef olma "
+"kontrolünden çıkılıyor."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:869
 #, c-format
@@ -474,80 +488,81 @@ msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Görülen kesim sınırı nedeniyle '%' dedektörü için yanlış kaynak olma "
+"kontrolünden çıkılıyor."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:1002
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "PKW için ortalama hızFaktörü % maksimum hızFaktörü %'dir."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:1006
 msgid "Average speedFactor for LKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "LKW için ortalama hızFaktörü % maksimum hızFaktörü %'dir."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
-msgstr ""
+msgstr "Dedektör dosyası verilmemiş (--detektör-dosyası <DOSYA> kullanın)."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:76
-#, fuzzy
 msgid "Could not open detector file '%'"
-msgstr "Sinyal '%' İçin Kesim '%' Bulunamadı."
+msgstr "'%' dedektör dosyası açılamadı"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "Dedektör bulunamadı."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:103
-#, fuzzy, c-format
+#, c-format
 msgid "The measure-file '%' can not be opened."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "'%' hesaplama dosyası açılamıyor."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:124
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "Boş dedektörlerin çıkarılması"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:128
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "Boş dedektörler için tarama"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr ""
+msgstr "Kaynak dedektörü bulunamadı."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:147
 msgid "Computing routes"
-msgstr ""
+msgstr "Hesaplama rotaları"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:158
 msgid "The detector types are not defined; use in combination with a network"
-msgstr ""
+msgstr "Dedektör tipleri tanımlanmamıştır; bir ağ ile birlikte kullanın"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "Yayıcıların rotası yoktur; bir ağ ile birlikte kullanın"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "Yüklü akışları yeniden kontrol etme"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:198
 msgid "Writing emitters"
-msgstr ""
+msgstr "Yazma yayıcılar"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:210
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Yayıcı pois yazma"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:217
 msgid "Writing speed triggers"
-msgstr ""
+msgstr "Yazma hızı tetikleyicileri"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:224
 msgid "Writing validation detectors"
-msgstr ""
+msgstr "Doğrulama dedektörleri yazma"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:231
 msgid "Writing highway end rerouter"
-msgstr ""
+msgstr "Otoyol sonu yönlendirici yazma"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
@@ -555,31 +570,33 @@ msgstr "Dedektör Değerlerini Kullanarak SUMO İçin Araç Rotaları Oluşturur
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "Oluşturulan rota alternatiflerini DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "Kenar bölünmelerini ve bağlantıları DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
 msgstr ""
+"Uzunlukları ve seyahat süreleri ile birlikte intermodal kenarları DOSYA'ya "
+"yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
-msgstr ""
+msgstr "Araçlar yerine yolculukları yazın (yolculuk girdisini doğrulamak için)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "Coğrafi koordinatlarla yolculukları yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
-msgstr ""
+msgstr "fromJunction ve toJunction ile geziler yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "Rota çıktısına maliyet özniteliğini ekleme"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:92
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:568
@@ -587,6 +604,8 @@ msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
 msgstr ""
+"Yönlendirme için kenar ağırlıkları, [1,FLOAT) arasından eşit olarak çekilen "
+"rastgele bir faktör tarafından dinamik olarak bozulur"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:95
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:118
@@ -594,6 +613,8 @@ msgid ""
 "Aggregation period for the given weight files; triggers rebuilding of "
 "Contraction Hierarchy"
 msgstr ""
+"Verilen ağırlık dosyaları için toplama süresi; Kasılma Hiyerarşisinin "
+"yeniden oluşturulmasını tetikler"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:98
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:112
@@ -601,6 +622,8 @@ msgstr ""
 msgid ""
 "Consider edge priorities in addition to travel times, weighted by factor"
 msgstr ""
+"Faktöre göre ağırlıklandırılmış seyahat sürelerine ek olarak kesim "
+"önceliklerini de göz önünde bulundurun"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:101
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:583
@@ -608,123 +631,134 @@ msgid ""
 "Initialize lookup table for astar from the given file (generated by marouter "
 "--all-pairs-output)"
 msgstr ""
+"Verilen dosyadan astar için arama tablosunu başlat (marouter --all-pairs-"
+"output tarafından oluşturulur)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:104
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:586
 msgid "Initialize lookup table for astar ALT-variant from the given file"
-msgstr ""
+msgstr "Verilen dosyadan astar ALT-varyantı için arama tablosunu başlatır"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:107
 msgid "Save lookup table for astar ALT-variant to the given file"
-msgstr ""
+msgstr "astar ALT-varyantı için arama tablosunu verilen dosyaya kaydet"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:117
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "Gawron'un betası olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:121
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "Gawron'un a'sı olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:124
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:62
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
-msgstr ""
+msgstr "Her kesim için çıkış zamanlarını (ağırlıkları) yazın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:127
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:251
 msgid "Include total route length in the output"
-msgstr ""
+msgstr "Toplam rota uzunluğunu çıktıya dahil edin"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:130
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "Sıfıra yakın olasılıkla rotaları kaydedin"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:133
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "Yalnızca girdideki rotaları yeniden kullanın, yenilerini hesaplamayın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:136
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "Eski rotayı koruma olasılığı"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:139
 msgid "Route all public transport input"
-msgstr ""
+msgstr "Tüm toplu taşıma girişlerini yönlendirin"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:142
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
-msgstr ""
+msgstr "Bir rota seçim yöntemi seçin: gawron, logit veya lohse"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:145
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
+"c-logit modelini kullanın (--rota-seçim-yöntemi logit lehine kullanımdan "
+"kaldırılmıştır)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "Logit'in betası olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:153
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "Logit'in gaması olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:157
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
+"Logit'in teta'sı olarak FLOAT kullanın (negatif değerler otomatik tahmin "
+"anlamına gelir)"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:160
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:589
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
+"Intermodal rotalama sırasında yaya maksimum hızında bir faktör olarak FLOAT "
+"kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:163
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:592
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
+"Araç trafiği yönüne karşı yürüme hızı üzerinde bir faktör olarak FLOAT "
+"kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:170
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:599
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Taksilerin müşterileri bırakabileceği yerler ('allJunctions, 'ptStops')"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:173
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:602
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Taksilerin müşterileri alabileceği yerler ('allJunctions, 'ptStops')"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:176
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:608
 msgid "Estimated time for taxi pickup"
-msgstr ""
+msgstr "Taksi alımı için tahmini süre"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:179
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:611
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
+"Demiryolu yönlendiricisini başlatırken maksimum tren uzunluğu olarak FLOAT "
+"kullanın"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:216
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
-msgstr ""
+msgstr "Yönlendirme algoritması '%', ağırlık-özniteliği '%'yi desteklemiyor."
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:220
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
-msgstr ""
+msgstr "Yönlendirme algoritması '%' toplu yönlendirmeyi desteklemiyor."
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:228
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:243
-#, fuzzy
 msgid "Invalid route choice method '%'."
-msgstr "Araç '%' İçin Geçersiz Rota Değişimi. %"
+msgstr "Geçersiz rota seçim yöntemi '%'."
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
@@ -742,23 +776,23 @@ msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
 msgstr ""
-"--write-trips.junctions Seçeneği, --write-trips Devre Dışı Bırakıldığında "
-"Hiçbir Etki Oluşturmaz."
+"--write-trips.junctions seçeneği --write-trips devre dışı bırakıldığında "
+"hiçbir etki yaratmaz."
 
 #: C:\Repos\sumo/src\duarouter\duarouter_main.cpp:107
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr ""
+msgstr "Yönlendirme algoritması '%' kısıtlama-paramlarını desteklemiyor"
 
 #: C:\Repos\sumo/src\duarouter\duarouter_main.cpp:151
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "Bilinmeyen yönlendirme Algoritması '%'!"
 
 #: C:\Repos\sumo/src\duarouter\duarouter_main.cpp:178
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
-msgstr ""
+msgstr "'%' özniteliği için ağırlık verisi yüklenmedi."
 
 #: C:\Repos\sumo/src\duarouter\duarouter_main.cpp:238
 msgid ""
@@ -771,35 +805,35 @@ msgstr ""
 #: C:\Repos\sumo/src\jtrrouter\ROJTREdge.cpp:64
 #, c-format
 msgid "The edges '%' and '%' are not connected."
-msgstr ""
+msgstr "'%' ve '%' kesimleri bağlantılı değildir."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan dönüş oranlarını okuma"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:69
 msgid "Use STR[] as default turn definition"
-msgstr ""
+msgstr "Varsayılan dönüş tanımı olarak STR[] kullanın"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:73
 msgid "Use STR[] as list of sink edges"
-msgstr ""
+msgstr "Havuz kesimleri listesi olarak STR[] kullanın"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:76
 msgid "Whether all edges are allowed as sink edges"
-msgstr ""
+msgstr "Tüm kesimlerin havuz kesimleri olarak izin verilip verilmediği"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:79
 msgid "Ignore road restrictions based on vehicle class"
-msgstr ""
+msgstr "Araç sınıfına göre yol kısıtlamalarını göz ardı etme"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
-msgstr ""
+msgstr "Bir yolun yeniden kullanılmasına izin verin"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:85
 msgid "Use all source edges as sink edges."
-msgstr ""
+msgstr "Tüm kaynak kesimleri havuz kesimleri olarak kullanın."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:88
 msgid ""
@@ -807,63 +841,70 @@ msgid ""
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
 msgstr ""
+"Yeni bir akış eklerken yukarı akış değerini çıkarır. Seçenek --kaynaklar- "
+"havuzdur ayarlandığında, yukarı akış kaynak akışının değeriyle "
+"sınırlandırılır ve kalan kısım sonlandırılır."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:68
 msgid ""
 "The turn-file format with elements %, % is deprecated, please use % instead."
 msgstr ""
+", % öğelerini içeren dönüş dosyası biçimi kullanımdan kaldırılmıştır, lütfen "
+"bunun yerine % öğesini kullanın."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:87
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "Havuz olarak bildirilen '%' kesimi bilinmemektedir."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
 msgstr "'%' Akımı 'Başlangıcı' Olmadan Yok Sayılıyor"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:128
-#, fuzzy, c-format
+#, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr "Akım Kaynağının Negatif Düğümü Toprak Değildir."
+msgstr "Kaynak olarak bildirilen '%' kenarı bilinmiyor."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
-msgstr "Hedef Kesim '%', '%' ile Bağlantılı Değil; Bağlantı Sıfırlanamaz."
+msgstr "'%' kesimi ağ içinde bilinmemektedir ('from-edge' etiketi içinde)."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:172
 #, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
-msgstr ""
+msgstr "'%' kesimi ağ içinde bilinmemektedir ('to-edge' etiketi içinde)."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
-msgstr ""
+msgstr "'olasılık' pozitif olmalıdır (to-edge '%' tanımında)."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:201
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:206
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1302
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1400
-#, fuzzy, c-format
+#, c-format
 msgid "The edge '%' is not known."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "'%' kenarı bilinmemektedir."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
-msgstr ""
+msgstr "'olasılık' pozitif olmalıdır ('%' ile '%' arasındaki edgeRelation'da."
 
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:94
 msgid ""
 "The defaults for turnings must be a tuple of at least two numbers divided by "
 "','."
 msgstr ""
+"Dönüşler için varsayılanlar ',' ile bölünmüş en az iki sayıdan oluşan bir "
+"çift olmalıdır."
 
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:101
 msgid "A turn default is not numeric."
-msgstr ""
+msgstr "Bir dönüş varsayılanı sayısal değildir."
 
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:182
 msgid ""
@@ -915,29 +956,33 @@ msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
+"Ekleme Yanal Mesafe Filtresi % yanal kayma ile '%' şeridinin şeklini "
+"belirleyemedi."
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1399
 msgid "Vehicle '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "Araç '%' TraCI tarafından kontrol edilmesine rağmen kaldırıldı"
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1408
 msgid "Person '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "Kişi '%' TraCI tarafından kontrol edilmesine rağmen kaldırıldı"
 
 #: C:\Repos\sumo/src\libsumo\MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
-msgstr ""
+msgstr "'%' kimliğine sahip % ortalamaVeri tanımları bulundu."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:535
 #, c-format
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% instead."
 msgstr ""
+"'%' kişisi için kalkış saati=% geçmişte; bunun yerine geçerli saat=% "
+"kullanılmalıdır."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:934
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1741
 msgid "Could not determine position on lane '%' at lateral position %."
-msgstr ""
+msgstr "Yanal konum %'de şerit '%' üzerindeki konum belirlenemedi."
 
 #: C:\Repos\sumo/src\libsumo\Simulation.cpp:105
 msgid "Simulation version % started via libsumo with time: %."
@@ -948,6 +993,8 @@ msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
 msgstr ""
+"'%' başlangıç kesiminde izin verilmediği için intermodal rotalama "
+"gerçekleştirirken '%' araç tipinin göz ardı edilmesi."
 
 #: C:\Repos\sumo/src\libsumo\TrafficLight.cpp:697
 #, c-format
@@ -955,44 +1002,49 @@ msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
 msgstr ""
+"'%' aracı için rota henüz hesaplanmadığından takasKısıtlamaları üzerindeki "
+"tüm kilitlenmeler kontrol edilemiyor"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1133
 msgid ""
 "Stop replacement parameter 'teleport=%' ignored for vehicle '%' when only "
 "removing stop."
 msgstr ""
+"Sadece durak kaldırılırken '%' aracı için 'teleport=%' durak değiştirme "
+"parametresi yok sayıldı."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1246
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1374
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "Desteklenmeyen parametre '%'"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1326
 msgid "Waypoint (speed = %) at index % does not support triggers"
-msgstr ""
+msgstr "Dizin %'deki yol noktası (hız = %) tetikleyicileri desteklemiyor"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1360
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
 msgstr ""
+"Dizin %'de tetiklenen durak, hız % olarak ayarlanarak bir ara noktaya "
+"dönüştürülemez"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1477
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
-msgstr ""
+msgstr "Yolda olmayan '%' aracı için şerit göreceli'yi değiştir yok sayma"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1479
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
-msgstr ""
+msgstr "şeritIndeksi % üzerindeki '%' aracı için indeksOffseti % yok sayılıyor."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1575
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
-"'%' Aracı İçin Geçersiz % departPos Verildi. Bunun Yerine Şerit Sonuna "
-"Ekleniyor."
+"Araç '%' için kalkış saati geçmişte; bunun yerine mevcut saati kullanın."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1938
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:438
@@ -1004,173 +1056,190 @@ msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
+"Komşu olmayan şerit ofset yönü=% ile şerit değişikliği abonelik filtresini "
+"yok sayma."
 
 #: C:\Repos\sumo/src\libsumo\VehicleType.cpp:322
 #, c-format
 msgid "Automatically setting emergencyDecel to % for vType '%' to match decel."
 msgstr ""
+"Azaltma ile eşleşmesi için vTür '%' için acil durum Azaltma değerini "
+"otomatik olarak % olarak ayarlar."
 
 #: C:\Repos\sumo/src\libsumo\VehicleType.cpp:334
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
-msgstr ""
+msgstr "Yeni acilDurum (%) değeri düşüş (%) değerinden düşük"
 
 #: C:\Repos\sumo/src\marouter\ROMAAssignments.cpp:190
-#, fuzzy
 msgid "Unknown origin '%'."
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen kaynak '%'."
 
 #: C:\Repos\sumo/src\marouter\ROMAAssignments.cpp:194
-#, fuzzy
 msgid "Unknown destination '%'."
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen hedef '%'."
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:71
 #: C:\Repos\sumo/src\od2trips_main.cpp:121
 msgid "Does not save vtype information"
-msgstr ""
+msgstr "V türü bilgilerini kaydetmez"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr ""
+msgstr "Kesim yüklerini ve nihai maliyetleri DOSYA'ya yazar"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr ""
+msgstr "Tüm uzaklık matrisini DOSYA'ya yazar"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:81
 #: C:\Repos\sumo/src\od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "O/D dosyalarını DOSYA(lar)dan yükler"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:86
 #: C:\Repos\sumo/src\od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan Amitran formatında O/D-matrisi yükler"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:89
 #: C:\Repos\sumo/src\od2trips_main.cpp:93
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan tazİlişki biçiminde O/D-matrisi yükler"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:93
 #: C:\Repos\sumo/src\od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
-msgstr ""
+msgstr "Sayımları yüklemek için veri özniteliğini tanımlayın (varsayılan 'say')"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
-msgstr ""
+msgstr "Önceki aralıkların seyahat süresi üzerindeki etkisi"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:99
 msgid "Parameter key(s) defining source (and sink) taz"
-msgstr ""
+msgstr "Kaynak (ve havuz) taz'ı tanımlayan parametre anahtar(lar)ı"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr ""
+msgstr "'Taz'dan' ve 'Taz'a' niteliklerini yoksay"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:106
 msgid ""
 "Defines the time interval when aggregating single vehicle input; Defaults to "
 "one hour"
 msgstr ""
+"Tek araç girdisini toplarken zaman aralığını tanımlar; Varsayılan değer bir "
+"saattir"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:109
 msgid "Ignore edge priorities when calculating capacities and restraints"
 msgstr ""
+"Kapasiteleri ve kısıtlamaları hesaplarken kenar önceliklerini göz ardı edin"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:115
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
 msgstr ""
+"Farklı araç türleri için aynı çıkış noktasına sahip yönlendirme sorgularının "
+"toplanması"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:153
 #: C:\Repos\sumo/src\od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr ""
+msgstr "Yüklenen akışları FLOAT ile ölçeklendirir"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:156
 #: C:\Repos\sumo/src\od2trips_main.cpp:146
 msgid "Defines the name of the vehicle type to use"
-msgstr ""
+msgstr "Kullanılacak araç türünün adını tanımlar"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "Araç akış adları için ön eki tanımlar"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:162
 #: C:\Repos\sumo/src\od2trips_main.cpp:152
 msgid "Uses STR[] as a timeline definition"
-msgstr ""
+msgstr "STR[] öğesini zaman çizelgesi tanımı olarak kullanır"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:165
 #: C:\Repos\sumo/src\od2trips_main.cpp:155
 msgid "Uses STR as a 24h-timeline definition"
-msgstr ""
+msgstr "STR'yi 24 saatlik zaman çizelgesi tanımı olarak kullanır"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr ""
+msgstr "Tüm zaman dilimlerinin trafik akışlarını ağda tutun"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:172
 msgid "Choose a assignment method: incremental, UE or SUE"
-msgstr ""
+msgstr "Bir atama yöntemi seçin: artımlı, UE veya SUE"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
-msgstr ""
+msgstr "SUE kararlılığını kontrol ederken tolerans olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:178
 msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
 msgstr ""
+"Rotaları ararken bağlantı seyahat süresini hesaplamak için sola dönüş cezası "
+"FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:181
 msgid ""
 "Use INTEGER as the number of paths needed to be searched for each OD pair at "
 "each iteration"
 msgstr ""
+"Her iterasyonda her OD çifti için aranması gereken yol sayısı olarak INTEGER "
+"kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
-msgstr ""
+msgstr "İkincil rotaları bulmak için mevcut rotaları FLOAT ile cezalandırın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:188
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
 msgstr ""
+"Yardımcı bağlantı maliyetini belirlemek için üst sınır olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:192
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
 msgstr ""
+"Yardımcı bağlantı maliyetini belirlemek için alt sınır olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:195
 msgid ""
 "maximal number of iterations for new route searching in incremental and "
 "stochastic user assignment"
 msgstr ""
+"artımlı ve stokasti̇k kullanıcı atamasında yeni̇ rota arama için maksimum "
+"yineleme sayısı"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:198
 msgid ""
 "maximal number of inner iterations for user equilibrium calculation in the "
 "stochastic user assignment"
 msgstr ""
+"Stokastik kullanıcı atamasında kullanıcı dengesi hesaplaması için maksimum "
+"iç iterasyon sayısı"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
+msgstr "Ortak faktör için (c-)logit'in betası olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:227
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
+msgstr "Ortak faktör için (c-)logit'in gamması olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "(c-)logit'in teta'sı olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
-msgstr ""
+msgstr "Geçersiz atama yöntemi '%'."
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:247
 msgid ""
@@ -1182,7 +1251,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\marouter\ROMARouteHandler.cpp:87
 msgid "No origin or no destination given, ignoring '%'!"
-msgstr ""
+msgstr "Başlangıç veya varış noktası belirtilmemiş, '%' dikkate alınmıyor!"
 
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:239
 msgid ""
@@ -1194,9 +1263,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:323
 #: C:\Repos\sumo/src\od2trips_main.cpp:315
-#, fuzzy
 msgid "No output file given."
-msgstr "Herhangi Bir Çıktı Belirlenmemiş."
+msgstr "Çıktı dosyası verilmedi."
 
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:340
 msgid ""
@@ -1212,13 +1280,12 @@ msgstr "Herhangi Bir Bölge Yüklenmedi, Kesim No'ları Kullanılacak."
 
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:387
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "Yüklü geçerli araç yok."
 
 #: C:\Repos\sumo/src\marouter\marouter_main.cpp:390
 #: C:\Repos\sumo/src\od2trips_main.cpp:285
-#, fuzzy
 msgid "Loading failed."
-msgstr "Yükleme Tamamlandı."
+msgstr "Yükleme başarısız oldu."
 
 #: C:\Repos\sumo/src\mesosim\MELoop.cpp:89
 #: C:\Repos\sumo/src\microsim\MSVehicleTransfer.cpp:66
@@ -1256,12 +1323,12 @@ msgstr "% Zamanında '%' Kalibratöründeki Sıkışıklık Giderilemedi."
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:177
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:414
 msgid "No valid routes in calibrator '%'."
-msgstr ""
+msgstr "Kalibratör '%' içinde geçerli rota yok."
 
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:181
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:418
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
-msgstr ""
+msgstr "'%' kalibratöründeki '%' rotası '%' kesimini içermiyor."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
@@ -1283,6 +1350,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
 msgstr ""
+"Araç '%', kapasite kısıtlamaları nedeniyle '%' şeridinde tetiklenen durmayı "
+"göz ardı eder."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:387
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1672
@@ -1291,14 +1360,16 @@ msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
 msgstr ""
+"'%' aracı, kapasite kısıtlamaları nedeniyle '%' şeridinde konteyner "
+"tarafından tetiklenen durmayı göz ardı eder."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:554
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
-msgstr ""
+msgstr "Hata oluştu: Durumdaki araçlar geçersiz (bir mikro durum olabilir)!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:188
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "Araç kimliğinin değiştirilmesine izin verilmez"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:305
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
@@ -1373,35 +1444,32 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:829
 msgid "Vehicle '%' will not be able to arrive at the given position!"
-msgstr ""
+msgstr "Araç '%' verilen konuma ulaşamayacaktır!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:849
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
-msgstr ""
+msgstr "Araç '%', verilen '%_%' şeridine varamayacaktır!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:861
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:873
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
-msgstr ""
+msgstr "'%' aracının '%' kesiminde kullanılabilir bir varışŞeridi yok."
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:885
-#, fuzzy
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
-msgstr "'%' Aracının İlk Kesiminden Ayrılmasına İzin Verilmez."
+msgstr "Araç '%' verilen hız ile varamayacaktır!"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:901
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
-msgstr ""
+msgstr "Rota kesimleri % olan '%' aracı için kalkışKesimi % yok sayılıyor"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:919
-#, fuzzy
 msgid "getLeader not yet implemented for meso"
-msgstr "setSpeed Bölgesel Ölçek İçin Henüz Uygulanmadı"
+msgstr "getLeader meso için henüz uygulanmadı"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:933
-#, fuzzy
 msgid "getFollower not yet implemented for meso"
-msgstr "getStopState Bölgesel Ölçek İçin Henüz Uygulanmadı"
+msgstr "getFollower meso için henüz uygulanmadı"
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:660
 msgid ""
@@ -1412,13 +1480,14 @@ msgstr ""
 "Seçiliyor."
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:1264
-#, fuzzy, c-format
+#, c-format
 msgid "Bidi-edge '%' does not exist"
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "Bidi-kesim '%' mevcut değil"
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:1277
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr ""
+"'%' ve '%' kavşakları arasında belirsiz üst üste kullanılabilir kesimler."
 
 #: C:\Repos\sumo/src\microsim\MSEdge.cpp:1308
 #, c-format
@@ -1428,36 +1497,39 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr ""
+msgstr "DOSYA'dan yol ağı tanımını yükle"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan rota açıklamalarını yükle"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan daha fazla açıklama yükle"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
 msgstr ""
+"Çevrimiçi yeniden yönlendirme için kesim/şerit ağırlıklarını DOSYA'dan "
+"yükleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:94
 #: C:\Repos\sumo/src\router\ROFrame.cpp:108
 msgid "Name of the xml attribute which gives the edge weight"
-msgstr ""
+msgstr "Kesim ağırlığını veren xml özniteliğinin adı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:97
 msgid "Loads a network state from FILE"
-msgstr ""
+msgstr "DOSYA'dan bir ağ durumu yükler"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:99
 msgid "Shifts all times loaded from a saved state by the given offset"
 msgstr ""
+"Kayıtlı bir durumdan yüklenen tüm zamanları verilen ofset kadar kaydırır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:101
 msgid "Removes vehicles with the given IDs from the loaded state"
-msgstr ""
+msgstr "Verilen kimliklere sahip araçları yüklü durumdan kaldırır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:104
 #: C:\Repos\sumo/src\router\ROFrame.cpp:134
@@ -1465,333 +1537,351 @@ msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
 msgstr ""
+"Kavşağa ve Kavşaktan özniteliklerini kullanmak için her kavşak için bir TAZ "
+"başlatın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:114
 msgid "Save complete network states into FILE"
-msgstr ""
+msgstr "Tüm ağ durumlarını DOSYA'ya kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:119
 msgid "Write also empty edges completely when dumping"
-msgstr ""
+msgstr "Boşaltma sırasında boş kesimleri de tamamen yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
-msgstr ""
+msgstr "Konumları ve hızları verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:128
 msgid "Save the emission values of each vehicle"
-msgstr ""
+msgstr "Her bir aracın emisyon değerlerini kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:130
 msgid "Write emission values with the given precision (default 2)"
-msgstr ""
+msgstr "Emisyon değerlerini verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
 msgstr ""
+"Konumları coğrafi koordinatları (en/boy) kullanarak emisyon çıktısına "
+"kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:135
 msgid ""
 "Write emission values scaled to the step length rather than as per-second "
 "values"
 msgstr ""
+"Emisyon değerlerini saniye başına değerler yerine adım uzunluğuna "
+"ölçeklendirilmiş olarak yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:138
 msgid "Save the battery values of each vehicle"
-msgstr ""
+msgstr "Her aracın akü değerlerini kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:140
 msgid "Write battery values with the given precision (default 2)"
-msgstr ""
+msgstr "Akü değerlerini verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:143
 msgid "Save the elecHybrid values of each vehicle"
-msgstr ""
+msgstr "Her aracın elecHybrid değerlerini kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:145
 msgid "Write elecHybrid values with the given precision (default 2)"
-msgstr ""
+msgstr "elecHybrid değerlerini verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:147
 msgid "Write elecHybrid values into one aggregated file"
-msgstr ""
+msgstr "elecHybrid değerlerini tek bir toplu dosyaya yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:150
 msgid "Write data of charging stations"
-msgstr ""
+msgstr "Şarj istasyonlarının verilerini yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:153
 msgid "Write data of overhead wire segments"
-msgstr ""
+msgstr "Havai hat segmentlerinin verilerini yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:156
 msgid "Write data of electrical substation stations"
-msgstr ""
+msgstr "Elektrik trafo istasyonlarının verilerini yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:158
 msgid "Write substation values with the given precision (default 2)"
-msgstr ""
+msgstr "Trafo merkezi değerlerini verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:161
 msgid "Save the Floating Car Data"
-msgstr ""
+msgstr "Yüzen Araç Verilerini Kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:163
 msgid "Save the Floating Car Data using geo-coordinates (lon/lat)"
 msgstr ""
+"Coğrafi koordinatları (en/boy) kullanarak Yüzen Araç Verilerini kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:165
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
-msgstr ""
+msgstr "Araç sinyal durumunu FCD çıkışına ekleyin (fren lambaları vb.)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:167
 msgid "Add kilometrage to the FCD output (linear referencing)"
-msgstr ""
+msgstr "FCD çıkışına kilometraj ekleyin (doğrusal referanslama)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:169
 msgid "Add acceleration to the FCD output"
-msgstr ""
+msgstr "FCD çıkışına ivme ekleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:171
 msgid ""
 "Add leader vehicle information to the FCD output (within the given distance)"
-msgstr ""
+msgstr "FCD çıkışına lider araç bilgilerini ekleyin (verilen mesafe içinde)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:173
 msgid "Add generic parameter values to the FCD output"
-msgstr ""
+msgstr "FCD çıkışına genel parametre değerleri ekleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:175
 msgid "Restrict fcd output to the edge selection from the given input file"
-msgstr ""
+msgstr "fcd çıktısını verilen girdi dosyasındaki kesim seçimiyle kısıtlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:177
 msgid "List attributes that should be included in the FCD output"
-msgstr ""
+msgstr "FCD çıktısına dahil edilmesi gereken öznitelikleri listeleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:179
 msgid "List shape names that should be used to filter the FCD output"
 msgstr ""
+"FCD çıktısını filtrelemek için kullanılması gereken şekil adlarını listeler"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:182
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
-msgstr ""
+msgstr "SSM cihaz çıkışını verilen giriş dosyasındaki kenar seçimiyle kısıtlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:185
 msgid "Save a lot of information for each timestep (very redundant)"
-msgstr ""
+msgstr "Her zaman adımı için çok fazla bilgi kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:188
 msgid "Save the vehicle queues at the junctions (experimental)"
-msgstr ""
+msgstr "Kavşaklardaki araç kuyruklarını kurtarın (deneysel)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:190
 msgid "Save vehicle queues with the given period"
-msgstr ""
+msgstr "Araç kuyruklarını verilen süre ile kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:193
 msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
+"Hız değerleri dahil tüm araç konumlarını VTK Formatında kaydedin (kullanım: /"
+"yol/çıkış /yol/çıkış_$TIMESTEP$.vtp dosyaları üretecektir)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:195
 msgid "Save the vehicle trajectories in the Amitran format"
-msgstr ""
+msgstr "Araç yörüngelerini Amitran formatında kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:200
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr ""
+msgstr "Toplanan araç kalkış bilgilerini DOSYA'ya kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:203
 msgid "Save summary-output with the given period"
-msgstr ""
+msgstr "Özet çıktısını verilen periyotla kaydet"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:206
 msgid "Save aggregated person counts into FILE"
-msgstr ""
+msgstr "Toplanan kişi sayılarını DOSYA'ya kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:210
 msgid "Save single vehicle trip info into FILE"
-msgstr ""
+msgstr "Tek araç yolculuk bilgilerini DOSYA'ya kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:213
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
-msgstr ""
+msgstr "Simülasyon sonuna ulaşmamış araçlar için yolculuk bilgisi çıktısı yazma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:216
 msgid ""
 "Write tripinfo output for vehicles which have not departed at simulation end "
 "because of depart delay"
 msgstr ""
+"Kalkış gecikmesi nedeniyle simülasyon sonunda kalkış yapmamış araçlar için "
+"yolculuk bilgisi çıktısı yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:220
 msgid "Save personinfo and containerinfo to separate FILE"
-msgstr ""
+msgstr "kişi bilgisi ve Konteyner bilgisini ayrı DOSYAYA kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:224
 msgid "Save single vehicle route info into FILE"
-msgstr ""
+msgstr "Tek araç rota bilgisini DOSYA'ya kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:228
 msgid "Write the exit times for all edges"
-msgstr ""
+msgstr "Tüm kesimler için çıkış zamanlarını yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:232
 msgid "Write the last route only"
-msgstr ""
+msgstr "Sadece son rotayı yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:236
 msgid "Sorts the output by departure time"
-msgstr ""
+msgstr "Çıktıyı kalkış saatine göre sıralar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:240
 msgid "Write the output in the duarouter alternatives style"
-msgstr ""
+msgstr "Çıktıyı duarouter alternatifleri stilinde yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:243
 msgid "Write costs for all routes"
-msgstr ""
+msgstr "Tüm rotalar için maliyetleri yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:247
 msgid "Write the output with the intended instead of the real departure time"
-msgstr ""
+msgstr "Çıktıyı gerçek kalkış zamanı yerine amaçlanan zaman ile yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:254
 msgid ""
 "Write vehroute output for vehicles which have not arrived at simulation end"
-msgstr ""
+msgstr "Simülasyon sonuna ulaşmamış araçlar için vehroute çıktısı yazma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:257
 msgid "Skip vehroute output for public transport vehicles"
-msgstr ""
+msgstr "Toplu taşıma araçları için araç rotası çıktısını atla"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:260
 msgid "Include invalid routes and route stubs in vehroute output"
-msgstr ""
+msgstr "Geçersiz rotaları ve rota taslaklarını vehroute çıktısına dahil etme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:263
 msgid "Include information about edges between stops"
-msgstr ""
+msgstr "Duraklar arasındaki kenarlar hakkında bilgi ekleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:266
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
 msgstr ""
+"Araç hızFaktörünü yazın (çıkışHızı yazılırsa varsayılan olarak 'doğru' olur)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:269
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "İç kesimleri çıktıya dahil edin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:273
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "Kişi ve konteyner rotalarını ayrı DOSYAYA kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:276
 msgid "Save links states into FILE"
-msgstr ""
+msgstr "Bağlantı durumlarını DOSYA'ya kaydet"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:279
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "trensinyal-bloklarını DOSYA içine kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:282
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
+"Bluetooth görünürlüklerini DOSYA'ya kaydetme ( cihaz.btreceiver ve "
+"cihaz.btsender ile bağlantılı olarak)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:285
 msgid "Record lane changes and their motivations for all vehicles into FILE"
 msgstr ""
+"Tüm araçlar için şerit değişikliklerini ve nedenlerini DOSYA'ya kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:288
 msgid "Record start of lane change manoeuvres"
-msgstr ""
+msgstr "Şerit değiştirme manevralarının kayıt başlangıcı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:291
 msgid "Record end of lane change manoeuvres"
-msgstr ""
+msgstr "Şerit değiştirme manevralarının sonunu kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:294
 msgid "Record coordinates of lane change manoeuvres"
-msgstr ""
+msgstr "Şerit değiştirme manevralarının koordinatlarını kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:297
 msgid ""
 "Record stops and loading/unloading of passenger and containers for all "
 "vehicles into FILE"
 msgstr ""
+"Tüm araçlar için duraklamaları ve yolcu ve konteyner yükleme/boşaltma "
+"işlemlerini DOSYA'ya kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:299
 msgid "Write stop output for stops which have not ended at simulation end"
-msgstr ""
+msgstr "Simülasyon sonunda sona ermeyen duraklar için durak çıktısı yaz"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:302
 msgid "Write collision information into FILE"
-msgstr ""
+msgstr "Çarpışma bilgilerini DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:305
 msgid "Write aggregated traffic statistics for all edges into FILE"
-msgstr ""
+msgstr "Tüm kesimler için toplanmış trafik istatistiklerini DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:307
 msgid "Write aggregated traffic statistics for all lanes into FILE"
-msgstr ""
+msgstr "Tüm şeritler için toplanmış trafik istatistiklerini DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:311
 msgid "Write overall statistics into FILE"
-msgstr ""
+msgstr "Genel istatistikleri DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:315
 msgid "Save movereminder states of selected vehicles into FILE"
-msgstr ""
+msgstr "Seçilen araçların hareket hatırlatıcı durumlarını DOSYA'ya kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:317
 msgid "List of vehicle ids which shall save their movereminder states"
-msgstr ""
+msgstr "Hareket hatırlatıcı durumlarını kaydedecek araç id listesi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:321
 msgid "Use TIME[] as times at which a network state written"
-msgstr ""
+msgstr "Bir ağ durumunun yazıldığı zamanlar olarak TIME[] kullanın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:323
 msgid "save state repeatedly after TIME period"
-msgstr ""
+msgstr "ZAMAN periyodundan sonra durumu tekrar tekrar kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:325
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "Yalnızca son INT periyodik durum dosyalarını saklayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:327
 msgid "Prefix for network states"
-msgstr ""
+msgstr "Ağ durumları için önek"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:329
 msgid "Suffix for network states (.xml.gz or .xml)"
-msgstr ""
+msgstr "Ağ durumları için sonek (.xml.gz veya .xml)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:331
 msgid "Files for network states"
-msgstr ""
+msgstr "Ağ durumları için dosyalar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:333
 msgid "Save random number generator states"
-msgstr ""
+msgstr "Rastgele sayı üreteci durumlarını kaydetme"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:335
 msgid "Save person and container states (experimental)"
-msgstr ""
+msgstr "Kişi ve konteyner durumlarını kaydetme (deneysel)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:337
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "Demiryolu sinyal kısıtlamalarını kaydedin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:339
 msgid "Write internal state values with the given precision (default 2)"
-msgstr ""
+msgstr "Dahili durum değerlerini verilen hassasiyetle yazın (varsayılan 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:343
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -1805,226 +1895,273 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
-msgstr ""
+msgstr "Adım süresini saniye cinsinden tanımlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:352
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
 msgstr ""
+"Araçların konum güncellemesi için balistik yöntem kullanılıp "
+"kullanılmayacağı (varsayılan yarı örtük Euler yöntemidir)."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:355
 msgid ""
 "Whether vehicles that depart between simulation steps should extrapolate the "
 "depart position"
 msgstr ""
+"Simülasyon adımları arasında hareket eden araçların kalkış konumunu tahminde "
+"bulunup bulunmayacağı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:358
 msgid "Defines the number of threads for parallel simulation"
-msgstr ""
+msgstr "Paralel simülasyon için iş parçacığı sayısını tanımlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:361
 msgid ""
 "Defines the resolution in m when handling lateral positioning within a lane "
 "(with -1 all vehicles drive at the center of their lane"
 msgstr ""
+"Bir şerit içinde yanal konumlandırmayı ele alırken çözünürlüğü m cinsinden "
+"tanımlar (-1 ile tüm araçlar şeritlerinin merkezinde hareket eder"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:365
 #: C:\Repos\sumo/src\router\ROFrame.cpp:142
 msgid "Load routes for the next number of seconds ahead"
-msgstr ""
+msgstr "Önümüzdeki saniye sayısı için rotaları yükle"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:368
 #: C:\Repos\sumo/src\router\ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "Dahili bağlantıları devre dışı bırakma (kavşak)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:371
 msgid ""
 "Ignore vehicles which block the junction after they have been standing for "
 "SECONDS (-1 means never ignore)"
 msgstr ""
+"SANİYELERCE bekledikten sonra kavşağı kapatan araçları görmezden gelin (-1 "
+"asla görmezden gelmeyin anlamına gelir)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:374
 msgid "Do not check whether routes are connected"
-msgstr ""
+msgstr "Rotaların bağlı olup olmadığını kontrol etmeyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:377
 msgid "Do not check whether accidents occur"
-msgstr ""
+msgstr "Kazaların meydana gelip gelmediğini kontrol etmeyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:380
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr ""
+msgstr "Çarpışmalarla nasıl başa çıkılır: [yok,uyar,ışınla,kaldır]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:383
 msgid ""
 "How to deal with collisions between vehicle and pedestrian: [none,warn,"
 "teleport,remove]"
 msgstr ""
+"Araç ve yaya arasındaki çarpışmalarla nasıl başa çıkılır: "
+"[yok,uyar,ışınla,kaldır]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:386
 msgid ""
 "Let vehicle stop for TIME before performing collision.action (except for "
 "action 'none')"
 msgstr ""
+"Çarpışma.eylemini gerçekleştirmeden önce aracın ZAMAN için durmasına izin "
+"verin ('hiçbiri' eylemi hariç)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:389
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
 msgstr ""
+"İntermodal-çarpışma.eylemini gerçekleştirmeden önce aracın ZAMAN için "
+"durmasına izin verin ('hiçbiri' eylemi hariç)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
-msgstr ""
+msgstr "Kavşaklarda çarpışma kontrollerini etkinleştirir"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:395
 msgid "Increase or decrease sensitivity for junction collision check"
-msgstr ""
+msgstr "Kavşak çarpışma kontrolü için hassasiyeti artırın veya azaltın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:398
 msgid ""
 "Sets the fraction of minGap that must be maintained to avoid collision "
 "detection. If a negative value is given, the carFollowModel parameter is used"
 msgstr ""
+"Çarpışma tespitinden kaçınmak için korunması gereken minBoşluk oranını "
+"ayarlar. Negatif bir değer verilirse, arabaTakipModeli parametresi kullanılır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:401
 msgid "Delay vehicle insertion to stay within the given maximum number"
-msgstr ""
+msgstr "Verilen maksimum sayı içinde kalmak için araç yerleştirmeyi geciktirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:404
 msgid ""
 "Abort the simulation if the given maximum number of teleports is exceeded"
-msgstr ""
+msgstr "Verilen maksimum ışınlanma sayısı aşılırsa simülasyonu iptal eder"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:407
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
-msgstr ""
+msgstr "Talebi verilen faktörle ölçeklendirin (araçları atarak veya çoğaltarak)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:410
 msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
+msgstr "Klonlanmış araçlar için kimlik oluşturulurken eklenecek sonek"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:413
 msgid ""
 "Specify how long a vehicle may wait until being teleported, defaults to 300, "
 "non-positive values disable teleporting"
 msgstr ""
+"Bir aracın ışınlanana kadar ne kadar bekleyebileceğini belirtir, varsayılan "
+"değer 300'dür, pozitif olmayan değerler ışınlanmayı devre dışı bırakır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:416
 msgid ""
 "The waiting time after which vehicles on a fast road (speed > 69km/h) are "
 "teleported if they are on a non-continuing lane"
 msgstr ""
+"Hızlı bir yoldaki (hız > 69km/sa) araçların devam etmeyen bir şeritte "
+"olmaları halinde ışınlandıkları bekleme süresi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:419
 msgid ""
 "The waiting time after which vehicles on a fast road (default: speed > 69km/"
 "h) are teleported if they are on a non-continuing lane"
 msgstr ""
+"Hızlı bir yoldaki araçların (varsayılan: hız > 69km/sa) devam etmeyen bir "
+"şeritte olmaları halinde ışınlanacakları bekleme süresi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:422
 msgid ""
 "The waiting time after which vehicles with a disconnected route are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Bağlantısı kesilmiş bir rotaya sahip araçların ışınlanacağı bekleme süresi. "
+"Negatif değerler ışınlanmayı devre dışı bırakır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:425
 msgid ""
 "Whether vehicles shall be removed after waiting too long instead of being "
 "teleported"
 msgstr ""
+"Araçların çok uzun süre bekledikten sonra ışınlanmak yerine kaldırılıp "
+"kaldırılmayacağı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:428
 msgid ""
 "The waiting time after which persons / containers waiting for a pickup are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Alım için bekleyen kişilerin / konteynerlerin ışınlanacağı bekleme süresi. "
+"Negatif değerler ışınlanmayı devre dışı bırakır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:431
 msgid ""
 "The waiting time after which vehicles on bidirectional edges are teleported"
-msgstr ""
+msgstr "Çift yönlü kenarlardaki araçların ışınlandığı bekleme süresi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:434
 msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
 msgstr ""
+"Birikmiş bekleme süresinin dikkate alındığı zaman aralığının uzunluğu ("
+"varsayılan değer 100 saniyedir)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:437
 msgid "Minimum consecutive waiting time before applying startupDelay"
-msgstr ""
+msgstr "BaşlangıçGecikmesi uygulanmadan önce minimum ardışık bekleme süresi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:440
 msgid ""
 "How long vehicles wait for departure before being skipped, defaults to -1 "
 "which means vehicles are never skipped"
 msgstr ""
+"Araçların atlanmadan önce kalkış için ne kadar bekleyeceği, varsayılan değer "
+"-1'dir, bu da araçların asla atlanmayacağı anlamına gelir"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:443
 msgid ""
 "Whether insertion on an edge shall not be repeated in same step once failed"
 msgstr ""
+"Bir kenara ekleme işleminin başarısız olduktan sonra aynı adımda tekrarlanıp "
+"tekrarlanmayacağı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:446
 msgid "Whether each vehicle is checked separately for insertion on an edge"
 msgstr ""
+"Bir kesim yerleştirme için her aracın ayrı ayrı kontrol edilip edilmediği"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:449
 msgid ""
 "Allow inserting a vehicle in a situation which requires emergency braking"
 msgstr ""
+"Acil frenleme gerektiren bir durumda bir aracın yerleştirilmesine izin verin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:452
 msgid ""
 "Each vehicle receives a random offset to its depart value drawn uniformly "
 "from [0, TIME]"
 msgstr ""
+"Her araç, [0, ZAMAN] arasından eşit olarak çekilen kalkış değerine rastgele "
+"bir ofset alır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:455
 msgid "Duration of a lane change maneuver (default 0)"
-msgstr ""
+msgstr "Şerit değiştirme manevrasının süresi (varsayılan 0)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:458
 msgid "Whether overtaking on the right on motorways is permitted"
-msgstr ""
+msgstr "Otoyollarda sağdan sollamaya izin verilip verilmediği"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:461
 msgid "Switches off all traffic lights."
-msgstr ""
+msgstr "Tüm trafik ışıklarını kapatır."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:464
 msgid "Sets default visibility for actuation detectors"
-msgstr ""
+msgstr "Çalıştırma dedektörleri için varsayılan görünürlüğü ayarlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:467
 msgid "Sets default jam-threshold parameter for all actuation detectors"
 msgstr ""
+"Tüm çalıştırma dedektörleri için varsayılan sıkışma eşiği parametresini "
+"ayarlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:470
 msgid "Sets default detector length parameter for all actuation detectors"
 msgstr ""
+"Tüm çalıştırma dedektörleri için varsayılan dedektör uzunluğu parametresini "
+"ayarlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:473
 msgid "Sets default range for detecting delayed vehicles"
-msgstr ""
+msgstr "Geciken araçları tespit etmek için varsayılan aralığı ayarlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:476
 msgid "Minimum deceleration when braking at yellow"
-msgstr ""
+msgstr "Sarıda fren yaparken minimum yavaşlama"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:479
 msgid "Let railsignals operate in moving-block mode by default"
 msgstr ""
+"Ray sinyallerinin varsayılan olarak hareketli blok modunda çalışmasına izin "
+"verin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:482
 msgid ""
 "Specify how long a vehicle may wait until impatience grows from 0 to 1, "
 "defaults to 300, non-positive values disable impatience growth"
 msgstr ""
+"Bir aracın sabırsızlığı 0'dan 1'e çıkana kadar ne kadar bekleyebileceğini "
+"belirtin, varsayılan değer 300'dür, pozitif olmayan değerler sabırsızlık "
+"artışını devre dışı bırakır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:485
 msgid ""
@@ -2042,7 +2179,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:488
 msgid "Select default car following model (Krauss, IDM, ...)"
-msgstr ""
+msgstr "Aşağıdaki modelden varsayılan aracı seçin (Krauss, IDM, ...)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:492
 msgid ""
@@ -2058,68 +2195,90 @@ msgid ""
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
+"Değeri yavaşlama değeriyle aynı, vSınıf sınıfına özgü bir varsayılan veya m/"
+"s^2 cinsinden verilen FLOAT olarak ayarlayan ('yavaşlama', 'varsayılan', "
+"FLOAT) arasından varsayılan acilYavaşlama değerini seçin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:498
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
-msgstr ""
+msgstr "Havai kablo devresini çözmek için Kirchhoff yasalarını kullanın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:501
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
 msgstr ""
+"ElecHybrid cihazı ile donatılmış araçtan baş üstü teline geri kazanımı "
+"etkinleştirin."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:504
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
 msgstr ""
+"Havai tel elektrik devresini çözerken çekiş trafo merkezinin akım "
+"sınırlarını etkinleştirin."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:507
 msgid ""
 "Sets the fraction of emergency decel capability that must be used to trigger "
 "a warning."
 msgstr ""
+"Bir uyarıyı tetiklemek için kullanılması gereken acil durum yavaşlama "
+"kapasitesinin oranını ayarlar."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:510
 msgid ""
 "Whether parking simulation includes maneuvering time and associated lane "
 "blocking"
 msgstr ""
+"Park simülasyonunun manevra süresini ve ilgili şerit engellemeyi içerip "
+"içermediği"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:513
 msgid "Override stop until times with stop ended times when given"
-msgstr ""
+msgstr "Verildiğinde durma sürelerini durma bitiş süreleri ile geçersiz kılma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:516
 msgid "Override stop arrival times with stop started times when given"
 msgstr ""
+"Verildiğinde durak varış zamanlarını durak başlangıç zamanlarıyla geçersiz "
+"kılma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:520
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
 msgstr ""
+"Yaya modelleri arasından seçim yapın ['etkileşimsiz', 'şeritleme', 'uzak']"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:523
 msgid ""
 "Width of parallel stripes for segmenting a sidewalk (meters) for use with "
 "model 'striping'"
 msgstr ""
+"Model 'şeritleme' ile kullanım için bir kaldırımı bölümlere ayırmak için "
+"paralel şeritlerin genişliği (metre)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:526
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
 msgstr ""
+"Model 'şeritleme' ile kullanım için rastgele yavaşlamalar için faktör [0,1]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:529
 msgid ""
 "Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle "
 "for use with model 'striping'"
 msgstr ""
+"Model 'şeritleme' ile kullanım için bir yaya ile başka bir araç arasındaki "
+"minimum boşluk / güvenlik tamponu (metre cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:532
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
 msgstr ""
+"Model 'şeritleme' kullanıldığında yayaların bir sıkışma boyunca sıkışmaya "
+"başladığı saniye cinsinden süre (pozitif olmayan değerler sıkışmayı devre "
+"dışı bırakır)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:534
 msgid ""
@@ -2127,91 +2286,110 @@ msgid ""
 "on a pedestrian crossing when using model 'striping' (non-positive values "
 "disable squeezing)"
 msgstr ""
+"Model 'şeritleme' kullanılırken yayaların bir yaya geçidinde sıkışmaya "
+"başladıktan sonra saniye cinsinden geçen süre (pozitif olmayan değerler "
+"sıkışmayı devre dışı bırakır)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:536
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
 msgstr ""
+"Model 'şeritleme' kullanıldığında yayaların dar bir şeritte sıkışmaya "
+"başlamasından sonra geçen saniye cinsinden süre"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:539
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "Karşıdan gelen yayalar için ayrılacak şeritlerin oranı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:542
 msgid ""
 "Fraction of stripes to reserve for oncoming pedestrians on crossings and "
 "walkingareas"
 msgstr ""
+"Yaya geçitlerinde ve yürüme alanlarında karşıdan gelen yayalar için "
+"ayrılacak şeritlerin oranı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:545
 msgid "Maximum width in m to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "Karşıdan gelen yayalar için ayrılacak maksimum genişlik m cinsinden"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:548
 msgid "Interpret departPosLat for walks in legacy style"
-msgstr ""
+msgstr "Eski stildeki yürüyüşler için kalkışPosBoy'ı yorumlayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:551
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the walkingarea"
 msgstr ""
+"Yürüme alanı içindeki şeritleri düzeltmek için INT ara noktaları oluşturun"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "The update interval of the JuPedSim simulation (in seconds)"
-msgstr ""
+msgstr "JuPedSim simülasyonunun güncelleme aralığı (saniye cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid "The distance to the destination point considered as arrival (in meters)"
-msgstr ""
+msgstr "Varış olarak kabul edilen hedef noktasına olan mesafe (metre cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
 msgstr ""
+"Bireysel duraklarda binişlerde yaya ve araç pozisyonlarını eşleştirirken "
+"uygulanacak tolerans"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
 msgstr ""
+"Küçük bağlantı iç şeritleri için minimum rotalama maliyetlerini hesaplarken "
+"verilen zaman cezasını uygulayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:574
 msgid ""
 "Apply scaled travel time penalties based on green split when computing "
 "minimum routing costs for internal lanes at traffic lights"
 msgstr ""
+"Trafik ışıklarındaki dahili şeritler için minimum yönlendirme maliyetlerini "
+"hesaplarken yeşil ayrımına dayalı ölçeklendirilmiş seyahat süresi cezaları "
+"uygulayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:580
 msgid ""
 "Distinguish travel time by turn direction and shift a fraction of the "
 "estimated time loss ahead of the intersection onto the internal edges"
 msgstr ""
+"Seyahat süresini dönüş yönüne göre ayırın ve kavşağın önündeki tahmini zaman "
+"kaybının bir kısmını iç kenarlara kaydırın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:605
 msgid ""
 "When set, trips between the same origin and destination will share a taxi by "
 "default"
 msgstr ""
+"Ayarlandığında, aynı başlangıç ve varış noktası arasındaki yolculuklar "
+"varsayılan olarak bir taksiyi paylaşacaktır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:614
 msgid "Replay exact rerouting sequence from vehroute-output"
-msgstr ""
+msgstr "araçrota-cıkış'tan tam yeniden yönlendirme sırasını yeniden oynat"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:619
 #: C:\Repos\sumo/src\router\ROFrame.cpp:59
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:133
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:123
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
-msgstr ""
+msgstr "Yakıt tüketimi değerlerini mg yerine (eski) l biriminde döndürün"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:622
 #: C:\Repos\sumo/src\router\ROFrame.cpp:90
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:136
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:126
 msgid "Determines where to load PHEMlight definitions from"
-msgstr ""
+msgstr "PHEMlight tanımlarının nereden yükleneceğini belirler"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:625
 #: C:\Repos\sumo/src\router\ROFrame.cpp:93
@@ -2219,6 +2397,7 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:129
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
+"PHEMlight5'te verilen referans yıl ile filo yaşı modellemesini etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:628
 #: C:\Repos\sumo/src\router\ROFrame.cpp:96
@@ -2226,81 +2405,87 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:132
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
 msgstr ""
+"PHEMlight5'te NOx emisyonlarını düzeltmek için ortam sıcaklığını ayarlayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:637
 msgid "Disable performance reports for individual simulation steps"
 msgstr ""
+"Bireysel simülasyon adımları için performans raporlarını devre dışı bırakma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:640
 msgid "Enable statistics on vehicle trips"
-msgstr ""
+msgstr "Araç yolculuklarına ilişkin istatistikleri etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:643
 msgid "Disable console output of current simulation step"
-msgstr ""
+msgstr "Geçerli simülasyon adımının konsol çıktısını devre dışı bırakma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:646
 msgid "Number of simulation steps between step-log outputs"
-msgstr ""
+msgstr "Adım-log çıkışları arasındaki simülasyon adımı sayısı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:651
 msgid "Enables TraCI Server if set"
-msgstr ""
+msgstr "Ayarlanmışsa TraCI Sunucusunu etkinleştirir"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:653
 msgid "Expected number of connecting clients"
-msgstr ""
+msgstr "Beklenen bağlanan istemci sayısı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:657
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "Mezoskopik simülasyona olanak sağlar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:659
 msgid "Length of an edge segment in mesoscopic simulation"
-msgstr ""
+msgstr "Mezoskopik simülasyonda bir kesim segmentinin uzunluğu"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:661
 msgid "Factor for calculating the net free-free headway time"
-msgstr ""
+msgstr "Net serbest yol süresinin hesaplanması için faktör"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:663
 msgid "Factor for calculating the net free-jam headway time"
-msgstr ""
+msgstr "Net serbest sıkışma ilerleme süresinin hesaplanması için faktör"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:665
 msgid "Factor for calculating the jam-free headway time"
-msgstr ""
+msgstr "Sıkışmasız yol süresinin hesaplanması için faktör"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:667
 msgid "Factor for calculating the jam-jam headway time"
-msgstr ""
+msgstr "Sıkışma-sıkışma ilerleme süresini hesaplamak için faktör"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:672
 msgid "Enable multiple queues at edge ends"
-msgstr ""
+msgstr "Kesim uçlarında çoklu kuyrukları etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:674
 msgid "Enable separate queues for every lane"
-msgstr ""
+msgstr "Her şerit için ayrı kuyrukları etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:676
 msgid ""
 "Do not build queues (or reduce capacity) for lanes allowing only the given "
 "vclasses"
 msgstr ""
+"Yalnızca verilen vc sınıflarına izin veren şeritler için kuyruk oluşturmayın "
+"(veya kapasiteyi azaltmayın)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:679
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr ""
+msgstr "Mezoskopik trafik ışığı ve öncelikli kavşak yönetimini etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:693
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "Mezoskopik sollamayı etkinleştirin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:695
 msgid ""
 "Time interval for rechecking insertion into the next segment after failure"
 msgstr ""
+"Arızadan sonra bir sonraki segmente ekleme işleminin yeniden kontrol "
+"edilmesi için zaman aralığı"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:707
 msgid "Load visualisation settings from FILE"
@@ -2308,43 +2493,43 @@ msgstr "Görselleştirme ayarlarını Dosya'dan yükle"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:710
 msgid "Quits the GUI when the simulation stops"
-msgstr ""
+msgstr "Simülasyon durduğunda GUI'den çıkar"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:713
 msgid "Start the GUI in gaming mode"
-msgstr ""
+msgstr "GUI'yi oyun modunda başlatın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:716
 msgid "Select the game type ('tls', 'drt')"
-msgstr ""
+msgstr "Oyun türünü seçin ('tls', 'drt')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:719
 msgid "Start the simulation after loading"
-msgstr ""
+msgstr "Yüklemeden sonra simülasyonu başlatın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:722
 msgid "Use FLOAT in ms as delay between simulation steps"
-msgstr ""
+msgstr "Simülasyon adımları arasında gecikme olarak ms cinsinden FLOAT kullanın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:725
 msgid "Use TIME[] as times when the simulation should halt"
-msgstr ""
+msgstr "Simülasyonun durması gereken zamanlar olarak TIME[] kullanın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:729
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr ""
+msgstr "Görselleştirme için kesim/şerit ağırlıklarını DOSYA'dan yükleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:732
 msgid "Load a secondary road network for abstract visualization from FILE"
-msgstr ""
+msgstr "DOSYA'dan soyut görselleştirme için ikincil bir yol ağı yükleyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:735
 msgid "Restart the simulation after ending (demo mode)"
-msgstr ""
+msgstr "Simülasyonu bitirdikten sonra yeniden başlatın (demo modu)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:738
 msgid "Do not load background pictures"
-msgstr ""
+msgstr "Arka plan resimleri yüklemeyin"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:741
 msgid "Load current viewport from registry"
@@ -2360,11 +2545,11 @@ msgstr "Verilen x,y boyutunda ilk pencereyi oluştur"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:750
 msgid "The aggregation period for value tracker windows"
-msgstr ""
+msgstr "Değer izleyici pencereleri için toplama dönemi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:754
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
-msgstr ""
+msgstr "Normal 2B görünüm yerine bir OpenSceneGraph görünümü ile başlayın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:759
 msgid "Enable overlay for screen recognition"
@@ -2376,7 +2561,7 @@ msgstr "GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:767
 msgid "Save gui settings in the given settings output file"
-msgstr ""
+msgstr "Gui ayarlarını verilen ayar çıktı dosyasına kaydet"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:818
 msgid "No network file (-n) specified."
@@ -2416,6 +2601,8 @@ msgstr "Minimum step-length /Adım Uzunluğu) 0.001"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:891
 msgid "The save-state time=% will not be used before simulation end at %."
 msgstr ""
+"Durum kaydetme süresi=%, simülasyon %'de sona ermeden önce "
+"kullanılmayacaktır."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:903
 msgid ""
@@ -2464,7 +2651,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:954
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr ""
+msgstr "'carfollow.model' seçeneği için bilinmeyen model '%'."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:963
 #, c-format
@@ -2472,6 +2659,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'"
 msgstr ""
+"'default.emergencydecel' seçeneği için geçersiz '%' değeri. FLOAT veya "
+"'default' veya 'decel' olmalıdır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:969
 msgid "You need a non-negative delay."
@@ -2502,6 +2691,8 @@ msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
 msgstr ""
+"Geçersiz transfer seçeneği '%'. 'parkAlanları', 'ptDurakları' ve "
+"'tümKavşaklar' seçeneklerinden biri olmalıdır"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:1060
 msgid ""
@@ -2515,12 +2706,12 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
-msgstr ""
+msgstr "'%' kimliğine sahip başka bir araç mevcut."
 
 #: C:\Repos\sumo/src\microsim\MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr ""
+msgstr "İç kavşak %'sinde gelen şerit yoktur"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:323
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
@@ -2538,7 +2729,7 @@ msgstr "Araç '%' Acil Durumda Eklenir."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:788
 msgid "Vehicle '%' will not be able to depart using the given velocity (%)!"
-msgstr ""
+msgstr "Araç '%' verilen hızı (%) kullanarak hareket edemeyecektir!"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:804
 msgid ""
@@ -2559,33 +2750,34 @@ msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead)!"
 msgstr ""
+"Araç '%' verilen hızı kullanarak hareket edemeyecektir (yavaş şerit ileride)!"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2085
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "Araç '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2114
 #, c-format
 msgid "Teleporting vehicle '%' after"
-msgstr ""
+msgstr "Araç '%' ışınlandıktan sonra"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2119
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr ""
+msgstr "Araç '%'sinden sonra kaldırılıyor"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2123
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr ""
+msgstr "Uzaktan kumandalı aracı '%' sonra tutmak"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2136
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
-msgstr ""
+msgstr " kişi '%', şerit='%', boşluk=%, zaman=%, aşama=% ile çarpışma."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2139
 msgid " collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr " kişi '%', şerit='%', zaman=%, aşama=% ile çarpışma."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2205
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -2609,35 +2801,39 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4315
 msgid "Invalid % '%'."
-msgstr ""
+msgstr "Geçersiz % '%'."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4452
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
 msgstr ""
+"Durum %'den fazla iş parçacığı ile kaydedildi. İş parçacığı sayısını "
+"değiştirin veya RNG durumunu yüklemeyin"
 
 #: C:\Repos\sumo/src\microsim\MSLeaderInfo.h:169
 #: C:\Repos\sumo/src\microsim\MSLeaderInfo.h:232
 #: C:\Repos\sumo/src\microsim\MSLeaderInfo.h:239
 msgid "Method not supported"
-msgstr ""
+msgstr "Yöntem desteklenmiyor"
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:187
 #: C:\Repos\sumo/src\router\RONet.cpp:60
 msgid "A network was not yet constructed."
-msgstr ""
+msgstr "Henüz bir ağ inşa edilmemiştir."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:221
 #: C:\Repos\sumo/src\router\RONet.cpp:83
 msgid "A network was already constructed."
-msgstr ""
+msgstr "Bir ağ zaten inşa edilmişti."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:286
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
 msgstr ""
+"Seçenek ağırlıklar.ayrı dönüşler yalnızca dahili şeritlerle simülasyon "
+"yapılırken desteklenir"
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:397
 msgid "Simulation version % started with time: %."
@@ -2647,6 +2843,8 @@ msgstr "Simülasyon Versiyonu %, Zaman ile Başladı: %."
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
+"TraCI ve Tetikleyiciler '%' yönlendirme algoritmasını kullanamaz. bunun "
+"yerine 'astar' kullanılır."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:1642
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:429
@@ -2659,33 +2857,32 @@ msgstr "% Yüklemesi Başarısız."
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:1662
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr ""
+msgstr "'%'den durum yükleme başarısız oldu."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:103
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:108
 msgid "Taz usage was requested but no taz present in % '%'!"
-msgstr ""
+msgstr "Taz kullanımı talep edildi ancak % '%' içinde taz mevcut değil!"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:272
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
-msgstr ""
+msgstr "Araç türü dağılımı '%' boş."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:276
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:933
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "'%' kimliğine sahip başka bir araç tipi (veya dağıtımı) mevcut."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:297
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:326
-#, fuzzy
 msgid "Ids of internal routes are ignored (vehicle '%')."
-msgstr "Araç '%' İçin Geçersiz Rota Değişimi. %"
+msgstr "Dahili rotaların kimlikleri göz ardı edilir (araç '%')."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:316
 msgid "Invalid reference to route '%' in route %."
-msgstr ""
+msgstr "Rota % içinde '%' rotasına geçersiz referans."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:327
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
@@ -2695,51 +2892,56 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:338
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " vClass % ile '%' aracı için."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:342
 msgid ""
 "Disconnected route % when repeating. Last edge '%' is not connected to first "
 "edge '%'%"
 msgstr ""
+"Tekrar ederken % rotası bağlantısı kesildi. Son kesim '%' ilk kesim '%'% ile "
+"bağlantılı değil"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:349
-#, fuzzy
 msgid "Invalid cost for route '%'."
-msgstr "PoI ID İçin Geçersiz Karakterler"
+msgstr "'%' rotası için geçersiz maliyet."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:406
-#, fuzzy, c-format
+#, c-format
 msgid "Route '%' has no edges."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "'%' rotasının kesimi yok."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:424
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:456
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
+"CycleTime tanımlanmadığı için rota %'sinde 'kadar' ile duraklar "
+"tekrarlanamıyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:433
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr ""
+"Rota %'sinde 'varış' ile duraklar tekrarlanamıyor çünkü CycleTime "
+"tanımlanmamış."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:456
-#, fuzzy, c-format
+#, c-format
 msgid "A vehicle with id '%' already exists."
-msgstr "'%' Kimliğine Sahip Bir TAB Var. TAB Kavşağı Yapılandırılamıyor."
+msgstr "'%' kimliğine sahip bir araç zaten mevcut."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:459
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:535
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "'%' kimliğine sahip başka bir rota (veya dağıtım) var."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:539
 #, c-format
 msgid "Route distribution '%' is empty."
-msgstr ""
+msgstr "Rota dağıtımı '%' boş."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:579
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:569
@@ -2747,23 +2949,29 @@ msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
 msgstr ""
+"vSınıf=yaya ile '%' araç tipi '%' araç için değil sadece insanlar için "
+"kullanılmalıdır."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:588
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr ""
+"'Rota' özniteliği ayarlandığı için '%' aracı için 'rota' alt öğesi yok "
+"sayılıyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:597
-#, fuzzy, c-format
+#, c-format
 msgid "Vehicle '%' has no route."
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "'%' aracının rotası yok."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:739
 msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
 msgstr ""
+"'%' aracı için araç durakları örtük olarak tanımlanmış '%' rotasıyla "
+"birleştirilemedi"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:770
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:327
@@ -2784,41 +2992,45 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1009
 #, c-format
 msgid "Another flow with the id '%' exists."
-msgstr ""
+msgstr "'%' kimliğine sahip başka bir akış var."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1150
 msgid "The busStop '%' is not known%."
-msgstr ""
+msgstr "Otobüs Durağı '%' bilinmiyor%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1156
 msgid "The containerStop '%' is not known%."
-msgstr ""
+msgstr "Konteyner Durağı '%' bilinmiyor%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1162
 msgid "The parkingArea '%' is not known%."
-msgstr ""
+msgstr "ParkAlanı '%' bilinmiyor%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1169
 msgid "The chargingStation '%' is not known%."
-msgstr ""
+msgstr "Şarj istasyonu '%' bilinmiyor%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1176
 msgid "The overhead wire segment '%' is not known%."
-msgstr ""
+msgstr "Havai hat segmenti '%' bilinmiyor%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1180
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "Geçersiz durak tanımı%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1259
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane"
 msgstr ""
+"Bir durak, bir otobüsDurağı, bir şarjİstasyonu, bir üstTelSegmenti, bir "
+"konteynerDurağı, bir parkAlanı, bir kenar veya bir şerit üzerine "
+"yerleştirilmelidir"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1338
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
 msgstr ""
+"% '%' için 'aracılığıyla' özelliğinde '%' kenarının eksik olmasını durdurun"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1213
@@ -2834,105 +3046,107 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1384
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
+"Verilen '%' durağının dışında olduğu için % için varışPoz yok sayılıyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1390
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1234
 msgid "No destination edge for %."
-msgstr ""
+msgstr "% için hedef kenar yok."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1419
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1254
-#, fuzzy
 msgid "Start edge not defined for person '%'."
-msgstr "'%' parkingArea İçin Kesim Bulunamadı."
+msgstr "Başlangıç kenarı '%' kişisi için tanımlanmamış."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1429
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1494
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1265
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1322
 msgid "Non-positive walking duration for '%'."
-msgstr ""
+msgstr "'%' için pozitif olmayan yürüme süresi."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1500
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1326
 msgid "Non-positive walking speed for '%'."
-msgstr ""
+msgstr "'%' için pozitif olmayan yürüme hızı."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1525
 msgid "No edges to walk for person '%'."
-msgstr ""
+msgstr "'%' kişisi için yürünecek kesim yok."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1562
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
+"kalkışPozBoy yorumlanırken '%' kişisinin yürüyüşü için kalkış şeridi "
+"bulunamadı"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1634
-#, fuzzy
 msgid "Could not read tranship speed for container '%'."
-msgstr "'%' Bağlantısı İçin Özel Şekil Kullanılamadı."
+msgstr "Konteyner '%' için aktarma hızı okunamadı."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1642
 msgid "Non-positive tranship speed for container '%'."
-msgstr ""
+msgstr "'%' konteyner için pozitif olmayan aktarma hızı."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1668
-#, fuzzy, c-format
+#, c-format
 msgid "The start edge for container '%' is not known."
-msgstr "Başvurulan Geometri Bilgisi (ref='%') Bilinmiyor"
+msgstr "'%' konteynerinin başlangıç kenarı bilinmiyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
+"Konteyner '%' için tutarsız aktarım, yalnızca bir seçeneğe izin verilir: "
+"'kesimler', 've', 'konteyner durağı'"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1693
 msgid "No edges to tranship container '%'."
-msgstr ""
+msgstr "'%' konteynerini aktarmak için kesim yok."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:76
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:64
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:164
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
-msgstr ""
+msgstr "XML dosyası '%' okunamıyor."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:87
-#, fuzzy
 msgid "Could not parse time from state file '%'"
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "'%' durum dosyasından zaman ayrıştırılamadı"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:184
 msgid "State was written with sumo version % (present: %)!"
-msgstr ""
+msgstr "Durum % sumo sürümü ile yazılmıştır (mevcut: %)!"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:229
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:285
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:144
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown lane '%' in loaded state."
-msgstr "Bilinmeyen Takipçi Şeridi '%' Yüklü Durumda."
+msgstr "Yüklü durumda bilinmeyen şerit '%'."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:389
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
-msgstr ""
+msgstr "Yüklü durumdaki '%' trafik ışığı için '%' programını yok sayma"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
-msgstr ""
+msgstr "Araç kontrol durumu yüklenemedi"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:433
 msgid "Removed % vehicles while loading state."
-msgstr ""
+msgstr "Yükleme durumundaki % araçlar kaldırıldı."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:459
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr "Sinyal '%' İçin Kesim '%' Bulunamadı."
+msgstr "'%' aracı durumdan yüklenemedi"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:320
 msgid "No gap control available for meso."
@@ -2942,11 +3156,13 @@ msgstr "Bölgesel Ölçek İçin Aralık Kontrolü Yok."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
+"Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, zaman=%"
+"\n"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:756
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:171
 msgid "should not happen"
-msgstr ""
+msgstr "olmamalı"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:945
 msgid ""
@@ -2959,6 +3175,8 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1689
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
+"Araç '%', %s süresinin uzatılmasından sonra birleşmeyi % zamanında iptal "
+"ediyor."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1835
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
@@ -2969,6 +3187,7 @@ msgstr "'%' Aracının '%' Aracından Ayrılacağı Bilinmiyor. Zaman=%."
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
+"Uyumsuz rotalar nedeniyle araç '%' ile araç '%' birleştirilemiyor. time=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:2780
 msgid "Suspicious right_before_left junction '%'."
@@ -2999,25 +3218,25 @@ msgstr ""
 "Acil Frenleme Geçrkleştirir."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:5621
-#, fuzzy, c-format
+#, c-format
 msgid "Vehicle '%' aborts stop."
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "Araç '%' durmayı iptal eder."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:5627
 msgid "Vehicle '%' skips stop on lane '%' time=%."
-msgstr ""
+msgstr "Araç '%', '%' şeridinde durmayı atlar zaman=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7466
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
-msgstr ""
+msgstr "Hata oluştu: Durumda geçersiz araçlar (bir mezo durum olabilir)!"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7497
 msgid "Action steps are out of sync for loaded vehicle '%'."
-msgstr ""
+msgstr "Yüklü araç '%' için eylem adımları senkronize değil."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleControl.cpp:510
 msgid "Vehicle '%' aborted waiting %."
-msgstr ""
+msgstr "Araç '%' bekleme %'sini iptal etti."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleTransfer.cpp:170
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
@@ -3028,12 +3247,16 @@ msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr ""
+"'acilYavaşlama' (%) değeri vTürü '%' için 'yavaşlama' (%) değerinden yüksek "
+"olmalıdır."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:324
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
 msgstr ""
+"'acilYavaşlama' (%) değerinin vTipi '%' için 'görünenYavaşlama' (%) "
+"değerinden düşük olması çarpışmalara neden olabilir."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:446
 #, c-format
@@ -3061,12 +3284,14 @@ msgid ""
 "The number of lanes needs to be specified in the attributes of carFollowing-"
 "CC with the \"lanesCount\" attribute"
 msgstr ""
+"Şerit sayısının araçTakip-CC'nin özniteliklerinde \" şeritSayısı\" "
+"özniteliği ile belirtilmesi gerekir"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Daniel1.cpp:61
 msgid ""
 "Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: "
 "%)."
-msgstr ""
+msgstr "'%' aracın maksimum hızı minimum hızdan düşüktür (min: %, maks: %)."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -3074,7 +3299,7 @@ msgstr "vType '%' İçin 'sigmaStep' Değeri % Değerine Yuvarlanıyor"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:54
 msgid "Unknown train type: %. Exiting!"
-msgstr ""
+msgstr "Bilinmeyen tren tipi: %. Çıkıyor!"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:256
 msgid ""
@@ -3087,53 +3312,55 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:165
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr ""
+msgstr "'%' cihazı durumu kaydedemiyor"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:205
 msgid "Invalid float value '%'for parameter '%'"
-msgstr ""
+msgstr "'%' parametresi için geçersiz float değeri '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:218
 msgid "Invalid bool value '%'for parameter '%'"
-msgstr ""
+msgstr "'%' parametresi için geçersiz bool değeri '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:231
 msgid "Invalid time value '%'for parameter '%'"
-msgstr ""
+msgstr "'%' parametresi için geçersiz zaman değeri '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
-msgstr ""
+msgstr "Bt alıcısının menzili"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
-msgstr ""
+msgstr "Tüm tanıma noktalarının yazılı olup olmayacağı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:71
 msgid "The offtime used for calculating detection probability (in seconds)"
 msgstr ""
+"Algılama olasılığını hesaplamak için kullanılan kapalı kalma süresi (saniye "
+"cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:295
 msgid ""
 "The vehicle '%' cannot be in the range of vehicle '%', leave, and enter it "
 "in one step."
-msgstr ""
+msgstr "Araç '%', araç '%' aralığında olamaz, çıkın ve tek adımda girin."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:421
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:436
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
-msgstr ""
+msgstr "btalıcı: Yolda olmayan '%' aracının konumu güncellenemiyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTsender.cpp:120
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTsender.cpp:134
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
-msgstr ""
+msgstr "btgönder: Yolda olmayan '%' aracının konumu güncellenemiyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:52
 msgid "Track fuel consumption for non-electric vehicles"
-msgstr ""
+msgstr "Elektrikli olmayan araçlar için yakıt tüketimini takip edin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:114
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:127
@@ -3141,23 +3368,26 @@ msgstr ""
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
+"Akü oluşturucu: Araç '%', % (%) parametresi için geçerli bir değere sahip "
+"değil."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:204
 #, c-format
 msgid "Battery of vehicle '%' is depleted."
-msgstr ""
+msgstr "'%' aracın aküsü tükenmiştir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:314
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:324
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:334
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
-msgstr ""
+msgstr "'%' aracının akü cihazına geçersiz bir % (%) ayarlanmaya çalışılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:59
 msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
 msgstr ""
+"Diğer sürücülerin mavi ışık ve siren sesine tepki vereceği mesafeyi ayarlayın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:68
 msgid ""
@@ -3167,60 +3397,72 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
-msgstr ""
+msgstr "Sürücü farkındalığına atanan ilk değer."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
 msgid "Time scale for the error process."
-msgstr ""
+msgstr "Hata süreci için zaman ölçeği."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
-msgstr ""
+msgstr "Hata sürecini yönlendiren gürültü yoğunluğu."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:72
 msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
 msgstr ""
+"Hatayı algılanan hız farkına uygulamak için genel ölçeklendirme katsayısı ("
+"hata da mesafe ile ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:74
 msgid ""
 "General scaling coefficient for applying the error to the perceived distance "
 "(error also scales with distance)."
 msgstr ""
+"Hatayı algılanan mesafeye uygulamak için genel ölçeklendirme katsayısı (hata "
+"da mesafe ile ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:76
 msgid ""
 "General scaling coefficient for applying the error to the vehicle's own "
 "speed when driving without a leader (error also scales with own speed)."
 msgstr ""
+"Lider olmadan sürüş sırasında hatayı aracın kendi hızına uygulamak için "
+"genel ölçeklendirme katsayısı (hata da kendi hızıyla ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:78
 msgid ""
 "Base threshold for recognizing changes in the speed difference (threshold "
 "also scales with distance)."
 msgstr ""
+"Hız farkındaki değişiklikleri tanımak için temel eşik (eşik ayrıca mesafe "
+"ile ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
 msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales "
 "with distance)."
 msgstr ""
+"İlerleme yolundaki değişiklikleri tanımak için temel eşik (eşik ayrıca "
+"mesafe ile ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 msgid "Minimal admissible value for the driver's awareness."
-msgstr ""
+msgstr "Sürücünün farkındalığı için kabul edilebilir asgari değer."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:84
 msgid ""
 "Maximal reaction time (~action step length) induced by decreased awareness "
 "level (reached for awareness=minAwareness)."
 msgstr ""
+"Azalan farkındalık seviyesinin neden olduğu maksimum tepki süresi (~eylem "
+"adımı uzunluğu) (farkındalık=minFarkındalık için ulaşılan)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:102
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:116
 msgid "Invalid value '%'for vType parameter '%'"
-msgstr ""
+msgstr "vTür parametresi '%' için geçersiz '%'değeri"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:166
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:179
@@ -3228,6 +3470,8 @@ msgid ""
 "ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % "
 "(%)."
 msgstr ""
+"ElecHybrid oluşturucu: Araç '%', % (%) parametresi için geçerli bir değere "
+"sahip değil."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:374
 #, c-format
@@ -3235,6 +3479,7 @@ msgid ""
 "The resistivity of overhead wire segment connected to vehicle % is < 0. Set "
 "to 1e-6."
 msgstr ""
+"Araca % bağlı havai kablo segmentinin direnci < 0'dır. 1e-6 olarak ayarlayın."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:432
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:528
@@ -3251,78 +3496,80 @@ msgstr "Son No'ya Sahip Eleman veya Düğüm Devrede Bulunamadı!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Emissions.cpp:47
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "Emisyon verileri için kayıt başlangıç zamanı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Emissions.cpp:50
 msgid "Recording period for emission-output"
-msgstr ""
+msgstr "Emisyon çıktısı için kayıt dönemi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:48
 msgid ""
 "An exemplary parameter which can be used by all instances of the example "
 "device"
 msgstr ""
+"Örnek cihazın tüm numuneleri tarafından kullanılabilen örnek bir parametre"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:63
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'example'"
-msgstr ""
+msgstr "'örnek' araç parametresi için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:75
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'example'"
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "vTür parametresi 'örnek' için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
-msgstr ""
+msgstr "FCD verileri için kayıt başlangıç zamanı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:70
 #: C:\Repos\sumo/src\microsim\devices\MSTransportableDevice_FCD.cpp:49
 msgid "Recording period for FCD-data"
-msgstr ""
+msgstr "FCD verileri için kayıt süresi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
-msgstr ""
+msgstr "Donanımlı araçların etrafındaki bir yarıçap içindeki nesneleri kaydedin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #, c-format
 msgid "Specified shape '%' for filtering fcd-output could not be found."
-msgstr ""
+msgstr "fcd-çıktısını filtrelemek için belirtilen '%' şekli bulunamadı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:148
 msgid "Could not load names of edges for filtering fcd-output from '%'."
-msgstr ""
+msgstr "'%'den fcd çıktısını filtrelemek için kesim adları yüklenemedi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:167
 #, c-format
 msgid "Unknown attribute '%' to write in fcd output."
-msgstr ""
+msgstr "Fcd çıktısına yazılacak '%' özniteliği bilinmiyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Friction.cpp:48
 msgid ""
 "The measurement noise parameter which can be applied to the friction device"
-msgstr ""
+msgstr "Sürtünme cihazına uygulanabilecek ölçüm gürültüsü parametresi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Friction.cpp:50
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
+"Sürtünme cihazına uygulanabilen ölçüm ofset parametresi -> örn. yanlış "
+"ölçümleri zorlamak için"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
-msgstr ""
+msgstr "Trafik ışığına olan iletişim aralığı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:52
 msgid "The maximum speed factor when approaching a green light"
-msgstr ""
+msgstr "Yeşil ışığa yaklaşırken maksimum hız faktörü"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:55
 msgid "Minimum speed when coasting towards a red light"
-msgstr ""
+msgstr "Kırmızı ışığa doğru ilerlerken minimum hız"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:171
 msgid ""
@@ -3332,53 +3579,59 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:54
 msgid "The period with which the vehicle shall be rerouted"
-msgstr ""
+msgstr "Aracın yeniden yönlendirileceği süre"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:58
 msgid "The rerouting period before depart"
-msgstr ""
+msgstr "Kalkıştan önceki yeniden yönlendirme süresi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:62
 msgid "The weight of prior edge weights for exponential moving average"
-msgstr ""
+msgstr "Üstel hareketli ortalama için önceki kesim ağırlıkları"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:66
 msgid "The number of steps for moving average weight of prior edge weights"
 msgstr ""
+"Önceki kesim ağırlıklarının hareketli ortalama ağırlığı için adım sayısı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:70
 msgid "The interval for updating the edge weights"
-msgstr ""
+msgstr "Kesim ağırlıklarının güncellenmesi için aralık"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:75
 msgid "Use zones (districts) as routing start- and endpoints"
 msgstr ""
+"Bölgeleri (ilçeleri) yönlendirme başlangıç ve bitiş noktaları olarak kullanın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:78
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr ""
+"Kesim ağırlıklarını başlatmak için -ağırlık-dosyaları seçeneği ile verilen "
+"ağırlık dosyalarını kullanın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
-msgstr ""
+msgstr "Yeniden yönlendirme için kullanılan paralel yürütme iş parçacığı sayısı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
 msgstr ""
+"Yeniden yönlendirmenin tüm araçlar için aynı anda gerçekleşmesine izin verin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 msgid "Allow rerouting triggered by rail signals."
 msgstr ""
+"Demiryolu sinyalleri tarafından tetiklenen yeniden yönlendirmeye izin verin."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Compute separate average speeds for bicycles"
-msgstr ""
+msgstr "Bisikletler için ayrı ortalama hızları hesaplayın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
-msgstr ""
+msgstr "Uyarlanan ağırlıkları DOSYA'ya kaydet"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:102
 msgid ""
@@ -3416,6 +3669,8 @@ msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
 msgstr ""
+"Hangi hesaplamaların günlüğe kaydedileceğini belirtir ('TTC', 'DRAC', 'PET', "
+"'PPET','MDRAC' şeklinde boşluk veya virgülle ayrılmış kimlik dizisi olarak))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:236
 msgid ""
@@ -3423,24 +3678,33 @@ msgid ""
 "measures (see documentation and watch the order!). Only events exceeding the "
 "thresholds will be logged."
 msgstr ""
+"Belirtilen hesaplamalara karşılık gelen boşluk veya virgülle ayrılmış "
+"eşikleri belirtir (belgelere bakın ve sıraya dikkat edin!). Yalnızca "
+"eşikleri aşan olaylar günlüğe kaydedilecektir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies whether trajectories will be logged (if false, only the extremal "
 "values and times are reported)."
 msgstr ""
+"Yörüngelerin kaydedilip kaydedilmeyeceğini belirtir (yanlışsa, yalnızca uç "
+"değerler ve zamanlar raporlanır)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""
 "Specifies the detection range in meters. For vehicles below this distance "
 "from the equipped vehicle, SSM values are traced."
 msgstr ""
+"Algılama aralığını metre cinsinden belirtir. Donanımlı araçtan bu mesafenin "
+"altındaki araçlar için SSM değerleri izlenir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:242
 msgid ""
 "Specifies the time in seconds to be logged after a conflict is over. "
 "Required >0 if PET is to be calculated for crossing conflicts."
 msgstr ""
+"Bir çakışma sona erdikten sonra günlüğe kaydedilecek süreyi saniye cinsinden "
+"belirtir. PET kesişen çatışmalar için hesaplanacaksa >0 olmalıdır."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:244
 msgid "Specifies the perception reaction time for MDRAC computation."
