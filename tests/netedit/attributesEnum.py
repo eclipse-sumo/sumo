@@ -767,8 +767,10 @@ class chargingStation:
         efficiency = 9
         chargeInTransit = 10
         chargeDelay = 11
-        references = 15
-        length = 17
+        chargeType = 12
+        waitingTime = 14
+        references = 18
+        length = 20
 
     class inspect:
         id = 1
@@ -782,7 +784,9 @@ class chargingStation:
         efficiency = 9
         chargeInTransit = 10
         chargeDelay = 11
-        parameters = 14
+        chargeType = 12
+        waitingTime = 14 
+        parameters = 17
 
     class inspectSelection:
         name = 1
@@ -791,7 +795,9 @@ class chargingStation:
         efficiency = 4
         chargeInTrainsit = 5
         chargeDelay = 6
-        parameters = 9
+        chargeType = 7
+        waitingTime = 9         
+        parameters = 12
 
 # access
 
@@ -1117,7 +1123,7 @@ class calibrator:
 
     class inspect:
         id = 1
-        edgeLane = 2
+        edge = 2
         pos = 3
         frequency = 4
         name = 5
@@ -1126,6 +1132,19 @@ class calibrator:
         jamTreshold = 8
         vTypes = 9
         parameters = 12
+
+    class inspectLane:
+        id = 1
+        lane = 2
+        laneMoveUp = 3
+        pos = 4
+        frequency = 5
+        name = 6
+        routeProbe = 7
+        output = 8
+        jamTreshold = 9
+        vTypes = 10
+        parameters = 13        
 
     class inspectSelection:
         pos = 1

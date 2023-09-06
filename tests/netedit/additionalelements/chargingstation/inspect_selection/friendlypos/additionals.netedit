@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-13 16:02:21 by Eclipse SUMO netedit Version v1_16_0+0157-fcef944c26c
+<!-- generated on 2023-09-06 16:20:30 by Eclipse SUMO netedit Version v1_18_0+1441-a5da73da77a
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="chargingStationA" name="chargingStationNameA" lane="center1_1" startPos="5.00" endPos="10.00" friendlyPos="true" power="21000.00" efficiency="0.65" chargeDelay="1000">
+    <chargingStation id="chargingStationA" name="chargingStationNameA" lane="center1_1" startPos="5.00" endPos="10.00" friendlyPos="true" power="21000.00" efficiency="0.65" chargeDelay="1000" chargeType="electric" waitingTime="600.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="center1_1" startPos="15.00" endPos="20.00" friendlyPos="true" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2000">
+    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="center1_1" startPos="15.00" endPos="20.00" friendlyPos="true" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2000" chargeType="fuel" waitingTime="500.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
