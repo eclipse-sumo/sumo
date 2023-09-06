@@ -20,7 +20,7 @@ option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(TCMALLOC "Use tcmalloc if installed" ON)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
-set(JUPEDSIM_DIR "" CACHE PATH "Install location of jupedsim")
+set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
 set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
 # disable warnings
@@ -290,18 +290,18 @@ if (GNU_COMPILER AND WIN32)
     set(MINGW32 1)
 endif ()
 
-if (NOT JUPEDSIM_DIR)
+if (NOT JUPEDSIM_CUSTOMDIR)
 #     check if set JuPedSim directory from SUMOLibraries
     if (SUMO_LIBRARIES AND WIN32)
-        file(GLOB JUPEDSIM_DIR_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
-        set(JUPEDSIM_DIR "${JUPEDSIM_DIR_SUMOLIBRARIES}")
+        file(GLOB JUPEDSIM_CUSTOMDIR_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
+        set(JUPEDSIM_CUSTOMDIR "${JUPEDSIM_CUSTOMDIR_SUMOLIBRARIES}")
     else ()
         if (EXISTS "${CMAKE_SOURCE_DIR}/../jupedsim-install")
-            set(JUPEDSIM_DIR "${CMAKE_SOURCE_DIR}/../jupedsim-install")
+            set(JUPEDSIM_CUSTOMDIR "${CMAKE_SOURCE_DIR}/../jupedsim-install")
         endif ()
     endif ()
-    if (JUPEDSIM_DIR)
-        message(STATUS "Using JuPedSim from ${JUPEDSIM_DIR}")
+    if (JUPEDSIM_CUSTOMDIR)
+        message(STATUS "Using JuPedSim from ${JUPEDSIM_CUSTOMDIR}")
     endif ()
 endif ()
 
@@ -317,17 +317,15 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-?.?.??")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
-    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GEOS_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-                                 "${FREETYPE_PATH}/bin/*.dll"
-                                 "${GEOS_PATH}/bin/*.dll"
+#                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
@@ -339,11 +337,6 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
                                  )
-    # check if add JuPedSim dlls
-    if (JUPEDSIM_ENABLE)
-        file(GLOB JUPEDSIM_DLLS "${JUPEDSIM_DIR_SUMOLIBRARIES}/bin/*.dll")
-        list(APPEND SUMO_LIBRARIES_DLL ${JUPEDSIM_DLLS})
-    endif(JUPEDSIM_ENABLE)
     # check if MSVC dll runtimes have to be copied
     if (INSTALL_DLL_RUNTIMES)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
@@ -442,16 +435,13 @@ if (TCMALLOC)
 endif ()
 
 if (CHECK_OPTIONAL_LIBS)
-    if (SUMO_LIBRARIES AND WIN32 AND NOT JUPEDSIM_DIR)
-        set(JUPEDSIM_DIR "${SUMO_LIBRARIES}/JuPedSim")
-    endif ()
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_DIR}/bin/*.dll")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
 
     # GDAL (for geopositioning)
     find_package(GDAL)
@@ -497,14 +487,14 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif (EIGEN3_FOUND)
 
-    find_package(jupedsim CONFIG HINTS ${JUPEDSIM_DIR} QUIET)
+    find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
         find_package(GEOS)
         if (GEOS_FOUND)
             include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
             set(JPS_VERSION "${jupedsim_VERSION_MINOR}0${jupedsim_VERSION_PATCH}")
             set(ENABLED_FEATURES "${ENABLED_FEATURES} JuPedSim")
-            message(STATUS "Found JuPedSim: ${JUPEDSIM_DIR} ${jupedsim_VERSION}")
+            message(STATUS "Found JuPedSim: ${jupedsim_DIR} ${jupedsim_VERSION}")
         else (GEOS_FOUND)
             message(STATUS "Could NOT find GEOS! JuPedSim requires GEOS.")
         endif (GEOS_FOUND)
