@@ -27,9 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEPerson
- */
+
 class GNEPerson : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:

@@ -36,7 +36,8 @@
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+    GNEDemandElementPlan(this),
+    myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,8 +47,9 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElementPlan(this),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 
@@ -56,8 +58,9 @@ GNERide::GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEE
     GNEDemandElement(personParent, net, GLO_RIDE, isTrain ? GNE_TAG_RIDE_TRAINSTOP : GNE_TAG_RIDE_BUSSTOP,
                      GUIIconSubSys::getIcon(isTrain ? GUIIcon::RIDE_TRAINSTOP : GUIIcon::RIDE_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+    GNEDemandElementPlan(this),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
 }
 
 

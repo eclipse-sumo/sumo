@@ -38,6 +38,7 @@
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
@@ -47,6 +48,7 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -54,6 +56,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, isTrain ? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain ? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toAdditional}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -61,6 +64,7 @@ GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -68,15 +72,15 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdg
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {personParent, route}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::WALK_JUNCTIONS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
-    fromJunction, toJunction
-    }, {}, {}, {}, {personParent}, {}),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 
@@ -84,6 +88,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJ
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_TAZS, GUIIconSubSys::getIcon(GUIIcon::WALK_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition) {
 }
 

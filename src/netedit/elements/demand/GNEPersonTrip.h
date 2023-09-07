@@ -19,21 +19,25 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
-// ===========================================================================
-class GNEPersonTrip : public GNEDemandElement, public Parameterised {
+// ====================================================================
+
+class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
 public:
     /// @brief default constructor
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);

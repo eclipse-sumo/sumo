@@ -32,10 +32,6 @@ class GNEUndoList;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElementDistribution
- * @brief Module used for represent attribute distributions
- */
 class GNEDemandElementDistribution {
 
     /// @brief friend declaration

@@ -48,16 +48,13 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElement
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
 class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
     friend class GNEDemandElementFlow;
+    friend class GNEDemandElementPlan;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -351,33 +348,6 @@ protected:
 
     /// @brief get route parent (always the second parent demand element)
     GNEDemandElement* getRouteParent() const;
-
-    /// @name Only for person plans
-    /// @{
-    /// @brief check if person plan can be drawn
-    bool drawPersonPlan() const;
-
-    /// @brief check if container plan can be drawn
-    bool drawContainerPlan() const;
-
-    /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                               const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief check if person plan is valid
-    Problem isPersonPlanValid() const;
-
-    /// @brief get person plan problem
-    std::string getPersonPlanProblem() const;
-
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
-
-    /// @}
 
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;

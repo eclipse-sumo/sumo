@@ -38,6 +38,7 @@
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
@@ -49,6 +50,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes),
@@ -62,6 +64,7 @@ GNEPersonTrip::GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* person
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, isTrain ? GNE_TAG_PERSONTRIP_TRAINSTOP : GNE_TAG_PERSONTRIP_BUSSTOP,
                      GUIIconSubSys::getIcon(isTrain ? GUIIcon::PERSONTRIP_TRAINSTOP : GUIIcon::PERSONTRIP_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toStoppingPlace}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes),
@@ -74,6 +77,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJun
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes),
@@ -86,6 +90,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdd
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_TAZS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
+    GNEDemandElementPlan(this),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes),

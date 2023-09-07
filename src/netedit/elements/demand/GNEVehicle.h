@@ -27,9 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicle
- */
+
 class GNEVehicle : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:

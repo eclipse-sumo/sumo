@@ -27,9 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEContainer
- */
+
 class GNEContainer : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:

@@ -37,9 +37,10 @@
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-                                mySpeed(0),
-                                myDepartPosition(0),
-myArrivalPosition(-1) {
+    GNEDemandElementPlan(this),
+    mySpeed(0),
+    myDepartPosition(0),
+    myArrivalPosition(-1) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,11 +49,11 @@ myArrivalPosition(-1) {
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
-mySpeed(speed),
-myDepartPosition(departPosition),
-myArrivalPosition(arrivalPosition) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
+    GNEDemandElementPlan(this),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -60,9 +61,10 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
-mySpeed(speed),
-myDepartPosition(departPosition),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -70,9 +72,10 @@ GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::ve
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGES),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {containerParent}, {}),
-mySpeed(speed),
-myDepartPosition(departPosition),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this),
+    mySpeed(speed),
+    myDepartPosition(departPosition),
+    myArrivalPosition(arrivalPosition) {
 }
 
 

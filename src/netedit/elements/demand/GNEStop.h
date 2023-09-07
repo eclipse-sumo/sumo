@@ -21,14 +21,13 @@
 #include <config.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStop
- */
-class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
+
+class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
