@@ -39,7 +39,35 @@ class GNEDemandElementPlan {
 
 protected:
     /// @brief constructor
-    GNEDemandElementPlan(const GNEDemandElement* planElement);
+    GNEDemandElementPlan(GNEDemandElement* planElement);
+
+    /// @name attribute functions
+    /// @{
+    /// @brief get plan attribute string
+    std::string getPlanAttribute(SumoXMLAttr key) const;
+
+    /// @brief get plan attribute double
+    double getPlanAttributeDouble(SumoXMLAttr key, const double arrivalPosition) const;
+
+    /// @brief get plan attribute position
+    Position getPlanAttributePosition(SumoXMLAttr key, const double arrivalPosition) const;
+
+    /// @brief set plan attribute
+    void setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /// @brief check if plan attribute is valid
+    bool isPlanValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief check if plan attribute is enabled
+    bool isPlanAttributeEnabled(SumoXMLAttr key) const;
+
+    /// @brief get plan Hierarchy Name (Used in AC Hierarchy)
+    std::string getPlanHierarchyName() const;
+    
+    /// @}
+
+    /// @name draw functions
+    /// @{
 
     /// @brief check if person plan can be drawn
     bool drawPersonPlan() const;
@@ -55,6 +83,8 @@ protected:
     void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
+    /// @}
+
     /// @brief check if person plan is valid
     GNEDemandElement::Problem isPersonPlanValid() const;
 
@@ -67,7 +97,7 @@ protected:
 
 private:
     /// @brief pointer to plan element
-    const GNEDemandElement* myPlanElement;
+    GNEDemandElement* myPlanElement;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementPlan(const GNEDemandElementPlan&) = delete;

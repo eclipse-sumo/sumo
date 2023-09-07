@@ -453,22 +453,6 @@ GNEDemandElement::getRouteParent() const {
 }
 
 
-const Position
-GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
-    if (myTagProperty.isStopPerson()) {
-        return getPositionInView();
-    } else {
-        // get first lane
-        const GNELane* firstLane = myNet->getPathManager()->getFirstLane(this);
-        if (firstLane) {
-            return firstLane->getLaneShape().positionAtOffset2D(pedestrianDepartPos);
-        } else {
-            return Position(0, 0);
-        }
-    }
-}
-
-
 std::vector<GNEDemandElement*>
 GNEDemandElement::getInvalidStops() const {
     if (myTagProperty.isStop() || myTagProperty.isWaypoint()) {

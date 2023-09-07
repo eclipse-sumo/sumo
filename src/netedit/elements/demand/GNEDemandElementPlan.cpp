@@ -18,11 +18,14 @@
 // An auxiliar, asbtract class for plan elements
 /****************************************************************************/
 
-#include <utils/gui/div/GLHelper.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEDemandElementPlan.h"
+#include "GNERoute.h"
 
 // ===========================================================================
 // static definitions
@@ -34,8 +37,313 @@ const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_co
 // GNEDemandElement method definitions
 // ===========================================================================
 
-GNEDemandElementPlan::GNEDemandElementPlan(const GNEDemandElement* planElement) :
+GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement) :
     myPlanElement(planElement) {
+}
+
+
+std::string
+GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        // Common person plan attributes
+        case SUMO_ATTR_ID:
+        case GNE_ATTR_PARENT:
+            return myPlanElement->getParentDemandElements().front()->getID();
+        // edges
+        case SUMO_ATTR_FROM:
+            /*****/
+            if (myPlanElement->myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+                return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getID();
+            } else {
+                return myPlanElement->getParentEdges().front()->getID();
+            }
+        case SUMO_ATTR_TO:
+            /*****/
+            if (myPlanElement->myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+                return myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getID();
+            } else {
+                return myPlanElement->getParentEdges().back()->getID();
+            }
+        case SUMO_ATTR_EDGES:
+            return myPlanElement->parseIDs(myPlanElement->getParentEdges());
+        // junctions
+        case SUMO_ATTR_FROMJUNCTION:
+            return myPlanElement->getParentJunctions().front()->getID();
+        case SUMO_ATTR_TOJUNCTION:
+            return myPlanElement->getParentJunctions().back()->getID();
+        // additionals
+        case SUMO_ATTR_FROM_TAZ:
+            return myPlanElement->getParentAdditionals().front()->getID();
+            return myPlanElement->getParentAdditionals().back()->getID();
+        case GNE_ATTR_TO_BUSSTOP:
+        case GNE_ATTR_TO_TRAINSTOP:
+        case SUMO_ATTR_TO_TAZ:
+            return myPlanElement->getParentAdditionals().back()->getID();
+        // route
+        case SUMO_ATTR_ROUTE:
+            return myPlanElement->getParentDemandElements().at(1)->getID();
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+double
+GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key, const double arrivalPosition) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS:
+            if (myPlanElement->getParentJunctions().size() > 0) {
+                return 0;
+            } else if (arrivalPosition != -1) {
+                return arrivalPosition;
+            } else {
+                return (myPlanElement->getLastPathLane()->getLaneShape().length() - POSITION_EPS);
+            }
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
+    }
+}
+
+
+Position
+GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key, const double arrivalPosition) const {
+    switch (key) {
+        case SUMO_ATTR_ARRIVALPOS: {
+            if (myPlanElement->getParentJunctions().size() > 0) {
+                return myPlanElement->getParentJunctions().back()->getPositionInView();
+            } else {
+                // get lane shape
+                const PositionVector& laneShape = myPlanElement->getLastPathLane()->getLaneShape();
+                // continue depending of arrival position
+                if (arrivalPosition == 0) {
+                    return laneShape.front();
+                } else if ((arrivalPosition == -1) || (arrivalPosition >= laneShape.length2D())) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(arrivalPosition);
+                }
+            }
+        }
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void
+GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    // declare plan parent
+    const auto planParent = myPlanElement->getParentDemandElements().at(0);
+    // declare ACs
+    const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
+    // continue depending of key
+    switch (key) {
+        // parent
+        case GNE_ATTR_PARENT:
+            GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            break;
+        // from attributes
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_TAZ:
+            // plans placed over routes cannot change their from attribute
+            if (!myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            }
+
+/// CHECK IF MODIFY TO ATTRIBUTE OF PREVIOUS PERSON PLAN
+
+            break;
+        // to attributes
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_TAZ: {
+            // plans placed over routes cannot change their to attribute
+            if (!myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+                // get next personPlan
+                auto nextPersonPlan = planParent->getNextChildDemandElement(myPlanElement);
+                // check if change to attribute of this plan and from attribute of the next plan
+                if (nextPersonPlan) {
+                    undoList->begin(myPlanElement, "Change from attribute of next personPlan");
+                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
+                    GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                    undoList->end();
+                } else {
+                    GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                }
+            }
+            break;
+        }
+        case GNE_ATTR_TO_BUSSTOP: {
+            // get next person plan
+            auto nextPersonPlan = planParent->getNextChildDemandElement(myPlanElement);
+            // check if change to attribute of this plan and from attribute of the next plan
+            if (nextPersonPlan) {
+                // obtain busStop
+                const GNEAdditional* busStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
+                // change from attribute using edge ID
+                undoList->begin(myPlanElement, "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                undoList->end();
+            } else {
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            }
+            break;
+        }
+        case GNE_ATTR_TO_TRAINSTOP: {
+            // get next person plan
+            auto nextPersonPlan = planParent->getNextChildDemandElement(myPlanElement);
+            // check if change to attribute of this plan and from attribute of the next plan
+            if (nextPersonPlan) {
+                // obtain trainStop
+                const GNEAdditional* trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
+                // change from attribute using edge ID
+                undoList->begin(myPlanElement, "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, trainStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                undoList->end();
+            } else {
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            }
+            break;
+        }
+        case SUMO_ATTR_EDGES: {
+            // get next person plan
+            auto nextPersonPlan = planParent->getNextChildDemandElement(myPlanElement);
+            // check if change to attribute of this plan and from attribute of the next plan
+            if (nextPersonPlan) {
+                // obtain edges
+                const auto edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myPlanElement->getNet(), value);
+                // change from attribute using edge ID
+                undoList->begin(myPlanElement, "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, edges.back()->getID(), undoList);
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                undoList->end();
+            } else {
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            }
+            break;
+        }
+        case SUMO_ATTR_ROUTE: {
+            // get next person plan
+            auto nextPersonPlan = planParent->getNextChildDemandElement(myPlanElement);
+            // check if change to attribute of this plan and from attribute of the next plan
+            if (nextPersonPlan) {
+                // obtain route
+                const GNEDemandElement* route = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+                // change from attribute using edge ID
+                undoList->begin(myPlanElement, "Change from attribute of next personPlan");
+                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, route->getParentEdges().back()->getID(), undoList);
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+                undoList->end();
+            } else {
+                GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
+            }
+            break;
+        }
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
+    // declare ACs
+    const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
+    // continue depending of key
+    switch (key) {
+        // parent
+        case GNE_ATTR_PARENT:
+///// CHECK FOR CONTAINERS
+
+            if (ACs->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
+                return true;
+            } else if (ACs->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
+                return true;
+            } else {
+                return false;
+            }
+        // edges
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+            if (!myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+                return (ACs->retrieveEdge(value, false) != nullptr);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_EDGES:
+            if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myPlanElement->getNet(), value, false)) {
+                // all edges exist, then check if compounds a valid route
+                return GNERoute::isRouteValid(GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myPlanElement->getNet(), value)).empty();
+            } else {
+                return false;
+            }
+        // junctions
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_TOJUNCTION:
+            return (ACs->retrieveJunction(value, false) != nullptr);
+        // TAZs
+        case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_TO_TAZ:
+            return (ACs->retrieveAdditional(SUMO_TAG_TAZ, value, false) != nullptr);
+        // busStop
+        case GNE_ATTR_TO_BUSSTOP:
+            return (ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        // trainStop
+        case GNE_ATTR_TO_TRAINSTOP:
+            return (ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value, false) != nullptr);
+        // route
+        case SUMO_ATTR_ROUTE:
+            return (ACs->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_TAZ:
+            return (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr);
+        default:
+            return true;
+    }
+}
+
+
+std::string
+GNEDemandElementPlan::getPlanHierarchyName() const {
+    // get tag property
+    const auto tagProperty = myPlanElement->getTagProperty();
+    // declare tagStr
+    const auto tagStr = myPlanElement->getTagStr() + ": ";
+    // continue depending of attributes
+    if (tagProperty.hasAttribute(SUMO_ATTR_EDGES)) {
+        // edges
+        return tagStr + myPlanElement->getParentEdges().front()->getID() + " ... " + myPlanElement->getParentEdges().back()->getID();
+    } else if (tagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
+        // route
+        return tagStr + myPlanElement->getParentDemandElements().at(1)->getID();
+    } else if (myPlanElement->getParentEdges().size() == 2) {
+        // edge -> edge
+        return tagStr + myPlanElement->getParentEdges().front()->getID() + " -> " + myPlanElement->getParentEdges().back()->getID();
+    } else if (myPlanElement->getParentJunctions().size() == 2) {
+        // junction -> Junction
+        return tagStr + myPlanElement->getParentJunctions().front()->getID() + " -> " + myPlanElement->getParentJunctions().back()->getID();
+    } else if (myPlanElement->getParentAdditionals().size() == 2) {
+        // additional -> additional
+        return tagStr + myPlanElement->getParentAdditionals().front()->getID() + " -> " + myPlanElement->getParentAdditionals().back()->getID();
+    } else if ((myPlanElement->getParentEdges().size() == 1) && (myPlanElement->getParentAdditionals().size() == 1)) {
+        // edge -> additional
+        return tagStr + myPlanElement->getParentJunctions().front()->getID() + " -> " + myPlanElement->getParentJunctions().back()->getID();
+    } else {
+        throw ProcessError("Invalid plan configuration");
+    }
 }
 
 
