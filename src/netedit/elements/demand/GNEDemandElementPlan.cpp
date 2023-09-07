@@ -613,8 +613,70 @@ GNEDemandElementPlan::drawContainerPlan() const {
 
 
 void
-GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                                        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
+GNEDemandElementPlan::drawPlanGL(const GUIVisualizationSettings& s, const RGBColor& planColor) const {
+    // draw TAZRels
+    if (myPlanElement->getParentAdditionals().size() == 2) {
+        // get viewNet
+        auto viewNet = myPlanElement->getNet()->getViewNet();
+        // get geometry
+        auto &geometry = myPlanElement->myDemandElementGeometry;
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
+        }
+        // push GL ID
+        GLHelper::pushName(myPlanElement->getGlID());
+        // push matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, GLO_TAZ + 1);
+        GLHelper::setColor(planColor);
+        // draw line
+        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), geometry, 0.5);
+        GLHelper::drawTriangleAtEnd(
+            *(geometry.getShape().end() - 2),
+            *(geometry.getShape().end() - 1),
+            0.5, 0.5, 0.5);
+        // pop matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
+        // inspect contour
+        if (viewNet->isAttributeCarrierInspected(myPlanElement)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, geometry.getShape(), 0.5, 1, true, true);
+        }
+        // front contour
+        if (viewNet->getFrontAttributeCarrier() == myPlanElement) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, geometry.getShape(), 0.5, 1, true, true);
+        }
+        // delete contour
+        if (viewNet->drawDeleteContour(myPlanElement, myPlanElement)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, geometry.getShape(), 0.5, 1, true, true);
+        }
+        // select contour
+        if (viewNet->drawSelectContour(myPlanElement, myPlanElement)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, geometry.getShape(), 0.5, 1, true, true);
+        }
+        // check if draw person parent
+        const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
+        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == myPlanElement)) {
+            personParent->drawGL(s);
+        }
+    } else if (myPlanElement->getParentJunctions().size() > 0) {
+        // check if draw person parent
+        const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
+        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == myPlanElement)) {
+            personParent->drawGL(s);
+        }
+    }
+    // force draw path
+    myPlanElement->getNet()->getPathManager()->forceDrawPath(s, myPlanElement);
+}
+
+
+void
+GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+                                        const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get inspected and front flags
@@ -622,7 +684,7 @@ GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisual
     // get person parent
     const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if ((personPlanColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
+    if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -650,7 +712,7 @@ GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisual
             personPlanGeometry = lane->getLaneGeometry();
         }
         // get color
-        const RGBColor& pathColor = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+        const RGBColor& pathColor = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : planColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(myPlanElement->getGlID());
         // Add a draw matrix
@@ -756,14 +818,14 @@ GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisual
 
 
 void
-GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
-                                        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
+GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
+                                        const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get inspected and front flags
     const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw person plan elements can be drawn
-    if ((personPlanColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
+    if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get person parent
@@ -775,7 +837,7 @@ GNEDemandElementPlan::drawPersonPlanPartial(const bool drawPlan, const GUIVisual
         // calculate path width
         const double pathWidth = s.addSize.getExaggeration(s, fromLane) * personPlanWidth * (duplicateWidth ? 2 : 1);
         // get color
-        const RGBColor& color = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+        const RGBColor& color = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : planColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(myPlanElement->getGlID());
         // push a draw matrix

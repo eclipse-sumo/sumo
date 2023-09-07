@@ -139,6 +139,12 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 }
 
 
+const GUIGeometry&
+GNEDemandElement::getDemandElementGeometry() const {
+    return myDemandElementGeometry;
+}
+
+
 void
 GNEDemandElement::openDemandElementDialog() {
     throw InvalidArgument(getTagStr() + " doesn't have a demand element dialog");

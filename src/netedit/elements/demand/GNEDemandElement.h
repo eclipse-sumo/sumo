@@ -183,6 +183,9 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+    
+    /// @brief get demand element geometry
+    const GUIGeometry &getDemandElementGeometry() const;
     /// @}
 
     /// @name inherited from GUIGlObject

@@ -546,7 +546,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             } else if (personPlan->getParentJunctions().size() > 0) {
                 return personPlan->getParentJunctions().front()->getPositionInView();
             } else if (personPlan->getParentAdditionals().size() == 2) {
-                return personPlan->getParentAdditionals().front()->getPositionInView();
+                return personPlan->getDemandElementGeometry().getShape().front();
             } else {
                 // declare lane lane
                 GNELane* lane = nullptr;

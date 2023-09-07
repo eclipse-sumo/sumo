@@ -81,7 +81,7 @@ protected:
     
     /// @}
 
-    /// @name draw functions
+    /// @name drawing functions
     /// @{
 
     /// @brief check if person plan can be drawn
@@ -90,13 +90,16 @@ protected:
     /// @brief check if container plan can be drawn
     bool drawContainerPlan() const;
 
+    /// @brief draw plan
+    void drawPlanGL(const GUIVisualizationSettings& s, const RGBColor& planColor) const;
+
     /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                               const double personPlanWidth, const RGBColor& personPlanColor) const;
+    void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
+                         const double personPlanWidth, const RGBColor& planColor) const;
 
     /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
+    void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
+                         const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const;
 
     /// @}
 

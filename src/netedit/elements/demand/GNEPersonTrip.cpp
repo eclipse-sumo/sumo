@@ -255,16 +255,7 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
-    // force draw path
-    myNet->getPathManager()->forceDrawPath(s, this);
-    // special case for junction walks
-    if ((getParentJunctions().size() > 0) || (getParentAdditionals().size() > 1)) {
-        // get person parent
-        const GNEDemandElement* personParent = getParentDemandElements().front();
-        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == this)) {
-            personParent->drawGL(s);
-        }
-    }
+    drawPlanGL(s, s.colorSettings.personTripColor);
 }
 
 
@@ -296,14 +287,14 @@ GNEPersonTrip::computePathElement() {
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over lane
-    drawPersonPlanPartial(drawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
+    drawPlanPartial(drawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
 }
 
 
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw person plan over junction
-    drawPersonPlanPartial(drawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
+    drawPlanPartial(drawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
 }
 
 
