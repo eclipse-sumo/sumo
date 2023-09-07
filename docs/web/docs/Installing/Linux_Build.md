@@ -335,7 +335,7 @@ Outside the repository directory, but at the same level, create two directories 
 
 ``` bash
 cd jps-build
-cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install -DBUILD_JPSVIS=OFF ..
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
 cmake --build .
 cmake --install .
 ```
