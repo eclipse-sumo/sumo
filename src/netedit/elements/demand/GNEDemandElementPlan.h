@@ -56,7 +56,7 @@ protected:
     void setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /// @brief check if plan attribute is valid
-    bool isPlanValid(SumoXMLAttr key, const std::string& value);
+    bool isPlanValid(SumoXMLAttr key, const std::string& value, const std::vector<SumoXMLTag> parentTags);
 
     /// @brief check if plan attribute is enabled
     bool isPlanAttributeEnabled(SumoXMLAttr key) const;

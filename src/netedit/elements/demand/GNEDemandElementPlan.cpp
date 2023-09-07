@@ -44,23 +44,26 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement) :
 
 std::string
 GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
+    // declare plan parent
+    const auto planParent = myPlanElement->getParentDemandElements().at(0);
+    // declare route parent
+    const auto routeParent = myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)? myPlanElement->getParentDemandElements().at(1) : nullptr;
+    // continue depending of key
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_ID:
         case GNE_ATTR_PARENT:
-            return myPlanElement->getParentDemandElements().front()->getID();
+            return planParent->getID();
         // edges
         case SUMO_ATTR_FROM:
-            /*****/
-            if (myPlanElement->myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-                return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getID();
+            if (routeParent) {
+                return routeParent->getParentEdges().front()->getID();
             } else {
                 return myPlanElement->getParentEdges().front()->getID();
             }
         case SUMO_ATTR_TO:
-            /*****/
-            if (myPlanElement->myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-                return myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getID();
+            if (routeParent) {
+                return routeParent->getParentEdges().back()->getID();
             } else {
                 return myPlanElement->getParentEdges().back()->getID();
             }
@@ -74,14 +77,13 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         // additionals
         case SUMO_ATTR_FROM_TAZ:
             return myPlanElement->getParentAdditionals().front()->getID();
-            return myPlanElement->getParentAdditionals().back()->getID();
         case GNE_ATTR_TO_BUSSTOP:
         case GNE_ATTR_TO_TRAINSTOP:
         case SUMO_ATTR_TO_TAZ:
             return myPlanElement->getParentAdditionals().back()->getID();
         // route
         case SUMO_ATTR_ROUTE:
-            return myPlanElement->getParentDemandElements().at(1)->getID();
+            return routeParent->getID();
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -249,22 +251,20 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
 
 
 bool
-GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
+GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, const std::vector<SumoXMLTag> parentTags) {
     // declare ACs
     const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
     switch (key) {
         // parent
         case GNE_ATTR_PARENT:
-///// CHECK FOR CONTAINERS
-
-            if (ACs->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
-                return true;
-            } else if (ACs->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
+            // check all parents
+            for (const auto &tag : parentTags) {
+                if (ACs->retrieveDemandElement(tag, value, false) != nullptr) {
+                    return true;
+                }
             }
+            return false;
         // edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
@@ -340,7 +340,7 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
         return tagStr + myPlanElement->getParentAdditionals().front()->getID() + " -> " + myPlanElement->getParentAdditionals().back()->getID();
     } else if ((myPlanElement->getParentEdges().size() == 1) && (myPlanElement->getParentAdditionals().size() == 1)) {
         // edge -> additional
-        return tagStr + myPlanElement->getParentJunctions().front()->getID() + " -> " + myPlanElement->getParentJunctions().back()->getID();
+        return tagStr + myPlanElement->getParentEdges().front()->getID() + " -> " + myPlanElement->getParentAdditionals().back()->getID();
     } else {
         throw ProcessError("Invalid plan configuration");
     }
