@@ -72,7 +72,6 @@ jobs:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
         path: jupedsim
-        fetch-depth: 0
 
     - name: Building libjupedsim
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'

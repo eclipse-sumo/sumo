@@ -16,46 +16,53 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'DLR-TS/sumo'
     runs-on: windows-latest
+    strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false
+      matrix:
+        jps_version: ['v0.10.0', 'master']
 
     steps:
-    - name: Cloning jpscore
+    - name: Cloning jupedsim
       uses: actions/checkout@v3
       with:
         repository: PedestrianDynamics/jupedsim
-        path: jpscore
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
 
-    - name: Building jpscore
+    - name: Building jupedsim
       shell: cmd
       run: |
-        mkdir jpscore-build
-        mkdir jpscore-install
-        cd jpscore-build
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        mkdir jupedsim-build
+        mkdir jupedsim-install
+        cd jupedsim-build
+        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install ../jupedsim
         cmake --build . -j4 --config Release
         cmake --install . --config Release
 
     - name: Uploading release artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: jpscore-release
-        path: jpscore-install
+        name: jupedsim-release
+        path: jupedsim-install
 
-    - name: Building jpscore debug
+    - name: Building jupedsim debug
       shell: cmd
       run: |
-        mkdir jpscore-build-debug
-        mkdir jpscore-install-debug
-        cd jpscore-build-debug
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
+        mkdir jupedsim-build-debug
+        mkdir jupedsim-install-debug
+        cd jupedsim-build-debug
+        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install-debug ../jupedsim
         cmake --build . -j4 --config Debug
         cmake --install . --config Debug
 
     - name: Uploading debug artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: jpscore-debug
-        path: jpscore-install-debug
+        name: jupedsim-debug
+        path: jupedsim-install-debug
 
     - name: Cloning SUMO
       uses: actions/checkout@v3
@@ -80,12 +87,11 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DJUPEDSIM_ENABLE=ON -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
+        cmake -DJUPEDSIM_CUSTOMDIR=%CD%/../../jupedsim-install ..
         cmake --build . -j4 --config Release
 
     - name: Building Examples and Tests
       run: |
-        $env:PATH += ";$pwd\jpscore-deps\x64-windows\bin"
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         $env:TEXTTEST_CI_APPS = "-a sumo.extra"
