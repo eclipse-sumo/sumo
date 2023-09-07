@@ -47,7 +47,8 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to walkEdgeEdge mode
 netedit.changePersonPlanMode("walk: edge")
@@ -62,7 +63,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete walkEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planEdge.x, netedit.positions.demandElements.planEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planEdge.x,
+                  netedit.positions.demandElements.planEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

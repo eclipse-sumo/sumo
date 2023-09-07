@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
+                  netedit.positions.demandElements.stopEdge.y)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.waypointLane.inspect.friendlyPos, True)

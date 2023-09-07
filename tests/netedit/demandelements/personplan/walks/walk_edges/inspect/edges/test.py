@@ -47,7 +47,8 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to walkEdgeEdge mode
 netedit.changePersonPlanMode("walk: edges")
@@ -63,7 +64,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect walkEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkEdges.inspect.edges, "dummy", False)

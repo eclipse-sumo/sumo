@@ -44,7 +44,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personStopEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x, netedit.positions.demandElements.stopPerson.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x,
+                  netedit.positions.demandElements.stopPerson.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.actType, "singing", False)

@@ -41,37 +41,43 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
+                  netedit.positions.demandElements.parkingArea.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 1, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
+                  1, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.duration, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 2, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
+                  2, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.duration, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 3, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
+                  3, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.duration, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 4, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
+                  4, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParking.create.duration, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x + 5, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
+                  5, netedit.positions.demandElements.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

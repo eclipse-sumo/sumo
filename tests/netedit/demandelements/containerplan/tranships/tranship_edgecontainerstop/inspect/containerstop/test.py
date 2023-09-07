@@ -59,7 +59,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
+                  netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.to, "dummy", False)

@@ -51,7 +51,8 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("stopContainer: containerStop")
 
 # create containerStopContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultBoolValue(netedit.attrs.containerStopContainerStop.create.durationEnable)

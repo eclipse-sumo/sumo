@@ -41,25 +41,29 @@ netedit.changeStopType("stopContainerStop")
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.triggered, "person")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x + 1, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  1, netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x + 2, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  2, netedit.positions.demandElements.containerStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.expected, "personID1 personID2 personID3")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x + 3, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  3, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

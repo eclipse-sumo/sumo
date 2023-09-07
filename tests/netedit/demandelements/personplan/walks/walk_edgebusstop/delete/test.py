@@ -47,7 +47,8 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to person plan mode
 netedit.changePersonPlanMode("walk: busStop")
@@ -62,7 +63,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x, netedit.positions.demandElements.planBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x,
+                  netedit.positions.demandElements.planBusStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

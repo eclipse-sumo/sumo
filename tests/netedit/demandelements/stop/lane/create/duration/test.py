@@ -41,31 +41,36 @@ netedit.changeStopType("stopLane")
 netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 10, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  10, netedit.positions.demandElements.edge2.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopLane.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 8, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  8, netedit.positions.demandElements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 6, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  6, netedit.positions.demandElements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 4, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  4, netedit.positions.demandElements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 2, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  2, netedit.positions.demandElements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.duration, "22.33")

@@ -41,25 +41,29 @@ netedit.changeStopType("waypointLane")
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.speed, "dummyLane")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 10, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  10, netedit.positions.demandElements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.speed, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 8, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  8, netedit.positions.demandElements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.speed, "-7")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 6, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  6, netedit.positions.demandElements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.speed, "4.2")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x + 4, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
+                  4, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -51,19 +51,22 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("stopContainer: containerStop")
 
 # create containerStopContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.actType, "dummy")
 
 # create containerStopContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.actType, "singing")
 
 # create containerStopContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

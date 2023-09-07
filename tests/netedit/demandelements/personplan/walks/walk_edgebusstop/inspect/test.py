@@ -47,13 +47,15 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to person plan mode
 netedit.changePersonPlanMode("walk: busStop")
 
 # create walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x, netedit.positions.demandElements.planBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x,
+                  netedit.positions.demandElements.planBusStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -62,7 +64,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x, netedit.positions.demandElements.planBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x,
+                  netedit.positions.demandElements.planBusStop.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkEdgeBusStop.inspect.to, "dummy", False)

@@ -47,13 +47,15 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to walkJunctions mode
 netedit.changePersonPlanMode("walk: junctions")
 
 # create walkJunctions
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -62,7 +64,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete personTripJunctions
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planJunction.x, netedit.positions.demandElements.planJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planJunction.x,
+                  netedit.positions.demandElements.planJunction.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

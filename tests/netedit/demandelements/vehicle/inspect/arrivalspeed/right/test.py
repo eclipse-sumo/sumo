@@ -55,7 +55,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x,
+                  netedit.positions.demandElements.singleVehicleEdge.y)
 
 # change arrivalPosLat with an invalid value
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.arrivalPosLat, "", True)

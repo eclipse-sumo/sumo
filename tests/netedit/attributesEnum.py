@@ -733,7 +733,7 @@ class containerStop:
     class inspect:
         id = 1
         lane = 2
-        moveLane = 3        
+        moveLane = 3
         startPos = 4
         endPos = 5
         name = 6
@@ -785,7 +785,7 @@ class chargingStation:
         chargeInTransit = 10
         chargeDelay = 11
         chargeType = 12
-        waitingTime = 14 
+        waitingTime = 14
         parameters = 17
 
     class inspectSelection:
@@ -796,7 +796,7 @@ class chargingStation:
         chargeInTrainsit = 5
         chargeDelay = 6
         chargeType = 7
-        waitingTime = 9         
+        waitingTime = 9
         parameters = 12
 
 # access
@@ -1144,7 +1144,7 @@ class calibrator:
         output = 8
         jamTreshold = 9
         vTypes = 10
-        parameters = 13        
+        parameters = 13
 
     class inspectSelection:
         pos = 1
@@ -2236,7 +2236,7 @@ class flowJunction:
         routeFlowEmbedded = 4
         trip = 5
         flow = 6
-    
+
     class reverse:
         current = 1
         add = 2
@@ -2326,7 +2326,7 @@ class flowTAZ:
 
     class transform:
         trip = 1
-    
+
     class reverse:
         current = 1
         add = 2
