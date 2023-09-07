@@ -268,7 +268,7 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 const std::string typeID = st.next();
                 const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(typeID);
                 if (dist != nullptr) {
-                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    const double distProb = ((int)probs.size() > probIndex ? probs[probIndex] : 1.) / dist->getOverallProb();
                     std::vector<double>::const_iterator probIt = dist->getProbs().begin();
                     for (SUMOVTypeParameter* const type : dist->getVals()) {
                         myCurrentVTypeDistribution->add(type, distProb * *probIt);

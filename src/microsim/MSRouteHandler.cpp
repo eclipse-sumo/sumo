@@ -235,7 +235,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 const std::string& vtypeID = st.next();
                 const RandomDistributor<MSVehicleType*>* const dist = MSNet::getInstance()->getVehicleControl().getVTypeDistribution(vtypeID);
                 if (dist != nullptr) {
-                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    const double distProb = ((int)probs.size() > probIndex ? probs[probIndex] : 1.) / dist->getOverallProb();
                     std::vector<double>::const_iterator probIt = dist->getProbs().begin();
                     for (MSVehicleType* const type : dist->getVals()) {
                         myCurrentVTypeDistribution->add(type, distProb * *probIt);
