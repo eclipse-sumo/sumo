@@ -254,6 +254,10 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
     const auto& color = setColor(s);
     // draw TAZRels
     if ((color.alpha() != 0) && drawTAZRel()) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // push name (needed for getGUIGlObjectsUnderCursor(...)
