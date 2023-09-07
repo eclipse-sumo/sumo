@@ -968,16 +968,6 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
-RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
 RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::vector<ROPerson::PlanItem*>& plan = *myActivePlan;

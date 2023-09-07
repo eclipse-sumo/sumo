@@ -191,10 +191,10 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
             case SUMO_TAG_PERSONFLOW:
-                addPerson(attrs);
+                addTransportable(attrs, true);
                 break;
             case SUMO_TAG_CONTAINERFLOW:
-                addContainer(attrs);
+                addTransportable(attrs, false);
                 break;
             case SUMO_TAG_FLOW:
                 if (myVehicleParameter) {
@@ -1588,33 +1588,18 @@ MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, 
     return pos;
 }
 
-void
-MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
-    myActiveType = ObjectTypeEnum::PERSON;
-    checkTransportableType();
-    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
-}
-
 
 void
-MSRouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
-    myActiveType = ObjectTypeEnum::CONTAINER;
-    checkTransportableType();
-    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
-}
-
-void
-MSRouteHandler::checkTransportableType() {
-    try {
-        if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
-            const std::string error = "The type '" + myVehicleParameter->vtypeid + "' for " + myActiveTypeName + " '" + myVehicleParameter->id + "' is not known.";
-            throw ProcessError(error);
-        }
-    } catch (ProcessError&) {
+MSRouteHandler::addTransportable(const SUMOSAXAttributes& /*attrs*/, const bool isPerson) {
+    myActiveType = isPerson ? ObjectTypeEnum::PERSON : ObjectTypeEnum::CONTAINER;
+    if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
+        const std::string error = TLF("The type '%' for % '%' is not known.", myVehicleParameter->vtypeid, myActiveTypeName, myVehicleParameter->id);
         deleteActivePlanAndVehicleParameter();
-        throw;
+        throw ProcessError(error);
     }
+    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
 }
+
 
 void
 MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {

@@ -91,13 +91,7 @@ public:
     void addWalk(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
-    void addPerson(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
     void addRide(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
-    void addContainer(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
     void addTransport(const SUMOSAXAttributes& attrs) {
