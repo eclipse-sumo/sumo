@@ -23,7 +23,6 @@
 /****************************************************************************/
 
 #include <algorithm>
-#include <unordered_set>
 #include <fstream>
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
@@ -360,7 +359,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     for (const auto& junctionWithID : network->getJunctionControl()) {
         const MSJunction* const junction = junctionWithID.second;
         const ConstMSEdgeVector& incoming = junction->getIncoming();
-        std::unordered_set<const MSEdge*> adjacent(incoming.begin(), incoming.end());
+        std::set<const MSEdge*> adjacent(incoming.begin(), incoming.end());
         const ConstMSEdgeVector& outgoing = junction->getOutgoing();
         adjacent.insert(outgoing.begin(), outgoing.end());
 
