@@ -222,25 +222,21 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
 
 ## How to build JuPedSim and then build SUMO with JuPedSim
 
-In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim. First of all, clone the JuPedSim repository:
+In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim, in case the release version of JuPedSim that comes with SUMO isn't sufficient for your needs. You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter proposes a similar procedure. First of all, clone the JuPedSim repository:
 
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
 
-Inside the repository directory, create two directories `jps-build` and `jps-install` (for instance), then type:
+Outside the repository directory, but at the same level, create two directories `jupedsim-build` and `jupedsim-install` (for instance), then type:
 
 ``` bash
 cd jps-build
-cmake -DCMAKE_INSTALL_PREFIX=../jps-install -DBUILD_JPSVIS=OFF ..
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install -DBUILD_JPSVIS=OFF ..
 cmake --build . --config Release
 cmake --install . --config Release
 ```
 
-You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows but with the configuration step of CMake changed to pass to CMake the directory where JuPedSim has been installed:
-
-``` bash
-cmake -DJUPEDSIM_DIR=../../jupedsim/jps-install ..
-```
+You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_DIR` when calling CMake.
 
 For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md/#jupedsim).
