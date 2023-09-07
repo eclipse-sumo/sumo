@@ -394,7 +394,7 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
         default:
-            return isPlanValid(key, value, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+            return isPlanValid(key, value);
     }
 }
 
@@ -429,51 +429,6 @@ GNEPersonTrip::getACParametersMap() const {
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        // Common person plan attributes
-        case SUMO_ATTR_FROM:
-            // change first edge
-            replaceFirstParentEdge(value);
-            // compute person trip
-            computePathElement();
-            break;
-        case SUMO_ATTR_TO:
-            // change last edge
-            replaceLastParentEdge(value);
-            // compute person trip
-            computePathElement();
-            break;
-        case GNE_ATTR_TO_BUSSTOP:
-            replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
-            // compute person trip
-            computePathElement();
-            break;
-        case GNE_ATTR_TO_TRAINSTOP:
-            replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
-            // compute person trip
-            computePathElement();
-            break;
-        case SUMO_ATTR_FROM_JUNCTION:
-            // change first junction
-            replaceFirstParentJunction(value);
-            // compute person trip
-            computePathElement();
-            break;
-        case SUMO_ATTR_TO_JUNCTION:
-            // change last junction
-            replaceLastParentJunction(value);
-            // compute person trip
-            computePathElement();
-            break;
-        case SUMO_ATTR_FROM_TAZ:
-            replaceFirstParentAdditional(SUMO_TAG_TAG, value);
-            // compute person trip
-            computePathElement();
-            break;
-        case SUMO_ATTR_TO_TAZ:
-            replaceLastParentAdditional(SUMO_TAG_TAG, value);
-            // compute person trip
-            computePathElement();
-            break;
         // specific person plan attributes
         case SUMO_ATTR_MODES:
             myModes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
@@ -481,34 +436,12 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VTYPES:
             myVTypes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
-        case SUMO_ATTR_ARRIVALPOS:
-            if (value.empty()) {
-                myArrivalPosition = -1;
-            } else {
-                myArrivalPosition = parse<double>(value);
-            }
-            updateGeometry();
-            break;
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
-            break;
-        case GNE_ATTR_PARENT:
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
-                replaceDemandElementParent(SUMO_TAG_PERSON, value, 0);
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
-                replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
-            }
-            updateGeometry();
-            break;
         default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            setPlanAttribute(key, value);
+            break;
     }
 }
 

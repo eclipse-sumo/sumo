@@ -56,10 +56,13 @@ protected:
     void setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /// @brief check if plan attribute is valid
-    bool isPlanValid(SumoXMLAttr key, const std::string& value, const std::vector<SumoXMLTag> parentTags);
+    bool isPlanValid(SumoXMLAttr key, const std::string& value);
 
     /// @brief check if plan attribute is enabled
     bool isPlanAttributeEnabled(SumoXMLAttr key) const;
+
+    /// @brief set plan attribute (intern)
+    void setPlanAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief get plan Hierarchy Name (Used in AC Hierarchy)
     std::string getPlanHierarchyName() const;

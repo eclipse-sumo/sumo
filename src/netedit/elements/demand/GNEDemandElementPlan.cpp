@@ -38,18 +38,15 @@ const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_co
 // ===========================================================================
 
 GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition) :
-    myPlanElement(planElement),
-    myArrivalPosition(arrivalPosition) {
+    myArrivalPosition(arrivalPosition),
+    myPlanElement(planElement) {
 }
 
 
 std::string
 GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
-    // declare route parent
-    GNEDemandElement *routeParent = nullptr;
-    if (myPlanElement->getParentDemandElements().size() > 1 && myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
-        routeParent = myPlanElement->getParentDemandElements().at(1);
-    }
+    // get route parent
+    const auto routeParent = !myPlanElement->isTemplate() && myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)? myPlanElement->getParentDemandElements().at(1) : nullptr;
     // continue depending of key
     switch (key) {
         // Common person plan attributes
@@ -257,7 +254,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
 
 
 bool
-GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, const std::vector<SumoXMLTag> parentTags) {
+GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
     // declare ACs
     const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
@@ -265,8 +262,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, con
         // common attributes
         case GNE_ATTR_PARENT:
             // check all parents
-            for (const auto &tag : parentTags) {
-                if (ACs->retrieveDemandElement(tag, value, false) != nullptr) {
+            for (const auto &parentTag : myPlanElement->getTagProperty().getParentTags()) {
+                if (ACs->retrieveDemandElement(parentTag, value, false) != nullptr) {
                     return true;
                 }
             }
@@ -328,6 +325,87 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
             return (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr);
         default:
             return true;
+    }
+}
+
+
+void
+GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
+    bool computeAfterChange = true;
+    switch (key) {
+        // Common plan attributes
+        case SUMO_ATTR_ARRIVALPOS:
+            if (value.empty()) {
+                myArrivalPosition = -1;
+            } else {
+                myArrivalPosition = GNEAttributeCarrier::parse<double>(value);
+            }
+            break;
+        case GNE_ATTR_SELECTED:
+            if (GNEAttributeCarrier::parse<bool>(value)) {
+                myPlanElement->selectAttributeCarrier();
+            } else {
+                myPlanElement->unselectAttributeCarrier();
+            }
+            // compute isnt' neccesary
+            computeAfterChange = false;
+            break;
+        case GNE_ATTR_PARENT:
+            for (const auto &parentTag : myPlanElement->getTagProperty().getParentTags()) {
+                if (myPlanElement->getNet()->getAttributeCarriers()->retrieveDemandElement(parentTag, value, false) != nullptr) {
+                    myPlanElement->replaceDemandElementParent(parentTag, value, 0);
+                }
+            }
+            break;
+        // edges
+        case SUMO_ATTR_FROM:
+            // change first edge
+            myPlanElement->replaceFirstParentEdge(value);
+            break;
+        case SUMO_ATTR_TO:
+            // change last edge
+            myPlanElement->replaceLastParentEdge(value);
+            break;
+        case SUMO_ATTR_EDGES:
+            myPlanElement->replaceDemandParentEdges(value);
+            break;
+        // junctions
+        case SUMO_ATTR_FROM_JUNCTION:
+            // change first junction
+            myPlanElement->replaceFirstParentJunction(value);
+            break;
+        case SUMO_ATTR_TO_JUNCTION:
+            // change last junction
+            myPlanElement->replaceLastParentJunction(value);
+            break;
+        // TAZs
+        case SUMO_ATTR_FROM_TAZ:
+            // change first TAZ
+            myPlanElement->replaceFirstParentAdditional(SUMO_TAG_TAZ, value);
+            break;
+        case SUMO_ATTR_TO_TAZ:
+            // change last TAZ
+            myPlanElement->replaceLastParentAdditional(SUMO_TAG_TAZ, value);
+            break;
+        // busStop
+        case GNE_ATTR_TO_BUSSTOP:
+            myPlanElement->replaceFirstParentAdditional(SUMO_TAG_BUS_STOP, value);
+            break;
+        // trainStop
+        case GNE_ATTR_TO_TRAINSTOP:
+            myPlanElement->replaceFirstParentAdditional(SUMO_TAG_TRAIN_STOP, value);
+            break;
+        // route
+        case SUMO_ATTR_ROUTE:
+            myPlanElement->replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+            break;
+        default:
+            throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+    // check if compute geometry and path
+    if (!myPlanElement->isTemplate() && computeAfterChange) {
+        myPlanElement->updateGeometry();
+        myPlanElement->computePathElement();
     }
 }
 
