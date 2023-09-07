@@ -215,20 +215,13 @@ GNEPersonTrip::getColor() const {
 
 void
 GNEPersonTrip::updateGeometry() {
-    // update child demand elements
-    for (const auto& demandElement : getChildDemandElements()) {
-        demandElement->updateGeometry();
-    }
+    updatePlanGeometry();
 }
 
 
 Position
 GNEPersonTrip::getPositionInView() const {
-    if (getParentJunctions().size() > 0) {
-        return getParentJunctions().front()->getPositionInView();
-    } else {
-        return getParentEdges().front()->getPositionInView();
-    }
+    return getPlanPositionInView();
 }
 
 

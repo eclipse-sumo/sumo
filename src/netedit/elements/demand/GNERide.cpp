@@ -172,16 +172,13 @@ GNERide::getColor() const {
 
 void
 GNERide::updateGeometry() {
-    // update child demand elements
-    for (const auto& i : getChildDemandElements()) {
-        i->updateGeometry();
-    }
+    updatePlanGeometry();
 }
 
 
 Position
 GNERide::getPositionInView() const {
-    return getParentEdges().front()->getPositionInView();
+    return getPlanPositionInView();
 }
 
 

@@ -215,81 +215,13 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::updateGeometry() {
-    // only for walks defined between TAZs
-    if (getParentAdditionals().size() > 1) {
-        // remove from grid
-        myNet->removeGLObjectFromGrid(this);
-        // get both TAZs
-        const GNEAdditional* TAZA = getParentAdditionals().front();
-        const GNEAdditional* TAZB = getParentAdditionals().back();
-        // check if this is the same TAZ
-        if (TAZA == TAZB) {
-            // declare ring
-            PositionVector ring;
-            // declare first point
-            std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
-            // add 8 segments
-            for (int i = 0; i <= 8; ++i) {
-                const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
-                // make al line between 0,0 and p2
-                PositionVector line = {Position(), Position(p2.first, p2.second)};
-                // extrapolate
-                line.extrapolate(3, false, true);
-                // add line back to ring
-                ring.push_back(line.back());
-                // update p1
-                p1 = p2;
-            }
-            // make a copy of ring
-            PositionVector ringCenter = ring;
-            // move ring to first geometry point
-            ring.add(TAZA->getAdditionalGeometry().getShape().front());
-            myDemandElementGeometry.updateGeometry(ring);
-        } else {
-            // calculate line between to TAZ centers
-            PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
-            // check line
-            if (line.length() < 1) {
-                line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
-            }
-            // calculate middle point
-            const Position middlePoint = line.getLineCenter();
-            // get closest points to middlePoint
-            Position posA = TAZA->getAdditionalGeometry().getShape().positionAtOffset2D(TAZA->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-            Position posB = TAZB->getAdditionalGeometry().getShape().positionAtOffset2D(TAZB->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-            // check positions
-            if (posA == Position::INVALID) {
-                posA = TAZA->getAdditionalGeometry().getShape().front();
-            }
-            if (posB == Position::INVALID) {
-                posB = TAZB->getAdditionalGeometry().getShape().front();
-            }
-            // update geometry
-            if (posA.distanceTo(posB) < 1) {
-                myDemandElementGeometry.updateGeometry({posA - 0.5, posB + 0.5});
-            } else {
-                myDemandElementGeometry.updateGeometry({posA, posB});
-            }
-        }
-        // add into grid again
-        myNet->addGLObjectIntoGrid(this);
-    }
-    // update child demand elements
-    for (const auto& demandElement : getChildDemandElements()) {
-        demandElement->updateGeometry();
-    }
+    updatePlanGeometry();
 }
 
 
 Position
 GNEWalk::getPositionInView() const {
-    if (getParentJunctions().size() > 0) {
-        return getParentJunctions().front()->getPositionInView();
-    } else if (getParentEdges().size() > 0) {
-        return getParentEdges().front()->getPositionInView();
-    } else {
-        return getParentDemandElements().at(1)->getPositionInView();
-    }
+    return getPlanPositionInView();
 }
 
 

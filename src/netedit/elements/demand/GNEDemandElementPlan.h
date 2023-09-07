@@ -41,8 +41,20 @@ protected:
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition);
 
+    /// @name geometry functions
+    /// @{
+
+    /// @brief update pre-computed geometry information
+    void updatePlanGeometry();
+
+    /// @brief Returns position of additional in view
+    Position getPlanPositionInView() const;
+
+    /// @}
+
     /// @name attribute functions
     /// @{
+
     /// @brief get plan attribute string
     std::string getPlanAttribute(SumoXMLAttr key) const;
 
