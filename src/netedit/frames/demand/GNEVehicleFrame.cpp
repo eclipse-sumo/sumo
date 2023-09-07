@@ -473,8 +473,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 // check trip parameters
                 if (tripParameters) {
                     myVehicleBaseObject->setVehicleParameter(tripParameters);
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
                     myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete tripParameters and base object
@@ -519,8 +519,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 // check flowParameters
                 if (flowParameters) {
                     myVehicleBaseObject->setVehicleParameter(flowParameters);
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
                     myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete flowParameters and base object

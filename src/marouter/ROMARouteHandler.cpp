@@ -55,16 +55,16 @@ ROMARouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         if (!myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz) {
             if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                 myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM);
-            } else if (attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROMJUNCTION) + "-source";
+            } else if (attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION)) {
+                myVehicleParameter->fromTaz = attrs.getString(SUMO_ATTR_FROM_JUNCTION) + "-source";
             }
 
         }
         if (!myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz) {
             if (attrs.hasAttribute(SUMO_ATTR_TO)) {
                 myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO);
-            } else if (attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
-                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TOJUNCTION) + "-sink";
+            } else if (attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION)) {
+                myVehicleParameter->toTaz = attrs.getString(SUMO_ATTR_TO_JUNCTION) + "-sink";
             }
         }
     } else if (element == SUMO_TAG_PARAM && !myTazParamKeys.empty()) {

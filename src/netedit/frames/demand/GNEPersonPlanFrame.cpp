@@ -227,7 +227,7 @@ GNEPersonPlanFrame::tagSelected() {
             // show legend
             myPathLegend->showPathLegendModule();
             // add previous edge or junction
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
+            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROM_JUNCTION)) {
                 myPathCreator->addJunction(previousEdge->getToJunction());
             } else if (!myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
                 myPathCreator->addEdge(previousEdge, true, true);

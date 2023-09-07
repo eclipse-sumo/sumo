@@ -159,7 +159,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
             if (getParentEdges().size() > 0) {
                 device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
             } else if (getParentJunctions().size() > 0) {
-                device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
+                device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
             } else if (getParentJunctions().size() > 0) {
                 device.writeAttr(SUMO_ATTR_FROM_TAZ, getParentAdditionals().front()->getID());
             }
@@ -177,7 +177,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         } else if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         } else if (getParentJunctions().size() > 0) {
-            device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
+            device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
         }
     }
     // avoid write arrival positions in walk to busStop
@@ -585,13 +585,13 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute walk
             computePathElement();
             break;
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
             // change first junction
             replaceFirstParentJunction(value);
             // compute walk
             computePathElement();
             break;
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             // change last junction
             replaceLastParentJunction(value);
             // compute walk

@@ -70,9 +70,9 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return myPlanElement->parseIDs(myPlanElement->getParentEdges());
         // junctions
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
             return myPlanElement->getParentJunctions().front()->getID();
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             return myPlanElement->getParentJunctions().back()->getID();
         // additionals
         case SUMO_ATTR_FROM_TAZ:
@@ -146,7 +146,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             break;
         // from attributes
         case SUMO_ATTR_FROM:
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
         case SUMO_ATTR_FROM_TAZ:
             // plans placed over routes cannot change their from attribute
             if (!myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
@@ -158,7 +158,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
             break;
         // to attributes
         case SUMO_ATTR_TO:
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
         case SUMO_ATTR_TO_TAZ: {
             // plans placed over routes cannot change their to attribute
             if (!myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
@@ -281,8 +281,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, con
                 return false;
             }
         // junctions
-        case SUMO_ATTR_FROMJUNCTION:
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             return (ACs->retrieveJunction(value, false) != nullptr);
         // TAZs
         case SUMO_ATTR_FROM_TAZ:
@@ -307,7 +307,7 @@ bool
 GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_FROM:
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
         case SUMO_ATTR_FROM_TAZ:
             return (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr);
         default:

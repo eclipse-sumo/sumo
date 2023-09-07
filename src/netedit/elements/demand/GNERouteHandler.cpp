@@ -2534,11 +2534,11 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
         reverse(element->getChildDemandElements().front());
     } else if (element->getTagProperty().overFromToJunctions()) {
         // get from to junctions
-        const auto fromJunction = element->getAttribute(SUMO_ATTR_FROMJUNCTION);
-        const auto toJunction = element->getAttribute(SUMO_ATTR_TOJUNCTION);
+        const auto fromJunction = element->getAttribute(SUMO_ATTR_FROM_JUNCTION);
+        const auto toJunction = element->getAttribute(SUMO_ATTR_TO_JUNCTION);
         // swap both attributes
-        element->setAttribute(SUMO_ATTR_FROMJUNCTION, toJunction, undoList);
-        element->setAttribute(SUMO_ATTR_TOJUNCTION, fromJunction, undoList);
+        element->setAttribute(SUMO_ATTR_FROM_JUNCTION, toJunction, undoList);
+        element->setAttribute(SUMO_ATTR_TO_JUNCTION, fromJunction, undoList);
     } else if (element->getTagProperty().overFromToTAZs()) {
         // get from to TAZs
         const auto fromTAZ = element->getAttribute(SUMO_ATTR_FROM_TAZ);
@@ -2802,8 +2802,8 @@ GNERouteHandler::getPreviousPlanJunction(const bool /* person */, const CommonXM
     // get last child
     const CommonXMLStructure::SumoBaseObject* previousPersonPlan = *(it - 1);
     // ends in an junction (only for stops)
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_TOJUNCTION)) {
-        return myNet->getAttributeCarriers()->retrieveJunction(previousPersonPlan->getStringAttribute(SUMO_ATTR_TOJUNCTION), false);
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+        return myNet->getAttributeCarriers()->retrieveJunction(previousPersonPlan->getStringAttribute(SUMO_ATTR_TO_JUNCTION), false);
     }
     return nullptr;
 }

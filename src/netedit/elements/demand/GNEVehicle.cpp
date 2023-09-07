@@ -591,8 +591,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // write from and to junctions
     if (myTagProperty.overFromToJunctions()) {
         // write manually from/to junctions (it correspond to front and back parent junctions)
-        device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
-        device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
+        device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
+        device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
     }
     // write flow attributes
     writeFlowAttributes(this, device);
@@ -1433,9 +1433,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
                 return toString(arrivalEdge);
             }
         // Specific of from-to junctions
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
             return getParentJunctions().front()->getID();
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             return getParentJunctions().back()->getID();
         // Specific of from-to tazs
         case SUMO_ATTR_FROM_TAZ:
@@ -1566,8 +1566,8 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE:
         // Specific of from-to junctions
-        case SUMO_ATTR_FROMJUNCTION:
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
         // Specific of from-to taz
         case SUMO_ATTR_FROM_TAZ:
         case SUMO_ATTR_TO_TAZ:
@@ -1739,8 +1739,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 return canParse<std::vector<GNEEdge*> >(myNet, value, false);
             }
         // Specific of from-to junctions
-        case SUMO_ATTR_FROMJUNCTION:
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             return (ACs->retrieveJunction(value, false) != nullptr);
         // Specific of from-to taz
         case SUMO_ATTR_FROM_TAZ:
@@ -2251,7 +2251,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         // Specific of from-to junctions
-        case SUMO_ATTR_FROMJUNCTION: {
+        case SUMO_ATTR_FROM_JUNCTION: {
             // change first junction
             replaceFirstParentJunction(value);
             // compute vehicle
@@ -2259,7 +2259,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateSpreadStackGeometry = true;
             break;
         }
-        case SUMO_ATTR_TOJUNCTION: {
+        case SUMO_ATTR_TO_JUNCTION: {
             // change last junction
             replaceLastParentJunction(value);
             // compute vehicle

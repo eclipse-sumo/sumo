@@ -151,7 +151,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
         if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         } else if (getParentJunctions().size() > 0) {
-            device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
+            device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
         }
     }
     // write to depending if personplan ends in a busStop, edge or junction
@@ -164,7 +164,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     } else if (getParentEdges().size() > 0) {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     } else {
-        device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
+        device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
     }
     // avoid write arrival positions in person trip to busStop
     if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
@@ -487,13 +487,13 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute person trip
             computePathElement();
             break;
-        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_FROM_JUNCTION:
             // change first junction
             replaceFirstParentJunction(value);
             // compute person trip
             computePathElement();
             break;
-        case SUMO_ATTR_TOJUNCTION:
+        case SUMO_ATTR_TO_JUNCTION:
             // change last junction
             replaceLastParentJunction(value);
             // compute person trip
