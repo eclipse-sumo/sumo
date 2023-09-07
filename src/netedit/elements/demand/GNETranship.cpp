@@ -17,7 +17,6 @@
 ///
 // A class for visualizing tranships in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -28,7 +27,6 @@
 
 #include "GNETranship.h"
 #include "GNERoute.h"
-
 
 // ===========================================================================
 // method definitions

@@ -17,36 +17,22 @@
 ///
 // An auxiliar, asbtract class for plan elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_ToggleAttribute.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEDemandElementPlan.h"
-#include "GNEDemandElement.h"
 
 // ===========================================================================
 // static definitions
 // ===========================================================================
+
 const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_const_halfLaneWidth;
 
 // ===========================================================================
 // GNEDemandElement method definitions
 // ===========================================================================
-
 
 GNEDemandElementPlan::GNEDemandElementPlan(const GNEDemandElement* planElement) :
     myPlanElement(planElement) {

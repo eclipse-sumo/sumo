@@ -17,7 +17,6 @@
 ///
 // A abstract class for demand elements
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -25,22 +24,15 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEDemandElement.h"
 #include "GNERouteHandler.h"
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEDemandElement - methods
-// ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options,
                                    const std::vector<GNEJunction*>& junctionParents,

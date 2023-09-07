@@ -17,7 +17,6 @@
 ///
 // Representation of Stops in netedit
 /****************************************************************************/
-#include <cmath>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -26,14 +25,9 @@
 #include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
-#include <netedit/frames/GNEDemandSelector.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/vehicle/SUMORouteHandler.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEStop.h"
-
 
 // ===========================================================================
 // member method definitions

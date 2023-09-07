@@ -18,17 +18,12 @@
 // Definition of Vehicle Types in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVType.h"
-#include "GNEVTypeDistribution.h"
-
 
 // ===========================================================================
 // member method definitions

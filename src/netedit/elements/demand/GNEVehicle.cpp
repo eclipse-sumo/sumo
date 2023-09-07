@@ -17,28 +17,22 @@
 ///
 // Representation of vehicles in netedit
 /****************************************************************************/
-#include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNETypeFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVehicle.h"
-#include "GNERouteHandler.h"
 #include "GNERoute.h"
 
 // ===========================================================================

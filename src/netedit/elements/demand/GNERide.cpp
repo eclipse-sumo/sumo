@@ -17,7 +17,6 @@
 ///
 // A class for visualizing rides in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -27,7 +26,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNERide.h"
-
 
 // ===========================================================================
 // method definitions

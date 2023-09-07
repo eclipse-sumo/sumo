@@ -17,7 +17,6 @@
 ///
 // A class for visualizing person trips in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -25,11 +24,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPersonTrip.h"
-#include "GNERouteHandler.h"
-
 
 // ===========================================================================
 // method definitions

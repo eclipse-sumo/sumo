@@ -17,7 +17,6 @@
 ///
 // A class for visualizing routes in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -25,15 +24,11 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNERoute.h"
 #include "GNEVehicle.h"

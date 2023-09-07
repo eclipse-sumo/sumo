@@ -17,7 +17,6 @@
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
-#include <config.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -41,7 +40,6 @@
 #include "GNEVType.h"
 #include "GNEVTypeDistribution.h"
 #include "GNEWalk.h"
-
 
 // ===========================================================================
 // member method definitions

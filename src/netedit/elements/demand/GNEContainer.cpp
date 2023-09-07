@@ -17,28 +17,23 @@
 ///
 // Representation of containers in netedit
 /****************************************************************************/
-#include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEContainer.h"
 #include "GNERouteHandler.h"
 
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GNEContainer::GNEContainerPopupMenu) containerPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONTAINER_TRANSFORM,   GNEContainer::GNEContainerPopupMenu::onCmdTransform),
 };
