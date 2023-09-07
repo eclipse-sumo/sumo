@@ -34,8 +34,7 @@
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(0) {
+    GNEDemandElementPlan(this, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,8 +45,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition),
+    GNEDemandElementPlan(this, arrivalPosition),
     myVTypes(types),
     myModes(modes),
     myLines(lines) {
@@ -60,8 +58,7 @@ GNEPersonTrip::GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* person
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, isTrain ? GNE_TAG_PERSONTRIP_TRAINSTOP : GNE_TAG_PERSONTRIP_BUSSTOP,
                      GUIIconSubSys::getIcon(isTrain ? GUIIcon::PERSONTRIP_TRAINSTOP : GUIIcon::PERSONTRIP_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toStoppingPlace}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition),
+    GNEDemandElementPlan(this, arrivalPosition), 
     myVTypes(types),
     myModes(modes),
     myLines(lines) {
@@ -73,8 +70,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJun
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition),
+    GNEDemandElementPlan(this, arrivalPosition),
     myVTypes(types),
     myModes(modes),
     myLines(lines) {
@@ -86,8 +82,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdd
                              const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_TAZS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition),
+    GNEDemandElementPlan(this, arrivalPosition),
     myVTypes(types),
     myModes(modes),
     myLines(lines) {
@@ -350,18 +345,8 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
             return joinToString(myModes, " ");
         case SUMO_ATTR_VTYPES:
             return joinToString(myVTypes, " ");
-        case SUMO_ATTR_ARRIVALPOS:
-            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_TRAINSTOP)) {
-                return getParentAdditionals().front()->getAttribute(SUMO_ATTR_ENDPOS);
-            } else if (myArrivalPosition == -1) {
-                return "";
-            } else {
-                return toString(myArrivalPosition);
-            }
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
         default:
             return getPlanAttribute(key);
     }
@@ -370,13 +355,13 @@ GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
 
 double
 GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key, myArrivalPosition);
+    return getPlanAttributeDouble(key);
 }
 
 
 Position
 GNEPersonTrip::getAttributePosition(SumoXMLAttr key) const {
-    return getPlanAttributePosition(key, myArrivalPosition);
+    return getPlanAttributePosition(key);
 }
 
 
@@ -386,8 +371,6 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_LINES:
-        case SUMO_ATTR_ARRIVALPOS:
-        case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -408,26 +391,8 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_VTYPES:
             return canParse<std::vector<std::string> >(value);
-        case SUMO_ATTR_ARRIVALPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                if (isTemplate()) {
-                    return true;
-                }
-                const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastPathLane()->getLaneShape().length())) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
         default:
             return isPlanValid(key, value, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
     }

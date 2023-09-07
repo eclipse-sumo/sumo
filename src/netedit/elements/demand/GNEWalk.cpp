@@ -36,8 +36,7 @@
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(0) {
+    GNEDemandElementPlan(this, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,48 +45,42 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, isTrain ? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain ? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toAdditional}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {personParent, route}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::WALK_JUNCTIONS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_TAZS, GUIIconSubSys::getIcon(GUIIcon::WALK_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
-    GNEDemandElementPlan(this),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 
@@ -473,72 +466,31 @@ GNEWalk::getLastPathLane() const {
 
 std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
-    switch (key) {
-        // specific person plan attributes
-        case SUMO_ATTR_ARRIVALPOS:
-            if (myArrivalPosition == -1) {
-                return "";
-            } else {
-                return toString(myArrivalPosition);
-            }
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
-        default:
-            return getPlanAttribute(key);
-    }
+    return getPlanAttribute(key);
 }
 
 
 double
 GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key, myArrivalPosition);
+    return getPlanAttributeDouble(key);
 }
 
 
 Position
 GNEWalk::getAttributePosition(SumoXMLAttr key) const {
-    return getPlanAttributePosition(key, myArrivalPosition);
+    return getPlanAttributePosition(key);
 }
 
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_ARRIVALPOS:
-        case GNE_ATTR_SELECTED:
-            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        default:
-            setPlanAttribute(key, value, undoList);
-            break;
-    }
+    setPlanAttribute(key, value, undoList);
 }
 
 
 bool
 GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_ARRIVALPOS:
-            if (value.empty()) {
-                return true;
-            } else if (canParse<double>(value)) {
-                if (isTemplate()) {
-                    return true;
-                }
-                const double parsedValue = canParse<double>(value);
-                if ((parsedValue < 0) || (parsedValue > getLastPathLane()->getLaneShape().length())) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
-        default:
-            return isPlanValid(key, value, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
-    }
+    return isPlanValid(key, value, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
 }
 
 

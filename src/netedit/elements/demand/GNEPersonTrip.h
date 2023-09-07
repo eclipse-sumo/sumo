@@ -253,9 +253,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
     /// @brief valid line or vehicle types
     std::vector<std::string> myVTypes;
 

@@ -220,9 +220,6 @@ protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 
-    /// @brief arrival position
-    double myArrivalPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

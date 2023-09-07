@@ -39,7 +39,7 @@ class GNEDemandElementPlan {
 
 protected:
     /// @brief constructor
-    GNEDemandElementPlan(GNEDemandElement* planElement);
+    GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition);
 
     /// @name attribute functions
     /// @{
@@ -47,10 +47,10 @@ protected:
     std::string getPlanAttribute(SumoXMLAttr key) const;
 
     /// @brief get plan attribute double
-    double getPlanAttributeDouble(SumoXMLAttr key, const double arrivalPosition) const;
+    double getPlanAttributeDouble(SumoXMLAttr key) const;
 
     /// @brief get plan attribute position
-    Position getPlanAttributePosition(SumoXMLAttr key, const double arrivalPosition) const;
+    Position getPlanAttributePosition(SumoXMLAttr key) const;
 
     /// @brief set plan attribute
     void setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
@@ -91,7 +91,9 @@ protected:
     /// @brief get person plan problem
     std::string getPersonPlanProblem() const;
 
-protected:
+    /// @brief arrival position
+    double myArrivalPosition;
+
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
 

@@ -37,23 +37,33 @@ const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_co
 // GNEDemandElement method definitions
 // ===========================================================================
 
-GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement) :
-    myPlanElement(planElement) {
+GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition) :
+    myPlanElement(planElement),
+    myArrivalPosition(arrivalPosition) {
 }
 
 
 std::string
 GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
-    // declare plan parent
-    const auto planParent = myPlanElement->getParentDemandElements().at(0);
     // declare route parent
-    const auto routeParent = myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)? myPlanElement->getParentDemandElements().at(1) : nullptr;
+    GNEDemandElement *routeParent = nullptr;
+    if (myPlanElement->getParentDemandElements().size() > 1 && myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
+        routeParent = myPlanElement->getParentDemandElements().at(1);
+    }
     // continue depending of key
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_ID:
         case GNE_ATTR_PARENT:
-            return planParent->getID();
+            return myPlanElement->getParentDemandElements().at(0)->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(myPlanElement->isAttributeCarrierSelected());
+        case SUMO_ATTR_ARRIVALPOS:
+            if (myArrivalPosition == -1) {
+                return "";
+            } else {
+                return toString(myArrivalPosition);
+            }
         // edges
         case SUMO_ATTR_FROM:
             if (routeParent) {
@@ -91,16 +101,10 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key, const double arrivalPosition) const {
+GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
-            if (myPlanElement->getParentJunctions().size() > 0) {
-                return 0;
-            } else if (arrivalPosition != -1) {
-                return arrivalPosition;
-            } else {
-                return (myPlanElement->getLastPathLane()->getLaneShape().length() - POSITION_EPS);
-            }
+            return myArrivalPosition;
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
     }
@@ -108,7 +112,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key, const double arriv
 
 
 Position
-GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key, const double arrivalPosition) const {
+GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS: {
             if (myPlanElement->getParentJunctions().size() > 0) {
@@ -117,12 +121,12 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key, const double arr
                 // get lane shape
                 const PositionVector& laneShape = myPlanElement->getLastPathLane()->getLaneShape();
                 // continue depending of arrival position
-                if (arrivalPosition == 0) {
+                if (myArrivalPosition == 0) {
                     return laneShape.front();
-                } else if ((arrivalPosition == -1) || (arrivalPosition >= laneShape.length2D())) {
+                } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
                     return laneShape.back();
                 } else {
-                    return laneShape.positionAtOffset2D(arrivalPosition);
+                    return laneShape.positionAtOffset2D(myArrivalPosition);
                 }
             }
         }
@@ -140,8 +144,10 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
     const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
     switch (key) {
-        // parent
+        // common attributes
         case GNE_ATTR_PARENT:
+        case SUMO_ATTR_ARRIVALPOS:
+        case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
             break;
         // from attributes
@@ -256,7 +262,7 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, con
     const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
     switch (key) {
-        // parent
+        // common attributes
         case GNE_ATTR_PARENT:
             // check all parents
             for (const auto &tag : parentTags) {
@@ -265,6 +271,16 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value, con
                 }
             }
             return false;
+        case SUMO_ATTR_ARRIVALPOS:
+            if (value.empty()) {
+                return true;
+            } else if (GNEAttributeCarrier::canParse<double>(value)) {
+                return GNEAttributeCarrier::parse<double>(value) >= 0;
+            } else {
+                return false;
+            }
+        case GNE_ATTR_SELECTED:
+            return GNEAttributeCarrier::canParse<bool>(value);
         // edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:

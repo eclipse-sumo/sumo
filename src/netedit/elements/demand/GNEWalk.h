@@ -249,10 +249,6 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
-protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
