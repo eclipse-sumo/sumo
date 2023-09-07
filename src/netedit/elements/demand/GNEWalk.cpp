@@ -25,6 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEWalk.h"
 #include "GNERoute.h"
@@ -218,9 +219,68 @@ GNEWalk::getColor() const {
 
 void
 GNEWalk::updateGeometry() {
+    // only for walks defined between TAZs
+    if (getParentAdditionals().size() > 1) {
+        // remove from grid
+        myNet->removeGLObjectFromGrid(this);
+        // get both TAZs
+        const GNEAdditional* TAZA = getParentAdditionals().front();
+        const GNEAdditional* TAZB = getParentAdditionals().back();
+        // check if this is the same TAZ
+        if (TAZA == TAZB) {
+            // declare ring
+            PositionVector ring;
+            // declare first point
+            std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
+            // add 8 segments
+            for (int i = 0; i <= 8; ++i) {
+                const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
+                // make al line between 0,0 and p2
+                PositionVector line = {Position(), Position(p2.first, p2.second)};
+                // extrapolate
+                line.extrapolate(3, false, true);
+                // add line back to ring
+                ring.push_back(line.back());
+                // update p1
+                p1 = p2;
+            }
+            // make a copy of ring
+            PositionVector ringCenter = ring;
+            // move ring to first geometry point
+            ring.add(TAZA->getAdditionalGeometry().getShape().front());
+            myDemandElementGeometry.updateGeometry(ring);
+        } else {
+            // calculate line between to TAZ centers
+            PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
+            // check line
+            if (line.length() < 1) {
+                line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
+            }
+            // calculate middle point
+            const Position middlePoint = line.getLineCenter();
+            // get closest points to middlePoint
+            Position posA = TAZA->getAdditionalGeometry().getShape().positionAtOffset2D(TAZA->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
+            Position posB = TAZB->getAdditionalGeometry().getShape().positionAtOffset2D(TAZB->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
+            // check positions
+            if (posA == Position::INVALID) {
+                posA = TAZA->getAdditionalGeometry().getShape().front();
+            }
+            if (posB == Position::INVALID) {
+                posB = TAZB->getAdditionalGeometry().getShape().front();
+            }
+            // update geometry
+            if (posA.distanceTo(posB) < 1) {
+                myDemandElementGeometry.updateGeometry({posA - 0.5, posB + 0.5});
+            } else {
+                myDemandElementGeometry.updateGeometry({posA, posB});
+            }
+        }
+        // add into grid again
+        myNet->addGLObjectIntoGrid(this);
+    }
     // update child demand elements
-    for (const auto& i : getChildDemandElements()) {
-        i->updateGeometry();
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->updateGeometry();
     }
 }
 
@@ -275,6 +335,47 @@ GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
+    // draw TAZRels
+    if (getParentAdditionals().size() == 2) {
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // push GL ID
+        GLHelper::pushName(getGlID());
+        // push matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
+        GLHelper::setColor(RGBColor::BLACK);
+
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 1);
+        GLHelper::drawTriangleAtEnd(
+            *(myDemandElementGeometry.getShape().end() - 2),
+            *(myDemandElementGeometry.getShape().end() - 1),
+            1.5 + 1, 1.5 + 1, 0.5 + 1);
+        // pop matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
+        // inspect contour
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(), 0.5, 1, true, true);
+        }
+        // front contour
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.5, 1, true, true);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.5, 1, true, true);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myDemandElementGeometry.getShape(), 0.5, 1, true, true);
+        }
+    }
+
     // force draw path
     myNet->getPathManager()->forceDrawPath(s, this);
     // special case for junction walks
