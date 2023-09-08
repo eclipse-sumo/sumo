@@ -501,7 +501,7 @@ MSPModel_JuPedSim::renderPolygon(const GEOSGeometry* polygon, const std::string&
         }
 
         ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
-        shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+        shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(255, 0, 0, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
         shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
     }
 }
