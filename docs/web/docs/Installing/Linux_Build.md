@@ -325,26 +325,22 @@ In this section, you will learn how to build the latest version of the pedestria
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** To do so, check the latest release [here](https://github.com/JuPedSim/JuPedSim/releases/) and then in the cloned directory checkout to the latest release. For example, for JuPedSim version v1.0.0, you would need to type:
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check the latest release [here](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v0.9.6, you would need to type:
 
 ``` bash 
-git checkout tags/v1.0.0
+git checkout tags/v0.9.6
 ```
 
-Also, inside the repository directory, create two directories `jps-build` and `jps-install` (for instance), then type:
+Outside the repository directory, but at the same level, create two directories `jupedsim-build` and `jupedsim-install`, then type:
 
 ``` bash
 cd jps-build
-cmake -DCMAKE_INSTALL_PREFIX=../jps-install -DBUILD_JPSVIS=OFF ..
-cmake --build . --config Release
-cmake --install . --config Release
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
+cmake --build .
+cmake --install .
 ```
 
-You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for Linux but the configuration step of CMake is changed to pass to CMake the directory where JuPedSim has been installed:
-
-``` bash
-cmake -DJUPEDSIM_DIR=../../jupedsim/jps-install ..
-```
+You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_DIR` when calling CMake.
 
 For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md/#jupedsim).
 
