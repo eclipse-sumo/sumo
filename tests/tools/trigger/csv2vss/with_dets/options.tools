@@ -1,0 +1,1 @@
+input_flows.txt -o out.add.xml -d input_detectors.det.xml

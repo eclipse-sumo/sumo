@@ -46,3 +46,6 @@ devel
 
 # tests for drt tools
 drt
+
+# generating trigger elements
+trigger

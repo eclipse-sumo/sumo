@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-09-08 13:48:54.117099 by meandata2vss.py v1_18_0+1470-17f454d6eb4
+<configuration>
+    <outfile value="out.add.xml"/>
+    <meandatafile value="input_edgedata.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <variableSpeedSign id="vss_A" lanes="A_0">
+        <step time="0.00" speed="7.00"/>
+        <step time="3600.00" speed="6.00"/>
+        <step time="7200.00" speed="22.00"/>
+        <step time="10800.00" speed="25.00"/>
+    </variableSpeedSign>
+</additional>
