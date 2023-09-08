@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 16:15+0200\n"
+"POT-Creation-Date: 2023-09-08 12:24+0200\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -2837,8 +2837,8 @@ msgid "Stop edge '%' missing in attribute 'via' for % '%'"
 msgstr "在屬性 'via' 中缺少停靠點路段 '%', 其是針對 % '%'"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1213
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1331
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1203
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1321
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -2851,25 +2851,25 @@ msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr "忽略 % 的抵達位置(arrivalPos)，因為它位於給定的停靠點 '%' 之外。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1390
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1234
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1224
 msgid "No destination edge for %."
 msgstr "% 沒有目的地路段。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1419
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1254
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1244
 msgid "Start edge not defined for person '%'."
 msgstr "人員 '%' 的開始路段沒有定義。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1429
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1494
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1265
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1322
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1255
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1312
 msgid "Non-positive walking duration for '%'."
 msgstr "'%' 有非正值的步行時間。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1500
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1326
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1316
 msgid "Non-positive walking speed for '%'."
 msgstr "'%' 有非正值的步行速度。"
 
@@ -2883,20 +2883,24 @@ msgid ""
 "departPosLat"
 msgstr "在闡釋出發側向位置(departPosLat)時,找不到人員 '%' 步行的出發巷道"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1634
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1596
+msgid "The type '%' for % '%' is not known."
+msgstr ""
+
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1619
 msgid "Could not read tranship speed for container '%'."
 msgstr "無法讀取貨櫃 '%' 的轉運速度(tranship speed)。"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1642
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1627
 msgid "Non-positive tranship speed for container '%'."
 msgstr "貨櫃 '%' 有非正值的轉運速度(tranship speed)。"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1668
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1653
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr "貨櫃 '%' 的開始路段是未知的。"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1672
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
@@ -2904,7 +2908,7 @@ msgstr ""
 "貨櫃 '%' 的轉運(tranship)不一致，只允許一個選項：'路段(edges)', '到(to)', '貨"
 "櫃停靠點(containerStop)'"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1693
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1678
 msgid "No edges to tranship container '%'."
 msgstr "沒有路段可以轉運貨櫃 '%'。"
 
@@ -4340,30 +4344,30 @@ msgstr "移動到(moveTo)被目前的移動模式(movement model)忽略"
 msgid "moveToXY is ignored by the current movement model"
 msgstr "移動到XY(moveToXY)被目前的移動模式(movement model)忽略"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:98
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:97
 #, c-format
 msgid ""
 "Error while adding an agent: vType '%' hasn't been registered as a JuPedSim "
 "parameter profile, using the default type."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:105
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:104
 msgid "Error while adding an agent: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:168
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:628
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:627
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:654
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:653
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:660
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:659
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -9946,13 +9950,13 @@ msgstr "丟棄貨櫃 '%', 因為它的計劃是空的"
 msgid "Discarding containerFlow '%' because it's plan is empty"
 msgstr "丟棄貨櫃流量(containerFlow) '%', 因為它的計劃是空的"
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1051
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1041
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 "貨櫃 '%' 的觸發出發(triggered departure)需要一個唯一的列值(unique lines "
 "value)。"
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1091
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1081
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr "無法轉換地理位置, 因為路網沒有地理參考系統(geo-reference)"
 
@@ -10455,45 +10459,45 @@ msgstr "未找到電力(power)給定的加速度。"
 msgid "No matches found"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
 msgstr "增加貼印"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal."
 msgstr "增加貼印(decal)。"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:160
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:171
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:159
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:170
 msgid "Invalid row or column"
 msgstr "無效列或行"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:195
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:194
 msgid "Invalid row"
 msgstr "無效列"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:205
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:204
 msgid "Invalid column"
 msgstr "無效行"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:341
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:340
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal"
 msgstr "開啟貼印(decal)"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:346
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:345
 msgid "All files (*)"
 msgstr "所有檔案 (*)"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal."
 msgstr "開啟貼印(decal)。"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal"
 msgstr "移除貼印(decal)"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal."
 msgstr "移除貼印(decal)。"
 
@@ -10624,12 +10628,12 @@ msgid "Parameters must be defined within an object."
 msgstr "參數必須定義於一個物件(object)內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1967
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "參數無法定義於附加檔案(additional file)的根(root)中內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
 msgid "Parameters cannot be defined within another parameter."
 msgstr "參數無法定義於其它參數內。"
 
@@ -10652,62 +10656,62 @@ msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "無法在 netedit 中構建 % (其識別名(ID)為 '%'); ID 含有無效字元。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr "無法在netedit內建立% (ID為 '%'); 不同數量的分佈值和機率。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路徑必須定義於一個車輛/流量內, 或是用一個識別名(ID)屬性"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "週期時間(cycleTime) % 必須大於或等於 0"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 "旅次(trip)定義需要 'from/to' 或 'fromJunction/toJunction' 或 'fromTaz/toTaz'"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 msgid "Parameters must be defined within an object"
 msgstr "參數必須定義在一個物件(object)內"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:200
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
@@ -10715,22 +10719,22 @@ msgstr ""
 "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用"
 "屬性(attributes)!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:203
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:205
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"

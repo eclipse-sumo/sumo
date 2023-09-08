@@ -558,7 +558,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Internal Structures"), TL("Show internal junctions and streets in locator dialog."), this, MID_LISTINTERNAL);
     FXMenuCheck* listParking = GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Parking Vehicles"), TL("Show parking vehicles in locator dialog."), this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
-    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show vehicles outside the road network"), ("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog."), this, MID_LISTTELEPORTING);
+    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show vehicles outside the road network"), TL("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog."), this, MID_LISTTELEPORTING);
     // build control menu
     // the shortcut designator is not only at text in the submenu but also defines the real shortcut key assigned with it!
     // secondary shortcuts (ctrl+A, ctrl+S, ctrl+D) are defined in GUIShortcutsSubSys::buildSUMOAccelerators

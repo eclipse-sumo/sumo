@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 16:15+0200\n"
+"POT-Creation-Date: 2023-09-08 12:24+0200\n"
 "PO-Revision-Date: 2023-06-10 19:38+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2757,8 +2757,8 @@ msgid "Stop edge '%' missing in attribute 'via' for % '%'"
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1213
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1331
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1203
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1321
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -2769,25 +2769,25 @@ msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1390
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1234
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1224
 msgid "No destination edge for %."
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1419
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1254
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1244
 msgid "Start edge not defined for person '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1429
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1494
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1265
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1322
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1255
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1312
 msgid "Non-positive walking duration for '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1500
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1326
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1316
 msgid "Non-positive walking speed for '%'."
 msgstr ""
 
@@ -2801,26 +2801,30 @@ msgid ""
 "departPosLat"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1634
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1596
+msgid "The type '%' for % '%' is not known."
+msgstr ""
+
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1619
 msgid "Could not read tranship speed for container '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1642
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1627
 msgid "Non-positive tranship speed for container '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1668
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1653
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1672
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1693
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1678
 msgid "No edges to tranship container '%'."
 msgstr ""
 
@@ -4177,30 +4181,30 @@ msgstr ""
 msgid "moveToXY is ignored by the current movement model"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:98
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:97
 #, c-format
 msgid ""
 "Error while adding an agent: vType '%' hasn't been registered as a JuPedSim "
 "parameter profile, using the default type."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:105
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:104
 msgid "Error while adding an agent: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:168
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:628
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:627
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:654
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:653
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:660
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:659
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -9644,11 +9648,11 @@ msgstr ""
 msgid "Discarding containerFlow '%' because it's plan is empty"
 msgstr ""
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1051
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1041
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1091
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1081
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
 
@@ -10148,45 +10152,45 @@ msgstr ""
 msgid "No matches found"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:160
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:171
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:159
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:170
 msgid "Invalid row or column"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:195
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:194
 msgid "Invalid row"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:205
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:204
 msgid "Invalid column"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:341
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:340
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:346
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:345
 msgid "All files (*)"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal."
 msgstr ""
 
@@ -10313,12 +10317,12 @@ msgid "Parameters must be defined within an object."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1967
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
@@ -10341,82 +10345,82 @@ msgstr ""
 msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:200
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:203
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:205
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 

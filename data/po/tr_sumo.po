@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-04 16:15+0200\n"
+"POT-Creation-Date: 2023-09-08 12:24+0200\n"
 "PO-Revision-Date: 2023-09-07 09:24+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -458,7 +458,8 @@ msgstr " Sonraki Akışların Listesi Oluşturulmadı."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
-msgstr "Dedektör '%' kaldırıldı çünkü onun için herhangi bir akış mevcut değil."
+msgstr ""
+"Dedektör '%' kaldırıldı çünkü onun için herhangi bir akış mevcut değil."
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:614
 #, c-format
@@ -726,7 +727,8 @@ msgstr ""
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:170
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:599
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr "Taksilerin müşterileri bırakabileceği yerler ('allJunctions, 'ptStops')"
+msgstr ""
+"Taksilerin müşterileri bırakabileceği yerler ('allJunctions, 'ptStops')"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:173
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:602
@@ -1037,7 +1039,8 @@ msgstr "Yolda olmayan '%' aracı için şerit göreceli'yi değiştir yok sayma"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1479
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
-msgstr "şeritIndeksi % üzerindeki '%' aracı için indeksOffseti % yok sayılıyor."
+msgstr ""
+"şeritIndeksi % üzerindeki '%' aracı için indeksOffseti % yok sayılıyor."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1575
 #, c-format
@@ -1109,7 +1112,8 @@ msgstr "DOSYA(lar)dan tazİlişki biçiminde O/D-matrisi yükler"
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:93
 #: C:\Repos\sumo/src\od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
-msgstr "Sayımları yüklemek için veri özniteliğini tanımlayın (varsayılan 'say')"
+msgstr ""
+"Sayımları yüklemek için veri özniteliğini tanımlayın (varsayılan 'say')"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
@@ -1701,7 +1705,8 @@ msgstr "Tek araç yolculuk bilgilerini DOSYA'ya kaydetme"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:213
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
-msgstr "Simülasyon sonuna ulaşmamış araçlar için yolculuk bilgisi çıktısı yazma"
+msgstr ""
+"Simülasyon sonuna ulaşmamış araçlar için yolculuk bilgisi çıktısı yazma"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:216
 msgid ""
@@ -1787,8 +1792,8 @@ msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
-"Bluetooth görünürlüklerini DOSYA'ya kaydetme ( cihaz.btreceiver ve "
-"cihaz.btsender ile bağlantılı olarak)"
+"Bluetooth görünürlüklerini DOSYA'ya kaydetme ( cihaz.btreceiver ve cihaz."
+"btsender ile bağlantılı olarak)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:285
 msgid "Record lane changes and their motivations for all vehicles into FILE"
@@ -1960,8 +1965,8 @@ msgid ""
 "How to deal with collisions between vehicle and pedestrian: [none,warn,"
 "teleport,remove]"
 msgstr ""
-"Araç ve yaya arasındaki çarpışmalarla nasıl başa çıkılır: "
-"[yok,uyar,ışınla,kaldır]"
+"Araç ve yaya arasındaki çarpışmalarla nasıl başa çıkılır: [yok,uyar,ışınla,"
+"kaldır]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:386
 msgid ""
@@ -2007,7 +2012,8 @@ msgstr "Verilen maksimum ışınlanma sayısı aşılırsa simülasyonu iptal ed
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:407
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
-msgstr "Talebi verilen faktörle ölçeklendirin (araçları atarak veya çoğaltarak)"
+msgstr ""
+"Talebi verilen faktörle ölçeklendirin (araçları atarak veya çoğaltarak)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:410
 msgid "Suffix to be added when creating ids for cloned vehicles"
@@ -2071,8 +2077,8 @@ msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
 msgstr ""
-"Birikmiş bekleme süresinin dikkate alındığı zaman aralığının uzunluğu ("
-"varsayılan değer 100 saniyedir)"
+"Birikmiş bekleme süresinin dikkate alındığı zaman aralığının uzunluğu "
+"(varsayılan değer 100 saniyedir)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:437
 msgid "Minimum consecutive waiting time before applying startupDelay"
@@ -2330,7 +2336,8 @@ msgstr "JuPedSim simülasyonunun güncelleme aralığı (saniye cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid "The distance to the destination point considered as arrival (in meters)"
-msgstr "Varış olarak kabul edilen hedef noktasına olan mesafe (metre cinsinden)"
+msgstr ""
+"Varış olarak kabul edilen hedef noktasına olan mesafe (metre cinsinden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid ""
@@ -2509,7 +2516,8 @@ msgstr "Yüklemeden sonra simülasyonu başlatın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:722
 msgid "Use FLOAT in ms as delay between simulation steps"
-msgstr "Simülasyon adımları arasında gecikme olarak ms cinsinden FLOAT kullanın"
+msgstr ""
+"Simülasyon adımları arasında gecikme olarak ms cinsinden FLOAT kullanın"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:725
 msgid "Use TIME[] as times when the simulation should halt"
@@ -3033,8 +3041,8 @@ msgstr ""
 "% '%' için 'aracılığıyla' özelliğinde '%' kenarının eksik olmasını durdurun"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1213
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1331
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1203
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1321
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
@@ -3049,25 +3057,25 @@ msgstr ""
 "Verilen '%' durağının dışında olduğu için % için varışPoz yok sayılıyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1390
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1234
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1224
 msgid "No destination edge for %."
 msgstr "% için hedef kenar yok."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1419
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1254
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1244
 msgid "Start edge not defined for person '%'."
 msgstr "Başlangıç kenarı '%' kişisi için tanımlanmamış."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1429
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1494
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1265
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1322
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1255
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1312
 msgid "Non-positive walking duration for '%'."
 msgstr "'%' için pozitif olmayan yürüme süresi."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1500
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1326
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1316
 msgid "Non-positive walking speed for '%'."
 msgstr "'%' için pozitif olmayan yürüme hızı."
 
@@ -3083,20 +3091,24 @@ msgstr ""
 "kalkışPozBoy yorumlanırken '%' kişisinin yürüyüşü için kalkış şeridi "
 "bulunamadı"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1634
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1596
+msgid "The type '%' for % '%' is not known."
+msgstr ""
+
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1619
 msgid "Could not read tranship speed for container '%'."
 msgstr "Konteyner '%' için aktarma hızı okunamadı."
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1642
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1627
 msgid "Non-positive tranship speed for container '%'."
 msgstr "'%' konteyner için pozitif olmayan aktarma hızı."
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1668
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1653
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr "'%' konteynerinin başlangıç kenarı bilinmiyor."
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1672
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
@@ -3104,7 +3116,7 @@ msgstr ""
 "Konteyner '%' için tutarsız aktarım, yalnızca bir seçeneğe izin verilir: "
 "'kesimler', 've', 'konteyner durağı'"
 
-#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1693
+#: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1678
 msgid "No edges to tranship container '%'."
 msgstr "'%' konteynerini aktarmak için kesim yok."
 
@@ -3156,8 +3168,8 @@ msgstr "Bölgesel Ölçek İçin Aralık Kontrolü Yok."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, zaman=%"
-"\n"
+"Şerit değiştirme modeli değiştirme için bir neden sağlamadı (durum=%, zaman="
+"%\n"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:756
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:171
@@ -3412,8 +3424,8 @@ msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
 msgstr ""
-"Hatayı algılanan hız farkına uygulamak için genel ölçeklendirme katsayısı ("
-"hata da mesafe ile ölçeklenir)."
+"Hatayı algılanan hız farkına uygulamak için genel ölçeklendirme katsayısı "
+"(hata da mesafe ile ölçeklenir)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:74
 msgid ""
@@ -3530,7 +3542,8 @@ msgstr "FCD verileri için kayıt süresi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
-msgstr "Donanımlı araçların etrafındaki bir yarıçap içindeki nesneleri kaydedin"
+msgstr ""
+"Donanımlı araçların etrafındaki bir yarıçap içindeki nesneleri kaydedin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #, c-format
@@ -3613,7 +3626,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
-msgstr "Yeniden yönlendirme için kullanılan paralel yürütme iş parçacığı sayısı"
+msgstr ""
+"Yeniden yönlendirme için kullanılan paralel yürütme iş parçacığı sayısı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
@@ -4581,30 +4595,30 @@ msgstr ""
 msgid "moveToXY is ignored by the current movement model"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:98
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:97
 #, c-format
 msgid ""
 "Error while adding an agent: vType '%' hasn't been registered as a JuPedSim "
 "parameter profile, using the default type."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:105
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:104
 msgid "Error while adding an agent: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:168
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:628
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:627
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:654
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:653
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:660
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:659
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -10333,11 +10347,11 @@ msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyo
 msgid "Discarding containerFlow '%' because it's plan is empty"
 msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1051
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1041
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
 
-#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1091
+#: C:\Repos\sumo/src\router\RORouteHandler.cpp:1081
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr "Ağın Coğrafi Referansı Olmadığı İçin Coğrafi Konumlar Dönüştürülemiyor"
 
@@ -10850,45 +10864,45 @@ msgstr "Enerjinin Verdiği Bir Pozitif İvme Bulunamadı."
 msgid "No matches found"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:74
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:160
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:171
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:159
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:170
 msgid "Invalid row or column"
 msgstr "Geçersiz satır veya sütun"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:195
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:194
 msgid "Invalid row"
 msgstr "Geçersiz satır"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:205
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:204
 msgid "Invalid column"
 msgstr "Geçersiz sütun"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:341
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:340
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:346
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:345
 msgid "All files (*)"
 msgstr "Tüm dosyalar (*)"
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:798
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:806
+#: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal."
 msgstr ""
 
@@ -11015,12 +11029,12 @@ msgid "Parameters must be defined within an object."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1967
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:932
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1969
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:934
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
 
@@ -11047,56 +11061,56 @@ msgstr "Veri Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "MeanData Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:398
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:402
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:405
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:459
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:477
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
 #, fuzzy, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "Çokgen'in lineWidth Değeri 0'dan Büyük Olmalıdır."
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:530
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:610
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:532
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:612
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:576
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:930
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 msgid "Parameters must be defined within an object"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
 #, fuzzy, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
 "Boş Olamaz"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
 #, fuzzy, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -11104,29 +11118,29 @@ msgstr ""
 "Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
 "Geçersiz Karakterler İçeriyor"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:960
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:225
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:200
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:968
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:970
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:228
-#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:230
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:203
+#: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:205
 msgid "Invalid parsing embedded VType"
 msgstr "Geçersiz Ayrıştırma Tümleşik VType"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1054
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1070
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1073
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 
