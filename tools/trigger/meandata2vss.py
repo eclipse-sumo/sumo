@@ -48,16 +48,16 @@ def main():
     for interval in sumolib.xml.parse(options.meandatafile, "interval"):
         for edge in interval.edge:
             if options.attribute:
-                if not hasattr(edge, options.attribute):
+                if not getattr(edge, options.attribute):
                     warnings.warn("Skipping edge which has no attribute '%s'." % options.attribute)
                     continue
                 speed = float(getattr(edge, options.attribute))
             elif edge.speed is None:
+                if edge.traveltime is None:
+                    warnings.warn("Skipping edge which has neither 'speed' nor 'traveltime'.")
+                    continue
                 if net is None:
                     warnings.warn("No network, cannot calculate speed from travel time.")
-                    continue
-                if not hasattr(edge, 'traveltime'):
-                    warnings.warn("Skipping edge which has neither 'speed' nor 'traveltime'.")
                     continue
                 speed = net.getEdge(edge.id).getLength() / float(edge.traveltime)
             else:
