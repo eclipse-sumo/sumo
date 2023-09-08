@@ -518,7 +518,7 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
     std::vector<JPS_Point> exteriorCoordinates = convertToJPSPoints(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
 
-    for (const auto& c : exteriorCoordinates) {
+    for (const JPS_Point& c : exteriorCoordinates) {
         dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
         dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
     }
@@ -534,7 +534,7 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
                 std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
                 JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
 
-                for (const auto& c : holeCoordinates) {
+                for (const JPS_Point& c : holeCoordinates) {
                     dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
                     dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
                 }
