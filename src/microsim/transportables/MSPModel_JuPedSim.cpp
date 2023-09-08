@@ -548,15 +548,13 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 
 
 void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
-    for (auto shape: myNetwork->getShapeContainer().getPolygons()) {
-        PositionVector translatedShape = shape.second->getShape();
-        Position netOffset = GeoConvHelper::getFinal().getOffset();
-        translatedShape.add(netOffset);
-        std::vector<JPS_Point> coordinates = convertToJPSPoints(translatedShape);
-        if (shape.second->getShapeType() == "jupedsim.walkable_area") {
+    for (auto polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
+        PositionVector shape = polygonWithID.second->getShape();
+        std::vector<JPS_Point> coordinates = convertToJPSPoints(shape);
+        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area") {
             JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
         }
-        else if (shape.second->getShapeType() == "jupedsim.obstacle") {
+        else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
         }
         else {
