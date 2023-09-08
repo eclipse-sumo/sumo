@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:24+0200\n"
-"PO-Revision-Date: 2023-09-07 09:24+0000\n"
+"PO-Revision-Date: 2023-09-09 04:43+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -3093,7 +3093,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1596
 msgid "The type '%' for % '%' is not known."
-msgstr ""
+msgstr "'%' için '%' türü bilinmiyor."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1619
 msgid "Could not read tranship speed for container '%'."
@@ -3722,23 +3722,25 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:244
 msgid "Specifies the perception reaction time for MDRAC computation."
-msgstr ""
+msgstr "MDRAC hesaplaması için algılama tepki süresini belirtir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:246
 msgid "Give a global default filename for the SSM output"
-msgstr ""
+msgstr "SSM çıktısı için genel bir varsayılan dosya adı verin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:248
 msgid "Whether to use coordinates of the original reference system in output"
 msgstr ""
+"Çıktıda orijinal referans sisteminin koordinatlarının kullanılıp "
+"kullanılmayacağı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:250
 msgid "Whether to write positions (coordinates) for each timestep"
-msgstr ""
+msgstr "Her zaman adımı için konumların (koordinatların) yazılıp yazılmayacağı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:252
 msgid "Whether to write lanes and their positions for each timestep"
-msgstr ""
+msgstr "Her zaman adımı için şeritlerin ve konumlarının yazılıp yazılmayacağı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:254
 msgid ""
@@ -3747,10 +3749,14 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
+"Sınıflandırıldıkları çatışma türüne göre hangi çatışmaların günlükten "
+"çıkarılacağı ('ego', 'foe' , '', herhangi bir sayısal geçerli çatışma türü "
+"kodundaki değerlerin kombinasyonu). Boş bir değer tümünü günlüğe kaydeder ve "
+"'ego'/'foe' belirli bir çatışma türü alt kümesini ifade eder."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:265
 msgid "Could not load names of edges for filtering SSM device output from '%'."
-msgstr ""
+msgstr "SSM cihaz çıktısını '%'den filtrelemek için kesim adları yüklenemedi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:1119
 msgid ""
@@ -3779,48 +3785,49 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3985
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
-msgstr ""
+msgstr "'ssm.measures' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3714
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3991
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
-msgstr ""
+msgstr "'ssm.measures' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3719
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.file' araç parametresini sağlamıyor. '%' varsayılanı "
+"kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3742
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.geo' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3748
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.geo' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3753
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.geo' araç parametresini sağlamıyor. '%' varsayılanı "
+"kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3769
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "'ssm.write-positions' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3775
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.write-positions' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3780
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3807
@@ -3828,92 +3835,98 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.write-positions' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3796
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.write-lane-positions' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3802
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3823
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "'ssm.conflict-order' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3829
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "'ssm.conflict-order' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3834
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.exclude-conflict-types' araç parametresini sağlamıyor. "
+"'%' varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3852
 msgid ""
 "SSM order filter '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr ""
+"SSM dizi filtresi '%' desteklenmiyor. SSM cihazı '%' inşası iptal ediliyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3869
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.range' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3875
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.range' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3880
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.range' araç parametresini sağlamıyor. '%' varsayılanı "
+"kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3896
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "'ssm.mdrac.prt' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3902
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "'ssm.mdrac.prt' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3907
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.mdrac.prt' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3925
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.extratime' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3931
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.extratime' vType parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3936
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.extratime' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3942
 #, c-format
@@ -3921,53 +3934,58 @@ msgid ""
 "Negative (or no) value encountered for vehicle parameter 'device.ssm."
 "extratime' in vehicle '%' using default value % instead."
 msgstr ""
+"Araç parametresi 'device.ssm.extratime' için '%' aracında negatif (veya hiç) "
+"değerle karşılaşıldı, bunun yerine varsayılan değer % kullanıldı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3956
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.trajectories' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3962
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.trajectories' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3967
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.trajectories' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3996
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.measures' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4013
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
 msgstr ""
+"SSM tanımlayıcısı '%' desteklenmiyor. SSM cihazı '%' inşası iptal ediliyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4024
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.thresholds' araç parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4030
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
-msgstr ""
-"'%' Trafik Işığının 'device.glosa.range' Parametresi İçin Geçersiz Değer '%'"
+msgstr "'ssm.thresholds' vTür parametresi için geçersiz '%' değeri."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4035
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
 msgstr ""
+"Araç '%', 'device.ssm.thresholds' araç parametresini sağlamıyor. '%' "
+"varsayılanı kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4050
 msgid ""
@@ -3975,78 +3993,89 @@ msgid ""
 "measures ('%').\n"
 "Please specify exactly one threshold for each measure."
 msgstr ""
+"Verilen eşik listesi ('%'), hesaplama listesi ('%') ile aynı boyutta "
+"değildir.\n"
+"Lütfen her bir hesaplama için tam olarak bir eşik belirtin."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:46
 msgid ""
 "Time to wait for a rescue vehicle on the road side when the battery is empty"
-msgstr ""
+msgstr "Akü boşken yol kenarında bir kurtarma aracını bekleme süresi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:48
 msgid ""
 "Additional battery buffer for unexpected traffic situation when estimating "
 "the battery need"
 msgstr ""
+"Akü ihtiyacını tahmin ederken beklenmedik trafik durumu için ek akü tamponu"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:50
 msgid "Battery percentage to go into rescue mode"
-msgstr ""
+msgstr "Kurtarma moduna geçmek için pil yüzdesi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:52
 msgid "Search radius in travel time seconds"
-msgstr ""
+msgstr "Seyahat süresi saniye cinsinden arama yarıçapı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:54
 msgid "When to trigger a new search if no station has been found"
-msgstr ""
+msgstr "Herhangi istasyon bulunamazsa yeni bir arama ne zaman tetiklenir?"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:56
 msgid "The maximum charging speed of the vehicle battery"
-msgstr ""
+msgstr "Araç aküsünün maksimum şarj hızı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:58
 msgid "Type of energy transfer"
-msgstr ""
+msgstr "Enerji transferinin türü"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:60
 msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
 msgstr ""
+"Bu bekleme süresinden sonra araç, ilk istasyon bloke olduğunda yeni bir "
+"istasyon arar"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:124
 msgid ""
 "Rerouting using station finder removes all upcoming stops for vehicle '%'."
 msgstr ""
+"İstasyon bulucu kullanarak yeniden yönlendirme, '%' aracı için yaklaşan tüm "
+"durakları kaldırır."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:84
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
+"Sevk algoritması [greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:87
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr ""
+msgstr "Gönderim algoritmasından gelen bilgileri DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:90
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
+"Gönderim algoritması parametrelerini ANAHTAR1:DEĞER1[,ANAHTAR2:DEĞER] "
+"biçiminde yükleyin"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:93
 msgid "The period between successive calls to the dispatcher"
-msgstr ""
+msgstr "Sevk görevlisine yapılan ardışık çağrılar arasındaki süre"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:96
 msgid "The behavior of idle taxis [stop|randomCircling]"
-msgstr ""
+msgstr "Boşta duran taksilerin davranışı [dur|rastgeleDönüş]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:99
 msgid "Write information from the idling algorithm to FILE"
-msgstr ""
+msgstr "Rölanti algoritmasından gelen bilgileri DOSYA'ya yazın"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:117
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
-msgstr ""
+msgstr "Cihaz. taksi ile araç '%', '%' yerine vSınıf taksi olmalıdır."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:124
 msgid ""
@@ -4059,15 +4088,16 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:149
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr ""
+msgstr "Gönderim algoritması '%' bilinmiyor"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:328
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
+"Mevcut müşteri '%' için yeni bir rezervasyonla geçersiz yeniden sevkiyat"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:361
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
-msgstr ""
+msgstr "Yeniden sevkiyatta mevcut müşteri '%' için teslim alımdan bahsedilmedi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:468
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
@@ -4086,91 +4116,103 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
-msgstr ""
+msgstr "Manuel sürüş rejimi için araç tipi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
-msgstr ""
+msgstr "Otomatik sürüş rejimi için araç tipi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:120
 msgid "Average response time needed by a driver to take back control."
 msgstr ""
+"Bir sürücünün kontrolü geri almak için ihtiyaç duyduğu ortalama tepki süresi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:122
 msgid "Recovery rate for the driver's awareness after a ToC."
-msgstr ""
+msgstr "Bir ToC sonrasında sürücünün farkındalığı için iyileşme oranı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:124
 msgid ""
 "Attention level below which a driver restrains from performing lane changes "
 "(value in [0,1])."
 msgstr ""
+"Bir sürücünün şerit değiştirmekten kaçındığı dikkat seviyesi (değer "
+"[0,1]'de)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:126
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
 msgstr ""
+"Bir sürücünün bir ToC'dan sonra başlangıçta sahip olduğu ortalama "
+"farkındalık (değer [0,1])."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:128
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
-msgstr ""
+msgstr "'Minimum risk manevrası' sırasında uygulanan yavaşlama oranı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:130
 msgid ""
 "Time, which the vehicle requires to have ahead to continue in automated "
 "mode. The default value of 0 indicates no dynamic triggering of ToCs."
 msgstr ""
+"Aracın otomatik modda devam etmek için ileride olması gereken süre. "
+"Varsayılan değer olan 0, ToC'ların dinamik olarak tetiklenmediğini gösterir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:132
 msgid "Probability that a dynamically triggered TOR is not answered in time."
-msgstr ""
+msgstr "Dinamik olarak tetiklenen bir TOR'un zamanında yanıtlanmama olasılığı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:134
 msgid "If true, the vehicle tries to change to the right during an MRM."
-msgstr ""
+msgstr "Doğruysa, araç bir MRM sırasında sağa geçmeye çalışır."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:136
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
 msgstr ""
+"Ayarlanırsa, araç bir MRM sırasında belirtilen durma yerine ulaşmaya çalışır."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:138
 msgid "Duration the vehicle stays at the safe spot after an MRM."
-msgstr ""
+msgstr "Bir MRM sonrasında aracın güvenli noktada kalma süresi."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:140
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
-msgstr ""
+msgstr "ToC hazırlama aşamasında uygulanabilecek maksimum ivme."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:142
 msgid "Timegap for ToC preparation phase."
-msgstr ""
+msgstr "ToC hazırlık aşaması için zaman aralığı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:144
 msgid "Additional spacing for ToC preparation phase."
-msgstr ""
+msgstr "ToC hazırlık aşaması için ek boşluk."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:146
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
+"ToC hazırlık aşamasında artan boşluk oluşturmak için uygulanan maksimum "
+"yavaşlama."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:148
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
-msgstr ""
+msgstr "ToC hazırlığı sırasında artan ilerleme hızına uyum oranı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:150
 msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
 msgstr ""
+"Farklı ToC aşamalarını belirtmek için bir renklendirme şemasının uygulanıp "
+"uygulanmayacağı."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:152
 msgid "Switches on output by specifying an output filename."
-msgstr ""
+msgstr "Bir çıktı dosya adı belirterek çıktıyı açar."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:161
 msgid "ToC device is not supported by the mesoscopic simulation."
@@ -4179,18 +4221,20 @@ msgstr "ToC Cihazı Bölgesel Simülasyon Tarafından Desteklenmez."
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:200
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'"
-msgstr ""
+msgstr "'ssm.measures' araç parametresi için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:206
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'"
-msgstr ""
+msgstr "'ssm.measures' vType parametresi için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:220
 msgid ""
 "Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in "
 "the admissible range [0,0.5]. Truncated to %."
 msgstr ""
+"ToC cihaz parametresi 'dynamicMRMProbability' (=%) için verilen değer kabul "
+"edilebilir aralıkta değil [0,0.5]. % olarak kesilmiştir."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:246
 msgid ""
@@ -4203,12 +4247,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:578
 msgid "Ignoring unknown safe spot '%' for vehicle '%'."
-msgstr ""
+msgstr "'%' aracı için bilinmeyen güvenli nokta '%' yok sayılıyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:731
 #, c-format
 msgid "vType '%' for vehicle '%' is not known."
-msgstr ""
+msgstr "'%' aracı için vTür '%' bilinmiyor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:933
 msgid ""
@@ -4223,6 +4267,8 @@ msgid ""
 "Value of dynamicToCThreshold must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"dynamicToCThreshold değeri negatif olmamalıdır. (Araç %'si için verilen % "
+"değeri göz ardı edilir)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:961
 #, c-format
@@ -4230,6 +4276,8 @@ msgid ""
 "Value of dynamicMRMProbability must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"dynamicMRMProbability değeri negatif olmamalıdır. (Araç %'si için verilen % "
+"değeri göz ardı edilir)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:975
 #, c-format
@@ -4237,12 +4285,13 @@ msgid ""
 "Value of maxPreparationAccel must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"maxPreparationAccel değeri negatif olmamalıdır. (Araç %'si için verilen % "
+"değeri göz ardı edilir)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1000
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1021
-#, fuzzy
 msgid "Unknown ToCState '%'"
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen ToCState '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:97
 msgid ""
@@ -4254,11 +4303,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:200
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "Tutarsız grup rezervasyonları."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:204
 msgid "Inconsistent group reservations (2)."
-msgstr ""
+msgstr "Tutarsız grup rezervasyonları (2)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:65
 msgid "Idle taxi '%' has no next segment to stop. time=%."
@@ -4267,25 +4316,24 @@ msgstr "% Boş Taksinin Duracak Bir Sonraki Bölümü Yok. Zaman=%."
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:104
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr ""
+msgstr "Boşta duran taksi '%' %m içinde duramadı"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:157
 #, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "Araç '%' çıkmaz sokakta rölantide çalışmaya son veriyor"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:183
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
-msgstr ""
+msgstr "Zaman=%'de '%' aracı için taksi durağı belirlenemedi"
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr "Kesim Ağırlıkları Güncellenmezse Yeniden Yönlendirme Kullanışsızdır!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:148
-#, fuzzy
 msgid "weights.priority-factor cannot be negative."
-msgstr "weights.random-factor 1'den Küçük Olamaz"
+msgstr "ağırlıklar.öncelik faktörü negatif olamaz."
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:152
 msgid ""
@@ -4297,30 +4345,29 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
-msgstr ""
+msgstr "Bilinmeyen yönlendirme algoritması '%'!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSTransportableDevice_Routing.cpp:46
 msgid "The period with which the person shall be rerouted"
-msgstr ""
+msgstr "Kişinin yeniden yönlendirileceği süre"
 
 #: C:\Repos\sumo/src\microsim\engine\VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr ""
+msgstr "Geçersiz motor haritası türü. Şimdilik sadece \"poly\" destekleniyor"
 
 #: C:\Repos\sumo/src\microsim\engine\VehicleEngineHandler.cpp:197
-#, fuzzy
 msgid "Unknown tag '%' while parsing."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Ayrıştırma sırasında bilinmeyen '%' etiketi."
 
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:82
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
-msgstr ""
+msgstr "Şerit değiştirme modeli '%' alt şerit simülasyonuyla uyumlu değil"
 
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr ""
+msgstr "Şerit değiştirme modeli '%' uygulanmadı"
 
 #: C:\Repos\sumo/src\microsim\output\MSE2Collector.cpp:124
 msgid ""
@@ -4340,41 +4387,40 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\output\MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
-msgstr ""
+msgstr "Çok şeritli e2Detektör henüz kişileri algılamayı desteklemiyor"
 
 #: C:\Repos\sumo/src\microsim\output\MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
-msgstr ""
+msgstr "'%' şeridinde '%' için negatif araç adım kesri."
 
 #: C:\Repos\sumo/src\microsim\output\MSMeanData.cpp:554
-#, fuzzy
 msgid "aggregated meanData output not yet implemented for trackVehicles"
-msgstr "getStopState Bölgesel Ölçek İçin Henüz Uygulanmadı"
+msgstr "toplanmış ortalamaVeri çıktısı takipAraçları için henüz uygulanmadı"
 
 #: C:\Repos\sumo/src\microsim\output\MSMeanData.cpp:766
 msgid "Unknown attribute '%' to write in meanData '%'."
-msgstr ""
+msgstr "OrtalamaVeri '%' içine yazılacak '%' özniteliği bilinmiyor."
 
 #: C:\Repos\sumo/src\microsim\output\MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
 msgstr "'%' Aracı Önceki Durağı Tamamlamadan '%' Kesiminde Durur, Zaman=%."
 
 #: C:\Repos\sumo/src\microsim\output\MSStopOut.cpp:105
-#, fuzzy
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
-msgstr "'%' Aracı '%' Kesiminde Durağa Girmeden Durakta Sonlanır, Zaman=%"
+msgstr "Araç '%', durağa girmeden '%' kenarında durmayı bitirir, zaman=%."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:140
-#, fuzzy, c-format
+#, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr ""
-"Trafik Işığı '%' Herhangi Bir Linki Kontrol Etmiyor; Yapılandırılmayacak."
+msgstr "Trafik ışığı '%' herhangi bir bağlantıyı kontrol etmez"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:229
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Çalıştırılan tlLogic '%' için özel dedektör olarak verilen bilinmeyen "
+"indüksiyonDöngüsü '%', program '%."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:242
 msgid ""
