@@ -184,32 +184,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 ```
 
-### How to build JuPedSim and then build SUMO with JuPedSim
-
-In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim. First of all, clone the JuPedSim repository:
-
-``` bash
-git clone https://github.com/PedestrianDynamics/jupedsim.git
-```
-
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the JuPedSim build procedure [here](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check the latest release [here](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v0.9.6, you would need to type:
-
-``` bash 
-git checkout tags/v0.9.6
-```
-
-Outside the repository directory, but at the same level, create two directories `jupedsim-build` and `jupedsim-install`, then type:
-
-``` bash
-cd jps-build
-cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
-cmake --build . --config Release
-cmake --install . --config Release
-```
-
-You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `brew install geos` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_DIR` when calling CMake.
-
-For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md/#jupedsim).
+!!! note
+    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim)
 
 # The Macports Approach (legacy)
 

@@ -231,12 +231,12 @@ git clone https://github.com/PedestrianDynamics/jupedsim.git
 Outside the repository directory, but at the same level, create two directories `jupedsim-build` and `jupedsim-install` (for instance), then type:
 
 ``` bash
-cd jps-build
+cd jupedsim-build
 cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
 cmake --build . --config Release
 cmake --install . --config Release
 ```
 
-You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_DIR` when calling CMake.
+You can also change the configuration to Debug and also enable multithreading as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, please follow the standard build procedure for Windows: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
-For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md/#jupedsim).
+For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#jupedsim).
