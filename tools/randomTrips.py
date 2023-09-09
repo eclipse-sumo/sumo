@@ -922,7 +922,7 @@ if __name__ == "__main__":
     try:
         if not main(get_options()):
             print("Error: Trips couldn't be generated as requested. "
-                "Try the --verbose option to output more details on the failure.")
+                  "Try the --verbose option to output more details on the failure.")
             sys.exit(1)
     except ValueError as e:
         print("Error:", e, file=sys.stderr)

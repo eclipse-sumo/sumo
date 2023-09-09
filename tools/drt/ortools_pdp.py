@@ -254,14 +254,17 @@ def create_time_dimension(data, routing, manager, verbose):
     time_dimension = routing.GetDimensionOrDie(dimension_name)
     return time_dimension
 
+
 def add_time_windows_constraint(data, time_dimension, manager, verbose):
     if verbose:
         print(' Add time windows constraints...')
 
     depot = data['depot']
-    new_requests_nodes = [node for req in data['pickups_deliveries'] for node in (req.from_node, req.to_node) if req.is_new]
+    new_requests_nodes = [node for req in data['pickups_deliveries']
+                          for node in (req.from_node, req.to_node) if req.is_new]
     old_requests_nodes = ([req.to_node for req in data['dropoffs']] +
-            [node for req in data['pickups_deliveries'] for node in (req.from_node, req.to_node) if not req.is_new])
+                          [node for req in data['pickups_deliveries']
+                           for node in (req.from_node, req.to_node) if not req.is_new])
     # Add time window constraints for each location except depot.
     for location_idx, time_window in enumerate(data['time_windows']):
         # no time window for depot:
@@ -272,17 +275,16 @@ def add_time_windows_constraint(data, time_dimension, manager, verbose):
         if location_idx in data['starts'] + new_requests_nodes:
             if verbose:
                 print(f'hard time window for node {location_idx}: [{time_window[0]}, {time_window[1]}]')
-            time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  # TODO: check if set, else ignore it
+            time_dimension.CumulVar(index).SetRange(
+                time_window[0], time_window[1])  # TODO: check if set, else ignore it
         # soft time window for old requests:
         if location_idx in old_requests_nodes:
             if verbose:
                 print(f'soft time window for node {location_idx}: [{time_window[0]}, {time_window[1]}]')
             time_dimension.SetCumulVarSoftLowerBound(index, time_window[0], 100)
             time_dimension.SetCumulVarSoftUpperBound(index, time_window[1], 100)
-            #time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
+            # time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
 
-    
-    
     # TODO: check if the followwing is needed
     # # Add time window constraints for each vehicle start node.
     # depot_idx = data['depot']
@@ -323,12 +325,11 @@ def add_waiting_time_constraints(data, routing, manager, solver, time_dimension,
         # add soft constraint for old reservations
         else:
             time_dimension.SetCumulVarSoftUpperBound(
-                    pickup_index,
-                    maximum_pickup_time,
-                    100)  # cost = coefficient * (cumulVar - maximum_pickup_time)
+                pickup_index,
+                maximum_pickup_time,
+                100)  # cost = coefficient * (cumulVar - maximum_pickup_time)
             if verbose:
                 print(f"reservation {request.id} has a maximum (soft) pickup time at {maximum_pickup_time}")
-
 
 
 def solve_from_initial_solution(routing, manager, search_parameters, data, verbose):
@@ -390,20 +391,20 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
     # search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC
     # search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
     search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.AUTOMATIC
-    
-    # search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH  # langsam
+
+    # GUIDED_LOCAL_SEARCH seems slow
+    # search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     # search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GREEDY_DESCENT
     search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.AUTOMATIC
 
     search_parameters.time_limit.FromSeconds(time_limit_seconds)
-    
+
     search_parameters.sat_parameters.num_search_workers = 8
     # search_parameters.lns_time_limit.seconds = 7
     # search_parameters.solution_limit = 100
-    
-    # Switch logging on for the search
-    #search_parameters.log_search = True 
 
+    # Switch logging on for the search
+    # search_parameters.log_search = True
 
     return search_parameters
 
@@ -417,8 +418,8 @@ def main(data: dict, time_limit_seconds=10, verbose=False):
 
     # Create Routing Model.
     routing_parameters = pywrapcp.DefaultRoutingModelParameters()
-    #routing_parameters.solver_parameters.trace_propagation = True
-    #routing_parameters.solver_parameters.trace_search = True
+    # routing_parameters.solver_parameters.trace_propagation = True
+    # routing_parameters.solver_parameters.trace_search = True
     routing = pywrapcp.RoutingModel(manager, routing_parameters)
 
     # get solver
@@ -451,7 +452,7 @@ def main(data: dict, time_limit_seconds=10, verbose=False):
 
     # Add waiting time constraints.
     add_waiting_time_constraints(data, routing, manager, solver, time_dimension, verbose)
-    
+
     print('## Done')
     # Setting first solution heuristic.
     search_parameters = set_first_solution_heuristic(time_limit_seconds, verbose)
