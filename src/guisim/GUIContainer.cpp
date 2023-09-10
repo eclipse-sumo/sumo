@@ -163,7 +163,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem(TL("stage"), false, getCurrentStageDescription());
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
-    ret->mkItem(TL("stage index"), false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
+    ret->mkItem(TL("stage index"), false, toString(getCurrentStageIndex()) + " of " + toString(getNumStages() - 1));
     ret->mkItem(TL("start edge [id]"), false, getFromEdge()->getID());
     ret->mkItem(TL("dest edge [id]"), false, getDestination()->getID());
     ret->mkItem(TL("arrivalPos [m]"), false, toString(getCurrentStage()->getArrivalPos()));

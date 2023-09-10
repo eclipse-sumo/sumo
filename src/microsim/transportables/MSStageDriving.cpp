@@ -200,7 +200,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
     myWaitingSince = now;
     const bool isPerson = transportable->isPerson();
     if (transportable->getParameter().departProcedure == DepartDefinition::TRIGGERED
-            && transportable->getNumRemainingStages() == transportable->getNumStages() - 1) {
+            && transportable->getCurrentStageIndex() == 1) {
         // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
         const std::string vehID = *myLines.begin();
         SUMOVehicle* startVeh = net->getVehicleControl().getVehicle(vehID);
