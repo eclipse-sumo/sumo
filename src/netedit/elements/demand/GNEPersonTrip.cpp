@@ -151,10 +151,14 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     }
     // write to depending if personplan ends in a busStop, edge or junction
     if (getParentAdditionals().size() > 0) {
-        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
+        const GNEAdditional* const add = getParentAdditionals().front();
+        if (add->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, add->getID());
+        } else if (add->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+            device.writeAttr(SUMO_ATTR_TRAIN_STOP, add->getID());
         } else {
-            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
+            device.writeAttr(SUMO_ATTR_FROM_TAZ, add->getID());
+            device.writeAttr(SUMO_ATTR_TO_TAZ, getParentAdditionals().back()->getID());
         }
     } else if (getParentEdges().size() > 0) {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
