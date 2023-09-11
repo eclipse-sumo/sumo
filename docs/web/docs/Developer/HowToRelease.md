@@ -159,6 +159,7 @@ If everything is fine:
 - close [the milestone](https://github.com/eclipse/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.
+- update the version doi in CITATION.cff
 
 ### After-release cleanup
 
