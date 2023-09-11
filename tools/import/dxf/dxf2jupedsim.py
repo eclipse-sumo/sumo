@@ -72,6 +72,8 @@ def main():
                         help="Color of the polygons defining obstacles")
     parser.add_argument("--sumo-layer", default=0,
                         help="SUMO layer used to render polygons defining walkable areas")
+    parser.add_argument("--projection", default="EPSG:32633",
+                        help="EPSG code or projection string used to convert back to geocoordinates")
     args = parser.parse_args()
     if args.test:
         create_test_dxf(args)
