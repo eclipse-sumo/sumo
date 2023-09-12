@@ -122,7 +122,7 @@ title: Projects
 
 ### Past Projects
 
-- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cl.cam.ac.uk/research/dtg/www/publications/public/jjd27/ciiHandout.pdf)
+- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=F0B31C15E28195C3869E05D0B20B4D70?doi=10.1.1.134.8437&rep=rep1&type=pdf)
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
