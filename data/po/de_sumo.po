@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-09-08 12:24+0200\n"
+"POT-Creation-Date: 2023-09-12 10:28+0200\n"
 "PO-Revision-Date: 2023-07-19 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3084,7 +3084,7 @@ msgstr ""
 "Route '%' zusammengeführt werden"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:770
-#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:327
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:315
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -4824,19 +4824,24 @@ msgstr ""
 msgid "Error while adding an agent: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:123
+#, c-format
+msgid "FromTaz '%' for person '%' has no shape information."
+msgstr ""
+
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:186
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:627
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:630
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:653
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:656
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:659
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:662
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -4891,11 +4896,11 @@ msgstr ""
 msgid "Changing a transportable ID is not permitted"
 msgstr "Das Ändern einer transportablen ID ist nicht zulässig"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:256
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:244
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr "% teleportiert '%'; hat zu lange gewartet, von Kante '%', zur Zeit=%."
 
-#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:391
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:379
 msgid "parkingAreaReroute not support for containers"
 msgstr "parkingAreaReroute wird für Container nicht unterstützt"
 
@@ -8592,7 +8597,7 @@ msgid "Deprecated vehicle class(es) '%' in input network."
 msgstr "Veraltete Fahrzeugklasse(en) '%' im Eingabenetz."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:403
-#: C:\Repos\sumo/src\netload\NLHandler.cpp:1689
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1691
 #, c-format
 msgid "Unknown edge '%' in roundabout"
 msgstr "Unbekannte Kante '%' im Kreisverkehr"
@@ -9177,13 +9182,13 @@ msgid "Stop '%' within route '%' not found"
 msgstr "Halt '%' innerhalb der Route '%' nicht gefunden"
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:46
-#: C:\Repos\sumo/src\netload\NLHandler.cpp:1750
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1752
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
 msgstr "Fahrstreifen '%' der auf Pol '%' platziert werden soll nicht bekannt."
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:59
-#: C:\Repos\sumo/src\netload\NLHandler.cpp:1763
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1765
 #, c-format
 msgid "lane position % for poi '%' is not valid."
 msgstr "Fahrstreifenposition % für den Pol '%' ist nicht zulässig."
@@ -9640,13 +9645,13 @@ msgstr ""
 "Ersetzte die Knotenpunkt-Verkehrsumlegungszone '%' mit geladener "
 "Verkehrsumlegungszone."
 
-#: C:\Repos\sumo/src\netload\NLHandler.cpp:1645
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1647
 msgid "Skipping visualization of taz '%', polygon already exists."
 msgstr ""
 "Überspringe Visualisierung der Verkehrsumlegungszone '%', Polygon existiert "
 "bereits."
 
-#: C:\Repos\sumo/src\netload\NLHandler.cpp:1676
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1678
 msgid "At district '%': succeeding edge '%' does not exist."
 msgstr "Beim Bezirk '%': die nachfolgende Kante '%' existiert nicht."
 
@@ -12214,11 +12219,11 @@ msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr ""
 "Die Routendatei sollte nach der Abfahrtszeit sortiert werden, ignoriere '%'!"
 
-#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:658
+#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:660
 msgid "Invalid % % given for %. Using edge end instead."
 msgstr "Ungültig(es) %% gegeben für %. Nutze statt dessen Kante."
 
-#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:708
+#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:710
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
