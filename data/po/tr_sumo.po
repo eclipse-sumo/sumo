@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 10:00+0000\n"
+"PO-Revision-Date: 2023-09-12 10:03+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -5681,51 +5681,57 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:251
 msgid "Set edge priority values based on estimated main direction"
-msgstr ""
+msgstr "Tahmini ana yöne göre kesim öncelik değerlerini ayarlama"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:254
 msgid "Extend loaded edge priority values based on estimated main direction"
-msgstr ""
+msgstr "Yüklenen kesim öncelik değerlerini tahmini ana yöne göre genişletme"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:257
 msgid "Guess signals that guard public transport stops"
-msgstr ""
+msgstr "Toplu taşıma duraklarını koruyan sinyalleri tahmin edin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:260
 msgid "The search radius for finding suitable road accesses for rail stops"
 msgstr ""
+"Demiryolu durakları için uygun yol erişimleri bulmaya yönelik arama yarıçapı"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:264
 msgid "The maximum road accesses registered per rail stops"
-msgstr ""
+msgstr "Demiryolu durakları başına kayıtlı maksimum yol erişimi"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:268
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
 msgstr ""
+"Erişimin yürüme uzunluğu, hava hattı mesafesinin FLOAT ile çarpımı olarak "
+"hesaplanır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:272
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
 msgstr ""
+"Yüklü bir durağın iki kesiminde durakların otomatik olarak oluşturulmasını "
+"atlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:276
 #, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
 msgstr ""
+"FLOAT üzerinde % cinsinden dereceye sahip kesim geometrileri hakkında uyarın."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:279
 msgid "Smooth edge geometries with a grade above the warning threshold."
-msgstr ""
+msgstr "Uyarı eşiğinin üzerinde bir eğime sahip pürüzsüz kenar geometrileri."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:283
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "Düğüm konumlarını normalleştirmeyi kapatın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:287
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "Ağ x konumlarına FLOAT ekler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:291
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:190
