@@ -52,8 +52,8 @@ def generate_circle_vertices(center, radius, nbr_vertices=20):
     return vertices
 
 
-def applyInverseProjection(vertices):
-    projection = pyproj.Proj("EPSG:32633")
+def applyInverseProjection(vertices, projection):
+    projection = pyproj.Proj(projection)
     return [projection(vertex[0], vertex[1], inverse=True) for vertex in vertices]
 
 
@@ -91,7 +91,7 @@ def main():
                 vertices = list(entity.vertices())
                 if vertices[-1] != vertices[0]:
                     vertices.append(vertices[0])
-            geoVertices = applyInverseProjection(vertices)
+            geoVertices = applyInverseProjection(vertices, args.projection)
             if entity.dxf.layer == args.walkable_layer:
                 add.write(polygon_as_XML_element(geoVertices, "jupedsim.walkable_area", entity.dxf.handle,
                                                  args.walkable_color, args.sumo_layer))
