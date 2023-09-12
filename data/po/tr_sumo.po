@@ -2983,6 +2983,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:770
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:315
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:327
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -4426,6 +4427,8 @@ msgstr ""
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
+"Çalıştırılan tlLogic '%'de, minDur %, %m'lik bir dedektör boşluğu için çok "
+"kısa."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:407
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
@@ -4442,61 +4445,69 @@ msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Harekete geçirilen tlLogic '%', program '%' için linkMaxDur parametresi "
+"olarak verilen geçersiz bağlantı '%'."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:463
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Harekete geçirilen tlLogic '%', program '%' için linkMinDur parametresi "
+"olarak verilen geçersiz bağlantı '%'."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:905
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
 msgstr ""
+"Çalıştırılan tlLogic '%'de, geçiş fazı %'nin birden fazla sonraki fazı "
+"olmamalıdır"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1063
 msgid "Unmatched parentheses in condition %'"
-msgstr ""
+msgstr "'% koşulunda eşleşmeyen parantezler"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1078
 msgid "Invalid empty condition '%'"
-msgstr ""
+msgstr "Geçersiz boş koşul '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1093
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "Desteklenmeyen koşul '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1156
 msgid "Division by 0 in condition '%'"
-msgstr ""
+msgstr "'%' koşulunda 0'a bölme"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1207
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
-msgstr ""
+msgstr "'%' global koşulunun değiştirilmesi yasaktır"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1219
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "Geçersiz boş ifade"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1315
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
-msgstr ""
+msgstr "tlLogic '%' (%) için '%' koşulları alınırken hata oluştu"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
 "Unknown laneAreaDetector '%' given as custom detector for delay_based "
 "tlLogic '%', program '%."
 msgstr ""
+"Bilinmeyen şeritAlanDetektörü '%' gecikme_tabanlı tlLogic '%' için özel "
+"dedektör olarak verildi, program '%."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
-msgstr ""
+msgstr "'%' kavşağındaki % bağlantısı için geçersiz 'kapalı' durumu"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp:84
 msgid "Inconsistent 'off'-states for linkIndex % at tlLogic '%'"
-msgstr ""
+msgstr "tlLogic '%'de linkIndex % için tutarsız 'off' durumları"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignal.cpp:109
 #, c-format
@@ -4505,11 +4516,11 @@ msgstr "'%' Kavşağında Demiryolu Sinyali Hiçbir Bağlantıyı Kontrol Etmez"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignal.cpp:1210
 msgid "Found circular block after railSignal % (% edges, length %)"
-msgstr ""
+msgstr "RaySinyalinden sonra dairesel blok bulundu % (% kenar, uzunluk %)"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignal.cpp:1321
 msgid "Found circular block at railSignal % (% edges, length %)"
-msgstr ""
+msgstr "RaySinyali %'de dairesel blok bulundu (% kenar, uzunluk %)"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:147
 #, c-format
@@ -4539,6 +4550,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Kavşak % pheromoneInputLanes: şerit % izin "
+"verilmiyor"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:182
 #, c-format
@@ -4546,27 +4559,29 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Kavşak % feromonOutputLanes şerit % izin "
+"verilmiyor"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
 msgstr ""
+"*** Kavşak %, MSSwarmTrafficLightLogic *** kullanılarak çalıştırılacaktır"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:202
 msgid "TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."
-msgstr ""
+msgstr "TL % zaman 0 Politika: % (pheroIn= 0 ,pheroOut= 0 ) EskiPolitika: % ."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:81
 msgid "Mismatching phase size in tls '%', program '%'."
-msgstr ""
+msgstr "Tls '%', program '%' içinde uyumsuz faz boyutu."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:116
 msgid "No initial signal plan loaded for tls '%'."
-msgstr ""
+msgstr "tls '%' için başlangıç sinyal planı yüklenmedi."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:163
-#, fuzzy
 msgid "Could not build an off-state for tls '%'."
-msgstr "Birleştirilen tls (TIS) '%' Oluşturulamadı."
+msgstr "tls '%' için bir kapalı durum oluşturulamadı."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTLLogicControl.cpp:487
 #, c-format
@@ -4574,6 +4589,8 @@ msgid ""
 "The computed factor sum in WAUT '%' at time '%' equals zero;\n"
 " assuming an error in WAUT definition."
 msgstr ""
+"WAUT '%' içinde '%' zamanında hesaplanan faktör toplamı sıfıra eşittir;\n"
+" WAUT tanımında bir hata olduğu varsayılmaktadır."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:163
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -4602,6 +4619,12 @@ msgid ""
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"tlLogic '%'deki '%' programı, '%' kavşağındaki mantıkla uyumsuz (bağlantı "
+"indeksleri %,% tl indeksleri %,% faz % arasında karşılıklı çakışma).\n"
+"  Kilitlenmeleri/çarpışmaları önlemek için: sinyal planını daha yeni bir "
+"netconvert/netedit sürümü ile yeniden oluşturun\n"
+"  veya '--tls.ignore-internal-junction-jam' seçeneği ile ağı yeniden "
+"oluşturun veya programı oluştururken dahil edin."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:468
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -4614,6 +4637,8 @@ msgid ""
 "At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the "
 "NEMA XML"
 msgstr ""
+"NEMA tlLogic '%'de, NEMA faz durumlarının farklı boyutları. Lütfen NEMA "
+"XML'i kontrol edin"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\NEMAController.cpp:566
 msgid "At NEMA tlLogic '%', actuated phase % has no controlling detector"
@@ -4635,11 +4660,11 @@ msgstr "Eşgüdümlü Fazlarda Başlıyorum"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel.h:182
 msgid "moveTo is ignored by the current movement model"
-msgstr ""
+msgstr "moveTo geçerli hareket modeli tarafından yok sayılır"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel.h:198
 msgid "moveToXY is ignored by the current movement model"
-msgstr ""
+msgstr "moveToXY geçerli hareket modeli tarafından yok sayılır"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:97
 #, c-format
@@ -4647,31 +4672,33 @@ msgid ""
 "Error while adding an agent: vType '%' hasn't been registered as a JuPedSim "
 "parameter profile, using the default type."
 msgstr ""
+"Aracı eklenirken hata oluştu: vTür '%' JuPedSim parametre profili olarak "
+"kaydedilmemiş, varsayılan tip kullanılıyor."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:104
 msgid "Error while adding an agent: %"
-msgstr ""
+msgstr "Temsilci eklenirken hata oluştu: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:123
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:186
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
 msgid "Error during iteration %: %"
-msgstr ""
+msgstr "Yineleme sırasında hata %: %"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:630
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:627
 msgid "Error creating the geometry: %"
-msgstr ""
+msgstr "Geometri oluşturulurken hata oluştu: %"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:656
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:653
 msgid "Error creating the pedestrian model: %"
-msgstr ""
+msgstr "Yaya modeli oluşturulurken hata oluştu: %"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:662
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:659
 msgid "Error creating the simulation: %"
-msgstr ""
+msgstr "Simülasyon oluşturulurken hata oluştu: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:124
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:870
@@ -4679,8 +4706,8 @@ msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
 msgstr ""
-"Yaya vType '%' Genişliği %, pedestrian.striping.stripe-width Genişliğinden "
-"Daha Büyük ve Bu, Araçlarla Çarpışmalara Neden Olabilir."
+"Yaya vTürü '%' genişliği %, yaya.şeritleme.şerit-genişliğinden daha büyüktür "
+"ve bu durum araçlarla çarpışmalara neden olabilir."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
@@ -4689,11 +4716,11 @@ msgstr "Yaya '%', '%' Kesiminde Kaldırım Bulamadı, Zaman=%."
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:471
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "Geçersiz yürüme alanı '%' devam etmeye izin vermiyor."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:1931
 msgid "Disconnected walk for person '%'."
-msgstr ""
+msgstr "'%' kişisi için bağlantısız yürüyüş."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:2132
 msgid "Person '%' is jammed on edge '%', time=%."
@@ -4702,88 +4729,93 @@ msgstr "Yolcu '%', '%' Kesiminde Sıkıştı, Zaman=%."
 #: C:\Repos\sumo/src\microsim\transportables\MSPerson.cpp:90
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
 msgstr ""
-"routeDistribution '%' ile Tıpkılanmış Yürüyüş İçin departPos Ayarlanıyor"
+"Klonlanmış yürüyüş için çıkışPos konumlarını rotaDağılımı '%' ile ayarlama"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPerson.cpp:94
 msgid "Adjusting arrivalPos for cloned walk with routeDistribution '%'"
-msgstr ""
-"routeDistribution '%' ile Tıpkılanmış Yürüyüş İçin arrivalPos Ayarlanıyor"
+msgstr "RotaDağılımı '%' ile klonlanmış yürüyüş için varışPos'unu ayarlama"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPerson.cpp:98
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
-msgstr ""
-"routeDistribution '%' ile Tıpkılanmış Yürüyüş İçin departLane Ayarlanıyor"
+msgstr "Klonlanmış yürüyüş için KalkışYolu'nu rotaDağılımı '%' ile ayarlama"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSStageTrip.cpp:175
 msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
 msgstr ""
+"Başlangıç kesimindeki izin verilmediği için '%' kişisini yönlendirirken '%' "
+"araç türünü yok sayma."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:134
 msgid "Changing a transportable ID is not permitted"
-msgstr ""
+msgstr "Taşınabilir bir id'nin değiştirilmesine izin verilmez"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:244
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:256
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr "Işınlanıyor % '%'; Çok Uzun Süre Bekledi, Giriş Kesimi '%', Zaman=%."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:379
+#: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:391
 msgid "parkingAreaReroute not support for containers"
-msgstr "parkingAreaReroute Konteynerler İçin Desteklenmiyor"
+msgstr "parkAlanıYönlendirme konteynerler için desteklenmiyor"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportableControl.cpp:76
-#, fuzzy
 msgid "Unknown pedestrian model '%'"
-msgstr "Kesim '%' İçin Bilinmeyen Tür '%'"
+msgstr "Bilinmeyen yaya modeli '%'"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
-msgstr ""
+msgstr "Kalibratör '%'sinde akış aralıkları yok."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:161
 #, c-format
 msgid "Calibrator '%' has no active or upcoming interval"
-msgstr ""
+msgstr "'%' kalibratörünün aktif veya yaklaşan aralığı yok"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:209
 msgid "Insertion lane may differ from calibrator lane for calibrator '%'."
 msgstr ""
+"Kalibratör '%' için ekleme şeridi kalibratör şeridinden farklı olabilir."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:213
 msgid "Unknown vehicle type '%' in calibrator '%'."
-msgstr ""
+msgstr "Kalibratör '%'de bilinmeyen araç tipi '%'."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "Kalibratör '%' tanımında zorunlu öznitelik eksik."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
 msgstr ""
+"Kalibratör '%' tanımındaki sayısal öznitelik için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:221
 msgid ""
 "Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
 msgstr ""
+"'%' kalibratörünün akış tanımında 'vehsPerHour', 'hız' veya 'tip' "
+"ayarlanmalıdır."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
-msgstr ""
+msgstr "Kalibratör '%' için meso'da tip kalibrasyonu desteklenmiyor."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "Kalibratör '%' araç '%' zaman=%'yi kaldıramadı."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
-msgstr ""
+msgstr "Çakışan aralık ile kalibratör '%' için akış ayarlanamıyor."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
-msgstr ""
+msgstr "Negatif aralıklı kalibratör '%' için akış ayarlanamıyor."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:45
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:50
@@ -4791,20 +4823,20 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:60
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:65
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
-msgstr ""
+msgstr "ID='%' ile şarj istasyonu için % özniteliği geçersiz (%)."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:70
 msgid ""
 "ChargingStation with ID='getID()' doesn't have a valid position (% < %)."
-msgstr ""
+msgstr "ID='getID()' ile Şarjistasyonu geçerli bir konuma sahip değil (% < %)."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:177
 msgid "Invalid or unsorted time entry in vss '%'."
-msgstr ""
+msgstr "vss '%' içinde geçersiz veya sıralanmamış zaman girişi."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:193
 msgid "Time % was set twice for vss '%'; replacing first entry."
-msgstr ""
+msgstr "Zaman %, vss '%' için iki kez ayarlandı; ilk giriş değiştirildi."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSOverheadWire.cpp:354
 #: C:\Repos\sumo/src\microsim\trigger\MSOverheadWire.cpp:409
@@ -4829,18 +4861,20 @@ msgid ""
 "The requested total power could not be delivered by the overhead wire. Only "
 "% of originally requested power was provided."
 msgstr ""
+"Talep edilen toplam güç havai hat tarafından sağlanamamıştır. Başlangıçta "
+"talep edilen gücün yalnızca %'si sağlanmıştır."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:129
 msgid "MSTriggeredRerouter %: No destination edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Hedef kenar kimliği verilmedi."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:194
 msgid "MSTriggeredRerouter %: No route id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Rota kimliği verilmedi."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:219
 msgid "MSTriggeredRerouter %: No parking area id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Park alanı kimliği verilmedi."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:508
 #, c-format
@@ -4848,14 +4882,16 @@ msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr ""
+"Kapalı kesimler nedeniyle '%' aracı için '%' hedef kesimi tutulamıyor. Rota "
+"sonlandırılıyor."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:607
 msgid "Invalid value '%' for vehicle parameter '%'"
-msgstr ""
+msgstr "'%' araç parametresi için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:615
 msgid "Invalid value '%' for vType parameter '%'"
-msgstr ""
+msgstr "vTür parametresi '%' için geçersiz '%' değeri"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:785
 #, c-format
@@ -4863,6 +4899,8 @@ msgid ""
 "Parkingarea '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
 msgstr ""
+"Yol boyunca '%' park alanı bilinmeyen bir nedenle '%' aracı tarafından "
+"kullanılamıyor"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1106
 msgid ""
@@ -4889,7 +4927,7 @@ msgstr "'%' Kavşağında Geri Dönüş Hesaplamasında Belirsizlik."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms.cpp:358
 msgid "Converting invalid rail_crossing to priority junction '%'."
-msgstr ""
+msgstr "Geçersiz ray geçişi '%' öncelikli kavşağa dönüştürülüyor."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms.cpp:362
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
@@ -4908,11 +4946,13 @@ msgstr "tls '%' Tahsis Edilemedi."
 msgid ""
 "Added % bidi-edges to ensure that all tracks are usable in both directions."
 msgstr ""
+"Tüm pistlerin her iki yönde de kullanılabilir olmasını sağlamak için % çift "
+"kenarlar eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:178
 #, c-format
 msgid "Ignore % edges because they have the wrong spreadType"
-msgstr ""
+msgstr "Yanlış dağılmaTürü'ne sahip oldukları için % kenarlarını yoksay"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:200
 #, c-format
@@ -4929,32 +4969,31 @@ msgstr "Giriş, Çıkış Kesimleri Sayısına Göre Demiryolu Düğümleri:"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:373
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "Tampon_Bölge olarak işaretlenmiş % demiryolu düğümü bulundu"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:383
 msgid "Found % bidirectional rail edges"
-msgstr ""
+msgstr "Bulunan % çift yönlü ray kenarları"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:409
 msgid "Found % railway edges and % railway nodes (% signals)."
-msgstr ""
+msgstr "Bulunan % demiryolu kesimleri ve % demiryolu düğümleri (% sinyaller)."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:526
 msgid "Added % bidi-edges as extension of existing bidi edges."
-msgstr ""
+msgstr "Mevcut bidi kesimlerinin uzantısı olarak % bidi-kesimleri eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:537
-#, fuzzy
 msgid "Could not find bidi-edge for edge '%'"
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "'%' kesimi için bidi-kesim bulunamadı"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:642
 msgid "Found % reversible edge sequences between broken rail nodes"
-msgstr ""
+msgstr "Kırık ray düğümleri arasında bulunan % tersinir kenar dizileri"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:671
 msgid "Reversed % sequences (count by length: %)"
-msgstr ""
+msgstr "Tersine çevrilmiş % diziler (uzunluğa göre sayım: %)"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:692
 msgid "Ignoring buffer stop junction '%' with % edges."
@@ -4962,12 +5001,14 @@ msgstr "'%' Ara Durak Kavşağı % Kesimiyle Yok Sayılıyor."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:749
 msgid "Added % edges to connect % buffer stops in both directions."
-msgstr ""
+msgstr "Tampon duraklarını her iki yönde bağlamak için % kesimler eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:830
 msgid ""
 "Added % bidi-edges between % pairs of railway switches (count by length: %)"
 msgstr ""
+"Demiryolu makaslarının % çiftleri arasına % çift kenar eklendi (uzunluğa "
+"göre sayı: %)"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:977
 msgid ""
@@ -4997,11 +5038,14 @@ msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at geometry-"
 "like nodes."
 msgstr ""
+"Geometri benzeri düğümlerde düz yolların bağlanabilirliğini sağlamak için % "
+"iki kesimler eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1156
 msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at switches."
 msgstr ""
+"Makaslarda düz rayların bağlantısını sağlamak için % iki kenar eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1216
 msgid ""
@@ -5021,7 +5065,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1359
 msgid "Added % rail signals at % stops."
-msgstr ""
+msgstr "Duraklara % ray sinyalleri eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:116
 #, c-format
@@ -5040,50 +5084,47 @@ msgstr "'%' Kesiminde Çıkış Rampası Yapılandırılamıyor - Kesim Bilinmiy
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:249
 msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
-msgstr ""
+msgstr "Ups - '%' kesimi için rampa inşa edilemedi (düğüm inşa edilemedi)!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:254
-#, fuzzy
 msgid "Ups - could not build on-ramp for edge '%'!"
-msgstr "Trafik Işığı '%' İçin Program Kurulamadı"
+msgstr "Ups - '%' kenarı için rampa inşa edilemedi!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:284
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:289
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:400
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:403
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:710
-#, fuzzy
 msgid "Could not set connection!"
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "Bağlantı kurulamadı!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:356
 msgid "Ups - could not build off-ramp for edge '%' (node could not be build)!"
 msgstr ""
+"Ups - '%' kenarı için çıkış-rampası oluşturulamadı (düğüm oluşturulamadı)!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:361
-#, fuzzy
 msgid "Ups - could not build off-ramp for edge '%'!"
-msgstr "Trafik Işığı '%' İçin Program Kurulamadı"
+msgstr "Ups - '%' kenarı için çıkış rampası oluşturulamadı!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:423
-#, fuzzy
 msgid "For edge '%': could not compute shape."
-msgstr "'%' Kavşağı İçin: Şekil Hesaplanamadı."
+msgstr "'%' kesimi için: şekil hesaplanamadı."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:432
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:460
-#, fuzzy, c-format
+#, c-format
 msgid "At least one of edge's '%' nodes is not known."
-msgstr "'%' Kesiminde Giriş Rampası Yapılandırılamıyor - Kesim Bilinmiyor."
+msgstr "Kesimin '%' düğümlerinden en az biri bilinmiyor."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:457
-#, fuzzy, c-format
+#, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "Kesim '%'nin en az bir şeride ihtiyacı vardır."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:463
 msgid "Invalid edge id '%'."
-msgstr ""
+msgstr "Geçersiz kenar kimliği '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:493
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:627
@@ -5148,6 +5189,8 @@ msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr ""
+"'%' kesimi için dönüş işareti bilgisi uygulanamıyor çünkü '%' hedef "
+"kesiminde uygun şerit yok"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:2703
 msgid ""
@@ -5177,12 +5220,12 @@ msgstr "Şerit '%', '%' Kavşağında Herhangi Bir Giriş Kesimine Bağlı Deği
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:3024
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
-msgstr ""
+msgstr "Çıkmazdan kaçınmak için '%' için 'sol değiştir' yasağını yok sayma"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:3027
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
-msgstr ""
+msgstr "Çıkmazdan kaçınmak için '%' için sağaDeğiştir yasağını yok sayma"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:3628
 #, c-format
@@ -5207,9 +5250,9 @@ msgstr ""
 "Şerit '%' İçin Geçersiz stopOffset Yok Sayılıyor (Geçersiz Şerit Kimliği)."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:4403
-#, fuzzy, c-format
+#, c-format
 msgid "Edge % allows pedestrians on all lanes"
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "Kesim % tüm şeritlerde yayalara izin verir"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:4461
 #, c-format
@@ -5229,11 +5272,11 @@ msgstr "'%' Kesimi İçin '%' Düğümünde Şeklin Çakışması Önlenemedi."
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:121
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
-msgstr ""
+msgstr "Geçersiz sınır: en az 2 koordinat gerekir"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
-msgstr ""
+msgstr "Geçersiz sınır: hatalı biçimlendirilmiş koordinat"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:259
 msgid ""
@@ -5244,25 +5287,25 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:438
 msgid "Attempt to rename edge using existing id '%'"
-msgstr ""
+msgstr "Mevcut id '%' kullanılarak kenar yeniden adlandırılmaya çalışılıyor"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:498
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:499
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:501
 msgid "Error on parsing a split (edge '%')."
-msgstr ""
+msgstr "Bölme ayrıştırılırken hata oluştu (kenar '%')."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:556
 msgid "Split at '%' lies beyond the edge's length (edge '%')."
-msgstr ""
+msgstr "'%'deki bölme kesiminin uzunluğunun ötesinde yer alır (kesim '%')."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:639
 msgid "Could not insert edge '%' before split of edge '%'."
-msgstr ""
+msgstr "'%' kesimi '%' kesiminin bölünmesinden önce eklenemedi."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:643
 msgid "Could not insert edge '%' after split of edge '%'."
-msgstr ""
+msgstr "'%' kesimi bölündükten sonra '%' kesimi eklenemedi."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:880
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
@@ -5335,183 +5378,197 @@ msgstr "'%' Şeridi İçin Belirsiz Tram '%' ve '%' Kesimleri."
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr ""
+msgstr "Kesim'in '%' düğümünden '%' düğümü bilinmiyor."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2041
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:142
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr ""
+msgstr "Kesim'in '%' ile '%' düğümü arasındaki bağlantı bilinmiyor."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "Bir kesimdeki varsayılan şerit sayısı"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:56
 msgid "The default width of lanes"
-msgstr ""
+msgstr "Varsayılan şerit genişliği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:59
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
+"Kesim şekillerinden şerit şekillerini hesaplamak için varsayılan yöntem"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:63
 msgid "The default speed on an edge (in m/s)"
-msgstr ""
+msgstr "Bir kesimdeki varsayılan hız (m/sn cinsinden)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "Bir kesim üzerindeki varsayılan sürtünme"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "Bir kesimin varsayılan önceliği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "Varsayılan kesim tipi"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "Eklenen kaldırımların varsayılan genişliği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "Eklenen bisiklet yollarının varsayılan genişliği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "Bir yaya geçidinin varsayılan genişliği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
-msgstr ""
+msgstr "Yaya geçidinde varsayılan hız 'sınırı' (m/s cinsinden)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
-msgstr ""
+msgstr "Bir yaya yürüme alanındaki varsayılan hız 'sınırı' (m/s cinsinden)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "İzin verilen araç sınıfları için varsayılan"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "İzin verilmeyen araç sınıfları için varsayılan"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "Kavşakların varsayılan olarak açık tutulması gerekip gerekmediği"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "Kavşakların varsayılan dönüş yarıçapı"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
-msgstr ""
+msgstr "Bağlantı uzunlukları geçersiz kılınırken varsayılan uzunluk"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:107
 msgid ""
 "The default algorithm for computing right of way rules ('default', "
 "'edgePriority')"
 msgstr ""
+"Geçiş hakkı kurallarını hesaplamak için varsayılan algoritma ('varsayılan', "
+"'kesimÖnceliği')"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:110
 msgid ""
 "Allow building right-before-left junctions when the incoming edge speeds are "
 "below FLOAT (m/s)"
 msgstr ""
+"Gelen kesim hızları FLOAT (m/s) değerinin altında olduğunda sağdan önce sola "
+"kavşakların oluşturulmasına izin verin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:113
 msgid ""
 "Build left-before-right junctions instead of right-before-left junctions"
-msgstr ""
+msgstr "Sağdan önce-sola kavşaklar yerine soldan önce-sağa kavşaklar oluşturun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:117
 msgid "Omits internal links"
-msgstr ""
+msgstr "İç bağlantıları atlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:120
 msgid ""
 "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are "
 "integers"
 msgstr ""
+"Tüm id'lerin tam sayı olmasını sağlamak için düğümlerin ve kesimlerin "
+"alfanümerik id'lerini yeniden eşler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:123
 msgid "Remaps IDs of nodes to integers starting at INT"
-msgstr ""
+msgstr "Düğümlerin id'lerini INT ile başlayan tamsayılara yeniden eşler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:126
 msgid "Remaps IDs of edges to integers starting at INT"
-msgstr ""
+msgstr "Düğümlerin id'lerini INT ile başlayan tamsayılara yeniden eşler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:130
 msgid ""
 "Ensures that generated ids do not included any of the typed IDs from FILE "
 "(sumo-gui selection file format)"
 msgstr ""
+"Oluşturulan id'lerin DOSYA'dan (sumo-gui seçim dosyası formatı) yazılan "
+"id'lerinden hiçbirini içermemesini sağlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:134
 msgid "Removes vehicle class restrictions from imported edges"
-msgstr ""
+msgstr "Dış kesimlerden araç sınıfı kısıtlamalarını kaldırır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:138
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "Bina geri dönüşlerini devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:142
 msgid "Disables building turnarounds at tls-controlled junctions"
-msgstr ""
+msgstr "Tls kontrollü kavşaklarda bina dönüşlerini devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:145
 msgid "Disables building turnarounds at geometry-like junctions"
-msgstr ""
+msgstr "Geometri benzeri kavşaklarda bina dönüşlerini devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:148
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr ""
+msgstr "Çıkmaz kavşaklar dışında bina dönüşlerini devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:151
 msgid ""
 "Disables building turnarounds except at at junctions with a dedicated "
 "turning lane"
 msgstr ""
+"Özel bir dönüş şeridine sahip kavşaklar haricinde bina dönüşlerini devre "
+"dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:154
 msgid "Disables building turnarounds at fringe junctions"
-msgstr ""
+msgstr "Saçak kavşaklarda bina dönüşlerini devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:157
 msgid "Disables building connections to left"
-msgstr ""
+msgstr "Sola bina bağlantılarını devre dışı bırakır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:161
 msgid "Splits edges across geometry nodes"
-msgstr ""
+msgstr "Kenarları geometri düğümleri arasında böler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:165
 msgid ""
 "Replace nodes which only define edge geometry by geometry points (joins "
 "edges)"
 msgstr ""
+"Sadece kesim geometrisini tanımlayan düğümleri geometri noktaları ile "
+"değiştirin (kesimleri birleştirir)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:168
 msgid "Ensure that the given list of edges is not modified"
-msgstr ""
+msgstr "Verilen kesim listesinin değiştirilmediğinden emin olun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:176
 msgid "Ensure that edges with public transport stops are not modified"
 msgstr ""
+"Toplu taşıma duraklarının bulunduğu kenarların değiştirilmediğinden emin olun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:192
 msgid "splits geometry to restrict segment length"
-msgstr ""
+msgstr "segment uzunluğunu kısıtlamak için geometriyi böler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:196
 msgid "reduces too similar geometry points"
-msgstr ""
+msgstr "çok benzer geometri noktalarını azaltır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:199
 msgid ""
@@ -8216,6 +8273,7 @@ msgstr "Girdi Kesim Dosyalarında Kullanımdan Kaldırılan Araç Sınıf(lar)ı
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:403
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1691
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1689
 #, fuzzy, c-format
 msgid "Unknown edge '%' in roundabout"
 msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
@@ -8782,12 +8840,14 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:46
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1752
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1750
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:59
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1765
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1763
 #, c-format
 msgid "lane position % for poi '%' is not valid."
 msgstr ""
@@ -9215,10 +9275,12 @@ msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr "Yüklenen TAB ile junction-taz '%' Yer Değiştiriliyor."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1647
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1645
 msgid "Skipping visualization of taz '%', polygon already exists."
 msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1678
+#: C:\Repos\sumo/src\netload\NLHandler.cpp:1676
 msgid "At district '%': succeeding edge '%' does not exist."
 msgstr ""
 
@@ -11617,10 +11679,12 @@ msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr "Rota Dosyası, Kalkış Saatine Göre Sıralanmalıdır, '%' Yok Sayılıyor!"
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:660
+#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:658
 msgid "Invalid % % given for %. Using edge end instead."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:710
+#: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:708
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
