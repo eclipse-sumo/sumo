@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 10:03+0000\n"
+"PO-Revision-Date: 2023-09-12 10:09+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -5736,107 +5736,119 @@ msgstr "Ağ x konumlarına FLOAT ekler"
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:291
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "Net y-konumlarına FLOAT ekler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:294
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "Net z-konumlarına FLOAT ekler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:298
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "Y koordinatını sıfır boyunca çevirir"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:302
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "Dönel kavşak tahminleri etkinleştirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:305
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "Döner kavşağa yaklaşırken varsayılan görüş mesafesi"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:308
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
 msgstr ""
+"Sollama için kullanılabilecek karşı yön şeritlerinin tahmin edilmesini "
+"sağlayın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:311
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "Karşılıklı kesimlerin aynı uzunlukta olduğundan emin olun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:314
 msgid "Enable guessing of network fringe nodes"
-msgstr ""
+msgstr "Ağ saçak düğümlerinin tahmin edilmesini sağlayın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:317
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
+"Verilen hızın üzerindeki bağlantısız kesimleri dış saçak olarak tahmin edin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:320
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "Ağ üzerinde soldan gelen trafiği varsayar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:336
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
+"STR[]'yi birleştirmeden hariç tutulacak kavşakların listesi olarak yorumlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:348
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "FLOAT ekleyerek tüm kesim hızlarını değiştirir"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:351
 msgid "Modifies all edge speeds by multiplying by FLOAT"
-msgstr ""
+msgstr "Tüm kesim hızlarını FLOAT ile çarparak değiştirir"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:354
 msgid "Modifies all edge speeds to at least FLOAT"
-msgstr ""
+msgstr "Tüm kesim hızlarını en az FLOAT olarak değiştirir"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:362
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "Kesişme köşelerini düzeltmek için INT ara noktaları oluşturun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:365
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
-msgstr ""
+msgstr "Kavşak içindeki şeritleri düzeltmek için INT ara noktaları oluşturun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:368
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
+"Şerit sayısı değiştiğinde düzgün s-eğrilerine izin vermek için daha uzun "
+"kavşaklar oluşturun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:411
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "Şeritler ve kavşaklar arasında dikdörtgen kesimleri zorlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:470
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "Geçit olmasa bile her zaman yürüyüş alanları inşa edin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:473
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
+"FLOAT içinde bir yaya kavşağı ile birbirine bağlanan kaldırımlar arasında "
+"bir yürüme alanı oluşturmayın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:512
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr ""
+"STR[]'yi birleştirmeden hariç tutulacak tls kimliklerinin listesi olarak "
+"yorumlar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:621
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
+msgstr "Yalnızca hızı metre/saniye > FLOAT olan kenarları tutun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:625
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "STR[] içindeki kenarları kaldırın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:629
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Yalnızca STR[] içindeki kesimleri veya diğer kesimleri tut veya kesimleri "
+"kaldır seçenekleri nedeniyle tutulan kesimleri tutun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:632
 msgid ""
@@ -5844,6 +5856,9 @@ msgid ""
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Yalnızca DOSYA'daki kesimleri (Her id tek bir satırda. sumo-gui'den seçim "
+"dosyaları da desteklenir) veya diğer kesimleri tut veya kesimleri kaldır "
+"seçenekleri nedeniyle tutulan kesimleri tutun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:635
 msgid ""
