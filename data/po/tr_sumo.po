@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-09 04:43+0000\n"
+"PO-Revision-Date: 2023-09-12 09:32+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -5610,39 +5610,47 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:220
 msgid "Modify edge geometries to avoid overlap at junctions"
-msgstr ""
+msgstr "Kavşaklarda çakışmayı önlemek için kesim geometrilerini değiştirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:223
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
+"aynı izinlere sahip olan ve şerit değiştirmeye izin vermeyen bitişik "
+"şeritleri birleştirmek (kaldırımlar ve izin verilmeyen şeritler)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:226
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
 msgstr ""
+"Verilen mesafenin altında olduğunda yol ağının dışındaki durakları referans "
+"pt çizgisiyle eşleştirir"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:230
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "Demiryolu ağının onarım topolojisi"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:233
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
 msgstr ""
+"Demiryolu ağının topolojisini, yüklü toplu taşıma hatlarının çalışmasına "
+"izin verecek kadar onarın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:236
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
 msgstr ""
+"Zıt yönlere sahip rayların düz bir açıyla birleştiği her yerde çift yönlü "
+"ray kullanımına izin verin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:239
 msgid "Add turn-around connections at all loaded stops."
-msgstr ""
+msgstr "Tüm yüklü duraklara geri dönüş bağlantıları ekleyin."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:242
 msgid ""
