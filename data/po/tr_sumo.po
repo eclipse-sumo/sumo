@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 10:09+0000\n"
+"PO-Revision-Date: 2023-09-12 10:14+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -5865,10 +5865,12 @@ msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr ""
+"DOSYA'daki kesimleri kaldırın. (Her id tek bir satırda. sumo-gui'den seçim "
+"dosyaları da desteklenir)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:639
 msgid "Remove edges after joining"
-msgstr ""
+msgstr "Birleştirmeden sonra kesimlerini çıkarın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:643
 msgid ""
@@ -5876,6 +5878,8 @@ msgid ""
 "CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,"
 "y1,...>)"
 msgstr ""
+"Yalnızca verilen sınır içinde bulunan kesimleri tutun (<xmin,ymin,xmax,ymax> "
+"KARTEZYEN köşe koordinatları veya <x0,y0,x1,y1,...> poligon olarak verilir)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:646
 msgid ""
@@ -5883,72 +5887,78 @@ msgid ""
 "GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon "
 "<lon0,lat0,lon1,lat1,...>)"
 msgstr ""
+"Yalnızca verilen sınır içinde bulunan kesimleri tutun (GEODETİK köşe "
+"koordinatları <en-min,boy-min,en-max,boy-max> olarak veya poligon "
+"<en0,boy0,en1,boy1,...> olarak verilir)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:650
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr ""
+"Yalnızca STR[] içindeki vc sınıflarından birine izin veren kenarları tutun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:653
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr ""
+msgstr "STR[]'den yalnızca vc sınıflarına izin veren kenarları kaldırın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:656
 msgid "Only keep edges where type is in STR[]"
-msgstr ""
+msgstr "Yalnızca türün STR[] içinde olduğu kenarları tutun"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:659
 msgid "Only keep the INT largest weakly connected components"
-msgstr ""
+msgstr "Yalnızca INT en büyük zayıf bağlantılı bileşenleri saklayın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:662
 msgid "Remove edges where type is in STR[]"
-msgstr ""
+msgstr "Türün STR[] içinde olduğu kenarları kaldırın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:666
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "Yalıtılmış kenarları kaldırır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:673
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "Tüm düğümler düzenlenmemiş olacaktır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:678
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "STR[] içindeki düğümleri düzenlemeyin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:682
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "Bölge düğümlerini düzenlemeyin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:688
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "Rampa tahminini etkinleştirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:691
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
+"Rampaları tahmin edin ve varsa hızlanma şeritlerini işaretleyin ancak yeni "
+"şerit eklemeyin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:695
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "Hızı > FLOAT olan kenarlara rampa yokmuş gibi davranın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:699
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
+msgstr "Hızı < FLOAT olan kesimleri otoyol yok olarak değerlendirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:703
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "Rampa uzunluğu olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:707
 msgid "Use FLOAT as minimum ramp-length"
-msgstr ""
+msgstr "Minimum rampa uzunluğu olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:711
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "Verilen kesimleri rampa olarak ele almaya çalışır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:714
 msgid "Do not consider the given edges as ramps"
