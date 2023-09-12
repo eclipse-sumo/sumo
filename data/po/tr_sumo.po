@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 09:32+0000\n"
+"PO-Revision-Date: 2023-09-12 10:00+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -4682,7 +4682,7 @@ msgstr "Temsilci eklenirken hata oluştu: %"
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:123
 #, c-format
 msgid "FromTaz '%' for person '%' has no shape information."
-msgstr ""
+msgstr "'%' kişisi için GönderTaz'dan '%' şekil bilgisine sahip değil."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:167
 msgid "Error during iteration %: %"
@@ -5574,39 +5574,49 @@ msgstr "çok benzer geometri noktalarını azaltır"
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
 msgstr ""
+"Birbirini izleyen segmentlerde DERECE'nin üzerinde açıya sahip kenar "
+"geometrileri hakkında uyar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:202
 msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr ""
+"Başlangıçta veya sonda METREDEN daha az dönüş yarıçapına sahip kenar "
+"geometrileri hakkında uyarın"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:205
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr ""
+"Geometri. min-yarıçaptan daha küçük yarıçapları döndürmekten kaçınmak için "
+"kenar geometrilerini düzeltin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:208
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius (only railways)"
 msgstr ""
+"Geometri. min-yarıçapından daha küçük dönüş yarıçaplarından kaçınmak için "
+"kenar geometrilerini düzeltin (yalnızca demiryolları)"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:211
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
-msgstr ""
+msgstr "Birleşme şekli orijinal düğüm konumundan çok uzaksa uyar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:214
 msgid "Warn if edges overlap by more than the given threshold value"
-msgstr ""
+msgstr "Kesimler verilen eşik değerinden daha fazla çakışırsa uyar"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:217
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
 msgstr ""
+"Verilen eşik değerine göre dikey olarak ayrılmışlarsa üst üste binen "
+"kesimleri yoksay."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:220
 msgid "Modify edge geometries to avoid overlap at junctions"
@@ -5656,14 +5666,18 @@ msgstr "Tüm yüklü duraklara geri dönüş bağlantıları ekleyin."
 msgid ""
 "Penalty factor for adding new bidi edges to connect public transport stops"
 msgstr ""
+"Toplu taşıma duraklarını bağlamak için yeni bidi kesimleri eklemek için ceza "
+"faktörü"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:245
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "Tüm rayları her iki yönde de kullanılabilir hale getirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:248
 msgid "Make all rails edge ids from FILE usable in both direction"
 msgstr ""
+"DOSYA'daki tüm ray kenarı id'lerini her iki yönde de kullanılabilir hale "
+"getirin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:251
 msgid "Set edge priority values based on estimated main direction"
@@ -6206,39 +6220,38 @@ msgid "Computing turning directions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:322
-#, fuzzy
 msgid "Assigning nodes to traffic lights"
-msgstr "'%' Trafik Işığında Bağlantı İndeksi % İçin signalID Tahmin Ediliyor."
+msgstr "Düğümleri trafik ışıklarına atama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:345
 msgid "Guessing and setting on-/off-ramps"
-msgstr ""
+msgstr "Tahmin etme ve açma/kapama rampalarını ayarlama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:361
 msgid "Guessed % bike lanes."
-msgstr ""
+msgstr "Tahminen % bisiklet yolu."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:372
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "Tahminen % kaldırımlar."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:382
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
-msgstr ""
+msgstr "Yeniden eşlenen % kesim id'leri ve % düğüm id'leri ."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:397
 msgid "Sorting nodes' edges"
-msgstr ""
+msgstr "Düğümlerin kesimlerini sıralama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:402
 msgid "Computing node shapes"
-msgstr ""
+msgstr "Düğüm şekillerini hesaplama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:410
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "Kesim şekillerini hesaplama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:423
 msgid "Applying speed modifications"
