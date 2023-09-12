@@ -155,12 +155,11 @@ private:
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape);
     static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
-    static GEOSGeometry* buildPedestrianNetwork(MSNet* network);
+    GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static PositionVector getCoordinates(const GEOSGeometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
     static double getHoleArea(const GEOSGeometry* hole);
     void renderPolygon(const GEOSGeometry* polygon, const std::string& polygonId);
     void preparePolygonForJPS(const GEOSGeometry* polygon, const std::string& polygonId = std::string());
-    void prepareAdditionalPolygonsForJPS(void);
 };

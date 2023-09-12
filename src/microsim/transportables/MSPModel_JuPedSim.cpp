@@ -44,7 +44,7 @@
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT= 5.0;
-const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10.0;
+const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
 
 
 // ===========================================================================
@@ -438,9 +438,29 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         }
     }
 
+    // Retrieve additional walkable areas and obstacles (walkable areas and obstacles in the sense of JuPedSim).
+    std::vector<GEOSGeometry*> additionalObstacles;
+    for (const auto& polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
+        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area") {
+            dilatedPedestrianLanes.push_back(createGeometryFromShape(polygonWithID.second->getShape()));
+        } 
+        else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
+            additionalObstacles.push_back(createGeometryFromShape(polygonWithID.second->getShape()));
+        }
+    }
+
+    // Take the union of all walkable areas.
     GEOSGeometry* disjointDilatedPedestrianLanes = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, dilatedPedestrianLanes.data(), (unsigned int)dilatedPedestrianLanes.size());
     GEOSGeometry* pedestrianNetwork = GEOSUnaryUnion(disjointDilatedPedestrianLanes);
     GEOSGeom_destroy(disjointDilatedPedestrianLanes);
+
+    // At last, remove additional obstacles from the merged walkable area.
+    GEOSGeometry* disjointAdditionalObstacles = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, additionalObstacles.data(), (unsigned int)additionalObstacles.size());
+    GEOSGeometry* additionalObstaclesUnion = GEOSUnaryUnion(disjointAdditionalObstacles);
+    pedestrianNetwork = GEOSDifference(pedestrianNetwork, additionalObstaclesUnion);
+    GEOSGeom_destroy(additionalObstaclesUnion);
+    GEOSGeom_destroy(disjointAdditionalObstacles);
+
     return pedestrianNetwork;
 }
 
@@ -566,24 +586,15 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 }
 
 
-void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
-    for (const auto& polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
-        const std::vector<JPS_Point> coordinates = convertToJPSPoints(polygonWithID.second->getShape());
-        // TODO the taz thing is only a quick fix
-        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
-            JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, (JPS_Point*)coordinates.data(), coordinates.size());
-        } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, (JPS_Point*)coordinates.data(), coordinates.size());
-        }
-    }
-}
-
-
 void
 MSPModel_JuPedSim::initialize() {
     initGEOS(nullptr, nullptr);
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
-    myIsPedestrianNetworkConnected = GEOSGetNumGeometries(myGEOSPedestrianNetwork) == 1 ? true : false; 
+    int nbrConnectedComponents = GEOSGetNumGeometries(myGEOSPedestrianNetwork);
+    myIsPedestrianNetworkConnected = nbrConnectedComponents == 1 ? true : false;
+    if (nbrConnectedComponents > 1) {
+        WRITE_WARNINGF(TL("When generating geometry for JuPedSim % connected components were detected."), nbrConnectedComponents);
+    }
 
     // myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     // for (size_t i = 0; i < GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {
@@ -612,7 +623,6 @@ MSPModel_JuPedSim::initialize() {
     renderPolygon(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
-    prepareAdditionalPolygonsForJPS();
 
     std::ofstream GEOSGeometryDumpFile;
     GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
