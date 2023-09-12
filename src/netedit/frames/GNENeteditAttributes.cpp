@@ -50,13 +50,21 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Netedit attributes")),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
-    myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
+    myReferencePoint(ReferencePoint::LEFT) {
+    // fill reference points
+    myReferencePoints.push_back(std::make_pair(TL("Reference Left"), ReferencePoint::LEFT));
+    myReferencePoints.push_back(std::make_pair(TL("Reference Right"), ReferencePoint::RIGHT));
+    myReferencePoints.push_back(std::make_pair(TL("Center"), ReferencePoint::CENTER));
+    myReferencePoints.push_back(std::make_pair(TL("Extended Left"), ReferencePoint::EXTENDEDLEFT));
+    myReferencePoints.push_back(std::make_pair(TL("Extended Right"), ReferencePoint::EXTENDEDRIGHT));
+    myReferencePoints.push_back(std::make_pair(TL("Extended"), ReferencePoint::EXTENDED));
     // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
                                                    this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    myReferencePointMatchBox->appendIconItem(TL("reference left"));
-    myReferencePointMatchBox->appendIconItem(TL("reference right"));
-    myReferencePointMatchBox->appendIconItem(TL("reference center"));
+    for (const auto &referencePoint : myReferencePoints) {
+        myReferencePointMatchBox->appendIconItem(referencePoint.first.c_str());
+    }
+    myReferencePointMatchBox->setCurrentItem(0);
     // Create Frame for Length Label and textField
     myLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelThickedFixed(100));
@@ -72,7 +80,7 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
-    helpReferencePoint = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -133,7 +141,7 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
             // Obtain position of the mouse over lane (limited over grid)
             double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
-            if (myActualAdditionalReferencePoint == AdditionalReferencePoint::INVALID) {
+            if (myReferencePoint == ReferencePoint::INVALID) {
                 std::string errorMessage = TL("Current selected reference point isn't valid");
                 myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
@@ -141,10 +149,10 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
                 return false;
             } else {
                 // obtain length
-                double length = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
                 // set start and end position
-                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, length));
-                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, length));
+                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, elementLength));
+                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, elementLength, lane->getLaneShape().length2D()));
             }
         } else {
             return false;
@@ -191,30 +199,21 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         // Update additional frame
         update();
     } else if (obj == myReferencePointMatchBox) {
-        // Cast actual reference point type
-        if (myReferencePointMatchBox->getText() == TL("reference left")) {
-            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myReferencePointMatchBox->killFocus();
-            myActualAdditionalReferencePoint = AdditionalReferencePoint::LEFT;
-            myLengthTextField->enable();
-        } else if (myReferencePointMatchBox->getText() == TL("reference right")) {
-            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myReferencePointMatchBox->killFocus();
-            myActualAdditionalReferencePoint = AdditionalReferencePoint::RIGHT;
-            myLengthTextField->enable();
-        } else if (myReferencePointMatchBox->getText() == TL("reference center")) {
-            myLengthTextField->enable();
-            myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myReferencePointMatchBox->killFocus();
-            myActualAdditionalReferencePoint = AdditionalReferencePoint::CENTER;
-            myLengthTextField->enable();
-        } else {
-            myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
-            myActualAdditionalReferencePoint = AdditionalReferencePoint::INVALID;
-            myLengthTextField->disable();
+        // iterate over all reference points
+        for (const auto &referencePoint : myReferencePoints) {
+            if (myReferencePointMatchBox->getText().text() == referencePoint.first) {
+                myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
+                myReferencePointMatchBox->killFocus();
+                myReferencePoint = referencePoint.second;
+                myLengthTextField->enable();
+                return 1;
+            }
         }
+        // invalid reference point
+        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
+        myReferencePoint = ReferencePoint::INVALID;
+        myLengthTextField->disable();
     }
-
     return 1;
 }
 
@@ -229,9 +228,15 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     help
             << TL("- Reference point: Mark the initial position of the additional element.") << "\n"
             << TL("  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:") << "\n"
-            << TL("  - Reference Left will create it with startPos = 70 and endPos = 100.") << "\n"
-            << TL("  - Reference Right will create it with startPos = 100 and endPos = 130.") << "\n"
-            << TL("  - Reference Center will create it with startPos = 85 and endPos = 115.") << "\n"
+            // references
+            << TL("  - Reference Left: will have startPos = 70 and endPos = 100.") << "\n"
+            << TL("  - Reference Right: will have startPos = 100 and endPos = 130.") << "\n"
+            << TL("  - Center: will have startPos = 85 and endPos = 115.") << "\n"
+            // extended
+            << TL("  - Extended Left: will have startPos = 85 and endPos until lane's length.") << "\n"
+            << TL("  - Extended Right: will have startPos from start and endPos = 115.") << "\n"
+            << TL("  - Extended: will have startPos from start and endPos until lane's length.") << "\n"
+            // other options
             << TL("- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with") << "\n"
             << TL("  the mouse. This option can be modified inspecting element.") << "\n"
             << TL("- Center view: if is enabled, view will be center over created element.");
@@ -262,14 +267,28 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 double
-GNENeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
-    switch (myActualAdditionalReferencePoint) {
-        case AdditionalReferencePoint::LEFT:
-            return positionOfTheMouseOverLane;
-        case AdditionalReferencePoint::RIGHT:
-            return positionOfTheMouseOverLane - lengthOfAdditional;
-        case AdditionalReferencePoint::CENTER:
-            return positionOfTheMouseOverLane - lengthOfAdditional / 2;
+GNENeteditAttributes::setStartPosition(const double mouseOverLanePos, double elementLenght) const {
+    switch (myReferencePoint) {
+        case ReferencePoint::LEFT:
+            return mouseOverLanePos;
+        case ReferencePoint::RIGHT:
+            if ((mouseOverLanePos - elementLenght) <= 0) {
+                return INVALID_DOUBLE;
+            } else {
+                return mouseOverLanePos - elementLenght;
+            }
+        case ReferencePoint::CENTER:
+            if ((mouseOverLanePos - (elementLenght * 0.5)) <= 0) {
+                return INVALID_DOUBLE;
+            } else {
+                return mouseOverLanePos - (elementLenght * 0.5);
+            }
+        case ReferencePoint::EXTENDEDLEFT:
+            return INVALID_DOUBLE;
+        case ReferencePoint::EXTENDEDRIGHT:
+            return mouseOverLanePos;
+        case ReferencePoint::EXTENDED:
+            return INVALID_DOUBLE;
         default:
             throw InvalidArgument("Reference Point invalid");
     }
@@ -277,14 +296,28 @@ GNENeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double
 
 
 double
-GNENeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
-    switch (myActualAdditionalReferencePoint) {
-        case AdditionalReferencePoint::LEFT:
-            return positionOfTheMouseOverLane + lengthOfAdditional;
-        case AdditionalReferencePoint::RIGHT:
-            return positionOfTheMouseOverLane;
-        case AdditionalReferencePoint::CENTER:
-            return positionOfTheMouseOverLane + lengthOfAdditional / 2;
+GNENeteditAttributes::setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const {
+    switch (myReferencePoint) {
+        case ReferencePoint::LEFT:
+            if ((mouseOverLanePos + elementLenght) >= laneLength) {
+                return INVALID_DOUBLE;
+            } else {
+                return mouseOverLanePos + elementLenght;
+            }
+        case ReferencePoint::RIGHT:
+            return mouseOverLanePos;
+        case ReferencePoint::CENTER:
+            if ((mouseOverLanePos + (elementLenght * 0.5)) >= laneLength) {
+                return INVALID_DOUBLE;
+            } else {
+                return mouseOverLanePos + (elementLenght * 0.5);
+            }
+        case ReferencePoint::EXTENDEDLEFT:
+            return mouseOverLanePos;
+        case ReferencePoint::EXTENDEDRIGHT:
+            return INVALID_DOUBLE;
+        case ReferencePoint::EXTENDED:
+            return INVALID_DOUBLE;
         default:
             throw InvalidArgument("Reference Point invalid");
     }

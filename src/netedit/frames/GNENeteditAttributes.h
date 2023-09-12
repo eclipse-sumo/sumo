@@ -65,22 +65,25 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNENeteditAttributes)
 
-private:
     /// @brief list of the reference points
-    enum class AdditionalReferencePoint {
+    enum class ReferencePoint {
         LEFT,
         RIGHT,
         CENTER,
+        EXTENDEDLEFT,
+        EXTENDEDRIGHT,
+        EXTENDED,
         INVALID
     };
 
-    /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+    /// @brief return the start position
+    double setStartPosition(const double mouseOverLanePos, double elementLenght) const;
 
-    /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const;
+    /// @brief return the end position
+    double setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const;
 
     /// @brief pointer to frame parent
     GNEFrame* myFrameParent;
@@ -106,12 +109,18 @@ private:
     /// @brief checkbox to enable/disable center element after creation
     FXCheckButton* myCenterViewAfterCreationButton;
 
-    /// @brief Button for help about the reference point
-    FXButton* helpReferencePoint;
-
     /// @brief Flag to check if current length is valid
     bool myCurrentLengthValid;
 
-    /// @brief actual additional reference point selected in the match Box
-    AdditionalReferencePoint myActualAdditionalReferencePoint;
+    /// @brief current reference point
+    ReferencePoint myReferencePoint;
+
+    /// @brief map with all references
+    std::vector<std::pair<std::string, ReferencePoint> > myReferencePoints;
+private:
+    /// @brief Invalidated copy constructor.
+    GNENeteditAttributes(GNENeteditAttributes*) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNENeteditAttributes& operator=(GNENeteditAttributes*) = delete;
 };
