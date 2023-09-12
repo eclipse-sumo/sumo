@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-12 13:54+0000\n"
+"PO-Revision-Date: 2023-09-12 13:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3468,7 +3468,7 @@ msgstr "Erstelle Kantendatenelemente."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6226
 msgid "EdgeRelation"
-msgstr ""
+msgstr "Kantenbeziehung"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 msgid "Create edgeRelation elements."
@@ -3477,7 +3477,7 @@ msgstr "Erstelle Kantenbeziehungselemente."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6245
 msgid "TAZRelation"
-msgstr ""
+msgstr "Quelle-Ziel-Beziehung"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
 msgid "Create TAZRelation elements."
@@ -3486,7 +3486,7 @@ msgstr "Erstelle Quelle-Ziel-Beziehungen."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:439
 msgid "MeanData"
-msgstr ""
+msgstr "MeanData"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:768
 msgid "Create MeanData edge/lanes."
@@ -3716,7 +3716,7 @@ msgstr "Fahrstreifen"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1344
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
-msgstr ""
+msgstr "Verbindungen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1349
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
