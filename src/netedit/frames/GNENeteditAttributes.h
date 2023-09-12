@@ -60,11 +60,13 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
     /// @brief Called when user changes some element of GNENeteditAttributes
     long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
     /// @brief Called when user press the help button
     long onCmdHelp(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -82,23 +84,23 @@ protected:
         INVALID
     };
 
-    /// @brief return the start position
-    double setStartPosition(const double mouseOverLanePos, double elementLenght) const;
-
-    /// @brief return the end position
-    double setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const;
-
     /// @brief pointer to frame parent
     GNEFrame* myFrameParent;
 
     /// @brief match box with the list of reference points
-    MFXComboBoxIcon* myReferencePointMatchBox;
+    MFXComboBoxIcon* myReferencePointComboBox;
 
     /// @brief horizontal frame for length
     FXHorizontalFrame* myLengthFrame;
 
     /// @brief textField for length
     FXTextField* myLengthTextField;
+
+    /// @brief horizontal frame for force length
+    FXHorizontalFrame* myForceLengthFrame;
+
+    /// @brief checkbox to enable/disable force length
+    FXCheckButton* myForceLengthCheckButton;
 
     /// @brief horizontal frame for close polygon
     FXHorizontalFrame* myCloseShapeFrame;
@@ -112,14 +114,21 @@ protected:
     /// @brief checkbox to enable/disable center element after creation
     FXCheckButton* myCenterViewAfterCreationButton;
 
-    /// @brief Flag to check if current length is valid
-    bool myCurrentLengthValid;
-
     /// @brief current reference point
     ReferencePoint myReferencePoint;
 
     /// @brief map with all references
     std::vector<std::pair<std::string, ReferencePoint> > myReferencePoints;
+
+    /// @brief get element lenght
+    double getElementLenght() const;
+
+    /// @brief return the start position
+    double setStartPosition(const double mouseOverLanePos, double elementLenght) const;
+
+    /// @brief return the end position
+    double setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const;
+
 private:
     /// @brief Invalidated copy constructor.
     GNENeteditAttributes(GNENeteditAttributes*) = delete;

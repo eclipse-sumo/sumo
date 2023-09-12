@@ -50,7 +50,6 @@ FXIMPLEMENT(GNENeteditAttributes,  MFXGroupBoxModule,   NeteditAttributesMap,   
 GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Netedit attributes")),
     myFrameParent(frameParent),
-    myCurrentLengthValid(true),
     myReferencePoint(ReferencePoint::LEFT) {
     // fill reference points
     myReferencePoints.push_back(std::make_pair(TL("Reference Left"), ReferencePoint::LEFT));
@@ -60,17 +59,21 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myReferencePoints.push_back(std::make_pair(TL("Extended Right"), ReferencePoint::EXTENDEDRIGHT));
     myReferencePoints.push_back(std::make_pair(TL("Extended"), ReferencePoint::EXTENDED));
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+    myReferencePointComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
                                                    this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     for (const auto &referencePoint : myReferencePoints) {
-        myReferencePointMatchBox->appendIconItem(referencePoint.first.c_str());
+        myReferencePointComboBox->appendIconItem(referencePoint.first.c_str());
     }
-    myReferencePointMatchBox->setCurrentItem(0);
+    myReferencePointComboBox->setCurrentItem(0);
     // Create Frame for Length Label and textField
     myLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelThickedFixed(100));
-    myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myLengthTextField->setText("10");
+    // Create Frame for force lenght
+    myForceLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myForceLengthFrame, TL("Force leng."), 0, GUIDesignLabelThickedFixed(100));
+    myForceLengthCheckButton = new FXCheckButton(myForceLengthFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCloseShapeFrame, TL("Close shape"), 0, GUIDesignLabelThickedFixed(100));
@@ -95,11 +98,13 @@ GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateA
     // check if length text field has to be showed
     if (templateAC->getTagProperty().canMaskStartEndPos()) {
         myLengthFrame->show();
-        myReferencePointMatchBox->show();
+        myForceLengthFrame->show();
+        myReferencePointComboBox->show();
         showFrame = true;
     } else {
         myLengthFrame->hide();
-        myReferencePointMatchBox->hide();
+        myLengthFrame->show();
+        myReferencePointComboBox->hide();
     }
     // check if close shape check button has to be show
     if (templateAC->getTagProperty().canCloseShape()) {
@@ -134,38 +139,53 @@ GNENeteditAttributes::hideNeteditAttributesModule() {
 bool
 GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
-    if (myReferencePointMatchBox->shown()) {
+    if (myReferencePointComboBox->shown()) {
+        // declare error message
+        std::string errorMessage;
+        // get element lenght
+        const double elementLength = getElementLenght();
         // we need a valid lane to calculate position over lane
         if (lane == nullptr) {
+            // stop creating element, but without showing error message
             return false;
-        } else if (myCurrentLengthValid) {
+        } else if (myReferencePoint == ReferencePoint::INVALID) {
+            // write warning and stop
+            errorMessage = TL("Current selected reference point isn't valid");
+            myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+            WRITE_WARNING(errorMessage);
+            return false;
+        } else if (elementLength == INVALID_DOUBLE) {
+            // write warning and stop
+            errorMessage = TL("Invalid length");
+            myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+            WRITE_WARNING(errorMessage);
+            return false;
+        } else {
             // Obtain position of the mouse over lane (limited over grid)
             const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
-            // check if current reference point is valid
-            if (myReferencePoint == ReferencePoint::INVALID) {
-                std::string errorMessage = TL("Current selected reference point isn't valid");
+            // get start and end positions
+            const double startPos = setStartPosition(mousePosOverLane, elementLength);
+            const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
+            // check if force lenght
+            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && (endPos - startPos) != elementLength) {
+                // write warning and stop
+                errorMessage = TL("Invalid position. Uncheck 'Force lenght' to create element with flexible lenght");
                 myFrameParent->getViewNet()->setStatusBarText(errorMessage);
-                // Write Warning in console if we're in testing mode
-                WRITE_DEBUG(errorMessage);
+                WRITE_WARNING(errorMessage);
                 return false;
-            } else {
-                // obtain length
-                const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
-                // set start and end position
-                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePosOverLane, elementLength));
-                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D()));
             }
-        } else {
-            return false;
+            // set start and end position
+            baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, startPos);
+            baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, endPos);
         }
     }
-    // Save close shape value if shape's element can be closed
-    if (myCloseShapeCheckButton->shown()) {
-        baseObject->addBoolAttribute(GNE_ATTR_CLOSE_SHAPE, myCloseShapeCheckButton->getCheck() == 1);
+    // add close shape value if shape's element can be closed
+    if (myCloseShapeFrame->shown()) {
+        baseObject->addBoolAttribute(GNE_ATTR_CLOSE_SHAPE, myCloseShapeCheckButton->getCheck() == TRUE);
     }
-    // check center element after creation
-    if (myCenterViewAfterCreationButton->shown()) {
-        baseObject->addBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION, myCenterViewAfterCreationButton->getCheck() == 1);
+    // add center element after creation
+    if (myCenterViewAfterCreationFrame->shown()) {
+        baseObject->addBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION, myCenterViewAfterCreationButton->getCheck() == TRUE);
     }
     // all ok, then return true to continue creating element
     return true;
@@ -174,21 +194,28 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
 
 void
 GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    // get element lenght
+    const double elementLength = getElementLenght();
     // check lane
-    if (lane && shown() && myReferencePointMatchBox->shown() && (myReferencePoint != ReferencePoint::INVALID)) {
+    if (lane && shown() && myReferencePointComboBox->shown() && (myReferencePoint != ReferencePoint::INVALID) &&
+        (elementLength != INVALID_DOUBLE)) {
         // Obtain position of the mouse over lane (limited over grid)
         const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
-        // obtain element length
-        const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
         // continue depending of mouse pos over lane
-        if ((mousePosOverLane >= 0) && (elementLength > 0)) {
+        if (mousePosOverLane >= 0) {
             // set start and end position
             const double startPos = setStartPosition(mousePosOverLane, elementLength);
             const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
             // get lane geometry
             const auto laneShape = lane->getLaneGeometry().getShape();
             // set color
-            auto color = RGBColor::ORANGE;
+            RGBColor segmentColor;
+            // check if force lenght
+            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && (endPos - startPos) != elementLength) {
+                segmentColor = RGBColor::RED;
+            } else {
+                segmentColor = RGBColor::ORANGE;
+            }
             // declare geometries
             GUIGeometry geometry;
             // trim geomtry
@@ -201,7 +228,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // translate to temporal shape layer
             glTranslated(0, 0, GLO_TEMPORALSHAPE);
             // set color
-            GLHelper::setColor(color);
+            GLHelper::setColor(segmentColor);
             // draw temporal edge
             GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 0.45);
             // check if draw starPos
@@ -236,10 +263,8 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
                 // pop circle matrix
                 GLHelper::popMatrix();
             }
-            // draw triangle
-            color = color.changedBrightness(-32);
             // set color
-            GLHelper::setColor(color);
+            GLHelper::setColor(segmentColor.changedBrightness(-32));
             // translate to front
             glTranslated(0, 0, 2);
             // check if draw at end, or over circle
@@ -261,46 +286,77 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
 
 long
 GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
-    if (obj == myCloseShapeCheckButton) {
-        if (myCloseShapeCheckButton->getCheck()) {
-            myCloseShapeCheckButton->setText("true");
+    if (obj == myForceLengthCheckButton) {
+        if (myForceLengthCheckButton->getCheck()) {
+            myForceLengthCheckButton->setText(TL("true"));
         } else {
-            myCloseShapeCheckButton->setText("false");
+            myForceLengthCheckButton->setText(TL("false"));
+        }
+    } else if (obj == myCloseShapeCheckButton) {
+        if (myCloseShapeCheckButton->getCheck()) {
+            myCloseShapeCheckButton->setText(TL("true"));
+        } else {
+            myCloseShapeCheckButton->setText(TL("false"));
         }
     } else if (obj == myCenterViewAfterCreationButton) {
         if (myCenterViewAfterCreationButton->getCheck()) {
-            myCenterViewAfterCreationButton->setText("true");
+            myCenterViewAfterCreationButton->setText(TL("true"));
         } else {
-            myCenterViewAfterCreationButton->setText("false");
+            myCenterViewAfterCreationButton->setText(TL("false"));
         }
     } else if (obj == myLengthTextField) {
         // change color of text field depending of the input length
-        if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text()) &&
-                GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text()) > 0) {
+        if (getElementLenght() != INVALID_DOUBLE) {
             myLengthTextField->setTextColor(FXRGB(0, 0, 0));
             myLengthTextField->killFocus();
-            myCurrentLengthValid = true;
         } else {
             myLengthTextField->setTextColor(FXRGB(255, 0, 0));
-            myCurrentLengthValid = false;
+        }
+        // set background color
+        if (myLengthTextField->getText().empty()) {
+            myLengthTextField->setBackColor(FXRGBA(255, 213, 213, 255));
+        } else {
+            myLengthTextField->setBackColor(FXRGBA(255, 255, 255, 255));
         }
         // Update additional frame
         update();
-    } else if (obj == myReferencePointMatchBox) {
+    } else if (obj == myReferencePointComboBox) {
         // iterate over all reference points
         for (const auto &referencePoint : myReferencePoints) {
-            if (myReferencePointMatchBox->getText().text() == referencePoint.first) {
-                myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-                myReferencePointMatchBox->killFocus();
+            if (myReferencePointComboBox->getText().text() == referencePoint.first) {
+                // update reference point
                 myReferencePoint = referencePoint.second;
+                // update comboBox
+                myReferencePointComboBox->setTextColor(FXRGB(0, 0, 0));
+                myReferencePointComboBox->killFocus();
+                myReferencePointComboBox->setBackColor(FXRGBA(255, 255, 255, 255));
+                // enable text fierld
                 myLengthTextField->enable();
+                // check if show force lenght
+                if ((myReferencePoint == ReferencePoint::LEFT) ||
+                    (myReferencePoint == ReferencePoint::RIGHT) ||
+                    (myReferencePoint == ReferencePoint::CENTER)) {
+                    myForceLengthFrame->show();
+                } else {
+                    myForceLengthFrame->hide();
+                }
                 return 1;
             }
         }
-        // invalid reference point
-        myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
+        // set invalid reference point
         myReferencePoint = ReferencePoint::INVALID;
+        // update comboBox
+        myReferencePointComboBox->setTextColor(FXRGB(255, 0, 0));
+        // disable text field for lenght
         myLengthTextField->disable();
+        // hide force length frame
+        myForceLengthFrame->hide();
+        // set background color
+        if (myReferencePointComboBox->getText().empty()) {
+            myReferencePointComboBox->setBackColor(FXRGBA(255, 213, 213, 255));
+        } else {
+            myReferencePointComboBox->setBackColor(FXRGBA(255, 255, 255, 255));
+        }
     }
     return 1;
 }
@@ -351,6 +407,21 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing GNENeteditAttributes help dialog");
     return 1;
+}
+
+
+double
+GNENeteditAttributes::getElementLenght() const {
+    if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text())) {
+        const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+        if (elementLength > 0) {
+            return elementLength;
+        } else {
+            return INVALID_DOUBLE;
+        }
+    } else {
+        return INVALID_DOUBLE;
+    }
 }
 
 
