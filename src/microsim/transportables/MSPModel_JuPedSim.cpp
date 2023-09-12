@@ -112,18 +112,37 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
-
+    Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
-    const double halfDepartureLaneWidth = departureLane->getWidth() / 2.0;
-    double departureRelativePositionY = stage->getDepartPosLat();
-    if (departureRelativePositionY == UNSPECIFIED_POS_LAT) {
-        departureRelativePositionY = 0.0;
+    // first real stage, stage 0 is waiting
+    if (person->getCurrentStageIndex() == 2 && person->getParameter().departPosProcedure == DepartPosDefinition::RANDOM_LOCATION) {
+        const MSEdge* const tripOrigin = person->getNextStage(-1)->getEdge();
+        if (tripOrigin->isTazConnector()) {
+            const SUMOPolygon* tazShape = myNetwork->getShapeContainer().getPolygons().get(tripOrigin->getParameter("taz"));
+            if (tazShape == nullptr) {
+                WRITE_WARNINGF(TL("FromTaz '%' for person '%' has no shape information."), tripOrigin->getParameter("taz"), person->getID());
+            } else {
+                const Boundary& bbox = tazShape->getShape().getBoxBoundary();
+                while (!tazShape->getShape().around(departurePosition)) {
+                    // TODO optimize for speed if necessary or at least abort trying to find a point
+                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax()));
+                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax()));
+                }
+            }
+        }
     }
-    if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
-        departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+    if (departurePosition == Position::INVALID) {
+        const double halfDepartureLaneWidth = departureLane->getWidth() / 2.0;
+        double departureRelativePositionY = stage->getDepartPosLat();
+        if (departureRelativePositionY == UNSPECIFIED_POS_LAT) {
+            departureRelativePositionY = 0.0;
+        }
+        if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
+            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+        }
+        departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
-    const Position departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
-    
+
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
 
@@ -548,17 +567,13 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 
 
 void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
-    for (auto polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
-        PositionVector shape = polygonWithID.second->getShape();
-        std::vector<JPS_Point> coordinates = convertToJPSPoints(shape);
-        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area") {
+    for (const auto& polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
+        const std::vector<JPS_Point> coordinates = convertToJPSPoints(polygonWithID.second->getShape());
+        // TODO the taz thing is only a quick fix
+        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
             JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
-        }
-        else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
+        } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
-        }
-        else {
-            continue;
         }
     }
 }

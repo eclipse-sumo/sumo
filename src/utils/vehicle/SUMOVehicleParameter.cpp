@@ -396,6 +396,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         dpd = DepartPosDefinition::RANDOM;
     } else if (val == "random_free") {
         dpd = DepartPosDefinition::RANDOM_FREE;
+    } else if (val == "random_location") {
+        dpd = DepartPosDefinition::RANDOM_LOCATION;
     } else if (val == "free") {
         dpd = DepartPosDefinition::FREE;
     } else if (val == "base") {
@@ -813,6 +815,9 @@ SUMOVehicleParameter::getDepartPos() const {
             break;
         case DepartPosDefinition::RANDOM_FREE:
             val = "random_free";
+            break;
+        case DepartPosDefinition::RANDOM_LOCATION:
+            val = "random_location";
             break;
         case DepartPosDefinition::FREE:
             val = "free";
