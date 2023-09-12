@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 10:14+0000\n"
+"PO-Revision-Date: 2023-09-12 11:37+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -41,7 +41,7 @@ msgstr "Otobüs hatları oluşturma"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr "Üretim Tamamlandı;"
+msgstr "Popülasyon oluşturma"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:75
 msgid "Allocating schools"
@@ -5962,16 +5962,16 @@ msgstr "Verilen kesimleri rampa olarak ele almaya çalışır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:714
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "Verilen kesimleri rampa olarak düşünmeyin"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:718
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Kesim kenarlarının ayrılmasını önler"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:728
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "'--tls. varsayılan-türü' seçeneği için desteklenmeyen değer '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:732
 msgid ""
@@ -6038,16 +6038,15 @@ msgstr "tls.layout 'opposites', 'incoming' veya 'alternateOneWay' Olmalıdır."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:785
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "varsayılan.yol hakkı '%' değerlerinden biri olmalıdır"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:789
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance -1 veya Pozitif Olmalıdır."
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:805
-#, fuzzy
 msgid "Unknown value for default.spreadtype '%'."
-msgstr "Kesim '%' İçin Bilinmeyen Tür '%'"
+msgstr "Varsayılan. yayılım türü '%' için bilinmeyen değer."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
@@ -6058,9 +6057,8 @@ msgid "Could not get height data for coordinate %"
 msgstr "% Koordinatı İçin Yükseklik Verisi Alınamadı"
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:190
-#, fuzzy
 msgid "Could not open shape file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' şekil dosyası açılamadı."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:204
 msgid ""
@@ -6082,18 +6080,16 @@ msgid "Cannot load GeoTIFF file."
 msgstr "GeoTIFF Dosyası Yüklenemiyor."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:303
-#, fuzzy
 msgid "Could not parse geo information from %."
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "Coğrafi bilgiler %'den ayrıştırılamadı."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:312
-#, fuzzy
 msgid "Unknown color band in %."
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen renk bandı % olarak."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "Okuma başarısızlığı %."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
@@ -6101,27 +6097,25 @@ msgstr ""
 "SUMO, GDAL Desteği Olmadan Derlendiğinden GeoTIFF Dosyası Yüklenemiyor."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:89
-#, fuzzy
 msgid "Could not load names of edges too keep from '%'."
-msgstr "'%' Olan Yüklenen Bağlantı '%' Olarak Ayarlanamadı."
+msgstr "Kesimlerin adları '%' den çok uzakta kalacak şekilde yüklenemedi."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:107
-#, fuzzy
 msgid "Could not load IDs from '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%'den id'ler yüklenemedi."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "Geçersiz şerit id'si '%' (eksik '_')."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
-msgstr ""
+msgstr "'%' şeridi için geçersiz '%' şerit indeksi."
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedSUMOTLDef.cpp:359
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
-msgstr ""
+msgstr "Değişen geçişler için tlLogic '%' yamalanamadı"
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedSUMOTLDef.cpp:889
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
@@ -6132,123 +6126,123 @@ msgid ""
 "TYellow of signal group '%' was less than the computed one; patched (was:%, "
 "is:%)"
 msgstr ""
+"'%' sinyal grubunun sarısı hesaplanandan daha azdı; yamandı (was:%, is:%)"
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "Trafik ışığı '%'sinin hesaplanması sırasında."
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
-msgstr ""
+msgstr "Bağlantıda sinyal ayarlanamadı (sinyal: %, grup: %)"
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not propperly initialized\n"
-msgstr ""
+msgstr "benimİhtiyaçlarımİlişkisi uygun şekilde başlatılmadı\n"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:94
-#, fuzzy
 msgid "Removing self-loops"
-msgstr " Kendini Döndüren Kesim '%' Kaldırılıyor"
+msgstr "Kendinden döngüleri kaldırma"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:98
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "İzole yolları bulma"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:103
 msgid "Finding largest components"
-msgstr ""
+msgstr "En büyük bileşenleri bulma"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:110
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "İşlenmemiş kesimlerin çıkarılması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:117
 msgid "Processing public transport stops"
-msgstr ""
+msgstr "Toplu taşıma duraklarının işlenmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:132
 msgid "Revising public transport stops based on pt lines"
-msgstr ""
+msgstr "Toplu taşıma duraklarının pt hatlarına göre revize edilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:138
 msgid "Cleaning up public transport stops that are not served by any line"
 msgstr ""
+"Herhangi bir hat tarafından hizmet verilmeyen toplu taşıma duraklarının "
+"temizlenmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:144
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
-msgstr ""
+msgstr "Ağa atanamadıkları için % pt durakları kaldırıldı"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:149
 msgid "Align pt stop id signs with corresponding edge id signs"
-msgstr ""
+msgstr "Pt durak id işaretlerini ilgili kesim id işaretleriyle hizalayın"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:186
 msgid "Joining tram edges"
-msgstr ""
+msgstr "Tramvay kesimlerinin birleştirilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:190
 msgid " Joined % tram edges into roads."
-msgstr ""
+msgstr " Tramvay kesimlerinin %'si yollara katıldı."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:228
-#, fuzzy
 msgid "Joining junction clusters"
-msgstr "Kavşak Kümesi % (%) Eksiltiliyor."
+msgstr "Kavşak kümelerini birleştirme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:233
-#, fuzzy, c-format
+#, c-format
 msgid " Joined % junction cluster(s)."
-msgstr "Kavşak Kümesi % (%) Eksiltiliyor."
+msgstr " Birleşim küme(ler)inin %'sine katıldı."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:236
 msgid "Joining junctions with identical coordinates"
-msgstr ""
+msgstr "Aynı koordinatlara sahip kavşakları birleştirme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:240
-#, fuzzy, c-format
+#, c-format
 msgid " Joined % junctions."
-msgstr "% Kavşakları Birleştirilemedi."
+msgstr " Birleştirilmiş % kavşaklar."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:245
-#, fuzzy
 msgid "Joining lanes"
-msgstr "Çıktı Şeritleri Listeleniyor"
+msgstr "Şeritlerin birleştirilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:248
 #, c-format
 msgid "   Joined lanes on % edges."
-msgstr ""
+msgstr "   Kesimlerde birleştirilmiş şeritler."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:258
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % düğümler kaldırıldı."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:278
 msgid "Reducing geometries"
-msgstr ""
+msgstr "Geometrilerin azaltılması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:285
 msgid "Joining similar edges"
-msgstr ""
+msgstr "Benzer kenarları birleştirme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:295
 msgid "guessing opposite direction edges"
-msgstr ""
+msgstr "ters yön kenarlarını tahmin etme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:301
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "Geometri kesimlerini bölme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:308
 #, c-format
 msgid " Joined % junctions after splitting geometry."
-msgstr ""
+msgstr " Geometriyi böldükten sonra birleştirilmiş % kavşaklar."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:313
 msgid "Computing turning directions"
-msgstr ""
+msgstr "Dönüş yönlerinin hesaplanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:322
 msgid "Assigning nodes to traffic lights"
@@ -6286,105 +6280,101 @@ msgstr "Kesim şekillerini hesaplama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:423
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "Hız değişikliklerinin uygulanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:436
-#, fuzzy
 msgid "Computing node types"
-msgstr "Hesaplanan Dedektör Tipleri:"
+msgstr "Düğüm tiplerinin hesaplanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:447
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr ""
+msgstr "Tahmini % yaya geçitleri."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:475
 msgid "Computing priorities"
-msgstr ""
+msgstr "Hesaplama öncelikleri"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:479
 msgid "Computing approached edges"
-msgstr ""
+msgstr "Yaklaşılan kesimlerin hesaplanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:484
 msgid "Guessing and setting roundabouts"
-msgstr ""
+msgstr "Tahmin etme ve kavşakları belirleme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:487
-#, fuzzy
 msgid " Guessed % roundabout(s)."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr " Tahmini % dönel kavşak(lar)."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:493
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "Yaklaşan şeritlerin hesaplanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:497
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "Yaklaşılan şeritlerde şeritlerin bölünmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:503
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "Tahmin Ağı saçağı"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:506
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr " Tahmini % saçak düğümleri."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:511
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "Geri dönüşlerin işlenmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:529
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "Şerit sonlarının yeniden kontrol edilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:551
-#, fuzzy
 msgid "Joining traffic light nodes"
-msgstr "Trafik Işığı Dosyalarını Yükleyemiyor."
+msgstr "Trafik ışığı düğümlerine katılma"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:558
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "Trafik ışığı kontrol bilgilerinin hesaplanması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:565
 msgid "Computing node logics"
-msgstr ""
+msgstr "Düğüm mantığı hesaplama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:570
-#, fuzzy
 msgid "Computing traffic light logics"
-msgstr "Trafik Işığı Dosyalarını Yükleyemiyor."
+msgstr "Trafik ışığı mantığını hesaplama"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " trafik ışığı(ları) %hesaplandı."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:588
 msgid "Building inner edges"
-msgstr ""
+msgstr "İç kenarların oluşturulması"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:601
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "bağlantı noktalarının pürüzsüz geometrilere gerilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:630
 msgid "Generating street signs"
-msgstr ""
+msgstr "Sokak işaretleri oluşturma"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:641
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "Üst üste binen kenarları kontrol etme"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:646
 msgid "Checking edge grade"
-msgstr ""
+msgstr "Kesim derecesinin kontrol edilmesi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:661
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "Pt demiryolu durakları için erişimler bulun"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:684
 msgid ""
@@ -6398,7 +6388,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:691
 msgid "Moving network to origin"
-msgstr ""
+msgstr "Ağın menşeine taşınması"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:299
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:321
@@ -10170,16 +10160,16 @@ msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / max speed."
 msgstr ""
-"'%' Kesiminde time=% Geçen Aralık Eşleşmesi Yok.\n"
-"  Kesimin Uzunluğu/Maks Hızı Kullanılıyor."
+"'%' Kesiminde time=% Geçen Aralık Eşleşmesi Yok\n"
+" Kesimin Uzunluğu/Maks Hızı Kullanılıyor."
 
 #: C:\Repos\sumo/src\router\ROEdge.cpp:230
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
 msgstr ""
-"'%' Kesiminde time=% Geçen Aralık Eşleşmesi Yok.\n"
-"  Kesimin Uzunluğu/Hızı Kullanılıyor."
+"'%' Kesiminde time=% Geçen Aralık Eşleşmesi Yok\n"
+" Kesimin Uzunluğu/Hızı Kullanılıyor."
 
 #: C:\Repos\sumo/src\router\ROEdge.cpp:453
 msgid ""
