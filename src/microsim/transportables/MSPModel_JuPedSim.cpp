@@ -571,9 +571,9 @@ void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
         const std::vector<JPS_Point> coordinates = convertToJPSPoints(polygonWithID.second->getShape());
         // TODO the taz thing is only a quick fix
         if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
-            JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
+            JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, (JPS_Point*)coordinates.data(), coordinates.size());
         } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
+            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, (JPS_Point*)coordinates.data(), coordinates.size());
         }
     }
 }
