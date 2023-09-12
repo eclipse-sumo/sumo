@@ -5640,8 +5640,8 @@ GNEViewNet::drawSelectDottedContour() {
 
 void
 GNEViewNet::drawNeteditAttributesReferences() {
-    if (myViewParent->getAdditionalFrame()->getNeteditAttributes()->canDrawLaneReference()) {
-        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gPostDrawing.markedLane);
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
+        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(*myVisualizationSettings, gPostDrawing.markedLane);
     }
 }
 

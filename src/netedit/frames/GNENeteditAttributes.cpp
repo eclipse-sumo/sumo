@@ -23,6 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -139,7 +140,7 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
             return false;
         } else if (myCurrentLengthValid) {
             // Obtain position of the mouse over lane (limited over grid)
-            double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
+            const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
             if (myReferencePoint == ReferencePoint::INVALID) {
                 std::string errorMessage = TL("Current selected reference point isn't valid");
@@ -149,10 +150,10 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
                 return false;
             } else {
                 // obtain length
-                double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+                const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
                 // set start and end position
-                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePositionOverLane, elementLength));
-                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePositionOverLane, elementLength, lane->getLaneShape().length2D()));
+                baseObject->addDoubleAttribute(SUMO_ATTR_STARTPOS, setStartPosition(mousePosOverLane, elementLength));
+                baseObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D()));
             }
         } else {
             return false;
@@ -171,18 +172,61 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
 }
 
 
-bool
-GNENeteditAttributes::canDrawLaneReference() const {
-    return shown() && myReferencePointMatchBox->shown() && (myReferencePoint != ReferencePoint::INVALID);
-}
-
-
 void
-GNENeteditAttributes::drawLaneReference(const GNELane* lane) const {
+GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const GNELane* lane) const {
     // check lane
-    if (lane) {
-
-
+    if (lane && shown() && myReferencePointMatchBox->shown() && (myReferencePoint != ReferencePoint::INVALID)) {
+        // Obtain position of the mouse over lane (limited over grid)
+        const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
+        // obtain element length
+        const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
+        // continue depending of mouse pos over lane
+        if ((mousePosOverLane >= 0) && (elementLength > 0)) {
+            // set start and end position
+            const double startPos = setStartPosition(mousePosOverLane, elementLength);
+            const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
+            // get lane geometry
+            const auto laneShape = lane->getLaneGeometry().getShape();
+            // declare geometries
+            GUIGeometry geometry;
+            // trim geomtry
+            geometry.updateGeometry(laneShape, 
+                (startPos == INVALID_DOUBLE) ? -1 : startPos,
+                (endPos == INVALID_DOUBLE) ? -1 : endPos,
+                Position::INVALID, Position::INVALID);
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to temporal shape layer
+            glTranslated(0, 0, GLO_TEMPORALSHAPE);
+            // set color
+            GLHelper::setColor(RGBColor::ORANGE);
+            // draw temporal edge
+            GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 0.45);
+            // check if draw starPos
+            if (startPos != INVALID_DOUBLE) {
+                geometry.updateGeometry(laneShape, startPos, startPos + 0.5, Position::INVALID, Position::INVALID);
+                // draw startPos
+                GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
+            } else {
+                // translate to test layer, but under magenta square
+                glTranslated(laneShape.front().x(), laneShape.front().y(), 0);
+                // draw circle
+                GLHelper::drawFilledCircle(0.8, 8);
+            }
+            // check if draw endPos
+            if (endPos != INVALID_DOUBLE) {
+                geometry.updateGeometry(laneShape, endPos - 0.5, endPos, Position::INVALID, Position::INVALID);
+                // draw endPos
+                GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
+            } else {
+                // translate to test layer, but under magenta square
+                glTranslated(laneShape.back().x(), laneShape.back().y(), 0);
+                // draw circle
+                GLHelper::drawFilledCircle(0.8, 8);
+            }
+            // pop temporal edge matrix
+            GLHelper::popMatrix();
+        }
     }
 }
 
