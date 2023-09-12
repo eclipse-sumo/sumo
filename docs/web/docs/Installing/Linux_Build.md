@@ -341,7 +341,7 @@ cmake --build .
 cmake --install .
 ```
 
-You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual wich CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
+You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual with CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
 For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#jupedsim).
 
