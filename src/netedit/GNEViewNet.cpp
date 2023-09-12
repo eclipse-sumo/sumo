@@ -1174,6 +1174,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawDeleteDottedContour();
     // draw select dotted contour
     drawSelectDottedContour();
+    // draw netedit attributes references
+    drawNeteditAttributesReferences();
     // draw test circle
     drawTestsCircle();
     // pop draw matrix
@@ -5632,6 +5634,14 @@ GNEViewNet::drawSelectDottedContour() {
                 }
             }
         }
+    }
+}
+
+
+void
+GNEViewNet::drawNeteditAttributesReferences() {
+    if (myViewParent->getAdditionalFrame()->getNeteditAttributes()->canDrawLaneReference()) {
+        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(gPostDrawing.markedLane);
     }
 }
 

@@ -803,8 +803,11 @@ private:
     void drawSelectDottedContour();
 
     /// @brief draw circle in testing mode (neede for grid)
-    void drawTestsCircle() const;
+    void drawNeteditAttributesReferences();
 
+    /// @brief draw circle in testing mode (neede for grid)
+    void drawTestsCircle() const;
+        
     /// @}
 
     /// @brief mouse process functions

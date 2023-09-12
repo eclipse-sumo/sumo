@@ -248,6 +248,12 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
+GNENeteditAttributes*
+GNEAdditionalFrame::getNeteditAttributes() const {
+    return myNeteditAttributes;
+}
+
+
 bool
 GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)

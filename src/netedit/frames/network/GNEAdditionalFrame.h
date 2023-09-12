@@ -116,6 +116,9 @@ public:
     /// @brief get consecutive lane selector
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
+    /// @brief get Netedit parameter
+    GNENeteditAttributes* getNeteditAttributes() const;
+
     /// @brief create path
     bool createPath(const bool useLastRoute);
 

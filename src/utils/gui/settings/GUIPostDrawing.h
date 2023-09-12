@@ -24,6 +24,14 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEJunction;
+class GNEEdge;
+class GNELane;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -64,13 +72,13 @@ public:
     Position mousePos = Position::INVALID;
 
     /// @brief marked Node (used in create edge mode)
-    const GUIGlObject* markedNode = nullptr;
+    const GNEJunction* markedNode = nullptr;
 
     /// @brief marked edge (used in create edge mode, for splitting)
-    const GUIGlObject* markedEdge = nullptr;
+    const GNEEdge* markedEdge = nullptr;
 
     /// @brief marked lane (used in create edge mode, for splitting)
-    const GUIGlObject* markedLane = nullptr;
+    const GNELane* markedLane = nullptr;
 
     /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;

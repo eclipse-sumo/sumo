@@ -171,6 +171,22 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
 }
 
 
+bool
+GNENeteditAttributes::canDrawLaneReference() const {
+    return shown() && myReferencePointMatchBox->shown() && (myReferencePoint != ReferencePoint::INVALID);
+}
+
+
+void
+GNENeteditAttributes::drawLaneReference(const GNELane* lane) const {
+    // check lane
+    if (lane) {
+
+
+    }
+}
+
+
 long
 GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myCloseShapeCheckButton) {
