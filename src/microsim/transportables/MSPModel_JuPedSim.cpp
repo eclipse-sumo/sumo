@@ -441,7 +441,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     // Retrieve additional walkable areas and obstacles (walkable areas and obstacles in the sense of JuPedSim).
     std::vector<GEOSGeometry*> additionalObstacles;
     for (const auto& polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
-        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area") {
+        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
             dilatedPedestrianLanes.push_back(createGeometryFromShape(polygonWithID.second->getShape()));
         } 
         else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
