@@ -120,14 +120,14 @@ protected:
     /// @brief map with all references
     std::vector<std::pair<std::string, ReferencePoint> > myReferencePoints;
 
-    /// @brief get element lenght
-    double getElementLenght() const;
+    /// @brief get element length
+    double getElementLength() const;
 
     /// @brief return the start position
-    double setStartPosition(const double mouseOverLanePos, double elementLenght) const;
+    double setStartPosition(const double mouseOverLanePos, double elementLength) const;
 
     /// @brief return the end position
-    double setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const;
+    double setEndPosition(const double mouseOverLanePos, double elementLength, const double laneLength) const;
 
 private:
     /// @brief Invalidated copy constructor.

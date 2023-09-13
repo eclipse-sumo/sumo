@@ -70,7 +70,7 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myLengthTextField->setText("10");
-    // Create Frame for force lenght
+    // Create Frame for force length
     myForceLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myForceLengthFrame, TL("Force leng."), 0, GUIDesignLabelThickedFixed(100));
     myForceLengthCheckButton = new FXCheckButton(myForceLengthFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -142,8 +142,8 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
     if (myReferencePointComboBox->shown()) {
         // declare error message
         std::string errorMessage;
-        // get element lenght
-        const double elementLength = getElementLenght();
+        // get element length
+        const double elementLength = getElementLength();
         // we need a valid lane to calculate position over lane
         if (lane == nullptr) {
             // stop creating element, but without showing error message
@@ -166,10 +166,10 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
             // get start and end positions
             const double startPos = setStartPosition(mousePosOverLane, elementLength);
             const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
-            // check if force lenght
+            // check if force length
             if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && (endPos - startPos) != elementLength) {
                 // write warning and stop
-                errorMessage = TL("Invalid position. Uncheck 'Force lenght' to create element with flexible lenght");
+                errorMessage = TL("Invalid position. Uncheck 'Force length' to create element with flexible length");
                 myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 WRITE_WARNING(errorMessage);
                 return false;
@@ -194,8 +194,8 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
 
 void
 GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    // get element lenght
-    const double elementLength = getElementLenght();
+    // get element length
+    const double elementLength = getElementLength();
     // check lane
     if (lane && shown() && myReferencePointComboBox->shown() && (myReferencePoint != ReferencePoint::INVALID) &&
         (elementLength != INVALID_DOUBLE)) {
@@ -208,10 +208,12 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             const double endPos = setEndPosition(mousePosOverLane, elementLength, lane->getLaneShape().length2D());
             // get lane geometry
             const auto laneShape = lane->getLaneGeometry().getShape();
+            // difference between start-end position and elementLength
+            const auto lengthDifference = (endPos - startPos) - elementLength;
             // set color
             RGBColor segmentColor;
-            // check if force lenght
-            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && (endPos - startPos) != elementLength) {
+            // check if force length
+            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && abs(lengthDifference) >= 0.1 ) {
                 segmentColor = RGBColor::RED;
             } else {
                 segmentColor = RGBColor::ORANGE;
@@ -306,7 +308,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         }
     } else if (obj == myLengthTextField) {
         // change color of text field depending of the input length
-        if (getElementLenght() != INVALID_DOUBLE) {
+        if (getElementLength() != INVALID_DOUBLE) {
             myLengthTextField->setTextColor(FXRGB(0, 0, 0));
             myLengthTextField->killFocus();
         } else {
@@ -332,7 +334,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
                 myReferencePointComboBox->setBackColor(FXRGBA(255, 255, 255, 255));
                 // enable text fierld
                 myLengthTextField->enable();
-                // check if show force lenght
+                // check if show force length
                 if ((myReferencePoint == ReferencePoint::LEFT) ||
                     (myReferencePoint == ReferencePoint::RIGHT) ||
                     (myReferencePoint == ReferencePoint::CENTER)) {
@@ -347,7 +349,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         myReferencePoint = ReferencePoint::INVALID;
         // update comboBox
         myReferencePointComboBox->setTextColor(FXRGB(255, 0, 0));
-        // disable text field for lenght
+        // disable text field for length
         myLengthTextField->disable();
         // hide force length frame
         myForceLengthFrame->hide();
@@ -411,7 +413,7 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
 
 
 double
-GNENeteditAttributes::getElementLenght() const {
+GNENeteditAttributes::getElementLength() const {
     if (GNEAttributeCarrier::canParse<double>(myLengthTextField->getText().text())) {
         const double elementLength = GNEAttributeCarrier::parse<double>(myLengthTextField->getText().text());
         if (elementLength > 0) {
@@ -426,21 +428,21 @@ GNENeteditAttributes::getElementLenght() const {
 
 
 double
-GNENeteditAttributes::setStartPosition(const double mouseOverLanePos, double elementLenght) const {
+GNENeteditAttributes::setStartPosition(const double mouseOverLanePos, double elementLength) const {
     switch (myReferencePoint) {
         case ReferencePoint::LEFT:
             return mouseOverLanePos;
         case ReferencePoint::RIGHT:
-            if ((mouseOverLanePos - elementLenght) <= 0) {
+            if ((mouseOverLanePos - elementLength) <= 0) {
                 return INVALID_DOUBLE;
             } else {
-                return mouseOverLanePos - elementLenght;
+                return mouseOverLanePos - elementLength;
             }
         case ReferencePoint::CENTER:
-            if ((mouseOverLanePos - (elementLenght * 0.5)) <= 0) {
+            if ((mouseOverLanePos - (elementLength * 0.5)) <= 0) {
                 return INVALID_DOUBLE;
             } else {
-                return mouseOverLanePos - (elementLenght * 0.5);
+                return mouseOverLanePos - (elementLength * 0.5);
             }
         case ReferencePoint::EXTENDEDLEFT:
             return INVALID_DOUBLE;
@@ -455,21 +457,21 @@ GNENeteditAttributes::setStartPosition(const double mouseOverLanePos, double ele
 
 
 double
-GNENeteditAttributes::setEndPosition(const double mouseOverLanePos, double elementLenght, const double laneLength) const {
+GNENeteditAttributes::setEndPosition(const double mouseOverLanePos, double elementLength, const double laneLength) const {
     switch (myReferencePoint) {
         case ReferencePoint::LEFT:
-            if ((mouseOverLanePos + elementLenght) >= laneLength) {
+            if ((mouseOverLanePos + elementLength) >= laneLength) {
                 return INVALID_DOUBLE;
             } else {
-                return mouseOverLanePos + elementLenght;
+                return mouseOverLanePos + elementLength;
             }
         case ReferencePoint::RIGHT:
             return mouseOverLanePos;
         case ReferencePoint::CENTER:
-            if ((mouseOverLanePos + (elementLenght * 0.5)) >= laneLength) {
+            if ((mouseOverLanePos + (elementLength * 0.5)) >= laneLength) {
                 return INVALID_DOUBLE;
             } else {
-                return mouseOverLanePos + (elementLenght * 0.5);
+                return mouseOverLanePos + (elementLength * 0.5);
             }
         case ReferencePoint::EXTENDEDLEFT:
             return mouseOverLanePos;
