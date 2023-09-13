@@ -162,6 +162,10 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // pop name
             GLHelper::popName();
+            // draw edge name
+            if (s.internalEdgeName.show(this)) {
+                GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(), s.scale, s.angle);
+            }
         }
     }
 }
