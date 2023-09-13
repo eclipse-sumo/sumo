@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-13 11:51+0000\n"
+"PO-Revision-Date: 2023-09-13 15:01+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -6872,63 +6872,64 @@ msgstr "Oluşturulan dönüş şeritlerinin uzunluğunu FLOAT olarak ayarlayın"
 msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
-msgstr ""
+msgstr "Verilen dağılıma göre x yönünde rastgele uzamsal sapma uygulayın"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
-msgstr ""
+msgstr "Verilen dağılıma göre y yönünde rastgele uzamsal sapma uygulayın"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
-msgstr ""
+msgstr "Verilen dağılıma göre z yönünde rastgele uzamsal sapma uygulayın"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:63
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "Bir ters kesim oluşturma olasılığını tanımlar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
 msgstr ""
+"Şerit numaralarını [1,varsayılan.]şerit numarası arasından rastgele çizin"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr ""
+msgstr "Kesim önceliğini [1,varsayılan.öncelik] arasından rastgele çizin"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
-msgstr ""
+msgstr "Tüm yüklü tiplerden rastgele kesim tipi çizin"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "NETGEN'i ızgara benzeri bir ağ oluşturmaya zorlar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:85
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "Her iki yöndeki kavşak sayısı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:90
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "Her iki yöndeki sokakların uzunluğu"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:95
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "x-dir içindeki kavşak sayısı; --ızgara-sayısı öğesini geçersiz kılar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:100
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "y-dir içindeki kavşak sayısı; --ızgara-sayısı öğesini geçersiz kılar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:105
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "Yatay sokakların uzunluğu; --ızgara-uzunluğunu geçersiz kılar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:110
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "Dikey sokakların uzunluğu; --ızgara-uzunluğu öğesini geçersiz kılar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:114
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:147
@@ -6936,94 +6937,101 @@ msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
 msgstr ""
+"Sınıra bağlı sokakların uzunluğu; 0 hiçbir sokağın bağlı olmadığı anlamına "
+"gelir"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:117
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
 msgstr ""
+"Sınırda x yönünde eklenmiş sokakların uzunluğu; 0 hiçbir sokağın eklenmediği "
+"anlamına gelir"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:119
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
 msgstr ""
+"Sınıra y yönünde bağlı sokakların uzunluğu; 0, hiçbir sokağın bağlı olmadığı "
+"anlamına gelir"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:124
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "NETGEN'i örümcek ağı benzeri bir ağ oluşturmaya zorlar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:129
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "Ağ içindeki eksen sayısı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:134
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "Ağın daire sayısı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:139
 msgid "The distances between the circles"
-msgstr ""
+msgstr "Daireler arasındaki mesafeler"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:144
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "Ağın merkezi düğümünü atlayın"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "NETGEN'i rastgele bir ağ oluşturmaya zorlar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:157
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "Bir kesimin ağa kaç kez ekleneceğini açıklar"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:162
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "Her kesimin maksimum mesafesi"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:167
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "Her kesim için minimum mesafe"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "Derece cinsinden her bir (çift yönlü) yol çifti için minimum açı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:177
 msgid "The number of tries for creating each node"
-msgstr ""
+msgstr "Her bir düğümü oluşturmak için yapılan deneme sayısı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:182
 msgid "Probability for roads to continue at each node"
-msgstr ""
+msgstr "Her düğümde yolların devam etme olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:187
 msgid "Probability for a node having exactly 1 neighbor"
-msgstr ""
+msgstr "Bir düğümün tam olarak 1 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:192
 msgid "Probability for a node having exactly 2 neighbors"
-msgstr ""
+msgstr "Bir düğümün tam olarak 2 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:197
 msgid "Probability for a node having exactly 3 neighbors"
-msgstr ""
+msgstr "Bir düğümün tam olarak 3 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:202
 msgid "Probability for a node having exactly 4 neighbors"
-msgstr ""
+msgstr "Bir düğümün tam olarak 4 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:207
 msgid "Probability for a node having exactly 5 neighbors"
-msgstr ""
+msgstr "Bir düğümün tam olarak 5 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:212
 msgid "Probability for a node having exactly 6 neighbors"
-msgstr ""
+msgstr "Bir düğümün tam olarak 6 komşuya sahip olma olasılığı"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
 msgstr ""
+"Düğümleri rand.min-mesafe aralığıyla düzenli bir ızgara üzerine yerleştirin"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:235
 msgid "You have to specify the type of network to generate."
@@ -7043,6 +7051,9 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[trafik_ışığı|öncelikli|sağ_önce_sol|sol_önce_sağ|trafik_ışığı_sağ_kırmızıda|"
+"öncelikli_durak|yol_durak|...] Bağlantı türünü belirler (bkz. wiki/Networks/"
+"PlainXML#Node_types)"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
@@ -7050,7 +7061,7 @@ msgstr "Örümcek Ağları En Az 3 Kola Sahip Olmalıdır."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:124
 msgid "Spider networks with many arms should use option spider.omit-center"
-msgstr ""
+msgstr "Çok kollu örümcek ağları örümcek.omit-merkez seçeneğini kullanmalıdır"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:127
 msgid "Spider networks need at least one circle."
@@ -7062,6 +7073,8 @@ msgid ""
 "The radius of spider networks should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
 msgstr ""
+"Örümcek ağlarının yarıçapı, verilen şerit sayısı, şerit genişliği ve "
+"bağlantı yarıçapı için en az % olmalıdır"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:177
 msgid ""
@@ -7075,6 +7088,8 @@ msgid ""
 "The distance between nodes should be at least % for the given lanenumber, "
 "lanewidth and junction radius"
 msgstr ""
+"Düğümler arasındaki mesafe, verilen şerit sayısı, şerit genişliği ve kavşak "
+"yarıçapı için en az % olmalıdır"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:191
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:196
@@ -7083,6 +7098,8 @@ msgid ""
 "The length of attached streets should be at least % for the given "
 "lanenumber, lanewidth and junction radius"
 msgstr ""
+"Ekli sokakların uzunluğu, verilen şerit numarası, şerit genişliği ve kavşak "
+"yarıçapı için en az % olmalıdır"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:231
 msgid ""
@@ -7098,156 +7115,166 @@ msgstr " Üretim Tamamlandı;"
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:268
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   % düğüm oluşturuldu."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:269
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   % kesim üretildi."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr " Geometri benzeri düğümlerdeki % trafik ışıkları kaldırıldı"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "DOSYA'dan SUMO-net'i okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "XML düğüm tanımlarını DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "XML-edge tanımlarını DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "XML bağlantı tanımlarını DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "XML-trafik ışığı tanımlarını DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "XML tipi tanımları DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "FILE konumundaki toplu taşıma duraklarını okur"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "DOSYA'dan toplu taşıma hatlarını okur"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:90
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr ""
+msgstr "Uygulanabildiği yerlerde ağa yerleştirmek için DOSYADAN çokgenleri okur"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
 msgstr ""
+"'FILE' ile başlayan dosyalardan şekil dosyalarını (ArcView, Tiger, ...) "
+"okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:102
 msgid ""
 "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"
 msgstr ""
+"Dönüştürülmüş Navteq GDF verilerini (bölünmemiş Elmar-ağ) 'DOSYA' yolundan "
+"okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
-msgstr ""
+msgstr "OSM-ağını 'DOSYA(lar)' yolundan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr ""
+msgstr "OpenDRIVE-network'ü DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr ""
+msgstr "DOSYA'dan VISUM-net'i okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr ""
+msgstr "DOSYA'dan VISSIM-net'i okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
-msgstr ""
+msgstr "RoboCup-net'i DIR'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr ""
+msgstr "MATsim-net'i DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr ""
+msgstr "ITSUMO-net'i DOSYA'dan okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
-msgstr ""
+msgstr "ArcGIS shapefile dosyasından yükseklik eşlemini okuma"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
-msgstr ""
+msgstr "GeoTIFF'ten yükseklik haritası okuma"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:145
 #: C:\Repos\sumo/src\od2trips_main.cpp:159
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:199
 msgid "Continue on broken input"
-msgstr ""
+msgstr "Bozuk girişe devam edin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:148
 msgid "Continue on invalid connections"
-msgstr ""
+msgstr "Geçersiz bağlantılarda devam et"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "Ayrıştırma sırasında bağlantılardaki hataları göster"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "Bilinmeyen kesim türlerinde devam edin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:157
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "vmax km/saat cinsinden verildiği şekilde ayrıştırılır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under construction"
 msgstr ""
+"Yapım aşamasındaki özelliklerin hazır olma durumunu belirlemek için YYYY-MM-"
+"DD tarihini kullanın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Tüm z verilerini kaldırın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "Anahtar listesini tüm parametrelerden kaldırın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
 msgstr ""
+"Şerit değiştirme kısıtlamalarını göz ardı edebilecek araç sınıflarını "
+"listeleyin ('tümü' tüm kısıtlamaları atar)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:174
 msgid "If edge shapes do not end at the node positions, extend them"
-msgstr ""
+msgstr "Kesim şekilleri düğüm konumlarında bitmiyorsa, bunları uzatın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:178
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "Yinelenen düğümler ve kesimler için kontrolü atlar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:181
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Yükseklik verilerini içe aktarır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:184
 msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
 msgstr ""
+"Katman verilerine dayalı olarak ( göreceli) yüksekliği yeniden oluşturun. "
+"Her katman FLOAT m ile yükseltilir"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:187
 #, c-format
@@ -7255,245 +7282,266 @@ msgid ""
 "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on "
 "layer data. The value is scaled according to road speed."
 msgstr ""
+"Katman verilerine dayalı olarak yükseklik yeniden yapılandırılırken 50 km/"
+"sa'de % cinsinden maksimum eğim eşiği. Değer yol hızına göre ölçeklendirilir."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:190
 msgid "Whether one-way roads should be spread to the side instead of centered"
 msgstr ""
+"Tek yönlü yolların ortalanmak yerine yanlara doğru yayılıp yayılmayacağı"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:193
 msgid "Import lane-specific access restrictions"
-msgstr ""
+msgstr "Şeride özgü erişim kısıtlamalarını içe aktarın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:197
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
+"Bisiklet şeritlerini içe aktarın ve bisiklet yollarındaki yönleri ve "
+"izinleri düzeltin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:200
 msgid "Import sidewalks"
-msgstr ""
+msgstr "Kaldırımları içe aktarın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:203
 msgid "Import crossings"
-msgstr ""
+msgstr "Geçişleri içe aktar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:206
 msgid "Import turning arrows from OSM to help with connection building"
 msgstr ""
+"Bağlantı oluşturmaya yardımcı olmak için OSM'den dönüş oklarını içe aktarın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
-msgstr ""
+msgstr "FLOAT m cinsinden bir toplu taşıma durağının varsayılan uzunluğu"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:211
 msgid "The default length of a bus stop in FLOAT m"
-msgstr ""
+msgstr "FLOAT m cinsinden bir otobüs durağının varsayılan uzunluğu"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:213
 msgid "The default length of a tram stop in FLOAT m"
-msgstr ""
+msgstr "Bir tramvay durağının FLOAT m cinsinden varsayılan uzunluğu"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:215
 msgid "The default length of a train stop in FLOAT m"
-msgstr ""
+msgstr "FLOAT m cinsinden bir tren durağının varsayılan uzunluğu"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:219
 msgid "Whether additional attributes shall be imported"
-msgstr ""
+msgstr "Ek özelliklerin içe aktarılıp aktarılmayacağı"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:223
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
 msgstr ""
+"OSM'den osm.tüm-nitelikler aracılığıyla içe aktarılacak ek niteliklerin "
+"listesi (tümünü içe aktarmak için 'tümünü' olarak ayarlayın)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:226
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
-msgstr ""
+msgstr "Gerçekte hız sınırı olmadığında belirlenecek hız sınırı"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:230
 msgid "The edge lengths given in the MATSIM-file will be kept"
-msgstr ""
+msgstr "MATSIM dosyasında verilen kenar uzunlukları korunacaktır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:233
 msgid "The lane number will be computed from the capacity"
-msgstr ""
+msgstr "Şerit numarası kapasiteden hesaplanacaktır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:239
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "STR sütunundan kesim id'lerini okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:243
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "STR sütunundan düğüm id'lerini okuma"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:247
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "STR sütunundan düğüm id'lerini okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:251
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "STR sütunundan tür id'lerini okuma"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:254
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "STR sütunundan şerit numarasını okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:257
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "STR sütunundan okuma hızı"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:260
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "STR sütunundan özel kenar uzunluğunu okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:263
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "STR sütunundan toplam kenar genişliğini okuyun"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:266
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "STR sütunundan (benzersiz olmayan) adı oku"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:269
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
+"Farklı şekillerin bağlı olup olmadığını belirlemek için mesafe eşiği ( "
+"kimden-id ve id-id mevcut olmadığında kullanılır)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:272
 msgid "Add the list of field names as edge params"
-msgstr ""
+msgstr "Alan adları listesini kenar parametreleri olarak ekleyin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:276
 msgid "Uses edge type defaults on problems"
-msgstr ""
+msgstr "Problemlerde kesim tipi varsayılanlarını kullanır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:281
 msgid "Insert edges in both directions"
-msgstr ""
+msgstr "Kesimleri her iki yönde de yerleştirin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:285
 msgid "Guess the proper projection"
-msgstr ""
+msgstr "Doğru projeksiyonu tahmin edin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:288
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
-msgstr ""
+msgstr "Geleneksel eksen sıralamasını kullanın ( enlem, boylam)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:293
 msgid "Allow more vehicle classes by default"
-msgstr ""
+msgstr "Varsayılan olarak daha fazla araç sınıfına izin verin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:296
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
-msgstr ""
+msgstr "DLR Navteq dosyasında verilen kenar uzunlukları korunacaktır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:302
 msgid "Structure join offset"
-msgstr ""
+msgstr "Yapı birleştirme ofseti"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:305
 msgid "Use FLOAT as default speed"
-msgstr ""
+msgstr "Varsayılan hız olarak FLOAT kullanın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:308
 msgid "Factor for edge velocity"
-msgstr ""
+msgstr "Kesim hızı için faktör"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:311
 msgid "Writes lanes without an explicit speed set"
-msgstr ""
+msgstr "Açık bir hız ayarı olmadan şeritleri yazar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:316
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
-msgstr ""
+msgstr "Dil eşlemelerini DOSYA'dan yükle"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:319
 msgid "Uses priorities from types"
-msgstr ""
+msgstr "Türlerden öncelikleri kullanır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:322
 msgid "Uses lane numbers from types"
-msgstr ""
+msgstr "Tiplerden şerit numaralarını kullanır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:325
 msgid "Uses speeds from types"
-msgstr ""
+msgstr "Tiplerden gelen hızları kullanır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:328
 msgid "Sets connector speed"
-msgstr ""
+msgstr "Konektör hızını ayarlar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:332
 msgid "Sets connector lane number"
-msgstr ""
+msgstr "Konektör şerit numarasını ayarlar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:335
 msgid "Excludes connectors"
-msgstr ""
+msgstr "Konektörler hariç"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:339
 msgid "Computes the number of lanes from the edges' capacities"
-msgstr ""
+msgstr "Kesimlerin kapasitelerinden şerit sayısını hesaplar"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:342
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
+"Bazıları VISUM yanlış davranışlarından kaynaklanan tüm uyarıları yazdırır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:347
 msgid "The factor for flow to no. lanes conversion"
-msgstr ""
+msgstr "Akışın şerit sayısına dönüştürülmesi için faktör"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:352
 msgid "Imports all lane types"
-msgstr ""
+msgstr "Tüm şerit tiplerini içe aktarır"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:354
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "Şerit genişliklerinin göz ardı edilip edilmeyeceği."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:356
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
 msgstr ""
+"Eğri geometrileri çizgi parçaları olarak içe aktarırken m cinsinden geometri "
+"çözünürlüğü."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:358
 msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
 msgstr ""
+"Geometriler izin veriyorsa, durak çizgilerinin kavşak başlangıcının ötesine "
+"inşa edilmesine izin verin"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:360
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
 msgstr ""
+"Değişken genişlikli şeritlerin başlangıcını veya sonunu belirlemek için "
+"minimum şerit genişliği"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:362
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "Dahili şerit şekillerini içe aktarma"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:364
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
-msgstr ""
+msgstr "Kesim id'sini yol-id'sine ve m cinsinden ofsete göre ayarlar (eski)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:366
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
+"Atılan şerit tiplerini telafi etmek için özel şerit şekillerini kullanın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:368
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
+"Oluşturulan sinyal programı için OpenDRIVE kontrolör bilgilerini kullanın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:379
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
+"plain-xml dışındaki diğer formatlardan yüklenen tüm demiryolu sinyal "
+"bilgilerini atın"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:400
 msgid ""
@@ -7515,21 +7563,20 @@ msgstr "osm.crossings Seçeneğinin osm.sidewalks ile Kullanılması Önerilir"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:138
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:139
-#, fuzzy
 msgid "Could not open shape description '%'."
-msgstr "'%' Bağlantısı İçin Özel Şekil Kullanılamadı."
+msgstr "Şekil açıklaması '%' açılamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "Gerekli alan '%' (sokak id'si) eksik."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "Gerekli alan '%' (düğüm id'sinden) eksik."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "Gerekli alan '%' (düğüm id'sine) eksik."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
@@ -7541,11 +7588,15 @@ msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
 msgstr ""
+"Gerekli alan '%' veya '%' eksik (alan ekleyin veya \"şekil dosyası.kullan-"
+"başarısızlık durumunda varsayılanlar\" seçeneğini ayarlayın)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:249
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr ""
+"Yol geometrisi 'satır dizisi' veya 'satır dizisi25D' türünde olmalıdır ('%' "
+"bulundu)"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:261
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:90
@@ -7570,7 +7621,7 @@ msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:304
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "'%' düğümü eklenemedi"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:312
 #, c-format
@@ -7580,7 +7631,7 @@ msgstr "Kesim '%' Benzer Düğümleri Bağlar, Geçiliyor."
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr ""
+msgstr "Kesim '%' benzersiz değildir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
@@ -7589,11 +7640,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
 msgid "Could not create edge '%'. An edge with the same id already exists."
-msgstr ""
+msgstr "'%' kesimi oluşturulamadı. Aynı id'ye sahip bir kesim zaten mevcut."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr ""
+msgstr "'-%' kesimi oluşturulamadı. Aynı id'ye sahip bir kesim zaten mevcut."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:331
@@ -7601,70 +7652,63 @@ msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO, GDAL Desteği Olmadan Derlendi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:76
-#, fuzzy
 msgid "Loading nodes"
-msgstr "Yükleme Tamamlandı."
+msgstr "Düğümler yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:80
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:105
-#, fuzzy, c-format
+#, c-format
 msgid "The file '%' could not be opened."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "'%' dosyası açılamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:90
-#, fuzzy
 msgid "Loading street names"
-msgstr "Yükleme Tamamlandı."
+msgstr "Sokak adları yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
-msgstr ""
+msgstr "'%' dosyası bulunamadığı için çıktı sokak adlarını içermeyecektir"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:100
-#, fuzzy
 msgid "Loading edges"
-msgstr "Yükleme Tamamlandı."
+msgstr "Kesimler yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:114
-#, fuzzy
 msgid "Loading traffic lights"
-msgstr "Trafik Işığı Dosyalarını Yükleyemiyor."
+msgstr "Trafik ışıkları yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:123
-#, fuzzy
 msgid "Loading prohibited manoeuvres"
-msgstr "Geçici Olarak Yasaklanan Manevra (%) Yok Sayılıyor."
+msgstr "Yasaklı manevralar yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:132
-#, fuzzy
 msgid "Loading connected lanes"
-msgstr "Yükleme Tamamlandı."
+msgstr "Bağlantılı şeritlerin yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "Süresi kısıtlamaları yükleniyor"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "Düğüm %'deki ara durum için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "Düğümdeki geometri sayısı için sayısal olmayan değer %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "Düğüm %'deki x konumu için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "Düğüm %'deki y konumu için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:230
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:321
-#, fuzzy
 msgid "Unable to project coordinates for node %."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "Düğüm % için koordinatlar yansıtılamıyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
 msgid "Could not add add node '%'"
@@ -7675,49 +7719,47 @@ msgstr "'%' Düğümü Eklenemedi"
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:388
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:483
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1426
-#, fuzzy
 msgid "Could not add node '%'."
-msgstr "'%' Düğümü Eklenemedi"
+msgstr "'%' düğümü eklenemedi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "'%' dosyasında eksik sürüm dizesi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "'%' bağlantısının yol şekli öğesi için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "'%' bağlantısının tünel_türü için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgstr "'%' bağlantısının sokak_tipi için sayısal olmayan değer)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "'%' bağlantısının HIZ_KISITLAMASI için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "'%' bağlantısının şerit sayısı için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:420
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:547
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:605
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:766
-#, fuzzy
 msgid "Could not add edge '%'."
-msgstr "bidi-edge '%' Eklenemiyor."
+msgstr "'%' kenarı eklenemedi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Eksik sütun %'si."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "Varsayılan değeri olmayan isteğe bağlı % sütunu eksik."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:499
 #, c-format
@@ -7725,14 +7767,12 @@ msgid "The traffic light edge '%' could not be found."
 msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:511
-#, fuzzy
 msgid "Could not allocate tls for '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' için tls ayrılamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:702
-#, fuzzy
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr "'%' Düğümü Eklenemedi"
+msgstr "YYYY-MM-DD tarihi '%' ayrıştırılamadı"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
@@ -7766,102 +7806,90 @@ msgid "Could not set loaded connection from '%' to '%'."
 msgstr "'%' Olan Yüklenen Bağlantı '%' Olarak Ayarlanamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:117
-#, fuzzy
 msgid "Could not open itsumo-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' itsumo dosyası açılamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:217
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:180
-#, fuzzy
 msgid "Could not add edge '%'. Probably declared twice."
-msgstr "bidi-edge '%' Eklenemiyor."
+msgstr "'%' kesimi eklenemedi. Muhtemelen iki kez bildirilmiştir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:232
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:142
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:703
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:148
-#, fuzzy
 msgid "Unable to project coordinates for node '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "'%' düğümü için koordinatlar yansıtılamıyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:237
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:147
-#, fuzzy
 msgid "Could not add node '%'. Probably declared twice."
-msgstr "TT Durağı '%' Yeniden Atanamadı, Muhtemelen OSM Dosyası Bozuk."
+msgstr "'%' düğümü eklenemedi. Muhtemelen iki kez bildirilmiştir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "'%' düğümü için sayısal konum bilgisi değil."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "'%' düğümünde eksik veri."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr ""
+msgstr "'%' şerit kümesinde eksik düğüm."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:263
 msgid "Fond laneset-id '%' twice."
-msgstr ""
+msgstr "Şerit seti id '%' iki kez geçersiz."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr ""
+msgstr "'%' şerit kümesinde sayısal değer değil."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
-msgstr ""
+msgstr "'%' şerit kümesinde eksik veri."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "'%' şeridinde sayısal değer değil."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:292
-#, fuzzy
 msgid "Missing data in lane '%'."
-msgstr "Yinelenen TT Hattı '%' Yok Sayılıyor."
+msgstr "'%' şeridinde eksik veri."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:202
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
 msgstr "Sahte Kapasite Periyodu Formatı; 'ss:dd:nn' gerektirir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:234
-#, fuzzy
 msgid "Could not find from-node for edge '%'."
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "'%' kesimi için düğümden gelen bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:237
-#, fuzzy
 msgid "Could not find to-node for edge '%'."
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "'%' kesimi için düğüme giden yol bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:253
-#, fuzzy
 msgid "Could not add intermediate node to split loop edge '%'."
-msgstr "Kesim '%' İçin Çapraz Çarpım Belirlenemedi."
+msgstr "'%' bölünmüş döngü kesimine düğüm eklenemedi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:219
-#, fuzzy
 msgid "Could not find signal reference '%'."
-msgstr "Sinyal '%' İçin Kesim '%' Bulunamadı."
+msgstr "'%' sinyal referansı bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:283
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:321
-#, fuzzy
 msgid "Could not build node '%'."
-msgstr "Birleştirilen tls (TIS) '%' Oluşturulamadı."
+msgstr "'%' düğümü oluşturulamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:420
-#, fuzzy
 msgid "Ignoring road '%' without geometry."
-msgstr "'%' Akımı 'Başlangıcı' Olmadan Yok Sayılıyor"
+msgstr "Geometri olmadan '%' yolunun göz ardı edilmesi."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:444
-#, fuzzy
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "'%' kesimi için şeritOfsetleri uygulanamadı"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:635
 #, c-format
@@ -7869,19 +7897,19 @@ msgid "Edge '%' has no lanes."
 msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:676
-#, fuzzy, c-format
+#, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "Bağlantılar ayarlanırken: Kesimden '%' bilinmiyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:686
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Bağlantılar ayarlanırken: kesime '%' bilinmiyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:712
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:715
 msgid "Could not find fromEdge representation of '%' in connection '%'."
-msgstr ""
+msgstr "'%' bağlantısında '%' öğesinin kesimden temsili bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:768
 #, c-format
@@ -7889,11 +7917,13 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Aynı kontrolör '%' tarafından birden fazla kavşağın kontrol edilmesi şu anda "
+"uygulanmamaktadır."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:789
-#, fuzzy, c-format
+#, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "Kesim '%' sinyallere sahiptir ancak şerit bölümleri yoktur."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:811
 msgid "Ambiguous start of connection."
@@ -7914,6 +7944,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
+"'%' ile '%' (kontrolör '%') arasındaki bağlantının sinyali belirsizdir çünkü "
+"'%' sinyalinin üzerine '%' kontrolörü yazılmıştır."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:892
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
@@ -7926,17 +7958,18 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"'%' ile '%' (kontrolör '%') arasındaki bağlantının sinyali belirsizdir çünkü "
+"'%' sinyali ve kontrolör '%' ile üzerine yazılmıştır."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1363
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1395
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "Bağlantılar ayarlanırken: gelen yol '%' bilinmiyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1438
-#, fuzzy
 msgid "Could not find node '%'."
-msgstr "'%' Düğümü Eklenemedi"
+msgstr "'%' düğümü bulunamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1531
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
@@ -7946,7 +7979,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1712
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
-msgstr ""
+msgstr "'%' kesimlerinin bölümleri düzgün sıralanmamıştır."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1724
 msgid ""
@@ -7962,13 +7995,15 @@ msgstr "'%' Kesimi İçin Spiral Geometri Hesaplanamadı (cDot=% Uzunluk=%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1816
 msgid "Could not compute spiral geometry for edge '%' (%)."
-msgstr ""
+msgstr "'%' (%) kesimi için spiral geometri hesaplanamadı."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2088
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr ""
+"Hem reddedilen hem de izin verilen sınıflar belirtildiği için erişim "
+"ayarlarını atacaktır."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2400
 msgid "Ignoring invalid pRange value '%' for road '%'."
