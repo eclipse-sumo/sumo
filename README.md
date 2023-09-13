@@ -29,8 +29,9 @@ As the program is still under development and is extended continuously, we advic
 use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        git clone --recursive https://github.com/eclipse-sumo/sumo
-
+```
+git clone --recursive https://github.com/eclipse-sumo/sumo
+```
 
 Contact
 -------
@@ -49,19 +50,23 @@ Build and Installation
 For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
 If you want to develop under Windows, please also clone the dependent libraries using
 
-        git clone --recursive https://github.com/DLR-TS/SUMOLibraries
+```
+git clone --recursive https://github.com/DLR-TS/SUMOLibraries
+```
 
 If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 [open build service instance](https://build.opensuse.org/project/show/science:dlr).
 If you want to build sumo yourself, the steps for ubuntu are:
 
-        sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
-        cd <SUMO_DIR> # please insert the correct directory name here
-        export SUMO_HOME="$PWD"
-        mkdir build/cmake-build && cd build/cmake-build
-        cmake ../..
-        make -j$(nproc)
+```
+sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+cd <SUMO_DIR> # please insert the correct directory name here
+export SUMO_HOME="$PWD"
+mkdir build/cmake-build && cd build/cmake-build
+cmake ../..
+make -j$(nproc)
+```
 
 For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
 
