@@ -3551,7 +3551,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_ROUTE_DISTRIBUTION,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
+                                              GNEAttributeProperties::STRING,
                                               TL("Route distribution"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3640,7 +3640,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::VTYPE,
+                                              GNEAttributeProperties::STRING,
                                               TL("Type distribution"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3812,7 +3812,7 @@ GNEAttributeCarrier::fillDemandElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VTYPE,
+                                      GNETagProperties::TagType::DEMANDELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GUIIcon::VTYPEDISTRIBUTION, currentTag, TL("VehicleTypeDistribution"));
 
