@@ -1558,7 +1558,7 @@ class TAZ:
 
 class type:
 
-    color = 6
+    color = 5
 
     class buttons:
         create = 2
