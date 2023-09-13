@@ -102,8 +102,8 @@ GNENeteditAttributes::showNeteditAttributesModule(GNEAttributeCarrier* templateA
         myReferencePointComboBox->show();
         showFrame = true;
     } else {
+        myForceLengthFrame->hide();
         myLengthFrame->hide();
-        myLengthFrame->show();
         myReferencePointComboBox->hide();
     }
     // check if close shape check button has to be show
@@ -342,6 +342,8 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
                 } else {
                     myForceLengthFrame->hide();
                 }
+                // recalf modul
+                recalc();
                 return 1;
             }
         }
@@ -353,6 +355,8 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         myLengthTextField->disable();
         // hide force length frame
         myForceLengthFrame->hide();
+        // recalc modul
+        recalc();
         // set background color
         if (myReferencePointComboBox->getText().empty()) {
             myReferencePointComboBox->setBackColor(FXRGBA(255, 213, 213, 255));
