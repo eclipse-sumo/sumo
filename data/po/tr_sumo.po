@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-09-12 11:37+0000\n"
+"PO-Revision-Date: 2023-09-13 11:51+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -6393,26 +6393,25 @@ msgstr "Ağın menşeine taşınması"
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:299
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:321
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "Geçersiz düğüm id'si '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
 msgstr " Kendini Döndüren Kesim '%' Kaldırılıyor"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:744
-#, fuzzy
 msgid "Could not compute indirect left turn shape at node '%'"
-msgstr "'%' Hattının Yönü '%' Durağında Belirlenemedi."
+msgstr "'%' düğümünde dolaylı sola dönüş şekli hesaplanamadı"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:760
-#, fuzzy, c-format
+#, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr "'%' Bağlantısı %% Eğime Sahip."
+msgstr "Bağlantı '%' var olmayan bir şeritte başlar."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:763
-#, fuzzy, c-format
+#, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr "'%' Bağlantısı %% Eğime Sahip."
+msgstr "Bağlantı '%' var olmayan bir şeridi hedefler."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:777
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:795
@@ -6498,14 +6497,13 @@ msgstr ""
 "Değil."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3691
-#, fuzzy
 msgid "Request for unknown crossing '%'"
-msgstr " Bilinmeyen Nedenlerle"
+msgstr "Bilinmeyen '%' geçişi için talep"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3707
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3718
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Verilen kesimler için bilinmeyen geçiş talebi"
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
@@ -6513,11 +6511,11 @@ msgstr "Kavşaksız Bir Yol Kaldırıldı: % ."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
-msgstr ""
+msgstr "Bileşenlerin %'si bulundu ve %'si kaldırıldı (% kesimler)."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:447
 msgid "Removed % railway components (% edges)."
-msgstr ""
+msgstr "Kaldırılan % demiryolu bileşenleri (% kesimler)."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:663
 #, c-format
@@ -6545,9 +6543,9 @@ msgstr ""
 "Kümesi Yok Sayılıyor."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:705
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown junction '%' in join-cluster."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Küme katılımında bilinmeyen bağlantı '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:713
 msgid "Ignoring join-cluster '%' because it has size '%'."
@@ -6555,7 +6553,7 @@ msgstr "'%' Boyutuna Sahip Olduğu İçin '%' Birleştirme Kümesi Yok Sayılıy
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:727
 msgid "unknown junction '%' while joining."
-msgstr ""
+msgstr "birleştirme sırasında bilinmeyen bağlantı '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:785
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:826
@@ -6580,9 +6578,9 @@ msgstr ""
 "'%' Düğüm Kümesi İçin Belirsiz Trafik Işığı Türü, '%' Olarak Ayarlanıyor."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:2054
-#, fuzzy, c-format
+#, c-format
 msgid " The junction '%' to set as not-controlled is not known."
-msgstr "'%' Kavşağında Demiryolu Sinyali Hiçbir Bağlantıyı Kontrol Etmez"
+msgstr " Kontrolsüz olarak ayarlanacak kavşak '%' bilinmemektedir."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:2223
 msgid "Could not build joined tls '%'."
@@ -6618,13 +6616,12 @@ msgid " Network boundaries:"
 msgstr " Ağ Sınırları:"
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:2611
-#, fuzzy
 msgid "Attempt to rename node using existing id '%'"
-msgstr "Var olmayan Kesim '%' Üzerindeki TT Durağı '%' Kaldırılıyor."
+msgstr "Mevcut kimlik '%' kullanılarak düğüm yeniden adlandırılmaya çalışılıyor"
 
 #: C:\Repos\sumo/src\netbuild\NBNodeShapeComputer.cpp:450
 msgid "Fixing offset for edge '%' at node '%."
-msgstr ""
+msgstr "'%' düğümündeki '%' kesim için ofset sabitleniyor."
 
 #: C:\Repos\sumo/src\netbuild\NBOwnTLDef.cpp:570
 #, c-format
@@ -6759,7 +6756,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:170
 #, c-format
 msgid "Added % stops for superposed rail edges."
-msgstr ""
+msgstr "Üst üste binen ray kesimleri için % durakları eklendi."
 
 #: C:\Repos\sumo/src\netbuild\NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
@@ -6803,7 +6800,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightDefinition.cpp:229
 msgid "Unreachable edge '%' within tlLogic '%'"
-msgstr ""
+msgstr "tlLogic '%' içinde ulaşılamayan kesim '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightDefinition.cpp:509
 #, c-format
@@ -6813,7 +6810,7 @@ msgstr "'%' Demiryolu Geçidi Herhangi Bir Yol İçermiyor."
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightLogic.cpp:100
 #, c-format
 msgid "When adding phase: illegal character '%' in state"
-msgstr ""
+msgstr "Aşama eklerken: durumda yasa dışı '%' karakteri"
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightLogic.cpp:233
 #, c-format
@@ -6834,6 +6831,8 @@ msgid ""
 "Was not able to apply the OpenDRIVE signal group information onto the signal "
 "program of traffic light % generated by SUMO."
 msgstr ""
+"OpenDRIVE sinyal grubu bilgilerini SUMO tarafından oluşturulan % trafik "
+"ışığı sinyal programına uygulayamadı."
 
 #: C:\Repos\sumo/src\netconvert_main.cpp:98
 msgid ""
@@ -6851,21 +6850,23 @@ msgstr "Projeksiyon Oluşturulamıyor!"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "DOSYA'dan kesim tipi tanımları okuyun"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:44
 msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
 msgstr ""
+"Oluşturulan düğümlerin id'leri, mümkün olduğunda daha kolay okunabilirlik "
+"için alfanümerik bir kod kullanır"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "INT sola dönüş şeritleri oluşturun"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
+msgstr "Oluşturulan dönüş şeritlerinin uzunluğunu FLOAT olarak ayarlayın"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:53
 msgid ""
