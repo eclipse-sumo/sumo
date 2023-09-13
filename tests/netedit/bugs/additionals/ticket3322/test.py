@@ -35,7 +35,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete junction
-netedit.leftClick(referencePosition, 100, 230)
+netedit.leftClick(referencePosition, 120, 230)
 
 # Undo
 netedit.undo(referencePosition, 1)
@@ -47,7 +47,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # try to delete junction
-netedit.leftClick(referencePosition, 100, 230)
+netedit.leftClick(referencePosition, 120, 230)
 
 # wait warning
 netedit.waitDeleteWarning()

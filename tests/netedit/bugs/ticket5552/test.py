@@ -32,12 +32,12 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select junctions
-netedit.leftClick(referencePosition, 262, 236)
-netedit.leftClick(referencePosition, 392, 236)
-netedit.leftClick(referencePosition, 324, 174)
-netedit.leftClick(referencePosition, 324, 301)
-netedit.leftClick(referencePosition, 262, 301)
-netedit.leftClick(referencePosition, 392, 174)
+netedit.leftClick(referencePosition, 439, 244)
+netedit.leftClick(referencePosition, 498, 174)
+netedit.leftClick(referencePosition, 558, 174)
+netedit.leftClick(referencePosition, 562, 274)
+netedit.leftClick(referencePosition, 501, 296)
+netedit.leftClick(referencePosition, 438, 299)
 
 # join junctions
 netedit.joinSelectedJunctions()
@@ -46,7 +46,7 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # split and reconect
-netedit.contextualMenuOperation(referencePosition, 324, 236, 14, 0, 0)
+netedit.contextualMenuOperation(referencePosition, 500, 236, 14, 0, 0)
 
 # rebuild network
 netedit.rebuildNetwork()

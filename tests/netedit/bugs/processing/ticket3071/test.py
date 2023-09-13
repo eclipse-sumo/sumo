@@ -35,13 +35,13 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select node 1
-netedit.leftClick(referencePosition, 175, 220)
+netedit.leftClick(referencePosition, 356, 237)
 
 # select node 2
-netedit.leftClick(referencePosition, 315, 220)
+netedit.leftClick(referencePosition, 496, 237)
 
 # select node 2
-netedit.leftClick(referencePosition, 465, 220)
+netedit.leftClick(referencePosition, 649, 237)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
