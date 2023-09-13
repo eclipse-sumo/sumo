@@ -37,19 +37,19 @@ netedit.changeElement("chargingStation")
 # set invalid power (dummy)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "dummyPower")
 
-# try to create chargingStation in mode "reference left"
+# try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 304, 244)
 
 # set invalid power (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "-300")
 
-# try to create chargingStation in mode "reference left"
+# try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 346, 244)
 
 # set valid power
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "2500.5")
 
-# create chargingStation in mode "reference left"
+# create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 304, 244)
 
 # Check undo redo

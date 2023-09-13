@@ -34,19 +34,19 @@ netedit.additionalMode()
 # select trainStop
 netedit.changeElement("trainStop")
 
-# create trainStop in mode "reference left"
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Reference Right")
 
-# create trainStop in mode "reference right"
+# create trainStop in mode "Reference Right"
 netedit.leftClick(referencePosition, 497, 257)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
-# create trainStop in mode "reference center"
+# create trainStop in mode "Center"
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo

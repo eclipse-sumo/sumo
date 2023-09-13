@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, 497, 257)
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.personCapacity, "3")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo

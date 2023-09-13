@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, 497, 257)
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.parkingLength, "3")
 
-# create trainStop in mode "reference left"
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo

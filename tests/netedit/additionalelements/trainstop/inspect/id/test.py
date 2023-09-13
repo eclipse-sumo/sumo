@@ -35,12 +35,12 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
-# create trainStop 1 in mode "reference center"
+# create trainStop 1 in mode "Center"
 netedit.leftClick(referencePosition, 430, 256)
 
-# create trainStop 2 in mode "reference center"
+# create trainStop 2 in mode "Center"
 netedit.leftClick(referencePosition, 497, 257)
 
 # go to inspect mode

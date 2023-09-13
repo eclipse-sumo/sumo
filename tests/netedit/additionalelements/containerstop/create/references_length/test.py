@@ -49,19 +49,19 @@ netedit.leftClick(referencePosition, 497, 257)
 # Change length
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "5")
 
-# create containerStop in mode "reference left"
+# create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 257)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Reference Right")
 
-# create containerStop in mode "reference right"
+# create containerStop in mode "Reference Right"
 netedit.leftClick(referencePosition, 406, 257)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
 
-# create containerStop in mode "reference center"
+# create containerStop in mode "Center"
 netedit.leftClick(referencePosition, 496, 257)
 
 # Check undo redo

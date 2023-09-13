@@ -34,7 +34,7 @@ netedit.additionalMode()
 # select trainStop
 netedit.changeElement("trainStop")
 
-# create trainStop in mode "reference left"
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # Change to delete

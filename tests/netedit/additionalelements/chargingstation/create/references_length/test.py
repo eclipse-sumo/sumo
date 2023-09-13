@@ -49,19 +49,19 @@ netedit.leftClick(referencePosition, 346, 244)
 # Change length
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "5")
 
-# create chargingStation in mode "reference left"
+# create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 304, 244)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Reference Right")
 
-# create chargingStation in mode "reference right"
+# create chargingStation in mode "Reference Right"
 netedit.leftClick(referencePosition, 346, 244)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
-# create chargingStation in mode "reference center"
+# create chargingStation in mode "Center"
 netedit.leftClick(referencePosition, 304, 244)
 
 # Check undo redo

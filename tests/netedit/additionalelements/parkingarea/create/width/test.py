@@ -37,25 +37,25 @@ netedit.changeElement("parkingArea")
 # set invalid width (dummy)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "dummyWidth")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid width (empty)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid width (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "-3")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set valid width
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.width, "2.5")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # Check undo redo

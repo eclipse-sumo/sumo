@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, 497, 257)
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.parkingLength, "3")
 
-# create containerStop in mode "reference left"
+# create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo

@@ -34,7 +34,7 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
-# create containerStop in mode "reference left"
+# create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # Change to delete

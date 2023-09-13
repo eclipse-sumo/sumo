@@ -37,10 +37,10 @@ netedit.additionalMode()
 # select parkingArea
 netedit.changeElement("parkingArea")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 382, 256)
 
 # select space

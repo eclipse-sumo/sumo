@@ -35,12 +35,12 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
-# create chargingStation 1 in mode "reference center"
+# create chargingStation 1 in mode "Center"
 netedit.leftClick(referencePosition, 304, 244)
 
-# create chargingStation 2 in mode "reference center"
+# create chargingStation 2 in mode "Center"
 netedit.leftClick(referencePosition, 134, 244)
 
 # go to inspect mode

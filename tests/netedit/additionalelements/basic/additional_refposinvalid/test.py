@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "dummy refer
 netedit.leftClick(referencePosition, 451, 210)
 
 # set valid reference
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Reference Right")
 
 # create busStop with the valid reference
 netedit.leftClick(referencePosition, 451, 210)
