@@ -355,10 +355,8 @@ GNEShapeFrame::shapeDrawed() {
         }
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
-        if (myBaseShape->getBoolAttribute(GNE_ATTR_CLOSE_SHAPE) ||
-            (shapeTag == GNE_TAG_JPS_WALKABLEAREA) ||
-            (shapeTag == GNE_TAG_JPS_OBSTACLE) ||
-            (shapeTag == GNE_TAG_JPS_WAITINGAREA)) {
+        if ((myBaseShape->hasBoolAttribute(GNE_ATTR_CLOSE_SHAPE) && myBaseShape->getBoolAttribute(GNE_ATTR_CLOSE_SHAPE)) ||
+            (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE) || (shapeTag == GNE_TAG_JPS_WAITINGAREA)) {
             temporalShape.closePolygon();
         }
         myBaseShape->addPositionVectorAttribute(SUMO_ATTR_SHAPE, temporalShape);
