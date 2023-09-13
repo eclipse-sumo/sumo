@@ -2,9 +2,9 @@
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
-[![Windows](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml)
-[![Linux](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml)
-[![macOS](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml)
+[![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
+[![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml)
+[![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml)
 [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=org.eclipse.sumo&metric=security_rating)](https://sonarcloud.io/summary/overall?id=org.eclipse.sumo)
 [![Translation status](https://hosted.weblate.org/widgets/eclipse-sumo/-/svg-badge.svg)](https://hosted.weblate.org/engage/eclipse-sumo/)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
@@ -29,7 +29,7 @@ As the program is still under development and is extended continuously, we advic
 use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        git clone --recursive https://github.com/eclipse/sumo
+        git clone --recursive https://github.com/eclipse-sumo/sumo
 
 
 Contact
@@ -84,7 +84,7 @@ Documentation
 Improving SUMO
 --------------
 
-Please use the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues) for bugs and requests, 
+Please use the [GitHub bug tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests, 
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.

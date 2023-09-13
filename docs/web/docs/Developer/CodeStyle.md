@@ -6,7 +6,7 @@ title: CodeStyle
 
 We try to have the code compatible to a wide range of C++11 compatible
 compilers and test every commit / pull request against [gcc and clang on
-macOS and Linux](https://github.com/eclipse/sumo/actions), and [Visual
+macOS and Linux](https://github.com/eclipse-sumo/sumo/actions), and [Visual
 Studio 2015 - 2022 on
 Windows](https://ci.appveyor.com/project/eclipsewebmaster/sumo). For the
 C++ code we use [AStyle](https://astyle.sourceforge.net/) to keep
@@ -205,7 +205,7 @@ Use the following template for your files:
 # Line endings and keyword replacement
 
 We enforce special line endings for the following file types (overriding
-core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.com/eclipse/sumo/blob/main/.gitattributes):
+core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.com/eclipse-sumo/sumo/blob/main/.gitattributes):
 
 - LF for
   - source files (".h", ".cpp", ".py", ...),

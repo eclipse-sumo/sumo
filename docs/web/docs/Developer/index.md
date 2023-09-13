@@ -61,7 +61,7 @@ title: Developer
 
 ## Continuous integration, code analysis and other external references
 
-- [GitHub project](https://github.com/eclipse/sumo)
+- [GitHub project](https://github.com/eclipse-sumo/sumo)
 - [SourceForge project](https://sourceforge.net/projects/sumo/)
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)

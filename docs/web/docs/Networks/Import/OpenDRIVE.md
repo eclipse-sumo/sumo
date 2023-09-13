@@ -148,7 +148,7 @@ will be written with geo-coordinate as well.
 Version 1.4 should generally be supported.
 You can check the feature support per version (and request new featuers) in our issue tracker:
 
-- [OpenDrive 1.4 features](https://github.com/eclipse/sumo/issues/6694)
-- [OpenDrive 1.5 features](https://github.com/eclipse/sumo/issues/6695)
-- [OpenDrive 1.6 features](https://github.com/eclipse/sumo/issues/8901)
+- [OpenDrive 1.4 features](https://github.com/eclipse-sumo/sumo/issues/6694)
+- [OpenDrive 1.5 features](https://github.com/eclipse-sumo/sumo/issues/6695)
+- [OpenDrive 1.6 features](https://github.com/eclipse-sumo/sumo/issues/8901)
 

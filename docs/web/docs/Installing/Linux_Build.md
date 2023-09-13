@@ -17,7 +17,7 @@ For ubuntu this boils down to
 
 ```
  sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
- git clone --recursive https://github.com/eclipse/sumo
+ git clone --recursive https://github.com/eclipse-sumo/sumo
  export SUMO_HOME="$PWD/sumo"
  mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
  cmake ../..
@@ -84,7 +84,7 @@ of sumo.
 The following commands should be issued:
 
 ```
-git clone --recursive https://github.com/eclipse/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 cd sumo
 git fetch origin refs/replace/*:refs/replace/*
 pwd
@@ -149,7 +149,7 @@ pip install -r tools/requirements.txt
 
 The pip installation will ensure that all libraries are there, so it is safe to skip the first `apt-get` step.
 If you need information about the minimum required versions of the packages read them directly
-from the [requirements.txt](https://github.com/eclipse/sumo/blob/main/tools/requirements.txt). Be aware that
+from the [requirements.txt](https://github.com/eclipse-sumo/sumo/blob/main/tools/requirements.txt). Be aware that
 the minimum versions in the requirements file just reflect our current test server setup, so you might also get away with earlier versions.
 
 You might need to replace `pip` with `pip3` if you are using python3 on Linux.

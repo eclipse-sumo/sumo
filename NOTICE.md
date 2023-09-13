@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 The project maintains the following source code repositories:
 
-* https://github.com/eclipse/sumo
+* https://github.com/eclipse-sumo/sumo
 
 ## Third-party Content
 

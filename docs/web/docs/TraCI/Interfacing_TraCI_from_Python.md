@@ -9,7 +9,7 @@ rerouter, route, routeprobe, simulation, trafficlight, variablespeedsign, vehicl
 vehicle, which correspond to individual modules. For a detailed list of
 available functions see the [pydoc generated documentation](https://sumo.dlr.de/pydoc/traci.html). The source code
 can be found at
-[\[1\]](https://github.com/eclipse/sumo/tree/main/tools/traci).
+[\[1\]](https://github.com/eclipse-sumo/sumo/tree/main/tools/traci).
 
 Please note that if performance is an issue and you don't a need GUI, it is almost always better
 to use [libsumo](../Libsumo.md) instead of traci, which has the same API.

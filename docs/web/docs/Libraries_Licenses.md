@@ -43,7 +43,7 @@ license files but we strive to list them here as well:
   footprint for "Search" due to a different callback, tests removed
   because they did not compile
 - License: public domain (see
-  [README.TXT](https://github.com/eclipse/sumo/blob/main/src/foreign/rtree/README.TXT))
+  [README.TXT](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/rtree/README.TXT))
 
 ### [odrSpiral](https://github.com/DLR-TS/odrSpiral) - Approximating curves
 
@@ -51,14 +51,14 @@ license files but we strive to list them here as well:
   from 2017-05-03
 - Modifications: includes and constants;
 - License: Apache License 2.0, see [license
-  file](https://github.com/eclipse/sumo/blob/main/src/foreign/eulerspiral/LICENSE.TXT)
+  file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/eulerspiral/LICENSE.TXT)
 
 ### [zstr](https://github.com/mateidavid/zstr) - A header only C++ ZLib wrapper
 
 - Version: 1.0.6
 - Modifications: only needed header files, includes fixed
 - License: MIT, see [license
-  file](https://github.com/eclipse/sumo/blob/main/src/foreign/zstr/LICENSE)
+  file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/zstr/LICENSE)
 
 # Referenced Libraries
 

@@ -47,7 +47,7 @@ element:
 | **id**         | id (string)   | The id of the calibrator                                                                                        |
 | edge           | id (string)   | The id of an edge for measuring and calibrating flow. (Either *edge* or *lane* must be specified)               |
 | lane           | id (string)   | The id of a lane for measuring and calibrating flow (Either *edge* or *lane* must be specified)                 |
-| **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](https://github.com/eclipse/sumo/issues/1331))  |
+| **pos**        | float         | The position of the calibrator on the specified lane (currently ignored, see [\[1\]](https://github.com/eclipse-sumo/sumo/issues/1331))  |
 | period (alias freq) | float    | The time interval between calibration attempts. default is step-length. Setting a high value limits the maximum achievable flow  |
 | routeProbe     | id (string)   | The id of the [routeProbe](../Simulation/Output/RouteProbe.md) element from which to determine the route distribution for generated vehicles.|
 | jamThreshold    | float | A threshold value to detect and clear unexpected jamming if the mean edge speed drops below FLOAT * speedLimit. Range [0, 1]. Default: 0.5 (0.8 in meso)|

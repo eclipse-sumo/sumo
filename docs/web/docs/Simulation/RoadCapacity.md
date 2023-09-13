@@ -75,7 +75,7 @@ reasons
 
 The following table shows road capacities that can be achieved at vehicle
 insertion depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 2482 veh/hour.
-The script which produces the data points for the table below can be found [here](https://github.com/eclipse/sumo/tree/main/tests/complex/sumo/insertionCapacity).
+The script which produces the data points for the table below can be found [here](https://github.com/eclipse-sumo/sumo/tree/main/tests/complex/sumo/insertionCapacity).
 
 | sigma | speedDev | departSpeed | capacity | capacity <br/> --step-length 0.1 | capacity <br/> --extrapolate-departpos | capacity <br/> --step-length 0.1 <br/> --extrapolate-departpos |
 | ----- | -------- | ----------- | -------- | ---------- | -------- | -------- |

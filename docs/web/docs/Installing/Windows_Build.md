@@ -29,7 +29,7 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 ![](../images/VSInstall.png)
 
-- Clone https://github.com/eclipse/sumo or open your existing local SUMO folder
+- Clone https://github.com/eclipse-sumo/sumo or open your existing local SUMO folder
 - Go to team explorer
   - Choose Manage Connections, then "Local Git"->Clone https://github.com/DLR-TS/SUMOLibraries
 - Now be patient until CMake starts configuring
@@ -64,7 +64,7 @@ If you need a different python version or want to test with multiple Pythons you
 If you want to build SUMO in Debug mode, then you will need the *Python Debug binaries*. The Python interepreter that comes with Visual Studio doesn't install these libraries by default (at least in the case of Visual Studio Community 2022); you need to install the *Data Science stack* in addition to the *Python and C++ development stacks* mentionned above. More precisely, the component you need is called *Python native development tools*, make sure you check the correct box.
 
 If you want to clone / checkout a special SUMO version, you can of course do it from the command line (if you have installed the command line tools)
-using `git clone --recursive https://github.com/eclipse/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
+using `git clone --recursive https://github.com/eclipse-sumo/sumo` or download and extract a source package, see [Downloads](../Downloads.md).
 
 The command for the [Libraries](#libraries) is: `git clone --recursive https://github.com/DLR-TS/SUMOLibraries`. If you do not place the libraries in the same folder as SUMO, you will need to set the **SUMO_LIBRARIES** environment variable to the directory.
 
