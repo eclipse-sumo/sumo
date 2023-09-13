@@ -74,6 +74,7 @@ title: ChangeLog
   - Added buttons next to lane attribute to shift element between edge's lanes. #13387
   - Added search field in comboBox. #12394, #13735
   - Added drawing reference for creating additionals. #13769
+  - Now internal lanes can be drawn. 13790
   - Added JuPedSim elements. #13667, #13687
     - Walkable area
     - Obstacle
