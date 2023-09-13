@@ -67,3 +67,4 @@ title: Developer
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
 - [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
+- [SUMO on the Helmholtz RSD](https://helmholtz.software/software/sumo)
