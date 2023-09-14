@@ -25,6 +25,7 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 // ===========================================================================
 // class declarations
@@ -136,6 +137,13 @@ public:
 
     /// @brief allow replacement
     void allowReplacement();
+    
+    /// @brief Sets the polygon types that define which one is active or not.
+    /// @param inactivePolygonTypes The set of inactive polygon types.
+    inline void setInactiveTypes(std::set<std::string> inactivePolygonTypes) {
+        myInactivePolygonTypes = inactivePolygonTypes;
+        computeActivePolygons();
+    }
 
 private:
     /// @brief The mutex for adding/removing operations
@@ -146,4 +154,10 @@ private:
 
     /// @brief whether existing ids shall be replaced
     bool myAllowReplacement;
+
+    /// @brief The polygon types that define the inactive polygons.
+    std::set<std::string> myInactivePolygonTypes;
+
+    /// @brief Determine which polygons are active based on their type.
+    void computeActivePolygons(void);
 };

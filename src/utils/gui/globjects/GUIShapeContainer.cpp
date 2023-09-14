@@ -84,7 +84,9 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
             return false;
         }
     }
-    myVis.addAdditionalGLObject(p);
+    bool state = myInactivePolygonTypes.empty() || (std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), type) == myInactivePolygonTypes.end());
+    p->activate(state);    
+    myVis.addAdditionalGLObject(p); 
     return true;
 }
 
@@ -199,6 +201,22 @@ GUIShapeContainer::getPolygonIDs() const {
 void
 GUIShapeContainer::allowReplacement() {
     myAllowReplacement = true;
+}
+
+
+void 
+GUIShapeContainer::computeActivePolygons(void) {
+    if (myInactivePolygonTypes.empty()) {
+        // Let the polygons drawn as they are.
+        return;
+    }
+    else {
+        for (auto polygonWithID: myPolygons) {
+            GUIPolygon* polygon = (GUIPolygon*)polygonWithID.second;
+            bool state = std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), polygon->getShapeType()) == myInactivePolygonTypes.end();
+            polygon->activate(state);
+        }
+    }
 }
 
 /****************************************************************************/
