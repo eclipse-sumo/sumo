@@ -36,7 +36,8 @@
 * MSStageMoving - methods
 * ----------------------------------------------------------------------- */
 MSStageMoving::~MSStageMoving() {
-    delete myState;
+    // TODO memory leak !!!
+    // delete myState;
 }
 
 const MSEdge*

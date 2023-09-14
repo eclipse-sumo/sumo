@@ -72,7 +72,7 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, Position destination);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, const PositionVector& waypoints);
         ~PState() override;
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
@@ -93,7 +93,7 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
-        Position getDestination() const;
+        const Position& getNextWaypoint() const;
         JPS_AgentId getAgentId() const;
 
         void setAgentId(JPS_AgentId id) {
@@ -109,6 +109,11 @@ private:
             return myWaitingToEnter;
         }
 
+        bool advanceNextWaypoint() {
+            myWaypoints.erase(myWaypoints.begin());
+            return myWaypoints.empty();
+        }
+
     private:
         MSPerson* myPerson;
         MSStageMoving* myStage;
@@ -116,7 +121,7 @@ private:
         JPS_JourneyDescription myJourney;
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
-        Position myDestination;
+        PositionVector myWaypoints;
         JPS_AgentId myAgentId;
         Position myPosition;
         Position myPreviousPosition; // Will be initialized to zero automatically.
@@ -124,6 +129,7 @@ private:
         double myLanePosition;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
+        int myNumStages;
     };
 
     MSNet* const myNetwork;

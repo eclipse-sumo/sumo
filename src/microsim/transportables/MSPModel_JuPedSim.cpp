@@ -33,6 +33,7 @@
 #include <microsim/MSJunctionControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSStoppingPlace.h>
 #include <libsumo/Helper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -112,6 +113,11 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
+    for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
+        if (pstate->getPerson() == person) {
+            return pstate;
+        }
+    }
     Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     // first real stage, stage 0 is waiting
@@ -143,19 +149,44 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
 
+    JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
+
+    int stageOffset = 1;
+    PositionVector waypoints;
+    while (person->getNumRemainingStages() > stageOffset) {
+        const MSStage* const next = person->getNextStage(stageOffset);
+        if (next->getStageType() != MSStageType::WALKING && next->getStageType() != MSStageType::TRIP) {
+            break;
+        }
+        const MSStage* const prev = person->getNextStage(stageOffset - 1);
+        if (prev->getDestinationStop() != nullptr) {
+            const MSStoppingPlace* const stop = prev->getDestinationStop();
+            const Position& stopPos = stop->getLane().getShape().positionAtOffset(stop->getLane().interpolateLanePosToGeometryPos(stop->getEndLanePosition()));
+            waypoints.push_back(stopPos);
+            JPS_JourneyDescription_AddWaypoint(journey, {stopPos.x(), stopPos.y()}, stop->getEndLanePosition() - stop->getEndLanePosition(), NULL, NULL);
+        }
+        stageOffset++;
+    }
+
+
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
+    waypoints.push_back(arrivalPosition);
 
-    JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
 #if JPS_VERSION > 1000
     const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription_AddStage(journey, waypointId);
 #else
     JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, NULL, NULL);
 #endif
-    JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
+    JPS_ErrorMessage message = nullptr;
+    JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
+    if (message != nullptr) {
+        WRITE_WARNINGF(TL("Error while adding a journey for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+    }
 
-    PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, arrivalPosition);
+    PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, waypoints);
     state->setLanePosition(stage->getDepartPos());
     state->setPreviousPosition(departurePosition);
     state->setPosition(departurePosition.x(), departurePosition.y());
@@ -240,11 +271,13 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
         
         // If near the last waypoint, remove the agent.
-        if (newPosition.distanceTo2D(state->getDestination()) < myExitTolerance) {
-            JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
+        if (newPosition.distanceTo2D(state->getNextWaypoint()) < myExitTolerance) {
             while (!stage->moveToNextEdge(person, time, 1, nullptr));
-            registerArrived();
-            stateIt = myPedestrianStates.erase(stateIt);
+            if (state->advanceNextWaypoint()) {
+                registerArrived();
+                JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
+                stateIt = myPedestrianStates.erase(stateIt);                
+            }
         } else {
             ++stateIt;
         }
@@ -694,8 +727,11 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // ===========================================================================
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
-MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, Position destination)
-    : myPerson(person), myStage(stage), myJourney(journey), myJourneyId(journeyId), myDestination(destination), myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
+MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
+                                  JPS_JourneyDescription journey, JPS_JourneyId journeyId,
+                                  const PositionVector& waypoints)
+    : myPerson(person), myStage(stage), myJourney(journey), myJourneyId(journeyId), myWaypoints(waypoints),
+      myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
 
 
@@ -769,8 +805,8 @@ const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage)
 }
 
 
-Position MSPModel_JuPedSim::PState::getDestination() const {
-    return myDestination;
+const Position& MSPModel_JuPedSim::PState::getNextWaypoint() const {
+    return myWaypoints.front();
 }
 
 

@@ -102,6 +102,9 @@ public:
     /// @brief returns size of position vector
     using vp::size;
 
+    /// @brief returns whether the position vector is empty
+    using vp::empty;
+
     /// @brief get the front element of position vector
     using vp::front;
 
