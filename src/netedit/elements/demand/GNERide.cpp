@@ -221,7 +221,14 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLan
 
 GNELane*
 GNERide::getFirstPathLane() const {
-    return getParentEdges().front()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
+    // get previous plan
+    const auto previousPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    if (previousPlan) {
+        // sue the last pathLane of previous plan
+        return previousPlan->getLastPathLane();
+    } else {
+        return getParentEdges().front()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
+    }
 }
 
 

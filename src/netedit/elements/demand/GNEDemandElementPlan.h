@@ -47,14 +47,25 @@ protected:
     /// @brief Returns an own popup-menu
     GUIGLObjectPopupMenu* getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+    /// @name path functions
+    /// @{
+
+    /// @brief get first plan path lane
+    GNELane* getFirstPlanPathLane() const;
+
+    /// @brief get last plan path lane
+    GNELane* getLastPlanPathLane() const;
+
+    /// @brief compute plan pathElement
+    void computePlanPathElement();
+
+    /// @}
+
     /// @name geometry functions
     /// @{
 
     /// @brief update pre-computed geometry information
     void updatePlanGeometry();
-
-    /// @brief compute plan pathElement
-    void computePlanPathElement();
 
     /// @brief get centering boundaryt
     Boundary getPlanCenteringBoundary() const;

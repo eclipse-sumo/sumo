@@ -224,29 +224,13 @@ GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLan
 
 GNELane*
 GNEWalk::getFirstPathLane() const {
-    // check if this walk is over a route
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
-    } else if (getParentJunctions().size() > 0) {
-        throw ProcessError(TL("This walk use junctions"));
-    } else {
-        return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
-    }
+    return getFirstPlanPathLane();
 }
 
 
 GNELane*
 GNEWalk::getLastPathLane() const {
-    // check if this walk is over a route
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
-    } else if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentLanes().front();
-    } else if (getParentJunctions().size() > 0) {
-        throw ProcessError(TL("This walk use junctions"));
-    } else {
-        return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
-    }
+    return getLastPlanPathLane();
 }
 
 
