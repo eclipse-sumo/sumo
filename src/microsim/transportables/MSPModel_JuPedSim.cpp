@@ -540,7 +540,7 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
         }
 
         ShapeContainer& shapeContainer = myNetwork->getShapeContainer();
-        shapeContainer.addPolygon(polygonId, std::string("pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+        shapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), RGBColor(179, 217, 255, 255), 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
         shapeContainer.getPolygons().get(polygonId)->setHoles(holes);
     }
 }
@@ -586,23 +586,6 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
 }
 
 
-void MSPModel_JuPedSim::prepareAdditionalPolygonsForJPS(void) {
-    for (const auto &polygonWithID: myNetwork->getShapeContainer().getPolygons()) {
-        PositionVector shape = polygonWithID.second->getShape();
-        std::vector<JPS_Point> coordinates = convertToJPSPoints(shape);
-        if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area") {
-            JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
-        }
-        else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, coordinates.data(), coordinates.size());
-        }
-        else {
-            continue;
-        }
-    }
-}
-
-
 void
 MSPModel_JuPedSim::initialize() {
     initGEOS(nullptr, nullptr);
@@ -640,6 +623,7 @@ MSPModel_JuPedSim::initialize() {
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    
 
     std::ofstream GEOSGeometryDumpFile;
     GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
