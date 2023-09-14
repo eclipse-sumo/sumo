@@ -73,28 +73,6 @@ GNEPersonPlanFrame::show() {
         myPersonSelector->showDemandElementSelector();
         // refresh tag selector
         myPersonPlanTagSelector->refreshTagSelector();
-        // set first person as demand element (this will call demandElementSelected() function)
-        if (myViewNet->getFrontAttributeCarrier() && myViewNet->getFrontAttributeCarrier()->getTagProperty().isPerson()) {
-            GNEDemandElement* personFound = nullptr;
-            // search person
-            for (const auto& person : persons) {
-                if (myViewNet->getFrontAttributeCarrier()->getID() == person->getID()) {
-                    personFound = person;
-                }
-            }
-            // search personFlow
-            for (const auto& personFlow : personFlows) {
-                if (myViewNet->getFrontAttributeCarrier()->getID() == personFlow->getID()) {
-                    personFound = personFlow;
-                }
-            }
-            // check personFound
-            if (personFound) {
-                myPersonSelector->setDemandElement(personFound);
-            }
-        } else {
-            myPersonSelector->setDemandElement(nullptr);
-        }
     } else {
         // hide all modules
         myPersonSelector->hideDemandElementSelector();

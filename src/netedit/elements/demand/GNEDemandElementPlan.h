@@ -41,11 +41,23 @@ protected:
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition);
 
+    /// @brief write plan element common attributes
+    void writePlanAttributes(OutputDevice& device) const;
+
     /// @name geometry functions
     /// @{
 
     /// @brief update pre-computed geometry information
     void updatePlanGeometry();
+
+    /// @brief Returns an own popup-menu
+    GUIGLObjectPopupMenu* getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /// @brief get parent name
+    std::string getPlanParentName() const;
+
+    /// @brief get centering boundaryt
+    Boundary getPlanCenteringBoundary() const;
 
     /// @brief Returns position of additional in view
     Position getPlanPositionInView() const;

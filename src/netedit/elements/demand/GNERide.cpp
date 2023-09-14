@@ -83,26 +83,7 @@ GNERide::getMoveOperation() {
 
 GUIGLObjectPopupMenu*
 GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // show option to open demand element dialog
-    if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
-        new FXMenuSeparator(ret);
-    }
-    GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
-    return ret;
+    return getPlanPopUpMenu(app, parent);
 }
 
 
@@ -110,25 +91,8 @@ void
 GNERide::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_RIDE);
-    // check if from attribute is enabled
-    if (isAttributeEnabled(SUMO_ATTR_FROM)) {
-        device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-    }
-    // write to depending if personplan ends in a busStop
-    if (getParentAdditionals().size() > 0) {
-        if (getParentAdditionals().back()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
-        } else {
-            device.writeAttr(SUMO_ATTR_TRAIN_STOP, getParentAdditionals().back()->getID());
-        }
-    } else {
-        device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-    }
-    // avoid write arrival positions in ride to busStop
-    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-            (myArrivalPosition > 0)) {
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
-    }
+    // write plan attributes
+    writePlanAttributes(device);
     // write lines
     if (myLines.empty()) {
         device.writeAttr(SUMO_ATTR_LINES, "ANY");
@@ -184,23 +148,13 @@ GNERide::getPositionInView() const {
 
 std::string
 GNERide::getParentName() const {
-    return getParentDemandElements().front()->getID();
+    return getPlanParentName();
 }
 
 
 Boundary
 GNERide::getCenteringBoundary() const {
-    Boundary rideBoundary;
-    // return the combination of all parent edges's boundaries
-    for (const auto& i : getParentEdges()) {
-        rideBoundary.add(i->getCenteringBoundary());
-    }
-    // check if is valid
-    if (rideBoundary.isInitialised()) {
-        return rideBoundary;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
+    return getPlanCenteringBoundary();
 }
 
 

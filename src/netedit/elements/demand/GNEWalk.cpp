@@ -113,26 +113,7 @@ GNEWalk::getMoveOperation() {
 
 GUIGLObjectPopupMenu*
 GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // show option to open demand element dialog
-    if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
-        new FXMenuSeparator(ret);
-    }
-    GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
-    return ret;
+    return getPlanPopUpMenu(app, parent);
 }
 
 
@@ -140,44 +121,8 @@ void
 GNEWalk::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_WALK);
-    // write attributes depending  of walk type
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
-    } else {
-        // check if from attribute is enabled
-        if (isAttributeEnabled(SUMO_ATTR_FROM)) {
-            // check if write edge or junction
-            if (getParentEdges().size() > 0) {
-                device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-            } else if (getParentJunctions().size() > 0) {
-                device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
-            } else if (getParentJunctions().size() > 0) {
-                device.writeAttr(SUMO_ATTR_FROM_TAZ, getParentAdditionals().front()->getID());
-            }
-        }
-        // write to depending if personplan ends in a busStop, edge or junction
-        if (getParentAdditionals().size() > 0) {
-            auto toAdditional = getParentAdditionals().back();
-            if (toAdditional->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-                device.writeAttr(SUMO_ATTR_BUS_STOP, toAdditional->getID());
-            } else if (toAdditional->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
-                device.writeAttr(SUMO_ATTR_TRAIN_STOP, toAdditional->getID());
-            } else {
-                device.writeAttr(SUMO_ATTR_TO_TAZ, toAdditional->getID());
-            }
-        } else if (getParentEdges().size() > 0) {
-            device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-        } else if (getParentJunctions().size() > 0) {
-            device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
-        }
-    }
-    // avoid write arrival positions in walk to busStop
-    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-            (myArrivalPosition > 0)) {
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
-    }
+    // write plan attributes
+    writePlanAttributes(device);
     // close tag
     device.closeTag();
 }
@@ -227,23 +172,13 @@ GNEWalk::getPositionInView() const {
 
 std::string
 GNEWalk::getParentName() const {
-    return getParentDemandElements().front()->getID();
+    return getPlanParentName();
 }
 
 
 Boundary
 GNEWalk::getCenteringBoundary() const {
-    Boundary walkBoundary;
-    // return the combination of all parent edges's boundaries
-    for (const auto& i : getParentEdges()) {
-        walkBoundary.add(i->getCenteringBoundary());
-    }
-    // check if is valid
-    if (walkBoundary.isInitialised()) {
-        return walkBoundary;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
+    return getPlanCenteringBoundary();
 }
 
 

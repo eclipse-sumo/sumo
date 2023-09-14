@@ -18,11 +18,13 @@
 // An auxiliar, asbtract class for plan elements
 /****************************************************************************/
 
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDemandElementPlan.h"
 #include "GNERoute.h"
@@ -40,6 +42,49 @@ const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_co
 GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition) :
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
+}
+
+
+void
+GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
+    // write attributes depending of parent elements
+    if (myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
+        device.writeAttr(SUMO_ATTR_ROUTE, myPlanElement->getParentDemandElements().at(1)->getID());
+    } else if (myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_EDGES)) {
+        device.writeAttr(SUMO_ATTR_EDGES, myPlanElement->parseIDs(myPlanElement->getParentEdges()));
+    } else {
+        // write from attribute (if enabled)
+        if (myPlanElement->isAttributeEnabled(SUMO_ATTR_FROM)) {
+            // check if write edge or junction
+            if (myPlanElement->getParentEdges().size() > 0) {
+                device.writeAttr(SUMO_ATTR_FROM, myPlanElement->getParentEdges().front()->getID());
+            } else if (myPlanElement->getParentJunctions().size() > 0) {
+                device.writeAttr(SUMO_ATTR_FROM_JUNCTION, myPlanElement->getParentJunctions().front()->getID());
+            } else if (myPlanElement->getParentAdditionals().size() > 0) {
+                device.writeAttr(SUMO_ATTR_FROM_TAZ, myPlanElement->getParentAdditionals().front()->getID());
+            }
+        }
+        // continue writting to attribute
+        if (myPlanElement->getParentEdges().size() > 0) {
+            device.writeAttr(SUMO_ATTR_TO, myPlanElement->getParentEdges().back()->getID());
+        } else if (myPlanElement->getParentJunctions().size() > 0) {
+            device.writeAttr(SUMO_ATTR_TO_JUNCTION, myPlanElement->getParentJunctions().back()->getID());
+        } else if (myPlanElement->getParentAdditionals().size() > 0) {
+            // check additional type
+            auto toAdditional = myPlanElement->getParentAdditionals().back();
+            if (toAdditional->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+                device.writeAttr(SUMO_ATTR_BUS_STOP, toAdditional->getID());
+            } else if (toAdditional->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+                device.writeAttr(SUMO_ATTR_TRAIN_STOP, toAdditional->getID());
+            } else {
+                device.writeAttr(SUMO_ATTR_TO_TAZ, toAdditional->getID());
+            }
+        }
+    }
+    // check if write arrival position
+    if ((myPlanElement->getParentAdditionals().size() == 0) && (myArrivalPosition > 0)) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
+    }
 }
 
 
@@ -111,6 +156,63 @@ GNEDemandElementPlan::updatePlanGeometry() {
 }
 
 
+GUIGLObjectPopupMenu*
+GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *myPlanElement);
+    // build header
+    myPlanElement->buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    myPlanElement->buildCenterPopupEntry(ret);
+    myPlanElement->buildPositionCopyEntry(ret, app);
+    // build menu commands for names
+    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myPlanElement->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, myPlanElement);
+    myPlanElement->buildShowParamsPopupEntry(ret);
+    GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
+    return ret;
+}
+
+
+std::string
+GNEDemandElementPlan::getPlanParentName() const {
+    return myPlanElement->getParentDemandElements().front()->getID();
+}
+
+
+Boundary
+GNEDemandElementPlan::getPlanCenteringBoundary() const {
+    Boundary planBoundary;
+    // add the combination of all parent edges's boundaries
+    for (const auto& edge : myPlanElement->getParentEdges()) {
+        planBoundary.add(edge->getCenteringBoundary());
+    }
+    // add the combination of all parent edges's boundaries
+    for (const auto& junction : myPlanElement->getParentJunctions()) {
+        planBoundary.add(junction->getCenteringBoundary());
+    }
+    // add the combination of all parent additional's boundaries (stoppingPlaces and TAZs)
+    for (const auto& additional : myPlanElement->getParentAdditionals()) {
+        planBoundary.add(additional->getCenteringBoundary());
+    }
+    // if this element is over route, add their boundary
+    if (myPlanElement->getParentDemandElements().size() > 1) {
+        planBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
+    }
+    for (const auto& additional : myPlanElement->getParentAdditionals()) {
+        planBoundary.add(additional->getCenteringBoundary());
+    }
+    // check if is valid
+    if (planBoundary.isInitialised()) {
+        return planBoundary;
+    } else {
+        return myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
+    }
+}
+
+
 Position
 GNEDemandElementPlan::getPlanPositionInView() const {
     if (myPlanElement->getParentJunctions().size() > 0) {
@@ -122,12 +224,12 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     } else if (myPlanElement->getParentAdditionals().size() > 0) {
         // first TAZ
         return myPlanElement->getParentAdditionals().front()->getPositionInView();
-    } else if (myPlanElement->getParentDemandElements().size() > 1) {
+    } else if (myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
     } else {
-        // return origin
-        return Position();
+        // return parent position
+        return myPlanElement->getParentDemandElements().front()->getPositionInView();
     }
 }
 

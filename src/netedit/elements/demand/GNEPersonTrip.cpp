@@ -113,26 +113,7 @@ GNEPersonTrip::getMoveOperation() {
 
 GUIGLObjectPopupMenu*
 GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // show option to open demand element dialog
-    if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open " + getTagStr() + " Dialog", getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
-        new FXMenuSeparator(ret);
-    }
-    GUIDesigns::buildFXMenuCommand(ret, "Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
-    return ret;
+    return getPlanPopUpMenu(app, parent);
 }
 
 
@@ -140,36 +121,8 @@ void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_PERSONTRIP);
-    // check if from attribute is enabled
-    if (isAttributeEnabled(SUMO_ATTR_FROM)) {
-        // check if write edge or junction
-        if (getParentEdges().size() > 0) {
-            device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
-        } else if (getParentJunctions().size() > 0) {
-            device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
-        }
-    }
-    // write to depending if personplan ends in a busStop, edge or junction
-    if (getParentAdditionals().size() > 0) {
-        const GNEAdditional* const add = getParentAdditionals().front();
-        if (add->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, add->getID());
-        } else if (add->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
-            device.writeAttr(SUMO_ATTR_TRAIN_STOP, add->getID());
-        } else {
-            device.writeAttr(SUMO_ATTR_FROM_TAZ, add->getID());
-            device.writeAttr(SUMO_ATTR_TO_TAZ, getParentAdditionals().back()->getID());
-        }
-    } else if (getParentEdges().size() > 0) {
-        device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
-    } else {
-        device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
-    }
-    // avoid write arrival positions in person trip to busStop
-    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myTagProperty.getTag() != GNE_TAG_RIDE_TRAINSTOP) &&
-            (myArrivalPosition > 0)) {
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
-    }
+    // write plan attributes
+    writePlanAttributes(device);
     // write modes
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
@@ -231,23 +184,13 @@ GNEPersonTrip::getPositionInView() const {
 
 std::string
 GNEPersonTrip::getParentName() const {
-    return getParentDemandElements().front()->getID();
+    return getPlanParentName();
 }
 
 
 Boundary
 GNEPersonTrip::getCenteringBoundary() const {
-    Boundary personTripBoundary;
-    // return the combination of all parent edges's boundaries
-    for (const auto& i : getParentEdges()) {
-        personTripBoundary.add(i->getCenteringBoundary());
-    }
-    // check if is valid
-    if (personTripBoundary.isInitialised()) {
-        return personTripBoundary;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
+    return getPlanCenteringBoundary();
 }
 
 
