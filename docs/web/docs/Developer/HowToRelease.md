@@ -134,6 +134,7 @@ If everything is fine:
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
+- publish a new "version" in Zenodo. Do not forget to delete the previous file in the new version!
 - update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
