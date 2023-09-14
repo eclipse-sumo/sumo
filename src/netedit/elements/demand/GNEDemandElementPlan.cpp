@@ -33,7 +33,7 @@
 // static definitions
 // ===========================================================================
 
-const double GNEDemandElementPlan::myPersonPlanArrivalPositionDiameter = SUMO_const_halfLaneWidth;
+const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLaneWidth;
 
 // ===========================================================================
 // GNEDemandElement method definitions
@@ -220,62 +220,7 @@ void
 GNEDemandElementPlan::updatePlanGeometry() {
     // only for plans defined between TAZs
     if (myPlanElement->getParentAdditionals().size() == 2) {
-        // remove from grid
-        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-        // get both TAZs
-        const GNEAdditional* TAZA = myPlanElement->getParentAdditionals().front();
-        const GNEAdditional* TAZB = myPlanElement->getParentAdditionals().back();
-        // check if this is the same TAZ
-        if (TAZA == TAZB) {
-            // declare ring
-            PositionVector ring;
-            // declare first point
-            std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
-            // add 8 segments
-            for (int i = 0; i <= 8; ++i) {
-                const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
-                // make al line between 0,0 and p2
-                PositionVector line = {Position(), Position(p2.first, p2.second)};
-                // extrapolate
-                line.extrapolate(3, false, true);
-                // add line back to ring
-                ring.push_back(line.back());
-                // update p1
-                p1 = p2;
-            }
-            // make a copy of ring
-            PositionVector ringCenter = ring;
-            // move ring to first geometry point
-            ring.add(TAZA->getAdditionalGeometry().getShape().front());
-            myPlanElement->myDemandElementGeometry.updateGeometry(ring);
-        } else {
-            // calculate line between to TAZ centers
-            PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
-            // check line
-            if (line.length() < 1) {
-                line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
-            }
-            // calculate middle point
-            const Position middlePoint = line.getLineCenter();
-            // get closest points to middlePoint
-            Position posA = TAZA->getAdditionalGeometry().getShape().positionAtOffset2D(TAZA->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-            Position posB = TAZB->getAdditionalGeometry().getShape().positionAtOffset2D(TAZB->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-            // check positions
-            if (posA == Position::INVALID) {
-                posA = TAZA->getAdditionalGeometry().getShape().front();
-            }
-            if (posB == Position::INVALID) {
-                posB = TAZB->getAdditionalGeometry().getShape().front();
-            }
-            // update geometry
-            if (posA.distanceTo(posB) < 1) {
-                myPlanElement->myDemandElementGeometry.updateGeometry({posA - 0.5, posB + 0.5});
-            } else {
-                myPlanElement->myDemandElementGeometry.updateGeometry({posA, posB});
-            }
-        }
-        // add into grid again
-        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
+        updateGeometryTAZs();
     }
     // update child demand elements
     for (const auto& demandElement : myPlanElement->getChildDemandElements()) {
@@ -1081,7 +1026,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // check if myPlanElement is the last segment
         if (segment->isLastSegment()) {
             // calculate circle width
-            const double circleRadius = (duplicateWidth ? myPersonPlanArrivalPositionDiameter : (myPersonPlanArrivalPositionDiameter / 2.0));
+            const double circleRadius = (duplicateWidth ? myArrivalPositionDiameter : (myArrivalPositionDiameter / 2.0));
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
             const double circleWidthSquared = circleWidth * circleWidth;
             // get geometryEndPos
@@ -1409,6 +1354,67 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
     }
     // undefined problem
     return "undefined problem";
+}
+
+
+void
+GNEDemandElementPlan::updateGeometryTAZs() {
+    // remove from grid
+    myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
+    // get both TAZs
+    const GNEAdditional* TAZA = myPlanElement->getParentAdditionals().front();
+    const GNEAdditional* TAZB = myPlanElement->getParentAdditionals().back();
+    // check if this is the same TAZ
+    if (TAZA == TAZB) {
+        // declare ring
+        PositionVector ring;
+        // declare first point
+        std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
+        // add 8 segments
+        for (int i = 0; i <= 8; ++i) {
+            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
+            // make al line between 0,0 and p2
+            PositionVector line = {Position(), Position(p2.first, p2.second)};
+            // extrapolate
+            line.extrapolate(3, false, true);
+            // add line back to ring
+            ring.push_back(line.back());
+            // update p1
+            p1 = p2;
+        }
+        // make a copy of ring
+        PositionVector ringCenter = ring;
+        // move ring to first geometry point
+        ring.add(TAZA->getAdditionalGeometry().getShape().front());
+        myPlanElement->myDemandElementGeometry.updateGeometry(ring);
+    } else {
+        // calculate line between to TAZ centers
+        PositionVector line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER), TAZB->getAttributePosition(SUMO_ATTR_CENTER)};
+        // check line
+        if (line.length() < 1) {
+            line = {TAZA->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, TAZB->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
+        }
+        // calculate middle point
+        const Position middlePoint = line.getLineCenter();
+        // get closest points to middlePoint
+        Position posA = TAZA->getAdditionalGeometry().getShape().positionAtOffset2D(TAZA->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
+        Position posB = TAZB->getAdditionalGeometry().getShape().positionAtOffset2D(TAZB->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
+        // check positions
+        if (posA == Position::INVALID) {
+            posA = TAZA->getAdditionalGeometry().getShape().front();
+        }
+        if (posB == Position::INVALID) {
+            posB = TAZB->getAdditionalGeometry().getShape().front();
+        }
+        // update geometry
+        if (posA.distanceTo(posB) < 1) {
+            myPlanElement->myDemandElementGeometry.updateGeometry({posA - 0.5, posB + 0.5});
+        } else {
+            myPlanElement->myDemandElementGeometry.updateGeometry({posA, posB});
+        }
+    }
+    // add into grid again
+    myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
 }
 
 /****************************************************************************/

@@ -135,12 +135,15 @@ protected:
     /// @brief arrival position
     double myArrivalPosition;
 
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
+    /// @brief arrival position diameter
+    static const double myArrivalPositionDiameter;
 
 private:
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
+
+    /// @brief update geometry TAZs
+    void updateGeometryTAZs();
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementPlan(const GNEDemandElementPlan&) = delete;

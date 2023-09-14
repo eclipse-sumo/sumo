@@ -85,7 +85,7 @@ GNETranship::getMoveOperation() {
     // get geometry end pos
     const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
     // calculate circle width squared
-    const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
+    const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
     // check if we clicked over a geometry end pos
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
         // continue depending of parent edges

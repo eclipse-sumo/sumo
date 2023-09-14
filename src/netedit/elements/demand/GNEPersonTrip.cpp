@@ -80,7 +80,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJun
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                              const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_TAZS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_JUNCTIONS),
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_TAZS, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_TAZS),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
     GNEDemandElementPlan(this, arrivalPosition),
     myVTypes(types),
@@ -94,20 +94,18 @@ GNEPersonTrip::~GNEPersonTrip() {}
 
 GNEMoveOperation*
 GNEPersonTrip::getMoveOperation() {
-    // avoid move person plan that ends in busStop
-    if ((getParentAdditionals().size() > 0) || (getParentJunctions().size() > 0)) {
-        return nullptr;
+    // only move personTrips defined over edges
+    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE) {
+        // get geometry end pos
+        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        // calculate circle width squared
+        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
+        // check if we clicked over a geometry end pos
+        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= circleWidthSquared + 2) {
+            return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
+        }
     }
-    // get geometry end pos
-    const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-    // calculate circle width squared
-    const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
-    // check if we clicked over a geometry end pos
-    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= circleWidthSquared + 2) {
-        return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
-    } else {
-        return nullptr;
-    }
+    return nullptr;
 }
 
 

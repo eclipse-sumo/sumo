@@ -42,7 +42,7 @@ public:
     /// @brief default constructor
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);
 
-    /**@brief parameter constructor for person edge->edge
+    /**@brief parameter constructor for personTrip edge->edge
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
@@ -56,7 +56,7 @@ public:
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor for person edge->stoppingPlace
+    /**@brief parameter constructor for personTrip edge->stoppingPlace
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
@@ -70,7 +70,7 @@ public:
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor for person junction->junction
+    /**@brief parameter constructor for personTrip junction->junction
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromJunction from junction
@@ -84,7 +84,7 @@ public:
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor for person TAZ->TAZ
+    /**@brief parameter constructor for personTrip TAZ->TAZ
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
      * @param[in] fromTAZ from TAZ

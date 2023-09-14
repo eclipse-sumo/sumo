@@ -402,11 +402,11 @@ GNEStop::updateGeometry() {
         GNELane::LaneDrawingConstants laneDrawingConstantsFront(myNet->getViewNet()->getVisualisationSettings(), frontLane);
         GNELane::LaneDrawingConstants laneDrawingConstantBack(myNet->getViewNet()->getVisualisationSettings(), backLane);
         // calculate front position
-        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(SUMO_ATTR_ARRIVALPOS), laneDrawingConstantsFront.halfWidth);
+        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), laneDrawingConstantsFront.halfWidth);
         // calulate length between both shapes
         const double length = backLane->getLaneShape().distance2D(frontPosition, true);
         // calculate back position
-        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(SUMO_ATTR_ARRIVALPOS), (length + laneDrawingConstantBack.halfWidth - laneDrawingConstantsFront.halfWidth) * -1);
+        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), (length + laneDrawingConstantBack.halfWidth - laneDrawingConstantsFront.halfWidth) * -1);
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     }
@@ -696,8 +696,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return startPos;
             }
-        case SUMO_ATTR_ENDPOS:
-        case SUMO_ATTR_ARRIVALPOS:  // for person plans
+        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
             if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else {
@@ -738,8 +737,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
 Position
 GNEStop::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
-        // we use SUMO_ATTR_ARRIVALPOS instead SUMO_ATTR_ENDPOS due it's a person plan
-        case SUMO_ATTR_ARRIVALPOS: {
+        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
             if (getParentAdditionals().size() > 0) {
                 // return first position of busStop
                 return getParentAdditionals().front()->getAdditionalGeometry().getShape().front();

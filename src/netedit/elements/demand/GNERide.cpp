@@ -64,20 +64,18 @@ GNERide::~GNERide() {}
 
 GNEMoveOperation*
 GNERide::getMoveOperation() {
-    // avoid move person plan that ends in busStop
-    if (getParentAdditionals().size() > 0) {
-        return nullptr;
+    // only move personTrips defined over edges
+    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE) {
+        // get geometry end pos
+        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        // calculate circle width squared
+        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
+        // check if we clicked over a geometry end pos
+        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
+            return new GNEMoveOperation(this, getParentEdges().back()->getLaneByDisallowedVClass(getVClass()), myArrivalPosition, false);
+        }
     }
-    // get geometry end pos
-    const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-    // calculate circle width squared
-    const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
-    // check if we clicked over a geometry end pos
-    if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
-        return new GNEMoveOperation(this, getParentEdges().back()->getLaneByDisallowedVClass(getVClass()), myArrivalPosition, false);
-    } else {
-        return nullptr;
-    }
+    return nullptr;
 }
 
 
