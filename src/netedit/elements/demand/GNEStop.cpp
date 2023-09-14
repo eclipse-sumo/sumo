@@ -691,11 +691,13 @@ double
 GNEStop::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
+        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
             if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else {
                 return startPos;
             }
+        case SUMO_ATTR_ENDPOS:
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
             if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
