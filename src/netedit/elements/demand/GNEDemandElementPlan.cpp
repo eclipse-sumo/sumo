@@ -88,6 +88,26 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
 }
 
 
+GUIGLObjectPopupMenu*
+GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *myPlanElement);
+    // build header
+    myPlanElement->buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    myPlanElement->buildCenterPopupEntry(ret);
+    myPlanElement->buildPositionCopyEntry(ret, app);
+    // build menu commands for names
+    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myPlanElement->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, myPlanElement);
+    myPlanElement->buildShowParamsPopupEntry(ret);
+    GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
+    return ret;
+}
+
+
 void
 GNEDemandElementPlan::updatePlanGeometry() {
     // only for plans defined between TAZs
@@ -156,29 +176,59 @@ GNEDemandElementPlan::updatePlanGeometry() {
 }
 
 
-GUIGLObjectPopupMenu*
-GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *myPlanElement);
-    // build header
-    myPlanElement->buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    myPlanElement->buildCenterPopupEntry(ret);
-    myPlanElement->buildPositionCopyEntry(ret, app);
-    // build menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + myPlanElement->getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    myPlanElement->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, myPlanElement);
-    myPlanElement->buildShowParamsPopupEntry(ret);
-    GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
-    return ret;
-}
-
-
-std::string
-GNEDemandElementPlan::getPlanParentName() const {
-    return myPlanElement->getParentDemandElements().front()->getID();
+void
+GNEDemandElementPlan::computePlanPathElement() {
+    // get vClass
+    auto vClass = myPlanElement->getVClass();
+    // get path manager
+    auto pathManager = myPlanElement->getNet()->getPathManager();
+    // first draw plan between elements over edges and routes
+    if (myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+        // calculate consecutive path using edges
+        pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentEdges());
+    } else if (myPlanElement->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+        // calculate consecutive path using route edges
+        pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentDemandElements().at(1)->getParentEdges());
+    } else {
+        // get previous plan
+        const auto previousPlan = myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement);
+        // first check if this is the first person plan
+        if (previousPlan == nullptr) {
+            // continue depending of parents
+            if (myPlanElement->getParentJunctions().size() > 0) {
+                // calculate path between junctions
+                pathManager->calculatePathJunctions(myPlanElement, vClass, myPlanElement->getParentJunctions());
+            } else {
+                // get first and last lane
+                auto firstLane = myPlanElement->getFirstPathLane();
+                auto lastLane = myPlanElement->getLastPathLane();
+                // calculate path between first and last lane
+                if (firstLane && lastLane) {
+                    pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane, lastLane});
+                } else {
+                    pathManager->calculatePathLanes(myPlanElement, vClass, {});
+                }
+            }
+        } else {
+            // check if previousPlan ends in a junction
+            if ((previousPlan->getParentJunctions().size() > 0) && (myPlanElement->getParentJunctions().size() > 0)) {
+                // calculate path between junctions
+                pathManager->calculatePathJunctions(myPlanElement, vClass, {previousPlan->getParentJunctions().back(), myPlanElement->getParentJunctions().front()});
+            } else {
+                // get last lanes of both elements
+                auto firstLane = previousPlan->getLastPathLane();
+                auto lastLane = myPlanElement->getLastPathLane();
+                // calculate path between first and last lane
+                if (firstLane && lastLane) {
+                    pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane, lastLane});
+                } else {
+                    pathManager->calculatePathLanes(myPlanElement, vClass, {});
+                }
+            }
+        }
+    }
+    // update geometry
+    updatePlanGeometry();
 }
 
 

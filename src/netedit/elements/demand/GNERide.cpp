@@ -148,7 +148,7 @@ GNERide::getPositionInView() const {
 
 std::string
 GNERide::getParentName() const {
-    return getPlanParentName();
+    return getParentDemandElements().front()->getID();
 }
 
 
@@ -172,25 +172,33 @@ GNERide::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNERide::computePathElement() {
-    // get lanes
-    const std::vector<GNELane*> lanes = {getFirstPathLane(), getLastPathLane()};
-    // calculate path
-    myNet->getPathManager()->calculatePathLanes(this, SVC_PASSENGER, lanes);
-    // check path (taxis)
-    if (!myNet->getPathManager()->isPathValid(this)) {
-        myNet->getPathManager()->calculatePathLanes(this, SVC_TAXI, lanes);
-    }
-    // check path (bus)
-    if (!myNet->getPathManager()->isPathValid(this)) {
-        myNet->getPathManager()->calculatePathLanes(this, SVC_BUS, lanes);
-    }
-    // check path (bicycle)
-    if (!myNet->getPathManager()->isPathValid(this)) {
-        myNet->getPathManager()->calculatePathLanes(this, SVC_BICYCLE, lanes);
-    }
-    // check path (pedestrian)
-    if (!myNet->getPathManager()->isPathValid(this)) {
-        myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, lanes);
+    // get first and last path lanes
+    const auto firstPathLane = getFirstPathLane();
+    const auto lastPathLane = getLastPathLane();
+    // continue depending of pathLane
+    if (firstPathLane && lastPathLane) {
+        const std::vector<GNELane*> lanes = {firstPathLane, lastPathLane};
+        // calculate path
+        myNet->getPathManager()->calculatePathLanes(this, SVC_PASSENGER, lanes);
+        // check path (taxis)
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculatePathLanes(this, SVC_TAXI, lanes);
+        }
+        // check path (bus)
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculatePathLanes(this, SVC_BUS, lanes);
+        }
+        // check path (bicycle)
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculatePathLanes(this, SVC_BICYCLE, lanes);
+        }
+        // check path (pedestrian)
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, lanes);
+        }
+    } else {
+        // reset path
+        myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {});
     }
     // update geometry
     updateGeometry();

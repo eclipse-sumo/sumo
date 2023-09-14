@@ -184,7 +184,7 @@ GNEPersonTrip::getPositionInView() const {
 
 std::string
 GNEPersonTrip::getParentName() const {
-    return getPlanParentName();
+    return getParentDemandElements().front()->getID();
 }
 
 
@@ -208,26 +208,7 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEPersonTrip::computePathElement() {
-    // calculate path depending of parents
-    if (getParentJunctions().size() > 0) {
-        // get previous personTrip
-        const auto previousParent = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // calculate path
-        if (previousParent == nullptr) {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
-        } else if (previousParent->getParentJunctions().size() > 0) {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getParentJunctions().front(), getParentJunctions().back()});
-        } else if (previousParent->getParentAdditionals().size()  == 1) {
-            //myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getParentJunctions().front(), getParentJunctions().back()});
-        } else {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getLastPathLane()->getParentEdge()->getToJunction(), getParentJunctions().back()});
-        }
-    } else if (getParentEdges().size() > 0) {
-        // calculate path
-        myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPathLane(), getLastPathLane()});
-    }
-    // update geometry
-    updateGeometry();
+    computePlanPathElement();
 }
 
 

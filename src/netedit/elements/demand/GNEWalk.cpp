@@ -172,7 +172,7 @@ GNEWalk::getPositionInView() const {
 
 std::string
 GNEWalk::getParentName() const {
-    return getPlanParentName();
+    return getParentDemandElements().front()->getID();
 }
 
 
@@ -204,38 +204,7 @@ GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEWalk::computePathElement() {
-    // avoid calculate for junctions
-    // calculate path depending of parents
-    if (getParentJunctions().size() > 0) {
-        // get previous personTrip
-        const auto previousParent = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-        // calculate path
-        if (previousParent == nullptr) {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
-        } else if (previousParent->getParentJunctions().size() > 0) {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getParentJunctions().front(), getParentJunctions().back()});
-        } else {
-            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getLastPathLane()->getParentEdge()->getToJunction(), getParentJunctions().back()});
-        }
-    } else {
-        // declare lane vector
-        std::vector<GNELane*> lanes;
-        // update lanes depending of walk tag
-        if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-            // calculate consecutive path using parent edges
-            myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges());
-        } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-            // calculate consecutive path using route edges
-            myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
-        } else if (getParentEdges().size() > 0) {
-            // get first and last person plane
-            lanes = {getFirstPathLane(), getLastPathLane()};
-            // calculate path
-            myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
-        }
-    }
-    // update geometry
-    updateGeometry();
+    computePlanPathElement();
 }
 
 
