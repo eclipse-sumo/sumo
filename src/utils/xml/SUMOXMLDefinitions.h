@@ -1454,10 +1454,6 @@ enum SumoXMLAttr {
     GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
     /// @brief person/container geometry end position
     GNE_ATTR_PLAN_GEOMETRY_ENDPOS,
-    /// @brief person/container geometry previous position
-    GNE_ATTR_PLAN_GEOMETRY_PREVIOUS,
-    /// @brief person/container geometry next position
-    GNE_ATTR_PLAN_GEOMETRY_NEXT,
 
     // @}
 

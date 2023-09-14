@@ -472,38 +472,6 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 }
             }
         }
-        case GNE_ATTR_PLAN_GEOMETRY_PREVIOUS: {
-            // get previous plan
-            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-            // if exists, return previous plan geometry position
-            if (previousPlan) {
-                // special case for additionals
-                if (myPlanElement->getParentAdditionals().size() > 0) {
-                    // get last additional
-                    const auto lastAdditional = myPlanElement->getParentAdditionals().back();
-                    // TAZs and stoppingPlaces
-                    if (lastAdditional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                        return myPlanElement->getParentAdditionals().back()->getPositionInView();
-                    } else {
-                        return lastAdditional->getAdditionalGeometry().getShape().back();
-                    }
-                } else {
-                    return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                }
-            } else {
-                return Position::INVALID;
-            }
-        }
-        case GNE_ATTR_PLAN_GEOMETRY_NEXT: {
-            // get next plan
-            const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
-            // if exists, return next plan geometry position
-            if (nextPlan) {
-                return nextPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
-            } else {
-                return Position::INVALID;
-            }
-        }
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
     }
