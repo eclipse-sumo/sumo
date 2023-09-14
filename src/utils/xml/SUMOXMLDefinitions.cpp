@@ -992,8 +992,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
     { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
     { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
-    { "planStartPos",                       GNE_ATTR_PLAN_STARTPOS },
-    { "planEndPos",                         GNE_ATTR_PLAN_ENDPOS },
+    { "planGeometryStartPos",               GNE_ATTR_PLAN_GEOMETRY_STARTPOS },
+    { "planGeometryEndPos",                 GNE_ATTR_PLAN_GEOMETRY_ENDPOS },
+    { "planGeometryPrevious",               GNE_ATTR_PLAN_GEOMETRY_PREVIOUS },
+    { "planGeometryNext",                   GNE_ATTR_PLAN_GEOMETRY_NEXT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

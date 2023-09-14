@@ -1450,10 +1450,14 @@ enum SumoXMLAttr {
     GNE_ATTR_PATHSTOPINDEX,
     /// @brief check number of additional children (used in vTypeDistribution)
     GNE_ATTR_ADDITIONALCHILDREN,
-    /// @brief Attriute used for obtain the person/container plan start position
-    GNE_ATTR_PLAN_STARTPOS,
-    /// @brief Attriute used for obtain the person/container plan end position
-    GNE_ATTR_PLAN_ENDPOS,
+    /// @brief person/container geometry start position
+    GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
+    /// @brief person/container geometry end position
+    GNE_ATTR_PLAN_GEOMETRY_ENDPOS,
+    /// @brief person/container geometry previous position
+    GNE_ATTR_PLAN_GEOMETRY_PREVIOUS,
+    /// @brief person/container geometry next position
+    GNE_ATTR_PLAN_GEOMETRY_NEXT,
 
     // @}
 
