@@ -65,7 +65,7 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
             }
         }
         // continue writting to attribute
-        if (myPlanElement->getParentEdges().size() > 0) {
+        if (myPlanElement->getParentEdges().size() == 2) {
             device.writeAttr(SUMO_ATTR_TO, myPlanElement->getParentEdges().back()->getID());
         } else if (myPlanElement->getParentJunctions().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO_JUNCTION, myPlanElement->getParentJunctions().back()->getID());
@@ -392,12 +392,50 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
 
 double
 GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
+    // declare plan parent
+    const auto planParent = myPlanElement->getParentDemandElements().at(0);
+    // continue depending of key
     switch (key) {
-        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
-            return myArrivalPosition;
+        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
+            // get previous plan
+            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
+            // if we have a previous plan, use their end position
+            if (previousPlan) {
+                // special case for stoppingPlaces
+                if (previousPlan->getParentAdditionals().size() == 1) {
+                    return previousPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+                } else {
+                    return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                }
+            } else {
+                // this is the first plan, then continue depending of parents
+                if (myPlanElement->getParentJunctions().size() > 0) {
+                    // junctions
+                    return -1;
+                } else if (myPlanElement->getParentAdditionals().size() == 2) {
+                    // TAZs
+                    return -1;
+                } else {
+                    // use parent's depart position
+                    return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                }
+            }
+        }
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
-        case SUMO_ATTR_ARRIVALPOS:
-            return myArrivalPosition;
+            // continue depending of parents
+            if (myPlanElement->getParentJunctions().size() > 0) {
+                // junctions
+                return -1;
+            } else if (myPlanElement->getParentAdditionals().size() == 2) {
+                // TAZs
+                return -1;
+            } else if (myPlanElement->getParentAdditionals().size() == 1) {
+                // use start position of the stoppingPlace
+                return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            } else {
+                // use arrival position
+                return myArrivalPosition;
+            }
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
     }
@@ -411,41 +449,44 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     // continue depending of key
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
-            // check parents
-            if (myPlanElement->getParentJunctions().size() > 0) {
-                // junctions
-                return myPlanElement->getParentJunctions().front()->getPositionInView();
-            } else if (myPlanElement->getParentAdditionals().size() == 2) {
-                // TAZs
-                return myPlanElement->getParentAdditionals().front()->getPositionInView();
-            } else {
-                // get first lane
-                const auto firstLane = myPlanElement->getFirstPathLane();
-                // check if first lane exists
-                if (firstLane) {
-                    // declare depart position
-                    double departPosition = 0;
-                    // get previous plan
-                    const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-                    // check if previous plan exist
-                    if (previousPlan) {
-                        // use arrival position of previous plan
-                        departPosition = previousPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-                    }
-                    // get lane shapes
-                    const auto &laneShape = firstLane->getLaneShape();
-                    // continue depending of arrival position
-                    if (departPosition == 0) {
-                        return laneShape.front();
-                    } else if ((departPosition == -1) || (departPosition >= laneShape.length2D())) {
-                        return laneShape.back();
-                    } else {
-                        return laneShape.positionAtOffset2D(departPosition);
-                    }
+            // get previous plan
+            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
+            // if we have a previous plan, use their geometry end position
+            if (previousPlan) {
+                // special case for stoppingPlaces
+                if (previousPlan->getParentAdditionals().size() == 1) {
+                    return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
                 } else {
-                    WRITE_ERROR("invalid GNE_ATTR_PLAN_GEOMETRY_STARTPOS");
-                    // invalid position
-                    return Position(0,0);
+                    return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                }
+            } else {
+                // check parents
+                if (myPlanElement->getParentJunctions().size() > 0) {
+                    // junctions
+                    return myPlanElement->getParentJunctions().front()->getPositionInView();
+                } else if (myPlanElement->getParentAdditionals().size() == 2) {
+                    // TAZs
+                    return myPlanElement->getParentAdditionals().front()->getPositionInView();
+                } else {
+                    // get first lane
+                    const auto firstLane = myPlanElement->getFirstPathLane();
+                    // check if first lane exists
+                    if (firstLane) {
+                        // get lane shape
+                        const auto &laneShape = firstLane->getLaneShape();
+                        // declare use parent depart position
+                        double departPosition = planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                        // continue depending of arrival position
+                        if (departPosition == 0) {
+                            return laneShape.front();
+                        } else if ((departPosition == -1) || (departPosition >= laneShape.length2D())) {
+                            return laneShape.back();
+                        } else {
+                            return laneShape.positionAtOffset2D(departPosition);
+                        }
+                    } else {
+                        throw ProcessError("firstLane cannot be null");
+                    }
                 }
             }
         }
@@ -455,8 +496,15 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // junctions
                 return myPlanElement->getParentJunctions().back()->getPositionInView();
             } else if (myPlanElement->getParentAdditionals().size() > 0) {
+                // get last additional
+                const auto lastAdditional = myPlanElement->getParentAdditionals().back();
                 // TAZs and stoppingPlaces
-                return myPlanElement->getParentAdditionals().back()->getPositionInView();
+                if (lastAdditional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+                    return myPlanElement->getParentAdditionals().back()->getPositionInView();
+                } else {
+                    // get additional front shape
+                    return lastAdditional->getAdditionalGeometry().getShape().front();
+                }
             } else {
                 // get last lane
                 const auto lastLane = myPlanElement->getLastPathLane();
@@ -484,7 +532,19 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
             // if exists, return previous plan geometry position
             if (previousPlan) {
-                return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                // special case for additionals
+                if (myPlanElement->getParentAdditionals().size() > 0) {
+                    // get last additional
+                    const auto lastAdditional = myPlanElement->getParentAdditionals().back();
+                    // TAZs and stoppingPlaces
+                    if (lastAdditional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+                        return myPlanElement->getParentAdditionals().back()->getPositionInView();
+                    } else {
+                        return lastAdditional->getAdditionalGeometry().getShape().back();
+                    }
+                } else {
+                    return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                }
             } else {
                 return Position::INVALID;
             }
