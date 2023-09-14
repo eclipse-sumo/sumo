@@ -831,30 +831,6 @@ GNEAdditional::getLastPathLane() const {
 }
 
 
-double
-GNEAdditional::getPathElementDepartValue() const {
-    return getAttributeDouble(SUMO_ATTR_STARTPOS);
-}
-
-
-Position
-GNEAdditional::getPathElementDepartPos() const {
-    return getFirstPathLane()->getLaneShape().positionAtOffset2D(getPathElementDepartValue());
-}
-
-
-double
-GNEAdditional::getPathElementArrivalValue() const {
-    return getAttributeDouble(SUMO_ATTR_ENDPOS);
-}
-
-
-Position
-GNEAdditional::getPathElementArrivalPos() const {
-    return getLastPathLane()->getLaneShape().positionAtOffset2D(getPathElementArrivalValue());
-}
-
-
 Position
 GNEAdditional::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

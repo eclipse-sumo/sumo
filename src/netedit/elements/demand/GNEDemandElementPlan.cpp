@@ -393,6 +393,9 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
 double
 GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
+        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
+            return myArrivalPosition;
+        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
             return myArrivalPosition;
         default:
@@ -978,16 +981,22 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                              myPlanElement->getPathElementDepartValue(), myPlanElement->getPathElementArrivalValue(),    // extrem positions
-                                              myPlanElement->getPathElementDepartPos(), myPlanElement->getPathElementArrivalPos());       // extra positions
+                                              getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                              getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                              getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                              getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else if (segment->isFirstSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                              myPlanElement->getPathElementDepartValue(), -1,                 // extrem positions
-                                              myPlanElement->getPathElementDepartPos(), Position::INVALID);   // extra positions
+                                              getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                              -1,
+                                              getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                              Position::INVALID);
         } else if (segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                              -1, myPlanElement->getPathElementArrivalValue(),                // extrem positions
-                                              Position::INVALID, myPlanElement->getPathElementArrivalPos());  // extra positions
+                                              -1,
+                                              getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                              Position::INVALID,
+                                              getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }
@@ -1016,7 +1025,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
             const double circleWidthSquared = circleWidth * circleWidth;
             // get geometryEndPos
-            const Position geometryEndPos = myPlanElement->getPathElementArrivalPos();
+            const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
             // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (viewNet->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
                 // push draw matrix

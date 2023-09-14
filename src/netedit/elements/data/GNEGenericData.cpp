@@ -191,30 +191,6 @@ GNEGenericData::isPathElementSelected() const {
 }
 
 
-double
-GNEGenericData::getPathElementDepartValue() const {
-    return 0;
-}
-
-
-Position
-GNEGenericData::getPathElementDepartPos() const {
-    return Position();
-}
-
-
-double
-GNEGenericData::getPathElementArrivalValue() const {
-    return 0;
-}
-
-
-Position
-GNEGenericData::getPathElementArrivalPos() const {
-    return Position();
-}
-
-
 const Parameterised::Map&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();

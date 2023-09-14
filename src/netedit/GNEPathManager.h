@@ -205,18 +205,6 @@ public:
         /// @brief get last path lane
         virtual GNELane* getLastPathLane() const = 0;
 
-        /// @brief get path element depart lane pos
-        virtual double getPathElementDepartValue() const = 0;
-
-        /// @brief get path element depart position
-        virtual Position getPathElementDepartPos() const = 0;
-
-        /// @brief get path element arrival lane pos
-        virtual double getPathElementArrivalValue() const = 0;
-
-        /// @brief get path element arrival position
-        virtual Position getPathElementArrivalPos() const = 0;
-
     private:
         /// @brief pathElement option
         const int myOption;

@@ -1095,7 +1095,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // get firstPosition (last position of current lane shape)
             const Position& firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position& arrivalPosition = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
+            const Position& arrivalPosition = segment->getNextSegment()->getLane()->getLaneShape().front();
             // draw box line
             GLHelper::drawBoxLine(arrivalPosition,
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
@@ -1106,7 +1106,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // check if this is the last segment
         if (segment->isLastSegment() && (getParentJunctions().size() == 0)) {
             // get geometryEndPos
-            const Position geometryEndPosition = getPathElementArrivalPos();
+            const Position geometryEndPosition = getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
             // check if endPos can be drawn
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPosition) <= ((myArrivalPositionDiameter * myArrivalPositionDiameter) + 2))) {
                 // push draw matrix
@@ -1497,7 +1497,7 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
 Position
 GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_DEPARTPOS: {
+        case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
             // get first path lane shape
             const PositionVector& laneShape = getFirstPathLane()->getLaneShape();
             // check arrivalPosProcedure
@@ -1513,7 +1513,7 @@ GNEVehicle::getAttributePosition(SumoXMLAttr key) const {
                 return laneShape.front();
             }
         }
-        case SUMO_ATTR_ARRIVALPOS: {
+        case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
             // get last path lane shape
             const PositionVector& laneShape = getLastPathLane()->getLaneShape();
             // check arrivalPosProcedure

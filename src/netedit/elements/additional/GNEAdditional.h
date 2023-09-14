@@ -239,18 +239,6 @@ public:
     /// @brief get last path lane
     GNELane* getLastPathLane() const;
 
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

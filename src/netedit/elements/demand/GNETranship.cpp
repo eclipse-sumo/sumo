@@ -83,7 +83,7 @@ GNETranship::getMoveOperation() {
         return nullptr;
     }
     // get geometry end pos
-    const Position geometryEndPos = getPathElementArrivalPos();
+    const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
     // calculate circle width squared
     const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
     // check if we clicked over a geometry end pos
