@@ -163,14 +163,15 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
             const MSStoppingPlace* const stop = prev->getDestinationStop();
             const Position& stopPos = stop->getLane().getShape().positionAtOffset(stop->getLane().interpolateLanePosToGeometryPos(stop->getEndLanePosition()));
             waypoints.push_back(stopPos);
-            JPS_JourneyDescription_AddWaypoint(journey, {stopPos.x(), stopPos.y()}, stop->getEndLanePosition() - stop->getEndLanePosition(), NULL, NULL);
+            JPS_JourneyDescription_AddWaypoint(journey, {stopPos.x(), stopPos.y()}, myExitTolerance, NULL, NULL);
         }
         stageOffset++;
     }
 
 
-    const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().back());
-    const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
+    const MSStage* const arrivalStage = person->getNextStage(stageOffset - 1);
+    const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(arrivalStage->getDestination());
+    const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(arrivalStage->getArrivalPos());
     waypoints.push_back(arrivalPosition);
 
 #if JPS_VERSION > 1000
@@ -271,7 +272,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
         
         // If near the last waypoint, remove the agent.
-        if (newPosition.distanceTo2D(state->getNextWaypoint()) < myExitTolerance) {
+        if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
             while (!stage->moveToNextEdge(person, time, 1, nullptr));
             if (state->advanceNextWaypoint()) {
                 registerArrived();
