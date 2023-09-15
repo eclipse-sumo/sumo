@@ -1230,8 +1230,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     GNEJunction* fromJunction = (pathCreator->getSelectedJunctions().size() > 0) ? pathCreator->getSelectedJunctions().front() : nullptr;
     GNEJunction* toJunction = (pathCreator->getSelectedJunctions().size() > 0) ? pathCreator->getSelectedJunctions().back() : nullptr;
     // get TAZs
-    GNETAZ* fromTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().front() : nullptr;
-    GNETAZ* toTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().back() : nullptr;
+    GNEAdditional* fromTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().front() : nullptr;
+    GNEAdditional* toTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().back() : nullptr;
     // get busStop
     GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
     GNEAdditional* toTrainStop = pathCreator->getToStoppingPlace(SUMO_TAG_TRAIN_STOP);

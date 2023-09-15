@@ -120,12 +120,10 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
         return false;
     }
     // Obtain current container plan tag (only for improve code legibility)
-    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    const auto containerPlanProperty = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
     // declare flags for requirements
-    const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
-                                       (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
-    const bool requireEdge = ((containerPlanTag == GNE_TAG_TRANSPORT_EDGE) || (containerPlanTag == GNE_TAG_TRANSHIP_EDGE) ||
-                              (containerPlanTag == GNE_TAG_TRANSHIP_EDGES) || (containerPlanTag == GNE_TAG_STOPCONTAINER_EDGE));
+    const bool requireContainerStop = containerPlanProperty.planFromContainerStop() || containerPlanProperty.planToContainerStop();
+    const bool requireEdge = containerPlanProperty.planFromEdge() || containerPlanProperty.planToEdge() || containerPlanProperty.hasAttribute(SUMO_ATTR_EDGES);
     // continue depending of tag
     if (requireContainerStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
@@ -166,17 +164,17 @@ GNEContainerPlanFrame::tagSelected() {
         SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show container attributes
         myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-        // get previous container plan
-        GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
+        // get previous container plan element
+        const auto previousElement = myContainerSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
-        if (previousEdge) {
+        if (previousElement && previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
             // show legend
             myPathLegend->showPathLegendModule();
             // check if add previous edge
             if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-                myPathCreator->addEdge(previousEdge, true, true);
+                myPathCreator->addEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(previousElement->getID()), true, true);
             }
         } else {
             // set path creator mode

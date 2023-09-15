@@ -286,14 +286,6 @@ GNEDemandElementPlan::getPlanPositionInView() const {
 
 std::string
 GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
-    // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
-    // get route parent
-    const auto routeParent = !myPlanElement->isTemplate() && myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)? myPlanElement->getParentDemandElements().at(1) : nullptr;
-    
-    
-/****** CHECK *****/
-    
     // continue depending of key
     switch (key) {
         // Common person plan attributes
@@ -303,24 +295,16 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(myPlanElement->isAttributeCarrierSelected());
         case SUMO_ATTR_ARRIVALPOS:
-            if (myArrivalPosition == -1) {
+            if (myArrivalPosition < 0) {
                 return "";
             } else {
                 return toString(myArrivalPosition);
             }
         // edges
         case SUMO_ATTR_FROM:
-            if (routeParent) {
-                return routeParent->getParentEdges().front()->getID();
-            } else {
-                return myPlanElement->getParentEdges().front()->getID();
-            }
+            return myPlanElement->getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
-            if (routeParent) {
-                return routeParent->getParentEdges().back()->getID();
-            } else {
-                return myPlanElement->getParentEdges().back()->getID();
-            }
+            return myPlanElement->getParentEdges().back()->getID();
         case SUMO_ATTR_EDGES:
             return myPlanElement->parseIDs(myPlanElement->getParentEdges());
         // junctions
@@ -337,7 +321,12 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             return myPlanElement->getParentAdditionals().back()->getID();
         // route
         case SUMO_ATTR_ROUTE:
-            return routeParent->getID();
+            // get route parent
+            if (myPlanElement->isTemplate()) {
+                return "";
+            } else {
+                return myPlanElement->getParentDemandElements().at(1)->getID();
+            }
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

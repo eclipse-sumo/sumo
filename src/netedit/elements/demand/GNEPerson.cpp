@@ -542,27 +542,31 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
             if (personPlan->getTagProperty().isStopPerson()) {
+                // stop center
                 return personPlan->getPositionInView();
-            } else if (personPlan->getParentJunctions().size() > 0) {
+            } else if (personPlan->getTagProperty().planFromJunction()) {
+                // junction center
                 return personPlan->getParentJunctions().front()->getPositionInView();
-            } else if (personPlan->getParentAdditionals().size() == 2) {
-                return personPlan->getDemandElementGeometry().getShape().front();
+            } else if (personPlan->getTagProperty().planFromBusStop() ||
+                       personPlan->getTagProperty().planFromContainerStop() ||
+                       personPlan->getTagProperty().planFromTrainStop() ||
+                       personPlan->getTagProperty().planFromTAZ()) {
+                // additional center
+                return personPlan->getParentAdditionals().front()->getPositionInView();
             } else {
-                // declare lane lane
-                GNELane* lane = nullptr;
-                // update lane
-                if (personPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-                    lane = personPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+                // get first path lane
+                GNELane* lane = personPlan->getFirstPathLane();
+                if (lane) {
+                    // get position over lane shape
+                    if (departPos <= 0) {
+                        return lane->getLaneShape().front();
+                    } else if (departPos >= lane->getLaneShape().length2D()) {
+                        return lane->getLaneShape().back();
+                    } else {
+                        return lane->getLaneShape().positionAtOffset2D(departPos);
+                    }
                 } else {
-                    lane = personPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-                }
-                // get position over lane shape
-                if (departPos <= 0) {
-                    return lane->getLaneShape().front();
-                } else if (departPos >= lane->getLaneShape().length2D()) {
-                    return lane->getLaneShape().back();
-                } else {
-                    return lane->getLaneShape().positionAtOffset2D(departPos);
+                    return Position();
                 }
             }
         }
