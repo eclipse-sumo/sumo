@@ -394,6 +394,41 @@ private:
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
 
+    /// @brief fill plan edge->edge attribute
+    static void fillPlanEdgeEdgeAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->taz attribute
+    static void fillPlanEdgeTazAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->busStop attribute
+    static void fillPlanEdgeBusStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->trainStop attribute
+    static void fillPlanEdgeTrainStopAttributes(SumoXMLTag currentTag);
+
+
+    /// @brief fill plan taz->edge attribute
+    static void fillPlanTazEdgeAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->taz attribute
+    static void fillPlanTazTazAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->busStop attribute
+    static void fillPlanTazBusStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->trainStop attribute
+    static void fillPlanTazTrainStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan junction->junction attribute
+    static void fillPlanJunctionJunctionAttributes(SumoXMLTag currentTag);
+
+
+    /// @brief fill person trip common attributes
+    static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill ride common attributes
+    static void fillRideCommonAttributes(SumoXMLTag currentTag);
+
     /// @brief fill Data elements
     static void fillDataElements();
 
