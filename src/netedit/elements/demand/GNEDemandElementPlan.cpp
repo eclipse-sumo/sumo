@@ -480,10 +480,6 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    // declare plan parent
-    const auto planParent = myPlanElement->getParentDemandElements().at(0);
-    // declare ACs
-    const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
     switch (key) {
         // common attributes
@@ -499,8 +495,6 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
 
 bool
 GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
-    // declare ACs
-    const auto &ACs = myPlanElement->getNet()->getAttributeCarriers();
     // continue depending of key
     switch (key) {
         // common attributes
