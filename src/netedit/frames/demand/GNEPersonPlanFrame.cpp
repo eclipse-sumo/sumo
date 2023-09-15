@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -125,22 +126,15 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // Obtain current person plan tag (only for improve code legibility)
-    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
     // declare flags for requirements
-    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_BUSSTOP) ||
-                                 (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_TAZ_BUSSTOP) ||
-                                 (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
-    const bool requireTrainStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_TRAINSTOP) ||
-                                   (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_TAZ_TRAINSTOP) ||
-                                   (personPlanTag == GNE_TAG_RIDE_EDGE_TRAINSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_TRAINSTOP));
-    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE_EDGE) ||
-                              (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_EDGE) || (personPlanTag == GNE_TAG_WALK_TAZ_EDGE) ||
-                              (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
-                              (personPlanTag == GNE_TAG_STOPPERSON_EDGE));
-    const bool requireJunction = ((personPlanTag == GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION) || (personPlanTag == GNE_TAG_WALK_JUNCTION_JUNCTION));
-    const bool requireTAZ = ((personPlanTag == GNE_TAG_PERSONTRIP_TAZ_TAZ) || (personPlanTag == GNE_TAG_WALK_TAZ_TAZ));
+    const bool requireBusStop = personPlanProperty.planFromBusStop() || personPlanProperty.planToBusStop();
+    const bool requireTrainStop = personPlanProperty.planFromTrainStop() || personPlanProperty.planToTrainStop();
+    const bool requireEdge = personPlanProperty.planFromEdge() || personPlanProperty.planToEdge() || personPlanProperty.hasAttribute(SUMO_ATTR_EDGES);
+    const bool requireJunction = personPlanProperty.planFromJunction() || personPlanProperty.planToJunction();
+    const bool requireTAZ = personPlanProperty.planFromTAZ() || personPlanProperty.planToTAZ();
     // continue depending of tag
-    if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if (personPlanProperty.hasAttribute(SUMO_ATTR_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
@@ -189,33 +183,43 @@ void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
+        // get ACs
+        const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
         // Obtain current person plan tag (only for improve code legibility)
-        SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
-        // get previous person plan
-        GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
-        // update VClass of myPathCreator depending if person is a ride
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-            myPathCreator->setVClass(SVC_PASSENGER);
-        } else {
-            myPathCreator->setVClass(SVC_PEDESTRIAN);
-        }
+        // get previous container plan element
+        const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
-        if (previousEdge) {
+        if (myPersonSelector) {
+            // add previous edge or junction
+            if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                // add junction
+                myPathCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
+            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                // update VClass of myPathCreator depending if person is a ride
+                if (personPlanProperty.isRide()) {
+                    myPathCreator->setVClass(SVC_PASSENGER);
+                } else {
+                    myPathCreator->setVClass(SVC_PEDESTRIAN);
+                }
+                // add edge
+                myPathCreator->addEdge(ACs->retrieveEdge(previousElement->getID()), true, true);
+            } else if (previousElement->getTagProperty().isStoppingPlace()) {
+                // add stopping place
+                myPathCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()), true, true);
+            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+                // add TAZ
+                myPathCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
+            }
             // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanTag, true, false);
+            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
             // show legend
             myPathLegend->showPathLegendModule();
-            // add previous edge or junction
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROM_JUNCTION)) {
-                myPathCreator->addJunction(previousEdge->getToJunction());
-            } else if (!myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-                myPathCreator->addEdge(previousEdge, true, true);
-            }
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanTag, false, false);
+            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), false, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }
