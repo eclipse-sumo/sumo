@@ -455,7 +455,7 @@ GNEPathCreator::addJunction(GNEJunction* junction) {
 
 
 bool
-GNEPathCreator::addTAZ(GNETAZ* TAZ) {
+GNEPathCreator::addTAZ(GNEAdditional* TAZ) {
     // check if TAZs are allowed
     if (((myCreationMode & START_TAZ) == 0) && ((myCreationMode & END_TAZ) == 0)) {
         return false;
@@ -471,7 +471,7 @@ GNEPathCreator::addTAZ(GNETAZ* TAZ) {
         }
     }
     // check number of TAZs
-    if (mySelectedTAZs.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+    if ((mySelectedTAZs.size() == 2) && (myCreationMode & Mode::ONLY_FROMTO)) {
         // Write warning
         WRITE_WARNING(TL("Only two TAZs are allowed"));
         // abort add TAZ
@@ -601,7 +601,7 @@ GNEPathCreator::getSelectedJunctions() const {
 }
 
 
-const std::vector<GNETAZ*>&
+const std::vector<GNEAdditional*>&
 GNEPathCreator::getSelectedTAZs() const {
     return mySelectedTAZs;
 }

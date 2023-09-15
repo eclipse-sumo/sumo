@@ -114,7 +114,7 @@ public:
     bool addJunction(GNEJunction* junction);
 
     /// @brief add TAZ
-    bool addTAZ(GNETAZ* taz);
+    bool addTAZ(GNEAdditional* taz);
 
     /// @brief add edge
     bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
@@ -126,7 +126,7 @@ public:
     const std::vector<GNEJunction*>& getSelectedJunctions() const;
     
     /// @brief get current selected TAZs
-    const std::vector<GNETAZ*>& getSelectedTAZs() const;
+    const std::vector<GNEAdditional*>& getSelectedTAZs() const;
     
     /// @brief add stoppingPlace
     bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
@@ -243,7 +243,7 @@ protected:
     std::vector<GNEJunction*> mySelectedJunctions;
 
     /// @brief vector with selected TAZs
-    std::vector<GNETAZ*> mySelectedTAZs;
+    std::vector<GNEAdditional*> mySelectedTAZs;
 
     /// @brief vector with selected edges
     std::vector<GNEEdge*> mySelectedEdges;
