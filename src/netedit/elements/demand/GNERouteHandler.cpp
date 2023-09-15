@@ -678,6 +678,9 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             if (fromTAZ) {
                 fromTAZ->addChildElement(personTrip);
             }
+            if (toEdge) {
+                toEdge->addChildElement(personTrip);
+            }
             if (fromJunction) {
                 fromJunction->addChildElement(personTrip);
             }
@@ -693,7 +696,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             if (toTrainStop) {
                 toTrainStop->addChildElement(personTrip);
             }
-            personTrip->incRef("buildPersonTripFromTo");
+            personTrip->incRef("buildPersonTrip");
         }
     }
 }
@@ -877,55 +880,32 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         fromEdge = previousEdge;
     }
     // check conditions
-    if (personParent && fromEdge) {
-        if (toEdge) {
-            // create ride from->to
-            GNEDemandElement* ride = new GNERide(myNet, personParent, fromEdge, toEdge, arrivalPos, lines);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(ride);
-                // set child references
-                personParent->addChildElement(ride);
-                fromEdge->addChildElement(ride);
-                toEdge->addChildElement(ride);
-                ride->incRef("buildRideFromTo");
+    if (personParent) {
+        // build ride
+        GNEDemandElement* personTrip = GNERide::buildRide(myNet, personParent, fromEdge, toEdge, toBusStop, toTrainStop, arrivalPos, lines);
+        // continue depending of undo.redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(personTrip);
+            // set child references
+            personParent->addChildElement(personTrip);
+            if (fromEdge) {
+                fromEdge->addChildElement(personTrip);
             }
-        } else if (toBusStop) {
-            // create ride from->busStop
-            GNEDemandElement* ride = new GNERide(false, myNet, personParent, fromEdge, toBusStop, arrivalPos, lines);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(ride);
-                // set child references
-                personParent->addChildElement(ride);
-                fromEdge->addChildElement(ride);
-                toBusStop->addChildElement(ride);
-                ride->incRef("buildRideFromBusStop");
+            if (toEdge) {
+                toEdge->addChildElement(personTrip);
             }
-        } else if (toTrainStop) {
-            // create ride from->trainStop
-            GNEDemandElement* ride = new GNERide(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos, lines);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(ride, TL("add ") + ride->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(ride);
-                // set child references
-                personParent->addChildElement(ride);
-                fromEdge->addChildElement(ride);
-                toTrainStop->addChildElement(ride);
-                ride->incRef("buildRideFromTrainStop");
+            if (toBusStop) {
+                toBusStop->addChildElement(personTrip);
             }
+            if (toTrainStop) {
+                toTrainStop->addChildElement(personTrip);
+            }
+            personTrip->incRef("buildRide");
         }
     }
 }

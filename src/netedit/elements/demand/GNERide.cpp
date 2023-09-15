@@ -31,6 +31,42 @@
 // method definitions
 // ===========================================================================
 
+GNERide*
+GNERide::buildRide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
+        GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, const std::vector<std::string>& lines) {
+    // declare icon an tag
+    SumoXMLTag tag = SUMO_TAG_NOTHING;
+    GUIIcon icon = GUIIcon::PERSON;
+    // declare containers
+    std::vector<GNEEdge*> edges;
+    std::vector<GNEAdditional*> additionals;
+    // continue depending of input parameters
+    if (fromEdge) {
+        edges.push_back(fromEdge);
+        if (toEdge) {
+            edges.push_back(toEdge);
+            tag = GNE_TAG_RIDE_EDGE_EDGE;
+            icon = GUIIcon::RIDE_FROMTO;
+        } else if (toBusStop) {
+            additionals.push_back(toBusStop);
+            tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
+            icon = GUIIcon::RIDE_BUSSTOP;
+        } else if (toTrainStop) {
+            additionals.push_back(toTrainStop);
+            tag = GNE_TAG_RIDE_EDGE_TRAINSTOP;
+            icon = GUIIcon::RIDE_TRAINSTOP;
+        }
+    }
+    // check if combination was correct
+    if (tag == SUMO_TAG_NOTHING) {
+        throw ProcessError("Invalid personTrip input combination");
+    } else {
+        return new GNERide(net, tag, icon, personParent, edges, additionals,arrivalPosition, lines);
+    }
+}
+
+
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
@@ -40,32 +76,13 @@ GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition),
-    myLines(lines) {
-}
-
-
-GNERide::GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_RIDE, isTrain ? GNE_TAG_RIDE_TRAINSTOP : GNE_TAG_RIDE_BUSSTOP,
-                     GUIIconSubSys::getIcon(isTrain ? GUIIcon::RIDE_TRAINSTOP : GUIIcon::RIDE_BUSSTOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition),
-    myLines(lines) {
-}
-
-
 GNERide::~GNERide() {}
 
 
 GNEMoveOperation*
 GNERide::getMoveOperation() {
     // only move personTrips defined over edges
-    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared
@@ -343,6 +360,15 @@ GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
+}
+
+
+GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
+                 const std::vector<GNEAdditional*> &additionals, double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
+    GNEDemandElementPlan(this, arrivalPosition),
+    myLines(lines) {
 }
 
 /****************************************************************************/
