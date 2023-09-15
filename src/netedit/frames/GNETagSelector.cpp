@@ -469,25 +469,33 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case GNE_TAG_TRANSHIP_EDGES:
             myAC = new GNETranship(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_TRAINSTOP:
-        case GNE_TAG_PERSONTRIP_JUNCTIONS:
-        case GNE_TAG_PERSONTRIP_TAZS:
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE_TAZ:
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
+        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
+        case GNE_TAG_PERSONTRIP_TAZ_TAZ:
+        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
+        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_WALK_EDGE:
-        case GNE_TAG_WALK_BUSSTOP:
-        case GNE_TAG_WALK_TRAINSTOP:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGE_TAZ:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_TRAINSTOP:
+        case GNE_TAG_WALK_TAZ_EDGE:
+        case GNE_TAG_WALK_TAZ_TAZ:
+        case GNE_TAG_WALK_TAZ_BUSSTOP:
+        case GNE_TAG_WALK_TAZ_TRAINSTOP:
+        case GNE_TAG_WALK_JUNCTION_JUNCTION:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_ROUTE:
-        case GNE_TAG_WALK_JUNCTIONS:
-        case GNE_TAG_WALK_TAZS:
             myAC = new GNEWalk(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_RIDE_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_RIDE_TRAINSTOP:
+        case GNE_TAG_RIDE_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
             myAC = new GNERide(tagProperty.getTag(), net);
             break;
         default:
