@@ -163,8 +163,10 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
             const MSStoppingPlace* const stop = prev->getDestinationStop();
             const Position& stopPos = stop->getLane().getShape().positionAtOffset(stop->getLane().interpolateLanePosToGeometryPos(stop->getEndLanePosition()));
             waypoints.push_back(stopPos);
-            JPS_JourneyDescription_AddWaypoint(journey, {stopPos.x(), stopPos.y()}, myExitTolerance, NULL, NULL);
+        } else {
+            waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prev->getArrivalPos()));
         }
+        JPS_JourneyDescription_AddWaypoint(journey, {waypoints.back().x(), waypoints.back().y()}, myExitTolerance, NULL, NULL);
         stageOffset++;
     }
 
