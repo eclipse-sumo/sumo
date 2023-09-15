@@ -229,24 +229,30 @@ DemandElementSelector::getPersonPlanPreviousEdge() const {
     // check tag
     switch (lastPersonPlan->getTagProperty().getTag()) {
         // person trips
-        case GNE_TAG_PERSONTRIP_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
         // rides
-        case GNE_TAG_RIDE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
         // walks
-        case GNE_TAG_WALK_EDGE:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_WALK_TAZ_EDGE:
         case GNE_TAG_WALK_EDGES:
         // stops
         case GNE_TAG_STOPPERSON_EDGE:
             return lastPersonPlan->getParentEdges().back();
         // person trips
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_TRAINSTOP:
-        // person trips
-        case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_RIDE_TRAINSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
+        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
+        // rides
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
         // walks
-        case GNE_TAG_WALK_BUSSTOP:
-        case GNE_TAG_WALK_TRAINSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_TRAINSTOP:
+        case GNE_TAG_WALK_TAZ_BUSSTOP:
+        case GNE_TAG_WALK_TAZ_TRAINSTOP:
         // stops
         case GNE_TAG_STOPPERSON_BUSSTOP:
         case GNE_TAG_STOPPERSON_TRAINSTOP:
