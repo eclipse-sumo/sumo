@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-12 14:06+0000\n"
+"PO-Revision-Date: 2023-09-16 16:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -1572,67 +1572,67 @@ msgstr "limite di velocità del segmento [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:201
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "limite coda del segmento [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:202
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "occupazione greggia del segmento [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "velocità media dei veicoli nel segmento [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
-msgstr ""
+msgstr "flusso nel segmento [veh/h/corsia]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "veicoli nel segmento [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "ora di uscita dal segmento del veicolo di testa"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:207
 msgid "segment headway [s]"
-msgstr ""
+msgstr "intervallo di tempo tra mezzi nel segmento [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:208
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "ora del blocco all'inizio del segmento [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:226
 msgid "Type Information:"
-msgstr ""
+msgstr "Informazioni relative al tipo:"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:227
 msgid "type [id]"
-msgstr ""
+msgstr "tipo [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:228
 msgid "tauff"
-msgstr ""
+msgstr "tauff"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:229
 msgid "taufj"
-msgstr ""
+msgstr "taufj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:230
 msgid "taujf"
-msgstr ""
+msgstr "taujf"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:231
 msgid "taujj"
-msgstr ""
+msgstr "taujj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "limite di coda"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "controllo dell'incrocio"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
