@@ -564,4 +564,76 @@ GNETagProperties::overFromToTAZs() const {
     return (myTagProperty & OVER_FROMTO_TAZS) != 0;
 }
 
+
+bool
+GNETagProperties::planFromEdge() const {
+    return (myTagProperty & PLAN_FROM_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTAZ() const {
+    return (myTagProperty & PLAN_FROM_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planFromJunction() const {
+    return (myTagProperty & PLAN_FROM_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planFromBusStop() const {
+    return (myTagProperty & PLAN_FROM_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTrainStop() const {
+    return (myTagProperty & PLAN_FROM_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromContainerStop() const {
+    return (myTagProperty & PLAN_FROM_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToEdge() const {
+    return (myTagProperty & PLAN_TO_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planToTAZ() const {
+    return (myTagProperty & PLAN_TO_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planToJunction() const {
+    return (myTagProperty & PLAN_TO_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planToBusStop() const {
+    return (myTagProperty & PLAN_TO_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToTrainStop() const {
+    return (myTagProperty & PLAN_TO_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToContainerStop() const {
+    return (myTagProperty & PLAN_TO_CONTAINERSTOP) != 0;
+}
+
 /****************************************************************************/
