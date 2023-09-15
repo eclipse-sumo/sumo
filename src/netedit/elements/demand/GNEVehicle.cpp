@@ -81,7 +81,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
         // add reverse
         vehicle->buildMenuAddReverse(this);
         // continue depending of type
-        if (myVehicle->getTagProperty().overFromToJunctions()) {
+        if (myVehicle->getTagProperty().vehicleOverFromToJunctions()) {
             // create menu pane for transform operations
             FXMenuPane* transformOperation = new FXMenuPane(this);
             this->insertMenuPaneChild(transformOperation);
@@ -95,7 +95,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
                 TL("Flow (over junctions)"),
                 GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS), this, MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS,
                 (myVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS));
-        } else if (myVehicle->getTagProperty().overFromToTAZs()) { 
+        } else if (myVehicle->getTagProperty().vehicleOverFromToTAZs()) { 
             // create menu pane for transform operations
             FXMenuPane* transformOperation = new FXMenuPane(this);
             this->insertMenuPaneChild(transformOperation);
@@ -213,7 +213,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         // add reverse
         vehicle->buildMenuAddReverse(this);
         // continue depending of type
-        if (vehicle->getTagProperty().overFromToJunctions()) {
+        if (vehicle->getTagProperty().vehicleOverFromToJunctions()) {
             // create menu pane for transform operations
             FXMenuPane* transformOperation = new FXMenuPane(this);
             this->insertMenuPaneChild(transformOperation);
@@ -234,7 +234,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
             GUIDesigns::buildFXMenuCommand(transformOperation,
                 TL("Flows (over junctions)"),
                 GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS), this, MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS);
-        } else if (vehicle->getTagProperty().overFromToTAZs()) { 
+        } else if (vehicle->getTagProperty().vehicleOverFromToTAZs()) { 
             // create menu pane for transform operations
             FXMenuPane* transformOperation = new FXMenuPane(this);
             this->insertMenuPaneChild(transformOperation);
@@ -314,7 +314,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
     for (const auto& vehicle : mySelectedVehicles) {
         switch (FXSELID(sel)) {
             case MID_GNE_VEHICLE_TRANSFORM_TRIP:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToTrip(vehicle);
@@ -325,7 +325,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToFlow(vehicle);
@@ -336,7 +336,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_VEHICLE:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToVehicle(vehicle, false);
@@ -347,7 +347,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_ROUTEFLOW:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToRouteFlow(vehicle, false);
@@ -358,7 +358,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_VEHICLE_EMBEDDED:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToVehicle(vehicle, true);
@@ -369,7 +369,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_EMBEDDED:
-                if (!vehicle->getTagProperty().overFromToJunctions() && !vehicle->getTagProperty().overFromToTAZs()) {
+                if (!vehicle->getTagProperty().vehicleOverFromToJunctions() && !vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToRouteFlow(vehicle, true);
@@ -380,7 +380,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_TRIP_JUNCTIONS:
-                if (vehicle->getTagProperty().overFromToJunctions()) {
+                if (vehicle->getTagProperty().vehicleOverFromToJunctions()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToTripJunctions(vehicle);
@@ -391,7 +391,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_JUNCTIONS:
-                if (vehicle->getTagProperty().overFromToJunctions()) {
+                if (vehicle->getTagProperty().vehicleOverFromToJunctions()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToFlowJunctions(vehicle);
@@ -402,7 +402,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_TRIP_TAZS:
-                if (vehicle->getTagProperty().overFromToTAZs()) {
+                if (vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToTripTAZs(vehicle);
@@ -413,7 +413,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
                 }
                 break;
             case MID_GNE_VEHICLE_TRANSFORM_FLOW_TAZS:
-                if (vehicle->getTagProperty().overFromToTAZs()) {
+                if (vehicle->getTagProperty().vehicleOverFromToTAZs()) {
                     if (myRestrictedMenuCommands.count(obj) > 0) {
                         if (vehicle->getTagProperty().getTag() == myRestrictedMenuCommands.at(obj)) {
                             GNERouteHandler::transformToFlowTAZs(vehicle);
@@ -582,7 +582,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ROUTE, getRouteParent()->getID());
     }
     // write from, to and edge vias
-    if (myTagProperty.overFromToEdges()) {
+    if (myTagProperty.vehicleOverFromToEdges()) {
         // write manually from/to edges (it correspond to front and back parent edges)
         device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
@@ -592,7 +592,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         }
     }
     // write from and to junctions
-    if (myTagProperty.overFromToJunctions()) {
+    if (myTagProperty.vehicleOverFromToJunctions()) {
         // write manually from/to junctions (it correspond to front and back parent junctions)
         device.writeAttr(SUMO_ATTR_FROM_JUNCTION, getParentJunctions().front()->getID());
         device.writeAttr(SUMO_ATTR_TO_JUNCTION, getParentJunctions().back()->getID());
@@ -626,10 +626,10 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 GNEDemandElement::Problem
 GNEVehicle::isDemandElementValid() const {
     // check conditions
-    if (myTagProperty.overFromToTAZs()) {
+    if (myTagProperty.vehicleOverFromToTAZs()) {
         // vehicles and flows over tazs are always valid
         return Problem::OK;
-    } else if (myTagProperty.overFromToEdges()) {
+    } else if (myTagProperty.vehicleOverFromToEdges()) {
         // check vehicles and flows paths
         if (getParentEdges().front() == getParentEdges().back()) {
             return Problem::OK;
@@ -638,7 +638,7 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if (myTagProperty.overFromToJunctions()) {
+    } else if (myTagProperty.vehicleOverFromToJunctions()) {
         // check vehicles and flows paths
         if (getParentJunctions().front() == getParentJunctions().back()) {
             return Problem::OK;
@@ -654,7 +654,7 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
-    } else if (myTagProperty.overEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
         // check if exist a valid path using route child edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getTypeParent()->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
             return Problem::OK;
@@ -670,7 +670,7 @@ GNEVehicle::isDemandElementValid() const {
 std::string
 GNEVehicle::getDemandElementProblem() const {
     // only trips or flows can have problems
-    if (myTagProperty.overFromToEdges()) {
+    if (myTagProperty.vehicleOverFromToEdges()) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getTypeParent()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
@@ -679,7 +679,7 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // if there are connections between all edges, then all is ok
         return "";
-    } else if (myTagProperty.overFromToJunctions()) {
+    } else if (myTagProperty.vehicleOverFromToJunctions()) {
         return ("No path between junction '" + getParentJunctions().front()->getID() + "' and '" + getParentJunctions().back()->getID() + "'");
     } else if (myTagProperty.overRoute()) {
         // get route parent edges
@@ -692,7 +692,7 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // if there are connections between all edges, then all is ok
         return "";
-    } else if (myTagProperty.overEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
         // get route parent edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
         // check if exist at least a connection between every edge
@@ -798,11 +798,11 @@ std::string
 GNEVehicle::getParentName() const {
     if (myTagProperty.overRoute()) {
         return getRouteParent()->getID();
-    } else if (myTagProperty.overFromToEdges()) {
+    } else if (myTagProperty.vehicleOverFromToEdges()) {
         return getParentEdges().front()->getID();
-    } else if (myTagProperty.overFromToJunctions()) {
+    } else if (myTagProperty.vehicleOverFromToJunctions()) {
         return getParentJunctions().front()->getID();
-    } else if (myTagProperty.overFromToTAZs()) {
+    } else if (myTagProperty.vehicleOverFromToTAZs()) {
         return getParentAdditionals().front()->getID();
     } else {
         throw ProcessError(TL("Invalid vehicle tag"));
@@ -977,10 +977,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
-    if (myTagProperty.overFromToJunctions()) {
+    if (myTagProperty.vehicleOverFromToJunctions()) {
         // calculate path
         myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
-    } else if (myTagProperty.overFromToEdges()) {
+    } else if (myTagProperty.vehicleOverFromToEdges()) {
         // declare lane stops
         std::vector<GNELane*> laneStopWaypoints;
         // iterate over child demand elements
@@ -1242,7 +1242,7 @@ GNEVehicle::getFirstPathLane() const {
             // use first route edge
             firstEdge = getRouteParent()->getParentEdges().front();
         }
-    } else if (myTagProperty.overEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
         // check if embedded route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
@@ -1291,7 +1291,7 @@ GNEVehicle::getLastPathLane() const {
             // use last route edge
             lastEdge = getRouteParent()->getParentEdges().back();
         }
-    } else if (myTagProperty.overEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
         // check if embedded route exist (due during loading embedded route doesn't exist)
         if (getChildDemandElements().empty()) {
             return nullptr;
@@ -1803,7 +1803,7 @@ GNEVehicle::getPopUpID() const {
 std::string
 GNEVehicle::getHierarchyName() const {
     // special case for Trips and flow
-    if (myTagProperty.overFromToEdges()) {
+    if (myTagProperty.vehicleOverFromToEdges()) {
         // check if we're inspecting a Edge
         if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() &&
                 myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
@@ -1850,24 +1850,24 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
             originalVehicle->getParentDemandElements().at(0), newRoute,                                               
             originalVehicle->getSUMOVehicleParameter());
-    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverEmbeddedRoute()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
             originalVehicle->getParentDemandElements().at(0),
             originalVehicle->getSUMOVehicleParameter());
         newEmbeddedRoute = new GNERoute(net, newVehicle, originalVehicle->getChildDemandElements().front());
-    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToEdges()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
             originalVehicle->getParentDemandElements().at(0),
             originalVehicle->getParentEdges().front(),
             originalVehicle->getParentEdges().back(),
             originalVehicle->getSUMOVehicleParameter());
-    } else if (originalVehicle->getTagProperty().overFromToJunctions()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToJunctions()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
             originalVehicle->getParentDemandElements().at(0),
             originalVehicle->getParentJunctions().front(),
             originalVehicle->getParentJunctions().back(),
             originalVehicle->getSUMOVehicleParameter());
-    } else if (originalVehicle->getTagProperty().overFromToTAZs()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToTAZs()) {
         newVehicle = new GNEVehicle(originalVehicle->getTagProperty().getTag(), net,
             originalVehicle->getParentDemandElements().at(0),
             originalVehicle->getParentAdditionals().front(),
@@ -2324,13 +2324,13 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if stack label has to be updated
     if (updateSpreadStackGeometry) {
-        if (myTagProperty.overFromToEdges()) {
+        if (myTagProperty.vehicleOverFromToEdges()) {
             getParentEdges().front()->updateVehicleStackLabels();
             getParentEdges().front()->updateVehicleSpreadGeometries();
         } else if (myTagProperty.overRoute()) {
             getRouteParent()->getParentEdges().front()->updateVehicleStackLabels();
             getRouteParent()->getParentEdges().front()->updateVehicleSpreadGeometries();
-        } else if (myTagProperty.overEmbeddedRoute()) {
+        } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleStackLabels();
             getChildDemandElements().front()->getParentEdges().front()->updateVehicleSpreadGeometries();
         }

@@ -262,7 +262,7 @@ GNEVehicleFrame::tagSelected() {
         // show path creator modul
         myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         // check if show path legend
-        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overEmbeddedRoute()) {
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleOverEmbeddedRoute()) {
             myPathLegend->hidePathLegendModule();
         } else {
             myPathLegend->showPathLegendModule();

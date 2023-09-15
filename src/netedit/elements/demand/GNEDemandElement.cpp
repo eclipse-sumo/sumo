@@ -514,7 +514,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             if (parent->getParentDemandElements().size() > 1) {
                 pathEdges = parent->getParentDemandElements().at(1)->getParentEdges();
             }
-        } else if (parent->getTagProperty().overEmbeddedRoute()) {
+        } else if (parent->getTagProperty().vehicleOverEmbeddedRoute()) {
             // get embedded route edges
             pathEdges = parent->getChildDemandElements().front()->getParentEdges();
         } else {
@@ -624,9 +624,9 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
         edges = getParentEdges();
     } else if (myTagProperty.overRoute()) {
         edges = getParentDemandElements().at(1)->getParentEdges();
-    } else if (myTagProperty.overEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
         edges = getChildDemandElements().front()->getParentEdges();
-    } else if (myTagProperty.overFromToEdges()) {
+    } else if (myTagProperty.vehicleOverFromToEdges()) {
         edges = getParentEdges();
     }
     // calculate path

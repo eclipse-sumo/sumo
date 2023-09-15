@@ -96,11 +96,11 @@ public:
         REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
         VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
         // exclusive of vehicles
-        OVER_ROUTE =                1 << 13,    // Vehicle Element is placed over route
-        OVER_EMBEDDED_ROUTE =       1 << 14,    // Vehicle Element has an embedded route
-        OVER_FROMTO_EDGES =         1 << 15,    // Vehicle Element is placed over a from-to edges
-        OVER_FROMTO_JUNCTIONS =     1 << 16,    // Vehicle Element is placed over a from-to junctions
-        OVER_FROMTO_TAZS =          1 << 17,    // Vehicle Element is placed over a from-to TAZs
+        VEHICLE_ROUTE =             1 << 13,    // Vehicle is placed over route
+        VEHICLE_EMBEDDED_ROUTE =    1 << 14,    // Vehicle has an embedded route
+        VEHICLE_FROMTO_EDGES =      1 << 15,    // Vehicle is placed over a from-to edges
+        VEHICLE_FROMTO_JUNCTIONS =  1 << 16,    // Vehicle is placed over a from-to junctions
+        VEHICLE_FROMTO_TAZS =       1 << 17,    // Vehicle is placed over a from-to TAZs
         // exclusive of plans
         PLAN_FROM_EDGE =            1 << 18,    // Plan starts in edge
         PLAN_FROM_TAZ =             1 << 19,    // Plan starts in TAZ
@@ -320,16 +320,16 @@ public:
     bool overRoute() const;
 
     /// @brief return true if tag correspond to a vehicle placed over an embedded route
-    bool overEmbeddedRoute() const;
+    bool vehicleOverEmbeddedRoute() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to edges
-    bool overFromToEdges() const;
+    bool vehicleOverFromToEdges() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to junctions
-    bool overFromToJunctions() const;
+    bool vehicleOverFromToJunctions() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
-    bool overFromToTAZs() const;
+    bool vehicleOverFromToTAZs() const;
 
     /// @brief return true if tag correspond to a plan that starts in edge
     bool planFromEdge() const;

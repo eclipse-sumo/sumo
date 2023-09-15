@@ -1722,10 +1722,10 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeEdges = originalVehicle->getParentDemandElements().at(1)->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1813,10 +1813,10 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeEdges = originalVehicle->getParentDemandElements().back()->getParentEdges();
         // get original route color
         routeColor = originalVehicle->getParentDemandElements().back()->getColor();
-    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverEmbeddedRoute()) {
         // get embedded route edges
         routeEdges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToEdges()) {
         // calculate path using from-via-to edges
         routeEdges = originalVehicle->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
@@ -1914,10 +1914,10 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -1979,10 +1979,10 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         route = originalVehicle->getParentDemandElements().back();
         // get route edges
         edges = route->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overEmbeddedRoute()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverEmbeddedRoute()) {
         // get embedded route edges
         edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
-    } else if (originalVehicle->getTagProperty().overFromToEdges()) {
+    } else if (originalVehicle->getTagProperty().vehicleOverFromToEdges()) {
         // just take parent edges (from and to)
         edges = originalVehicle->getParentEdges();
     }
@@ -2407,14 +2407,14 @@ GNERouteHandler::canReverse(const GNEDemandElement* element) {
         return canReverse(element->getNet(), SVC_PEDESTRIAN, element->getParentEdges());
     } else if (element->getTagProperty().overRoute()) {
         return canReverse(element->getNet(), element->getVClass(), element->getParentDemandElements().at(1)->getParentEdges());
-    } else if (element->getTagProperty().overEmbeddedRoute()) {
+    } else if (element->getTagProperty().vehicleOverEmbeddedRoute()) {
         return canReverse(element->getNet(), element->getVClass(), element->getChildDemandElements().front()->getParentEdges());
-    } else if (element->getTagProperty().overFromToEdges()) {
+    } else if (element->getTagProperty().vehicleOverFromToEdges()) {
         return canReverse(element->getNet(), element->getVClass(), element->getParentEdges());
-    } else if (element->getTagProperty().overFromToJunctions()) {
+    } else if (element->getTagProperty().vehicleOverFromToJunctions()) {
         return (element->getNet()->getPathManager()->getPathCalculator()->calculateDijkstraPath(element->getVClass(),
             element->getParentJunctions().back(), element->getParentJunctions().front()).size() > 0);
-    } else if (element->getTagProperty().overFromToTAZs()) {
+    } else if (element->getTagProperty().vehicleOverFromToTAZs()) {
         return true;
     } else {
         return false;
@@ -2454,17 +2454,17 @@ GNERouteHandler::reverse(GNEDemandElement* element) {
     if (element->getTagProperty().overRoute()) {
         // reverse parent route
         reverse(element->getParentDemandElements().at(1));
-    } else if (element->getTagProperty().overEmbeddedRoute()) {
+    } else if (element->getTagProperty().vehicleOverEmbeddedRoute()) {
         // reverse embedded route
         reverse(element->getChildDemandElements().front());
-    } else if (element->getTagProperty().overFromToJunctions()) {
+    } else if (element->getTagProperty().vehicleOverFromToJunctions()) {
         // get from to junctions
         const auto fromJunction = element->getAttribute(SUMO_ATTR_FROM_JUNCTION);
         const auto toJunction = element->getAttribute(SUMO_ATTR_TO_JUNCTION);
         // swap both attributes
         element->setAttribute(SUMO_ATTR_FROM_JUNCTION, toJunction, undoList);
         element->setAttribute(SUMO_ATTR_TO_JUNCTION, fromJunction, undoList);
-    } else if (element->getTagProperty().overFromToTAZs()) {
+    } else if (element->getTagProperty().vehicleOverFromToTAZs()) {
         // get from to TAZs
         const auto fromTAZ = element->getAttribute(SUMO_ATTR_FROM_TAZ);
         const auto toTAZ = element->getAttribute(SUMO_ATTR_TO_TAZ);

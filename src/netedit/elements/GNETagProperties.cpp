@@ -537,31 +537,31 @@ GNETagProperties::vClassIcon() const {
 
 bool
 GNETagProperties::overRoute() const {
-    return (myTagProperty & OVER_ROUTE) != 0;
+    return (myTagProperty & VEHICLE_ROUTE) != 0;
 }
 
 
 bool
-GNETagProperties::overEmbeddedRoute() const {
-    return (myTagProperty & OVER_EMBEDDED_ROUTE) != 0;
+GNETagProperties::vehicleOverEmbeddedRoute() const {
+    return (myTagProperty & VEHICLE_EMBEDDED_ROUTE) != 0;
 }
 
 
 bool
-GNETagProperties::overFromToEdges() const {
-    return (myTagProperty & OVER_FROMTO_EDGES) != 0;
+GNETagProperties::vehicleOverFromToEdges() const {
+    return (myTagProperty & VEHICLE_FROMTO_EDGES) != 0;
 }
 
 
 bool
-GNETagProperties::overFromToJunctions() const {
-    return (myTagProperty & OVER_FROMTO_JUNCTIONS) != 0;
+GNETagProperties::vehicleOverFromToJunctions() const {
+    return (myTagProperty & VEHICLE_FROMTO_JUNCTIONS) != 0;
 }
 
 
 bool
-GNETagProperties::overFromToTAZs() const {
-    return (myTagProperty & OVER_FROMTO_TAZS) != 0;
+GNETagProperties::vehicleOverFromToTAZs() const {
+    return (myTagProperty & VEHICLE_FROMTO_TAZS) != 0;
 }
 
 
