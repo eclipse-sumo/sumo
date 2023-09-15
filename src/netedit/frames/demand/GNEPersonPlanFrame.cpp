@@ -43,7 +43,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE_EDGE);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEAttributesCreator(this);
@@ -127,15 +127,18 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // Obtain current person plan tag (only for improve code legibility)
     SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     // declare flags for requirements
-    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_BUSSTOP) ||
-                                 (personPlanTag == GNE_TAG_RIDE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
-    const bool requireTrainStop = ((personPlanTag == GNE_TAG_PERSONTRIP_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_TRAINSTOP) ||
-                                   (personPlanTag == GNE_TAG_RIDE_TRAINSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_TRAINSTOP));
-    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE) ||
-                              (personPlanTag == GNE_TAG_RIDE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
+    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_BUSSTOP) ||
+                                 (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_TAZ_BUSSTOP) ||
+                                 (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
+    const bool requireTrainStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_TRAINSTOP) ||
+                                   (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_TAZ_TRAINSTOP) ||
+                                   (personPlanTag == GNE_TAG_RIDE_EDGE_TRAINSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_TRAINSTOP));
+    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE_EDGE) ||
+                              (personPlanTag == GNE_TAG_PERSONTRIP_TAZ_EDGE) || (personPlanTag == GNE_TAG_WALK_TAZ_EDGE) ||
+                              (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
                               (personPlanTag == GNE_TAG_STOPPERSON_EDGE));
-    const bool requireJunction = ((personPlanTag == GNE_TAG_PERSONTRIP_JUNCTIONS) || (personPlanTag == GNE_TAG_WALK_JUNCTIONS));
-    const bool requireTAZ = ((personPlanTag == GNE_TAG_PERSONTRIP_TAZS) || (personPlanTag == GNE_TAG_WALK_TAZS));
+    const bool requireJunction = ((personPlanTag == GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION) || (personPlanTag == GNE_TAG_WALK_JUNCTION_JUNCTION));
+    const bool requireTAZ = ((personPlanTag == GNE_TAG_PERSONTRIP_TAZ_TAZ) || (personPlanTag == GNE_TAG_WALK_TAZ_TAZ));
     // continue depending of tag
     if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
