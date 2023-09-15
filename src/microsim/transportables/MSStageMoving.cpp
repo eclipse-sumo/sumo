@@ -36,7 +36,7 @@
 * MSStageMoving - methods
 * ----------------------------------------------------------------------- */
 MSStageMoving::~MSStageMoving() {
-    if (myState->isFinished()) {
+    if (myState != nullptr && myState->isFinished()) {
         delete myState;
     }
 }
@@ -63,7 +63,7 @@ MSStageMoving::getEdges() const {
 
 double
 MSStageMoving::getEdgePos(SUMOTime now) const {
-    return myState == nullptr ? 0. : myState->getEdgePos(*this, now);
+    return myState == nullptr ? myDepartPos : myState->getEdgePos(*this, now);
 }
 
 int
