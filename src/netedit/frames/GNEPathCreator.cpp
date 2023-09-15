@@ -268,9 +268,9 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_EDGE;
             break;
         // edge->edge
-        case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_RIDE_EDGE:
-        case GNE_TAG_WALK_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_TRANSPORT_EDGE:
         case GNE_TAG_TRANSHIP_EDGE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
@@ -279,18 +279,18 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= END_EDGE;
             break;
         // edge->busStop
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_BUSSTOP;
             break;
         // edge->trainStop
-        case GNE_TAG_PERSONTRIP_TRAINSTOP:
-        case GNE_TAG_RIDE_TRAINSTOP:
-        case GNE_TAG_WALK_TRAINSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
+        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
+        case GNE_TAG_WALK_EDGE_TRAINSTOP:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= START_EDGE;
@@ -304,19 +304,40 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= START_EDGE;
             myCreationMode |= END_CONTAINERSTOP;
             break;
+        // taz->taz
+        case GNE_TAG_PERSONTRIP_TAZ_TAZ:
+        case GNE_TAG_WALK_TAZ_TAZ:
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_TAZ;
+            break;
+        // taz->edge
+        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
+        case GNE_TAG_WALK_TAZ_EDGE:
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_EDGE;
+            break;
+        // taz->busStop
+        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
+        case GNE_TAG_WALK_TAZ_BUSSTOP:
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_BUSSTOP;
+            break;
+        // taz->trainStop
+        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
+        case GNE_TAG_WALK_TAZ_TRAINSTOP:
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_TAZ;
+            myCreationMode |= END_TRAINSTOP;
+            break;
         // junction->junction
-        case GNE_TAG_PERSONTRIP_JUNCTIONS:
-        case GNE_TAG_WALK_JUNCTIONS:
+        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION:
+        case GNE_TAG_WALK_JUNCTION_JUNCTION:
             myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        // TAZ->TAZ
-        case GNE_TAG_PERSONTRIP_TAZS:
-        case GNE_TAG_WALK_TAZS:
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_TAZ;
             myCreationMode |= ONLY_FROMTO;
             break;
         // stops (person and containers)
