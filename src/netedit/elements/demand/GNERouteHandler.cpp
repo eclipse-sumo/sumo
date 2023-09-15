@@ -623,9 +623,9 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
 
 
 void
-GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                                 const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                                 const std::string& fromTAZID, const std::string& toTAZID, double arrivalPos, const std::vector<std::string>& types,
+GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromTAZID,
+                                 const std::string& fromJunctionID, const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID,
+                                 const std::string& toBusStopID, const std::string& toTrainStopID, double arrivalPos, const std::vector<std::string>& types,
                                  const std::vector<std::string>& modes, const std::vector<std::string>& lines) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
@@ -744,10 +744,10 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
 
 
 void
-GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID,
-                           const std::string& toTrainStopID, const std::vector<std::string>& edgeIDs, const std::string& routeID,
-                           const std::string& fromTAZID, const std::string& toTAZID, double arrivalPos) {
+GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromTAZID,
+                           const std::string& fromJunctionID, const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID,
+                           const std::string& toBusStopID, const std::string& toTrainStopID, const std::vector<std::string>& edgeIDs, const std::string& routeID,
+                           double arrivalPos) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
     // parse parents
@@ -1378,84 +1378,165 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     // check what PersonPlan we're creating
     switch (tag) {
         // Person Trips
-        case GNE_TAG_PERSONTRIP_EDGE: {
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
             // check if person trip busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", "", "", "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to edge needs two edges edge"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_PERSONTRIP_BUSSTOP: {
+        case GNE_TAG_PERSONTRIP_EDGE_TAZ: {
+            // check if person trip busStop->edge can be created
+            if (fromEdge && toTAZ) {
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
             // check if person trip busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), "", "", "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to busStop needs one edge and one busStop"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_PERSONTRIP_TRAINSTOP: {
+        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP: {
             // check if person trip trainStop->trainStop can be created
             if (fromEdge && toTrainStop) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", toTrainStop->getID(), "", "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to trainStop needs one edge and one trainStop"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_PERSONTRIP_JUNCTIONS: {
+        case GNE_TAG_PERSONTRIP_TAZ_EDGE: {
+            // check if person trip busStop->edge can be created
+            if (fromTAZ && toEdge) {
+                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_TAZ_TAZ: {
+            // check if person trip busStop->edge can be created
+            if (fromTAZ && toTAZ) {
+                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP: {
+            // check if person trip busStop->busStop can be created
+            if (fromTAZ && toBusStop) {
+                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP: {
+            // check if person trip trainStop->trainStop can be created
+            if (fromTAZ && toTrainStop) {
+                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION: {
             // check if person trip busStop->junction can be created
             if (fromJunction && toJunction) {
-                buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", "", "", "", arrivalPos, types, modes, lines);
+                buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A person trip from junction to junction needs two junctions junction"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_PERSONTRIP_TAZS: {
-            // check if person trip busStop->TAZ can be created
-            if (fromTAZ && toTAZ) {
-                buildPersonTrip(personPlanObject, "", "", "", "", "", "", fromTAZ->getID(), toTAZ->getID(), arrivalPos, types, modes, lines);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A person trip from TAZ to TAZ needs two TAZs TAZ"));
-                return false;
-            }
-            break;
-        }
-
         // Walks
-        case GNE_TAG_WALK_EDGE: {
-            // check if transport busStop->edge can be created
+        case GNE_TAG_WALK_EDGE_EDGE: {
+            // check if walk busStop->edge can be created
             if (fromEdge && toEdge) {
-                buildWalk(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", "", {}, "", "", "", arrivalPos);
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A walk to edge needs a busStop and an edge"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_WALK_BUSSTOP: {
-            // check if transport busStop->busStop can be created
+        case GNE_TAG_WALK_EDGE_TAZ: {
+            // check if walk busStop->edge can be created
+            if (fromEdge && toTAZ) {
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_EDGE_BUSSTOP: {
+            // check if walk busStop->busStop can be created
             if (fromEdge && toBusStop) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), "", {}, "", "", "", arrivalPos);
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A walk to busStop needs two busStops"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_WALK_TRAINSTOP: {
-            // check if transport trainStop->trainStop can be created
+        case GNE_TAG_WALK_EDGE_TRAINSTOP: {
+            // check if walk trainStop->trainStop can be created
             if (fromEdge && toTrainStop) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", toTrainStop->getID(), {}, "", "", "", arrivalPos);
+                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A walk to trainStop needs two trainStops"));
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_TAZ_EDGE: {
+            // check if walk busStop->edge can be created
+            if (fromTAZ && toEdge) {
+                buildWalk(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_TAZ_TAZ: {
+            // check if walk busStop->edge can be created
+            if (fromTAZ && toTAZ) {
+                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_TAZ_BUSSTOP: {
+            // check if walk busStop->busStop can be created
+            if (fromTAZ && toBusStop) {
+                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_TAZ_TRAINSTOP: {
+            // check if walk trainStop->trainStop can be created
+            if (fromTAZ && toTrainStop) {
+                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
+            } else {
+                return false;
+            }
+            break;
+        }
+        case GNE_TAG_WALK_JUNCTION_JUNCTION: {
+            // check if walk busStop->junction can be created
+            if (fromJunction && toJunction) {
+                buildWalk(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", {}, "", arrivalPos);
+            } else {
                 return false;
             }
             break;
@@ -1463,9 +1544,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_EDGES: {
             // check if transport edges can be created
             if (edges.size() > 0) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", edges, "", "", "", arrivalPos);
+                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", edges, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A walk with edges needs a list of edges"));
                 return false;
             }
             break;
@@ -1473,60 +1553,36 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_WALK_ROUTE: {
             // check if transport edges can be created
             if (route) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", {}, route->getID(), "", "", arrivalPos);
+                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, route->getID(), arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A route walk needs a route"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_JUNCTIONS: {
-            // check if transport busStop->junction can be created
-            if (fromJunction && toJunction) {
-                buildWalk(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", "", {}, "", "", "", arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to junction needs a busStop and an junction"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_TAZS: {
-            // check if transport busStop->TAZ can be created
-            if (fromTAZ && toTAZ) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", {}, "", fromTAZ->getID(), toTAZ->getID(), arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to TAZ needs a busStop and an TAZ"));
                 return false;
             }
             break;
         }
         // Rides
-        case GNE_TAG_RIDE_EDGE: {
+        case GNE_TAG_RIDE_EDGE_EDGE: {
             // check if ride edge->edge can be created
             if (fromEdge && toEdge) {
                 buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", arrivalPos, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to edge needs two edges edge"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_RIDE_BUSSTOP: {
+        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
             // check if ride edge->busStop can be created
             if (fromEdge && toBusStop) {
                 buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), "", arrivalPos, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to busStop needs one edge and one busStop"));
                 return false;
             }
             break;
         }
-        case GNE_TAG_RIDE_TRAINSTOP: {
+        case GNE_TAG_RIDE_EDGE_TRAINSTOP: {
             // check if ride edge->trainStop can be created
             if (fromEdge && toTrainStop) {
                 buildRide(personPlanObject, fromEdge->getID(), "", "", toTrainStop->getID(), arrivalPos, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to trainStop needs one edge and one trainStop"));
                 return false;
             }
             break;
