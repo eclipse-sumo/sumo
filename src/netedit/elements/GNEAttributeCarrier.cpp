@@ -4944,7 +4944,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         fillPlanTazTrainStopAttributes(currentTag);
         fillPersonTripCommonAttributes(currentTag);
     }
-    currentTag = GNE_TAG_PERSONTRIP_JUNCTIONS;
+    currentTag = GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
