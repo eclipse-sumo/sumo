@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-10 16:20:45 by Eclipse SUMO sumo Version v1_17_0+2283-0f8f20d25f6
+<!-- generated on 2023-09-15 18:06:29 by Eclipse SUMO sumo Version v1_18_0+1597-bbb77ce3073
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -467,8 +467,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="142.00">
         <person id="p_0" x="197.21" y="-1.60" angle="90.00" speed="1.39" pos="97.21" edge="E1" slope="0.00"/>
     </timestep>
-    <timestep time="143.00">
-        <person id="p_0" x="198.60" y="-1.60" angle="90.00" speed="1.39" pos="98.60" edge="E1" slope="0.00"/>
-    </timestep>
-    <timestep time="144.00"/>
+    <timestep time="143.00"/>
 </fcd-export>

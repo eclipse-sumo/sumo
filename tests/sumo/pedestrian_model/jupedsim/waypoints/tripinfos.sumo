@@ -34,11 +34,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
+    <fcd_device>
+        <device.fcd.period value="10"/>
+    </fcd_device>
+
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <walk depart="0.00" departPos="0.00" arrival="249.00" arrivalPos="44.46" duration="249.00" routeLength="344.90" timeLoss="0.67" maxSpeed="1.39"/>
+        <walk depart="0.00" departPos="0.00" arrival="37.00" arrivalPos="3.02" duration="37.00" routeLength="53.43" timeLoss="-1.47" maxSpeed="1.39"/>
+        <walk depart="37.00" departPos="3.02" arrival="119.00" arrivalPos="3.06" duration="82.00" routeLength="118.95" timeLoss="-3.65" maxSpeed="1.39"/>
+        <walk depart="119.00" departPos="3.06" arrival="151.00" arrivalPos="2.88" duration="32.00" routeLength="46.29" timeLoss="-1.33" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
