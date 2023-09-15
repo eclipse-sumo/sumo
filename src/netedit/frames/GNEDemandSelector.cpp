@@ -213,8 +213,8 @@ DemandElementSelector::refreshDemandElementSelector() {
 }
 
 
-GNEEdge*
-DemandElementSelector::getPersonPlanPreviousEdge() const {
+GNEAttributeCarrier*
+DemandElementSelector::getPreviousPlanElement() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
@@ -225,79 +225,26 @@ DemandElementSelector::getPersonPlanPreviousEdge() const {
         return nullptr;
     }
     // get last person plan
-    const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
-    // check tag
-    switch (lastPersonPlan->getTagProperty().getTag()) {
-        // person trips
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
-        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
-        // rides
-        case GNE_TAG_RIDE_EDGE_EDGE:
-        // walks
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_WALK_TAZ_EDGE:
-        case GNE_TAG_WALK_EDGES:
-        // stops
-        case GNE_TAG_STOPPERSON_EDGE:
-            return lastPersonPlan->getParentEdges().back();
-        // person trips
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
-        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
-        // rides
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
-        // walks
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_TRAINSTOP:
-        case GNE_TAG_WALK_TAZ_BUSSTOP:
-        case GNE_TAG_WALK_TAZ_TRAINSTOP:
-        // stops
-        case GNE_TAG_STOPPERSON_BUSSTOP:
-        case GNE_TAG_STOPPERSON_TRAINSTOP:
-            return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
-        // route walks
-        case GNE_TAG_WALK_ROUTE:
-            return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
-        default:
-            return nullptr;
-    }
-}
-
-
-GNEEdge*
-DemandElementSelector::getContainerPlanPreviousEdge() const {
-    if (myCurrentDemandElement == nullptr) {
+    const GNEDemandElement* lastPlan = myCurrentDemandElement->getChildDemandElements().back();
+    // continue depending of tagProperty
+    if (lastPlan->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+        // route
+        return lastPlan->getParentDemandElements().back()->getParentEdges().back();
+    } else if (lastPlan->getTagProperty().planToEdge() ||
+        lastPlan->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+        // edge
+        return lastPlan->getParentEdges().back();
+    } else if (lastPlan->getTagProperty().planToJunction()) {
+        // junction
+        return lastPlan->getParentJunctions().back();
+    } else if (lastPlan->getTagProperty().planToTAZ() ||
+               lastPlan->getTagProperty().planToBusStop() ||
+               lastPlan->getTagProperty().planToTrainStop() ||
+               lastPlan->getTagProperty().planToContainerStop()) {
+        // additional
+        return lastPlan->getParentAdditionals().back();
+    } else {
         return nullptr;
-    }
-    if (!myCurrentDemandElement->getTagProperty().isContainer()) {
-        return nullptr;
-    }
-    if (myCurrentDemandElement->getChildDemandElements().empty()) {
-        return nullptr;
-    }
-    // get last container plan
-    const GNEDemandElement* lastContainerPlan = myCurrentDemandElement->getChildDemandElements().back();
-    // check tag
-    switch (lastContainerPlan->getTagProperty().getTag()) {
-        // transport
-        case GNE_TAG_TRANSPORT_EDGE:
-        // tranship
-        case GNE_TAG_TRANSHIP_EDGE:
-        case GNE_TAG_TRANSHIP_EDGES:
-        // stop
-        case GNE_TAG_STOPCONTAINER_EDGE:
-            return lastContainerPlan->getParentEdges().back();
-        // transport
-        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
-        // tranship
-        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
-        // stop
-        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
-            return lastContainerPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
-        default:
-            return nullptr;
     }
 }
 

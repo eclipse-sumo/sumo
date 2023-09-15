@@ -70,11 +70,8 @@ public:
     /// @brief refresh demand element selector
     void refreshDemandElementSelector();
 
-    /// @brief get previous edge for the current person plan
-    GNEEdge* getPersonPlanPreviousEdge() const;
-
-    /// @brief get previous edge for the current container plan
-    GNEEdge* getContainerPlanPreviousEdge() const;
+    /// @brief get previous plan element
+    GNEAttributeCarrier* getPreviousPlanElement() const;
 
     /// @name FOX-callbacks
     /// @{
