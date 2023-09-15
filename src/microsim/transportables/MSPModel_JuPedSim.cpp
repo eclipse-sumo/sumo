@@ -271,9 +271,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             assert(result == false); // The person has not arrived yet.
         }
         
-        // If near the last waypoint, remove the agent.
         if (newPosition.distanceTo2D(state->getNextWaypoint()) < 2 * myExitTolerance) {
             while (!stage->moveToNextEdge(person, time, 1, nullptr));
+            // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 registerArrived();
                 JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);

@@ -96,6 +96,11 @@ private:
         const Position& getNextWaypoint() const;
         JPS_AgentId getAgentId() const;
 
+        /// @brief whether the transportable has finished walking
+        bool isFinished() const {
+            return myWaypoints.empty();
+        }
+
         void setAgentId(JPS_AgentId id) {
             myAgentId = id;
             myWaitingToEnter = false;

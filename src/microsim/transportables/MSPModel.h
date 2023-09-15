@@ -203,7 +203,12 @@ public:
         return false;
     }
 
-    /// @brief whether the transportable is jammed
+    /// @brief whether the transportable has finished walking
+    virtual bool isFinished() const {
+        return true;
+    }
+
+    /// @brief the current lane of the transportable
     virtual const MSLane* getLane() const {
         return nullptr;
     }
