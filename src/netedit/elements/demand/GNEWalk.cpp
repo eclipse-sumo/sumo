@@ -47,7 +47,15 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
     std::vector<GNEEdge*> edges;
     std::vector<GNEAdditional*> additionals;
     // continue depending of input parameters
-    if (fromEdge) {
+    if (edgeList.size() > 0) {
+        edges = edgeList;
+        tag = GNE_TAG_WALK_EDGES;
+        icon = GUIIcon::WALK_EDGES;
+    } else if (route) {
+        demandElements.push_back(route);
+        tag = GNE_TAG_WALK_ROUTE;
+        icon = GUIIcon::WALK_ROUTE;
+    } else if (fromEdge) {
         edges.push_back(fromEdge);
         if (toEdge) {
             edges.push_back(toEdge);
@@ -92,14 +100,6 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
             tag = GNE_TAG_WALK_JUNCTION_JUNCTION;
             icon = GUIIcon::WALK_JUNCTION;
         }
-    } else if (edgeList.size() > 0) {
-        edges = edgeList;
-        tag = GNE_TAG_WALK_EDGES;
-        icon = GUIIcon::WALK_EDGES;
-    } else if (route) {
-        demandElements.push_back(route);
-        tag = GNE_TAG_WALK_ROUTE;
-        icon = GUIIcon::WALK_ROUTE;
     }
     // check if combination was correct
     if (tag == SUMO_TAG_NOTHING) {
