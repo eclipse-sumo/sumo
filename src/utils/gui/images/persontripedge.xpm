@@ -1,5 +1,5 @@
 /* XPM */
-static const char *persontripfromto_xpm[] = {
+static const char *persontripedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 5 1",
 "  c black",

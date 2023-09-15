@@ -1,5 +1,5 @@
 /* XPM */
-static const char *transportfromto_xpm[] = {
+static const char *transportedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 6 1",
 "  c None",

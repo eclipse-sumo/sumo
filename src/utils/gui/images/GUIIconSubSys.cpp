@@ -362,28 +362,28 @@
 #include "waypoint.xpm"
 #include "person.xpm"
 #include "personflow.xpm"
-#include "persontripfromto.xpm"
+#include "persontripedge.xpm"
 #include "persontripbusstop.xpm"
 #include "persontriptrainstop.xpm"
-#include "persontripjunctions.xpm"
-#include "persontriptazs.xpm"
+#include "persontripjunction.xpm"
+#include "persontriptaz.xpm"
 #include "walkedges.xpm"
-#include "walkfromto.xpm"
+#include "walkedge.xpm"
 #include "walkbusstop.xpm"
 #include "walktrainstop.xpm"
 #include "walkroute.xpm"
-#include "walkjunctions.xpm"
-#include "walktazs.xpm"
-#include "ridefromto.xpm"
+#include "walkjunction.xpm"
+#include "walktaz.xpm"
+#include "rideedge.xpm"
 #include "ridebusstop.xpm"
 #include "ridetrainstop.xpm"
 #include "container.xpm"
 #include "containerflow.xpm"
 #include "transhipcontainerstop.xpm"
 #include "transhipedges.xpm"
-#include "transhipfromto.xpm"
+#include "transhipedge.xpm"
 #include "transportcontainerstop.xpm"
-#include "transportfromto.xpm"
+#include "transportedge.xpm"
 
 
 #include "dataset.xpm"
@@ -855,28 +855,28 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WAYPOINT] = new FXXPMIcon(a, waypoint_xpm);
     myIcons[GUIIcon::PERSON] = new FXXPMIcon(a, person_xpm);
     myIcons[GUIIcon::PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
-    myIcons[GUIIcon::PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
+    myIcons[GUIIcon::PERSONTRIP_EDGE] = new FXXPMIcon(a, persontripedge_xpm);
     myIcons[GUIIcon::PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
     myIcons[GUIIcon::PERSONTRIP_TRAINSTOP] = new FXXPMIcon(a, persontriptrainstop_xpm);
-    myIcons[GUIIcon::PERSONTRIP_JUNCTIONS] = new FXXPMIcon(a, persontripjunctions_xpm);
-    myIcons[GUIIcon::PERSONTRIP_TAZS] = new FXXPMIcon(a, persontriptazs_xpm);
+    myIcons[GUIIcon::PERSONTRIP_JUNCTION] = new FXXPMIcon(a, persontripjunction_xpm);
+    myIcons[GUIIcon::PERSONTRIP_TAZ] = new FXXPMIcon(a, persontriptaz_xpm);
     myIcons[GUIIcon::WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
-    myIcons[GUIIcon::WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
+    myIcons[GUIIcon::WALK_EDGE] = new FXXPMIcon(a, walkedge_xpm);
     myIcons[GUIIcon::WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
     myIcons[GUIIcon::WALK_TRAINSTOP] = new FXXPMIcon(a, walktrainstop_xpm);
     myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
-    myIcons[GUIIcon::WALK_JUNCTIONS] = new FXXPMIcon(a, walkjunctions_xpm);
-    myIcons[GUIIcon::WALK_TAZS] = new FXXPMIcon(a, walktazs_xpm);
-    myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
+    myIcons[GUIIcon::WALK_JUNCTION] = new FXXPMIcon(a, walkjunction_xpm);
+    myIcons[GUIIcon::WALK_TAZ] = new FXXPMIcon(a, walktaz_xpm);
+    myIcons[GUIIcon::RIDE_EDGE] = new FXXPMIcon(a, rideedge_xpm);
     myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
     myIcons[GUIIcon::RIDE_TRAINSTOP] = new FXXPMIcon(a, ridetrainstop_xpm);
 
     myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
     myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
-    myIcons[GUIIcon::TRANSPORT_FROMTO] = new FXXPMIcon(a, transportfromto_xpm);
+    myIcons[GUIIcon::TRANSPORT_EDGE] = new FXXPMIcon(a, transportedge_xpm);
     myIcons[GUIIcon::TRANSPORT_CONTAINERSTOP] = new FXXPMIcon(a, transportcontainerstop_xpm);
     myIcons[GUIIcon::TRANSHIP_EDGES] = new FXXPMIcon(a, transhipedges_xpm);
-    myIcons[GUIIcon::TRANSHIP_FROMTO] = new FXXPMIcon(a, transhipfromto_xpm);
+    myIcons[GUIIcon::TRANSHIP_EDGE] = new FXXPMIcon(a, transhipedge_xpm);
     myIcons[GUIIcon::TRANSHIP_CONTAINERSTOP] = new FXXPMIcon(a, transhipcontainerstop_xpm);
 
     myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);

@@ -1,5 +1,5 @@
 /* XPM */
-static const char *ridefromto_xpm[] = {
+static const char *rideedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 9 1",
 "  c blue",

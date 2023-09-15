@@ -47,7 +47,7 @@ GNERide::buildRide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdg
         if (toEdge) {
             edges.push_back(toEdge);
             tag = GNE_TAG_RIDE_EDGE_EDGE;
-            icon = GUIIcon::RIDE_FROMTO;
+            icon = GUIIcon::RIDE_EDGE;
         } else if (toBusStop) {
             additionals.push_back(toBusStop);
             tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
@@ -68,7 +68,7 @@ GNERide::buildRide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdg
 
 
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
+    GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     GNEDemandElementPlan(this, -1) {
     // reset default values

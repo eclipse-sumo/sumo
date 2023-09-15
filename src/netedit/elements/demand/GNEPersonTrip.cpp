@@ -50,11 +50,11 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
         if (toEdge) {
             edges.push_back(toEdge);
             tag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
-            icon = GUIIcon::PERSONTRIP_FROMTO;
+            icon = GUIIcon::PERSONTRIP_EDGE;
         } else if (toTAZ) {
             additionals.push_back(toTAZ);
             tag = GNE_TAG_PERSONTRIP_EDGE_TAZ;
-            icon = GUIIcon::PERSONTRIP_TAZS;
+            icon = GUIIcon::PERSONTRIP_TAZ;
         } else if (toBusStop) {
             additionals.push_back(toBusStop);
             tag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
@@ -69,11 +69,11 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
         if (toEdge) {
             edges.push_back(toEdge);
             tag = GNE_TAG_PERSONTRIP_TAZ_EDGE;
-            icon = GUIIcon::PERSONTRIP_FROMTO;
+            icon = GUIIcon::PERSONTRIP_EDGE;
         } else if (toTAZ) {
             additionals.push_back(toTAZ);
             tag = GNE_TAG_PERSONTRIP_TAZ_TAZ;
-            icon = GUIIcon::PERSONTRIP_TAZS;
+            icon = GUIIcon::PERSONTRIP_TAZ;
         } else if (toBusStop) {
             additionals.push_back(toBusStop);
             tag = GNE_TAG_PERSONTRIP_TAZ_BUSSTOP;
@@ -88,7 +88,7 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
         if (toJunction) {
             junctions.push_back(toJunction);
             tag = GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
-            icon = GUIIcon::PERSONTRIP_JUNCTIONS;
+            icon = GUIIcon::PERSONTRIP_JUNCTION;
         }
     }
     // check if combination was correct
@@ -101,7 +101,7 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
 
 
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
+    GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     GNEDemandElementPlan(this, -1) {
     // reset default values

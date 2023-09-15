@@ -1,5 +1,5 @@
 /* XPM */
-static const char *walkfromto_xpm[] = {
+static const char *walkedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 5 1",
 "  c green",

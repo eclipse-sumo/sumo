@@ -52,11 +52,11 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
         if (toEdge) {
             edges.push_back(toEdge);
             tag = GNE_TAG_WALK_EDGE_EDGE;
-            icon = GUIIcon::WALK_FROMTO;
+            icon = GUIIcon::WALK_EDGE;
         } else if (toTAZ) {
             additionals.push_back(toTAZ);
             tag = GNE_TAG_WALK_EDGE_TAZ;
-            icon = GUIIcon::WALK_TAZS;
+            icon = GUIIcon::WALK_TAZ;
         } else if (toBusStop) {
             additionals.push_back(toBusStop);
             tag = GNE_TAG_WALK_EDGE_BUSSTOP;
@@ -71,11 +71,11 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
         if (toEdge) {
             edges.push_back(toEdge);
             tag = GNE_TAG_WALK_TAZ_EDGE;
-            icon = GUIIcon::WALK_FROMTO;
+            icon = GUIIcon::WALK_EDGE;
         } else if (toTAZ) {
             additionals.push_back(toTAZ);
             tag = GNE_TAG_WALK_TAZ_TAZ;
-            icon = GUIIcon::WALK_TAZS;
+            icon = GUIIcon::WALK_TAZ;
         } else if (toBusStop) {
             additionals.push_back(toBusStop);
             tag = GNE_TAG_WALK_TAZ_BUSSTOP;
@@ -90,7 +90,7 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
         if (toJunction) {
             junctions.push_back(toJunction);
             tag = GNE_TAG_WALK_JUNCTION_JUNCTION;
-            icon = GUIIcon::WALK_JUNCTIONS;
+            icon = GUIIcon::WALK_JUNCTION;
         }
     } else if (edgeList.size() > 0) {
         edges = edgeList;
@@ -111,7 +111,7 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
 
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
+    GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     GNEDemandElementPlan(this, -1) {
     // reset default values

@@ -1,11 +1,11 @@
 /* XPM */
-static const char *walktazs_xpm[] = {
+static const char *persontriptaz_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 5 1",
 "  c black",
 ". c red",
 "X c #0026FF",
-"o c #00FF00",
+"o c #C800FF",
 "O c white",
 /* pixels */
 "ooXooooooooooooo",

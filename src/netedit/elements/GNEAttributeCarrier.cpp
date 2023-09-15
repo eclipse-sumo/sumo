@@ -4854,7 +4854,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->edge"),
+                                      GUIIcon::PERSONTRIP_EDGE, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->edge"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillPlanEdgeEdgeAttributes(currentTag);
@@ -4866,7 +4866,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_TAZ | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_TAZS, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->taz"),
+                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->taz"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillPlanEdgeTazAttributes(currentTag);
@@ -4902,7 +4902,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::PLAN_FROM_TAZ | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->edge"),
+                                      GUIIcon::PERSONTRIP_EDGE, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->edge"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillPlanTazEdgeAttributes(currentTag);
@@ -4914,7 +4914,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::PLAN_FROM_TAZ | GNETagProperties::TagProperty::PLAN_TO_TAZ | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_TAZS, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->taz"),
+                                      GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->taz"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillPlanTazTazAttributes(currentTag);
@@ -4950,7 +4950,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
                                       GNETagProperties::TagProperty::PLAN_FROM_JUNCTION | GNETagProperties::TagProperty::PLAN_TO_JUNCTION | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::PERSONTRIP_JUNCTIONS, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->junction"),
+                                      GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->junction"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         fillPlanJunctionJunctionAttributes(currentTag);
@@ -4970,7 +4970,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, TL("walk: edge->edge"),
+                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("walk: edge->edge"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanEdgeEdgeAttributes(currentTag);
@@ -4981,7 +4981,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_TAZ | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_TAZS, SUMO_TAG_WALK, TL("walk: edge->taz"),
+                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("walk: edge->taz"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanEdgeTazAttributes(currentTag);
@@ -5014,7 +5014,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::PLAN_FROM_TAZ | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, TL("walk: taz->edge"),
+                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("walk: taz->edge"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanTazEdgeAttributes(currentTag);
@@ -5025,7 +5025,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::PLAN_FROM_TAZ | GNETagProperties::TagProperty::PLAN_TO_TAZ | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_TAZS, SUMO_TAG_WALK, TL("walk: taz->taz"),
+                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("walk: taz->taz"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanTazTazAttributes(currentTag);
@@ -5058,7 +5058,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
                                       GNETagProperties::TagProperty::PLAN_FROM_JUNCTION | GNETagProperties::TagProperty::PLAN_TO_JUNCTION | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::WALK_JUNCTIONS, SUMO_TAG_WALK, TL("walk: junction->junction"),
+                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("walk: junction->junction"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanJunctionJunctionAttributes(currentTag);

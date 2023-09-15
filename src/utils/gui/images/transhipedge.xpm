@@ -1,5 +1,5 @@
 /* XPM */
-static const char *transhipfromto_xpm[] = {
+static const char *transhipedge_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 5 1",
 "  c None",

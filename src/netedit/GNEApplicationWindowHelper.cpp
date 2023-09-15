@@ -1428,17 +1428,17 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 
     menuCheckLockPersonTrip = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                               TL("PersonTrips"), "", "",
-                              GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_FROMTO),
+                              GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
                               myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockWalk = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                         TL("Walks"), "", "",
-                        GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
+                        GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
                         myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockRides = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                          TL("Rides"), "", "",
-                         GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
+                         GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE),
                          myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockContainers = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
@@ -1448,12 +1448,12 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
 
     menuCheckLockTransports = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                               TL("Transports"), "", "",
-                              GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_FROMTO),
+                              GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_EDGE),
                               myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockTranships = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                              TL("Tranships"), "", "",
-                             GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+                             GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                              myGNEApp, MID_GNE_LOCK_ELEMENT);
 
     menuCheckLockStops = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
