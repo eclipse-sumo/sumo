@@ -336,7 +336,7 @@ Outside the repository directory, but at the same level, you will need two direc
 ``` bash
 mkdir jupedsim-build jupedsim-install
 cd jupedsim-build
-cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ..
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ../jupedsim
 cmake --build .
 cmake --install .
 ```
