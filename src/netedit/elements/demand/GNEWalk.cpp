@@ -33,6 +33,83 @@
 // method definitions
 // ===========================================================================
 
+GNEWalk*
+GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction,
+        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route) {
+    // declare icon an tag
+    SumoXMLTag tag = SUMO_TAG_NOTHING;
+    GUIIcon icon = GUIIcon::PERSON;
+    // declare containers
+    std::vector<GNEDemandElement*> demandElements = {personParent};
+    std::vector<GNEJunction*> junctions;
+    std::vector<GNEEdge*> edges;
+    std::vector<GNEAdditional*> additionals;
+    // continue depending of input parameters
+    if (fromEdge) {
+        edges.push_back(fromEdge);
+        if (toEdge) {
+            edges.push_back(toEdge);
+            tag = GNE_TAG_WALK_EDGE_EDGE;
+            icon = GUIIcon::WALK_FROMTO;
+        } else if (toTAZ) {
+            additionals.push_back(toTAZ);
+            tag = GNE_TAG_WALK_EDGE_TAZ;
+            icon = GUIIcon::WALK_TAZS;
+        } else if (toBusStop) {
+            additionals.push_back(toBusStop);
+            tag = GNE_TAG_WALK_EDGE_BUSSTOP;
+            icon = GUIIcon::WALK_BUSSTOP;
+        } else if (toTrainStop) {
+            additionals.push_back(toTrainStop);
+            tag = GNE_TAG_WALK_EDGE_TRAINSTOP;
+            icon = GUIIcon::WALK_TRAINSTOP;
+        }
+    } else if (fromTAZ) {
+        additionals.push_back(fromTAZ);
+        if (toEdge) {
+            edges.push_back(toEdge);
+            tag = GNE_TAG_WALK_TAZ_EDGE;
+            icon = GUIIcon::WALK_FROMTO;
+        } else if (toTAZ) {
+            additionals.push_back(toTAZ);
+            tag = GNE_TAG_WALK_TAZ_TAZ;
+            icon = GUIIcon::WALK_TAZS;
+        } else if (toBusStop) {
+            additionals.push_back(toBusStop);
+            tag = GNE_TAG_WALK_TAZ_BUSSTOP;
+            icon = GUIIcon::WALK_BUSSTOP;
+        } else if (toTrainStop) {
+            additionals.push_back(toTrainStop);
+            tag = GNE_TAG_WALK_TAZ_TRAINSTOP;
+            icon = GUIIcon::WALK_TRAINSTOP;
+        }
+    } else if (fromJunction) {
+        junctions.push_back(fromJunction);
+        if (toJunction) {
+            junctions.push_back(toJunction);
+            tag = GNE_TAG_WALK_JUNCTION_JUNCTION;
+            icon = GUIIcon::WALK_JUNCTIONS;
+        }
+    } else if (edgeList.size() > 0) {
+        edges = edgeList;
+        tag = GNE_TAG_WALK_EDGES;
+        icon = GUIIcon::WALK_EDGES;
+    } else if (route) {
+        demandElements.push_back(route);
+        tag = GNE_TAG_WALK_ROUTE;
+        icon = GUIIcon::WALK_ROUTE;
+    }
+    // check if combination was correct
+    if (tag == SUMO_TAG_NOTHING) {
+        throw ProcessError("Invalid walk input combination");
+    } else {
+        return new GNEWalk(net, tag, icon, demandElements, junctions, edges, additionals,arrivalPosition);
+    }
+}
+
+
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
@@ -42,55 +119,13 @@ GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
-GNEWalk::GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, isTrain ? GNE_TAG_WALK_TRAINSTOP : GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(isTrain ? GUIIcon::WALK_TRAINSTOP : GUIIcon::WALK_BUSSTOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toAdditional}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {personParent, route}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::WALK_JUNCTIONS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_TAZS, GUIIconSubSys::getIcon(GUIIcon::WALK_TAZS),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {fromTAZ, toTAZ}, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
-}
-
-
 GNEWalk::~GNEWalk() {}
 
 
 GNEMoveOperation*
 GNEWalk::getMoveOperation() {
     // only move personTrips defined over edges
-    if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_EDGES)) {
+    if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_EDGES)) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared
@@ -310,6 +345,14 @@ GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
+}
+
+
+GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*> &parents, const std::vector<GNEJunction*> &junctions,
+                             const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition) :
+    GNEDemandElement(parents.front(), net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, parents, {}),
+    GNEDemandElementPlan(this, arrivalPosition) {
 }
 
 /****************************************************************************/

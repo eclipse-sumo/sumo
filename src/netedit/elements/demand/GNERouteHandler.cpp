@@ -742,118 +742,51 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     }
     // check conditions
     if (personParent) {
-        if (edges.size() > 0) {
-            // create walk edges
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, edges, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
-                for (const auto& edge : edges) {
-                    edge->addChildElement(walk);
-                }
-                walk->incRef("buildWalkEdges");
-            }
-        } else if (route) {
-            // create walk over route
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, route, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
-                route->addChildElement(walk);
-                walk->incRef("buildWalkRoute");
-            }
-        } else if (fromEdge && toEdge) {
-            // create walk from->to (edges)
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toEdge, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
+        // build person trip
+        GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent, 
+            fromEdge, fromTAZ, fromJunction, toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
+            arrivalPos, edges, route);
+        // continue depending of undo.redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(walk);
+            // set child references
+            personParent->addChildElement(walk);
+            if (fromEdge) {
                 fromEdge->addChildElement(walk);
-                toEdge->addChildElement(walk);
-                walk->incRef("buildWalkFromTo");
             }
-        } else if (fromEdge && toBusStop) {
-            // create walk from->busStop
-            GNEDemandElement* walk = new GNEWalk(false, myNet, personParent, fromEdge, toBusStop, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
-                fromEdge->addChildElement(walk);
-                toBusStop->addChildElement(walk);
-                walk->incRef("buildWalkFromBusStop");
-            }
-        } else if (fromEdge && toTrainStop) {
-            // create walk from->trainStop
-            GNEDemandElement* walk = new GNEWalk(true, myNet, personParent, fromEdge, toTrainStop, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
-                fromEdge->addChildElement(walk);
-                toTrainStop->addChildElement(walk);
-                walk->incRef("buildWalkFromTrainStop");
-            }
-        } else if (fromJunction && toJunction) {
-            // create walk from->to (junction)
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromJunction, toJunction, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
-                fromJunction->addChildElement(walk);
-                toJunction->addChildElement(walk);
-                walk->incRef("buildWalkFromTo");
-            }
-        } else if (fromTAZ && toTAZ) {
-            // create walk from->to (TAZ)
-            GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromTAZ, toTAZ, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(walk, TL("add ") + walk->getTagStr() + " in '" + personParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(walk);
-                // set child references
-                personParent->addChildElement(walk);
+            if (fromTAZ) {
                 fromTAZ->addChildElement(walk);
-                toTAZ->addChildElement(walk);
-                walk->incRef("buildWalkFromTo");
             }
+            if (toEdge) {
+                toEdge->addChildElement(walk);
+            }
+            if (fromJunction) {
+                fromJunction->addChildElement(walk);
+            }
+            if (toJunction) {
+                toJunction->addChildElement(walk);
+            }
+            if (toTAZ) {
+                toTAZ->addChildElement(walk);
+            }
+            if (toBusStop) {
+                toBusStop->addChildElement(walk);
+            }
+            if (toTrainStop) {
+                toTrainStop->addChildElement(walk);
+            }
+            for (const auto &edge : edges) {
+                edge->addChildElement(walk);
+            }
+            if (route) {
+                route->addChildElement(walk);
+            }
+            walk->incRef("buildWalk");
         }
     }
 }
