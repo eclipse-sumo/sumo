@@ -439,13 +439,14 @@ MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
         const double arrivalPos, const double dist, const bool isExit) :
     MSStage(destination, toStop, arrivalPos, MSStageType::ACCESS),
-    myOrigin(origin),
-    myDist(dist), myAmExit(isExit) {
-    const MSEdge* accessEdge = myAmExit ? destination : origin;
-    myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(accessEdge)));
-    myPath.push_back(toStop->getCenterPos());
+    myOrigin(origin), myDist(dist), myAmExit(isExit) {
+    const MSEdge* const accessEdge = myAmExit ? destination : origin;
     if (isExit) {
-        myPath = myPath.reverse();
+        myPath.push_back(toStop->getCenterPos());
+        myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(arrivalPos));
+    } else {
+        myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(accessEdge)));
+        myPath.push_back(toStop->getCenterPos());
     }
 }
 
@@ -552,7 +553,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
         } else {
             const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
             if (accessDist > 0.) {
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access(stopEdge, (*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(stopEdge, (*myStep)->getFromEdge(), prevStop, (*myStep)->getEdgePos(0), accessDist, true));
                 return true;
             }
         }
