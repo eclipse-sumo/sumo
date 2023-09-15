@@ -38,65 +38,31 @@ class GNEVehicle;
 
 class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
-public:
+public:    
+    /**@brief general constructor for personTrip
+     * @param[in] net Network in which this PersonTrip is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromTAZ from TAZ
+     * @param[in] fromJunction from Junction
+     * @param[in] toEdge to edge
+     * @param[in] toTAZ to TAZ
+     * @param[in] toJunction to Junction
+     * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] types list of possible vehicle types to take
+     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
+     */
+    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction,
+        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+        const std::vector<std::string>& lines);
+
     /// @brief default constructor
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for personTrip edge->edge
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for personTrip edge->stoppingPlace
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toStoppingPlace to stoppingPlace
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toStoppingPlace,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for personTrip junction->junction
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromJunction from junction
-     * @param[in] toJunction to junction
-     * @param[in] arrivalPosition arrival position on the destination junction
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for personTrip TAZ->TAZ
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromTAZ from TAZ
-     * @param[in] toTAZ to TAZ
-     * @param[in] arrivalPosition arrival position on the destination TAZ
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -271,6 +237,22 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildPersonTrip
+     * @param[in] net Network in which this PersonTrip is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] junction from-to juncitons
+     * @param[in] eges from-to edges
+     * @param[in] additionlas from-to additionals
+     * @param[in] types list of possible vehicle types to take
+     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
+     */
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*> &junctions,
+                  const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition,
+                  const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;
