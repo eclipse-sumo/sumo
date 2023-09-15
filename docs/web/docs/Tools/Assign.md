@@ -49,8 +49,8 @@ The first option passes it's arguments only to the [sumo](../sumo.md) process. T
     Options, prefixed with **duarouter--** must be the last in the list of all options
 
 
-##  duaIterateMix.py 
-This tool is designed to solve the multiclass traffic assignment problem for mixed traffic flow. Most of the options in this tool are similar to those in duaIterate.py, with a few exceptions. To solve the multiclass traffic assignment problem, you need to provide two demand files. Use the option -t to specify the demand for UE-seeking vehicles, and use the option -r to specify the demand for SO-seeking vehicles. To obtain the multiclass traffic assignment solution, you should set the following options: --mix, --marginal-cost, and --marginal-cost.exp.
+## duaIterateMix.py 
+This tool is designed to solve the multiclass traffic assignment problem for mixed traffic flow. Most of the options in this tool are similar to those in [duaIterate.py](#duaiteratepy), with a few exceptions. To solve the multiclass traffic assignment problem, you need to provide two demand files. Use the option `-t` to specify the demand for UE-seeking vehicles, and use the option `-r` to specify the demand for SO-seeking vehicles. To obtain the multiclass traffic assignment solution, you should set the following options: `--mix`, `--marginal-cost`, and `--marginal-cost.exp`.
 
 ## duaIterate_analysis.py
 
