@@ -123,3 +123,6 @@ getInvisible
 
 # retrieve tripinfo statistics
 tripinfoRetrieval
+
+# retrieving TLS info with multiple links
+getNextTLS
