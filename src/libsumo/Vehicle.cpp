@@ -532,6 +532,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
                             result.push_back(ntd);
                         }
                         seen += allowed->front()->getLength();
+                        break;
                     }
                 }
             } else {
