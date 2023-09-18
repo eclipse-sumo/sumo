@@ -220,7 +220,7 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.personTripColor);
+    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.personTripColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 
@@ -232,15 +232,13 @@ GNEPersonTrip::computePathElement() {
 
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw person plan over lane
-    drawPlanPartial(checkDrawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
+    drawPlanPartial(checkDrawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 
 void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw person plan over junction
-    drawPlanPartial(checkDrawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor);
+    drawPlanPartial(checkDrawPersonPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 

@@ -693,7 +693,7 @@ GNEDemandElementPlan::checkDrawContainerPlan() const {
 
 
 void
-GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor) const {
+GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // get tag property
@@ -701,7 +701,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get plan geometry
     auto &planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
-    if ((planColor.alpha() != 0) && drawPlan && (planGeometry.getShape().size() > 0)) {
+    if (drawPlan && (planGeometry.getShape().size() > 0)) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
         // check if boundary has to be drawn
@@ -714,7 +714,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         GLHelper::pushMatrix();
         // translate to front
         viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, GLO_TAZ + 1);
-        GLHelper::setColor(planColor);
+        // set color
+        GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw line
         GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, 0.5);
         GLHelper::drawTriangleAtEnd(
@@ -751,7 +752,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
 
 void
 GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                                        const double offsetFront, const double planWidth, const RGBColor& planColor) const {
+                                        const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
@@ -759,7 +760,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     // get inspected and front flags
     const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw plan element can be drawn
-    if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -792,8 +793,6 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         } else {
             planGeometry = lane->getLaneGeometry();
         }
-        // get color
-        const RGBColor& pathColor = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : planColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(myPlanElement->getGlID());
         // Add a draw matrix
@@ -801,7 +800,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // Start with the drawing of the area traslating matrix to origin
         viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType(), offsetFront);
         // Set color
-        GLHelper::setColor(pathColor);
+        GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw geometry
         GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
         // Pop last matrix
@@ -826,8 +825,6 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                 viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType());
                 // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
                 glTranslated(geometryEndPos.x(), geometryEndPos.y(), 0);
-                // Set plan color
-                GLHelper::setColor(pathColor);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 // pop draw matrix
@@ -899,7 +896,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
 
 void
 GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/,
-                                        const double offsetFront, const double planWidth, const RGBColor& planColor) const {
+                                      const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
@@ -907,7 +904,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     // get inspected and front flags
     const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw plan elements can be drawn
-    if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -916,8 +913,6 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
         // calculate path width
         const double pathWidth = s.addSize.getExaggeration(s, fromLane) * planWidth * (duplicateWidth ? 2 : 1);
-        // get color
-        const RGBColor& color = myPlanElement->drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : planColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(myPlanElement->getGlID());
         // push a draw matrix
@@ -929,7 +924,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             // obtain lane2lane geometry
             const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // Set plan color
-            GLHelper::setColor(color);
+            GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw lane2lane
             GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), lane2laneGeometry, pathWidth);
         } else {
@@ -985,7 +980,7 @@ GNEDemandElementPlan::isPersonPlanValid() const {
         // get previous lane
         const auto previousLastLane = previousPlan->getLastPathLane();
         // get first lane
-        const auto firstLane = myPlanElement->getLastPathLane();
+        const auto firstLane = myPlanElement->getFirstPathLane();
         // compare edges
         if (previousLastLane && firstLane && (previousLastLane->getParentEdge() != firstLane->getParentEdge())) {
             return GNEDemandElement::Problem::DISCONNECTED_PLAN;

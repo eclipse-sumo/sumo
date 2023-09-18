@@ -211,8 +211,8 @@ GNETransport::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwork
 
 
 void
-GNETransport::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Transports are drawn in drawPartialGL
+GNETransport::drawGL(const GUIVisualizationSettings& s) const {
+    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
@@ -227,15 +227,13 @@ GNETransport::computePathElement() {
 
 void
 GNETransport::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw container plan over lane
-    drawPlanPartial(checkDrawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
 void
 GNETransport::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw container plan over junction
-    drawPlanPartial(checkDrawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 

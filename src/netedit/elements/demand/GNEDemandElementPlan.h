@@ -114,15 +114,15 @@ protected:
     bool checkDrawContainerPlan() const;
 
     /// @brief draw plan
-    void drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor) const;
+    void drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @brief draw plan partial lane
     void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                         const double planWidth, const RGBColor& planColor) const;
+                         const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @brief draw plan partial junction
     void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                         const double offsetFront, const double planWidth, const RGBColor& planColor) const;
+                         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @}
 
