@@ -611,7 +611,7 @@ MSPModel_JuPedSim::initialize() {
     double maxArea = 0.0;
     for (unsigned int i = 0; i < (unsigned int)GEOSGetNumGeometries(myGEOSPedestrianNetwork); i++) {
         const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(myGEOSPedestrianNetwork, i);
-        std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
+        std::string polygonId = std::string("jupedsim.pedestrian_network.") + std::to_string(i);
         double area;
         GEOSArea(connectedComponentPolygon, &area);
         if (area > maxArea) {
@@ -623,8 +623,8 @@ MSPModel_JuPedSim::initialize() {
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
-    
 
+#if DEBUG
     std::ofstream GEOSGeometryDumpFile;
     GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
     GEOSWKTWriter* writer = GEOSWKTWriter_create();
@@ -633,6 +633,7 @@ MSPModel_JuPedSim::initialize() {
     GEOSGeometryDumpFile.close();
     GEOSFree(wkt);
     GEOSWKTWriter_destroy(writer);
+#endif
 
     JPS_ErrorMessage message = nullptr; 
     
