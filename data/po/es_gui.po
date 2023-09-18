@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-09 04:43+0000\n"
+"PO-Revision-Date: 2023-09-18 09:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -1281,7 +1281,7 @@ msgstr "retraso para iniciar la carga [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:101
 msgid "charge type"
-msgstr ""
+msgstr "tipo de carga"
 
 #: C:\Repos\sumo/src\guisim\GUIChargingStation.cpp:102
 #: C:\Repos\sumo/src\guisim\GUIContainer.cpp:175
@@ -1452,7 +1452,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:157
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "vehículos vistos en el intervalo [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIE2Collector.cpp:159
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:164
@@ -4000,12 +4000,12 @@ msgstr "Abrir una ventana para localizar paradas (stops)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2084
 msgid "PoI"
-msgstr ""
+msgstr "Punto de interés"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2087
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2855
 msgid "Polygon"
-msgstr ""
+msgstr "Polígono"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2205
 msgid "Toggle this Status Bar on/off."
@@ -4017,23 +4017,23 @@ msgstr "Limpiar la ventana de mensajes."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2228
 msgid "Online Documentation"
-msgstr ""
+msgstr "Documentación en línea"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2231
 msgid "Changelog"
-msgstr ""
+msgstr "Registro de cambios"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2233
 msgid "Hotkeys"
-msgstr ""
+msgstr "Atajos de teclado"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2235
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2237
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2237
 msgid "Open feedback channels."
@@ -4041,7 +4041,7 @@ msgstr "Abrir un diálogo con los canales para proveer feedback."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2240
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2240
 msgid "About netedit."
@@ -4414,6 +4414,8 @@ msgstr "Escribir el texto ayuda del atributo en el archivo"
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
+"Ignorar el diálogo de confirmación de cambio de supermodos durante deshacer-"
+"rehacer"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
@@ -4876,15 +4878,15 @@ msgstr "Puntero hacia un meanData inválido"
 
 #: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2930
 msgid "Redo replace in TLS"
-msgstr ""
+msgstr "Rehacer reemplazo en semáforo"
 
 #: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2936
 msgid "Undo replace in TLS"
-msgstr ""
+msgstr "Deshacer reemplazo en semáforo"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:342
 msgid "Locate a junction within the network. (Shift+J)"
-msgstr ""
+msgstr "Localizar un cruce dentro de la red. (Shift+J)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:346
 msgid "Locate an edge within the network. (Shift+E)"
@@ -4928,11 +4930,11 @@ msgstr "Localizar parada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:370
 msgid "Locate a stop within the network. (Shift+S)"
-msgstr ""
+msgstr "Localizar una parada dentro de la red. (Shift+S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:381
 msgid "Locate a tls within the network. (Shift+T)"
-msgstr ""
+msgstr "Localizar un semáforo dentro de la red. (Shift+T)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:385
 msgid "Locate an additional structure within the network. (Shift+A)"
@@ -4940,11 +4942,11 @@ msgstr "Localizar una estructura adicional dentro de la red. (Shift+A)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:389
 msgid "Locate a PoI within the network. (Shift+O)"
-msgstr ""
+msgstr "Localizar un punto de interés dentro de la red. (Shift+O)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:393
 msgid "Locate a Polygon within the network. (Shift+L)"
-msgstr ""
+msgstr "Localizar un polígono dentro de la red. (Shift+L)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:512
 msgid "Remove from Selected"
@@ -4957,19 +4959,19 @@ msgstr "Agregar a la selección"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:671
 msgid "GUI-Settings cannot be saved in "
-msgstr ""
+msgstr "La configuración de la GUI no pudo guardarse en "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:864
 msgid "Confirm Junction Merger"
-msgstr ""
+msgstr "Confirmar combinación de cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:865
 msgid "Do you wish to merge junctions '"
-msgstr ""
+msgstr "Desea combinar los cruces '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:866
 msgid "' and '"
-msgstr ""
+msgstr "' y '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:867
 msgid "' will be eliminated and its roads added to '"
@@ -4977,19 +4979,19 @@ msgstr "' será eliminado(a) y sus calles agregadas a '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:899
 msgid " requires switch to network mode. Continue?"
-msgstr ""
+msgstr " requiere cambiar al modo de red. ¿ Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:901
 msgid " requires switch to demand mode. Continue?"
-msgstr ""
+msgstr " requiere cambiar al modo demanda. ¿ Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:903
 msgid " requires switch to data mode. Continue?"
-msgstr ""
+msgstr " requiere cambiar al modo de datos. ¿ Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:908
 msgid "Confirm switch mode"
-msgstr ""
+msgstr "Confirmar cambio de modo"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1493
 msgid "Cannot delete in this mode"
@@ -5045,7 +5047,7 @@ msgstr "Agregar arista inversa desconectada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2376
 msgid "reset geometry points"
-msgstr ""
+msgstr "restablecer puntos geométricos"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2397
 msgid "straighten selected edges"
@@ -5386,7 +5388,7 @@ msgstr "Editar elementos de red"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2102
 msgid "Set mode for edit network elements. (F2)"
-msgstr "Establecer modo para editar elementos de red (F2)"
+msgstr "Establecer modo para editar elementos de red. (F2)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2107
 msgid "Edit traffic demand elements"
@@ -6712,16 +6714,16 @@ msgstr "Rerouter tiene mas de una arista"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:321
 msgid "There are no lanes in the network"
-msgstr ""
+msgstr "No hay carriles en la red"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:341
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:361
 msgid "There are no edges in the network"
-msgstr ""
+msgstr "No hay aristas en la red"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
 msgid "There are no parking areas in the network"
-msgstr ""
+msgstr "No hay zonas de aparcamiento en la red"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
 msgid "Undo/Redo history"
@@ -6763,41 +6765,41 @@ msgstr "Abrir archivo OSG"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:266
 msgid "Could not load configuration '"
-msgstr ""
+msgstr "No se pudo cargar la configuración '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:270
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:180
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:184
 msgid "Could not load tool configuration '"
-msgstr ""
+msgstr "No se pudo cargar la configuración de herramienta '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:274
 msgid "Loaded configuration."
-msgstr ""
+msgstr "Configuración cargada."
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:294
 msgid "Save options"
-msgstr ""
+msgstr "Guardar opciones"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:296
 msgid "Save configuration file"
-msgstr ""
+msgstr "Guardar archivo de configuración"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:297
 msgid "Load options"
-msgstr ""
+msgstr "Cargar opciones"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:299
 msgid "Load configuration file"
-msgstr ""
+msgstr "Cargar archivo de configuración"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:300
 msgid "Default options"
-msgstr ""
+msgstr "Opciones predeterminadas"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:302
 msgid "Reset all options to default"
-msgstr ""
+msgstr "Restablecer todas las opciones a sus valores predeterminados"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:310
 msgid "Topics"
@@ -6814,7 +6816,7 @@ msgstr "Incluir la descripción en la búsqueda"
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
 msgid "Reset value"
-msgstr ""
+msgstr "Restablecer valor"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:226
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:238
@@ -6851,7 +6853,7 @@ msgstr "Telaraña"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:65
 msgid "Random grid"
-msgstr ""
+msgstr "Cuadrícula aleatoria"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:66
 msgid "Random"
@@ -6863,11 +6865,11 @@ msgstr "Avanzado"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:92
 msgid "open advance netgenerate dialog"
-msgstr ""
+msgstr "abrir diálogo avanzado de netgenerate"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 msgid "Close dialog"
-msgstr ""
+msgstr "Cerrar diálogo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
@@ -6886,7 +6888,7 @@ msgstr "Guardar toolcfg"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
-msgstr ""
+msgstr "Guardar archivo con la configuración de la herramienta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
@@ -6894,7 +6896,7 @@ msgstr "Cargar toolcfg"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
-msgstr ""
+msgstr "Cargar archivo con la configuración de la herramienta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
@@ -6910,11 +6912,11 @@ msgstr "Las opciones azules son obligatorias"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
-msgstr ""
+msgstr "ejecutar herramienta Python"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:95
 msgid "close tool dialog"
-msgstr ""
+msgstr "cerrar diálogo de la herramienta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:97
 msgid "reset to default values"
@@ -6957,7 +6959,7 @@ msgstr "configuración de sumo"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
 msgid "Save output"
-msgstr ""
+msgstr "Guardar output"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:72
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:73
@@ -7923,7 +7925,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2319
 msgid "Name of instant induction loop"
-msgstr ""
+msgstr "Nombre del bucle de inducción instantáneo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2346
 msgid "RouteProbe"
