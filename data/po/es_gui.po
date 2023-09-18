@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-18 09:42+0000\n"
+"PO-Revision-Date: 2023-09-19 07:11+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3343,7 +3343,7 @@ msgstr "Crear elementos adicionales."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Wire"
-msgstr ""
+msgstr "Catenaria"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Create wires."
