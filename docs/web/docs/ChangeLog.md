@@ -83,6 +83,7 @@ title: ChangeLog
     - Source
     - Sink
   - Add new view "JuPedSim". #13750
+  - Support persons over TAZs in netedit. #13784
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
