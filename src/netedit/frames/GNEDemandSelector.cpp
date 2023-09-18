@@ -237,8 +237,7 @@ DemandElementSelector::getPreviousPlanElement() const {
     } else if (lastPlan->getTagProperty().planToJunction()) {
         // junction
         return lastPlan->getParentJunctions().back();
-    } else if (lastPlan->getTagProperty().planToTAZ() ||
-               lastPlan->getTagProperty().planToStoppingPlace()) {
+    } else if (lastPlan->getTagProperty().planToStoppingPlace() || lastPlan->getTagProperty().planToTAZ()) {
         // additional
         return lastPlan->getParentAdditionals().back();
     } else {

@@ -193,7 +193,9 @@ GNEPersonPlanFrame::tagSelected() {
         const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
-            // add previous edge or junction
+            // show path creator mode
+            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
+            // add previous element
             if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                 // add junction
                 myPathCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
@@ -213,8 +215,6 @@ GNEPersonPlanFrame::tagSelected() {
                 // add TAZ
                 myPathCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
             }
-            // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
             // show legend
             myPathLegend->showPathLegendModule();
         } else {
