@@ -71,7 +71,9 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TO, myPlanElement->getParentEdges().back()->getID());
         } else if (tagProperty.planToJunction()) {
             device.writeAttr(SUMO_ATTR_TO_JUNCTION, myPlanElement->getParentJunctions().back()->getID());
-        } else if (tagProperty.planFromBusStop()) {
+        } else if (tagProperty.planToTAZ()) {
+            device.writeAttr(SUMO_ATTR_TO_TAZ, myPlanElement->getParentAdditionals().back()->getID());
+        } else if (tagProperty.planToTrainStop()) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, myPlanElement->getParentAdditionals().back()->getID());
         } else if (tagProperty.planToTrainStop()) {
             device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentAdditionals().back()->getID());
@@ -151,7 +153,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
         return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
     } else if (tagProperty.planToStoppingPlace()) {
         // additional
-        return myPlanElement->getParentAdditionals().back()->getParentLanes().front();
+        return myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClassParent);
     } else {
         // in other cases (TAZ, junctions, etc.) return null
         return nullptr;
