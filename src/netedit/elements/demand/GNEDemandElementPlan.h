@@ -142,8 +142,14 @@ private:
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
 
-    /// @brief update geometry TAZs
-    void updateGeometryTAZs();
+    /// @brief update geometry of plan that starts and ends in TAZ
+    void updateFromToTAZGeometry();
+
+    /// @brief update geometry of plan that starts in TAZ
+    void updateFromTAZGeometry();
+
+    /// @brief update geometry of plan that ends in TAZ
+    void updateToTAZGeometry();
 
     /// @brief Invalidated copy constructor.
     GNEDemandElementPlan(const GNEDemandElementPlan&) = delete;

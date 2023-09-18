@@ -544,30 +544,11 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             if (personPlan->getTagProperty().isStopPerson()) {
                 // stop center
                 return personPlan->getPositionInView();
-            } else if (personPlan->getTagProperty().planFromJunction()) {
-                // junction center
-                return personPlan->getParentJunctions().front()->getPositionInView();
-            } else if (personPlan->getTagProperty().planFromBusStop() ||
-                       personPlan->getTagProperty().planFromContainerStop() ||
-                       personPlan->getTagProperty().planFromTrainStop() ||
-                       personPlan->getTagProperty().planFromTAZ()) {
-                // additional center
-                return personPlan->getParentAdditionals().front()->getPositionInView();
+            } else if (personPlan->getTagProperty().planFromTAZ()) {
+                // use first position of plan geometry
+                return personPlan->getDemandElementGeometry().getShape().front();
             } else {
-                // get first path lane
-                GNELane* lane = personPlan->getFirstPathLane();
-                if (lane) {
-                    // get position over lane shape
-                    if (departPos <= 0) {
-                        return lane->getLaneShape().front();
-                    } else if (departPos >= lane->getLaneShape().length2D()) {
-                        return lane->getLaneShape().back();
-                    } else {
-                        return lane->getLaneShape().positionAtOffset2D(departPos);
-                    }
-                } else {
-                    return Position();
-                }
+                return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
         }
         default:
