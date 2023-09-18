@@ -50,9 +50,9 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // write attributes depending of parent elements
-    if (myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
+    if (tagProperty.hasAttribute(SUMO_ATTR_ROUTE)) {
         device.writeAttr(SUMO_ATTR_ROUTE, myPlanElement->getParentDemandElements().at(1)->getID());
-    } else if (myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_EDGES)) {
+    } else if (tagProperty.hasAttribute(SUMO_ATTR_EDGES)) {
         device.writeAttr(SUMO_ATTR_EDGES, myPlanElement->parseIDs(myPlanElement->getParentEdges()));
     } else {
         // write from attribute (if this is the first element)
@@ -80,7 +80,7 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
         }
     }
     // check if write arrival position
-    if ((myPlanElement->myTagProperty.hasAttribute(SUMO_ATTR_EDGES) || tagProperty.planToEdge()) && (myArrivalPosition > 0)) {
+    if ((tagProperty.hasAttribute(SUMO_ATTR_EDGES) || tagProperty.planToEdge()) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
 }
@@ -223,12 +223,8 @@ GNEDemandElementPlan::updatePlanGeometry() {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // only for plans defined between TAZs
-    if (tagProperty.planFromTAZ() && tagProperty.planToTAZ()) {
-        updateFromToTAZGeometry();
-    } else if (tagProperty.planFromTAZ()) {
-        updateFromTAZGeometry();
-    } else if (tagProperty.planToTAZ()) {
-        updateToTAZGeometry();
+    if (tagProperty.planFromTAZ() || tagProperty.planToTAZ()) {
+        updateTAZGeometry();
     }
     // update child demand elements
     for (const auto& demandElement : myPlanElement->getChildDemandElements()) {
@@ -702,12 +698,12 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
+    // get plan geometry
+    auto &planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
-    if (false && (planColor.alpha() != 0) && drawPlan && (tagProperty.planFromTAZ() || tagProperty.planToTAZ())) {
+    if ((planColor.alpha() != 0) && drawPlan && (planGeometry.getShape().size() > 0)) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
-        // get geometry
-        auto &geometry = myPlanElement->myDemandElementGeometry;
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
@@ -720,10 +716,10 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, GLO_TAZ + 1);
         GLHelper::setColor(planColor);
         // draw line
-        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), geometry, 0.5);
+        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, 0.5);
         GLHelper::drawTriangleAtEnd(
-            *(geometry.getShape().end() - 2),
-            *(geometry.getShape().end() - 1),
+            *(planGeometry.getShape().end() - 2),
+            *(planGeometry.getShape().end() - 1),
             0.5, 0.5, 0.5);
         // pop matrix
         GLHelper::popMatrix();
@@ -731,19 +727,19 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         GLHelper::popName();
         // inspect contour
         if (viewNet->isAttributeCarrierInspected(myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, geometry.getShape(), 0.5, 1, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, planGeometry.getShape(), 0.5, 1, true, true);
         }
         // front contour
         if (viewNet->getFrontAttributeCarrier() == myPlanElement) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, geometry.getShape(), 0.5, 1, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, planGeometry.getShape(), 0.5, 1, true, true);
         }
         // delete contour
         if (viewNet->drawDeleteContour(myPlanElement, myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, geometry.getShape(), 0.5, 1, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, planGeometry.getShape(), 0.5, 1, true, true);
         }
         // select contour
         if (viewNet->drawSelectContour(myPlanElement, myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, geometry.getShape(), 0.5, 1, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, planGeometry.getShape(), 0.5, 1, true, true);
         }
     }
     // check if draw person parent
@@ -1048,129 +1044,33 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 
 
 void
-GNEDemandElementPlan::updateFromToTAZGeometry() {
+GNEDemandElementPlan::updateTAZGeometry() {
     // remove from grid
     myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-    // get both TAZs
-    const GNEAdditional* fromTAZ = myPlanElement->getParentAdditionals().front();
-    const GNEAdditional* toTAZ = myPlanElement->getParentAdditionals().back();
-    // check if this is the same TAZ
-    if (fromTAZ == toTAZ) {
-        // declare ring
-        PositionVector ring;
-        // declare first point
-        std::pair<double, double> p1 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0));
-        // add 8 segments
-        for (int i = 0; i <= 8; ++i) {
-            const std::pair<double, double>& p2 = GLHelper::getCircleCoords().at(GLHelper::angleLookup(0 + i * 45));
-            // make al line between 0,0 and p2
-            PositionVector line = {Position(), Position(p2.first, p2.second)};
-            // extrapolate
-            line.extrapolate(3, false, true);
-            // add line back to ring
-            ring.push_back(line.back());
-            // update p1
-            p1 = p2;
-        }
-        // make a copy of ring
-        PositionVector ringCenter = ring;
-        // move ring to first geometry point
-        ring.add(fromTAZ->getAdditionalGeometry().getShape().front());
-        myPlanElement->myDemandElementGeometry.updateGeometry(ring);
+    // get tag property
+    const auto tagProperty = myPlanElement->getTagProperty();
+    // declare two positions
+    Position startPos, endPos;
+    // set start position
+    if (tagProperty.planFromTAZ()) {
+        startPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
+    } else if (tagProperty.planFromJunction()) {
+        startPos = myPlanElement->getParentJunctions().front()->getPositionInView();
     } else {
-        // calculate line between to TAZ centers
-        PositionVector line = {fromTAZ->getAttributePosition(SUMO_ATTR_CENTER), toTAZ->getAttributePosition(SUMO_ATTR_CENTER)};
-        // check line
-        if (line.length() < 1) {
-            line = {fromTAZ->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, toTAZ->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
-        }
-        // calculate middle point
-        const Position middlePoint = line.getLineCenter();
-        // get closest points to middlePoint
-        Position fromPos = fromTAZ->getAdditionalGeometry().getShape().positionAtOffset2D(fromTAZ->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-        Position toPos = toTAZ->getAdditionalGeometry().getShape().positionAtOffset2D(toTAZ->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-        // check positions
-        if (fromPos == Position::INVALID) {
-            fromPos = fromTAZ->getAdditionalGeometry().getShape().front();
-        }
-        if (toPos == Position::INVALID) {
-            toPos = toTAZ->getAdditionalGeometry().getShape().front();
-        }
-        // update geometry
-        if (fromPos.distanceTo(toPos) < 1) {
-            myPlanElement->myDemandElementGeometry.updateGeometry({fromPos - 0.5, toPos + 0.5});
-        } else {
-            myPlanElement->myDemandElementGeometry.updateGeometry({fromPos, toPos});
-        }
+        // use first path lane
+        startPos = getFirstPlanPathLane()->getLaneShape().back();
     }
-    // add into grid again
-    myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
-}
-
-
-void
-GNEDemandElementPlan::updateFromTAZGeometry() {
-    // remove from grid
-    myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-    // get from TAZ
-    const GNEAdditional* fromTAZ = myPlanElement->getParentAdditionals().front();
-    // get last path lane
-    const auto toLane = myPlanElement->getLastPathLane();
-    // calculate end position
-    const Position endPos = toLane? toLane->getLaneShape().front() : getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-    // calculate line between to TAZ centers
-    PositionVector line = {fromTAZ->getAttributePosition(SUMO_ATTR_CENTER), endPos};
-    // check line
-    if (line.length() < 1) {
-        line = {fromTAZ->getAttributePosition(SUMO_ATTR_CENTER) - 0.5, endPos};
-    }
-    // calculate middle point
-    const Position middlePoint = line.getLineCenter();
-    // get closest points to middlePoint
-    Position fromPos = fromTAZ->getAdditionalGeometry().getShape().positionAtOffset2D(fromTAZ->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-    // check position
-    if (fromPos == Position::INVALID) {
-        fromPos = fromTAZ->getAdditionalGeometry().getShape().front();
-    }
-    // update geometry
-    if (fromPos.distanceTo(endPos) < 1) {
-        myPlanElement->myDemandElementGeometry.updateGeometry({fromPos - 0.5, endPos + 0.5});
+    // set end position
+    if (tagProperty.planToTAZ()) {
+        endPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+    } else if (tagProperty.planToJunction()) {
+        endPos = myPlanElement->getParentJunctions().back()->getPositionInView();
     } else {
-        myPlanElement->myDemandElementGeometry.updateGeometry({fromPos, endPos});
+        // use last path lane
+        endPos = getLastPlanPathLane()->getLaneShape().front();
     }
-    // add into grid again
-    myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
-}
-
-
-void
-GNEDemandElementPlan::updateToTAZGeometry() {
-    // remove from grid
-    myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-    // get start position
-    const auto startPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
-    // get to TAZ
-    const GNEAdditional* toTAZ = myPlanElement->getParentAdditionals().back();
-    // calculate line between to TAZ centers
-    PositionVector line = {startPos, toTAZ->getAttributePosition(SUMO_ATTR_CENTER)};
-    // check line
-    if (line.length() < 1) {
-        line = {startPos, toTAZ->getAttributePosition(SUMO_ATTR_CENTER) + 0.5};
-    }
-    // calculate middle point
-    const Position middlePoint = line.getLineCenter();
-    // get closest points to middlePoint
-    Position toPos = toTAZ->getAdditionalGeometry().getShape().positionAtOffset2D(toTAZ->getAdditionalGeometry().getShape().nearest_offset_to_point2D(middlePoint));
-    // check to position
-    if (toPos == Position::INVALID) {
-        toPos = toTAZ->getAdditionalGeometry().getShape().front();
-    }
-    // update geometry
-    if (startPos.distanceTo(toPos) < 1) {
-        myPlanElement->myDemandElementGeometry.updateGeometry({startPos - 0.5, toPos + 0.5});
-    } else {
-        myPlanElement->myDemandElementGeometry.updateGeometry({startPos, toPos});
-    }
+    // use both position to calculate a line
+    myPlanElement->myDemandElementGeometry.updateGeometry({startPos, endPos});
     // add into grid again
     myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
 }

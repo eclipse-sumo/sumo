@@ -411,7 +411,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw child demand elements
         for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->drawGL(s);
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
+            }
         }
     }
 }
