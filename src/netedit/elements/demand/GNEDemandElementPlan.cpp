@@ -177,39 +177,40 @@ GNEDemandElementPlan::computePlanPathElement() {
     } else {
         // get previous plan
         const auto previousPlan = myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement);
+        // declare first and last lanes
+        GNELane* firstLane = nullptr;
+        GNELane* lastLane = nullptr;
         // first check if this is the first person plan
-        if (previousPlan == nullptr) {
-            // continue depending of parents
-            if (tagProperty.planFromJunction() || tagProperty.planToJunction()) {
-                // calculate path between junctions
-                pathManager->calculatePathJunctions(myPlanElement, vClass, myPlanElement->getParentJunctions());
-            } else {
-                // get first and last lane
-                auto firstLane = myPlanElement->getFirstPathLane();
-                auto lastLane = myPlanElement->getLastPathLane();
-                // calculate path between first and last lane
-                if (firstLane && lastLane) {
-                    pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane, lastLane});
-                } else {
-                    pathManager->calculatePathLanes(myPlanElement, vClass, {});
-                }
-            }
-        } else {
+        if (previousPlan) {
             // check if previousPlan ends in a junction
             if (previousPlan->getTagProperty().planToJunction() && tagProperty.planFromJunction()) {
                 // calculate path between junctions
                 pathManager->calculatePathJunctions(myPlanElement, vClass, {previousPlan->getParentJunctions().back(), myPlanElement->getParentJunctions().front()});
             } else {
                 // get last lanes of both elements
-                auto firstLane = previousPlan->getLastPathLane();
-                auto lastLane = myPlanElement->getLastPathLane();
-                // calculate path between first and last lane
-                if (firstLane && lastLane) {
-                    pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane, lastLane});
-                } else {
-                    pathManager->calculatePathLanes(myPlanElement, vClass, {});
-                }
+                firstLane = previousPlan->getLastPathLane();
+                lastLane = myPlanElement->getLastPathLane();
             }
+        } else {
+            // continue depending of parents
+            if (tagProperty.planFromJunction() || tagProperty.planToJunction()) {
+                // calculate path between junctions
+                pathManager->calculatePathJunctions(myPlanElement, vClass, myPlanElement->getParentJunctions());
+            } else {
+                // get first and last lane of current paln
+                firstLane = myPlanElement->getFirstPathLane();
+                lastLane = myPlanElement->getLastPathLane();
+            }
+        }
+        // calculate path between first and last lane
+        if (firstLane && lastLane) {
+            pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane, lastLane});
+        } else if (firstLane){
+            pathManager->calculatePathLanes(myPlanElement, vClass, {firstLane});
+        } else if (lastLane){
+            pathManager->calculatePathLanes(myPlanElement, vClass, {lastLane});
+        } else {
+            pathManager->calculatePathLanes(myPlanElement, vClass, {});
         }
     }
     // update geometry
@@ -712,11 +713,13 @@ GNEDemandElementPlan::drawContainerPlan() const {
 
 
 void
-GNEDemandElementPlan::drawPlanGL(const GUIVisualizationSettings& s, const RGBColor& planColor) const {
+GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor) const {
+    // get person parent
+    const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // draw relations between TAZs
-    if (tagProperty.planFromTAZ() || tagProperty.planToTAZ()) {
+    if (false && (planColor.alpha() != 0) && drawPlan && (tagProperty.planFromTAZ() || tagProperty.planToTAZ())) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
         // get geometry
@@ -759,16 +762,10 @@ GNEDemandElementPlan::drawPlanGL(const GUIVisualizationSettings& s, const RGBCol
             GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, geometry.getShape(), 0.5, 1, true, true);
         }
     }
-    // check if draw person parent (only over TAZs and junctions)
-    if (tagProperty.planFromTAZ() || tagProperty.planFromJunction()) {
-        // check if draw person parent
-        const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
-        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == myPlanElement)) {
-            personParent->drawGL(s);
-        }
+    // check if draw person parent
+    if (personParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
+        personParent->drawGL(s);
     }
-    // force draw path
-    myPlanElement->getNet()->getPathManager()->forceDrawPath(s, myPlanElement);
 }
 
 
@@ -777,10 +774,10 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                                         const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
-    // get inspected and front flags
-    const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // get person parent
     const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
+    // get inspected and front flags
+    const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw person plan element can be drawn
     if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
@@ -913,9 +910,8 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             }
         }
     }
-    // draw person parent if myPlanElement is the edge first edge and myPlanElement is the first plan
-    if (myPlanElement->getParentJunctions().empty() && (myPlanElement->getFirstPathLane()->getParentEdge() == lane->getParentEdge()) &&
-            (personParent->getChildDemandElements().front() == myPlanElement)) {
+    // check if draw person parent
+    if (personParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
         personParent->drawGL(s);
     }
 }
@@ -926,14 +922,14 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                                         const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
+    // get person parent
+    const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
     // get inspected and front flags
     const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw person plan elements can be drawn
     if ((planColor.alpha() != 0) && drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
-        // get person parent
-        const GNEDemandElement* personParent = myPlanElement->getParentDemandElements().front();
         // get inspected person plan
         const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
         // flag to check if width must be duplicated
@@ -993,6 +989,10 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                         pathWidth, 1, false, false);
             }
         }
+    }
+    // check if draw person parent
+    if (personParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
+        personParent->drawGL(s);
     }
 }
 
@@ -1130,8 +1130,10 @@ GNEDemandElementPlan::updateFromTAZGeometry() {
     myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
     // get from TAZ
     const GNEAdditional* fromTAZ = myPlanElement->getParentAdditionals().front();
-    // get get end position
-    const auto endPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+    // get last path lane
+    const auto toLane = myPlanElement->getLastPathLane();
+    // calculate end position
+    const Position endPos = toLane? toLane->getLaneShape().front() : getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
     // calculate line between to TAZ centers
     PositionVector line = {fromTAZ->getAttributePosition(SUMO_ATTR_CENTER), endPos};
     // check line

@@ -231,7 +231,7 @@ GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(s, s.colorSettings.walkColor);
+    drawPlanGL(drawPersonPlan(), s, s.colorSettings.walkColor);
 }
 
 

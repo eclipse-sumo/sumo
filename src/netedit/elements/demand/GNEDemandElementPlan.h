@@ -114,7 +114,7 @@ protected:
     bool drawContainerPlan() const;
 
     /// @brief draw plan
-    void drawPlanGL(const GUIVisualizationSettings& s, const RGBColor& planColor) const;
+    void drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor) const;
 
     /// @brief draw person plan partial lane
     void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,

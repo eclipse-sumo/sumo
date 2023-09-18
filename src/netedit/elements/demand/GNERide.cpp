@@ -181,7 +181,7 @@ GNERide::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNERide::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(s, s.colorSettings.rideColor);
+    drawPlanGL(drawPersonPlan(), s, s.colorSettings.rideColor);
 }
 
 

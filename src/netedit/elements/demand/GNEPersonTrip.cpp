@@ -220,7 +220,7 @@ GNEPersonTrip::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(s, s.colorSettings.personTripColor);
+    drawPlanGL(drawPersonPlan(), s, s.colorSettings.personTripColor);
 }
 
 
