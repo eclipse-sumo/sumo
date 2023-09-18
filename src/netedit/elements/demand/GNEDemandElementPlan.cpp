@@ -125,7 +125,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
         } else if (tagProperty.hasAttribute(SUMO_ATTR_EDGES) || tagProperty.planFromEdge()) {
             // edges
             return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
-        } else if (tagProperty.planFromBusStop() || tagProperty.planFromTrainStop() || tagProperty.planFromContainerStop()) {
+        } else if (tagProperty.planFromStoppingPlace()) {
             // additional
             return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
         } else {
@@ -149,7 +149,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
     } else if (tagProperty.hasAttribute(SUMO_ATTR_EDGES) || tagProperty.planToEdge()) {
         // edges
         return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
-    } else if (tagProperty.planToBusStop() || tagProperty.planToTrainStop() || tagProperty.planToContainerStop()) {
+    } else if (tagProperty.planToStoppingPlace()) {
         // additional
         return myPlanElement->getParentAdditionals().back()->getParentLanes().front();
     } else {
@@ -352,9 +352,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             // if we have a previous plan, use their end position
             if (previousPlan) {
                 // special case for stoppingPlaces
-                if (previousPlan->getTagProperty().planFromBusStop() || 
-                    previousPlan->getTagProperty().planFromTrainStop() || 
-                    previousPlan->getTagProperty().planFromContainerStop()) {
+                if (previousPlan->getTagProperty().planFromStoppingPlace()) {
                     return previousPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
                 } else {
                     return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
@@ -377,9 +375,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                 (tagProperty.planFromTAZ() && tagProperty.planToTAZ())) {
                 // junctions and TAZs
                 return -1;
-            } else if (tagProperty.planToBusStop() ||
-                       tagProperty.planToTrainStop() ||
-                       tagProperty.planToContainerStop()) {
+            } else if (tagProperty.planToStoppingPlace()) {
                 // use start position of the stoppingPlace
                 return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else {
@@ -406,9 +402,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             // if we have a previous plan, use their geometry end position
             if (previousPlan) {
                 // special case for stoppingPlaces
-                if (previousPlan->getTagProperty().planToBusStop() ||
-                    previousPlan->getTagProperty().planToTrainStop() ||
-                    previousPlan->getTagProperty().planToContainerStop()) {
+                if (previousPlan->getTagProperty().planToStoppingPlace()) {
                     return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
                 } else {
                     return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
@@ -421,9 +415,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 } else if (tagProperty.planFromTAZ()) {
                     // TAZs
                     return myPlanElement->getParentAdditionals().front()->getPositionInView();
-                } else if (tagProperty.planFromBusStop() ||
-                           tagProperty.planFromTrainStop() ||
-                           tagProperty.planToContainerStop()) {
+                } else if (tagProperty.planFromStoppingPlace()) {
                     // stoppingPlaces
                     return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
                 } else {
@@ -457,9 +449,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             } else if (tagProperty.planToTAZ()) {
                 // taz
                 myPlanElement->getParentAdditionals().back()->getPositionInView();
-            } else if (tagProperty.planToBusStop() ||
-                       tagProperty.planToTrainStop() ||
-                       tagProperty.planToContainerStop()) {
+            } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
             } else {
@@ -594,10 +584,7 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
         return result + myPlanElement->getParentDemandElements().at(1)->getID();
     } else {
         // additional
-        if (tagProperty.planFromBusStop() ||
-            tagProperty.planFromTrainStop() ||
-            tagProperty.planFromContainerStop() ||
-            tagProperty.planFromTAZ()) {
+        if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
             result += myPlanElement->getParentAdditionals().front()->getID();
         }
         // junction
@@ -611,10 +598,7 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
         // arrow
         result += " -> ";
         // additional
-        if (tagProperty.planToBusStop() ||
-            tagProperty.planToTrainStop() ||
-            tagProperty.planToContainerStop() ||
-            tagProperty.planToTAZ()) {
+        if (tagProperty.planToStoppingPlace() || tagProperty.planToTAZ()) {
             result += myPlanElement->getParentAdditionals().back()->getID();
         }
         // junction

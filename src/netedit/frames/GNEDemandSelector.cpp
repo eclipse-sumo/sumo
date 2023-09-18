@@ -238,9 +238,7 @@ DemandElementSelector::getPreviousPlanElement() const {
         // junction
         return lastPlan->getParentJunctions().back();
     } else if (lastPlan->getTagProperty().planToTAZ() ||
-               lastPlan->getTagProperty().planToBusStop() ||
-               lastPlan->getTagProperty().planToTrainStop() ||
-               lastPlan->getTagProperty().planToContainerStop()) {
+               lastPlan->getTagProperty().planToStoppingPlace()) {
         // additional
         return lastPlan->getParentAdditionals().back();
     } else {

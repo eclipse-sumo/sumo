@@ -340,6 +340,9 @@ public:
     /// @brief return true if tag correspond to a plan that starts in junction
     bool planFromJunction() const;
 
+    /// @brief return true if tag correspond to a plan that starts in stoppingPlace
+    bool planFromStoppingPlace() const;
+
     /// @brief return true if tag correspond to a plan that starts in busStop
     bool planFromBusStop() const;
 
@@ -357,6 +360,9 @@ public:
 
     /// @brief return true if tag correspond to a plan that starts in junction
     bool planToJunction() const;
+
+    /// @brief return true if tag correspond to a plan that ends in stoppingPlace
+    bool planToStoppingPlace() const;
 
     /// @brief return true if tag correspond to a plan that starts in busStop
     bool planToBusStop() const;
