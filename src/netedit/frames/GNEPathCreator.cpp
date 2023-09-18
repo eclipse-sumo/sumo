@@ -278,6 +278,14 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
+        // edge->taz
+        case GNE_TAG_PERSONTRIP_EDGE_TAZ:
+        case GNE_TAG_WALK_EDGE_TAZ:
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_TAZ;
+            break;
         // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:

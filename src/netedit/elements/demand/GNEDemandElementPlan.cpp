@@ -446,7 +446,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 return myPlanElement->getParentJunctions().back()->getPositionInView();
             } else if (tagProperty.planToTAZ()) {
                 // taz
-                myPlanElement->getParentAdditionals().back()->getPositionInView();
+                return myPlanElement->getParentAdditionals().back()->getPositionInView();
             } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
@@ -466,9 +466,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                         return laneShape.positionAtOffset2D(myArrivalPosition);
                     }
                 } else {
-                    WRITE_ERROR("invalid GNE_ATTR_PLAN_GEOMETRY_ENDPOS");
-                    // invalid position
-                    return Position(0,0);
+                    throw ProcessError("lastLane cannot be null");
                 }
             }
         }
