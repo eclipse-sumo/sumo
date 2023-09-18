@@ -14,7 +14,7 @@ If You use SUMO, please tell us about your
 The content of this Documentation is freely editable. In order to edit a certain page, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
 Here is a short help on [editing articles](Editing_Articles.md). You can also [Build](Developer/Documentation_Build.md) the documentation locally, or [Download](https://sumo.dlr.de/sumo_documentation.zip) a copy.
 
-This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version and can be viewed by opening {{SUMO}}/docs/userdoc/index.html.
+This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version and can be viewed by opening {{SUMO}}`/docs/web/docs/index.md`.
 
 # Introduction
 
