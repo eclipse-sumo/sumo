@@ -108,28 +108,28 @@ protected:
     /// @{
 
     /// @brief check if person plan can be drawn
-    bool drawPersonPlan() const;
+    bool checkDrawPersonPlan() const;
 
     /// @brief check if container plan can be drawn
-    bool drawContainerPlan() const;
+    bool checkDrawContainerPlan() const;
 
     /// @brief draw plan
     void drawPlanGL(const bool drawPlan, const GUIVisualizationSettings& s, const RGBColor& planColor) const;
 
-    /// @brief draw person plan partial lane
+    /// @brief draw plan partial lane
     void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                         const double personPlanWidth, const RGBColor& planColor) const;
+                         const double planWidth, const RGBColor& planColor) const;
 
-    /// @brief draw person plan partial junction
+    /// @brief draw plan partial junction
     void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                         const double offsetFront, const double personPlanWidth, const RGBColor& planColor) const;
+                         const double offsetFront, const double planWidth, const RGBColor& planColor) const;
 
     /// @}
 
-    /// @brief check if person plan is valid
+    /// @brief check if plan is valid
     GNEDemandElement::Problem isPersonPlanValid() const;
 
-    /// @brief get person plan problem
+    /// @brief get plan problem
     std::string getPersonPlanProblem() const;
 
     /// @brief arrival position

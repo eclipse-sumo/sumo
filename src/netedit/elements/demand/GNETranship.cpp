@@ -266,14 +266,14 @@ GNETranship::computePathElement() {
 void
 GNETranship::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw container plan over lane
-    drawPlanPartial(drawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor);
 }
 
 
 void
 GNETranship::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // draw container plan over junction
-    drawPlanPartial(drawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor);
 }
 
 
