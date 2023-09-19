@@ -58,10 +58,10 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
     // Check if vehicle should get a battery
     if (sf != nullptr || equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         // obtain parameter values
-        const double maximumBatteryCapacity = readParameterValue(v, SUMO_ATTR_MAXIMUMBATTERYCAPACITY, DEFAULT_MAX_CAPACITY);
-        const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
-        const double powerMax = readParameterValue(v, SUMO_ATTR_MAXIMUMPOWER, 150000.);
-        const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, 0.1);
+        const double maximumBatteryCapacity = readParameterValue(v, SUMO_ATTR_MAXIMUMBATTERYCAPACITY, "battery.capacity", DEFAULT_MAX_CAPACITY);
+        const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, "battery.chargeLevel", maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
+        const double powerMax = readParameterValue(v, SUMO_ATTR_MAXIMUMPOWER, "battery.maxPower", 150000.);
+        const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, "battery.stoppingThreshold", 0.1);
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -78,14 +78,17 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 
 
 double
-MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, double defaultVal) {
-    // return getFloatParam(v, OptionsCont::getOptions(), toString(attr), defaultVal);
+MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal) {
+    const std::string& oldParam = toString(attr);
     const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-    if (v.getParameter().getParameter(toString(attr), "-") == "-") {
-        return typeParams.getDouble(toString(attr), defaultVal);
-    } else {
-        return StringUtils::toDouble(v.getParameter().getParameter(toString(attr), "0"));
+    if (v.getParameter().knowsParameter(oldParam) || typeParams.knowsParameter(oldParam)) {
+        WRITE_WARNINGF(TL("Battery device in vehicle '%s' still uses old parameter '%'. Please update to 'device.%'."), v.getID(), oldParam, paramName);
+        if (v.getParameter().getParameter(oldParam, "-") == "-") {
+            return typeParams.getDouble(oldParam, defaultVal);
+        }
+        return StringUtils::toDouble(v.getParameter().getParameter(oldParam, "0"));
     }
+    return getFloatParam(v, OptionsCont::getOptions(), paramName, defaultVal);
 }
 
 
