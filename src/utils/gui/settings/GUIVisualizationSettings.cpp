@@ -567,8 +567,6 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     personSize(1),
     personName(false, 60, RGBColor(0, 153, 204, 255)),
     personValue(false, 80, RGBColor::CYAN),
-    showPedestrianNetwork(true),
-    pedestrianNetworkColor(RGBColor(179, 217, 255)),
     containerQuality(0),
     containerSize(1),
     containerName(false, 60, RGBColor(0, 153, 204, 255)),
@@ -1839,8 +1837,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "                 ";
     personValue.print(dev, "personValue");
     personColorer.save(dev);
-    dev.writeAttr("showPedestrianNetwork", showPedestrianNetwork);
-    dev.writeAttr("pedestrianNetworkColor", pedestrianNetworkColor);
     dev.closeTag();
     // containers
     dev.openTag(SUMO_TAG_VIEWSETTINGS_CONTAINERS);
@@ -2199,12 +2195,6 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (personValue != v2.personValue) {
-        return false;
-    }
-    if (showPedestrianNetwork != v2.showPedestrianNetwork) {
-        return false;
-    }
-    if (pedestrianNetworkColor != v2.pedestrianNetworkColor) {
         return false;
     }
     if (!(containerColorer == v2.containerColorer)) {

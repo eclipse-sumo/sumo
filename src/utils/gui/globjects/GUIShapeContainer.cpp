@@ -205,34 +205,17 @@ GUIShapeContainer::allowReplacement() {
 
 
 void 
-GUIShapeContainer::setInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
-    myInactivePolygonTypes = inactivePolygonTypes;
-    computeActivePolygons();
-}
-
-
-void 
-GUIShapeContainer::addInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
-    myInactivePolygonTypes.insert(inactivePolygonTypes.begin(), inactivePolygonTypes.end());
-    computeActivePolygons();
-}
-
-
-void 
-GUIShapeContainer::removeInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
-    for (std::string type : inactivePolygonTypes) {
-        myInactivePolygonTypes.erase(type);
-    }
-    computeActivePolygons();
-}
-
-
-void 
 GUIShapeContainer::computeActivePolygons(void) {
-    for (auto polygonWithID: myPolygons) {
-        GUIPolygon* polygon = (GUIPolygon*)polygonWithID.second;
-        bool state = std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), polygon->getShapeType()) == myInactivePolygonTypes.end();
-        polygon->activate(state);
+    if (myInactivePolygonTypes.empty()) {
+        // Let the polygons drawn as they are.
+        return;
+    }
+    else {
+        for (auto polygonWithID: myPolygons) {
+            GUIPolygon* polygon = (GUIPolygon*)polygonWithID.second;
+            bool state = std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), polygon->getShapeType()) == myInactivePolygonTypes.end();
+            polygon->activate(state);
+        }
     }
 }
 

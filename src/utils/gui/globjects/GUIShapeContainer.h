@@ -138,21 +138,12 @@ public:
     /// @brief allow replacement
     void allowReplacement();
     
-    inline const std::set<std::string>& getInactiveTypes(void) const {
-        return myInactivePolygonTypes;
-    };
-
-    /// @brief Sets polygon types that define which one is active or not.
-    /// @param inactivePolygonTypes The whole set of inactive polygon types.
-    void setInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
-
-    /// @brief Adds new polygon types to the set of inactive ones.
-    /// @param inactivePolygonTypes Some set of inactive polygon types.
-    void addInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
-
-    /// @brief Remove some polygon types that were deemed as inactive.
-    /// @param inactivePolygonTypes Some set of inactive polygon types.
-    void removeInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
+    /// @brief Sets the polygon types that define which one is active or not.
+    /// @param inactivePolygonTypes The set of inactive polygon types.
+    inline void setInactiveTypes(std::set<std::string> inactivePolygonTypes) {
+        myInactivePolygonTypes = inactivePolygonTypes;
+        computeActivePolygons();
+    }
 
 private:
     /// @brief The mutex for adding/removing operations

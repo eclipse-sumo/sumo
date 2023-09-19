@@ -56,7 +56,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -771,29 +770,5 @@ GUIViewTraffic::retrieveBreakpoints() const {
     return myApp->retrieveBreakpoints();
 }
 
-
-void 
-GUIViewTraffic::drawPedestrianNetwork(const GUIVisualizationSettings& s) const {
-    GUIShapeContainer& shapeContainer = dynamic_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer());
-    if (s.showPedestrianNetwork) {
-        shapeContainer.removeInactivePolygonTypes(std::set<std::string>{"jupedsim.pedestrian_network"});
-    }
-    else {
-        shapeContainer.addInactivePolygonTypes(std::set<std::string>{"jupedsim.pedestrian_network"});
-    }
-    update();
-}
-
-
-void 
-GUIViewTraffic::changePedestrianNetworkColor(const GUIVisualizationSettings& s) const {
-    GUIShapeContainer& shapeContainer = dynamic_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer());
-    for (auto polygonwithID : shapeContainer.getPolygons()) {
-        if (polygonwithID.second->getShapeType() == "jupedsim.pedestrian_network") {
-            polygonwithID.second->setShapeColor(s.pedestrianNetworkColor);
-        } 
-    }
-    update();
-}
 
 /****************************************************************************/

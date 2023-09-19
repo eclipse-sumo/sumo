@@ -391,9 +391,6 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowColorLegend->setCheck(mySettings->showColorLegend);
     myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
 
-    myShowPedestrianNetwork->setCheck(mySettings->showPedestrianNetwork);
-    myPedestrianNetworkColor->setRGBA(MFXUtils::getFXColor(mySettings->pedestrianNetworkColor));
-
     myParent->setColorScheme(mySettings->name);
     update();
     myParent->update();
@@ -875,16 +872,6 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     // openGL
     if (sender == myRecalculateBoundaries) {
         myParent->recalculateBoundaries();
-    }
-
-    if (sender == myShowPedestrianNetwork) {
-        tmpSettings.showPedestrianNetwork = (myShowPedestrianNetwork->getCheck() != FALSE);
-        myParent->drawPedestrianNetwork(tmpSettings);
-    }
-
-    if (sender == myPedestrianNetworkColor) {
-        tmpSettings.pedestrianNetworkColor = MFXUtils::getRGBColor(myPedestrianNetworkColor->getRGBA());
-        myParent->changePedestrianNetworkColor(tmpSettings);
     }
 
     if (tmpSettings == *mySettings) {
@@ -1965,7 +1952,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     myPersonColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
-    
+
     FXMatrix* m103 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
     myPersonNamePanel = new NamePanel(m103, this, TL("Show person id"), mySettings->personName);
     myPersonValuePanel = new NamePanel(m103, this, TL("Show person color value"), mySettings->personValue);
@@ -1974,11 +1961,6 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
 
     FXMatrix* m104 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
     myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize, GLO_PERSON);
-
-    FXMatrix* m105 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix3);
-    myShowPedestrianNetwork = new FXCheckButton(m105, TL("Show JuPedSim pedestrian network"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myShowPedestrianNetwork->setCheck(mySettings->showPedestrianNetwork);
-    myPedestrianNetworkColor = new FXColorWell(m105, MFXUtils::getFXColor(mySettings->pedestrianNetworkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
 }
 
 

@@ -818,12 +818,6 @@ public:
     /// @brief The person colorer
     GUIColorer personColorer;
 
-    /// @brief Flag for visualizing the pedestrian network generated for JuPedSim
-    bool showPedestrianNetwork;
-
-    /// @brief The color of the pedestrian network generated for JuPedSim
-    RGBColor pedestrianNetworkColor;
-
     /// @brief The quality of person drawing
     int personQuality;
 

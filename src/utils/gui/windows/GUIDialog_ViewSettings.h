@@ -357,8 +357,6 @@ protected:
     std::vector<FXRealSpinner*> myPersonThresholds;
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation = nullptr;
-    FXCheckButton* myShowPedestrianNetwork = nullptr;
-    FXColorWell* myPedestrianNetworkColor = nullptr;
 
     /// @brief Containers
     MFXComboBoxIcon* myContainerColorMode, *myContainerShapeDetail = nullptr;
