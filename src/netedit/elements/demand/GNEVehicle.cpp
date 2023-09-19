@@ -2047,7 +2047,11 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+            if (value == toString(INVALID_DOUBLE)) {
+                parseDepartPos(value, myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTPOS_SET;
+            } else  if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 parseDepartPos(value, myTagProperty.getTagStr(), id, departPos, departPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTPOS_SET;
@@ -2087,7 +2091,11 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_ARRIVALPOS:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+            if (value == toString(INVALID_DOUBLE)) {
+                parseArrivalPos("max", myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALPOS_SET;
+            } else if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 parseArrivalPos(value, myTagProperty.getTagStr(), id, arrivalPos, arrivalPosProcedure, error);
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALPOS_SET;
