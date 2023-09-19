@@ -40,6 +40,9 @@
 class Distribution_Parameterized : public Distribution {
 
 public:
+    /// @brief Constructor for any temporary distribution parsed directly from the description
+    Distribution_Parameterized(const std::string& description);
+
     /// @brief Constructor for standard normal distribution
     Distribution_Parameterized(const std::string& id, double mean, double deviation);
 
