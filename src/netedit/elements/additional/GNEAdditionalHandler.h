@@ -605,37 +605,6 @@ public:
     void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                   const std::string& name, const Parameterised::Map& parameters);
 
-    /**@brief Builds a JuPedSim source using the given values
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the source
-     * @param[in] shape The shape of the source
-     * @param[in] name source name
-     * @param[in] parameters generic parameters
-     */
-    void buildJpsSource(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                const std::string& name, const Parameterised::Map& parameters);
-
-    /**@brief Builds a JuPedSim sink using the given values
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the sink
-     * @param[in] shape The shape of the sink
-     * @param[in] name sink name
-     * @param[in] parameters generic parameters
-     */
-    void buildJpsSink(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                              const std::string& name, const Parameterised::Map& parameters);
-
-
-    /**@brief Builds a JuPedSim waypoint using the given values
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the waypoint
-     * @param[in] x waypoint's x position
-     * @param[in] y waypoint's y position
-     * @param[in] name waypoint name
-     * @param[in] parameters generic parameters
-     */
-    void buildJpsWaypoint(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const double x, const double y,
-                                  const std::string& name, const Parameterised::Map& parameters);
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge

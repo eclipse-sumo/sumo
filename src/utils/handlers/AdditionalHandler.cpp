@@ -172,15 +172,6 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
             case GNE_TAG_JPS_WAITINGAREA:
                 parseJpsWaitingAreaAttributes(attrs);
                 break;
-            case GNE_TAG_JPS_SOURCE:
-                parseJpsWaitingAreaAttributes(attrs);
-                break;
-            case GNE_TAG_JPS_SINK:
-                parseJpsWaitingAreaAttributes(attrs);
-                break;
-            case GNE_TAG_JPS_WAYPOINT:
-                parseJpsWaypointAttributes(attrs);
-                break;
             // parameters
             case SUMO_TAG_PARAM:
                 parseParameters(attrs);
@@ -243,9 +234,6 @@ AdditionalHandler::endParseAttributes() {
         case GNE_TAG_JPS_WALKABLEAREA:
         case GNE_TAG_JPS_OBSTACLE:
         case GNE_TAG_JPS_WAITINGAREA:
-        case GNE_TAG_JPS_SOURCE:
-        case GNE_TAG_JPS_SINK:
-        case GNE_TAG_JPS_WAYPOINT:
             // parse object and all their childrens
             parseSumoBaseObject(obj);
             // delete object (and all of their childrens)
@@ -710,32 +698,6 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
                                 obj->getStringAttribute(SUMO_ATTR_NAME),
                                 obj->getParameters());
-            break;
-        // Jps Waiting area
-        case GNE_TAG_JPS_SOURCE:
-            buildJpsSource(obj,
-                           obj->getStringAttribute(SUMO_ATTR_ID),
-                           obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                           obj->getStringAttribute(SUMO_ATTR_NAME),
-                           obj->getParameters());
-            break;
-        // Jps Waiting area
-        case GNE_TAG_JPS_SINK:
-            buildJpsSink(obj,
-                         obj->getStringAttribute(SUMO_ATTR_ID),
-                         obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
-                         obj->getStringAttribute(SUMO_ATTR_NAME),
-                         obj->getParameters());
-    break;
-        // Jps Waypoint
-        case GNE_TAG_JPS_WAYPOINT:
-            // build jps Waypoint over view
-            buildJpsWaypoint(obj,
-                             obj->getStringAttribute(SUMO_ATTR_ID),
-                             obj->getDoubleAttribute(SUMO_ATTR_X),
-                             obj->getDoubleAttribute(SUMO_ATTR_Y),
-                             obj->getStringAttribute(SUMO_ATTR_NAME),
-                             obj->getParameters());
             break;
         default:
             break;
@@ -1881,72 +1843,6 @@ AdditionalHandler::parseJpsWaitingAreaAttributes(const SUMOSAXAttributes& attrs)
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-    }
-}
-
-
-void
-AdditionalHandler::parseJpsSourceAttributes(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
-    // optional attributes
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_SOURCE);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-    }
-}
-
-
-void
-AdditionalHandler::parseJpsSinkAttributes(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const PositionVector shapeStr = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), parsedOk);
-    // optional attributes
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_SINK);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addPositionVectorAttribute(SUMO_ATTR_SHAPE, shapeStr);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
-    }
-}
-
-
-void
-AdditionalHandler::parseJpsWaypointAttributes(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    // special attributes
-    const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), parsedOk, 0);
-    const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), parsedOk, 0);
-    // optional attributes
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(GNE_TAG_JPS_WAYPOINT);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_X, x);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_Y, y);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NAME, name);
     }
 }
