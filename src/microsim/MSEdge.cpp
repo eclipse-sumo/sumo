@@ -1304,7 +1304,7 @@ MSEdge::setBidiLanes() {
             }
         }
         // warn only once for each pair
-        if (numBidiLanes == 0 && getID() < myBidiEdge->getID()) {
+        if (numBidiLanes == 0 && getNumericalID() < myBidiEdge->getNumericalID()) {
             WRITE_WARNINGF(TL("Edge '%s' and bidi edge '%s' have no matching bidi lanes"), getID(), myBidiEdge->getID());
         }
     }
