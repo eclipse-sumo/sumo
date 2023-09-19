@@ -271,7 +271,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (stops.size() > 0) {
             const double sourcePos = onInit ? 0 : getPositionOnLane();
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos);
+            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos && (
                                       stops.size() < 2 || stops.back() != stops[stops.size() - 2]);
 #ifdef DEBUG_REROUTE
