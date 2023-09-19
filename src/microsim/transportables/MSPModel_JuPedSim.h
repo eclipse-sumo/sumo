@@ -142,10 +142,6 @@ private:
         bool myWaitingToEnter;
         int myNumStages;
     };
-    struct ParameterProfile{
-        double v0{};
-        double radius{};
-    };
 
     MSNet* const myNetwork;
     const SUMOTime myJPSDeltaT;
@@ -160,8 +156,6 @@ private:
     JPS_Geometry myJPSGeometry;
     JPS_VelocityModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
-    using ParameterMap = std::map<std::string, ParameterProfile>;
-    ParameterMap myJPSParameterProfileIds;
     JPS_Simulation myJPSSimulation;
 
     static const int GEOS_QUADRANT_SEGMENTS;

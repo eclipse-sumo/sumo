@@ -90,19 +90,19 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
     else {
         orientation = JPS_Point{1., tan(angle)};
     }
-    agent_parameters.orientation =  orientation;
-    std::string pedestrianTypeID = state->getPerson()->getVehicleType().getID();
-    ParameterMap::const_iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
-    if (it != myJPSParameterProfileIds.end()) {
-        agent_parameters.v0 = it->second.v0;
-        agent_parameters.radius = it->second.radius;
-    } else {
-        WRITE_WARNINGF(TL("Error while adding an agent: vType '%' hasn't been registered as a JuPedSim parameter profile, using the default type."), pedestrianTypeID);
-        const auto& params = myJPSParameterProfileIds[DEFAULT_PEDTYPE_ID];
-        agent_parameters.v0 = params.v0;
-        agent_parameters.radius = params.radius;
+    agent_parameters.orientation = orientation;
+    agent_parameters.radius = 0.3;
+    const MSVehicleType& type = state->getPerson()->getVehicleType();
+    if (type.wasSet(VTYPEPARS_LENGTH_SET) || type.wasSet(VTYPEPARS_WIDTH_SET)) {
+        if (!type.wasSet(VTYPEPARS_WIDTH_SET)) {
+            agent_parameters.radius = 0.5 * type.getLength();
+        } else if (!type.wasSet(VTYPEPARS_LENGTH_SET)) {
+            agent_parameters.radius = 0.5 * type.getWidth();
+        } else {
+            agent_parameters.radius = 0.25 * (type.getLength() + type.getWidth());
+        }
     }
-
+    agent_parameters.v0 = MIN2(type.getMaxSpeed(), type.getDesiredMaxSpeed());
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
@@ -712,45 +712,24 @@ MSPModel_JuPedSim::initialize() {
 #endif
 
     JPS_ErrorMessage message = nullptr; 
-    
     myJPSGeometry = JPS_GeometryBuilder_Build(myJPSGeometryBuilder, &message);
     if (myJPSGeometry == nullptr) {
         WRITE_WARNINGF(TL("Error creating the geometry: %"), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+        return;
     }
-
     myJPSModelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    size_t nbrParameterProfiles = 0;
-    for (const MSVehicleType* type : myNetwork->getVehicleControl().getPedestrianTypes()) {
-        ++nbrParameterProfiles;
-        double radius;
-        if ((!type->wasSet(VTYPEPARS_LENGTH_SET)) && (!type->wasSet(VTYPEPARS_WIDTH_SET))) {
-            radius = 0.3;
-        }
-        else if (!type->wasSet(VTYPEPARS_WIDTH_SET)) {
-            radius = 0.5 * type->getLength();
-        }
-        else if (!type->wasSet(VTYPEPARS_LENGTH_SET)) {
-            radius = 0.5 * type->getWidth();
-        }
-        else {
-            radius = 0.25 * (type->getLength() + type->getWidth());
-        }
-        myJPSParameterProfileIds[type->getID()] = {MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), radius};
-    }
-    
     myJPSModel = JPS_VelocityModelBuilder_Build(myJPSModelBuilder, &message);
     if (myJPSModel == nullptr) {
         WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+        return;
     }
-
-    if ((myJPSModel != nullptr) && (myJPSGeometry != nullptr)) {
-        myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
-        if (myJPSSimulation == nullptr) {
-            WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
-        }
+    myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+    if (myJPSSimulation == nullptr) {
+        WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
     }
-
-    JPS_ErrorMessage_Free(message);
 }
 
 
