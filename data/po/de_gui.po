@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-12 13:56+0000\n"
+"PO-Revision-Date: 2023-09-19 17:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -10681,7 +10681,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2133
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2139
 msgid "Could not build % with ID '%' in netedit"
-msgstr ""
+msgstr "Konnte % (ID '%') nicht in netedit erstellen"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2086
 msgid "ID contains invalid characters."
@@ -10697,7 +10697,7 @@ msgstr "Doppelt deklariert."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2106
 msgid "Could not build % '%' in netedit"
-msgstr ""
+msgstr "Konnte % '%' nicht in netedit erstellen"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2108
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2194
@@ -10715,7 +10715,7 @@ msgstr "Konnte % nicht in netedit erstellen"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2111
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "% '%' doesn't exist."
-msgstr ""
+msgstr "% '%' existiert nicht."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2113
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2194
@@ -10890,7 +10890,7 @@ msgstr "Kantenrelation hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:171
 msgid "There is already a edgeRel defined between '%' and '%'."
-msgstr ""
+msgstr "Es wurde bereits eine Kantenbeziehung zwischen '%' und '%' definiert."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:214
 msgid "There is already a TAZ rel defined between '%' and '%'."
@@ -10978,19 +10978,19 @@ msgstr "Attribut % existiert nicht."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:763
 msgid "Route length: "
-msgstr ""
+msgstr "Routenlänge: "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:773
 msgid "reverse"
-msgstr ""
+msgstr "umkehren"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:775
 msgid "reverse current %"
-msgstr ""
+msgstr "aktuelle(n) % umkehren"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:776
 msgid "Add reverse %"
-msgstr ""
+msgstr "Gegenrichtung für % hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:304
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:315
@@ -11000,7 +11000,7 @@ msgstr "Diese Personenfahrt benutzt Knotenpunkte"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:823
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1861
 msgid "copy % '%'"
-msgstr ""
+msgstr "% '%' kopieren"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:69
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:104
