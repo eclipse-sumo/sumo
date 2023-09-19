@@ -2255,8 +2255,8 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, const bool
         }
         // certain modes require a recomputing
         switch (mode) {
-            case NetworkEditMode::NETWORK_CONNECT:
             case NetworkEditMode::NETWORK_PROHIBITION:
+            case NetworkEditMode::NETWORK_CONNECT:
             case NetworkEditMode::NETWORK_TLS:
             case NetworkEditMode::NETWORK_WIRE:
                 // modes which depend on computed data

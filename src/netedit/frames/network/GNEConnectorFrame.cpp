@@ -124,11 +124,11 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
     if (myConnectorFrameParent->myCurrentEditedLane != 0) {
         // check if routes has to be protected
         if (myProtectRoutesCheckBox->isEnabled() && (myProtectRoutesCheckBox->getCheck() == TRUE)) {
-            for (const auto& i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge()->getChildDemandElements()) {
-                if (i->isDemandElementValid() != GNEDemandElement::Problem::OK) {
+            for (const auto& demandElement : myConnectorFrameParent->myCurrentEditedLane->getParentEdge()->getChildDemandElements()) {
+                if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
                                           TL("Error saving connection operations"), "%s",
-                                          (TLF("Connection edition cannot be saved because route '%' is broken.", i->getID()).c_str()));
+                                          (TLF("Connection edition cannot be saved because route '%' is broken.", demandElement->getID()).c_str()));
                     return 1;
                 }
             }
@@ -139,6 +139,9 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
             myConnectorFrameParent->getViewNet()->setStatusBarText(TL("Changes accepted"));
         }
         myConnectorFrameParent->cleanup();
+        // mark network for recomputing
+        myConnectorFrameParent->getViewNet()->getNet()->requireRecompute();
+        // update viewNet
         myConnectorFrameParent->getViewNet()->updateViewNet();
     }
     return 1;
