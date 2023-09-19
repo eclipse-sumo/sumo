@@ -38,7 +38,7 @@ class GNEPlanSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEPlanSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
+    GNEPlanSelector(GNEFrame* frameParent, GNETagProperties::TagType type);
 
     /// @brief destructor
     ~GNEPlanSelector();
@@ -49,25 +49,18 @@ public:
     /// @brief hide item selector
     void hideTagSelector();
 
-    /// @brief get templateAC
-    GNEAttributeCarrier* getTemplateAC(SumoXMLTag ACTag) const;
-
-    /// @brief get current templateAC
-    GNEAttributeCarrier* getCurrentTemplateAC() const;
-
-    /// @brief set current type manually
-    void setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent = true);
-
-    /// @brief set current type manually
-    void setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent = true);
+    /// @brief get current template plan
+    GNEDemandElement* getCurrentTemplatePlan() const;
 
     /// @brief refresh tagSelector (used when frameParent is show)
     void refreshTagSelector();
 
     /// @name FOX-callbacks
     /// @{
-    /// @brief Called when the user select an elementin ComboBox
-    long onCmdSelectTag(FXObject*, FXSelector, void*);
+
+    /// @brief Called when the user select an element in ComboBox
+    long onCmdSelectPlan(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -75,28 +68,6 @@ protected:
     FOX_CONSTRUCTOR(GNEPlanSelector)
 
 private:
-    class ACTemplate {
-
-    public:
-        /// @brief constructor
-        ACTemplate(GNENet* net, const GNETagProperties tagProperty);
-
-        /// @brief destructor
-        ~ACTemplate();
-
-        /// @brief get template AC
-        GNEAttributeCarrier* getAC() const;
-
-    private:
-        /// @brief editedAC
-        GNEAttributeCarrier* myAC;
-
-        /// @brief Invalidated copy constructor.
-        ACTemplate(const ACTemplate&) = delete;
-
-        /// @brief Invalidated assignment operator
-        ACTemplate& operator=(const ACTemplate& src) = delete;
-    };
 
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
@@ -105,11 +76,11 @@ private:
     GNETagProperties::TagType myTagType;
 
     /// @brief comboBox with the tags
-    MFXComboBoxIcon* myTagsMatchBox;
+    MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current templateAC;
-    GNEAttributeCarrier* myCurrentTemplateAC;
+    GNEDemandElement* myCurrentPlanTemplate;
 
-    /// @brief list with ACTemplates
-    std::vector<ACTemplate*> myACTemplates;
+    /// @brief list with plan templates
+    std::map<std::string, GNEDemandElement*> myPlanTemplates;
 };
