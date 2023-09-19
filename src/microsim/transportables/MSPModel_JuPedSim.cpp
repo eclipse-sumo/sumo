@@ -660,7 +660,7 @@ MSPModel_JuPedSim::initialize() {
     preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
     preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
 
-#if DEBUG
+#ifdef DEBUG
     std::ofstream GEOSGeometryDumpFile;
     GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
     GEOSWKTWriter* writer = GEOSWKTWriter_create();
