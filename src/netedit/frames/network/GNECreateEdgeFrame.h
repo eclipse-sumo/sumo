@@ -313,5 +313,5 @@ private:
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
 
     /// @brief source junction for new edge
-    GNEJunction* myCreateEdgeSource;
+    GNEJunction* myJunctionSource;
 };

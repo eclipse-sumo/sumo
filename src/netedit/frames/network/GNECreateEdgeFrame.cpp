@@ -655,7 +655,7 @@ GNECreateEdgeFrame::Legend::~Legend() {}
 GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("Create Edge")),
     myObjectsUnderSnappedCursor(viewNet),
-    myCreateEdgeSource(nullptr) {
+    myJunctionSource(nullptr) {
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
@@ -700,15 +700,38 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             junction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList());
         }
         // now check if we have to create a new edge
-        if (myCreateEdgeSource == nullptr) {
-            myCreateEdgeSource = junction;
-            myCreateEdgeSource->markAsCreateEdgeSource();
+        if (myJunctionSource == nullptr) {
+            // check if create edge type short
+            if (myEdgeTypeSelector->useDefaultEdgeTypeShort()) {
+                // create new junction
+                auto newJunction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition) + Position(5, 0), myViewNet->getUndoList());
+                // create new small edge
+                GNEEdge* newEdge = myViewNet->getNet()->createEdge(junction, newJunction, nullptr, myViewNet->getUndoList());
+                // set parameters
+                newEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                // check pedestrians and sidewalks
+                if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
+                    disablePedestrians(newEdge);
+                }
+                if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
+                    addSidewalk(newEdge);
+                }
+                // end undo list
+                if (myViewNet->getUndoList()->hasCommandGroup()) {
+                    myViewNet->getUndoList()->end();
+                } else {
+                    std::cout << "edge created without an open CommandGroup" << std::endl;
+                }
+            } else {
+                myJunctionSource = junction;
+                myJunctionSource->markAsCreateEdgeSource();
+            }
             update();
         } else {
             // make sure that junctions source and destiny are different
-            if (myCreateEdgeSource != junction) {
+            if (myJunctionSource != junction) {
                 // may fail to prevent double edges
-                GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
+                GNEEdge* newEdge = myViewNet->getNet()->createEdge(myJunctionSource, junction, nullptr, myViewNet->getUndoList());
                 // check if edge was successfully created
                 if (newEdge) {
                     // set parameters
@@ -727,8 +750,8 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                         newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                     }
                     // create another edge, if create opposite edge is enabled
-                    if (oppositeEdge && (myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(junction, myCreateEdgeSource).size() == 0)) {
-                        GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
+                    if (oppositeEdge && (myViewNet->getNet()->getAttributeCarriers()->retrieveEdges(junction, myJunctionSource).size() == 0)) {
+                        GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myJunctionSource, nullptr,
                                                    myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                         // set parameters
                         if (myEdgeTypeSelector->useEdgeTemplate()) {
@@ -747,7 +770,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                         }
                     }
                     // edge created, then unmark as create edge source
-                    myCreateEdgeSource->unMarkAsCreateEdgeSource();
+                    myJunctionSource->unMarkAsCreateEdgeSource();
                     // end undo list
                     if (myViewNet->getUndoList()->hasCommandGroup()) {
                         myViewNet->getUndoList()->end();
@@ -756,11 +779,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     }
                     // if we're creating edges in chain mode, mark junction as junction edge source
                     if (chainEdge) {
-                        myCreateEdgeSource = junction;
-                        myCreateEdgeSource->markAsCreateEdgeSource();
+                        myJunctionSource = junction;
+                        myJunctionSource->markAsCreateEdgeSource();
                         myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
                     } else {
-                        myCreateEdgeSource = nullptr;
+                        myJunctionSource = nullptr;
                     }
                 } else {
                     myViewNet->setStatusBarText(TL("An edge with the same geometry already exists!"));
@@ -777,17 +800,17 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
 void
 GNECreateEdgeFrame::abortEdgeCreation() {
     // if myCreateEdgeSource exist, unmark ist as create edge source
-    if (myCreateEdgeSource != nullptr) {
+    if (myJunctionSource != nullptr) {
         // remove current created edge source
-        myCreateEdgeSource->unMarkAsCreateEdgeSource();
-        myCreateEdgeSource = nullptr;
+        myJunctionSource->unMarkAsCreateEdgeSource();
+        myJunctionSource = nullptr;
     }
 }
 
 
 const GNEJunction*
 GNECreateEdgeFrame::getJunctionSource() const {
-    return myCreateEdgeSource;
+    return myJunctionSource;
 }
 
 
