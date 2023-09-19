@@ -72,7 +72,7 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, const PositionVector& waypoints);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
         ~PState() override;
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
@@ -110,6 +110,11 @@ private:
             return myJourneyId;
         }
 
+        /// @brief first stage of the journey
+        JPS_StageId getStageId() const {
+            return myStageId;
+        }
+
         bool isWaitingToEnter() const {
             return myWaitingToEnter;
         }
@@ -126,6 +131,7 @@ private:
         JPS_JourneyDescription myJourney;
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
+        JPS_StageId myStageId;
         PositionVector myWaypoints;
         JPS_AgentId myAgentId;
         Position myPosition;
@@ -135,6 +141,10 @@ private:
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
         int myNumStages;
+    };
+    struct ParameterProfile{
+        double v0{};
+        double radius{};
     };
 
     MSNet* const myNetwork;
@@ -150,7 +160,8 @@ private:
     JPS_Geometry myJPSGeometry;
     JPS_VelocityModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
-    std::map<std::string, JPS_ModelParameterProfileId> myJPSParameterProfileIds;
+    using ParameterMap = std::map<std::string, ParameterProfile>;
+    ParameterMap myJPSParameterProfileIds;
     JPS_Simulation myJPSSimulation;
 
     static const int GEOS_QUADRANT_SEGMENTS;

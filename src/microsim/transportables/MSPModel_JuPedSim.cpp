@@ -77,6 +77,7 @@ void
 MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
 	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = state->getJourneyId();
+	agent_parameters.stageId = state->getStageId();
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
     const double angle = state->getAngle(*state->getStage(), 0);
     JPS_Point orientation;
@@ -91,12 +92,15 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
     }
     agent_parameters.orientation =  orientation;
     std::string pedestrianTypeID = state->getPerson()->getVehicleType().getID();
-    std::map<std::string, JPS_ModelParameterProfileId>::iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
+    ParameterMap::const_iterator it = myJPSParameterProfileIds.find(pedestrianTypeID);
     if (it != myJPSParameterProfileIds.end()) {
-        agent_parameters.profileId = it->second;
+        agent_parameters.v0 = it->second.v0;
+        agent_parameters.radius = it->second.radius;
     } else {
         WRITE_WARNINGF(TL("Error while adding an agent: vType '%' hasn't been registered as a JuPedSim parameter profile, using the default type."), pedestrianTypeID);
-        agent_parameters.profileId = myJPSParameterProfileIds[DEFAULT_PEDTYPE_ID];
+        const auto& params = myJPSParameterProfileIds[DEFAULT_PEDTYPE_ID];
+        agent_parameters.v0 = params.v0;
+        agent_parameters.radius = params.radius;
     }
 
     JPS_ErrorMessage message = nullptr;
@@ -150,6 +154,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     }
 
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
+    JPS_StageId startingStage{};
+    JPS_StageId predecessor{};
 
     int stageOffset = 1;
     PositionVector waypoints;
@@ -166,7 +172,17 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         } else {
             waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prev->getArrivalPos()));
         }
-        JPS_JourneyDescription_AddWaypoint(journey, {waypoints.back().x(), waypoints.back().y()}, myExitTolerance, NULL, NULL);
+        const auto waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {waypoints.back().x(), waypoints.back().y()}, myExitTolerance, NULL);
+        if(startingStage == 0) {
+            startingStage = waypointId;
+            predecessor = waypointId;
+        } else {
+            const auto transition = JPS_Transition_CreateFixedTransition(waypointId, nullptr);
+            JPS_JourneyDescription_SetTransitionForStage(journey, predecessor, transition, nullptr);
+            JPS_Transition_Free(transition);
+            predecessor = waypointId;
+        }
+        JPS_JourneyDescription_AddStage(journey, waypointId);
         stageOffset++;
     }
 
@@ -176,12 +192,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(arrivalStage->getArrivalPos());
     waypoints.push_back(arrivalPosition);
 
-#if JPS_VERSION > 1000
     const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
     JPS_JourneyDescription_AddStage(journey, waypointId);
-#else
-    JPS_JourneyDescription_AddWaypoint(journey, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, NULL, NULL);
-#endif
     JPS_ErrorMessage message = nullptr;
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
     if (message != nullptr) {
@@ -189,7 +201,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         JPS_ErrorMessage_Free(message);
     }
 
-    PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, waypoints);
+    PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, startingStage, waypoints);
     state->setLanePosition(stage->getDepartPos());
     state->setPreviousPosition(departurePosition);
     state->setPosition(departurePosition.x(), departurePosition.y());
@@ -237,19 +249,17 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
 
         // Updates the agent position.
-        JPS_VelocityModelAgentParameters agent{};
-#if JPS_VERSION > 1000
-#else
-        JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
-#endif
+        auto agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
         state->setPreviousPosition(state->getPosition(*stage, DELTA_T));
-        state->setPosition(agent.position.x, agent.position.y);
+        const auto position = JPS_Agent_GetPosition(agent);
+        state->setPosition(position.x, position.y);
 
         // Updates the agent direction.
-        state->setAngle(atan2(agent.orientation.y, agent.orientation.x));
+        const auto orientation = JPS_Agent_GetOrientation(agent);
+        state->setAngle(atan2(orientation.y, orientation.x));
 
         // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
-        Position newPosition(agent.position.x, agent.position.y);
+        Position newPosition(position.x, position.y);
         ConstMSEdgeVector route = stage->getEdges();
         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
@@ -695,8 +705,7 @@ MSPModel_JuPedSim::initialize() {
         else {
             radius = 0.25 * (type->getLength() + type->getWidth());
         }
-        JPS_VelocityModelBuilder_AddParameterProfile(myJPSModelBuilder, nbrParameterProfiles, 1.0, 0.5, MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), radius);
-        myJPSParameterProfileIds[type->getID()] = nbrParameterProfiles;
+        myJPSParameterProfileIds[type->getID()] = {MIN2(type->getMaxSpeed(), type->getDesiredMaxSpeed()), radius};
     }
     
     myJPSModel = JPS_VelocityModelBuilder_Build(myJPSModelBuilder, &message);
@@ -733,9 +742,9 @@ MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
-                                  JPS_JourneyDescription journey, JPS_JourneyId journeyId,
+                                  JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId,
                                   const PositionVector& waypoints)
-    : myPerson(person), myStage(stage), myJourney(journey), myJourneyId(journeyId), myWaypoints(waypoints),
+    : myPerson(person), myStage(stage), myJourney(journey), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
       myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
 
