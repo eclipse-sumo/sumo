@@ -36,6 +36,7 @@ title: ChangeLog
   - Now vType is a combobox when a selection of vehicles is inspected. #12719
   - Fixed error with FXIconComboBox size. #12623
   - Disabled invalid combinations for node 'type' and 'rightOfWay'. #13436
+  - Fixed problem moving vehicles. #13824
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
