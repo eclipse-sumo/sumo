@@ -107,12 +107,10 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel(TL("TAZSinks"), ACs->getNumberOfSelectedTAZSinks());
         updateInformationLabel(TL("Polygons"), ACs->getNumberOfSelectedPolygons());
         updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
-        updateInformationLabel(TL("JuPedSim elements"), ACs->getNumberOfSelectedJpsWalkableAreas() + 
+        updateInformationLabel(TL("JuPedSim elements"),
+            ACs->getNumberOfSelectedJpsWalkableAreas() + 
             ACs->getNumberOfSelectedJpsObstacles() +
-            ACs->getNumberOfSelectedJpsWaitingAreas() +
-            ACs->getNumberOfSelectedJpsWaypoints() +
-            ACs->getNumberOfSelectedJpsSources() +
-            ACs->getNumberOfSelectedJpsSinks());
+            ACs->getNumberOfSelectedJpsWaitingAreas());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel(TL("Routes"), ACs->getNumberOfSelectedRoutes());
         updateInformationLabel(TL("Vehicles"), ACs->getNumberOfSelectedVehicles());
@@ -732,48 +730,6 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 waitingArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
                 waitingArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    if (ignoreLocking || !locks.isObjectLocked(GLO_JPS_SOURCE, false)) {
-        for (const auto& source : ACs->getAdditionals().at(GNE_TAG_JPS_SOURCE)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || source->isAttributeCarrierSelected()) {
-                source->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                source->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    if (ignoreLocking || !locks.isObjectLocked(GLO_JPS_SINK, false)) {
-        for (const auto& sink : ACs->getAdditionals().at(GNE_TAG_JPS_SINK)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || sink->isAttributeCarrierSelected()) {
-                sink->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                sink->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    if (ignoreLocking || !locks.isObjectLocked(GLO_JPS_WAYPOINT, false)) {
-        for (const auto& poiWaypoint : ACs->getAdditionals().at(GNE_TAG_JPS_WAYPOINT)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || poiWaypoint->isAttributeCarrierSelected()) {
-                poiWaypoint->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                poiWaypoint->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {

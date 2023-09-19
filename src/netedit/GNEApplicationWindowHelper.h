@@ -801,15 +801,6 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock jps waiting areas
         MFXMenuCheckIcon* menuCheckLockJpsWaitingAreas = nullptr;
 
-        /// @brief menu check to lock jps sources
-        MFXMenuCheckIcon* menuCheckLockJpsSources = nullptr;
-
-        /// @brief menu check to lock jps sinks
-        MFXMenuCheckIcon* menuCheckLockJpsSinks = nullptr;
-        
-        /// @brief menu check to lock jps waypoints
-        MFXMenuCheckIcon* menuCheckLockJpsWaypoints = nullptr;
-
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode

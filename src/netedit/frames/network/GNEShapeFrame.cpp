@@ -273,7 +273,6 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
         // continue depending of tag
         switch (shapeTag) {
             case SUMO_TAG_POI:
-            case GNE_TAG_JPS_WAYPOINT:
                 return processClickPOI(shapeTag, clickedPosition, objectsUnderCursor);
             case GNE_TAG_POIGEO:
                 return processClickPOIGeo(clickedPosition, objectsUnderCursor);
@@ -283,8 +282,6 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
             case GNE_TAG_JPS_WAITINGAREA:
-            case GNE_TAG_JPS_SOURCE:
-            case GNE_TAG_JPS_SINK:
                 return processClickPolygons(clickedPosition, updateTemporalShape);
             default:
                 break;
@@ -383,8 +380,7 @@ GNEShapeFrame::tagSelected() {
         SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // Check if drawing mode has to be shown
         if ((shapeTag == SUMO_TAG_POLY) || (shapeTag == GNE_TAG_JPS_WALKABLEAREA) ||
-            (shapeTag == GNE_TAG_JPS_OBSTACLE) || (shapeTag == GNE_TAG_JPS_WAITINGAREA) ||
-            (shapeTag == GNE_TAG_JPS_SOURCE) || (shapeTag == GNE_TAG_JPS_SINK)) {
+            (shapeTag == GNE_TAG_JPS_OBSTACLE) || (shapeTag == GNE_TAG_JPS_WAITINGAREA)) {
             myDrawingShape->showDrawingShape();
         } else {
             myDrawingShape->hideDrawingShape();

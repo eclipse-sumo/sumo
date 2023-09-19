@@ -1201,12 +1201,6 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("jps.obstacle-prefix");
     } else if (tag == GNE_TAG_JPS_WAITINGAREA) {
         prefix = neteditOptions.getString("jps.waitingArea-prefix");
-    } else if (tag == GNE_TAG_JPS_SOURCE) {
-        prefix = neteditOptions.getString("jps.source-prefix");
-    } else if (tag == GNE_TAG_JPS_SINK) {
-        prefix = neteditOptions.getString("jps.sink-prefix");
-    } else if (tag == GNE_TAG_JPS_WAYPOINT) {
-        prefix = neteditOptions.getString("jps.waypoint-prefix");
     }
     int counter = 0;
     // check namespaces
@@ -1261,7 +1255,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
            getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() -
            // JuPedSims
            getNumberOfSelectedJpsWalkableAreas() - getNumberOfSelectedJpsObstacles() - getNumberOfSelectedJpsWaitingAreas() -
-           getNumberOfSelectedJpsSources() - getNumberOfSelectedJpsSinks() - getNumberOfSelectedJpsWaypoints() -
            // TAZ
            getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
            // wires
@@ -1316,41 +1309,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWaitingAreas() const {
     return counter;
 }
 
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsSources() const {
-    int counter = 0;
-    for (const auto& source : myAdditionals.at(GNE_TAG_JPS_SOURCE)) {
-        if (source->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsSinks() const {
-    int counter = 0;
-    for (const auto& sink : myAdditionals.at(GNE_TAG_JPS_SINK)) {
-        if (sink->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWaypoints() const {
-    int counter = 0;
-    for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_WAYPOINT)) {
-        if (obstacle->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
 
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedPOIs() const {

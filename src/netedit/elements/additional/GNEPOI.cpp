@@ -85,18 +85,6 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 }
 
 
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, getJuPedSimType(GNE_TAG_JPS_WAYPOINT), getJuPedSimColor(GNE_TAG_JPS_WAYPOINT), Position(x, y),
-                    false, "", 0, false, 0, getJuPedSimLayer(GNE_TAG_JPS_WAYPOINT), 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, getJuPedSimGLO(GNE_TAG_JPS_WAYPOINT), GNE_TAG_JPS_WAYPOINT, getJuPedSimIcon(GNE_TAG_JPS_WAYPOINT), "",
-                  {}, {}, {}, {}, {}, {}) {
-    // update geometry (needed for adjust myShapeWidth and myShapeHeight)
-    updateGeometry();
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
-}
-
-
 GNEPOI::~GNEPOI() {}
 
 
