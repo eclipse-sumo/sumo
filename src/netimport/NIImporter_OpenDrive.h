@@ -40,6 +40,7 @@ class NBNodeCont;
 
 
 #define UNSET_CONNECTION 100000
+#define UNSET_LANEVALIDITY 100000
 
 // ===========================================================================
 // class definitions
@@ -413,7 +414,7 @@ protected:
                         int orientationArg, bool dynamicArg, double sArg) :
             id(idArg), type(typeArg), name(nameArg),
             orientation(orientationArg), dynamic(dynamicArg), s(sArg),
-            minLane(0), maxLane(0)
+            minLane(-UNSET_LANEVALIDITY), maxLane(UNSET_LANEVALIDITY)
         { }
 
         /// dummy constructor for use in maps
@@ -695,6 +696,7 @@ private:
     static bool myImportWidths;
     static double myMinWidth;
     static bool myImportInternalShapes;
+    static bool myIgnoreMisplacedSignals;
     static OpenDriveController myDummyController;
 
 
