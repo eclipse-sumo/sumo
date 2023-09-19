@@ -170,6 +170,7 @@ private:
 
     void initialize();
     void tryPedestrianInsertion(PState* state);
+    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point);
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
     static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);

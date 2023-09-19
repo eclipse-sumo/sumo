@@ -114,6 +114,36 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
 }
 
 
+bool
+MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point) {
+    JPS_ErrorMessage message = nullptr;
+    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {point.x(), point.y()}, myExitTolerance, &message);
+    if (message != nullptr) {
+        WRITE_WARNINGF(TL("Error while adding waypoint for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+        return false;
+    }
+    if (predecessor != 0) {
+        const JPS_Transition transition = JPS_Transition_CreateFixedTransition(waypointId, &message);
+        if (message != nullptr) {
+            WRITE_WARNINGF(TL("Error while creating fixed transition for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+            JPS_ErrorMessage_Free(message);
+            return false;
+        }
+        JPS_JourneyDescription_SetTransitionForStage(journey, predecessor, transition, &message);
+        if (message != nullptr) {
+            WRITE_WARNINGF(TL("Error while setting transition for an agent: %"), JPS_ErrorMessage_GetMessage(message));
+            JPS_ErrorMessage_Free(message);
+            return false;
+        }
+        JPS_Transition_Free(transition);
+    }
+    JPS_JourneyDescription_AddStage(journey, waypointId);
+    predecessor = waypointId;
+    return true;
+}
+
+
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /* now */) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
@@ -154,8 +184,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     }
 
     JPS_JourneyDescription journey = JPS_JourneyDescription_Create();
-    JPS_StageId startingStage{};
-    JPS_StageId predecessor{};
+    JPS_StageId startingStage = 0;
+    JPS_StageId predecessor = 0;
 
     int stageOffset = 1;
     PositionVector waypoints;
@@ -172,17 +202,12 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         } else {
             waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prev->getArrivalPos()));
         }
-        const auto waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {waypoints.back().x(), waypoints.back().y()}, myExitTolerance, NULL);
-        if(startingStage == 0) {
-            startingStage = waypointId;
-            predecessor = waypointId;
-        } else {
-            const auto transition = JPS_Transition_CreateFixedTransition(waypointId, nullptr);
-            JPS_JourneyDescription_SetTransitionForStage(journey, predecessor, transition, nullptr);
-            JPS_Transition_Free(transition);
-            predecessor = waypointId;
+        if (!addWaypoint(journey, predecessor, waypoints.back())) {
+            return nullptr;
         }
-        JPS_JourneyDescription_AddStage(journey, waypointId);
+        if (startingStage == 0) {
+            startingStage = predecessor;
+        }
         stageOffset++;
     }
 
@@ -192,13 +217,18 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(arrivalStage->getArrivalPos());
     waypoints.push_back(arrivalPosition);
 
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {arrivalPosition.x(), arrivalPosition.y()}, myExitTolerance, nullptr);
-    JPS_JourneyDescription_AddStage(journey, waypointId);
+    if (!addWaypoint(journey, predecessor, arrivalPosition)) {
+        return nullptr;
+    }
+    if (startingStage == 0) {
+        startingStage = predecessor;
+    }
     JPS_ErrorMessage message = nullptr;
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, &message);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding a journey for an agent: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
+        return nullptr;
     }
 
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, journeyId, startingStage, waypoints);
