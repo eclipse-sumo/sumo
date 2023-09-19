@@ -151,12 +151,6 @@ enum GUIGlObjectType {
     GLO_JPS_OBSTACLE = 204,
     /// @brief waiting areas
     GLO_JPS_WAITINGAREA = 205,
-    /// @brief waiting areas
-    GLO_JPS_SOURCE = 206,
-    /// @brief waiting areas
-    GLO_JPS_SINK = 207,
-    /// @brief poi waypoints
-    GLO_JPS_WAYPOINT = 208,
 
     /// @}
 
