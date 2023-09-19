@@ -79,6 +79,7 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 
 double
 MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, double defaultVal) {
+    // return getFloatParam(v, OptionsCont::getOptions(), toString(attr), defaultVal);
     const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
     if (v.getParameter().getParameter(toString(attr), "-") == "-") {
         return typeParams.getDouble(toString(attr), defaultVal);

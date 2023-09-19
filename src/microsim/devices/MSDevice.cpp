@@ -199,9 +199,9 @@ double
 MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required) {
     const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
-        return StringUtils::toDouble(val);
+        return Distribution_Parameterized(val).sample();
     } catch (const ProcessError&) {
-        WRITE_ERRORF(TL("Invalid float value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
+        WRITE_ERRORF(TL("Invalid distribution / float value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }
