@@ -43,3 +43,6 @@ tripinfo_emission
 
 # charging stations placed in internal lanes
 chargingStations_internalLanes
+
+# distribution of charging levels
+chargeLevelDist
