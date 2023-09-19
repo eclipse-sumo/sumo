@@ -37,6 +37,7 @@ title: ChangeLog
   - Fixed error with FXIconComboBox size. #12623
   - Disabled invalid combinations for node 'type' and 'rightOfWay'. #13436
   - Fixed problem moving vehicles. #13824
+  - Fixed crash in netedit due to netbuild / connections. #13731
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
