@@ -96,7 +96,7 @@ def main():
             if not lanes:
                 sys.stderr.write("Could not find road for detector %s within %sm radius" % (detID, radius))
                 continue
-            lanes.sort()
+            lanes.sort(key=lambda x:x[0])
             best = lanes[0][1]
             pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape())
             outf.write('    <inductionLoop id="%s" lane="%s" pos="%s" file="%s" freq="%s"/>\n' % (
