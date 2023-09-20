@@ -463,6 +463,12 @@ enum class GUIIcon {
     POIGEO,
     /// @}
 
+    /// @name poi icons
+    /// @{
+    POIICON_TREE,
+    POIICON_HOTEL,
+    /// @}
+
     /// @name juPedSim elements
     /// @{
     JPS,

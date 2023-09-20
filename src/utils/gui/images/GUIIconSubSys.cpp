@@ -335,6 +335,9 @@
 #include "poilane.xpm"
 #include "poigeo.xpm"
 
+#include "poiicon_hotel.xpm"
+#include "poiicon_tree.xpm"
+
 #include "jps.xpm"
 #include "jps_walkablearea.xpm"
 #include "jps_obstacle.xpm"
@@ -824,6 +827,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
+
+    myIcons[GUIIcon::POIICON_TREE] = new FXXPMIcon(a, poiicon_tree_xpm);
+    myIcons[GUIIcon::POIICON_HOTEL] = new FXXPMIcon(a, poiicon_hotel_xpm);
 
     myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
     myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
