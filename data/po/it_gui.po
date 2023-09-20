@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-18 09:42+0000\n"
+"PO-Revision-Date: 2023-09-20 14:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -12666,7 +12666,7 @@ msgstr "Cambiare scala nella visualizzazione"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
 msgid "Enlarge selected objects"
-msgstr ""
+msgstr "Ingrandisci oggetti selezionati"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
@@ -12708,38 +12708,38 @@ msgstr "Ridurre la rete alla selezione attuale."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:282
 msgid "Could not open '%'."
-msgstr ""
+msgstr "Non ho potuto aprile '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
 msgid "load selection"
-msgstr ""
+msgstr "carica selezione"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
-msgstr ""
+msgstr "Apri elenco di elementi selezionati"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:349
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
-msgstr ""
+msgstr "Salva elenco di elementi selezionati"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
 msgid "invert selection"
-msgstr ""
+msgstr "inverti selezione"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
 msgid "simplify network"
-msgstr ""
+msgstr "semplifica rete"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
-msgstr ""
+msgstr "Operazioni gerarchiche"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
 msgid "Select parents"
-msgstr ""
+msgstr "Seleziona elementi padri"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1147
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1158
@@ -12748,15 +12748,15 @@ msgstr "Deseleziona"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1149
 msgid "Select children"
-msgstr ""
+msgstr "Seleziona elementi figli"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
-msgstr ""
+msgstr "seleziona elementi padri"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
 msgid "select children"
-msgstr ""
+msgstr "seleziona elementi figli"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Hold <SHIFT> for rectangle selection."
