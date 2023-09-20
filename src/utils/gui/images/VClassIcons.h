@@ -32,9 +32,8 @@
  * @brief Utility function for getting the icon associated to a vClass.
  */
 class VClassIcons {
-public:
 
+public:
     /// @brief returns icon associated to the given vClass
     static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
-
 };
