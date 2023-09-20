@@ -39,7 +39,7 @@ launchpad project as well as an archlinux package:
 - <https://launchpad.net/~sumo>
 - <https://aur.archlinux.org/packages/sumo/>
 
-There is also a [flatpak](https://flathub.org/apps/details/org.eclipse.sumo) available for SUMO.
+There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available for SUMO.
 
 To add the most recent sumo to your ubuntu you will need to do:
 
