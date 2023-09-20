@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 12:55+0000\n"
+"PO-Revision-Date: 2023-09-20 13:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11363,7 +11363,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:268
 msgid "Vehicles (embedded route) (only %)"
-msgstr ""
+msgstr "Fahrzeuge (mit integrierter Route) (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:271
 msgid "RouteFlows (only %)"
@@ -12928,7 +12928,7 @@ msgstr "Visuelle Skalierung"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:230
 msgid "Enlarge selected objects"
-msgstr ""
+msgstr "Ausgewählte Objekte vergrößern"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:250
 msgid "Selection operations"
@@ -12972,7 +12972,7 @@ msgstr "Konnte '%' nicht öffnen."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:319
 msgid "load selection"
-msgstr ""
+msgstr "Auswahl laden"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:331
 #: C:\Repos\sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
@@ -12987,11 +12987,11 @@ msgstr "Liste ausgewählte Elemente speichern"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:385
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:416
 msgid "invert selection"
-msgstr ""
+msgstr "Auswahl umkehren"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:438
 msgid "simplify network"
-msgstr ""
+msgstr "Netz vereinfachen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1133
 msgid "Hierarchy operations"
