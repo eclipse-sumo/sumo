@@ -86,7 +86,7 @@ public:
     void checkAttributeIntegrity() const;
 
     /// @brief set discrete values
-    void setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll);
+    void setDiscreteValues(const std::vector<std::string>& discreteValues);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -199,9 +199,6 @@ public:
     /// @brief return true if attribute is discrete
     bool isDiscrete() const;
 
-    /// @brief show all discrete values in the comboBox
-    bool showAllDiscreteValues() const;
-
     /// @brief return true if attribute is a list of VClasses
     bool isVClasses() const;
 
@@ -244,9 +241,6 @@ private:
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;
-
-    /// @brief show all discrete values in ComboBox
-    bool myShowAllDiscreteValues = false;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
     SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;
