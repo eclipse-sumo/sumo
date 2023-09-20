@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-19 17:48+0000\n"
+"PO-Revision-Date: 2023-09-20 08:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8941,11 +8941,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3941
 msgid "The name of the TAZ the trip starts at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an der die Fahrt beginnt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3946
 msgid "The name of the TAZ the trip ends at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an der die Fahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3964
 msgid "VehicleRoute"
