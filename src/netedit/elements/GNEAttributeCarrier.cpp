@@ -2937,58 +2937,8 @@ GNEAttributeCarrier::fillShapeElements() {
                                               TL("The position in view"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The color with which the POI shall be displayed"),
-                                              "red");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A typename for the POI"),
-                                              toString(Shape::DEFAULT_TYPE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Name of POI"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LAYER,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The layer of the POI for drawing and selecting"),
-                                              toString(Shape::DEFAULT_LAYER_POI));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Width of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_WIDTH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_HEIGHT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Height of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_HEIGHT));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A bitmap to use for rendering this POI"),
-                                              toString(Shape::DEFAULT_IMG_FILE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Enable or disable use image file as a relative path"),
-                                              toString(Shape::DEFAULT_RELATIVEPATH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ANGLE,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Angle of rendered image in degree"),
-                                              toString(Shape::DEFAULT_ANGLE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // fill Poi attributes
+        fillPOIAttributes(currentTag);
     }
     currentTag = GNE_TAG_POILANE;
     {
@@ -3028,58 +2978,8 @@ GNEAttributeCarrier::fillShapeElements() {
                                               "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The color with which the POI shall be displayed"),
-                                              "red");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A typename for the POI"),
-                                              toString(Shape::DEFAULT_TYPE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Name of POI"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LAYER,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The layer of the POI for drawing and selecting"),
-                                              toString(Shape::DEFAULT_LAYER_POI));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Width of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_WIDTH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_HEIGHT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Height of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_HEIGHT));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A bitmap to use for rendering this POI"),
-                                              toString(Shape::DEFAULT_IMG_FILE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Enable or disable use image file as a relative path"),
-                                              toString(Shape::DEFAULT_RELATIVEPATH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ANGLE,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Angle of rendered image in degree"),
-                                              toString(Shape::DEFAULT_ANGLE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // fill Poi attributes
+        fillPOIAttributes(currentTag);
     }
     currentTag = GNE_TAG_POIGEO;
     {
@@ -3105,59 +3005,9 @@ GNEAttributeCarrier::fillShapeElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("The latitude position of the parking vehicle on the view"));
         myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The color with which the POI shall be displayed"),
-                                              "red");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A typename for the POI"),
-                                              toString(Shape::DEFAULT_TYPE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Name of POI"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LAYER,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The layer of the POI for drawing and selecting"),
-                                              toString(Shape::DEFAULT_LAYER_POI));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Width of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_WIDTH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_HEIGHT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Height of rendered image in meters"),
-                                              toString(Shape::DEFAULT_IMG_HEIGHT));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("A bitmap to use for rendering this POI"),
-                                              toString(Shape::DEFAULT_IMG_FILE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Enable or disable use image file as a relative path"),
-                                              toString(Shape::DEFAULT_RELATIVEPATH));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ANGLE,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Angle of rendered image in degree"),
-                                              toString(Shape::DEFAULT_ANGLE));
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        // fill Poi attributes
+        fillPOIAttributes(currentTag);
     }
 }
 
@@ -5193,6 +5043,64 @@ GNEAttributeCarrier::fillStopPersonElements() {
                                               TL("Activity displayed for stopped person in GUI and output files "));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+}
+
+
+void
+GNEAttributeCarrier::fillPOIAttributes(SumoXMLTag currentTag) {
+
+    GNEAttributeProperties attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("The color with which the POI shall be displayed"),
+                                            "red");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("A typename for the POI"),
+                                            toString(Shape::DEFAULT_TYPE));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("Name of POI"));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LAYER,
+                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("The layer of the POI for drawing and selecting"),
+                                            toString(Shape::DEFAULT_LAYER_POI));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
+                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("Width of rendered image in meters"),
+                                            toString(Shape::DEFAULT_IMG_WIDTH));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_HEIGHT,
+                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("Height of rendered image in meters"),
+                                            toString(Shape::DEFAULT_IMG_HEIGHT));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("A bitmap to use for rendering this POI"),
+                                            toString(Shape::DEFAULT_IMG_FILE));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_RELATIVEPATH,
+                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("Enable or disable use image file as a relative path"),
+                                            toString(Shape::DEFAULT_RELATIVEPATH));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_ANGLE,
+                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("Angle of rendered image in degree"),
+                                            toString(Shape::DEFAULT_ANGLE));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 

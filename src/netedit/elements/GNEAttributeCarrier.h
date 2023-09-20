@@ -370,6 +370,9 @@ private:
     /// @brief fill container stop elements
     static void fillContainerStopElements();
 
+    /// @brief fill common POI attributes
+    static void fillPOIAttributes(SumoXMLTag currentTag);
+
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
