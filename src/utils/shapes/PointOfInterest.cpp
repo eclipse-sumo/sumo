@@ -55,6 +55,7 @@ PointOfInterest::PointOfInterest(const std::string &id, const std::string &type,
     myPosOverLane(posOverLane),
     myFriendlyPos(friendlyPos),
     myPosLat(posLat),
+    myIcon(Icon::NONE),
     myHalfImgWidth(width / 2.0),
     myHalfImgHeight(height / 2.0) {
 }
