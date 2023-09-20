@@ -19,14 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/fxheader.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-
 #include "textures/POITextures/Tree.cpp"
 #include "textures/POITextures/Hotel.cpp"
 
 #include "POIImages.h"
+#include "GUIIconSubSys.h"
 
 
 // ===========================================================================

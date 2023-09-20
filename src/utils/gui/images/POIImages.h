@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/StringBijection.h>
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
