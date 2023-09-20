@@ -232,6 +232,7 @@ child element of [parkingArea](#parkingarea)
 |vTypes|list of strings|Space separated list of vehicle type ids to consider|
 |timeThreshold|SUMOTime|The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s *default:* **1.00**|
 |speedThreshold|float|The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s *default:* **1.39**|
+|expectArrival|boolean|Whether no warning should be issued when a vehicle arrives within the detector area. *default:* **0**|
 
 ### detEntry
 child element of [entryExitDetector](#entryexitdetector)
@@ -538,7 +539,6 @@ also child element of [calibrator](#calibrator)
 |-----------|------|-------------|
 |id|unique string|type ID|
 |typeDist.|string|Type distribution|
-|typeDistProb.|probability[0, 1]|Type distribution probability *default:* **1.0**|
 |vClass|discrete vClass|An abstract vehicle class *default:* **passenger**|
 |color|color|This type's color|
 |length|non-negative float|The vehicle's netto-length (length) [m]|
@@ -648,6 +648,7 @@ also child element of [calibrator](#calibrator)
 | Attribute | Type | Description |
 |-----------|------|-------------|
 |id|unique string|The id of Route|
+|routeDist.|string|Route distribution|
 |edges|list of unique strings|The edges the vehicle shall drive along, given as their ids, separated using spaces|
 |color|color|This route's color|
 |repeat|non-negative integer|The number of times that the edges of this route shall be repeated *default:* **0**|
@@ -771,6 +772,11 @@ child element of [route](#route), [trip](#trip), [flow](#flow)
 |disallow|list of vClasses|Explicitly disallows the given vehicle classes (not given will be allowed)|
 |width|non-negative float|Lane width for all lanes of this lane in meters (used for visualization) *default:* **-1**|
 
+## routeDistribution
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|id|unique string|The id of route distribution|
+
 ## vTypeDistribution
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -841,7 +847,7 @@ child element of [person](#person), [personFlow](#personflow)
 |to|unique string|The ID of the edge the walk ends at|
 |arrivalPos|float|arrival position on the destination edge *default:* **-1**|
 |toBusStop|unique string|Id of the destination bus stop|
-|toTrainStop|unique string|Id of the destination train stop|
+|toTrainStop|unique string|ID of the destination train stop|
 |edges|list of unique strings|id of the edges to walk|
 |route|list of unique strings|The id of the route to walk|
 |fromJunction|unique string|The name of the junction the walk starts at|

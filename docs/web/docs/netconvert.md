@@ -198,6 +198,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
+| **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
 | **--dlr-navteq.precision** {{DT_INT}} | The network coordinates are written with the specified level of output precision; *default:* **2** |
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
@@ -534,6 +535,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--opendrive.position-ids** {{DT_BOOL}} | Sets edge-id based on road-id and offset in m (legacy); *default:* **false** |
 | **--opendrive.lane-shapes** {{DT_BOOL}} | Use custom lane shapes to compensate discarded lane types; *default:* **false** |
 | **--opendrive.signal-groups** {{DT_BOOL}} | Use the OpenDRIVE controller information for the generated signal program; *default:* **false** |
+| **--opendrive.ignore-misplaced-signals** {{DT_BOOL}} | Ignore traffic signals which do not control any driving lane; *default:* **false** |
 
 ### Report
 
@@ -550,11 +552,13 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--ignore-errors.connections** {{DT_BOOL}} | Continue on invalid connections; *default:* **false** |
 | **--show-errors.connections-first-try** {{DT_BOOL}} | Show errors in connections at parsing; *default:* **false** |
-| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** (**true** when loading plain XML without type files) |
+| **--ignore-errors.edge-type** {{DT_BOOL}} | Continue on unknown edge types; *default:* **false** |
 
 ### Random Number
 

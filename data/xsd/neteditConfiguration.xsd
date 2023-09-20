@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-28 19:12:06 by Eclipse SUMO netedit Version v1_17_0+1334-7429cff45dd
+<!-- generated on 2023-09-20 14:53:14 by Eclipse SUMO netedit Version v1_14_1+9280-3c4c32a8be8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -422,6 +422,9 @@
         <xsd:all>
             <xsd:element name="new-network" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="attribute-help-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore.additionalelements" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore.routeelements" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="node-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="edge-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="edge-infix" type="strOptionType" minOccurs="0"/>
@@ -442,7 +445,14 @@
             <xsd:element name="overheadWire-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="polygon-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="poi-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.walkableArea-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.obstacle-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.waitingArea-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.source-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.sink-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="jps.waypoint-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="route-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="routeDistribution-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="vType-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="vTypeDistribution-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="vehicle-prefix" type="strOptionType" minOccurs="0"/>
@@ -454,7 +464,6 @@
             <xsd:element name="containerflow-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataEdge-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="meanDataLane-prefix" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="ignore-supermode-question" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

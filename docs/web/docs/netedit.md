@@ -71,7 +71,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
 | **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
-| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins) |
+| **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
@@ -409,6 +409,9 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 |--------|-------------|
 | **--new-network** {{DT_BOOL}} | Start netedit with a new network; *default:* **false** |
 | **--attribute-help-output** {{DT_FILE}} | Write attribute help to file |
+| **--ignore-supermode-question** {{DT_BOOL}} | Ignore question dialog during changing between supermodes in undo-redo; *default:* **false** |
+| **--ignore.additionalelements** {{DT_BOOL}} | Ignore additional elements during loading of sumo-configs; *default:* **false** |
+| **--ignore.routeelements** {{DT_BOOL}} | Ignore route elements during loading of sumo-configs; *default:* **false** |
 | **--node-prefix** {{DT_STR}} | Prefix for node naming; *default:* **J** |
 | **--edge-prefix** {{DT_STR}} | Prefix for edge naming; *default:* **E** |
 | **--edge-infix** {{DT_STR}} | Enable edge-infix (<fromNodeID><infix><toNodeID>) |
@@ -429,7 +432,14 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--overheadWire-prefix** {{DT_STR}} | Prefix for overhead wire naming; *default:* **ow** |
 | **--polygon-prefix** {{DT_STR}} | Prefix for polygon naming; *default:* **po** |
 | **--poi-prefix** {{DT_STR}} | Prefix for poi naming; *default:* **poi** |
+| **--jps.walkableArea-prefix** {{DT_STR}} | Prefix for jps walkable area naming; *default:* **jps.walkable_area** |
+| **--jps.obstacle-prefix** {{DT_STR}} | Prefix for jps obstacle naming; *default:* **jps.obstacle** |
+| **--jps.waitingArea-prefix** {{DT_STR}} | Prefix for jps waiting area naming; *default:* **jps.waiting_area** |
+| **--jps.source-prefix** {{DT_STR}} | Prefix for jps source naming; *default:* **jps.source** |
+| **--jps.sink-prefix** {{DT_STR}} | Prefix for jps sink naming; *default:* **jps.sink** |
+| **--jps.waypoint-prefix** {{DT_STR}} | Prefix for jps waypoints naming; *default:* **jps.waypoint** |
 | **--route-prefix** {{DT_STR}} | Prefix for route naming; *default:* **r** |
+| **--routeDistribution-prefix** {{DT_STR}} | Prefix for route distribution naming; *default:* **rd** |
 | **--vType-prefix** {{DT_STR}} | Prefix for type naming; *default:* **t** |
 | **--vTypeDistribution-prefix** {{DT_STR}} | Prefix for type distribution naming; *default:* **td** |
 | **--vehicle-prefix** {{DT_STR}} | Prefix for vehicle naming; *default:* **v** |
