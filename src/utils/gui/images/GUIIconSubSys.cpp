@@ -152,7 +152,7 @@
 #include "icons/windows_tile_vertically.xpm"
 #include "icons/windows_tile_horizontally.xpm"
 #include "icons/reload.xpm"
-#include "icons/manip.cpp"
+#include "icons/manip.xpm"
 #include "icons/camera.xpm"
 
 #include "icons/undo.xpm"
@@ -641,7 +641,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WINDOWS_TILE_VERT] = new FXXPMIcon(a, windows_tile_vertically_xpm);
     myIcons[GUIIcon::WINDOWS_TILE_HORI] = new FXXPMIcon(a, windows_tile_horizontally_xpm);
     // manipulate
-    myIcons[GUIIcon::MANIP] = new FXGIFIcon(a, manip);
+    myIcons[GUIIcon::MANIP] = new FXXPMIcon(a, manip_xpm);
     myIcons[GUIIcon::CAMERA] = new FXXPMIcon(a, camera_xpm);
     myIcons[GUIIcon::EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
     myIcons[GUIIcon::DILATE] = new FXXPMIcon(a, dilate_xpm);
