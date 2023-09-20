@@ -128,58 +128,77 @@ elseif (MSVC)
     # Specific warnings from MSVC15
     if (MSVC_VERSION LESS 2000)
         option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
-        option(DISABLEWARNING_C4774 "'sprintf_s' : format string expected not string literal" ON)
+        option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
         option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
         option(DISABLEWARNING_C4820 "bytes padding added after data member" ON)
-        option(DISABLEWARNING_C4668 "'macro' not defined as a preprocessor macro, replacing with '0'" ON)
+        option(DISABLEWARNING_C4668 "macro not defined as a preprocessor macro, replacing with '0'" ON)
+        option(DISABLEWARNING_C4710 "function not inlined" ON)
         option(DISABLEWARNING_C4625 "copy constructor was implicitly defined as deleted" ON)
         option(DISABLEWARNING_C4626 "assignment operator was implicitly defined as deleted" ON)
         option(DISABLEWARNING_C5026 "move constructor was implicitly defined as deleted" ON)
         option(DISABLEWARNING_C5027 "move assignment was implicitly defined as deleted" ON)
     endif()
-    # check if disable warnings
+    # 5264
     if (DISABLEWARNING_C5264)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
     endif (DISABLEWARNING_C5264)
+    # 5267
     if (DISABLEWARNING_C5267)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
     endif (DISABLEWARNING_C5267)
+    # 4355
     if (DISABLEWARNING_C4355)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
     endif (DISABLEWARNING_C4355)
+    # 4266
     if (DISABLEWARNING_C4266)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
     endif (DISABLEWARNING_C4266)
+    # 4127
     if (DISABLEWARNING_C4127)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
     endif (DISABLEWARNING_C4127)
+    # 26495
     if (DISABLEWARNING_C26495)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
     endif (DISABLEWARNING_C26495)
+    # 4619
     if (DISABLEWARNING_C4619)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4619")
     endif (DISABLEWARNING_C4619)
+    # 4774
     if (DISABLEWARNING_C4774)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4774")
     endif (DISABLEWARNING_C4774)
+    # 4571
     if (DISABLEWARNING_C4571)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
     endif (DISABLEWARNING_C4571)
+    # 4820
     if (DISABLEWARNING_C4820)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4820")
     endif (DISABLEWARNING_C4820)
+    # 4668
     if (DISABLEWARNING_C4668)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4668")
     endif (DISABLEWARNING_C4668)
+    # 4710
+    if (DISABLEWARNING_C4710)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd710")
+    endif (DISABLEWARNING_C4710)
+    # 4625
     if (DISABLEWARNING_C4625)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
     endif (DISABLEWARNING_C4625)
+    # 4626
     if (DISABLEWARNING_C4626)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4626")
     endif (DISABLEWARNING_C4626)
+    # 5026
     if (DISABLEWARNING_C5026)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5026")
     endif (DISABLEWARNING_C5026)
+    # 5027
     if (DISABLEWARNING_C5027)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5027")
     endif (DISABLEWARNING_C5027)
