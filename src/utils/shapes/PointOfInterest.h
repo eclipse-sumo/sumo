@@ -41,6 +41,7 @@
  * @brief A point-of-interest
  */
 class PointOfInterest : public Shape, public Position, public Parameterised {
+
 public:
     /** @brief Constructor
      * @param[in] id The name of the POI
@@ -72,44 +73,26 @@ public:
                     double width = DEFAULT_IMG_WIDTH,
                     double height = DEFAULT_IMG_HEIGHT,
                     const std::string& name = DEFAULT_NAME,
-                    const Parameterised::Map& parameters = DEFAULT_PARAMETERS) :
-        Shape(id, type, color, layer, angle, imgFile, name, relativePath),
-        Position(pos),
-        Parameterised(parameters),
-        myGeo(geo),
-        myLane(lane),
-        myPosOverLane(posOverLane),
-        myFriendlyPos(friendlyPos),
-        myPosLat(posLat),
-        myHalfImgWidth(width / 2.0),
-        myHalfImgHeight(height / 2.0) {
-    }
+                    const Parameterised::Map& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
-    virtual ~PointOfInterest() { }
+    ~PointOfInterest();
 
     /// @name Getter
     /// @{
 
     /// @brief Returns the image width of the POI
-    inline double getWidth() const {
-        return myHalfImgWidth * 2.0;
-    }
+    double getWidth() const;
 
     /// @brief Returns the image height of the POI
-    inline double getHeight() const {
-        return myHalfImgHeight * 2.0;
-    }
+    double getHeight() const;
 
     /// @brief Returns the image center of the POI
-    Position getCenter() const {
-        return {x() + myHalfImgWidth, y() + myHalfImgHeight};
-    }
+    Position getCenter() const;
 
     /// @brief returns friendly position
-    bool getFriendlyPos() const {
-        return myFriendlyPos;
-    }
+    bool getFriendlyPos() const;
+
     /// @}
 
 
@@ -117,79 +100,20 @@ public:
     /// @{
 
     /// @brief set the image width of the POI
-    inline void setWidth(double width) {
-        myHalfImgWidth = width / 2.0;
-    }
+    void setWidth(double width);
 
     /// @brief set the image height of the POI
-    inline void setHeight(double height) {
-        myHalfImgHeight = height / 2.0;
-    }
+    void setHeight(double height);
 
     /// @brief set friendly position
-    inline void setFriendlyPos(const bool friendlyPos) {
-        myFriendlyPos = friendlyPos;
-    }
+    void setFriendlyPos(const bool friendlyPos);
+
     /// @}
 
     /* @brief POI definition to the given device
      * @param[in] geo  Whether to write the output in geo-coordinates
      */
-    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const bool friendlyPos = false, const double posLat = 0.) const {
-        out.openTag(SUMO_TAG_POI);
-        out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
-        if (getShapeType().size() > 0) {
-            out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
-        }
-        out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
-        out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer() + zOffset);
-        if (!getShapeName().empty()) {
-            out.writeAttr(SUMO_ATTR_NAME, getShapeName());
-        }
-        if (laneID != "") {
-            out.writeAttr(SUMO_ATTR_LANE, laneID);
-            out.writeAttr(SUMO_ATTR_POSITION, pos);
-            if (posLat != 0) {
-                out.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
-            }
-            if (friendlyPos) {
-                out.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
-            }
-        } else {
-            if (geo) {
-                Position POICartesianPos(*this);
-                GeoConvHelper::getFinal().cartesian2geo(POICartesianPos);
-                out.setPrecision(gPrecisionGeo);
-                out.writeAttr(SUMO_ATTR_LON, POICartesianPos.x());
-                out.writeAttr(SUMO_ATTR_LAT, POICartesianPos.y());
-                out.setPrecision();
-            } else {
-                out.writeAttr(SUMO_ATTR_X, x());
-                out.writeAttr(SUMO_ATTR_Y, y());
-            }
-        }
-        if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
-            out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
-        }
-        if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
-            if (getShapeRelativePath()) {
-                // write only the file name, without file path
-                std::string file = getShapeImgFile();
-                file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
-                out.writeAttr(SUMO_ATTR_IMGFILE, file);
-            } else {
-                out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
-            }
-        }
-        if (getWidth() != Shape::DEFAULT_IMG_WIDTH) {
-            out.writeAttr(SUMO_ATTR_WIDTH, getWidth());
-        }
-        if (getHeight() != Shape::DEFAULT_IMG_HEIGHT) {
-            out.writeAttr(SUMO_ATTR_HEIGHT, getHeight());
-        }
-        writeParams(out);
-        out.closeTag();
-    }
+    void writeXML(OutputDevice& out, const bool geo = false, const double zOffset = 0., const std::string laneID = "", const double pos = 0., const bool friendlyPos = false, const double posLat = 0.) const;
 
 protected:
     /// @brief flag to check if POI was loaded as GEO Position (main used by netedit)
