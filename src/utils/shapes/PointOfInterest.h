@@ -25,13 +25,13 @@
 
 #include <utils/common/FileHelpers.h>
 #include <utils/common/Parameterised.h>
+#include <utils/common/StringBijection.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/Position.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #include "Shape.h"
-
 
 // ===========================================================================
 // class definitions
@@ -43,6 +43,13 @@
 class PointOfInterest : public Shape, public Position, public Parameterised {
 
 public:
+    /// @brief POI icon
+    enum class Icon {
+        TREE,
+        HOTEL,
+        NONE
+    };
+
     /** @brief Constructor
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -81,6 +88,9 @@ public:
     /// @name Getter
     /// @{
 
+    /// @brief get icon
+    const std::string &getIcon() const;
+
     /// @brief Returns the image width of the POI
     double getWidth() const;
 
@@ -93,11 +103,17 @@ public:
     /// @brief returns friendly position
     bool getFriendlyPos() const;
 
+    /// @brief getstring bijection with icons and strings
+    static const StringBijection<Icon> &getIconStrings();
+
     /// @}
 
 
     /// @name Setter
     /// @{
+
+    /// @brief set icon
+    void setIcon(const std::string &icon);
 
     /// @brief set the image width of the POI
     void setWidth(double width);
@@ -128,12 +144,18 @@ protected:
     /// @brief friendlyPos enable or disable friendly position for position over lane
     bool myFriendlyPos;
 
-    /// @brief latereal position over lane in which this POI is placed (main used by netedit)
+    /// @brief lateral position over lane in which this POI is placed (main used by netedit)
     double myPosLat;
+
+    /// @brief POI icon
+    Icon myIcon;
 
     /// @brief The half width of the image when rendering this POI
     double myHalfImgWidth;
 
     /// @brief The half height of the image when rendering this POI
     double myHalfImgHeight;
+
+    /// @brief string bijection with icons and strings
+    static StringBijection<Icon> myIconStrings;
 };

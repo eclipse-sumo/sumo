@@ -21,13 +21,27 @@
 // A point-of-interest (2D)
 /****************************************************************************/
 
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+
 #include "PointOfInterest.h"
 
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+
+static StringBijection<PointOfInterest::Icon>::Entry iconStringsInitializer[] = {
+    {"tree",    PointOfInterest::Icon::TREE},
+    {"hotel",   PointOfInterest::Icon::HOTEL},
+    {"",        PointOfInterest::Icon::NONE}
+};
+
+
+StringBijection<PointOfInterest::Icon> 
+PointOfInterest::myIconStrings(iconStringsInitializer, PointOfInterest::Icon::NONE, false);
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
 
 PointOfInterest::PointOfInterest(const std::string &id, const std::string &type, const RGBColor &color, const Position &pos, 
                                  bool geo, const std::string &lane, double posOverLane, bool friendlyPos, double posLat,
@@ -47,6 +61,12 @@ PointOfInterest::PointOfInterest(const std::string &id, const std::string &type,
 
 
 PointOfInterest::~PointOfInterest() {}
+
+
+const std::string&
+PointOfInterest::getIcon() const {
+    return myIconStrings.getString(myIcon);
+}
 
 
 double
@@ -73,6 +93,18 @@ PointOfInterest::getFriendlyPos() const {
 }
 
 
+const StringBijection<PointOfInterest::Icon>&
+PointOfInterest::getIconStrings() {
+    return myIconStrings;
+}
+
+
+void
+PointOfInterest::setIcon(const std::string &icon) {
+    myIcon = myIconStrings.get(icon);
+}
+
+
 void
 PointOfInterest::setWidth(double width) {
     myHalfImgWidth = width / 2.0;
@@ -91,7 +123,8 @@ PointOfInterest::setFriendlyPos(const bool friendlyPos) {
 }
 
 
-inline void PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffset, const std::string laneID,
+void
+PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffset, const std::string laneID,
                                       const double pos, const bool friendlyPos, const double posLat) const {
     out.openTag(SUMO_TAG_POI);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
