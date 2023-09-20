@@ -25,9 +25,9 @@
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/images/VClassIcons.h>
-#include <utils/gui/images/POIImages.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/shapes/PointOfInterest.h>
 
 #include "GNEAttributeCarrier.h"
 
@@ -5065,7 +5065,7 @@ GNEAttributeCarrier::fillPOIAttributes(SumoXMLTag currentTag) {
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ICON,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("POI Icon"));
-    attrProperty.setDiscreteValues(POIImages::imageStrings.getStrings());
+    attrProperty.setDiscreteValues(PointOfInterest::getIconStrings().getStrings());
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
