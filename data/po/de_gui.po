@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 13:56+0000\n"
+"PO-Revision-Date: 2023-09-20 14:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12999,7 +12999,7 @@ msgstr "Hierarchie-Operationen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1138
 msgid "Select parents"
-msgstr ""
+msgstr "Elternelemente auswählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1147
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1158
@@ -13008,23 +13008,23 @@ msgstr "Abwählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1149
 msgid "Select children"
-msgstr ""
+msgstr "Kindelemente auswählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1265
 msgid "select parents"
-msgstr ""
+msgstr "Elternelemente auswählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1389
 msgid "select children"
-msgstr ""
+msgstr "Kindelemente auswählen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Hold <SHIFT> for rectangle selection."
-msgstr ""
+msgstr "<SHIFT> halten zur Auswahl eines rechteckigen Bereichs."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1417
 msgid "Press <DEL> to delete selected objects."
-msgstr ""
+msgstr "<DEL> drücken, um ausgewählte Objekte zu löschen."
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1428
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:309
@@ -13035,7 +13035,7 @@ msgstr "Auswahl"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1609
 msgid "selection"
-msgstr ""
+msgstr "Auswahl"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
@@ -13186,31 +13186,31 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:83
 msgid "New"
-msgstr ""
+msgstr "Neu"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:85
 msgid "Create new %"
-msgstr ""
+msgstr "Erstelle neue %"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:89
 msgid "Delete current edited %"
-msgstr ""
+msgstr "Lösche gerade bearbeitete %"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:161
 msgid "Distribution selector"
-msgstr ""
+msgstr "Verteilungsauswahl"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:324
 msgid "Delete distribution value"
-msgstr ""
+msgstr "Verteilungswert löschen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:481
 msgid "Distribution values"
-msgstr ""
+msgstr "Verteilungswerte"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:497
 msgid "Add new distribution value"
-msgstr ""
+msgstr "Neuen Verteilungswert hinzufügen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
@@ -13245,11 +13245,11 @@ msgstr "Ungültige Personenparameter."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:39
 msgid "PersonPlans"
-msgstr ""
+msgstr "PersonPlans"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteDistributionFrame.cpp:30
 msgid "Route Distributions"
-msgstr ""
+msgstr "Routenverteilungen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
@@ -13322,7 +13322,7 @@ msgstr "Haltepunkt muss über einer eingelagerten Routenkante platziert sein"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
-msgstr ""
+msgstr "Typenverteilungen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:62
 msgid "Current Type"
@@ -13351,19 +13351,19 @@ msgstr "Typ zurücksetzen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:269
 msgid "create vehicle type"
-msgstr ""
+msgstr "Fahrzeugtyp erstellen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:301
 msgid "copy vehicle type"
-msgstr ""
+msgstr "Fahrzeugtyp kopieren"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:316
 msgid "reset default vehicle type values"
-msgstr ""
+msgstr "auf Standardwerte des Fahrzeugtyps zurücksetzen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeFrame.cpp:392
 msgid "Types"
-msgstr ""
+msgstr "Typen"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "Click over a route to create a vehicle."
@@ -13384,7 +13384,7 @@ msgstr "Wähle zwei Knotenpunkte aus, um eine Fahrt zu erstellen."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "Select two TAZS to create a trip."
-msgstr ""
+msgstr "Wähle zwei Verkehrsumlegungszonen, um eine Fahrt zu erstellen."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "Click over a route to create a routeFlow."
@@ -13405,7 +13405,7 @@ msgstr "Wähle zwei Knotenpunkte aus, um einen Fluss zu erstellen."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "Select two TAZs to create a flow."
-msgstr ""
+msgstr "Wähle zwei Verkehrsumlegungszonen, um einen Fluss zu erstellen."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
