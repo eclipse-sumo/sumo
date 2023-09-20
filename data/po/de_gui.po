@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 08:23+0000\n"
+"PO-Revision-Date: 2023-09-20 09:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9032,11 +9032,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4145
 msgid "The name of the TAZ the flow starts at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an welcher der Fluss beginnt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4150
 msgid "The name of the TAZ the flow ends at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an welcher der Fluss endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 msgid "FlowRoute"
@@ -9387,10 +9387,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5008
 msgid "The name of the TAZ the person trip starts at"
 msgstr ""
+"Der Name der Verkehrsumlegungszone, an welcher die Personenfahrt beginnt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5013
 msgid "The name of the TAZ the person trip ends at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an welcher die Personenfahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5046
 msgid "WalkEdge"
