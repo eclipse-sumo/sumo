@@ -27,18 +27,34 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+
+static StringBijection<POIIcons::Icons>::Entry POIIconsStringInitializer[] = {
+    {"tree",    POIIcons::Icons::TREE},
+    {"hotel",   POIIcons::Icons::HOTEL},
+    {"",        POIIcons::Icons::NONE}
+};
+
+
+StringBijection<POIIcons::Icons> 
+POIIcons::strings(POIIconsStringInitializer, POIIcons::Icons::NONE, false);
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
 FXIcon*
-POIIcons::getPOIIcon(const SUMOVehicleClass vc) {
+POIIcons::getPOIIcon(const Icons vc) {
     switch (vc) {
-        case SVC_IGNORING:
+        case Icons::TREE:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
-        case SVC_PRIVATE:
+        case Icons::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
+        case Icons::NONE:
+            return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
         default:
-            throw ProcessError(TL("Invalid POI"));
+            throw ProcessError(TL("Invalid POIIcon"));
     }
 }
 

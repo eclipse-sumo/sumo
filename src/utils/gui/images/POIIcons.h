@@ -33,6 +33,16 @@
 class POIIcons {
 
 public:
+    /// @brief icons
+    enum class Icons {
+        TREE,
+        HOTEL,
+        NONE
+    };
+
+    /// @brief string bijection with icons and strings
+    static StringBijection<Icons> strings;
+
     /// @brief returns icon associated to the given POI
-    static FXIcon* getPOIIcon(const SUMOVehicleClass vc);
+    static FXIcon* getPOIIcon(const Icons icon);
 };
