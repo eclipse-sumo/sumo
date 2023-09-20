@@ -139,6 +139,14 @@ public:
     /// @brief retrieve breakpoints from the current runThread
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
+    /// @brief Draw (or not) the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    void drawPedestrianNetwork(const GUIVisualizationSettings& s) const override;
+
+    /// @brief Change the color of the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    void changePedestrianNetworkColor(const GUIVisualizationSettings& s) const override;
+
 protected:
     int doPaintGL(int mode, const Boundary& bound);
 
