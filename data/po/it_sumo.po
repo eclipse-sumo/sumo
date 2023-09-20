@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-12 10:28+0200\n"
-"PO-Revision-Date: 2023-05-15 14:04+0000\n"
+"PO-Revision-Date: 2023-09-20 14:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -8977,7 +8977,7 @@ msgstr ""
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:652
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr ""
+msgstr "Non ho potuto aprile '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:663 C:\Repos\sumo/src\od\ODMatrix.cpp:669
 #, c-format
