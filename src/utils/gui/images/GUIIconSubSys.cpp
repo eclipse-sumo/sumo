@@ -145,9 +145,9 @@
 #include "icons/edit_graph.xpm"
 #include "icons/full_screen.xpm"
 
-#include "icons/flag.cpp"
-#include "icons/flag_plus.cpp"
-#include "icons/flag_minus.cpp"
+#include "icons/flag.xpm"
+#include "icons/flag_plus.xpm"
+#include "icons/flag_minus.xpm"
 #include "icons/windows_cascade.xpm"
 #include "icons/windows_tile_vertically.xpm"
 #include "icons/windows_tile_horizontally.xpm"
@@ -633,9 +633,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SHOWTOOLTIPS_MENU] = new FXXPMIcon(a, show_tooltips_menu_xpm);
     myIcons[GUIIcon::YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[GUIIcon::NO] = new FXXPMIcon(a, no_xpm);
-    myIcons[GUIIcon::FLAG] = new FXGIFIcon(a, flag);
-    myIcons[GUIIcon::FLAG_PLUS] = new FXGIFIcon(a, flag_plus);
-    myIcons[GUIIcon::FLAG_MINUS] = new FXGIFIcon(a, flag_minus);
+    myIcons[GUIIcon::FLAG] = new FXXPMIcon(a, flag_xpm);
+    myIcons[GUIIcon::FLAG_PLUS] = new FXXPMIcon(a, flag_plus_xpm);
+    myIcons[GUIIcon::FLAG_MINUS] = new FXXPMIcon(a, flag_minus_xpm);
     // window arrangements
     myIcons[GUIIcon::WINDOWS_CASCADE] = new FXXPMIcon(a, windows_cascade_xpm);
     myIcons[GUIIcon::WINDOWS_TILE_VERT] = new FXXPMIcon(a, windows_tile_vertically_xpm);
