@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    POIIcons.h
+/// @file    POIImages.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2023
 ///
-// Function that returns the icon for a certain POI
+// Class for grouping POI images and textures
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -27,22 +27,25 @@
 // class definitions
 // ===========================================================================
 /**
- * @class POIIcons
- * @brief Utility function for getting the icon associated to a POI.
+ * @class POIImages
+ * @brief Utility function for getting the images associated to a POI.
  */
-class POIIcons {
+class POIImages {
 
 public:
-    /// @brief icons
-    enum class Icons {
+    /// @brief images
+    enum class Images {
         TREE,
         HOTEL,
         NONE
     };
 
     /// @brief string bijection with icons and strings
-    static StringBijection<Icons> strings;
+    static StringBijection<Images> imageStrings;
 
-    /// @brief returns icon associated to the given POI
-    static FXIcon* getPOIIcon(const Icons icon);
+    /// @brief returns icon associated to the given POI image
+    static FXIcon* getPOIIcon(const Images image);
+
+    /// @brief returns texture associated to the given POI image
+    static const unsigned char* getPOITexture(const Images image);
 };

@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    POIIcons.cpp
+/// @file    POIImages.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2023
 ///
-// Function that returns the icon for a certain POI
+// Class for grouping POI images and textures
 /****************************************************************************/
 #include <config.h>
 
@@ -23,38 +23,56 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
-#include "POIIcons.h"
+#include "textures/POITextures/Tree.cpp"
+#include "textures/POITextures/Hotel.cpp"
+
+#include "POIImages.h"
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
 
-static StringBijection<POIIcons::Icons>::Entry POIIconsStringInitializer[] = {
-    {"tree",    POIIcons::Icons::TREE},
-    {"hotel",   POIIcons::Icons::HOTEL},
-    {"",        POIIcons::Icons::NONE}
+static StringBijection<POIImages::Images>::Entry imageStringsInitializer[] = {
+    {"tree",    POIImages::Images::TREE},
+    {"hotel",   POIImages::Images::HOTEL},
+    {"",        POIImages::Images::NONE}
 };
 
 
-StringBijection<POIIcons::Icons> 
-POIIcons::strings(POIIconsStringInitializer, POIIcons::Icons::NONE, false);
+StringBijection<POIImages::Images> 
+POIImages::imageStrings(imageStringsInitializer, POIImages::Images::NONE, false);
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 FXIcon*
-POIIcons::getPOIIcon(const Icons vc) {
-    switch (vc) {
-        case Icons::TREE:
+POIImages::getPOIIcon(const Images image) {
+    switch (image) {
+        case Images::TREE:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
-        case Icons::HOTEL:
+        case Images::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
-        case Icons::NONE:
+        case Images::NONE:
             return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
         default:
-            throw ProcessError(TL("Invalid POIIcon"));
+            throw ProcessError("Invalid POIImage");
+    }
+}
+
+
+const unsigned char*
+POIImages::getPOITexture(const Images image) {
+    switch (image) {
+        case Images::TREE:
+            return POITexture_Tree;
+        case Images::HOTEL:
+            return POITexture_Hotel;
+        case Images::NONE:
+            return nullptr;
+        default:
+            throw ProcessError("Invalid POIImage");
     }
 }
 
