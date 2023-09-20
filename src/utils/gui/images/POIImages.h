@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/StringBijection.h>
+#include <utils/shapes/PointOfInterest.h>
 #include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
@@ -33,19 +33,9 @@
 class POIImages {
 
 public:
-    /// @brief images
-    enum class Images {
-        TREE,
-        HOTEL,
-        NONE
-    };
-
-    /// @brief string bijection with icons and strings
-    static StringBijection<Images> imageStrings;
-
     /// @brief returns icon associated to the given POI image
-    static FXIcon* getPOIIcon(const Images image);
+    static FXIcon* getPOIIcon(PointOfInterest::Icon POIIcon);
 
     /// @brief returns texture associated to the given POI image
-    static const unsigned char* getPOITexture(const Images image);
+    static const unsigned char* getPOITexture(PointOfInterest::Icon POIIcon);
 };

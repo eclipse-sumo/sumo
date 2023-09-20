@@ -21,37 +21,22 @@
 
 #include "textures/POITextures/Tree.cpp"
 #include "textures/POITextures/Hotel.cpp"
-
-#include "POIImages.h"
 #include "GUIIconSubSys.h"
 
-
-// ===========================================================================
-// static member definitions
-// ===========================================================================
-
-static StringBijection<POIImages::Images>::Entry imageStringsInitializer[] = {
-    {"tree",    POIImages::Images::TREE},
-    {"hotel",   POIImages::Images::HOTEL},
-    {"",        POIImages::Images::NONE}
-};
-
-
-StringBijection<POIImages::Images> 
-POIImages::imageStrings(imageStringsInitializer, POIImages::Images::NONE, false);
+#include "POIImages.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 FXIcon*
-POIImages::getPOIIcon(const Images image) {
-    switch (image) {
-        case Images::TREE:
+POIImages::getPOIIcon(PointOfInterest::Icon POIIcon) {
+    switch (POIIcon) {
+        case PointOfInterest::Icon::TREE:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
-        case Images::HOTEL:
+        case PointOfInterest::Icon::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
-        case Images::NONE:
+        case PointOfInterest::Icon::NONE:
             return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
         default:
             throw ProcessError("Invalid POIImage");
@@ -60,13 +45,13 @@ POIImages::getPOIIcon(const Images image) {
 
 
 const unsigned char*
-POIImages::getPOITexture(const Images image) {
-    switch (image) {
-        case Images::TREE:
+POIImages::getPOITexture(PointOfInterest::Icon POIIcon) {
+    switch (POIIcon) {
+        case PointOfInterest::Icon::TREE:
             return POITexture_Tree;
-        case Images::HOTEL:
+        case PointOfInterest::Icon::HOTEL:
             return POITexture_Hotel;
-        case Images::NONE:
+        case PointOfInterest::Icon::NONE:
             return nullptr;
         default:
             throw ProcessError("Invalid POIImage");
