@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 09:04+0000\n"
+"PO-Revision-Date: 2023-09-20 12:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9366,7 +9366,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4943
 msgid "Id of the destination trainStop"
-msgstr ""
+msgstr "ID des Zielbahnhofs"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4968
 msgid "PersonTripJunctions"
@@ -10055,6 +10055,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6096
 msgid "Whether a person or container or both may end the stop"
 msgstr ""
+"Ob eine Person oder ein Container oder beide den Halt selbst beenden können"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6103
 msgid "List of elements that must board the vehicle before it may continue"
