@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:47:24 by Eclipse SUMO netconvert Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-09-20 22:55:24 by Eclipse SUMO netconvert Version v1_18_0+1693-deba9701844
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -365,6 +365,7 @@
         <opendrive.position-ids value="false" type="BOOL" help="Sets edge-id based on road-id and offset in m (legacy)"/>
         <opendrive.lane-shapes value="false" type="BOOL" help="Use custom lane shapes to compensate discarded lane types"/>
         <opendrive.signal-groups value="false" type="BOOL" help="Use the OpenDRIVE controller information for the generated signal program"/>
+        <opendrive.ignore-misplaced-signals value="false" type="BOOL" help="Ignore traffic signals which do not control any driving lane"/>
     </formats>
 
     <report>

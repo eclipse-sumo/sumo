@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:47:24 by Eclipse SUMO netconvert Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-09-20 22:55:24 by Eclipse SUMO netconvert Version v1_18_0+1693-deba9701844
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -998,6 +998,9 @@
 
         <!-- Use the OpenDRIVE controller information for the generated signal program -->
         <opendrive.signal-groups value="false" type="BOOL"/>
+
+        <!-- Ignore traffic signals which do not control any driving lane -->
+        <opendrive.ignore-misplaced-signals value="false" type="BOOL"/>
 
     </formats>
 
