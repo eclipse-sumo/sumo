@@ -4,6 +4,9 @@ commaSeparated
 # No specific parameters given
 defaults
 
+# exclude certain conflict types from output 
+excludeConflictTypes
+
 # log only MDRAC using default threshold.
 onlyMDRAC
 
