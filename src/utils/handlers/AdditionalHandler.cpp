@@ -1760,8 +1760,8 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
     // check icon
     if (SUMOXMLDefinitions::POIIcons.hasString(icon) == false) {
-        WRITE_WARNING(TLF("Invalid icon for POI '%', using default", id));
-        icon = "";
+        WRITE_WARNING(TLF("Invalid icon % for POI '%', using default", icon, id));
+        icon = "none";
     }
     // continue if flag is ok
     if (parsedOk) {

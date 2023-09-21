@@ -47,7 +47,7 @@ ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const Ge
     myShapeContainer(sc),
     myPrefix(""),
     myDefaultColor(RGBColor::RED),
-    myDefaultIcon(""),
+    myDefaultIcon(SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE)),
     myDefaultLayer(0),
     myDefaultFill(false),
     myLastParameterised(nullptr),
@@ -124,8 +124,8 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myDefaultIcon);
     // check icon
     if (SUMOXMLDefinitions::POIIcons.hasString(icon) == false) {
-        WRITE_WARNING(TLF("Invalid icon for POI '%', using default", id));
-        icon = "";
+        WRITE_WARNING(TLF("Invalid icon % for POI '%', using default", icon, id));
+        icon = "none";
     }
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");

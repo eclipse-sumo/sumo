@@ -198,7 +198,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 if (parameterCount == 4) {
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, "", layer)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE), layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
                 } else if (parameterCount == 9) {
