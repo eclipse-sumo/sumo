@@ -11,33 +11,28 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    POIImages.cpp
+/// @file    POIIcons.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2023
 ///
-// Class for grouping POI images and textures
+// Function that returns the icon for a certain POIIcon
 /****************************************************************************/
+#pragma once
+#include <config.h>
 
-#include "GUIIconSubSys.h"
-
-#include "POIImages.h"
+#include <utils/foxtools/fxheader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
-// member method definitions
+// class definitions
 // ===========================================================================
+/**
+ * @class POIImages
+ * @brief Utility function for getting the images associated to a POI.
+ */
+class POIIcons {
 
-FXIcon*
-POIImages::getPOIIcon(POIIcon POIIcon) {
-    switch (POIIcon) {
-        case POIIcon::TREE:
-            return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
-        case POIIcon::HOTEL:
-            return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
-        case POIIcon::NONE:
-            return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
-        default:
-            throw ProcessError("Invalid POIImage");
-    }
-}
-
-/****************************************************************************/
+public:
+    /// @brief returns icon associated to the given POI image
+    static FXIcon* getPOIIcon(POIIcon POIIcon);
+};
