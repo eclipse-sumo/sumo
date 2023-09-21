@@ -179,7 +179,7 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
     if (speed < 10.8) {
         spacingErr = spacingErr - 2;
     } else if (speed <= 15.0 && speed >= 10.8) {
-        spacingErr = spacingErr - (75 / speed);
+        spacingErr = spacingErr - (75 / speed -5);
     } else {
         spacingErr = spacingErr;
     }
