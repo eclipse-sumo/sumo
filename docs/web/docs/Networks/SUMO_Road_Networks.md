@@ -11,7 +11,7 @@ Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German
 | Type of content    | Map          |
 | Open format?       | Yes          |
 | SUMO specific?     | Yes          |
-| XML Schema         | [net_file.xsd](http://sumo.dlr.de/xsd/net_file.xsd) |
+| XML Schema         | [net_file.xsd](https://sumo.dlr.de/xsd/net_file.xsd) |
 
 A **SUMO network file** describes the traffic-related part of a map, the
 roads and intersections the simulated vehicles run along or across. At a
@@ -238,7 +238,7 @@ where *<NODE_ID\>* is the ID of the node the edge is located within and
 the incoming and outgoing edges connected by the internal edge have
 multiple lanes, the internal edge has multiple lanes as well (according
 to the number of connections between these two edges). In case of
-multi-lane internal edges, the INDEX jumps by the number of of lanes so
+multi-lane internal edges, the INDEX jumps by the number of lanes so
 that EDGE_INDEX + LANE_INDEX = CONNECTION_INDEX.
 
 The attributes are given in the following table.
@@ -252,7 +252,7 @@ The attributes are given in the following table.
 When the network was built with internal edges, each connection will typically correspond to exactly one internal lane.
 If there are multiple connections that have the same pair of `from` and `to` edges, then the internal lanes for these edges will be part of the same internal edge. On connections marked as *straight* (`dir="s"`), lane changing on internal lanes is permitted.
 
-A special case are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
+Special cases are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
 
 - left-turning vehicles that yield to oncoming traffic
 - right-turning vehicles that yield to pedestrian crossings
@@ -302,7 +302,7 @@ The junction itself is described by the following attributes:
 
 | Name         | Type              | Description              |
 | ------------ | ----------------- | ------------------------ |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.                                          |
+| **id**       | id (string)       | The id of the junction; By default, a traffic light controlling this junction will have the same id but this may changed by the user or when joining traffic lights.   |
 | **x**        | x-position (real) | The x-coordinate of the intersection                                                                                                                                   |
 | **y**        | y-position (real) | The y-coordinate of the intersection                                                                                                                                   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection                                                                                                                        |
@@ -399,7 +399,7 @@ internal junction are:
 
 | Name         | Type              | Description               |
 | ------------ | ----------------- | ------------------------- |
-| **id**       | id (string)       | The id of the junction; please note, that a traffic light definition must use the same ID when controlling this intersection.         |
+| **id**       | id (string)       | The id of the internal junction; It always starts with `:` followed by the id of the parent junction, then an `_`and finally a unique index.  |
 | **x**        | x-position (real) | The x-coordinate of the intersection   |
 | **y**        | y-position (real) | The y-coordinate of the intersection   |
 | z            | z-position (real) | The (optional) z-coordinate of the intersection    |

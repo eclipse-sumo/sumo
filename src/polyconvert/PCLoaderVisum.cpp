@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -273,6 +273,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string type = typemap[catid];
             // patch the values
             bool discard = oc.getBool("discard");
+            std::string icon = oc.getString("icon");
             double layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
@@ -281,6 +282,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 type = def.id;
                 color = def.color;
                 discard = def.discard;
+                icon = def.icon;
                 layer = def.layer;
             } else {
                 id = oc.getString("prefix") + id;
@@ -292,7 +294,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 while (toFill.getPOIs().get(id) != nullptr) {
                     id = origId + "#" + toString(index++);
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, icon, layer);
                 toFill.add(poi);
             }
         }
@@ -355,6 +357,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             // patch the values
             std::string type = "district";
             bool discard = oc.getBool("discard");
+            std::string icon = oc.getString("icon");
             double layer = oc.getFloat("layer");
             RGBColor color;
             if (tm.has(type)) {
@@ -363,6 +366,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 type = def.id;
                 color = def.color;
                 discard = def.discard;
+                icon = def.icon;
                 layer = def.layer;
             } else {
                 id = oc.getString("prefix") + id;
@@ -389,7 +393,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                     while (toFill.getPOIs().get(id) != nullptr) {
                         id = origId + "#" + toString(index++);
                     }
-                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer);
+                    PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, icon, layer);
                     toFill.add(poi);
                 }
             }

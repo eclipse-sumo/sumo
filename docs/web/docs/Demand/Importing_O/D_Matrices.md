@@ -143,7 +143,7 @@ The tazRelation format defines the demand per OD pair in time slices for
 every a given vehicle type as follows:
 
 ```xml
-<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+<data xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="car" begin="0" end="1:0:0">
       <tazRelation count="2000" from="1" to="2"/>
       <tazRelation count="500" from="1" to="3"/>
@@ -273,7 +273,7 @@ The Amitran format defines the demand per OD pair in time slices for
 every vehicle type as follows:
 
 ```xml
-<demand xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/od.xsd">
+<demand xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/od.xsd">
    <actorConfig id="0">
        <timeSlice duration="86400000" startTime="0">
            <odPair amount="100" destination="2" origin="1"/>

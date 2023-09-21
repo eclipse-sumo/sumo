@@ -62,3 +62,16 @@ stats_joined
 
 # plot fcd output and ignore ids
 fcd_speed_density
+
+# route file with flow and vTypes
+heterogeneous_input
+single_empty_file
+
+# plot contents of one file even if another file is empty
+empty_file
+
+# plot contents of one file even if another file is empty
+first_empty_file
+
+# error when all files are empty
+empty_files

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -66,7 +66,7 @@ public:
      * @param[in] app The application this window belongs to
      * @param[in] o The gl-object this table describes
      */
-    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title="");
+    GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, const std::string& title = "");
 
 
     /// @brief Destructor

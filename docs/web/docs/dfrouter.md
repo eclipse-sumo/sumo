@@ -4,7 +4,7 @@ title: dfrouter
 
 # From 30.000 feet
 
-**dfrouter** uses induction loop values to compute vehicle routes that
+**dfrouter** (*"detector flow router"*) uses induction loop values to compute vehicle routes that
 may be used by [sumo](sumo.md).
 
 - **Purpose:** Building vehicle routes from induction loop counts
@@ -32,7 +32,7 @@ The complete list of options is given in the following.
 
 You may use a XML schema definition file for setting up a dfrouter
 configuration:
-[dfrouterConfiguration.xsd](http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
+[dfrouterConfiguration.xsd](https://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
 
 ### Configuration
 

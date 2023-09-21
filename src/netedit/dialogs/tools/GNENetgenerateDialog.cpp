@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -79,7 +79,7 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     // build output file elements
     horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrame, "output-file", nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
-    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(),
+    GUIDesigns::buildFXButton(horizontalFrame, "", "", TL("Select filename"),
                  GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_OPEN, GUIDesignButtonIcon);
     myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // add separator
@@ -87,11 +87,11 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     // create buttons centered
     horizontalFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(horizontalFrame, GUIDesignAuxiliarHorizontalFrame);
-    myRunButton = new FXButton(horizontalFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+    myRunButton = GUIDesigns::buildFXButton(horizontalFrame, TL("Run"), "", TL("close accepting changes"),
                                GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    myAdvancedButton = new FXButton(horizontalFrame, (TL("Advanced") + std::string("\t\t") + TL("open advance netgenerate dialog")).c_str(),
+    myAdvancedButton = GUIDesigns::buildFXButton(horizontalFrame, TL("Advanced"), "", TL("open advance netgenerate dialog"),
                                     GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_BUTTON_ADVANCED, GUIDesignButtonAdvanced);
-    new FXButton(horizontalFrame, (TL("Cancel") + std::string("\t\t") + TL("Close dialog")).c_str(),
+    GUIDesigns::buildFXButton(horizontalFrame, TL("Cancel"), "", TL("Close dialog"),
                  GUIIconSubSys::getIcon(GUIIcon::CANCEL),  this, MID_GNE_BUTTON_CANCEL,  GUIDesignButtonReset);
     new FXHorizontalFrame(horizontalFrame, GUIDesignAuxiliarHorizontalFrame);
 }

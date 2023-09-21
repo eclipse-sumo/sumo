@@ -4,7 +4,7 @@ title: Tests
 
 # Introduction
 
-We use [TextTest](http://texttest.org/) to test whether the software
+We use [TextTest](https://texttest.org/) to test whether the software
 still behaves as expected. TextTest compares an application's file
 output, including the output to stdout and stderr with predefined
 outputs from files.
@@ -22,7 +22,7 @@ with the results on this [summary webpage](https://sumo.dlr.de/daily/).
 
 # Setup
 
-We use [TextTest](http://texttest.org/) 4.x as our testing environment which
+We use [TextTest](https://texttest.org/) 4.x as our testing environment which
 is Python based and currently available for Python 3. To install
 it on Linux / MacOS, you can open a terminal and type:
 
@@ -37,7 +37,7 @@ For Windows you should download and run the installer from the
 
 It might not pull in all the dependencies, so in some cases you need
 to follow the [TextTest installation
-instructions](http://texttest.sourceforge.net/index.php?page=documentation_trunk&n=install_texttest)
+instructions](https://texttest.sourceforge.net/index.php?page=documentation_trunk&n=install_texttest)
 and the additional info there.
 
 For MacOS the following command should install all dependencies:
@@ -72,7 +72,7 @@ the "tools" and/or "complex" tests please do
 # Running the Tests
 
 Within the  `{{SUMO}}/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
-[TextTest](http://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
+[TextTest](https://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
 starts TextTest for testing all applications located in the folder,
 `runNetconvertTests.bat` (Windows) will only show tests for netconvert,
 `runDuarouterTests.bat`(Windows) only those for duarouter etc. For Linux and macOS you can do this via the
@@ -126,7 +126,7 @@ set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
 - build a configuration file; its name is "config", the extension is
   the application's to test name, so in our case it's
   **config.polyconvert**. Please consult
-  [TextTest](http://texttest.org/) documentation about the content,
+  [TextTest](https://texttest.org/) documentation about the content,
   nonetheless, here are some notes
   - do not forget the import of the main config file (config_all)
   - name the binary correct

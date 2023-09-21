@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_17_0+0716-331573c
+Eclipse SUMO sumo Version v1_17_0+2470-b55cba8942c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -307,7 +307,7 @@ Processing Options:
   --default.speeddev FLOAT             Select default speed deviation. A
                                         negative value implies vClass specific
                                         defaults (0.1 for the default passenger
-                                        class
+                                        class)
   --default.emergencydecel STR         Select default emergencyDecel value
                                         among ('decel', 'default', FLOAT) which
                                         sets the value either to the same as the
@@ -367,8 +367,10 @@ Processing Options:
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
                                         points to smooth out lanes within the
                                         walkingarea
-  --pedestrian.remote.address STR      The address (host:port) of the external
-                                        simulation
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to the destination
+                                        point considered as arrival (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
@@ -477,6 +479,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
   --language STR                       Language to use in messages
   --duration-log.disable               Disable performance reports for
                                         individual simulation steps

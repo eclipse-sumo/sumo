@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -414,7 +414,7 @@ public:
     FXMutex& getDecalsLockMutex();
 
     /// @brief get coloring schemes combo
-    FXComboBox* getColoringSchemesCombo();
+    MFXComboBoxIcon* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
     virtual Position getPositionInformation() const;
@@ -449,6 +449,14 @@ public:
 
     /// @brief get GUIGlChildWindow
     GUIGlChildWindow* getGUIGlChildWindow();
+
+    /// @brief Draw (or not) the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    virtual void drawPedestrianNetwork(const GUIVisualizationSettings& /*s*/) const { };
+
+    /// @brief Change the color of the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    virtual void changePedestrianNetworkColor(const GUIVisualizationSettings& /*s*/) const { };
 
 protected:
     /// @brief FOX needs this
@@ -506,7 +514,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsAtPosition(Position pos, double radius);
 
     /// @brief returns the ids of all objects in the given boundary
-    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
+    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound);
 
     /// @brief filter internal lanes in Objects under cursor
     std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*>& objects) const;

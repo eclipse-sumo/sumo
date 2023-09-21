@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -235,15 +235,25 @@ def humanReadableTime(seconds):
     return sign + result
 
 
+SPECIAL_TIME_STRINGS = ["triggered", "containerTriggered", "split", "begin"]
+
+
 def parseTime(t, factor=1):
     try:
         return float(t) * factor
     except ValueError:
         pass
-    # prepended zero is ignored if the date value already contains days
-    days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
-    sign = -1 if t.strip()[0] == '-' else 1
-    return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign
+    try:
+        # prepended zero is ignored if the date value already contains days
+        days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
+        sign = -1 if t.strip()[0] == '-' else 1
+        return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign * factor
+    except ValueError:
+        if t in SPECIAL_TIME_STRINGS:
+            # signal special case but don't crash
+            return None
+        else:
+            raise
 
 
 def parseBool(val):
@@ -260,7 +270,7 @@ def getFlowNumber(flow):
         period = 0
         if flow.period is not None:
             if 'exp' in flow.period:
-                # use expecte value
+                # use expected value
                 period = 1 / float(flow.period[4:-2])
             else:
                 period = float(flow.period)

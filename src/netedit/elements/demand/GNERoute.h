@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
@@ -70,6 +71,12 @@ public:
     /// @brief default constructor (used in calibrators)
     GNERoute(GNENet* net);
 
+    /// @brief default constructor (used in copy vehicles)
+    GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute);
+
+    /// @brief default  constructor (used in copy embedded vehicles)
+    GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute);
+
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed
      * @param[in] id route ID
@@ -95,9 +102,6 @@ public:
     GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
              const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters);
 
-    /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
-    GNERoute(GNEDemandElement* route);
-
     /// @brief destructor
     ~GNERoute();
 
@@ -111,7 +115,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -225,6 +229,11 @@ public:
      */
     Position getAttributePosition(SumoXMLAttr key) const;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /* @brief method for setting the attribute and letting the object perform additional changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -255,6 +264,9 @@ public:
      * @return an empty string if route is valid, or a string with the problem
      */
     static std::string isRouteValid(const std::vector<GNEEdge*>& edges);
+
+    /// @brief create a copy of the given route
+    static GNEDemandElement* copyRoute(const GNERoute* originalRoute);
 
 protected:
     /// @brief route color

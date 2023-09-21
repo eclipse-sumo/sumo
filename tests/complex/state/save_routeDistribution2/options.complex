@@ -1,0 +1,15 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml 
+--save-state.times 30 --save-state.files state.xml
+--tripinfo-output tripinfo.xml
+--default.speeddev 0
+-e 31
+-l log.txt
+:
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-r input_routes.rou.xml
+--load-state state.xml
+--tripinfo-output tripinfo2.xml
+--default.speeddev 0
+-l log2.txt
+tests/complex/state/runner.py

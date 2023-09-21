@@ -332,21 +332,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/74.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/74.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/74.
 
@@ -354,7 +354,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
-Error: value '' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/74.
 
@@ -362,21 +362,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/75.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/75.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/75.
 
@@ -384,7 +384,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
-Error: value 'a' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/75.
 
@@ -422,21 +422,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/94.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/94.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/94.
 
@@ -444,7 +444,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
-Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/94.
 
@@ -452,21 +452,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/93.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/93.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/93.
 
@@ -474,7 +474,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
-Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/93.
 
@@ -482,21 +482,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/92.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/92.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/92.
 
@@ -504,7 +504,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
-Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/92.
 
@@ -512,21 +512,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/99.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/99.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/99.
 
@@ -534,7 +534,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
-Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/99.
 
@@ -542,21 +542,21 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 25/86.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
-Error: value '0100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '0100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 26/87.
 
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 29/86.
 
@@ -564,7 +564,7 @@ Error: Edge's '1' from-node '1' is not known.
 Error: No nodes loaded.
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
-Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?(\s(\-)?(\d+\.?|(\d*\.\d+)),(\-)?(\d+\.?|(\d*\.\d+))(,(\-)?(\d+\.?|(\d*\.\d+)))?)*'
+Error: value '100.00,-4.95' does not match regular expression facet '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?(\s[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF),[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)(,[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF))?)*'
  In file 'mod.net.xml'
  At line/column 30/86.
 

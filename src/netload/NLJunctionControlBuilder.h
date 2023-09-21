@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -259,6 +259,10 @@ public:
         return myActivePhases;
     }
 
+    void netIsLoaded() {
+        myNetIsLoaded = true;
+    }
+
 protected:
     /// @name Factory methods, virtual so that other versions of the structures can be built
     /// @{
@@ -362,14 +366,17 @@ protected:
     /// @brief the name of the current junction
     std::string myActiveName;
 
+    /// @brief Definition of a parameter map (key->value)
+    typedef Parameterised::Map StringParameterMap;
+
     /// @brief The container for information which junctions shall be initialised using which values
-    std::vector<MSTrafficLightLogic*> myLogics2PostLoadInit;
+    std::vector<MSTrafficLightLogic*> myNetworkLogics;
+    std::vector<MSTrafficLightLogic*> myAdditionalLogics;
+    std::vector<MSTrafficLightLogic*> myRailSignals;
+    std::map<MSTrafficLightLogic*, StringParameterMap> myLogicParams;
 
     /// @brief The tls control to use (0 if net's tls control shall be used)
     mutable MSTLLogicControl* myLogicControl;
-
-    /// @brief Definition of a parameter map (key->value)
-    typedef Parameterised::Map StringParameterMap;
 
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;
@@ -388,5 +395,6 @@ private:
 
     /// @brief whether the network has been loaded
     bool myNetIsLoaded;
+
 
 };

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,20 +38,18 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # create container using three edges
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create container
 netedit.typeEnter()
-
-# change zoom
-netedit.setZoom("0", "-6", "5")
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
+                  netedit.positions.demandElements.container.y)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.type, "custom_vType", False)
@@ -63,8 +61,7 @@ netedit.modifyBoolAttribute(netedit.attrs.containerFlow.inspect.typeButton, Fals
 netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)
 
 # Check undo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

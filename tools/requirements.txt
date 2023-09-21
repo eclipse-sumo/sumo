@@ -11,3 +11,4 @@ ortools>=9.4.1874
 texttest>=4.2.1
 pyautogui>=0.9.53
 pyperclip>=1.7.0
+polib>=1.2.0

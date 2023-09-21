@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -48,26 +48,23 @@ from sumolib.vehicletype import CreateVehTypeDistribution
 
 
 def get_options(args=None):
-    argParser = ArgumentParser()
-    argParser.add_argument(
-        "configFile", help="file path of the config file which defines the car-following parameter distributions")
-    argParser.add_argument(
-        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the " +
-        "output file (if the file already exists, the script tries to insert the distribution node into it)")
-    argParser.add_argument(
-        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created " +
-        "vehicle type distribution")
-    argParser.add_argument(
-        "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
-    argParser.add_argument(
-        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for " +
-        "numeric attribute values")
-    argParser.add_argument(
-        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a " +
-        "value until it lies in the specified bounds")
-    argParser.add_argument("--seed", type=int, help="random seed", default=42)
+    ap = ArgumentParser()
+    ap.add_argument("configFile", category="input",
+                    help="file path of the config file which defines the car-following parameter distributions")
+    ap.add_argument("-o", "--output-file", category="output", dest="outputFile", default="vTypeDistributions.add.xml",
+                    help=("file path of the output file" +
+                          "(if the file already exists, the script tries to insert the distribution node into it)"))
+    ap.add_argument("-n", "--name", dest="vehDistName", default="vehDist",
+                    help="alphanumerical ID used for the created vehicle type distribution")
+    ap.add_argument("-s", "--size", type=int, default=100, dest="vehicleCount",
+                    help="number of vTypes in the distribution")
+    ap.add_argument("-d", "--decimal-places", type=int, default=3, dest="decimalPlaces",
+                    help="number of decimal places for numeric attribute values")
+    ap.add_argument("--resampling", type=int, default=100, dest="nrSamplingAttempts",
+                    help="number of attempts to resample a value until it lies in the specified bounds")
+    ap.add_argument("--seed", type=int, help="random seed", default=42)
 
-    options = argParser.parse_args(args)
+    options = ap.parse_args(args)
     return options
 
 

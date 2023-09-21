@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,37 +38,38 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # check undo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete route
-netedit.leftClick(referencePosition, 327, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # check undo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

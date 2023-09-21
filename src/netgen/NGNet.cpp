@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -227,13 +227,11 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
 
 Distribution_Parameterized
 NGNet::getDistribution(const std::string& option) {
-    std::string val = OptionsCont::getOptions().getString(option);
+    const std::string& val = OptionsCont::getOptions().getString(option);
     try {
         return Distribution_Parameterized(option, 0, StringUtils::toDouble(val));
     } catch (NumberFormatException&) {
-        Distribution_Parameterized result(option, 0, 0);
-        result.parse(val, true);
-        return result;
+        return Distribution_Parameterized(val);
     }
 }
 

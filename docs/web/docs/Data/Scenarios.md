@@ -16,8 +16,8 @@ you can share (under a sufficiently open license), please
 
 A small-scale scenario based on the city of Bologna. The large
 roundabout can be found at 44.494554,11.314393. These scenarios were
-developed as part of the [iTETRIS project](http://www.ict-itetris.eu). A
-[publication](http://elib.dlr.de/89354) on these scenarios was presented
+developed as part of the [iTETRIS project](https://www.ict-itetris.eu). A
+[publication](https://elib.dlr.de/89354) on these scenarios was presented
 at [SUMO
 Conference 2014](https://sumo.dlr.de/docs/Publications.html#SUMO_2014): L.
 Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
@@ -25,7 +25,7 @@ Bieker, D. Krajzewicz, A. Morra, C. Michelacci and F. Cartolano,
 of Bologna", SUMO2014, p 19-26
 
 - [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/)
-- (Old release) [Download .zip files from SourceForge](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
+- (Old release) [Download .zip files from SourceForge](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
 
 # Braunschweig
 
@@ -101,10 +101,10 @@ about travelling habits of Germans and on information about the
 infrastructure of the area they live in.
 
 More information about the system can be found within this [publication
-on TAPAS](http://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf).
+on TAPAS](https://elib.dlr.de/45058/02/SRL_81_-_Beitrag_Varschen.pdf).
 The original data was using a closed-source road network and was mapped
 onto one stemming from the [OpenStreetMap
-project](http://www.openstreetmap.de/).
+project](https://www.openstreetmap.de/).
 
 There is further information about
 [TAPASCologne](../Data/Scenarios/TAPASCologne.md).
@@ -122,9 +122,9 @@ connected driving in Hamburg.
 
 # Further real-world scenarios
 
-- [Bologna Ringway](http://academic.lucabedogni.it/the-bologna-ringway-dataset/).
+- [Bologna Ringway](https://academic.lucabedogni.it/the-bologna-ringway-dataset/).
     Scenario built within the [COLOMBO R&D
-    project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/).
+    project](https://web.archive.org/web/20170716120720/https://www.colombo-fp7.eu/).
 
 !!! caution
     This scenario is known to have lots of collisions due to unsafe traffic lights and some invalid junction definitions. It is also quite jammed.
@@ -134,13 +134,13 @@ connected driving in Hamburg.
 Synthetic - or abstract - scenarios only resemble typical layouts of
 real-world junctions and arterials without mapping a very specific one.
 Some synthetic scenarios of the [COLOMBO R&D
-project](https://web.archive.org/web/20170716120720/http://www.colombo-fp7.eu/) are examples of the German guideline
+project](https://web.archive.org/web/20170716120720/https://www.colombo-fp7.eu/) are examples of the German guideline
 RiLSA. They are described in [D1.1 "Scenario Specifications and Required
 Modifications to Simulation
-Tools"](https://web.archive.org/web/20170808122505/http://elib.dlr.de/98046/1/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
+Tools"](https://web.archive.org/web/20170808122505/https://elib.dlr.de/98046/1/COLOMBO_D1.1_ScenariosExtensions_v2.4.pdf)(chapter
 4).
 
-- Download: [4 RiLSA \*.zip files](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/RiLSA)
+- Download: [4 RiLSA \*.zip files](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/RiLSA)
 
 # Wildau
 

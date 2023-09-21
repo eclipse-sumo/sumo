@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,32 +35,31 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change angle (invalid)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.angle, "dummyAngle")
+netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "dummyAngle")
 
 # try to create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change angle (valid, but > 360)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.angle, "365")
+netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "365")
 
 # try to create polygon
-netedit.createSquaredPoly(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
 
 # change angle (valid, < 0)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.angle, "-5")
+netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "-5")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # change angle (0 < angle < 360)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.angle, "5")
+netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "5")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 482, 130, 200, True)
+netedit.createSquaredShape(referencePosition, 482, 130, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

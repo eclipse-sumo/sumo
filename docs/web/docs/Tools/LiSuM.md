@@ -22,7 +22,7 @@ LiSuM) and VISSIM, a proprietary microscopic 3D traffic simulator.
 
 LiSuM was built on Java technology and thus can be run on any operating
 system supporting Java. LiSuM is licensed (just like SUMO) under the
-[EPLv2](http://www.eclipse.org/legal/epl-v20.html).
+[EPLv2](https://www.eclipse.org/legal/epl-v20.html).
 
 ![flowws.png](../images/Flowws.png "flowws.png")
 SUMO communicates with the LISA+ virtual controller through LiSuM

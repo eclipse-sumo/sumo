@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -34,36 +34,35 @@ netedit.additionalMode()
 # select parkingArea
 netedit.changeElement("parkingArea")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 220, 245)
 
 # set invalid id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "pa_0")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 284, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 305, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, ";;;;")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 324, 245)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 345, 245)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

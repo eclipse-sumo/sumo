@@ -156,7 +156,7 @@ A complete CSV-description could look like:
 ## Example
 
 The example shows what is tested in
-[\[1\]](http://sourceforge.net/apps/trac/sumo/browser/trunk/sumo/tests/tools/tls/csv2sumo/both_ok).
+[\[1\]](https://sourceforge.net/apps/trac/sumo/browser/trunk/sumo/tests/tools/tls/csv2sumo/both_ok).
 It is not a real-world program plan, only a demonstration for using the
 script.
 

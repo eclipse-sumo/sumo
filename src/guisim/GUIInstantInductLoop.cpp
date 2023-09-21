@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include "GUIInstantInductLoop.h"
@@ -92,9 +93,12 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("name", false, myDetector.myName);
-    ret->mkItem("position [m]", false, myPosition);
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("name"), false, myDetector.myName);
+    ret->mkItem(TL("position [m]"), false, myPosition);
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
     // close building
     ret->closeBuilding(&myDetector);

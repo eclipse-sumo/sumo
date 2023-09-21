@@ -53,8 +53,8 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <flow id="flow_0" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" insertionChecks="%%99iii99"/>
+    <flow id="flow_0" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" insertionChecks="%%99iii99"/>
 
-    <flow id="flow_1" begin="20.00" end="500.00" number="100" from="gneE2" to="gneE5" insertionChecks="leaderGap junction speedLimit pedestrian"/>
+    <flow id="flow_1" begin="20.00" end="500.00" number="100" from="Edge0" to="Edge2" insertionChecks="leaderGap junction speedLimit pedestrian"/>
 
 </routes>

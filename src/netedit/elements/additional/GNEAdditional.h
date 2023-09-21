@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -239,18 +239,6 @@ public:
     /// @brief get last path lane
     GNELane* getLastPathLane() const;
 
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -340,10 +328,19 @@ protected:
     /// @{
 
     /// @brief check if a new additional ID is valid
-    bool isValidAdditionalID(const std::string& newID) const;
+    bool isValidAdditionalID(const std::string& value) const;
+
+    /// @brief check if a new additional ID is valid
+    bool isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
     /// @brief check if a new detector ID is valid
-    bool isValidDetectorID(const std::string& newID) const;
+    bool isValidDetectorID(const std::string& value) const;
+
+    /// @brief check if a new detector ID is valid
+    bool isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
+
+    /// @brief set additional ID
+    void setAdditionalID(const std::string& newID);
 
     /// @}
 
@@ -381,7 +378,7 @@ protected:
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
+    void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
 
@@ -390,6 +387,29 @@ protected:
 
     /// @brief get moveOperation for an element over multi lane
     GNEMoveOperation* getMoveOperationMultiLane(const double startPos, const double endPos);
+
+    /// @name JuPedSim values
+    /// @{
+
+    /// @brief get JuPedSim type
+    static std::string getJuPedSimType(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static RGBColor getJuPedSimColor(SumoXMLTag tag);
+
+    /// @brief get JuPedSim fill
+    static bool getJuPedSimFill(SumoXMLTag tag);
+
+    /// @brief get JuPedSim color
+    static double getJuPedSimLayer(SumoXMLTag tag);
+
+    /// @brief get GLO color
+    static GUIGlObjectType getJuPedSimGLO(SumoXMLTag tag);
+
+    /// @brief get JuPedSim icon
+    static FXIcon* getJuPedSimIcon(SumoXMLTag tag);
+
+    /// @}
 
 private:
     /**@brief check restriction with the number of children

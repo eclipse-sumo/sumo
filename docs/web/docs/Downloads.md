@@ -39,7 +39,7 @@ launchpad project as well as an archlinux package:
 - <https://launchpad.net/~sumo>
 - <https://aur.archlinux.org/packages/sumo/>
 
-There is also a [flatpak](https://flathub.org/apps/details/org.eclipse.sumo) available for SUMO.
+There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available for SUMO.
 
 To add the most recent sumo to your ubuntu you will need to do:
 
@@ -59,17 +59,16 @@ try one of the build service repositories here too, e.g.
 At the moment there is no documentation included in the packages. The
 repositories include a nightly build as well (called ***sumo-git***).
 
-- [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
-- [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/science:/dlr/15.3/)
-- [openSUSE Leap 15.4 repository](http://download.opensuse.org/repositories/science:/dlr/15.4/)
-- [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
-- [Fedora 34 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_34/)
-- [Fedora 35 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_35/)
-- [Fedora 36 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
-- [Fedora 37 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
-- [Fedora Rawhide repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
-- [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
-- [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
+- [openSUSE Leap 15.2 repository](https://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
+- [openSUSE Leap 15.3 repository](https://download.opensuse.org/repositories/science:/dlr/15.3/)
+- [openSUSE Leap 15.4 repository](https://download.opensuse.org/repositories/science:/dlr/15.4/)
+- [openSUSE Tumbleweed repository](https://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
+- [Fedora 36 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
+- [Fedora 37 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
+- [Fedora 38 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_38/)
+- [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
+- [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
+- [CentOS 8 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
 ### Examples
 
@@ -81,7 +80,7 @@ yum install -y --nogpgcheck sumo-{{Version}}
 ```
 and like this, for zypper on openSUSE Leap 15.3:
 ```
-zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
+zypper ar https://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
 zypper in sumo={{Version}}
 ```
 I you leave out the version number it will install the latest nightly build.
@@ -160,10 +159,10 @@ SUMO is under active development. You can find a continuously updated
 list of bug-fixes and enhancements at our
 [ChangeLog](ChangeLog.md). To make use of the latest features
 [(and to give us pre-release feedback)](Contact.md) we encourage
-you to use the latest version from our [code repository](https://github.com/eclipse/sumo/).
+you to use the latest version from our [code repository](https://github.com/eclipse-sumo/sumo/).
 
 Every push to our main branch also triggers a build for Windows, Linux and macOS. The results can be found
-by clicking on the [relevant commit here](https://github.com/eclipse/sumo/actions) and downloading the
+by clicking on the [relevant commit here](https://github.com/eclipse-sumo/sumo/actions) and downloading the
 appropriate file for your platform (you may need to sign in to GitHub).
 
 ## Nightly Snapshots
@@ -205,7 +204,7 @@ analysis](https://sumo.dlr.de/daily/lcov/html/) are generated every
 night.
 
 !!! caution
-    The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
+    The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse-sumo/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
 # Older releases and alternative download
 
@@ -216,7 +215,7 @@ If you want to try out an older version you can also use the virtual environment
 `pip install eclipse-sumo==1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
-local repository or at [GitHub tags](https://github.com/eclipse/sumo/tags).
+local repository or at [GitHub tags](https://github.com/eclipse-sumo/sumo/tags).
 
 # Other
 

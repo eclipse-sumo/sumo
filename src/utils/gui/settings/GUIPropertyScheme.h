@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -43,11 +43,27 @@ template<class T>
 class GUIPropertyScheme {
 public:
     /// Constructor
-    GUIPropertyScheme(const std::string& name, const T& baseColor,
+    GUIPropertyScheme(const std::string& name, const std::string& translatedName, const T& baseColor,
                       const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
                       RGBColor bgColor = RGBColor::WHITE,
                       GUIIcon icon = GUIIcon::EMPTY) :
-        myName(name), myIsInterpolated(!isFixed),
+        myName(name), 
+        myTranslatedName(translatedName),
+        myIsInterpolated(!isFixed),
+        myIsFixed(isFixed),
+        myAllowNegativeValues(false),
+        myIcon(icon),
+        myBgColor(bgColor) {
+        addColor(baseColor, baseValue, colName);
+    }
+
+    GUIPropertyScheme(const std::string& name, const T& baseColor,
+        const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
+        RGBColor bgColor = RGBColor::WHITE,
+        GUIIcon icon = GUIIcon::EMPTY) :
+        myName(name), 
+        myTranslatedName(name),
+        myIsInterpolated(!isFixed),
         myIsFixed(isFixed),
         myAllowNegativeValues(false),
         myIcon(icon),
@@ -134,6 +150,10 @@ public:
 
     const std::string& getName() const {
         return myName;
+    }
+
+    const std::string& getTranslatedName() const {
+        return myTranslatedName;
     }
 
     const std::vector<T>& getColors() const {
@@ -234,6 +254,7 @@ public:
 
 private:
     std::string myName;
+    std::string myTranslatedName;
     std::vector<T> myColors;
     std::vector<double> myThresholds;
     bool myIsInterpolated;

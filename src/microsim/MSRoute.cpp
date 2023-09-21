@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -190,6 +190,10 @@ MSRoute::checkDist(const std::string& id) {
 #endif
     RouteDistDict::iterator it = myDistDict.find(id);
     if (it != myDistDict.end() && !it->second.second) {
+        for (ConstMSRoutePtr rp : it->second.first->getVals()) {
+            const MSRoute& r = *rp;
+            r.checkRemoval();
+        }
         delete it->second.first;
         myDistDict.erase(it);
     }

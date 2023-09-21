@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="routeA" edges="gneE0 gneE1" color="yellow"/>
+    <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
     <route id="routeB" edges="gneE1" color="orange"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="routeFlowA" begin="0.00" route="routeA" end="3600.00" number="18">

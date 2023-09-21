@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="route_0" edges="gneE0 gneE1" color="yellow">
-        <stop busStop="busStop" speed="10.00"/>
+    <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow">
+        <stop busStop="busStopA" speed="10.00"/>
     </route>
-    <route id="route_1" edges="gneE0 gneE1" color="yellow">
-        <stop busStop="busStop" speed="10.00" actType=";;;;"/>
+    <route id="route_1" edges="Edge0 Edge1 Edge2" color="yellow">
+        <stop busStop="busStopA" speed="10.00" actType=";;;;"/>
     </route>
-    <route id="route_2" edges="gneE0 gneE1" color="yellow">
-        <stop busStop="busStop" speed="10.00" actType="waiting"/>
+    <route id="route_2" edges="Edge0 Edge1 Edge2" color="yellow">
+        <stop busStop="busStopA" speed="10.00" actType="waiting"/>
     </route>
 </routes>

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -43,7 +43,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
+    FXTopWindow(GNEApp->getApp(), TL("Undo/Redo history"), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
     myGNEApp(GNEApp) {
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
@@ -55,7 +55,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, TL("OK\tclose dialog"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    GUIDesigns::buildFXButton(buttonsFrame, TL("OK\tclose dialog"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

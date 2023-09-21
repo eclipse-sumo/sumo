@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -129,13 +129,15 @@ public:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
     void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                               const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                              const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const bool friendlyPosition,
-                              const Parameterised::Map& parameters);
+                              const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+                              const SUMOTime waitingTime, const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /**@brief Builds a Parking Area
      * @param[in] sumoBaseObject sumo base object used for build
@@ -244,11 +246,12 @@ public:
      * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
     void buildDetectorE3(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const Position& pos, const SUMOTime period,
                          const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, const SUMOTime timeThreshold,
-                         const double speedThreshold, const Parameterised::Map& parameters);
+                         const double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters);
 
     /**@brief Builds a entry detector (E3)
      * @param[in] sumoBaseObject sumo base object used for build
@@ -515,6 +518,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] x POI's x position
      * @param[in] y POI's y position
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -525,9 +529,9 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                  const RGBColor& color, const double x, const double y, const double layer, const double angle, const std::string& imgFile,
-                  bool relativePath, const double width, const double height, const std::string& name,
-                  const Parameterised::Map& parameters);
+                  const RGBColor& color, const double x, const double y, const std::string &icon, const double layer,
+                  const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                  const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -538,6 +542,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -548,9 +553,9 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
-                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const double layer,
-                      const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name,
-                      const Parameterised::Map& parameters);
+                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+                      const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
+                      const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a POI in GEO coordinaten using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -559,6 +564,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] lon POI's longitude
      * @param[in] lat POI's latitude
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -569,8 +575,40 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                     const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
-                     bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+                     const RGBColor& color, const double lon, const double lat, const std::string &icon, const double layer,
+                     const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                     const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a JuPedSim walkable area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the walkable area
+     * @param[in] shape The shape of the walkable area
+     * @param[in] name walkable area name
+     * @param[in] parameters generic parameters
+     */
+    void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                   const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a JuPedSim obstacle using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the obstacle
+     * @param[in] shape The shape of the obstacle
+     * @param[in] name obstacle name
+     * @param[in] parameters generic parameters
+     */
+    void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                               const std::string& name, const Parameterised::Map& parameters);
+
+    /**@brief Builds a JuPedSim waiting area using the given values
+     * @param[in] sumoBaseObject sumo base object used for build
+     * @param[in] id The name of the waiting area
+     * @param[in] shape The shape of the waiting area
+     * @param[in] name waiting area name
+     * @param[in] parameters generic parameters
+     */
+    void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                                  const std::string& name, const Parameterised::Map& parameters);
+
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge
@@ -639,7 +677,7 @@ protected:
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);
 
     /// @brief write error "invalid parent element"
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
+    void writeErrorInvalidParent(const SumoXMLTag tag, const std::string& id, const SumoXMLTag parent, const std::string& parentID);
 
     /// @brief write error "invalid negative element"
     void writeErrorInvalidNegativeValue(const SumoXMLTag tag, const std::string& id, const SumoXMLAttr attribute);
@@ -668,10 +706,10 @@ protected:
     /// @brief parse lanes
     std::vector<GNELane*> parseLanes(const SumoXMLTag tag, const std::vector<std::string>& laneIDs);
 
-    /// @brief check if given ID correspond to a duplicated additional
-    bool checkDuplicatedAdditional(const SumoXMLTag tag, const std::string& id);
+    /// @brief check if given ID correspond to a duplicated additionals
+    bool checkDuplicatedID(const std::vector<SumoXMLTag> tags, const std::string& id);
 
-    /// @brief remove overwrited additional
+    /// @brief remove overwritten additional
     void overwriteAdditional();
 
     /// @brief struct for Netedit parameters

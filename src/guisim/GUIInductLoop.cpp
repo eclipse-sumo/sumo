@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
@@ -136,36 +137,39 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
-    ret->mkItem("name", false, myDetector.getName());
-    ret->mkItem("position [m]", false, myPosition);
+    ret->mkItem(TL("name"), false, myDetector.getName());
+    ret->mkItem(TL("position [m]"), false, myPosition);
     if (myDetector.getEndPosition() != myPosition) {
-        ret->mkItem("end position [m]", false, myDetector.getEndPosition());
+        ret->mkItem(TL("end position [m]"), false, myDetector.getEndPosition());
     }
-    ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem(TL("lane"), false, myDetector.getLane()->getID());
+    if (myDetector.isTyped()) {
+        ret->mkItem(TL("vTypes"), false, toString(myDetector.getVehicleTypes()));
+    }
     // values
-    ret->mkItem("entered vehicles [#]", true,
+    ret->mkItem(TL("entered vehicles [-]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
-    ret->mkItem("speed [m/s]", true,
+    ret->mkItem(TL("speed [m/s]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
-    ret->mkItem("occupancy [%]", true,
+    ret->mkItem(TL("occupancy [%]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy));
-    ret->mkItem("vehicle length [m]", true,
+    ret->mkItem(TL("vehicle length [m]"), true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
-    ret->mkItem("empty time [s]", true,
+    ret->mkItem(TL("empty time [s]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
-    ret->mkItem("occupied time [s]", true,
+    ret->mkItem(TL("occupied time [s]"), true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
-    ret->mkItem("interval entered vehicles [#]", true,
+    ret->mkItem(TL("interval entered vehicles [#]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, false));
-    ret->mkItem("interval speed [m/s]", true,
+    ret->mkItem(TL("interval speed [m/s]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, false));
-    ret->mkItem("interval occupancy [%]", true,
+    ret->mkItem(TL("interval occupancy [%]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, false));
-    ret->mkItem("last interval entered vehicles [#]", true,
+    ret->mkItem(TL("last interval entered vehicles [#]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, true));
-    ret->mkItem("last interval speed [m/s]", true,
+    ret->mkItem(TL("last interval speed [m/s]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, true));
-    ret->mkItem("last interval occupancy [%]", true,
+    ret->mkItem(TL("last interval occupancy [%]"), true,
                 new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, true));
     // close building
     ret->closeBuilding(&myDetector);

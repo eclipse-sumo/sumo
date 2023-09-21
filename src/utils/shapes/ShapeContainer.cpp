@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -143,9 +143,9 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
 
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                       const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                       const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning) {
-    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height), ignorePruning);
+                       const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon, double layer,
+                       double angle, const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning) {
+    return add(new PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height), ignorePruning);
 }
 
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -69,7 +69,7 @@ public:
             /// @brief pointer to VTypeAttributes parent
             VTypeAttributes* myVTypeAttributesParent;
 
-            /// @brief FXComboBox for VClass
+            /// @brief MFXComboBoxIcon for VClass
             MFXComboBoxIcon* myComboBoxVClass;
 
             /// @brief label with image of VClass
@@ -99,7 +99,7 @@ public:
             /// @brief pointer to VTypeAttributes parent
             VTypeAttributes* myVTypeAttributesParent;
 
-            /// @brief FXComboBox for Shape
+            /// @brief MFXComboBoxIcon for Shape
             MFXComboBoxIcon* myComboBoxShape;
 
             /// @brief label with image of Shape
@@ -182,16 +182,16 @@ public:
             Parameterised::Map myParameters;
 
             /// @brief filter attribute name
-            FXString filterAttributeName(const SumoXMLAttr attr) const;
+            std::string filterAttributeName(const SumoXMLAttr attr) const;
         };
 
         /// @brief constructor
         VTypeAttributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
-        /// @brief build commmon attributes (A)
+        /// @brief build common attributes (A)
         void buildAttributesA(FXVerticalFrame* column);
 
-        /// @brief build commmon attributes (B)
+        /// @brief build common attributes (B)
         void buildAttributesB(FXVerticalFrame* column);
 
         /// @brief build JunctionModel attributes (A)

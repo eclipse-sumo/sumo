@@ -9,12 +9,12 @@
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
     <containerFlow id="cf_1" begin="12.00" color="blue" end="3800.00" containersPerHour="11501.60">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-        <tranship from="gneE4" to="gneE5"/>
+        <tranship from="Edge1" to="Edge2"/>
     </containerFlow>
 </routes>

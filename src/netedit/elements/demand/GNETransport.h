@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -19,21 +19,25 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GNETransport : public GNEDemandElement, public Parameterised {
+
+class GNETransport : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
 public:
     /// @brief default constructor
     GNETransport(SumoXMLTag tag, GNENet* net);
@@ -71,7 +75,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -215,9 +219,6 @@ public:
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
-
-    /// @brief arrival position
-    double myArrivalPosition;
 
 private:
     /// @brief method for setting the attribute and nothing else

@@ -185,8 +185,8 @@
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JPS
+/* defined and set to version if JuPedSim is available */
+#cmakedefine JPS_VERSION @JPS_VERSION@
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
@@ -204,7 +204,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.17.0"
+    #define VERSION_STRING "1.18.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

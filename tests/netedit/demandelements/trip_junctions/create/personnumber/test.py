@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,48 +38,55 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.personNumber, "dummypersonNumber")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.personNumber, "dummypersonNumber")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.personNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.personNumber, "-12")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.personNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.personNumber, "3.5")
 
 # try to create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.tripFromToJunction.create.personNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.tripJunction.create.personNumber, "13")
 
 # create trip
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

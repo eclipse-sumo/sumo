@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
+#include "GNEDistributionFrame.h"
+
 
 // ===========================================================================
 // class definitions
@@ -43,17 +44,23 @@ public:
     /// @brief show Frame
     void show();
 
+    /// @brief get type distribution selector
+    GNEDistributionFrame::DistributionSelector* getDistributionSelector() const;
+
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
     void attributeUpdated(SumoXMLAttr attribute);
 
 private:
-    /// @brief editorinternal vehicle type attributes
-    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor = nullptr;
+    /// @brief type editor
+    GNEDistributionFrame::DistributionEditor* myDistributionEditor = nullptr;
 
-    /// @brief modul for open extended attributes dialog
-    GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended = nullptr;
+    /// @brief type distribution selector
+    GNEDistributionFrame::DistributionSelector* myDistributionSelector = nullptr;
 
-    /// @brief Parameters editor inspector
-    GNEFrameAttributeModules::ParametersEditor* myParametersEditor;
+    /// @brief distribution attributes editor
+    GNEFrameAttributeModules::AttributesEditor* myAttributesEditor = nullptr;
+
+    /// @brief editor for distribution values
+    GNEDistributionFrame::DistributionValuesEditor* myDistributionValuesEditor = nullptr;
 };

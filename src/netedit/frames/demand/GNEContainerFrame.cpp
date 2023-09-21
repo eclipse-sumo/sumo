@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -36,20 +36,20 @@
 // ---------------------------------------------------------------------------
 
 GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Containers"),
+    GNEFrame(viewParent, viewNet, TL("Containers")),
     myRouteHandler("", viewNet->getNet(), true, false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
-    // create tag Selector modul for containers
+    // create tag Selector module for containers
     myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
-    // create container types selector modul and set DEFAULT_CONTAINERTYPE_ID as default element
+    // create container types selector module and set DEFAULT_CONTAINERTYPE_ID as default element
     myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
 
     // create container attributes
     myContainerAttributes = new GNEAttributesCreator(this);
 
-    // create tag Selector modul for container plans
+    // create tag Selector module for container plans
     myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
@@ -145,6 +145,18 @@ GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }
 
+
+DemandElementSelector*
+GNEContainerFrame::getTypeSelector() const {
+    return myTypeSelector;
+}
+
+
+GNEAttributesCreator*
+GNEContainerFrame::getContainerAttributes() const {
+    return myContainerAttributes;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -175,9 +187,9 @@ GNEContainerFrame::tagSelected() {
                 }
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-                // show Netedit attributes modul
+                // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
-                // show edge path creator modul
+                // show edge path creator module
                 myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                 // show path legend
                 myPathLegend->showPathLegendModule();
@@ -198,7 +210,7 @@ GNEContainerFrame::tagSelected() {
             myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide all moduls if container isn't valid
+        // hide all modules if container isn't valid
         myTypeSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerAttributes->hideAttributesCreatorModule();
@@ -231,9 +243,9 @@ GNEContainerFrame::demandElementSelected() {
             }
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
-            // show Netedit attributes modul
+            // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
-            // show edge path creator modul
+            // show edge path creator module
             myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show path legend
             myPathLegend->showPathLegendModule();
@@ -269,7 +281,7 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+        myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person
@@ -345,8 +357,8 @@ GNEContainerFrame::buildContainer() {
             myContainerBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // adjust poisson value
-        if (myContainerBaseObject->hasDoubleAttribute(GNE_ATTR_POISSON)) {
-            myContainerBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + toString(myContainerBaseObject->getDoubleAttribute(GNE_ATTR_POISSON)) + ")");
+        if (myContainerBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
+            myContainerBaseObject->addStringAttribute(SUMO_ATTR_PERIOD, "exp(" + time2string(myContainerBaseObject->getTimeAttribute(GNE_ATTR_POISSON), false) + ")");
         }
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));

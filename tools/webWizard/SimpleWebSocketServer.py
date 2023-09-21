@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # The MIT License (MIT) Copyright (c) 2013 Dave P.
 
 # @file    SimpleWebSocketServer.py

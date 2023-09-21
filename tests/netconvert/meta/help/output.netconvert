@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
+Eclipse SUMO netconvert Version v1_18_0+1693-deba9701844
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -73,6 +73,8 @@ Output Options:
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
                                         dlr-navteq files with the given PREFIX
+  --dlr-navteq.version STR             The dlr-navteq output format version to
+                                        write
   --dlr-navteq.precision INT           The network coordinates are written with
                                         the specified level of output precision
   --output.street-names                Street names will be included in the
@@ -250,9 +252,9 @@ Building Defaults Options:
                                         'edgePriority')
 
 TLS Building Options:
-  --tls.discard-loaded                 Does not instatiate traffic lights
+  --tls.discard-loaded                 Does not instantiate traffic lights
                                         loaded from other formats than plain-XML
-  --tls.discard-simple                 Does not instatiate traffic lights at
+  --tls.discard-simple                 Does not instantiate traffic lights at
                                         geometry-like nodes loaded from other
                                         formats than plain-XML
   --tls.set STR[]                      Interprets STR[] as list of junctions to
@@ -267,6 +269,8 @@ TLS Building Options:
   --tls.join                           Tries to cluster tls-controlled nodes
   --tls.join-dist FLOAT                Determines the maximal distance for
                                         joining traffic lights (defaults to 20)
+  --tls.join-exclude STR[]             Interprets STR[] as list of tls ids to
+                                        exclude from joining
   --tls.uncontrolled-within            Do not control edges that lie fully
                                         within a joined traffic light. This may
                                         cause collisions but allows old traffic
@@ -306,7 +310,7 @@ TLS Building Options:
   --tls.nema.vehExt INT                Set INT as fixed time for intermediate
                                         vehext phase after every switch
   --tls.nema.yellow INT                Set INT as fixed time for intermediate
-                                        NEMA yelow phase after every switch
+                                        NEMA yellow phase after every switch
   --tls.nema.red INT                   Set INT as fixed time for intermediate
                                         NEMA red phase after every switch
   --tls.crossing-min.time INT          Use INT as minimum green duration for
@@ -467,7 +471,7 @@ Junctions Options:
                                         outgoing edge speed on junction instead
                                         of average
   --junctions.minimal-shape            Build junctions with minimal shapes
-                                        (igoring edge overlap)
+                                        (ignoring edge overlap)
   --internal-junctions.vehicle-width FLOAT  Assumed vehicle width for computing
                                         internal junction positions
   --rectangular-lane-cut               Forces rectangular cuts between lanes
@@ -647,6 +651,8 @@ Formats Options:
                                         discarded lane types
   --opendrive.signal-groups            Use the OpenDRIVE controller information
                                         for the generated signal program
+  --opendrive.ignore-misplaced-signals  Ignore traffic signals which do not
+                                        control any driving lane
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -667,6 +673,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
   --language STR                       Language to use in messages
   --ignore-errors                      Continue on broken input
   --ignore-errors.connections          Continue on invalid connections

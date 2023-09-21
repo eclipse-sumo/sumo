@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,26 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # change color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.POIGEO.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.poiGeo.create.colorButton, 5)
 
 # create poi
 netedit.leftClick(referencePosition, 292, 117)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.color, "Vlue")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "Vlue")
 
 # try to create POI
 netedit.leftClick(referencePosition, 337, 117)
 
 # change color manually (valid)
-netedit.changeDefaultValue(netedit.attrs.POIGEO.create.color, "blue")
+netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "blue")
 
 # create POI
 netedit.leftClick(referencePosition, 383, 117)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

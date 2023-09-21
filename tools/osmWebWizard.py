@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -516,11 +516,11 @@ class OSMImporterWebSocket(WebSocket):
                 self.sendMessage(u"zip " + data)
         except ssl.CertificateError:
             self.report("Error with SSL certificate, try 'pip install -U certifi'.")
-        except Exception:
+        except Exception as e:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
-                self.report("Recovering")
+                self.report(str(e) + " Recovering")
             if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
         os.chdir(builder.origDir)

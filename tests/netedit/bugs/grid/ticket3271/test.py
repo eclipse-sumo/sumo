@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -31,30 +31,27 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "150")
-
 # Change to create edge mode
 netedit.createEdgeMode()
 
 # Create an edge in
-netedit.leftClick(referencePosition, 92, 100)
-netedit.leftClick(referencePosition, 555, 100)
+netedit.leftClick(referencePosition, 82, 354)
+netedit.leftClick(referencePosition, 245, 103)
 
-netedit.leftClick(referencePosition, 555, 100)
-netedit.leftClick(referencePosition, 92, 100)
+netedit.leftClick(referencePosition, 245, 103)
+netedit.leftClick(referencePosition, 82, 354)
 
-netedit.leftClick(referencePosition, 92, 100)
-netedit.leftClick(referencePosition, 186, 333)
+netedit.leftClick(referencePosition, 918, 356)
+netedit.leftClick(referencePosition, 750, 104)
 
-netedit.leftClick(referencePosition, 186, 333)
-netedit.leftClick(referencePosition, 92, 100)
+netedit.leftClick(referencePosition, 750, 104)
+netedit.leftClick(referencePosition, 918, 356)
 
-netedit.leftClick(referencePosition, 555, 100)
-netedit.leftClick(referencePosition, 465, 333)
+netedit.leftClick(referencePosition, 245, 103)
+netedit.leftClick(referencePosition, 750, 104)
 
-netedit.leftClick(referencePosition, 465, 333)
-netedit.leftClick(referencePosition, 555, 100)
+netedit.leftClick(referencePosition, 750, 104)
+netedit.leftClick(referencePosition, 245, 103)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

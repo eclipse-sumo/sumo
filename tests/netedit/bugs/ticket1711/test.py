@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,29 +38,29 @@ netedit.setZoom("50", "50", "50")
 netedit.deleteMode()
 
 # remove two left edges
-netedit.leftClick(referencePosition, 150, 200)
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 230, 217)
+netedit.leftClick(referencePosition, 230, 259)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two right edges
-netedit.leftClick(referencePosition, 450, 200)
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, 730, 217)
+netedit.leftClick(referencePosition, 730, 259)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two up edges
-netedit.leftClick(referencePosition, 300, 100)
-netedit.leftClick(referencePosition, 350, 100)
+netedit.leftClick(referencePosition, 455, 100)
+netedit.leftClick(referencePosition, 521, 100)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two down edges
-netedit.leftClick(referencePosition, 300, 350)
-netedit.leftClick(referencePosition, 350, 350)
+netedit.leftClick(referencePosition, 455, 400)
+netedit.leftClick(referencePosition, 521, 400)
 
 # Rebuild network
 netedit.rebuildNetwork()

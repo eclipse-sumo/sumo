@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,20 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change layer (invalid)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.name, "%%%%%%$$$$")
+netedit.changeDefaultValue(netedit.attrs.poly.create.name, "%%%%%%$$$$")
 
 # try to create polygon
-netedit.createSquaredTAZ(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.Poly.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.poly.create.name, "customName")
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 592, 136, 200, True)
+netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

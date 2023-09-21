@@ -23,7 +23,7 @@ routes in a predefined study area:
 The choice of traffic flows that need to be counted is illustrated by an
 example network:
 
-![fig_demand_turnsflows_png.png](../../../images/Fig_demand_turnsflows_png.png
+![Figure_demand_turnsflows.png](../../../images/Figure_demand_turnsflows.png
 "Example network to illustrate the use of turnflows for demand modeling.")
 
 Neglecting all traffic generated within the study area, the following
@@ -81,7 +81,7 @@ All counts in this file refer to the mode and time interval specified in
 the dialog box.
 
 The turnflow file for the example network shown
-[above](../../../images/Fig_demand_turnsflows_png.png), could look like
+[above](../../../images/Figure_demand_turnsflows.png), could look like
 this:
 
 ```

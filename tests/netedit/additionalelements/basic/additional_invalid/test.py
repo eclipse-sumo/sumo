@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -40,7 +40,7 @@ netedit.leftClick(referencePosition, 451, 210)
 # select valid additional (busStop)
 netedit.changeElement("busStop")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 451, 210)
 
 # save netedit config

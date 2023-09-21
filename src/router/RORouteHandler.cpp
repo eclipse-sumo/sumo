@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -111,10 +111,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
-            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok, true);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROM_JUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
         if (fromTaz == nullptr) {
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -163,10 +163,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 
     // to-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
-            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TO_JUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
         if (toTaz == nullptr) {
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -266,12 +266,22 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
             int probIndex = 0;
             while (st.hasNext()) {
                 const std::string typeID = st.next();
-                SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
-                if (type == nullptr) {
-                    myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(typeID);
+                if (dist != nullptr) {
+                    const double distProb = ((int)probs.size() > probIndex ? probs[probIndex] : 1.) / dist->getOverallProb();
+                    std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                    for (SUMOVTypeParameter* const type : dist->getVals()) {
+                        myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                        probIt++;
+                    }
                 } else {
-                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
-                    myCurrentVTypeDistribution->add(type, prob);
+                    SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+                    if (type == nullptr) {
+                        myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
+                    } else {
+                        const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
+                        myCurrentVTypeDistribution->add(type, prob);
+                    }
                 }
                 probIndex++;
             }
@@ -958,16 +968,6 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
-RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
 RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::vector<ROPerson::PlanItem*>& plan = *myActivePlan;
@@ -1235,7 +1235,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const ROEdge* to = nullptr;
     parseFromViaTo(SUMO_TAG_PERSON, attrs, ok);
     myInsertStopEdgesAt = -1;
-    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT) || attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         if (ok) {
             from = myActiveRoute.front();
@@ -1245,14 +1245,14 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     } else {
         from = myActivePlan->back()->getDestination();
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
+    if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_TOLONLAT) || attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         to = myActiveRoute.back();
     } // else, to may also be derived from stopping place
 
     const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-        throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+        throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
     }
 
     double departPos = 0;
@@ -1309,11 +1309,11 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const char* const objId = myVehicleParameter->id.c_str();
         const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking duration for '%'.", myVehicleParameter->id));
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
+            throw ProcessError(TLF("Non-positive walking speed for '%'.", myVehicleParameter->id));
         }
         double departPos = 0.;
         double arrivalPos = std::numeric_limits<double>::infinity();

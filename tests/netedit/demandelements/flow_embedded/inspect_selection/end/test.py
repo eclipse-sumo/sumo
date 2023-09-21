@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x,
+                  netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminate, "dummyTerminate", False)
@@ -59,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminateOpt
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.terminateOption, "23", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

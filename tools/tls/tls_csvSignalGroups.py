@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -504,10 +504,10 @@ def writeInputTemplates(net, outputDir, delimiter):
 
 
 def toTll(options):
-    # read general and signal groub based information from input file(s)
+    # read general and signal group based information from input file(s)
     sections = ["general", "links", "signal groups"]
     signalColumns = ["id", "on1", "off1", "on2", "off2", "transOn", "transOff"]
-    if(len(options.input) == 0):
+    if len(options.input) == 0:
         inputFiles = []
     else:
         inputFiles = options.input.split(',')
@@ -521,7 +521,7 @@ def toTll(options):
                                   withPedestrianConnections=True)
 
         if len(options.make_input_dir) > 0:  # check input template directory
-            if(os.path.isdir(options.make_input_dir)):
+            if os.path.isdir(options.make_input_dir):
                 writeInputTemplates(net, options.make_input_dir, options.delimiter)
             else:
                 sys.stderr.write("The input template directory %s does not exist.\n" % options.make_input_dir)
@@ -598,8 +598,8 @@ def toTll(options):
                                              transTimeOff=int(line[colIndices["transOff"]]),
                                              debug=options.debug)
                             sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
-                            if(secondFreeTime):
-                                if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
+                            if secondFreeTime:
+                                if line[colIndices["on2"]] != "" and line[colIndices["off2"]] != "":
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
                             signalGroups[sgID] = sg
                             signalGroupOrder.append(sgID)
@@ -668,30 +668,30 @@ def toCsv(options):
 
 
 def getOptions():
-    ap = sumolib.options.ArgumentParser()
-    ap.add_argument("-o", "--output", action="store", default="tls.add.xml",
-                    help="File path to tll output file (SUMO additional file) / prefix for generated csv files")
-    ap.add_argument("-i", "--input", action="store", default="",
-                    help="File path to input csv or tll file(s). Multiple file paths have to be separated by ','.")
-    ap.add_argument("-r", "--reverse", action="store_true", default=False,
-                    help="Interpret input files in tll format and convert them to csv files.")
-    ap.add_argument("-g", "--group", action="store_true", default=False,
-                    help="Join signals with identical states into one signal group when converting to csv format.")
-    ap.add_argument("--tls-from-net", action="store_true", default=False, dest="tlsFromNet",
-                    help="Convert TL programs stored within the net file to csv format.")
-    ap.add_argument("--tls-filter", action="store", default="", dest="tlsFilter",
-                    help="Comma-separated list of traffic lights " +
-                    "which the reverse conversion from tll to csv should be limited to.")
-    ap.add_argument("--delimiter", action="store", default=";",
-                    help="CSV delimiter used for input and template files.")
-    ap.add_argument("-n", "--net", action="store", default="",
-                    help="File path to SUMO network file. Optional for creating TL xml, " +
-                    "obligatory for converting TL xml to csv.")
-    ap.add_argument("-m", "--make-input-dir", action="store", default="",
-                    help="Create input file template(s) from the SUMO network file in the given directory.")
-    ap.add_argument("-d", "--debug", action="store_true", default=False, help="Output debugging information")
-    options = ap.parse_args()
-    return options
+    ap = sumolib.options.ArgumentParser(
+        description="Converts a CSV file with green times per signal group into the SUMO format.")
+    ap.add_option("-o", "--output", category="output", action="store", default="tls.add.xml", type=ap.data_file,
+                  help="File path to TLL output file (SUMO additional file) / prefix for generated CSV files.")
+    ap.add_option("-i", "--input", category="input", action="store", default="", type=ap.data_file,
+                  help="File path to input CSV or TLL file(s). Multiple file paths have to be separated by ','.")
+    ap.add_option("-r", "--reverse", action="store_true", default=False,
+                  help="Interpret input files in TLL format and convert them to CSV files.")
+    ap.add_option("-g", "--group", action="store_true", default=False,
+                  help="Join signals with identical states into one signal group when converting to CSV format.")
+    ap.add_option("--tls-from-net", action="store_true", default=False, dest="tlsFromNet",
+                  help="Convert TL programs stored within the net file to CSV format.")
+    ap.add_option("--tls-filter", action="store", default="", dest="tlsFilter",
+                  help="Comma-separated list of traffic lights " +
+                  "which the reverse conversion from TLL to CSV should be limited to.")
+    ap.add_option("--delimiter", action="store", default=";",
+                  help="CSV delimiter used for input and template files.")
+    ap.add_option("-n", "--net", category="input", required=True, action="store", default="",
+                  type=ap.net_file, help="File path to SUMO network file. Optional for creating TL XML, " +
+                  "obligatory for converting TL XML to CSV.")
+    ap.add_option("-m", "--make-input-dir", action="store", default="",
+                  help="Create input file template(s) from the SUMO network file in the given directory.")
+    ap.add_option("-d", "--debug", action="store_true", default=False, help="Output debugging information")
+    return ap.parse_args()
 
 
 # this is the main entry point of this script

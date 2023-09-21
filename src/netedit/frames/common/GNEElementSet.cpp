@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -51,7 +51,8 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     myMatchGenericDataAttribute(nullptr),
     myCurrentSet(Type::INVALID) {
     // Create MatchTagBox for tags and fill it
-    mySetComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
+    mySetComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                        this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
     // continue depending of supermode
     if (supermode == Supermode::NETWORK) {
         // append elements
@@ -78,8 +79,6 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);
     /// build MatchGenericAttribute
     myMatchGenericDataAttribute = new GNEMatchGenericDataAttribute(this, defaultTag, defaultAttr, defaultValue);
-    // set visible items
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
 }
 
 

@@ -1,0 +1,3 @@
+Error: Attribute 'fromTaz' in definition of flow 'flow_1' is empty.
+Error: Could not build trip in netedit; taz doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun133812.8645/netedit.gui/demandelements/flow_taz/load/from/routes.rou.xml failed.

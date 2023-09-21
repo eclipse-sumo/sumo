@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -29,9 +29,11 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/frames/GNETLSTable.h>
 
 #include "MFXGroupBoxModule.h"
+#include "MFXButtonTooltip.h"
 
 
 // ===========================================================================
@@ -63,17 +65,20 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
+        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        myExtendButton = new FXButton(headerFrame, "Expand", nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
-        myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
+        myExtendButton = new MFXButtonTooltip(headerFrame,
+            frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            TL("Expand"), nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
+            myExtendButton->setTipText(TL("Expand frame to show all contents"));
+        myResetWidthButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
+        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
+        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
     }
     myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
     // build collapsable frame
@@ -88,16 +93,16 @@ MFXGroupBoxModule::MFXGroupBoxModule(FXVerticalFrame* contentFrame, const std::s
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
+        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
         throw ProcessError("This MFXGroupBoxModule doesn't support Extensible flag");
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
+        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
+        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
     }
     myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
     // build collapsable frame

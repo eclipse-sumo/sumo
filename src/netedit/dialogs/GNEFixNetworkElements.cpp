@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -260,7 +260,7 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidEdges->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("delete invalid edges"));
             // iterate over invalid edges to delete it
             for (const auto& invalidEdge : myInvalidElements) {
                 myViewNet->getNet()->deleteEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(invalidEdge->getID()), myViewNet->getUndoList(), false);
@@ -269,7 +269,7 @@ GNEFixNetworkElements::FixEdgeOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->end();
         } else if (selectInvalidEdgesAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("select invalid edges"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidEdge : myInvalidElements) {
                 invalidEdge->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -341,7 +341,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidCrossings->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid crossings");
+            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
             // iterate over invalid crossings to delete it
             for (const auto& invalidCrossing : myInvalidElements) {
                 myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing), myViewNet->getUndoList());
@@ -350,7 +350,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->end();
         } else if (selectInvalidCrossingsAndCancel->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid edges");
+            myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("select invalid crossings"));
             // iterate over invalid single lane elements to select all elements
             for (const auto& invalidCrossing : myInvalidElements) {
                 invalidCrossing->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
@@ -386,8 +386,8 @@ GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
 GNEFixNetworkElements::Buttons::Buttons(GNEFixNetworkElements* fixNetworkElementsParent) :
     FXHorizontalFrame(fixNetworkElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(this, TL("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(this, TL("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
     myAcceptButton->setFocus();

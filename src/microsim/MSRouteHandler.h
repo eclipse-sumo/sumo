@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -162,10 +162,7 @@ protected:
     void addWalk(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson);
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
@@ -261,9 +258,6 @@ private:
 
     /// @brief Invalidated assignment operator
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
-
-    /// @brief Check if vtype of given transportable exists
-    void checkTransportableType();
 
     /// @brief Processing of a transport
     void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-06 12:40:33 by Eclipse SUMO netgenerate Version v1_17_0+0735-ed7251a
+<!-- generated on 2023-09-01 11:05:00 by Eclipse SUMO netgenerate Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -73,6 +73,7 @@
         <matsim-output value="" type="FILE" help="The generated net will be written to FILE using MATsim format"/>
         <opendrive-output value="" type="FILE" help="The generated net will be written to FILE using OpenDRIVE format"/>
         <dlr-navteq-output value="" type="FILE" help="The generated net will be written to dlr-navteq files with the given PREFIX"/>
+        <dlr-navteq.version value="6.5" type="STR" help="The dlr-navteq output format version to write"/>
         <dlr-navteq.precision value="2" type="INT" help="The network coordinates are written with the specified level of output precision"/>
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
@@ -149,6 +150,7 @@
         <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
+        <tls.join-exclude value="" type="STR[]" help="Interprets STR[] as list of tls ids to exclude from joining"/>
         <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
         <tls.ignore-internal-junction-jam value="false" type="BOOL" help="Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
@@ -161,7 +163,7 @@
         <tls.minor-left.max-speed value="19.44" type="FLOAT" help="Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"/>
         <tls.left-green.time value="6" type="INT" help="Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"/>
         <tls.nema.vehExt value="2" type="INT" help="Set INT as fixed time for intermediate vehext phase after every switch"/>
-        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yelow phase after every switch"/>
+        <tls.nema.yellow value="3" type="INT" help="Set INT as fixed time for intermediate NEMA yellow phase after every switch"/>
         <tls.nema.red value="2" type="INT" help="Set INT as fixed time for intermediate NEMA red phase after every switch"/>
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
@@ -176,7 +178,7 @@
         <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
         <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
         <tls.rebuild value="false" type="BOOL" help="rebuild all traffic light plans in the network"/>
-        <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes"/>
+        <tls.discard-simple value="false" type="BOOL" help="Does not instantiate traffic lights at geometry-like nodes"/>
     </tls_building>
 
     <edge_removal>
@@ -221,7 +223,7 @@
         <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <junctions.higher-speed value="false" type="BOOL" help="Use maximum value of incoming and outgoing edge speed on junction instead of average"/>
-        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (igoring edge overlap)"/>
+        <junctions.minimal-shape value="false" type="BOOL" help="Build junctions with minimal shapes (ignoring edge overlap)"/>
         <internal-junctions.vehicle-width value="1.8" type="FLOAT" help="Assumed vehicle width for computing internal junction positions"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
@@ -259,6 +261,8 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
     </report>
 

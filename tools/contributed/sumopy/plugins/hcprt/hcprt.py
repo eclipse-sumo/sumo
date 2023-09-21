@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
@@ -7828,7 +7828,7 @@ class HcPrtService(SimobjMixin, DemandobjMixin, cm.BaseObjman):
         t_start = virtualpop.get_time_depart_first()
 
         #t_start = 0.0
-        # time betwenn insertion of consecutive vehicles at same stop
+        # time between insertion of consecutive vehicles at same stop
         t_delta = 10  # s
 
         n_veh = len(self.prtvehicles)

@@ -25,13 +25,13 @@
             <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="departLane" use="required" type="xsd:string"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="departPosLat" use="optional" type="xsd:float"/>
+            <xsd:attribute name="departPosLat" use="optional" type="floatType"/>
             <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="departDelay" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="arrivalPosLat" use="optional" type="xsd:float"/>
+            <xsd:attribute name="arrivalPosLat" use="optional" type="floatType"/>
             <xsd:attribute name="arrivalSpeed" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="duration" use="required" type="timeType"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
@@ -62,8 +62,8 @@
 
     <xsd:element name="example_device">
         <xsd:complexType>
-            <xsd:attribute name="customValue1" use="required" type="xsd:float"/>
-            <xsd:attribute name="customValue2" use="required" type="xsd:float"/>
+            <xsd:attribute name="customValue1" use="required" type="floatType"/>
+            <xsd:attribute name="customValue2" use="required" type="floatType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -75,7 +75,7 @@
             <xsd:attribute name="PMx_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="NOx_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="fuel_abs" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="electricity_abs" use="required" type="xsd:float"/>
+            <xsd:attribute name="electricity_abs" use="required" type="floatType"/>
         </xsd:complexType>
     </xsd:element>
 

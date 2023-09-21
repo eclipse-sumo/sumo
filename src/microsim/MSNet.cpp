@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -296,6 +296,7 @@ MSNet::~MSNet() {
     // delete mean data
     delete myEdges;
     delete myInserter;
+    myInserter = nullptr;
     delete myLogics;
     delete myRouteLoaders;
     if (myPersonControl != nullptr) {
@@ -381,6 +382,14 @@ MSNet::getMesoType(const std::string& typeID) {
     }
     return myMesoEdgeTypes[typeID];
 }
+
+
+bool
+MSNet::hasFlow(const std::string& id) const {
+    // inserter is deleted at the end of the simulation
+    return myInserter != nullptr && myInserter->hasFlow(id);
+}
+
 
 MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
@@ -1554,7 +1563,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
             if (element == SUMO_TAG_BUS_STOP) {
                 // add access to all public transport stops
                 for (const auto& a : i.second->getAllAccessPos()) {
-                    router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<1>(a), std::get<2>(a), element, true, taxiWait);
+                    router.getNetwork()->addAccess(i.first, &a.lane->getEdge(), a.startPos, a.endPos, a.length, element, true, taxiWait);
                 }
                 if (external != nullptr) {
                     external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);

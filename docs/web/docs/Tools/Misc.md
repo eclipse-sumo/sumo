@@ -70,7 +70,7 @@ This scripts extracts test scenarios if you like to run a simulation scenario wh
 ```
 python tools/extractTest.py <path to test directory>
 ```
-- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse-sumo/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
 
 # generateParkingAreas.py
 
@@ -89,6 +89,7 @@ The required parameter is the network (-n or --net-file). More options can be ob
 
 Additional options:
 
+- **--selection-file** restrict the generation to the edges mentioned in this selection file
 - **--output-file** define the output filename
 - **--probability** probability for an edge to receive a parkingArea
 - **--length** length required per parking space
@@ -98,6 +99,9 @@ Additional options:
 - **--min** minimum capacity for parkingAreas
 - **--max** maximum capacity for parkingAreas
 - **--angle** parking area angle
+- **--lefthand** create parking areas to the left of the edge (only where no neighbor lane is marked, see [opposite direction driving](../Simulation/OppositeDirectionDriving.md))
+- **--on-road** will force the parking area to be created on the road (vehicles will stop directly on the lane)
+- **--on-road.lane-offset** sets the lane(s) on-road parking areas will be created (either use a negative value for all lanes or enter a lane index)
 - **--prefix** prefix for the parkingArea ids
 - **--seed** random seed
 - **--random** use a random seed to initialize the random number generator
@@ -235,7 +239,7 @@ The used busStops must be defined in an additional file and passed with option *
 The resulting bus definition may look like this:
 
 ```xml
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
     <route id="bus_123:0"" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
         <stop busStop="stopA" duration="20" until="35.0"/> 

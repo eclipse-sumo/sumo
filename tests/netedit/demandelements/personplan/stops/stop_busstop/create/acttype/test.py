@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,8 +37,8 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("walk: edge", False)
 
-# create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+# create route using one edge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create route
@@ -48,7 +48,8 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # select person
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # go to personStopBusStop mode
 netedit.changePersonPlanMode("stopPerson: busStop")
@@ -69,15 +70,13 @@ netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.actType, "sing
 netedit.leftClick(referencePosition, 180, 50)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

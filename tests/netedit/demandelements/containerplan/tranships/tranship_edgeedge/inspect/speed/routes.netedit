@@ -8,7 +8,7 @@
     <vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <tranship from="gneE2" to="gneE2" departPos="0.00"/>
-        <tranship to="gneE5" departPos="0.00" speed="12.34"/>
+        <tranship from="Edge0" to="Edge0" departPos="0.00"/>
+        <tranship to="Edge2" departPos="0.00" speed="12.34"/>
     </container>
 </routes>

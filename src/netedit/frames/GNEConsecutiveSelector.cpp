@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -58,13 +58,13 @@ GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool
     // create label for route info
     myInfoPathLabel = new FXLabel(getCollapsableFrame(), TL("No lanes selected"), 0, GUIDesignLabelThick(JUSTIFY_LEFT));
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish path creation"), nullptr, this, MID_GNE_FINISH, GUIDesignButton);
+    myFinishCreationButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Finish path creation"), "", "", nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), TL("Abort path creation"), nullptr, this, MID_GNE_ABORT, GUIDesignButton);
+    myAbortCreationButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Abort path creation"), "", "", nullptr, this, MID_GNE_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted lane
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), TL("Remove last lane"), nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last lane"), "", "", nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
     myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), TL("Show candidate lanes"), this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);

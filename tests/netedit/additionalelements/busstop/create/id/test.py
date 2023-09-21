@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -34,30 +34,29 @@ netedit.additionalMode()
 # select busStop
 netedit.changeElement("busStop")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, ";;;;;;;;;;;;;;;;")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 255, 250)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "bs_0")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 497, 257)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "custom_ID")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 255)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

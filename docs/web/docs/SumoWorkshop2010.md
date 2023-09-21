@@ -93,7 +93,7 @@ workshop's result, we decided to set up a nice static entry page which
 allows to navigate further down with fewer clicks and which presents
 possibilities to navigate through SUMO documentation more easily.
 
-Now, the new entry page is available at <http://sumo.sf.net>. The
+Now, the new entry page is available at <https://sumo.sf.net>. The
 navigation bar at the top points you to all the available support tools
 as trac, blog, etc. The links in the central area mainly point you to
 the according, old wiki sections.

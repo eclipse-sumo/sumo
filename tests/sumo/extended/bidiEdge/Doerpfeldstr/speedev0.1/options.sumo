@@ -1,0 +1,4 @@
+--no-step-log --net-file=net.net.xml.gz --routes=input_routes.rou.xml
+--collision.action warn
+--default.speeddev 0.1
+-t

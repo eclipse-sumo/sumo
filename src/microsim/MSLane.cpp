@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -83,6 +83,7 @@
 //#define DEBUG_NO_CONNECTION
 //#define DEBUG_SURROUNDING
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
+//#define DEBUG_ITERATOR
 
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (true)
@@ -196,10 +197,16 @@ MSLane::AnyVehicleIterator::operator*() {
 
 bool
 MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
-    //if (DEBUG_COND2(myLane)) std::cout << SIMTIME << "          AnyVehicleIterator::nextIsMyVehicles lane=" << myLane->getID()
-    //        << " myI1=" << myI1
-    //        << " myI2=" << myI2
-    //        << "\n";
+#ifdef DEBUG_ITERATOR
+    if (DEBUG_COND2(myLane)) std::cout << SIMTIME << "          AnyVehicleIterator::nextIsMyVehicles lane=" << myLane->getID()
+            << " myI1=" << myI1
+            << " myI1End=" << myI1End
+            << " myI2=" << myI2
+            << " myI2End=" << myI2End
+            << " myI3=" << myI3
+            << " myI3End=" << myI3End
+            << "\n";
+#endif
     if (myI1 == myI1End && myI3 == myI3End) {
         if (myI2 != myI2End) {
             return false;
@@ -211,13 +218,15 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
             return true;
         } else {
             MSVehicle* cand = myI1 == myI1End ? myLane->myTmpVehicles[myI3] : myLane->myVehicles[myI1];
-            //if (DEBUG_COND2(myLane)) std::cout << "              "
-            //        << " veh1=" << candFull->getID()
-            //        << " isTmp=" << (myI1 == myI1End)
-            //        << " veh2=" << myLane->myPartialVehicles[myI2]->getID()
-            //        << " pos1=" << cand->getPositionOnLane(myLane)
-            //        << " pos2=" << myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)
-            //        << "\n";
+#ifdef DEBUG_ITERATOR
+            if (DEBUG_COND2(myLane)) std::cout << "              "
+                    << " veh1=" << cand->getID()
+                    << " isTmp=" << (myI1 == myI1End)
+                    << " veh2=" << myLane->myPartialVehicles[myI2]->getID()
+                    << " pos1=" << cand->getPositionOnLane(myLane)
+                    << " pos2=" << myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)
+                    << "\n";
+#endif
             if (cand->getPositionOnLane() < myLane->myPartialVehicles[myI2]->getPositionOnLane(myLane)) {
                 return myDownstream;
             } else {
@@ -242,6 +251,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
     myFrictionCoefficient(friction),
+    myControlledByVSS(false),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -285,7 +295,6 @@ void
 MSLane::initRestrictions() {
     // simplify unit testing without MSNet instance
     myRestrictions = MSGlobals::gUnitTests ? nullptr : MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
-
 }
 
 
@@ -682,7 +691,20 @@ MSLane::insertVehicle(MSVehicle& veh) {
         case DepartPosDefinition::BASE:
         case DepartPosDefinition::DEFAULT:
         default:
-            pos = veh.basePos(myEdge);
+            if (pars.departProcedure == DepartDefinition::SPLIT) {
+                pos = getLength();
+                // find the vehicle from which we are splitting off (should only be a single lane to check)
+                AnyVehicleIterator end = anyVehiclesEnd();
+                for (AnyVehicleIterator it = anyVehiclesBegin(); it != end; ++it) {
+                    const MSVehicle* cand = *it;
+                    if (cand->isStopped() && cand->getNextStopParameter()->split == veh.getID()) {
+                        pos = cand->getBackPositionOnLane() - veh.getVehicleType().getMinGap();
+                        break;
+                    }
+                }
+            } else {
+                pos = veh.basePos(myEdge);
+            }
             break;
     }
     // determine the lateral position for special cases
@@ -1300,7 +1322,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
     for (int i = 0; i < leaders.numSublanes(); ++i) {
         const MSVehicle* leader = leaders[i];
         if (leader != nullptr) {
-            const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
+            if (leader->getLane() == getBidiLane()) {
+                // use distance to front position and account for movement
+                gap -= (leader->getLength() + leader->getBrakeGap(true));
+            }
             if (gap < 0) {
                 if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
                     return INVALID_SPEED;
@@ -1312,7 +1338,7 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader));
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(veh)) {
-                std::cout << "    leader=" << leader->getID() << " nspeed=" << nspeed << "\n";
+                std::cout << "    leader=" << leader->getID() << " bPos=" << leader->getBackPositionOnLane(this) << " gap=" << gap << " nspeed=" << nspeed << "\n";
             }
 #endif
         }
@@ -1334,7 +1360,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
         const MSVehicle* veh = *last;
         while (freeSublanes > 0 && veh != nullptr) {
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND2(ego)) {
+            if (DEBUG_COND2(ego) || DEBUG_COND) {
                 gDebugFlag1 = true;
                 std::cout << "      getLastVehicleInformation lane=" << getID() << " minPos=" << minPos << " veh=" << veh->getID() << " pos=" << veh->getPositionOnLane(this)  << "\n";
             }
@@ -1343,7 +1369,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
                 const double vehLatOffset = veh->getLatOffset(this);
                 freeSublanes = leaderTmp.addLeader(veh, true, vehLatOffset);
 #ifdef DEBUG_PLAN_MOVE
-                if (DEBUG_COND2(ego)) {
+                if (DEBUG_COND2(ego) || DEBUG_COND) {
                     std::cout << "         latOffset=" << vehLatOffset << " newLeaders=" << leaderTmp.toString() << "\n";
                 }
 #endif
@@ -1678,7 +1704,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             // bidirectional railway
             MSLane* bidiLane = getBidiLane();
             if (bidiLane->getVehicleNumberWithPartials() > 0) {
-                for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
+                for (auto veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
                     if (stage == MSNet::STAGE_MOVEMENTS) {
@@ -2050,9 +2076,9 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, cons
 
 void
 MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSTransportable* victim,
-                               double gap, const std::string& collisionType,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
-                               std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
+        double gap, const std::string& collisionType,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
+        std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const {
     if (collider->ignoreCollision()) {
         return;
     }
@@ -2094,7 +2120,7 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
                 bool removeCollider = true;
                 removeCollider = !(collider->hasInfluencer() && collider->getInfluencer()->isRemoteAffected(timestep));
                 if (!removeCollider) {
-                    prefix = TLF("Keeping remote-controlled  vehicle '%' after", collider->getID());
+                    prefix = TLF("Keeping remote-controlled vehicle '%' after", collider->getID());
                 } else {
                     toRemove.insert(collider);
                 }
@@ -2108,10 +2134,10 @@ MSLane::handleIntermodalCollisionBetween(SUMOTime timestep, const std::string& s
     if (newCollision) {
         if (gap != 0) {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', gap=%, time=%, stage=%.",
-                        victim->getID(), getID(), gap, time2string(timestep), stage));
+                                       victim->getID(), getID(), gap, time2string(timestep), stage));
         } else {
             WRITE_WARNING(prefix + TLF(" collision with person '%', lane='%', time=%, stage=%.",
-                        victim->getID(), getID(), time2string(timestep), stage));
+                                       victim->getID(), getID(), time2string(timestep), stage));
         }
         MSNet::getInstance()->informVehicleStateListener(collider, MSNet::VehicleState::COLLISION);
         MSNet::getInstance()->getVehicleControl().registerCollision(myIntermodalCollisionAction == COLLISION_ACTION_TELEPORT);
@@ -2467,10 +2493,24 @@ MSLane::getLastFullVehicle() const {
 
 
 MSVehicle*
+MSLane::getFirstFullVehicle() const {
+    if (myVehicles.size() == 0) {
+        return nullptr;
+    }
+    return myVehicles.back();
+}
+
+
+MSVehicle*
 MSLane::getLastAnyVehicle() const {
     // all vehicles in myVehicles should have positions smaller or equal to
-    // those in myPartialVehicles
+    // those in myPartialVehicles (unless we're on a bidi-lane)
     if (myVehicles.size() > 0) {
+        if (myBidiLane != nullptr && myPartialVehicles.size() > 0) {
+            if (myVehicles.front()->getPositionOnLane() > myPartialVehicles.front()->getPositionOnLane(this)) {
+                return myPartialVehicles.front();
+            }
+        }
         return myVehicles.front();
     }
     if (myPartialVehicles.size() > 0) {
@@ -2584,8 +2624,9 @@ MSLane::getEntryLink() const {
 
 
 void
-MSLane::setMaxSpeed(double val) {
+MSLane::setMaxSpeed(double val, bool byVSS) {
     myMaxSpeed = val;
+    myControlledByVSS = byVSS;
     myEdge->recalcCache();
 }
 
@@ -2614,6 +2655,9 @@ MSLane::swapAfterLaneChange(SUMOTime) {
     sortPartialVehicles();
     if (MSGlobals::gSublane && getOpposite() != nullptr) {
         getOpposite()->sortPartialVehicles();
+    }
+    if (myBidiLane != nullptr) {
+        myBidiLane->sortPartialVehicles();
     }
 }
 
@@ -3622,7 +3666,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         if (veh != ego && veh->getPositionOnLane(this) < egoPos) {
             //const double latOffset = veh->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
             const double latOffset = veh->getLatOffset(this);
-            const double dist = backOffset - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
+            double dist = backOffset - veh->getPositionOnLane(this) - veh->getVehicleType().getMinGap();
+            if (veh->isBidiOn(this)) {
+                dist -= veh->getLength();
+            }
             result.addFollower(veh, ego, dist, latOffset);
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(ego)) {
@@ -4417,9 +4464,9 @@ MSLane::getBidiLane() const {
 bool
 MSLane::mustCheckJunctionCollisions() const {
     return myCheckJunctionCollisions && myEdge->isInternal() && (
-            myLinks.front()->getFoeLanes().size() > 0
-            || myLinks.front()->getWalkingAreaFoe() != nullptr
-            || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
+               myLinks.front()->getFoeLanes().size() > 0
+               || myLinks.front()->getWalkingAreaFoe() != nullptr
+               || myLinks.front()->getWalkingAreaFoeExit() != nullptr);
 }
 
 

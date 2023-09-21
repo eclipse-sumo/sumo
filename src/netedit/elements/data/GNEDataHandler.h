@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -107,7 +107,7 @@ protected:
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent);
 
     /// @brief write error "invalid parent element" giving ID
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID);
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& id);
 
 private:
     /// @brief invalidate copy constructor

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -491,7 +491,7 @@ public:
 
     /// @brief whether the foe connections is oncoming on the same lane
     bool bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                       const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
+                      const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     bool zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const;
 
@@ -600,7 +600,7 @@ public:
 
     /// @brief whether an internal junction should be built at from and respect other
     bool needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
-                   const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
+                   const NBEdge::Connection& c, const NBEdge::Connection& otherC, bool checkOnlyTLS = false) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
     bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,

@@ -58,7 +58,7 @@ The parkingArea supports the following attributes:
 | width            | float          | positive                                                                                     | 3.2                                    | The width of the road-side parking spaces                                                                                  |
 | length           | float          | positive                                                                                     | (endPos - startPos) / roadsideCapacity | The length of the road-side parking spaces                                                                                 |
 | angle            | float (degree) |                                                                                              | 0                                      | The angle of the road-side parking spaces relative to the lane angle, positive means clockwise                             |
-| lefthand            | bool |     | *false*    | Whether roadside parking spaces should be drawn on the left side of the lane   |
+| lefthand            | bool |     | *false*    | Whether road-side parking spaces should be drawn on the left side of the lane   |
 
 ## Custom parking spaces
 
@@ -117,6 +117,16 @@ If a vehicle reaches a parkingArea that is filled to capacity it must
 wait on the road until a space becomes available or [reroute to a new
 parking
 area](../Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area).
+
+# Importing / Generating Parking Areas
+
+The following tools exist to obtain parking area definitions
+
+- [generateParkingAreas.py](../Tools/Misc.md#generateparkingareaspy): probabilistic generation for a whole network
+- [generateParkingLots.py](../Tools/Misc.md#generateparkinglotspy): generate space definitions to fill up a given shape
+- [netedit](../Netedit/elementsAdditional.md#parking_areas): define parking areas visually
+- [netconvert --parking-output](../netconvert.md#export_1): imports roadside parking areas from OSM
+- [SAGA generateParkingAreasFromOSM.py](https://github.com/lcodeca/SUMOActivityGen): imports all kinds of parking areas from OSM
 
 # TraCI
 

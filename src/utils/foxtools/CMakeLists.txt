@@ -9,8 +9,6 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXComboBox.cpp
-   MFXComboBox.h
    MFXComboBoxIcon.cpp
    MFXComboBoxIcon.h
    MFXDecalsTable.cpp
@@ -30,8 +28,8 @@ set(utils_foxtools_STAT_SRCS
    MFXLinkLabel.h
    MFXListIcon.cpp
    MFXListIcon.h
-   MFXListItemIcon.cpp
-   MFXListItemIcon.h
+   MFXListIconItem.cpp
+   MFXListIconItem.h
    MFXMenuButtonTooltip.cpp
    MFXMenuButtonTooltip.h
    MFXMenuCheckIcon.cpp

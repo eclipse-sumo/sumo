@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -168,29 +168,40 @@ public:
     }
 
 protected:
+    
+    std::string buildTimestampPrefix(void) const;
+    std::string buildProcessIdPrefix(void) const;
+    
     /// @brief Builds the string which includes the mml-message type
     inline std::string build(const std::string& msg, bool addType) {
+        std::string prefix;
+        if (myWriteTimestamps) {
+            prefix += buildTimestampPrefix();
+        }
+        if (myWriteProcessId) {
+            prefix += buildProcessIdPrefix();
+        }
         if (addType) {
             switch (myType) {
                 case MsgType::MT_MESSAGE:
                     break;
                 case MsgType::MT_WARNING:
-                    return "Warning: " + msg;
+                    prefix += "Warning: ";
                     break;
                 case MsgType::MT_ERROR:
-                    return "Error: " + msg;
+                    prefix += "Error: ";
                     break;
                 case MsgType::MT_DEBUG:
-                    return "Debug: " + msg;
+                    prefix += "Debug: ";
                     break;
                 case MsgType::MT_GLDEBUG:
-                    return "GLDebug: " + msg;
+                    prefix += "GLDebug: ";
                     break;
                 default:
                     break;
             }
         }
-        return msg;
+        return prefix + msg;
     }
 
     virtual bool aggregationThresholdReached(const std::string& format) {
@@ -261,6 +272,8 @@ private:
      */
     static bool myWriteDebugMessages;
     static bool myWriteDebugGLMessages;
+    static bool myWriteTimestamps;
+    static bool myWriteProcessId;
 };
 
 
@@ -281,9 +294,13 @@ private:
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 #ifdef HAVE_INTL
+// basic translation
 #define TL(string) gettext(string)
+// complex translation ("This % an %", "is", "example")
 #define TLF(string, ...) StringUtils::format(gettext(string), __VA_ARGS__)
 #else
+// basic translation
 #define TL(string) (string)
+// complex translation ("This % an %", "is", "example")
 #define TLF(string, ...) StringUtils::format(string, __VA_ARGS__)
 #endif

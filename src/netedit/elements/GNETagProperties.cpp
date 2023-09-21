@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -20,17 +20,16 @@
 
 
 // ===========================================================================
+// defines
+// ===========================================================================
+
+#define MAXNUMBEROFATTRIBUTES 128
+
+// ===========================================================================
 // included modules
 // ===========================================================================
 
 #include "GNETagProperties.h"
-
-
-// ===========================================================================
-// static members
-// ===========================================================================
-
-const size_t GNETagProperties::MAXNUMBEROFATTRIBUTES = 128;
 
 // ===========================================================================
 // method definitions
@@ -46,16 +45,18 @@ GNETagProperties::GNETagProperties() :
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon,
+                                   const SumoXMLTag XMLTag, const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
+                                   const unsigned int backgroundColor, const std::string fieldString) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
     myXMLTag(XMLTag),
+    myTooltipText(tooltip),
     myParentTags(parentTags),
-    myFieldString(toString(tag)),
+    myFieldString(fieldString.empty()? toString(tag) : fieldString),
     myBackgroundColor(backgroundColor) {
 }
 
@@ -180,12 +181,6 @@ GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) 
 const std::string&
 GNETagProperties::getFieldString() const {
     return myFieldString;
-}
-
-
-void
-GNETagProperties::setFieldString(const std::string& fieldString) {
-    myFieldString = fieldString;
 }
 
 
@@ -329,7 +324,13 @@ GNETagProperties::isWireElement() const {
 
 
 bool
-GNETagProperties::isVehicleType() const {
+GNETagProperties::isJuPedSimElement() const {
+    return (myTagType & JUPEDSIM) != 0;
+}
+
+
+bool
+GNETagProperties::isType() const {
     return (myTagType & VTYPE) != 0;
 }
 
@@ -523,12 +524,6 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 
 
 bool
-GNETagProperties::hasEmbeddedRoute() const {
-    return (myTagProperty & EMBEDDED_ROUTE) != 0;
-}
-
-
-bool
 GNETagProperties::requireProj() const {
     return (myTagProperty & REQUIRE_PROJ) != 0;
 }
@@ -537,6 +532,120 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
+}
+
+
+bool
+GNETagProperties::overRoute() const {
+    return (myTagProperty & VEHICLE_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleOverEmbeddedRoute() const {
+    return (myTagProperty & VEHICLE_EMBEDDED_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleOverFromToEdges() const {
+    return (myTagProperty & VEHICLE_FROMTO_EDGES) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleOverFromToJunctions() const {
+    return (myTagProperty & VEHICLE_FROMTO_JUNCTIONS) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleOverFromToTAZs() const {
+    return (myTagProperty & VEHICLE_FROMTO_TAZS) != 0;
+}
+
+
+bool
+GNETagProperties::planFromEdge() const {
+    return (myTagProperty & PLAN_FROM_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTAZ() const {
+    return (myTagProperty & PLAN_FROM_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planFromJunction() const {
+    return (myTagProperty & PLAN_FROM_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planFromStoppingPlace() const {
+    return planFromBusStop() || planFromTrainStop() || planFromContainerStop();
+}
+
+
+bool
+GNETagProperties::planFromBusStop() const {
+    return (myTagProperty & PLAN_FROM_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTrainStop() const {
+    return (myTagProperty & PLAN_FROM_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromContainerStop() const {
+    return (myTagProperty & PLAN_FROM_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToEdge() const {
+    return (myTagProperty & PLAN_TO_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planToTAZ() const {
+    return (myTagProperty & PLAN_TO_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planToJunction() const {
+    return (myTagProperty & PLAN_TO_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planToStoppingPlace() const {
+    return planToBusStop() || planToTrainStop() || planToContainerStop();
+}
+
+
+bool
+GNETagProperties::planToBusStop() const {
+    return (myTagProperty & PLAN_TO_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToTrainStop() const {
+    return (myTagProperty & PLAN_TO_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToContainerStop() const {
+    return (myTagProperty & PLAN_TO_CONTAINERSTOP) != 0;
 }
 
 /****************************************************************************/

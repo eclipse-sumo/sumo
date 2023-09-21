@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -54,6 +54,7 @@ class Edge:
         self._type = edgeType
         self._params = {}
         self._bidi = None
+        self._selected = False
 
     def getName(self):
         return self._name
@@ -158,7 +159,7 @@ class Edge:
 
     def getBoundingBox(self, includeJunctions=True):
         xmin, ymin, xmax, ymax = sumolib.geomhelper.addToBoundingBox(self.getShape(includeJunctions))
-        assert(xmin != xmax or ymin != ymax or self._function == "internal")
+        assert xmin != xmax or ymin != ymax or self._function == "internal"
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosDist(self, point, perpendicular=False):
@@ -184,6 +185,12 @@ class Edge:
 
     def getLanes(self):
         return self._lanes
+
+    def select(self, value=True):
+        self._selected = value
+
+    def isSelected(self):
+        return self._selected
 
     def rebuildShape(self):
         numLanes = len(self._lanes)
@@ -242,7 +249,7 @@ class Edge:
                     self.is_fringe(self._outgoing, checkJunctions))
         else:
             if checkJunctions:
-                assert(connections is not None)
+                assert connections is not None
                 if connections == self._incoming:
                     return self.getFromNode().getFringe() is not None
                 elif connections == self._outgoing:

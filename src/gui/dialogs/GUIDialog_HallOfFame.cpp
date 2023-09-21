@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,12 +49,12 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Voted best poster:\nOpen-Source Framework for Modeling Emission Concentrations in Urban Areas\n(Mario Ilic, Seyed M. Saghaeiannejad, Sasan Amini and Klaus Bogenberger)\n", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
-    (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.org/sumo/conference");
+    (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo/conference");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

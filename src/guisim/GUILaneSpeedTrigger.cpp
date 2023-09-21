@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -44,6 +44,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -122,19 +123,18 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new FXComboBox(gf2, 10, this, MID_PRE_DEF,
+            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxSizeSmall, this, MID_PRE_DEF,
                            ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
-        myPredefinedValues->appendItem("20 km/h");
-        myPredefinedValues->appendItem("40 km/h");
-        myPredefinedValues->appendItem("60 km/h");
-        myPredefinedValues->appendItem("80 km/h");
-        myPredefinedValues->appendItem("100 km/h");
-        myPredefinedValues->appendItem("120 km/h");
-        myPredefinedValues->appendItem("140 km/h");
-        myPredefinedValues->appendItem("160 km/h");
-        myPredefinedValues->appendItem("180 km/h");
-        myPredefinedValues->appendItem("200 km/h");
-        myPredefinedValues->setNumVisible(5);
+        myPredefinedValues->appendIconItem("20 km/h");
+        myPredefinedValues->appendIconItem("40 km/h");
+        myPredefinedValues->appendIconItem("60 km/h");
+        myPredefinedValues->appendIconItem("80 km/h");
+        myPredefinedValues->appendIconItem("100 km/h");
+        myPredefinedValues->appendIconItem("120 km/h");
+        myPredefinedValues->appendIconItem("140 km/h");
+        myPredefinedValues->appendIconItem("160 km/h");
+        myPredefinedValues->appendIconItem("180 km/h");
+        myPredefinedValues->appendIconItem("200 km/h");
     }
     {
         // free
@@ -152,7 +152,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(myObject->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     myObject->setOverriding(true);
 }
@@ -303,7 +303,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
                                         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("speed [m/s]", true,
+    ret->mkItem(TL("speed [m/s]"), true,
                 new FunctionBinding<GUILaneSpeedTrigger, double>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
     // close building
     ret->closeBuilding();

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -60,15 +60,14 @@ public:
         void setCurrentType(GNEDemandElement* vType);
 
         /// @brief refresh vehicle type selector
-        void refreshTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshTypeSelectorIDs();
+        void refreshTypeSelector(const bool updateModuls);
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief Called when the user select another element in ComboBox
         long onCmdSelectItem(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:

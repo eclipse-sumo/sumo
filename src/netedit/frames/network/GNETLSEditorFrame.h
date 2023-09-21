@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -141,7 +141,7 @@ public:
         MFXButtonTooltip* myDisjoinTLSButton = nullptr;
 
         /// @brief frame for accept/cancel buttons
-        FXHorizontalFrame* myJoinControlButtons = nullptr; 
+        FXHorizontalFrame* myJoinControlButtons = nullptr;
 
         /// @brief the junction of the tls is being modified
         GNEJunction* myCurrentJunction = nullptr;
@@ -256,7 +256,7 @@ public:
         std::vector<NBTrafficLightDefinition*> myTLSDefinitions;
 
         /// @brief the comboBox for selecting the tl-definition to edit
-        FXComboBox* myProgramComboBox;
+        MFXComboBoxIcon* myProgramComboBox;
 
         /// @brief whether the current tls was modified
         bool myHaveModifications = false;
@@ -482,7 +482,7 @@ public:
         bool setState(const int col, const int row, const std::string& value);
 
         /// @brief set next
-        bool setNext(const int col, const int row, const std::string& value);
+        bool setNext(const int row, const std::string &value);
 
         /// @brief set name
         bool setName(const int row, const std::string& value);

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -164,6 +164,12 @@ protected:
     /// @name add element functions
     //@{
 
+    /// @brief Processing of a person or container
+    virtual void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson) {
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(isPerson);
+    }
+
     /// @brief Processing of a stop
     virtual Parameterised* addStop(const SUMOSAXAttributes& attrs) = 0;
 
@@ -173,14 +179,8 @@ protected:
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
 
-    /// @brief Processing of a person
-    virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
-
     /// @brief Processing of a ride
     virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
-
-    /// @brief Processing of a container
-    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief Processing of a transport
     virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -198,33 +198,37 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 if (parameterCount == 4) {
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, "", layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
-                } else if (parameterCount == 8) {
+                } else if (parameterCount == 9) {
+                    std::string icon;
+                    if (!server.readTypeCheckingString(inputStorage, icon)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the icon encoded as a string.", outputStorage);
+                    }
                     std::string imgFile;
                     if (!server.readTypeCheckingString(inputStorage, imgFile)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the imgFile encoded as a string.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the imgFile encoded as a string.", outputStorage);
                     }
                     double width;
                     if (!server.readTypeCheckingDouble(inputStorage, width)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the width encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the width encoded as a double.", outputStorage);
                     }
                     double height;
                     if (!server.readTypeCheckingDouble(inputStorage, height)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the height encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eighth PoI parameter must be the height encoded as a double.", outputStorage);
                     }
                     double angle;
                     if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eighth PoI parameter must be the angle encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The nineth PoI parameter must be the angle encoded as a double.", outputStorage);
                     }
                     //
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, icon, layer, imgFile, width, height, angle)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
                 } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE,
-                                                      "Adding a PoI requires either only type, color, layer and position parameters or these and imageFile, width, height and angle parameters.",
+                                                      "Adding a PoI requires either only type, color, layer and position parameters or these and icon, imageFile, width, height and angle parameters.",
                                                       outputStorage);
                 }
             }

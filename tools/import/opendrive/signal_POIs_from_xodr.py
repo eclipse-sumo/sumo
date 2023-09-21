@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -29,9 +29,13 @@
 """
 
 import os
+import sys
 import numpy as np
 # import pandas as pd         # want to drop that dep
 import lxml.etree as lET
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 # polygon & POI
 # http://www.sumo.dlr.de/userdoc/Simulation/Shapes.html
@@ -144,16 +148,13 @@ def extract_lanes_width_data(rte, ):
 
 
 if __name__ == "__main__":
-
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("xodr_file", type=str,
-                        help="file path of open drive file")
-    parser.add_argument("net_file", type=str,
-                        help="file path of net file")
-    # parser.add_argument("workLog", type=str, help="work log file")
-    args = parser.parse_args()
+    op = sumolib.options.ArgumentParser()
+    op.add_argument("xodr_file", category="input", required=True,
+                    help="file path of open drive file")
+    op.add_argument("net_file", category="input", required=True,
+                    help="file path of net file")
+    # op.add_argument("workLog", type=str, help="work log file")
+    args = op.parse_args()
 
     net_Fp = args.net_file  # td_Dp+'/sumo/net.net.xml'
     xodr_Fp = args.xodr_file  # td_Dp+'/OpenDrive/scen_T01.02.xodr'

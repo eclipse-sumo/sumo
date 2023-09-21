@@ -1,0 +1,18 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+trip (from-to TAZs)
+TestFunctions: Clicked over position 504 - 483
+TestFunctions: Clicked over position 1044 - 483
+-12
+TestFunctions: Clicked over position 504 - 483
+TestFunctions: Clicked over position 1044 - 483
+30
+TestFunctions: Clicked over position 504 - 483
+TestFunctions: Clicked over position 1044 - 483
+20
+TestFunctions: Clicked over position 504 - 483
+TestFunctions: Clicked over position 1044 - 483
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

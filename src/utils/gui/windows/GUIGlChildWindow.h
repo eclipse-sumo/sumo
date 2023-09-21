@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -84,7 +84,7 @@ public:
     FXPopup* getLocatorPopup();
 
     /// @brief return combobox with the current coloring schemes (standard, fastest standard, real world...)
-    FXComboBox* getColoringSchemesCombo();
+    MFXComboBoxIcon* getColoringSchemesCombo();
 
     /// @brief get menu for tooltips menu
     MFXCheckableButton* getShowToolTipsMenu() const;
@@ -132,7 +132,7 @@ protected:
     FXVerticalFrame* myChildWindowContentFrame = nullptr;
 
     /// @brief The coloring schemes
-    FXComboBox* myColoringSchemes = nullptr;
+    MFXComboBoxIcon* myColoringSchemes = nullptr;
 
     /// @brief build navigation toolbar
     void buildNavigationToolBar();

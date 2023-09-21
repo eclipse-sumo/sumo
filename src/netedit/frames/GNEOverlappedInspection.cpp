@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -75,10 +75,24 @@ void
 GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
+    // get cliked ACs
+    auto clickedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    // check if filter edges
+    if ((clickedACs.size() > 0) && (clickedACs.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // iterate over clickedAcs and remove edges
+        auto it = clickedACs.begin();
+        while (it != clickedACs.end()) {
+            if ((*it)->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                it = clickedACs.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
     // reserve
-    myOverlappedACs.reserve(objectsUnderCursor.getClickedAttributeCarriers().size());
+    myOverlappedACs.reserve(clickedACs.size());
     // iterate over objects under cursor
-    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+    for (const auto& AC : clickedACs) {
         bool insert = true;
         // check supermode demand
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
@@ -282,7 +296,7 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
             << TL("   previous element");
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"
-    new FXButton(helpDialog, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(helpDialog, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -305,17 +319,17 @@ void
 GNEOverlappedInspection::buildFXElements() {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
-    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);
+    myPreviousElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonRectangular);
     // create current index button
-    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
+    myCurrentIndexButton = GUIDesigns::buildFXButton(frameButtons, "", "", "", nullptr, this, MID_GNE_OVERLAPPED_SHOWLIST, GUIDesignButton);
     // Create next Item Button
-    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonIconRectangular);
+    myNextElement = GUIDesigns::buildFXButton(frameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonRectangular);
     // Create list of overlapped elements (by default hidden)
     myOverlappedElementList = new FXList(getCollapsableFrame(), this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
     // by default list of overlapped elements is hidden)
     myOverlappedElementList->hide();
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 /****************************************************************************/

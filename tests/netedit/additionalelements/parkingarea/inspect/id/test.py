@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,12 +35,12 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
 
-# create parkingArea 1 in mode "reference center"
+# create parkingArea 1 in mode "Center"
 netedit.leftClick(referencePosition, 475, 256)
 
-# create parkingArea 2 in mode "reference center"
+# create parkingArea 2 in mode "Center"
 netedit.leftClick(referencePosition, 612, 256)
 
 # go to inspect mode
@@ -59,8 +59,7 @@ netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "Id with spaces", 
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "correctID", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -74,8 +74,11 @@ public:
     /// @brief Mark the entire GNEViewNet to be repainted later
     void updateViewNet() const;
 
-    /// @brief set supermode Network (used after load/create new network)
-    void forceSupermodeNetwork();
+    /// @brief force supermode network(used after load/create new network)
+    void forceSupemodeNetwork();
+
+    /// @brief called when view is updated
+    void viewUpdated();
 
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
@@ -247,6 +250,12 @@ public:
 
     /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
+
+    /// @brief reverse current demand element
+    long onCmdReverse(FXObject*, FXSelector, void*);
+
+    /// @brief add a reverse demand element
+    long onCmdAddReverse(FXObject*, FXSelector, void*);
 
     /// @brief set custom geometry point
     long onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*);
@@ -461,7 +470,10 @@ public:
 
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
-
+        
+    /// @brief called when a new view is set
+    long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
+    
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 
@@ -561,6 +573,9 @@ public:
     /// @brief get variable used to save elements
     GNEViewNetHelper::SaveElements& getSaveElements();
 
+    /// @brief get variable used to swith between time formats
+    GNEViewNetHelper::TimeFormat& getTimeFormat();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -643,10 +658,13 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
-    /// @brief variable used to save elements
+    /// @brief variable used for grouping all variables related with salve elements
     GNEViewNetHelper::SaveElements mySaveElements;
 
-    /// @brief variable used to save variables related with selecting areas
+    /// @brief variable used for grouping all variables related with switch time
+    GNEViewNetHelper::TimeFormat myTimeFormat;
+
+    /// @brief variable used for grouping all variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
@@ -730,6 +748,9 @@ private:
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
 
+    /// @brief try to retrieve a demand element at popup position
+    GNEDemandElement* getDemandElementAtPopupPosition();
+
     /// @brief try to retrieve a polygon at popup position
     GNEPoly* getPolygonAtPopupPosition();
 
@@ -782,8 +803,11 @@ private:
     void drawSelectDottedContour();
 
     /// @brief draw circle in testing mode (neede for grid)
-    void drawTestsCircle() const;
+    void drawNeteditAttributesReferences();
 
+    /// @brief draw circle in testing mode (neede for grid)
+    void drawTestsCircle() const;
+        
     /// @}
 
     /// @brief mouse process functions

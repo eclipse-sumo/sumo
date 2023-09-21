@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -768,7 +768,7 @@ class VehicleDomain(VTypeDomain):
 
     @deprecated()
     def getNextStops(self, vehID):
-        """getNextStop(string) -> [(string, double, string, int, double, double), ...]
+        """getNextStops(string) -> [(string, double, string, int, double, double), ...]
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -1221,7 +1221,7 @@ class VehicleDomain(VTypeDomain):
         self._setCmd(tc.VAR_ROUTE, vehID, "l", edgeList)
 
     def setLateralLanePosition(self, vehID, posLat):
-        """setSpeed(string, double) -> None
+        """setLateralLanePosition(string, double) -> None
 
         Sets the lateral vehicle position relative to the center line of the
         lane in m (negative values are to the right in right-hand networks).

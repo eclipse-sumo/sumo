@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -46,6 +46,10 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         myTrainParams = initFreightParams();
     } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
+	} else if (trainType.compare("MireoPlusB") == 0) {
+        myTrainParams = initMireoPlusB2TParams();
+	} else if (trainType.compare("MireoPlusH") == 0) {
+        myTrainParams = initMireoPlusH2TParams();
     } else {
         WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);
         throw ProcessError();

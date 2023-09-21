@@ -1,0 +1,28 @@
+/* XPM */
+static const char *jps_obstacle_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c gray25",
+"X c gray50",
+"o c #FFC90E",
+"O c #C3C3C3",
+"+ c None",
+/* pixels */
+"++++++++++++++++",
+"++XX++++++++XX++",
+"oo  oo   oo   oo",
+"o  oo   oo   oo ",
+"  oo   oo   oo  ",
+"++XX++++++++XX++",
+"++XX++++++++XX++",
+"oo   oo   oo   o",
+"o   oo   oo   oo",
+"   oo   oo   oo ",
+"++XX++++++++XX++",
+"++XXOOOOOOOOXX++",
+"++XXOOOOOOOOXX++",
+"++XX++++++++XX++",
+"++XX++++++++XX++",
+"+....++++++....+"
+};

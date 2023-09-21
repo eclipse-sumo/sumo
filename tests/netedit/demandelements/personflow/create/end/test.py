@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,8 +44,9 @@ netedit.changePersonPlan("walk: busStop", True)
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminate, "dummyTerminate")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -57,8 +58,9 @@ netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminate, "end")
 netedit.typeEnter()
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "dummy")
@@ -79,8 +81,9 @@ netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "20.
 netedit.typeEnter()
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "22")
@@ -89,8 +92,7 @@ netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "22"
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

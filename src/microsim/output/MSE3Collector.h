@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -235,7 +235,7 @@ public:
                   SUMOTime haltingTimeThreshold,
                   const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
-                  int detectPersons, bool openEntry);
+                  int detectPersons, bool openEntry, bool expectArrival);
 
 
     /// @brief Destructor
@@ -471,6 +471,8 @@ protected:
 
     /// @brief whether this dector is declared as having incomplete entry detectors
     const bool myOpenEntry;
+    /// @brief Whether the detector expects vehicles to arrive inside (and doesn't issue a warning in this case)
+    const bool myExpectArrival;
 
 private:
     /// @brief Invalidated copy constructor.

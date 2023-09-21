@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="20.00" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100">
+    <flow id="flow_0" begin="20.00" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>

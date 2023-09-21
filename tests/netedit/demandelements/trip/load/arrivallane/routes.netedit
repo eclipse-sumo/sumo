@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_2" depart="20.00" arrivalLane="0" from="gneE2" to="gneE5"/>
-    <trip id="trip_3" depart="20.00" arrivalLane="500" from="gneE2" to="gneE5"/>
-    <trip id="trip_4" depart="20.00" arrivalLane="current" from="gneE2" to="gneE5"/>
+    <trip id="trip_2" depart="20.00" arrivalLane="0" from="Edge0" to="Edge2"/>
+    <trip id="trip_3" depart="20.00" arrivalLane="500" from="Edge0" to="Edge2"/>
+    <trip id="trip_4" depart="20.00" arrivalLane="current" from="Edge0" to="Edge2"/>
 </routes>

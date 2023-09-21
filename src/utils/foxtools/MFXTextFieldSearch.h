@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -21,20 +21,20 @@
 #pragma once
 #include <config.h>
 
-#include "fxheader.h"
+#include "MFXTextFieldIcon.h"
 
 
 /// @brief FXTextFieldIcon (based on FXTextFieldIcon)
-class MFXTextFieldSearch : public FXTextField {
+class MFXTextFieldSearch : public MFXTextFieldIcon {
     /// @brief FOX declaration
     FXDECLARE(MFXTextFieldSearch)
 
 public:
     /// @brief constructor
-    MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt = NULL, FXSelector sel = 0, 
-                       FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
+    MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt = NULL, FXSelector sel = 0,
+                       FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
-    
+
     /// @brief key press
     long onKeyPress(FXObject* obj, FXSelector sel, void* ptr);
 
@@ -59,5 +59,5 @@ private:
     FXObject* myTarget = nullptr;
 
     /// @brief draw search text range
-    void drawSearchTextRange(const FXString &searchString, FXDCWindow& dc);
+    void drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString& searchString);
 };

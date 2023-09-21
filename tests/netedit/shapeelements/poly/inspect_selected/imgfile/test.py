@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,17 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 404, 140)
 
 # Change parameter 7 with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.imgFile, "%$$%%%%%", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "%$$%%%%%", False)
 
 # Change parameter 7 with a non valid value (non exist)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.imgFile, "paris.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "paris.ico", False)
 
 # Change parameter 7 with a valid value (valid)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.imgFile, "berlin_icon.ico", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.imgFile, "berlin_icon.ico", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

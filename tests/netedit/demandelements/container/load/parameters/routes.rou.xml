@@ -36,6 +36,6 @@
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
  
-        <tranship from="gneE2" to="gneE5"/>
+        <tranship from="Edge0" to="Edge2"/>
     </container>
 </routes>

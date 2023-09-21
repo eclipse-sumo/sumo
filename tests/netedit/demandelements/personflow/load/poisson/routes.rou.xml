@@ -6,34 +6,34 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <personFlow id="p_0" begin="0.00" end="23.00" period="exp(10">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_1" begin="0.00" end="23.00" period="exp(dummyPeriod)">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_2" begin="0.00" end="23.00" period="">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_3" begin="0.00" end="23.00" period="exp(-10)">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_4" begin="0.00" end="23.00" period="exp(0)">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_5" begin="0.00" end="23.00" period="20.30">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_6" begin="0.00" end="23.00" period="exp(2.30)">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 
     <personFlow id="p_7" begin="0.00" end="23.00" period="exp(1.7)">
-        <personTrip from="gneE2" to="gneE5"/>
+        <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
 </routes>

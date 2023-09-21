@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,26 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change pos lat (invalid, dummy)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "dummyPosLat")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "dummyPosLat")
 
 # try to create poi
 netedit.leftClick(referencePosition, 338, 210)
 
 # change pos lat (valid, negative)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "-5")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "-5")
 
 # create poi
 netedit.leftClick(referencePosition, 405, 210)
 
 # change pos lat (valid)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "7.5")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "7.5")
 
 # create poi
 netedit.leftClick(referencePosition, 473, 210)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

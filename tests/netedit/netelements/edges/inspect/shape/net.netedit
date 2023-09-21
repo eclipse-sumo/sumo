@@ -1,56 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 13:11:45 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-07-14 13:23:51 by Eclipse SUMO netedit Version v1_18_0+0321-b0878139274
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/datas.xml"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect/shape/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_14Jul121719.168956/netedit.daily.net.edges/netelements/edges/inspect/shape/log.txt"/>
     </report>
 
 </configuration>

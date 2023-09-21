@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,7 @@ netedit.changeContainerPlan("tranship: containerStop", True)
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacing, "dummySpacing")
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 netedit.leftClick(referencePosition, 270, 43)
 
 # press enter to create route
@@ -60,8 +60,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacingOption, "dummy")
 
 # create flow
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -82,15 +82,14 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacingOption, "22")
 
 # create flow
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

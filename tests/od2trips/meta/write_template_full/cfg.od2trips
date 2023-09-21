@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO od2trips Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-09-01 11:05:13 by Eclipse SUMO od2trips Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -74,6 +74,8 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
     </report>

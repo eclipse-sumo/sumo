@@ -29,7 +29,7 @@ jtrrouter --route-files=<FLOW_DEFS> --turn-ratio-files=<TURN_DEFINITIONS> --n
 | Type of content    | turn and sink definitions |
 | Open format?       | Yes                       |
 | SUMO specific?     | Yes                       |
-| XML Schema         | [edgerelations_file.xsd](http://sumo.dlr.de/xsd/edgerelations_file.xsd)           |
+| XML Schema         | [edgerelations_file.xsd](https://sumo.dlr.de/xsd/edgerelations_file.xsd)           |
 
 To describe the turn definitions, one has to write an XML file. Within
 this file, for each interval and each edge the list of percentages to

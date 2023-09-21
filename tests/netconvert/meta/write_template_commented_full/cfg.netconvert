@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-06 12:40:31 by Eclipse SUMO netconvert Version v1_17_0+0735-ed7251a
+<!-- generated on 2023-09-20 22:55:24 by Eclipse SUMO netconvert Version v1_18_0+1693-deba9701844
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -131,6 +131,9 @@
 
         <!-- The generated net will be written to dlr-navteq files with the given PREFIX -->
         <dlr-navteq-output value="" type="FILE"/>
+
+        <!-- The dlr-navteq output format version to write -->
+        <dlr-navteq.version value="6.5" type="STR"/>
 
         <!-- The network coordinates are written with the specified level of output precision -->
         <dlr-navteq.precision value="2" type="INT"/>
@@ -411,10 +414,10 @@
     </building_defaults>
 
     <tls_building>
-        <!-- Does not instatiate traffic lights loaded from other formats than plain-XML -->
+        <!-- Does not instantiate traffic lights loaded from other formats than plain-XML -->
         <tls.discard-loaded value="false" type="BOOL"/>
 
-        <!-- Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML -->
+        <!-- Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML -->
         <tls.discard-simple value="false" type="BOOL"/>
 
         <!-- Interprets STR[] as list of junctions to be controlled by TLS -->
@@ -440,6 +443,9 @@
 
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
+
+        <!-- Interprets STR[] as list of tls ids to exclude from joining -->
+        <tls.join-exclude value="" type="STR[]"/>
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
@@ -486,7 +492,7 @@
         <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
         <tls.nema.vehExt value="2" type="INT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <!-- Set INT as fixed time for intermediate NEMA yellow phase after every switch -->
         <tls.nema.yellow value="3" type="INT"/>
 
         <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
@@ -699,7 +705,7 @@
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
 
-        <!-- Build junctions with minimal shapes (igoring edge overlap) -->
+        <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
         <junctions.minimal-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
@@ -993,6 +999,9 @@
         <!-- Use the OpenDRIVE controller information for the generated signal program -->
         <opendrive.signal-groups value="false" type="BOOL"/>
 
+        <!-- Ignore traffic signals which do not control any driving lane -->
+        <opendrive.ignore-misplaced-signals value="false" type="BOOL"/>
+
     </formats>
 
     <report>
@@ -1028,6 +1037,12 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
 
         <!-- Language to use in messages -->
         <language value="C" type="STR"/>

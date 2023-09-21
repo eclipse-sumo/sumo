@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GNEVType : public GNEDemandElement, public SUMOVTypeParameter {
+
 public:
     /// @brief default constructor
     GNEVType(GNENet* net);
@@ -54,7 +56,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML
+    /// @brief check if current demand element is valid to be written into XML
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem
@@ -195,9 +197,6 @@ protected:
     /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
-    /// @brief vType distribution
-    std::string myDistribution;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -210,12 +209,6 @@ private:
 
     /// @brief function called after set new VClass
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
-
-    /// @brief edit distribution
-    void editDistribution(const std::string& value, GNEUndoList* undoList);
-
-    /// @brief clear empty distributions
-    void clearEmptyDistributions();
 
     /// @brief Invalidated copy constructor.
     GNEVType(GNEVType*) = delete;

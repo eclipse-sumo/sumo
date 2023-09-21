@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,17 +37,14 @@ netedit.containerMode()
 # change container plan
 netedit.changeContainerPlan("tranship: edge", False)
 
-# create route using two one
-netedit.leftClick(referencePosition, 274, 400)
+# create route using one edge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
 
 # go to container plan mode
 netedit.containerPlanMode()
-
-# select container
-netedit.leftClick(referencePosition, 80, 410)
 
 # go to container plan mode
 netedit.changeContainerPlanMode("tranship: containerStop")
@@ -62,11 +59,11 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transhipEdgeContainerStop
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
+                  netedit.positions.demandElements.containerPlanEdge.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

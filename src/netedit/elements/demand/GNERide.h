@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -19,12 +19,15 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
@@ -33,35 +36,25 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNERide : public GNEDemandElement, public Parameterised {
+class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /// @brief default constructor
-    GNERide(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net Network in which this Ride is placed
+    /**@brief general constructor for rides
+     * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
      * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] lines list of lines
-     */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-            double arrivalPosition, const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for person edge->busStop
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
      * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
      * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
      * @param[in] lines list of lines
      */
-    GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-            double arrivalPosition, const std::vector<std::string>& lines);
+    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, const std::vector<std::string>& lines);
+
+    /// @brief default constructor
+    GNERide(SumoXMLTag tag, GNENet* net);
 
     /// @brief destructor
     ~GNERide();
@@ -76,7 +69,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -218,9 +211,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
@@ -233,6 +223,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildRide
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     * @param[in] lines list of lines
+     */
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
+            const std::vector<GNEAdditional*> &additionals, double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

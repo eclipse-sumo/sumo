@@ -10,7 +10,7 @@
 	<vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
-        <walk from="gneE2" to="gneE2"/>
+        <walk from="Edge0" to="Edge0"/>
         <ride busStop="busStopA" lines="Line1"/>
         <ride busStop="busStopB" lines="Line2"/>
     </person>

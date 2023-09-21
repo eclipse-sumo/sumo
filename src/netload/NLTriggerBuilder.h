@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -326,10 +326,13 @@ protected:
      * @param[in] efficiency efficiency of the charge
      * @param[in] chargeInTransit enable or disable charge in transit
      * @param[in] chargeDelay delay in the charge
+     * @param[in] chargeType charge type (normal, electric or fuel)
+     * @param[in] waitingTime waiting time until start charging
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
-                                      double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay);
+                                      double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, std::string chargeType,
+                                      SUMOTime waitingTime);
 
     /** @brief Builds an overhead wire segment
     *

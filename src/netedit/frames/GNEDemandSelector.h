@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -70,11 +70,8 @@ public:
     /// @brief refresh demand element selector
     void refreshDemandElementSelector();
 
-    /// @brief get previous edge for the current person plan
-    GNEEdge* getPersonPlanPreviousEdge() const;
-
-    /// @brief get previous edge for the current container plan
-    GNEEdge* getContainerPlanPreviousEdge() const;
+    /// @brief get previous plan element
+    GNEAttributeCarrier* getPreviousPlanElement() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -91,10 +88,7 @@ private:
     GNEFrame* myFrameParent;
 
     /// @brief comboBox with the list of elements type
-    MFXComboBoxIcon* myDemandElementsMatchBox;
-
-    /// @brief info label
-    FXLabel* myInfoLabel;
+    MFXComboBoxIcon* myDemandElementsComboBox;
 
     /// @brief current demand element
     GNEDemandElement* myCurrentDemandElement;

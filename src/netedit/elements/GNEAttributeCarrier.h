@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,7 +49,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
-    friend class GNEChange_EnableAttribute;
+    friend class GNEChange_ToggleAttribute;
     friend class GNEFrameAttributeModules;
     friend class GNEAttributesCreatorRow;
     friend class GNEFlowEditor;
@@ -260,6 +260,7 @@ public:
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
+
     /// @brief feature is still unchanged after being loaded (implies approval)
     static const std::string FEATURE_LOADED;
 
@@ -271,6 +272,7 @@ public:
 
     /// @brief feature has been approved but not changed (i.e. after being reguessed)
     static const std::string FEATURE_APPROVED;
+
     /// @}
 
     /// @brief max number of attributes allowed for every tag
@@ -298,7 +300,7 @@ protected:
     /// @brief whether the current object is a template object (not drawn in the view)
     bool myIsTemplate;
 
-    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
 
 private:
@@ -325,6 +327,9 @@ private:
 
     /// @brief fill Wire elements
     static void fillWireElements();
+
+    /// @brief fill JuPedSim elements
+    static void fillJuPedSimElements();
 
     /// @brief fill demand elements
     static void fillDemandElements();
@@ -365,6 +370,9 @@ private:
     /// @brief fill container stop elements
     static void fillContainerStopElements();
 
+    /// @brief fill common POI attributes
+    static void fillPOIAttributes(SumoXMLTag currentTag);
+
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
@@ -388,6 +396,41 @@ private:
 
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
+
+    /// @brief fill plan edge->edge attribute
+    static void fillPlanEdgeEdgeAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->taz attribute
+    static void fillPlanEdgeTazAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->busStop attribute
+    static void fillPlanEdgeBusStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan edge->trainStop attribute
+    static void fillPlanEdgeTrainStopAttributes(SumoXMLTag currentTag);
+
+
+    /// @brief fill plan taz->edge attribute
+    static void fillPlanTazEdgeAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->taz attribute
+    static void fillPlanTazTazAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->busStop attribute
+    static void fillPlanTazBusStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan taz->trainStop attribute
+    static void fillPlanTazTrainStopAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan junction->junction attribute
+    static void fillPlanJunctionJunctionAttributes(SumoXMLTag currentTag);
+
+
+    /// @brief fill person trip common attributes
+    static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill ride common attributes
+    static void fillRideCommonAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Data elements
     static void fillDataElements();

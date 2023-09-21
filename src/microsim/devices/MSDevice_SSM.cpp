@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -423,7 +423,7 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         minTTC.time = time;
         minTTC.pos = conflictPoint;
         minTTC.type = ttc <= 0 ? ENCOUNTER_TYPE_COLLISION :  type;
-        minTTC.speed = egoV.distanceTo(Position(0,0));
+        minTTC.speed = egoV.distanceTo(Position(0, 0));
     }
 
     DRACspan.push_back(drac);
@@ -457,7 +457,7 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
         maxMDRAC.pos = conflictPoint;
         maxMDRAC.type = type;
         maxMDRAC.speed = egoV.distanceTo(Position(0, 0));
-    }    
+    }
 }
 
 
@@ -495,7 +495,7 @@ MSDevice_SSM::EncounterApproachInfo::EncounterApproachInfo(Encounter* e) :
     foeConflictAreaLength(INVALID_DOUBLE),
     ttc(INVALID_DOUBLE),
     drac(INVALID_DOUBLE),
-    mdrac(INVALID_DOUBLE),    
+    mdrac(INVALID_DOUBLE),
     pet(std::make_pair(INVALID_DOUBLE, INVALID_DOUBLE)),
     ppet(INVALID_DOUBLE) {
 }
@@ -782,7 +782,7 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
     }
     if (myComputeMDRAC && e->maxMDRAC.value != INVALID_DOUBLE && e->maxMDRAC.value >= myThresholds["MDRAC"]) {
         return true;
-    }    
+    }
     return false;
 }
 
@@ -929,7 +929,7 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         // Add current states to trajectories and update type
         e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getLane()->getID(), e->ego->getPositionOnLane(), e->ego->getVelocityVector(),
                e->foe->getPosition(), e->foe->getLane()->getID(), e->foe->getPositionOnLane(), e->foe->getVelocityVector(),
-               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet, eInfo.ppet,eInfo.mdrac);
+               eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet, eInfo.ppet, eInfo.mdrac);
     }
     // Keep encounter
     return true;
@@ -1117,12 +1117,16 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
             eInfo.egoConflictExitDist >= 0 && eInfo.foeConflictExitDist >= 0) {
         type = ENCOUNTER_TYPE_COLLISION;
         WRITE_WARNINGF(TL("SSM device of vehicle '%' detected collision with vehicle '%' at time=%."), e->egoID, e->foeID, time2string(SIMSTEP));
-    } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime) {
+    } else if (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE && eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
+    	type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;    
+    } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime || eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
         // ego is estimated first at conflict point
 #ifdef DEBUG_SSM
         if (DEBUG_COND(e->ego))
             std::cout << "    -> ego is estimated leader at conflict entry."
                       << " egoConflictExitTime=" << (eInfo.egoEstimatedConflictExitTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictExitTime))
+                      << " egoEstimatedConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictEntryTime))
+                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))
                       << std::endl;
 #endif
         type = type == ENCOUNTER_TYPE_CROSSING ? ENCOUNTER_TYPE_CROSSING_LEADER : ENCOUNTER_TYPE_MERGING_LEADER;
@@ -1132,6 +1136,8 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
         if (DEBUG_COND(e->ego))
             std::cout << "    -> foe is estimated leader at conflict entry."
                       << " foeConflictExitTime=" << (eInfo.foeEstimatedConflictExitTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictExitTime))
+                      << " egoEstimatedConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictEntryTime))
+                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))                      
                       << std::endl;
 #endif
         type = type == ENCOUNTER_TYPE_CROSSING ? ENCOUNTER_TYPE_CROSSING_FOLLOWER : ENCOUNTER_TYPE_MERGING_FOLLOWER;
@@ -1302,7 +1308,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
     double& ttc = eInfo.ttc;
     double& drac = eInfo.drac;
     double& ppet = eInfo.ppet;
-    double& mdrac = eInfo.mdrac;    
+    double& mdrac = eInfo.mdrac;
 
 #ifdef DEBUG_SSM
     if (DEBUG_COND(myHolderMS))
@@ -1444,7 +1450,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
                 } else {
                     // compute drac as for a following situation
                     mdrac = computeMDRAC(g0, followerSpeed, leaderSpeed, myMDRACPRT);
-                }                
+                }
             }
 #ifdef DEBUG_SSM
             if (DEBUG_COND(myHolderMS)) {
@@ -1484,13 +1490,13 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
         if (myComputePPET) {
             const double entryTime = eInfo.egoEstimatedConflictEntryTime;
             const double exitTime = (e->foeConflictExitTime == INVALID_DOUBLE
-                    ? eInfo.foeEstimatedConflictExitTime : e->foeConflictExitTime);
+                                     ? eInfo.foeEstimatedConflictExitTime : e->foeConflictExitTime);
             if (entryTime != INVALID_DOUBLE && exitTime != INVALID_DOUBLE) {
                 ppet = entryTime - exitTime;
             }
             //std::cout << " debug2 ppet=" << ppet << "\n";
         }
-        
+
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
                || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
         if (myComputeDRAC) {
@@ -1513,7 +1519,7 @@ MSDevice_SSM::determineTTCandDRACandPPETandMDRAC(EncounterApproachInfo& eInfo) c
         if (myComputePPET) {
             const double entryTime = eInfo.foeEstimatedConflictEntryTime;
             const double exitTime = (e->egoConflictExitTime == INVALID_DOUBLE
-                    ? eInfo.egoEstimatedConflictExitTime : e->egoConflictExitTime);
+                                     ? eInfo.egoEstimatedConflictExitTime : e->egoConflictExitTime);
             if (entryTime != INVALID_DOUBLE && exitTime != INVALID_DOUBLE) {
                 ppet = entryTime - exitTime;
             }
@@ -1595,9 +1601,8 @@ MSDevice_SSM::computeMDRAC(double gap, double followerSpeed, double leaderSpeed,
     if (dv <= 0.) {
         return 0.0;    // no need to brake
     }
-    if (gap / dv == prt)
-    {
-    	return INVALID_DOUBLE;
+    if (gap / dv == prt) {
+        return INVALID_DOUBLE;
     }
     assert(followerSpeed > 0.);
     return 0.5 * dv / (gap / dv - prt);
@@ -3003,7 +3008,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             std::string position = makeStringWithNAs(e->maxMDRAC.pos);
             myOutputFile->openTag("maxMDRAC").writeAttr("time", time).writeAttr("position", position).writeAttr("type", type).writeAttr("value", value).writeAttr("speed", speed).closeTag();
         }
-    }    
+    }
     myOutputFile->closeTag();
 }
 
@@ -3700,13 +3705,13 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
         try {
             file = v.getParameter().getParameter("device.ssm.file", file);
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.measures'."), v.getParameter().getParameter("device.ssm.file", file));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.measures'."), v.getParameter().getParameter("device.ssm.file", file));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.file")) {
         try {
             file = v.getVehicleType().getParameter().getParameter("device.ssm.file", file);
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.measures'."), v.getVehicleType().getParameter().getParameter("device.ssm.file", file));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.measures'."), v.getVehicleType().getParameter().getParameter("device.ssm.file", file));
         }
     } else {
         file = oc.getString("device.ssm.file") == "" ? file : oc.getString("device.ssm.file");
@@ -3734,13 +3739,13 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
         try {
             useGeo = StringUtils::toBool(v.getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.geo'."), v.getParameter().getParameter("device.ssm.geo", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.geo'."), v.getParameter().getParameter("device.ssm.geo", "no"));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.geo")) {
         try {
             useGeo = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.geo'."), v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.geo'."), v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
         }
     } else {
         useGeo = oc.getBool("device.ssm.geo");
@@ -3761,13 +3766,13 @@ MSDevice_SSM::writePositions(const SUMOVehicle& v) {
         try {
             writePos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-positions", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.write-positions'."), v.getParameter().getParameter("device.ssm.write-positions", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.write-positions'."), v.getParameter().getParameter("device.ssm.write-positions", "no"));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-positions")) {
         try {
             writePos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.write-positions'."), v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.write-positions'."), v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
         }
     } else {
         writePos = oc.getBool("device.ssm.write-positions");
@@ -3788,13 +3793,13 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
         try {
             writeLanesPos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.write-lane-positions'."), v.getParameter().getParameter("device.ssm.write-lane-positions", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."), v.getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-lane-positions")) {
         try {
             writeLanesPos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.write-lane-positions'."), v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.write-lane-positions'."), v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no"));
         }
     } else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
@@ -3814,20 +3819,16 @@ MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, s
     if (v.getParameter().knowsParameter("device.ssm.exclude-conflict-types")) {
         try {
             typeString = v.getParameter().getParameter("device.ssm.exclude-conflict-types", "");
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.conflict-order'."), v.getParameter().getParameter("device.ssm.exclude-conflict-types", ""));
         }
-    }
-    else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.exclude-conflict-types")) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.exclude-conflict-types")) {
         try {
             typeString = v.getVehicleType().getParameter().getParameter("device.ssm.exclude-conflict-types", "");
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.conflict-order'."), v.getVehicleType().getParameter().getParameter("device.ssm.exclude-conflict-types", ""));
         }
-    }
-    else {
+    } else {
         typeString = oc.getString("device.ssm.exclude-conflict-types");
         if (oc.isDefault("device.ssm.exclude-conflict-types") && (myIssuedParameterWarnFlags & SSM_WARN_CONFLICTFILTER) == 0) {
             WRITE_MESSAGEF(TL("Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-types'. Using default of '%'."), v.getID(), typeString);
@@ -3844,7 +3845,7 @@ MSDevice_SSM::filterByConflictType(const SUMOVehicle& v, std::string deviceID, s
             confirmed.insert(FOE_ENCOUNTERTYPES.begin(), FOE_ENCOUNTERTYPES.end());
         } else if (*i == "ego") {
             confirmed.insert(EGO_ENCOUNTERTYPES.begin(), EGO_ENCOUNTERTYPES.end());
-        } else if (encounterToString(static_cast<EncounterType>(std::stoi(*i))) != "UNKNOWN"){
+        } else if (encounterToString(static_cast<EncounterType>(std::stoi(*i))) != "UNKNOWN") {
             confirmed.insert(std::stoi(*i));
         } else {
             // Given identifier is unknown
@@ -3865,13 +3866,13 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
         try {
             range = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.range'."), v.getParameter().getParameter("device.ssm.range", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.range'."), v.getParameter().getParameter("device.ssm.range", ""));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.range")) {
         try {
             range = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.range'."), v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.range'."), v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
         }
     } else {
         range = oc.getFloat("device.ssm.range");
@@ -3892,13 +3893,13 @@ MSDevice_SSM::getMDRAC_PRT(const SUMOVehicle& v) {
         try {
             prt = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.mdrac.prt", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.mdrac.prt'."), v.getParameter().getParameter("device.ssm.mdrac.prt", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."), v.getParameter().getParameter("device.ssm.mdrac.prt", ""));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.mdrac.prt")) {
         try {
             prt = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.mdrac.prt", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.mdrac.prt'."), v.getVehicleType().getParameter().getParameter("device.ssm.mdrac.prt", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.mdrac.prt'."), v.getVehicleType().getParameter().getParameter("device.ssm.mdrac.prt", ""));
         }
     } else {
         prt = oc.getFloat("device.ssm.mdrac.prt");
@@ -3921,13 +3922,13 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
         try {
             extraTime = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.extratime'."), v.getParameter().getParameter("device.ssm.extratime", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.extratime'."), v.getParameter().getParameter("device.ssm.extratime", ""));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.extratime")) {
         try {
             extraTime = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.extratime'."), v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.extratime'."), v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
         }
     } else {
         extraTime = oc.getFloat("device.ssm.extratime");
@@ -3952,13 +3953,13 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
         try {
             trajectories = StringUtils::toBool(v.getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.trajectories'."), v.getParameter().getParameter("device.ssm.trajectories", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.trajectories'."), v.getParameter().getParameter("device.ssm.trajectories", "no"));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
             trajectories = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.trajectories'."), v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.trajectories'."), v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
         }
     } else {
         trajectories = oc.getBool("device.ssm.trajectories");
@@ -3981,13 +3982,13 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         try {
             measures_str = v.getParameter().getParameter("device.ssm.measures", "");
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.measures'."), v.getParameter().getParameter("device.ssm.measures", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.measures'."), v.getParameter().getParameter("device.ssm.measures", ""));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.measures")) {
         try {
             measures_str = v.getVehicleType().getParameter().getParameter("device.ssm.measures", "");
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.measures'."), v.getVehicleType().getParameter().getParameter("device.ssm.measures", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.measures'."), v.getVehicleType().getParameter().getParameter("device.ssm.measures", ""));
         }
     } else {
         measures_str = oc.getString("device.ssm.measures");
@@ -4020,13 +4021,13 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
         try {
             thresholds_str = v.getParameter().getParameter("device.ssm.thresholds", "");
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.thresholds'."), v.getParameter().getParameter("device.ssm.thresholds", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter 'ssm.thresholds'."), v.getParameter().getParameter("device.ssm.thresholds", ""));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.thresholds")) {
         try {
             thresholds_str = v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", "");
         } catch (...) {
-            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.thresholds'."), v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", ""));
+            WRITE_WARNINGF(TL("Invalid value '%' for vType parameter 'ssm.thresholds'."), v.getVehicleType().getParameter().getParameter("device.ssm.thresholds", ""));
         }
     } else {
         thresholds_str = oc.getString("device.ssm.thresholds");
@@ -4057,7 +4058,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
             } else if (*i == "DRAC") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_DRAC));
             } else if (*i == "MDRAC") {
-                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_MDRAC));                
+                thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_MDRAC));
             } else if (*i == "PET") {
                 thresholds.insert(std::make_pair(*i, DEFAULT_THRESHOLD_PET));
             } else if (*i == "PPET") {
@@ -4088,7 +4089,7 @@ MSDevice_SSM::getParameter(const std::string& key) const {
     }
     if (key == "maxMDRAC" && !myComputeMDRAC) {
         throw InvalidArgument("Measure MDRAC is not tracked by ssm device");
-    }    
+    }
     if (key == "minPET" && !myComputePET) {
         throw InvalidArgument("Measure PET is not tracked by ssm device");
     }
@@ -4104,13 +4105,13 @@ MSDevice_SSM::getParameter(const std::string& key) const {
         double minTTC = INVALID_DOUBLE;
         double minPET = INVALID_DOUBLE;
         double maxDRAC = -INVALID_DOUBLE;
-        double maxMDRAC = -INVALID_DOUBLE;        
+        double maxMDRAC = -INVALID_DOUBLE;
         double minPPET = INVALID_DOUBLE;
         for (Encounter* e : myActiveEncounters) {
             minTTC = MIN2(minTTC, e->minTTC.value);
             minPET = MIN2(minPET, e->PET.value);
             maxDRAC = MAX2(maxDRAC, e->maxDRAC.value);
-            maxMDRAC = MAX2(maxMDRAC, e->maxMDRAC.value);            
+            maxMDRAC = MAX2(maxMDRAC, e->maxMDRAC.value);
             minPPET = MIN2(minPPET, e->minPPET.value);
         }
         if (key == "minTTC") {
@@ -4118,7 +4119,7 @@ MSDevice_SSM::getParameter(const std::string& key) const {
         } else if (key == "maxDRAC") {
             value = maxDRAC;
         } else if (key == "maxMDRAC") {
-            value = maxMDRAC;            
+            value = maxMDRAC;
         } else if (key == "minPET") {
             value = minPET;
         } else if (key == "minPPET") {

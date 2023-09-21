@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-06 12:40:33 by Eclipse SUMO netgenerate Version v1_17_0+0735-ed7251a
+<!-- generated on 2023-09-01 11:05:00 by Eclipse SUMO netgenerate Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -176,6 +176,9 @@
 
         <!-- The generated net will be written to dlr-navteq files with the given PREFIX -->
         <dlr-navteq-output value="" type="FILE"/>
+
+        <!-- The dlr-navteq output format version to write -->
+        <dlr-navteq.version value="6.5" type="STR"/>
 
         <!-- The network coordinates are written with the specified level of output precision -->
         <dlr-navteq.precision value="2" type="INT"/>
@@ -387,6 +390,9 @@
         <!-- Determines the maximal distance for joining traffic lights (defaults to 20) -->
         <tls.join-dist value="20" type="FLOAT"/>
 
+        <!-- Interprets STR[] as list of tls ids to exclude from joining -->
+        <tls.join-exclude value="" type="STR[]"/>
+
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
 
@@ -423,7 +429,7 @@
         <!-- Set INT as fixed time for intermediate vehext phase after every switch -->
         <tls.nema.vehExt value="2" type="INT"/>
 
-        <!-- Set INT as fixed time for intermediate NEMA yelow phase after every switch -->
+        <!-- Set INT as fixed time for intermediate NEMA yellow phase after every switch -->
         <tls.nema.yellow value="3" type="INT"/>
 
         <!-- Set INT as fixed time for intermediate NEMA red phase after every switch -->
@@ -468,7 +474,7 @@
         <!-- rebuild all traffic light plans in the network -->
         <tls.rebuild value="false" type="BOOL"/>
 
-        <!-- Does not instatiate traffic lights at geometry-like nodes -->
+        <!-- Does not instantiate traffic lights at geometry-like nodes -->
         <tls.discard-simple value="false" type="BOOL"/>
 
     </tls_building>
@@ -585,7 +591,7 @@
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
 
-        <!-- Build junctions with minimal shapes (igoring edge overlap) -->
+        <!-- Build junctions with minimal shapes (ignoring edge overlap) -->
         <junctions.minimal-shape value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
@@ -680,6 +686,12 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
 
         <!-- Language to use in messages -->
         <language value="C" type="STR"/>

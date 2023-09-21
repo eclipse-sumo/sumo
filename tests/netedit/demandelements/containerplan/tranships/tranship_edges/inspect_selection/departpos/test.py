@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,7 +44,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect transhipEdgeEdge
-netedit.leftClick(referencePosition, 430, 58)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
+                  netedit.positions.demandElements.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdges.inspectSelection.departPos, "dummy", False)
@@ -59,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.transhipEdges.inspectSelection.departPos, 
 netedit.modifyAttribute(netedit.attrs.transhipEdges.inspectSelection.departPos, "2.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -22,13 +22,6 @@ set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
-# disable warnings
-option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
-option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
-option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
-option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
-option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" ON)
-
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
 set(default_build_type "Release")
@@ -125,22 +118,90 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
-	# check if disable warnings
-	if (DISABLEWARNING_C5264)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
-	endif ()
-	if (DISABLEWARNING_C4355)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
-	endif ()
-	if (DISABLEWARNING_C4266)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
-	endif ()
-	if (DISABLEWARNING_C4127)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
-	endif ()
-	if (DISABLEWARNING_C26495)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
-	endif ()
+    # disable warnings (all versions)
+    option(DISABLEWARNING_C5264 "'const' variable is not used" ON)
+    option(DISABLEWARNING_C5267 "definition of implicit operator/constructor/destructor is deprecated" ON)
+    option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" ON)
+    option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" ON)
+    option(DISABLEWARNING_C4127 "conditional expression is constant" ON)
+    option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" ON)
+    # Specific warnings from MSVC15
+    if (MSVC_VERSION LESS 2000)
+        option(DISABLEWARNING_C4619 "there is no warning number xxxx" ON)
+        option(DISABLEWARNING_C4774 "format string expected not string literal" ON)
+        option(DISABLEWARNING_C4571 "structured exceptions (SEH) are no longer caught" ON)
+        option(DISABLEWARNING_C4820 "bytes padding added after data member" ON)
+        option(DISABLEWARNING_C4668 "macro not defined as a preprocessor macro, replacing with '0'" ON)
+        option(DISABLEWARNING_C4710 "function not inlined" ON)
+        option(DISABLEWARNING_C4625 "copy constructor was implicitly defined as deleted" ON)
+        option(DISABLEWARNING_C4626 "assignment operator was implicitly defined as deleted" ON)
+        option(DISABLEWARNING_C5026 "move constructor was implicitly defined as deleted" ON)
+        option(DISABLEWARNING_C5027 "move assignment was implicitly defined as deleted" ON)
+    endif()
+    # 5264
+    if (DISABLEWARNING_C5264)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
+    endif (DISABLEWARNING_C5264)
+    # 5267
+    if (DISABLEWARNING_C5267)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5267")
+    endif (DISABLEWARNING_C5267)
+    # 4355
+    if (DISABLEWARNING_C4355)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
+    endif (DISABLEWARNING_C4355)
+    # 4266
+    if (DISABLEWARNING_C4266)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
+    endif (DISABLEWARNING_C4266)
+    # 4127
+    if (DISABLEWARNING_C4127)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4127")
+    endif (DISABLEWARNING_C4127)
+    # 26495
+    if (DISABLEWARNING_C26495)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
+    endif (DISABLEWARNING_C26495)
+    # 4619
+    if (DISABLEWARNING_C4619)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4619")
+    endif (DISABLEWARNING_C4619)
+    # 4774
+    if (DISABLEWARNING_C4774)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4774")
+    endif (DISABLEWARNING_C4774)
+    # 4571
+    if (DISABLEWARNING_C4571)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4571")
+    endif (DISABLEWARNING_C4571)
+    # 4820
+    if (DISABLEWARNING_C4820)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4820")
+    endif (DISABLEWARNING_C4820)
+    # 4668
+    if (DISABLEWARNING_C4668)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4668")
+    endif (DISABLEWARNING_C4668)
+    # 4710
+    if (DISABLEWARNING_C4710)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4710")
+    endif (DISABLEWARNING_C4710)
+    # 4625
+    if (DISABLEWARNING_C4625)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625")
+    endif (DISABLEWARNING_C4625)
+    # 4626
+    if (DISABLEWARNING_C4626)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4626")
+    endif (DISABLEWARNING_C4626)
+    # 5026
+    if (DISABLEWARNING_C5026)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5026")
+    endif (DISABLEWARNING_C5026)
+    # 5027
+    if (DISABLEWARNING_C5027)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5027")
+    endif (DISABLEWARNING_C5027)
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
@@ -252,6 +313,7 @@ endif()
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
 
+# exclusive from Apple
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGL_SILENCE_DEPRECATION")
@@ -277,11 +339,25 @@ if (APPLE)
     endif ()
 endif (APPLE)
 
-#  Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
+# Specifically define variable WIN32 for compilations under windows (due an error in Shawn)
 if (GNU_COMPILER AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
     set(MINGW32 1)
+endif ()
+
+# find JuPedSim folder 
+if (SUMO_LIBRARIES AND WIN32)
+    # use version placed in SUMOLibraries
+    file(GLOB JUPEDSIM_SUMOLIBRARIES "${SUMO_LIBRARIES}/JuPedSim-*")
+    set(JuPedSim_CUSTOMDIR "${JUPEDSIM_SUMOLIBRARIES}" CACHE PATH "Custom install location of JuPedSim" FORCE)
+elseif (EXISTS "${CMAKE_SOURCE_DIR}/../JuPedSim-install")
+    # user version placed in the same directory of SUMO
+    set(JuPedSim_CUSTOMDIR "${CMAKE_SOURCE_DIR}/../JuPedSim-install" CACHE PATH "Custom install location of JuPedSim" FORCE)
+endif ()
+# check if JuPedSim folder was found
+if (JuPedSim_CUSTOMDIR)
+    message(STATUS "Using JuPedSim from ${JuPedSim_CUSTOMDIR}")
 endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
@@ -289,7 +365,7 @@ if (SUMO_LIBRARIES AND WIN32)
     # set option for install debug and release runtime dlls
     option(INSTALL_DLL_RUNTIMES "Copy debug and release runtimes for MSVC" true)
     # Special option for MinGW32
-	message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
+    message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
@@ -304,7 +380,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-                                 "${FREETYPE_PATH}/bin/*.dll"
+#                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
@@ -418,8 +494,9 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
-    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
+    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JuPedSim_CUSTOMDIR}/bin/*.dll")
 
     # GDAL (for geopositioning)
     find_package(GDAL)
@@ -448,7 +525,7 @@ if (CHECK_OPTIONAL_LIBS)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} OSG")
         endif ()
 
-        # GL2PS (deprecated, will be changed by FreeType
+        # GL2PS (deprecated, will be changed by FreeType)
         find_package(GL2PS)
         if (GL2PS_FOUND)
             include_directories(SYSTEM ${GL2PS_INCLUDE_DIR})
@@ -465,13 +542,20 @@ if (CHECK_OPTIONAL_LIBS)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif (EIGEN3_FOUND)
 
-    # set(JPS_FOUND 1)
-    if (JPS_FOUND)
-        add_library(jps SHARED IMPORTED) # or STATIC instead of SHARED
-        set_target_properties(jps PROPERTIES IMPORTED_LOCATION "/tmp/libjps.so")
-        include_directories(SYSTEM "/tmp/include")
-        set(HAVE_JPS 1)
-    endif (JPS_FOUND)
+    find_package(JuPedSim CONFIG HINTS ${JuPedSim_CUSTOMDIR} QUIET)
+    if (JuPedSim_FOUND)
+        find_package(GEOS)
+        if (GEOS_FOUND)
+            include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
+            set(JPS_VERSION "${JuPedSim_VERSION_MINOR}0${JuPedSim_VERSION_PATCH}")
+            set(ENABLED_FEATURES "${ENABLED_FEATURES} JuPedSim")
+            message(STATUS "Found JuPedSim: ${JuPedSim_DIR} ${JuPedSim_VERSION}")
+        else (GEOS_FOUND)
+            message(STATUS "Could NOT find GEOS! JuPedSim requires GEOS.")
+        endif (GEOS_FOUND)
+    else (JuPedSim_FOUND)
+        message(STATUS "Could NOT find JuPedSim! Skipping JuPedSim integration.")
+    endif (JuPedSim_FOUND)
 
     # add optional libraries
     list(APPEND SUMO_LIBRARIES_DLL ${SUMO_OPTIONAL_LIBRARIES_DLL})
@@ -626,7 +710,7 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         get_filename_component(JAVA_BIN ${Java_JAVAC_EXECUTABLE} DIRECTORY)
         get_filename_component(JAVA_HOME ${JAVA_BIN} DIRECTORY)
         set(MVN_COMMAND_PREFIX ${CMAKE_COMMAND} -E env JAVA_HOME=${JAVA_HOME})
-        set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
+#        set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
         COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install

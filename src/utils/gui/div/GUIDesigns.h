@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -45,6 +45,19 @@ class MFXMenuCheckIcon;
 /// @brief elements with big images
 #define GUIDesignBigSizeElement 138
 
+/// @name ComboBox sizes
+/// @{
+/// @brief combo box size small
+#define GUIDesignComboBoxSizeSmall  5
+
+/// @brief combo box medium small
+#define GUIDesignComboBoxSizeMedium 10
+
+/// @brief combo box large small
+#define GUIDesignComboBoxSizeLarge  15
+
+/// @}
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -73,23 +86,20 @@ class MFXMenuCheckIcon;
 /// @brief button extended over over Frame with thick and raise frame
 #define GUIDesignButton                         (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief button extended over over Frame with thick and raise frame
+#define GUIDesignButtonLeft                     (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief button extended over over column with thick and raise frame
 #define GUIDesignButtonAttribute                (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief little rectangular button used in frames (For example, in "help" buttons)
-#define GUIDesignButtonRectangular              (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button only with icon
 #define GUIDesignButtonIcon                     (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief button only with icon
-#define GUIDesignButtonIconRectangular          (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, GUIDesignHeight, 2, 2, 2, 2
+/// @brief little rectangular button used in frames (For example, in "help" buttons)
+#define GUIDesignButtonRectangular              (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, (GUIDesignHeight + GUIDesignHeight), GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief button rectangular with thick and raise frame with a width of 100
-#define GUIDesignButtonRectangular100           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief button rectangular with thick and raise frame with a width of 150
-#define GUIDesignButtonRectangular150           (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
+/// @brief button rectangular with thick and raise frame with the given width
+#define GUIDesignButtonFixed(width)             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button used in GroupBoxModule
 #define GUIDesignButtonMFXGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
@@ -282,7 +292,7 @@ class MFXMenuCheckIcon;
 /// @}
 
 
-/// @name FXComboBox
+/// @name MFXComboBoxIcon
 /// @{
 /// @brief Combo box editable extended over the all frame
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
@@ -427,6 +437,9 @@ class MFXMenuCheckIcon;
 
 /// @brief design for toolbar
 #define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
+
+/// @brief design for toolbar supermodes (grip + buttons)
+#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, 23 + (3 * 100)
 
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
@@ -703,8 +716,26 @@ public:
     static MFXMenuCheckIcon* buildFXMenuCheckboxIcon(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
 
     /// @brief build menu command
-    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable = false);
+
+    /// @brief build menu command with help
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, const std::string& help, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable = false);
 
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
+
+    /// Construct label with given text and icon
+    static FXLabel* buildFXLabel(FXComposite* p, const std::string& text,  const std::string& tip, const std::string& help,
+                                 FXIcon* ic, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
+                                 FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build button
+    static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                   FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build radio button
+    static FXRadioButton* buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                             FXObject* tgt, FXSelector sel, FXuint opts = RADIOBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                             FXint pl = DEFAULT_PAD,FXint pr = DEFAULT_PAD,FXint pt = DEFAULT_PAD,FXint pb = DEFAULT_PAD);
 };

@@ -3,20 +3,20 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 dummyTerminate
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 end
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 dummy
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 -30
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 20.5
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 22
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

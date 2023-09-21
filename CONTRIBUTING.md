@@ -12,7 +12,7 @@ tasks like route finding, visualization, network import and emission
 calculation. SUMO can be enhanced with custom models and it provides various
 APIs to remotely control and influence the simulation.
 
-* https://eclipse.org/sumo
+* https://eclipse.dev/sumo
 
 ## Developer resources
 
@@ -23,8 +23,8 @@ more.
 
 The project maintains the following source code repositories
 
-* https://github.com/eclipse/sumo
-* https://github.com/eclipse/sumo.website
+* https://github.com/eclipse-sumo/sumo
+* https://github.com/eclipse-sumo/sumo.website
 * https://github.com/dlr-ts/homebrew-sumo
 
 We are happily reviewing pull requests against the master of this repository.

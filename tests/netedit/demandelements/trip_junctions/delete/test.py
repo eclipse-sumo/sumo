@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # create route using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +50,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 85, 360)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -60,7 +63,8 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete junction with demand elements
-netedit.leftClick(referencePosition, 85, 380)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -69,11 +73,11 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 85, 380)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
 
 # Check undo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

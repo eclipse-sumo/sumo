@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Eclipse Sumo project.
 
-* Project home: https://eclipse.org/sumo
+* Project home: https://eclipse.dev/sumo
 
 ## Trademarks
 
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 The project maintains the following source code repositories:
 
-* https://github.com/eclipse/sumo
+* https://github.com/eclipse-sumo/sumo
 
 ## Third-party Content
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -47,6 +47,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendlyPos
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -56,8 +57,8 @@ public:
      */
     GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color,
                        const Position& pos, bool geo, const std::string& lane, double posOverLane,
-                       bool friendlyPos, double posLat, double layer, double angle, const std::string& imgFile,
-                       bool relativePath, double width, double height);
+                       bool friendlyPos, double posLat, const std::string& icon, double layer, double angle,
+                       const std::string& imgFile, bool relativePath, double width, double height);
 
     /// @brief Destructor
     virtual ~GUIPointOfInterest();

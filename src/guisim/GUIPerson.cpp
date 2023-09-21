@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,6 +27,7 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSStageWaiting.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ScopedLocker.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -224,22 +225,22 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
-    ret->mkItem("stage", true, new FunctionBindingString<GUIPerson>(this, &MSTransportable::getCurrentStageDescription));
+    ret->mkItem(TL("stage"), true, new FunctionBindingString<GUIPerson>(this, &MSTransportable::getCurrentStageDescription));
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
-    ret->mkItem("stage index", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
-    ret->mkItem("start edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
-    ret->mkItem("dest edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
-    ret->mkItem("dest stop [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
-    ret->mkItem("arrivalPos [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
-    ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
-    ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
-    ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
-    ret->mkItem("speed factor", false, getChosenSpeedFactor());
-    ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
-    ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
-    ret->mkItem("vehicle [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
-    ret->mkItem("stop duration [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStopDuration));
-    ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
+    ret->mkItem(TL("stage index"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
+    ret->mkItem(TL("start edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
+    ret->mkItem(TL("dest edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
+    ret->mkItem(TL("dest stop [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
+    ret->mkItem(TL("arrival position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
+    ret->mkItem(TL("edge [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
+    ret->mkItem(TL("position [m]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
+    ret->mkItem(TL("speed [m/s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getSpeed));
+    ret->mkItem(TL("speed factor"), false, getChosenSpeedFactor());
+    ret->mkItem(TL("angle [degree]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
+    ret->mkItem(TL("waiting time [s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem(TL("vehicle [id]"), true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
+    ret->mkItem(TL("stop duration [s]"), true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStopDuration));
+    ret->mkItem(TL("desired depart [s]"), false, time2string(getParameter().depart));
     // close building
     ret->closeBuilding(&getParameter());
     return ret;
@@ -249,13 +250,13 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIPerson::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, "vType:" + myVType->getID());
-    ret->mkItem("length", false, myVType->getLength());
-    ret->mkItem("width", false, myVType->getWidth());
-    ret->mkItem("height", false, myVType->getHeight());
-    ret->mkItem("minGap", false, myVType->getMinGap());
-    ret->mkItem("mass [kg]", false, myVType->getMass());
-    ret->mkItem("desired max speed [m/s]", false, myVType->getDesiredMaxSpeed());
-    ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
+    ret->mkItem(TL("length"), false, myVType->getLength());
+    ret->mkItem(TL("width"), false, myVType->getWidth());
+    ret->mkItem(TL("height"), false, myVType->getHeight());
+    ret->mkItem(TL("minGap"), false, myVType->getMinGap());
+    ret->mkItem(TL("mass [kg]"), false, myVType->getMass());
+    ret->mkItem(TL("desired max speed [m/s]"), false, myVType->getDesiredMaxSpeed());
+    ret->mkItem(TL("maximum speed [m/s]"), false, myVType->getMaxSpeed());
     ret->closeBuilding(&(myVType->getParameter()));
     return ret;
 }
@@ -562,7 +563,8 @@ GUIPerson::getStageIndexDescription() const {
     if (hasArrived()) {
         return "arrived";
     }
-    return toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1);
+    // there is always the "start" stage which we do not count here because it is not strictly part of the plan
+    return toString(getCurrentStageIndex()) + " of " + toString(getNumStages() - 1);
 }
 
 

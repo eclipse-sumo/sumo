@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 09:46:31 by Eclipse SUMO netedit Version v1_12_0+1796-1793b31114e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-07-07 12:45:54 by Eclipse SUMO netedit Version v1_18_0+0190-5fd27c2df92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.31Mar092738.2444\netedit.gui\netElements\connections\inspect_TLS\type\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.connections.07Jul123648.3269/netedit.daily.net.connections/netelements/connections/inspect_tls/type/log.txt"/>
     </report>
 
 </configuration>

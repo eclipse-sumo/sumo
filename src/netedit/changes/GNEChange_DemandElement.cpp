@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -50,7 +50,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // make sure that element isn't in net before removing
         if (myDemandElement->getNet()->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
-            myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+            myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
         }
         delete myDemandElement;
     }
@@ -67,7 +67,7 @@ GNEChange_DemandElement::undo() {
             myDemandElement->unselectAttributeCarrier();
         }
         // delete demand element from net
-        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
         // restore container
         restoreHierarchicalContainers();
     } else {
@@ -84,7 +84,7 @@ GNEChange_DemandElement::undo() {
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
     const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
@@ -119,13 +119,13 @@ GNEChange_DemandElement::redo() {
             myDemandElement->unselectAttributeCarrier();
         }
         // delete demand element from net
-        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement, true);
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
     // update stack labels
     const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();

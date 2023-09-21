@@ -1,0 +1,27 @@
+/* XPM */
+static const char *flag_minus_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c red",
+"X c #FFC000",
+"o c #1200FF",
+"O c none",
+/* pixels */
+"OOOOOOOOO OOOOOO",
+"OOOOOOOO X OOOOO",
+"      O X  OOOOO",
+"       X .. OOOO",
+"OOOOOO X .. OOOO",
+"OOOOO X oo. OOOO",
+"OOOO X ooo.. OOO",
+"OOOO X  oo...  O",
+"OOO X OO oo.... ",
+"OO X OOO oooo.. ",
+"OO X OOO ooooo O",
+"O X OOOOO ooo OO",
+"O X OOOOOO  o OO",
+" X OOOOOOOOO OOO",
+"O  OOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO"
+};

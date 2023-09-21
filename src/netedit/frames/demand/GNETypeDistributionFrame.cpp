@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -17,17 +17,7 @@
 ///
 // The Widget for edit type distribution elements
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/demand/GNEVType.h>
-#include <netedit/dialogs/GNEVehicleTypeDialog.h>
-#include <netedit/dialogs/GNEVTypeDistributionsDialog.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNETypeDistributionFrame.h"
 
@@ -36,18 +26,20 @@
 // method definitions
 // ===========================================================================
 
-// ---------------------------------------------------------------------------
-// GNETypeDistributionFrame - methods
-// ---------------------------------------------------------------------------
-
 GNETypeDistributionFrame::GNETypeDistributionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Type Distributions") {
+    GNEFrame(viewParent, viewNet, TL("Type Distributions")) {
 
-    // Create vehicle type attributes editor
-    myTypeAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
+    /// @brief type editor
+    myDistributionEditor = new GNEDistributionFrame::DistributionEditor(this, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIcon::VTYPEDISTRIBUTION);
 
-    // create module for open extended attributes dialog
-    myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
+    /// @brief type distribution selector
+    myDistributionSelector = new GNEDistributionFrame::DistributionSelector(this);
+
+    /// @brief distribution attributes editor
+    myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
+
+    // Create type distribution attributes editor
+    myDistributionValuesEditor = new GNEDistributionFrame::DistributionValuesEditor(this, myDistributionEditor, myDistributionSelector, myAttributesEditor, SUMO_TAG_VTYPE);
 }
 
 
@@ -56,14 +48,25 @@ GNETypeDistributionFrame::~GNETypeDistributionFrame() {}
 
 void
 GNETypeDistributionFrame::show() {
+    // refresh type selector
+    myDistributionSelector->refreshDistributionSelector();
     // show frame
     GNEFrame::show();
 }
 
 
-void
-GNETypeDistributionFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
+GNEDistributionFrame::DistributionSelector*
+GNETypeDistributionFrame::getDistributionSelector() const {
+    return myDistributionSelector;
+}
 
+
+void
+GNETypeDistributionFrame::attributeUpdated(SumoXMLAttr attribute) {
+    if (attribute == SUMO_ATTR_ID) {
+        // refresh distribution selector IDs
+        myDistributionSelector->refreshDistributionIDs();
+    }
 }
 
 /****************************************************************************/

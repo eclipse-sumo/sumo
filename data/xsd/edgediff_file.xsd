@@ -48,7 +48,7 @@
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="sidewalkWidth" type="nonNegativeFloatType"/>
         <xsd:attribute name="bikeLaneWidth" type="nonNegativeFloatType"/>
-        <xsd:attribute name="distance" type="xsd:float"/>
+        <xsd:attribute name="distance" type="floatType"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">

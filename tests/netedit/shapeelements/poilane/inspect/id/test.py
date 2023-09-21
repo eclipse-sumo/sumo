@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -47,20 +47,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 336, 210)
 
 # Change parameter ID with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.id, "poi_1", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.id, "poi_1", True)
 
 # Change parameter ID with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.id, "", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.id, "", True)
 
 # Change parameter ID with a non valid value (invalid)
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.id, "ID with spaces", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.id, "ID with spaces", True)
 
 # Change parameter ID with a valid value
-netedit.modifyAttribute(netedit.attrs.POILane.inspect.id, "newID", True)
+netedit.modifyAttribute(netedit.attrs.poiLane.inspect.id, "newID", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -55,7 +55,7 @@ GUIDialog_Feedback::GUIDialog_Feedback(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonFrame, TL("OK") , "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -30,6 +30,9 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
+#ifdef JPS_VERSION
+#include <microsim/transportables/MSPModel_JuPedSim.h>
+#endif
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
@@ -63,6 +66,10 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
         if (model == "striping") {
             myMovementModel = new MSPModel_Striping(oc, net);
+#ifdef JPS_VERSION
+        } else if (model == "jupedsim") {
+            myMovementModel = new MSPModel_JuPedSim(oc, net);
+#endif
         } else if (model == "nonInteracting") {
             myMovementModel = myNonInteractingModel;
         } else {

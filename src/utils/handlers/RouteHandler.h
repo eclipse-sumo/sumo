@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -55,13 +55,13 @@ public:
     virtual void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) = 0;
 
     /// @brief build vType distribution
-    virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const int deterministic, const std::vector<std::string>& vTypes) = 0;
+    virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const int deterministic,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
 
     /// @brief build route
     virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
                             const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
-                            const Parameterised::Map& routeParameters) = 0;
+                            const double probability, const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build embedded route
     virtual void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
@@ -69,7 +69,8 @@ public:
                                     const Parameterised::Map& routeParameters) = 0;
 
     /// @brief build route distribution
-    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id) = 0;
+    virtual void buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
+                                        const std::vector<std::string>& vTypeIDs, const std::vector<double>& probabilities) = 0;
 
     /// @brief build a vehicle over an existent route
     virtual void buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;
@@ -85,6 +86,10 @@ public:
     virtual void buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
 
+    /// @brief build trip (from-to TAZs)
+    virtual void buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTazID, const std::string& toTazID) = 0;
+
     /// @brief build flow (from-to edges)
     virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) = 0;
@@ -93,6 +98,10 @@ public:
     virtual void buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                                     const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
 
+    /// @brief build flow (from-to TAZs)
+    virtual void buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromTAZID, const std::string& toTAZID) = 0;
+
     /// @brief build person
     virtual void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) = 0;
 
@@ -100,14 +109,16 @@ public:
     virtual void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters) = 0;
 
     /// @brief build person trip
-    virtual void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                                 const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                                 double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) = 0;
+    virtual void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromTAZID,
+                                 const std::string& fromJunctionID, const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID,
+                                 const std::string& toBusStopID, const std::string& toTrainStopID, double arrivalPos, const std::vector<std::string>& types,
+                                 const std::vector<std::string>& modes, const std::vector<std::string>& lines) = 0;
 
     /// @brief build walk
-    virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                           const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) = 0;
+    virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromTAZID,
+                           const std::string& fromJunctionID, const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID,
+                           const std::string& toBusStopID, const std::string& toTrainStopID, const std::vector<std::string>& edgeIDs, const std::string& routeID,
+                           double arrivalPos) = 0;
 
     /// @brief build ride
     virtual void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
@@ -161,6 +172,9 @@ private:
 
     /// @brief write error "invalid id"
     void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
+
+    /// @brief write error "invalid distribution"
+    void writeErrorInvalidDistribution(const SumoXMLTag tag, const std::string& id);
 
     /// @name parse route element attributes
     /// @{

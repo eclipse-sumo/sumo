@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,14 +37,12 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
-# change zoom
-netedit.setZoom("0", "-6", "5")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, 310, 140)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.departPos, "", False)
@@ -59,8 +57,7 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.departPos, "50
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.departPos, "20", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

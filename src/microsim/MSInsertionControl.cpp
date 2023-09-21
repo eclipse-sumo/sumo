@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Mon, 12 Mar 2001
 ///
 // Inserts vehicles into the network when their departure time is reached
@@ -112,6 +113,16 @@ MSInsertionControl::initScale(const std::string vtypeid) {
     } else {
         // rng is not used since vtypeid is not a distribution
         return vc.getVType(vtypeid, nullptr, true)->getParameter().scale;
+    }
+}
+
+
+void
+MSInsertionControl::updateScale(const std::string vtypeid) {
+    for (std::vector<Flow>::iterator it = myFlows.begin(); it != myFlows.end(); ++it) {
+        if (it->pars->vtypeid == vtypeid) {
+            it->scale = initScale(vtypeid);
+        }
     }
 }
 

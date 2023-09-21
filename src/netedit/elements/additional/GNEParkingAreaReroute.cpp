@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -132,7 +132,7 @@ GNEParkingAreaReroute::getParentName() const {
 void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+    drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
@@ -183,7 +183,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_VISIBLE:
         case GNE_ATTR_SELECTED:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -197,7 +197,7 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_PARKING:
-            return isValidAdditionalID(value) && (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         case SUMO_ATTR_VISIBLE:
@@ -230,7 +230,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_PARKING:
             replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 1);

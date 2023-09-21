@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-24 15:52:24 by Eclipse SUMO netgenerate Version v1_16_0+2368-d796cc6b4bc
+<!-- generated on 2023-09-20 14:53:14 by Eclipse SUMO netgenerate Version v1_14_1+9280-3c4c32a8be8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -125,6 +125,7 @@
             <xsd:element name="geometry.remove.keep-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.min-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.remove.width-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="geometry.remove.max-junction-size" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-segment-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="geometry.max-grade.fix" type="boolOptionType" minOccurs="0"/>
@@ -177,6 +178,7 @@
             <xsd:element name="tls.guess.joining" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.join-dist" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tls.uncontrolled-within" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ignore-internal-junction-jam" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.cycle.time" type="intOptionType" minOccurs="0"/>
@@ -255,6 +257,7 @@
             <xsd:element name="junctions.limit-turn-speed.warn.turn" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -164,6 +164,25 @@ GNENetworkElement::getHierarchyName() const {
         return getPopUpID();
     } else {
         return getTagStr();
+    }
+}
+
+
+void
+GNENetworkElement::setNetworkElementID(const std::string &newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // enable save add elements if this network element has children
+    if (getChildAdditionals().size() > 0) {
+        myNet->getSavingStatus()->requireSaveAdditionals();
+    }
+    // enable save demand elements if this network element has children
+    if (getChildDemandElements().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDemandElements();
+    }
+    // enable save data elements if this network element has children
+    if (getChildGenericDatas().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDataElements();
     }
 }
 

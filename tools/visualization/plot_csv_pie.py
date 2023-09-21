@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -31,37 +31,33 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 from sumolib.visualization import helpers  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import matplotlib.pyplot as plt  # noqa
 
 
 def main(args=None):
     """The main function; parses options and plots"""
     # ---------- build and read options ----------
-    from optparse import OptionParser
-    optParser = OptionParser()
-    optParser.add_option("-i", "--input", dest="input", metavar="FILE",
-                         help="Defines the csv file to use as input")
-    optParser.add_option("-p", "--percentage", dest="percentage", action="store_true",
-                         default=False, help="Interprets read measures as percentages")
-    optParser.add_option("-r", "--revert", dest="revert", action="store_true",
-                         default=False, help="Reverts the order of read values")
-    optParser.add_option("--no-labels", dest="nolabels", action="store_true",
-                         default=False, help="Does not plot the labels")
-    optParser.add_option("--shadow", dest="shadow", action="store_true",
-                         default=False, help="Puts a shadow below the circle")
-    optParser.add_option("--startangle", dest="startangle",
-                         type="float", default=0, help="Sets the start angle")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                         default=False, help="If set, the script says what it's doing")
+    ap = ArgumentParser()
+    ap.add_argument("-i", "--input", dest="input", category="input", type=ap.file, metavar="FILE",
+                    required=True, help="Defines the csv file to use as input")
+    ap.add_argument("-p", "--percentage", dest="percentage", action="store_true",
+                    default=False, help="Interprets read measures as percentages")
+    ap.add_argument("-r", "--revert", dest="revert", action="store_true",
+                    default=False, help="Reverts the order of read values")
+    ap.add_argument("--no-labels", dest="nolabels", action="store_true",
+                    default=False, help="Does not plot the labels")
+    ap.add_argument("--shadow", dest="shadow", action="store_true",
+                    default=False, help="Puts a shadow below the circle")
+    ap.add_argument("--startangle", dest="startangle",
+                    type=float, default=0, help="Sets the start angle")
+    ap.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                    default=False, help="If set, the script says what it's doing")
     # standard plot options
-    helpers.addInteractionOptions(optParser)
-    helpers.addPlotOptions(optParser)
+    helpers.addInteractionOptions(ap)
+    helpers.addPlotOptions(ap)
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
-
-    if options.input is None:
-        print("Error: at least one csv file must be given")
-        sys.exit(1)
+    options = ap.parse_args(args=args)
 
     labels = []
     vals = []
@@ -101,6 +97,6 @@ def main(args=None):
 
 if __name__ == "__main__":
     try:
-        main(sys.argv)
+        main()
     except ValueError as e:
         sys.exit(e)

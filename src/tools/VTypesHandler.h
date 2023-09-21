@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -91,13 +91,7 @@ public:
     void addWalk(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
-    void addPerson(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
     void addRide(const SUMOSAXAttributes& attrs) {
-        UNUSED_PARAMETER(attrs);
-    }
-    void addContainer(const SUMOSAXAttributes& attrs) {
         UNUSED_PARAMETER(attrs);
     }
     void addTransport(const SUMOSAXAttributes& attrs) {

@@ -5,5 +5,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_2" depart="20.00" insertionChecks="leaderGap junction speedLimit all" from="gneE2" to="gneE5"/>
+    <trip id="trip_2" depart="20.00" insertionChecks="leaderGap junction speedLimit all" from="Edge0" to="Edge2"/>
 </routes>

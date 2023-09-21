@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,20 +38,20 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, 400, 185)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, 265, 188)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
+                  netedit.positions.demandElements.stopEdge.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.permitted, "permitA permitB", False)
+netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.permitted, "permitA permitB", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

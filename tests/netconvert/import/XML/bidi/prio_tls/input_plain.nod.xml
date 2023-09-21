@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-04 16:01:15 by Eclipse SUMO netconvert Version v1_18_0+0064-44003d8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="10"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-401012.56,-5810429.63" convBoundary="0.00,0.00,212.39,226.12" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="10" x="212.39" y="0.00" type="priority"/>
+    <node id="11" x="143.04" y="223.11" type="priority"/>
+    <node id="12" x="61.55" y="226.12" type="priority"/>
+    <node id="13" x="0.81" y="141.79" type="priority"/>
+    <node id="14" x="74.68" y="184.85" type="traffic_light" tl="14" tlType="actuated">
+        <param key="origEdgeIds" value="-178028204#5 -178028204#6 -178028204#7 -178028204#8 -179699939#10 -179699939#11 -179699939#12 -179699939#9 178028204#5 178028204#6 178028204#7 178028204#8 179699939#10 179699939#11 179699939#12 179699939#9"/>
+        <param key="origId" value="237254713 3234767440 5641118083 5641118084 5641118086"/>
+    </node>
+</nodes>

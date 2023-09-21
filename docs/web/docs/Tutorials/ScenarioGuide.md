@@ -32,7 +32,7 @@ to convert the data to a simple XML-format which can be read by
 ## If you do not yet have any network data
 
 Use publicly available network data from
-[OpenStreetMap](http://www.openstreetmap.org/) as described here:
+[OpenStreetMap](https://www.openstreetmap.org/) as described here:
 [Networks/Import/OpenStreetMapDownload](../Networks/Import/OpenStreetMapDownload.md).
 Then import the network as described here:
 [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md).

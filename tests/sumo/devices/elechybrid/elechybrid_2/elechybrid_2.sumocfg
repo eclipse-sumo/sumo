@@ -22,10 +22,6 @@
          <device.elechybrid.explicit value="test1,test2"/>
     </elechybrid_device>
     
-    <battery>
-         <device.battery.explicit value="test1"/>
-    </battery>
-    
     <output>
         <tripinfo-output.write-unfinished  value="true"/>
         <stop-output value="stopinfo_out.xml"/>

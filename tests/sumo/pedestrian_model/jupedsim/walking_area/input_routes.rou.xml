@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-23 07:53:09.763708 by randomTrips.py v1_16_0+1740-bd1a7123e59
+<configuration>
+    <end value="10"/>
+    <net-file value="geometry_building_test_netgenerate_simplified.net.xml"/>
+    <persontrips value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <personTrip from="1464" to="-1388"/>
+    </person>
+    <person id="1" depart="1.00">
+        <personTrip from="1388" to="1388"/>
+    </person>
+    <person id="2" depart="2.00">
+        <personTrip from="1464" to="1464"/>
+    </person>
+    <person id="3" depart="3.00">
+        <personTrip from="533" to="-1388"/>
+    </person>
+    <person id="4" depart="4.00">
+        <personTrip from="1391" to="-1388"/>
+    </person>
+    <person id="5" depart="5.00">
+        <personTrip from="1388" to="1391"/>
+    </person>
+    <person id="6" depart="6.00">
+        <personTrip from="-1388" to="-1388"/>
+    </person>
+    <person id="7" depart="7.00">
+        <personTrip from="1464" to="1391"/>
+    </person>
+    <person id="8" depart="8.00">
+        <personTrip from="1388" to="1391"/>
+    </person>
+    <person id="9" depart="9.00">
+        <personTrip from="533" to="-1388"/>
+    </person>
+</routes>

@@ -20,7 +20,7 @@ same header files as Libsumo.
 - C++ interface based on static functions and a few simple wrapper
   classes for results which can be linked directly to the client code
 - Pre-built language bindings for Java and Python (using
-  [SWIG](http://www.swig.org/))
+  [SWIG](https://www.swig.org/))
 - Future support for other programming languages via SWIG
 
 Unlike Libsumo, Libtraci allows

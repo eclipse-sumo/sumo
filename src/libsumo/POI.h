@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -63,9 +63,12 @@ public:
     static void setHeight(const std::string& poiID, double height);
     static void setAngle(const std::string& poiID, double angle);
     static void setImageFile(const std::string& poiID, const std::string& imageFile);
-    static bool add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType = "", int layer = 0, const std::string& imgFile = "", double width = 1, double height = 1, double angle = 0);
+    static bool add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color,
+                    const std::string& poiType = "",const std::string& icon = "", int layer = 0,
+                    const std::string& imgFile = "", double width = 1, double height = 1, double angle = 0);
     static bool remove(const std::string& poiID, int layer = 0);
-    static void highlight(const std::string& poiID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
+    static void highlight(const std::string& poiID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255),
+                          double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
 
 
 #ifndef LIBTRACI

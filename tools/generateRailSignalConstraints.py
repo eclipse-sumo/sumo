@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -95,10 +95,10 @@ arrival and until times:
 
 Given two vehicles A and B which stop at the same location, if A arrives at the
 stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
-All subsquent stops of B are marked as invalid and will not
+All subsequent stops of B are marked as invalid and will not
 participate in constraint generation. If the stop where overtaking took place
 doesn't have a 'started' value (which implies that the original schedule is
-inconsistent), then this stop is also mared as invalid.
+inconsistent), then this stop is also marked as invalid.
 
 If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
@@ -106,7 +106,7 @@ enforce an order in this case (and local desired order is ambiguous).
 
 Another kind of inconsistency is indicated by 'ended' times that lie ahead of
 the 'until' time of the respective stop by a significant margin (--.
-This situation may corrrespond to the actions of
+This situation may correspond to the actions of
 a real-life dispatcher. In such a case, the must not be constraint any further
 since it is no longer running according to the schedule.
 
@@ -270,7 +270,7 @@ def formatStopTimes(arrival, until, started, ended):
     if started is not None:
         times.append(started)
     if ended is not None:
-        assert(started is not None)
+        assert started is not None
         times.append(ended)
     return "(%s)" % ', '.join(map(humanReadableTime, times))
 
@@ -349,7 +349,7 @@ def getNextStraight(edge, nextDict):
 
 
 def getBidiSequence(options, net, edge):
-    """find continuous sequene of bidi edges upstream and downstream of the given edge within the given range.
+    """find continuous sequence of bidi edges upstream and downstream of the given edge within the given range.
        The search in each direction is aborted when encountering a switch"""
     result = []
     if edge.getBidi() is None:
@@ -417,7 +417,7 @@ def getStopRoutes(net, options, stopEdges, stopEnds, bidiStops):
     begin = parseTime(options.begin)
     for vehicle in sumolib.xml.parse(options.routeFile, 'vehicle', heterogeneous=True):
         depart = parseTime(vehicle.depart)
-        if depart < begin:
+        if depart is not None and depart < begin:
             continue
         departTimes[vehicle.id] = depart
         numRoutes += 1
@@ -445,7 +445,7 @@ def getStopRoutes(net, options, stopEdges, stopEnds, bidiStops):
             stopEdge = stopEdges[stop.busStop]
             while edges[routeIndex] != stopEdge:
                 routeIndex += 1
-                assert(routeIndex < len(edges))
+                assert routeIndex < len(edges)
             edgesBefore = edges[lastIndex + 1: routeIndex + 1]
             stop.setAttribute("prevTripId", tripId)
             stop.setAttribute("prevLine", line)
@@ -703,8 +703,8 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
 
             # the stop where overtaking was detected can still be used for
             # signal switching but subsequent stops cannot (as they might
-            # involve a mix of scheduled timeing (arrival/until) and actual
-            # timings (started/ende)
+            # involve a mix of scheduled timing (arrival/until) and actual
+            # timings (started/ended)
             if overtaken > 1:
                 # print("invalid veh=%s stop=%s arrival=%s until=%s" %
                 #        (stop.vehID, stop.busStop,
@@ -833,7 +833,7 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
     """ add more items to stopRoutes2 for the common
     busStop but keep the edgeBefore of the original stops
     """
-    assert(stop.busStop != stop2.busStop)
+    assert stop.busStop != stop2.busStop
     if stop.vehID == stop2.vehID:
         return
     route = vehicleStopRoutes[stop.vehID]
@@ -1208,7 +1208,9 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 pIsDepart = len(pEdges) == 1 and pIndex == 0
                 # usually, subsequent departures do not require constraints
                 # (unless depart, until and ended out of sync)
-                if not pIsDepart or departTimes[nStop.vehID] < departTimes[pStop.vehID]:
+                if not pIsDepart or (departTimes[nStop.vehID] is not None
+                                     and departTimes[pStop.vehID] is not None
+                                     and departTimes[nStop.vehID] < departTimes[pStop.vehID]):
                     # find edges after stop
                     if busStop == options.debugStop:
                         print(i,
@@ -1443,12 +1445,14 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
         for edgesBefore in sorted(approaches.keys()):
             stops = approaches[edgesBefore]
             oRoutes = set()
-            stopBidi = getBidiID(net, edgesBefore[-1])
+            stopEdgeBidi = getBidiID(net, edgesBefore[-1])
             for edge in edgesBefore:
                 if edge in usedBidi:
                     bidi = getBidiID(net, edge)
                     for route in edge2Route[bidi]:
-                        if stopBidi not in route:
+                        # insertion on the stopEdgeBidi may also define a bidi
+                        # conflict (i.e. with a foe vehicle that has delayed insertion w.r.t it's schedule)
+                        if stopEdgeBidi not in route[1:]:
                             oRoutes.add(route)
             if oRoutes:
                 # print(edgesBefore, stop, oRoutes)
@@ -1471,11 +1475,18 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             # since the route could be looped we must find all points of divergence
                             sI2b = -1  # stop index of previous divergence
                             prevEdge = None
+                            needInitialDivergence = False
                             for sI2, (edgesBefore2, stop2) in enumerate(stopRoute2):
+                                if sI2 == 0:
+                                    # this is an insertion related conflict and we don't want to find a signal
+                                    #  before the insertion edge
+                                    continue
                                 if sI2 < sI2b:
                                     continue
                                 for e in edgesBefore2:
                                     if e in bidiBefore:
+                                        if needInitialDivergence:
+                                            continue
                                         # if the opposite train enters the conflict section with a reversal
                                         # this doesn't provide for a useful entry signal
                                         # (we still call findDivergence to advance sI2b)
@@ -1500,10 +1511,15 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                                 print("edge:%s" % e)
 
                                         break
+                                    else:
+                                        needInitialDivergence = False
                                     prevEdge = e
                                 if sI2b is None:
                                     # no divergence found
                                     break
+                                # after finding a conflict, we first need to find a new divergence
+                                # as starting point for the next bidi conflict
+                                needInitialDivergence = True
 
                     for conflict in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
                                                          stopRoute, edgesBefore, arrivals):
@@ -1607,7 +1623,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
 
                 # bidi conflicts can profit from additional comments/params
                 busStop2 = [("busStop2", pStop.busStop)]
-                # record stops preceeding the conflict section for ego and foe vehicle
+                # record stops preceding the conflict section for ego and foe vehicle
                 if sIb > 0:
                     busStop2.append(("priorStop", stopRoute[sIb - 1][1].busStop))
                 if sI2 > 0:
@@ -1668,7 +1684,7 @@ def checkBidiConsistency(conflicts, verbose):
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
     """return all edges along the route starting at the given stop index and startEdge
-       either going forward or backard
+       either going forward or backward
        if noIndex is set only the edges are yielded
        otherwise the current stop index is yielded as well
        """

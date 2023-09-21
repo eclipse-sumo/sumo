@@ -1,0 +1,6 @@
+Warning: Unequal lengths of bidi lane ':220523277_0_1' and lane ':220523277_2_1' (15.63 != 15.59).
+Warning: Unequal lengths of bidi lane ':257749657_0_1' and lane ':257749657_8_1' (13.57 != 13.55).
+Warning: Unequal lengths of bidi lane ':cluster1906421961_1906421962_0_1' and lane ':cluster1906421961_1906421962_9_1' (13.66 != 13.59).
+Warning: Unequal lengths of bidi lane ':cluster_237253947_3909915214_10_1' and lane ':cluster_237253947_3909915214_1_1' (19.89 != 19.83).
+Warning: Unequal lengths of bidi lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_1_1' and lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_10_1' (27.69 != 27.65).
+Warning: Unequal lengths of bidi lane '-152839426_2' and lane '166142947#1_2' (67.21 != 67.01).

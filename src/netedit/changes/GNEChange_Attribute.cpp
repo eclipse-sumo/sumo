@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/elements/data/GNEDataSet.h>
 
 #include "GNEChange_Attribute.h"
@@ -33,25 +34,37 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
-    myAC(ac),
-    myKey(key),
-    myForceChange(false),
-    myOrigValue(ac->getAttribute(key)),
-    myNewValue(value) {
-    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+void
+GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value, GNEUndoList* undoList, const bool force) {
+    // create change
+    auto change = new GNEChange_Attribute(AC, key, value);
+    // set force
+    change->myForceChange = force;
+    // check if process change
+    if (change->trueChange()) {
+        undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
+        undoList->add(change, true);
+        undoList->end();
+    } else {
+        delete change;
+    }
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value, const std::string& origValue) :
-    GNEChange(ac->getTagProperty().getSupermode(), true, false),
-    myAC(ac),
-    myKey(key),
-    myForceChange(false),
-    myOrigValue(origValue),
-    myNewValue(value) {
-    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+void
+GNEChange_Attribute::changeAttribute(GNEAttributeCarrier* AC, SumoXMLAttr key, const std::string& value, const std::string& originalValue, GNEUndoList* undoList, const bool force) {
+    // create change
+    auto change = new GNEChange_Attribute(AC, key, value, originalValue);
+    // set force
+    change->myForceChange = force;
+    // check if process change
+    if (change->trueChange()) {
+        undoList->begin(AC, TLF("change '%' attribute in % '%' to '%'", toString(key), AC->getTagStr(), AC->getID(), value));
+        undoList->add(change, true);
+        undoList->end();
+    } else {
+        delete change;
+    }
 }
 
 
@@ -136,9 +149,37 @@ GNEChange_Attribute::redo() {
 }
 
 
-void
-GNEChange_Attribute::forceChange() {
-    myForceChange = true;
+std::string
+GNEChange_Attribute::undoName() const {
+    return (TL("Undo change ") + myAC->getTagStr() + " attribute");
+}
+
+
+std::string
+GNEChange_Attribute::redoName() const {
+    return (TL("Redo change ") + myAC->getTagStr() + " attribute");
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value) :
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
+    myAC(ac),
+    myKey(key),
+    myForceChange(false),
+    myOrigValue(ac->getAttribute(key)),
+    myNewValue(value) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value, const std::string& origValue) :
+    GNEChange(ac->getTagProperty().getSupermode(), true, false),
+    myAC(ac),
+    myKey(key),
+    myForceChange(false),
+    myOrigValue(origValue),
+    myNewValue(value) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
@@ -150,18 +191,6 @@ GNEChange_Attribute::trueChange() {
     } else {
         return (myOrigValue != myNewValue);
     }
-}
-
-
-std::string
-GNEChange_Attribute::undoName() const {
-    return (TL("Undo change ") + myAC->getTagStr() + " attribute");
-}
-
-
-std::string
-GNEChange_Attribute::redoName() const {
-    return (TL("Redo change ") + myAC->getTagStr() + " attribute");
 }
 
 /****************************************************************************/

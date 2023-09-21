@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -45,10 +45,12 @@ public:
      * @param[in] name E3 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] expectedArrival Whether no warning should be issued when a vehicle arrives within the detector area
      * @param[in] parameters generic parameters
      */
-    GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                              const std::string& name, SUMOTime timeThreshold, double speedThreshold, const Parameterised::Map& parameters);
+    GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
+                              const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
+                              double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters);
 
     /// @brief GNEMultiEntryExitDetector Destructor
     ~GNEMultiEntryExitDetector();
@@ -66,7 +68,7 @@ public:
     */
     void writeAdditional(OutputDevice& device) const;
 
-    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
 
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
@@ -154,7 +156,7 @@ protected:
     Position myPosition;
 
     /// @brief period of E3 detector
-    SUMOTime myPeriod;
+    SUMOTime myPeriod = 0;
 
     /// @brief fielname of E3 detector
     std::string myFilename;
@@ -163,10 +165,13 @@ protected:
     std::vector<std::string> myVehicleTypes;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    SUMOTime myTimeThreshold;
+    SUMOTime myTimeThreshold = 0;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-    double mySpeedThreshold;
+    double mySpeedThreshold = 0;
+
+    /// @brief flag for enable/disable expected arrival
+    bool myExpectedArrival = false;
 
 private:
     /// @brief check restriction with the number of children

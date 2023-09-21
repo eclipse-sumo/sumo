@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -29,6 +29,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNEDemandElementDistribution.h"
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -46,15 +48,13 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElement
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
-class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
+    friend class GNEDemandElementFlow;
+    friend class GNEDemandElementPlan;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -157,7 +157,7 @@ public:
      */
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -173,12 +173,6 @@ public:
      */
     virtual void openDemandElementDialog();
 
-    /**@brief get begin time of demand element
-     * @note: used by demand elements of type "Vehicle", and it has to be implemented as children
-     * @throw invalid argument if demand element doesn't has a begin time
-     */
-    virtual std::string getBegin() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -189,6 +183,9 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+    
+    /// @brief get demand element geometry
+    const GUIGeometry &getDemandElementGeometry() const;
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -266,18 +263,6 @@ public:
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
 
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
-
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -322,10 +307,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
-    /// @}
 
-    /// @brief get personPlan start position
-    const Position getBeginPosition(const double pedestrianDepartPos) const;
+    /// @}
 
     /// @brief get invalid stops
     std::vector<GNEDemandElement*> getInvalidStops() const;
@@ -341,43 +324,25 @@ protected:
     int myStackedLabelNumber;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::string& newID) const;
+    bool isValidDemandElementID(const std::string& value) const;
 
-    /// @name Only for person plans
-    /// @{
-    /// @brief check if person plan can be drawn
-    bool drawPersonPlan() const;
+    /// @brief check if a new demand element ID is valid
+    bool isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
 
-    /// @brief check if container plan can be drawn
-    bool drawContainerPlan() const;
+    /// @brief set demand element id
+    void setDemandElementID(const std::string& newID);
 
-    /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                               const double personPlanWidth, const RGBColor& personPlanColor) const;
+    /// @brief get type parent (needed because first parent can be either type or typeDistribution)
+    GNEDemandElement* getTypeParent() const;
 
-    /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief check if person plan is valid
-    Problem isPersonPlanValid() const;
-
-    /// @brief get person plan problem
-    std::string getPersonPlanProblem() const;
-
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
-
-    /// @}
+    /// @brief get route parent (always the second parent demand element)
+    GNEDemandElement* getRouteParent() const;
 
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;
 
     /// @brief draw stack label
     void drawStackLabel(const int number, const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
     /// @name replace parent elements
     /// @{
@@ -400,8 +365,11 @@ protected:
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 
-    /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value);
+    /// @brief replace the first parent additional
+    void replaceFirstParentAdditional(SumoXMLTag tag, const std::string& value);
+
+    /// @brief replace the last parent additional
+    void replaceLastParentAdditional(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
@@ -436,14 +404,14 @@ protected:
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
-    /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
-    void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);
-
-    /// @brief adjust flow default attributes (called in vehicle/person/flow constructors)
-    void adjustDefaultFlowAttributes(SUMOVehicleParameter* vehicleParameters);
+    /// @brief get distribution in which the given element is part
+    std::string getDistributionParents() const;
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
+    
+    /// @brief build menu command route length
+    void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 
 private:
     /**@brief check restriction with the number of children

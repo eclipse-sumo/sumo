@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -84,9 +84,9 @@ GUISaveDialog::initialize(const FXString& text, FXIcon* ic) {
     new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     FXHorizontalFrame* buttons = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
     buttons->setPackingHints(PACK_NORMAL);
-    FXButton* saveChanges = new FXButton(buttons, TL("&Save changes"), NULL, this, CLICKED_SAVE, GUIDesignSaveDialogButtonInitial);
-    new FXButton(buttons, TL("&Don't save"), NULL, this, CLICKED_DISCARD, GUIDesignSaveDialogButton);
-    new FXButton(buttons, TL("&Abort"), NULL, this, CLICKED_ABORT, GUIDesignSaveDialogButton);
+    FXButton* saveChanges = GUIDesigns::buildFXButton(buttons, TL("&Save changes"), "", "", NULL, this, CLICKED_SAVE, GUIDesignSaveDialogButtonInitial);
+    GUIDesigns::buildFXButton(buttons, TL("&Don't save"), "", "", NULL, this, CLICKED_DISCARD, GUIDesignSaveDialogButton);
+    GUIDesigns::buildFXButton(buttons, TL("&Abort"), "", "", NULL, this, CLICKED_ABORT, GUIDesignSaveDialogButton);
     saveChanges->setFocus();
 }
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -370,6 +370,9 @@ protected:
 
     /// @brief check whether lane is an upcoming bidi lane
     bool isBidi(const MSLane* lane) const;
+
+    /// @brief avoid unsafe lateral speed (overruling lcAccelLat)
+    double emergencySpeedLat(double speedLat) const;
 
 protected:
     /// @brief a value for tracking the probability that a change to the right is beneficial

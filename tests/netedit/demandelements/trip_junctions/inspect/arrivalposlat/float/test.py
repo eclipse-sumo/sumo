@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # create trip using two junctions
-netedit.leftClick(referencePosition, 80, 360)
-netedit.leftClick(referencePosition, 85, 77)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,26 +50,26 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 80, 360)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalSpeed, "", False)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalSpeed, "dummySpeed", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalSpeed, "500", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalSpeed, "500", False)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalSpeed, "-10", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalSpeed, "-10", False)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.arrivalSpeed, "15.5", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.arrivalSpeed, "15.5", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

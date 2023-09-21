@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -41,41 +41,46 @@ netedit.changeStopType("waypointContainerStop")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 291, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  1, netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 292, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  2, netedit.positions.demandElements.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 293, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  3, netedit.positions.demandElements.containerStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 294, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  4, netedit.positions.demandElements.containerStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 295, 155)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
+                  5, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

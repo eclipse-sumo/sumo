@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -41,20 +41,20 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 410, 170)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departPosLat, "", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departPosLat, "dummyPosLat", False)
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspectSelection.departPosLat, "free", False)
+netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.departPosLat, "free", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

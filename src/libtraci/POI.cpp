@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -140,7 +140,8 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 
 bool
-POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
+POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType, const std::string &icon,
+         int layer, const std::string& imgFile, double width, double height, double angle) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 8);
     StoHelp::writeTypedString(content, poiType);
@@ -149,6 +150,7 @@ POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor
     content.writeUnsignedByte(color.g);
     content.writeUnsignedByte(color.b);
     content.writeUnsignedByte(color.a);
+    StoHelp::writeTypedString(content, icon);
     StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);

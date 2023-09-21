@@ -14,6 +14,7 @@
 /.project
 /.pydevproject
 /.vs
+/.vim
 # build dir 
 /clang*
 /cmake-build*
@@ -56,6 +57,7 @@
 /bin/libsumofmi2.dylib
 # data dir
 /data/locale
+/data/templates
 /data/po/*.pot
 /data/proj
 # docs dir, make artifacts

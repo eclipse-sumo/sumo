@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -366,13 +366,15 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("opendrive.lane-shapes", "Formats", TL("Use custom lane shapes to compensate discarded lane types"));
     oc.doRegister("opendrive.signal-groups", new Option_Bool(false));
     oc.addDescription("opendrive.signal-groups", "Formats", TL("Use the OpenDRIVE controller information for the generated signal program"));
+    oc.doRegister("opendrive.ignore-misplaced-signals", new Option_Bool(false));
+    oc.addDescription("opendrive.ignore-misplaced-signals", "Formats", TL("Ignore traffic signals which do not control any driving lane"));
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
-    oc.addDescription("tls.discard-loaded", "TLS Building", "Does not instatiate traffic lights loaded from other formats than plain-XML");
+    oc.addDescription("tls.discard-loaded", "TLS Building", "Does not instantiate traffic lights loaded from other formats than plain-XML");
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
-    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML");
+    oc.addDescription("tls.discard-simple", "TLS Building", "Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML");
 
     // register railway options
     oc.doRegister("railway.signals.discard", new Option_Bool(false));

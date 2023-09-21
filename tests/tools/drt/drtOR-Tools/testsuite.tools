@@ -18,3 +18,26 @@ time_window1
 
 # Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
 time_window2
+
+# Test, whether the pickup_earliest and dropoff_latest are softly hold.
+time_window3
+
+# Test, whether the custom waiting time is hold and influences the result.
+# short waiting time: 40
+# Should result in no service of both requests.
+waiting_time1
+
+# Test, whether the custom waiting time is hold and influences the result.
+# tight waiting time: 60
+# Should result in service only of the first requests.
+waiting_time2
+
+# Test, whether the custom waiting time is hold and influences the result.
+# little waiting time: 100
+# Should result in service of both requests with both passengers on board at the same time.
+waiting_time3
+
+# Test, whether the custom waiting time is hold and influences the result.
+# long waiting time: 300
+# Should result in service of both requests one after another.
+waiting_time4

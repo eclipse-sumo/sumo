@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,14 @@
 
 #include <vector>
 #include <utils/gui/globjects/GUIGlObject.h>
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEJunction;
+class GNEEdge;
+class GNELane;
 
 // ===========================================================================
 // class definitions
@@ -64,13 +72,13 @@ public:
     Position mousePos = Position::INVALID;
 
     /// @brief marked Node (used in create edge mode)
-    const GUIGlObject* markedNode = nullptr;
+    const GNEJunction* markedNode = nullptr;
 
     /// @brief marked edge (used in create edge mode, for splitting)
-    const GUIGlObject* markedEdge = nullptr;
+    const GNEEdge* markedEdge = nullptr;
 
     /// @brief marked lane (used in create edge mode, for splitting)
-    const GUIGlObject* markedLane = nullptr;
+    const GNELane* markedLane = nullptr;
 
     /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;

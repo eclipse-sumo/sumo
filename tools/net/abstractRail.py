@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,7 @@
 """
 Convert a geodetical rail network in a abstract (schematic) rail network.
 If the network is segmented (stationDistricts.py), the resulting network will be
-a hybrid of multple schematic pieces being oriented in a roughly geodetical manner
+a hybrid of multiple schematic pieces being oriented in a roughly geodetical manner
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -54,52 +54,43 @@ STATION_DISTRICTS = os.path.join(SUMO_HOME, 'tools', 'district', 'stationDistric
 
 def get_options():
     ap = ArgumentParser()
-    ap.add_option("-v", "--verbose", action="store_true", default=False,
-                  help="tell me what you are doing")
-    ap.add_option("-n", "--net-file", dest="netfile", required=True, type=ap.net_file,
-                  help="the network to read lane and edge permissions")
-    ap.add_option("-s", "--stop-file", dest="stopfile", required=True, type=ap.additional_file,
-                  help="the additional file with stops")
-    ap.add_option("-a", "--region-file", dest="regionfile", type=ap.additional_file,
-                  help="Load network regions from additional file (as taz elements)")
-    ap.add_option("-o", "--output-prefix", dest="prefix", required=True, type=ap.file,
-                  help="output prefix for patch files")
-    ap.add_option("--split", action="store_true", default=False,
-                  help="automatically create a region file from the loaded stops,"
-                  + " automatically split the network if needed")
-    ap.add_option("--filter-regions", dest="filterRegions",
-                  help="filter regions by name or id")
-    ap.add_option("--keep-all", action="store_true", dest="keepAll", default=False,
-                  help="keep original regions outside the filtered regions")
-    ap.add_option("--horizontal", action="store_true", dest="horizontal", default=False,
-                  help="output shapes roughly aligned along the horizontal")
-    ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
-                  help="default distance between parallel tracks")
-    ap.add_option("--track-length", type=float, default=20, dest="trackLength",
-                  help="maximum length of track pieces")
-    ap.add_option("--time-limit", type=float, dest="timeLimit",
-                  help="time limit per region")
-    ap.add_option("--max-iter", type=int, dest="maxIter",
-                  help="maximum number of solver iterations per region")
-    ap.add_option("--skip-large", type=int, dest="skipLarge",
-                  help="skip regions require more than the given number of constraints")
-    ap.add_option("--skip-yopt", action="store_true", dest="skipYOpt", default=False,
-                  help="do not optimize the track offsets")
-    ap.add_option("--skip-building", action="store_true", dest="skipBuilding", default=False,
-                  help="do not call netconvert with the patch files")
-    ap.add_option("--extra-verbose", action="store_true", default=False, dest="verbose2",
-                  help="tell me more about what you are doing")
+    ap.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+    ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
+                    help="the network to read lane and edge permissions")
+    ap.add_argument("-s", "--stop-file", category="input", dest="stopfile", required=True, type=ap.additional_file,
+                    help="the additional file with stops")
+    ap.add_argument("-a", "--region-file", category="input", dest="regionfile", type=ap.additional_file,
+                    help="Load network regions from additional file (as taz elements)")
+    ap.add_argument("-o", "--output-prefix", category="output", dest="prefix", required=True, type=ap.file,
+                    help="output prefix for patch files")
+    ap.add_argument("--split", action="store_true", default=False,
+                    help="automatically create a region file from the loaded stops,"
+                    + " automatically split the network if needed")
+    ap.add_argument("--filter-regions", dest="filterRegions",
+                    help="filter regions by name or id")
+    ap.add_argument("--keep-all", action="store_true", dest="keepAll", default=False,
+                    help="keep original regions outside the filtered regions")
+    ap.add_argument("--horizontal", action="store_true", dest="horizontal", default=False,
+                    help="output shapes roughly aligned along the horizontal")
+    ap.add_argument("--track-offset", type=float, default=20, dest="trackOffset",
+                    help="default distance between parallel tracks")
+    ap.add_argument("--track-length", type=float, default=20, dest="trackLength",
+                    help="maximum length of track pieces")
+    ap.add_argument("--time-limit", type=float, dest="timeLimit",
+                    help="time limit per region")
+    ap.add_argument("--max-iter", type=int, dest="maxIter",
+                    help="maximum number of solver iterations per region")
+    ap.add_argument("--skip-large", type=int, dest="skipLarge",
+                    help="skip regions require more than the given number of constraints")
+    ap.add_argument("--skip-yopt", action="store_true", dest="skipYOpt", default=False,
+                    help="do not optimize the track offsets")
+    ap.add_argument("--skip-building", action="store_true", dest="skipBuilding", default=False,
+                    help="do not call netconvert with the patch files")
+    ap.add_argument("--extra-verbose", action="store_true", default=False, dest="verbose2",
+                    help="tell me more about what you are doing")
     options = ap.parse_args()
 
-    if not options.netfile:
-        ap.print_help()
-        ap.exit("Error! setting net-file is mandatory")
-    if not options.stopfile:
-        ap.print_help()
-        ap.exit("Error! setting stop-file is mandatory")
-    if not options.prefix:
-        ap.print_help()
-        ap.exit("Error! setting output is mandatory")
     if options.regionfile and options.split:
         ap.print_help()
         ap.exit("Error! Only one of the options --split or --region-file may be given")

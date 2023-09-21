@@ -5,8 +5,8 @@ title: Sumolib
 **sumolib** is a set of python modules for working with sumo networks,
 simulation output and other simulation artifacts. For a detailed list of
 available functions see the [pydoc generated
-documentation](http://sumo.dlr.de/pydoc/sumolib.html). You can
-[browse the code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
+documentation](https://sumo.dlr.de/pydoc/sumolib.html). You can
+[browse the code here](https://github.com/eclipse-sumo/sumo/tree/main/tools/sumolib).
 
 # importing **sumolib** in a script
 
@@ -71,7 +71,16 @@ avgSpeed = speedSum / edgeCount
 !!! note
     This is just a processing example. To compute average travel speeds in a network, process [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [tripinfos](../Simulation/Output/TripInfo.md) or [summary-output](../Simulation/Output/Summary.md) instead.
 
-## compute the median speed using the [Statistics](http://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
+## compute the length of the selected edges
+```
+net.loadSelection('selection.txt')
+cumulLength = 0.
+for edge in net.getEdges():
+    if edge.isSelected():
+        cumulLength += edge.getLength()
+```
+
+## compute the median speed using the [Statistics](https://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
 
 ```python
 edgeStats = sumolib.miscutils.Statistics("edge speeds")

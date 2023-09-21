@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -32,17 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create TAZ with default values
-netedit.createSquaredTAZ(referencePosition, 407, 120, 200, True)
+netedit.createSquaredShape(referencePosition, 407, 120, 200, True)
 
 # change fill
 netedit.changeDefaultBoolValue(netedit.attrs.TAZ.create.fill)
 
 # create TAZ with default values
-netedit.createSquaredTAZ(referencePosition, 567, 120, 200, True)
+netedit.createSquaredShape(referencePosition, 567, 120, 200, True)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save TAZs
 # save Netedit config

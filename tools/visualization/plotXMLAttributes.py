@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,7 @@
 This script plots arbitrary xml attributes from xml files
 Individual trajectories can be clicked in interactive mode to print the data Id on the console
 
-selects two attributs for x and y axis and a third (id-attribute) for grouping
+selects two attributes for x and y axis and a third (id-attribute) for grouping
 of data points into lines
 
 """
@@ -56,9 +56,11 @@ DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
+ID_ATTR_DEFAULT = ""  # use filename instead
 
 POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
+NON_DATA_ATTRS = SYMBOLIC_ATTRS + [NONE_ATTR]
 
 
 def getOptions(args=None):
@@ -72,15 +74,16 @@ def getOptions(args=None):
         '    plots passengers over time for vehicles from SUMO stop output',
         formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
-    optParser.add_option("files", nargs='+', type=optParser.file_list,
+    optParser.add_option("files", nargs='+', category="input", type=optParser.file_list,
                          help="List of XML files to plot")
-    optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
-    optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
-    optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
-    optParser.add_option("--xelem",  help="element for x-axis")
-    optParser.add_option("--yelem",  help="element for y-axis")
-    optParser.add_option("--idelem",  help="element for grouping data points into lines")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
+    optParser.add_option("-x", "--xattr", help="attribute for x-axis")
+    optParser.add_option("-y", "--yattr", help="attribute for y-axis")
+    optParser.add_option("-i", "--idattr", default="id", help="attribute for grouping data points into lines")
+    optParser.add_option("--xelem", help="element for x-axis")
+    optParser.add_option("--yelem", help="element for y-axis")
+    optParser.add_option("--idelem", help="element for grouping data points into lines")
+    optParser.add_option("-s", "--show", action="store_true", category="output",
+                         default=False, help="show plot directly")
     optParser.add_option("--csv-output", dest="csv_output", category="output",
                          help="write plot as csv")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
@@ -103,13 +106,13 @@ def getOptions(args=None):
                          help="clamp y values to range A:B or half-range A: / :B")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
-    optParser.add_option("--scatterplot", action="store_true",
+    optParser.add_option("--scatterplot", action="store_true", category="visualization",
                          default=False, help="Draw a scatterplot instead of lines")
-    optParser.add_option("--barplot", action="store_true",
+    optParser.add_option("--barplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the y-axis")
-    optParser.add_option("--hbarplot", action="store_true",
+    optParser.add_option("--hbarplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the x-axis")
-    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
+    optParser.add_option("--legend", action="store_true", default=False, category="visualization", help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     sumolib.visualization.helpers.addPlotOptions(optParser)
     sumolib.visualization.helpers.addInteractionOptions(optParser)
@@ -247,34 +250,45 @@ def getDataStream(options):
     splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
     level = 0
-    with openz(options.files[0]) as xmlf:
-        for event, elem in ET.iterparse(xmlf, ("start", "end")):
-            if event == "start":
-                level += 1
-                for a, e in zip(attrOptions, options.attrElems):
-                    attrOrig = getattr(options, a)
-                    for attr in attr2parts[attrOrig]:
-                        if attr in elem.keys():
-                            if e is not None and e != elem.tag:
-                                # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
-                                #       (attr, elem.tag, e))
-                                continue
-                            elem2level[elem.tag] = level
-                            if attr in attr2elem:
-                                oldTag = attr2elem[attr]
-                                if oldTag != elem.tag:
-                                    if elem2level[oldTag] < level:
-                                        attr2elem[attr] = elem.tag
-                                    print("Warning: found %s '%s' in element '%s' (level %s) and "
-                                          "element '%s' (level %s). Using '%s'." %
-                                          (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
-                            else:
-                                attr2elem[attr] = elem.tag
-                if len(attr2elem) == len(allAttrs):
-                    # all attributes have been seen
-                    break
-            elif event == "end":
-                level -= 1
+    foundAll = False
+    dataAttrs = [a for a in allAttrs if a not in NON_DATA_ATTRS]
+    for fname in options.files:
+        with openz(fname) as xmlf:
+            for event, elem in ET.iterparse(xmlf, ("start", "end")):
+                if event == "start":
+                    level += 1
+                    for a, e in zip(attrOptions, options.attrElems):
+                        attrOrig = getattr(options, a)
+                        for attr in attr2parts[attrOrig]:
+                            if attr in elem.keys():
+                                if e is not None and e != elem.tag:
+                                    # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
+                                    #       (attr, elem.tag, e))
+                                    continue
+                                elem2level[elem.tag] = level
+                                if attr in attr2elem:
+                                    oldTag = attr2elem[attr]
+                                    if oldTag != elem.tag:
+                                        if elem2level[oldTag] < level:
+                                            attr2elem[attr] = elem.tag
+                                        print("Warning: found %s '%s' in element '%s' (level %s) and "
+                                              "element '%s' (level %s). Using '%s'." %
+                                              (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]),
+                                              file=sys.stderr)
+                                else:
+                                    attr2elem[attr] = elem.tag
+                    if len(attr2elem) == len(dataAttrs):
+                        # all attributes have been seen
+                        foundAll = True
+                        break
+                elif event == "end":
+                    level -= 1
+        if foundAll:
+            break
+
+    if not elem2level:
+        print("Error: No elements found in input files.", file=sys.stderr)
+        sys.exit()
 
     if len(attr2elem) != len(allAttrs):
         for a in attrOptions:
@@ -298,13 +312,14 @@ def getDataStream(options):
                         else:
                             sys.exit("Mandatory " + msg)
 
-    allElems = list(set(attr2elem.values()))
+    allElems = sorted(list(set(attr2elem.values())))
     attrs = [getattr(options, a) for a in attrOptions]
 
     # we don't know the order of the elements and we cannot get it from our xml parser
+    skippedLines = defaultdict(int)
     if len(allElems) == 2:
         def datastream(xmlfile):
-            skippedLines = defaultdict(int)
+            missingParents = 0
             elems = sorted(allElems, key=lambda e: elem2level[e])
             mE0 = "<%s " % elems[0]
             mE1 = "<%s " % elems[1]
@@ -315,27 +330,18 @@ def getDataStream(options):
 
             values = {}  # attr -> value
             index = 0
+            foundParent = False
             with openz(xmlfile) as xmlf:
                 for line in xmlf:
                     if mE0 in line:
-                        for a, r in mAs0:
-                            values[a] = r.search(line).groups()[0]
+                        foundParent = not parseValues(index, line, mAs0, values, skippedLines)
                     if mE1 in line:
-                        skip = False
-                        for a, r in mAs1:
-                            m = r.search(line)
-                            if m:
-                                values[a] = m.groups()[0]
-                            elif a == INDEX_ATTR:
-                                values[a] = index
-                            elif a in POST_PROCESSING_ATTRS:
-                                # set in post-processing
-                                values[a] = 0
-                            elif a == NONE_ATTR:
-                                values[a] = NONE_ATTR_DEFAULT
-                            else:
-                                skip = True
-                                skippedLines[a] += 1
+                        if not foundParent:
+                            print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
+                                  file=sys.stderr)
+                            missingParents += 1
+                            continue
+                        skip = parseValues(index, line, mAs1, values, skippedLines)
                         if not skip:
                             for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                                 yield toYield
@@ -344,41 +350,56 @@ def getDataStream(options):
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
+            if missingParents:
+                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
 
         return datastream
 
     elif len(allElems) == 1:
         def datastream(xmlfile):
+            missingParents = 0
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
             with openz(xmlfile) as xmlf:
                 for line in xmlf:
                     if mE in line:
-                        skip = False
                         values = {}  # attr -> value
-                        for a, r in zip(allAttrs, mAs):
-                            if a == INDEX_ATTR:
-                                values[a] = index
-                            elif a in POST_PROCESSING_ATTRS:
-                                # set in post-processing
-                                values[a] = 0
-                            elif a == NONE_ATTR:
-                                values[a] = NONE_ATTR_DEFAULT
-                            else:
-                                m = r.search(line)
-                                if m:
-                                    values[a] = m.groups()[0]
-                                else:
-                                    skip = True
+                        skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
                         if not skip:
                             for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                                 yield toYield
                                 index += 1
+
+            for attr, count in skippedLines.items():
+                print("Warning: Skipped %s lines because of missing attributes '%s'." % (
+                    count, attr), file=sys.stderr)
+            if missingParents:
+                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
+
         return datastream
 
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
+
+
+def parseValues(index, line, attributePatterns, values, skippedLines):
+    skip = False
+    for a, r in attributePatterns:
+        m = r.search(line)
+        if m:
+            values[a] = m.groups()[0]
+        elif a == INDEX_ATTR:
+            values[a] = index
+        elif a in POST_PROCESSING_ATTRS:
+            # set in post-processing
+            values[a] = 0
+        elif a == NONE_ATTR:
+            values[a] = NONE_ATTR_DEFAULT
+        else:
+            skip = True
+            skippedLines[a] += 1
+    return skip
 
 
 def combineValues(attrs, attr2parts, values, splitX, splitY):
@@ -400,7 +421,7 @@ def combineValues(attrs, attr2parts, values, splitX, splitY):
                 toYield.append('|'.join(v))
 
     if needSplit:
-        assert(len(toYield) == 3)
+        assert len(toYield) == 3
         splitIndex = 0
         for i in toYield[0]:
             for ix, x in enumerate(toYield[1]):
@@ -540,6 +561,9 @@ def main(options):
     numericYCount = 0
     stringYCount = 0
 
+    usableIDs = 0
+    idFromSplitAttrs = ',' in options.xattr or ',' in options.yattr
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -557,7 +581,9 @@ def main(options):
                         flag2 = True
                 if flag1 and not flag2:
                     continue
-            if len(options.files) > 1 and not options.joinFiles:
+            if options.idattr == NONE_ATTR and not idFromSplitAttrs:
+                dataID = titleFileNames[0 if options.joinFiles else fileIndex]
+            elif len(options.files) > 1 and not options.joinFiles:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID = str(dataID) + "#" + suffix
@@ -583,8 +609,11 @@ def main(options):
             filteredIDs += 1
         if totalIDs == 0 or filteredIDs == 0 or options.verbose:
             print("Found %s datapoints in %s and kept %s" % (totalIDs, datafile, filteredIDs))
+        usableIDs += filteredIDs
 
-    if filteredIDs == 0:
+    if usableIDs == 0:
+        if len(options.files) > 1:
+            print("Found no usable datapoints%s in %s files" % len(options.files))
         sys.exit()
 
     minY = uMax
@@ -631,7 +660,7 @@ def main(options):
         yvalues = d[ydata]
 
         if len(xvalues) == 0:
-            assert(len(yvalues) == 0)
+            assert len(yvalues) == 0
             continue
 
         minY = min(minY, min(yvalues))

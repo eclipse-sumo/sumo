@@ -1,4 +1,5 @@
 set(utils_shapes_STAT_SRCS
+   PointOfInterest.cpp
    PointOfInterest.h
    Shape.cpp
    Shape.h

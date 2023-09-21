@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -312,7 +312,7 @@ GNEFixDemandElements::FixRouteOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myViewNet->getNet()->deleteDemandElement(stopToRemove, myViewNet->getUndoList());
@@ -389,7 +389,7 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
     if (myInvalidElements.size() > 0) {
         if (removeInvalidVehicles->getCheck() == TRUE) {
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid vehicles");
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
             // iterate over invalid vehicles to delete it
             for (const auto& invalidVehicle : myInvalidElements) {
                 myViewNet->getNet()->deleteDemandElement(invalidVehicle, myViewNet->getUndoList());
@@ -418,7 +418,7 @@ GNEFixDemandElements::FixVehicleOptions::fixElements(bool& abortSaving) {
                 stopsToRemove.insert(stopsToRemove.end(), invaldstops.begin(), invaldstops.end());
             }
             // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid stops");
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "delete invalid stops");
             // remove all
             for (const auto& stopToRemove : stopsToRemove) {
                 myViewNet->getNet()->deleteDemandElement(stopToRemove, myViewNet->getUndoList());
@@ -635,8 +635,8 @@ GNEFixDemandElements::FixPersonPlanOptions::disableOptions() {
 GNEFixDemandElements::Buttons::Buttons(GNEFixDemandElements* fixDemandElementsParent) :
     FXHorizontalFrame(fixDemandElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(this, TL("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixDemandElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(this, TL("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixDemandElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myAcceptButton = GUIDesigns::buildFXButton(this, TL("&Accept"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixDemandElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(this, TL("&Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixDemandElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
     myAcceptButton->setFocus();

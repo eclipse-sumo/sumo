@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -51,10 +51,20 @@ def writeConnections(net):
     fd.write("</connections>\n")
 
 
-if len(sys.argv) < 2:
-    print("Usage: " + sys.argv[0] + " <net>")
-    sys.exit()
-print("Reading net...")
-net = sumolib.net.readNet(sys.argv[1])
-print("Writing connections...")
-writeConnections(net)
+if __name__ == "__main__":
+    op = sumolib.options.ArgumentParser(
+        description='Create connections in roundabout')
+
+    op.add_argument("-n", "--net-file", category="input", type=op.net_file, dest="net", required=True,
+                    help='Input file name')
+
+    try:
+        options = op.parse_args()
+    except (NotImplementedError, ValueError) as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+    print("Reading net...")
+    net = sumolib.net.readNet(options.net)
+    print("Writing connections...")
+    writeConnections(net)

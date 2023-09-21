@@ -37,7 +37,6 @@
       <param key="constantPowerIntake" value="6000"/>
       <param key="propulsionEfficiency" value="0.9"/>
       <param key="recuperationEfficiency" value="0.9"/>
-      <param key="stoppingTreshold" value="0.1"/>
     </vType>
 
   <route id="trolleybus1_full" color="1,0,0" edges="       gneE0 gneE1 gneE2              "/>

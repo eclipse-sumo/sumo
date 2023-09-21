@@ -7,6 +7,6 @@
     <!-- VTypes -->
     <vType id="custom_vType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="trip_0" depart="20.00" fromJunction="gneJ4" toJunction="gneJ7"/>
-    <trip id="trip_4" type="custom_vType" depart="20.00" fromJunction="gneJ4" toJunction="gneJ7"/>
+    <trip id="trip_0" depart="20.00" fromJunction="Junction0" toJunction="Junction3"/>
+    <trip id="trip_4" type="custom_vType" depart="20.00" fromJunction="Junction0" toJunction="Junction3"/>
 </routes>

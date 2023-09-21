@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -408,7 +408,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
     ret.readInt(); // components
     // number of items
     ret.readUnsignedByte();
-    ret.readInt();
 
     const int linkNo = ret.readInt();
     for (int i = 0; i < linkNo; ++i) {

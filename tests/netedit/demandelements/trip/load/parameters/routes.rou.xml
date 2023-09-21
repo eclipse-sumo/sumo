@@ -52,7 +52,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_0" from="gneE2" to="gneE5" depart="20.00">
+    <trip id="trip_0" from="Edge0" to="Edge2" depart="20.00">
 
         <!-- valid generic parameter (valid) -->
         <param key="key1" value="value1"/>

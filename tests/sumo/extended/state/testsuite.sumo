@@ -84,3 +84,4 @@ save_routeProbe
 
 # save started and ended times if loaded from input
 save_stopTimes
+save_pastStop_param

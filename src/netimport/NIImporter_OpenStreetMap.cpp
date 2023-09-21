@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -551,6 +551,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
     double bikeLaneWidth = tc.getEdgeTypeBikeLaneWidth(type);
+    const std::string& onewayBike = e->myExtraTags["oneway:bicycle"];
+    if (onewayBike == "false" || onewayBike == "no" || onewayBike == "0") {
+        e->myCyclewayType = e->myCyclewayType == WAY_UNKNOWN ? WAY_BACKWARD : (WayType)(e->myCyclewayType | WAY_BACKWARD);
+    }
     const bool addBikeLane = bikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH ||
                              (myImportBikeAccess && ((e->myCyclewayType & WAY_BOTH) != 0 || e->myExtraTags.count("segregated") != 0));
     if (addBikeLane && bikeLaneWidth == NBEdge::UNSPECIFIED_WIDTH) {
@@ -573,13 +577,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
         WRITE_WARNINGF(TL("New value for oneway found: %"), e->myIsOneWay);
     }
-    if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN))
-            && e->myCyclewayType != WAY_UNKNOWN && e->myCyclewayType != WAY_NONE) {
-        if ((e->myCyclewayType & WAY_BACKWARD) == 0) {
+    if ((permissions == SVC_BICYCLE || permissions == (SVC_BICYCLE | SVC_PEDESTRIAN) || permissions == SVC_PEDESTRIAN)) {
+        if (addBackward && (onewayBike == "true" || onewayBike == "yes" || onewayBike == "1")) {
             addBackward = false;
         }
-        if ((e->myCyclewayType & WAY_FORWARD) == 0) {
+        if (addForward && (onewayBike == "reverse" || onewayBike == "-1")) {
             addForward = false;
+        }
+        if (!addBackward && (onewayBike == "false" || onewayBike == "no" || onewayBike == "0")) {
+            addBackward = true;
         }
     }
     bool ok = true;
@@ -636,7 +642,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             forwardWidth = bikeLaneWidth;
             numLanesForward = 1;
             // do not add an additional cycle lane
-            cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);
         }
         if (!addBackward && (cyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
@@ -644,7 +650,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             backwardWidth = bikeLaneWidth;
             numLanesBackward = 1;
             // do not add an additional cycle lane
-            cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
+            cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD);
         }
     }
     // deal with sidewalks that run in the opposite direction of a one-way street
@@ -1174,7 +1180,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff https://wiki.openstreetmap.org/wiki/Key:cycleway
             if (key == "cycleway") {
-                if (value == "no" || value == "none" || value == "separate" || value == "opposite") {
+                if (value == "no" || value == "none" || value == "separate") {
                     myCurrentEdge->myCyclewayType = WAY_NONE;
                 } else if (value == "both") {
                     myCurrentEdge->myCyclewayType = WAY_BOTH;
@@ -1185,6 +1191,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 } else if (value == "opposite_track") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 } else if (value == "opposite_lane") {
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
+                } else if (value == "opposite") {
+                    // according to the wiki ref above, this should rather be a bidi lane, see #13438
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
             }
@@ -1346,14 +1355,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
             }
         } else if (key == "oneway:bicycle") {
-            if (value == "yes") {
-                // actually this should be a simple "oneway" tag
-                myCurrentEdge->myIsOneWay = value;
-            }
-            if (value == "no") {
-                // need to add a cycle way in reversed direction of way
-                myCurrentEdge->myCyclewayType = WAY_BACKWARD;
-            }
+            myCurrentEdge->myExtraTags["oneway:bicycle"] = value;
         } else if (key == "oneway:bus") {
             if (value == "no") {
                 // need to add a bus way in reversed direction of way
@@ -1412,7 +1414,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
             myCurrentEdge->myMaxSpeedBackward = interpretSpeed(key, value);
         } else if (key == "junction") {
-            if ((value == "roundabout" || value == "circular") && (myCurrentEdge->myIsOneWay.empty())) {
+            if ((value == "roundabout" || value == "circular") && myCurrentEdge->myIsOneWay.empty()) {
                 myCurrentEdge->myIsOneWay = "yes";
             }
         } else if (key == "oneway") {
@@ -2547,11 +2549,10 @@ NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turn
     if (myImportTurnSigns && turnSigns.size() > 0) {
         // no sidewalks and bike lanes have been added yet
         if ((int)turnSigns.size() == e->getNumLanes()) {
-            const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
             //std::cout << "apply turnSigns for " << e->getID() << " turnSigns=" << toString(turnSigns) << "\n";
             for (int i = 0; i < (int)turnSigns.size(); i++) {
                 // laneUse stores from left to right
-                const int laneIndex = lefthand ? i : e->getNumLanes() - 1 - i;
+                const int laneIndex = e->getNumLanes() - 1 - i;
                 NBEdge::Lane& lane = e->getLaneStruct(laneIndex);
                 lane.turnSigns = turnSigns[i];
             }

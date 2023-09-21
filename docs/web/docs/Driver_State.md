@@ -19,7 +19,7 @@ car-following model's input parameters of spacing and speed difference
 (for an integration in [contributed car-following
 models](Developer/How_To/Car-Following_Model.md), the
 [implementation in the standard
-model](https://github.com/eclipse/sumo/blob/main/src/microsim/cfmodels/MSCFModel_Krauss.cpp)
+model](https://github.com/eclipse-sumo/sumo/blob/main/src/microsim/cfmodels/MSCFModel_Krauss.cpp)
 can be adopted (see `MSCFModel_Krauss::stopSpeed()` and
 `MSCFModel_Krauss::followSpeed()`). Currently (SUMO 1.8.0)
 it is only implemented for the standard Krauss and IDM.

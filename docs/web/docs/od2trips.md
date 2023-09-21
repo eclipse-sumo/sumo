@@ -25,7 +25,7 @@ onto the edges of a network. For details, see
 
 You may use a XML schema definition file for setting up a od2trips
 configuration:
-[od2tripsConfiguration.xsd](http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd).
+[od2tripsConfiguration.xsd](https://sumo.dlr.de/xsd/od2tripsConfiguration.xsd).
 
 ### Configuration
 

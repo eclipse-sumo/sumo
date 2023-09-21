@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -276,9 +276,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELan
 // ---------------------------------------------------------------------------
 
 bool
-GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEAdditional::isValidAdditionalID(const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
     } else {
         return false;
     }
@@ -286,11 +288,61 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 
 bool
-GNEAdditional::isValidDetectorID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
         return true;
+    } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
     } else {
         return false;
+    }
+}
+
+
+bool
+GNEAdditional::isValidDetectorID(const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+    if (value == getID()) {
+        return true;
+    } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
+        return (myNet->getAttributeCarriers()->retrieveAdditionals(tags, value, false) == nullptr);
+    } else {
+        return false;
+    }
+}
+
+
+void
+GNEAdditional::setAdditionalID(const std::string& newID) {
+    // set microsim ID
+    setMicrosimID(newID);
+    // change IDs of certain children
+    for (const auto& additionalChild : getChildAdditionals()) {
+        // get tag
+        const auto tag = additionalChild->getTagProperty().getTag();
+        if ((tag == SUMO_TAG_ACCESS) || (tag == SUMO_TAG_PARKING_SPACE) ||
+            (tag == SUMO_TAG_DET_ENTRY) || (tag == SUMO_TAG_DET_EXIT)) {
+            additionalChild->setAdditionalID(getID());
+        }
+    }
+    // enable save demand elements if this additional has children
+    if (getChildDemandElements().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDemandElements();
+    }
+    // enable save data elements if this additional has children
+    if (getChildGenericDatas().size() > 0) {
+        myNet->getSavingStatus()->requireSaveDataElements();
     }
 }
 
@@ -477,7 +529,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 
 void
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
+GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                                    const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
@@ -505,7 +557,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // Start drawing adding an gl identificator
+        // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // calculate colors
         const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
@@ -639,6 +691,100 @@ GNEAdditional::getMoveOperationMultiLane(const double startPos, const double end
 }
 
 
+std::string
+GNEAdditional::getJuPedSimType(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return "jupedsim.walkable_area";
+        case GNE_TAG_JPS_OBSTACLE:
+            return "jupedsim.obstacle";
+        case GNE_TAG_JPS_WAITINGAREA:
+            return "jupedsim.waiting_area";
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+RGBColor
+GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return RGBColor(179,217,255);
+        case GNE_TAG_JPS_OBSTACLE:
+            return RGBColor(255,204,204);
+        case GNE_TAG_JPS_WAITINGAREA:
+            return RGBColor(50, 200, 50);
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+bool
+GNEAdditional::getJuPedSimFill(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+        case GNE_TAG_JPS_OBSTACLE:
+        case GNE_TAG_JPS_WAITINGAREA:
+            return true;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+double
+GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return 1;
+        case GNE_TAG_JPS_OBSTACLE:
+            return 2;
+        case GNE_TAG_JPS_WAITINGAREA:
+            return 3;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+GUIGlObjectType
+GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return GLO_JPS_WALKABLEAREA;
+        case GNE_TAG_JPS_OBSTACLE:
+            return GLO_JPS_OBSTACLE;
+        case GNE_TAG_JPS_WAITINGAREA:
+            return GLO_JPS_WAITINGAREA;
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
+FXIcon*
+GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
+    // continue depending of tag
+    switch (tag) {
+        case GNE_TAG_JPS_WALKABLEAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA);
+        case GNE_TAG_JPS_OBSTACLE:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
+        case GNE_TAG_JPS_WAITINGAREA:
+            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA);
+        default:
+            throw InvalidArgument("Invalid JuPedSim tag");
+    }
+}
+
+
 GNELane*
 GNEAdditional::getFirstPathLane() const {
     return getParentLanes().front();
@@ -648,30 +794,6 @@ GNEAdditional::getFirstPathLane() const {
 GNELane*
 GNEAdditional::getLastPathLane() const {
     return getParentLanes().back();
-}
-
-
-double
-GNEAdditional::getPathElementDepartValue() const {
-    return getAttributeDouble(SUMO_ATTR_STARTPOS);
-}
-
-
-Position
-GNEAdditional::getPathElementDepartPos() const {
-    return getFirstPathLane()->getLaneShape().positionAtOffset2D(getPathElementDepartValue());
-}
-
-
-double
-GNEAdditional::getPathElementArrivalValue() const {
-    return getAttributeDouble(SUMO_ATTR_ENDPOS);
-}
-
-
-Position
-GNEAdditional::getPathElementArrivalPos() const {
-    return getLastPathLane()->getLaneShape().positionAtOffset2D(getPathElementArrivalValue());
 }
 
 
@@ -788,12 +910,12 @@ GNEAdditional::areLaneConsecutives(const std::vector<GNELane*>& lanes) {
     int laneIt = 0;
     // iterate over all lanes
     while (laneIt < ((int)lanes.size() - 1)) {
-        // we assume that lanes aren't consecutives
+        // we assume that lanes aren't consecutive
         bool consecutiveFound = false;
         // get lanes
         const auto lane = lanes.at(laneIt);
         const auto nextLane = lanes.at(laneIt + 1);
-        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        // if there is a connection between "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& outgoingEdge : lane->getParentEdge()->getToJunction()->getGNEOutgoingEdges()) {
             for (const auto& outgoingLane : outgoingEdge->getLanes()) {
                 if (outgoingLane == nextLane) {
@@ -828,7 +950,7 @@ GNEAdditional::areLaneConnected(const std::vector<GNELane*>& lanes) {
         if ((lane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian") && (nextLane->getAttribute(SUMO_ATTR_ALLOW) == "pedestrian")) {
             connectionFound = true;
         }
-        // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
+        // if there is a connection between "from" lane and "to" lane of connection, change connectionFound to true
         for (const auto& connection : lane->getParentEdge()->getNBEdge()->getConnections()) {
             if ((connection.toEdge == nextLane->getParentEdge()->getNBEdge()) &&
                     (connection.fromLane == lane->getIndex()) &&

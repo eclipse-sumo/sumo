@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -470,6 +470,8 @@ for i in range(18):
 
 electricVeh = "elVeh"
 traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
+print("device.battery.maximumBatteryCapacity from vehicle definition: %s" % (
+        traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity")))
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))

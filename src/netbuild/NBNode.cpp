@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -745,7 +745,7 @@ NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& 
     } else {
         Position dir = intersect;
         dir.sub(endShape[0]);
-        dir.norm2d();
+        dir.norm2D();
         const double radius = myRadius == NBNode::UNSPECIFIED_RADIUS ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myRadius;
         dir.mul(radius);
         result.push_back(intersect + dir);
@@ -898,44 +898,43 @@ NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection&
 
 bool
 NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
-                  const NBEdge::Connection& c, const NBEdge::Connection& otherC) const {
+                  const NBEdge::Connection& c, const NBEdge::Connection& otherC, bool checkOnlyTLS) const {
     const NBEdge* toE = c.toEdge;
     const NBEdge* otherToE = otherC.toEdge;
 
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT
-            || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT
-            || myType == SumoXMLNodeType::ALLWAY_STOP) {
-        return false;
+    if (!checkOnlyTLS) {
+        if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT
+                || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                || myType == SumoXMLNodeType::ALLWAY_STOP) {
+            return false;
+        }
+        LinkDirection d1 = getDirection(fromE, toE);
+        const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
+        const bool rightTurnConflict = (thisRight &&
+                NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
+        if (thisRight && !rightTurnConflict) {
+            return false;
+        }
+        if (myRequest && myRequest->indirectLeftTurnConflict(fromE, c, otherFromE, otherC, false)) {
+            return true;
+        }
+        if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == nullptr || rightTurnConflict)) {
+            // if they do not cross, no waiting place is needed
+            return false;
+        }
+        LinkDirection d2 = getDirection(otherFromE, otherToE);
+        if (d2 == LinkDirection::TURN) {
+            return false;
+        }
+        if (fromE == otherFromE && !thisRight) {
+            // ignore same edge links except for right-turns
+            return false;
+        }
+        if (thisRight && d2 != LinkDirection::STRAIGHT) {
+            return false;
+        }
     }
-    LinkDirection d1 = getDirection(fromE, toE);
-    const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
-    const bool rightTurnConflict = (thisRight &&
-                                    NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
-    if (thisRight && !rightTurnConflict) {
-        return false;
-    }
-    if (myRequest && myRequest->indirectLeftTurnConflict(fromE, c, otherFromE, otherC, false)) {
-        return true;
-    }
-    if (!(foes(otherFromE, otherToE, fromE, toE) || myRequest == nullptr || rightTurnConflict)) {
-        // if they do not cross, no waiting place is needed
-        return false;
-    }
-    LinkDirection d2 = getDirection(otherFromE, otherToE);
-    if (d2 == LinkDirection::TURN) {
-        return false;
-    }
-    const bool thisLeft = (d1 == LinkDirection::LEFT || d1 == LinkDirection::TURN);
-    const bool otherLeft = (d2 == LinkDirection::LEFT || d2 == LinkDirection::TURN);
-    const bool bothLeft = thisLeft && otherLeft;
-    if (fromE == otherFromE && !thisRight) {
-        // ignore same edge links except for right-turns
-        return false;
-    }
-    if (thisRight && d2 != LinkDirection::STRAIGHT) {
-        return false;
-    }
-    if (c.tlID != "" && !bothLeft) {
+    if (c.tlID != "") {
         assert(myTrafficLights.size() > 0 || myType == SumoXMLNodeType::RAIL_CROSSING || myType == SumoXMLNodeType::RAIL_SIGNAL);
         for (std::set<NBTrafficLightDefinition*>::const_iterator it = myTrafficLights.begin(); it != myTrafficLights.end(); ++it) {
             if ((*it)->needsCont(fromE, toE, otherFromE, otherToE)) {
@@ -956,7 +955,7 @@ NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
     return (foe.haveVia && isTLControlled() && c.tlLinkIndex >= 0 && foe.tlLinkIndex >= 0
             && !foeFrom->isTurningDirectionAt(foe.toEdge)
             && foes(from, c.toEdge, foeFrom, foe.toEdge)
-            && !needsCont(foeFrom, from, foe, c));
+            && !needsCont(foeFrom, from, foe, c, true));
 }
 
 
@@ -1924,20 +1923,20 @@ NBNode::getEmptyDir() const {
     for (const NBEdge* const in : myIncomingEdges) {
         Position toAdd = in->getFromNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.norm2d();
+        toAdd.norm2D();
         pos.add(toAdd);
     }
     for (const NBEdge* const out : myOutgoingEdges) {
         Position toAdd = out->getToNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.norm2d();
+        toAdd.norm2D();
         pos.add(toAdd);
     }
     pos.mul(-1. / (double)(myIncomingEdges.size() + myOutgoingEdges.size()));
     if (pos.x() == 0. && pos.y() == 0.) {
         pos = Position(1, 0);
     }
-    pos.norm2d();
+    pos.norm2D();
     return pos;
 }
 
@@ -2069,7 +2068,7 @@ NBNode::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
 
 bool
 NBNode::bidiConflict(const NBEdge* from, const NBEdge::Connection& con,
-                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (myRequest == nullptr) {
         return false;
     }
@@ -2979,7 +2978,7 @@ NBNode::buildCrossings() {
         }
         c->id = ":" + getID() + "_c" + toString(index++);
         c->width = (c->customWidth == NBEdge::UNSPECIFIED_WIDTH) ? defaultWidth : c->customWidth;
-        // reset fields, so repeated computation (Netedit) will sucessfully perform the checks
+        // reset fields, so repeated computation (Netedit) will successfully perform the checks
         // in buildWalkingAreas (split crossings) and buildInnerEdges (sanity check)
         c->nextWalkingArea = "";
         c->prevWalkingArea = "";

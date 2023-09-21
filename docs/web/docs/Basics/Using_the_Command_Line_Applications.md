@@ -215,6 +215,9 @@ In either case, if further information on the parameters is wanted, one
 can also pass the option **--save-commented**. Then, some further comments on each parameter
 are generated.
 
+!!! note
+    SUMO applications will quit after saving a configuration. The application has to be called a second time to run the configuration.  
+
 ## Environment variables in Configuration Files
 
 It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**.

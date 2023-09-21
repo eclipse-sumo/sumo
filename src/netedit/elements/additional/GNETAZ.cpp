@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -26,12 +26,14 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/xml/NamespaceIDs.h>
 
 #include "GNETAZ.h"
 
@@ -95,7 +97,7 @@ GNETAZ::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true);
+        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), snap_radius, true, true);
     }
 }
 
@@ -142,8 +144,8 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
                 shape.erase(shape.begin() + index);
             }
             // commit new shape
-            undoList->begin(GUIIcon::TAZ, "remove geometry point of " + getTagStr());
-            undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->begin(this, "remove geometry point of " + getTagStr());
+            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(shape), undoList);
             undoList->end();
         }
     }
@@ -407,6 +409,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
             GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
         }
+        // draw child demand elements
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
+            }
+        }
     }
 }
 
@@ -536,7 +544,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_EDGES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -548,9 +556,7 @@ bool
 GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidAdditionalID(value) &&
-                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, value, false) == nullptr) &&
-                   (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_POLY, value, false) == nullptr);
+            return isValidAdditionalID(NamespaceIDs::polygons, value);
         case SUMO_ATTR_SHAPE:
             if (value.empty()) {
                 return false;
@@ -598,8 +604,8 @@ GNETAZ::getHierarchyName() const {
 
 
 void
-GNETAZ::updateTAZStadistic() {
-    // reset all stadistic variables
+GNETAZ::updateTAZStatistic() {
+    // reset all statistic variables
     myMaxWeightSource = INVALID_DOUBLE;
     myMinWeightSource = INVALID_DOUBLE;
     myAverageWeightSource = 0;
@@ -675,12 +681,20 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 1);
     }
     // dotted contour for first TAZ
-    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
+    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FROMTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
     }
     // dotted contour for second TAZ
-    if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this)) {
+    if (myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getSecondTAZ() == this) {
         GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::TOTAZ, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+    }
+    // check if we're selecting TAZs
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+        // check if we're creating a trip or flow over taz
+        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        if (templateAC && ((templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS) || (templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS))) {
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+        }
     }
     // now check if mouse is over TAZ
     if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
@@ -710,7 +724,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // update microsimID
-            setMicrosimID(value);
+            setAdditionalID(value);
             break;
         case SUMO_ATTR_SHAPE: {
             const bool updateCenter = (myTAZCenter == myShape.getCentroid());
@@ -808,17 +822,17 @@ void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     if (moveResult.operationType == GNEMoveOperation::OperationType::POSITION) {
         // commit center
-        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front())));
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_CENTER) + " of " + getTagStr());
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CENTER, toString(moveResult.shapeToUpdate.front()), undoList);
         undoList->end();
     } else if (moveResult.operationType == GNEMoveOperation::OperationType::ENTIRE_SHAPE) {
         // calculate offset between old and new shape
         Position newCenter = myTAZCenter;
         newCenter.add(moveResult.shapeToUpdate.getCentroid() - myShape.getCentroid());
         // commit new shape and center
-        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CENTER, toString(newCenter)));
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CENTER, toString(newCenter), undoList);
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
         undoList->end();
     } else {
         // get lastIndex
@@ -832,8 +846,8 @@ GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) 
             closedShape[0] = moveResult.shapeToUpdate[lastIndex];
         }
         // commit new shape
-        undoList->begin(GUIIcon::TAZ, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(closedShape)));
+        undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_SHAPE, toString(closedShape), undoList);
         undoList->end();
     }
 }

@@ -10,7 +10,7 @@
     <vType id="type2"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <tranship from="gneE2" to="gneE2"/>
+        <tranship from="Edge0" to="Edge0"/>
         <tranship containerStop="containerStopA" speed="12.30"/>
         <tranship containerStop="containerStopB" speed="12.30"/>
     </container>

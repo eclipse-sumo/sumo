@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -49,24 +49,23 @@ netedit.leftClick(referencePosition, 497, 257)
 # Change length
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "5")
 
-# create trainStop in mode "reference left"
+# create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 257)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Reference Right")
 
-# create trainStop in mode "reference right"
+# create trainStop in mode "Reference Right"
 netedit.leftClick(referencePosition, 406, 257)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
-# create trainStop in mode "reference center"
+# create trainStop in mode "Center"
 netedit.leftClick(referencePosition, 496, 257)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

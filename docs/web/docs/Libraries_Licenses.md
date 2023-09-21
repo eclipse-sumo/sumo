@@ -36,14 +36,14 @@ license files but we strive to list them here as well:
   License](https://github.com/memononen/fontstash/blob/master/LICENSE.txt),
   includes std_truetype which is in the public domain
 
-### [RTree](http://www.superliminal.com/sources/RTreeTemplate.zip) - Improved tiling for the drawing area
+### [RTree](https://www.superliminal.com/sources/RTreeTemplate.zip) - Improved tiling for the drawing area
 
 - Version: unknown (2003)
 - Modifications: syntactic sugar for gcc compilation; different
   footprint for "Search" due to a different callback, tests removed
   because they did not compile
 - License: public domain (see
-  [README.TXT](https://github.com/eclipse/sumo/blob/main/src/foreign/rtree/README.TXT))
+  [README.TXT](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/rtree/README.TXT))
 
 ### [odrSpiral](https://github.com/DLR-TS/odrSpiral) - Approximating curves
 
@@ -51,14 +51,14 @@ license files but we strive to list them here as well:
   from 2017-05-03
 - Modifications: includes and constants;
 - License: Apache License 2.0, see [license
-  file](https://github.com/eclipse/sumo/blob/main/src/foreign/eulerspiral/LICENSE.TXT)
+  file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/eulerspiral/LICENSE.TXT)
 
 ### [zstr](https://github.com/mateidavid/zstr) - A header only C++ ZLib wrapper
 
 - Version: 1.0.6
 - Modifications: only needed header files, includes fixed
 - License: MIT, see [license
-  file](https://github.com/eclipse/sumo/blob/main/src/foreign/zstr/LICENSE)
+  file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/zstr/LICENSE)
 
 # Referenced Libraries
 
@@ -69,12 +69,12 @@ license files but we strive to list them here as well:
 - [Microsoft Software
   License](https://www.visualstudio.com/en-us/mt171551.aspx)
 
-### [Xerces-C++](http://xerces.apache.org/xerces-c/) - XML Parser
+### [Xerces-C++](https://xerces.apache.org/xerces-c/) - XML Parser
 
 - [Apache Software License
-  version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+  version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
-### [FOX toolkit](http://fox-toolkit.org/) - GUI Widget Toolkit
+### [FOX toolkit](https://fox-toolkit.org/) - GUI Widget Toolkit
 
 can be omitted, but [sumo-gui](sumo-gui.md),
 [netedit](Netedit/index.md) and multithreading won't work
@@ -85,7 +85,7 @@ can be omitted, but [sumo-gui](sumo-gui.md),
   - zlib - [self made license, free also for commercial use and
     binary distribution](https://www.zlib.net/zlib_license.html)
   - libpng - [self made license, comparable to
-    zlib](http://www.libpng.org/pub/png/src/libpng-LICENSE.txt)
+    zlib](https://www.libpng.org/pub/png/src/libpng-LICENSE.txt)
   - libjpeg - [self made license, free also for commercial use and
     binary
     distribution](https://github.com/winlibs/libjpeg/blob/master/README)
@@ -99,27 +99,27 @@ won't work
 
 ## Optional
 
-### [GDAL](http://www.gdal.org/) - Geospatial Data Abstraction Library
+### [GDAL](https://www.gdal.org/) - Geospatial Data Abstraction Library
 
 - [​X11/​MIT
-  License](http://svn.osgeo.org/gdal/trunk/gdal/LICENSE.TXT)
+  License](https://svn.osgeo.org/gdal/trunk/gdal/LICENSE.TXT)
 
-### [gl2ps](http://www.geuz.org/gl2ps/) - Printing screenshots as ps or pdf files
+### [gl2ps](https://www.geuz.org/gl2ps/) - Printing screenshots as ps or pdf files
 
 - Used version: 1.3.9
 - License: [GNU Library General Public
-  License](http://www.geuz.org/gl2ps/COPYING.LGPL) or [GL2PS
-  License](http://www.geuz.org/gl2ps/COPYING.GL2PS)
+  License](https://www.geuz.org/gl2ps/COPYING.LGPL) or [GL2PS
+  License](https://www.geuz.org/gl2ps/COPYING.GL2PS)
 
-### [Open Scene Graph](http://www.openscenegraph.org/) - 3D Graphics Toolkit
+### [Open Scene Graph](https://www.openscenegraph.org/) - 3D Graphics Toolkit
 
 - [OpenSceneGraph Public
-  License](http://www.openscenegraph.org/images/LICENSE.txt)
+  License](https://www.openscenegraph.org/images/LICENSE.txt)
 
-### [FFmpeg](http://ffmpeg.org/) - Multimedia Library
+### [FFmpeg](https://ffmpeg.org/) - Multimedia Library
 
 - [GNU Lesser General Public
-  License](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+  License](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
 
 ### [Google Test](https://github.com/google/googletest) - C++ Unit Test Framework
 
@@ -137,15 +137,15 @@ are distributed under GPL and are not part of the SUMO download.
 ## Data and Documentation
 
 Unless otherwise noted all documentation (including the files in this directory and below) and data
-files are licensed under the [Eclipse Public License v2](http://www.eclipse.org/legal/epl-v20.html) just as the rest of SUMO.
+files are licensed under the [Eclipse Public License v2](https://www.eclipse.org/legal/epl-v20.html) just as the rest of SUMO.
 
 ### 3D models
 
 All models in the data/3D directory originate from
-<http://opengameart.org/content/vehicles-assets-pt1> and are in the
+<https://opengameart.org/content/vehicles-assets-pt1> and are in the
 public domain
 
-<p style="border: 1px solid #909090; padding: 1px 4px"><img src="images/CC-CC0-small.png" alt="CC0"> This work is licensed under a <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal license</a>. To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work.</p>
+<p style="border: 1px solid #909090; padding: 1px 4px"><img src="images/CC-CC0-small.png" alt="CC0"> This work is licensed under a <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal license</a>. To the extent possible under law, the person who associated CC0 with this work has waived all copyright and related or neighboring rights to this work.</p>
 
 ### OpenStreetMap data
 
@@ -157,4 +157,4 @@ License](https://opendatacommons.org/licenses/odbl/).
 
 Currently the [Google Roboto](https://fonts.google.com/specimen/Roboto)
 font is included which is available under an [Apache
-License](http://www.apache.org/licenses/LICENSE-2.0).
+License](https://www.apache.org/licenses/LICENSE-2.0).

@@ -488,6 +488,31 @@ python tools/route/checkStopOrder.py -r <route-file>
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
 The option accepts a list of stops and also the `*` wildcard to generate a combined table for multiple busStops (i.e belonging to the same station).
 
+The resulting stop table may look as in the below example, where the columns correspond to the [attributes of the stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) execpt for the following two columns:
+- **veh**: the id of the vehicle to which this stop belongs
+- **flags**:
+  - p: parking
+  - F: first stop of the vehicle
+  - L: last stop of the vehicle
+  - w: waypoint
+  - o: vehicle is overtaken (some other vehicle arrives later at the same stop and departs earlier)
+  - O: vehicle ovetakes (some other vehicle arrives earlier and departs later)
+
+```
+# busStop: stop_A,stop_B
+arrival  until	    veh      tripId	started	  ended	    flags	busStop
+12:20:30  12:24:12  H2303_6  4199   12:23:22	12:26:23		    stop_B
+12:21:42  12:21:42  H2303_8  11010  12:25:15	12:25:15	F	    stop_A
+12:50:36  12:53:48  H2303_7  11023  12:50:26	12:52:57		    stop_B
+13:20:36  13:23:42  H2303_9  11073			                      stop_B
+13:35:00  13:38:42  H2303_8  11025			                      stop_B
+13:36:24  13:36:24  H2303_3  11012			                      stop_A
+14:04:36  14:07:24  Z2602_2  1435			                        stop_B
+14:21:12  14:24:12  H2303_1  11027		                        stop_B
+14:35:18  14:37:18  H3458_2  28915	                       		stop_B
+14:51:36  14:54:12  Z1351_9  2075			                        stop_B
+```
+
 # splitRandom.py
 
 This tool splits a route file in two different route files

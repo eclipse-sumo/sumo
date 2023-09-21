@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -251,7 +251,7 @@ GUISUMOAbstractView::updatePositionInformationLabel() const {
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
     } else {
-        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + TL(" (No projection defined)")).c_str());
+        myApp->getGeoLabel()->setText(TL("(No projection defined)"));
     }
     // if enabled, set test position
     if (myApp->getTestFrame()) {
@@ -411,7 +411,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     Boundary positionBoundary;
     positionBoundary.add(pos);
     positionBoundary.grow(SENSITIVITY);
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary, true);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary);
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
@@ -450,7 +450,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -485,7 +485,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -507,7 +507,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
+GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
     static GUIGlID hits[NB_HITS_MAX];
@@ -519,16 +519,8 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
     bound = applyGLTransform(false);
-    // enable draw for selecting (to draw objects with less details)
-    if (singlePosition) {
-        myVisualizationSettings->drawForPositionSelection = true;
-    } else {
-        myVisualizationSettings->drawForRectangleSelection = true;
-    }
+    // paint all elements
     int hits2 = doPaintGL(GL_SELECT, bound);
-    // reset flags
-    myVisualizationSettings->drawForPositionSelection = false;
-    myVisualizationSettings->drawForRectangleSelection = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits == -1) {
@@ -1047,7 +1039,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
             }
             makeNonCurrent();
             if (id != 0) {
-                // possibly, the selection-colouring is used,
+                // possibly, the selection-coloring is used,
                 //  so we should update the screen again...
                 update();
             }
@@ -1097,7 +1089,7 @@ long
 GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onMiddleBtnPress(ptr);
     }
     grab();
@@ -1113,7 +1105,7 @@ GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onMiddleBtnRelease(ptr);
     }
     ungrab();
@@ -1129,7 +1121,7 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    if(!myApp->isGaming()) {
+    if (!myApp->isGaming()) {
         myChanger->onRightBtnPress(ptr);
     }
     grab();
@@ -1593,7 +1585,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myGUIDialogEditViewport == nullptr) {
-        myGUIDialogEditViewport = new GUIDialog_EditViewport(this, TL("Edit Viewport"));
+        myGUIDialogEditViewport = new GUIDialog_EditViewport(this, TLC("Labels","Edit Viewport"));
         myGUIDialogEditViewport->create();
     }
     updateViewportValues();
@@ -1713,7 +1705,7 @@ GUISUMOAbstractView::getDecalsLockMutex() {
 }
 
 
-FXComboBox*
+MFXComboBoxIcon*
 GUISUMOAbstractView::getColoringSchemesCombo() {
     return myGlChildWindowParent->getColoringSchemesCombo();
 }
@@ -1848,21 +1840,21 @@ GUISUMOAbstractView::openPopupDialog() {
     int x, y;
     FXuint b;
     myApp->getCursorPosition(x, y, b);
-    int popX = x + myApp->getX();
+    int appX = myApp->getX();
+    int popX = x + appX;
     int popY = y + myApp->getY();
     myPopup->setX(popX);
     myPopup->setY(popY);
     myPopup->create();
     myPopup->show();
-    // try to stay on screen unless click appears to come from a multi-screen setup
+    // TODO: try to stay on screen even on a right secondary screen in multi-monitor setup
     const int rootWidth = getApp()->getRootWindow()->getWidth();
     const int rootHeight = getApp()->getRootWindow()->getHeight();
     if (popX <= rootWidth) {
-        popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+        const int maxX = (appX < 0) ? 0 : rootWidth;
+        popX = MIN2(popX, maxX - myPopup->getWidth() - 10);
     }
-    if (popY <= rootHeight) {
-        popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
-    }
+    popY = MIN2(popY, rootHeight - myPopup->getHeight() - 50);
     myPopup->move(popX, popY);
     myPopupPosition = getPositionInformation();
     myChanger->onRightBtnRelease(nullptr);

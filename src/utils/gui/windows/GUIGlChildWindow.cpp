@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXComboBox.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -45,7 +44,7 @@ FXDEFMAP(GUIGlChildWindow) GUIGlChildWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_VIEW,              GUIGlChildWindow::onCmdShowToolTipsView),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,              GUIGlChildWindow::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_ZOOM_STYLE,                     GUIGlChildWindow::onCmdZoomStyle),
-    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
+    FXMAPFUNC(SEL_COMMAND,  MID_COLORSCHEMECHANGE,             GUIGlChildWindow::onCmdChangeColorScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,      GUIGlChildWindow::onCmdEditViewScheme),
 };
 
@@ -121,7 +120,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
                          GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                         myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Edit Viewport") + std::string("\t") + TL("Opens a menu which lets you edit the viewport. (Ctrl+I)")).c_str(),
+                         myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TLC("Labels", "Edit Viewport") + std::string("\t") + TL("Opens a menu which lets you edit the viewport. (Ctrl+I)")).c_str(),
                          GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
     myZoomStyle = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
@@ -154,8 +153,8 @@ GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new MFXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                                        GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
+    myColoringSchemes = new MFXComboBoxIcon(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                                            GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeSmall, this, MID_COLORSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
     new MFXButtonTooltip(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
                          myGUIMainWindowParent->getStaticTooltipMenu(), (std::string("\t") + TL("Edit Coloring Schemes") + std::string("\t") + TL("Opens a menu which lets you edit the coloring schemes. (F9)")).c_str(),
@@ -192,7 +191,7 @@ GUIGlChildWindow::getLocatorPopup() {
 }
 
 
-FXComboBox*
+MFXComboBoxIcon*
 GUIGlChildWindow::getColoringSchemesCombo() {
     return myColoringSchemes;
 }

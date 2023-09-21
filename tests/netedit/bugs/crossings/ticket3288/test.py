@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,10 +38,10 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, 325, 225)
+netedit.leftClick(referencePosition, 498, 236)
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 150, 200)
+netedit.leftClick(referencePosition, 150, 221)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
@@ -51,38 +51,37 @@ netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 500, 200)
+netedit.leftClick(referencePosition, 700, 221)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, 700, 250)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 250, 70)
+netedit.leftClick(referencePosition, 445, 70)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 350, 70)
+netedit.leftClick(referencePosition, 516, 70)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 250, 400)
+netedit.leftClick(referencePosition, 445, 400)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 350, 400)
+netedit.leftClick(referencePosition, 516, 400)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.undo(referencePosition, 8)
-netedit.redo(referencePosition, 8)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

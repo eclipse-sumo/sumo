@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,7 @@
 
 #include "GNEPythonToolDialog.h"
 
-#define MARGING 4
+#define MARGIN 4
 #define MAXNUMCOLUMNS 4
 #define NUMROWSBYCOLUMN 20
 
@@ -66,14 +66,14 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalOptionsFrame = new FXHorizontalFrame(verticalContentFrame, GUIDesignHorizontalFrameNoPadding);
     // build options
     myShowToolTipsMenu = new MFXCheckableButton(false, horizontalOptionsFrame,
-        GNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+            GNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
+            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Save toolcfg"),
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
-        saveFile->setTipText(TL("Save file with tool configuration"));
-    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg") ,
-        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
-        loadFile->setTipText(TL("Load file with tool configuration"));
+                                         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
+    saveFile->setTipText(TL("Save file with tool configuration"));
+    auto loadFile = new MFXButtonTooltip(horizontalOptionsFrame, GNEApp->getStaticTooltipMenu(), TL("Load toolcfg"),
+                                         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
+    loadFile->setTipText(TL("Load file with tool configuration"));
     mySortedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Sorted by name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myGroupedCheckButton = new FXCheckButton(horizontalOptionsFrame, TL("Grouped by categories"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // add separators
@@ -90,12 +90,12 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     auto blueLabel = new FXLabel(horizontalButtonsFrame, TL("Blue options are mandatory"), nullptr, GUIDesignLabelFixed(200));
     blueLabel->setTextColor(FXRGB(0, 0, 255));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(horizontalButtonsFrame, (TL("Run") + std::string("\t\t") + TL("run python tool")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(horizontalButtonsFrame, (TL("Close") + std::string("\t\t") + TL("close tool dialog")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(horizontalButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to default values")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Run"), "", TL("run python tool"),
+                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Close"), "", TL("close tool dialog"),
+                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Reset"), "", TL("reset to default values"),
+                 GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
@@ -339,7 +339,7 @@ GNEPythonToolDialog::adjustParameterColumn() {
     // iterate over all arguments and find the maximum width
     for (const auto& argument : myArguments) {
         const auto label = argument->getParameterLabel();
-        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGING);
+        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGIN);
         if (columnWidth > maximumWidth) {
             maximumWidth = columnWidth;
         }

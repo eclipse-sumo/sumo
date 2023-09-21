@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -114,7 +114,8 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
         return;
     }
-    if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
+    if (previous->getStageType() != MSStageType::ACCESS && previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
+        // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
@@ -438,13 +439,14 @@ MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
         const double arrivalPos, const double dist, const bool isExit) :
     MSStage(destination, toStop, arrivalPos, MSStageType::ACCESS),
-    myOrigin(origin),
-    myDist(dist), myAmExit(isExit) {
-    const MSEdge* accessEdge = myAmExit ? destination : origin;
-    myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(accessEdge)));
-    myPath.push_back(toStop->getCenterPos());
+    myOrigin(origin), myDist(dist), myAmExit(isExit) {
+    const MSEdge* const accessEdge = myAmExit ? destination : origin;
     if (isExit) {
-        myPath = myPath.reverse();
+        myPath.push_back(toStop->getCenterPos());
+        myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(arrivalPos));
+    } else {
+        myPath.push_back(accessEdge->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(accessEdge)));
+        myPath.push_back(toStop->getCenterPos());
     }
 }
 
@@ -551,7 +553,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
         } else {
             const double accessDist = prevStop->getAccessDistance((*myStep)->getFromEdge());
             if (accessDist > 0.) {
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access(stopEdge, (*myStep)->getFromEdge(), prevStop, prevStop->getAccessPos((*myStep)->getFromEdge()), accessDist, true));
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(stopEdge, (*myStep)->getFromEdge(), prevStop, (*myStep)->getEdgePos(0), accessDist, true));
                 return true;
             }
         }
@@ -563,7 +565,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
 double
 MSPerson::getImpatience() const {
     return MAX2(0., MIN2(1., getVehicleType().getImpatience()
-                + STEPS2TIME((*myStep)->getWaitingTime(SIMSTEP)) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
+                         + STEPS2TIME((*myStep)->getWaitingTime(SIMSTEP)) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
 }
 
 const std::string&

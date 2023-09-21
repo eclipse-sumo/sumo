@@ -3,8 +3,18 @@ set(netedit_elements_demand_SRCS
    GNERouteHandler.cpp
    GNEDemandElement.h
    GNEDemandElement.cpp
+   GNEDemandElementDistribution.h
+   GNEDemandElementDistribution.cpp
+   GNEDemandElementFlow.h
+   GNEDemandElementFlow.cpp
+   GNEDemandElementPlan.h
+   GNEDemandElementPlan.cpp
+   GNEDistribution.h
+   GNEDistribution.cpp
    GNERoute.h
    GNERoute.cpp
+   GNERouteDistribution.h
+   GNERouteDistribution.cpp
    GNEVType.h
    GNEVType.cpp
    GNEVTypeDistribution.h

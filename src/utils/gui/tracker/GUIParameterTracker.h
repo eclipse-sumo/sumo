@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <vector>
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
@@ -199,7 +199,7 @@ protected:
     FXToolBarShell* myToolBarDrag;
 
     /// @brief A combo box to select an aggregation interval
-    FXComboBox* myAggregationInterval;
+    MFXComboBoxIcon* myAggregationInterval;
 
     /// @brief The simulation delay
     FXdouble myAggregationDelay;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -38,8 +38,9 @@ netedit.personMode()
 netedit.changePersonPlan("walk: busStop", False)
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,8 +49,9 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.person.create.id, ";;;;")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, 274, 400)
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x -
+                  10, netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -67,8 +69,7 @@ netedit.changeDefaultValue(netedit.attrs.person.create.id, "customID")
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

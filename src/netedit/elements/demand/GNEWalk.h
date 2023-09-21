@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -19,69 +19,48 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GNEWalk : public GNEDemandElement, public Parameterised {
+
+class GNEWalk : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
 public:
+    /**@brief general constructor for walks
+     * @param[in] net Network in which this walk is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromTAZ from TAZ
+     * @param[in] fromJunction from Junction
+     * @param[in] toEdge to edge
+     * @param[in] toTAZ to TAZ
+     * @param[in] toJunction to Junction
+     * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] edgeList list of edges
+     * @param[in] route route
+     */
+    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction,
+        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route);
+
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->busStop or edge->trainStop
-     * @param[in] isTrain check if si tran or busStop
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toBusStop to busStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] edges list of edges
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] route route
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition);
-
-    /**@brief parameter constructor for person junction->junction
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromJunction from junction
-     * @param[in] toJunction to junction
-     * @param[in] arrivalPosition arrival position on the destination junction
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition);
 
     /// @brief destructor
     ~GNEWalk();
@@ -96,7 +75,7 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
-    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current demand element is valid to be written into XML (by default true, can be reimplemented in children)
     Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
@@ -237,10 +216,6 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
-protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -250,6 +225,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildWalk
+     * @param[in] net Network in which this Walk is placed
+     * @param[in] tag walk tag
+     * @param[in] icon walk icon
+     * @param[in] parents demand element parents (person and, optionally, route)
+     * @param[in] junction from-to junctions
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     */
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*> &parents, const std::vector<GNEJunction*> &junctions,
+            const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

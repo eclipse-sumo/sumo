@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-05 14:40:13 by Eclipse SUMO sumo Version v1_17_0+0716-331573c
+<!-- generated on 2023-09-01 11:05:24 by Eclipse SUMO sumo Version v1_17_0+2470-b55cba8942c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -164,7 +164,7 @@
         <time-to-impatience value="180" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
         <default.action-step-length value="0" type="FLOAT" help="Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length."/>
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
-        <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class"/>
+        <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class)"/>
         <default.emergencydecel value="default" type="STR" help="Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2"/>
         <overhead-wire.solver value="true" type="BOOL" help="Use Kirchhoff&apos;s laws for solving overhead wire circuit"/>
         <overhead-wire.recuperation value="true" type="BOOL" help="Enable recuperation from the vehicle equipped with elecHybrid device into the overhead wire."/>
@@ -185,7 +185,8 @@
         <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
         <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
         <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
-        <pedestrian.remote.address value="localhost:9000" type="STR" help="The address (host:port) of the external simulation"/>
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME" help="The update interval of the JuPedSim simulation (in seconds)"/>
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT" help="The distance to the destination point considered as arrival (in meters)"/>
         <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
         <persontrip.walk-opposite-factor value="1" type="FLOAT" help="Use FLOAT as a factor on walking speed against vehicle traffic direction"/>
     </processing>
@@ -241,6 +242,8 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL" help="Disable performance reports for individual simulation steps"/>
         <duration-log.statistics value="false" synonymes="t" type="BOOL" help="Enable statistics on vehicle trips"/>

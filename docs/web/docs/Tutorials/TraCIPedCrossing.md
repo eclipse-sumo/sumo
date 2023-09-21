@@ -41,13 +41,13 @@ python runner.py
 The control logic resides in the python script *runner.py*. It builds
 the network (via [netconvert](../netconvert.md)) generates the
 pedestrian routes (via
-[\[1\]](http://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
+[\[1\]](https://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
 and interacts with the simulation to controls the traffic light. It
 makes use of the TraCI python API bundled with SUMO. A description of
 the API can be found at
 [TraCI/Interfacing_TraCI_from_Python](../TraCI/Interfacing_TraCI_from_Python.md).
 For a detailed list of available functions see the [pydoc generated
-documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
+documentation](https://sumo.dlr.de/daily/pydoc/traci.html).
 
 ## Traffic light control
 

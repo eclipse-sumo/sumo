@@ -181,7 +181,7 @@ Alternatively to changing lane permissions with a rerouter, the traci functions 
 
 ## Assigning a new Destination
 
-A "dest_prob_reroute" forces the rerouter to assign a new route to
+A "destProbReroute" forces the rerouter to assign a new route to
 vehicles that pass one of the edges defined in the edges-attribute of
 the rerouter's declaration. A new route destination is used, defined by
 the name of a new destination in the according element:
@@ -206,13 +206,13 @@ first applicable value is used):
 - the current (smoothed) travel times in the network are used if the
    vehicle is equipped with a [rerouting
    device](../Demand/Automatic_Routing.md)
-- subjective edge costs for the current vehicle if set via[TraCI
+- subjective edge costs for the current vehicle if set via [TraCI
    command *change edge travel time
    information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
 - edge weights loaded via the [sumo](../sumo.md) option **--weight-files**
 - travel times in the empty network
 
-The attributes used within a dest_prob_reroute are:
+The attributes used within a destProbReroute are:
 
 | Attribute Name  | Value Type                        | Description                                                                                                                                         |
 | --------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -230,7 +230,7 @@ The attributes used within a dest_prob_reroute are:
 
 ## Assigning a new Route
 
-A "route_prob_reroute" forces the rerouter to assign a new route to
+A "routeProbReroute" forces the rerouter to assign a new route to
 vehicles which pass one of the edges defined in the edges-attribute of
 the rerouter's declaration. In this case, the id of a complete route
 must be supplied instead of a new destination:

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -237,9 +237,9 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
     MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
     // Create "Protect all" Button
-    new FXButton(getCollapsableFrame(), (TL("Protect all") + std::string("\t\t") + TL("Protect all elements")).c_str(), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Protect all"), "", TL("Protect all elements"), nullptr, this, MID_GNE_PROTECT_ALL, GUIDesignButton);
     // Create "Unprotect all" Button
-    new FXButton(getCollapsableFrame(), (TL("Unprotect all") + std::string("\t\t") + TL("Unprotect all elements")).c_str(), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Unprotect all"), "", TL("Unprotect all elements"), nullptr, this, MID_GNE_UNPROTECT_ALL, GUIDesignButton);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
@@ -304,8 +304,8 @@ GNEDeleteFrame::ProtectElements::onCmdUnprotectAll(FXObject*, FXSelector, void*)
 
 long
 GNEDeleteFrame::ProtectElements::onUpdProtectAll(FXObject* sender, FXSelector, void*) {
-    if (myProtectAdditionals->getCheck() && myProtectTAZs->getCheck() && 
-        myProtectDemandElements->getCheck() && myProtectGenericDatas->getCheck()) {
+    if (myProtectAdditionals->getCheck() && myProtectTAZs->getCheck() &&
+            myProtectDemandElements->getCheck() && myProtectGenericDatas->getCheck()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -315,8 +315,8 @@ GNEDeleteFrame::ProtectElements::onUpdProtectAll(FXObject* sender, FXSelector, v
 
 long
 GNEDeleteFrame::ProtectElements::onUpdUnprotectAll(FXObject* sender, FXSelector, void*) {
-    if (!myProtectAdditionals->getCheck() && !myProtectTAZs->getCheck() && 
-        !myProtectDemandElements->getCheck() && !myProtectGenericDatas->getCheck()) {
+    if (!myProtectAdditionals->getCheck() && !myProtectTAZs->getCheck() &&
+            !myProtectDemandElements->getCheck() && !myProtectGenericDatas->getCheck()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -328,10 +328,10 @@ GNEDeleteFrame::ProtectElements::onUpdUnprotectAll(FXObject* sender, FXSelector,
 // ===========================================================================
 
 GNEDeleteFrame::GNEDeleteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Delete") {
-    // create delete options modul
+    GNEFrame(viewParent, viewNet, TL("Delete")) {
+    // create delete options module
     myDeleteOptions = new DeleteOptions(this);
-    // create protect elements modul
+    // create protect elements module
     myProtectElements = new ProtectElements(this);
 }
 
@@ -358,8 +358,8 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
     const auto& attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     // first check if there is additional to remove
     if (selectedACsToDelete()) {
-        // remove all selected attribute carrier susing the following parent-child sequence
-        myViewNet->getUndoList()->begin(GUIIcon::MODEDELETE, "remove selected items");
+        // remove all selected attribute carriers using the following parent-child sequence
+        myViewNet->getUndoList()->begin(GUIIcon::MODEDELETE, TL("remove selected items"));
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
         // delete selected attribute carriers depending of current supermode
@@ -492,7 +492,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
             if (junction.second->isAttributeCarrierSelected()) {
                 return true;
             }
-            // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+            // since we iterate over all junctions, it's only necessary to iterate over incoming edges
             for (const auto& edge : junction.second->getGNEIncomingEdges()) {
                 if (edge->isAttributeCarrierSelected()) {
                     return true;

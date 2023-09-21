@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,10 +37,10 @@ netedit.additionalMode()
 # select parkingArea
 netedit.changeElement("parkingArea")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 382, 256)
 
 # select space
@@ -69,8 +69,7 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.parent, "", False)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.parent, "pa_1", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

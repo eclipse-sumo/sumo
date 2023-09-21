@@ -112,9 +112,9 @@ Now we add the from-edge and the to-edge to the flow in
 Let's try to run SUMO again. The window should now show the network you
 have created before in netedit (see figure below) and you can start the 
 simulation by clicking on the play button 
-(![Image:play.gif](../images/Play.gif "Image:play.gif")) or the step button 
-(![Image:step.gif](../images/Step.gif "Image:step.gif")). If you use 
-![Image:play.gif](../images/Play.gif "Image:play.gif"), be sure to adjust the 
+(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")) or the step button 
+(![Image:icon_step.png](../images/icon_step.png "Image:icon_step.png")). If you use 
+![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png"), be sure to adjust the 
 value for the animation delay time between consecutive simulation steps (the 
 field labeled "Delay (ms):", see figure). Otherwise SUMO will run the simulation 
 as fast as possible and you will probably see nothing happening at all. (Note 
@@ -226,7 +226,7 @@ Create a flow with netedit.
 After saving the route, we can run the simulation with sumo-gui by pressing 
 `Ctrl-T`. Change the delay (e.g. to 100) to be able to see the vehicles driving 
 and click the play button 
-(![Image:play.gif](../images/Play.gif "Image:play.gif")). As we can see, the 
+(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). As we can see, the 
 five vehicles drive from the first edge to the last one given and then 
 disappear. In the next step we will see how to make them drive in circles with 
 a rerouter.
@@ -261,7 +261,7 @@ a `destProbReroute`-element. Select the rerouter and click over it with the
 right-button. Select "Open rerouter Dialog" over the list.
 
 We click over the add button 
-(![Image:add.gif](../images/Add.png "Image:add.png")) to add a new Interval. We 
+(![Image:add.gif](../images/icon_add.png "Image:icon_add.png")) to add a new Interval. We 
 will leave the default interval (0 to 3600 seconds), but you can change it if 
 you want. Now we add a new `destProbReroute` by clicking over the add button on 
 the upper-right window. The first rerouter has to send the vehicles to the 
@@ -278,7 +278,7 @@ steps but remember to replace the edges.
 Once we have created both rerouters, we save them in an additional file by 
 pressing `Ctrl-Shift-A` and enter the file name, in this case `circles.add.xml`. 
 Now we can run the simulation again by pressing `Ctrl-T` to open sumo-gui and 
-click the play button (![Image:play.gif](../images/Play.gif "Image:play.gif")). 
+click the play button (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). 
 Now the vehicles are driving in circles until the end time given (3600 seconds).
 
 <img src="../images/tutorialCirclesRunSimulation.gif" alt="RunSimulation" width="600">

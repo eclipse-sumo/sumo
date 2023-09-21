@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -49,15 +49,17 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
     // Create MFXComboBoxIcon for tags
-    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
-    // Create FXComboBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                             this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for Attributes
+    myMatchAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                              this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
-    myMatchStringButton = new FXButton(getCollapsableFrame(), TL("Apply selection"), nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
+    myMatchStringButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Apply selection"), "", "", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
-    new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Set default value for Match string
     myMatchString->setText(defaultValue.c_str());
 }
@@ -105,7 +107,7 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     } else if (type == GNEElementSet::Type::TAZ) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
     } else if (type == GNEElementSet::Type::GENERICDATA) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     } else {
@@ -295,7 +297,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");
@@ -329,8 +331,6 @@ GNEMatchAttribute::updateTag() {
             tagIndex = i;
         }
     }
-    // set num visible items
-    myMatchTagComboBox->setNumVisible(myMatchTagComboBox->getNumItems());
     // check tagIndex
     if (tagIndex == -1) {
         myMatchTagComboBox->setCurrentItem(0);
@@ -355,7 +355,7 @@ GNEMatchAttribute::updateAttribute() {
         int attrIndex = -1;
         // fill attribute combo box
         for (int i = 0; i < (int)tagProperty.getNumberOfAttributes(); i++) {
-            myMatchAttrComboBox->appendItem(tagProperty.at(i).getAttrStr().c_str());
+            myMatchAttrComboBox->appendIconItem(tagProperty.at(i).getAttrStr().c_str());
             // check attr index
             if (tagProperty.at(i).getAttr() == myCurrentAttribute) {
                 attrIndex = i;
@@ -363,27 +363,25 @@ GNEMatchAttribute::updateAttribute() {
         }
         // Check if are allowed "Parameter"
         if (tagProperty.hasParameters()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARAMETERS).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARAMETERS).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARAMETERS) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can close shape
         if (tagProperty.canCloseShape()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
             if (myCurrentAttribute == GNE_ATTR_CLOSE_SHAPE) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
         // check if item can have parent
         if (tagProperty.isChild()) {
-            myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
+            myMatchAttrComboBox->appendIconItem(toString(GNE_ATTR_PARENT).c_str());
             if (myCurrentAttribute == GNE_ATTR_PARENT) {
                 attrIndex = (myMatchAttrComboBox->getNumItems() - 1);
             }
         }
-        // set num visible items
-        myMatchAttrComboBox->setNumVisible(myMatchAttrComboBox->getNumItems());
         // check attrIndex
         if (attrIndex == -1) {
             myMatchAttrComboBox->setCurrentItem(0);

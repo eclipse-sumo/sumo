@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -72,9 +72,9 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, (std::string("\t\t") + TL("close accepting changes")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(43));
-    myCancelButton = new FXButton(buttonsFrame, (std::string("\t\t") + TL("close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(43));
-    myResetButton = new FXButton(buttonsFrame, (std::string("\t\t") + TL("reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(43));
+    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("close accepting changes"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonCustomWidth(43));
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("close discarding changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCustomWidth(43));
+    myResetButton = GUIDesigns::buildFXButton(buttonsFrame, "", "", TL("reset to previous values"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET, GUIDesignButtonCustomWidth(43));
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create
     create();

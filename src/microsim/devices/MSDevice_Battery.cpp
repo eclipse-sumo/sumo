@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -57,21 +57,11 @@ void
 MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, MSDevice_StationFinder* sf) {
     // Check if vehicle should get a battery
     if (sf != nullptr || equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
-        const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
-        // obtain maximumBatteryCapacity
-        const double maximumBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), DEFAULT_MAX_CAPACITY);
-
-        // obtain actualBatteryCapacity
-        double actualBatteryCapacity = 0;
-        if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
-            actualBatteryCapacity = typeParams.getDouble(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY),
-                                    maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
-        } else {
-            actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0"));
-        }
-
-        const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 150000.);
-        const double stoppingThreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTHRESHOLD), 0.1);
+        // obtain parameter values
+        const double maximumBatteryCapacity = readParameterValue(v, SUMO_ATTR_MAXIMUMBATTERYCAPACITY, "battery.capacity", DEFAULT_MAX_CAPACITY);
+        const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, "battery.chargeLevel", maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
+        const double powerMax = readParameterValue(v, SUMO_ATTR_MAXIMUMPOWER, "battery.maxPower", 150000.);
+        const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, "battery.stoppingThreshold", 0.1);
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -84,6 +74,21 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
             sf->setBattery(device);
         }
     }
+}
+
+
+double
+MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal) {
+    const std::string& oldParam = toString(attr);
+    const SUMOVTypeParameter& typeParams = v.getVehicleType().getParameter();
+    if (v.getParameter().knowsParameter(oldParam) || typeParams.knowsParameter(oldParam)) {
+        WRITE_WARNINGF(TL("Battery device in vehicle '%s' still uses old parameter '%'. Please update to 'device.%'."), v.getID(), oldParam, paramName);
+        if (v.getParameter().getParameter(oldParam, "-") == "-") {
+            return typeParams.getDouble(oldParam, defaultVal);
+        }
+        return StringUtils::toDouble(v.getParameter().getParameter(oldParam, "0"));
+    }
+    return getFloatParam(v, OptionsCont::getOptions(), paramName, defaultVal);
 }
 
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -253,18 +253,18 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     }
 
     new FXLabel(myToolBar, "time style:", nullptr, LAYOUT_CENTER_Y);
-    myTimeMode = new FXComboBox(myToolBar, 11, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
-    myTimeMode->appendItem("seconds");
-    myTimeMode->appendItem("MM:SS");
-    myTimeMode->appendItem("time in cycle");
-    myTimeMode->setNumVisible(3);
+    myTimeMode = new MFXComboBoxIcon(myToolBar, 11, false, GUIDesignComboBoxSizeMedium,
+                                     this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myTimeMode->appendIconItem("seconds");
+    myTimeMode->appendIconItem("MM:SS");
+    myTimeMode->appendIconItem("time in cycle");
 
     new FXLabel(myToolBar, "green time", nullptr, LAYOUT_CENTER_Y);
-    myGreenMode = new FXComboBox(myToolBar, 6, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
-    myGreenMode->appendItem("off");
-    myGreenMode->appendItem("phase");
-    myGreenMode->appendItem("running");
-    myGreenMode->setNumVisible(3);
+    myGreenMode = new MFXComboBoxIcon(myToolBar, 6, false, GUIDesignComboBoxSizeMedium,
+                                      this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myGreenMode->appendIconItem("off");
+    myGreenMode->appendIconItem("phase");
+    myGreenMode->appendIconItem("running");
 
     myIndexMode = new FXCheckButton(myToolBar, TL("phase names"), this, MID_SIMSTEP);
 

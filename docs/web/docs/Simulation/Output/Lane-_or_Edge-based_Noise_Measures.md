@@ -4,10 +4,10 @@ title: Lane- or Edge-based Noise Measures
 
 The edge/lane based noise output based on Harmonoise writes information
 about the noise produced on edges/lanes. The model was generated within
-the EC-project [Imagine](http://www.imagine-project.org/). Its
+the EC-project [Imagine](https://www.imagine-project.org/). Its
 description can be found in the deliverable 18 of this project ([D18 The
 Harmonoise Engineering
-model](http://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pdf)).
+model](https://www.imagine-project.org/bestanden/D18_WP3_HAR32TR-040922-DGMR20.pdf)).
 
 !!! missing
     Add a model description here

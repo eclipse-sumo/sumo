@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -112,7 +112,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     length = MIN2(length, myDetectionRange);
 
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
-                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors);
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
                     MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                 }
                 myLaneDetectors[lane] = det;

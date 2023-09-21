@@ -1,4 +1,4 @@
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -105,6 +105,7 @@ class Lane:
         self._params = {}
         self._allowed = get_allowed(allow, disallow)
         self._neigh = None
+        self._selected = False
         edge.addLane(self)
 
     def getSpeed(self):

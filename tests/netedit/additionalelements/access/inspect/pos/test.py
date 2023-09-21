@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -56,18 +56,17 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "dummy position", True
 # Change parameter pos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "", True)
 
-# Change parameter pos with a valid value (negativ)
+# Change parameter pos with a valid value (negative)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "-1000", True)
 
-# Change parameter pos with a valid value (greather than lane length)
+# Change parameter pos with a valid value (greater than lane length)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "1000", True)
 
 # Change parameter pos with a valid value (middle lane)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "2.1", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

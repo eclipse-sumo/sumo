@@ -8,9 +8,9 @@ Warning: PT line in relation 35040 with no stops ignored. Probably OSM file is i
 Warning: PT line in relation 35055 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 35032 with no stops ignored. Probably OSM file is incomplete.
 Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (parallel incoming 6137233#4,6137239#2).
-Warning: Minor green from edge '27445161' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445161' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445161' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445016' to edge '-25951490' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445016' to edge '22917251' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '27445016' to edge '27445070' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445165' to edge '27445066' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '-24214694' to edge '27445073' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445161' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
+Warning: 16 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.

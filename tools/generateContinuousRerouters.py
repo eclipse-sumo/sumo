@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import optparse
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -34,24 +33,20 @@ from sumolib.geomhelper import naviDegree, minAngleDegreeDiff  # noqa
 
 
 def get_options(args=None):
-    parser = optparse.OptionParser()
-    parser.add_option("-n", "--net-file", dest="netfile",
-                      help="define the net file (mandatory)")
-    parser.add_option("-o", "--output-file", dest="outfile", default="rerouters.xml",
-                      help="define the output rerouter filename")
-    parser.add_option("-T", "--turn-defaults", dest="turnDefaults", default="30,50,20",
-                      help="Use STR[] as default turn probabilities [right,straight,left[,turn]]")
-    parser.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False,
-                      help="place rerouters further upstream (after the previous decision point) to increase " +
-                           "overlap of routes when rerouting and thereby improve anticipation of intersections")
-    parser.add_option("--vclass",
-                      help="only create routes which permit the given vehicle class")
-    parser.add_option("-b", "--begin",  default=0, help="begin time")
-    parser.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
-    (options, args) = parser.parse_args(args=args)
-    if not options.netfile:
-        parser.print_help()
-        sys.exit(1)
+    ap = sumolib.options.ArgumentParser()
+    ap.add_option("-n", "--net-file", dest="netfile", required=True, category="input", type=ap.net_file,
+                  help="define the net file (mandatory)")
+    ap.add_option("-o", "--output-file", dest="outfile", default="rerouters.xml", category="output", type=ap.file,
+                  help="define the output rerouter filename")
+    ap.add_option("-T", "--turn-defaults", dest="turnDefaults", default="30,50,20",
+                  help="Use STR[] as default turn probabilities [right,straight,left[,turn]]")
+    ap.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False,
+                  help="place rerouters further upstream (after the previous decision point) to increase " +
+                       "overlap of routes when rerouting and thereby improve anticipation of intersections")
+    ap.add_option("--vclass", help="only create routes which permit the given vehicle class")
+    ap.add_option("-b", "--begin",  default=0, help="begin time")
+    ap.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
+    options = ap.parse_args(args=args)
 
     options.turnDefaults = list(map(float, options.turnDefaults.split(',')))
     if len(options.turnDefaults) not in [3, 4]:
@@ -140,10 +135,10 @@ def main(options):
                     if options.longRoutes:
                         # overlapping routes: start behind an intersection and
                         # route across the next intersection to the entry of the
-                        # 2nd intersetion (more rerouters and overlapping routes)
+                        # 2nd intersection (more rerouters and overlapping routes)
                         if getNumAlternatives(edge, routes) > 1:
                             for incomingRoute in sorted(incomingRoutes[edge]):
-                                assert(incomingRoute[-1] == edge.getID())
+                                assert incomingRoute[-1] == edge.getID()
                                 firstEdgeID = incomingRoute[0]
                                 routeIDs = []
                                 for edges in routes:

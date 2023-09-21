@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@
 ///
 // A class for visualizing transports in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -27,35 +26,33 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNETransport.h"
-#include "GNERoute.h"
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+    GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-myArrivalPosition(0) {
+    GNEDemandElementPlan(this, -1) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
-myLines(lines),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition),
+    myLines(lines) {
 }
 
 
 GNETransport::GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, GNE_TAG_TRANSPORT_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
-myLines(lines),
-myArrivalPosition(arrivalPosition) {
+    GNEDemandElementPlan(this, arrivalPosition),
+    myLines(lines) {
 }
 
 
@@ -69,9 +66,9 @@ GNETransport::getMoveOperation() {
         return nullptr;
     }
     // get geometry end pos
-    const Position geometryEndPos = getPathElementArrivalPos();
+    const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
     // calculate circle width squared
-    const double circleWidthSquared = myPersonPlanArrivalPositionDiameter * myPersonPlanArrivalPositionDiameter;
+    const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
     // check if we clicked over a geometry end pos
     if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
         // continue depending of parent edges
@@ -94,7 +91,7 @@ GNETransport::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
-    // buld menu commands for names
+    // build menu commands for names
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
@@ -172,7 +169,7 @@ GNETransport::getColor() const {
 
 void
 GNETransport::updateGeometry() {
-    // update child demand elementss
+    // update child demand elements
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
     }
@@ -214,8 +211,8 @@ GNETransport::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwork
 
 
 void
-GNETransport::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Transports are drawn in drawPartialGL
+GNETransport::drawGL(const GUIVisualizationSettings& s) const {
+    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
@@ -230,15 +227,13 @@ GNETransport::computePathElement() {
 
 void
 GNETransport::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw container plan over lane
-    drawPersonPlanPartial(drawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
 void
 GNETransport::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // draw container plan over junction
-    drawPersonPlanPartial(drawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor);
+    drawPlanPartial(checkDrawContainerPlan(), s, fromLane, toLane, segment, offsetFront, s.widthSettings.transportWidth, s.colorSettings.transportColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 
@@ -336,7 +331,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
@@ -344,12 +339,12 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
             GNEDemandElement* nextContainerPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
             // continue depending of nextContainerPlan
             if (nextContainerPlan) {
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
+                undoList->begin(this, "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -361,12 +356,12 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
                 // obtain containerStop
                 const GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
                 // change from attribute using edge ID
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next containerPlan");
+                undoList->begin(this, "Change from attribute of next containerPlan");
                 nextContainerPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             }
             break;
         }
@@ -382,7 +377,7 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
         // Common container plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_CONTAINERSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         // specific container plan attributes
@@ -474,7 +469,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         case GNE_ATTR_TO_CONTAINERSTOP:
-            replaceAdditionalParent(SUMO_TAG_CONTAINER_STOP, value);
+            replaceFirstParentAdditional(SUMO_TAG_CONTAINER_STOP, value);
             // compute transport
             computePathElement();
             break;
@@ -522,7 +517,7 @@ GNETransport::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    undoList->begin(myTagProperty.getGUIIcon(), "arrivalPos of " + getTagStr());
+    undoList->begin(this, "arrivalPos of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();

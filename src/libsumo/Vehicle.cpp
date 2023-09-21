@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -380,8 +380,8 @@ Vehicle::getJunctionFoes(const std::string& vehID, double dist) {
                         // approach information is from the start of the previous step
                         // but the foe vehicle then moved within that steop
                         const double prevFoeDist = SPEED2DIST(MSGlobals::gSemiImplicitEulerUpdate
-                                ? foe->getSpeed()
-                                : (foe->getSpeed() + foe->getPreviousSpeed()) / 2);
+                                                              ? foe->getSpeed()
+                                                              : (foe->getSpeed() + foe->getPreviousSpeed()) / 2);
                         jf.foeDist = item.second.dist - foeDistBehindCrossing - prevFoeDist;
                         jf.egoExitDist = jf.egoDist + ci.conflictSize;
                         jf.foeExitDist = jf.foeDist + ci.getFoeConflictSize(foeExitLink);
@@ -532,6 +532,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
                             result.push_back(ntd);
                         }
                         seen += allowed->front()->getLength();
+                        break;
                     }
                 }
             } else {
@@ -1690,9 +1691,8 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
         }
     }
 
-    Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
-    std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos
+    std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << veh->getPosition()
               << " lane=" << Named::getIDSecure(veh->getLane()) << " lanePos=" << vehicle->getPositionOnLane() << std::endl;
     std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
 #endif
@@ -1717,7 +1717,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
                 bestDistance, &lane, lanePos, routeOffset);
         // @note silenty ignoring mapping failure
     } else {
-        double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
+        const double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle,
                                     speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
                                     vClass, setLateralPos,

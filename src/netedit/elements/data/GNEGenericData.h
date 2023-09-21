@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -100,7 +100,7 @@ public:
      */
     virtual void writeGenericData(OutputDevice& device) const = 0;
 
-    /// @brief check if current data set is valid to be writed into XML (by default true, can be reimplemented in children)
+    /// @brief check if current data set is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isGenericDataValid() const;
 
     /// @brief return a string with the current data set problem (by default empty, can be reimplemented in children)
@@ -181,18 +181,6 @@ public:
 
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
-
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
 
     /// @}
 

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -56,8 +56,8 @@ GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
     myFlowEditor = new GNEFlowEditor(frameParent->getViewNet(), frameParent);
     // create reset and help button
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
-    new FXButton(myFrameButtons, TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myResetButton = GUIDesigns::buildFXButton(myFrameButtons, "", "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
+    GUIDesigns::buildFXButton(myFrameButtons, TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 

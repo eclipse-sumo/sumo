@@ -38,24 +38,24 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_0">
-        <stop busStop="trainStop" duration="dummyDuration"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0">
+        <stop busStop="trainStopA" duration="dummyDuration"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_1">
-        <stop busStop="trainStop" duration=""/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
+        <stop busStop="trainStopA" duration=""/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_2">
-        <stop busStop="trainStop" duration="-3"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_2">
+        <stop busStop="trainStopA" duration="-3"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_3">
-        <stop busStop="trainStop" duration="0"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_3">
+        <stop busStop="trainStopA" duration="0"/>
     </route>
 
-    <route edges="gneE0 gneE1" color="yellow" id="route_4">
-        <stop busStop="trainStop" duration="2"/>
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_4">
+        <stop busStop="trainStopA" duration="2"/>
     </route>
 
 </routes>

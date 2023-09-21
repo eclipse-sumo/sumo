@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -490,7 +490,7 @@ OptionsCont::isWriteable(const std::string& name) {
 
 void
 OptionsCont::clear() {
-    // delete only adresse (because synonyms placed in values aim to the same Option)
+    // delete only address (because synonyms placed in values aim to the same Option)
     for (const auto& addresse : myAddresses) {
         delete addresse.second;
     }
@@ -925,8 +925,10 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (auto& file : fileList) {
-                        file = FileHelpers::fixRelative(StringUtils::urlEncode(file, " ;%"), relativeTo,
-                                                        forceRelative || getBool("save-configuration.relative"));
+                        file = FileHelpers::fixRelative(
+                                   StringUtils::urlEncode(file, " ;%"),
+                                   StringUtils::urlEncode(relativeTo, " ;%"),
+                                   forceRelative || getBool("save-configuration.relative"));
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {

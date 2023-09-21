@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -65,6 +65,12 @@ enum class GUIIcon {
     CLEARMESSAGEWINDOW,
     /// @}
 
+    /// @name netedit view icons
+    /// @{
+    VIEWDEFAULT,
+    VIEWJUPEDSIM,
+    /// @}
+
     /// @brief open icons
     /// @{
     OPEN,
@@ -87,6 +93,7 @@ enum class GUIIcon {
     SAVE_MULTIPLE,
     SAVE_NETWORKELEMENTS,
     SAVE_ADDITIONALELEMENTS,
+    SAVE_JUPEDSIMELEMENTS,
     SAVE_DEMANDELEMENTS,
     SAVE_DATAELEMENTS,
     SAVE_MEANDATAELEMENTS,
@@ -274,6 +281,8 @@ enum class GUIIcon {
     UNCOLLAPSE,
     EXTEND,
     CURRENT,
+    SEARCH,
+    ALLOW,
     /// @}
 
     /// @name Netedit common mode specific icons
@@ -360,11 +369,13 @@ enum class GUIIcon {
     MODESHAPE,
     MODEPROHIBITION,
     MODEWIRE,
+    MODEDECAL,
     /// @}
 
     /// @name Netedit Demand modes icons
     /// @{
     MODEROUTE,
+    MODEROUTEDISTRIBUTION,
     MODEVEHICLE,
     MODETYPE,
     MODETYPEDISTRIBUTION,
@@ -444,12 +455,26 @@ enum class GUIIcon {
     OVERHEADWIRE_CLAMP,
     /// @}
 
-    /// @name poly elements icons
+    /// @name shape elements icons
     /// @{
     POLY,
     POI,
     POILANE,
     POIGEO,
+    /// @}
+
+    /// @name poi icons
+    /// @{
+    POIICON_TREE,
+    POIICON_HOTEL,
+    /// @}
+
+    /// @name juPedSim elements
+    /// @{
+    JPS,
+    JPS_WALKABLEAREA,
+    JPS_OBSTACLE,
+    JPS_WAITINGAREA,
     /// @}
 
     /// @name TAZ elements icons
@@ -462,37 +487,42 @@ enum class GUIIcon {
     /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
+    ROUTEDISTRIBUTION,
     VTYPE,
     VTYPEDISTRIBUTION,
     VEHICLE,
     TRIP,
     TRIP_JUNCTIONS,
+    TRIP_TAZS,
     FLOW,
     FLOW_JUNCTIONS,
+    FLOW_TAZS,
     ROUTEFLOW,
     STOPELEMENT,
     WAYPOINT,
     PERSON,
     PERSONFLOW,
-    PERSONTRIP_FROMTO,
+    PERSONTRIP_EDGE,
     PERSONTRIP_BUSSTOP,
     PERSONTRIP_TRAINSTOP,
-    PERSONTRIP_JUNCTIONS,
+    PERSONTRIP_JUNCTION,
+    PERSONTRIP_TAZ,
     WALK_EDGES,
-    WALK_FROMTO,
+    WALK_EDGE,
     WALK_BUSSTOP,
     WALK_TRAINSTOP,
     WALK_ROUTE,
-    WALK_JUNCTIONS,
-    RIDE_FROMTO,
+    WALK_JUNCTION,
+    WALK_TAZ,
+    RIDE_EDGE,
     RIDE_BUSSTOP,
     RIDE_TRAINSTOP,
     CONTAINER,
     CONTAINERFLOW,
-    TRANSPORT_FROMTO,
+    TRANSPORT_EDGE,
     TRANSPORT_CONTAINERSTOP,
     TRANSHIP_EDGES,
-    TRANSHIP_FROMTO,
+    TRANSHIP_EDGE,
     TRANSHIP_CONTAINERSTOP,
     /// @}
 
@@ -639,7 +669,7 @@ enum class GUIIcon {
     /// @brief icons for geo tools
     /// @{
     GEOHACK,
-    GOOGLESAT,
+    GOOGLEMAPS,
     OSM,
     /// @}
 

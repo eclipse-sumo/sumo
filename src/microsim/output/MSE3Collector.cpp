@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -157,7 +157,9 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
         ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+            if (!myCollector.myExpectArrival) {
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+            }
         }
         return false;
     }
@@ -287,7 +289,9 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
     }
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+            if (!myCollector.myExpectArrival) {
+                WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
+            }
         }
         return false;
     }
@@ -305,7 +309,7 @@ MSE3Collector::MSE3Collector(const std::string& id,
                              const std::string name, const std::string& vTypes,
                              const std::string& nextEdges,
                              int detectPersons,
-                             bool openEntry) :
+                             bool openEntry, bool expectArrival) :
     MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myName(name),
     myEntries(entries),
@@ -313,7 +317,7 @@ MSE3Collector::MSE3Collector(const std::string& id,
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0),
     myLastMeanTravelTime(0), myLastMeanHaltsPerVehicle(0), myLastMeanTimeLoss(0), myLastVehicleSum(0),
-    myLastResetTime(-1), myOpenEntry(openEntry) {
+    myLastResetTime(-1), myOpenEntry(openEntry), myExpectArrival(expectArrival) {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));

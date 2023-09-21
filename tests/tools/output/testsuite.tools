@@ -1,4 +1,3 @@
-
 # Tests for E1 Detector generation script
 generateTLSE1Detectors
 
@@ -46,3 +45,7 @@ parkingSearchTraffic
 aggregateBatteryOutput
 vehrouteCountValidation
 fcdDiff
+analyze_pedestrian_jam
+
+# Copy of analyze_pedestrian_jam
+analyze_teleports

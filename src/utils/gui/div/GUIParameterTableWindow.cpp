@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Sept 2002
 ///
 // The window that holds the table of an object's parameter
@@ -26,6 +27,7 @@
 #include <utils/foxtools/fxheader.h>
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/Parameterised.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
@@ -71,9 +73,9 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myTable->setTableSize(1, 3);
     myTable->setVisibleColumns(3);
     myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, "Name");
-    myTable->setColumnText(1, "Value");
-    myTable->setColumnText(2, "Dynamic");
+    myTable->setColumnText(0, TL("Name"));
+    myTable->setColumnText(1, TL("Value"));
+    myTable->setColumnText(2, TL("Dynamic"));
     myTable->getRowHeader()->setWidth(0);
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -256,8 +256,8 @@ GNETAZFrame::CurrentTAZ::refreshTAZEdges() {
     myMinSourceMinusSinkWeight = -1;
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
-        // first update TAZ Stadistics
-        myEditedTAZ->updateTAZStadistic();
+        // first update TAZ Statistics
+        myEditedTAZ->updateTAZStatistic();
         myTAZFrameParent->myTAZCommonStatistics->updateStatistics();
         // iterate over child TAZElements and create TAZEdges
         for (const auto& TAZElement : myEditedTAZ->getChildAdditionals()) {
@@ -396,10 +396,10 @@ GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
     MFXGroupBoxModule(TAZFrameParent, TL("Modifications")),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(getCollapsableFrame(), TL("Confirm changes"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Confirm changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(getCollapsableFrame(), TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelChangesButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Cancel changes"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelChangesButton->disable();
 }
 
@@ -503,9 +503,9 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(getCollapsableFrame(), TL("Use selected edges"), nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myUseSelectedEdges = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected edges"), "", "", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
-    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), TL("Set zero fringe prob."), nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
+    myZeroFringeProbabilities = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Set zero fringe prob."), "", "", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -677,7 +677,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSources->getText().text())) {
             myDefaultTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSources->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (myDefaultTAZSourceWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSources->setTextColor(FXRGB(0, 0, 0));
@@ -695,7 +695,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldDefaultValueTAZSinks->getText().text())) {
             myDefaultTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldDefaultValueTAZSinks->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (myDefaultTAZSinkWeight >= 0) {
                 // set valid color
                 myTextFieldDefaultValueTAZSinks->setTextColor(FXRGB(0, 0, 0));
@@ -990,7 +990,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSourceWeight->getText().text())) {
             double newTAZSourceWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSourceWeight->getText().text());
-            // check if myDefaultTAZSourceWeight is greather than 0
+            // check if myDefaultTAZSourceWeight is greater than 0
             if (newTAZSourceWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSourceWeight->setTextColor(FXRGB(0, 0, 0));
@@ -1014,7 +1014,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
         // check if given value is valid
         if (GNEAttributeCarrier::canParse<double>(myTextFieldTAZSinkWeight->getText().text())) {
             double newTAZSinkWeight = GNEAttributeCarrier::parse<double>(myTextFieldTAZSinkWeight->getText().text());
-            // check if myDefaultTAZSinkWeight is greather than 0
+            // check if myDefaultTAZSinkWeight is greater than 0
             if (newTAZSinkWeight >= 0) {
                 // set valid color in TextField
                 myTextFieldTAZSinkWeight->setTextColor(FXRGB(0, 0, 0));
@@ -1175,7 +1175,8 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor = GUIDesigns::buildFXButton(colorParameter, toString(SUMO_ATTR_COLOR), "", "", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myColorEditor->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
@@ -1188,7 +1189,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
-    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpTAZAttribute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1248,6 +1249,7 @@ GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*)
     // create FXColorDialog
     FXColorDialog colordialog(getCollapsableFrame(), TL("Color Dialog"));
     colordialog.setTarget(this);
+    colordialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
         colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text())));
@@ -1445,28 +1447,28 @@ GNETAZFrame::GNETAZFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, TL("TAZs")),
     myBaseTAZ(nullptr) {
 
-    // create current TAZ modul
+    // create current TAZ module
     myCurrentTAZ = new CurrentTAZ(this);
 
-    // Create TAZ Parameters modul
+    // Create TAZ Parameters module
     myTAZParameters = new TAZParameters(this);
 
-    // Create drawing controls modul
+    // Create drawing controls module
     myDrawingShape = new GNEDrawingShape(this);
 
-    // Create TAZ Edges Common Statistics modul
+    // Create TAZ Edges Common Statistics module
     myTAZCommonStatistics = new TAZCommonStatistics(this);
 
-    // Create save TAZ Edges modul
+    // Create save TAZ Edges module
     myTAZSaveChanges = new TAZSaveChanges(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZChildDefaultParameters = new TAZChildDefaultParameters(this);
 
-    // Create TAZ Edges Selection Statistics modul
+    // Create TAZ Edges Selection Statistics module
     myTAZSelectionStatistics = new TAZSelectionStatistics(this);
 
-    // Create TAZ Edges Common Parameters modul
+    // Create TAZ Edges Common Parameters module
     myTAZEdgesGraphic = new TAZEdgesGraphic(this);
 
     // by default there isn't a TAZ
@@ -1506,8 +1508,8 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
         if (objectsUnderCursor.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
             myCurrentTAZ->setTAZ(objectsUnderCursor.getTAZFront());
-            // update TAZStadistics
-            myCurrentTAZ->getTAZ()->updateTAZStadistic();
+            // update TAZStatistics
+            myCurrentTAZ->getTAZ()->updateTAZStatistic();
             myTAZCommonStatistics->updateStatistics();
             return true;
         } else {

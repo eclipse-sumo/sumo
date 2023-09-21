@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-24 15:52:25 by Eclipse SUMO sumo Version v1_16_0+2368-d796cc6b4bc
+<!-- generated on 2023-09-20 14:53:14 by Eclipse SUMO sumo Version v1_14_1+9280-3c4c32a8be8
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -159,7 +159,9 @@
             <xsd:element name="ignore-route-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-accidents" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision.action" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="intermodal-collision.action" type="strOptionType" minOccurs="0"/>
             <xsd:element name="collision.stoptime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="intermodal-collision.stoptime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="collision.check-junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision.check-junctions.mingap" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="collision.mingap-factor" type="floatOptionType" minOccurs="0"/>
@@ -318,6 +320,17 @@
 
     <xsd:complexType name="batteryTopicType">
         <xsd:all>
+            <xsd:element name="device.stationfinder.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.rescueTime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.reserveFactor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.emptyThreshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -344,10 +357,12 @@
             <xsd:element name="device.ssm.trajectories" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.extratime" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.mdrac.prt" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.file" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.write-positions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.write-lane-positions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.exclude-conflict-types" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

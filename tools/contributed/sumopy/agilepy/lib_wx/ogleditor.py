@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2021 University of Bologna - DICAM
@@ -919,7 +919,7 @@ class SelectTool(SelectToolMixin):
         To be overridden by specific tool.
         """
         self.init_common('select', parent, 'Selection tool',
-                         info='Select objects in cancvas',
+                         info='Select objects in canvas',
                          is_textbutton=False,
                          )
         self._init_select(is_show_selected=True, detectwidth=detectwidth, detectpix=detectpix)
@@ -1086,7 +1086,7 @@ class HandleTool(SelectTool):
         To be overridden by specific tool.
         """
         self.init_common('select_handles', parent, 'Handle selection',
-                         info='Select handles on cancvas',
+                         info='Select handles on canvas',
                          is_textbutton=False,
                          )
 
@@ -1228,7 +1228,7 @@ class MoveTool(SelectTool):
         self.drawobj_anim, self.id_anim = (None, -1)
 
         self.init_common('move', parent, 'Move tool',
-                         info='Select and drag objects in cancvas.',
+                         info='Select and drag objects in canvas.',
                          is_textbutton=False,
                          )
         self._init_select(is_show_selected=True, detectwidth=detectwidth, detectpix=detectpix)
@@ -1359,7 +1359,7 @@ class StretchTool(HandleTool):
         self.drawobj_anim, self.id_anim = (None, -1)
 
         self.init_common('stretch', parent, 'Stretch tool',
-                         info='Select vertex and stretch objetc in cancvas.',
+                         info='Select vertex and stretch object in canvas.',
                          is_textbutton=False,
                          )
 

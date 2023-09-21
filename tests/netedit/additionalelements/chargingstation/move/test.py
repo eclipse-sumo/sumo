@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,9 +35,9 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
-# create chargingStation in mode "reference center"
+# create chargingStation in mode "Center"
 netedit.leftClick(referencePosition, 359, 253)
 
 # change to move mode
@@ -50,8 +50,7 @@ netedit.moveElement(referencePosition, 359, 253, 274, 253)
 netedit.moveElement(referencePosition, 274, 253, 431, 253)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

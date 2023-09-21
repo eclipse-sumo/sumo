@@ -37,7 +37,7 @@ turn-ratios](Demand/Routing_by_Turn_Probabilities.md).
 
 You may use a XML schema definition file for setting up a jtrrouter
 configuration:
-[jtrrouterConfiguration.xsd](http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd).
+[jtrrouterConfiguration.xsd](https://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd).
 
 ### Configuration
 

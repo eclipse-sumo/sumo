@@ -1,0 +1,98 @@
+name: jupedsim-windows
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 0 * * *'
+
+jobs:
+  build:
+    if: github.repository == 'DLR-TS/sumo'
+    runs-on: windows-latest
+    strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false
+      matrix:
+        jps_version: ['v0.12.0', 'master']
+
+    steps:
+    - name: Cloning jupedsim
+      uses: actions/checkout@v3
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: Building jupedsim
+      shell: cmd
+      run: |
+        mkdir jupedsim-build
+        mkdir jupedsim-install
+        cd jupedsim-build
+        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install ../jupedsim
+        cmake --build . -j4 --config Release
+        cmake --install . --config Release
+
+    - name: Uploading release artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jupedsim-release
+        path: jupedsim-install
+
+    - name: Building jupedsim debug
+      shell: cmd
+      run: |
+        mkdir jupedsim-build-debug
+        mkdir jupedsim-install-debug
+        cd jupedsim-build-debug
+        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install-debug ../jupedsim
+        cmake --build . -j4 --config Debug
+        cmake --install . --config Debug
+
+    - name: Uploading debug artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jupedsim-debug
+        path: jupedsim-install-debug
+
+    - name: Cloning SUMO
+      uses: actions/checkout@v3
+      with:
+        path: sumo
+        fetch-depth: 0
+ 
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: Cloning SUMO Libraries
+      uses: actions/checkout@v3
+      with:
+        repository: DLR-TS/SUMOLibraries 
+        path: sumolibraries
+
+    - name: Configuring and building SUMO
+      shell: cmd
+      run: |
+        cd sumo
+        mkdir build_msvc
+        cd build_msvc
+        cmake -DJUPEDSIM_CUSTOMDIR=%CD%/../../jupedsim-install ..
+        cmake --build . -j4 --config Release
+
+    - name: Building Examples and Tests
+      run: |
+        cd sumo/build_msvc
+        cmake --build . --config Release --target examples
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra"
+        ctest --build-config Release --output-on-failure

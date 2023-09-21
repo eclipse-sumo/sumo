@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -106,6 +106,9 @@ main(int argc, char** argv) {
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
+        }
+        if (oc.isSet("edge-files") && !oc.isSet("type-files") && oc.isDefault("ignore-errors.edge-type")) {
+            oc.setDefault("ignore-errors.edge-type", "true");
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-06-15 13:14:20 by Eclipse SUMO duarouter Version v1_17_0+0951-c913fd6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <intermodal-network-output value="additional.xml"/>
+    </output>
+
+    <processing>
+        <persontrip.transfer.taxi-walk value="ptStops"/>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<intermodal>
+    <edge id=":J1_0_depart_connector" line="!connector" length="0.30" successors=""/>
+    <edge id=":J1_0_arrival_connector" line="!connector" length="0.30" successors=""/>
+    <edge id=":J2_0_depart_connector" line="!connector" length="0.10" successors=""/>
+    <edge id=":J2_0_arrival_connector" line="!connector" length="0.10" successors=""/>
+    <edge id=":J3_0_depart_connector" line="!connector" length="0.10" successors=""/>
+    <edge id=":J3_0_arrival_connector" line="!connector" length="0.10" successors=""/>
+    <edge id="E0_depart_connector" line="!connector" length="158.03" successors="E0_depart_connector:E0_car-1.00"/>
+    <edge id="E0_arrival_connector" line="!connector" length="158.03" successors=""/>
+    <edge id="E1_depart_connector" line="!connector" length="190.98" successors="E1_depart_connector:E1_car-1.00"/>
+    <edge id="E1_arrival_connector" line="!connector" length="190.98" successors=""/>
+    <edge id="E2_depart_connector" line="!connector" length="5000.00" successors="E2_depart_connector:E2_car-1.00"/>
+    <edge id="E2_arrival_connector" line="!connector" length="5000.00" successors=""/>
+    <edge id="E3_depart_connector" line="!connector" length="198.21" successors="E3_depart_connector:E3_car-1.00"/>
+    <edge id="E3_arrival_connector" line="!connector" length="198.21" successors=""/>
+    <edge id="E8_fwd-1.00" line="!ped" length="25.00" successors="E8_fwd25.00 E8_fwd-1.00:ts_1 E8_arrival_connector"/>
+    <edge id="E8_bwd25.00" line="!ped" length="30.70" successors="E8_bwd-1.00 E8_bwd25.00:ts_1 E8_arrival_connector25.00"/>
+    <edge id="E8_depart_connector" line="!connector" length="25.00" successors="E8_fwd-1.00 E8_depart_connector:E8_car-1.00 E8_bwd-1.00"/>
+    <edge id="E8_arrival_connector" line="!connector" length="25.00" successors=""/>
+    <edge id="E9_fwd-1.00" line="!ped" length="50.00" successors="E9_fwd50.00 E9_fwd-1.00:ts_0 E9_arrival_connector"/>
+    <edge id="E9_bwd50.00" line="!ped" length="48.90" successors="E9_bwd-1.00 E9_bwd50.00:ts_0 E9_arrival_connector50.00"/>
+    <edge id="E9_depart_connector" line="!connector" length="50.00" successors="E9_fwd-1.00 E9_depart_connector:E9_car-1.00 E9_bwd-1.00"/>
+    <edge id="E9_arrival_connector" line="!connector" length="50.00" successors=""/>
+    <edge id="J0_walking_connector" line="!connector" length="0.00" successors=""/>
+    <edge id="J1_walking_connector" line="!connector" length="0.00" successors=""/>
+    <edge id="J2_walking_connector" line="!connector" length="0.00" successors=""/>
+    <edge id="J3_walking_connector" line="!connector" length="0.00" successors=""/>
+    <edge id="J4_walking_connector" line="!connector" length="0.00" successors=""/>
+    <edge id="J11_walking_connector" line="!connector" length="0.00" successors="E8_fwd-1.00"/>
+    <edge id="J12_walking_connector" line="!connector" length="0.00" successors="E8_bwd25.00"/>
+    <edge id="J13_walking_connector" line="!connector" length="0.00" successors="E9_fwd-1.00"/>
+    <edge id="J14_walking_connector" line="!connector" length="0.00" successors="E9_bwd50.00"/>
+    <edge id=":J1_0_car-1.00" line="!car" length="0.30" successors="E1_car-1.00"/>
+    <edge id=":J2_0_car-1.00" line="!car" length="0.10" successors="E2_car-1.00"/>
+    <edge id=":J3_0_car-1.00" line="!car" length="0.10" successors="E3_car-1.00"/>
+    <edge id="E0_car-1.00" line="!car" length="158.03" successors="E1_car-1.00 E0_car-1.00:E0_arrival_connector"/>
+    <edge id="E1_car-1.00" line="!car" length="100.00" successors="E1_car100.00 E1_car-1.00:ts_1"/>
+    <edge id="E2_car-1.00" line="!car" length="5000.00" successors="E3_car-1.00 E2_car-1.00:E2_arrival_connector"/>
+    <edge id="E3_car-1.00" line="!car" length="100.00" successors="E3_car100.00 E3_car-1.00:ts_0"/>
+    <edge id="E8_car-1.00" line="!car" length="25.00" successors="E8_car25.00 E8_car-1.00:ts_1 E8_car-1.00:ts_1"/>
+    <edge id="E9_car-1.00" line="!car" length="50.00" successors="E9_car50.00 E9_car-1.00:ts_0 E9_car-1.00:ts_0"/>
+    <edge id="E0_depart_connector:E0_car-1.00" line="!access" length="0.00" successors="E0_car-1.00"/>
+    <edge id="E0_car-1.00:E0_arrival_connector" line="!access" length="0.00" successors="E0_arrival_connector"/>
+    <edge id="E1_depart_connector:E1_car-1.00" line="!access" length="0.00" successors="E1_car-1.00"/>
+    <edge id="E1_car-1.00:E1_arrival_connector" line="!access" length="0.00" successors="E1_arrival_connector"/>
+    <edge id="E2_depart_connector:E2_car-1.00" line="!access" length="0.00" successors="E2_car-1.00"/>
+    <edge id="E2_car-1.00:E2_arrival_connector" line="!access" length="0.00" successors="E2_arrival_connector"/>
+    <edge id="E3_depart_connector:E3_car-1.00" line="!access" length="0.00" successors="E3_car-1.00"/>
+    <edge id="E3_car-1.00:E3_arrival_connector" line="!access" length="0.00" successors="E3_arrival_connector"/>
+    <edge id="E8_depart_connector:E8_car-1.00" line="!access" length="0.00" successors="E8_car-1.00"/>
+    <edge id="E8_car-1.00:E8_arrival_connector" line="!access" length="0.00" successors="E8_arrival_connector"/>
+    <edge id="E9_depart_connector:E9_car-1.00" line="!access" length="0.00" successors="E9_car-1.00"/>
+    <edge id="E9_car-1.00:E9_arrival_connector" line="!access" length="0.00" successors="E9_arrival_connector"/>
+    <edge id="ts_0" line="!stop" length="0.00" successors="ts_0:E3_car100.00:taxi ts_0:E9_fwd50.00 ts_0:E9_bwd-1.00"/>
+    <edge id="E3_car100.00" line="!car" length="98.21" successors="E3_car-1.00:E3_arrival_connector"/>
+    <edge id="E3_car-1.00:ts_0" line="!access" length="0.00" successors="ts_0"/>
+    <edge id="ts_0:E3_car100.00:taxi" line="!access" length="0.00" successors="E3_car100.00"/>
+    <edge id="E9_fwd50.00" line="!ped" length="48.90" successors="J14_walking_connector E9_arrival_connector50.00"/>
+    <edge id="E9_fwd-1.00:ts_0" line="!access" length="54.02" successors="ts_0"/>
+    <edge id="ts_0:E9_fwd50.00" line="!access" length="54.02" successors="E9_fwd50.00"/>
+    <edge id="E9_bwd-1.00" line="!ped" length="50.00" successors="J13_walking_connector E9_arrival_connector"/>
+    <edge id="E9_bwd50.00:ts_0" line="!access" length="54.02" successors="ts_0"/>
+    <edge id="ts_0:E9_bwd-1.00" line="!access" length="54.02" successors="E9_bwd-1.00"/>
+    <edge id="E9_car50.00" line="!car" length="48.90" successors="E9_car-1.00:E9_arrival_connector"/>
+    <edge id="E9_car-1.00:ts_0" line="!access" length="0.00" successors="ts_0"/>
+    <edge id="E9_car-1.00:ts_0" line="!access" length="0.00" successors="ts_0"/>
+    <edge id="E9_depart_connector50.00" line="!connector" length="48.90" successors="E9_fwd50.00 E9_bwd50.00 E9_car50.00"/>
+    <edge id="E9_arrival_connector50.00" line="!connector" length="48.90" successors=""/>
+    <edge id="ts_1" line="!stop" length="0.00" successors="ts_1:E1_car100.00:taxi ts_1:E8_fwd25.00 ts_1:E8_bwd-1.00"/>
+    <edge id="E1_car100.00" line="!car" length="90.98" successors="E2_car-1.00 E1_car-1.00:E1_arrival_connector"/>
+    <edge id="E1_car-1.00:ts_1" line="!access" length="0.00" successors="ts_1"/>
+    <edge id="ts_1:E1_car100.00:taxi" line="!access" length="0.00" successors="E1_car100.00"/>
+    <edge id="E8_fwd25.00" line="!ped" length="30.70" successors="J12_walking_connector E8_arrival_connector25.00"/>
+    <edge id="E8_fwd-1.00:ts_1" line="!access" length="57.72" successors="ts_1"/>
+    <edge id="ts_1:E8_fwd25.00" line="!access" length="57.72" successors="E8_fwd25.00"/>
+    <edge id="E8_bwd-1.00" line="!ped" length="25.00" successors="J11_walking_connector E8_arrival_connector"/>
+    <edge id="E8_bwd25.00:ts_1" line="!access" length="57.72" successors="ts_1"/>
+    <edge id="ts_1:E8_bwd-1.00" line="!access" length="57.72" successors="E8_bwd-1.00"/>
+    <edge id="E8_car25.00" line="!car" length="30.70" successors="E8_car-1.00:E8_arrival_connector"/>
+    <edge id="E8_car-1.00:ts_1" line="!access" length="0.00" successors="ts_1"/>
+    <edge id="E8_car-1.00:ts_1" line="!access" length="0.00" successors="ts_1"/>
+    <edge id="E8_depart_connector25.00" line="!connector" length="30.70" successors="E8_fwd25.00 E8_bwd25.00 E8_car25.00"/>
+    <edge id="E8_arrival_connector25.00" line="!connector" length="30.70" successors=""/>
+</intermodal>

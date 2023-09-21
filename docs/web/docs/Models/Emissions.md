@@ -7,13 +7,13 @@ title: Emissions
 SUMO includes the following emission models:
 
 - [HBEFA v2.1-based](../Models/Emissions/HBEFA-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v2.1
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v2.1
   emissions data base (open source);
 - [HBEFA v3.1-based](../Models/Emissions/HBEFA3-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v3.1
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v3.1
   emissions data base (open source);
 - [HBEFA v4.2-based](../Models/Emissions/HBEFA4-based.md): A
-  continuous reformulation of the [HBEFA](http://www.hbefa.net/) v4.2
+  continuous reformulation of the [HBEFA](https://www.hbefa.net/) v4.2
   emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
@@ -32,7 +32,7 @@ SUMO includes the following emission models:
 
 Literature on the Models and their implementation can be found at [the
 DLR electronic library
-(http://elib.dlr.de/89398/)](http://elib.dlr.de/89398/).
+(https://elib.dlr.de/89398/)](https://elib.dlr.de/89398/).
 
 # Using Models
 
@@ -219,6 +219,6 @@ available.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
+<a href="https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
+<a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

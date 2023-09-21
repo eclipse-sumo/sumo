@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,17 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.frequency, "dummyFreq", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.frequency, "dummyFreq", True)
 
 # Change parameter id with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.frequency, "-12", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.frequency, "-12", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.frequency, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.frequency, "12.5", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -117,10 +117,9 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
 
 
 void
-GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll) {
+GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues) {
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
-        myShowAllDiscreteValues = showAll;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
     }
@@ -441,12 +440,6 @@ GNEAttributeProperties::isUnique() const {
 bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
-}
-
-
-bool
-GNEAttributeProperties::showAllDiscreteValues() const {
-    return myShowAllDiscreteValues;
 }
 
 

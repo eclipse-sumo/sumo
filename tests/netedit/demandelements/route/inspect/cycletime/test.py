@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 570, 250)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -45,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 392)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.cycletime, "", False)
@@ -60,8 +60,7 @@ netedit.modifyAttribute(netedit.attrs.route.inspect.cycletime, "-12.14", False)
 netedit.modifyAttribute(netedit.attrs.route.inspect.cycletime, "56.12", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

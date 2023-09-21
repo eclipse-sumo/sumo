@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -58,6 +58,7 @@ PCTypeDefHandler::myStartElement(int element,
         if (!ok) {
             return;
         }
+        const std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myOptions.getString("icon"));
         const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getFloat("layer"));
         const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
         const bool allowFill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myOptions.getBool("fill"));
@@ -67,7 +68,7 @@ PCTypeDefHandler::myStartElement(int element,
         const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
         const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
-        if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
+        if (!myContainer.add(id, type, color, prefix, icon, layer, angle, imgFile, discard, allowFill)) {
             WRITE_ERRORF(TL("Could not add polygon type '%' (probably the id is already used)."), id);
         }
     }

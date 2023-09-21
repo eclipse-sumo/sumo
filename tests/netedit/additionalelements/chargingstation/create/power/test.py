@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,24 +37,23 @@ netedit.changeElement("chargingStation")
 # set invalid power (dummy)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "dummyPower")
 
-# try to create chargingStation in mode "reference left"
+# try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 304, 244)
 
 # set invalid power (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "-300")
 
-# try to create chargingStation in mode "reference left"
+# try to create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 346, 244)
 
 # set valid power
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "2500.5")
 
-# create chargingStation in mode "reference left"
+# create chargingStation in mode "Reference Left"
 netedit.leftClick(referencePosition, 304, 244)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

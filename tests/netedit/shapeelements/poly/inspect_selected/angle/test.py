@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,20 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 404, 140)
 
 # Change parameter 9 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.angle, "dummyAngle", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.angle, "dummyAngle", False)
 
 # Change parameter 9 with a valid value (negative)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.angle, "-5", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.angle, "-5", False)
 
 # Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.angle, "365", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.angle, "365", False)
 
 # Change parameter 9 with a valid value (> 360)
-netedit.modifyAttribute(netedit.attrs.Poly.inspectSelection.angle, "10", False)
+netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.angle, "10", False)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

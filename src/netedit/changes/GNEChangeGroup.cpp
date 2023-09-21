@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -97,13 +97,13 @@ GNEChangeGroup::getGroupIcon() const {
 
 std::string
 GNEChangeGroup::undoName() const {
-    return ("Undo " + myDescription);
+    return (TL("Undo") + std::string(" ") + myDescription);
 }
 
 
 std::string
 GNEChangeGroup::redoName() const {
-    return ("Redo " + myDescription);
+    return (TL("Redo") + std::string(" ") + myDescription);
 }
 
 

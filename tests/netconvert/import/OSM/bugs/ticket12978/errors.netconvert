@@ -33,7 +33,7 @@ Warning: Found sharp turn with radius 5.22 at the start of edge '5880361'.
 Warning: Cannot apply turn sign information for edge '-23167504#0' because there are 2 signed connections with directions 's' but target edge '-371727494#2' has only 1 suitable lanes
 Warning: Cannot apply turn sign information for edge '1155769670' because there are 3 signed directions but only 1 targets
 Warning: Cannot apply turn sign information for edge '170045675#1' because there are 2 signed directions but only 1 targets
-Warning: Cannot apply turn sign information for edge '371727494#2' because there are 2 signed connections with directions 's' but target edge '23167504#0' has only 1 suitable lanes
+Warning: Cannot apply turn sign information for edge '371727494#2' because the target edge '-826188136#1' has no suitable lanes
 Warning: Cannot apply turn sign information for edge '377211844#1' because there are 1 signed directions and 2 targets (after target pruning)
 Warning: Cannot apply turn sign information for edge '4533223#1' because there are 2 signed directions but only 1 targets
 Warning: Cannot apply turn sign information for edge '612484420' because there are 2 signed directions but only 1 targets

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 225)
+netedit.leftClick(referencePosition, 500, 235)
 
 # change position of node (Crash was here)
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "25.00,50.00", False)

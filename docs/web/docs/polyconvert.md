@@ -44,7 +44,7 @@ be projected in Polyconvert again.
 
 You may use a XML schema definition file for setting up a polyconvert
 configuration:
-[polyconvertConfiguration.xsd](http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd).
+[polyconvertConfiguration.xsd](https://sumo.dlr.de/xsd/polyconvertConfiguration.xsd).
 
 ### Configuration
 
@@ -113,8 +113,7 @@ One of the major uses of **polyconvert** is to
 apply a projection on the read shapes. Normally, one wants the shapes to
 be aligned in accordance to a previously imported road network. In this
 case, the network should be given using **--net-file** {{DT_FILE}}. But it is also possible to use
-a different projection. In any case, if the read coordinates shall be
-changed, **--use-projection** must be given.
+a different projection.
 
 | Option | Description |
 |--------|-------------|

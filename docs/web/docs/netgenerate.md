@@ -23,7 +23,7 @@ The usage is described at
 
 You may use a XML schema definition file for setting up a netgenerate
 configuration:
-[netgenerateConfiguration.xsd](http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd).
+[netgenerateConfiguration.xsd](https://sumo.dlr.de/xsd/netgenerateConfiguration.xsd).
 
 ### Configuration
 
@@ -151,6 +151,7 @@ the offsets given).
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
 | **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
+| **--geometry.remove.max-junction-size** {{DT_FLOAT}} | Prevent removal of junctions with a size above FLOAT as defined by custom edge endpoints; *default:* **-1** |
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
 | **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge geometries with a grade above the warning threshold.; *default:* **true** |
@@ -205,6 +206,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |
 | **--tls.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining traffic lights (defaults to 20); *default:* **20** |
+| **--tls.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of tls ids to exclude from joining |
 | **--tls.uncontrolled-within** {{DT_BOOL}} | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default:* **false** |
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.cycle.time** {{DT_INT}} | Use INT as cycle duration; *default:* **90** |
@@ -217,7 +219,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.minor-left.max-speed** {{DT_FLOAT}} | Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles; *default:* **19.44** |
 | **--tls.left-green.time** {{DT_INT}} | Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases; *default:* **6** |
 | **--tls.nema.vehExt** {{DT_INT}} | Set INT as fixed time for intermediate vehext phase after every switch; *default:* **2** |
-| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yelow phase after every switch; *default:* **3** |
+| **--tls.nema.yellow** {{DT_INT}} | Set INT as fixed time for intermediate NEMA yellow phase after every switch; *default:* **3** |
 | **--tls.nema.red** {{DT_INT}} | Set INT as fixed time for intermediate NEMA red phase after every switch; *default:* **2** |
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
@@ -232,7 +234,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
 | **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
-| **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes; *default:* **false** |
+| **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes; *default:* **false** |
 
 ### Edge Removal
 
@@ -283,6 +285,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--junctions.limit-turn-speed.warn.turn** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT; *default:* **22** |
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
+| **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -103,7 +103,8 @@ GNECrossing::getMoveOperation() {
     if (isShapeEdited()) {
         // calculate move shape operation
         return calculateMoveShapeOperation(getCrossingShape(), myNet->getViewNet()->getPositionInformation(),
-                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius, true);
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius,
+                                           true, false);
     } else {
         return nullptr;
     }
@@ -127,8 +128,8 @@ GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* un
                 // remove geometry point
                 shape.erase(shape.begin() + index);
                 // commit new shape
-                undoList->begin(GUIIcon::CROSSING, "remove geometry point of " + getTagStr());
-                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+                undoList->begin(this, "remove geometry point of " + getTagStr());
+                GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape), undoList);
                 undoList->end();
             }
         }
@@ -431,7 +432,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->add(new GNEChange_Attribute(this, key, value), true);
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -625,8 +626,8 @@ GNECrossing::setMoveShape(const GNEMoveResult& moveResult) {
 void
 GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
-    undoList->begin(GUIIcon::CROSSING, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->begin(this, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate), undoList);
     undoList->end();
 }
 

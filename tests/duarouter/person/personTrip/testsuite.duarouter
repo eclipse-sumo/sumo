@@ -13,6 +13,9 @@ vtype
 # car use requested
 car
 
+# vehicle choice
+car_bike_taxi
+
 # car use requested, network contains bicycle lanes
 car_intermodal_net
 
@@ -83,6 +86,9 @@ intermodal_car_walk_no_place
 
 # train access
 access
+
+# train access at random location
+access_random
 
 # train access
 access_shortcut

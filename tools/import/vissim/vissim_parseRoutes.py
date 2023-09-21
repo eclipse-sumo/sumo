@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -126,117 +126,120 @@ def sorter(idx):
             return 0
 
 
-op = sumolib.options.ArgumentParser(description="parse routes from a VISSIM network")
-op.add_option("vissimNet", type=op.file, help="the VISSIM network file")
-op.add_option("-o", "--output", default="out", help="output filename prefix")
-op.add_option("-e", "--edgemap", help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
-op.add_option("-s", "--seed", type=int, default=42, help="random seed")
-options = op.parse_args()
+# MAIN
+if __name__ == '__main__':
+    op = sumolib.options.ArgumentParser(description="parse routes from a VISSIM network")
+    op.add_option("vissimNet", category="input", type=op.file, help="the VISSIM network file")
+    op.add_option("-o", "--output", default="out", category="output", help="output filename prefix")
+    op.add_option("-e", "--edgemap", category="input", type=op.edge_list,
+                  help="mapping of edge names for renamed edges (orig1:renamed1,orig2:renamed2,...)")
+    op.add_option("-s", "--seed", type=int, default=42, category="input", help="random seed")
+    options = op.parse_args()
 
-random.seed(options.seed)
-edgemap = {}
-if options.edgemap:
-    for entry in options.edgemap.split(","):
-        orig, renamed = entry.split(":")
-        edgemap[orig] = renamed
-print("Parsing Vissim input...")
-fd = codecs.open(sys.argv[1], encoding='latin1')
-routeDecisions = []
-haveRouteDecision = False
-currentRouteDecision = ""
-inflows = []
-haveInFlow = False
-currentInFlow = ""
-for line in fd:
-    # put all route decision ("ROUTENENTSCHEIDUNG") to a list (routeDecisions)
-    if line.find("ROUTENENTSCHEIDUNG") == 0:
+    random.seed(options.seed)
+    edgemap = {}
+    if options.edgemap:
+        for entry in options.edgemap.split(","):
+            orig, renamed = entry.split(":")
+            edgemap[orig] = renamed
+    print("Parsing Vissim input...")
+    fd = codecs.open(options.vissimNet, encoding='latin1')
+    routeDecisions = []
+    haveRouteDecision = False
+    currentRouteDecision = ""
+    inflows = []
+    haveInFlow = False
+    currentInFlow = ""
+    for line in fd:
+        # put all route decision ("ROUTENENTSCHEIDUNG") to a list (routeDecisions)
+        if line.find("ROUTENENTSCHEIDUNG") == 0:
+            if haveRouteDecision:
+                routeDecisions.append(" ".join(currentRouteDecision.split()))
+            haveRouteDecision = True
+            currentRouteDecision = ""
+        elif line[0] != ' ':
+            if haveRouteDecision:
+                routeDecisions.append(" ".join(currentRouteDecision.split()))
+            haveRouteDecision = False
         if haveRouteDecision:
-            routeDecisions.append(" ".join(currentRouteDecision.split()))
-        haveRouteDecision = True
-        currentRouteDecision = ""
-    elif line[0] != ' ':
-        if haveRouteDecision:
-            routeDecisions.append(" ".join(currentRouteDecision.split()))
-        haveRouteDecision = False
-    if haveRouteDecision:
-        currentRouteDecision = currentRouteDecision + line
-    # put all inflows ("ZUFLUSS") to a list (inflows)
-    if line.find("ZUFLUSS") == 0:
+            currentRouteDecision = currentRouteDecision + line
+        # put all inflows ("ZUFLUSS") to a list (inflows)
+        if line.find("ZUFLUSS") == 0:
+            if haveInFlow:
+                inflows.append(" ".join(currentInFlow.split()))
+            haveInFlow = True
+            currentInFlow = ""
+        elif line[0] != ' ':
+            if haveInFlow:
+                inflows.append(" ".join(currentInFlow.split()))
+            haveInFlow = False
         if haveInFlow:
-            inflows.append(" ".join(currentInFlow.split()))
-        haveInFlow = True
-        currentInFlow = ""
-    elif line[0] != ' ':
-        if haveInFlow:
-            inflows.append(" ".join(currentInFlow.split()))
-        haveInFlow = False
-    if haveInFlow:
-        currentInFlow = currentInFlow + line
-fd.close()
+            currentInFlow = currentInFlow + line
+    fd.close()
 
-# process inflows
-print("Writing flows...")
-fdo = open(options.output + ".flows.xml", "w")
-sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
-flow_sn = 0
-for inflow in inflows:
-    (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
-    fdo.write('    <flow id="' + name + '" from="' + strecke + '" begin="' +
-              str(von) + '" end="' + str(bis) + '" no="' + str(int(q)) + '"/>\n')
-    flow_sn = flow_sn + 1
-fdo.write("</routes>\n")
-fdo.close()
+    # process inflows
+    print("Writing flows...")
+    fdo = open(options.output + ".flows.xml", "w")
+    sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
+    flow_sn = 0
+    for inflow in inflows:
+        (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
+        fdo.write('    <flow id="' + name + '" from="' + strecke + '" begin="' +
+                  str(von) + '" end="' + str(bis) + '" no="' + str(int(q)) + '"/>\n')
+        flow_sn = flow_sn + 1
+    fdo.write("</routes>\n")
+    fdo.close()
 
-# process combinations
-#  parse route decision
-print("Building routes...")
-edges2check = {}
-edgesSumFlows = {}
-for rd in routeDecisions:
-    (strecke, sumAnteil, von, bis, routes) = parseRouteDecision(rd)
-    if strecke not in edges2check:
-        edgesSumFlows[strecke] = sumAnteil
-        edges2check[strecke] = (von, bis, routes)
-# compute emissions with routes
-emissions = []
-flow_sn = 0
-for inflow in inflows:
-    (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
-    flow_sn = flow_sn + 1
-    if strecke in edges2check:
-        routes = edges2check[strecke]
-        for vi in range(0, int(q)):
-            t = von + float(bis - von) / float(q) * float(vi)
-            fi = random.random() * edgesSumFlows[strecke]
-            edges = []
-            ri = 0
-            rid = ""
-            while len(edges) == 0 and ri < len(routes[2]) and fi >= 0:
-                fi = fi - routes[2][ri][1]
-                if fi < 0:
-                    edges = routes[2][ri][2]
-                    rid = routes[2][ri][0]
-                ri = ri + 1
-            id = str(name.replace(" ", "_")) + "_" + str(rid) + "_" + str(vi)
-            if strecke in edgemap:
-                if edgemap[strecke] not in edges:
-                    edges.insert(0, edgemap[strecke])
-            else:
-                if strecke not in edges:
-                    edges.insert(0, strecke)
-            emissions.append((int(t), id, edges))
-# sort emissions
-print("Sorting routes...")
-emissions.sort(key=sorter(0))
+    # process combinations
+    #  parse route decision
+    print("Building routes...")
+    edges2check = {}
+    edgesSumFlows = {}
+    for rd in routeDecisions:
+        (strecke, sumAnteil, von, bis, routes) = parseRouteDecision(rd)
+        if strecke not in edges2check:
+            edgesSumFlows[strecke] = sumAnteil
+            edges2check[strecke] = (von, bis, routes)
+    # compute emissions with routes
+    emissions = []
+    flow_sn = 0
+    for inflow in inflows:
+        (name, strecke, q, von, bis) = parseInFlow(inflow, str(flow_sn))
+        flow_sn = flow_sn + 1
+        if strecke in edges2check:
+            routes = edges2check[strecke]
+            for vi in range(0, int(q)):
+                t = von + float(bis - von) / float(q) * float(vi)
+                fi = random.random() * edgesSumFlows[strecke]
+                edges = []
+                ri = 0
+                rid = ""
+                while len(edges) == 0 and ri < len(routes[2]) and fi >= 0:
+                    fi = fi - routes[2][ri][1]
+                    if fi < 0:
+                        edges = routes[2][ri][2]
+                        rid = routes[2][ri][0]
+                    ri = ri + 1
+                id = str(name.replace(" ", "_")) + "_" + str(rid) + "_" + str(vi)
+                if strecke in edgemap:
+                    if edgemap[strecke] not in edges:
+                        edges.insert(0, edgemap[strecke])
+                else:
+                    if strecke not in edges:
+                        edges.insert(0, strecke)
+                emissions.append((int(t), id, edges))
+    # sort emissions
+    print("Sorting routes...")
+    emissions.sort(key=sorter(0))
 
-# save emissions
-print("Writing routes...")
-fdo = open(options.output + ".rou.xml", "w")
-sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
-for emission in emissions:
-    if len(emission[2]) < 2:
-        continue
-    fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(
-        emission[0]) + '"><route edges="' + " ".join(emission[2]) + '"/></vehicle>\n')
-fdo.write("</routes>\n")
-fdo.close()
+    # save emissions
+    print("Writing routes...")
+    fdo = open(options.output + ".rou.xml", "w")
+    sumolib.writeXMLHeader(fdo, "$Id$", "routes", options=options)
+    for emission in emissions:
+        if len(emission[2]) < 2:
+            continue
+        fdo.write('    <vehicle id="' + emission[1] + '" depart="' + str(
+            emission[0]) + '"><route edges="' + " ".join(emission[2]) + '"/></vehicle>\n')
+    fdo.write("</routes>\n")
+    fdo.close()

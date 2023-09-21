@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -48,10 +48,10 @@ def get_options(cmd_args=None):
         prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
-        '-a', '--parking-areas', type=str, category="input", dest='parking_area_definition', required=True,
+        '-a', '--parking-areas', type=parser.additional_file, category="input", dest='paFiles', required=True,
         help='SUMO parkingArea definition.')
     parser.add_argument(
-        '-n', '--sumo-net', type=str, category="input", dest='sumo_net_definition', required=True,
+        '-n', '--sumo-net', type=parser.net_file, category="input", dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
         '--max-number-alternatives', type=int, category="processing", dest='num_alternatives', default=10,
@@ -86,7 +86,7 @@ def get_options(cmd_args=None):
         '--processes', type=int, category="processing", dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
-        '-o', '--output', type=str, category="output", dest='output', required=True,
+        '-o', '--output', type=parser.additional_file, category="output", dest='output', required=True,
         help='Name for the output file.')
     parser.add_argument(
         '--tqdm', dest='with_tqdm', category="processing", action='store_true',
@@ -140,7 +140,7 @@ class ReroutersGeneration(object):
 
         print('Loading SUMO network: {}'.format(options.sumo_net_definition))
         self._sumo_net = sumolib.net.readNet(options.sumo_net_definition, withInternal=True)
-        for pafile in options.parking_area_definition.split(','):
+        for pafile in options.paFiles.split(','):
             print('Loading parking file: {}'.format(pafile))
             self._load_parking_areas_from_file(pafile)
 

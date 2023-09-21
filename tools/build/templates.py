@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2015-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -88,15 +88,15 @@ TOOLS = [
 
     # net
     "net/abstractRail.py",
-    # "net/createRoundaboutConnections.py",   NO CONFIG
+    "net/createRoundaboutConnections.py",
     "net/net2geojson.py",
     "net/net2jpsgeometry.py",
     "net/net2kml.py",
     "net/net2poly.py",
-    # "net/netcheck.py",                      NO CONFIG
+    "net/netcheck.py",
     "net/netdiff.py",
     # "net/netduplicate.py",                  NO CONFIG
-    # "net/netmatch.py",                      NO CONFIG
+    "net/netmatch.py",
     "net/network_statistics.py",
     # "net/odConnectionsCheck.py",            NO CONFIG
     # "net/prepareVISUM.py",                  NO CONFIG
@@ -125,21 +125,20 @@ TOOLS = [
     "route/route2OD.py",
     # "route/route2poly.py",                  NO CONFIG
     # "route/route2sel.py",                   NO CONFIG
-    # "route/routecheck.py",                  NO CONFIG
-    # "route/routecompare.py",                NO CONFIG
+    "route/routecheck.py",
+    "route/routecompare.py",
     "route/routeStats.py",
     "route/scaleTimeLine.py",
-    # "route/sort_routes.py",                 NO CONFIG
-    # "route/splitRandom.py",                 NO CONFIG
-    # "route/splitRouteFiles.py",             NO CONFIG
-    # "route/tracegenerator.py",              NO CONFIG
+    "route/sort_routes.py",
+    "route/splitRandom.py",
+    "route/splitRouteFiles.py",
+    "route/tracegenerator.py",
     "route/tracemapper.py",
     # "route/vehicle2flow.py",                NO CONFIG
 
     # output
-    # "output/accelerations.py",                      NO CONFIG
-    # "output/aggregateBatteryOutput.py",             NO CONFIG
-    # "output/analyze_pedestrian_jam.py",             NO CONFIG
+    "output/aggregateBatteryOutput.py",
+    "output/analyze_pedestrian_jam.py",
     "output/analyze_teleports.py",
     "output/attributeStats.py",
     "output/attributeDiff.py",
@@ -176,7 +175,7 @@ TOOLS = [
     "output/walkFactor.py",
 
     # shapes
-    # "shapes/circlePolygon.py",      NO CONFIG
+    "shapes/circlePolygon.py",
     # "shapes/CSV2polyconvertXML.py", NO CONFIG
     # "shapes/poi_alongRoads.py",     NO CONFIG
     # "shapes/poi_at_stops.py",       NO CONFIG
@@ -184,7 +183,7 @@ TOOLS = [
 
     # tls
     # "tls/buildTransitions.py",      NO CONFIG
-    # "tls/createTlsCsv.py",          NO CONFIG
+    "tls/createTlsCsv.py",
     # "tls/tls_check.py",             NO CONFIG
     # "tls/tls_csv2SUMO.py",          NO CONFIG
     "tls/tls_csvSignalGroups.py",
@@ -204,19 +203,18 @@ TOOLS = [
     # "visualization/mpl_dump_timeline.py",           NO CONFIG
     # "visualization/mpl_dump_twoAgainst.py",         NO CONFIG
     # "visualization/mpl_tripinfos_twoAgainst.py",    NO CONFIG
-    # "visualization/plot_csv_bars.py",               NO CONFIG
-    # "visualization/plot_csv_pie.py",                NO CONFIG
-    # "visualization/plot_csv_timeline.py",           NO CONFIG
+    "visualization/plot_csv_bars.py",
+    "visualization/plot_csv_pie.py",
+    "visualization/plot_csv_timeline.py",
     "visualization/plot_net_dump.py",
-    # "visualization/plot_net_selection.py",          NO CONFIG
-    # "visualization/plot_net_speeds.py",             NO CONFIG
-    # "visualization/plot_net_trafficLights.py",      NO CONFIG
-    # "visualization/plot_summary.py",                NO CONFIG
-    # "visualization/plot_tripinfo_distributions.py", NO CONFIG
+    "visualization/plot_net_selection.py",
+    "visualization/plot_net_speeds.py",
+    "visualization/plot_net_trafficLights.py",
+    "visualization/plot_summary.py",
     "visualization/plotXMLAttributes.py",
 
     # xml
-    # "xml/addSchema.py",         NO CONFIG
+    # "xml/addSchema.py",         IGNORE
     # "xml/binary2plain.py",      NO CONFIG
     "xml/csv2xml.py",
     "xml/xml2csv.py",
@@ -229,14 +227,14 @@ TOOLS = [
     # other
     # "averageTripStatistics.py",       NO CONFIG
     "countEdgeUsage.py",
-    # "createVehTypeDistribution.py",   NO CONFIG
+    "createVehTypeDistribution.py",
     "edgesInDistricts.py",
     # "evacuateAreas.py",               NOT_SUITABLE
     "extractTest.py",
     "fcdReplay.py",
     "findAllRoutes.py",
     "generateBidiDistricts.py",
-    # "generateContinuousRerouters.py", NO CONFIG
+    "generateContinuousRerouters.py",
     "generateParkingAreaRerouters.py",
     "generateParkingAreas.py",
     # "generateParkingLots.py",         NO CONFIG
@@ -301,7 +299,7 @@ def buildTemplateToolHeader(templateHeaderFile):
 
 def formatBinTemplate(templateStr):
     """
-    @brief parse binary of a bin template (sumo, neconvert, etc.)
+    @brief parse binary of a bin template (sumo, netconvert, etc.)
     """
     # remove endlines in Windows
     templateStr = templateStr.replace("\\r", '')
@@ -350,7 +348,7 @@ def generateTemplate(app, appBin):
         except CalledProcessError as e:
             sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
             return 'const std::string ' + app + 'Template = "";'
-        # join variable and formated template
+        # join variable and formatted template
         return 'const std::string ' + app + 'Template = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
     raise Exception(app + "template cannot be generated. " + app + " binary not found. "
@@ -373,7 +371,7 @@ def generateToolTemplate(toolDir, toolPath):
             with open(os.devnull, "w") as null:
                 template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
                                         stderr=null, universal_newlines=True)
-            # join variable and formated template
+            # join variable and formatted template
             return templateTool + formatToolTemplate(template) + '),\n'
         except CalledProcessError as e:
             print("Error when generating tool template for %s: '%s'." % (toolName, e), file=sys.stderr)

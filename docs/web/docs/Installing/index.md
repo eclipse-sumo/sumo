@@ -59,7 +59,7 @@ sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 Precompiled binaries for different distributions like openSUSE and
-Fedora can be found at these [repositories for binary Linux versions](http://download.opensuse.org/repositories/home:/behrisch/).
+Fedora can be found at these [repositories for binary Linux versions](https://download.opensuse.org/repositories/home:/behrisch/).
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Linux_Build.md).
 
@@ -79,7 +79,7 @@ Send bug reports regarding SUMO packaged as Flatpak [here](https://github.com/fl
 
 # macOS
 
-SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
+SUMO can be easily installed on macOS by using [Homebrew](https://brew.sh). If you did not already install homebrew, you can do so by invoking te following command in a macOS Terminal:
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -130,7 +130,7 @@ These application bundles determine the location of your SUMO installation by ev
 ## macOS Troubleshooting
 
 ### Segmentation faults on macOS Catalina
-If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
+If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse-sumo/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
 ```brew uninstall --ignore-dependencies fox```
@@ -145,7 +145,7 @@ If you encounter segmentation faults on macOS Catalina, please follow the follow
 ```brew install fox```
 
 ### Blank screen after update to XQuartz 2.8.0_beta3
-If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse/sumo/issues/8208), try resetting your DISPLAY environment variable:
+If you encounter a blank screen after opening sumo-gui (cf. https://github.com/eclipse-sumo/sumo/issues/8208), try resetting your DISPLAY environment variable:
 
 ```export DISPLAY=:0.0```
 

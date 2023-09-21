@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -65,6 +65,8 @@ public:
     // ===========================================================================
 
     class NetworkModeOptions : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMoveFrame::NetworkModeOptions)
 
     public:
         /// @brief constructor
@@ -82,12 +84,29 @@ public:
         /// @brief move whole polygons
         bool getMoveWholePolygons() const;
 
+        /// @brief force draw geometry points
+        bool getForceDrawGeometryPoints() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called after change option
+        long onCmdChangeOption(FXObject*, FXSelector, void*);
+
+        /// @}
+    
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(NetworkModeOptions)
+
     private:
         /// @brief pointer to move frame parent
         GNEMoveFrame* myMoveFrameParent;
 
         /// @brief checkbox for enable/disable move whole polygons
-        FXCheckButton* myMoveWholePolygons;
+        FXCheckButton* myMoveWholePolygons = nullptr;
+
+        /// @brief checkbox for force darwi geometry points
+        FXCheckButton* myForceDrawGeometryPoints = nullptr;
     };
 
     // ===========================================================================
@@ -114,10 +133,10 @@ public:
 
     private:
         /// @brief pointer to move frame parent
-        GNEMoveFrame* myMoveFrameParent;
+        GNEMoveFrame* myMoveFrameParent = nullptr;
 
         /// @brief checkbox for enable/disable leave stopPersons connected
-        FXCheckButton* myLeaveStopPersonsConnected;
+        FXCheckButton* myLeaveStopPersonsConnected = nullptr;
     };
 
     // ===========================================================================
@@ -296,7 +315,7 @@ public:
     /// @brief Destructor
     ~GNEMoveFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param objectsUnderGrippedCursor collection of objects under gripped cursor after click over view

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,9 +35,9 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
-# create busStop in mode "reference center"
+# create busStop in mode "Center"
 netedit.leftClick(referencePosition, 430, 256)
 
 # go to inspect mode
@@ -50,8 +50,7 @@ netedit.leftClick(referencePosition, 430, 280)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.name, "Bus Stop Name", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

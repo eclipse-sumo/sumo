@@ -7,6 +7,6 @@
     <!-- VTypes -->
     <vType id="custom_vType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="flow_0" begin="20.00" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
-    <flow id="flow_4" type="custom_vType" begin="20.00" fromJunction="gneJ4" toJunction="gneJ7" end="50.00" number="100"/>
+    <flow id="flow_0" begin="20.00" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
+    <flow id="flow_4" type="custom_vType" begin="20.00" fromJunction="Junction0" toJunction="Junction3" end="50.00" number="100"/>
 </routes>

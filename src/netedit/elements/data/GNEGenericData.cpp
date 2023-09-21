@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -124,7 +124,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
-    // buld menu commands for names
+    // build menu commands for names
     GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_NAME);
     GUIDesigns::buildFXMenuCommand(ret, TLF("Copy % name to clipboard", getTagStr()), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
@@ -188,30 +188,6 @@ GNEGenericData::updateGLObject() {
 bool
 GNEGenericData::isPathElementSelected() const {
     return mySelected;
-}
-
-
-double
-GNEGenericData::getPathElementDepartValue() const {
-    return 0;
-}
-
-
-Position
-GNEGenericData::getPathElementDepartPos() const {
-    return Position();
-}
-
-
-double
-GNEGenericData::getPathElementArrivalValue() const {
-    return 0;
-}
-
-
-Position
-GNEGenericData::getPathElementArrivalPos() const {
-    return Position();
 }
 
 

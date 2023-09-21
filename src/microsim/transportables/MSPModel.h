@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -203,7 +203,12 @@ public:
         return false;
     }
 
-    /// @brief whether the transportable is jammed
+    /// @brief whether the transportable has finished walking
+    virtual bool isFinished() const {
+        return true;
+    }
+
+    /// @brief the current lane of the transportable
     virtual const MSLane* getLane() const {
         return nullptr;
     }

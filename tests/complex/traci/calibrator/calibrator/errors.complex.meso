@@ -1,2 +1,3 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Meso calibrator 'cali_SN' defined for lane 'SC_0' will collect data for all lanes of edge 'SC'.
+Warning: Vehicle class 'bicycle' of vType 'DEFAULT_BIKETYPE' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation

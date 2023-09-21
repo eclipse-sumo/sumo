@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -39,11 +39,11 @@
 // method definitions
 // ===========================================================================
 
-GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
-                                       const RGBColor& color, const Position& pos, bool geo, const std::string& lane,
-                                       double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                                       const std::string& imgFile, bool relativePath, double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height),
+GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
+                                       bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
+                                       const std::string& icon, double layer, double angle, const std::string& imgFile,
+                                       bool relativePath, double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height),
     GUIGlObject_AbstractAdd(GLO_POI, id,
                             (lane.size() > 0) ? GUIIconSubSys::getIcon(GUIIcon::POILANE) : geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI)) {
 }
@@ -66,6 +66,7 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());
+    ret->mkItem("icon", false, getIcon());
     ret->mkItem("layer", false, getShapeLayer());
     ret->closeBuilding(this);
     return ret;
@@ -120,13 +121,13 @@ void
 GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool disableSelectionColor) {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, o->getGlID()) && disableSelectionColor) {
+    if (s.netedit && active != 1 && gSelected.isSelected(o->getType(), o->getGlID()) && disableSelectionColor) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
         GLHelper::setColor(POI->getShapeColor());
     } else if (active == 1) {
-        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POI, o->getGlID())));
+        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(o->getType(), o->getGlID())));
     } else {
         GLHelper::setColor(c.getScheme().getColor(0));
     }

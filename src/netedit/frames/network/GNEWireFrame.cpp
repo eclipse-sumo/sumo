@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,7 @@
 
 
 GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Wires") {
+    GNEFrame(viewParent, viewNet, TL("Wires")) {
 
     // create item Selector module for wires
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);

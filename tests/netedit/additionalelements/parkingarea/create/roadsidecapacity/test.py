@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -37,36 +37,35 @@ netedit.changeElement("parkingArea")
 # set invalid roadSideCapacity (dummy)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "dummyRoadSideCapacity")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid roadSideCapacity (empty"
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid roadSideCapacity (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "-3")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid roadSideCapacity (double)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "2.5")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set valid roadSideCapacity
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "3")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

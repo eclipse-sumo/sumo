@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -62,11 +62,14 @@ public:
         /// @brief update id in comboBox
         void updateIDinComboBox(const std::string& oldID, const std::string& newID);
 
-        /// @brief check if we have to use edge template
-        bool useEdgeTemplate() const;
-
         /// @brief check if we're using default edge type
         bool useDefaultEdgeType() const;
+
+        /// @brief check if we're using default edge type short
+        bool useDefaultEdgeTypeShort() const;
+
+        /// @brief check if we have to use edge template
+        bool useEdgeTemplate() const;
 
         /// @brief void enable checkbox for disable pedestrians
         void enableCheckBoxDisablePedestrians();
@@ -135,7 +138,10 @@ public:
         int myCurrentIndex;
 
         /// @brief create default edge
-        FXRadioButton* myUseDefaultEdgeType = nullptr;
+        FXRadioButton* myCreateDefaultEdgeType = nullptr;
+
+        /// @brief create default edge short
+        FXRadioButton* myCreateDefaultShortEdgeType = nullptr;
 
         /// @brief no pedestrian check button
         FXCheckButton* myNoPedestriansCheckButton = nullptr;
@@ -144,10 +150,10 @@ public:
         FXCheckButton* myAddSidewalkCheckButton = nullptr;
 
         /// @brief create custom edge
-        FXRadioButton* myUseCustomEdgeType = nullptr;
+        FXRadioButton* myCreateCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
-        FXComboBox* myEdgeTypesComboBox = nullptr;
+        MFXComboBoxIcon* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
         FXButton* myAddEdgeTypeButton = nullptr;
@@ -210,7 +216,7 @@ public:
         /// @brief lane index
         int myLaneIndex;
         /// @brief ComboBox for lane types
-        FXComboBox* myLaneTypesComboBox = nullptr;
+        MFXComboBoxIcon* myLaneTypesComboBox = nullptr;
 
         /// @brief button for create new lane type
         FXButton* myAddLaneTypeButton = nullptr;
@@ -242,7 +248,7 @@ public:
     /// @brief Destructor
     ~GNECreateEdgeFrame();
 
-    /**@brief handle processClick and set the relative colouring
+    /**@brief handle processClick and set the relative coloring
      * @param[in] clickedPosition clicked position over ViewNet
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param oppositeEdge automatically create an opposite edge
@@ -307,5 +313,5 @@ private:
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
 
     /// @brief source junction for new edge
-    GNEJunction* myCreateEdgeSource;
+    GNEJunction* myJunctionSource;
 };

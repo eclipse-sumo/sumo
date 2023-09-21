@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -48,7 +48,7 @@ FXDEFMAP(GNEOptionsDialog) GUIDialogOptionsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,         GNEOptionsDialog::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNEOptionsDialog::onCmdSelectTopic),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SEARCH_USEDESCRIPTION,  GNEOptionsDialog::onCmdSearch),
-    FXMAPFUNC(SEL_COMMAND,  MID_MTFS_UPDATED,               GNEOptionsDialog::onCmdSearch),
+    FXMAPFUNC(SEL_COMMAND,  MID_MTEXTFIELDSEARCH_UPDATED,   GNEOptionsDialog::onCmdSearch),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS_MENU,          GNEOptionsDialog::onCmdShowToolTipsMenu),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,               GNEOptionsDialog::onCmdSaveOptions),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,               GNEOptionsDialog::onCmdLoadOptions),
@@ -63,16 +63,20 @@ FXIMPLEMENT(GNEOptionsDialog,   FXDialogBox,    GUIDialogOptionsMap,    ARRAYNUM
 // ===========================================================================
 
 std::pair<int, bool>
-GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
+GNEOptionsDialog::Options(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, false);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    delete optionsDialog;
+    return result;
 }
 
 
 std::pair<int, bool>
-GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer, const OptionsCont &originalOptionsContainer, const char* titleName) {
+GNEOptionsDialog::Run(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer, const OptionsCont& originalOptionsContainer, const char* titleName) {
     GNEOptionsDialog* optionsDialog = new GNEOptionsDialog(GNEApp, icon, optionsContainer, originalOptionsContainer, titleName, true);
-    return std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    auto result = std::make_pair(optionsDialog->execute(), optionsDialog->myOptionsModified);
+    delete optionsDialog;
+    return result;
 }
 
 
@@ -82,7 +86,7 @@ GNEOptionsDialog::~GNEOptionsDialog() { }
 long
 GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset entries
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
     // close dialog canceling changes
@@ -93,7 +97,7 @@ GNEOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GNEOptionsDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset entries
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         entry->onCmdResetOption(nullptr, 0, nullptr);
     }
     return 1;
@@ -168,7 +172,7 @@ GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
     // check file
     if ((file.size() > 0) && loadConfiguration(file)) {
         // update entries
-        for (const auto &entry : myInputOptionEntries) {
+        for (const auto& entry : myInputOptionEntries) {
             entry->updateOption();
         }
     }
@@ -179,7 +183,7 @@ GNEOptionsDialog::onCmdLoadOptions(FXObject*, FXSelector, void*) {
 long
 GNEOptionsDialog::onCmdResetDefault(FXObject*, FXSelector, void*) {
     // restore entries
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         entry->restoreOption();
     }
     return 1;
@@ -196,10 +200,10 @@ GNEOptionsDialog::GNEOptionsDialog() :
 bool
 GNEOptionsDialog::updateVisibleEntriesByTopic() {
     // iterate over tree elements and get the selected item
-    for (const auto &treeItemTopic : myTreeItemTopics) {
+    for (const auto& treeItemTopic : myTreeItemTopics) {
         if (treeItemTopic.first->isSelected()) {
             // iterate over entries
-            for (const auto &entry : myInputOptionEntries) {
+            for (const auto& entry : myInputOptionEntries) {
                 if (entry->getTopic() == treeItemTopic.second) {
                     entry->show();
                 } else {
@@ -212,7 +216,7 @@ GNEOptionsDialog::updateVisibleEntriesByTopic() {
         }
     }
     // no topic selected, then show all
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         entry->show();
     }
     myEntriesFrame->recalc();
@@ -223,10 +227,10 @@ GNEOptionsDialog::updateVisibleEntriesByTopic() {
 
 void
 GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
-    // first tolow search text
+    // first lower case search text
     searchText = StringUtils::to_lower_case(searchText);
     // iterate over entries
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         if (searchText.empty()) {
             // show all entries if searchText is empty
             entry->show();
@@ -245,8 +249,8 @@ GNEOptionsDialog::updateVisibleEntriesBySearch(std::string searchText) {
 
 
 bool
-GNEOptionsDialog::loadConfiguration(const std::string &file) {
-    // make all options writables
+GNEOptionsDialog::loadConfiguration(const std::string& file) {
+    // make all options writable
     myOptionsContainer.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
@@ -262,8 +266,7 @@ GNEOptionsDialog::loadConfiguration(const std::string &file) {
             WRITE_ERROR(TL("Could not load configuration '") + file + "'.");
             return false;
         }
-    }
-    catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
         return false;
     }
@@ -273,8 +276,8 @@ GNEOptionsDialog::loadConfiguration(const std::string &file) {
 }
 
 
-GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont &optionsContainer,
-        const OptionsCont &originalOptionsContainer, const char* titleName, const bool runDialog) :
+GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, OptionsCont& optionsContainer,
+                                   const OptionsCont& originalOptionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(GNEApp, titleName, GUIDesignDialogBoxExplicitStretchable(800, 600)),
     myGNEApp(GNEApp),
     myOptionsContainer(optionsContainer),
@@ -286,17 +289,17 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
     // add buttons frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrameNoPadding);
     myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
-        myGNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
+            myGNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+            GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Save options"),
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
-        saveFile->setTipText(TL("Save configuration file"));
-    auto loadFile = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Load options") ,
-        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
-        loadFile->setTipText(TL("Load configuration file"));
-    auto resetDefault = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Default options") ,
-        GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
-        resetDefault->setTipText(TL("Reset all options to default"));
+                                         GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);
+    saveFile->setTipText(TL("Save configuration file"));
+    auto loadFile = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Load options"),
+                                         GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignButtonConfiguration);
+    loadFile->setTipText(TL("Load configuration file"));
+    auto resetDefault = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Default options"),
+            GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_DEFAULT, GUIDesignButtonConfiguration);
+    resetDefault->setTipText(TL("Reset all options to default"));
     // add separator
     new FXSeparator(contentFrame);
     // create elements frame
@@ -366,17 +369,17 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // continue depending of dialog type
     if (runDialog) {
-        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
+        GUIDesigns::buildFXButton(buttonsFrame, TL("Run"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
     } else {
-        new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+        GUIDesigns::buildFXButton(buttonsFrame, TL("OK"), "", "", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     }
-    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButtonOK);
-    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonsFrame, TL("Cancel"), "", "", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(buttonsFrame, TL("Reset"), "", "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create dialog
     create();
     // after creation, adjust entries name sizes
-    for (const auto &entry : myInputOptionEntries) {
+    for (const auto& entry : myInputOptionEntries) {
         entry->adjustNameSize();
     }
     // set myShowToolTipsMenu

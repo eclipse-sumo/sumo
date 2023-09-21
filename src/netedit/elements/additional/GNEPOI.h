@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -57,6 +57,7 @@ public:
      * @param[in] lon The position X or Lon of the POI
      * @param[in] lat The position Y or Lat of the POI
      * @param[in[ geo use GEO coordinates (lon/lat)
+     * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -67,15 +68,16 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-           const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
-           const bool relativePath, const double width, const double height, const std::string& name,
-           const Parameterised::Map& parameters);
+           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
+           const std::string& imgFile, const bool relativePath, const double width, const double height,
+           const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
+     * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -88,9 +90,10 @@ public:
      * @param[in] name POI's name
      * @param[in] parameters generic parameters
      */
-    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane, const bool friendlyPos,
-           const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-           const double height, const std::string& name, const Parameterised::Map& parameters);
+    GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
+           const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+           const double layer, const double angle, const std::string& imgFile, const bool relativePath,
+           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();
@@ -133,7 +136,7 @@ public:
     */
     void writeAdditional(OutputDevice& device) const override;
 
-    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    /// @brief check if current additional is valid to be written into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const override;
 
     /// @brief return a string with the current additional problem (must be reimplemented in all detector children)

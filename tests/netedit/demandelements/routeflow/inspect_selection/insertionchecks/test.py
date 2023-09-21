@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, 330, 150)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x,
+                  netedit.positions.demandElements.multipleVehiclesEdge.y)
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.insertionChecks, "dummy", True)
@@ -51,8 +52,7 @@ netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.insertionChecks
                         "leaderGap junction speedLimit pedestrian", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

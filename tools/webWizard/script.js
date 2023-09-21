@@ -340,9 +340,7 @@ on("ready", function(){
     var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap", 
     // Official OSM tileset as protocol-independent URLs
     [
-        'https://a.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        'https://b.tile.openstreetmap.org/${z}/${x}/${y}.png',
-        'https://c.tile.openstreetmap.org/${z}/${x}/${y}.png'
+        'https://tile.openstreetmap.org/${z}/${x}/${y}.png'
     ], null);
     map.addLayer(maplayer);
 

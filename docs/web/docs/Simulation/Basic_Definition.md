@@ -161,7 +161,7 @@ Especially for larger time-steps (e.g. 1sec.) ballistic update yields
 more realistic dynamics for car-following models based on continuous
 dynamics. See also [*Martin Treiber, Venkatesan Kanagaraj*, Comparing
 Numerical Integration Schemes for Time-Continuous Car-Following
-Models](http://arxiv.org/abs/1403.4881).
+Models](https://arxiv.org/abs/1403.4881).
 
 Ballistic update causes positions to be updated with the average speed
 between time steps instead of the speed of the current time step.

@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -1502,24 +1502,39 @@ MSLCM_LC2013::_wantsChange(
                                          //MAX2(STEPS2TIME(TS), (myLeftSpace-myLeadingBlockerLength) / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          MAX2(STEPS2TIME(TS), myLeftSpace / MAX2(myLookAheadSpeed, NUMERICAL_EPS) / remainingLanes / urgency) :
                                          myVehicle.getInfluencer().changeRequestRemainingSeconds(currentTime));
-        const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
-        // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
-        //       while informLeader returns -1 in that case. Refs. #2577
-        if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
-            // maybe we need to deal with a blocking follower
-            informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+        if (!hasBidiNeighLeader) {
+            const double plannedSpeed = informLeader(msgPass, blocked, myLca, neighLead, remainingSeconds);
+            // NOTE: for the  ballistic update case negative speeds may indicate a stop request,
+            //       while informLeader returns -1 in that case. Refs. #2577
+            if (plannedSpeed >= 0 || (!MSGlobals::gSemiImplicitEulerUpdate && plannedSpeed != -1)) {
+                // maybe we need to deal with a blocking follower
+                const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, neighFollow.first);
+                if (!hasBidiNeighFollower) {
+                    informFollower(msgPass, blocked, myLca, neighFollow, remainingSeconds, plannedSpeed);
+                }
+            }
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " plannedSpeed=" << plannedSpeed
+                    << "\n";
+            }
+#endif
+        } else {
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << STEPS2TIME(currentTime)
+                    << " veh=" << myVehicle.getID()
+                    << " myLeftSpace=" << myLeftSpace
+                    << " remainingSeconds=" << remainingSeconds
+                    << " hasBidiNeighLeader\n";
+            }
+#endif
         }
 
-#ifdef DEBUG_WANTS_CHANGE
-        if (DEBUG_COND) {
-            std::cout << STEPS2TIME(currentTime)
-                      << " veh=" << myVehicle.getID()
-                      << " myLeftSpace=" << myLeftSpace
-                      << " remainingSeconds=" << remainingSeconds
-                      << " plannedSpeed=" << plannedSpeed
-                      << "\n";
-        }
-#endif
 
         // remove TraCI flags because it should not be included in "state-without-traci"
         ret = getCanceledState(laneOffset);

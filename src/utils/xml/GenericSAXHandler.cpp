@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occurring elements and attributes into enums
 /****************************************************************************/
 #include <config.h>
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -31,16 +31,21 @@ import sumolib  # noqa
 
 
 def get_options(args=None):
-    argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("stopfile", nargs="+", help="stop files to process")
-    argParser.add_argument("-n", "--network", help="validate positions against this network")
-    argParser.add_argument("-r", "--routes", help="route file to adapt")
-    argParser.add_argument("--split-output", default="splits.edg.xml", help="split file to generate")
-    argParser.add_argument("-o", "--output", default="net.net.xml", help="net file to generate")
-    argParser.add_argument("--stop-output", default="stops.add.xml", help="stop file to generate")
-    argParser.add_argument("--route-output", default="routes.rou.xml", help="route file to generate")
-    argParser.add_argument("--stop-type", default="trainStop", help="which stop types to use")
-    return argParser.parse_args(args)
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("stopfile", nargs="+", help="stop files to process")
+    ap.add_argument("-n", "--network", category="input", type=ap.net_file,
+                    help="validate positions against this network")
+    ap.add_argument("-r", "--routes", category="input", type=ap.route_file, help="route file to adapt")
+    ap.add_argument("--split-output", category="output", type=ap.edgedata_file,
+                    default="splits.edg.xml", help="split file to generate")
+    ap.add_argument("-o", "--output", category="output", type=ap.net_file,
+                    default="net.net.xml", help="net file to generate")
+    ap.add_argument("--stop-output", category="output", type=ap.additional_file,
+                    default="stops.add.xml", help="stop file to generate")
+    ap.add_argument("--route-output", category="output", type=ap.route_file,
+                    default="routes.rou.xml", help="route file to generate")
+    ap.add_argument("--stop-type", default="trainStop", help="which stop types to use")
+    return ap.parse_args(args)
 
 
 def check_replace(replace_edges, e, offset):

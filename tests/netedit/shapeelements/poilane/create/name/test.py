@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -35,20 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "%%$%$&$%$%$")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.name, "%%$%$&$%$%$")
 
 # try to create POI
 netedit.leftClick(referencePosition, 338, 210)
 
 # change imgfile (non exist)
-netedit.changeDefaultValue(netedit.attrs.POILane.create.name, "customName")
+netedit.changeDefaultValue(netedit.attrs.poiLane.create.name, "customName")
 
 # try to create POI
 netedit.leftClick(referencePosition, 405, 210)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

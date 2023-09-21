@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -811,7 +811,7 @@ public:
 
     /** @brief set tentative lane and position during insertion to ensure that
      * all cfmodels work (some of them require veh->getLane() to return a valid lane)
-     * Once the vehicle is sucessfully inserted the lane is set again (see enterLaneAtInsertion)
+     * Once the vehicle is successfully inserted the lane is set again (see enterLaneAtInsertion)
      */
     void setTentativeLaneAndPosition(MSLane* lane, double pos, double posLat = 0);
 
@@ -1710,6 +1710,9 @@ public:
      */
     void replaceVehicleType(MSVehicleType* type);
 
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    double getBrakeGap(bool delayed = false) const;
+
     /// @name state io
     //@{
 
@@ -1823,9 +1826,6 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
-    /// @brief get distance for coming to a stop (used for rerouting checks)
-    double getBrakeGap(bool delayed = false) const;
-
     /// @brief ensure that a vehicle-relative position is not invalid
     Position validatePosition(Position result, double offset = 0) const;
 
@@ -1846,6 +1846,11 @@ protected:
 
     /// @brief perform lateral z interpolation in elevated networks
     void interpolateLateralZ(Position& pos, double offset, double posLat) const;
+
+    /** @brief get the distance from the start of this lane to the start of the next normal lane
+     * (or 0 if this lane is a normal lane)
+     */
+    double getDistanceToLeaveJunction() const;
 
 protected:
 
@@ -2042,8 +2047,8 @@ public:
                                double distToCrossing = -1) const;
 
     void adaptToOncomingLeader(const std::pair<const MSVehicle*, double> leaderInfo,
-                DriveProcessItem* const lastLink,
-                double& v, double& vLinkPass) const;
+                               DriveProcessItem* const lastLink,
+                               double& v, double& vLinkPass) const;
 
     /// @brief decide whether a red (or yellow light) may be ignored
     bool ignoreRed(const MSLink* link, bool canBrake) const;

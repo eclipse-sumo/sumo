@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -333,7 +333,7 @@ Lane::getPendingVehicles(const std::string& laneID) {
 }
 
 
-double 
+double
 Lane::getAngle(const std::string& laneID, double relativePosition) {
     double angle;
     MSLane* lane = getLane(laneID);
@@ -341,8 +341,7 @@ Lane::getAngle(const std::string& laneID, double relativePosition) {
         Position start = lane->getShape().front();
         Position end = lane->getShape().back();
         angle = start.angleTo2D(end);
-    }
-    else {
+    } else {
         angle = lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(relativePosition));
     }
 

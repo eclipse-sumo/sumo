@@ -7,6 +7,8 @@ set(utils_gui_images_STAT_SRCS
    GUITexturesHelper.cpp
    GUITexturesHelper.h
    GUITextures.h
+   POIImages.cpp
+   POIImages.h
    VClassIcons.cpp
    VClassIcons.h
 )

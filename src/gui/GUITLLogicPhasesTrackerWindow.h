@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -147,7 +147,7 @@ public:
         /** @brief Constructor
          * @param[in] c The container for this panel
          * @param[in] app The main application window
-         * @param[in] parent This panel's logial parent
+         * @param[in] parent This panel's logical parent
          */
         GUITLLogicPhasesTrackerPanel(FXComposite* c,
                                      GUIMainWindow& app, GUITLLogicPhasesTrackerWindow& parent);
@@ -270,10 +270,10 @@ private:
     FXRealSpinner* myBeginOffset;
 
     /// @brief The time mode
-    FXComboBox* myTimeMode;
+    MFXComboBoxIcon* myTimeMode;
 
     /// @brief Whether green durations are printed
-    FXComboBox* myGreenMode;
+    MFXComboBoxIcon* myGreenMode;
 
     /// @brief Whether phase names shall be printed instead of indices
     FXCheckButton* myIndexMode;

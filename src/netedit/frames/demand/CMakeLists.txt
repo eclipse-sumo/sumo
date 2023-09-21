@@ -1,6 +1,10 @@
 set(netedit_frames_demand_SRCS  
+   GNEDistributionFrame.h
+   GNEDistributionFrame.cpp
    GNERouteFrame.h
    GNERouteFrame.cpp
+   GNERouteDistributionFrame.h
+   GNERouteDistributionFrame.cpp
    GNEStopFrame.h
    GNEStopFrame.cpp
    GNEPersonFrame.h

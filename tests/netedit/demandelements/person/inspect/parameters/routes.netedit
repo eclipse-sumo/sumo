@@ -9,6 +9,6 @@
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-        <personTrip from="gneE2" to="gneE5" lines="ANY"/>
+        <personTrip from="Edge0" to="Edge2" lines="ANY"/>
     </person>
 </routes>

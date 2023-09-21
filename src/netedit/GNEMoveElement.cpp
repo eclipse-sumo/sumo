@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -189,11 +189,13 @@ GNEMoveElement::GNEMoveElement() :
 
 
 GNEMoveOperation*
-GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour) {
+GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition,
+        const double snapRadius, const bool onlyContour, const bool maintainShapeClosed) {
     // calculate squared snapRadius
     const double squaredSnapRadius = (snapRadius * snapRadius);
     // declare shape to move
     PositionVector shapeToMove = originalShape;
+    const int lastIndex = (int)shapeToMove.size() - 1;
     // obtain nearest index
     const int nearestIndex = originalShape.indexOfClosest(mousePosition);
     // obtain nearest position
@@ -204,18 +206,27 @@ GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, 
     } else if (nearestPosition == Position::INVALID) {
         // special case for extremes
         if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
-            // move extrem without creating new geometry point
-            return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+            // move geometry point without creating new geometry point
+            if (maintainShapeClosed && ((nearestIndex == 0) || (nearestIndex == lastIndex))) {
+                // move first and last point
+                return new GNEMoveOperation(this, originalShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
+            } else {
+                return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+            }
         } else {
             return nullptr;
         }
     } else if (mousePosition.distanceSquaredTo2D(shapeToMove[nearestIndex]) <= squaredSnapRadius) {
         // move geometry point without creating new geometry point
-        return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+        if (maintainShapeClosed && ((nearestIndex == 0) || (nearestIndex == lastIndex))) {
+            // move first and last point
+            return new GNEMoveOperation(this, originalShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
+        } else {
+            return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {nearestIndex});
+        }
     } else if (!onlyContour || nearestPosition.distanceSquaredTo2D(mousePosition) <= squaredSnapRadius) {
         // create new geometry point and keep new index (if we clicked near of shape)
         const int newIndex = shapeToMove.insertAtClosest(nearestPosition, true);
-        // move after setting new geometry point in shapeToMove
         return new GNEMoveOperation(this, originalShape, {nearestIndex}, shapeToMove, {newIndex});
     } else {
         return nullptr;

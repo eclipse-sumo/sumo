@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,35 +44,39 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.extensionEnable)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
+                  netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 291, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
+                  1, netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 292, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
+                  2, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, 293, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
+                  3, netedit.positions.demandElements.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 294, 195)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
+                  4, netedit.positions.demandElements.chargingStation.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

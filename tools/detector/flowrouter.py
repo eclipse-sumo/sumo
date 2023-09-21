@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -382,7 +382,7 @@ class Net:
             else:
                 if DEBUG:
                     print("      trying to split", routeStub)
-                assert(len(currEdge.routes) > 0)
+                assert (len(currEdge.routes) > 0)
                 for route in currEdge.routes + currEdge.newRoutes:
                     if route.newFrequency == 0:
                         continue

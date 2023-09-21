@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -36,14 +37,14 @@
 // ---------------------------------------------------------------------------
 
 GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "PersonPlans"),
+    GNEFrame(viewParent, viewNet, TL("PersonPlans")),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
-    // create person types selector modul
+    // create person types selector module
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE_EDGE);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEAttributesCreator(this);
@@ -51,7 +52,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create myPathCreator Module
     myPathCreator = new GNEPathCreator(this);
 
-    // Create GNEElementTree modul
+    // Create GNEElementTree module
     myPersonHierarchy = new GNEElementTree(this);
 
     // create legend label
@@ -67,36 +68,14 @@ GNEPersonPlanFrame::show() {
     // get persons maps
     const auto& persons = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON);
     const auto& personFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW);
-    // Only show moduls if there is at least one person
+    // Only show modules if there is at least one person
     if ((persons.size() > 0) || (personFlows.size() > 0)) {
         // show person selector
         myPersonSelector->showDemandElementSelector();
         // refresh tag selector
         myPersonPlanTagSelector->refreshTagSelector();
-        // set first person as demand element (this will call demandElementSelected() function)
-        if (myViewNet->getFrontAttributeCarrier() && myViewNet->getFrontAttributeCarrier()->getTagProperty().isPerson()) {
-            GNEDemandElement* personFound = nullptr;
-            // search person
-            for (const auto& person : persons) {
-                if (myViewNet->getFrontAttributeCarrier()->getID() == person->getID()) {
-                    personFound = person;
-                }
-            }
-            // search personFlow
-            for (const auto& personFlow : personFlows) {
-                if (myViewNet->getFrontAttributeCarrier()->getID() == personFlow->getID()) {
-                    personFound = personFlow;
-                }
-            }
-            // check personFound
-            if (personFound) {
-                myPersonSelector->setDemandElement(personFound);
-            }
-        } else {
-            myPersonSelector->setDemandElement(nullptr);
-        }
     } else {
-        // hide all moduls
+        // hide all modules
         myPersonSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
@@ -147,18 +126,15 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // Obtain current person plan tag (only for improve code legibility)
-    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+    const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
     // declare flags for requirements
-    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_BUSSTOP) ||
-                                 (personPlanTag == GNE_TAG_RIDE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
-    const bool requireTrainStop = ((personPlanTag == GNE_TAG_PERSONTRIP_TRAINSTOP) || (personPlanTag == GNE_TAG_WALK_TRAINSTOP) ||
-                                   (personPlanTag == GNE_TAG_RIDE_TRAINSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_TRAINSTOP));
-    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGE) ||
-                              (personPlanTag == GNE_TAG_RIDE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
-                              (personPlanTag == GNE_TAG_STOPPERSON_EDGE));
-    const bool requireJunction = ((personPlanTag == GNE_TAG_PERSONTRIP_JUNCTIONS) || (personPlanTag == GNE_TAG_WALK_JUNCTIONS));
+    const bool requireBusStop = personPlanProperty.planFromBusStop() || personPlanProperty.planToBusStop();
+    const bool requireTrainStop = personPlanProperty.planFromTrainStop() || personPlanProperty.planToTrainStop();
+    const bool requireEdge = personPlanProperty.planFromEdge() || personPlanProperty.planToEdge() || personPlanProperty.hasAttribute(SUMO_ATTR_EDGES);
+    const bool requireJunction = personPlanProperty.planFromJunction() || personPlanProperty.planToJunction();
+    const bool requireTAZ = personPlanProperty.planFromTAZ() || personPlanProperty.planToTAZ();
     // continue depending of tag
-    if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if (personPlanProperty.hasAttribute(SUMO_ATTR_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
@@ -168,6 +144,8 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireJunction && objectsUnderCursor.getJunctionFront()) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
+    } else if (requireTAZ && objectsUnderCursor.getTAZFront()) {
+        return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
@@ -191,6 +169,12 @@ GNEPersonPlanFrame::getPersonHierarchy() const {
     return myPersonHierarchy;
 }
 
+
+DemandElementSelector*
+GNEPersonPlanFrame::getPersonSelector() const {
+    return myPersonSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -199,40 +183,50 @@ void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
+        // get ACs
+        const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
         // Obtain current person plan tag (only for improve code legibility)
-        SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
-        // get previous person plan
-        GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
-        // update VClass of myPathCreator depending if person is a ride
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-            myPathCreator->setVClass(SVC_PASSENGER);
-        } else {
-            myPathCreator->setVClass(SVC_PEDESTRIAN);
-        }
+        // get previous container plan element
+        const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
-        if (previousEdge) {
-            // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanTag, true, false);
+        if (myPersonSelector) {
+            // show path creator mode
+            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
+            // add previous element
+            if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                // add junction
+                myPathCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
+            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                // update VClass of myPathCreator depending if person is a ride
+                if (personPlanProperty.isRide()) {
+                    myPathCreator->setVClass(SVC_PASSENGER);
+                } else {
+                    myPathCreator->setVClass(SVC_PEDESTRIAN);
+                }
+                // add edge
+                myPathCreator->addEdge(ACs->retrieveEdge(previousElement->getID()), true, true);
+            } else if (previousElement->getTagProperty().isStoppingPlace()) {
+                // add stopping place
+                myPathCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()), true, true);
+            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+                // add TAZ
+                myPathCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
+            }
             // show legend
             myPathLegend->showPathLegendModule();
-            // add previous edge or junction
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                myPathCreator->addJunction(previousEdge->getToJunction());
-            } else if (!myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-                myPathCreator->addEdge(previousEdge, true, true);
-            }
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanTag, false, false);
+            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), false, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
     } else {
-        // hide moduls if tag selecte isn't valid
+        // hide modules if tag selected isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
@@ -258,7 +252,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             myPathLegend->hidePathLegendModule();
         }
     } else {
-        // hide moduls if person selected isn't valid
+        // hide modules if person selected isn't valid
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();

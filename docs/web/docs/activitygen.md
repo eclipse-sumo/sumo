@@ -32,7 +32,7 @@ A step by step description for using
 
 You may use a XML schema definition file for setting up a activitygen
 configuration:
-[activitygenConfiguration.xsd](http://sumo.dlr.de/xsd/activitygenConfiguration.xsd).
+[activitygenConfiguration.xsd](https://sumo.dlr.de/xsd/activitygenConfiguration.xsd).
 
 ### Configuration
 

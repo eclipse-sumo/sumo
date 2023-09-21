@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -44,35 +44,39 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnab
 netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.extensionEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 291, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  1, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 292, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  2, netedit.positions.demandElements.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 293, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  3, netedit.positions.demandElements.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 294, 175)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  4, netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

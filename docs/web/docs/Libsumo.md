@@ -17,9 +17,9 @@ following properties:
   classes for results which can be linked directly to the client code
 - Function signatures similar to [TraCI](TraCI.md)
 - Pre-built language bindings for Java and Python (using
-  [SWIG](http://www.swig.org/))
+  [SWIG](https://www.swig.org/))
 - Support for other programming languages via
-  [SWIG](http://www.swig.org/)
+  [SWIG](https://www.swig.org/)
   
 # Limitations
 
@@ -144,7 +144,7 @@ public class Test {
 ```
 
 Please note that starting with SUMO 1.16.0 it seems to be necessary to preload more libraries
-on Windows, see https://github.com/eclipse/sumo/issues/12605
+on Windows, see https://github.com/eclipse-sumo/sumo/issues/12605
 
 ### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
 

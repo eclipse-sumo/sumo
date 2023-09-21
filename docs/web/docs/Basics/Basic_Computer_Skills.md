@@ -22,8 +22,8 @@ Or by pressing the `Win` + `R` keys and entering `notepad`
 
 Notepad is a very basic text editor. You can increase your comfort and
 productivity by switching to an editor with more features. Consider
-[Notepad++](http://notepad-plus-plus.org/) or
-[vim](http://www.vim.org/download.php#pc) and also see this [comparison of text editors](https://en.wikipedia.org/wiki/Comparison_of_text_editors)
+[Notepad++](https://notepad-plus-plus.org/) or
+[vim](https://www.vim.org/download.php#pc) and also see this [comparison of text editors](https://en.wikipedia.org/wiki/Comparison_of_text_editors)
 
 !!! note
     Files used by SUMO have by convention names ending with

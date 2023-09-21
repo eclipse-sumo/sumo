@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -64,28 +64,30 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myMatchGenericDataString(nullptr) {
     // Create MFXComboBoxIcon for interval
     new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
-    myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                             this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
     // Create MFXComboBoxIcon for generic datas
-    myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeMedium,
+                                                        this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create textfield for begin and end
     myTAZHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myFromTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
-    myToTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
+    myFromTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                            this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
+    myToTAZComboBox = new MFXComboBoxIcon(myTAZHorizontalFrame, GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                          this, MID_GNE_SELECTORFRAME_TOTAZ, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchGenericDataAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchGenericDataAttrComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxSizeMedium,
+                                                         this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
     myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
-    // Set speed of edge as default attribute
-    myMatchGenericDataAttrComboBox->setText(TL("speed"));
-    myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for MatchGenericData string
     myMatchGenericDataString->setText(defaultValue.c_str());
 }
@@ -121,12 +123,6 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         for (auto& interval : myIntervals) {
             interval.second = myIntervalSelector->appendIconItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str(), GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL));
         }
-        // set number of visible items
-        if (myIntervalSelector->getNumItems() < 10) {
-            myIntervalSelector->setNumVisible(myIntervalSelector->getNumItems());
-        } else {
-            myIntervalSelector->setNumVisible(10);
-        }
         // Clear items of myMatchGenericDataTagComboBox
         myMatchGenericDataTagComboBox->clearItems();
         // update begin and end
@@ -144,7 +140,6 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         }
         // set first item as current item
         myMatchGenericDataTagComboBox->setCurrentItem(0);
-        myMatchGenericDataTagComboBox->setNumVisible(myMatchGenericDataTagComboBox->getNumItems());
         // call select tag
         onCmdSelectTag(nullptr, 0, nullptr);
     }
@@ -317,12 +312,11 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
         myMatchGenericDataString->enable();
         myMatchGenericDataAttrComboBox->clearItems();
         // add data set parent
-        myMatchGenericDataAttrComboBox->appendItem(toString(GNE_ATTR_DATASET).c_str());
+        myMatchGenericDataAttrComboBox->appendIconItem(toString(GNE_ATTR_DATASET).c_str());
         // fill attribute combo box
         for (const auto& attribute : attributes) {
-            myMatchGenericDataAttrComboBox->appendItem(attribute.c_str());
+            myMatchGenericDataAttrComboBox->appendIconItem(attribute.c_str());
         }
-        myMatchGenericDataAttrComboBox->setNumVisible(myMatchGenericDataAttrComboBox->getNumItems());
         // check if shown TAZ text fields
         if (myCurrentTag == SUMO_TAG_TAZREL) {
             myTAZHorizontalFrame->show();
@@ -484,7 +478,7 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    GUIDesigns::buildFXButton(myHorizontalFrameOKButton, TL("OK"), "", TL("close"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");
@@ -508,16 +502,13 @@ GNEMatchGenericDataAttribute::updateTAZComboBox() {
     myFromTAZComboBox->clearItems();
     myToTAZComboBox->clearItems();
     // add first element
-    myFromTAZComboBox->appendItem("<from TAZ>");
-    myToTAZComboBox->appendItem("<to TAZ>");
+    myFromTAZComboBox->appendIconItem("<from TAZ>");
+    myToTAZComboBox->appendIconItem("<to TAZ>");
     // add all TAZs
     for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-        myFromTAZComboBox->appendItem(TAZ->getID().c_str());
-        myToTAZComboBox->appendItem(TAZ->getID().c_str());
+        myFromTAZComboBox->appendIconItem(TAZ->getID().c_str());
+        myToTAZComboBox->appendIconItem(TAZ->getID().c_str());
     }
-    // set num of visible items
-    myFromTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
-    myToTAZComboBox->setNumVisible(myFromTAZComboBox->getNumItems());
     // set first items
     myFromTAZComboBox->setCurrentItem(0, TRUE);
     myToTAZComboBox->setCurrentItem(0, TRUE);

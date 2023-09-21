@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 // Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
@@ -56,9 +56,9 @@ GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* app
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, (TL("accept") + std::string("\t\t") + TL("load elements")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, (TL("cancel") + std::string("\t\t") + TL("cancel loading of elements")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
-    myOverwriteButton = new FXButton(buttonsFrame, (TL("overwrite") + std::string("\t\t") + TL("overwrite elements")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
+    myAcceptButton = GUIDesigns::buildFXButton(buttonsFrame, TL("accept"), "", TL("load elements"),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
+    myCancelButton = GUIDesigns::buildFXButton(buttonsFrame, TL("cancel"), "", TL("cancel loading of elements"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
+    myOverwriteButton = GUIDesigns::buildFXButton(buttonsFrame, TL("overwrite"), "", TL("overwrite elements"),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Dialog
     create();
