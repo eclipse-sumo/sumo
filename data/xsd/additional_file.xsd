@@ -616,6 +616,15 @@
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
+        <xsd:attribute name="icon" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value=""/>
+                    <xsd:enumeration value="hotel"/>
+                    <xsd:enumeration value="tree"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>
