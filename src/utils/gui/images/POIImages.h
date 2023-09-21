@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <utils/shapes/PointOfInterest.h>
 #include <utils/foxtools/fxheader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
 // class definitions
@@ -34,8 +34,5 @@ class POIImages {
 
 public:
     /// @brief returns icon associated to the given POI image
-    static FXIcon* getPOIIcon(PointOfInterest::Icon POIIcon);
-
-    /// @brief returns texture associated to the given POI image
-    static const unsigned char* getPOITexture(PointOfInterest::Icon POIIcon);
+    static FXIcon* getPOIIcon(POIIcon POIIcon);
 };

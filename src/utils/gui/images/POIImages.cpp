@@ -17,10 +17,7 @@
 ///
 // Class for grouping POI images and textures
 /****************************************************************************/
-#include <config.h>
 
-#include "textures/POITextures/Tree.cpp"
-#include "textures/POITextures/Hotel.cpp"
 #include "GUIIconSubSys.h"
 
 #include "POIImages.h"
@@ -30,29 +27,14 @@
 // ===========================================================================
 
 FXIcon*
-POIImages::getPOIIcon(PointOfInterest::Icon POIIcon) {
+POIImages::getPOIIcon(POIIcon POIIcon) {
     switch (POIIcon) {
-        case PointOfInterest::Icon::TREE:
+        case POIIcon::TREE:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
-        case PointOfInterest::Icon::HOTEL:
+        case POIIcon::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
-        case PointOfInterest::Icon::NONE:
+        case POIIcon::NONE:
             return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
-        default:
-            throw ProcessError("Invalid POIImage");
-    }
-}
-
-
-const unsigned char*
-POIImages::getPOITexture(PointOfInterest::Icon POIIcon) {
-    switch (POIIcon) {
-        case PointOfInterest::Icon::TREE:
-            return POITexture_Tree;
-        case PointOfInterest::Icon::HOTEL:
-            return POITexture_Hotel;
-        case PointOfInterest::Icon::NONE:
-            return nullptr;
         default:
             throw ProcessError("Invalid POIImage");
     }
