@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 14:13+0000\n"
+"PO-Revision-Date: 2023-09-21 14:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6281,7 +6281,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:268
 msgid "Vehicle of a governmental security agency"
-msgstr ""
+msgstr "Veicolo delle forze dell'ordine"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 msgid "A civilian security armored car used by VIPs"
