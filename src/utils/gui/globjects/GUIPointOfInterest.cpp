@@ -147,6 +147,10 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
                                                width * 0.5 * exaggeration,  height * 0.5 * exaggeration);
         }
     } else if (POI->getIcon() != POIIcon::NONE) {
+        // set White color
+        glColor3d(1, 1, 1);
+        // rotate
+        glRotated(180, 0, 0, 1);
         // draw texture
         GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration);
     } else {
