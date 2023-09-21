@@ -45,8 +45,8 @@ PointOfInterest::myIconStrings(iconStringsInitializer, PointOfInterest::Icon::NO
 
 PointOfInterest::PointOfInterest(const std::string &id, const std::string &type, const RGBColor &color, const Position &pos, 
                                  bool geo, const std::string &lane, double posOverLane, bool friendlyPos, double posLat,
-                                 double layer, double angle, const std::string &imgFile, bool relativePath, double width,
-                                 double height, const std::string & name, const Parameterised::Map &parameters) :
+                                 const std::string& icon, double layer, double angle, const std::string &imgFile, bool relativePath,
+                                 double width, double height, const std::string & name, const Parameterised::Map &parameters) :
     Shape(id, type, color, layer, angle, imgFile, name, relativePath),
     Position(pos),
     Parameterised(parameters),
@@ -55,7 +55,7 @@ PointOfInterest::PointOfInterest(const std::string &id, const std::string &type,
     myPosOverLane(posOverLane),
     myFriendlyPos(friendlyPos),
     myPosLat(posLat),
-    myIcon(Icon::NONE),
+    myIcon(myIconStrings.get(icon)),
     myHalfImgWidth(width / 2.0),
     myHalfImgHeight(height / 2.0) {
 }
@@ -131,6 +131,9 @@ PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffse
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     if (getShapeType().size() > 0) {
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
+    }
+    if (myIcon != Icon::NONE) {
+        out.writeAttr(SUMO_ATTR_ICON, myIconStrings.getString(myIcon));
     }
     out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer() + zOffset);

@@ -60,6 +60,7 @@ public:
      * @param[in] friendlyPos friendly position
      * @param[in] posOverLane The position over Lane
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -73,6 +74,7 @@ public:
                     const RGBColor& color, const Position& pos, bool geo,
                     const std::string& lane, double posOverLane,
                     bool friendlyPos, double posLat,
+                    const std::string& icon,
                     double layer = DEFAULT_LAYER,
                     double angle = DEFAULT_ANGLE,
                     const std::string& imgFile = DEFAULT_IMG_FILE,
