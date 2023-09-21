@@ -295,6 +295,19 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     return result;
 }
 
+
+void
+TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeId, const int type, const int limit) {
+    MSTrafficLightLogic* const active = Helper::getTLS(tlsID).getDefault();
+    MSRailSignal* s = dynamic_cast<MSRailSignal*>(active);
+    if (s == nullptr) {
+        throw TraCIException("'" + tlsID + "' is not a rail signal");
+    }
+    MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor((MSRailSignalConstraint::ConstraintType)type, s, tripId, limit, true);
+    s->addConstraint(foeId, c);
+}
+
+
 std::vector<TraCISignalConstraint>
 TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
 #ifdef DEBUG_CONSTRAINT_DEADLOCK
