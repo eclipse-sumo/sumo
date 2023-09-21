@@ -46,7 +46,7 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", Parameterised::Map()),
+    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, "", 0, 0, "", false, 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, GLO_POI, tag, GUIIconSubSys::getIcon(GUIIcon::POI), "", {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
@@ -54,10 +54,10 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-               const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
-               const bool relativePath, const double width, const double height, const std::string& name,
-               const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
+               const std::string& imgFile, const bool relativePath, const double width, const double height,
+               const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI),
                   "", {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
@@ -74,9 +74,10 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
-               const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-               const double height, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
+               const std::string& imgFile, const bool relativePath, const double width, const double height,
+               const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, GUIIconSubSys::getIcon(GUIIcon::POILANE), "", {}, {}, {lane}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
