@@ -1065,6 +1065,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCSTATE,
     /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
+    /// @brief icon
+    SUMO_ATTR_ICON,
     /// @brief A layer number
     SUMO_ATTR_LAYER,
     /// @brief Fill the polygon
@@ -1187,7 +1189,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_OSGFILE,
     SUMO_ATTR_IMGFILE,
     SUMO_ATTR_RELATIVEPATH,
-    SUMO_ATTR_ICON,
     SUMO_ATTR_EMISSIONCLASS,
     SUMO_ATTR_MASS,
     SUMO_ATTR_IMPATIENCE,
