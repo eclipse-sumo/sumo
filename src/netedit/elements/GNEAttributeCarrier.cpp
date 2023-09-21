@@ -5064,7 +5064,8 @@ GNEAttributeCarrier::fillPOIAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ICON,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("POI Icon"));
+                                          TL("POI Icon"),
+                                          SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE));
     attrProperty.setDiscreteValues(SUMOXMLDefinitions::POIIcons.getStrings());
     myTagProperties[currentTag].addAttribute(attrProperty);
 

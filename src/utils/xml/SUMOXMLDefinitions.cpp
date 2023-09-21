@@ -1260,7 +1260,7 @@ StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
 StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
     {"tree",    POIIcon::TREE},
     {"hotel",   POIIcon::HOTEL},
-    {"",        POIIcon::NONE}
+    {"none",    POIIcon::NONE}
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(

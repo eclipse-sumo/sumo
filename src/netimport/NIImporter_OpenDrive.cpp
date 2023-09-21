@@ -964,7 +964,7 @@ NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
             // cicrular shape
             // GeoConvHelper::getFinal is not ready yet
             GeoConvHelper::getLoaded().cartesian2geo(ref);
-            PointOfInterest POI(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0, "");
+            PointOfInterest POI(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE));
             POI.setParameter("name", o.name);
             POI.writeXML(dev, writeGeo);
         } else {
