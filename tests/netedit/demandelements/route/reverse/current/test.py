@@ -45,7 +45,9 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.route.x,
+                                netedit.positions.demandElements.route.y,
                                 netedit.attrs.route.reverseElement,
                                 netedit.attrs.route.reverse.current)
 

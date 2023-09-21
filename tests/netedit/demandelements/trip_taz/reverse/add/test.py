@@ -50,7 +50,9 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.singleVehicleTAZ.x,
+                                netedit.positions.demandElements.singleVehicleTAZ.y,
                                 netedit.attrs.tripTAZ.reverseElement,
                                 netedit.attrs.tripTAZ.reverse.add)
 

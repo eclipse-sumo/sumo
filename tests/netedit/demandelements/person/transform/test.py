@@ -42,7 +42,9 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.typeEnter()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.person.x,
+                                netedit.positions.demandElements.person.y,
                                 netedit.attrs.person.transformTo, 1)
 
 # Check undo
