@@ -84,6 +84,7 @@ title: ChangeLog
   - Add new view "JuPedSim". #13750
   - Support persons over TAZs in netedit. #13784
   - Now in edge frame small edges can be created. #13833
+  - Added "icon" attribute for pois. #13718
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
