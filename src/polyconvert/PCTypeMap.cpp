@@ -33,6 +33,7 @@
 PCTypeMap::PCTypeMap(const OptionsCont& oc) {
     myDefaultType.id = oc.getString("type");
     myDefaultType.color = RGBColor::parseColor(oc.getString("color"));
+    myDefaultType.icon = oc.getString("icon");
     myDefaultType.layer = oc.getFloat("layer");
     myDefaultType.discard = oc.getBool("discard");
     myDefaultType.allowFill = oc.getBool("fill");
@@ -44,16 +45,16 @@ PCTypeMap::~PCTypeMap() {}
 
 
 bool
-PCTypeMap::add(const std::string& id, const std::string& newid,
-               const std::string& color, const std::string& prefix,
-               double layer, double angle, const std::string& imgFile,
-               bool discard, bool allowFill) {
+PCTypeMap::add(const std::string& id, const std::string& newid, const std::string& color,
+               const std::string& prefix, const std::string& icon, double layer,
+               double angle, const std::string& imgFile, bool discard, bool allowFill) {
     if (has(id)) {
         return false;
     }
     TypeDef td;
     td.id = newid;
     td.color = RGBColor::parseColor(color);
+    td.icon = icon;
     td.layer = layer;
     td.angle = angle;
     td.imgFile = imgFile;
