@@ -147,7 +147,7 @@ GNEPOI::getSumoBaseObject() const {
     POIBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
     POIBaseObject->addColorAttribute(SUMO_ATTR_COLOR, getShapeColor());
     POIBaseObject->addStringAttribute(SUMO_ATTR_TYPE, getShapeType());
-    POIBaseObject->addStringAttribute(SUMO_ATTR_ICON, getIcon());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_ICON, getIconStr());
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
     POIBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_WIDTH, getWidth());
@@ -457,7 +457,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TYPE:
             return getShapeType();
         case SUMO_ATTR_ICON:
-            return getIcon();
+            return getIconStr();
         case SUMO_ATTR_LAYER:
             if (getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
                 return "default";
@@ -557,7 +557,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_ICON:
-            return myIconStrings.hasString(value);
+            return SUMOXMLDefinitions::POIIcons.hasString(value);
         case SUMO_ATTR_LAYER:
             if (value == "default") {
                 return true;

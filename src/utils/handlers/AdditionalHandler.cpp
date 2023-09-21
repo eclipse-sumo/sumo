@@ -1759,7 +1759,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
     // check icon
-    if (PointOfInterest::getIconStrings().hasString(icon) == false) {
+    if (SUMOXMLDefinitions::POIIcons.hasString(icon) == false) {
         WRITE_WARNING(TLF("Invalid icon for POI '%', using default", id));
         icon = "";
     }

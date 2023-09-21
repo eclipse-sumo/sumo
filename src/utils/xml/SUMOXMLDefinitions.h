@@ -1832,6 +1832,13 @@ enum class TrainType {
     UNKNOWN
 };
 
+/// @brief POI icons
+enum class POIIcon {
+    TREE,
+    HOTEL,
+    NONE
+};
+
 // @}
 
 /**
@@ -1903,6 +1910,9 @@ public:
 
     /// @brief train types
     static StringBijection<TrainType> TrainTypes;
+    
+    /// @brief POI icon values
+    static StringBijection<POIIcon> POIIcons;
     /// @}
 
     /// @name Helper functions for ID-string manipulations
@@ -1954,8 +1964,6 @@ public:
     /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
 
-
-
 private:
     /// @brief containers for the different SUMOXMLDefinitions
     /// @{
@@ -2005,8 +2013,12 @@ private:
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
 
-    /// @brief train type values values
+    /// @brief train type values
     static StringBijection<TrainType>::Entry trainTypeValues[];
+
+    /// @brief POI icon values
+    static StringBijection<POIIcon>::Entry POIIconValues[];
+
     /// @}
 
     /// @brief all allowed characters for phase state

@@ -123,7 +123,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double lanePosLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, id.c_str(), ok, 0);
     std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myDefaultIcon);
     // check icon
-    if (PointOfInterest::getIconStrings().hasString(icon) == false) {
+    if (SUMOXMLDefinitions::POIIcons.hasString(icon) == false) {
         WRITE_WARNING(TLF("Invalid icon for POI '%', using default", id));
         icon = "";
     }

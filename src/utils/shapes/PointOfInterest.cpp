@@ -26,20 +26,6 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-
-static StringBijection<PointOfInterest::Icon>::Entry iconStringsInitializer[] = {
-    {"tree",    PointOfInterest::Icon::TREE},
-    {"hotel",   PointOfInterest::Icon::HOTEL},
-    {"",        PointOfInterest::Icon::NONE}
-};
-
-
-StringBijection<PointOfInterest::Icon> 
-PointOfInterest::myIconStrings(iconStringsInitializer, PointOfInterest::Icon::NONE, false);
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -55,7 +41,7 @@ PointOfInterest::PointOfInterest(const std::string &id, const std::string &type,
     myPosOverLane(posOverLane),
     myFriendlyPos(friendlyPos),
     myPosLat(posLat),
-    myIcon(myIconStrings.get(icon)),
+    myIcon(SUMOXMLDefinitions::POIIcons.get(icon)),
     myHalfImgWidth(width / 2.0),
     myHalfImgHeight(height / 2.0) {
 }
@@ -64,9 +50,15 @@ PointOfInterest::PointOfInterest(const std::string &id, const std::string &type,
 PointOfInterest::~PointOfInterest() {}
 
 
-const std::string&
+POIIcon
 PointOfInterest::getIcon() const {
-    return myIconStrings.getString(myIcon);
+    return myIcon;
+}
+
+
+const std::string&
+PointOfInterest::getIconStr() const {
+    return SUMOXMLDefinitions::POIIcons.getString(myIcon);
 }
 
 
@@ -94,15 +86,9 @@ PointOfInterest::getFriendlyPos() const {
 }
 
 
-const StringBijection<PointOfInterest::Icon>&
-PointOfInterest::getIconStrings() {
-    return myIconStrings;
-}
-
-
 void
 PointOfInterest::setIcon(const std::string &icon) {
-    myIcon = myIconStrings.get(icon);
+    myIcon = SUMOXMLDefinitions::POIIcons.get(icon);
 }
 
 
@@ -132,8 +118,8 @@ PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffse
     if (getShapeType().size() > 0) {
         out.writeAttr(SUMO_ATTR_TYPE, StringUtils::escapeXML(getShapeType()));
     }
-    if (myIcon != Icon::NONE) {
-        out.writeAttr(SUMO_ATTR_ICON, myIconStrings.getString(myIcon));
+    if (myIcon != POIIcon::NONE) {
+        out.writeAttr(SUMO_ATTR_ICON, SUMOXMLDefinitions::POIIcons.getString(myIcon));
     }
     out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer() + zOffset);

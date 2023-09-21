@@ -43,13 +43,6 @@
 class PointOfInterest : public Shape, public Position, public Parameterised {
 
 public:
-    /// @brief POI icon
-    enum class Icon {
-        TREE,
-        HOTEL,
-        NONE
-    };
-
     /** @brief Constructor
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -90,8 +83,11 @@ public:
     /// @name Getter
     /// @{
 
-    /// @brief get icon
-    const std::string &getIcon() const;
+    /// @brief get icon 
+    POIIcon getIcon() const;
+
+    /// @brief get icon(in string format)
+    const std::string &getIconStr() const;
 
     /// @brief Returns the image width of the POI
     double getWidth() const;
@@ -104,9 +100,6 @@ public:
 
     /// @brief returns friendly position
     bool getFriendlyPos() const;
-
-    /// @brief getstring bijection with icons and strings
-    static const StringBijection<Icon> &getIconStrings();
 
     /// @}
 
@@ -150,14 +143,11 @@ protected:
     double myPosLat;
 
     /// @brief POI icon
-    Icon myIcon;
+    POIIcon myIcon;
 
     /// @brief The half width of the image when rendering this POI
     double myHalfImgWidth;
 
     /// @brief The half height of the image when rendering this POI
     double myHalfImgHeight;
-
-    /// @brief string bijection with icons and strings
-    static StringBijection<Icon> myIconStrings;
 };

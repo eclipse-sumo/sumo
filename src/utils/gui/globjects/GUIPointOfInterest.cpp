@@ -19,19 +19,15 @@
 ///
 // The GUI-version of a point of interest
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+
 #include "GUIPointOfInterest.h"
 
 
@@ -66,7 +62,7 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());
-    ret->mkItem("icon", false, getIcon());
+    ret->mkItem("icon", false, getIconStr());
     ret->mkItem("layer", false, getShapeLayer());
     ret->closeBuilding(this);
     return ret;
@@ -150,6 +146,9 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
                                                width * -0.5 * exaggeration, height * -0.5 * exaggeration,
                                                width * 0.5 * exaggeration,  height * 0.5 * exaggeration);
         }
+    } else if (POI->getIcon() != POIIcon::NONE) {
+        // draw texture
+        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration);
     } else {
         // fallback if no image is defined
         if (s.drawForPositionSelection) {
