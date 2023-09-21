@@ -1621,8 +1621,9 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
 
 void
 GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                               const RGBColor& color, const double x, const double y, double layer, double angle, const std::string& imgFile, bool relativePath,
-                               double width, double height, const std::string& name, const Parameterised::Map& parameters) {
+                               const RGBColor& color, const double x, const double y, const std::string &icon, double layer, double angle,
+                               const std::string& imgFile, bool relativePath, double width, double height, const std::string& name,
+                               const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
@@ -1636,7 +1637,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POI
-        GNEPOI* POI = new GNEPOI(myNet, id, type, color, x, y, false, layer, angle, imgFile, relativePath, width, height, name, parameters);
+        GNEPOI* POI = new GNEPOI(myNet, id, type, color, x, y, false, icon, layer, angle, imgFile, relativePath, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POI, TL("add POI '") + id + "'");
@@ -1656,8 +1657,9 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 void
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                                   const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPos, double posLat, double layer, double angle,
-                                   const std::string& imgFile, bool relativePath, double width, double height, const std::string& name, const Parameterised::Map& parameters) {
+                                   const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPos, double posLat,
+                                   const std::string &icon, double layer, double angle, const std::string& imgFile, bool relativePath, double width,
+                                   double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
@@ -1678,8 +1680,9 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         } else if (!checkLanePosition(posOverLane, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
             writeErrorInvalidPosition(SUMO_TAG_POI, id);
         } else {
-            // create POI
-            GNEAdditional* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters);
+            // create POI (use GNEAdditional instead GNEPOI for add child references)
+            GNEAdditional* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, icon, layer,
+                                         angle, imgFile, relativePath, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(POILane, TL("add POI '") + id + "'");
@@ -1701,8 +1704,9 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
 
 void
 GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                                  const RGBColor& color, const double lon, const double lat, double layer, double angle, const std::string& imgFile, bool relativePath,
-                                  double width, double height, const std::string& name, const Parameterised::Map& parameters) {
+                                  const RGBColor& color, const double lon, const double lat, const std::string &icon, double layer,
+                                  double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                                  const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POI, id);
@@ -1718,7 +1722,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create POIGEO
-        GNEPOI* POIGEO = new GNEPOI(myNet, id, type, color, lon, lat, true, layer, angle, imgFile, relativePath, width, height, name, parameters);
+        GNEPOI* POIGEO = new GNEPOI(myNet, id, type, color, lon, lat, true, icon, layer, angle, imgFile, relativePath, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(POIGEO, TL("add POI '") + id + "'");

@@ -22,6 +22,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/shapes/Shape.h>
+#include <utils/shapes/PointOfInterest.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 
@@ -631,6 +632,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                          obj->getColorAttribute(SUMO_ATTR_COLOR),
                          obj->getDoubleAttribute(SUMO_ATTR_X),
                          obj->getDoubleAttribute(SUMO_ATTR_Y),
+                         obj->getStringAttribute(SUMO_ATTR_ICON),
                          obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                          obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                          obj->getStringAttribute(SUMO_ATTR_IMGFILE),
@@ -649,6 +651,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                              obj->getDoubleAttribute(SUMO_ATTR_POSITION),
                              obj->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                              obj->getDoubleAttribute(SUMO_ATTR_POSITION_LAT),
+                             obj->getStringAttribute(SUMO_ATTR_ICON),
                              obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                              obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                              obj->getStringAttribute(SUMO_ATTR_IMGFILE),
@@ -665,6 +668,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
                             obj->getColorAttribute(SUMO_ATTR_COLOR),
                             obj->getDoubleAttribute(SUMO_ATTR_LON),
                             obj->getDoubleAttribute(SUMO_ATTR_LAT),
+                            obj->getStringAttribute(SUMO_ATTR_ICON),
                             obj->getDoubleAttribute(SUMO_ATTR_LAYER),
                             obj->getDoubleAttribute(SUMO_ATTR_ANGLE),
                             obj->getStringAttribute(SUMO_ATTR_IMGFILE),
@@ -1746,6 +1750,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), parsedOk, RGBColor::RED);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, "", parsedOk, Shape::DEFAULT_TYPE);
+    std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, "", parsedOk, "");
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), parsedOk, Shape::DEFAULT_LAYER_POI);
     const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, "", parsedOk, Shape::DEFAULT_IMG_FILE);
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, Shape::DEFAULT_IMG_WIDTH);
@@ -1753,6 +1758,11 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
     const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), parsedOk, Shape::DEFAULT_ANGLE);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), parsedOk, Shape::DEFAULT_RELATIVEPATH);
+    // check icon
+    if (PointOfInterest::getIconStrings().hasString(icon) == false) {
+        WRITE_WARNING(TLF("Invalid icon for POI '%', using default", id));
+        icon = "";
+    }
     // continue if flag is ok
     if (parsedOk) {
         // set tag
@@ -1774,6 +1784,7 @@ AdditionalHandler::parsePOIAttributes(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TYPE, type);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ICON, icon);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LAYER, layer);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_IMGFILE, imgFile);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WIDTH, width);

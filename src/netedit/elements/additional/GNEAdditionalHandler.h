@@ -518,6 +518,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] x POI's x position
      * @param[in] y POI's y position
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -528,9 +529,9 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                  const RGBColor& color, const double x, const double y, const double layer, const double angle, const std::string& imgFile,
-                  bool relativePath, const double width, const double height, const std::string& name,
-                  const Parameterised::Map& parameters);
+                  const RGBColor& color, const double x, const double y, const std::string &icon, const double layer,
+                  const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                  const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a POI over lane using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -541,6 +542,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -551,9 +553,9 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
-                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const double layer,
-                      const double angle, const std::string& imgFile, const bool relativePath, const double width, const double height, const std::string& name,
-                      const Parameterised::Map& parameters);
+                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+                      const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
+                      const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a POI in GEO coordinaten using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -562,6 +564,7 @@ public:
      * @param[in] color The color of the POI
      * @param[in] lon POI's longitude
      * @param[in] lat POI's latitude
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -572,8 +575,9 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                     const RGBColor& color, const double lon, const double lat, const double layer, const double angle, const std::string& imgFile,
-                     bool relativePath, const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
+                     const RGBColor& color, const double lon, const double lat, const std::string &icon, const double layer,
+                     const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
+                     const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a JuPedSim walkable area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
