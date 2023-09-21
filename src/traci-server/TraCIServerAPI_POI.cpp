@@ -198,32 +198,32 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 if (parameterCount == 4) {
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE), layer)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
-                } else if (parameterCount == 9) {
-                    std::string icon;
-                    if (!server.readTypeCheckingString(inputStorage, icon)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the icon encoded as a string.", outputStorage);
-                    }
+                } else if (parameterCount >= 8) {
                     std::string imgFile;
                     if (!server.readTypeCheckingString(inputStorage, imgFile)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the imgFile encoded as a string.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the imgFile encoded as a string.", outputStorage);
                     }
                     double width;
                     if (!server.readTypeCheckingDouble(inputStorage, width)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the width encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the width encoded as a double.", outputStorage);
                     }
                     double height;
                     if (!server.readTypeCheckingDouble(inputStorage, height)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eighth PoI parameter must be the height encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the height encoded as a double.", outputStorage);
                     }
                     double angle;
                     if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The nineth PoI parameter must be the angle encoded as a double.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The eigth PoI parameter must be the angle encoded as a double.", outputStorage);
+                    }
+                    std::string icon;
+                    if (parameterCount == 9 && !server.readTypeCheckingString(inputStorage, icon)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The ninth PoI parameter must be the icon encoded as a string.", outputStorage);
                     }
                     //
-                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, icon, layer, imgFile, width, height, angle)) {
+                    if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle, icon)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
                 } else {

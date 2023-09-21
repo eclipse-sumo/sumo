@@ -157,7 +157,7 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 bool
 POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType,
-         const std::string& icon, int layer, const std::string& imgFile, double width, double height, double angle) {
+         int layer, const std::string& imgFile, double width, double height, double angle, const std::string& icon) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     bool ok = shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color),
                                Position(x, y), false, "", 0, false, 0, icon, layer,

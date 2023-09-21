@@ -128,13 +128,13 @@ class PoiDomain(Domain):
         """
         self._setCmd(tc.VAR_IMAGEFILE, poiID, "s", imageFile)
 
-    def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0):
+    def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0, icon=""):
         """
         add(string, double, double, (byte, byte, byte, byte), string, integer, string, double, double, double) -> None
 
         Adds a poi with the given values
         """
-        self._setCmd(tc.ADD, poiID, "tsciosddd", 8, poiType, color, layer, (x, y), imgFile, width, height, angle)
+        self._setCmd(tc.ADD, poiID, "tsciosddds", 9, poiType, color, layer, (x, y), imgFile, width, height, angle, icon)
 
     def remove(self, poiID, layer=0):
         """

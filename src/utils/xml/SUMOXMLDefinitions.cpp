@@ -1258,9 +1258,9 @@ StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
 };
 
 StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
-    {"none",    POIIcon::NONE},
     {"tree",    POIIcon::TREE},
-    {"hotel",   POIIcon::HOTEL}
+    {"hotel",   POIIcon::HOTEL},
+    {"",        POIIcon::NONE} //< must be the last one
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -1318,7 +1318,7 @@ StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
     SUMOXMLDefinitions::trainTypeValues, TrainType::MIREOPLUSH);
 
 StringBijection<POIIcon> SUMOXMLDefinitions::POIIcons(
-    SUMOXMLDefinitions::POIIconValues, POIIcon::HOTEL, false);
+    SUMOXMLDefinitions::POIIconValues, POIIcon::NONE, false);
 
 
 std::string

@@ -140,17 +140,16 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 
 bool
-POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType, const std::string &icon,
-         int layer, const std::string& imgFile, double width, double height, double angle) {
+POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType,
+         int layer, const std::string& imgFile, double width, double height, double angle, const std::string &icon) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 8);
+    StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, poiType);
     content.writeUnsignedByte(libsumo::TYPE_COLOR);
     content.writeUnsignedByte(color.r);
     content.writeUnsignedByte(color.g);
     content.writeUnsignedByte(color.b);
     content.writeUnsignedByte(color.a);
-    StoHelp::writeTypedString(content, icon);
     StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);
@@ -159,6 +158,7 @@ POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor
     StoHelp::writeTypedDouble(content, width);
     StoHelp::writeTypedDouble(content, height);
     StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedString(content, icon);
     Dom::set(libsumo::ADD, poiID, &content);
     return true;
 }
