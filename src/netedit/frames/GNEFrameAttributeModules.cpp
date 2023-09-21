@@ -32,6 +32,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/images/POIIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameAttributeModules.h"
@@ -721,6 +722,11 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
         }
         for (const auto& sortedType : sortedTypes) {
             myValueComboBox->appendIconItem(sortedType.first.c_str(), sortedType.second->getACIcon());
+        }
+    } else if (myACAttr.getAttr() == SUMO_ATTR_ICON) {
+        // add all POIIcons with their icons
+        for (const auto& POIIcon : SUMOXMLDefinitions::POIIcons.getValues()) {
+            myValueComboBox->appendIconItem(SUMOXMLDefinitions::POIIcons.getString(POIIcon).c_str(), POIIcons::getPOIIcon(POIIcon));
         }
     } else if ((myACAttr.getAttr() == SUMO_ATTR_RIGHT_OF_WAY) && (inspectedACs.size() == 1) &&
                (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION)) {

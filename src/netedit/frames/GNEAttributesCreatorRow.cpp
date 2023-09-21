@@ -29,6 +29,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/gui/images/POIIcons.h>
 
 #include "GNEAttributesCreatorRow.h"
 #include "GNEAttributesCreator.h"
@@ -252,8 +253,15 @@ GNEAttributesCreatorRow::refreshRow() {
         } else if (myAttrProperties.isDiscrete()) {
             // fill textField
             myValueComboBox->clearItems();
-            for (const auto& item : myAttrProperties.getDiscreteValues()) {
-                myValueComboBox->appendIconItem(item.c_str());
+            // check if add POI icons
+            if (myAttrProperties.getAttr() == SUMO_ATTR_ICON) {
+                for (const auto& POIIcon : SUMOXMLDefinitions::POIIcons.getValues()) {
+                    myValueComboBox->appendIconItem(SUMOXMLDefinitions::POIIcons.getString(POIIcon).c_str(), POIIcons::getPOIIcon(POIIcon));
+                }
+            } else {
+                for (const auto& item : myAttrProperties.getDiscreteValues()) {
+                    myValueComboBox->appendIconItem(item.c_str());
+                }
             }
             myValueComboBox->setCurrentItem(myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str()));
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
