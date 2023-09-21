@@ -69,6 +69,7 @@ TOOLS = [
     "import/citybrain/citybrain_flow.py",
     "import/citybrain/citybrain_infostep.py",
     "import/citybrain/citybrain_road.py",
+    "import/dxf/dxf2jupedsim.py",
     "import/gtfs/gtfs2fcd.py",
     # "import/gtfs/gtfs2osm.py",                                NO CONFIG
     "import/gtfs/gtfs2pt.py",
@@ -257,6 +258,11 @@ TOOLS = [
 ]
 
 
+PATH_MAPPING = {
+    "import/dxf" : "import"
+}
+
+
 SOURCE_DEPS = [
     "microsim/MSFrame.cpp", "microsim/devices/*.cpp",
     "utils/common/RandHelper.cpp", "utils/common/SystemFrame.cpp",
@@ -361,7 +367,8 @@ def generateToolTemplate(toolDir, toolPath):
     """
     toolName = os.path.basename(toolPath)[:-3]
     # create templateTool
-    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, os.path.dirname(toolPath))
+    dirname = os.path.dirname(toolPath)
+    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(dirname, dirname))
     # check if exists
     if os.path.exists(join(toolDir, toolPath)):
         # show info
