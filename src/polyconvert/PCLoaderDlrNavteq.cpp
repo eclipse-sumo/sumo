@@ -142,6 +142,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
 
         // patch the values
         bool discard = oc.getBool("discard");
+        std::string icon = oc.getString("icon");
         double layer = oc.getFloat("layer");
         RGBColor color;
         if (tm.has(type)) {
@@ -150,6 +151,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             type = def.id;
             color = def.color;
             discard = def.discard;
+            icon = def.icon;
             layer = def.layer;
         } else {
             name = oc.getString("prefix") + name;
@@ -157,7 +159,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             color = c;
         }
         if (!discard) {
-            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, false, 0, layer);
+            PointOfInterest* poi = new PointOfInterest(name, type, color, pos, false, "", 0, false, 0, icon, layer);
             toFill.add(poi, OptionsCont::getOptions().isInStringVector("prune.keep-list", name));
         }
     }
@@ -228,6 +230,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         // patch the values
         bool fill = vec.front() == vec.back();
         bool discard = oc.getBool("discard");
+        std::string icon = oc.getString("icon");
         double layer = oc.getFloat("layer");
         RGBColor color;
         if (tm.has(type)) {
@@ -237,6 +240,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             color = def.color;
             fill = fill && def.allowFill;
             discard = def.discard;
+            icon = def.icon;
             layer = def.layer;
         } else {
             name = oc.getString("prefix") + name;

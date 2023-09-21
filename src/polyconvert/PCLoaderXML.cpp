@@ -102,10 +102,10 @@ PCLoaderXML::myStartElement(int element,
     if (myTypeMap.has(type)) {
         const PCTypeMap::TypeDef& def = myTypeMap.get(type);
         discard = def.discard;
-        setDefaults(def.prefix, def.color, def.layer, def.allowFill);
+        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill);
     } else {
         setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
-                    myOptions.getFloat("layer"), myOptions.getBool("fill"));
+                    myOptions.getString("icon"), myOptions.getFloat("layer"), myOptions.getBool("fill"));
     }
     if (!discard) {
         if (element == SUMO_TAG_POI) {
