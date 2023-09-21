@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-10 13:54:20 by Eclipse SUMO sumo Version 71308182f9
+<!-- generated on 2023-09-21 11:27:33 by Eclipse SUMO sumo Version d53ad573a46
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,26 +40,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <instantOut id="e1i_0" time="4.03" state="enter" vehID="flow.0" speed="2.60" length="5.00" type="t"/>
     <instantOut id="e1i_0" time="5.00" state="stay" vehID="flow.0" speed="2.60" length="5.00" type="t"/>
     <instantOut id="e1i_0" time="5.48" state="leave" vehID="flow.0" speed="5.20" length="5.00" type="t" occupancy="1.44"/>
-    <instantOut id="e1i_0" time="7.98" state="enter" vehID="flow.1" speed="5.20" length="5.00" type="t" gap="2.50"/>
-    <instantOut id="e1i_0" time="8.00" state="stay" vehID="flow.1" speed="5.20" length="5.00" type="t"/>
-    <instantOut id="e1i_0" time="8.63" state="leave" vehID="flow.1" speed="7.80" length="5.00" type="t" occupancy="0.65"/>
-    <instantOut id="e1i_0" time="10.96" state="enter" vehID="flow.2" speed="7.80" length="5.00" type="t" gap="2.33"/>
-    <instantOut id="e1i_0" time="11.00" state="stay" vehID="flow.2" speed="7.80" length="5.00" type="t"/>
-    <instantOut id="e1i_0" time="11.45" state="leave" vehID="flow.2" speed="10.40" length="5.00" type="t" occupancy="0.49"/>
-    <instantOut id="e1i_0" time="13.70" state="enter" vehID="flow.3" speed="10.40" length="5.00" type="t" gap="2.25"/>
-    <instantOut id="e1i_0" time="14.00" state="stay" vehID="flow.3" speed="10.40" length="5.00" type="t"/>
-    <instantOut id="e1i_0" time="14.15" state="leave" vehID="flow.3" speed="13.00" length="5.00" type="t" occupancy="0.44"/>
-    <instantOut id="e1i_0" time="16.35" state="enter" vehID="flow.4" speed="13.00" length="5.00" type="t" gap="2.20"/>
-    <instantOut id="e1i_0" time="16.73" state="leave" vehID="flow.4" speed="13.00" length="5.00" type="t" occupancy="0.38"/>
-    <instantOut id="e1i_0" time="18.93" state="enter" vehID="flow.5" speed="13.00" length="5.00" type="t" gap="2.20"/>
-    <instantOut id="e1i_0" time="19.00" state="stay" vehID="flow.5" speed="13.00" length="5.00" type="t"/>
-    <instantOut id="e1i_0" time="19.29" state="leave" vehID="flow.5" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
-    <instantOut id="e1i_0" time="21.48" state="enter" vehID="flow.6" speed="13.89" length="5.00" type="t" gap="2.19"/>
-    <instantOut id="e1i_0" time="21.84" state="leave" vehID="flow.6" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
-    <instantOut id="e1i_0" time="24.03" state="enter" vehID="flow.7" speed="13.89" length="5.00" type="t" gap="2.19"/>
-    <instantOut id="e1i_0" time="24.39" state="leave" vehID="flow.7" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
-    <instantOut id="e1i_0" time="26.58" state="enter" vehID="flow.8" speed="13.89" length="5.00" type="t" gap="2.19"/>
-    <instantOut id="e1i_0" time="26.94" state="leave" vehID="flow.8" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
-    <instantOut id="e1i_0" time="29.12" state="enter" vehID="flow.9" speed="13.89" length="5.00" type="t" gap="2.19"/>
-    <instantOut id="e1i_0" time="29.48" state="leave" vehID="flow.9" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
+    <instantOut id="e1i_0" time="7.13" state="enter" vehID="flow.1" speed="7.25" length="5.00" type="t" gap="1.65"/>
+    <instantOut id="e1i_0" time="7.82" state="leave" vehID="flow.1" speed="7.25" length="5.00" type="t" occupancy="0.69"/>
+    <instantOut id="e1i_0" time="9.30" state="enter" vehID="flow.2" speed="9.31" length="5.00" type="t" gap="1.48"/>
+    <instantOut id="e1i_0" time="9.83" state="leave" vehID="flow.2" speed="9.31" length="5.00" type="t" occupancy="0.54"/>
+    <instantOut id="e1i_0" time="11.60" state="enter" vehID="flow.3" speed="10.63" length="5.00" type="t" gap="1.77"/>
+    <instantOut id="e1i_0" time="12.00" state="stay" vehID="flow.3" speed="10.63" length="5.00" type="t"/>
+    <instantOut id="e1i_0" time="12.06" state="leave" vehID="flow.3" speed="13.22" length="5.00" type="t" occupancy="0.46"/>
+    <instantOut id="e1i_0" time="13.45" state="enter" vehID="flow.4" speed="12.68" length="5.00" type="t" gap="1.40"/>
+    <instantOut id="e1i_0" time="13.85" state="leave" vehID="flow.4" speed="12.68" length="5.00" type="t" occupancy="0.39"/>
+    <instantOut id="e1i_0" time="15.24" state="enter" vehID="flow.5" speed="13.58" length="5.00" type="t" gap="1.39"/>
+    <instantOut id="e1i_0" time="15.61" state="leave" vehID="flow.5" speed="13.58" length="5.00" type="t" occupancy="0.37"/>
+    <instantOut id="e1i_0" time="17.31" state="enter" vehID="flow.6" speed="13.89" length="5.00" type="t" gap="1.71"/>
+    <instantOut id="e1i_0" time="17.67" state="leave" vehID="flow.6" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
+    <instantOut id="e1i_0" time="19.09" state="enter" vehID="flow.7" speed="13.89" length="5.00" type="t" gap="1.41"/>
+    <instantOut id="e1i_0" time="19.45" state="leave" vehID="flow.7" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
+    <instantOut id="e1i_0" time="20.84" state="enter" vehID="flow.8" speed="13.89" length="5.00" type="t" gap="1.39"/>
+    <instantOut id="e1i_0" time="21.00" state="stay" vehID="flow.8" speed="13.89" length="5.00" type="t"/>
+    <instantOut id="e1i_0" time="21.20" state="leave" vehID="flow.8" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
+    <instantOut id="e1i_0" time="22.58" state="enter" vehID="flow.9" speed="13.89" length="5.00" type="t" gap="1.39"/>
+    <instantOut id="e1i_0" time="22.94" state="leave" vehID="flow.9" speed="13.89" length="5.00" type="t" occupancy="0.36"/>
 </instantE1>
