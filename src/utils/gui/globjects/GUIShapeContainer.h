@@ -93,6 +93,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendly position over lane
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -102,8 +103,9 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false) override;
+                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string &icon, 
+                        double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                        bool ignorePruning = false) override;
 
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon

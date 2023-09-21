@@ -43,9 +43,11 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                          const std::string& imgFile, bool relativePath, double width, double height, bool /* ignorePruning */) {
-    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height);
+                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string &icon,
+                          double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                          bool /* ignorePruning */) {
+    GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon,
+                                                   layer, angle, imgFile, relativePath, width, height);
     FXMutexLock locker(myLock);
     if (!myPOIs.add(id, p)) {
         if (myAllowReplacement) {
