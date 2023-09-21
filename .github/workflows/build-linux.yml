@@ -98,11 +98,11 @@ jobs:
         make traas
 
     - name: Setting up SonarQube
-      if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v4
 
     - name: Building SUMO with SonarQube wrapper
-      if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
@@ -112,7 +112,7 @@ jobs:
         sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
 
     - name: Building and Installing SUMO
-      if: matrix.build_type != 'full' || github.repository != 'eclipse/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
+      if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
       run: |
         cd sumo/cmake-build
         make -j4

@@ -111,14 +111,14 @@ jobs:
         ctest --build-config Release --verbose
 
     - name: Compressing test results
-      if: always() && github.repository == 'DLR-TS/sumo'
+      if: failure() && github.repository == 'DLR-TS/sumo'
       run: |
         dir d:\texttest
         Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
         dir d:\texttest
 
     - name: Uploading test results
-      if: always() && github.repository == 'DLR-TS/sumo'
+      if: failure() && github.repository == 'DLR-TS/sumo'
       uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.build_type }}
