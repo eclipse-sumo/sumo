@@ -964,9 +964,9 @@ NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
             // cicrular shape
             // GeoConvHelper::getFinal is not ready yet
             GeoConvHelper::getLoaded().cartesian2geo(ref);
-            PointOfInterest poly(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0);
-            poly.setParameter("name", o.name);
-            poly.writeXML(dev, writeGeo);
+            PointOfInterest POI(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0, "");
+            POI.setParameter("name", o.name);
+            POI.writeXML(dev, writeGeo);
         } else {
             // rectangular shape
             PositionVector centerLine;
