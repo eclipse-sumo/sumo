@@ -20,10 +20,10 @@
 ///
 // A point-of-interest (2D)
 /****************************************************************************/
-
-#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <config.h>
 
 #include "PointOfInterest.h"
+
 
 // ===========================================================================
 // static member definitions
