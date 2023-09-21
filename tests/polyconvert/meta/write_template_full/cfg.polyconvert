@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 11:05:21 by Eclipse SUMO polyconvert Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-09-21 11:17:10 by Eclipse SUMO polyconvert Version v1_18_0+1700-2463a0685ee
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -80,6 +80,7 @@
         <prefix value="" type="STR" help="Sets STR as default prefix"/>
         <type value="unknown" type="STR" help="Sets STR as default type"/>
         <fill value="true" type="BOOL" help="Fills polygons by default"/>
+        <icon value="" type="STR" help="Sets STR as default icon"/>
         <layer value="-1" type="FLOAT" help="Sets FLOAT as default layer"/>
         <discard value="false" type="BOOL" help="Sets default action to discard"/>
     </building_defaults>
