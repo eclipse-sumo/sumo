@@ -148,7 +148,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         }
     } else if (POI->getIcon() != POIIcon::NONE) {
         // set White color
-        glColor3d(1, 1, 1);
+        //glColor3d(1, 1, 1);
         // rotate
         glRotated(180, 0, 0, 1);
         // draw texture
