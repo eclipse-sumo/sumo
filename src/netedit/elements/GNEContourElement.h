@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNENet;
+class GNEEdge;
 class GNEAttributeCarrier;
 
 // ===========================================================================
@@ -42,9 +43,12 @@ protected:
     /// @brief destructor
     ~GNEContourElement();
 
-    /// @brief draw dotted contour (used in element extended over a shape)
+    /// @brief draw dotted contour (used in elements formed by a central shape
     void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration,
                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
+
+    /// @brief draw dotted contour edge
+    void drawDottedContour(const GNEEdge* edge) const;
 
 private:
     /// @brief pointer to AC

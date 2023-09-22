@@ -312,10 +312,6 @@ public:
     // @brief update vehicle geometries
     void updateContainerStackLabels();
 
-    /// @brief draw dotted contour for the given dottedGeometries
-    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
-                                      const bool drawFrontExtreme, const bool drawBackExtreme, const double exaggeration = 1);
-
     /// @brief check if edge makes a convex angle [0 - 180) degrees
     bool isConvexAngle() const;
 
