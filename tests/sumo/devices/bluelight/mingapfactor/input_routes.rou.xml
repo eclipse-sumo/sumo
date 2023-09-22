@@ -1,0 +1,14 @@
+<routes>
+    <vType id="left"  sigma="0" /> <!-- latAlignment="left"-->
+    <vType id="right" sigma="0" />
+    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" speedFactor="2" width="1.2"/>
+
+    <route id="r0" edges="SC CN"/>
+    <vehicle id="left1"   type="left"   route="r0" depart="35" departLane="1" departPos="0"/>
+    <vehicle id="right1"  type="right"  route="r0" depart="35" departLane="0" departPos="0"/>
+    <vehicle id="left2"   type="left"   route="r0" depart="37" departLane="1" departPos="0"/>
+    <vehicle id="right2"  type="right"  route="r0" depart="37" departLane="0" departPos="0"/>
+    <vehicle id="rescue" type="rescue" route="r0" depart="38" departLane="1" departPos="0"/>
+
+
+</routes>
