@@ -275,6 +275,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             && variable != libsumo::VAR_NAME
             && variable != libsumo::TL_CONSTRAINT_REMOVE
             && variable != libsumo::TL_CONSTRAINT_UPDATE
+            && variable != libsumo::TL_CONSTRAINT_ADD
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
