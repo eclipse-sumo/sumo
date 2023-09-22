@@ -82,13 +82,25 @@ GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &sh
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // inspect contour
     if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, width,
-                                           exaggeration, drawFirstExtrem, drawLastExtrem);
+        // check if draw small line
+        if (width < 0.5) {
+            buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shape, width,
+                                               exaggeration, drawFirstExtrem, drawLastExtrem);
+        } else {
+            buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, width,
+                                               exaggeration, drawFirstExtrem, drawLastExtrem);
+        }
     }
     // front attribute contour
     if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FRONT, shape, width,
-                                           exaggeration, drawFirstExtrem, drawLastExtrem);
+        // check if draw small line
+        if (width < 0.5) {
+            buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shape, width,
+                                               exaggeration, drawFirstExtrem, drawLastExtrem);
+        } else {
+            buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FRONT, shape, width,
+                                               exaggeration, drawFirstExtrem, drawLastExtrem);
+        }
     }
     // delete contour
     if (net->getViewNet()->drawDeleteContour(myAC->getGUIGlObject(), myAC)) {
