@@ -684,6 +684,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildJpsWalkableArea(obj,
                                  obj->getStringAttribute(SUMO_ATTR_ID),
                                  obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                 obj->getBoolAttribute(SUMO_ATTR_GEO),
                                  obj->getStringAttribute(SUMO_ATTR_NAME),
                                  obj->getParameters());
             break;
@@ -692,6 +693,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildJpsObstacle(obj,
                              obj->getStringAttribute(SUMO_ATTR_ID),
                              obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                             obj->getBoolAttribute(SUMO_ATTR_GEO),
                              obj->getStringAttribute(SUMO_ATTR_NAME),
                              obj->getParameters());
             break;
@@ -700,6 +702,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
             buildJpsWaitingArea(obj,
                                 obj->getStringAttribute(SUMO_ATTR_ID),
                                 obj->getPositionVectorAttribute(SUMO_ATTR_SHAPE),
+                                obj->getBoolAttribute(SUMO_ATTR_GEO),
                                 obj->getStringAttribute(SUMO_ATTR_NAME),
                                 obj->getParameters());
             break;

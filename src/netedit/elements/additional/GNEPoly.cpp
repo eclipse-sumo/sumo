@@ -78,12 +78,23 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 }
 
 
-GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
+GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
                  const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, false, getJuPedSimFill(tag), 1, 
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1, 
                       getJuPedSimLayer(tag), 0, "", false, name, parameters),
     GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
     mySimplifiedShape(false) {
+    // set GEO shape
+    myGeoShape = myShape;
+    if (geo) {
+        for (int i = 0; i < (int) myGeoShape.size(); i++) {
+            GeoConvHelper::getFinal().x2cartesian_const(myShape[i]);
+        }
+    } else {
+        for (int i = 0; i < (int) myGeoShape.size(); i++) {
+            GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
+        }
+    }
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // update geometry
