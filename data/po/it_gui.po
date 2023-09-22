@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-21 14:45+0000\n"
+"PO-Revision-Date: 2023-09-23 16:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5747,11 +5747,11 @@ msgstr "Modo per creare poligoni e punti di interesse. (P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3619
 msgid "Set decal mode"
-msgstr ""
+msgstr "Scegli modo immagini di fondo"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3619
 msgid "Mode for editing decals. (U)"
-msgstr ""
+msgstr "Modo per modificare le immagini di fondo. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3727
 msgid "Create route mode"
@@ -5763,15 +5763,15 @@ msgstr "Modo per creare itinerari. (R)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
 msgid "Set route distribution mode"
-msgstr ""
+msgstr "Scegli modo distribuzione di itinerari"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3732
 msgid "Mode for creating and editing rout distributions. (W)"
-msgstr ""
+msgstr "Modo per creare e modificare distribuzioni di itinerari. (W)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Create vehicle mode"
-msgstr "SCgeli modo veicoli"
+msgstr "Scegli modo veicoli"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3737
 msgid "Mode for creating vehicles. (V)"
@@ -5787,11 +5787,11 @@ msgstr "Modo per creare tipi (di veicoli, persone e contenitori). (T)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3747
 msgid "Create type distribution mode"
-msgstr ""
+msgstr "Scegli modo distribuzioni di tipi"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3747
 msgid "Mode for creating and editing type distribution. (U)"
-msgstr ""
+msgstr "Modo per creare e modificare distribuzioni di tipi. (U)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3752
 msgid "Create stop mode"
@@ -5815,7 +5815,7 @@ msgstr "Scegli modo piani personali"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3762
 msgid "Mode for creating person plans. (L)"
-msgstr ""
+msgstr "Modo per creare piani personali. (L)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3767
 msgid "Create container mode"
@@ -5823,7 +5823,7 @@ msgstr "Scegli modo contenitori"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3767
 msgid "Mode for creating containers. (C)"
-msgstr ""
+msgstr "Modo per creare contenitori. (C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3772
 msgid "Create container plan mode"
@@ -11504,7 +11504,7 @@ msgstr "-BACKSPACE: annulla clic"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-ESC: Abort path creation"
-msgstr ""
+msgstr "-ESC: Cancella la creazione dell'itinerario"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
@@ -11588,7 +11588,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:62
 msgid "Hierarchy"
-msgstr ""
+msgstr "Gerarchia"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:211
 #, c-format
