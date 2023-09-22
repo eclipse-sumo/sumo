@@ -127,7 +127,7 @@ public:
     /// @{
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
+    static void drawDottedContourClosedShape2(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
             const double exaggeration, const double customWidth = 1);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)

@@ -1620,11 +1620,8 @@ GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& s, const do
             gPostDrawing.markedNode = this;
         }
     }
-    // check if draw dotted contour
-    if (dottedContourType != GUIDottedGeometry::DottedContourType::NOTHING) {
-        GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType,
-                myNBNode->getShape(), (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-    }
+    // draw dotted contour
+    drawDottedContour(myNet, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
 }
 
 

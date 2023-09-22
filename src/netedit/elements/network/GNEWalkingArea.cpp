@@ -173,26 +173,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         mouseWithinGeometry(walkingAreaShape);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
-        // front element contour
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, walkingAreaShape,
-                    (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
-        }
+        // draw dotted contour
+        drawDottedContour(myNet, walkingAreaShape, 1, (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
     }
 }
 

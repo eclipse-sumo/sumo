@@ -43,7 +43,10 @@ protected:
     /// @brief destructor
     ~GNEContourElement();
 
-    /// @brief draw dotted contour (used in elements formed by a central shape
+    /// @brief draw dotted contour (for closed shapes)
+    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration) const;
+
+    /// @brief draw dotted contour (used in elements formed by a central shape)
     void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration,
                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
@@ -57,6 +60,9 @@ private:
     /// @brief pointer to cached shape
     PositionVector *myCachedShape;
 
+    /// @brief pointer to cached scale
+    double *myCachedScale;
+
     /// @brief pointer to dotted geometry A
     GUIDottedGeometry *myDottedGeometryA;
 
@@ -65,6 +71,10 @@ private:
 
     /// @brief pointer to dotted geometry C
     GUIDottedGeometry *myDottedGeometryC;
+
+    /// @brief draw dotted contour shape
+    void buildAndDrawDottedContourShape(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+                                        const PositionVector &shape, double width, double scale) const;
 
     /// @brief draw dotted contour rectangle
     void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,

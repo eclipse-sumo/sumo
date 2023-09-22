@@ -308,7 +308,7 @@ GUIDottedGeometry::invertOffset() {
 
 
 void
-GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& s, const DottedContourType type,
+GUIDottedGeometry::drawDottedContourClosedShape2(const GUIVisualizationSettings& s, const DottedContourType type,
         const PositionVector& shape, const double exaggeration, const double customWidth) {
     if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
@@ -336,9 +336,9 @@ GUIDottedGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, co
         const double radius, const double exaggeration) {
     // continue depending of exaggeratedRadio
     if ((radius * exaggeration) < 2) {
-        drawDottedContourClosedShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
+        drawDottedContourClosedShape2(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
     } else {
-        drawDottedContourClosedShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
+        drawDottedContourClosedShape2(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
     }
 }
 
@@ -361,7 +361,7 @@ GUIDottedGeometry::drawDottedSquaredShape(const GUIVisualizationSettings& s, con
         // move to position
         shape.add(pos);
         // draw using drawDottedContourClosedShape
-        drawDottedContourClosedShape(s, type, shape, exaggeration);
+        drawDottedContourClosedShape2(s, type, shape, exaggeration);
     }
 }
 

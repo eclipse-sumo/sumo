@@ -36,6 +36,7 @@
 GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
     myAC(AC),
     myCachedShape(new PositionVector()),
+    myCachedScale(new double(0)),
     myDottedGeometryA(new GUIDottedGeometry()),
     myDottedGeometryB(new GUIDottedGeometry()),
     myDottedGeometryC(new GUIDottedGeometry()) {
@@ -44,9 +45,33 @@ GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
 
 GNEContourElement::~GNEContourElement() {
     delete myCachedShape;
+    delete myCachedScale;
     delete myDottedGeometryA;
     delete myDottedGeometryB;
     delete myDottedGeometryC;
+}
+
+
+void
+GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration) const {
+    // get VisualisationSettings
+    const auto &s = net->getViewNet()->getVisualisationSettings();
+    // inspect contour
+    if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        buildAndDrawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, width, exaggeration);
+    }
+    // front attribute contour
+    if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        buildAndDrawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, width, exaggeration);
+    }
+    // delete contour
+    if (net->getViewNet()->drawDeleteContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, width, exaggeration);
+    }
+    // select contour
+    if (net->getViewNet()->drawSelectContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, width, exaggeration);
+    }
 }
 
 
@@ -119,6 +144,37 @@ GNEContourElement::drawDottedContour(const GNEEdge* edge) const {
         }
         // draw dotted geometries
         drawDottedContour(edge->getNet(), edgeShape, 0, 1, true, true);
+    }
+}
+
+
+void
+GNEContourElement::buildAndDrawDottedContourShape(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+                                                      const PositionVector &shape, double width, double scale) const {
+    // first check if draw dotted contour
+    if (s.drawDottedContour(scale)) {
+        // check if dotted geometry has to be updated
+        if ((*myCachedShape != shape) || (*myCachedScale != scale)) {
+            // declare scaled shape
+            PositionVector scaledShape = shape;
+            // scale shape
+            scaledShape.scaleRelative(scale);
+            // calculate dotted geometry
+            *myDottedGeometryA = GUIDottedGeometry(s, scaledShape, true);
+            // finally update cached shape
+            *myCachedShape = shape;
+            *myCachedScale = scale;
+        }
+        // declare DottedGeometryColor
+        GUIDottedGeometry::DottedGeometryColor dottedGeometryColor(s);
+        // Push draw matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+        // draw top dotted geometry
+        myDottedGeometryA->drawDottedGeometry(s, type, dottedGeometryColor, width);
+        // pop matrix
+        GLHelper::popMatrix();
     }
 }
 
