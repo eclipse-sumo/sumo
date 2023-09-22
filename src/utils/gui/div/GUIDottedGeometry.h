@@ -123,18 +123,6 @@ public:
     /// @brief invert offset of all segments
     void invertOffset();
 
-    /// @name draw functions
-    /// @{
-
-    /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape2(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
-            const double exaggeration, const double customWidth = 1);
-
-    /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
-                                        const double radius, const double exaggeration);
-    /// @}
-
 private:
     /// @brief calculate shape rotations and lengths
     void calculateShapeRotationsAndLengths();

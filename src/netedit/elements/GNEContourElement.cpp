@@ -126,6 +126,29 @@ GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, dou
 
 
 void
+GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale) const {
+    // get VisualisationSettings
+    const auto &s = net->getViewNet()->getVisualisationSettings();
+    // inspect contour
+    if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, pos, radius, scale);
+    }
+    // front attribute contour
+    if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, pos, radius, scale);
+    }
+    // delete contour
+    if (net->getViewNet()->drawDeleteContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, radius, scale);
+    }
+    // select contour
+    if (net->getViewNet()->drawSelectContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, pos, radius, scale);
+    }
+}
+
+
+void
 GNEContourElement::drawDottedContour(const GNEEdge* edge) const {
     // get visualization settings
     const auto &s = edge->getNet()->getViewNet()->getVisualisationSettings();
@@ -264,6 +287,18 @@ GNEContourElement::buildAndDrawDottedContourSquared(const GNENet *net, const GUI
         shape.add(pos);
         // draw using drawDottedContourClosedShape
         drawDottedContour(net, shape, 1, scale);
+    }
+}
+
+
+void
+GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+                                                   const Position &pos,double radius, double scale) const {
+    // continue depending of exaggeratedRadio
+    if ((radius * scale) < 2) {
+        buildAndDrawDottedContourShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), radius, scale);
+    } else {
+        buildAndDrawDottedContourShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), radius, scale);
     }
 }
 

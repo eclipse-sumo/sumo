@@ -664,8 +664,10 @@ void
 GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const {
     // get TAZRelDataFrame
     const auto TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-    // draw dotted contour
-    drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth * TAZExaggeration, 1);
+    // draw dotted contours
+    drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+    drawDottedContour(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+
 /*
     // check if we're selecting TAZs
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {

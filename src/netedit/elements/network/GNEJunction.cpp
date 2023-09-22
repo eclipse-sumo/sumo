@@ -1564,17 +1564,21 @@ GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const d
             gPostDrawing.markedNode = this;
         }
     }
+/*
     // check if draw dotted contour
     if (dottedContourType != GUIDottedGeometry::DottedContourType::NOTHING) {
         GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(),
                 s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
     }
+*/
+    // draw dotted contour
+    drawDottedContour(myNet, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
 }
 
 
 
 void
-GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& s, const double junctionExaggeration) const {
+GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& /*s*/, const double junctionExaggeration) const {
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if mouse is over junction

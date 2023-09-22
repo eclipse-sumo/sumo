@@ -308,42 +308,6 @@ GUIDottedGeometry::invertOffset() {
 
 
 void
-GUIDottedGeometry::drawDottedContourClosedShape2(const GUIVisualizationSettings& s, const DottedContourType type,
-        const PositionVector& shape, const double exaggeration, const double customWidth) {
-    if (s.drawDottedContour(exaggeration)) {
-        // declare DottedGeometryColor
-        DottedGeometryColor dottedGeometryColor(s);
-        // scale shape using exaggeration and default dotted geometry width
-        PositionVector scaledShape = shape;
-        // scale exaggeration
-        scaledShape.scaleRelative(exaggeration);
-        // calculate dotted geometry
-        GUIDottedGeometry dottedGeometry(s, scaledShape, true);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        // draw dotted geometry
-        dottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor, customWidth);
-        // pop matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void
-GUIDottedGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
-        const double radius, const double exaggeration) {
-    // continue depending of exaggeratedRadio
-    if ((radius * exaggeration) < 2) {
-        drawDottedContourClosedShape2(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
-    } else {
-        drawDottedContourClosedShape2(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
-    }
-}
-
-
-void
 GUIDottedGeometry::calculateShapeRotationsAndLengths() {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
