@@ -428,26 +428,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(containerPosition, 0.5, 0.2, -2.5, 0, 0);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
-            }
+            // draw dotted contour
+            drawDottedContour(myNet, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
         }
     }
 }

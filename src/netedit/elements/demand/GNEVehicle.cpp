@@ -940,32 +940,16 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), vehiclePosition, exaggeration);
                 // check if mouse is over element
                 mouseWithinGeometry(vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
-                // inspect contour
-                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                }
-                // front contour
-                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                }
-                // delete contour
-                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                    // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                }
-                // select contour
-                if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                    // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                }
+                // draw squared shape
+                drawDottedContour(myNet, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+            /*
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                         (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
                         (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
                     // draw using drawDottedContourClosedShape
                     GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
+            */
             }
             // pop name
             GLHelper::popName();

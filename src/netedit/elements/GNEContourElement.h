@@ -50,6 +50,10 @@ protected:
     void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration,
                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
+    /// @brief draw dotted contour (for squared elements)
+    void drawDottedContour(const GNENet *net, const Position &pos, double width, double height,
+                           double offsetX, double offsetY, double rot, double scale) const;
+
     /// @brief draw dotted contour edge
     void drawDottedContour(const GNEEdge* edge) const;
 
@@ -80,4 +84,9 @@ private:
     void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
                                             const PositionVector &shape, double width, double exaggeration,
                                             const bool drawFirstExtrem, const bool drawLastExtrem) const;
+
+    /// @brief draw dotted contour squared
+    void buildAndDrawDottedContourSquared(const GNENet *net, const GUIDottedGeometry::DottedContourType type,
+                                          const Position &pos, double width, double height,
+                                          double offsetX, double offsetY, double rot, double scale) const;
 };

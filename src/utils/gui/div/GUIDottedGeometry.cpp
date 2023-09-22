@@ -344,29 +344,6 @@ GUIDottedGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, co
 
 
 void
-GUIDottedGeometry::drawDottedSquaredShape(const GUIVisualizationSettings& s, const DottedContourType type,  const Position& pos,
-        const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
-    if (s.drawDottedContour(exaggeration)) {
-        // create shape
-        PositionVector shape;
-        // make rectangle
-        shape.push_back(Position(0 + width, 0 + height));
-        shape.push_back(Position(0 + width, 0 - height));
-        shape.push_back(Position(0 - width, 0 - height));
-        shape.push_back(Position(0 - width, 0 + height));
-        // move shape
-        shape.add(offsetX, offsetY, 0);
-        // rotate shape
-        shape.rotate2D(DEG2RAD((rot * -1) + 90));
-        // move to position
-        shape.add(pos);
-        // draw using drawDottedContourClosedShape
-        drawDottedContourClosedShape2(s, type, shape, exaggeration);
-    }
-}
-
-
-void
 GUIDottedGeometry::calculateShapeRotationsAndLengths() {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {

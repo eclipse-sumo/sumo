@@ -133,11 +133,6 @@ public:
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
     static void drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
                                         const double radius, const double exaggeration);
-
-    /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
-                                       const double width, const double height, const double offsetX, const double offsetY,
-                                       const double rot, const double exaggeration);
     /// @}
 
 private:

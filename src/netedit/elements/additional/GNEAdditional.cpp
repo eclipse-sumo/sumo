@@ -504,22 +504,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
         // check if mouse is over element
         mouseWithinGeometry(pos, size, size, 0, 0, 0);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, pos, size, size, 0, 0, 0, exaggeration);
-        }
-        // front element contour
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, pos, size, size, 0, 0, 0, exaggeration);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, size, size, 0, 0, 0, exaggeration);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, pos, size, size, 0, 0, 0, exaggeration);
-        }
+        // draw squared shape
+        drawDottedContour(myNet, pos, size, size, 0, 0, 0, exaggeration);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
@@ -623,13 +609,8 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             // Pop name
             GLHelper::popName();
         }
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
-        }
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
-        }
+        // draw squared shape
+        drawDottedContour(myNet, signPosition, 0.56, 2.75, 0, -2.3, 0, 1);
     }
 }
 

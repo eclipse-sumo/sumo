@@ -189,26 +189,9 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape().front(),
                                 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(),
-                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-            }
-            // front contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(),
-                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(),
-                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(),
-                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-            }
+            // draw dotted contour
+            drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+        /*
             const auto& TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
             // check if orange dotted contour must be drawn
             if (myNet->getViewNet()->selectingDetectorsTLSMode() &&
@@ -216,6 +199,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                     (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::GREEN, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
+        */
         }
         // Draw additional ID
         drawAdditionalID(s);

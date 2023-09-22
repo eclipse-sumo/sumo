@@ -104,6 +104,28 @@ GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &sh
 
 
 void
+GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, double width, double height,
+                                     double offsetX, double offsetY, double rot, double scale) const {
+    // inspect contour
+    if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        buildAndDrawDottedContourSquared(net, GUIDottedGeometry::DottedContourType::INSPECT, pos, width, height, offsetX, offsetY, rot, scale);
+    }
+    // front attribute contour
+    if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        buildAndDrawDottedContourSquared(net, GUIDottedGeometry::DottedContourType::FRONT, pos, width, height, offsetX, offsetY, rot, scale);
+    }
+    // delete contour
+    if (net->getViewNet()->drawDeleteContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourSquared(net, GUIDottedGeometry::DottedContourType::REMOVE, pos, width, height, offsetX, offsetY, rot, scale);
+    }
+    // select contour
+    if (net->getViewNet()->drawSelectContour(myAC->getGUIGlObject(), myAC)) {
+        buildAndDrawDottedContourSquared(net, GUIDottedGeometry::DottedContourType::SELECT, pos, width, height, offsetX, offsetY, rot, scale);
+    }
+}
+
+
+void
 GNEContourElement::drawDottedContour(const GNEEdge* edge) const {
     // get visualization settings
     const auto &s = edge->getNet()->getViewNet()->getVisualisationSettings();
@@ -218,6 +240,31 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
     myDottedGeometryC->drawDottedGeometry(s, type, dottedGeometryColor);
     // pop matrix
     GLHelper::popMatrix();
+}
+
+
+void
+GNEContourElement::buildAndDrawDottedContourSquared(const GNENet *net, const GUIDottedGeometry::DottedContourType type,
+                                                    const Position &pos, double width, double height,
+                                                    double offsetX, double offsetY, double rot, double scale) const {
+    // first check scale
+    if (net->getViewNet()->getVisualisationSettings().drawDottedContour(scale)) {
+        // create shape
+        PositionVector shape;
+        // make rectangle
+        shape.push_back(Position(0 + width, 0 + height));
+        shape.push_back(Position(0 + width, 0 - height));
+        shape.push_back(Position(0 - width, 0 - height));
+        shape.push_back(Position(0 - width, 0 + height));
+        // move shape
+        shape.add(offsetX, offsetY, 0);
+        // rotate shape
+        shape.rotate2D(DEG2RAD((rot * -1) + 90));
+        // move to position
+        shape.add(pos);
+        // draw using drawDottedContourClosedShape
+        drawDottedContour(net, shape, 1, scale);
+    }
 }
 
 /****************************************************************************/
