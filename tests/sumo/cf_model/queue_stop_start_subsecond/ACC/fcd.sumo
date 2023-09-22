@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-21 11:27:32 by Eclipse SUMO sumo Version d53ad573a46
+<!-- generated on 2023-09-21 23:06:10 by Eclipse SUMO sumo Version v1_18_0+1732-f768a4560e8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -393,40 +393,40 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="2.60"/>
     </timestep>
     <timestep time="26.60">
-        <vehicle id="flow.9" acceleration="2.58"/>
+        <vehicle id="flow.9" acceleration="2.56"/>
     </timestep>
     <timestep time="26.70">
-        <vehicle id="flow.9" acceleration="2.40"/>
+        <vehicle id="flow.9" acceleration="2.38"/>
     </timestep>
     <timestep time="26.80">
-        <vehicle id="flow.9" acceleration="2.23"/>
+        <vehicle id="flow.9" acceleration="2.21"/>
     </timestep>
     <timestep time="26.90">
-        <vehicle id="flow.9" acceleration="2.07"/>
+        <vehicle id="flow.9" acceleration="2.05"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="flow.9" acceleration="1.92"/>
+        <vehicle id="flow.9" acceleration="1.90"/>
     </timestep>
     <timestep time="27.10">
-        <vehicle id="flow.9" acceleration="1.79"/>
+        <vehicle id="flow.9" acceleration="1.77"/>
     </timestep>
     <timestep time="27.20">
-        <vehicle id="flow.9" acceleration="1.66"/>
+        <vehicle id="flow.9" acceleration="1.65"/>
     </timestep>
     <timestep time="27.30">
-        <vehicle id="flow.9" acceleration="1.54"/>
+        <vehicle id="flow.9" acceleration="1.53"/>
     </timestep>
     <timestep time="27.40">
-        <vehicle id="flow.9" acceleration="1.44"/>
+        <vehicle id="flow.9" acceleration="1.43"/>
     </timestep>
     <timestep time="27.50">
         <vehicle id="flow.9" acceleration="1.33"/>
     </timestep>
     <timestep time="27.60">
-        <vehicle id="flow.9" acceleration="1.24"/>
+        <vehicle id="flow.9" acceleration="1.23"/>
     </timestep>
     <timestep time="27.70">
-        <vehicle id="flow.9" acceleration="1.10"/>
+        <vehicle id="flow.9" acceleration="1.03"/>
     </timestep>
     <timestep time="27.80">
         <vehicle id="flow.9" acceleration="0.00"/>
@@ -537,10 +537,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="-0.08"/>
     </timestep>
     <timestep time="31.40">
-        <vehicle id="flow.9" acceleration="-0.16"/>
+        <vehicle id="flow.9" acceleration="-0.17"/>
     </timestep>
     <timestep time="31.50">
-        <vehicle id="flow.9" acceleration="-0.24"/>
+        <vehicle id="flow.9" acceleration="-0.25"/>
     </timestep>
     <timestep time="31.60">
         <vehicle id="flow.9" acceleration="-0.32"/>
@@ -555,13 +555,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="-0.52"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="flow.9" acceleration="-0.58"/>
+        <vehicle id="flow.9" acceleration="-0.59"/>
     </timestep>
     <timestep time="32.10">
         <vehicle id="flow.9" acceleration="-0.64"/>
     </timestep>
     <timestep time="32.20">
-        <vehicle id="flow.9" acceleration="-0.69"/>
+        <vehicle id="flow.9" acceleration="-0.70"/>
     </timestep>
     <timestep time="32.30">
         <vehicle id="flow.9" acceleration="-0.75"/>
@@ -741,7 +741,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="-0.80"/>
     </timestep>
     <timestep time="38.20">
-        <vehicle id="flow.9" acceleration="-0.79"/>
+        <vehicle id="flow.9" acceleration="-0.78"/>
     </timestep>
     <timestep time="38.30">
         <vehicle id="flow.9" acceleration="-0.77"/>
@@ -900,7 +900,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="-0.24"/>
     </timestep>
     <timestep time="43.50">
-        <vehicle id="flow.9" acceleration="-0.24"/>
+        <vehicle id="flow.9" acceleration="-0.23"/>
     </timestep>
     <timestep time="43.60">
         <vehicle id="flow.9" acceleration="-0.23"/>
@@ -2298,7 +2298,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="0.10"/>
     </timestep>
     <timestep time="90.10">
-        <vehicle id="flow.9" acceleration="0.11"/>
+        <vehicle id="flow.9" acceleration="0.12"/>
     </timestep>
     <timestep time="90.20">
         <vehicle id="flow.9" acceleration="0.13"/>
@@ -2622,7 +2622,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="flow.9" acceleration="0.63"/>
     </timestep>
     <timestep time="100.90">
-        <vehicle id="flow.9" acceleration="0.60"/>
+        <vehicle id="flow.9" acceleration="0.61"/>
     </timestep>
     <timestep time="101.00">
         <vehicle id="flow.9" acceleration="0.58"/>
