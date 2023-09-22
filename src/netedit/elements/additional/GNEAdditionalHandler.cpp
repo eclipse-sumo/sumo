@@ -1588,11 +1588,11 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
                                    double lineWidth, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (type == "jupedsim.walkable_area") {
-        buildJpsWalkableArea(sumoBaseObject, id, shape, name, parameters);
+        buildJpsWalkableArea(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (type == "jupedsim.obstacle") { 
-        buildJpsObstacle(sumoBaseObject, id, shape, name, parameters);
+        buildJpsObstacle(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (type == "jupedsim.waiting_area") { 
-        buildJpsWaitingArea(sumoBaseObject, id, shape, name, parameters);
+        buildJpsWaitingArea(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
     } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
@@ -1742,7 +1742,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 
 void
 GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                        const std::string& name, const Parameterised::Map& parameters) {
+                                        bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_WALKABLEAREA, id);
@@ -1752,7 +1752,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create walkable area
-        GNEPoly* walkableArea = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet, id, shape, name, parameters);
+        GNEPoly* walkableArea = new GNEPoly(GNE_TAG_JPS_WALKABLEAREA, myNet, id, shape, geo, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walkableArea, TL("add jps walkable area '") + id + "'");
@@ -1770,7 +1770,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
 
 void
 GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                    const std::string& name, const Parameterised::Map& parameters) {
+                    bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
@@ -1780,7 +1780,7 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create walkable area
-        GNEPoly* obstacle = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet, id, shape, name, parameters);
+        GNEPoly* obstacle = new GNEPoly(GNE_TAG_JPS_OBSTACLE, myNet, id, shape, geo, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(obstacle, TL("add jps obstacle '") + id + "'");
@@ -1798,7 +1798,7 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
 
 void
 GNEAdditionalHandler::buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                    const std::string& name, const Parameterised::Map& parameters) {
+                    bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
@@ -1808,7 +1808,7 @@ GNEAdditionalHandler::buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObje
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // create waiting area
-        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_WAITINGAREA, myNet, id, shape, name, parameters);
+        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_WAITINGAREA, myNet, id, shape, geo, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(waitingArea, TL("add jps waiting area '") + id + "'");

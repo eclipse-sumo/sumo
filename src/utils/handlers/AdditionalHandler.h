@@ -583,31 +583,34 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the walkable area
      * @param[in] shape The shape of the walkable area
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] name walkable area name
      * @param[in] parameters generic parameters
      */
     virtual void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                   const std::string& name, const Parameterised::Map& parameters) = 0;
+                                   bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a JuPedSim obstacle using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the obstacle
      * @param[in] shape The shape of the obstacle
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] name obstacle name
      * @param[in] parameters generic parameters
      */
     virtual void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                               const std::string& name, const Parameterised::Map& parameters) = 0;
+                               bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a JuPedSim waiting area using the given values
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] id The name of the waiting area
      * @param[in] shape The shape of the waiting area
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] name waiting area name
      * @param[in] parameters generic parameters
      */
     virtual void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                  const std::string& name, const Parameterised::Map& parameters) = 0;
+                                  bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
 
     /// @}
 
