@@ -17,6 +17,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    Mon, 07.04.2008
 ///
 // Helper methods for parsing vehicle attributes
@@ -417,7 +418,11 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
     // parse route information
     if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         bool ok = true;
-        ret->routeid = attrs.get<std::string>(SUMO_ATTR_ROUTE, ret->id.c_str(), ok);
+        std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, ret->id.c_str(), ok);
+        if (isInternalRouteID(routeID)) {
+            WRITE_WARNINGF(TL("Internal routes receive an ID starting with '!' and must not be referenced in other vehicle or flow definitions. Please remove all references to route '%' in case it is internal."), routeID);
+        }
+        ret->routeid = routeID;
         if (ok) {
             ret->parametersSet |= VEHPARS_ROUTE_SET; // !!! needed?
         } else {
@@ -1679,6 +1684,12 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
         }
     }
     return result;
+}
+
+
+bool
+SUMOVehicleParserHelper::isInternalRouteID(const std::string& id) {
+    return id.substr(0, 1) == "!";
 }
 
 

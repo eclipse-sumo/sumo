@@ -1531,6 +1531,9 @@ Vehicle::add(const std::string& vehID,
         vehicleParams.vtypeid = typeID;
         vehicleParams.parametersSet |= VEHPARS_VTYPE_SET;
     }
+    if (SUMOVehicleParserHelper::isInternalRouteID(routeID)) {
+        WRITE_WARNINGF(TL("Internal routes receive an ID starting with '!' and must not be referenced in other vehicle or flow definitions. Please remove all references to route '%' in case it is internal."), routeID);
+    }
     ConstMSRoutePtr route = MSRoute::dictionary(routeID);
     if (!route) {
         if (routeID == "") {
@@ -1932,6 +1935,9 @@ Vehicle::setRouteID(const std::string& vehID, const std::string& routeID) {
     ConstMSRoutePtr r = MSRoute::dictionary(routeID);
     if (r == nullptr) {
         throw TraCIException("The route '" + routeID + "' is not known.");
+    }
+    if (SUMOVehicleParserHelper::isInternalRouteID(routeID)) {
+        WRITE_WARNINGF(TL("Internal routes receive an ID starting with '!' and must not be referenced in other vehicle or flow definitions. Please remove all references to route '%' in case it is internal."), routeID);
     }
     std::string msg;
     if (!veh->hasValidRoute(msg, r)) {

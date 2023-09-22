@@ -164,6 +164,13 @@ public:
      */
     static SUMOTime processActionStepLength(double given);
 
+    /** @brief Checks whether the route ID uses the syntax of internal routes.
+     *
+     *   @param[in] id The route ID to check.
+     *   @return The given route ID follows the syntax of internal routes.
+     */
+    static bool isInternalRouteID(const std::string& id);
+
 private:
     /**@brief parse ID
      * @return empty string if ID obtained from attrs isn't valid
