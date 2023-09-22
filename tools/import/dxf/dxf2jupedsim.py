@@ -59,8 +59,8 @@ def applyInverseProjection(vertices, projection):
 
 def main():
     parser = sumolib.options.ArgumentParser()
-    parser.add_argument('file', help='The DXF file to read from')
-    parser.add_argument("-o", "--output", help="Name of the polygon output file")
+    parser.add_argument('file', help='The DXF file to read from', category="input", type=parser.file)
+    parser.add_argument("-o", "--output", help="Name of the polygon output file", category="output")
     parser.add_argument("--test", action="store_true", help="Write DXF test file and exit")
     parser.add_argument("--walkable-layer", default="walkable_areas",
                         help="Name of the DXF layer containing walkable areas")
