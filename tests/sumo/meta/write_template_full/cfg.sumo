@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 11:05:24 by Eclipse SUMO sumo Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-09-22 15:49:47 by Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -369,6 +369,7 @@
         <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR[]" help="Assign a &apos;bluelight&apos; device to named vehicles"/>
         <device.bluelight.deterministic value="false" type="BOOL" help="The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000"/>
         <device.bluelight.reactiondist value="25" type="FLOAT" help="Set the distance at which other drivers react to the blue light and siren sound"/>
+        <device.bluelight.mingapfactor value="1" type="FLOAT" help="Reduce the minGap for reacting vehicles by the given factor"/>
     </bluelight_device>
 
     <fcd_device>

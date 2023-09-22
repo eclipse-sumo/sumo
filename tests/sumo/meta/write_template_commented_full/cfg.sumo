@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 11:05:24 by Eclipse SUMO sumo Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-09-22 15:49:47 by Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1010,6 +1010,9 @@
 
         <!-- Set the distance at which other drivers react to the blue light and siren sound -->
         <device.bluelight.reactiondist value="25" type="FLOAT"/>
+
+        <!-- Reduce the minGap for reacting vehicles by the given factor -->
+        <device.bluelight.mingapfactor value="1" type="FLOAT"/>
 
     </bluelight_device>
 
