@@ -57,6 +57,8 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.bluelight.reactiondist", new Option_Float(25.0));
     oc.addDescription("device.bluelight.reactiondist", "Bluelight Device", TL("Set the distance at which other drivers react to the blue light and siren sound"));
+    oc.doRegister("device.bluelight.mingapfactor", new Option_Float(1.));
+    oc.addDescription("device.bluelight.mingapfactor", "Bluelight Device", TL("Reduce the minGap for reacting vehicles by the given factor"));
 }
 
 
@@ -68,7 +70,8 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
             WRITE_WARNINGF(TL("bluelight device is not compatible with mesosim (ignored for vehicle '%')"), v.getID());
         } else {
             MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
-                    getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));
+                    getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist")),
+                    getFloatParam(v, oc, "bluelight.mingapfactor", oc.getFloat("device.bluelight.mingapfactor")));
             into.push_back(device);
         }
     }
@@ -79,9 +82,10 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-                                       double reactionDist) :
+                                       const double reactionDist, const double minGapFactor) :
     MSVehicleDevice(holder, id),
-    myReactionDist(reactionDist) {
+    myReactionDist(reactionDist),
+    myMinGapFactor(minGapFactor) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << SIMTIME << " initialized device '" << id << "' with myReactionDist=" << myReactionDist << "\n";
 #endif
@@ -177,7 +181,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 continue;
             }
             const int numLanes = (int)veh2->getLane()->getEdge().getNumLanes();
-            // make sure that vehicle are still building the a rescue lane
+            // make sure that vehicles are still building the rescue lane as they might have moved to a new edge or changed lanes
             if (myInfluencedVehicles.count(veh2->getID()) > 0) {
                 // Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = veh2->getSingularType();
@@ -223,6 +227,10 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 if (veh2->isActionStep(SIMSTEP) && reaction < reactionProb * veh2->getActionStepLengthSecs()) {
                     myInfluencedVehicles.insert(veh2->getID());
                     myInfluencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
+                    if (myMinGapFactor != 1.) {
+                        // TODO this is a permanent change to the vtype!
+                        MSNet::getInstance()->getVehicleControl().getVType(veh2->getVehicleType().getID())->getCarFollowModel().setCollisionMinGapFactor(myMinGapFactor);
+                    }
 
                     // Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                     MSVehicleType& t = veh2->getSingularType();
@@ -232,6 +240,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                         align = LatAlignmentDefinition::LEFT;
                     }
                     t.setPreferredLateralAlignment(align);
+                    t.setMinGap(t.getMinGap() * myMinGapFactor);
+                    const_cast<SUMOVTypeParameter&>(t.getParameter()).jmParameter[SUMO_ATTR_JM_STOPLINE_GAP] = toString(myMinGapFactor);
                     // disable strategic lane-changing
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
                     std::cout << SIMTIME << " device=" << getID() << " formingRescueLane=" << veh2->getID()
