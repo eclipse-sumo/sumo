@@ -1298,26 +1298,8 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
-    // inspect contour
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(),
-                width, exaggeration, true, true);
-    }
-    // front element contour
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(),
-                width, exaggeration, true, true);
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(),
-                width, exaggeration, true, true);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myDemandElementGeometry.getShape(),
-                width, exaggeration, true, true);
-    }
+    // draw dotted geometry
+    drawDottedContour(myNet, myDemandElementGeometry.getShape(), width, exaggeration, true, true);
 }
 
 
@@ -1383,26 +1365,8 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     }
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
-    // inspect contour
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT,
-                myDemandElementGeometry.getShape(), 0.3,  exaggeration, true, true);
-    }
-    // front contour
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT,
-                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE,
-                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT,
-                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
-    }
+    // draw dotted geometry
+    drawDottedContour(myNet, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
 }
 
 
@@ -1460,26 +1424,8 @@ GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, cons
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    }
-    // inspect contour
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, true, true);
-    }
-    // front contour
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, true, true);
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, true, true);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, true, true);
+        // draw dotted geometry
+        drawDottedContour(myNet, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
 

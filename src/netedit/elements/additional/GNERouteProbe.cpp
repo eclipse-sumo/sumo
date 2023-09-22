@@ -213,26 +213,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         drawAdditionalName(s);
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 0.5,
-                    routeProbeExaggeration, true, true);
-        }
+        // draw dotted geometry
+        drawDottedContour(myNet, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true);
     }
 }
 

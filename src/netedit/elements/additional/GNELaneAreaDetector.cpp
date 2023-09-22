@@ -329,26 +329,8 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
-                        E2Exaggeration, true, true);
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
-                        E2Exaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
-                        E2Exaggeration, true, true);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width,
-                        E2Exaggeration, true, true);
-            }
+            // draw dotted geometry
+            drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -455,22 +437,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : lane->getLaneShape();
         // check if mouse is over element
         mouseWithinGeometry(shape, s.detectorSettings.E2Width);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // dotted contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
+        // draw dotted geometry
+        drawDottedContour(myNet, myAdditionalGeometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
     }
 }
 
@@ -523,28 +491,12 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         GLHelper::popName();
         // continue with dotted contours
         if (fromLane->getLane2laneConnections().exist(toLane)) {
+            // get shape
+            const auto &shape = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape();
             // check if mouse is over element
-            mouseWithinGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), s.detectorSettings.E2Width);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
-            // front contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        E2DetectorWidth, 1, false, false);
-            }
+            mouseWithinGeometry(shape, s.detectorSettings.E2Width);
+            // draw dotted geometry
+            drawDottedContour(myNet, shape, E2DetectorWidth, 1, true, true);
         }
     }
 }

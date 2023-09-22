@@ -187,26 +187,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), stopWidth * MIN2(1.0, busStopExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), stopWidth,
-                        busStopExaggeration, true, true);
-            }
-            // front attribute contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), stopWidth,
-                        busStopExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), stopWidth,
-                        busStopExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), stopWidth,
-                        busStopExaggeration, true, true);
-            }
+            // draw dotted geometry
+            drawDottedContour(myNet, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration, true, true);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree() &&

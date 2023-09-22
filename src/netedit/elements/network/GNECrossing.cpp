@@ -282,26 +282,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
+        // draw dotted geometry
+        drawDottedContour(myNet, myCrossingGeometry.getShape(), halfWidth, selectionScale, true, true);
     }
 }
 

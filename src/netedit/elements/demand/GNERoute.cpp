@@ -490,26 +490,8 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : lane->getLaneShape());
         // check if mouse is over element
         mouseWithinGeometry(shape, routeWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // draw marked dotted contour
-        if (gPostDrawing.markedRoute == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::GREEN, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
+        // draw dotted geometry
+        drawDottedContour(myNet, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
     }
 }
 
@@ -559,32 +541,9 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
             gPostDrawing.markedRoute = this;
         }
         // check if mouse is over element
-        mouseWithinGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), routeWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // green contour
-        if (gPostDrawing.markedRoute == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::GREEN, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
+        mouseWithinGeometry(lane2laneGeometry.getShape(), routeWidth);
+        // draw dotted geometry
+        drawDottedContour(myNet, lane2laneGeometry.getShape(), routeWidth, 1, false, false);
     }
 }
 

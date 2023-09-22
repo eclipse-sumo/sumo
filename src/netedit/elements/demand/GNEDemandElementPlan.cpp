@@ -867,25 +867,8 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : lane->getLaneShape();
         // check if mouse is over element
         myPlanElement->mouseWithinGeometry(shape, pathWidth);
-        // check if shape dotted contour has to be drawn
-        if (dottedElement) {
-            // inspect contour
-            if (viewNet->isAttributeCarrierInspected(myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-            // front element contour
-            if (viewNet->getFrontAttributeCarrier() == myPlanElement) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-            // delete contour
-            if (viewNet->drawDeleteContour(myPlanElement, myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-            // select contour
-            if (viewNet->drawSelectContour(myPlanElement, myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, pathWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-            }
-        }
+        // draw dotted geometry
+        myPlanElement->drawDottedContour(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -941,28 +924,12 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         GNEViewNetHelper::LockIcon::drawLockIcon(myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
         // check if shape dotted contour has to be drawn
         if (fromLane->getLane2laneConnections().exist(toLane) && dottedElement) {
+            // get shape
+            const auto &shape = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape();
             // check if mouse is over element
-            myPlanElement->mouseWithinGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), pathWidth);
-            // inspect contour
-            if (viewNet->isAttributeCarrierInspected(myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        pathWidth, 1, false, false);
-            }
-            // front contour
-            if (viewNet->getFrontAttributeCarrier() == myPlanElement) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        pathWidth, 1, false, false);
-            }
-            // delete contour
-            if (viewNet->drawDeleteContour(myPlanElement, myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        pathWidth, 1, false, false);
-            }
-            // select contour
-            if (viewNet->drawSelectContour(myPlanElement, myPlanElement)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                        pathWidth, 1, false, false);
-            }
+            myPlanElement->mouseWithinGeometry(shape, pathWidth);
+            // draw dotted geometry
+            myPlanElement->drawDottedContour(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
         }
     }
     // check if draw plan parent

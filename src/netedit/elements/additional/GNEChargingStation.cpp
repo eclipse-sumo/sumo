@@ -181,26 +181,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
+            // draw dotted geometry
+            drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration, true, true);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {
