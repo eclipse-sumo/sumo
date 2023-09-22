@@ -1453,6 +1453,7 @@ GNEEdge::updateContainerStackLabels() {
 void
 GNEEdge::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
                                const bool drawFrontExtreme, const bool drawBackExtreme, const double exaggeration) {
+/*
     if (edge->getLanes().size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
         GUIDottedGeometry::drawDottedContourShape(s, type, edge->getLanes().front()->getLaneShape(),
@@ -1495,6 +1496,7 @@ GNEEdge::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDotte
         // pop matrix
         GLHelper::popMatrix();
     }
+*/
 }
 
 
