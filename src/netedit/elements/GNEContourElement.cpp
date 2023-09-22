@@ -27,7 +27,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEContourElement::GNEContourElement(GNEDemandElement* demandElement) {
+GNEContourElement::GNEContourElement(const GNEAttributeCarrier* AC) :
+    myAC(AC) {
 }
 
 

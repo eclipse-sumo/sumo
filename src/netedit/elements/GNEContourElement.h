@@ -36,8 +36,10 @@ class GNEContourElement {
 
 public:
     /// @brief Constructor
-    GNEContourElement(GNEDemandElement* demandElement);
+    GNEContourElement(const GNEAttributeCarrier* AC);
 
 private:
+    /// @brief pointer to AC
+    const GNEAttributeCarrier* myAC;
 
 };
