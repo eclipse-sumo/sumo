@@ -20,13 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include "GNEAttributeCarrier.h"
+#include <utils/gui/div/GUIDottedGeometry.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEUndoList;
+class GNENet;
+class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -34,12 +35,35 @@ class GNEUndoList;
 
 class GNEContourElement {
 
-public:
+protected:
     /// @brief Constructor
-    GNEContourElement(const GNEAttributeCarrier* AC);
+    GNEContourElement(GNEAttributeCarrier* AC);
+
+    /// @brief destructor
+    ~GNEContourElement();
+
+    /// @brief draw dotted contour (used in element extended over a shape)
+    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration,
+                           const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
 private:
     /// @brief pointer to AC
-    const GNEAttributeCarrier* myAC;
+    GNEAttributeCarrier* myAC;
 
+    /// @brief pointer to cached shape
+    PositionVector *myCachedShape;
+
+    /// @brief pointer to dotted geometry A
+    GUIDottedGeometry *myDottedGeometryA;
+
+    /// @brief pointer to dotted geometry B
+    GUIDottedGeometry *myDottedGeometryB;
+
+    /// @brief pointer to dotted geometry C
+    GUIDottedGeometry *myDottedGeometryC;
+
+    /// @brief draw dotted contour rectangle
+    void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+                                            const PositionVector &shape, double width, double exaggeration,
+                                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
 };

@@ -52,6 +52,7 @@ const std::string GNEAttributeCarrier::False = toString(false);
 // ===========================================================================
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
+    GNEContourElement(this),
     myTagProperty(getTagProperty(tag)),
     myNet(net),
     mySelected(false),

@@ -24,6 +24,7 @@
 #include <netedit/GNEReferenceCounter.h>
 
 #include "GNETagProperties.h"
+#include "GNEContourElement.h"
 
 
 // ===========================================================================
@@ -45,7 +46,7 @@ class GNEEdge;
  * Abstract Base class for gui objects which carry attributes
  * inherits from GNEReferenceCounter for convenience
  */
-class GNEAttributeCarrier : public GNEReferenceCounter {
+class GNEAttributeCarrier : public GNEReferenceCounter, public GNEContourElement {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
