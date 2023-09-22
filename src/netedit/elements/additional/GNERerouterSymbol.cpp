@@ -200,10 +200,10 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
             }
         }
-
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            drawDottedContour(myNet, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+            drawDottedContour(myNet, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90,
+                              rerouteExaggeration, getParentAdditionals().front());
         }
     }
 }

@@ -170,7 +170,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
             }
             // draw dotted contour
-            drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration, getParentAdditionals().front());
         }
     }
 }

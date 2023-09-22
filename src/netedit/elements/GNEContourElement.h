@@ -44,18 +44,18 @@ protected:
     ~GNEContourElement();
 
     /// @brief draw dotted contour (for closed shapes)
-    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration) const;
+    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale) const;
 
     /// @brief draw dotted contour (used in elements formed by a central shape)
-    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double exaggeration,
+    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale,
                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
-    /// @brief draw dotted contour (for squared elements)
+    /// @brief draw dotted contour (for rectangled elements)
     void drawDottedContour(const GNENet *net, const Position &pos, double width, double height,
-                           double offsetX, double offsetY, double rot, double scale) const;
+                           double offsetX, double offsetY, double rot, double scale, GNEAdditional* parent = nullptr) const;
 
     /// @brief draw dotted contour (circle)
-    void drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale) const;
+    void drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale, GNEAttributeCarrier* parent = nullptr) const;
 
     /// @brief draw dotted contour edge
     void drawDottedContour(const GNEEdge* edge) const;
@@ -85,11 +85,11 @@ private:
 
     /// @brief draw dotted contour rectangle
     void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                            const PositionVector &shape, double width, double exaggeration,
+                                            const PositionVector &shape, double width, double scale,
                                             const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
     /// @brief draw dotted contour squared
-    void buildAndDrawDottedContourSquared(const GNENet *net, const GUIDottedGeometry::DottedContourType type,
+    void buildAndDrawDottedContourSquared(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
                                           const Position &pos, double width, double height,
                                           double offsetX, double offsetY, double rot, double scale) const;
 
