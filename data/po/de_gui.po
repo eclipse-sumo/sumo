@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-20 14:13+0000\n"
+"PO-Revision-Date: 2023-09-23 16:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10547,6 +10547,8 @@ msgstr "Rerouter-Intervall hinzufügen in '"
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
+"Konnte das Intervall zwischen '%' und '%' nicht erstellen, da es mit anderen "
+"überlappt."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
 msgid "add closing lane reroute in '"
@@ -10585,6 +10587,8 @@ msgstr "VSS-Schritt hinzufügen in '"
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
+"Konnte den Vaporizer mit der ID '%' nicht in netedit erstellern, da der "
+"Beginn nach dem Endzeitpunkt liegt."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
 msgid "add vaporizer in '"
@@ -10594,6 +10598,8 @@ msgstr "Vaporizer hinzufügen in '"
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr ""
+"Konnte die Verkehrsumlegungszone mit der ID '%' nicht in netedit erstellen, "
+"da der Shape ungültig ist."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1317
 msgid "add TAZ '"
@@ -10627,6 +10633,8 @@ msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
+"Konnte die Oberleitung mit der ID '%' nicht in netedit erstellen, da die "
+"Fahrstreifen nicht direkt aufeinander folgen."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1556
 msgid "add overhead wire '"
@@ -10645,11 +10653,11 @@ msgstr "Pol hinzufügen '"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1722
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
-msgstr ""
+msgstr "Konnte PoI mit der ID '%' nicht in netedit erstellen"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1722
 msgid "Network requires a geo projection."
-msgstr ""
+msgstr "Das Netz verlangt eine geografische Projektion."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1760
 msgid "add jps walkable area '"
@@ -11317,49 +11325,49 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:139
 msgid "Flow"
-msgstr ""
+msgstr "Fluss"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:220
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:241
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:262
 msgid "transform selected to"
-msgstr ""
+msgstr "Auswahl umwandeln in"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:223
 msgid "Trips (over junctions) (only %)"
-msgstr ""
+msgstr "Fahrten (über Knoten) (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:226
 msgid "Flows (over junctions) (only %)"
-msgstr ""
+msgstr "Flüsse (über Knoten) (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:232
 msgid "Trips (over junctions)"
-msgstr ""
+msgstr "Fahrten (über Knoten)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:235
 msgid "Flows (over junctions)"
-msgstr ""
+msgstr "Flüsse (über Knoten)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:244
 msgid "Trips (over TAZs) (only %)"
-msgstr ""
+msgstr "Fahrten (über Verkehrsumlegungszonen) (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:247
 msgid "Flows (over TAZs) (only %)"
-msgstr ""
+msgstr "Flüsse (über Verkehrsumlegungszonen) (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:253
 msgid "Trips (over TAZs)"
-msgstr ""
+msgstr "Fahrten (über Verkehrsumlegungszonen)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:256
 msgid "Flows (over TAZs)"
-msgstr ""
+msgstr "Flüsse (über Verkehrsumlegungszonen)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:265
 msgid "Vehicles (only %)"
-msgstr ""
+msgstr "Fahrzeuge (nur %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:268
 msgid "Vehicles (embedded route) (only %)"
@@ -11395,11 +11403,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:298
 msgid "Trips"
-msgstr ""
+msgstr "Fahrten"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:301
 msgid "Flows"
-msgstr ""
+msgstr "Flüsse"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:805
 msgid "Invalid vehicle tag"
