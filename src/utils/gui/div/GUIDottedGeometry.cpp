@@ -332,45 +332,6 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type,
-        const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
-        const bool drawLastExtrem) {
-    if (s.drawDottedContour(exaggeration)) {
-        // declare DottedGeometryColor
-        DottedGeometryColor dottedGeometryColor(s);
-        // calculate center dotted geometry
-        GUIDottedGeometry dottedGeometry(s, shape, false);
-        // make a copy of dotted geometry
-        GUIDottedGeometry topDottedGeometry = dottedGeometry;
-        GUIDottedGeometry botDottedGeometry = dottedGeometry;
-        // move geometries top and bot
-        topDottedGeometry.moveShapeToSide(width * exaggeration);
-        botDottedGeometry.moveShapeToSide(width * exaggeration * -1);
-        // invert offset of top dotted geometry
-        topDottedGeometry.invertOffset();
-        // calculate extremes
-        GUIDottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
-        // Push draw matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        // draw top dotted geometry
-        topDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
-        // reset color
-        dottedGeometryColor.reset();
-        // draw top dotted geometry
-        botDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
-        // change color
-        dottedGeometryColor.changeColor();
-        // draw extrem dotted geometry
-        extremes.drawDottedGeometry(s, type, dottedGeometryColor);
-        // pop matrix
-        GLHelper::popMatrix();
-    }
-}
-
-
-void
 GUIDottedGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
         const double radius, const double exaggeration) {
     // continue depending of exaggeratedRadio

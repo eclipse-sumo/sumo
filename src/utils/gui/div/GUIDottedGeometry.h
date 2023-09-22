@@ -130,10 +130,6 @@ public:
     static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
             const double exaggeration, const double customWidth = 1);
 
-    /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
-                                       const double width, const double exaggeration, const bool drawFirstExtrem, const bool drawLastExtrem);
-
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
     static void drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
                                         const double radius, const double exaggeration);

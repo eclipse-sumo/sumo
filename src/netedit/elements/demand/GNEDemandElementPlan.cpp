@@ -726,22 +726,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
-        // inspect contour
-        if (viewNet->isAttributeCarrierInspected(myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, planGeometry.getShape(), 0.5, 1, true, true);
-        }
-        // front contour
-        if (viewNet->getFrontAttributeCarrier() == myPlanElement) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, planGeometry.getShape(), 0.5, 1, true, true);
-        }
-        // delete contour
-        if (viewNet->drawDeleteContour(myPlanElement, myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, planGeometry.getShape(), 0.5, 1, true, true);
-        }
-        // select contour
-        if (viewNet->drawSelectContour(myPlanElement, myPlanElement)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, planGeometry.getShape(), 0.5, 1, true, true);
-        }
+        // draw dotted geometry
+        myPlanElement->drawDottedContour(myPlanElement->getNet(), planGeometry.getShape(), 0.5, 1, true, true);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {

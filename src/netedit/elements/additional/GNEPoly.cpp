@@ -376,52 +376,19 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             mouseWithinGeometry(myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
         }
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
-        // dotted contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            // draw depending if is closed
-            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), 1);
-            } else {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, true, true);
-            }
-        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
         // pop layer matrix
         GLHelper::popMatrix();
         // pop name
         GLHelper::popName();
+        // draw depending if is closed
+        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), 1);
+        } else {
+            // draw dotted geometry
+            drawDottedContour(myNet, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration, true, true);
+        }
         // get name position
         const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();
         // draw name

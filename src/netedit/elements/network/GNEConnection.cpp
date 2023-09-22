@@ -454,26 +454,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
                 // check if mouse is over element
                 mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
-                // inspect contour
-                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // front contour
-                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // delete contour
-                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // select contour
-                if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
+                // draw dotted geometry
+                drawDottedContour(myNet, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
             }
         }
     }
