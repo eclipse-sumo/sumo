@@ -128,17 +128,21 @@ if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Ma
   fi
 fi
 
-# macOS M1 wheels
-if test ${FILEPREFIX: -2} == "M1"; then
+if test ${FILEPREFIX: -2} == "M1" -o ${FILEPREFIX} == "gcc4_64"; then
   WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
   rm -rf dist dist_native _skbuild wheelhouse
-  python3 tools/build/setup-sumo.py bdist_wheel > $WHEELLOG 2>&1
-  python3 tools/build/setup-libsumo.py bdist_wheel >> $WHEELLOG 2>&1
-  python3 tools/build/setup-libtraci.py bdist_wheel >> $WHEELLOG 2>&1
-  mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp39-cp39/py2.py3-none/'`
+  cp build/pyproject.toml .
+  python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
+  python3 -m build --wheel > $WHEELLOG 2>&1
+  python3 tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
+  python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
+  python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
   # the credentials are in ~/.pypirc
   twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
+fi
+# macOS M1 wheels
+if test ${FILEPREFIX: -2} == "M1"; then
   docker run --rm -v $PWD:/github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
   twine upload --skip-existing -r testpypi wheelhouse/*
 fi
