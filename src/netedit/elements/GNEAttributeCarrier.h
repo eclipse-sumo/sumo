@@ -105,10 +105,10 @@ public:
     /// @brief check if draw from contour (magenta)
     virtual bool checkDrawToContour() const;
 
-    /// @brief check if draw from contour (green)
+    /// @brief check if draw related contour (yellow)
     virtual bool checkDrawRelatedContour() const;
 
-    /// @brief check if draw from contour (magenta)
+    /// @brief check if draw over contour (orange)
     virtual bool checkDrawOverContour() const;
 
     /// @}

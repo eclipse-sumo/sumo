@@ -88,6 +88,12 @@ public:
     /// @brief check if draw from contour (magenta)
     bool checkDrawToContour() const;
 
+    /// @brief check if draw related contour (yellow)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
     /// @}
 
     /// @name Functions related with move elements

@@ -142,13 +142,71 @@ GNEJunction::getPositionInView() const {
 
 bool
 GNEJunction::checkDrawFromContour() const {
-    return true;
+    // check conditions
+    if (myAmCreateEdgeSource) {
+        return true;
+    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in junction
+        if (inspectedAC->getTagProperty().planFromJunction() && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+            return true;
+        } else if (inspectedAC->getTagProperty().vehicleOverFromToJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+            return true;
+        }
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        // get TLS junction (TLS Frame)
+        const auto TLSJunction = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction();
+        // check if we're joining junctions
+        if (TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
+            return true;
+        }
+    }
+    // nothing to draw
+    return false;
 }
 
 
 bool
 GNEJunction::checkDrawToContour() const {
-    return true;
+    // check conditions
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if ends in junction
+        if (inspectedAC->getTagProperty().planToJunction() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+            return true;
+        } else if (inspectedAC->getTagProperty().vehicleOverFromToJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+            return true;
+        }
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        // get junction source (CreateEdge Frame)
+        const auto junctionSource = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource();
+        // check if we're over a destiny junction
+        if (junctionSource) {
+            if (junctionSource == this) {
+                // don't create edges with the same from-to junction
+                return false;
+            } else if (gPostDrawing.isElementUnderCursor(this)) {
+                // this junction can be a destiny junction
+                return true;
+            }
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
+bool
+GNEJunction::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEJunction::checkDrawOverContour() const {
+    return false;
 }
 
 
@@ -469,11 +527,18 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawJunctionChildren(s);
         // draw path additional elements
         myNet->getPathManager()->drawJunctionPathElements(s, this);
-        // draw dotted contours
+        // continue depending of shapes
         if (junctionShape) {
+            // check if mouse within geometry
+            mouseWithinGeometry(myNBNode->getShape());
+            // draw dotted contour
             drawDottedContour(myNet, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (junctionBubble) {
+            // check mouse within bubble
+            mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
+
+            // draw dotted contour
             drawDottedContour(myNet, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
@@ -1528,110 +1593,6 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     }
 }
 
-/*
-void
-GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration) const {
-    // get inspected ACs
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    // check if mouse is over junction
-    const bool mouseWithin = mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
-    // declare dotted contour type
-    auto dottedContourType = GUIDottedGeometry::DottedContourType::NOTHING;
-    // check conditions
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::INSPECT;
-    } else if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::FRONT;
-    } else if (myAmCreateEdgeSource) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-    } else if ((inspectedACs.size() == 1) && ((inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_TRIP_JUNCTIONS) ||
-               (inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS))) {
-        // get vehicle
-        const auto vehicleOverJunctions = myNet->getAttributeCarriers()->retrieveDemandElement(inspectedACs.front());
-        // check parent junctions
-        if (vehicleOverJunctions->getParentJunctions().front() == this) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-        } else if (vehicleOverJunctions->getParentJunctions().back() == this) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
-        }
-    } else if (myNet->getViewNet()->checkDrawDeleteContour(this, this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::REMOVE;
-    } else if (myNet->getViewNet()->checkDrawSelectContour(this, this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::SELECT;
-    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // get TLS junction
-        const auto TLSJunction = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction();
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-                TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-        } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
-                   (gPostDrawing.markedNode == nullptr) && mouseWithin) {
-            // get dotted contour type
-            if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()) {
-                dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
-            } else {
-                dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-            }
-            // mark this node (to avoid mark another junctions)
-            gPostDrawing.markedNode = this;
-        }
-    }
-
-}
-
-
-
-void
-GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& /*s, const double junctionExaggeration) const {
-    // get inspected ACs
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    // check if mouse is over junction
-    const bool mouseWithin = mouseWithinGeometry(myNBNode->getShape());
-    // declare dotted contour type
-    auto dottedContourType = GUIDottedGeometry::DottedContourType::NOTHING;
-    // check conditions
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::INSPECT;
-    } else if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::FRONT;
-    } else if (myAmCreateEdgeSource) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-    } else if ((inspectedACs.size() == 1) && ((inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_TRIP_JUNCTIONS) ||
-               (inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS))) {
-        // get vehicle
-        const auto vehicleOverJunctions = myNet->getAttributeCarriers()->retrieveDemandElement(inspectedACs.front());
-        // check parent junctions
-        if (vehicleOverJunctions->getParentJunctions().front() == this) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-        } else if (vehicleOverJunctions->getParentJunctions().back() == this) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
-        }
-    } else if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::REMOVE;
-    } else if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        dottedContourType = GUIDottedGeometry::DottedContourType::SELECT;
-    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // get TLS junction
-        const auto TLSJunction = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction();
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-                TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
-            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-        } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
-                   (gPostDrawing.markedNode == nullptr) && mouseWithin) {
-            // get dotted contour type
-            if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()) {
-                dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
-            } else {
-                dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
-            }
-            // mark this node (to avoid mark another junctions)
-            gPostDrawing.markedNode = this;
-        }
-    }
-    // draw dotted contour
-
-}
-*/
 
 void
 GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
