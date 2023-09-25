@@ -270,6 +270,20 @@ GNETAZ::checkDrawFromContour() const {
         // check if starts in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
             return true;
+        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+            return true;
+        }
+    } else {    
+        // get TAZRelDataFrame
+        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        // check conditions
+        if (TAZRelDataFrame->shown()) {
+            // check first TAZ
+            if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
+                return gPostDrawing.isElementUnderCursor(this);
+            } else if (TAZRelDataFrame->getFirstTAZ() == this) {
+                return true;
+            }
         }
     }
     // nothing to draw
@@ -286,6 +300,20 @@ GNETAZ::checkDrawToContour() const {
         // check if ends in TAZ
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
             return true;
+        } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+            return true;
+        }
+    } else {    
+        // get TAZRelDataFrame
+        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        // check conditions
+        if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
+            // check first TAZ
+            if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
+                return gPostDrawing.isElementUnderCursor(this);
+            } else if (TAZRelDataFrame->getSecondTAZ() == this) {
+                return true;
+            }
         }
     }
     // nothing to draw
@@ -301,29 +329,6 @@ GNETAZ::checkDrawRelatedContour() const {
 
 bool
 GNETAZ::checkDrawOverContour() const {
-    /*
-    // now check if mouse is over TAZ
-    if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
-        // get dotted contour type
-        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::FROMTAZ : GUIDottedGeometry::DottedContourType::TOTAZ;
-        // draw depending if is closed
-        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
-            if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
-            }
-        } else {
-            // scale shape
-            auto scaledShape = myAdditionalGeometry.getShape();
-            scaledShape.scaleAbsolute(1);
-            // check if mouse is around scaled shape
-            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
-                    (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
-            }
-        }
-    }
-    */
-
     return false;
 }
 
@@ -470,7 +475,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape());
         // draw dotted contours
-        drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 1);
         drawDottedContour(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
