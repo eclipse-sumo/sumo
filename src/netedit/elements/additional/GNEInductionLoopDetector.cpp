@@ -140,6 +140,21 @@ GNEInductionLoopDetector::updateGeometry() {
 }
 
 
+bool
+GNEInductionLoopDetector::checkDrawRelatedContour() const {
+    // get TLS Attributes
+    const auto& TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
+    // check detectors
+    if (myNet->getViewNet()->selectingDetectorsTLSMode() &&
+            (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
+            (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 void
 GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
@@ -191,15 +206,6 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                                 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
             // draw dotted contour
             drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-        /*
-            const auto& TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
-            // check if orange dotted contour must be drawn
-            if (myNet->getViewNet()->selectingDetectorsTLSMode() &&
-                    (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
-                    (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::GREEN, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
-            }
-        */
         }
         // Draw additional ID
         drawAdditionalID(s);
