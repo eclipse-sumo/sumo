@@ -39,7 +39,7 @@ public:
         OVER,       // Mouse over element (orange)
         FROM,       // Element marked as from (green)
         TO,         // Element marked as to (magenta)
-        RELATED,    // Element marked as related (yellow)
+        RELATED,    // Element marked as related (cyan)
         NOTHING
     };
 

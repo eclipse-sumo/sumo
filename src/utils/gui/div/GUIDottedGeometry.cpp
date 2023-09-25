@@ -102,10 +102,10 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
         case DottedContourType::RELATED:
             if (myColorFlag) {
                 myColorFlag = false;
-                return RGBColor::YELLOW;
+                return RGBColor::CYAN;
             } else {
                 myColorFlag = true;
-                return RGBColor::YELLOW.changedBrightness(-30);
+                return RGBColor::CYAN.changedBrightness(-30);
             }
         default:
             return RGBColor::BLACK;
