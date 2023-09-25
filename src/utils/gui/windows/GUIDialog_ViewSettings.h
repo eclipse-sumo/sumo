@@ -402,7 +402,7 @@ protected:
     std::vector<FXRealSpinner*> myDataThresholds;
     std::vector<FXButton*> myDataButtons;
     FXCheckButton* myDataColorInterpolation = nullptr;
-    MFXComboBoxIcon* myDataParamKey = nullptr;
+    FXComboBox* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
     FXButton* myDataColorRainbow = nullptr;

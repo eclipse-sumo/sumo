@@ -1513,10 +1513,10 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         activeSchemeName = myDataColorMode->getText().text();
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
-            myDataParamKey->appendIconItem(mySettings->relDataAttr.c_str());
+            myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
             for (const std::string& attr : myParent->getRelDataAttrs()) {
                 if (attr != mySettings->relDataAttr) {
-                    myDataParamKey->appendIconItem(attr.c_str());
+                    myDataParamKey->appendItem(attr.c_str());
                 }
             }
             myDataParamKey->enable();
@@ -2254,8 +2254,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
                                           this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataColorInterpolation = new FXCheckButton(m111, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataColorSettingFrame = new FXVerticalFrame(verticalFrame2, GUIDesignViewSettingsVerticalFrame4);
-    myDataParamKey = new MFXComboBoxIcon(m111, 1, false, GUIDesignComboBoxSizeMedium,
-                                         this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxWidth100);
     myDataParamKey->disable();
     mySettings->dataColorer.fill(*myDataColorMode);
 
