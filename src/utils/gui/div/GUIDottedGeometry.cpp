@@ -36,34 +36,30 @@
 // GUIDottedGeometry::DottedGeometryColor - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor(const GUIVisualizationSettings& settings) :
-    mySettings(settings),
+GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor() :
     myColorFlag(true) {}
 
 
 const RGBColor
-GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
+GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings& settings, DottedContourType type) {
     switch (type) {
         case DottedContourType::INSPECT:
-        case DottedContourType::INSPECT_SMALL:
             if (myColorFlag) {
                 myColorFlag = false;
-                return mySettings.dottedContourSettings.firstInspectedColor;
+                return settings.dottedContourSettings.firstInspectedColor;
             } else {
                 myColorFlag = true;
-                return mySettings.dottedContourSettings.secondInspectedColor;
+                return settings.dottedContourSettings.secondInspectedColor;
             }
         case DottedContourType::FRONT:
-        case DottedContourType::FRONT_SMALL:
             if (myColorFlag) {
                 myColorFlag = false;
-                return mySettings.dottedContourSettings.firstFrontColor;
+                return settings.dottedContourSettings.firstFrontColor;
             } else {
                 myColorFlag = true;
-                return mySettings.dottedContourSettings.secondFrontColor;
+                return settings.dottedContourSettings.secondFrontColor;
             }
         case DottedContourType::GREEN:
-        case DottedContourType::FROMTAZ:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::GREEN;
@@ -72,7 +68,6 @@ GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
                 return RGBColor::GREEN.changedBrightness(-30);
             }
         case DottedContourType::MAGENTA:
-        case DottedContourType::TOTAZ:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::MAGENTA;
@@ -256,32 +251,20 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 void
 GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                      DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
+                                      DottedGeometryColor *dottedGeometryColor, const bool drawSmall, double customContourWidth) const {
     // set segment width
     double width = s.dottedContourSettings.segmentWidthLarge;
-    switch (type) {
-        case DottedContourType::INSPECT_SMALL:
-        case DottedContourType::FRONT_SMALL:
-        case DottedContourType::REMOVE:
-        case DottedContourType::SELECT:
-            // use segment width small
-            width = s.dottedContourSettings.segmentWidthSmall;
-            break;
-        case DottedContourType::FROMTAZ:
-        case DottedContourType::TOTAZ:
-            // use custom width
-            width = customWidth;
-            break;
-        default:
-            // use segment width large
-            break;
+    if (drawSmall) {
+        width = s.dottedContourSettings.segmentWidthSmall;
+    } else if (customContourWidth > 0) {
+        width = customContourWidth;
     }
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
         for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
             // set color
-            GLHelper::setColor(dottedGeometryColor.getColor(type));
+            GLHelper::setColor(dottedGeometryColor->getColor(s, type));
             // draw box line
             GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), width, 0);
         }

@@ -33,18 +33,14 @@ public:
     /// @enum for dotted cotour type
     enum class DottedContourType {
         INSPECT,
-        INSPECT_SMALL,
         REMOVE,
         SELECT,
         FRONT,
-        FRONT_SMALL,
         MOVE,
         GREEN,
         MAGENTA,
         ORANGE,
         YELLOW,
-        FROMTAZ,
-        TOTAZ,
         NOTHING
     };
 
@@ -53,10 +49,10 @@ public:
 
     public:
         /// @brief constructor
-        DottedGeometryColor(const GUIVisualizationSettings& settings);
+        DottedGeometryColor();
 
         /// @brief get inspected color (and change flag)
-        const RGBColor getColor(DottedContourType type);
+        const RGBColor getColor(const GUIVisualizationSettings& settings, DottedContourType type);
 
         /// @brief change color
         void changeColor();
@@ -65,9 +61,6 @@ public:
         void reset();
 
     private:
-        /// @brief pointer to GUIVisualizationSettings
-        const GUIVisualizationSettings& mySettings;
-
         /// @brief flag to get color
         bool myColorFlag;
 
@@ -115,7 +108,7 @@ public:
 
     /// @brief draw inspected dottedShape
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                            DottedGeometryColor& dottedGeometryColor, const double customWidth = 1) const;
+                            DottedGeometryColor *dottedGeometryColor, const bool drawSmall, double customContourWidth = 0) const;
 
     /// @brief move shape to side
     void moveShapeToSide(const double value);

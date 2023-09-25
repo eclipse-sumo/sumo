@@ -70,6 +70,9 @@ private:
     /// @brief pointer to cached scale
     double *myCachedScale;
 
+    /// @brief dotted geometry color
+    GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
+
     /// @brief pointer to dotted geometry A
     GUIDottedGeometry *myDottedGeometryA;
 
@@ -84,16 +87,16 @@ private:
                                         const PositionVector &shape, double width, double scale) const;
 
     /// @brief draw dotted contour rectangle
-    void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+    void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                             const PositionVector &shape, double width, double scale,
                                             const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
     /// @brief draw dotted contour squared
-    void buildAndDrawDottedContourSquared(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+    void buildAndDrawDottedContourSquared(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                           const Position &pos, double width, double height,
                                           double offsetX, double offsetY, double rot, double scale) const;
 
     /// @brief draw dotted contour circle
-    void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+    void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                          const Position &pos, double radius, double scale) const;
 };
