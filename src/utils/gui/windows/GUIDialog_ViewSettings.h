@@ -294,8 +294,8 @@ protected:
     FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
     FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
-    MFXComboBoxIcon* myParamKey = nullptr;
-    MFXComboBoxIcon* myScalingParamKey = nullptr;
+    FXComboBox* myParamKey = nullptr;
+    FXComboBox* myScalingParamKey = nullptr;
     MFXComboBoxIcon* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler
@@ -346,9 +346,9 @@ protected:
     FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
-    MFXComboBoxIcon* myVehicleParamKey = nullptr;
-    MFXComboBoxIcon* myVehicleScalingParamKey = nullptr;
-    MFXComboBoxIcon* myVehicleTextParamKey = nullptr;
+    FXComboBox* myVehicleParamKey = nullptr;
+    FXComboBox* myVehicleScalingParamKey = nullptr;
+    FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
     MFXComboBoxIcon* myPersonColorMode, *myPersonShapeDetail = nullptr;
@@ -384,7 +384,7 @@ protected:
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation = nullptr;
-    MFXComboBoxIcon* myPOITextParamKey = nullptr;
+    FXComboBox* myPOITextParamKey = nullptr;
     FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
