@@ -773,6 +773,20 @@ GNEVehicle::getPositionInView() const {
 }
 
 
+bool
+GNEVehicle::checkDrawRelatedContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're editing a type
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_TYPE) &&
+        (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 GUIGLObjectPopupMenu*
 GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (isAttributeCarrierSelected()) {
@@ -942,14 +956,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 mouseWithinGeometry(vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
                 // draw squared shape
                 drawDottedContour(myNet, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-            /*
-                if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                        (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_TYPE) &&
-                        (myNet->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->getCurrentType() == getParentDemandElements().front())) {
-                    // draw using drawDottedContourClosedShape
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::ORANGE, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
-                }
-            */
             }
             // pop name
             GLHelper::popName();

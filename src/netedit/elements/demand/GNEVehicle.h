@@ -158,6 +158,14 @@ public:
 
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with drawing
+    /// @{
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject
