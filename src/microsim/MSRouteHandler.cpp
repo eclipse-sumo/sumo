@@ -65,7 +65,8 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
     myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
-    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")) {
+    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")),
+    myAllowInternalRoutes(false) {
     myActiveRoute.reserve(100);
 }
 
