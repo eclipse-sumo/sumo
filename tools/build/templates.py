@@ -259,7 +259,7 @@ TOOLS = [
 
 
 PATH_MAPPING = {
-    "import/dxf" : "import"
+    "import/dxf": "import"
 }
 
 
