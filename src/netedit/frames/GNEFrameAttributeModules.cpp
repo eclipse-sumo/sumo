@@ -535,6 +535,8 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         }
     } else if (myACAttr.isColor()) {
         myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_COLOR, GUIDesignButtonAttribute);
+        // set icon
+        myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         // set color text depending of computed
         myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
