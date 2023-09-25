@@ -97,6 +97,22 @@ public:
 
     /// @}
 
+    /// @name Function related with drawing (can be implemented in children)
+    /// @{
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const;
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawOverContour() const;
+
+    /// @}
+
     /// @brief reset attribute carrier to their default values
     void resetDefaultValues();
 

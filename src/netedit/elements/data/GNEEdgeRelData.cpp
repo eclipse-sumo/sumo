@@ -281,10 +281,12 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 type = GUIDottedGeometry::DottedContourType::INSPECT;
             } else if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 type = GUIDottedGeometry::DottedContourType::FRONT;
-            } else if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        /*
+            } else if (myNet->getViewNet()->checkDrawDeleteContour(this)) {
                 type = GUIDottedGeometry::DottedContourType::REMOVE;
-            } else if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            } else if (myNet->getViewNet()->checkDrawSelectContour(this)) {
                 type = GUIDottedGeometry::DottedContourType::SELECT;
+        */
             }
             // draw dotted contour
             if (type != GUIDottedGeometry::DottedContourType::NOTHING) {

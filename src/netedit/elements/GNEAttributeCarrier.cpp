@@ -118,6 +118,30 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 }
 
 
+bool
+GNEAttributeCarrier::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawOverContour() const {
+    return false;
+}
+
+
 void
 GNEAttributeCarrier::resetDefaultValues() {
     for (const auto& attrProperty : myTagProperty) {

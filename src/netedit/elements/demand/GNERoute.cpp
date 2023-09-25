@@ -404,8 +404,10 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                                (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                               myNet->getViewNet()->drawDeleteContour(this, this) ||
-                               myNet->getViewNet()->drawSelectContour(this, this) ||
+                            /*
+                               myNet->getViewNet()->checkDrawDeleteContour(this) ||
+                               myNet->getViewNet()->checkDrawSelectContour(this) ||
+                            */
                                (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
@@ -501,8 +503,10 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                                (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                            /*
                                myNet->getViewNet()->drawDeleteContour(this, this) ||
                                myNet->getViewNet()->drawSelectContour(this, this) ||
+                            */
                                (gPostDrawing.markedRoute == this);
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&

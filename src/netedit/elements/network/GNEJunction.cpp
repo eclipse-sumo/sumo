@@ -140,6 +140,18 @@ GNEJunction::getPositionInView() const {
 }
 
 
+bool
+GNEJunction::checkDrawFromContour() const {
+    return true;
+}
+
+
+bool
+GNEJunction::checkDrawToContour() const {
+    return true;
+}
+
+
 GNEMoveOperation*
 GNEJunction::getMoveOperation() {
     // edit depending if shape is being edited
@@ -459,10 +471,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         myNet->getPathManager()->drawJunctionPathElements(s, this);
         // draw dotted contours
         if (junctionShape) {
-            drawDottedContoursShape(s, junctionExaggeration);
+            drawDottedContour(myNet, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (junctionBubble) {
-            drawDottedContoursBubble(s, junctionExaggeration);
+            drawDottedContour(myNet, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
 }
@@ -1516,7 +1528,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     }
 }
 
-
+/*
 void
 GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration) const {
     // get inspected ACs
@@ -1542,9 +1554,9 @@ GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const d
         } else if (vehicleOverJunctions->getParentJunctions().back() == this) {
             dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
         }
-    } else if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+    } else if (myNet->getViewNet()->checkDrawDeleteContour(this, this)) {
         dottedContourType = GUIDottedGeometry::DottedContourType::REMOVE;
-    } else if (myNet->getViewNet()->drawSelectContour(this, this)) {
+    } else if (myNet->getViewNet()->checkDrawSelectContour(this, this)) {
         dottedContourType = GUIDottedGeometry::DottedContourType::SELECT;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // get TLS junction
@@ -1564,21 +1576,13 @@ GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const d
             gPostDrawing.markedNode = this;
         }
     }
-/*
-    // check if draw dotted contour
-    if (dottedContourType != GUIDottedGeometry::DottedContourType::NOTHING) {
-        GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(),
-                s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-    }
-*/
-    // draw dotted contour
-    drawDottedContour(myNet, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+
 }
 
 
 
 void
-GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& /*s*/, const double junctionExaggeration) const {
+GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& /*s, const double junctionExaggeration) const {
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if mouse is over junction
@@ -1625,9 +1629,9 @@ GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& /*s*/, cons
         }
     }
     // draw dotted contour
-    drawDottedContour(myNet, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
-}
 
+}
+*/
 
 void
 GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {

@@ -59,7 +59,7 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return settings.dottedContourSettings.secondFrontColor;
             }
-        case DottedContourType::GREEN:
+        case DottedContourType::FROM:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::GREEN;
@@ -67,7 +67,7 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return RGBColor::GREEN.changedBrightness(-30);
             }
-        case DottedContourType::MAGENTA:
+        case DottedContourType::TO:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::MAGENTA;
@@ -91,7 +91,7 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return RGBColor::BLUE.changedBrightness(-30);
             }
-        case DottedContourType::ORANGE:
+        case DottedContourType::OVER:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::ORANGE;
@@ -99,7 +99,7 @@ GUIDottedGeometry::DottedGeometryColor::getColor(const GUIVisualizationSettings&
                 myColorFlag = true;
                 return RGBColor::ORANGE.changedBrightness(-30);
             }
-        case DottedContourType::YELLOW:
+        case DottedContourType::RELATED:
             if (myColorFlag) {
                 myColorFlag = false;
                 return RGBColor::YELLOW;

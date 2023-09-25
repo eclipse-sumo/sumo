@@ -1749,7 +1749,9 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
+    // get GLObject
+    const auto GLObject = AC->getGUIGlObject();
     // first check disableDottedContours flag
     if (myVisualizationSettings->disableDottedContours) {
         return false;
@@ -1789,7 +1791,9 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
 
 
 bool
-GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
+GNEViewNet::checkDrawSelectContour(GNEAttributeCarrier* AC) const {
+    // get GLObject
+    const auto GLObject = AC->getGUIGlObject();
     // first check disableDottedContours flag
     if (myVisualizationSettings->disableDottedContours) {
         return false;
