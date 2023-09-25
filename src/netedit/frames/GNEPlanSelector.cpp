@@ -90,7 +90,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, GNETagProperties::TagTyp
     myTagType(type),
     myCurrentPlanTemplate(nullptr) {
     // Create MFXComboBoxIcon
-    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxSizeLarge,
+    myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsLarge,
                                           this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // get net
     auto net = frameParent->getViewNet()->getNet();
