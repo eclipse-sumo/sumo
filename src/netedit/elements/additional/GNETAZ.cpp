@@ -261,6 +261,73 @@ GNETAZ::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElemen
 }
 
 
+bool
+GNETAZ::checkDrawFromContour() const {
+    // check conditions
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if starts in TAZ
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
+            return true;
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
+bool
+GNETAZ::checkDrawToContour() const {
+    // check conditions
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        // get inspected element
+        const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+        // check if ends in TAZ
+        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
+            return true;
+        }
+    }
+    // nothing to draw
+    return false;
+}
+
+
+bool
+GNETAZ::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNETAZ::checkDrawOverContour() const {
+    /*
+    // now check if mouse is over TAZ
+    if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
+        // get dotted contour type
+        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::FROMTAZ : GUIDottedGeometry::DottedContourType::TOTAZ;
+        // draw depending if is closed
+        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
+            if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
+                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
+            }
+        } else {
+            // scale shape
+            auto scaledShape = myAdditionalGeometry.getShape();
+            scaledShape.scaleAbsolute(1);
+            // check if mouse is around scaled shape
+            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
+                    (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
+                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
+            }
+        }
+    }
+    */
+
+    return false;
+}
+
+
 std::string
 GNETAZ::getParentName() const {
     return myNet->getMicrosimID();
@@ -403,7 +470,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape());
         // draw dotted contours
-        drawDottedContours(s, TAZExaggeration);
+        drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+        drawDottedContour(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
@@ -659,47 +727,6 @@ GNETAZ::updateTAZStatistic() {
 // ===========================================================================
 // private
 // ===========================================================================
-
-void
-GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const {
-    // get TAZRelDataFrame
-    // const auto TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-    // draw dotted contours
-    drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
-    drawDottedContour(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
-
-/*
-    // check if we're selecting TAZs
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-        // check if we're creating a trip or flow over taz
-        const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-        if (templateAC && ((templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS) || (templateAC->getTagProperty().getTag() == GNE_TAG_TRIP_TAZS))) {
-            GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::ORANGE, myAdditionalGeometry.getShape(), 1, );
-        }
-    }
-    // now check if mouse is over TAZ
-    if (TAZRelDataFrame->shown() && (gPostDrawing.markedTAZ == nullptr) && ((TAZRelDataFrame->getFirstTAZ() == nullptr) || (TAZRelDataFrame->getSecondTAZ() == nullptr))) {
-        // get dotted contour type
-        const auto dottedContourType = (TAZRelDataFrame->getFirstTAZ() == nullptr) ? GUIDottedGeometry::DottedContourType::FROMTAZ : GUIDottedGeometry::DottedContourType::TOTAZ;
-        // draw depending if is closed
-        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
-            if (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation())) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
-            }
-        } else {
-            // scale shape
-            auto scaledShape = myAdditionalGeometry.getShape();
-            scaledShape.scaleAbsolute(1);
-            // check if mouse is around scaled shape
-            if ((scaledShape.around(myNet->getViewNet()->getPositionInformation()) && (scaledShape.distance2D(myNet->getViewNet()->getPositionInformation()) <= 1.3)) ||
-                    (myAdditionalGeometry.getShape().around(myNet->getViewNet()->getPositionInformation()) && (myAdditionalGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= 1))) {
-                GUIDottedGeometry::drawDottedContourClosedShape(s, dottedContourType, myAdditionalGeometry.getShape(), 1);
-            }
-        }
-    }
-*/
-}
-
 
 void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {

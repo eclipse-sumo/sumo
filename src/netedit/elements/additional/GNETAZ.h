@@ -110,6 +110,22 @@ public:
 
     /// @}
 
+    /// @name Function related with drawing
+    /// @{
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
 
@@ -211,9 +227,6 @@ private:
 
     /// @brief Average Sink weight
     double myAverageWeightSink;
-
-    /// @brief draw dotted contours
-    void drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
