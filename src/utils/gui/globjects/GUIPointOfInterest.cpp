@@ -146,13 +146,6 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
                                                width * -0.5 * exaggeration, height * -0.5 * exaggeration,
                                                width * 0.5 * exaggeration,  height * 0.5 * exaggeration);
         }
-    } else if (POI->getIcon() != POIIcon::NONE) {
-        // set White color
-        //glColor3d(1, 1, 1);
-        // rotate
-        glRotated(180, 0, 0, 1);
-        // draw texture
-        GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration);
     } else {
         // fallback if no image is defined
         if (s.drawForPositionSelection) {
@@ -160,6 +153,15 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         } else {
             // draw filled circle saving vertices
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, s.poiDetail);
+        }
+        // check if draw polygon
+        if (POI->getIcon() != POIIcon::NONE) {
+            // translate
+            glTranslated(0, 0, 0.1);
+            // rotate
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration);
         }
     }
     GLHelper::popMatrix();
