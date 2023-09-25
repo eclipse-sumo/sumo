@@ -80,7 +80,7 @@ public:
 
     /// @}
 
-    /// @name Function related with drawing (can be implemented in children)
+    /// @name Function related with drawing
     /// @{
     /// @brief check if draw from contour (green)
     bool checkDrawFromContour() const;
@@ -88,7 +88,7 @@ public:
     /// @brief check if draw from contour (magenta)
     bool checkDrawToContour() const;
 
-    /// @brief check if draw related contour (yellow)
+    /// @brief check if draw related contour (cyan)
     bool checkDrawRelatedContour() const;
 
     /// @brief check if draw over contour (orange)

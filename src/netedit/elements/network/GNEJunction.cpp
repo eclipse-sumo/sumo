@@ -149,9 +149,7 @@ GNEJunction::checkDrawFromContour() const {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if starts in junction
-        if (inspectedAC->getTagProperty().planFromJunction() && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
-            return true;
-        } else if (inspectedAC->getTagProperty().vehicleOverFromToJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
@@ -174,9 +172,7 @@ GNEJunction::checkDrawToContour() const {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if ends in junction
-        if (inspectedAC->getTagProperty().planToJunction() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
-            return true;
-        } else if (inspectedAC->getTagProperty().vehicleOverFromToJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
