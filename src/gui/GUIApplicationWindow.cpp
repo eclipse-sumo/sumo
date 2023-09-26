@@ -55,6 +55,7 @@
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
@@ -240,6 +241,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
+    // init Textures
+    GUITextureSubSys::initTextures(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
     // disable tooltips
