@@ -229,9 +229,6 @@ protected:
     /// @brief whether loaded rerouting events shall be replayed
     bool myReplayRerouting;
 
-    /// @brief whether references to internal routes are allowed in this context
-    bool myAllowInternalRoutes;
-
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;
 

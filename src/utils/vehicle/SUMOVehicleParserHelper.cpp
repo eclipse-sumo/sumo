@@ -330,7 +330,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart) {
+SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart, const bool allowInternalRoutes) {
     // declare vehicle ID
     std::string id;
     // for certain vehicles, ID can be optional
@@ -356,7 +356,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttrib
         }
         // parse common attributes
         try {
-            parseCommonAttributes(attrs, vehicleParameter, (SumoXMLTag)element);
+            parseCommonAttributes(attrs, vehicleParameter, (SumoXMLTag)element, allowInternalRoutes);
         } catch (ProcessError& attributeError) {
             // check if continue handling another vehicles or stop handling
             if (hardFail) {

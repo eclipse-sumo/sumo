@@ -47,7 +47,8 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
     myFirstDepart(-1),
-    myInsertStopEdgesAt(-1) {
+    myInsertStopEdgesAt(-1),
+    myAllowInternalRoutes(false) {
 }
 
 
@@ -93,7 +94,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             delete myVehicleParameter;
             // we set to nullptr to have a consistent state if the parsing fails
             myVehicleParameter = nullptr;
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail, false, false, myAllowInternalRoutes);
             if (element != SUMO_TAG_VEHICLE) {
                 addTransportable(attrs, element == SUMO_TAG_PERSON);
             }
@@ -108,7 +109,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // might be called to parse vehicles from additional file in the
             // context of quickReload. In this case, rerouter flows must be ignored
             if (myElementStack.size() == 1 || myElementStack[myElementStack.size() - 2] != SUMO_TAG_CALIBRATOR) {
-                myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
+                myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault, myAllowInternalRoutes);
             }
             // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
@@ -130,7 +131,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myVehicleParameter = nullptr;
             }
             // create a new flow
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes((SumoXMLTag)element, attrs, myHardFail, true, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes((SumoXMLTag)element, attrs, myHardFail, true, myBeginDefault, myEndDefault, myAllowInternalRoutes);
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null
@@ -160,7 +161,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myVehicleParameter = nullptr;
             }
             // parse vehicle parameters
-            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail);
+            myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, myHardFail, false, false, myAllowInternalRoutes);
             // check if myVehicleParameter was successfully created
             if (myVehicleParameter) {
                 myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;

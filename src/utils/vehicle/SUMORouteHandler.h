@@ -257,6 +257,9 @@ protected:
     /// @brief hierachy of elements being parsed
     std::vector<int> myElementStack;
 
+    /// @brief whether references to internal routes are allowed in this context
+    bool myAllowInternalRoutes;
+
 private:
     /// @brief Invalidated copy constructor
     SUMORouteHandler(const SUMORouteHandler& s) = delete;

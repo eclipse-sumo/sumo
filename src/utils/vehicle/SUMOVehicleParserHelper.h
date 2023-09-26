@@ -74,12 +74,12 @@ public:
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] optionalID Whether the id shall be skipped (Used only in Calibrator Flows)
      * @param[in] skipDepart Whether parsing the departure time shall be skipped
-     * @param[in] isPerson   Whether a person is parsed
+     * @param[in] allowInternalRoutes whether references to internal routes are allowed in this context
      * @return The parsed attribute structure if no error occurred, 0 otherwise
      * @exception ProcessError If an attribute's value is invalid
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVehicleParameter* parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID = false, const bool skipDepart = false);
+    static SUMOVehicleParameter* parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID = false, const bool skipDepart = false, const bool allowInternalRoutes = false);
 
     /** @brief Starts to parse a vehicle type
      *
