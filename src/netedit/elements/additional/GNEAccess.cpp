@@ -250,7 +250,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
             // draw dotted contour
-            drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            drawDottedContourCircle(myNet, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

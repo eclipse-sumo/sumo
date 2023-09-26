@@ -475,8 +475,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape());
         // draw dotted contours
-        drawDottedContour(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 1);
-        drawDottedContour(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+        drawDottedContourClosed(myNet, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 1);
+        drawDottedContourCircle(myNet, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);

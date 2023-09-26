@@ -385,7 +385,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // draw depending if is closed
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
             // draw dotted contour
-            drawDottedContour(myNet, myPolygonGeometry.getShape(), 1, 1);
+            drawDottedContourClosed(myNet, myPolygonGeometry.getShape(), 1, 1);
         } else {
             // draw dotted geometry
             drawDottedContourExtruded(myNet, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration, true, true);

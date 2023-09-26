@@ -263,7 +263,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                             myAdditionalGeometry.getShapeRotations().front());
 
         // draw dotted contour
-        drawDottedContour(myNet, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
+        drawDottedContourRectangle(myNet, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
         // pop gl identificator
         GLHelper::popName();
         // draw additional name

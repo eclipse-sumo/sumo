@@ -955,7 +955,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // check if mouse is over element
                 mouseWithinGeometry(vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
                 // draw squared shape
-                drawDottedContour(myNet, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                drawDottedContourRectangle(myNet, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
             }
             // pop name
             GLHelper::popName();

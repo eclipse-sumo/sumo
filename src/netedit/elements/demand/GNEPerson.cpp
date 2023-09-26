@@ -428,7 +428,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
             // draw dotted contour
-            drawDottedContour(myNet, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+            drawDottedContourRectangle(myNet, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
         }
     }
 }

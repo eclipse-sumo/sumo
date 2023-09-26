@@ -386,9 +386,9 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw contour
             if (getShapeImgFile().empty()) {
-                drawDottedContour(myNet, *this, 1.3, POIExaggeration);
+                drawDottedContourCircle(myNet, *this, 1.3, POIExaggeration);
             } else {
-                drawDottedContour(myNet, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
+                drawDottedContourRectangle(myNet, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
             }
         }
     }
