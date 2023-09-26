@@ -102,6 +102,30 @@ GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, co
 }
 
 
+bool
+GNEVariableSpeedSignSymbol::checkDrawInspectContour() const {
+    return getParentAdditionals().at(0)->checkDrawInspectContour();
+}
+
+
+bool
+GNEVariableSpeedSignSymbol::checkDrawFrontContour() const {
+    return getParentAdditionals().at(0)->checkDrawFrontContour();
+}
+
+
+bool
+GNEVariableSpeedSignSymbol::checkDrawDeleteContour() const {
+    return getParentAdditionals().at(0)->checkDrawDeleteContour();
+}
+
+
+bool
+GNEVariableSpeedSignSymbol::checkDrawSelectContour() const {
+    return getParentAdditionals().at(0)->checkDrawSelectContour();
+}
+
+
 std::string
 GNEVariableSpeedSignSymbol::getParentName() const {
     return getParentAdditionals().at(0)->getID();
@@ -170,7 +194,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
             }
             // draw dotted contour
-            drawDottedContourCircle(myNet, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration, getParentAdditionals().front());
+            drawDottedContourCircle(myNet, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
     }
 }

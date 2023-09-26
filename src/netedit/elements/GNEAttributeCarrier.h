@@ -111,6 +111,18 @@ public:
     /// @brief check if draw over contour (orange)
     virtual bool checkDrawOverContour() const;
 
+    /// @brief check if draw inspect contour (black/white)
+    virtual bool checkDrawInspectContour() const;
+
+    /// @brief check if draw front contour (green/blue)
+    virtual bool checkDrawFrontContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    virtual bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    virtual bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @brief reset attribute carrier to their default values

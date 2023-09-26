@@ -120,24 +120,52 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 
 bool
 GNEAttributeCarrier::checkDrawFromContour() const {
+    // implement in child
     return false;
 }
 
 
 bool
 GNEAttributeCarrier::checkDrawToContour() const {
+    // implement in child
     return false;
 }
 
 
 bool
 GNEAttributeCarrier::checkDrawRelatedContour() const {
+    // implement in child
     return false;
 }
 
 
 bool
 GNEAttributeCarrier::checkDrawOverContour() const {
+    // implement in child
+    return false;
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawInspectContour() const {
+    return myNet->getViewNet()->isAttributeCarrierInspected(this);
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawFrontContour() const {
+    return (myNet->getViewNet()->getFrontAttributeCarrier() == this);
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEAttributeCarrier::checkDrawSelectContour() const {
     return false;
 }
 

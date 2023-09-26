@@ -120,6 +120,30 @@ GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENe
 }
 
 
+bool
+GNERerouterSymbol::checkDrawInspectContour() const {
+    return getParentAdditionals().at(0)->checkDrawInspectContour();
+}
+
+
+bool
+GNERerouterSymbol::checkDrawFrontContour() const {
+    return getParentAdditionals().at(0)->checkDrawFrontContour();
+}
+
+
+bool
+GNERerouterSymbol::checkDrawDeleteContour() const {
+    return getParentAdditionals().at(0)->checkDrawDeleteContour();
+}
+
+
+bool
+GNERerouterSymbol::checkDrawSelectContour() const {
+    return getParentAdditionals().at(0)->checkDrawSelectContour();
+}
+
+
 std::string
 GNERerouterSymbol::getParentName() const {
     return getParentAdditionals().at(0)->getID();
@@ -202,8 +226,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            drawDottedContourRectangle(myNet, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90,
-                                       rerouteExaggeration, getParentAdditionals().front());
+            drawDottedContourRectangle(myNet, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }
 }

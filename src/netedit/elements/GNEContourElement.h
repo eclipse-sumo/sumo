@@ -52,12 +52,10 @@ protected:
 
     /// @brief draw dotted contour (for rectangled elements)
     void drawDottedContourRectangle(const GNENet *net, const Position &pos, const double width, const double height,
-                                    const double offsetX, const double offsetY, const double rot, const double scale,
-                                    GNEAdditional* parent = nullptr) const;
+                                    const double offsetX, const double offsetY, const double rot, const double scale) const;
 
     /// @brief draw dotted contour (circle)
-    void drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale,
-                                 GNEAttributeCarrier* parent = nullptr) const;
+    void drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale) const;
 
     /// @brief draw dotted contour edge
     void drawDottedContourEdge(const GNEEdge* edge) const;

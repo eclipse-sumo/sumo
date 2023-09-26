@@ -82,11 +82,11 @@ GNEContourElement::drawDottedContourClosed(const GNENet *net, const PositionVect
             buildAndDrawDottedContourClosed(s, GUIDottedGeometry::DottedContourType::OVER, shape, width, scale);
         }
         // inspect contour
-        if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        if (myAC->checkDrawInspectContour()) {
             buildAndDrawDottedContourClosed(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, width, scale);
         }
         // front contour
-        if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        if (myAC->checkDrawFrontContour()) {
             buildAndDrawDottedContourClosed(s, GUIDottedGeometry::DottedContourType::FRONT, shape, width, scale);
         }
         // delete contour
@@ -126,12 +126,12 @@ GNEContourElement::drawDottedContourExtruded(const GNENet *net, const PositionVe
                                               scale, drawFirstExtrem, drawLastExtrem);
         }
         // inspect contour
-        if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        if (myAC->checkDrawInspectContour()) {
             buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, extrusionWidth,
                                               scale, drawFirstExtrem, drawLastExtrem);
         }
         // front contour
-        if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        if (myAC->checkDrawFrontContour()) {
             buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::FRONT, shape, extrusionWidth,
                                               scale, drawFirstExtrem, drawLastExtrem);
         }
@@ -151,14 +151,11 @@ GNEContourElement::drawDottedContourExtruded(const GNENet *net, const PositionVe
 
 void
 GNEContourElement::drawDottedContourRectangle(const GNENet *net, const Position &pos, const double width, const double height,
-                                              const double offsetX, const double offsetY, const double rot, const double scale,
-                                              GNEAdditional* parent) const {
+                                              const double offsetX, const double offsetY, const double rot, const double scale) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // first check if draw dotted contour
     if (s.drawDottedContour(scale)) {
-        // check if we're handling symbol
-        GNEAttributeCarrier* AC = parent? parent : myAC;
         // basic contours
         if (myAC->checkDrawFromContour()) {
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FROM, pos, width, height, offsetX, offsetY, rot, scale);
@@ -173,19 +170,19 @@ GNEContourElement::drawDottedContourRectangle(const GNENet *net, const Position 
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::OVER, pos, width, height, offsetX, offsetY, rot, scale);
         }
         // inspect contour
-        if (net->getViewNet()->isAttributeCarrierInspected(AC)) {
+        if (myAC->checkDrawInspectContour()) {
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::INSPECT, pos, width, height, offsetX, offsetY, rot, scale);
         }
         // front contour
-        if (net->getViewNet()->getFrontAttributeCarrier() == AC) {
+        if (myAC->checkDrawFrontContour()) {
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FRONT, pos, width, height, offsetX, offsetY, rot, scale);
         }
         // delete contour
-        if (net->getViewNet()->checkDrawDeleteContour(AC)) {
+        if (net->getViewNet()->checkDrawDeleteContour(myAC)) {
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, width, height, offsetX, offsetY, rot, scale);
         }
         // select contour
-        if (net->getViewNet()->checkDrawSelectContour(AC)) {
+        if (net->getViewNet()->checkDrawSelectContour(myAC)) {
             buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::SELECT, pos, width, height, offsetX, offsetY, rot, scale);
         }
     }
@@ -193,13 +190,11 @@ GNEContourElement::drawDottedContourRectangle(const GNENet *net, const Position 
 
 
 void
-GNEContourElement::drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale, GNEAttributeCarrier* parent) const {
+GNEContourElement::drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // first check if draw dotted contour
     if (s.drawDottedContour(scale)) {
-        // check if we're handling symbol
-        GNEAttributeCarrier* AC = parent? parent : myAC;
         // basic contours
         if (myAC->checkDrawFromContour()) {
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FROM, pos, radius, scale);
@@ -214,19 +209,19 @@ GNEContourElement::drawDottedContourCircle(const GNENet *net, const Position &po
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::OVER, pos, radius, scale);
         }
         // inspect contour
-        if (net->getViewNet()->isAttributeCarrierInspected(AC)) {
+        if (myAC->checkDrawInspectContour()) {
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, pos, radius, scale);
         }
         // front contour
-        if (net->getViewNet()->getFrontAttributeCarrier() == AC) {
+        if (myAC->checkDrawFrontContour()) {
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, pos, radius, scale);
         }
         // delete contour
-        if (net->getViewNet()->checkDrawDeleteContour(AC)) {
+        if (net->getViewNet()->checkDrawDeleteContour(myAC)) {
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, pos, radius, scale);
         }
         // select contour
-        if (net->getViewNet()->checkDrawSelectContour(AC)) {
+        if (net->getViewNet()->checkDrawSelectContour(myAC)) {
             buildAndDrawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, pos, radius, scale);
         }
     }
@@ -255,11 +250,11 @@ GNEContourElement::drawDottedContourEdge(const GNEEdge* edge) const {
             buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::OVER, edge);
         }
         // inspect contour
-        if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
+        if (myAC->checkDrawInspectContour()) {
             buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, edge);
         }
         // front contour
-        if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
+        if (myAC->checkDrawFrontContour()) {
             buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, edge);
         }
         // delete contour
