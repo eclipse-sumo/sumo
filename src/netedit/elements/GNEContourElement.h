@@ -58,7 +58,7 @@ protected:
     void drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale, GNEAttributeCarrier* parent = nullptr) const;
 
     /// @brief draw dotted contour edge
-    void drawDottedContour(const GNEEdge* edge) const;
+    void drawDottedContourEdge(const GNEEdge* edge) const;
 
 private:
     /// @brief pointer to AC
@@ -70,8 +70,14 @@ private:
     /// @brief pointer to cached shape
     PositionVector *myCachedShape;
 
-    /// @brief pointer to cached scale
-    double *myCachedScale;
+    /// @brief pointer to cached width
+    double *myCachedWidth;
+
+    /// @brief pointer to cached height
+    double *myCachedHeight;
+
+    /// @brief pointer to cached rot
+    double *myCachedRot;
 
     /// @brief dotted geometry color
     GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
