@@ -438,7 +438,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         // check if mouse is over element
         mouseWithinGeometry(shape, s.detectorSettings.E2Width);
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, myAdditionalGeometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
+        drawDottedContourExtruded(myNet, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
     }
 }
 
@@ -466,12 +466,18 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         }
         // draw lane2lane
         if (fromLane->getLane2laneConnections().exist(toLane)) {
+            // get geometry
+            const auto &connectionGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // check if draw only contour
             if (onlyContour) {
-                GUIGeometry::drawContourGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+                GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);
             } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), connectionGeometry, E2DetectorWidth);
             }
+            // check if mouse is over element
+            mouseWithinGeometry(connectionGeometry.getShape(), s.detectorSettings.E2Width);
+            // draw dotted geometry
+            drawDottedContourExtruded(myNet, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false);
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
@@ -484,20 +490,13 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 // draw invalid geometry
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
             }
+            // draw dotted geometry
+            drawDottedContourExtruded(myNet, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false);
         }
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
         GLHelper::popName();
-        // continue with dotted contours
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
-            // get shape
-            const auto &shape = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape();
-            // check if mouse is over element
-            mouseWithinGeometry(shape, s.detectorSettings.E2Width);
-            // draw dotted geometry
-            drawDottedContourExtruded(myNet, shape, E2DetectorWidth, 1, true, true);
-        }
     }
 }
 
