@@ -136,7 +136,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
     const double exaggeration = o->getExaggeration(s);
     GLHelper::pushMatrix();
     setColor(s, POI, o, disableSelectionColor);
-    glTranslated(POI->x(), POI->y(), layer);
+    // add extra offset z provided by icon to avoid overlapping
+    glTranslated(POI->x(), POI->y(), layer + (double)POI->getIcon());
     glRotated(-POI->getShapeNaviDegree(), 0, 0, 1);
     // check if has to be drawn as a circle or with an image
     if (POI->getShapeImgFile() != DEFAULT_IMG_FILE) {

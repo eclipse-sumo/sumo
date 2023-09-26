@@ -1834,9 +1834,9 @@ enum class TrainType {
 
 /// @brief POI icons
 enum class POIIcon {
-    TREE,
-    HOTEL,
-    NONE
+    TREE = 1,
+    HOTEL = 2,
+    NONE = 0,
 };
 
 // @}
