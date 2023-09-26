@@ -100,8 +100,8 @@ Ubuntu, Debian and Arch users please see the community repositories above.
 You can read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
 
 "Bottles" are available for installing with
-[Homebrew](https://brew.sh/). They are built for two of the most recent
-major macOS versions (currently Catalina and Big Sur) and are built
+[Homebrew](https://brew.sh/). They are built for three of the most recent
+major macOS versions (currently Big Sur, Monterey and Ventura) and are built
 from source with minimal requirements (fox, proj, xerces-c). If you need
 optional libraries, you can specify these on the brew command line and
 brew will compile SUMO from source. For details, see the [Formula's
