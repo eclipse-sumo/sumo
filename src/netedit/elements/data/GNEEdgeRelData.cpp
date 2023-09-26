@@ -207,12 +207,17 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
-            // draw dotted contour
-            drawDottedContourEdge(laneEdge->getParentEdge());
         }
         // Pop name
         if (!onlyDrawContour) {
             GLHelper::popName();
+        }
+        // draw dotted contour
+        if (getParentEdges().front() == lane->getParentEdge()) {
+            drawDottedContourEdge(getParentEdges().front(), true, false);
+        }
+        if (getParentEdges().back() == lane->getParentEdge()) {
+            drawDottedContourEdge(getParentEdges().back(), false, true);
         }
     }
 }

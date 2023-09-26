@@ -229,7 +229,7 @@ GNEContourElement::drawDottedContourCircle(const GNENet *net, const Position &po
 
 
 void
-GNEContourElement::drawDottedContourEdge(const GNEEdge* edge) const {
+GNEContourElement::drawDottedContourEdge(const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const {
     // get net
     const auto &net = edge->getNet();
     // get VisualisationSettings
@@ -238,32 +238,32 @@ GNEContourElement::drawDottedContourEdge(const GNEEdge* edge) const {
     if (s.drawDottedContour(1)) {
         // basic contours
         if (myAC->checkDrawFromContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FROM, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FROM, edge, drawFirstExtrem, drawLastExtrem);
         }
         if (myAC->checkDrawToContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::TO, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::TO, edge, drawFirstExtrem, drawLastExtrem);
         }
         if (myAC->checkDrawRelatedContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::RELATED, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::RELATED, edge, drawFirstExtrem, drawLastExtrem);
         }
         if (myAC->checkDrawOverContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::OVER, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::OVER, edge, drawFirstExtrem, drawLastExtrem);
         }
         // inspect contour
         if (myAC->checkDrawInspectContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT, edge, drawFirstExtrem, drawLastExtrem);
         }
         // front contour
         if (myAC->checkDrawFrontContour()) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT, edge, drawFirstExtrem, drawLastExtrem);
         }
         // delete contour
         if (net->getViewNet()->checkDrawDeleteContour(myAC)) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE, edge, drawFirstExtrem, drawLastExtrem);
         }
         // select contour
         if (net->getViewNet()->checkDrawSelectContour(myAC)) {
-            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, edge);
+            buildAndDrawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT, edge, drawFirstExtrem, drawLastExtrem);
         }
     }
 }
@@ -410,14 +410,14 @@ GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSetting
 
 void
 GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                                 const GNEEdge* edge) const {
+                                                 const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const {
     // continue depending of lanes
     if (edge->getLanes().size() == 1) {
         // get lane constants
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
         // draw dottes contours
         buildAndDrawDottedContourExtruded(s, type, edge->getLanes().front()->getLaneShape(),
-                                          laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration, true, true);
+                                          laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration, drawFirstExtrem, drawLastExtrem);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -441,7 +441,7 @@ GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings&
             // invert offset of top dotted geometry
             myDottedGeometryA->invertOffset();
             // calculate extremes
-            *myDottedGeometryC = GUIDottedGeometry(s, *myDottedGeometryA, true, *myDottedGeometryB, true);
+            *myDottedGeometryC = GUIDottedGeometry(s, *myDottedGeometryA, drawFirstExtrem, *myDottedGeometryB, drawLastExtrem);
             // update cached shape
             *myCachedShape = edgeShape;
         }

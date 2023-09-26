@@ -58,7 +58,7 @@ protected:
     void drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale) const;
 
     /// @brief draw dotted contour edge
-    void drawDottedContourEdge(const GNEEdge* edge) const;
+    void drawDottedContourEdge(const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
 private:
     /// @brief pointer to AC
@@ -114,5 +114,5 @@ private:
 
     /// @brief draw dotted contour edge
     void buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                       const GNEEdge* edge) const;
+                                       const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
 };

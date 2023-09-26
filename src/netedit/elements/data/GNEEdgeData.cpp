@@ -248,7 +248,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // draw dotted geometry
-            drawDottedContourEdge(laneEdge->getParentEdge());
+            drawDottedContourEdge(laneEdge->getParentEdge(), true, true);
         }
         // Pop name
         if (!onlyDrawContour) {
