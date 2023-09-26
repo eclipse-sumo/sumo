@@ -273,6 +273,8 @@ GNEContourElement::buildAndDrawDottedContourShape(const GUIVisualizationSettings
             *myCachedShape = shape;
             *myCachedScale = scale;
         }
+        // reset dotted geometry color
+        myDottedGeometryColor->reset();
         // Push draw matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -306,6 +308,8 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
         // finally update cached shape
         *myCachedShape = shape;
     }
+    // reset dotted geometry color
+    myDottedGeometryColor->reset();
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -349,7 +353,7 @@ GNEContourElement::buildAndDrawDottedContourSquared(const GUIVisualizationSettin
 
 void
 GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                                   const Position &pos,double radius, double scale) const {
+                                                   const Position &pos, double radius, double scale) const {
     // continue depending of radius and scale
     if ((radius * scale) < 2) {
         buildAndDrawDottedContourShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), radius, scale);
