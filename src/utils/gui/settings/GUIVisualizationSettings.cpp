@@ -2444,7 +2444,9 @@ GUIVisualizationSettings::getCircleResolution() const {
 
 bool
 GUIVisualizationSettings::drawDottedContour(const double exaggeration) const {
-    if (drawForPositionSelection || drawForRectangleSelection) {
+    if (disableDottedContours) {
+        return false;
+    } else if (drawForPositionSelection || drawForRectangleSelection) {
         return false;
     } else {
         return (scale * exaggeration) > 3.;

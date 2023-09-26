@@ -528,13 +528,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse within geometry
             mouseWithinGeometry(myNBNode->getShape());
             // draw dotted contour
-            drawDottedContourClosed(myNet, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            drawDottedContourClosed(s, myNBNode->getShape(), 1, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
         if (junctionBubble) {
             // check mouse within bubble
             mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
             // draw dotted contour
-            drawDottedContourCircle(myNet, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
+            drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
         }
     }
 }

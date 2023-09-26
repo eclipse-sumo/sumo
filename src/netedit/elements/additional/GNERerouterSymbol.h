@@ -97,10 +97,10 @@ public:
     bool checkDrawFrontContour() const;
 
     /// @brief check if draw delete contour (pink/white)
-    bool checkDrawDeleteContour() const;
+    bool checkDrawDeleteContour();
 
     /// @brief check if draw select contour (blue)
-    bool checkDrawSelectContour() const;
+    bool checkDrawSelectContour();
 
     /// @}
 

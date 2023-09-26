@@ -44,21 +44,21 @@ protected:
     ~GNEContourElement();
 
     /// @brief draw dotted contour (for closed shapes)
-    void drawDottedContourClosed(const GNENet *net, const PositionVector &shape, const double width, const double scale) const;
+    void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape, const double width, const double scale) const;
 
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
-    void drawDottedContourExtruded(const GNENet *net, const PositionVector &shape, const double extrusionWidth, const double scale,
+    void drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape, const double extrusionWidth, const double scale,
                                    const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
     /// @brief draw dotted contour (for rectangled elements)
-    void drawDottedContourRectangle(const GNENet *net, const Position &pos, const double width, const double height,
+    void drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width, const double height,
                                     const double offsetX, const double offsetY, const double rot, const double scale) const;
 
     /// @brief draw dotted contour (circle)
-    void drawDottedContourCircle(const GNENet *net, const Position &pos, double radius, const double scale) const;
+    void drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, double radius, const double scale) const;
 
     /// @brief draw dotted contour edge
-    void drawDottedContourEdge(const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
+    void drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
 private:
     /// @brief pointer to AC

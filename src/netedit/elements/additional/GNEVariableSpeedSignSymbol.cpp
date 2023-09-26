@@ -115,13 +115,13 @@ GNEVariableSpeedSignSymbol::checkDrawFrontContour() const {
 
 
 bool
-GNEVariableSpeedSignSymbol::checkDrawDeleteContour() const {
+GNEVariableSpeedSignSymbol::checkDrawDeleteContour() {
     return getParentAdditionals().at(0)->checkDrawDeleteContour();
 }
 
 
 bool
-GNEVariableSpeedSignSymbol::checkDrawSelectContour() const {
+GNEVariableSpeedSignSymbol::checkDrawSelectContour() {
     return getParentAdditionals().at(0)->checkDrawSelectContour();
 }
 
@@ -194,7 +194,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
             }
             // draw dotted contour
-            drawDottedContourCircle(myNet, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
+            drawDottedContourCircle(s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
     }
 }

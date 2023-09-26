@@ -214,10 +214,10 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         }
         // draw dotted contour
         if (getParentEdges().front() == lane->getParentEdge()) {
-            drawDottedContourEdge(getParentEdges().front(), true, false);
+            drawDottedContourEdge(s, getParentEdges().front(), true, false);
         }
         if (getParentEdges().back() == lane->getParentEdge()) {
-            drawDottedContourEdge(getParentEdges().back(), false, true);
+            drawDottedContourEdge(s, getParentEdges().back(), false, true);
         }
     }
 }

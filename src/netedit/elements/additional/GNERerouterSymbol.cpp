@@ -133,13 +133,13 @@ GNERerouterSymbol::checkDrawFrontContour() const {
 
 
 bool
-GNERerouterSymbol::checkDrawDeleteContour() const {
+GNERerouterSymbol::checkDrawDeleteContour() {
     return getParentAdditionals().at(0)->checkDrawDeleteContour();
 }
 
 
 bool
-GNERerouterSymbol::checkDrawSelectContour() const {
+GNERerouterSymbol::checkDrawSelectContour() {
     return getParentAdditionals().at(0)->checkDrawSelectContour();
 }
 
@@ -226,7 +226,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw dotted contour
         for (const auto& symbolGeometry : mySymbolGeometries) {
-            drawDottedContourRectangle(myNet, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
+            drawDottedContourRectangle(s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
         }
     }
 }

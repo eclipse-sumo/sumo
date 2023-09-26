@@ -1299,7 +1299,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
     // draw dotted geometry
-    drawDottedContourExtruded(myNet, myDemandElementGeometry.getShape(), width, exaggeration, true, true);
+    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration, true, true);
 }
 
 
@@ -1366,7 +1366,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
     // draw dotted geometry
-    drawDottedContourExtruded(myNet, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
 }
 
 
@@ -1425,7 +1425,7 @@ GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, cons
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+        drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
 

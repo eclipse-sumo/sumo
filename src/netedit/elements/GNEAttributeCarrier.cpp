@@ -159,14 +159,14 @@ GNEAttributeCarrier::checkDrawFrontContour() const {
 
 
 bool
-GNEAttributeCarrier::checkDrawDeleteContour() const {
-    return false;
+GNEAttributeCarrier::checkDrawDeleteContour() {
+    return (myNet->getViewNet()->checkDrawDeleteContour(this));
 }
 
 
 bool
-GNEAttributeCarrier::checkDrawSelectContour() const {
-    return false;
+GNEAttributeCarrier::checkDrawSelectContour() {
+    return (myNet->getViewNet()->checkDrawSelectContour(this));
 }
 
 

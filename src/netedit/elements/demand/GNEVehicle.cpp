@@ -955,7 +955,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // check if mouse is over element
                 mouseWithinGeometry(vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
                 // draw squared shape
-                drawDottedContourRectangle(myNet, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                drawDottedContourRectangle(s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
             }
             // pop name
             GLHelper::popName();
@@ -1122,9 +1122,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         GLHelper::popName();
         // draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            drawDottedContourExtruded(myNet, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
+            drawDottedContourExtruded(s, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
         } else {
-            drawDottedContourExtruded(myNet, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
+            drawDottedContourExtruded(s, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
 }
@@ -1170,7 +1170,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Pop last matrix
         GLHelper::popMatrix();
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, lane2laneGeometry.getShape(), width, 1, false, false);
+        drawDottedContourExtruded(s, lane2laneGeometry.getShape(), width, 1, false, false);
         // Pop name
         GLHelper::popName();
     }

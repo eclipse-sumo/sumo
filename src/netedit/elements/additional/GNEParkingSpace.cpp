@@ -253,7 +253,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myShapeLength, width);
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, myShapeLength, width, parkingAreaExaggeration, true, true);
+        drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name

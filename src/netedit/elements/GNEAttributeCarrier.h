@@ -118,10 +118,10 @@ public:
     virtual bool checkDrawFrontContour() const;
 
     /// @brief check if draw delete contour (pink/white)
-    virtual bool checkDrawDeleteContour() const;
+    virtual bool checkDrawDeleteContour();
 
     /// @brief check if draw select contour (blue)
-    virtual bool checkDrawSelectContour() const;
+    virtual bool checkDrawSelectContour();
 
     /// @}
 

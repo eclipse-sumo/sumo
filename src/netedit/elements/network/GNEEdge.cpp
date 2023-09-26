@@ -441,7 +441,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw edge name
     drawEdgeName(s);
     // draw dotted geometry
-    drawDottedContourEdge(this, true, true);
+    drawDottedContourEdge(s, this, true, true);
 }
 
 

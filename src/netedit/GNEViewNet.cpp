@@ -1752,10 +1752,6 @@ bool
 GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
     // get GLObject
     const auto GLObject = AC->getGUIGlObject();
-    // first check disableDottedContours flag
-    if (myVisualizationSettings->disableDottedContours) {
-        return false;
-    }
     // only draw for top element under cursor
     if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
         return false;
@@ -1774,19 +1770,20 @@ GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
     // check if we're in post drawing
     if (myPostDrawing) {
         return gPostDrawing.isElementUnderCursor(GLObject);
-    }
-    // check ifs blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+    } else {
+        // check ifs blocked
+        if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+            return false;
+        }
+        // check if is under mouse
+        if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+            return false;
+        }
+        // add it in gPostDrawing
+        gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
+        // we wan't to draw delete contour in this time
         return false;
     }
-    // check if is under mouse
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // add it in gPostDrawing
-    gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
-    // we wan't to draw delete contour in this time
-    return false;
 }
 
 
@@ -1794,10 +1791,6 @@ bool
 GNEViewNet::checkDrawSelectContour(GNEAttributeCarrier* AC) const {
     // get GLObject
     const auto GLObject = AC->getGUIGlObject();
-    // first check disableDottedContours flag
-    if (myVisualizationSettings->disableDottedContours) {
-        return false;
-    }
     // only draw for top element under cursor
     if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
         return false;
@@ -1816,19 +1809,20 @@ GNEViewNet::checkDrawSelectContour(GNEAttributeCarrier* AC) const {
     // check if we're in post drawing
     if (myPostDrawing) {
         return gPostDrawing.isElementUnderCursor(GLObject);
-    }
-    // check ifs blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+    } else {
+        // check ifs blocked
+        if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+            return false;
+        }
+        // check if is under mouse
+        if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+            return false;
+        }
+        // add it in gPostDrawing
+        gPostDrawing.elementsMarkedToSelect.push_back(GLObject);
+        // we wan't to draw select contour in this moment
         return false;
     }
-    // check if is under mouse
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // add it in gPostDrawing
-    gPostDrawing.elementsMarkedToSelect.push_back(GLObject);
-    // we wan't to draw select contour in this moment
-    return false;
 }
 
 

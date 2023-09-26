@@ -201,7 +201,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true);
+        drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true);
     }
 }
 

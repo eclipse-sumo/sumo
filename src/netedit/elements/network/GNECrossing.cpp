@@ -283,7 +283,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
         // draw dotted geometry
-        drawDottedContourExtruded(myNet, myCrossingGeometry.getShape(), halfWidth, selectionScale, true, true);
+        drawDottedContourExtruded(s, myCrossingGeometry.getShape(), halfWidth, selectionScale, true, true);
     }
 }
 
