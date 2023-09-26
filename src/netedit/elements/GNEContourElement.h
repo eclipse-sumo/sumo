@@ -78,8 +78,11 @@ private:
     /// @brief pointer to cached height
     double *myCachedHeight;
 
-    /// @brief pointer to cached rot
+    /// @brief pointer to cached rotation
     double *myCachedRot;
+
+    /// @brief pointer to cached scale
+    double *myCachedScale;
 
     /// @brief dotted geometry color
     GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
@@ -110,4 +113,8 @@ private:
     /// @brief draw dotted contour circle
     void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                          const Position &pos, double radius, const double scale) const;
+
+    /// @brief draw dotted contour edge
+    void buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                       const GNEEdge* edge) const;
 };
