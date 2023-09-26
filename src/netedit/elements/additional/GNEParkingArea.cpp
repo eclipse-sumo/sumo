@@ -213,7 +213,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape(), myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
             // draw dotted geometry
-            drawDottedContour(myNet, myAdditionalGeometry.getShape(), myWidth * 0.5, parkingAreaExaggeration, true, true);
+            drawDottedContourExtruded(myNet, myAdditionalGeometry.getShape(), myWidth * 0.5, parkingAreaExaggeration, true, true);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {

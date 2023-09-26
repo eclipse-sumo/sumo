@@ -61,7 +61,7 @@ GNEContourElement::~GNEContourElement() {
 
 
 void
-GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale) const {
+GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &shape, const double width, const double scale) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // basic contours
@@ -97,53 +97,53 @@ GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &sh
 
 
 void
-GNEContourElement::drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale,
-                                     const bool drawFirstExtrem, const bool drawLastExtrem) const {
+GNEContourElement::drawDottedContourExtruded(const GNENet *net, const PositionVector &shape, const double extrusionWidth, const double scale,
+                                             const bool drawFirstExtrem, const bool drawLastExtrem) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // basic contours
     if (myAC->checkDrawFromContour()) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FROM, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::FROM, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     if (myAC->checkDrawToContour()) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::TO, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::TO, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     if (myAC->checkDrawRelatedContour()) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::RELATED, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::RELATED, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     if (myAC->checkDrawOverContour()) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::OVER, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::OVER, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     // inspect contour
     if (net->getViewNet()->isAttributeCarrierInspected(myAC)) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     // front contour
     if (net->getViewNet()->getFrontAttributeCarrier() == myAC) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::FRONT, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::FRONT, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     // delete contour
     if (net->getViewNet()->checkDrawDeleteContour(myAC)) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
     // select contour
     if (net->getViewNet()->checkDrawSelectContour(myAC)) {
-        buildAndDrawDottedContourRectangle(s, GUIDottedGeometry::DottedContourType::SELECT, shape, width,
-                                           scale, drawFirstExtrem, drawLastExtrem);
+        buildAndDrawDottedContourExtruded(s, GUIDottedGeometry::DottedContourType::SELECT, shape, extrusionWidth,
+                                          scale, drawFirstExtrem, drawLastExtrem);
     }
 }
 
 
 void
-GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, double width, double height,
-                                     double offsetX, double offsetY, double rot, double scale, GNEAdditional* parent) const {
+GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, const double width, const double height,
+                                     const double offsetX, const double offsetY, const double rot, const double scale, GNEAdditional* parent) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // check if we're handling symbol
@@ -181,7 +181,7 @@ GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, dou
 
 
 void
-GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale, GNEAttributeCarrier* parent) const {
+GNEContourElement::drawDottedContour(const GNENet *net, const Position &pos, double radius, const double scale, GNEAttributeCarrier* parent) const {
     // get VisualisationSettings
     const auto &s = net->getViewNet()->getVisualisationSettings();
     // check if we're handling symbol
@@ -227,8 +227,8 @@ GNEContourElement::drawDottedContourEdge(const GNEEdge* edge) const {
         // get lane constants
         GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
         // draw dottes contours
-        drawDottedContour(edge->getNet(), edge->getLanes().front()->getLaneShape(),
-                          laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration, true, true);
+        drawDottedContourExtruded(edge->getNet(), edge->getLanes().front()->getLaneShape(),
+                                  laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration, true, true);
     } else {
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -257,14 +257,14 @@ GNEContourElement::drawDottedContourEdge(const GNEEdge* edge) const {
             *myCachedShape = edgeShape;
         }
         // draw dotted geometries
-        drawDottedContour(edge->getNet(), edgeShape, 1, 1, true, true);
+        drawDottedContourExtruded(edge->getNet(), edgeShape, 1, 1, true, true);
     }
 }
 
 
 void
 GNEContourElement::buildAndDrawDottedContourShape(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                                  const PositionVector &shape, double width, double scale) const {
+                                                  const PositionVector &shape, const double width, const double scale) const {
     // first check if draw dotted contour
     if (s.drawDottedContour(scale)) {
         // check if dotted geometry has to be updated
@@ -294,9 +294,9 @@ GNEContourElement::buildAndDrawDottedContourShape(const GUIVisualizationSettings
 
 
 void
-GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                                      const PositionVector &shape, double width, double scale,
-                                                      const bool drawFirstExtrem, const bool drawLastExtrem) const {
+GNEContourElement::buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                                     const PositionVector &shape, const double extrusionWidth, const double scale,
+                                                     const bool drawFirstExtrem, const bool drawLastExtrem) const {
     // check if dotted geometry has to be updated
     if (*myCachedShape != shape) {
         // calculate center dotted geometry
@@ -305,8 +305,8 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
         *myDottedGeometryA = dottedGeometry;
         *myDottedGeometryB = dottedGeometry;
         // move geometries top and bot
-        myDottedGeometryA->moveShapeToSide(width * scale);
-        myDottedGeometryB->moveShapeToSide(width * scale * -1);
+        myDottedGeometryA->moveShapeToSide(extrusionWidth * scale);
+        myDottedGeometryB->moveShapeToSide(extrusionWidth * scale * -1);
         // invert offset of top dotted geometry
         myDottedGeometryA->invertOffset();
         // calculate extremes
@@ -321,15 +321,15 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
     // draw top dotted geometry
-    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, width < 0.5);
+    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, extrusionWidth < 0.5);
     // reset color
     myDottedGeometryColor->reset();
     // draw top dotted geometry
-    myDottedGeometryB->drawDottedGeometry(s, type, myDottedGeometryColor, width < 0.5);
+    myDottedGeometryB->drawDottedGeometry(s, type, myDottedGeometryColor, extrusionWidth < 0.5);
     // change color
     myDottedGeometryColor->changeColor();
     // draw extrem dotted geometry
-    myDottedGeometryC->drawDottedGeometry(s, type, myDottedGeometryColor, width < 0.5);
+    myDottedGeometryC->drawDottedGeometry(s, type, myDottedGeometryColor, extrusionWidth < 0.5);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -337,8 +337,8 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
 
 void
 GNEContourElement::buildAndDrawDottedContourSquared(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                                    const Position &pos, double width, double height,
-                                                    double offsetX, double offsetY, double rot, double scale) const {
+                                                    const Position &pos, const double width, const double height,
+                                                    const double offsetX, const double offsetY, const double rot, const double scale) const {
     // continue depending of cached positiosn
     if ((*myCachedPosition != pos) || (*myCachedWidth != width) || (*myCachedHeight != height) || (*myCachedRot != rot)) {
         // create shape
@@ -378,7 +378,7 @@ GNEContourElement::buildAndDrawDottedContourSquared(const GUIVisualizationSettin
 
 void
 GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                                   const Position &pos, double radius, double scale) const {
+                                                   const Position &pos, double radius, const double scale) const {
     // continue depending of radius and scale
     if ((*myCachedPosition != pos) || (*myCachedRot != (radius * scale))) {
         // calculate dotted geometry

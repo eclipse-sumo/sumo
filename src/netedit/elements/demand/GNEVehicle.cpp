@@ -1122,9 +1122,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         GLHelper::popName();
         // draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
-            drawDottedContour(myNet, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
+            drawDottedContourExtruded(myNet, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
         } else {
-            drawDottedContour(myNet, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
+            drawDottedContourExtruded(myNet, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment());
         }
     }
 }
@@ -1170,7 +1170,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // Pop last matrix
         GLHelper::popMatrix();
         // draw dotted geometry
-        drawDottedContour(myNet, lane2laneGeometry.getShape(), width, 1, false, false);
+        drawDottedContourExtruded(myNet, lane2laneGeometry.getShape(), width, 1, false, false);
         // Pop name
         GLHelper::popName();
     }

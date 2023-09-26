@@ -727,7 +727,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // pop name
         GLHelper::popName();
         // draw dotted geometry
-        myPlanElement->drawDottedContour(myPlanElement->getNet(), planGeometry.getShape(), 0.5, 1, true, true);
+        myPlanElement->drawDottedContourExtruded(myPlanElement->getNet(), planGeometry.getShape(), 0.5, 1, true, true);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -854,7 +854,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // check if mouse is over element
         myPlanElement->mouseWithinGeometry(shape, pathWidth);
         // draw dotted geometry
-        myPlanElement->drawDottedContour(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
+        myPlanElement->drawDottedContourExtruded(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -915,7 +915,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             // check if mouse is over element
             myPlanElement->mouseWithinGeometry(shape, pathWidth);
             // draw dotted geometry
-            myPlanElement->drawDottedContour(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
+            myPlanElement->drawDottedContourExtruded(myPlanElement->getNet(), shape, pathWidth, 1, true, true);
         }
     }
     // check if draw plan parent

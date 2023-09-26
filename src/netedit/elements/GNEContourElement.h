@@ -44,18 +44,20 @@ protected:
     ~GNEContourElement();
 
     /// @brief draw dotted contour (for closed shapes)
-    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale) const;
+    void drawDottedContour(const GNENet *net, const PositionVector &shape, const double width, const double scale) const;
 
-    /// @brief draw dotted contour (used in elements formed by a central shape)
-    void drawDottedContour(const GNENet *net, const PositionVector &shape, double width, double scale,
-                           const bool drawFirstExtrem, const bool drawLastExtrem) const;
+    /// @brief draw dotted contour extruded (used in elements formed by a central shape)
+    void drawDottedContourExtruded(const GNENet *net, const PositionVector &shape, const double extrusionWidth, const double scale,
+                                   const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
     /// @brief draw dotted contour (for rectangled elements)
-    void drawDottedContour(const GNENet *net, const Position &pos, double width, double height,
-                           double offsetX, double offsetY, double rot, double scale, GNEAdditional* parent = nullptr) const;
+    void drawDottedContour(const GNENet *net, const Position &pos, const double width, const double height,
+                           const double offsetX, const double offsetY, const double rot, const double scale,
+                           GNEAdditional* parent = nullptr) const;
 
     /// @brief draw dotted contour (circle)
-    void drawDottedContour(const GNENet *net, const Position &pos, double radius, double scale, GNEAttributeCarrier* parent = nullptr) const;
+    void drawDottedContour(const GNENet *net, const Position &pos, double radius, const double scale,
+                           GNEAttributeCarrier* parent = nullptr) const;
 
     /// @brief draw dotted contour edge
     void drawDottedContourEdge(const GNEEdge* edge) const;
@@ -93,19 +95,19 @@ private:
 
     /// @brief draw dotted contour shape
     void buildAndDrawDottedContourShape(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                        const PositionVector &shape, double width, double scale) const;
+                                        const PositionVector &shape, const double width, const double scale) const;
 
-    /// @brief draw dotted contour rectangle
-    void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                            const PositionVector &shape, double width, double scale,
-                                            const bool drawFirstExtrem, const bool drawLastExtrem) const;
+    /// @brief build and draw dotted contour extruded
+    void buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                           const PositionVector &shape, const double extrusionWidth, const double scale,
+                                           const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
     /// @brief draw dotted contour squared
     void buildAndDrawDottedContourSquared(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                          const Position &pos, double width, double height,
-                                          double offsetX, double offsetY, double rot, double scale) const;
+                                          const Position &pos, const double width, const double height,
+                                          const double offsetX, const double offsetY, const double rot, const double scale) const;
 
     /// @brief draw dotted contour circle
     void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                         const Position &pos, double radius, double scale) const;
+                                         const Position &pos, double radius, const double scale) const;
 };
