@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-23 16:01+0000\n"
+"PO-Revision-Date: 2023-09-28 09:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2056,7 +2056,7 @@ msgstr "Zielfahrstreifen [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "Fahrstreifen an der Fahrzeughinterkante [id,..]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
@@ -3774,21 +3774,21 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1399
 msgid "Sources"
-msgstr ""
+msgstr "Quellen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1404
 msgid "Sinks"
-msgstr ""
+msgstr "Ziele"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1409
 msgid "Waypoints"
-msgstr ""
+msgstr "Wegpunkte"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1415
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:186
 msgid "Routes"
-msgstr ""
+msgstr "Routen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1420
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2063
@@ -3998,12 +3998,12 @@ msgstr "Öffnet einen Dialog zum Auffinden von Haltepunkten."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2084
 msgid "PoI"
-msgstr ""
+msgstr "PoI"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2087
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2855
 msgid "Polygon"
-msgstr ""
+msgstr "Polygon"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2205
 msgid "Toggle this Status Bar on/off."
@@ -4015,23 +4015,23 @@ msgstr "Leere das Meldungsfenster."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2228
 msgid "Online Documentation"
-msgstr ""
+msgstr "Online-Dokumentation"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2231
 msgid "Changelog"
-msgstr ""
+msgstr "Änderungsprotokoll"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2233
 msgid "Hotkeys"
-msgstr ""
+msgstr "Tastenkürzel"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2235
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2237
 msgid "Feedback"
-msgstr ""
+msgstr "Rückmeldung"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2237
 msgid "Open feedback channels."
@@ -4039,7 +4039,7 @@ msgstr "Gehe zu Rückmeldemöglichkeiten."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2240
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2240
 msgid "About netedit."
@@ -4412,14 +4412,16 @@ msgstr "Attributhilfetext in Datei schreiben"
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
+"Dialog zum Wechsel des Supermodus in Änderungschronik (Rückgängig-"
+"Wiederherstellen) ignorieren"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
-msgstr ""
+msgstr "In Sumo-Konfigurationsdateien referenzierte weitere Elemente ignorieren"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
-msgstr ""
+msgstr "In Sumo-Konfigurationsdateien referenzierte Routenelemente ignorieren"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
@@ -9354,7 +9356,7 @@ msgstr "Liste der Fahrzeugalternativen für die Personenfahrt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4898
 msgid "PersonTripBusStop"
-msgstr ""
+msgstr "PersonTripBusStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4908
 msgid "Id of the destination busStop"
@@ -9362,7 +9364,7 @@ msgstr "ID der Buszielhaltestelle"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4933
 msgid "PersontripTrainStop"
-msgstr ""
+msgstr "PersontripTrainStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4943
 msgid "Id of the destination trainStop"
@@ -9370,7 +9372,7 @@ msgstr "ID des Zielbahnhofs"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4968
 msgid "PersonTripJunctions"
-msgstr ""
+msgstr "PersonTripJunctions"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4973
 msgid "The name of the junction the person trip starts at"
@@ -9382,7 +9384,7 @@ msgstr "Der Name des Knotenpunkts, an der die Personenfahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5003
 msgid "PersonTripTAZs"
-msgstr ""
+msgstr "PersonTripTAZs"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5008
 msgid "The name of the TAZ the person trip starts at"
@@ -9395,7 +9397,7 @@ msgstr "Der Name der Verkehrsumlegungszone, an welcher die Personenfahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5046
 msgid "WalkEdge"
-msgstr ""
+msgstr "WalkEdge"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5051
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5076
@@ -9409,7 +9411,7 @@ msgstr "Die ID der Kante, wo der Fußweg endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5071
 msgid "WalkBusStop"
-msgstr ""
+msgstr "WalkBusStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5081
 msgid "Id of the destination bus stop"
@@ -9422,7 +9424,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5100
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5261
 msgid "ID of the destination train stop"
-msgstr ""
+msgstr "ID des Zielbahnhofs"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5109
 msgid "WalkEdges"
@@ -9454,15 +9456,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5173
 msgid "The name of the TAZ the walk starts at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an welcher der Fußweg beginnt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5178
 msgid "The name of the TAZ the walk ends at"
-msgstr ""
+msgstr "Der Name der Verkehrsumlegungszone, an welcher der Fußweg endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5195
 msgid "RideEdge"
-msgstr ""
+msgstr "RideEdge"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5200
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5231
@@ -9482,7 +9484,7 @@ msgstr "Liste der Fahrzeugalternativen für die Fahrt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5226
 msgid "RideBusStop"
-msgstr ""
+msgstr "RideBusStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5236
 msgid "ID of the destination bus stop"
@@ -9490,11 +9492,11 @@ msgstr "ID der Zielbushaltestelle"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5251
 msgid "RideTrainStop"
-msgstr ""
+msgstr "RideTrainStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5284
 msgid "StopPersonEdge"
-msgstr ""
+msgstr "StopPersonEdge"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5321
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5354
@@ -9505,11 +9507,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5330
 msgid "StopPersonBusStop"
-msgstr ""
+msgstr "StopPersonBusStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5363
 msgid "StopPersonTrainStop"
-msgstr ""
+msgstr "StopPersonTrainStop"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5399
 msgid "This vehicle's color"
@@ -10762,9 +10764,8 @@ msgstr "Beide Kanten und Fahrstreifen sind nicht definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:239
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:481
-#, fuzzy
 msgid "Both myEdge and myLane aren't defined"
-msgstr "Beide my-Kante und my-Fahrstreifen sind nicht definiert"
+msgstr "Sowohl myEdge als auch myLane sind nicht definiert"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:95
 #, c-format
@@ -12826,19 +12827,19 @@ msgstr "Z-Wert auf alle ausgewählten Knotenpunkte anwenden"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:531
 msgid "- Num geometry points: "
-msgstr ""
+msgstr "- Anzahl an Geometriepunkten: "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:532
 msgid "- Selection minimum Z: "
-msgstr ""
+msgstr "- Minimaler Z-Wert in der Auswahl: "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:533
 msgid "- Selection maximum Z: "
-msgstr ""
+msgstr "- Maximaler Z-Wert in der Auswahl: "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 msgid "- Selection average Z: "
-msgstr ""
+msgstr "- Mittlerer Z-Wert in der Auswahl: "
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:545
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:561
@@ -14062,39 +14063,33 @@ msgstr "- Anzahl von Kanten: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:377
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1134
-#, fuzzy
 msgid "- Min source: "
-msgstr "- Mindestquelle: "
+msgstr "- Minimale Nachfrage an einer Quelle: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:378
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1135
-#, fuzzy
 msgid "- Max source: "
-msgstr "- Maximalquelle: "
+msgstr "- Maximale Nachfrage an einer Quelle: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:379
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1136
-#, fuzzy
 msgid "- Average source: "
-msgstr "- Durchschnittsquelle: "
+msgstr "- Mittlere Nachfrage an einer Quelle: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:381
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1138
-#, fuzzy
 msgid "- Min sink: "
-msgstr "- Mindestziel: "
+msgstr "- Minimale Nachfrage an einem Ziel: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:382
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1139
-#, fuzzy
 msgid "- Max sink: "
-msgstr "- Maximalziel: "
+msgstr "- Maximale Nachfrage an einem Ziel: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:383
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1140
-#, fuzzy
 msgid "- Average sink: "
-msgstr "- Durchschnittsziel: "
+msgstr "- Mittlere Nachfrage an einem Ziel: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:387
 msgid "No TAZ Selected"
@@ -14983,60 +14978,60 @@ msgstr " Konnte Unterbrechungspunkt '%' nicht dekodieren"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1689
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1690
 msgid "uniform"
-msgstr ""
+msgstr "einheitlich"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:643
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1516
 msgid "road"
-msgstr ""
+msgstr "Fahrbahn"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:644
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1517
 msgid "sidewalk"
-msgstr ""
+msgstr "Fußweg"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:645
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1518
 msgid "bike lane"
-msgstr ""
+msgstr "Radweg"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
 msgid "green verge"
-msgstr ""
+msgstr "Grünstreifen"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
 msgid "waterway"
-msgstr ""
+msgstr "Wasserstraße"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1163
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
 msgid "railway"
-msgstr ""
+msgstr "Gleis"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
 msgid "rails on road"
-msgstr ""
+msgstr "Gleis auf Straße"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
 msgid "no passenger"
-msgstr ""
+msgstr "nicht für Personentransport"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:651
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1524
 msgid "closed"
-msgstr ""
+msgstr "gesperrt"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1305
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
 msgid "connector"
-msgstr ""
+msgstr "Verbinder"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
@@ -15155,7 +15150,7 @@ msgstr "nach der Reisezeit"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1257
 msgid "by global speed percentage"
-msgstr ""
+msgstr "nach der Geschwindigkeit relativ zur Geschwindigkeitsbeschränkung"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:767
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1261
@@ -15367,11 +15362,11 @@ msgstr "nach der Abfahrtsverzögerung"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1040
 msgid "by relative battery charge"
-msgstr ""
+msgstr "nach dem relativen Batterieladestand"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1049
 msgid "by charged energy"
-msgstr ""
+msgstr "nach der geladenen Energie"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1058
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1481
