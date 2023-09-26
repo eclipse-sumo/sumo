@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-08 12:34+0200\n"
-"PO-Revision-Date: 2023-09-23 16:01+0000\n"
+"PO-Revision-Date: 2023-09-28 09:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7667,71 +7667,73 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1766
 msgid "The id of charging station"
-msgstr ""
+msgstr "Il codice identificativo della stazione di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1771
 msgid "Lane of the charging station location"
-msgstr ""
+msgstr "Corsia della stazione di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1776
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "Posizione iniziale sulla corsia specificata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1781
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "Posizione finale sulla corsia specificata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1786
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "Nome della stazione di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1799
 msgid "Charging power in W"
-msgstr ""
+msgstr "Potenza di ricarica in W"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1805
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "Efficienza di ricarica [0,1]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1812
 msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
-msgstr ""
+msgstr "Se il veicolo può iniziare la ricarica senza fermarsi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1818
 msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
 msgstr ""
+"Tempo d'attesa dopo l'arresto del veicolo alla stazione di ricarica prima "
+"che inizia il processo di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1824
 msgid "Battery charging type"
-msgstr ""
+msgstr "Tipo di ricarica della batteria"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1831
 msgid "Waiting time before start charging"
-msgstr ""
+msgstr "Tempo d'attesa prima della ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1841
 msgid "ParkingArea"
-msgstr ""
+msgstr "Parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1846
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "Il codice identificativo del parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1851
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "Il nome della corsia sulla quale si trova il parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1866
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
-msgstr ""
+msgstr "Posizione sulla corsia da dove i veicoli escono dal parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1871
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "Nome del parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1876
 msgid " The number of parking spaces for road-side parking"
@@ -8694,11 +8696,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3716
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "Il modello usato per cambiare corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3723
 msgid "The model used for car-following"
-msgstr ""
+msgstr "Il modello usato per la guida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3730
 msgid ""
@@ -8809,15 +8811,15 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3890
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3930
 msgid "The id of trip"
-msgstr ""
+msgstr "Il codice identificativo della corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3901
 msgid "The name of the junction the trip starts at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove inizia la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3906
 msgid "The name of the junction the trip ends at"
-msgstr ""
+msgstr "Il nome dell'incrocio dove termina la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3924
 msgid "TripTAZs"
@@ -8825,11 +8827,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3941
 msgid "The name of the TAZ the trip starts at"
-msgstr ""
+msgstr "Il nome della zona di assegnazione del traffico dove inizia la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3946
 msgid "The name of the TAZ the trip ends at"
-msgstr ""
+msgstr "Il nome della zona di assegnazione del traffico dove termina la corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3964
 msgid "VehicleRoute"
@@ -8838,27 +8840,28 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3970
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4015
 msgid "The ID of the vehicle"
-msgstr ""
+msgstr "Il codice identificatibo del veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3975
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4020
 msgid "The id of the vehicle type to use for this vehicle"
 msgstr ""
+"Il codice identificativo del tipo di veicoli da usare per questo veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3986
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4026
 msgid "The index of the edge within route the vehicle starts at"
-msgstr ""
+msgstr "L'indice nell'itinerario dell'arco da dove parte il veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3991
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4031
 msgid "The index of the edge within route the vehicle ends at"
-msgstr ""
+msgstr "L'indice nell'itinerario dell'arco dove arriva il veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3999
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4039
 msgid "The time step at which the vehicle shall enter the network"
-msgstr ""
+msgstr "L'ora quando il veicolo deve entrare nella rete"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4009
 msgid "VehicleEmbeddedRoute"
@@ -8916,11 +8919,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4145
 msgid "The name of the TAZ the flow starts at"
-msgstr ""
+msgstr "Il nome della zona di assegnazione del traffico dove inizia il flusso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4150
 msgid "The name of the TAZ the flow ends at"
-msgstr ""
+msgstr "Il nome della zona di assegnazione del traffico dove termina il flusso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 msgid "FlowRoute"
@@ -11042,29 +11045,31 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1746
 #, c-format
 msgid "Via edge '%' doesn't exist."
-msgstr ""
+msgstr "L'arco intermedio '%' non esiste."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
 msgid "% with id '%' doesn't exist in % '%'"
-msgstr ""
+msgstr "% con il codice identificativo '%' non esiste in % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2833
 msgid "invalid probability % in % '%'"
-msgstr ""
+msgstr "probabilità invalida % in % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2839
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
 msgstr ""
+"Probabilità invalide nella distribuzione di tipi % '%'. La distribuzione "
+"deve contenere lo stesso numero di elementi"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:446
 msgid "Invalid Stop parent"
-msgstr ""
+msgstr "Elemento padre invalido per una fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:461
 msgid "Invalid parent"
-msgstr ""
+msgstr "Elemento padre invalido"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:88
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:102
