@@ -35,6 +35,7 @@
 
 GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
     myAC(AC),
+    myCachedPosition(new Position()),
     myCachedShape(new PositionVector()),
     myCachedScale(new double(0)),
     myDottedGeometryColor(new GUIDottedGeometry::DottedGeometryColor()),
@@ -45,6 +46,7 @@ GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
 
 
 GNEContourElement::~GNEContourElement() {
+    delete myCachedPosition;
     delete myCachedShape;
     delete myCachedScale;
     delete myDottedGeometryColor;
@@ -355,11 +357,24 @@ void
 GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                    const Position &pos, double radius, double scale) const {
     // continue depending of radius and scale
-    if ((radius * scale) < 2) {
-        buildAndDrawDottedContourShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 8), radius, scale);
-    } else {
-        buildAndDrawDottedContourShape(s, type, GUIGeometry::getVertexCircleAroundPosition(pos, radius, 16), radius, scale);
+    if ((*myCachedPosition != pos) || (*myCachedScale != (radius * scale))) {
+        // calculate dotted geometry
+        *myDottedGeometryA = GUIDottedGeometry(s, GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, (radius * scale) < 2? 8 : 16), true);
+        // update cached position
+        *myCachedPosition = pos;
+        // update cached scale
+        *myCachedScale = radius * scale;
     }
+    // draw cached shape
+    myDottedGeometryColor->reset();
+    // Push draw matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+    // draw top dotted geometry
+    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, false);
+    // pop matrix
+    GLHelper::popMatrix();
 }
 
 /****************************************************************************/

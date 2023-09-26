@@ -64,6 +64,9 @@ private:
     /// @brief pointer to AC
     GNEAttributeCarrier* myAC;
 
+    /// @brief pointer to cached position
+    Position *myCachedPosition;
+
     /// @brief pointer to cached shape
     PositionVector *myCachedShape;
 
