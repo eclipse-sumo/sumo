@@ -140,7 +140,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"textName",                GLO_TEXTNAME},
     {"frontElement",            GLO_FRONTELEMENT},
     {"geometryPoint",           GLO_GEOMETRYPOINT},
-    {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
+    {"dottedContour",           GLO_DOTTEDCONTOUR},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},
     {"testElement",             GLO_TESTELEMENT},

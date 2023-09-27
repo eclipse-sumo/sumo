@@ -264,8 +264,8 @@ enum GUIGlObjectType {
     /// @brief front element (used in netedit)
     GLO_FRONTELEMENT = 1030,
 
-    /// @brief dotted contour inspected element (used in netedit)
-    GLO_DOTTEDCONTOUR_INSPECTED = 1040,
+    /// @brief dotted contour (used in netedit)
+    GLO_DOTTEDCONTOUR = 1040,
 
     /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,
