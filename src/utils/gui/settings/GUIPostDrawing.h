@@ -53,17 +53,8 @@ public:
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
-    /// @brief check if the given element is the top element under cursor
-    bool isTopElementUnderCursor(const GUIGlObject* GLObject) const;
-
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
-
-    /// @brief elements marked for drawing remove contour (used in netedit)
-    std::vector<const GUIGlObject*> markedElementsDeleteContour;
-
-    /// @brief elements marked for drawing select contour (used in netedit)
-    const GUIGlObject* markedElementSelectContour;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -71,8 +62,11 @@ public:
     /// @brief mouse position before rendering elements
     Position mousePos = Position::INVALID;
 
-    /// @brief marked Node (used in create edge mode)
-    const GNEJunction* markedNode = nullptr;
+    /// @brief elements marked for drawing delete contour (used in netedit)
+    const GUIGlObject* markedElementDeleteContour;
+
+    /// @brief elements marked for drawing select contour (used in netedit)
+    const GUIGlObject* markedElementSelectContour;
 
     /// @brief marked edge (used in create edge mode, for splitting)
     const GNEEdge* markedEdge = nullptr;
@@ -98,9 +92,6 @@ protected:
 
     /// @brief elements under cursor
     std::vector<const GUIGlObject*> myElementsUnderCursor;
-
-    /// @brief top element (used during selecting and deleting)
-    const GUIGlObject* myTopElement = nullptr;
 
 private:
     /// @brief set copy constructor private

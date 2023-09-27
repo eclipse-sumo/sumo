@@ -1750,10 +1750,8 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 bool
 GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
-    // get GLObject
-    const auto GLObject = AC->getGUIGlObject();
-    // only draw for top element under cursor
-    if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
+    // avoid draw in position/rectangle selection
+    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
     // check if we're in the correct mode and supermode
@@ -1767,21 +1765,27 @@ GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
                !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
         return false;
     }
+    // get GLObject associated with AC
+    const auto GLObject = AC->getGUIGlObject();
+    // check if elemet is blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check if element is under cursor
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+        return false;
+    }
     // check if we're in post drawing
     if (myPostDrawing) {
-        return gPostDrawing.isElementUnderCursor(GLObject);
+        // in post-drawing, draw always
+        return true;
     } else {
-        // check ifs blocked
-        if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
-            return false;
+        // check if set as markedElementDeleteContour
+        if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
+            gPostDrawing.markedElementDeleteContour = GLObject;
         }
-        // check if is under mouse
-        if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-            return false;
-        }
-        // add it in gPostDrawing
-        gPostDrawing.markedElementsDeleteContour.push_back(GLObject);
-        // we wan't to draw delete contour in this time
+        // we wan't to draw select contour in this moment
         return false;
     }
 }
@@ -5591,17 +5595,25 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 
 void
 GNEViewNet::drawDeleteDottedContour() {
-    // avoid draw if we're in position or rectangle selection
-    if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
-        // only draw marked elements that have the same GLType of the last element
-        for (const auto elementToRemove : gPostDrawing.markedElementsDeleteContour) {
-            if (elementToRemove->getType() == gPostDrawing.markedElementsDeleteContour.back()->getType()) {
+    // first check if there is a markedElementDeleteContour
+    if (gPostDrawing.markedElementDeleteContour) {
+        // check if is a basic GLObject or a path element
+        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementDeleteContour);
+        if (pathElement != nullptr) {
+            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+        } else {
+            gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
+        }
+        // iterate over all objects under cursor
+        for (const auto objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+            // compare objectUnderCursor and markedElementsDeleteContour types 
+            if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
                 // check if is a normalGLObject or a path element
-                const auto pathElement = myNet->getPathManager()->getPathElement(elementToRemove);
+                pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
                 if (pathElement != nullptr) {
                     myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
                 } else {
-                    elementToRemove->drawGL(*myVisualizationSettings);
+                    objectUnderCursor->drawGL(*myVisualizationSettings);
                 }
             }
         }

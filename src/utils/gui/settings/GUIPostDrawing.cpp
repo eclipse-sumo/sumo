@@ -37,13 +37,11 @@ GUIPostDrawing::executePostDrawingTasks() {
     myGLObjectsToUpdate.clear();
     // reset mouse Pos
     mousePos = Position::INVALID;
-    // clear containers
+    // clear objects under cursor
     myElementsUnderCursor.clear();
-    markedElementsDeleteContour.clear();
-    markedElementSelectContour = nullptr;
     // reset marked elements
-    myTopElement = nullptr;
-    markedNode = nullptr;
+    markedElementDeleteContour = nullptr;
+    markedElementSelectContour = nullptr;
     markedEdge = nullptr;
     markedLane = nullptr;
     markedTAZ = nullptr;
@@ -64,27 +62,12 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 void
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     myElementsUnderCursor.push_back(GLObject);
-    if (myTopElement == nullptr) {
-        myTopElement = GLObject;
-    } else if (GLObject->getType() > myTopElement->getType()) {
-        myTopElement = GLObject;
-    }
 }
 
 
 bool
 GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
     return (std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end());
-}
-
-
-bool
-GUIPostDrawing::isTopElementUnderCursor(const GUIGlObject* GLObject) const {
-    if (myTopElement) {
-        return (GLObject->getType() >= myTopElement->getType());
-    } else {
-        return false;
-    }
 }
 
 
