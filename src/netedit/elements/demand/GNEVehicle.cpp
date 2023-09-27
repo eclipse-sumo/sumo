@@ -1027,10 +1027,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    const bool drawContour = checkDrawContour();
     // check conditions
     if (!s.drawForRectangleSelection &&
-            (drawNetworkMode || drawDemandMode || dottedElement || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+            (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(drawContour, lane, myTagProperty.getTag())) {
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
         // calculate startPos
@@ -1129,22 +1130,17 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // get flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                               (myNet->getViewNet()->getFrontAttributeCarrier() == this);
-                            /*
-                               myNet->getViewNet()->drawDeleteContour(this, this) ||
-                               myNet->getViewNet()->drawSelectContour(this, this);
-                            */
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    const bool drawContour = checkDrawContour();
     // check conditions
     if (!s.drawForRectangleSelection &&
             fromLane->getLane2laneConnections().exist(toLane) &&
-            (drawNetworkMode || drawDemandMode || dottedElement || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+            (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(drawContour, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
