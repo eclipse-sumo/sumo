@@ -41,7 +41,7 @@ def add_options():
     op.add_argument("-r", "--region", default="gtfs", category="input",
                     help="define the region to process")
     op.add_argument("--gtfs", category="input", required=True, type=op.data_file,
-                    help="define gtfs zip file to load (mandatory)")
+                    help="define gtfs zip file to load (mandatory)", fix_path=True)
     op.add_argument("--date", category="input", required=True, help="define the day to import, format: 'YYYYMMDD'")
     op.add_argument("--fcd", category="input", type=op.data_file,
                     help="directory to write / read the generated FCD files to / from")
