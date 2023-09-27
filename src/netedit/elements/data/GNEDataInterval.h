@@ -79,6 +79,17 @@ public:
     /// @brief Returns element position in view
     Position getPositionInView() const;
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @}
+
     /// @name members and functions relative to write data elements into XML
     /// @{
     /// @brief check if current data element is valid to be written into XML (by default true, can be reimplemented in children)

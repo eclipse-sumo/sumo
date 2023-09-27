@@ -192,6 +192,18 @@ GNEEdge::getPositionInView() const {
 }
 
 
+bool
+GNEEdge::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEEdge::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GNEMoveOperation*
 GNEEdge::getMoveOperation() {
     // get circle width

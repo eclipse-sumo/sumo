@@ -143,11 +143,13 @@ public:
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
+
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
 
     /// @brief get color
     virtual const RGBColor& getColor() const = 0;
+
     /// @}
 
     /// @name members and functions relative to write demand elements into XML
@@ -175,6 +177,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -186,6 +189,18 @@ public:
     
     /// @brief get demand element geometry
     const GUIGeometry &getDemandElementGeometry() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject

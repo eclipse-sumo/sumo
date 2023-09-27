@@ -64,6 +64,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief get Crossing shape
     const PositionVector& getCrossingShape() const;
 
@@ -72,6 +73,18 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @name Functions related with move elements

@@ -97,6 +97,18 @@ GNECrossing::getPositionInView() const {
 }
 
 
+bool
+GNECrossing::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNECrossing::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GNEMoveOperation*
 GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited

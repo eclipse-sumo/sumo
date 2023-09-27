@@ -60,6 +60,17 @@ public:
     /// @brief Returns element position in view
     Position getPositionInView() const;
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @}
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key

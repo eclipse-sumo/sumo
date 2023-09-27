@@ -169,6 +169,18 @@ GNEEdgeType::getPositionInView() const {
 }
 
 
+bool
+GNEEdgeType::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEEdgeType::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GNEMoveOperation*
 GNEEdgeType::getMoveOperation() {
     return nullptr;

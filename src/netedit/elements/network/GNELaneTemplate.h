@@ -48,6 +48,17 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @}
+
     /// @name Functions related with attributes
     /// @{
     /* @brief method for getting the Attribute of an XML key

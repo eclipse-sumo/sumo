@@ -100,7 +100,7 @@ public:
     /// @name Function related with contourdrawing (can be implemented in children)
     /// @{
     // check if draw contour
-    bool checkDrawContour();
+    bool checkDrawContour() const;
 
     /// @brief check if draw from contour (green)
     virtual bool checkDrawFromContour() const;
@@ -121,10 +121,10 @@ public:
     virtual bool checkDrawFrontContour() const;
 
     /// @brief check if draw delete contour (pink/white)
-    virtual bool checkDrawDeleteContour();
+    virtual bool checkDrawDeleteContour() const = 0;
 
     /// @brief check if draw select contour (blue)
-    virtual bool checkDrawSelectContour();
+    virtual bool checkDrawSelectContour() const = 0;
 
     /// @}
 

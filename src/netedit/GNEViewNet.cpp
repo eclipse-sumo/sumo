@@ -1750,7 +1750,7 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
+GNEViewNet::checkDrawDeleteContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const {
     // avoid draw in position/rectangle selection
     if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
@@ -1766,8 +1766,6 @@ GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
                !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
         return false;
     }
-    // get GLObject associated with AC
-    const auto GLObject = AC->getGUIGlObject();
     // check if elemet is blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
         return false;
@@ -1793,7 +1791,7 @@ GNEViewNet::checkDrawDeleteContour(GNEAttributeCarrier* AC) const {
 
 
 bool
-GNEViewNet::checkDrawSelectContour(GNEAttributeCarrier* AC) const {
+GNEViewNet::checkDrawSelectContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const {
     // avoid draw in position/rectangle selection
     if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
@@ -1809,8 +1807,6 @@ GNEViewNet::checkDrawSelectContour(GNEAttributeCarrier* AC) const {
                !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
         return false;
     }
-    // get GLObject associated with AC
-    const auto GLObject = AC->getGUIGlObject();
     // check if elemet is blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
         return false;

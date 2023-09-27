@@ -1022,13 +1022,6 @@ GNEVehicle::computePathElement() {
 
 void
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // get flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                               (myNet->getViewNet()->getFrontAttributeCarrier() == this);
-                            /*
-                               myNet->getViewNet()->drawDeleteContour(this, this) ||
-                               myNet->getViewNet()->drawSelectContour(this, this);
-                            */
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();

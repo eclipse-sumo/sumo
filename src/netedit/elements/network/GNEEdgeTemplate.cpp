@@ -81,6 +81,18 @@ GNEEdgeTemplate::updateGeometry() {
 }
 
 
+bool
+GNEEdgeTemplate::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawSelectContour() const {
+    return false;
+}
+
+
 std::string
 GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
     return myEdge->getAttribute(key);

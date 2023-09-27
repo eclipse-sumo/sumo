@@ -141,6 +141,18 @@ GNEJunction::getPositionInView() const {
 
 
 bool
+GNEJunction::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEJunction::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
+bool
 GNEJunction::checkDrawFromContour() const {
     // check conditions
     if (myAmCreateEdgeSource) {

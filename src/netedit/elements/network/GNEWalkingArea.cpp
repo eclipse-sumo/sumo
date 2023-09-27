@@ -63,6 +63,18 @@ GNEWalkingArea::getPositionInView() const {
 }
 
 
+bool
+GNEWalkingArea::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEWalkingArea::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GNEMoveOperation*
 GNEWalkingArea::getMoveOperation() {
     // edit depending if shape is being edited

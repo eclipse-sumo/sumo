@@ -136,6 +136,18 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
+bool
+GNEAdditional::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEAdditional::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);

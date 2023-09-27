@@ -51,11 +51,23 @@ public:
 
     /// @name Function related with graphics
     /// @{
+
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
 
     /// @}
 

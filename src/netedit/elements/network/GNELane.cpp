@@ -237,6 +237,18 @@ GNELane::getPositionInView() const {
 }
 
 
+bool
+GNELane::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNELane::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 GNEMoveOperation*
 GNELane::getMoveOperation() {
     // edit depending if shape is being edited

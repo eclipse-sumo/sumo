@@ -80,6 +80,17 @@ public:
 
     /// @}
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @}
+
     /// @name Function related with drawing
     /// @{
     /// @brief check if draw from contour (green)

@@ -526,10 +526,10 @@ public:
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
     /// @brief check if draw delete contour
-    bool checkDrawDeleteContour(GNEAttributeCarrier* AC) const;
+    bool checkDrawDeleteContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const;
 
     /// @brief check if draw select contour
-    bool checkDrawSelectContour(GNEAttributeCarrier* AC) const;
+    bool checkDrawSelectContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const;
 
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;

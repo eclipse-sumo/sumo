@@ -101,6 +101,18 @@ GNEInternalLane::getPositionInView() const {
 }
 
 
+bool
+GNEInternalLane::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawSelectContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEInternalLane::getMoveOperation() {
     // internal lanes cannot be moved

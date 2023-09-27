@@ -145,6 +145,18 @@ GNEDemandElement::getDemandElementGeometry() const {
 }
 
 
+bool
+GNEDemandElement::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEDemandElement::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
 void
 GNEDemandElement::openDemandElementDialog() {
     throw InvalidArgument(getTagStr() + " doesn't have a demand element dialog");

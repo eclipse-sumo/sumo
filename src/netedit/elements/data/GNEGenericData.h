@@ -93,6 +93,17 @@ public:
     /// @brief Returns element position in view
     virtual Position getPositionInView() const = 0;
 
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
+    /// @}
+
     /// @name members and functions relative to write data sets into XML
     /// @{
     /**@brief write data set element into a xml file

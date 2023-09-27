@@ -99,6 +99,18 @@ GNEGenericData::drawAttribute(const PositionVector& shape) const {
 
 
 bool
+GNEGenericData::checkDrawDeleteContour() const {
+    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+}
+
+
+bool
+GNEGenericData::checkDrawSelectContour() const {
+    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+}
+
+
+bool
 GNEGenericData::isGenericDataValid() const {
     return true;
 }
