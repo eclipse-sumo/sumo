@@ -308,7 +308,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // Push draw matrix
                 GLHelper::pushMatrix();
                 // translate to front
-                glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+                glTranslated(0, 0, GLO_DOTTEDCONTOUR);
                 // check if lane2lane connection exist
                 if (laneTopA->getLane2laneConnections().exist(laneTopB)) {
                     // obtain lane2lane top dotted geometry

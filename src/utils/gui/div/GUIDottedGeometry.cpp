@@ -251,14 +251,7 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 void
 GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                      DottedGeometryColor *dottedGeometryColor, const bool drawSmall, double customContourWidth) const {
-    // set segment width
-    double width = s.dottedContourSettings.segmentWidthLarge;
-    if (drawSmall) {
-        width = s.dottedContourSettings.segmentWidthSmall;
-    } else if (customContourWidth > 0) {
-        width = customContourWidth;
-    }
+                                      DottedGeometryColor *dottedGeometryColor, const double lineWidth) const {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
@@ -266,7 +259,7 @@ GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDott
             // set color
             GLHelper::setColor(dottedGeometryColor->getColor(s, type));
             // draw box line
-            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), width, 0);
+            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, 0);
         }
     }
 }
