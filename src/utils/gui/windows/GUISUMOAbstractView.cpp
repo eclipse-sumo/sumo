@@ -411,7 +411,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     Boundary positionBoundary;
     positionBoundary.add(pos);
     positionBoundary.grow(SENSITIVITY);
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(positionBoundary, true);
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
@@ -450,7 +450,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -485,7 +485,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
     selection.add(pos);
     selection.grow(radius);
     // obtain GUIGlID of objects in boundary
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, true);
     // iterate over obtained GUIGlIDs
     for (const auto& i : ids) {
         // obtain GUIGlObject
@@ -507,7 +507,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
 
 
 std::vector<GUIGlID>
-GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
+GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
     const int NB_HITS_MAX = 1024 * 1024;
     // Prepare the selection mode
     static GUIGlID hits[NB_HITS_MAX];
@@ -519,8 +519,16 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound) {
     Boundary oldViewPort = myChanger->getViewport(false); // backup the actual viewPort
     myChanger->setViewport(bound);
     bound = applyGLTransform(false);
-    // paint all elements
+    // enable draw for selecting (to draw objects with less details)
+    if (singlePosition) {
+        myVisualizationSettings->drawForPositionSelection = true;
+    } else {
+        myVisualizationSettings->drawForRectangleSelection = true;
+    }
     int hits2 = doPaintGL(GL_SELECT, bound);
+    // reset flags
+    myVisualizationSettings->drawForPositionSelection = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits == -1) {

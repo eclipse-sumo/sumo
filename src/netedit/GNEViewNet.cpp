@@ -300,7 +300,7 @@ GNEViewNet::recalculateBoundaries() {
         // declare boundary
         const Boundary maxBoundary(1000000000.0, 1000000000.0, -1000000000.0, -1000000000.0);
         // get all objects in boundary
-        const std::vector<GUIGlID> GLIDs = getObjectsInBoundary(maxBoundary);
+        const std::vector<GUIGlID> GLIDs = getObjectsInBoundary(maxBoundary, false);
         //  finish make OpenGL context current
         makeNonCurrent();
         // declare set
@@ -462,7 +462,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     // first make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
         // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
-        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary);
+        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary, false);
         //  finish make OpenGL context current
         makeNonCurrent();
         // iterate over GUIGlIDs
@@ -2701,7 +2701,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // check what type of POI will be transformed
         if (POI->getTagProperty().getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
-            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
+            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary(), false);
             std::vector<GNELane*> lanes;
             for (const auto& GLID : GLIDs) {
                 GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(GLID));
