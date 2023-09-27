@@ -87,23 +87,6 @@ public:
 
     /// @}
 
-    /// @name Function related with drawing (can be implemented in children)
-    /// @{
-
-    /// @brief check if draw inspect contour (black/white)
-    bool checkDrawInspectContour() const;
-
-    /// @brief check if draw front contour (green/blue)
-    bool checkDrawFrontContour() const;
-
-    /// @brief check if draw delete contour (pink/white)
-    bool checkDrawDeleteContour();
-
-    /// @brief check if draw select contour (blue)
-    bool checkDrawSelectContour();
-
-    /// @}
-
     /// @name inherited from GUIGlObject
     /// @{
 

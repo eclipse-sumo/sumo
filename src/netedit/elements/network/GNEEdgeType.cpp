@@ -171,13 +171,13 @@ GNEEdgeType::getPositionInView() const {
 
 bool
 GNEEdgeType::checkDrawDeleteContour() const {
-    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+    return false;
 }
 
 
 bool
 GNEEdgeType::checkDrawSelectContour() const {
-    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+    return false;
 }
 
 

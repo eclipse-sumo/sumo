@@ -151,13 +151,27 @@ GNEConnection::getPositionInView() const {
 
 bool
 GNEConnection::checkDrawDeleteContour() const {
-    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+    } else {
+        return false;
+    }
 }
 
 
 bool
 GNEConnection::checkDrawSelectContour() const {
-    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+    } else {
+        return false;
+    }
 }
 
 

@@ -102,30 +102,6 @@ GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, co
 }
 
 
-bool
-GNEVariableSpeedSignSymbol::checkDrawInspectContour() const {
-    return getParentAdditionals().at(0)->checkDrawInspectContour();
-}
-
-
-bool
-GNEVariableSpeedSignSymbol::checkDrawFrontContour() const {
-    return getParentAdditionals().at(0)->checkDrawFrontContour();
-}
-
-
-bool
-GNEVariableSpeedSignSymbol::checkDrawDeleteContour() {
-    return getParentAdditionals().at(0)->checkDrawDeleteContour();
-}
-
-
-bool
-GNEVariableSpeedSignSymbol::checkDrawSelectContour() {
-    return getParentAdditionals().at(0)->checkDrawSelectContour();
-}
-
-
 std::string
 GNEVariableSpeedSignSymbol::getParentName() const {
     return getParentAdditionals().at(0)->getID();

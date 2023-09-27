@@ -120,30 +120,6 @@ GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENe
 }
 
 
-bool
-GNERerouterSymbol::checkDrawInspectContour() const {
-    return getParentAdditionals().at(0)->checkDrawInspectContour();
-}
-
-
-bool
-GNERerouterSymbol::checkDrawFrontContour() const {
-    return getParentAdditionals().at(0)->checkDrawFrontContour();
-}
-
-
-bool
-GNERerouterSymbol::checkDrawDeleteContour() {
-    return getParentAdditionals().at(0)->checkDrawDeleteContour();
-}
-
-
-bool
-GNERerouterSymbol::checkDrawSelectContour() {
-    return getParentAdditionals().at(0)->checkDrawSelectContour();
-}
-
-
 std::string
 GNERerouterSymbol::getParentName() const {
     return getParentAdditionals().at(0)->getID();

@@ -1750,24 +1750,13 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::checkDrawDeleteContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const {
+GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
     // avoid draw in position/rectangle selection
     if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
-    // check if we're in the correct mode and supermode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
-            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
-        return false;
-    } else if (AC->getTagProperty().isDemandElement() &&
-               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
-        return false;
-    } else if (AC->getTagProperty().isDataElement() &&
-               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
-        return false;
-    }
     // check if elemet is blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+    if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
         return false;
     }
     // check if element is under cursor
@@ -1791,24 +1780,13 @@ GNEViewNet::checkDrawDeleteContour(const GNEAttributeCarrier* AC, const GUIGlObj
 
 
 bool
-GNEViewNet::checkDrawSelectContour(const GNEAttributeCarrier* AC, const GUIGlObject* GLObject) const {
+GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const {
     // avoid draw in position/rectangle selection
     if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
-    // check if we're in the correct supermode and mode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
-            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT))) {
-        return false;
-    } else if (AC->getTagProperty().isDemandElement() &&
-               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
-        return false;
-    } else if (AC->getTagProperty().isDataElement() &&
-               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
-        return false;
-    }
     // check if elemet is blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+    if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
         return false;
     }
     // check if element is under cursor

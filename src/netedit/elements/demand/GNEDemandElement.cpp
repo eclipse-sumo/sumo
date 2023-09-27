@@ -147,13 +147,28 @@ GNEDemandElement::getDemandElementGeometry() const {
 
 bool
 GNEDemandElement::checkDrawDeleteContour() const {
-    return myNet->getViewNet()->checkDrawDeleteContour(this, this);
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
+        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+    } else {
+        return false;
+    }
 }
 
 
 bool
 GNEDemandElement::checkDrawSelectContour() const {
-    return myNet->getViewNet()->checkDrawSelectContour(this, this);
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_SELECT)) {
+        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+    } else {
+        return false;
+    }
+
 }
 
 
