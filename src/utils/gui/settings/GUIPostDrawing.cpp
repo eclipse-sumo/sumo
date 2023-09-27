@@ -61,7 +61,10 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 
 void
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
-    myElementsUnderCursor.push_back(GLObject);
+    // avoid to insert duplicated elements
+    if (isElementUnderCursor(GLObject) == false) {
+        myElementsUnderCursor.push_back(GLObject);
+    }
 }
 
 

@@ -5602,7 +5602,7 @@ GNEViewNet::drawDeleteDottedContour() {
             gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
             // compare objectUnderCursor and markedElementsDeleteContour types 
             if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
                 // check if is a normalGLObject or a path element
@@ -5630,7 +5630,7 @@ GNEViewNet::drawSelectDottedContour() {
             gPostDrawing.markedElementSelectContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
             // compare objectUnderCursor and markedElementsSelectContour types 
             if (objectUnderCursor->getType() == gPostDrawing.markedElementSelectContour->getType()) {
                 // check if is a normalGLObject or a path element
