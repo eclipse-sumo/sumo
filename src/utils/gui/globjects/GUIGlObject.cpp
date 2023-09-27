@@ -160,8 +160,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FX
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
     myMicrosimID(microsimID),
-    myIcon(icon),
-    myAmBlocked(false) {
+    myIcon(icon) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();
