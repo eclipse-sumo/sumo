@@ -60,10 +60,10 @@ public:
     const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
 
     /// @brief elements marked for drawing remove contour (used in netedit)
-    std::vector<const GUIGlObject*> elementsMarkedToRemove;
+    std::vector<const GUIGlObject*> markedElementsDeleteContour;
 
-    /// @brief elements marked for drawing selet contour(used in netedit)
-    std::vector<const GUIGlObject*> elementsMarkedToSelect;
+    /// @brief elements marked for drawing select contour (used in netedit)
+    const GUIGlObject* markedElementSelectContour;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;

@@ -39,8 +39,8 @@ GUIPostDrawing::executePostDrawingTasks() {
     mousePos = Position::INVALID;
     // clear containers
     myElementsUnderCursor.clear();
-    elementsMarkedToRemove.clear();
-    elementsMarkedToSelect.clear();
+    markedElementsDeleteContour.clear();
+    markedElementSelectContour = nullptr;
     // reset marked elements
     myTopElement = nullptr;
     markedNode = nullptr;
