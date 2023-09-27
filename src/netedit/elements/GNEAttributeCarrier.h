@@ -97,8 +97,11 @@ public:
 
     /// @}
 
-    /// @name Function related with drawing (can be implemented in children)
+    /// @name Function related with contourdrawing (can be implemented in children)
     /// @{
+    // check if draw contour
+    bool checkDrawContour();
+
     /// @brief check if draw from contour (green)
     virtual bool checkDrawFromContour() const;
 

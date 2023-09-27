@@ -743,10 +743,10 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
-    // get inspected and front flags
-    const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
+    // check if this is a dotted element
+    const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -874,10 +874,8 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
-    // get inspected and front flags
-    const bool dottedElement = viewNet->isAttributeCarrierInspected(myPlanElement) || (viewNet->getFrontAttributeCarrier() == myPlanElement);
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(myPlanElement->checkDrawContour(), fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -913,7 +911,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
         // check if shape dotted contour has to be drawn
-        if (fromLane->getLane2laneConnections().exist(toLane) && dottedElement) {
+        if (fromLane->getLane2laneConnections().exist(toLane)) {
             // get shape
             const auto &shape = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape();
             // check if mouse is over element

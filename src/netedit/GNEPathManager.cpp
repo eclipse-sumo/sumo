@@ -512,7 +512,7 @@ GNEPathManager::PathDraw::clearPathDraw() {
 
 
 bool
-GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELane* lane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const bool dottedElement, const GNELane* lane, SumoXMLTag tag) {
     // check conditions
     if (dottedElement) {
         return true;
@@ -540,7 +540,7 @@ GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELa
 
 
 bool
-GNEPathManager::PathDraw::drawPathGeometry(const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag) {
     // check conditions
     if (dottedElement) {
         return true;

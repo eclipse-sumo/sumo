@@ -119,6 +119,15 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 
 
 bool
+GNEAttributeCarrier::checkDrawContour() {
+    return (checkDrawFromContour() || checkDrawToContour() ||
+            checkDrawRelatedContour() || checkDrawOverContour() ||
+            checkDrawInspectContour() || checkDrawFrontContour() ||
+            checkDrawDeleteContour() || checkDrawSelectContour());
+}
+
+
+bool
 GNEAttributeCarrier::checkDrawFromContour() const {
     // implement in child
     return false;

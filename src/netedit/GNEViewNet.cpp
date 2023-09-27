@@ -27,6 +27,7 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -1160,7 +1161,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // re-draw marked route
     if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
-        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, dynamic_cast<const GNEPathManager::PathElement*>(gPostDrawing.markedRoute));
+        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gPostDrawing.markedRoute);
     }
     // draw temporal split junction
     drawTemporalSplitJunction();

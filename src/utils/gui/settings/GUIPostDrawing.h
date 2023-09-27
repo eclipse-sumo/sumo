@@ -30,6 +30,7 @@
 class GNEJunction;
 class GNEEdge;
 class GNELane;
+class GNERoute;
 
 // ===========================================================================
 // class definitions
@@ -77,8 +78,8 @@ public:
     /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;
 
-    /// @brief marked Route (used in create vehicle mode)
-    const GUIGlObject* markedRoute = nullptr;
+    /// @brief marked route (used in create vehicle mode)
+    const GNERoute* markedRoute = nullptr;
 
     /// @brief marked first geometry point (used for moving/delete geometry points)
     const GUIGlObject* markedFirstGeometryPoint = nullptr;
