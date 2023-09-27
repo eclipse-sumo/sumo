@@ -188,7 +188,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape(), stopWidth * MIN2(1.0, busStopExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
             // draw dotted geometry
-            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration, true, true);
+            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, busStopExaggeration, true, true,
+                                      s.dottedContourSettings.segmentWidth);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree() &&

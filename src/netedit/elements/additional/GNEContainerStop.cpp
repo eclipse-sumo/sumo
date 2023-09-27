@@ -179,7 +179,8 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
             // draw dotted geometry
-            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration, true, true);
+            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration,
+                                      true, true, s.dottedContourSettings.segmentWidth);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree() &&

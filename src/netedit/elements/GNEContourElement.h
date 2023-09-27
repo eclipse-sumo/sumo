@@ -44,16 +44,18 @@ protected:
     ~GNEContourElement();
 
     /// @brief draw dotted contour (for closed shapes)
-    void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape, const double width, 
+    void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
                                  const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
-    void drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape, const double extrusionWidth, const double scale,
-                                   const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+    void drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape,
+                                   const double extrusionWidth, const double scale, const bool drawFirstExtrem,
+                                   const bool drawLastExtrem, const double lineWidth) const;
 
     /// @brief draw dotted contour (for rectangled elements)
-    void drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width, const double height,
-                                    const double offsetX, const double offsetY, const double rot, const double scale, const double lineWidth) const;
+    void drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width,
+                                    const double height, const double offsetX, const double offsetY, const double rot,
+                                    const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour (circle)
     void drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, double radius,
@@ -99,7 +101,7 @@ private:
 
     /// @brief draw dotted contour shape
     void buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                         const PositionVector &shape, const double width, const double scale, const double lineWidth) const;
+                                         const PositionVector &shape, const double scale, const double lineWidth) const;
 
     /// @brief build and draw dotted contour extruded
     void buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,

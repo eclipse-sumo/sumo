@@ -1299,7 +1299,8 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
     // draw dotted geometry
-    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration, true, true);
+    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration,
+                              true, true, s.dottedContourSettings.segmentWidth);
 }
 
 
@@ -1366,7 +1367,8 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
     // check if mouse is over element
     mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
     // draw dotted geometry
-    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+    drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration,
+                              true, true, s.dottedContourSettings.segmentWidth);
 }
 
 
@@ -1404,9 +1406,11 @@ GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, cons
             glRotated(-90, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED),
+                                                   s.additionalSettings.vaporizerSize * exaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON),
+                                                   s.additionalSettings.vaporizerSize * exaggeration);
             }
         } else {
             // rotate
@@ -1425,7 +1429,8 @@ GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, cons
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         // draw dotted geometry
-        drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+        drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration,
+                                  true, true, s.dottedContourSettings.segmentWidth);
     }
 }
 

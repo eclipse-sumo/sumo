@@ -586,7 +586,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         checkMouseOverLane(laneDrawingConstants.halfWidth);
         // draw dotted geometry
         if (!drawRailway) {
-            drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
+            drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
         // draw children
         drawChildren(s);
@@ -1605,7 +1605,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // Draw crossties
     GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
     // check if dotted contours has to be drawn
-    drawDottedContourExtruded(s, shape, halfGauge, 1, true, true);
+    drawDottedContourExtruded(s, shape, halfGauge, 1, true, true, s.dottedContourSettings.segmentWidth);
 }
 
 

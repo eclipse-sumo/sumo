@@ -182,7 +182,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
             // draw dotted geometry
-            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration, true, true);
+            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
+                                      chargingStationExaggeration, true, true, s.dottedContourSettings.segmentWidth);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {

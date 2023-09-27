@@ -491,7 +491,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
                         s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
     // draw dotted contour
     drawDottedContourRectangle(s, pos, s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                               0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
+                               0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration, s.dottedContourSettings.segmentWidth);
 }
 
 void

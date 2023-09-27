@@ -174,7 +174,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(walkingAreaShape);
         // draw dotted contour
-        drawDottedContourClosed(s, walkingAreaShape, 1, (walkingAreaExaggeration >= 1) ? walkingAreaExaggeration : 1);
+        drawDottedContourClosed(s, walkingAreaShape, walkingAreaExaggeration, s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

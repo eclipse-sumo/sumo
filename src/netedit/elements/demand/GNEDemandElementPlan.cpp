@@ -727,7 +727,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // pop name
         GLHelper::popName();
         // draw dotted geometry
-        myPlanElement->drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true);
+        myPlanElement->drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true, s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -854,7 +854,11 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // check if mouse is over element
         myPlanElement->mouseWithinGeometry(shape, pathWidth);
         // draw dotted geometry
-        myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true);
+        if (duplicateWidth) {
+            myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+        } else {
+            myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidthSmall);
+        }
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -915,7 +919,11 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             // check if mouse is over element
             myPlanElement->mouseWithinGeometry(shape, pathWidth);
             // draw dotted geometry
-            myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true);
+            if (duplicateWidth) {
+                myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+            } else {
+                myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidthSmall);
+            }
         }
     }
     // check if draw plan parent
