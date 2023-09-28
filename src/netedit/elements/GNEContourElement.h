@@ -75,23 +75,14 @@ private:
     /// @brief pointer to cached shape
     PositionVector *myCachedShape;
 
-    /// @brief pointer to cached width
-    double *myCachedWidth;
-
-    /// @brief pointer to cached height
-    double *myCachedHeight;
-
-    /// @brief pointer to cached rotation
-    double *myCachedRot;
-
-    /// @brief pointer to cached scale
-    double *myCachedScale;
-
     /// @brief dotted geometry color
     GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
 
     /// @brief dotted geometries
     std::vector<GUIDottedGeometry> *myDottedGeometries;
+
+    /// @brief width, height, rot, scale
+    std::vector<double> *myCachedDoubles;
 
     /// @brief draw dotted contour shape
     void buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
