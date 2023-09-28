@@ -306,10 +306,11 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
 
 
 void
-TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeId, const int type, const int limit) {
+TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId, const int type, const int limit) {
     tcpip::Storage content;
-    StoHelp::writeCompound(content, 4);
+    StoHelp::writeCompound(content, 5);
     StoHelp::writeTypedString(content, tripId);
+    StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
     StoHelp::writeTypedInt(content, type);
     StoHelp::writeTypedInt(content, limit);

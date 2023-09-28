@@ -435,6 +435,10 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingString(inputStorage, tripId)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
                 }
+                std::string foeSignal;
+                if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe signal must be given as a string.", outputStorage);
+                }
                 std::string foeId;
                 if (!server.readTypeCheckingString(inputStorage, foeId)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
@@ -447,7 +451,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 if (!server.readTypeCheckingInt(inputStorage, limit)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The limit must be an int.", outputStorage);
                 }
-                libsumo::TrafficLight::addConstraint(id, tripId, foeId, type, limit);
+                libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
             }
             break;
             case libsumo::VAR_PARAMETER: {

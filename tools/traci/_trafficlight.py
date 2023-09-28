@@ -421,11 +421,11 @@ class TrafficLightDomain(Domain):
 
     setCompleteRedYellowGreenDefinition = deprecated("setCompleteRedYellowGreenDefinition")(setProgramLogic)
 
-    def addConstraint(self, tlsID, tripId, foeId, type=0, limit=0):
-        """addConstraint(string, string, string, int, int) -> None
+    def addConstraint(self, tlsID, tripId, foeSignal, foeId, type=0, limit=0):
+        """addConstraint(string, string, string, string, int, int) -> None
         Add the given constraint.
         """
-        self._setCmd(tc.TL_CONSTRAINT_ADD, tlsID, "tssii", 4, tripId, foeId, type, limit)
+        self._setCmd(tc.TL_CONSTRAINT_ADD, tlsID, "tsssii", 5, tripId, foeSignal, foeId, type, limit)
 
     def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
         """swapConstraints(string, string, string, string) -> list(Constraint)
