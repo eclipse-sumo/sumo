@@ -132,14 +132,11 @@ GUIDottedGeometry::DottedGeometryColor::reset() {
 // GUIDottedGeometry::Segment - methods
 // ---------------------------------------------------------------------------
 
-GUIDottedGeometry::Segment::Segment() :
-    offset(-1) {
-}
+GUIDottedGeometry::Segment::Segment() {}
 
 
 GUIDottedGeometry::Segment::Segment(PositionVector newShape) :
-    shape(newShape),
-    offset(-1) {
+    shape(newShape) {
 }
 
 // ---------------------------------------------------------------------------
@@ -171,41 +168,6 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
         // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
     }
-}
-
-
-GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
-                                     const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                                     const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) {
-    // check size of both geometries
-    if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
-            (botDottedGeometry.myDottedGeometrySegments.size() > 0)) {
-        // add extremes
-        if (drawFirstExtrem &&
-                (topDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0) &&
-                (botDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0)) {
-            // add first extreme
-            myDottedGeometrySegments.push_back(Segment({
-                topDottedGeometry.myDottedGeometrySegments.front().shape.front(),
-                botDottedGeometry.myDottedGeometrySegments.front().shape.front()}));
-        }
-        if (drawLastExtrem &&
-                (topDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0) &&
-                (botDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0)) {
-            // add last extreme
-            myDottedGeometrySegments.push_back(Segment({
-                topDottedGeometry.myDottedGeometrySegments.back().shape.back(),
-                botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
-            // invert offset of second dotted geometry
-            myDottedGeometrySegments.back().offset *= -1;
-        }
-    }
-    // resample
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
-    }
-    // calculate shape rotations and lengths
-    calculateShapeRotationsAndLengths();
 }
 
 
@@ -290,15 +252,6 @@ GUIDottedGeometry::getBackPosition() const {
         return myDottedGeometrySegments.back().shape.back();
     } else {
         return Position::INVALID;
-    }
-}
-
-
-void
-GUIDottedGeometry::invertOffset() {
-    // iterate over all segments
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.offset *= -1;
     }
 }
 

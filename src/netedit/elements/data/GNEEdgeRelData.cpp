@@ -315,8 +315,6 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     GUIDottedGeometry lane2lane(s, laneTopA->getLane2laneConnections().getLane2laneGeometry(laneTopB).getShape(), false);
                     // move shape to side
                     lane2lane.moveShapeToSide(laneDrawingConstantsTop.halfWidth * s.edgeRelWidthExaggeration);
-                    // invert offset
-                    lane2lane.invertOffset();
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry
@@ -326,8 +324,6 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                     GUIDottedGeometry dottedGeometry(s, {laneTopA->getLaneShape().back(), laneTopB->getLaneShape().front()}, false);
                     // move shape to side
                     dottedGeometry.moveShapeToSide(laneDrawingConstantsTop.halfWidth * s.edgeRelWidthExaggeration);
-                    // invert offset
-                    dottedGeometry.invertOffset();
                     // reset dottedGeometryColor
                     dottedGeometryColor.reset();
                     // draw top dotted geometry

@@ -69,6 +69,7 @@ public:
 
     /// @brief dotted geometry segment
     struct Segment {
+
         /// @brief default constructor
         Segment();
 
@@ -83,9 +84,6 @@ public:
 
         /// @brief lengths
         std::vector<double> lengths;
-
-        /// @brief drawing offset (-1 or 1 only)
-        double offset;
     };
 
     /// @brief constructor
@@ -93,11 +91,6 @@ public:
 
     /// @brief constructor for shapes
     GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-    /// @brief constructor for extremes
-    GUIDottedGeometry(const GUIVisualizationSettings& s,
-                      const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                      const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem);
 
     /// @brief update GUIDottedGeometry (using lane shape)
     void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape);
@@ -117,9 +110,6 @@ public:
 
     /// @brief get back position
     Position getBackPosition() const;
-
-    /// @brief invert offset of all segments
-    void invertOffset();
 
 private:
     /// @brief calculate shape rotations and lengths
