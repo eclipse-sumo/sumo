@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-28 11:40+0200\n"
-"PO-Revision-Date: 2023-09-28 09:36+0000\n"
+"PO-Revision-Date: 2023-09-28 14:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1160,40 +1160,40 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:350
 msgid "Hide Current Route"
-msgstr ""
+msgstr "Nascondi l'itinerario attuale"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:352
 msgid "Show Current Route"
-msgstr ""
+msgstr "Mostra l'itinerario attuale"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:355
 msgid "Hide Future Route"
-msgstr ""
+msgstr "Nascondi l'itinerario futuro"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:357
 msgid "Show Future Route"
-msgstr ""
+msgstr "Mostra l'itinerario futuro"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:360
 msgid "Hide All Routes"
-msgstr ""
+msgstr "Nascondi tutti gli itinerari"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:362
 msgid "Show All Routes"
-msgstr ""
+msgstr "Mostra tutti gli itinerari"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:365
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:368
 msgid "Draw looped routes"
-msgstr ""
+msgstr "Disegna itinerari ciclici"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:372
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "Nascondi le corsie preferite"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:374
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "Mostra le corsie preferite"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 msgid "Hide Link Items"
@@ -1205,15 +1205,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 msgid "Start Tracking"
-msgstr ""
+msgstr "Inizia perseguimento"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:385
 msgid "Stop Tracking"
-msgstr ""
+msgstr "Termina perseguimento"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:387
 msgid "Select Foes"
-msgstr ""
+msgstr "Seleziona utenti in conflitto"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
@@ -1221,7 +1221,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
-msgstr ""
+msgstr "Metti il veicolo in marcia"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
@@ -1232,7 +1232,7 @@ msgstr "Fermata"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1265
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1330
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:877
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:678
