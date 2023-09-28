@@ -26,8 +26,6 @@ Warning: Found sharp turn with radius 8.23 at the start of edge '-679528241'.
 Warning: Found sharp turn with radius 8.78 at the start of edge '197740390#1'.
 Warning: Found angle of 99.21 degrees at edge '24685976', segment 1.
 Warning: Found sharp turn with radius 7.06 at the start of edge '49809488#0'.
-Warning: Found sharp turn with radius 8.19 at the start of edge '552943165#1'.
-Warning: Found sharp turn with radius 8.23 at the end of edge '679528241'.
 Warning: Converting invalid rail_crossing to priority junction '1428640919'.
 Warning: Converting invalid rail_crossing to priority junction '1828307001'.
 Warning: Converting invalid rail_crossing to priority junction '1828354123'.
@@ -40,3 +38,4 @@ Warning: The rail crossing '1828327717' does not have any roads.
 Warning: The rail crossing '30695381' does not have any roads.
 Warning: 8 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 11 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 7 total messages of type: Found sharp turn with radius % at the % of edge '%'.
