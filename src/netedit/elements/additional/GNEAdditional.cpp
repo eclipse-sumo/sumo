@@ -24,10 +24,13 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
+
 #include "GNEAdditional.h"
 
 
@@ -138,12 +141,64 @@ GNEAdditional::getCenteringBoundary() const {
 
 bool
 GNEAdditional::checkDrawFromContour() const {
+    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // check conditions
+        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // get inspected element
+            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+            // check if starts in TAZ
+            if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_TAZ) == getID())) {
+                return true;
+            } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
+                return true;
+            }
+        } else {    
+            // get TAZRelDataFrame
+            const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+            // check conditions
+            if (TAZRelDataFrame->shown()) {
+                // check first TAZ
+                if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
+                    return gPostDrawing.isElementUnderCursor(this);
+                } else if (TAZRelDataFrame->getFirstTAZ() == this) {
+                    return true;
+                }
+            }
+        }
+    }
+    // nothing to draw
     return false;
 }
 
 
 bool
 GNEAdditional::checkDrawToContour() const {
+    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // check conditions
+        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // get inspected element
+            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+            // check if ends in TAZ
+            if (inspectedAC->hasAttribute(SUMO_ATTR_TO_TAZ) && (inspectedAC->getAttribute(SUMO_ATTR_TO_TAZ) == getID())) {
+                return true;
+            } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
+                return true;
+            }
+        } else {    
+            // get TAZRelDataFrame
+            const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+            // check conditions
+            if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
+                // check first TAZ
+                if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
+                    return gPostDrawing.isElementUnderCursor(this);
+                } else if (TAZRelDataFrame->getSecondTAZ() == this) {
+                    return true;
+                }
+            }
+        }
+    }
+    // nothing to draw
     return false;
 }
 

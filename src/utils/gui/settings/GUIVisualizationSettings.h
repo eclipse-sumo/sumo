@@ -462,8 +462,11 @@ struct GUIVisualizationDottedContourSettings {
     /// @brief width of dotted contour segments
     static const double segmentWidth;
 
-    /// @brief width of dotted contour segments
+    /// @brief width of small dotted contour segments
     static const double segmentWidthSmall;
+
+    /// @brief width of large dotted contour segments
+    static const double segmentWidthLarge;
 
     /// @brief length of dotted contour segments
     static const double segmentLength;
