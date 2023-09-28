@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-28 11:40+0200\n"
-"PO-Revision-Date: 2023-09-28 09:36+0000\n"
+"PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1155,40 +1155,40 @@ msgstr "Über GUI ausgelöster Halt in meso nicht implementiert"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:350
 msgid "Hide Current Route"
-msgstr ""
+msgstr "Aktuelle Route ausblenden"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:352
 msgid "Show Current Route"
-msgstr ""
+msgstr "Aktuelle Route anzeigen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:355
 msgid "Hide Future Route"
-msgstr ""
+msgstr "Zukünftige Route ausblenden"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:357
 msgid "Show Future Route"
-msgstr ""
+msgstr "Zukünftige Route anzeigen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:360
 msgid "Hide All Routes"
-msgstr ""
+msgstr "Alle Routen ausblenden"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:362
 msgid "Show All Routes"
-msgstr ""
+msgstr "Alle Routen anzeigen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:365
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:368
 msgid "Draw looped routes"
-msgstr ""
+msgstr "Routen mit Schleifen anzeigen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:372
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "Zielfahrstreifen ausblenden"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:374
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "Zielfahrstreifen anzeigen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 msgid "Hide Link Items"
@@ -1200,15 +1200,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 msgid "Start Tracking"
-msgstr ""
+msgstr "Verfolgung beginnen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:385
 msgid "Stop Tracking"
-msgstr ""
+msgstr "Verfolgung beenden"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:387
 msgid "Select Foes"
-msgstr ""
+msgstr "Verkehrsteilnehmer mit Konflikt auswählen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
@@ -1216,7 +1216,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
-msgstr ""
+msgstr "Halt abbrechen"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
