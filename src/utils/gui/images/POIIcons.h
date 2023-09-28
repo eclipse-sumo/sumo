@@ -34,5 +34,5 @@ class POIIcons {
 
 public:
     /// @brief returns icon associated to the given POI image
-    static FXIcon* getPOIIcon(POIIcon POIIcon);
+    static FXIcon* getPOIIcon(POIIcon iconType);
 };
