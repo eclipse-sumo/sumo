@@ -22,16 +22,46 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEProhibition::GNEProhibition(GNENet* net) :
-    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_PROHIBITION, GUIIconSubSys::getIcon(GUIIcon::PROHIBITION), {}, {}, {}, {}, {}, {}) {}
+    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_PROHIBITION, GUIIconSubSys::getIcon(GUIIcon::PROHIBITION), {}, {}, {}, {}, {}, {}) {
+}
 
+
+bool
+GNEProhibition::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEProhibition::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEProhibition::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEProhibition::checkDrawOverContour() const {
+    return false;
+}
+
+bool
+GNEProhibition::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEProhibition::checkDrawSelectContour() const {
+    return false;
+}
 
 /****************************************************************************/
