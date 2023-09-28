@@ -633,7 +633,7 @@ GNEAttributeCarrier::isTemplate() const {
 }
 
 
-const GNEContourElement&
+const GNEContour&
 GNEAttributeCarrier::getContour() const {
     return myContour;
 }

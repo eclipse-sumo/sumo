@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEContourElement.cpp
+/// @file    GNEContour.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2023
 ///
-// A abstract class contour elements
+// class used for show contour elements
 /****************************************************************************/
 
 #include <netedit/GNENet.h>
@@ -26,14 +26,14 @@
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEContourElement.h"
+#include "GNEContour.h"
 #include "GNEAttributeCarrier.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
+GNEContour::GNEContour(GNEAttributeCarrier* AC) :
     myAC(AC),
     myCachedPosition(new Position()),
     myCachedShape(new PositionVector()),
@@ -43,7 +43,7 @@ GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
 }
 
 
-GNEContourElement::~GNEContourElement() {
+GNEContour::~GNEContour() {
     delete myCachedPosition;
     delete myCachedShape;
     delete myDottedGeometryColor;
@@ -53,7 +53,7 @@ GNEContourElement::~GNEContourElement() {
 
 
 void
-GNEContourElement::drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
+GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
                                            const double scale, const double lineWidth) const {
     // first check if draw dotted contour
     if (s.drawDottedContour(scale)) {
@@ -91,7 +91,7 @@ GNEContourElement::drawDottedContourClosed(const GUIVisualizationSettings& s, co
 
 
 void
-GNEContourElement::drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape,
+GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape,
                                              const double extrusionWidth, const double scale, const bool drawFirstExtrem,
                                              const bool drawLastExtrem, const double lineWidth) const {
     // first check if draw dotted contour
@@ -138,7 +138,7 @@ GNEContourElement::drawDottedContourExtruded(const GUIVisualizationSettings& s, 
 
 
 void
-GNEContourElement::drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width,
+GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width,
                                               const double height, const double offsetX, const double offsetY, const double rot,
                                               const double scale, const double lineWidth) const {
     // first check if draw dotted contour
@@ -185,7 +185,7 @@ GNEContourElement::drawDottedContourRectangle(const GUIVisualizationSettings& s,
 
 
 void
-GNEContourElement::drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, double radius,
+GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, double radius,
                                            const double scale, const double lineWidth) const {
     // first check if draw dotted contour
     if (s.drawDottedContour(scale)) {
@@ -223,7 +223,7 @@ GNEContourElement::drawDottedContourCircle(const GUIVisualizationSettings& s, co
 
 
 void
-GNEContourElement::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem,
+GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem,
                                          const bool drawLastExtrem, const double lineWidth) const {
     // first check if draw dotted contour
     if (s.drawDottedContour(1)) {
@@ -269,7 +269,7 @@ GNEContourElement::drawDottedContourEdge(const GUIVisualizationSettings& s, cons
 
 
 void
-GNEContourElement::buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
+GNEContour::buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
                                                    const PositionVector &shape, const double scale, const double lineWidth) const {
     // first change size of myDottedGeometries
     if (myDottedGeometries->empty() || myCachedDoubles->empty()) {
@@ -302,7 +302,7 @@ GNEContourElement::buildAndDrawDottedContourClosed(const GUIVisualizationSetting
 
 
 void
-GNEContourElement::buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+GNEContour::buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                      const PositionVector &shape, const double extrusionWidth, const double scale,
                                                      const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const {
     // first change size of myDottedGeometries
@@ -358,7 +358,7 @@ GNEContourElement::buildAndDrawDottedContourExtruded(const GUIVisualizationSetti
 
 
 void
-GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+GNEContour::buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                       const Position &pos, const double width, const double height,
                                                       const double offsetX, const double offsetY, const double rot,
                                                       const double scale, const double lineWidth) const {
@@ -411,7 +411,7 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
 
 
 void
-GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+GNEContour::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                    const Position &pos, double radius, const double scale, const double lineWidth) const {
     // first change size of myDottedGeometries
     if (myDottedGeometries->empty() || myCachedDoubles->empty()) {
@@ -441,7 +441,7 @@ GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSetting
 
 
 void
-GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+GNEContour::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                  const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem,
                                                  const double lineWidth) const {
     // first change size of myDottedGeometries

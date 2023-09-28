@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEContourElement.h
+/// @file    GNEContour.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2023
 ///
-// A abstract class contour elements
+// class used for show contour elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -34,14 +34,14 @@ class GNEAttributeCarrier;
 // class definitions
 // ===========================================================================
 
-class GNEContourElement {
+class GNEContour {
 
 public:
     /// @brief Constructor
-    GNEContourElement(GNEAttributeCarrier* AC);
+    GNEContour(GNEAttributeCarrier* AC);
 
     /// @brief destructor
-    ~GNEContourElement();
+    ~GNEContour();
 
     /// @brief draw dotted contour (for closed shapes)
     void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
@@ -107,11 +107,11 @@ private:
                                        const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
 
     /// @brief invalidate default constructor
-    GNEContourElement() = delete;
+    GNEContour() = delete;
 
     /// @brief Invalidated copy constructor.
-    GNEContourElement(const GNEContourElement&) = delete;
+    GNEContour(const GNEContour&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEContourElement& operator=(const GNEContourElement& src) = delete;
+    GNEContour& operator=(const GNEContour& src) = delete;
 };
