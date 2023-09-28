@@ -16,8 +16,8 @@ set(netedit_elements_SRCS
    GNEHierarchicalContainer.h
    GNEHierarchicalElement.cpp
    GNEHierarchicalElement.h
-   GNEContourElement.cpp
-   GNEContourElement.h
+   GNEContour.cpp
+   GNEContour.h
    GNETagProperties.cpp
    GNETagProperties.h
    )
