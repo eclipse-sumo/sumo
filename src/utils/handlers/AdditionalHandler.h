@@ -601,17 +601,6 @@ public:
     virtual void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
 
-    /**@brief Builds a JuPedSim waiting area using the given values
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the waiting area
-     * @param[in] shape The shape of the waiting area
-     * @param[in] geo specify if shape was loaded as GEO
-     * @param[in] name waiting area name
-     * @param[in] parameters generic parameters
-     */
-    virtual void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                  bool geo, const std::string& name, const Parameterised::Map& parameters) = 0;
-
     /// @}
 
     /// @brief get flag for check if a element wasn't created
@@ -737,9 +726,6 @@ private:
 
     /// @brief parse juPedSim obstacle attributes
     void parseJpsObstacleAttributes(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse juPedSim waiting area attributes
-    void parseJpsWaitingAreaAttributes(const SUMOSAXAttributes& attrs);
 
     /// @brief parse generic parameters
     void parseParameters(const SUMOSAXAttributes& attrs);

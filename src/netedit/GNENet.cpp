@@ -2106,7 +2106,6 @@ GNENet::saveJuPedSimElements(const std::string &file) {
     writeJuPedSimComment(device);
     writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
     // close device
     device.close();
 }
@@ -2260,7 +2259,6 @@ GNENet::saveAdditionalsConfirmed() {
     writeJuPedSimComment(device);
     writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
     // close device
     device.close();
     // mark additionals as saved

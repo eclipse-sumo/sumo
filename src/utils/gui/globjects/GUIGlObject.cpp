@@ -104,7 +104,6 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"jps.walkableArea",        GLO_JPS_WALKABLEAREA},
     {"jps.obstacle",            GLO_JPS_OBSTACLE},
-    {"jps.waitingArea",         GLO_JPS_WAITINGAREA},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},

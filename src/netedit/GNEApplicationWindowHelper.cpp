@@ -1324,7 +1324,7 @@ GNEApplicationWindowHelper::LockMenuCommands::LockMenuCommands(GNEApplicationWin
 
 void
 GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* fileMenu) {
-    // newtork
+    // network
     menuCheckLockJunction = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                             TL("Junctions"), "", "",
                             GUIIconSubSys::getIcon(GUIIcon::JUNCTION),
@@ -1389,12 +1389,6 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                                 TL("Obstacles"), "", "",
                                 GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE),
                                 myGNEApp, MID_GNE_LOCK_ELEMENT);
-
-    menuCheckLockJpsWaitingAreas = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                                   TL("WaitingAreas"), "", "",
-                                   GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA),
-                                   myGNEApp, MID_GNE_LOCK_ELEMENT);
-
     // demand
     menuCheckLockRoutes = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
                           TL("Routes"), "", "",
@@ -1497,7 +1491,6 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockPOIs->remHotKey(parseHotKey('o'));
     menuCheckLockJpsWalkableAreas->remHotKey(parseHotKey('n'));
     menuCheckLockJpsObstacles->remHotKey(parseHotKey('b'));
-    menuCheckLockJpsWaitingAreas->remHotKey(parseHotKey('x'));
     // demand
     menuCheckLockRoutes->remHotKey(parseHotKey('r'));
     menuCheckLockVehicles->remHotKey(parseHotKey('v'));
@@ -1531,7 +1524,6 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockPOIs->enable();
     menuCheckLockJpsWalkableAreas->enable();
     menuCheckLockJpsObstacles->enable();
-    menuCheckLockJpsWaitingAreas->enable();
     // set accels
     menuCheckLockJunction->addHotKey(parseHotKey('j'));
     menuCheckLockEdges->addHotKey(parseHotKey('e'));
@@ -1546,7 +1538,6 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockPOIs->addHotKey(parseHotKey('o'));
     menuCheckLockJpsWalkableAreas->addHotKey(parseHotKey('n'));
     menuCheckLockJpsObstacles->addHotKey(parseHotKey('b'));
-    menuCheckLockJpsWaitingAreas->addHotKey(parseHotKey('x'));
     // now show it
     menuCheckLockJunction->show();
     menuCheckLockEdges->show();
@@ -1561,7 +1552,6 @@ GNEApplicationWindowHelper::LockMenuCommands::showNetworkLockMenuCommands() {
     menuCheckLockPOIs->show();
     menuCheckLockJpsWalkableAreas->show();
     menuCheckLockJpsObstacles->show();
-    menuCheckLockJpsWaitingAreas->show();
 }
 
 
@@ -1580,7 +1570,6 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockPOIs->disable();
     menuCheckLockJpsWalkableAreas->disable();
     menuCheckLockJpsObstacles->disable();
-    menuCheckLockJpsWaitingAreas->disable();
     // now hide it
     menuCheckLockJunction->hide();
     menuCheckLockEdges->hide();
@@ -1595,7 +1584,6 @@ GNEApplicationWindowHelper::LockMenuCommands::hideNetworkLockMenuCommands() {
     menuCheckLockPOIs->hide();
     menuCheckLockJpsWalkableAreas->hide();
     menuCheckLockJpsObstacles->hide();
-    menuCheckLockJpsWaitingAreas->hide();
 }
 
 
@@ -1709,7 +1697,6 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockPOIs->setCheck(TRUE);
     menuCheckLockJpsWalkableAreas->setCheck(TRUE);
     menuCheckLockJpsObstacles->setCheck(TRUE);
-    menuCheckLockJpsWaitingAreas->setCheck(TRUE);
     menuCheckLockRoutes->setCheck(TRUE);
     menuCheckLockVehicles->setCheck(TRUE);
     menuCheckLockPersons->setCheck(TRUE);
@@ -1741,7 +1728,6 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockPOIs->setCheck(FALSE);
     menuCheckLockJpsWalkableAreas->setCheck(FALSE);
     menuCheckLockJpsObstacles->setCheck(FALSE);
-    menuCheckLockJpsWaitingAreas->setCheck(FALSE);
     menuCheckLockRoutes->setCheck(FALSE);
     menuCheckLockVehicles->setCheck(FALSE);
     menuCheckLockPersons->setCheck(FALSE);
@@ -1785,8 +1771,6 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockJpsWalkableAreas->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) {
         menuCheckLockJpsObstacles->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) {
-        menuCheckLockJpsWaitingAreas->setCheck(value);
     } else if ((AC->getTagProperty().getTag() == SUMO_TAG_POI) ||
                (AC->getTagProperty().getTag() == GNE_TAG_POILANE) ||
                (AC->getTagProperty().getTag() == GNE_TAG_POIGEO)) {

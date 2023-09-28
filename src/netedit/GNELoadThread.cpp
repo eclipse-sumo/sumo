@@ -396,18 +396,6 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("jps.obstacle-prefix", new Option_String("jps.obstacle"));
     neteditOptions.addDescription("jps.obstacle-prefix", "Netedit", TL("Prefix for jps obstacle naming"));
 
-    neteditOptions.doRegister("jps.waitingArea-prefix", new Option_String("jps.waiting_area"));
-    neteditOptions.addDescription("jps.waitingArea-prefix", "Netedit", TL("Prefix for jps waiting area naming"));
-
-    neteditOptions.doRegister("jps.source-prefix", new Option_String("jps.source"));
-    neteditOptions.addDescription("jps.source-prefix", "Netedit", TL("Prefix for jps source naming"));
-
-    neteditOptions.doRegister("jps.sink-prefix", new Option_String("jps.sink"));
-    neteditOptions.addDescription("jps.sink-prefix", "Netedit", TL("Prefix for jps sink naming"));
-
-    neteditOptions.doRegister("jps.waypoint-prefix", new Option_String("jps.waypoint"));
-    neteditOptions.addDescription("jps.waypoint-prefix", "Netedit", TL("Prefix for jps waypoints naming"));
-
     // demand prefixes
 
     neteditOptions.doRegister("route-prefix", new Option_String("r"));

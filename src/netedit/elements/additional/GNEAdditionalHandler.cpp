@@ -1591,8 +1591,6 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
         buildJpsWalkableArea(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (type == "jupedsim.obstacle") { 
         buildJpsObstacle(sumoBaseObject, id, shape, geo, name, parameters);
-    } else if (type == "jupedsim.waiting_area") { 
-        buildJpsWaitingArea(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
     } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
@@ -1791,34 +1789,6 @@ GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject*
             // insert shape without allowing undo/redo
             myNet->getAttributeCarriers()->insertAdditional(obstacle);
             obstacle->incRef("addObstacle");
-        }
-    }
-}
-
-
-void
-GNEAdditionalHandler::buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                    bool geo, const std::string& name, const Parameterised::Map& parameters) {
-    // check conditions
-    if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
-        writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);
-    } else if (!checkDuplicatedID(NamespaceIDs::polygons, id)) {
-        writeErrorDuplicated(GNE_TAG_JPS_WAITINGAREA, id);
-    } else {
-        // get netedit parameters
-        NeteditParameters neteditParameters(sumoBaseObject);
-        // create waiting area
-        GNEPoly* waitingArea = new GNEPoly(GNE_TAG_JPS_WAITINGAREA, myNet, id, shape, geo, name, parameters);
-        // add it depending of allow undoRed
-        if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(waitingArea, TL("add jps waiting area '") + id + "'");
-            overwriteAdditional();
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(waitingArea, true), true);
-            myNet->getViewNet()->getUndoList()->end();
-        } else {
-            // insert shape without allowing undo/redo
-            myNet->getAttributeCarriers()->insertAdditional(waitingArea);
-            waitingArea->incRef("addWaitingArea");
         }
     }
 }

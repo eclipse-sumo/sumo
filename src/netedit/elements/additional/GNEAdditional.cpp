@@ -787,8 +787,6 @@ GNEAdditional::getJuPedSimType(SumoXMLTag tag) {
             return "jupedsim.walkable_area";
         case GNE_TAG_JPS_OBSTACLE:
             return "jupedsim.obstacle";
-        case GNE_TAG_JPS_WAITINGAREA:
-            return "jupedsim.waiting_area";
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -803,8 +801,6 @@ GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
             return RGBColor(179,217,255);
         case GNE_TAG_JPS_OBSTACLE:
             return RGBColor(255,204,204);
-        case GNE_TAG_JPS_WAITINGAREA:
-            return RGBColor(50, 200, 50);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -817,7 +813,6 @@ GNEAdditional::getJuPedSimFill(SumoXMLTag tag) {
     switch (tag) {
         case GNE_TAG_JPS_WALKABLEAREA:
         case GNE_TAG_JPS_OBSTACLE:
-        case GNE_TAG_JPS_WAITINGAREA:
             return true;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
@@ -833,8 +828,6 @@ GNEAdditional::getJuPedSimLayer(SumoXMLTag tag) {
             return 1;
         case GNE_TAG_JPS_OBSTACLE:
             return 2;
-        case GNE_TAG_JPS_WAITINGAREA:
-            return 3;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -849,8 +842,6 @@ GNEAdditional::getJuPedSimGLO(SumoXMLTag tag) {
             return GLO_JPS_WALKABLEAREA;
         case GNE_TAG_JPS_OBSTACLE:
             return GLO_JPS_OBSTACLE;
-        case GNE_TAG_JPS_WAITINGAREA:
-            return GLO_JPS_WAITINGAREA;
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }
@@ -865,8 +856,6 @@ GNEAdditional::getJuPedSimIcon(SumoXMLTag tag) {
             return GUIIconSubSys::getIcon(GUIIcon::JPS_WALKABLEAREA);
         case GNE_TAG_JPS_OBSTACLE:
             return GUIIconSubSys::getIcon(GUIIcon::JPS_OBSTACLE);
-        case GNE_TAG_JPS_WAITINGAREA:
-            return GUIIconSubSys::getIcon(GUIIcon::JPS_WAITINGAREA);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

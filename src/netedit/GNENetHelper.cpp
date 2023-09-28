@@ -1199,8 +1199,6 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = neteditOptions.getString("jps.walkableArea-prefix");
     } else if (tag == GNE_TAG_JPS_OBSTACLE) {
         prefix = neteditOptions.getString("jps.obstacle-prefix");
-    } else if (tag == GNE_TAG_JPS_WAITINGAREA) {
-        prefix = neteditOptions.getString("jps.waitingArea-prefix");
     }
     int counter = 0;
     // check namespaces
@@ -1254,7 +1252,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPureAdditionals() const {
            // shapes
            getNumberOfSelectedPolygons() - getNumberOfSelectedPOIs() -
            // JuPedSims
-           getNumberOfSelectedJpsWalkableAreas() - getNumberOfSelectedJpsObstacles() - getNumberOfSelectedJpsWaitingAreas() -
+           getNumberOfSelectedJpsWalkableAreas() - getNumberOfSelectedJpsObstacles() -
            // TAZ
            getNumberOfSelectedTAZs() - getNumberOfSelectedTAZSources() - getNumberOfSelectedTAZSinks() -
            // wires
@@ -1291,18 +1289,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsObstacles() const {
     int counter = 0;
     for (const auto& obstacle : myAdditionals.at(GNE_TAG_JPS_OBSTACLE)) {
         if (obstacle->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedJpsWaitingAreas() const {
-    int counter = 0;
-    for (const auto& waitingArea : myAdditionals.at(GNE_TAG_JPS_WAITINGAREA)) {
-        if (waitingArea->isAttributeCarrierSelected()) {
             counter++;
         }
     }

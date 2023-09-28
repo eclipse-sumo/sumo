@@ -149,8 +149,6 @@ enum GUIGlObjectType {
     GLO_JPS_WALKABLEAREA = 203,
     /// @brief obstacles
     GLO_JPS_OBSTACLE = 204,
-    /// @brief waiting areas
-    GLO_JPS_WAITINGAREA = 205,
 
     /// @}
 

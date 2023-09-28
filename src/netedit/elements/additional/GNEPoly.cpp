@@ -118,7 +118,6 @@ GNEPoly::getMoveOperation() {
         switch (getTagProperty().getTag()) {
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
-            case GNE_TAG_JPS_WAITINGAREA:
                 // calculate move shape operation maintain shape closed
                 return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), radius, true, true);
             default:

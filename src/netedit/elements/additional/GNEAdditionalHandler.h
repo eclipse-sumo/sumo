@@ -601,17 +601,6 @@ public:
     void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
                                bool geo, const std::string& name, const Parameterised::Map& parameters);
 
-    /**@brief Builds a JuPedSim waiting area using the given values
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] id The name of the waiting area
-     * @param[in] shape The shape of the waiting area
-     * @param[in] geo specify if shape was loaded as GEO
-     * @param[in] name waiting area name
-     * @param[in] parameters generic parameters
-     */
-    void buildJpsWaitingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                  bool geo, const std::string& name, const Parameterised::Map& parameters);
-
     /// @}
 
     /// @brief check if a GNEAccess can be created in a certain Edge

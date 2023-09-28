@@ -474,7 +474,6 @@ enum class GUIIcon {
     JPS,
     JPS_WALKABLEAREA,
     JPS_OBSTACLE,
-    JPS_WAITINGAREA,
     /// @}
 
     /// @name TAZ elements icons

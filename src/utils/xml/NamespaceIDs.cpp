@@ -50,8 +50,7 @@ const std::vector<SumoXMLTag> NamespaceIDs::polygons = {
     SUMO_TAG_POLY,
     SUMO_TAG_TAZ,
     GNE_TAG_JPS_WALKABLEAREA,
-    GNE_TAG_JPS_OBSTACLE,
-    GNE_TAG_JPS_WAITINGAREA
+    GNE_TAG_JPS_OBSTACLE
 };
 
 const std::vector<SumoXMLTag> NamespaceIDs::POIs = {

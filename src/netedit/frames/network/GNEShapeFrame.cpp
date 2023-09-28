@@ -281,7 +281,6 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             case SUMO_TAG_POLY:
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
-            case GNE_TAG_JPS_WAITINGAREA:
                 return processClickPolygons(clickedPosition, updateTemporalShape);
             default:
                 break;
@@ -353,7 +352,7 @@ GNEShapeFrame::shapeDrawed() {
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
         if ((myBaseShape->hasBoolAttribute(GNE_ATTR_CLOSE_SHAPE) && myBaseShape->getBoolAttribute(GNE_ATTR_CLOSE_SHAPE)) ||
-            (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE) || (shapeTag == GNE_TAG_JPS_WAITINGAREA)) {
+            (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE)) {
             temporalShape.closePolygon();
         }
         myBaseShape->addPositionVectorAttribute(SUMO_ATTR_SHAPE, temporalShape);
@@ -379,8 +378,7 @@ GNEShapeFrame::tagSelected() {
         // get shape tag
         SumoXMLTag shapeTag = myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // Check if drawing mode has to be shown
-        if ((shapeTag == SUMO_TAG_POLY) || (shapeTag == GNE_TAG_JPS_WALKABLEAREA) ||
-            (shapeTag == GNE_TAG_JPS_OBSTACLE) || (shapeTag == GNE_TAG_JPS_WAITINGAREA)) {
+        if ((shapeTag == SUMO_TAG_POLY) || (shapeTag == GNE_TAG_JPS_WALKABLEAREA) || (shapeTag == GNE_TAG_JPS_OBSTACLE)) {
             myDrawingShape->showDrawingShape();
         } else {
             myDrawingShape->hideDrawingShape();

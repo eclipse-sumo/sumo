@@ -341,7 +341,6 @@
 #include "icons/jps.xpm"
 #include "icons/jps_walkablearea.xpm"
 #include "icons/jps_obstacle.xpm"
-#include "icons/jps_waitingarea.xpm"
 
 #include "icons/taz.xpm"
 #include "icons/tazedge.xpm"
@@ -833,7 +832,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
     myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
     myIcons[GUIIcon::JPS_OBSTACLE] = new FXXPMIcon(a, jps_obstacle_xpm);
-    myIcons[GUIIcon::JPS_WAITINGAREA] = new FXXPMIcon(a, jps_waitingarea_xpm);
 
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);

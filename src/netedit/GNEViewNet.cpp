@@ -2520,8 +2520,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2565,8 +2564,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2599,8 +2597,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }

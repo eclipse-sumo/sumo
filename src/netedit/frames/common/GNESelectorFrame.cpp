@@ -109,8 +109,7 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
         updateInformationLabel(TL("JuPedSim elements"),
             ACs->getNumberOfSelectedJpsWalkableAreas() + 
-            ACs->getNumberOfSelectedJpsObstacles() +
-            ACs->getNumberOfSelectedJpsWaitingAreas());
+            ACs->getNumberOfSelectedJpsObstacles());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel(TL("Routes"), ACs->getNumberOfSelectedRoutes());
         updateInformationLabel(TL("Vehicles"), ACs->getNumberOfSelectedVehicles());
@@ -716,20 +715,6 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
                 obstacle->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
                 obstacle->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    if (ignoreLocking || !locks.isObjectLocked(GLO_JPS_WAITINGAREA, false)) {
-        for (const auto& waitingArea : ACs->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || waitingArea->isAttributeCarrierSelected()) {
-                waitingArea->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                waitingArea->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         }
     } else if (onlyCount) {

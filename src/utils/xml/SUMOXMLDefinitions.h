@@ -423,8 +423,6 @@ enum SumoXMLTag {
     GNE_TAG_JPS_WALKABLEAREA,
     /// @brief polygon used for draw juPedSim obstacles
     GNE_TAG_JPS_OBSTACLE,
-    /// @brief polygon used for draw juPedSim waiting areas
-    GNE_TAG_JPS_WAITINGAREA,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol

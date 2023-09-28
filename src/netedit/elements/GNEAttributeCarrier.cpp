@@ -3306,31 +3306,6 @@ GNEAttributeCarrier::fillJuPedSimElements() {
                                               TL("Obstacle's name"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_JPS_WAITINGAREA;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::JUPEDSIM,
-                                      GNETagProperties::TagProperty::RTREE,
-                                      GUIIcon::JPS_WAITINGAREA, SUMO_TAG_POLY, TL("JuPedSim WaitingAera"),
-                                      {}, FXRGBA(253, 255, 206, 255));
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              TL("The id of the waiting area"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE,
-                                              TL("The shape of the waiting area"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Waiting area's name"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
 }
 
 

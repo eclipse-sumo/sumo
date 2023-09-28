@@ -404,9 +404,6 @@ struct GNENetHelper {
 
         /// @brief get number of selected obstacles 
         int getNumberOfSelectedJpsObstacles() const;
-        
-        /// @brief get number of selected waiting areas 
-        int getNumberOfSelectedJpsWaitingAreas() const;
 
         /// @brief get number of selected POIs
         int getNumberOfSelectedPOIs() const;

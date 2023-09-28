@@ -797,9 +797,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu check to lock jps obstacles
         MFXMenuCheckIcon* menuCheckLockJpsObstacles = nullptr;
-        
-        /// @brief menu check to lock jps waiting areas
-        MFXMenuCheckIcon* menuCheckLockJpsWaitingAreas = nullptr;
 
         /// @}
 

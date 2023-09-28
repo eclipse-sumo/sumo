@@ -400,7 +400,6 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         // JuPedSim elements
         case GNE_TAG_JPS_WALKABLEAREA:
         case GNE_TAG_JPS_OBSTACLE:
-        case GNE_TAG_JPS_WAITINGAREA:
             myAC = new GNEPoly(tagProperty.getTag(), net);
             break;
         // Demand elements
