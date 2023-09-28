@@ -447,6 +447,12 @@ void
 GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                  const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem,
                                                  const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->empty()) {
+        for (int i = 0; i < 4; i++) {
+            myDottedGeometries->push_back(GUIDottedGeometry());
+        }
+    }
     // continue depending of lanes
     if (edge->getLanes().size() == 1) {
         // get lane constants
@@ -456,30 +462,38 @@ GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings&
                                           laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration,
                                           drawFirstExtrem, drawLastExtrem, lineWidth);
     } else {
-/*
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         // obtain lanes
-        const GNELane* topLane = lefthand ? edge->getLanes().back() : edge->getLanes().front();
-        const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
+        const GNELane* topLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
+        const GNELane* botLane = lefthand ? edge->getLanes().back() : edge->getLanes().front();
         // create a temporal shape
         PositionVector edgeShape = topLane->getLaneGeometry().getShape();
         edgeShape.append(botLane->getLaneGeometry().getShape());
         // check if recalculate dotted geometries
         if (*myCachedShape != edgeShape) {
-            // obtain a copy of both geometries
-            *myDottedGeometryA = GUIDottedGeometry(s, topLane->getLaneGeometry().getShape(), false);
-            *myDottedGeometryB = GUIDottedGeometry(s, botLane->getLaneGeometry().getShape(), false);
             // obtain both LaneDrawingConstants
             GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, topLane);
             GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, botLane);
-            // move shapes to side
-            myDottedGeometryA->moveShapeToSide(laneDrawingConstantsFront.halfWidth * laneDrawingConstantsFront.exaggeration);
-            myDottedGeometryB->moveShapeToSide(laneDrawingConstantsBack.halfWidth * laneDrawingConstantsBack.exaggeration * -1);
-            // invert offset of top dotted geometry
-            myDottedGeometryA->invertOffset();
-            // calculate extremes
-            *myDottedGeometryC = GUIDottedGeometry(s, *myDottedGeometryA, drawFirstExtrem, *myDottedGeometryB, drawLastExtrem);
+            // create top and bot geometries 
+            myDottedGeometries->at(0) = GUIDottedGeometry(s, topLane->getLaneGeometry().getShape(), false);
+            myDottedGeometries->at(2) = GUIDottedGeometry(s, botLane->getLaneGeometry().getShape().reverse(), false);
+            // move geometries top and bot
+            myDottedGeometries->at(0).moveShapeToSide(laneDrawingConstantsFront.halfWidth * laneDrawingConstantsFront.exaggeration * -1);
+            myDottedGeometries->at(2).moveShapeToSide(laneDrawingConstantsBack.halfWidth * laneDrawingConstantsBack.exaggeration * -1);
+            // create left and right geometries 
+            if (drawFirstExtrem) {
+                myDottedGeometries->at(1) = GUIDottedGeometry(s, {
+                        myDottedGeometries->at(0).getBackPosition(),
+                        myDottedGeometries->at(2).getFrontPosition()
+                    }, false);
+            }
+            if (drawLastExtrem) {
+                myDottedGeometries->at(3) = GUIDottedGeometry(s, {
+                        myDottedGeometries->at(2).getBackPosition(),
+                        myDottedGeometries->at(0).getFrontPosition()
+                    }, false);
+            }
             // update cached shape
             *myCachedShape = edgeShape;
         }
@@ -489,19 +503,22 @@ GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings&
         GLHelper::pushMatrix();
         // translate to front
         glTranslated(0, 0, GLO_DOTTEDCONTOUR);
-        // draw top dotted geometry
-        myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
-        // reset color
-        myDottedGeometryColor->reset();
-        // draw top dotted geometry
-        myDottedGeometryB->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
-        // change color
-        myDottedGeometryColor->changeColor();
-        // draw extrem dotted geometry
-        myDottedGeometryC->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+        // draw dotted geometry top
+        myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+        // continue if draw first extrem
+        if (drawFirstExtrem) {
+            // draw dotted geometry right
+            myDottedGeometries->at(1).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+        }
+        // draw dotted geometry bot
+        myDottedGeometries->at(2).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+        // continue if draw last extrem
+        if (drawFirstExtrem) {
+            // draw dotted geometry letf
+            myDottedGeometries->at(3).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+        }
         // pop matrix
         GLHelper::popMatrix();
-*/
     }
 }
 
