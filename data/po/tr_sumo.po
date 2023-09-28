@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-28 11:39+0200\n"
-"PO-Revision-Date: 2023-09-13 15:01+0000\n"
+"PO-Revision-Date: 2023-09-28 14:35+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1051,6 +1051,9 @@ msgid ""
 "in other vehicle or flow definitions. Please remove all references to route "
 "'%' in case it is internal."
 msgstr ""
+"Dahili rotalar '!' ile başlayan bir ID alır ve diğer araç veya akış "
+"tanımlarında referans gösterilmemelidir. Dahili olması durumunda lütfen '%' "
+"rotasına yapılan tüm referansları kaldırın."
 
 #: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1579
 #, c-format
@@ -3340,14 +3343,15 @@ msgstr "'%' cihazı durumu kaydedemiyor"
 msgid ""
 "Invalid distribution / float value '%' for parameter '%' in vehicle '%'."
 msgstr ""
+"'%' aracındaki '%' parametresi için geçersiz dağılım / float değeri '%'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice.cpp:216
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "'%' aracındaki '%' parametresi için geçersiz boolean değeri '%'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice.cpp:228
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "'%' aracındaki '%' parametresi için geçersiz '%' zaman değeri."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
@@ -3390,6 +3394,8 @@ msgid ""
 "Battery device in vehicle '%s' still uses old parameter '%'. Please update "
 "to 'device.%'."
 msgstr ""
+"'%s' aracındaki akü cihazı hala eski '%' parametresini kullanıyor. Lütfen "
+"'cihaz.%' olarak güncelleyin."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:116
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:129
@@ -3418,7 +3424,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
-msgstr ""
+msgstr "Tepki veren araçlar için minboşluğu verilen faktör kadar azaltın"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:70
 msgid ""
@@ -4690,15 +4696,15 @@ msgstr "Temsilci eklenirken hata oluştu: %"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:122
 msgid "Error while adding waypoint for an agent: %"
-msgstr ""
+msgstr "Temsilci için yol noktası eklenirken hata oluştu: %"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:129
 msgid "Error while creating fixed transition for an agent: %"
-msgstr ""
+msgstr "Temsilci için sabit geçiş oluşturulurken hata oluştu: %"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:135
 msgid "Error while setting transition for an agent: %"
-msgstr ""
+msgstr "Bir temsilci için geçiş ayarlanırken hata oluştu: %"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:163
 #, c-format
@@ -4707,7 +4713,7 @@ msgstr "'%' kişisi için GönderTaz'dan '%' şekil bilgisine sahip değil."
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:229
 msgid "Error while adding a journey for an agent: %"
-msgstr ""
+msgstr "Temsilci için yolculuk eklerken hata oluştu:%"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:262
 msgid "Error during iteration %: %"
@@ -4717,7 +4723,7 @@ msgstr "Yineleme sırasında hata %: %"
 #, c-format
 msgid ""
 "When generating geometry for JuPedSim % connected components were detected."
-msgstr ""
+msgstr "JuPedSim için geometri oluşturulurken % bağlı bileşenler tespit edildi."
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:717
 msgid "Error creating the geometry: %"
@@ -7569,6 +7575,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:370
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
+"Herhangi bir sürüş şeridini kontrol etmeyen trafik sinyallerini dikkate "
+"almayın"
 
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:381
 msgid ""
@@ -8042,72 +8050,71 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2405
 msgid "Ignoring invalid pRange value '%' for road '%'."
-msgstr ""
+msgstr "'%' yolu için geçersiz pAralığı değeri '%' yok sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2484
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "'%' denetleyicisinde eksik '%' sinyali yok sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2522
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2729
-#, fuzzy, c-format
+#, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
-msgstr "Başvurulan Geometri Bilgisi (ref='%') Bilinmiyor"
+msgstr "Şerit bağlantısı öğesinde: gelen yol '%' bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2617
-#, fuzzy
 msgid "Ignoring object without id at edge '%'."
-msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
+msgstr "'%' kenarında id'si olmayan nesne yok sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2635
 msgid "Repeat without object at edge '%'."
-msgstr ""
+msgstr "'%' kesiminde nesne olmadan tekrarlayın."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2700
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
+"Projeksiyon (%) ayarlanamadı. Bu durum --hataları yoksay- seçeneği ile göz "
+"ardı edilebilir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
 #, c-format
 msgid "geoReference format '%' currently not supported"
-msgstr ""
+msgstr "coğrafi Referans biçimi '%' şu anda desteklenmiyor"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2818
 msgid "Mismatching parenthesis in geometry definition for road '%'"
-msgstr ""
+msgstr "'%' yolu için geometri tanımında uyumsuz parantez"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2822
 msgid "Double geometry information for road '%'"
-msgstr ""
+msgstr "'%' yol için çift geometri bilgisi"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:156
 #: D:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:104
-#, fuzzy
 msgid "Could not open osm-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Osm dosyası '%' açılamadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:168
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "Bulunan ve değiştirilen % osm düğümleri."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
-msgstr ""
+msgstr "Yinelenen kenarları kaldırma"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:207
 #, c-format
 msgid "Removed % duplicate osm edges."
-msgstr ""
+msgstr "Yinelenen % osm kenarları kaldırıldı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:241
 msgid "Discarding way '%' because it has only % node(s)"
 msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:404
-#, fuzzy
 msgid "Could not insert junction '%'."
-msgstr "% Kavşakları Birleştirilemedi."
+msgstr "'%' kavşağı eklenemedi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:462
 msgid ""
@@ -8146,9 +8153,8 @@ msgstr ""
 "Kullanılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:812
-#, fuzzy
 msgid "Could not add edge '-%'."
-msgstr "bidi-edge '%' Eklenemiyor."
+msgstr "'-%' kenarı eklenemedi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:900
 msgid ""
@@ -8205,7 +8211,7 @@ msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1609
 msgid "Unknown lane use specifier '%' ignored for way '%'"
-msgstr ""
+msgstr "Bilinmeyen şerit kullanım belirteci '%', '%' yolu için yok sayıldı"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1718
 msgid "No node found for reference '%' in relation '%'."
@@ -8321,7 +8327,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2382
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Yeni '%' tipi ekleniyor ('%' kenarı için ilk oluşum)."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2417
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
@@ -8344,32 +8350,30 @@ msgstr ""
 "Sayılıyor"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:118
-#, fuzzy
 msgid "Could not open sumo-net-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' sumo-net dosyası açılamadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:146
 #, c-format
 msgid "Edge's '%' from-node and to-node '%' are identical."
-msgstr ""
+msgstr "Kesimin '%' düğümden gelen ve '%' düğüme giden kısımları aynıdır."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:165
-#, fuzzy
 msgid "Could not insert edge '%'."
-msgstr "bidi-edge '%' Eklenemiyor."
+msgstr "'%' kesimi eklenemedi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:191
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:787
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:318
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown edge '%' given in connection."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Bağlantıda bilinmeyen '%' kesimi verildi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:230
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:272
-#, fuzzy, c-format
+#, c-format
 msgid "The traffic light '%' is not known."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "Trafik ışığı '%'si bilinmemektedir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:288
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:290
@@ -8380,15 +8384,15 @@ msgid "Edge '%' in prohibition was not built."
 msgstr "Kesim '%' Yasaklamada İnşa Edilmedi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:345
-#, fuzzy, c-format
+#, c-format
 msgid "Deprecated vehicle class(es) '%' in input network."
-msgstr "Girdi Kesim Dosyalarında Kullanımdan Kaldırılan Araç Sınıf(lar)ı '%'."
+msgstr "Giriş ağında kullanımdan kaldırılmış araç sınıf(lar)ı '%'."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:403
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1691
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown edge '%' in roundabout"
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Döner kavşakta bilinmeyen kenar '%'"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:520
 #, c-format
@@ -8401,32 +8405,36 @@ msgstr "tl-logic İçin Eşsiz Kapanış Etiketi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:545
 msgid "Could not add program '%' for traffic light '%'"
-msgstr ""
+msgstr "'%' trafik ışığı için '%' programı eklenemedi"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:615
 msgid "Unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "'%' kenarı için bilinmeyen dağılım türü '%'."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:628
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "Kenar öğesi içinde olmayan '%' şeridi bulundu."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:633
 msgid "Renaming lane '%' to '%'."
-msgstr ""
+msgstr "'%' şeridini '%' olarak yeniden adlandırın."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:699
 msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"Kenar % için yinelenen durdurma uzaklığı tanımı.\n"
+"Yinelenen belirtim yok sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:705
 msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"Kenar %'de şeridin durma uzaklığı için yinelenen tanım.\n"
+"Yinelenen özellikler göz ardı ediliyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:742
 #, c-format
@@ -8435,16 +8443,16 @@ msgstr "Girdide '%' Kavşağı En Az İki Kez Oluştu."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:839
 msgid "Invalid lane index '%' for connection from '%'."
-msgstr ""
+msgstr "'%'den bağlantı için geçersiz şerit dizini '%'."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:929
 msgid "Definition of tl-logic '%' was not finished."
-msgstr ""
+msgstr "tl-logic '%' tanımı tamamlanmadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:941
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr ""
+msgstr "tlLogic '%' için bilinmeyen trafik ışığı türü '%'."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:955
 msgid "found phase without tl-logic"
@@ -8452,122 +8460,114 @@ msgstr "tl-logic Referansı Olmayan Faz Bulundu"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:963
 msgid "Phase duration for tl-logic '%/%' must be positive."
-msgstr ""
+msgstr "tl-logic '%/%' için faz süresi pozitif olmalıdır."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1019
 msgid "Missing connection divider in prohibition attribute '%'"
-msgstr ""
+msgstr "'%' yasaklama özniteliğinde eksik bağlantı bölücü"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1026
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1030
-#, fuzzy
 msgid "Unknown edge prohibition '%'"
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen kesim yasağı '%'"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:205
 msgid "Can not open visum-file '%'."
-msgstr ""
+msgstr "Visum dosyası '%' açılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:247
 #, c-format
 msgid "Too short value line in % occurred."
-msgstr ""
+msgstr "% 'de çok kısa değer satırı oluştu."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr ""
+msgstr "'deki bir değer sayısal olmalıdır ancak değildir (id='%')."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
-msgstr ""
+msgstr "Gerekli değerlerden biri ('%') % içinde eksik."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:326
-#, fuzzy
 msgid "Duplicate node occurred ('%')."
-msgstr "Yinelenen Kesim '%' Oluştu."
+msgstr "Yinelenen düğüm oluştu ('%')."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:344
-#, fuzzy
 msgid "Unable to project coordinates for district %."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "Bölge %'si için koordinatlar projelendirilemiyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:350
-#, fuzzy
 msgid "Duplicate district occurred ('%')."
-msgstr "Yinelenen Kesim '%' Oluştu."
+msgstr "Mükerrer bölge oluştu ('%')."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:368
-#, fuzzy
 msgid "Unable to project coordinates for point %."
-msgstr "'%' Çokgeni İçin Koordinatlar Yansıtılamıyor."
+msgstr "Nokta % için koordinatlar yansıtılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:458
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:475
-#, fuzzy
 msgid "Duplicate edge occurred ('%')."
-msgstr "Yinelenen Kesim '%' Oluştu."
+msgstr "Yinelenen kenar oluştu ('%')."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:580
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
-msgstr ""
+msgstr "Gelen bağlayıcı '%' oluşturulmayacaktır - ağa bağlı olmayacaktır."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:584
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:618
-#, fuzzy, c-format
+#, c-format
 msgid "The district '%' could not be built."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "'%' bölgesi inşa edilememiştir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:594
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:629
-#, fuzzy
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr "Yinelenen Kesim '%' Oluştu."
+msgstr "Yinelenen kenar id'si oluştu (ID='%')."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:614
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
-msgstr ""
+msgstr "Giden bağlayıcı '%' oluşturulmayacaktır - ağa bağlı olmayacaktır."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:665
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:671
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:720
 msgid "There is no edge from node '%' to node '%'."
-msgstr ""
+msgstr "'%' düğümünden '%' düğümüne giden bir kesim yok."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:698
 msgid "Error in geometry description from node '%' to node '%'."
-msgstr ""
+msgstr "'%' düğümünden '%' düğümüne geometri açıklamasında hata."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "'%' kenarı için şerit numarası sayısal (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:762
 msgid "A lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "'%' kesimi için bir şerit numarası pozitif (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "'%' kesimi için şerit uzunluğu sayısal (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:785
 msgid "A lane length for edge '%' is not positive (%)."
-msgstr ""
+msgstr "'%' kesimi için şerit uzunluğu pozitif (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:846
-#, fuzzy
 msgid "Could not find split position for edge '%'."
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "'%' kenarı için bölünme konumu bulunamadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:856
 msgid "Ups - could not insert node!"
-msgstr ""
+msgstr "Ups - düğüm eklenemedi!"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:917
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find TLS '%' for setting the signal group."
-msgstr "Sinyal '%' İçin Kesim '%' Bulunamadı."
+msgstr "Sinyal grubunu ayarlamak için TLS '%' bulunamadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:930
 msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
@@ -8578,9 +8578,8 @@ msgid "Unknown edge in TEILFLAECHENELEMENT"
 msgstr "TEILFLAECHENELEMENT İçinde Bilinmeyen Kesim"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1007
-#, fuzzy
 msgid "Unknown are for area part '%'."
-msgstr "Kesim '%' İçin Bilinmeyen Tür '%'"
+msgstr "Bilinmeyenler alan parçası '%' içindir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1069
 msgid ""
@@ -8592,29 +8591,32 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1107
 msgid "A from-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "'%' kenarı için bir şeritten itibaren numarası sayısal (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1112
 msgid "A from-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "'%' kenarı için şeritten gelen sayı pozitif (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1121
 msgid "A to-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "'%' kenarı için bir şerit sayısı sayısal (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1126
 msgid "A to-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "'%' kenarı için bir şerit sayısı pozitif (%) değildir."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1142
 msgid ""
 "A from-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"'%' kenarı için şeritten gelen numara, kenarın şerit numarasından (%) daha "
+"büyüktür."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1146
 msgid ""
 "A to-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"'%' kenarı için şerit sayısı, kenarın şerit sayısından (%) daha büyüktür."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
@@ -8648,12 +8650,11 @@ msgstr "'%' Durak Yerinin '%' Kesimi İçin Beklenmeyen Çıkış Düğümü '%'
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1271
 #, c-format
 msgid "The node '%' is not known."
-msgstr ""
+msgstr "'%' düğümü bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1508
-#, fuzzy
 msgid "Could not build connector node '%'."
-msgstr "Birleştirilen tls (TIS) '%' Oluşturulamadı."
+msgstr "'%' bağlayıcı düğümü oluşturulamadı."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1518
 msgid " The from-node was not found within the net"
@@ -8670,24 +8671,24 @@ msgstr " İki Düğüm de Aynı"
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1539
 #: D:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:435
 msgid "Could not load VISUM language map from '%'."
-msgstr ""
+msgstr "VISUM dil haritası '%'den yüklenemedi."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1551
 #, c-format
 msgid "Unknown entry '%' in VISUM language map"
-msgstr ""
+msgstr "VISUM dil haritasında bilinmeyen '%' girişi"
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
-msgstr ""
+msgstr " Yalın XML yüklemeden önce % trafik ışıkları kaldırıldı"
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:112
 msgid "No nodes loaded."
-msgstr ""
+msgstr "Yüklü düğüm yok."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:115
 msgid "No edges loaded."
-msgstr ""
+msgstr "Hiçbir kenar yüklenmemiş."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:126
 msgid " Import done:"
@@ -8696,30 +8697,30 @@ msgstr " İçe Aktarma Tamamlandı:"
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:128
 #, c-format
 msgid "   % districts loaded."
-msgstr ""
+msgstr "   İlçelerin %'si yüklendi."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:130
 #, c-format
 msgid "   % nodes loaded."
-msgstr ""
+msgstr "   % düğümler yüklendi."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:132
 msgid "   % types loaded."
-msgstr ""
+msgstr "   Yüklenen türlerin %'si."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:134
 #, c-format
 msgid "   % edges loaded."
-msgstr ""
+msgstr "   % kesimler yüklendi."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:136
 #, c-format
 msgid "The split of edges was performed % times."
-msgstr ""
+msgstr "Kenarların bölünmesi % kez gerçekleştirilmiştir."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:144
 msgid "Proj projection parameters used: '%'."
-msgstr ""
+msgstr "Kullanılan projeksiyon parametreleri: '%'."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:165
 #, c-format
@@ -8728,28 +8729,29 @@ msgstr "Girdi Kesim Dosyalarında Kullanımdan Kaldırılan Araç Sınıf(lar)ı
 
 #: D:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
-msgstr ""
+msgstr "Geçersiz hız kodu (kesim '%')."
 
 #: D:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:64
 msgid "Non-numerical value for an edge's speed type occurred (edge '%')."
 msgstr ""
+"Bir kenarın gerçekleşen hız türü için sayısal olmayan değer (kenar '%')."
 
 #: D:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
-msgstr ""
+msgstr "Geçersiz şerit numarası (kesim '%')."
 
 #: D:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
 msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
 msgstr ""
+"Oluşan bir kenarın şerit numarası için sayısal olmayan değer (kenar '%'."
 
 #: D:\Repos\sumo/src\netimport\NITypeLoader.cpp:62
 msgid "Could not open %-file '%'."
-msgstr ""
+msgstr "'%' dosyası açılamadı."
 
 #: D:\Repos\sumo/src\netimport\NIVisumTL.cpp:76
-#, fuzzy
 msgid "invalid node for traffic light '%'"
-msgstr "Trafik Işığı '%' İçin Program Kurulamadı"
+msgstr "'%' trafik ışığı için geçersiz düğüm"
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:85
 msgid ""
@@ -8762,68 +8764,68 @@ msgstr "Kesim '%' Şerit '%' Yönünde Bağlantısı Yok; Bağlantı Sıfırlana
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:267
 msgid "Unable to project shape for connection from edge '%' to edge '%'."
-msgstr ""
+msgstr "'%' kenarından '%' kenarına bağlantı için şekil yansıtılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
 msgstr "'%' Şeridinden '%' Şeridine Yüklenen Bağlantı Ayarlanamadı."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:347
-#, fuzzy, c-format
+#, c-format
 msgid "Node '%' in crossing is not known."
-msgstr "Kesim '%' Yasaklamada İnşa Edilmedi."
+msgstr "Geçişteki '%' düğümü bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
-msgstr ""
+msgstr "'%' düğümünde geçiş için hiçbir kenar belirtilmedi."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:364
 #, c-format
 msgid "Edge '%' for crossing at node '%' is not known."
-msgstr ""
+msgstr "'%' düğümündeki geçiş için '%' kenarı bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:372
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:450
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:455
 msgid "Edge '%' does not touch node '%'."
-msgstr ""
+msgstr "'%' kenarı '%' düğümüne dokunmuyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:385
 #, c-format
 msgid "Crossing at controlled node '%' must be prioritized"
-msgstr ""
+msgstr "'%' kontrol düğümündeki geçişe öncelik verilmelidir"
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:390
-#, fuzzy
 msgid "Unable to project shape for crossing at node '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "'%' düğümündeki kesişme için şekil yansıtılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:403
 msgid "Crossing with edges '%' already exists at node '%'."
-msgstr ""
+msgstr "'%' kenarlı geçiş '%' düğümünde zaten mevcut."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:435
 msgid "No edges specified for walkingArea at node '%'."
-msgstr ""
+msgstr "'%' düğümünde yürümeAlanı için kenar belirtilmedi."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:441
 #, c-format
 msgid "Edge '%' for walkingArea at node '%' is not known."
-msgstr ""
+msgstr "'%' düğümündeki yürümeAlanı için '%' kenarı bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:467
-#, fuzzy
 msgid "Unable to project shape for walkingArea at node '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "'%' düğümünde yürümeAlanı için şekil yansıtılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Yinelenen kenar id'si oluştu ('%'); üzerine yazmanın istendiği varsayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:227
 #, c-format
 msgid "Edge '%' changed it's type; assuming type override is wished."
 msgstr ""
+"'%' kenarı türünü değiştirdi; tür geçersiz kılmanın istendiği varsayılırsa."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:315
 msgid "Ignoring self-looped edge '%' at junction '%'"
@@ -8832,17 +8834,15 @@ msgstr "'%' Kavşağında Kendinden Döngülü '%' Kesimi Yok Sayılıyor"
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:393
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr ""
+msgstr "'%' kullanımdan kaldırılmıştır, lütfen bunun yerine '%' kullanın."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:403
-#, fuzzy
 msgid "Lane index is larger than number of lanes (edge '%')."
-msgstr "'%' Kesimi İçin Listeden (%) Minimum Şerit Numarası Kullanılıyor."
+msgstr "Şerit indeksi şerit sayısından büyüktür (kesim '%')."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:447
-#, fuzzy
 msgid "Unable to project coordinates for lane '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "'%' şeridi için koordinatlar projelendirilemiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:472
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
@@ -8850,29 +8850,29 @@ msgstr "Bir Kesime Atanamadığı İçin 'split' Yok Sayılıyor"
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:481
 msgid "Edge '%' has a split at invalid position %."
-msgstr ""
+msgstr "'%' kesimi geçersiz % konumunda bir bölünmeye sahiptir."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:486
 msgid "Edge '%' has already a split at position %."
-msgstr ""
+msgstr "Kesim '%' zaten % konumunda bir bölünmeye sahiptir."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:520
 msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
 msgstr ""
+"'%' kenarı için geçersiz bölünmüş düğüm kimliği ('dan' ve 'ye' düğümleri "
+"yasak)"
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:558
-#, fuzzy
 msgid "The from-node is not given for edge '%'."
-msgstr " Ağ İçerisinde Giriş Düğümü Bulunamadı"
+msgstr "'%' kenarı için gelen düğümü verilmemiştir."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:570
-#, fuzzy
 msgid "The to-node is not given for edge '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "'%' kenarı için gidilecek düğüm verilmemiştir."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "'%' kenarı için bilinmeyen yayılma türü '%' yok sayılıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:674
 #, c-format
@@ -8890,24 +8890,23 @@ msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Eksik konum (düğüm ID='%''de)."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:184
 msgid "Could not insert node though checked this before (id='%')."
-msgstr ""
+msgstr "Daha önce kontrol edilmesine rağmen düğüm eklenemedi (id='%')."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:213
-#, fuzzy
 msgid "Unable to project node shape at node '%'."
-msgstr "Kesim '%' İçin Koordinatların Hesaplaması Yapılamadı."
+msgstr "Düğüm şekli '%' düğümüne yansıtılamıyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:321
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "'%' düğümü için bilinmeyen trafik ışığı türü '%'."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:330
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "'%' düğümü için bilinmeyen trafik ışığı düzeni '%'."
 
 #: D:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:341
 msgid "Changing traffic light type '%' to '%' for tl '%'."
@@ -8916,21 +8915,21 @@ msgstr "tl '%' İçin Trafik Işığı Türü '%', '%' Olarak Değiştiriliyor."
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:153
 #, c-format
 msgid "Edge '%' for stop '%' not found"
-msgstr ""
+msgstr "'%' durağı için '%' kenarı bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:161
 #, c-format
 msgid "Lane '%' for stop '%' not found"
-msgstr ""
+msgstr "'%' durağı için '%' şeridi bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:173
 msgid "Could not add public transport stop '%' (already exists)"
-msgstr ""
+msgstr "Toplu taşıma durağı '%' eklenemedi (zaten var)"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:192
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
-msgstr ""
+msgstr "'%' durağına erişim için '%' kenarı bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
@@ -8940,233 +8939,237 @@ msgstr "Hat Tanımı Dışında Rota Bulundu"
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:283
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
-msgstr ""
+msgstr "'%' satırının rotasındaki '%' kenarı bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:302
 msgid "Stop '%' within line '%' not found"
-msgstr ""
+msgstr "'%' satırı içindeki '%' durağı bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:318
 msgid "Stop '%' within route '%' not found"
-msgstr ""
+msgstr "'%' rotası içinde '%' durağı bulunamadı"
 
 #: D:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:46
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1752
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
-msgstr ""
+msgstr "Poi '%'nin yerleştirileceği '%' şeridi bilinmiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:59
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1765
 #, c-format
 msgid "lane position % for poi '%' is not valid."
-msgstr ""
+msgstr "poi '%' için şerit konumu % geçerli değil."
 
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
-msgstr ""
+msgstr "tlLogic '%' tanımı tamamlanmadı."
 
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:140
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:158
 msgid "Cannot load traffic light program for unknown id '%', programID '%'."
 msgstr ""
+"Bilinmeyen id '%', programID '%' için trafik ışığı programı yüklenemiyor."
 
 #: D:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
-msgstr ""
+msgstr "'%' kenarı için geçersiz şerit indeksi '%'."
 
 #: D:\Repos\sumo/src\netimport\NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
-msgstr ""
+msgstr "Geçersiz şerit yayılma türü '%'. Varsayılan 'sağ' kullanılıyor"
 
 #: D:\Repos\sumo/src\netimport\NIXMLTypesHandler.cpp:114
 msgid "Invalid lane index % for edge type '%' with % lanes"
-msgstr ""
+msgstr "'%' kenar tipi için % şeritli geçersiz % şerit indeksi"
 
 #: D:\Repos\sumo/src\netimport\vissim\NIImporter_Vissim.cpp:887
-#, fuzzy
 msgid "Could not open vissim-file '%'."
-msgstr "bidi-edge '%' Eklenemiyor."
+msgstr "'%' vissim dosyası açılamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:241
 msgid "Could not build connection between '%' and '%'."
-msgstr ""
+msgstr "'%' ve '%' arasında bağlantı kurulamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:248
 msgid "Lane sizes differ for connection '%'."
-msgstr ""
+msgstr "Şerit boyutları '%' bağlantısı için farklılık gösterir."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
 msgid "NIVissimConnectionCluster:More than a single node"
-msgstr ""
+msgstr "NIVissimBağlantiKümesi:Tek bir düğümden daha fazlası"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:662
 msgid "NIVissimConnectionCluster: how to get an edge's position?"
-msgstr ""
+msgstr "NIVissimBağlantıKümesi: bir kenarın konumu nasıl alınır?"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:205
 #, c-format
 msgid "Could not build district '%' - edge '%' is missing."
-msgstr ""
+msgstr "'%' bölgesi oluşturulamadı - '%' kenarı eksik."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:360
 msgid ""
 "No streams assigned at district'%'.\n"
 " Using default speed 200km/h"
 msgstr ""
+"'%' bölgesinde atanmış akış yok.\n"
+" Varsayılan hız 200km/s kullanılıyor"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:377
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:526
 #, c-format
 msgid "The referenced speed distribution '%' is not known."
-msgstr ""
+msgstr "Referans alınan hız dağılımı '%' bilinmemektedir."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:378
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:385
 msgid ". Using default."
-msgstr ""
+msgstr ". Varsayılanı kullanma."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
-msgstr ""
+msgstr "'%'yi '%' ile yasaklamak için kötü bir bölme."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:186
 msgid "Could not prohibit '%' by '%'. Have not found disturbance."
-msgstr ""
+msgstr "'%' tarafından '%' yasaklanamadı. Bozukluk bulunamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:191
 msgid "Could not prohibit '%' by '%'. Disturbance connects same node."
-msgstr ""
+msgstr "'%' tarafından '%' yasaklanamadı. Bozukluk aynı düğümü bağlar."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:210
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:262
 #, c-format
 msgid "Would have to split edge '%' to build a prohibition"
-msgstr ""
+msgstr "Bir yasak oluşturmak için '%' kenarını bölmek gerekir"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:237
 #, c-format
 msgid "Could not prohibit '%' - it was not built."
-msgstr ""
+msgstr "'%' yasaklanamadı - oluşturulmadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:243
 msgid "Could not prohibit '%' by '%'."
-msgstr ""
+msgstr "'%' ile '%' yasaklanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:307
 msgid "NIVissimDisturbance: no connection"
-msgstr ""
+msgstr "NIVissimBozukluk: bağlantı yok"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:340
 #, c-format
 msgid "Could not build % of % disturbances."
-msgstr ""
+msgstr "Bozuklukların %'si oluşturulamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:439
 msgid "Will not build edge '%'."
-msgstr ""
+msgstr "'%' kenarını oluşturmayacaktır."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:464
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:472
 #, c-format
 msgid "Could not insert node '%' to nodes container."
-msgstr ""
+msgstr "Düğüm konteynerine '%' düğümü eklenemedi."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:490
 msgid "Could not build edge '%'; would connect same node."
-msgstr ""
+msgstr "'%' kenarı oluşturulamadı; aynı düğümü bağlayacaktı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
 msgid "What about distribution '%' "
-msgstr ""
+msgstr "Peki ya dağıtım '%' "
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format
 msgid "Could not set tls signal at edge '%' - the edge was not built."
-msgstr ""
+msgstr "'%' kenarında tls sinyali ayarlanamadı - kenar oluşturulmadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:152
 msgid "Edge '%': Lanes were not assigned."
-msgstr ""
+msgstr "Kesim '%': Şeritler atanmamıştır."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:375
 msgid ""
 "Error on adding a traffic light\n"
 " Must be a multiple id ('%')"
 msgstr ""
+"Trafik ışığı ekleme hatası\n"
+" Birden fazla id ('%') olmalıdır"
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "'%' sinyal grubu '%' tl'ye atanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:392
 msgid "The signal '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "'%' sinyali '%' tl'sine atanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr ""
+msgstr "Trafik ışıklarının %'si ayarlanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:402
 #, c-format
 msgid "Could not set % of % groups."
-msgstr ""
+msgstr "Grupların %'si ayarlanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:405
 #, c-format
 msgid "Could not set % of % signals."
-msgstr ""
+msgstr "Sinyallerin %'si ayarlanamadı."
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp:84
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
 #, c-format
 msgid "Unsupported LSA-Type '%' occurred."
-msgstr ""
+msgstr "Desteklenmeyen LSA-Tipi '%' oluştu."
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
-msgstr ""
+msgstr "Bilinmeyen trafik ışıkları atlanıyor."
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 msgid "VAS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "VAS trafik ışıkları desteklenmiyor (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 msgid "VSPLUS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "VSPLUS trafik ışıkları desteklenmiyor (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 msgid "TRENDS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "TRENDS trafik ışıkları desteklenmiyor (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "TL trafik ışıkları desteklenmiyor (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "POS trafik ışıkları desteklenmiyor (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "harici olarak tanımlanmış trafik ışıkları desteklenmez (lsa=%)"
 
 #: D:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.cpp:49
 msgid "Simulation duration could not be parsed"
-msgstr ""
+msgstr "Simülasyon süresi ayrıştırılamadı"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:85
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr ""
+msgstr "Bilinmeyen kenar '%' için efor ayarlanmaya çalışılıyor."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:100
 msgid "Trying to set the travel time for the unknown edge '%'."
-msgstr ""
+msgstr "Bilinmeyen kenar '%' için seyahat süresini ayarlamaya çalışıyorum."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:129
 msgid "Invalid network, no network version declared."
-msgstr ""
+msgstr "Geçersiz ağ, ağ sürümü bildirilmedi."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:133
 msgid ""
@@ -9178,7 +9181,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:163
 msgid "State was written at a different time=% than the begin time %!"
-msgstr ""
+msgstr "Durum başlangıç zamanından farklı bir zamanda=% yazıldı %!"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:197
 #: D:\Repos\sumo/src\router\RONet.cpp:223
@@ -9191,10 +9194,12 @@ msgid ""
 "Loading vehicles ahead of a state file is not supported. Correct --begin "
 "option or load vehicles with option --route-files"
 msgstr ""
+"Araçların bir durum dosyasından önce yüklenmesi desteklenmez. Doğru --begin "
+"seçeneği veya araçları -rota-dosyaları seçeneği ile yükleyin"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:258
 msgid "Loading weights from '%'..."
-msgstr ""
+msgstr "'%'den ağırlıklar yükleniyor..."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:287
 msgid "Loading done."
@@ -9202,22 +9207,24 @@ msgstr "Yükleme Tamamlandı."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:392
 msgid "Wrong number of state file names!"
-msgstr ""
+msgstr "Yanlış sayıda eyalet dosya adı!"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:427
 msgid "Loading % from '%'"
-msgstr ""
+msgstr "'%'den % yükleniyor"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:447
 #, c-format
 msgid "The route file '%' is not accessible."
-msgstr ""
+msgstr "'%' rota dosyasına erişilemiyor."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:463
 msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
 msgstr ""
+"Mezoskopik simülasyon için ŞeritVerisi istendi ancak --meso-Şerit-sırası "
+"etkin değil. KesimVerisi'ne geri dönülüyor."
 
 #: D:\Repos\sumo/src\netload\NLDetectorBuilder.cpp:530
 msgid ""
@@ -9237,14 +9244,15 @@ msgid ""
 "Internal edge '%' is not properly connected (probably a manually modified "
 "net.xml)."
 msgstr ""
+"Dahili kesim '%' düzgün bağlanmamış (muhtemelen elle değiştirilmiş net.xml)."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:391
 msgid "Unknown from-node '%' for edge '%'."
-msgstr ""
+msgstr "'%' kenarı için bilinmeyen düğümden '%'."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:395
 msgid "Unknown to-node '%' for edge '%'."
-msgstr ""
+msgstr "'%' kesimi için bilinmeyen '%' düğümü."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:535
 #, c-format
@@ -9252,19 +9260,22 @@ msgid ""
 "Shape of lane '%' is broken.\n"
 " Can not build according edge."
 msgstr ""
+"'%' şeridinin şekli bozuk.\n"
+" Kenara göre oluşturulamaz."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:557
 #, c-format
 msgid "Another lane with the id '%' exists."
-msgstr ""
+msgstr "'%' id'sine sahip başka bir şerit mevcut."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:627
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
 msgstr ""
+"Bilinmeyen bir şerit ('%') '%' kavşağına gelen olarak ayarlanmaya çalışıldı."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:781
 msgid "Traffic light '%' has unknown type '%'."
-msgstr ""
+msgstr "Trafik ışığı '%' bilinmeyen '%' tipine sahiptir."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:785
 #, c-format
@@ -9272,6 +9283,8 @@ msgid ""
 "Traffic light type '%' cannot be used in mesoscopic simulation. Using '%' as "
 "fallback."
 msgstr ""
+"Trafik ışığı tipi '%' mezoskopik simülasyonda kullanılamaz. Yedek olarak '%' "
+"kullanılıyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:874
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
@@ -9279,11 +9292,11 @@ msgstr "maxDur %, tlLogic % Aşamasında minDir % Değerinden Küçük Olmamalı
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:889
 msgid "Duplicate condition '%' in tlLogic '%'"
-msgstr ""
+msgstr "tlLogic '%' içinde yinelenen koşul '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:942
 msgid "Invalid person mode '%' in E1 detector definition '%'"
-msgstr ""
+msgstr "E1 dedektör tanımında geçersiz kişi modu '%' '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1001
 msgid ""
@@ -9296,10 +9309,12 @@ msgstr ""
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1061
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
 msgstr ""
+"E2 dedektörü '%' için kullanımdan kaldırılmış 'cont' bağımsız değişkeni yok "
+"sayılıyor"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1077
 msgid "Invalid person mode '%' in E2 detector definition '%'"
-msgstr ""
+msgstr "E2 dedektörü '%' tanımında geçersiz kişi modu '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1091
 msgid ""
@@ -9314,64 +9329,72 @@ msgid ""
 "Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane "
 "start of lane '%'."
 msgstr ""
+"E2Detektör '%' için 'pos' bağımsız değişkeni eksik. Dedektör başlangıcı == "
+"'%' şeridinin şerit başlangıcı varsayılıyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1136
 msgid ""
 "Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane "
 "end of lane '%'."
 msgstr ""
+"E2Dedektör '%' için 'endPos' argümanı eksik. Dedektör sonu == '%' şeridinin "
+"şerit sonu varsayılıyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1205
 #, c-format
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
 msgstr ""
+"'tl' bağımsız değişkeni verildiğinden E2Dedektör '%' için 'period' bağımsız "
+"değişkeni yok sayılıyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1263
 msgid "Invalid person mode '%' in E3 detector definition '%'"
-msgstr ""
+msgstr "E3 dedektör tanımında geçersiz kişi modu '%' '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1342
 msgid "Invalid person mode '%' in edgeData definition '%'"
-msgstr ""
+msgstr "KesimVeri tanımı '%' içinde geçersiz kişi modu '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1366
 msgid "Unknown edge '%' in edgeData definition '%'"
-msgstr ""
+msgstr "'%' kesimVerileri tanımında bilinmeyen '%' kesimi"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1373
 msgid ""
 "LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is "
 "not active. Falling back to edgeData."
 msgstr ""
+"Mezoskopik simülasyon için şerit verisi '%' istendi ancak --meso-şerit-"
+"sırası etkin değil. KesimVerisi'ne geri dönülüyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1420
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown from-edge '%' in connection."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Bağlantıda bilinmeyen kesimden '%'."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1426
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown to-edge '%' in connection."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Bağlantıda bilinmeyen kenardan '%'."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1431
 msgid "Invalid lane index in connection from '%' to '%'."
-msgstr ""
+msgstr "'%' ile '%' arasındaki bağlantıda geçersiz şerit dizini."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1512
 #, c-format
 msgid "Unknown from-edge '%' in conflict."
-msgstr ""
+msgstr "Bilinmeyen kesimden '%' çakışma halinde."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1517
 #, c-format
 msgid "Unknown to-edge '%' in connflict."
-msgstr ""
+msgstr "Bilinmeyen kesime '%' bağlantıda."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1522
 msgid "Invalid lane index in conflict with '%' to '%'."
-msgstr ""
+msgstr "'%' ile '%' arasında geçersiz şerit dizini çakışması."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1574
 msgid ""
@@ -9386,15 +9409,15 @@ msgstr "Yüklenen TAB ile junction-taz '%' Yer Değiştiriliyor."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1647
 msgid "Skipping visualization of taz '%', polygon already exists."
-msgstr ""
+msgstr "taz '%' görselleştirmesi atlanıyor, poligon zaten mevcut."
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1678
 msgid "At district '%': succeeding edge '%' does not exist."
-msgstr ""
+msgstr "'%' bölgesinde: başarılı '%' kesimi mevcut değil."
 
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
-msgstr ""
+msgstr "Düğüm sayısı hakkında bilgi eksikti."
 
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:126
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:143
@@ -9402,49 +9425,47 @@ msgid "Ignoring junction logic for junction '%'."
 msgstr "'%' Kavşağı İçin Kavşak Mantığı Yok Sayılıyor."
 
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:333
-#, fuzzy
 msgid "Invalid traffic light type '%'"
-msgstr "tl '%' İçin Trafik Işığı Türü '%', '%' Olarak Değiştiriliyor."
+msgstr "Geçersiz trafik ışığı türü '%'"
 
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:348
 #, c-format
 msgid "Another logic with id '%' and programID '%' exists."
-msgstr ""
+msgstr "id '%' ve programID '%' ile başka bir mantık mevcuttur."
 
 #: D:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:474
-#, fuzzy
 msgid "Traffic lights could not be built."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "Trafik ışıkları oluşturulamadı."
 
 #: D:\Repos\sumo/src\netload\NLNetShapeHandler.cpp:163
 #, c-format
 msgid ""
 "% edges of the primary network did not occur in the alternative-net-file"
-msgstr ""
+msgstr "Birincil ağın % kenarları alternatif-ağ-dosyasında oluşmamıştır"
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
 msgstr "Vaporizer Kullanımdan Kaldırılmıştır. Bunun Yerine Rerouter Kullanın."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:84
-#, fuzzy
 msgid "Unknown edge ('%') referenced in a vaporizer."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Buharlaştırıcıda referans verilen bilinmeyen kenar ('%')."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:93
-#, fuzzy
 msgid "A vaporization begin time is negative (edge id='%')."
-msgstr "'%' Kesiminde Önemli Bir Bilgi Eksik."
+msgstr "Buharlaşma başlangıç zamanı negatiftir ('kesim' id='%')."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:97
 msgid "A vaporization ends before it starts (edge id='%')."
-msgstr ""
+msgstr "Buharlaşma başlamadan önce sona erer (kesim id='%')."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:198
 msgid ""
 "The overheadWireSegment '%' was not created as it is attached to internal "
 "lane. It will be build automatically."
 msgstr ""
+"Havai Tel Segmenti '%' dahili şeride bağlı olduğu için oluşturulmadı. "
+"Otomatik olarak oluşturulacaktır."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:203
 #, c-format
@@ -9452,6 +9473,8 @@ msgid ""
 "The overheadWireSegment '%' not built as it is attached to internal lane. It "
 "will be build automatically."
 msgstr ""
+"Havai Tel Segmenti '%' dahili şeride bağlı olduğu için oluşturulmadı. "
+"Otomatik olarak oluşturulacaktır."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:215
 #, c-format
@@ -9459,6 +9482,8 @@ msgid ""
 "The overheadWireSegment '%' has wrong position. Automatically set from 0 to "
 "the length of the lane."
 msgstr ""
+"Havai Tel Segmenti '%' yanlış konuma sahip. Otomatik olarak 0'dan şeridin "
+"uzunluğuna ayarlanır."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:223
 msgid ""
@@ -9473,12 +9498,16 @@ msgid ""
 "A connecting overhead wire start segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"'%' havai hat kelepçesi için tanımlanan bir bağlantı havai hat başlangıç "
+"segmenti '%', '%' cer trafo merkezine atanmamıştır."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:385
 msgid ""
 "A connecting overhead wire end segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"'%' havai hat kelepçesi için tanımlanan bir bağlantı havai hat uç segmenti "
+"'%', '%' cer trafo merkezine atanmamıştır."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:389
 msgid ""
@@ -9486,6 +9515,9 @@ msgid ""
 "assigned to the substation '%'. Please define proper <overheadWireClamp .../"
 "> in additional files before defining overhead wire section."
 msgstr ""
+"Bir havai hat bölümünde tanımlanan '%' havai hat kelepçesi '%' trafo "
+"merkezine atanmamış. Lütfen havai tel bölümünü tanımlamadan önce ek "
+"dosyalarda uygun <havaiTelKelepçe .../> tanımlayın."
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:404
 msgid ""
@@ -9513,107 +9545,114 @@ msgstr ""
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:533
 msgid "Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."
 msgstr ""
+"Otobüs Durağı '%'de yaya olmayan şerit '%'den geçersiz erişim yok sayılıyor."
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
-msgstr ""
+msgstr "Oluşturulan ağ DOSYA'ya yazılacaktır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:59
 msgid "Prefix of files to write plain xml nodes, edges and connections to"
-msgstr ""
+msgstr "Düz xml düğümleri, kenarları ve bağlantıları yazılacak dosyaların öneki"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
-msgstr ""
+msgstr "Özelleştirilmiş olmasalar bile tüm şeritleri ve niteliklerini yazın"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction names"
-msgstr ""
+msgstr "Kesim ve bağlantı adları için bir önek tanımlar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:74
 msgid "Write geo coordinates in plain-xml"
-msgstr ""
+msgstr "Coğrafi koordinatları düz-xml olarak yazın"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:79
 msgid "The generated net will be written to FILE using Amitran format"
-msgstr ""
+msgstr "Oluşturulan ağ Amitran formatı kullanılarak DOSYA'ya yazılacaktır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATsim format"
-msgstr ""
+msgstr "Oluşturulan ağ MATsim formatı kullanılarak DOSYA'ya yazılacaktır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
-msgstr ""
+msgstr "Oluşturulan ağ OpenDRIVE formatı kullanılarak DOSYA'ya yazılacaktır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:88
 msgid ""
 "The generated net will be written to dlr-navteq files with the given PREFIX"
-msgstr ""
+msgstr "Oluşturulan ağ, verilen ÖN EK ile dlr-navteq dosyalarına yazılacaktır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:91
 msgid "The dlr-navteq output format version to write"
-msgstr ""
+msgstr "Yazılacak dlr-navteq çıktı biçimi sürümü"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:94
 msgid ""
 "The network coordinates are written with the specified level of output "
 "precision"
-msgstr ""
+msgstr "Ağ koordinatları belirtilen çıktı hassasiyeti seviyesinde yazılır"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:97
 msgid "Street names will be included in the output (if available)"
-msgstr ""
+msgstr "Sokak adları çıktıya dahil edilecektir (mevcutsa)"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:100
 msgid "Writes original names, if given, as parameter"
-msgstr ""
+msgstr "Verilmişse orijinal isimleri parametre olarak yazar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:103
 msgid "Writes street signs as POIs to FILE"
-msgstr ""
+msgstr "Sokak işaretlerini POI olarak DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:107
 msgid "Writes public transport stops to FILE"
-msgstr ""
+msgstr "Toplu taşıma duraklarını DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:109
 msgid "Writes public transport lines to FILE"
-msgstr ""
+msgstr "Toplu taşıma hatlarını DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:111
 msgid "Clean-up pt stops that are not served by any line"
-msgstr ""
+msgstr "Herhangi bir hat tarafından hizmet verilmeyen durakların temizlenmesi"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:114
 msgid "Writes parking areas to FILE"
-msgstr ""
+msgstr "Park alanlarını DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:117
 msgid "Analyze topology of the railway network"
-msgstr ""
+msgstr "Demiryolu ağının topolojisini analiz edin"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:121
 msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr ""
+"Ağ girişine gömülü olan ve polyconvert (OpenDRIVE) tarafından desteklenmeyen "
+"şekilleri yazın"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:126
 msgid ""
 "Builds parameterized curves whenever the angular change  between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
+"Düz segmentler arasındaki açısal değişim FLOAT dereceyi aştığında "
+"parametrelendirilmiş eğriler oluşturur"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:130
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
-msgstr ""
+msgstr "Sol taraftaki ağlarda şeritleri yazın (pozitif indisler)"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:133
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr ""
+"Yüklenen şekilleri FLOAT içindeki en yakın kenarla eşleştirin ve yol "
+"nesneleri olarak dışa aktarın"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:156
 msgid "OpenDRIVE export needs internal links computation."
@@ -9642,7 +9681,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:189
 msgid "Writing network"
-msgstr ""
+msgstr "Ağ yazılıyor"
 
 #: D:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:91
 msgid ""
@@ -9653,23 +9692,26 @@ msgstr ""
 #: D:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:155
 #: D:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:162
 msgid "Could not reconstruct shape for edge:'%' (%)."
-msgstr ""
+msgstr "Kesim:'%' (%) için şekil yeniden oluşturulamadı."
 
 #: D:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:313
-#, fuzzy
 msgid "Could not compute smooth shape for edge '%'."
-msgstr "'%' Bağlantısı İçin Özel Şekil Kullanılamadı."
+msgstr "'%' kesimi için düzgün şekil hesaplanamadı."
 
 #: D:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:456
 msgid ""
 "Could not compute smooth shape from lane '%' to lane '%'. Use option "
 "'junctions.scurve-stretch' or increase radius of junction '%' to fix this."
 msgstr ""
+"'%' şeridinden '%' şeridine düzgün şekil hesaplanamadı. Bunu düzeltmek için "
+"'kavşaklar. eğri gerdirme' seçeneğini kullanın veya kavşak '%' yarıçapını "
+"artırın."
 
 #: D:\Repos\sumo/src\netwrite\NWWriter_OpenDrive.cpp:963
 msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr ""
+"'%' şeridindeki düzensiz durma çizgisi (dist=%) OpenDRIVE'da gösterilemiyor."
 
 #: D:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:235
 msgid ""
@@ -9693,43 +9735,44 @@ msgstr "'%' Şeridinin Sahip Olduğu Maksimum İzinli Hız 0'dır."
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
+"Coğrafi dönüşüm tanımlanmadığı için \"proj.plain-geo\" seçeneği yok sayılıyor"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan TAZ'ı (ilçeler; ayrıca ağlardan) yükler"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr ""
+msgstr "Yolculuk tanımlarını DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr ""
+msgstr "Akış tanımlarını DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
-msgstr ""
+msgstr "Eşit aralıklı akış yerine olasılıklı akış yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
-msgstr ""
+msgstr "Araçlar yerine yayaları yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:114
 msgid "Writes persontrips instead of vehicles"
-msgstr ""
+msgstr "Araçlar yerine kişi seyahatleri yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:117
 msgid "Add modes attribute to personTrips"
-msgstr ""
+msgstr "Kişi Gezilerine modlar özniteliği ekleyin"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:124
 msgid "Writes trips between junctions"
-msgstr ""
+msgstr "Kavşaklar arasında seferler yazar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:129
 #: D:\Repos\sumo/src\router\ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
-msgstr ""
+msgstr "Başlangıç zamanını tanımlar; Önceki yolculuklar atılacaktır"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:132
 #: D:\Repos\sumo/src\router\ROFrame.cpp:119
@@ -9737,22 +9780,24 @@ msgid ""
 "Defines the end time; Later trips will be discarded; Defaults to the maximum "
 "time that SUMO can represent"
 msgstr ""
+"Bitiş zamanını tanımlar; Daha sonraki yolculuklar atılır; Varsayılan olarak "
+"SUMO'nun temsil edebileceği maksimum süre"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "Seyahatleri her zaman dilimine eşit olarak yayar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
-msgstr ""
+msgstr "Her zaman aynı olmayan kaynak ve alıcı kenarları seçin"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "Araç adları için ön eki tanımlar"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "Geçerli zaman adımının konsol çıktısını devre dışı bırak"
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
@@ -9783,57 +9828,56 @@ msgstr ""
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:270
 msgid "You must supply a TAZ, network or districts file ('-n')."
-msgstr ""
+msgstr "Bir TAZ, ağ veya bölge dosyası ('-n') sağlamalısınız."
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:276
-#, fuzzy
 msgid "No districts loaded."
-msgstr "Herhangi Bir Bölge Yüklenmedi, Kesim No'ları Kullanılacak."
+msgstr "Yüklü bölge yok."
 
 #: D:\Repos\sumo/src\od2trips_main.cpp:282
 msgid "No vehicles loaded."
-msgstr ""
+msgstr "Yüklü araç yok."
 
 #: D:\Repos\sumo/src\od\ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
-msgstr ""
+msgstr "Zaman dilimi başlangıç %'si için geçersiz süre."
 
 #: D:\Repos\sumo/src\od\ODDistrictCont.cpp:72
-#, fuzzy, c-format
+#, c-format
 msgid "Could not access network file '%' to load."
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "Yüklenecek '%' ağ dosyasına erişilemedi."
 
 #: D:\Repos\sumo/src\od\ODDistrictHandler.cpp:130
 msgid "'probability' must be positive (in definition of % '%')."
-msgstr ""
+msgstr "'olasılık' pozitif olmalıdır (% '%' tanımında)."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:81
 msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
+msgstr "Eksik başlangıç '%' ve varış '%' (% araç)."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:87
 msgid "Missing origin '%' (% vehicles)."
-msgstr ""
+msgstr "Eksik başlangıç '%' (% araç)."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:92
 msgid "Missing destination '%' (% vehicles)."
-msgstr ""
+msgstr "Eksik varış noktası '%' (% araç)."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:98
-#, fuzzy, c-format
+#, c-format
 msgid "District '%' has no source."
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "'%' bölgesinin kaynağı yok."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:102
 #, c-format
 msgid "District '%' has no sink."
-msgstr ""
+msgstr "Bölge '%'sinin çukuru yoktur."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:194
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
-msgstr ""
+msgstr "Kaynak '%' ve hedef '%' için farklı kaynak ve çukur kenarı bulunamıyor."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:369 D:\Repos\sumo/src\od\ODMatrix.cpp:389
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:415
@@ -9841,40 +9885,41 @@ msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
+"Saniyede % araçlık akış yoğunluğu, basit bir olasılıkla temsil edilemez. "
+"Eşit aralıklara geri dönülüyor."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:439
 msgid "End of file while reading %."
-msgstr ""
+msgstr "Okurken dosya sonu %."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:466
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "Bozuk dönem tanımı '%'."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:480
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "Bozuk faktör: '%'."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:514
 #, c-format
 msgid "Missing line with % district names."
-msgstr ""
+msgstr "Bölge isimlerinin olduğu satır eksik."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:524
 msgid "Missing line for district %."
-msgstr ""
+msgstr "Bölge %'si için eksik satır."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:538
 msgid "More entries than districts found."
-msgstr ""
+msgstr "Bölgelerden daha fazla kayıt bulundu."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:543 D:\Repos\sumo/src\od\ODMatrix.cpp:591
 msgid "Not numeric vehicle number in line '%'."
-msgstr ""
+msgstr "'%' satırındaki araç numarası sayısal değil."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:589
-#, fuzzy
 msgid "Missing at least one information in line '%'."
-msgstr "'%' Kesiminde Önemli Bir Bilgi Eksik."
+msgstr "'%' satırında en az bir bilgi eksik."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:652
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
@@ -9884,39 +9929,39 @@ msgstr "'%' açılamadı."
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:663 D:\Repos\sumo/src\od\ODMatrix.cpp:669
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
-msgstr ""
+msgstr "'%' tanımlanan zaman hakkında gerekli bilgileri içermemektedir."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:679 D:\Repos\sumo/src\od\ODMatrix.cpp:692
-#, fuzzy, c-format
+#, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Yüklenecek '%' matris dosyasına erişilemedi."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:719
-#, fuzzy, c-format
+#, c-format
 msgid "Could not access route file '%' to load."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Yüklenecek '%' rota dosyasına erişilemedi."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:736
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
+"Bir günlük zaman çizelgesi için 24 giriş olduğunu varsayıyorum, ancak % var."
 
 #: D:\Repos\sumo/src\od\ODMatrix.cpp:746
 msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
+msgstr "Bozuk zaman çizgisi tanımı: '%' içinde bir değer eksik."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:471
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:168
-#, fuzzy
 msgid "Could not load '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' yüklenemedi."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:491
 msgid "Loaded decal '%' with bounding box % %."
-msgstr ""
+msgstr "Sınırlayıcı kutusu %% olan '%' çıkartması yüklendi."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:597
 msgid "Could not load '%'. The model is replaced by a cone shape."
-msgstr ""
+msgstr "'%' yüklenemedi. Model bir koni şekli ile değiştirildi."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGManipulator.cpp:257
 #, c-format
@@ -9929,12 +9974,11 @@ msgstr "Trafik Işığı Dosyalarını Yükleyemiyor."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGView.cpp:453
 msgid "Invalid link index in '%'."
-msgstr ""
+msgstr "'%' içinde geçersiz bağlantı dizini."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGView.cpp:455
-#, fuzzy
 msgid "Unknown traffic light in '%'."
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "'%'de bilinmeyen trafik ışığı."
 
 #: D:\Repos\sumo/src\osgview\GUIOSGView.cpp:991
 msgid "(No projection defined)"
@@ -9943,7 +9987,7 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: D:\Repos\sumo/src\osgview\GUIOSGView.cpp:995
 #: D:\Repos\sumo/src\osgview\GUIOSGView.cpp:996
 msgid "N/A"
-msgstr "Yok"
+msgstr "N/A"
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:107
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:210
@@ -9955,7 +9999,7 @@ msgstr "'%' Çokgeni İçin Koordinatlar Yansıtılamıyor."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
-msgstr ""
+msgstr "'%' altında eksik id"
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:234
 #: D:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:267
@@ -9968,40 +10012,36 @@ msgstr "EN '%' İçin Koordinatlar Yansıtılamıyor."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:302
 msgid "Unsupported shape type occurred (id='%')."
-msgstr ""
+msgstr "Desteklenmeyen şekil türü oluştu (id='%')."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:71
-#, fuzzy
 msgid "Could not open dlr-navteq-poi-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "dlr-navteq-poi-dosyası '%' açılamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:86
 msgid "Could not open dlr-navteq-poly-file '%'."
-msgstr ""
+msgstr "dlr-navteq-poly dosyası '%' açılamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:128
-#, fuzzy
 msgid "Invalid x coordinate for POI '%'."
-msgstr "EN '%' İçin Koordinatlar Yansıtılamıyor."
+msgstr "POI '%' için geçersiz x koordinatı."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:132
-#, fuzzy
 msgid "Invalid y coordinate for POI '%'."
-msgstr "EN '%' İçin Koordinatlar Yansıtılamıyor."
+msgstr "POI '%' için geçersiz y koordinatı."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:137
-#, fuzzy
 msgid "The name of a POI is missing."
-msgstr "Bir Çokgenin Adı Eksik; Çıkartılacak."
+msgstr "Bir POI'nin adı eksik."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:193
 msgid "Invalid dlr-navteq-polygon - line: '%'."
-msgstr ""
+msgstr "Geçersiz dlr-navteq-polygon - satır: '%'."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:222
 #, c-format
 msgid "The polygon '%' is empty."
-msgstr ""
+msgstr "'%' poligonu boş."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:226
 msgid "The name of a polygon is missing; it will be discarded."
@@ -10023,124 +10063,129 @@ msgstr ""
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:230
 msgid "Assembled polygon from relation '%' (name:%)"
-msgstr ""
+msgstr "'%' ilişkisinden birleştirilmiş poligon (ad:%)"
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:254
-#, fuzzy, c-format
+#, c-format
 msgid "Polygon '%' has no shape."
-msgstr "Kesim '%' Hiçbir Şeride Sahip Değil."
+msgstr "'%' poligonunun şekli yok."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:114
-#, fuzzy
 msgid "Could not open visum-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Visum dosyası '%' açılamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:149
-#, fuzzy
 msgid "Unable to project coordinates for point '%'."
-msgstr "'%' Çokgeni İçin Koordinatlar Yansıtılamıyor."
+msgstr "'%' noktası için koordinatlar yansıtılamıyor."
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderXML.cpp:63
-#, fuzzy
 msgid "Could not open xml-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' xml dosyası açılamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:55
-#, fuzzy
 msgid "Could not open net-file '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Net dosyası '%' açılamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:71
-#, fuzzy
 msgid "Could not find projection parameter in net."
-msgstr "Kesim '%' İçin Çift Yönlü Bağlantı Bulunamadı"
+msgstr "Net'te projeksiyon parametresi bulunamadı."
 
 #: D:\Repos\sumo/src\polyconvert\PCTypeDefHandler.cpp:72
-#, fuzzy
 msgid "Could not add polygon type '%' (probably the id is already used)."
-msgstr "TT Durağı '%' Yeniden Atanamadı, Muhtemelen OSM Dosyası Bozuk."
+msgstr "Poligon tipi '%' eklenemedi (muhtemelen id zaten kullanılıyor)."
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
-msgstr ""
+msgstr "SUMO-ağ DOSYASINI ofset ve projeksiyon için referans olarak yükler"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:85
 msgid ""
 "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"DLR-Navteq (Elmar)-formatında kodlandıklarını varsayarak DOSYA'dan "
+"poligonları okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:87
 msgid ""
 "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"DLR-Navteq (Elmar)-formatında kodlandıklarını varsayarak DOSYA+'dan poileri "
+"okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:92
 msgid "Reads polygons from FILE assuming it's a Visum-net"
-msgstr ""
+msgstr "Visum-net olduğunu varsayarak DOSYA'dan çokgenleri okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:100
 msgid "Reads pois and shapes from FILE assuming they're coded in XML"
-msgstr ""
+msgstr "XML'de kodlandıklarını varsayarak DOSYA'dan poi ve şekilleri okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:105
 msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr ""
+msgstr "OSM'de kodlanmış olduklarını varsayarak DOSYA+'dan poileri okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
-msgstr ""
+msgstr "Tür, anahtar-değer çiftinden oluşacaktır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:109
 msgid "The id will be set from the given 'name' attribute"
-msgstr ""
+msgstr "Kimlik, verilen 'name' özniteliğinden ayarlanacaktır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:111
 msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
 msgstr ""
+"FLOAT >= 0 ise, hepsi FLOAT'ın altındaki boşluklarla birleşiyorsa, bir "
+"ilişkinin tüm yollarından bir poligon oluşturun"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
-msgstr ""
+msgstr "Şekil dosyalarından şekilleri okur DOSYA+"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:122
 msgid "Guesses the shapefile's projection"
-msgstr ""
+msgstr "Şekil dosyasının projeksiyonunu tahmin eder"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
-msgstr ""
+msgstr "Kimliğin hangi sütunda bulunabileceğini tanımlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
 msgstr ""
+"Hangi sütunların tür kimliğini oluşturduğunu tanımlar (virgülle ayrılmış "
+"liste)"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:137
 msgid "A running number will be used as id"
-msgstr ""
+msgstr "İd olarak çalışan bir numara kullanılacaktır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
-msgstr ""
+msgstr "Tüm ek sütunları parametre olarak ayıklayın"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:143
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
 msgstr ""
+"[otomatik|doğru|yanlış]. 'Doldur' durumunu verilen değere zorlar. Varsayılan "
+"\"otomatik\" veri türünden belirlemeye çalışır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr ""
+msgstr "DOSYA'dan türleri okur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr ""
+msgstr "Oluşturulan poligonları/poileri DOSYA'ya yaz"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:159
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
+"Oluşturulan poligonları/poileri verilen önek ile bir dlr-tdp dosyasına yazar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:165
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:169
@@ -10148,11 +10193,11 @@ msgstr ""
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:177
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:181
 msgid "Pruning"
-msgstr ""
+msgstr "Kısaltma"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
-msgstr ""
+msgstr "Ağ sınırlarında kısaltmayı etkinleştirir"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:169
 msgid ""
@@ -10160,59 +10205,63 @@ msgid ""
 "Positive values grow the boundary on all sides while negative values shrink "
 "it."
 msgstr ""
+"Net sınıra eklenen ofset tanımı olarak FLOAT,FLOAT,FLOAT,FLOAT kullanır. "
+"Pozitif değerler sınırı her taraftan büyütürken, negatif değerler küçültür."
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:172
 msgid "Uses STR as pruning boundary"
-msgstr ""
+msgstr "STR'yi kısaltma sınırı olarak kullanır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
-msgstr ""
+msgstr "STR'deki eşyalar sınır dışında tutulacaktır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
-msgstr ""
+msgstr "STR[] içinde adları olan öğeler kaldırılacaktır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
-msgstr ""
+msgstr "Tüm öznitelikleri anahtar/değer çiftleri olarak içe aktarır"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:202
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
+"Her poi için katman değerine FLOAT ekler (yani çokgenlerin üzerine çıkarmak "
+"için)"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:206
 msgid "Sets STR as default color"
-msgstr ""
+msgstr "STR'yi varsayılan renk olarak ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:209
 msgid "Sets STR as default prefix"
-msgstr ""
+msgstr "STR'yi varsayılan önek olarak ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:212
 msgid "Sets STR as default type"
-msgstr ""
+msgstr "STR'yi varsayılan tür olarak ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:215
 msgid "Fills polygons by default"
-msgstr ""
+msgstr "Çokgenleri varsayılan olarak doldurur"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:218
 msgid "Sets STR as default icon"
-msgstr ""
+msgstr "STR'yi varsayılan simge olarak ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:221
 msgid "Sets FLOAT as default layer"
-msgstr ""
+msgstr "FLOAT'u varsayılan katman olarak ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:224
 msgid "Sets default action to discard"
-msgstr ""
+msgstr "Atmak için varsayılan eylemi ayarlar"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:228
 msgid "Write geo coordinates in output"
-msgstr ""
+msgstr "Coğrafi koordinatları çıktıya yaz"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:235
 msgid ""
@@ -10223,7 +10272,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:288
 msgid "In order to prune the input on the net, you have to supply a network."
-msgstr ""
+msgstr "Ağdaki girdiyi budamak için bir ağ sağlamanız gerekir."
 
 #: D:\Repos\sumo/src\router\ROEdge.cpp:204
 msgid ""
@@ -10251,131 +10300,144 @@ msgstr ""
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "Oluşturulan rotaları DOSYA'ya yaz"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "Kullanılmış araç tiplerini ayrı DOSYA'ya yazın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
-msgstr ""
+msgstr "Araçları ve tiplerini yazarken türe göre dağıtım id'lerini saklayın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "Yönlendirmek için SUMO-ağ olarak FILE kullanın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr ""
+msgstr "Rotaları id'lerine göre referans alan araçlar yazın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan ek ağ verilerini (ilçeler, otobüs durakları) okuyun"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
 msgstr ""
+"DOSYA(lar)dan sumo rotalarını, alternatifleri, akışları ve seferleri okuyun"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan ağ ağırlıklarını okuma"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan şerit tabanlı ağ ağırlıklarını okuma"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:125
 msgid "Continue if a route could not be build"
-msgstr ""
+msgstr "Bir rota oluşturulamadıysa devam edin"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
-msgstr ""
+msgstr "Alternatif sayısını INT'e göre kısaltın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
-msgstr ""
+msgstr "Giriş ve çıkış için başlangıç ve varış bölgelerini (ilçeler) kullanın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr ""
+msgstr "Girdinin sıralanmamış olduğunu varsayalım"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:148
 msgid "generate random departure times for flow input"
-msgstr ""
+msgstr "akış girişi için rastgele kalkış zamanları oluşturun"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:151
 msgid ""
 "Remove loops within the route; Remove turnarounds at start and end of the "
 "route"
 msgstr ""
+"Güzergah içindeki döngüleri kaldırın; Güzergahın başındaki ve sonundaki "
+"dönüşleri kaldırın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:154
 msgid "Tries to correct a false route"
-msgstr ""
+msgstr "Yanlış bir rotayı düzeltmeye çalışır"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:157
 msgid ""
 "Tries to correct an invalid starting edge by using the first usable edge "
 "instead"
 msgstr ""
+"Geçersiz bir başlangıç kenarını, bunun yerine ilk kullanılabilir kenarı "
+"kullanarak düzeltmeye çalışır"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:160
 msgid ""
 "Tries to correct an invalid destination edge by using the last usable edge "
 "instead"
 msgstr ""
+"Geçersiz bir hedef kenarı, bunun yerine kullanılabilir son kenarı kullanarak "
+"düzeltmeye çalışır"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:163
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
-msgstr ""
+msgstr "Giriş koordinatlarını ( XY'den vb.) yol ağına eşlerken maksimum mesafe"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "Konumları kenarlar yerine kavşaklarla eşleştirin"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "Aynı kaynağa sahip yönlendirme sorgularını bir araya getirme"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
-msgstr ""
+msgstr "Yönlendirme için kullanılan paralel yürütme iş parçacığı sayısı"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:177
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
+"Yönlendirme algoritmaları arasından seçim yapın ['dijkstra', 'astar', 'CH', "
+"'CHWrapper']"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:181
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
 msgstr ""
+"Ek kısıtlamalar için karşılaştırılacak param anahtarlarının virgülle "
+"ayrılmış listesi"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:186
 msgid "Interpolate edge weights at interval boundaries"
-msgstr ""
+msgstr "Aralık sınırlarında kesim ağırlıklarını enterpole edin"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:190
 msgid "Expand the end of the last loaded weight interval to infinity"
-msgstr ""
+msgstr "Son yüklenen ağırlık aralığının sonunu sonsuza genişletin"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:194
 msgid ""
 "Apply the given time penalty when computing routing costs for minor-link "
 "internal lanes"
 msgstr ""
+"Küçük bağlantı iç şeritleri için yönlendirme maliyetlerini hesaplarken "
+"verilen zaman cezasını uygulayın"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:217
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "Varsayılanlar verilen değerleri geçersiz kılar"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:222
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "İstatistiklerin ne sıklıkta yazdırılacağını tanımlar"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:233
 msgid "No output specified."
@@ -10389,27 +10451,26 @@ msgstr "Pozitif Sayıda Alternatif Etkinleştirilmelidir."
 #: D:\Repos\sumo/src\router\ROLoader.cpp:64
 #: D:\Repos\sumo/src\router\ROLoader.cpp:83
 #: D:\Repos\sumo/src\router\ROLoader.cpp:85
-#, fuzzy
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr "Bilinmeyen Bitiş Kesimindeki '%' Yasağı Yok Sayılıyor."
+msgstr "Bilinmeyen kesim '%' için bir ağırlık ayarlanmaya çalışılıyor."
 
 #: D:\Repos\sumo/src\router\ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "'%' ağ dosyasına erişilemiyor."
 
 #: D:\Repos\sumo/src\router\ROLoader.cpp:140
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr ""
+msgstr "'%' ek dosyasına erişilemiyor."
 
 #: D:\Repos\sumo/src\router\ROLoader.cpp:217
 msgid "Routes found between time steps % and %."
-msgstr ""
+msgstr "ve % zaman adımları arasında bulunan rotalar."
 
 #: D:\Repos\sumo/src\router\ROLoader.cpp:243
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "'%' dosyasından % için yükleyici başlatılamadı (%)."
 
 #: D:\Repos\sumo/src\router\ROLoader.cpp:281
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:193
@@ -10417,127 +10478,127 @@ msgid "failed."
 msgstr "Başarısız."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:162
-#, fuzzy, c-format
+#, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr "Girdide '%' Kesimi En Az İki Kez Oluştu."
+msgstr "'%' kenarı en az iki kez oluşur."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:176
-#, fuzzy, c-format
+#, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr "Girdide '%' Kesimi En Az İki Kez Oluştu."
+msgstr "TAZ '%' en az iki kez geçmektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:199
 #, c-format
 msgid "The TAZ '%' is unknown."
-msgstr ""
+msgstr "TAZ '%'si bilinmemektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:204
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
-msgstr ""
+msgstr "TAZ '%' için '%' kenarı bilinmemektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:259
-#, fuzzy, c-format
+#, c-format
 msgid "The bidi edge '%' is not known."
-msgstr "'%' Kesimi Trafik Işığı Bulunamadı."
+msgstr "Bidi kenarı '%' bilinmemektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:270
-#, fuzzy, c-format
+#, c-format
 msgid "The node '%' occurs at least twice."
-msgstr "Girdide '%' Kesimi En Az İki Kez Oluştu."
+msgstr "'%' düğümü en az iki kez geçmektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr ""
+msgstr "'%' en az iki kez geçmektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:446
-#, fuzzy, c-format
+#, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr "Girdide '%' Kesimi En Az İki Kez Oluştu."
+msgstr "Araç tipi '%' en az iki kez geçmektedir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "Bilinmeyen araç için kalkış zamanı talep ediliyor '%'"
 
 #: D:\Repos\sumo/src\router\RONet.cpp:528
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "'%' id'sine sahip başka bir kişi var."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:637
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
+"Farklı maksimum hızların ('%' ve '%') bir araya getirilmesi optimal olmayan "
+"rotalara yol açabilir."
 
 #: D:\Repos\sumo/src\router\RONet.cpp:640
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
+"Farklı araç sınıflarının ('%' ve '%') bir araya getirilmesi geçersiz "
+"rotalara yol açabilir."
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:137
-#, fuzzy
 msgid "Unknown node '%'."
-msgstr "Bilinmeyen '%' Otobüs Durağı."
+msgstr "Bilinmeyen düğüm '%'."
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:243
-#, fuzzy
 msgid "Ignoring lane '%' with broken shape."
-msgstr "'%' Akımı 'Başlangıcı' Olmadan Yok Sayılıyor"
+msgstr "Kırık şekilli '%' şeridi yok sayılıyor."
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:280
-#, fuzzy
 msgid "Skipping isolated junction '%'."
-msgstr "Şüpheli right_before_left junction '%'."
+msgstr "İzole bağlantı '%' atlanıyor."
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:299
-#, fuzzy, c-format
+#, c-format
 msgid "unknown from-edge '%' in connection"
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "bağlantıda bilinmeyen '%' kesimden"
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:302
-#, fuzzy, c-format
+#, c-format
 msgid "unknown to-edge '%' in connection"
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "bağlantıda bilinmeyen kesim '%'"
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:316
-#, fuzzy, c-format
+#, c-format
 msgid "unknown via-edge '%' in connection"
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "bağlantıda bilinmeyen via kesimi '%'"
 
 #: D:\Repos\sumo/src\router\RONetHandler.cpp:368
-#, fuzzy
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
-msgstr "Bilinmeyen Başlangıç Kesimindeki '%' Yasağı Yok Sayılıyor."
+msgstr "Yaya olmayan '%' kenarından geçersiz erişim yok sayılıyor."
 
 #: D:\Repos\sumo/src\router\RORouteDef.cpp:123
-#, fuzzy
 msgid "Repaired route of vehicle '%'."
-msgstr "'%' Aracı İçin Rota Bulunamadı."
+msgstr "'%' aracının onarılan rotası."
 
 #: D:\Repos\sumo/src\router\RORouteDef.cpp:222
-#, fuzzy
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
-msgstr "Son Durak Kesimi '%', '%' Hattı Rotasının Bir Parçası Değil."
+msgstr ""
+"'%' aracı için orijinal rotanın bir parçası olmayan durak kesimleri vardır."
 
 #: D:\Repos\sumo/src\router\RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
-msgstr ""
+msgstr "'%' kesimi '%' aracı için '%' kesimine bağlı değil."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:200
 msgid "Triggered departure for person '%' requires starting with a ride."
-msgstr ""
+msgstr "'%' kişisi için tetiklenen kalkış, bir yolculukla başlamayı gerektirir."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:202
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
+"Konteyner '%' için tetiklenen kalkış bir taşıma ile başlamayı gerektirir."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:224
-#, fuzzy, c-format
+#, c-format
 msgid "Found % outside container element"
-msgstr "Hat Tanımı Dışında Rota Bulundu"
+msgstr "Konteyner elemanı dışında % bulundu"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:348
 msgid "No probability for route %, using default."
@@ -10545,36 +10606,33 @@ msgstr "% Rotası İçin Olasılık Yok, Varsayılan Kullanılıyor."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:503
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
-msgstr ""
+msgstr "Dahili rota dağılımlarının kimlikleri göz ardı edilir (araç '%')."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:619
-#, fuzzy
 msgid "Discarding person '%' because her plan is empty"
-msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
+msgstr "Planı boş olduğu için '%' kişisinin atılması"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:645
-#, fuzzy
 msgid "Discarding personFlow '%' because their plan is empty"
-msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
+msgstr "Planları boş olduğu için kişi akışı '%' atılıyor"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:653
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
-msgstr ""
+msgstr "olasılıksal personel akışı '%' bitiş zamanını belirtmelidir"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:726
-#, fuzzy
 msgid "Discarding container '%' because it's plan is empty"
-msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
+msgstr "Planı boş olduğu için '%' konteyneri atılıyor"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:743
-#, fuzzy
 msgid "Discarding containerFlow '%' because it's plan is empty"
-msgstr "Yalnızca % Düğüm(ler)e Sahip Olduğu İçin '%' Yolu Çıkartılıyor"
+msgstr "Planı boş olduğu için konteyner akışı '%' atılıyor"
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1041
 msgid "Triggered departure for container '%' requires a unique lines value."
 msgstr ""
+"'%' konteyneri için tetiklenen kalkış benzersiz bir hat değeri gerektirir."
 
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1081
 msgid "Cannot convert geo-positions because the network has no geo-reference"
@@ -10602,15 +10660,15 @@ msgstr "Çıkılıyor (Bilinmeyen Hata)."
 
 #: D:\Repos\sumo/src\tools\TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
-msgstr ""
+msgstr "'%' aracı için bilinmeyen aktör yapılandırması '%'!"
 
 #: D:\Repos\sumo/src\tools\TrajectoriesHandler.cpp:94
 msgid "Motion state for unknown vehicle '%'!"
-msgstr ""
+msgstr "Bilinmeyen araç '%' için hareket durumu!"
 
 #: D:\Repos\sumo/src\tools\TrajectoriesHandler.cpp:136
 msgid "Acceleration information is missing; try running with --compute-a."
-msgstr ""
+msgstr "Hızlandırma bilgisi eksik; --bilgisayar-a ile çalıştırmayı deneyin."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:62
 msgid "Computes emissions by driving a time line using SUMO's emission models."
@@ -10620,139 +10678,150 @@ msgstr ""
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:70
 msgid "Defines the file to read the driving cycle from."
-msgstr ""
+msgstr "Sürüş döngüsünün okunacağı dosyayı tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:74
 msgid "Skips the first NUM lines."
-msgstr ""
+msgstr "İlk SAYI satırını atlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:78
 msgid "Defines the entry separator."
-msgstr ""
+msgstr "Giriş ayırıcısını tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:83
 msgid ""
 "Defines the netstate, route and trajectory files to read the driving cycles "
 "from."
 msgstr ""
+"Sürüş döngülerinin okunacağı netstate, rota ve yörünge dosyalarını tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:86
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr ""
+msgstr "DOSYA(lar)dan emisyon parametrelerini (vTipleri) yükleyin"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:89
 msgid "Defines for which emission class the emissions shall be generated. "
-msgstr ""
+msgstr "Emisyonların hangi emisyon sınıfı için üretileceğini tanımlar. "
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:92
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr ""
+msgstr "Emisyon parametreleri için kullanılacak araç tipini tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:96
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
-msgstr ""
+msgstr "Ayarlanırsa, ivme dosyadan okunmak yerine hesaplanır. "
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:99
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
 msgstr ""
+"Ayarlanırsa, t zamanı için ivme v(t) - v(t-1) yerine v(t+1) - v(t)'den "
+"hesaplanır. "
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:102
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
-msgstr ""
+msgstr "Ayarlanırsa, hız 0 ise t zamanı için hızlanma 0 olarak ayarlanır. "
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:105
 msgid "If set, the first line of the read file is skipped."
-msgstr ""
+msgstr "Ayarlanırsa, okunan dosyanın ilk satırı atlanır."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:108
 msgid "If set, the given speed is interpreted as being given in km/h."
-msgstr ""
+msgstr "Ayarlanırsa, verilen hız km/saat cinsinden verilmiş olarak yorumlanır."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:111
 msgid "If set, the fourth column is read and used as slope (in deg)."
 msgstr ""
+"Ayarlanırsa, dördüncü sütun okunur ve eğim (derece cinsinden) olarak "
+"kullanılır."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:114
 msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
 msgstr ""
+"Dosya eğim bilgisi içermiyorsa kullanılan global eğimi (derece cinsinden) "
+"ayarlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:119
 msgid "Defines the file to write the emission cycle results into."
-msgstr ""
+msgstr "Emisyon döngüsü sonuçlarının yazılacağı dosyayı tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:122
 msgid "Defines the attributes to write."
-msgstr ""
+msgstr "Yazılacak öznitelikleri tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:125
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "Her aracın emisyon değerlerini XML olarak kaydedin"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:129
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
 msgstr ""
+"Her aracın toplanmış ve normlandırılmış emisyon değerlerini CSV'ye kaydedin"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:145
 msgid "Defines the begin time in seconds;"
-msgstr ""
+msgstr "Başlangıç zamanını saniye cinsinden tanımlar;"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:148
 msgid "Defines the end time in seconds;"
-msgstr ""
+msgstr "Bitiş zamanını saniye cinsinden tanımlar;"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
-msgstr ""
+msgstr "Hiçbir şey yazmıyorum."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:169
 msgid "Either a timeline or a netstate / amitran file must be given."
 msgstr ""
+"Ya bir zaman çizelgesi ya da bir netstate / amitran dosyası verilmelidir."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:172
 msgid "The output file must be given."
-msgstr ""
+msgstr "Çıktı dosyası verilmelidir."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:185
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown attribute '%' to write in output."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Çıktıya yazılacak '%' özniteliği bilinmiyor."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:213
 msgid ""
 "Option --vtype requires option --additional-files for loading vehicle types"
 msgstr ""
+"--vtür seçeneği, araç türlerini yüklemek için --ek-dosyalar seçeneğini "
+"gerektirir"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:225
-#, fuzzy, c-format
+#, c-format
 msgid "Vehicle type '%' is not defined"
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "Araç tipi '%' tanımlanmamış"
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:245
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "'%' dosyası okunamıyor."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:276
 msgid "Missing an entry in line '%'."
-msgstr ""
+msgstr "'%' satırında bir giriş eksik."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:278
 msgid "Not numeric entry in line '%'."
-msgstr ""
+msgstr "'%' satırında sayısal giriş yok."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:58
 msgid "Writing map of '%' into '%'."
-msgstr ""
+msgstr "'%' haritası '%' içine yazılıyor."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:62
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:291
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open file '%' for writing."
-msgstr "Sinyal '%' İçin Kesim '%' Bulunamadı."
+msgstr "'%' dosyası yazmak için açılamadı."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:86
 msgid "Builds and writes an emissions map for SUMO's emission models."
@@ -10761,62 +10830,68 @@ msgstr ""
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:92
 msgid "If set, maps for all available emissions are written."
-msgstr ""
+msgstr "Ayarlanırsa, mevcut tüm emisyonlar için haritalar yazılır."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:95
 msgid "Defines the name of the emission class to generate the map for."
-msgstr ""
+msgstr "Haritası oluşturulacak emisyon sınıfının adını tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:98
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "Oluşturulacak haritanın minimum hız sınırını tanımlar (m/s cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:100
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "Oluşturulacak haritanın maksimum hız sınırını tanımlar (m/s cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:102
 msgid "Defines the velocity step size (in m/s)."
-msgstr ""
+msgstr "Hız adımı boyutunu tanımlar (m/sn cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:104
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Oluşturulacak haritanın minimum ivme sınırını tanımlar (m/s^2 cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:106
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Oluşturulacak haritanın maksimum ivme sınırını tanımlar (m/s^2 cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:108
 msgid "Defines the acceleration step size (in m/s^2)."
-msgstr ""
+msgstr "Hızlanma adım boyutunu tanımlar (m/s^2 cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:110
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
 msgstr ""
+"Oluşturulacak haritanın minimum eğim sınırını tanımlar (derece cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:112
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
 msgstr ""
+"Oluşturulacak haritanın maksimum eğim sınırını tanımlar (derece cinsinden)."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:114
 msgid "Defines the slope step size (in deg)."
-msgstr ""
+msgstr "Eğim adımı boyutunu (derece cinsinden) tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:119
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
 msgstr ""
+"Eşlem(ler)in içine yazılacağı dosyayı (veya --yineleme ayarlanmışsa yolu) "
+"tanımlar."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:159
 msgid "The emission class (-e) must be given."
-msgstr ""
+msgstr "Emisyon sınıfı (-e) verilmelidir."
 
 #: D:\Repos\sumo/src\tools\emissionsMap_main.cpp:162
 msgid "The output file (-o) must be given."
-msgstr ""
+msgstr "Çıktı dosyası (-o) verilmelidir."
 
 #: D:\Repos\sumo/src\traci-server\TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
@@ -10824,12 +10899,12 @@ msgstr "TraCI Dahili Şerit Kullanmadan Başlatılıyor!"
 
 #: D:\Repos\sumo/src\traci-server\TraCIServer.cpp:320
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***% *** bağlantı noktasında sunucu başlatılıyor"
 
 #: D:\Repos\sumo/src\traci-server\TraCIServer.cpp:323
 #, c-format
 msgid "  waiting for % clients..."
-msgstr ""
+msgstr "  % kullanıcı bekliyor..."
 
 #: D:\Repos\sumo/src\traci-server\TraCIServer.cpp:347
 msgid "  client connected"
@@ -10840,34 +10915,34 @@ msgid ""
 "Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in "
 "pre-execution phase."
 msgstr ""
+"Yürütme sırası (libsumo::CMD_SETORDER) yürütme öncesi aşamada tüm TraCI "
+"istemcileri için ayarlanmadı."
 
 #: D:\Repos\sumo/src\utils\common\FileHelpers.cpp:73
 msgid "Cannot get file attributes for file '%'!"
-msgstr ""
+msgstr "'%' dosyası için dosya öznitelikleri alınamıyor!"
 
 #: D:\Repos\sumo/src\utils\common\FileHelpers.h:318
-#, fuzzy
 msgid "Invalid follower index in route '%'!"
-msgstr "% İlişkisinde Geçersiz Renk Değeri '%'"
+msgstr "'%' rotasında geçersiz takipçi dizini!"
 
 #: D:\Repos\sumo/src\utils\common\FileHelpers.h:328
 #, c-format
 msgid "An edge within the route '%' is not known!"
-msgstr ""
+msgstr "'%' rotası içindeki bir kesim bilinmiyor!"
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
 msgid "done (%ms)."
-msgstr ""
+msgstr "tamamlandı (%ms)."
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:190
 msgid "done."
-msgstr ""
+msgstr "Tamam."
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:288
-#, fuzzy
 msgid "Could not set locale to '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Yerel ayar '%' olarak ayarlanamadı."
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:293
 msgid ""
@@ -10880,44 +10955,40 @@ msgid "Could not find localized messages."
 msgstr "Yerelleştirilmiş Mesajlar Bulunamadı."
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:87
-#, fuzzy
 msgid "Invalid conversion from string to double (%)"
-msgstr "Dizeden Sayıya Geçersiz Dönüştürme (Boş Değer)"
+msgstr "Dizeden ikiye geçersiz dönüştürme (%)"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:90
 msgid "Invalid conversion from string to double (empty value)"
 msgstr "Dizeden Sayıya Geçersiz Dönüştürme (Boş Değer)"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:109
-#, fuzzy
 msgid "Invalid conversion from string to doubles (%)"
-msgstr "Dizeden Sayılara Geçersiz Dönüştürme (Boş Değer)"
+msgstr "Dizeden çiftlere geçersiz dönüştürme (%)"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:112
 msgid "Invalid conversion from string to doubles (empty value)"
 msgstr "Dizeden Sayılara Geçersiz Dönüştürme (Boş Değer)"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:205
-#, fuzzy
 msgid "Invalid format of parameter (%)"
-msgstr "Geçersiz Dağıtım Biçimi Parametreleştirildi"
+msgstr "Geçersiz parametre biçimi (%)"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:230
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
-msgstr ""
+msgstr "'%' özniteliğinin biçimi geçersiz. Öznitelik bir harfle başlamalıdır"
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:237
-#, fuzzy
 msgid "Invalid format of attribute (%)"
-msgstr "Geçersiz Dağıtım Biçimi Parametreleştirildi"
+msgstr "Geçersiz öznitelik biçimi (%)"
 
 #: D:\Repos\sumo/src\utils\common\RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
-msgstr ""
+msgstr "Rastgele sayı üretecini geçerli sistem zamanıyla başlatır"
 
 #: D:\Repos\sumo/src\utils\common\RandHelper.cpp:69
 msgid "Initialises the random number generator with the given value"
-msgstr ""
+msgstr "Rastgele sayı üretecini verilen değerle başlatır"
 
 #: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:187
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
@@ -10928,9 +10999,9 @@ msgid "StopOffset requires an offset value"
 msgstr "StopOffset Bir Öteleme Değeri Gerektirir"
 
 #: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:341
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown vehicle class '%' encountered."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Bilinmeyen araç sınıfı '%' ile karşılaşıldı."
 
 #: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:382
 msgid ""
@@ -10943,132 +11014,136 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:408
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
-msgstr ""
+msgstr "'%' araç sınıfı kullanımdan kaldırılmıştır, bunun yerine '%' kullanın."
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:43
 msgid "Loads the named config on startup"
-msgstr ""
+msgstr "Başlangıçta adlandırılmış yapılandırmayı yükler"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr ""
+msgstr "Geçerli yapılandırmayı DOSYA'ya kaydeder"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
-msgstr ""
+msgstr "Yapılandırmayı kaydederken göreli yolları zorlama"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr ""
+msgstr "Bir yapılandırma şablonunu (boş) DOSYA içine kaydeder"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr ""
+msgstr "Yapılandırma şemasını DOSYA içine kaydeder"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
-msgstr ""
+msgstr "Kaydedilen şablon, yapılandırma veya şemaya yorum ekler"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:71
 msgid "Switches to verbose output"
-msgstr ""
+msgstr "Ayrıntılı olarak çıktı"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:74
 msgid "Prints option values before processing"
-msgstr ""
+msgstr "İşlemeden önce seçenek değerlerini yazdırır"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
-msgstr ""
+msgstr "Bu ekranı veya seçilen konuları yazdırır"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:80
 msgid "Prints the current version"
-msgstr ""
+msgstr "Geçerli sürümü yazdırır"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:97
 msgid "Disables output of warnings"
-msgstr ""
+msgstr "Uyarıların çıktısını devre dışı bırakır"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
-msgstr ""
+msgstr "INT'den daha fazlası meydana geldiğinde aynı türdeki uyarıları toplar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Tüm mesajları DOSYA'ya yazar (ayrıntılı anlamına gelir)"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Hata olmayan tüm mesajları DOSYA'ya yazar (ayrıntılı anlamına gelir)"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr ""
+msgstr "Tüm uyarıları ve hataları DOSYA'ya yazar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
 msgid "Writes timestamps in front of all messages"
-msgstr ""
+msgstr "Zaman damgalarını tüm mesajların önüne yazar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
 msgid "Writes process ID in front of all messages"
-msgstr ""
+msgstr "Süreç ID'sini tüm mesajların önüne yazar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
-msgstr ""
+msgstr "Mesajlarda kullanılacak dil"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:122
 msgid "Include license info into every output file"
-msgstr ""
+msgstr "Lisans bilgilerini her çıktı dosyasına ekleyin"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:125
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Tüm çıktı dosyalarına uygulanan önek. 'ZAMAN' özel dizesi geçerli saat ile "
+"değiştirilir."
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
-msgstr ""
+msgstr "Kayan nokta çıktısı için virgülden sonraki basamak sayısını tanımlar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:131
 msgid "Defines the number of digits after the comma for lon,lat output"
-msgstr ""
+msgstr "Enlem, boylam çıktısı için virgülden sonraki basamak sayısını tanımlar"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:134
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
 msgstr ""
+"Zaman değerlerini saniye yerine saat:dakika:saniye veya gün:saat:dakika:"
+"saniye olarak yazın"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:43
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:184
 msgid "Process Error"
-msgstr ""
+msgstr "İşlem Hatası"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "Boş Veri"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:99
 msgid "Invalid Number Format %"
-msgstr ""
+msgstr "Geçersiz Sayı Biçimi %"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:112
 msgid "Invalid Time Format %"
-msgstr ""
+msgstr "Geçersiz Saat Formatı %"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:125
 msgid "Invalid Bool Format %"
-msgstr ""
+msgstr "Geçersiz Bool Formatı %"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:137
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "Sınırların Dışında"
 
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "Bilinmeyen Eleman"
 
 #: D:\Repos\sumo/src\utils\distribution\Distribution_Parameterized.cpp:82
 #: D:\Repos\sumo/src\utils\distribution\Distribution_Parameterized.cpp:84
@@ -11087,15 +11162,15 @@ msgstr "Enerjinin Verdiği Bir Pozitif İvme Bulunamadı."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
 msgid "No matches found"
-msgstr ""
+msgstr "Eşleşme bulunamadı"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
-msgstr ""
+msgstr "Çıkartma ekle"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal."
-msgstr ""
+msgstr "Çıkartma ekle."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:159
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:170
@@ -11113,7 +11188,7 @@ msgstr "Geçersiz sütun"
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:340
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal"
-msgstr ""
+msgstr "Çıkartmayı aç"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:345
 msgid "All files (*)"
@@ -11121,27 +11196,27 @@ msgstr "Tüm dosyalar (*)"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal."
-msgstr ""
+msgstr "Çıkartmayı aç."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal"
-msgstr ""
+msgstr "Çıkartmayı kaldırın"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal."
-msgstr ""
+msgstr "Çıkartmayı kaldırın."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Genişlet"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Tüm içeriği göstermek için çerçeveyi genişletin"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
-msgstr ""
+msgstr "Aramak için yazın..."
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -11157,43 +11232,47 @@ msgstr "Projeksiyon Yönteminin Benzersiz Bir Şekilde Tanımlanması Gerekir."
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:288
 msgid "Uses a simple method for projection"
-msgstr ""
+msgstr "Projeksiyon için basit bir yöntem kullanır"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:291
 msgid "Scaling factor for input coordinates"
-msgstr ""
+msgstr "Giriş koordinatları için ölçekleme faktörü"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:294
 msgid "Rotation (clockwise degrees) for input coordinates"
-msgstr ""
+msgstr "Giriş koordinatları için döndürme (saat yönünde derece)"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:298
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
 msgstr ""
+"UTM bölgesini belirleyin (WGS84 elipsoidine dayalı bir evrensel enine "
+"mercator projeksiyonu için)"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:304
 msgid "Uses STR as proj.4 definition for projection"
-msgstr ""
+msgstr "STR'yi projeksiyon için proj.4 tanımı olarak kullanır"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:307
 msgid "Inverses projection"
-msgstr ""
+msgstr "Ters projeksiyon"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
-msgstr ""
+msgstr "Gauss-Krueger'den UTM'ye dönüştürme"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:434
 msgid "Could not transform (%,%)"
-msgstr ""
+msgstr "Dönüştürülemedi (%,%)"
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:578
 #, c-format
 msgid ""
 "Ignoring loaded location attribute nr. % for tracking of original location"
 msgstr ""
+"Orijinal konumun izlenmesi için yüklenen konum özniteliği nr. %'nin göz ardı "
+"edilmesi"
 
 #: D:\Repos\sumo/src\utils\geom\GeomHelper.cpp:238
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
@@ -11210,78 +11289,83 @@ msgstr "Farklı Uzunluklardaki PositionVectors Çıkarmaya Çalışılıyor."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:884
 msgid "Invalid charge type '%' defined in chargingStation '%'."
-msgstr ""
+msgstr "'%' şarj istasyonunda tanımlanmış geçersiz '%' şarj tipi."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1020
 msgid "'lane' and 'length' must be defined together in a lane area detector."
 msgstr ""
+"Bir şerit alanı dedektöründe 'şerit' ve 'uzunluk' birlikte tanımlanmalıdır."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1025
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
 msgstr ""
+"'şerit' ve 'bitiş konumu' bir şerit alanı detektöründe birlikte "
+"tanımlanmalıdır."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1304
 msgid "Calibrators need either an edge or a lane"
-msgstr ""
+msgstr "Kalibratörler ya bir kenara ya da bir şeride ihtiyaç duyar"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1351
 msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
+"Kalibratör Akışları ya Saat Başına Araç ya hız ya da tür (veya bunların "
+"herhangi bir kombinasyonu) özniteliğine ihtiyaç duyar"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1490
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1516
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1541
-#, fuzzy, c-format
+#, c-format
 msgid "Probability of % must be equal or greater than 0"
-msgstr "Çokgen'in lineWidth Değeri 0'dan Büyük Olmalıdır."
+msgstr "Olasılık %'si 0'a eşit veya 0'dan büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1727
 msgid "X and Y must be be defined together in POIs"
-msgstr ""
+msgstr "POI'lerde X ve Y birlikte tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1733
 msgid "lane and position must be be defined together in POIs"
-msgstr ""
+msgstr "POI'lerde şerit ve konum birlikte tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1739
 msgid "lon and lat must be be defined together in POIs"
-msgstr ""
+msgstr "POI'lerde enlem ve boylam birlikte tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1766
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:127
 msgid "Invalid icon % for POI '%', using default"
-msgstr ""
+msgstr "POI '%' için geçersiz % simgesi, varsayılanı kullanıyor"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1875
 msgid "Parameters must be defined within an object."
-msgstr ""
+msgstr "Parametreler bir nesne içinde tanımlanmalıdır."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1877
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
 msgid "Parameters cannot be defined in the additional file's root."
-msgstr ""
+msgstr "Parametreler ek dosyanın kök dizininde tanımlanamaz."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1879
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
 msgid "Parameters cannot be defined within another parameter."
-msgstr ""
+msgstr "Parametreler başka bir parametre içinde tanımlanamaz."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1887
-#, fuzzy, c-format
+#, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty."
 msgstr ""
-"Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
-"Boş Olamaz"
+"Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar boş "
+"olamaz."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1889
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters."
 msgstr ""
-"Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
-"Geçersiz Karakterler İçeriyor"
+"Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar "
+"geçersiz karakterler içeriyor."
 
 #: D:\Repos\sumo/src\utils\handlers\DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
@@ -11295,58 +11379,64 @@ msgstr "MeanData Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
+"netedit'te '%' ID'li % oluşturulamadı; ID geçersiz karakterler içeriyor."
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
+"Netedit'te '%' ID'li % oluşturulamadı; Farklı sayıda dağılım değeri ve "
+"olasılığı."
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
+"bir rota ya bir araç/akış içinde ya da bir ID niteliği ile tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
-#, fuzzy, c-format
+#, c-format
 msgid "cycleTime of % must be equal or greater than 0"
-msgstr "Çokgen'in lineWidth Değeri 0'dan Büyük Olmalıdır."
+msgstr "'nin döngü süresi 0'a eşit veya 0'dan büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
-msgstr ""
+msgstr "'dan', 'danBağlantı' ve 'danTaz' öznitelikleri birlikte tanımlanamaz"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
-msgstr ""
+msgstr "'-e', '-eBağlantı' ve '-eTaz' öznitelikleri birlikte tanımlanamaz"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
+"gezi tanımının 'from/to' veya 'fromJunction/toJunction' veya 'fromTaz/toTaz' "
+"olması gerekir"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
 msgid "Parameters must be defined within an object"
-msgstr ""
+msgstr "Parametreler bir nesne içinde tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
-#, fuzzy, c-format
+#, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
-"Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
-"Boş Olamaz"
+"Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar boş "
+"olamaz"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
-"Anahtar, Şekil Genel Parametresinden Ayrıştırılırken Hata Oluştu. Anahtar "
-"Geçersiz Karakterler İçeriyor"
+"Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar "
+"geçersiz karakterler içeriyor"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:201
@@ -11354,6 +11444,8 @@ msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
+"İç içe geçmiş bir öğede araç takip parametrelerinin tanımlanması vTürü '%'de "
+"kullanımdan kaldırılmıştır, bunun yerine öznitelikleri kullanın!"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
@@ -11365,23 +11457,25 @@ msgstr "Geçersiz Ayrıştırma Tümleşik VType"
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
+"Bir durak ya bir kenarla ya da bir şeritle tanımlanmalıdır, ikisi birden "
+"değil"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
 msgid "A stop must be defined only in a StoppingPlace"
-msgstr ""
+msgstr "Bir durak yalnızca bir DurakYeri içinde tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
+"Bir durak bir kenarda, bir şeritte veya bir DurakYerinde tanımlanmalıdır"
 
 #: D:\Repos\sumo/src\utils\handlers\TemplateHandler.cpp:67
-#, fuzzy
 msgid "Could not load template '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' şablonu yüklenemedi."
 
 #: D:\Repos\sumo/src\utils\iodevices\OutputDevice.cpp:86
 msgid "No port number given."
-msgstr ""
+msgstr "Port numarası verilmemiştir."
 
 #: D:\Repos\sumo/src\utils\iodevices\OutputDevice.cpp:161
 msgid "Error on closing output devices."
@@ -11389,17 +11483,17 @@ msgstr "Çıkış Cihazları Kapatılırken Hata Oluştu."
 
 #: D:\Repos\sumo/src\utils\iodevices\OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
-msgstr ""
+msgstr "NUL cihazına yönlendirilemedi (%)."
 
 #: D:\Repos\sumo/src\utils\options\Option.cpp:352
-#, fuzzy, c-format
+#, c-format
 msgid "'%' is not a valid float."
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "'%' geçerli bir float değildir."
 
 #: D:\Repos\sumo/src\utils\options\Option.cpp:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%' is not a valid bool."
-msgstr "'%' Aracının Geçerli Bir Rotası Yok."
+msgstr "'%' geçerli bir bool değildir."
 
 #: D:\Repos\sumo/src\utils\options\Option.cpp:446
 msgid ""
@@ -11412,7 +11506,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\options\Option.cpp:456
 #, c-format
 msgid "'%' is not a valid integer vector."
-msgstr ""
+msgstr "'%' geçerli bir tamsayı vektörü değildir."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:66
 msgid ""
@@ -11424,12 +11518,12 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:152
 msgid "Internal request for unknown option '%'!"
-msgstr ""
+msgstr "Bilinmeyen '%' seçeneği için dahili istek!"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:175
 #, c-format
 msgid "No option with the name '%' exists."
-msgstr ""
+msgstr "'%' adında bir seçenek mevcut değil."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:192
 #, c-format
@@ -11437,15 +11531,17 @@ msgid ""
 "Please note that '%' is deprecated.\n"
 " Use '%' instead."
 msgstr ""
+"Lütfen '%' ifadesinin kullanımdan kaldırıldığını unutmayın.\n"
+" Bunun yerine '%' kullanın."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:388
 #, c-format
 msgid "The file list for '%' is empty."
-msgstr ""
+msgstr "'%' için dosya listesi boş."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:394
 msgid "File '%' is not accessible (%)."
-msgstr ""
+msgstr "'%' dosyasına erişilemiyor (%)."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:397
 msgid "Empty file name given; ignoring."
@@ -11453,7 +11549,7 @@ msgstr "Boş Dosya Adı Verilmiş; Yok Sayılıyor."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:418
 msgid "Option '%' needs option '%'."
-msgstr ""
+msgstr "'%' seçeneği '%' seçeneğine ihtiyaç duyar."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:621
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:643
@@ -11473,61 +11569,54 @@ msgid " Use --help to get the list of options."
 msgstr " Seçenekler Listesine Ulaşmak İçin --help İfadesini Kullanın."
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:674
-#, fuzzy
 msgid "Could not save configuration to '%'"
-msgstr "'%' ile '%' Arasındaki Bağlantı Ayarlanamadı."
+msgstr "Yapılandırma '%' olarak kaydedilemedi"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:678
 msgid "Written configuration to '%'"
-msgstr ""
+msgstr "Yapılandırma '%' olarak yazıldı"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:691
-#, fuzzy
 msgid "Could not save template to '%'"
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Şablon '%' olarak kaydedilemedi"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:695
 msgid "Written template to '%'"
-msgstr ""
+msgstr "Şablon '%' olarak yazıldı"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:707
-#, fuzzy
 msgid "Could not save schema to '%'"
-msgstr "'%' Düğümü Eklenemedi"
+msgstr "Şema '%' olarak kaydedilemedi"
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:711
 msgid "Written schema to '%'"
-msgstr ""
+msgstr "Şema '%' olarak yazıldı"
 
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:88
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:135
-#, fuzzy
 msgid "Could not parse commandline options."
-msgstr "% Kavşakları Birleştirilemedi."
+msgstr "Komut satırı seçenekleri ayrıştırılamadı."
 
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:103
-#, fuzzy
 msgid "Could not access configuration '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' yapılandırmasına erişilemedi."
 
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "Yapılandırma yükleniyor"
 
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:121
-#, fuzzy
 msgid "Could not load configuration '%'."
-msgstr "'%' Olan Yüklenen Bağlantı '%' Olarak Ayarlanamadı."
+msgstr "'%' yapılandırması yüklenemedi."
 
 #: D:\Repos\sumo/src\utils\options\OptionsLoader.cpp:77
-#, fuzzy
 msgid "Could not set option '%' (probably defined twice)."
-msgstr "TT Durağı '%' Yeniden Atanamadı, Muhtemelen OSM Dosyası Bozuk."
+msgstr "'%' seçeneği ayarlanamadı (muhtemelen iki kez tanımlandı)."
 
 #: D:\Repos\sumo/src\utils\options\OptionsParser.cpp:127
 #: D:\Repos\sumo/src\utils\options\OptionsParser.cpp:134
 msgid "Missing value for parameter '%'."
-msgstr ""
+msgstr "'%' parametresi için eksik değer."
 
 #: D:\Repos\sumo/src\utils\options\OptionsParser.cpp:146
 #, c-format
@@ -11535,80 +11624,80 @@ msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
+"Bu bağlamda '%' parametresine izin verilmiyor.\n"
+" Anahtar veya parametre adı bekleniyor."
 
 #: D:\Repos\sumo/src\utils\options\OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
-msgstr ""
+msgstr "'%' içinde karışık parametre sözdizimi."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:124
-#, fuzzy
 msgid "Could not load landmark-lookup-table from '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%'den simgesel görünüm tablosu yüklenemedi."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:138
-#, fuzzy, c-format
+#, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr "Yinelenen Kesim '%' Oluştu."
+msgstr "Yer işareti dosyasında yinelenen kesim '%'."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:143
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "İşaret kesimi '%' ağda mevcut değil."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:154
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:167
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr "Dönel Ada İçinde Bilinmeyen Kesim '%'."
+msgstr "Yer işareti dosyasında bilinmeyen veya sıralanmamış kenar '%'."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:164
-#, fuzzy
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
-msgstr "'%' Kesimi İçin Listeden (%) Minimum Şerit Numarası Kullanılıyor."
+msgstr ""
+"Bozuk yer işareti dosyası, '%' kesimi için beklenmedik sayıda giriş (%)."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:187
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "Yeni arama tablosu hesaplanıyor."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
-msgstr ""
+msgstr "'%' dönüm noktası kenarı için arama tablosu yok, yeniden hesaplanıyor."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:196
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
 msgstr ""
+"'%' yer işareti kenarı için '%' arama tablosunda tüm ağ kenarları bulunamadı."
 
 #: D:\Repos\sumo/src\utils\router\AStarLookupTable.h:293
 msgid "Saving new matrix to '%'."
-msgstr ""
+msgstr "Yeni matris '%' olarak kaydediliyor."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:295
-#, fuzzy, c-format
+#, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
+msgstr "'%' kenarı intermodal ağda bulunamadı.'"
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:304
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:338
-#, fuzzy, c-format
+#, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
+msgstr "Kalkış kenarı '%' intermodal ağda bulunamadı.."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:350
-#, fuzzy, c-format
+#, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
+msgstr "Varış kenarı '%' intermodal ağda bulunamadı."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:651
-#, fuzzy
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
-msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
+msgstr "Araç '%' için %'ye kadar '%'de sırasız durma yok sayılıyor."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:663
-#, fuzzy
 msgid "Ignoring stop at '%' until % for vehicle '%'."
-msgstr "'%' Kesimi İçin İz Sayısı % Yok Sayılıyor."
+msgstr "'%' aracı için %'ye kadar '%'de durmayı yok sayma."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:668
 #, c-format
@@ -11616,21 +11705,23 @@ msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr ""
+"Kişileri yönlendirmek için '%' toplu taşıma hattını kullanmamak. "
+"Kullanılabilir iki duraktan daha azı var."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalRouter.h:220
 #: D:\Repos\sumo/src\utils\router\PedestrianRouter.h:125
 msgid "Do not use this method"
-msgstr ""
+msgstr "Bu yöntemi kullanmayın"
 
 #: D:\Repos\sumo/src\utils\router\PedestrianRouter.h:87
 #, c-format
 msgid "Departure edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Kalkış kesimi '%' yayalara izin vermez."
 
 #: D:\Repos\sumo/src\utils\router\PedestrianRouter.h:91
 #, c-format
 msgid "Destination edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Hedef kesim '%' yayalara izin vermiyor."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:85
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
@@ -11653,22 +11744,25 @@ msgstr "PoI ID İçin Geçersiz Karakterler"
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:176
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
+"PoI '%' için ya (x, y), ( enlem, boylam) ya da (şerit, konum) "
+"belirtilmelidir."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:179
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
+"( enlem, boylam) PoI '%' için belirtilmiştir ancak ağ için coğrafi dönüşüm "
+"belirtilmemiştir."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:191
-#, fuzzy
 msgid "Unable to project coordinates for PoI '%'."
-msgstr "EN '%' İçin Koordinatlar Yansıtılamıyor."
+msgstr "PoI '%' için koordinatlar projelendirilemiyor."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:198
 #, c-format
 msgid "PoI '%' already exists."
-msgstr ""
+msgstr "PoI '%' zaten mevcut."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:216
 msgid "Invalid characters for Poly ID"
@@ -11685,17 +11779,17 @@ msgstr "Çokgen'in lineWidth Değeri 0'dan Büyük Olmalıdır."
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:269
 #, c-format
 msgid "Polygon '%' already exists."
-msgstr ""
+msgstr "'%' poligonu zaten mevcut."
 
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:286
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "'den şekillerin yüklenmesi başarısız oldu."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:44
 #, c-format
 msgid "The node: '%' already exists."
-msgstr ""
+msgstr "Düğüm: '%' zaten mevcut."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
@@ -11724,9 +11818,8 @@ msgstr "Devreyi Çözerken A Matrisinin Satırı Yanlış Atanmış"
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:354
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:479
-#, fuzzy
 msgid "The negative node of current source is not the groud."
-msgstr "Akım Kaynağının Negatif Düğümü Toprak Değildir."
+msgstr "Akım kaynağının negatif düğümü toprak değildir."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:508
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:518
@@ -11761,24 +11854,32 @@ msgid ""
 "Circuit Voltage Source '%' is connected to less than two nodes, please "
 "adjust the definition of the section (with substation '%')."
 msgstr ""
+"Devre Gerilim Kaynağı '%' ikiden az düğüme bağlı, lütfen bölümün tanımını "
+"ayarlayın ('%' trafo merkezi ile)."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:927
 msgid ""
 "Circuit Element '%' is connected to less than two nodes, please adjust the "
 "definition of the section (with substation '%')."
 msgstr ""
+"Devre Elemanı '%' ikiden az düğüme bağlı, lütfen bölümün tanımını ayarlayın ("
+"'%' trafo merkezi ile)."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:942
 msgid ""
 "Circuit Node with id '-1' is not the grounded, please adjust the definition "
 "of the section (with substation '%')."
 msgstr ""
+"Id '-1' olan Devre Düğümü topraklanmış değil, lütfen bölümün tanımını "
+"ayarlayın ('%' alt istasyonuyla)."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:966
 msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
 msgstr ""
+"Bir Devre Direnci Elemanı toprağa bağlanır, lütfen bölümün tanımını "
+"ayarlayın ('%' alt işareti ile)."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:975
 msgid ""
@@ -11786,10 +11887,13 @@ msgid ""
 "during checking of the circuit. The circuit is disconnected, please adjust "
 "the definition of the section (with substation '%')."
 msgstr ""
+"Devrenin kontrolü sırasında dahili kimliği '%' olan Devre Düğümü veya "
+"Gerilim Kaynağı ziyaret edilmedi. Devrenin bağlantısı kesildi, lütfen "
+"bölümün tanımını ayarlayın ('%' trafo merkezi ile)."
 
 #: D:\Repos\sumo/src\utils\traction_wire\Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr ""
+msgstr "'%' için tanımlanmamış öğe türü."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:65
 msgid "Route file should be sorted by departure time, ignoring '%'!"
@@ -11797,7 +11901,7 @@ msgstr "Rota Dosyası, Kalkış Saatine Göre Sıralanmalıdır, '%' Yok Sayıl�
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:660
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "için geçersiz % % verildi. Bunun yerine kesim ucu kullanılıyor."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:710
 msgid ""
@@ -11809,15 +11913,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:268
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr "'%' için tanımlanmamış son, varsayılan olarak 24 saatlik süre."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "Geçersiz % id '%'."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr ""
+msgstr "Geçersiz % id '%'. Geçersiz karakterler içeriyor."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:951
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
@@ -11827,7 +11931,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1143
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
-msgstr ""
+msgstr "vTür '%' % için manevraAçıZamanları biçimi geçersiz bir üçlü içeriyor."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1152
 #, c-format
@@ -11835,121 +11939,130 @@ msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
 msgstr ""
+"vType '%' manevraAçıZamanları için '%' üçlüsü 'int double double' olarak "
+"ayrıştırılamaz"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1178
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "vTür '%' ayrıştırılırken bilinmeyen araba takip modeli %"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1180
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "vTür '%' ayrıştırılırken bilinmeyen araba takip modeli"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1213
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1229
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "Geçersiz Araç-Takip-Modeli Özniteliği %. Float olarak ayrıştırılamıyor"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1217
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1240
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Geçersiz Araç-Takip-Modeli Özniteliği %. 0'dan büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1251
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
 msgstr ""
+"Geçersiz Araç Takip-Modeli Özniteliği %. Yalnızca [0-1] arasındaki değerlere "
+"izin verilir"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1510
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Geçersiz Şerit-Değişimi-Modeli Özniteliği %. Float olarak ayrıştırılamıyor"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1527
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
+"Geçersiz Şerit Değiştirme-Model Özniteliği %. 0'a eşit veya büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1538
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Geçersiz Şerit Değiştirme-Model Özniteliği %. 0'dan büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1549
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
+"Geçersiz Şerit Değiştirme-Model Özniteliği %. -1 ile 1 arasında olmalıdır"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1581
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "Geçersiz Bağlantı Modeli Özniteliği %. Float olarak ayrıştırılamıyor"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1590
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
+"Geçersiz Bağlantı-Modeli Özniteliği %. Yalnızca [0-1] arasındaki değerlere "
+"izin verilir"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1596
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "Geçersiz Bağlantı-Model Özniteliği %. 0'a eşit veya büyük olmalıdır"
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1626
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr ""
+msgstr "'%' için araç sınıfı '%' bilinmiyor."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1644
 msgid "The shape '%' for % '%' is not known."
-msgstr ""
+msgstr "'%' için '%' şekli bilinmiyor."
 
 #: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:286
 msgid "Undefined vehicleType parameter"
-msgstr ""
+msgstr "Tanımlanmamış araçTürü parametresi"
 
 #: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:296
 msgid "Undefined vehicle parameter"
-msgstr ""
+msgstr "Tanımlanmamış araç parametresi"
 
 #: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:306
 msgid "Undefined stop parameter"
-msgstr ""
+msgstr "Tanımlanmamış durdurma parametresi"
 
 #: D:\Repos\sumo/src\utils\xml\CommonXMLStructure.cpp:540
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
+"SUMOBaseObject '%' içinde tanımlanmamış % özniteliği '%' alınmaya çalışılıyor"
 
 #: D:\Repos\sumo/src\utils\xml\GenericHandler.cpp:83
 #: D:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
-msgstr ""
+msgstr "'%' dosyasında '%' kök öğesi bulundu (beklenen '%')."
 
 #: D:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr ""
+msgstr " Dosyada '"
 
 #: D:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " Satırda/sütunda "
 
 #: D:\Repos\sumo/src\utils\xml\SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
-msgstr ""
+msgstr "'%' kesiminde '%' değeri eksik."
 
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:110
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:136
-#, fuzzy
 msgid "Cannot read file '%'!"
-msgstr "GeoTIFF Dosyası Yüklenemiyor."
+msgstr "'%' dosyası okunamıyor!"
 
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:113
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:139
 #, c-format
 msgid "File '%' is a directory!"
-msgstr ""
+msgstr "'%' dosyası bir dizindir!"
 
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:156
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr ""
+msgstr "XML ayrıştırıcı başlatılmadı."
 
 #: D:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:191
 msgid "The XML-parser could not be build."
-msgstr ""
+msgstr "XML ayrıştırıcı oluşturulamadı."
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:92
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:98
@@ -11958,41 +12071,48 @@ msgid ""
 "Environment variable SUMO_HOME is not set properly, disabling XML "
 "validation. Set 'auto' or 'always' for web lookups."
 msgstr ""
+"Ortam değişkeni SUMO_HOME düzgün ayarlanmamış, XML doğrulamasını devre dışı "
+"bırakıyor. Web aramaları için 'otomatik' veya 'her zaman' olarak ayarlayın."
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:111
 msgid ""
 "Environment variable SUMO_HOME is not set properly, XML validation will fail "
 "or use slow website lookups."
 msgstr ""
+"Ortam değişkeni SUMO_HOME düzgün ayarlanmamışsa, XML doğrulaması başarısız "
+"olur veya yavaş web sitesi aramaları kullanır."
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:120
-#, fuzzy
 msgid "Cannot read local schema '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "Yerel şema '%' okunamıyor."
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:167
 msgid ""
 "Disabling XML validation for external file '%'. Use 'auto' or 'always' to "
 "enable."
 msgstr ""
+"'%' harici dosyası için XML doğrulamasını devre dışı bırakma. Etkinleştirmek "
+"için 'otomatik' veya 'her zaman' kullanın."
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:189
 msgid "Runtime error: % while parsing '%'"
-msgstr ""
+msgstr "Çalışma zamanı hatası: '%' ayrıştırılırken %"
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:191
 msgid "Error occurred: % while parsing '%'"
-msgstr ""
+msgstr "Hata oluştu: '%' ayrıştırılırken %"
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:193
 msgid ""
 "SAX error occured while parsing '%':\n"
 " %"
 msgstr ""
+"'%' ayrıştırılırken SAX hatası oluştu:\n"
+" %"
 
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred wile parsing '%'"
-msgstr ""
+msgstr "'%' ayrıştırılırken belirtilmemiş bir hata oluştu"
 
 #~ msgid "Invalid float value '%'for parameter '%'"
 #~ msgstr "'%' parametresi için geçersiz float değeri '%'"
