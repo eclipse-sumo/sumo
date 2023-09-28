@@ -82,6 +82,30 @@ GNEEdgeTemplate::updateGeometry() {
 
 
 bool
+GNEEdgeTemplate::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeTemplate::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEEdgeTemplate::checkDrawDeleteContour() const {
     return false;
 }

@@ -83,6 +83,29 @@ GNELaneType::getPositionInView() const {
 
 
 bool
+GNELaneType::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNELaneType::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNELaneType::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNELaneType::checkDrawOverContour() const {
+    return false;
+}
+
+bool
 GNELaneType::checkDrawDeleteContour() const {
     return false;
 }

@@ -193,6 +193,30 @@ GNEEdge::getPositionInView() const {
 
 
 bool
+GNEEdge::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEEdge::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEEdge::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

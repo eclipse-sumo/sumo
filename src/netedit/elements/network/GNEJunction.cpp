@@ -141,32 +141,6 @@ GNEJunction::getPositionInView() const {
 
 
 bool
-GNEJunction::checkDrawDeleteContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in delete mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
-        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEJunction::checkDrawSelectContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in select mode
-    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
-        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
-    } else {
-        return false;
-    }
-}
-
-
-bool
 GNEJunction::checkDrawFromContour() const {
     // check conditions
     if (myAmCreateEdgeSource) {
@@ -229,6 +203,32 @@ GNEJunction::checkDrawRelatedContour() const {
 bool
 GNEJunction::checkDrawOverContour() const {
     return false;
+}
+
+
+bool
+GNEJunction::checkDrawDeleteContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEJunction::checkDrawSelectContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+    } else {
+        return false;
+    }
 }
 
 

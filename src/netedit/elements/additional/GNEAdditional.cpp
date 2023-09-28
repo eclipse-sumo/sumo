@@ -137,6 +137,30 @@ GNEAdditional::getCenteringBoundary() const {
 
 
 bool
+GNEAdditional::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEAdditional::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEAdditional::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEAdditional::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEAdditional::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

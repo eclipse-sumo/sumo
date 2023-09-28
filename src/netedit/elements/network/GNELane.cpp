@@ -238,6 +238,30 @@ GNELane::getPositionInView() const {
 
 
 bool
+GNELane::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNELane::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNELane::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNELane::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNELane::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

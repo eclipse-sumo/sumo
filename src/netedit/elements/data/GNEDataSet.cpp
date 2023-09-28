@@ -203,6 +203,30 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
 
 
 bool
+GNEDataSet::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEDataSet::checkDrawDeleteContour() const {
     return false;
 }

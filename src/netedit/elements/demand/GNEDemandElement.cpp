@@ -146,6 +146,30 @@ GNEDemandElement::getDemandElementGeometry() const {
 
 
 bool
+GNEDemandElement::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDemandElement::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDemandElement::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDemandElement::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEDemandElement::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

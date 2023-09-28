@@ -64,6 +64,30 @@ GNEWalkingArea::getPositionInView() const {
 
 
 bool
+GNEWalkingArea::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEWalkingArea::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEWalkingArea::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEWalkingArea::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEWalkingArea::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

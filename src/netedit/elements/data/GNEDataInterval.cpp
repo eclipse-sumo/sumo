@@ -126,6 +126,30 @@ GNEDataInterval::getPositionInView() const {
 
 
 bool
+GNEDataInterval::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDataInterval::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEDataInterval::checkDrawDeleteContour() const {
     return false;
 }

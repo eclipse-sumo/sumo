@@ -102,6 +102,30 @@ GNEInternalLane::getPositionInView() const {
 
 
 bool
+GNEInternalLane::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEInternalLane::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEInternalLane::checkDrawDeleteContour() const {
     return false;
 }

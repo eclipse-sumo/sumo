@@ -161,6 +161,30 @@ GNEMeanData::getPositionInView() const {
 
 
 bool
+GNEMeanData::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEMeanData::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEMeanData::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEMeanData::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEMeanData::checkDrawDeleteContour() const {
     return false;
 }

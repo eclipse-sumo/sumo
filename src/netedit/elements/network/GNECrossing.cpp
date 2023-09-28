@@ -98,6 +98,30 @@ GNECrossing::getPositionInView() const {
 
 
 bool
+GNECrossing::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNECrossing::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

@@ -99,6 +99,30 @@ GNEGenericData::drawAttribute(const PositionVector& shape) const {
 
 
 bool
+GNEGenericData::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEGenericData::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEGenericData::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEGenericData::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEGenericData::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();

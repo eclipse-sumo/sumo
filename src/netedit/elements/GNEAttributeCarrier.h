@@ -102,23 +102,23 @@ public:
     // check if draw contour
     bool checkDrawContour() const;
 
-    /// @brief check if draw from contour (green)
-    virtual bool checkDrawFromContour() const;
-
-    /// @brief check if draw from contour (magenta)
-    virtual bool checkDrawToContour() const;
-
-    /// @brief check if draw related contour (cyan)
-    virtual bool checkDrawRelatedContour() const;
-
-    /// @brief check if draw over contour (orange)
-    virtual bool checkDrawOverContour() const;
-
     /// @brief check if draw inspect contour (black/white)
     bool checkDrawInspectContour() const;
 
     /// @brief check if draw front contour (green/blue)
     bool checkDrawFrontContour() const;
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const = 0;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const = 0;
+
+    /// @brief check if draw related contour (cyan)
+    virtual bool checkDrawRelatedContour() const = 0;
+
+    /// @brief check if draw over contour (orange)
+    virtual bool checkDrawOverContour() const = 0;
 
     /// @brief check if draw delete contour (pink/white)
     virtual bool checkDrawDeleteContour() const = 0;

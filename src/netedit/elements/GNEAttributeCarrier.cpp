@@ -126,35 +126,6 @@ GNEAttributeCarrier::checkDrawContour() const {
             checkDrawDeleteContour() || checkDrawSelectContour());
 }
 
-
-bool
-GNEAttributeCarrier::checkDrawFromContour() const {
-    // implement in child
-    return false;
-}
-
-
-bool
-GNEAttributeCarrier::checkDrawToContour() const {
-    // implement in child
-    return false;
-}
-
-
-bool
-GNEAttributeCarrier::checkDrawRelatedContour() const {
-    // implement in child
-    return false;
-}
-
-
-bool
-GNEAttributeCarrier::checkDrawOverContour() const {
-    // implement in child
-    return false;
-}
-
-
 bool
 GNEAttributeCarrier::checkDrawInspectContour() const {
     return myNet->getViewNet()->isAttributeCarrierInspected(this);

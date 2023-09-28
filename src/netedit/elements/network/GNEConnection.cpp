@@ -150,6 +150,30 @@ GNEConnection::getPositionInView() const {
 
 
 bool
+GNEConnection::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
 GNEConnection::checkDrawDeleteContour() const {
     // get edit modes
     const auto &editModes = myNet->getViewNet()->getEditModes();
