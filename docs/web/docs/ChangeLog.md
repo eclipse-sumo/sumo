@@ -77,10 +77,7 @@ title: ChangeLog
   - Added search field in comboBox. #12394, #13735
   - Added drawing reference for creating additionals. #13769
   - Now internal lanes can be drawn. 13790
-  - Added JuPedSim elements. #13667, #13687, #13837
-    - WalkableArea
-    - Obstacle
-    - WaitingArea
+  - Added JuPedSim elements WalkableArea and Obstacle. #13667, #13687, #13837
   - Add new view "JuPedSim". #13750
   - Support persons over TAZs in netedit. #13784
   - Now in edge frame small edges can be created. #13833
