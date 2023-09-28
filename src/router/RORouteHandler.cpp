@@ -636,10 +636,11 @@ RORouteHandler::closePerson() {
 
 void
 RORouteHandler::closePersonFlow() {
-    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-    if (type == nullptr) {
+    std::string typeID = DEFAULT_PEDTYPE_ID;
+    if (myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid) == nullptr) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for personFlow '" + myVehicleParameter->id + "' is not known.");
-        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    } else {
+        typeID = myVehicleParameter->vtypeid;
     }
     if (myActivePlan == nullptr || myActivePlan->empty()) {
         WRITE_WARNINGF(TL("Discarding personFlow '%' because their plan is empty"), myVehicleParameter->id);
@@ -654,7 +655,7 @@ RORouteHandler::closePersonFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
-                        addFlowPerson(type, t, baseID, i++);
+                        addFlowPerson(typeID, t, baseID, i++);
                     }
                 }
             }
@@ -670,7 +671,7 @@ RORouteHandler::closePersonFlow() {
                 std::sort(departures.begin(), departures.end());
                 std::reverse(departures.begin(), departures.end());
                 for (; i < myVehicleParameter->repetitionNumber; i++) {
-                    addFlowPerson(type, departures[i], baseID, i);
+                    addFlowPerson(typeID, departures[i], baseID, i);
                     depart += myVehicleParameter->repetitionOffset;
                 }
             } else {
@@ -680,7 +681,7 @@ RORouteHandler::closePersonFlow() {
                     myVehicleParameter->incrementFlow(1);
                 }
                 for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
-                    addFlowPerson(type, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
+                    addFlowPerson(typeID, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
                     if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                         myVehicleParameter->incrementFlow(1);
                     }
@@ -699,10 +700,14 @@ RORouteHandler::closePersonFlow() {
 
 
 void
-RORouteHandler::addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i) {
+RORouteHandler::addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i) {
     SUMOVehicleParameter pars = *myVehicleParameter;
     pars.id = baseID + "." + toString(i);
     pars.depart = depart;
+    const SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+    if (!myKeepVTypeDist) {
+        pars.vtypeid = type->id;
+    }
     ROPerson* person = new ROPerson(pars, type);
     for (ROPerson::PlanItem* item : *myActivePlan) {
         person->getPlan().push_back(item->clone());

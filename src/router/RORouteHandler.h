@@ -157,7 +157,7 @@ protected:
     Parameterised* addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person from a personFlow
-    void addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i);
+    void addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
