@@ -727,7 +727,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // pop name
         GLHelper::popName();
         // draw dotted geometry
-        myPlanElement->drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true, s.dottedContourSettings.segmentWidth, true);
+        myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true,
+                                                              s.dottedContourSettings.segmentWidth, true);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -855,9 +856,11 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         myPlanElement->mouseWithinGeometry(shape, pathWidth);
         // draw dotted geometry
         if (duplicateWidth) {
-            myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth, true);
+            myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                  s.dottedContourSettings.segmentWidth, true);
         } else {
-            myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidthSmall, true);
+            myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                  s.dottedContourSettings.segmentWidthSmall, true);
         }
     }
     // check if draw plan parent
@@ -918,9 +921,11 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             myPlanElement->mouseWithinGeometry(shape, pathWidth);
             // draw dotted geometry
             if (duplicateWidth) {
-                myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth, true);
+                myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                      s.dottedContourSettings.segmentWidth, true);
             } else {
-                myPlanElement->drawDottedContourExtruded(s, shape, pathWidth, 1, true, true, s.dottedContourSettings.segmentWidthSmall, true);
+                myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                      s.dottedContourSettings.segmentWidthSmall, true);
             }
         }
     }

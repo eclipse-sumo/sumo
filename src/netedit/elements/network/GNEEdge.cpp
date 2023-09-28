@@ -491,7 +491,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw edge name
     drawEdgeName(s);
     // draw dotted geometry
-    drawDottedContourEdge(s, this, true, true, s.dottedContourSettings.segmentWidth);
+    myContour.drawDottedContourEdge(s, this, true, true, s.dottedContourSettings.segmentWidth);
 }
 
 

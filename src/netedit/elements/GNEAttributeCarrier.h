@@ -46,7 +46,7 @@ class GNEEdge;
  * Abstract Base class for gui objects which carry attributes
  * inherits from GNEReferenceCounter for convenience
  */
-class GNEAttributeCarrier : public GNEReferenceCounter, public GNEContourElement {
+class GNEAttributeCarrier : public GNEReferenceCounter {
 
     /// @brief declare friend class
     friend class GNEChange_Attribute;
@@ -234,6 +234,9 @@ public:
     /// @brief check if this AC is template
     bool isTemplate() const;
 
+    /// @brief get contour
+    const GNEContourElement &getContour() const;
+
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;
 
@@ -322,6 +325,9 @@ public:
 protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
+
+    /// @brief variable used for draw contours
+    GNEContourElement myContour;
 
     /// @brief pointer to net
     GNENet* myNet;
@@ -441,7 +447,6 @@ private:
     /// @brief fill plan edge->trainStop attribute
     static void fillPlanEdgeTrainStopAttributes(SumoXMLTag currentTag);
 
-
     /// @brief fill plan taz->edge attribute
     static void fillPlanTazEdgeAttributes(SumoXMLTag currentTag);
 
@@ -456,7 +461,6 @@ private:
 
     /// @brief fill plan junction->junction attribute
     static void fillPlanJunctionJunctionAttributes(SumoXMLTag currentTag);
-
 
     /// @brief fill person trip common attributes
     static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);

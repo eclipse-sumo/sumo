@@ -505,8 +505,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // check if mouse is over element
                 mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
                 // draw dotted geometry
-                drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale,
-                                          true, true, s.dottedContourSettings.segmentWidthSmall, false);
+                myContour.drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
+                                                    s.dottedContourSettings.segmentWidthSmall, false);
             }
         }
     }

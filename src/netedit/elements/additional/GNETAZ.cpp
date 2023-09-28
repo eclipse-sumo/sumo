@@ -401,11 +401,14 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myAdditionalGeometry.getShape());
         // draw dotted contours
         if (checkDrawFromContour() || checkDrawToContour()) {
-            drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, s.dottedContourSettings.segmentWidthLarge);
+            myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                                              s.dottedContourSettings.segmentWidthLarge);
         } else {
-            drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, s.dottedContourSettings.segmentWidth);
+            myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                                              s.dottedContourSettings.segmentWidth);
         }
-        drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
+        myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration,
+                                          s.dottedContourSettings.segmentWidth);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);

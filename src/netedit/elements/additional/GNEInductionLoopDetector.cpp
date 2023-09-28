@@ -205,8 +205,9 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape().front(),
                                 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
             // draw dotted contour
-            drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(),
-                                       E1Exaggeration, s.dottedContourSettings.segmentWidth, false);
+            myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+                                                 myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration,
+                                                 s.dottedContourSettings.segmentWidth, false);
         }
         // Draw additional ID
         drawAdditionalID(s);

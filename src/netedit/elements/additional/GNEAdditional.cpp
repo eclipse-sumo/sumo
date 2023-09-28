@@ -610,7 +610,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         // check if mouse is over element
         mouseWithinGeometry(pos, size, size, 0, 0, 0);
         // draw squared shape
-        drawDottedContourRectangle(s, pos, size, size, 0, 0, 0, exaggeration, s.dottedContourSettings.segmentWidth, false);
+        myContour.drawDottedContourRectangle(s, pos, size, size, 0, 0, 0, exaggeration,
+                                             s.dottedContourSettings.segmentWidth, false);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name
@@ -715,7 +716,8 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
             GLHelper::popName();
         }
         // draw squared shape
-        drawDottedContourRectangle(s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1, s.dottedContourSettings.segmentWidth, false);
+        myContour.drawDottedContourRectangle(s, signPosition, 0.56, 2.75, 0, -2.3, 0, 1,
+                                             s.dottedContourSettings.segmentWidth, false);
     }
 }
 

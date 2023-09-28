@@ -36,7 +36,7 @@ class GNEAttributeCarrier;
 
 class GNEContourElement {
 
-protected:
+public:
     /// @brief Constructor
     GNEContourElement(GNEAttributeCarrier* AC);
 
@@ -107,4 +107,13 @@ private:
     /// @brief draw dotted contour edge
     void buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                        const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+
+    /// @brief invalidate default constructor
+    GNEContourElement() = delete;
+
+    /// @brief Invalidated copy constructor.
+    GNEContourElement(const GNEContourElement&) = delete;
+
+    /// @brief Invalidated assignment operator
+    GNEContourElement& operator=(const GNEContourElement& src) = delete;
 };

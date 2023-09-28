@@ -485,7 +485,8 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // check if mouse is over element
         mouseWithinGeometry(shape, routeWidth);
         // draw dotted geometry
-        drawDottedContourExtruded(s, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(), s.dottedContourSettings.segmentWidth, true);
+        myContour.drawDottedContourExtruded(s, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
+                                            s.dottedContourSettings.segmentWidth, true);
     }
 }
 
@@ -531,7 +532,8 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // check if mouse is over element
         mouseWithinGeometry(lane2laneGeometry.getShape(), routeWidth);
         // draw dotted geometry
-        drawDottedContourExtruded(s, lane2laneGeometry.getShape(), routeWidth, 1, false, false, s.dottedContourSettings.segmentWidth, true);
+        myContour.drawDottedContourExtruded(s, lane2laneGeometry.getShape(), routeWidth, 1, false, false,
+                                            s.dottedContourSettings.segmentWidth, true);
     }
 }
 

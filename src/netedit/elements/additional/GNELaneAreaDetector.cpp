@@ -330,8 +330,8 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
-            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration,
-                                      true, true, s.dottedContourSettings.segmentWidth, false);
+            myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
+                                                s.dottedContourSettings.segmentWidth, false);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -439,8 +439,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         // check if mouse is over element
         mouseWithinGeometry(shape, s.detectorSettings.E2Width);
         // draw dotted geometry
-        drawDottedContourExtruded(s, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(),
-                                  segment->isLastSegment(), s.dottedContourSettings.segmentWidth, true);
+        myContour.drawDottedContourExtruded(s, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
+                                            s.dottedContourSettings.segmentWidth, true);
     }
 }
 
@@ -479,7 +479,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             // check if mouse is over element
             mouseWithinGeometry(connectionGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
-            drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false, s.dottedContourSettings.segmentWidth, true);
+            myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
+                                                s.dottedContourSettings.segmentWidth, true);
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
@@ -493,7 +494,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), invalidGeometry, (0.5 * E2DetectorWidth));
             }
             // draw dotted geometry
-            drawDottedContourExtruded(s, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false, s.dottedContourSettings.segmentWidth, true);
+            myContour.drawDottedContourExtruded(s, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false,
+                                                s.dottedContourSettings.segmentWidth, true);
         }
         // Pop last matrix
         GLHelper::popMatrix();

@@ -52,8 +52,8 @@ const std::string GNEAttributeCarrier::False = toString(false);
 // ===========================================================================
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
-    GNEContourElement(this),
     myTagProperty(getTagProperty(tag)),
+    myContour(this),
     myNet(net),
     mySelected(false),
     myIsTemplate(false) {
@@ -630,6 +630,12 @@ GNEAttributeCarrier::getACIcon() const {
 bool
 GNEAttributeCarrier::isTemplate() const {
     return myIsTemplate;
+}
+
+
+const GNEContourElement&
+GNEAttributeCarrier::getContour() const {
+    return myContour;
 }
 
 
