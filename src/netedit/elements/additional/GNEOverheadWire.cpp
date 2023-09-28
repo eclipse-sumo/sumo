@@ -311,7 +311,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         // check if mouse is over element
         mouseWithinGeometry(shape, overheadWireWidth);
         // draw dotted geometry
-        drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+        drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true, s.dottedContourSettings.segmentWidth, false);
     }
 }
 
@@ -365,7 +365,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
             // check if mouse is over element
             mouseWithinGeometry(shape, overheadWireWidth);
             // draw dotted geometry
-            drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+            drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true, s.dottedContourSettings.segmentWidth, false);
         }
     }
 }

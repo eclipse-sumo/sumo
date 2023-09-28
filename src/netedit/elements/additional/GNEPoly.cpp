@@ -389,7 +389,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // draw dotted geometry
             drawDottedContourExtruded(s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration,
-                                      true, true, s.dottedContourSettings.segmentWidth);
+                                      true, true, s.dottedContourSettings.segmentWidth, false);
         }
         // get name position
         const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();

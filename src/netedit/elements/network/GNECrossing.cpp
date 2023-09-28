@@ -334,7 +334,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
         // draw dotted geometry
         drawDottedContourExtruded(s, myCrossingGeometry.getShape(), halfWidth, selectionScale,
-                                  true, true, s.dottedContourSettings.segmentWidth);
+                                  true, true, s.dottedContourSettings.segmentWidth, false);
     }
 }
 

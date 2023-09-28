@@ -212,9 +212,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
-            // draw dotted geometry
-            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), myWidth * 0.5, parkingAreaExaggeration,
-                                      true, true, s.dottedContourSettings.segmentWidth);
+            // draw dotted geometry (don't exaggerate contour)
+            drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), myWidth * 0.5, 1, true, true, s.dottedContourSettings.segmentWidth, false);
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree()) {

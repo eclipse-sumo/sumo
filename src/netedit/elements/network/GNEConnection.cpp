@@ -506,7 +506,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
                 // draw dotted geometry
                 drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale,
-                                          true, true, s.dottedContourSettings.segmentWidthSmall);
+                                          true, true, s.dottedContourSettings.segmentWidthSmall, false);
             }
         }
     }

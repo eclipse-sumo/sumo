@@ -389,7 +389,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 drawDottedContourCircle(s, *this, 1.3, POIExaggeration, s.dottedContourSettings.segmentWidth);
             } else {
                 drawDottedContourRectangle(s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(),
-                                           POIExaggeration, s.dottedContourSettings.segmentWidth);
+                                           POIExaggeration, s.dottedContourSettings.segmentWidth, false);
             }
         }
     }
