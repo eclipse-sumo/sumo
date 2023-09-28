@@ -311,6 +311,9 @@ private:
     /// @brief vehicle arrival position radius
     static const double myArrivalPositionDiameter;
 
+    /// @brief variable used for draw vehicle contour (needed because vehicles have two different contours)
+    GNEContourElement myVehicleContour;
+
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
