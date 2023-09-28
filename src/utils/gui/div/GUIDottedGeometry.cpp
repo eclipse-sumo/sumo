@@ -259,7 +259,7 @@ GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDott
             // set color
             GLHelper::setColor(dottedGeometryColor->getColor(s, type));
             // draw box line
-            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, 0);
+            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, -lineWidth);
         }
     }
 }
@@ -270,6 +270,26 @@ GUIDottedGeometry::moveShapeToSide(const double value) {
     // move 2 side
     for (auto& segment : myDottedGeometrySegments) {
         segment.shape.move2side(value);
+    }
+}
+
+
+Position
+GUIDottedGeometry::getFrontPosition() const {
+    if (myDottedGeometrySegments.size() > 0 && myDottedGeometrySegments.back().shape.size() > 0) {
+        return myDottedGeometrySegments.front().shape.front();
+    } else {
+        return Position::INVALID;
+    }
+}
+
+
+Position
+GUIDottedGeometry::getBackPosition() const {
+    if (myDottedGeometrySegments.size() > 0 && myDottedGeometrySegments.back().shape.size() > 0) {
+        return myDottedGeometrySegments.back().shape.back();
+    } else {
+        return Position::INVALID;
     }
 }
 

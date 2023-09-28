@@ -42,9 +42,7 @@ GNEContourElement::GNEContourElement(GNEAttributeCarrier* AC) :
     myCachedRot(new double(0)),
     myCachedScale(new double(0)),
     myDottedGeometryColor(new GUIDottedGeometry::DottedGeometryColor()),
-    myDottedGeometryA(new GUIDottedGeometry()),
-    myDottedGeometryB(new GUIDottedGeometry()),
-    myDottedGeometryC(new GUIDottedGeometry()) {
+    myDottedGeometries(new std::vector<GUIDottedGeometry>()) {
 }
 
 
@@ -56,9 +54,7 @@ GNEContourElement::~GNEContourElement() {
     delete myCachedRot;
     delete myCachedScale;
     delete myDottedGeometryColor;
-    delete myDottedGeometryA;
-    delete myDottedGeometryB;
-    delete myDottedGeometryC;
+    delete myDottedGeometries;
 }
 
 
@@ -281,6 +277,10 @@ GNEContourElement::drawDottedContourEdge(const GUIVisualizationSettings& s, cons
 void
 GNEContourElement::buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
                                                    const PositionVector &shape, const double scale, const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->empty()) {
+        myDottedGeometries->push_back(GUIDottedGeometry());
+    }
     // check if dotted geometry has to be updated
     if ((*myCachedShape != shape) || (*myCachedScale != scale)) {
         // declare scaled shape
@@ -288,7 +288,7 @@ GNEContourElement::buildAndDrawDottedContourClosed(const GUIVisualizationSetting
         // scale shape
         scaledShape.scaleRelative(scale);
         // calculate dotted geometry
-        *myDottedGeometryA = GUIDottedGeometry(s, scaledShape, true);
+        myDottedGeometries->at(0) = GUIDottedGeometry(s, scaledShape, true);
         // finally update cached shape
         *myCachedShape = shape;
         *myCachedScale = scale;
@@ -300,7 +300,7 @@ GNEContourElement::buildAndDrawDottedContourClosed(const GUIVisualizationSetting
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw top dotted geometry
-    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -310,20 +310,33 @@ void
 GNEContourElement::buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                      const PositionVector &shape, const double extrusionWidth, const double scale,
                                                      const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->empty()) {
+        for (int i = 0; i < 4; i++) {
+            myDottedGeometries->push_back(GUIDottedGeometry());
+        }
+    }
     // check if dotted geometry has to be updated
     if ((*myCachedShape != shape)  || (*myCachedScale != scale)) {
-        // calculate center dotted geometry
-        GUIDottedGeometry dottedGeometry(s, shape, false);
-        // make a copy of dotted geometry
-        *myDottedGeometryA = dottedGeometry;
-        *myDottedGeometryB = dottedGeometry;
+        // create top and bot geometries 
+        myDottedGeometries->at(0) = GUIDottedGeometry(s, shape, false);
+        myDottedGeometries->at(2) = GUIDottedGeometry(s, shape.reverse(), false);
         // move geometries top and bot
-        myDottedGeometryA->moveShapeToSide(extrusionWidth * scale);
-        myDottedGeometryB->moveShapeToSide(extrusionWidth * scale * -1);
-        // invert offset of top dotted geometry
-        myDottedGeometryA->invertOffset();
-        // calculate extremes
-        *myDottedGeometryC = GUIDottedGeometry(s, *myDottedGeometryA, drawFirstExtrem, *myDottedGeometryB, drawLastExtrem);
+        myDottedGeometries->at(0).moveShapeToSide(extrusionWidth * scale * -1);
+        myDottedGeometries->at(2).moveShapeToSide(extrusionWidth * scale * -1);
+        // create left and right geometries 
+        if (drawFirstExtrem) {
+            myDottedGeometries->at(1) = GUIDottedGeometry(s, {
+                    myDottedGeometries->at(0).getBackPosition(),
+                    myDottedGeometries->at(2).getFrontPosition()
+                }, false);
+        }
+        if (drawLastExtrem) {
+            myDottedGeometries->at(3) = GUIDottedGeometry(s, {
+                    myDottedGeometries->at(2).getBackPosition(),
+                    myDottedGeometries->at(0).getFrontPosition()
+                }, false);
+        }
         // finally update cached shape
         *myCachedShape = shape;
         // update scale
@@ -335,16 +348,20 @@ GNEContourElement::buildAndDrawDottedContourExtruded(const GUIVisualizationSetti
     GLHelper::pushMatrix();
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
-    // draw top dotted geometry
-    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
-    // reset color
-    myDottedGeometryColor->reset();
-    // draw top dotted geometry
-    myDottedGeometryB->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
-    // change color
-    myDottedGeometryColor->changeColor();
-    // draw extrem dotted geometry
-    myDottedGeometryC->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    // draw dotted geometry top
+    myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    // continue if draw first extrem
+    if (drawFirstExtrem) {
+        // draw dotted geometry right
+        myDottedGeometries->at(1).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    }
+    // draw dotted geometry bot
+    myDottedGeometries->at(2).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    // continue if draw last extrem
+    if (drawFirstExtrem) {
+        // draw dotted geometry letf
+        myDottedGeometries->at(3).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    }
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -355,6 +372,10 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
                                                       const Position &pos, const double width, const double height,
                                                       const double offsetX, const double offsetY, const double rot,
                                                       const double scale, const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->empty()) {
+        myDottedGeometries->push_back(GUIDottedGeometry());
+    }
     // continue depending of cached positiosn
     if ((*myCachedPosition != pos) || (*myCachedWidth != width) || (*myCachedHeight != height) || (*myCachedRot != rot) || (*myCachedScale != scale)) {
         // create shape
@@ -371,7 +392,7 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
         // move to position
         rectangleShape.add(pos);
         // calculate dotted geometry
-        *myDottedGeometryA = GUIDottedGeometry(s, rectangleShape, true);
+        myDottedGeometries->at(0) = GUIDottedGeometry(s, rectangleShape, true);
         // update cached position
         *myCachedPosition = pos;
         // updated values
@@ -387,7 +408,7 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw top dotted geometry
-    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -396,10 +417,14 @@ GNEContourElement::buildAndDrawDottedContourRectangle(const GUIVisualizationSett
 void
 GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                                    const Position &pos, double radius, const double scale, const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->empty()) {
+        myDottedGeometries->push_back(GUIDottedGeometry());
+    }
     // continue depending of radius and scale
     if ((*myCachedPosition != pos) || (*myCachedScale != (radius * scale))) {
         // calculate dotted geometry
-        *myDottedGeometryA = GUIDottedGeometry(s, GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, (radius * scale) < 2? 8 : 16), true);
+        myDottedGeometries->at(0) = GUIDottedGeometry(s, GUIGeometry::getVertexCircleAroundPosition(pos, radius * scale, (radius * scale) < 2? 8 : 16), true);
         // update cached position
         *myCachedPosition = pos;
         // update cached scale
@@ -412,7 +437,7 @@ GNEContourElement::buildAndDrawDottedContourCircle(const GUIVisualizationSetting
     // translate to front
     glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw top dotted geometry
-    myDottedGeometryA->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
+    myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -431,6 +456,7 @@ GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings&
                                           laneDrawingConstants.halfWidth, laneDrawingConstants.exaggeration,
                                           drawFirstExtrem, drawLastExtrem, lineWidth);
     } else {
+/*
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         // obtain lanes
@@ -475,6 +501,7 @@ GNEContourElement::buildAndDrawDottedContourEdge(const GUIVisualizationSettings&
         myDottedGeometryC->drawDottedGeometry(s, type, myDottedGeometryColor, lineWidth);
         // pop matrix
         GLHelper::popMatrix();
+*/
     }
 }
 

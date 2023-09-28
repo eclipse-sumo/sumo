@@ -112,6 +112,12 @@ public:
     /// @brief move shape to side
     void moveShapeToSide(const double value);
 
+    /// @brief get front position
+    Position getFrontPosition() const;
+
+    /// @brief get back position
+    Position getBackPosition() const;
+
     /// @brief invert offset of all segments
     void invertOffset();
 

@@ -90,14 +90,8 @@ private:
     /// @brief dotted geometry color
     GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
 
-    /// @brief pointer to dotted geometry A
-    GUIDottedGeometry *myDottedGeometryA;
-
-    /// @brief pointer to dotted geometry B
-    GUIDottedGeometry *myDottedGeometryB;
-
-    /// @brief pointer to dotted geometry C
-    GUIDottedGeometry *myDottedGeometryC;
+    /// @brief dotted geometries
+    std::vector<GUIDottedGeometry> *myDottedGeometries;
 
     /// @brief draw dotted contour shape
     void buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
