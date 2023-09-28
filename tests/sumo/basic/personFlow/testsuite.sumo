@@ -7,6 +7,9 @@ ride_triggered
 # a flow of persons in a flow of triggered vehicles
 ride_triggeredFlow
 walk_personsPerHour
+
+# Copy of walk_personsPerHour
+walk_typeDist
 walk_poisson
 walk_probability
 walk_departPos_random
