@@ -43,6 +43,9 @@ public:
     /// @brief destructor
     ~GNEContour();
 
+    /// @brief reset dotted contour
+    void reset();
+
     /// @brief draw dotted contour (for closed shapes)
     void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
                                  const double scale, const double lineWidth) const;
