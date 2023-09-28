@@ -965,7 +965,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 mouseWithinGeometry(vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation);
                 // draw squared shape
                 myVehicleContour.drawDottedContourRectangle(s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration,
-                                                            s.dottedContourSettings.segmentWidth, true);
+                                                            s.dottedContourSettings.segmentWidth);
             }
             // pop name
             GLHelper::popName();
@@ -1127,10 +1127,10 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // draw dotted geometry
         if (segment->isFirstSegment() || segment->isLastSegment()) {
             myContour.drawDottedContourExtruded(s, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
-                                                s.dottedContourSettings.segmentWidthSmall, true);
+                                                s.dottedContourSettings.segmentWidthSmall);
         } else {
             myContour.drawDottedContourExtruded(s, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
-                                                s.dottedContourSettings.segmentWidthSmall, true);
+                                                s.dottedContourSettings.segmentWidthSmall);
         }
     }
 }
@@ -1172,7 +1172,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         GLHelper::popMatrix();
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, lane2laneGeometry.getShape(), width, 1, false, false,
-                                            s.dottedContourSettings.segmentWidthSmall, true);
+                                            s.dottedContourSettings.segmentWidthSmall);
         // Pop name
         GLHelper::popName();
     }

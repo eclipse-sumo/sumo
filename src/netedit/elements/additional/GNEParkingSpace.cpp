@@ -254,7 +254,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         mouseWithinGeometry(myShapeLength, width);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true,
-                                            s.dottedContourSettings.segmentWidth, false);
+                                            s.dottedContourSettings.segmentWidth);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name

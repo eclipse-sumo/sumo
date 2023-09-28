@@ -728,7 +728,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         GLHelper::popName();
         // draw dotted geometry
         myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true,
-                                                              s.dottedContourSettings.segmentWidth, true);
+                                                              s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -857,10 +857,10 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // draw dotted geometry
         if (duplicateWidth) {
             myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                  s.dottedContourSettings.segmentWidth, true);
+                                                                  s.dottedContourSettings.segmentWidth);
         } else {
             myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                  s.dottedContourSettings.segmentWidthSmall, true);
+                                                                  s.dottedContourSettings.segmentWidthSmall);
         }
     }
     // check if draw plan parent
@@ -922,10 +922,10 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             // draw dotted geometry
             if (duplicateWidth) {
                 myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                      s.dottedContourSettings.segmentWidth, true);
+                                                                      s.dottedContourSettings.segmentWidth);
             } else {
                 myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                      s.dottedContourSettings.segmentWidthSmall, true);
+                                                                      s.dottedContourSettings.segmentWidthSmall);
             }
         }
     }

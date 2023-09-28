@@ -312,7 +312,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
         mouseWithinGeometry(shape, overheadWireWidth);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true,
-                                            s.dottedContourSettings.segmentWidth, false);
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -367,7 +367,7 @@ GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNELane*
             mouseWithinGeometry(shape, overheadWireWidth);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, shape, overheadWireWidth, 1, true, true,
-                                                s.dottedContourSettings.segmentWidth, false);
+                                                s.dottedContourSettings.segmentWidth);
         }
     }
 }

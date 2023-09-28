@@ -50,12 +50,12 @@ public:
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
     void drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape,
                                    const double extrusionWidth, const double scale, const bool drawFirstExtrem,
-                                   const bool drawLastExtrem, const double lineWidth, const bool ignoreCache) const;
+                                   const bool drawLastExtrem, const double lineWidth) const;
 
     /// @brief draw dotted contour (for rectangled elements)
     void drawDottedContourRectangle(const GUIVisualizationSettings& s, const Position &pos, const double width,
                                     const double height, const double offsetX, const double offsetY, const double rot,
-                                    const double scale, const double lineWidth, const bool ignoreCache) const;
+                                    const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour (circle)
     void drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, double radius,
@@ -91,14 +91,12 @@ private:
     /// @brief build and draw dotted contour extruded
     void buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                            const PositionVector &shape, const double extrusionWidth, const double scale,
-                                           const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth,
-                                           const bool ignoreCache) const;
+                                           const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
 
     /// @brief draw dotted contour rectangle
     void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                             const Position &pos, const double width, const double height, const double offsetX,
-                                            const double offsetY, const double rot, const double scale, const double lineWidth,
-                                            const bool ignoreCache) const;
+                                            const double offsetY, const double rot, const double scale, const double lineWidth) const;
 
     /// @brief draw dotted contour circle
     void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,

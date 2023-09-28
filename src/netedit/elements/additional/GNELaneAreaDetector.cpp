@@ -331,7 +331,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
-                                                s.dottedContourSettings.segmentWidth, false);
+                                                s.dottedContourSettings.segmentWidth);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -440,7 +440,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         mouseWithinGeometry(shape, s.detectorSettings.E2Width);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
-                                            s.dottedContourSettings.segmentWidth, true);
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 
@@ -480,7 +480,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             mouseWithinGeometry(connectionGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
-                                                s.dottedContourSettings.segmentWidth, true);
+                                                s.dottedContourSettings.segmentWidth);
         } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
@@ -495,7 +495,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             }
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, invalidGeometry.getShape(), E2DetectorWidth, 1, false, false,
-                                                s.dottedContourSettings.segmentWidth, true);
+                                                s.dottedContourSettings.segmentWidth);
         }
         // Pop last matrix
         GLHelper::popMatrix();

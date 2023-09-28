@@ -429,7 +429,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
             // draw dotted contour
             myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
-                                                 s.dottedContourSettings.segmentWidth, false);
+                                                 s.dottedContourSettings.segmentWidth);
         }
     }
 }
