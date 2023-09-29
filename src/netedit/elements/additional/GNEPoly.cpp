@@ -385,13 +385,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // draw depending if is closed
         if (getFill() || myPolygonGeometry.getShape().isClosed()) {
             // draw dotted contour
-            myContour.drawDottedContourClosed(s, myPolygonGeometry.getShape(), 1,
-                                              s.dottedContourSettings.segmentWidth);
+            myContour.drawDottedContourClosed(s, myPolygonGeometry.getShape(), 1, false, s.dottedContourSettings.segmentWidth);
         } else {
             // draw dotted geometry
-            myContour.drawDottedContourExtruded(s, myPolygonGeometry.getShape(),
-                                                s.neteditSizeSettings.polylineWidth, polyExaggeration, true, true,
-                                                s.dottedContourSettings.segmentWidth);
+            myContour.drawDottedContourExtruded(s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                                                polyExaggeration, true, true, s.dottedContourSettings.segmentWidth);
         }
         // get name position
         const Position& namePos = myPolygonGeometry.getShape().getPolygonCenter();

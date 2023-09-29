@@ -100,7 +100,7 @@ public:
 
     /// @brief draw inspected dottedShape
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                            DottedGeometryColor *dottedGeometryColor, const double lineWidth) const;
+                            DottedGeometryColor *dottedGeometryColor, const bool addOffset, const double lineWidth) const;
 
     /// @brief move shape to side
     void moveShapeToSide(const double value);

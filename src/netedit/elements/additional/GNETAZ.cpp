@@ -402,7 +402,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours
-        myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, contourWidth);
+        myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, false, contourWidth);
         myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
         // check if draw poly type
         if (s.polyType.show(this)) {

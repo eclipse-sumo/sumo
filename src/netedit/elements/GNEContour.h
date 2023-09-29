@@ -48,7 +48,7 @@ public:
 
     /// @brief draw dotted contour (for closed shapes)
     void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
-                                 const double scale, const double lineWidth) const;
+                                 const double scale, const bool addOffset, const double lineWidth) const;
 
     /// @brief draw dotted contour extruded (used in elements formed by a central shape)
     void drawDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector &shape,
@@ -89,7 +89,7 @@ private:
 
     /// @brief draw dotted contour shape
     void buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                         const PositionVector &shape, const double scale, const double lineWidth) const;
+                                         const PositionVector &shape, const double scale, const bool addOffset, const double lineWidth) const;
 
     /// @brief build and draw dotted contour extruded
     void buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,

@@ -595,7 +595,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse within geometry
             mouseWithinGeometry(myNBNode->getShape());
             // draw dotted contour
-            myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, contourWidth);
+            myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, true, contourWidth);
         }
         if (junctionBubble) {
             // check mouse within bubble
