@@ -411,7 +411,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if this is the label segment
-            if (segment->isLabelSegment()) {
+            if (segment->isLabelSegment() && !(s.drawForRectangleSelection || s.drawForPositionSelection)) {
                 // calculate middle point
                 const double middlePoint = (E2Geometry.getShape().length2D() * 0.5);
                 // calculate position
