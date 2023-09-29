@@ -568,7 +568,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     }
     const MSEdge* const toEdge = MSEdge::dictionary(to);
     if (toEdge == nullptr) {
-        throw TraCIException("Unknown to edge '" + from + "'.");
+        throw TraCIException("Unknown to edge '" + to + "'.");
     }
     SUMOVehicle* vehicle = nullptr;
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID == "" ? DEFAULT_VTYPE_ID : typeID);
