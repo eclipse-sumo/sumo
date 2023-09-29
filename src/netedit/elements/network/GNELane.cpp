@@ -598,16 +598,19 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Lane Name
         GLHelper::popName();
     } else {
+        // continue depending of scale
         if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
-            // draw lane as line, depending of myShapeColors
-            if (myShapeColors.size() > 0) {
-                GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
-            } else {
-                GLHelper::drawLine(myLaneGeometry.getShape());
+            if (!s.drawForPositionSelection) {
+                // draw lane as line, depending of myShapeColors
+                if (myShapeColors.size() > 0) {
+                    GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
+                } else {
+                    GLHelper::drawLine(myLaneGeometry.getShape());
+                }
             }
         } else {
             // Check if lane has to be draw as railway and if isn't being drawn for selecting
-            if (drawRailway && (!s.drawForRectangleSelection || spreadSuperposed)) {
+            if (drawRailway && (!(s.drawForRectangleSelection || s.drawForPositionSelection) || spreadSuperposed)) {
                 // draw as railway
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
