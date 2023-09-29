@@ -543,8 +543,12 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return myToLane->getParentEdge()->getID();
         case SUMO_ATTR_FROM_LANE:
             return myFromLane->getAttribute(SUMO_ATTR_INDEX);
+        case GNE_ATTR_FROM_LANEID:
+            return myFromLane->getID();
         case SUMO_ATTR_TO_LANE:
             return myToLane->getAttribute(SUMO_ATTR_INDEX);
+        case GNE_ATTR_TO_LANEID:
+            return myToLane->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:

@@ -588,19 +588,20 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawJunctionChildren(s);
         // draw path additional elements
         myNet->getPathManager()->drawJunctionPathElements(s, this);
+        // get contour width
+        const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // continue depending of shapes
         if (junctionShape) {
             // check if mouse within geometry
             mouseWithinGeometry(myNBNode->getShape());
             // draw dotted contour
-            myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, s.dottedContourSettings.segmentWidth);
+            myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, contourWidth);
         }
         if (junctionBubble) {
             // check mouse within bubble
             mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
             // draw dotted contour
-            myContour.drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
-                                              s.dottedContourSettings.segmentWidth);
+            myContour.drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration, contourWidth);
         }
     }
 }

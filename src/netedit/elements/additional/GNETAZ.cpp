@@ -399,16 +399,11 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape());
+        // get contour width
+        const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours
-        if (checkDrawFromContour() || checkDrawToContour()) {
-            myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                                              s.dottedContourSettings.segmentWidthLarge);
-        } else {
-            myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                                              s.dottedContourSettings.segmentWidth);
-        }
-        myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration,
-                                          s.dottedContourSettings.segmentWidth);
+        myContour.drawDottedContourClosed(s, myAdditionalGeometry.getShape(), s.neteditSizeSettings.polylineWidth, contourWidth);
+        myContour.drawDottedContourCircle(s, myTAZCenter, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration, s.dottedContourSettings.segmentWidth);
         // check if draw poly type
         if (s.polyType.show(this)) {
             const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);

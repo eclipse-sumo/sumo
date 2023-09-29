@@ -999,6 +999,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "additionalChildren",                 GNE_ATTR_ADDITIONALCHILDREN },
     { "planGeometryStartPos",               GNE_ATTR_PLAN_GEOMETRY_STARTPOS },
     { "planGeometryEndPos",                 GNE_ATTR_PLAN_GEOMETRY_ENDPOS },
+    { "fromLaneID",                         GNE_ATTR_FROM_LANEID },
+    { "toLaneID",                           GNE_ATTR_TO_LANEID },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

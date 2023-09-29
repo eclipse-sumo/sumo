@@ -240,13 +240,29 @@ GNELane::getPositionInView() const {
 
 bool
 GNELane::checkDrawFromContour() const {
-    return false;
+    // get inspected ACs
+    const auto &inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    // check if we're inspecting a connection
+    if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+        inspectedACs.front()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 bool
 GNELane::checkDrawToContour() const {
-    return false;
+    // get inspected ACs
+    const auto &inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    // check if we're inspecting a connection
+    if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+        inspectedACs.front()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

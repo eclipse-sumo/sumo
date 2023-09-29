@@ -1456,7 +1456,10 @@ enum SumoXMLAttr {
     GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
     /// @brief person/container geometry end position
     GNE_ATTR_PLAN_GEOMETRY_ENDPOS,
-
+    /// @brief from lane ID (used in GNEConnection)
+    GNE_ATTR_FROM_LANEID,
+    /// @brief to lane ID (used in GNEConnection)
+    GNE_ATTR_TO_LANEID,
     // @}
 
     /// @name train parameters
