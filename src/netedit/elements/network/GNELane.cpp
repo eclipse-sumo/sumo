@@ -926,6 +926,10 @@ GNELane::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
+        case SUMO_ATTR_FROM_JUNCTION:
+            return myParentEdge->getFromJunction()->getID();
+        case SUMO_ATTR_TO_JUNCTION:
+            return myParentEdge->getToJunction()->getID();
         case SUMO_ATTR_SPEED:
             return toString(edge->getLaneSpeed(myIndex));
         case SUMO_ATTR_ALLOW:

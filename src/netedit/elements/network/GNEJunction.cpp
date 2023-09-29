@@ -150,8 +150,10 @@ GNEJunction::checkDrawFromContour() const {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if starts in junction
-        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
-            return true;
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) ||
+            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
+            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID());
         }
     } else {
         // get frames
@@ -186,8 +188,10 @@ GNEJunction::checkDrawToContour() const {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if ends in junction
-        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
-            return true;
+        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) ||
+            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
+            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+            return (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID());
         }
     } else {
         // get frames
@@ -588,20 +592,21 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         drawJunctionChildren(s);
         // draw path additional elements
         myNet->getPathManager()->drawJunctionPathElements(s, this);
-        // get contour width
-        const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // continue depending of shapes
         if (junctionShape) {
             // check if mouse within geometry
             mouseWithinGeometry(myNBNode->getShape());
             // draw dotted contour
-            myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, true, contourWidth);
+            if (myNBNode->getShape().area() > 1) {
+                myContour.drawDottedContourClosed(s, myNBNode->getShape(), junctionExaggeration, true, s.dottedContourSettings.segmentWidth);
+            }
         }
         if (junctionBubble) {
             // check mouse within bubble
             mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
             // draw dotted contour
-            myContour.drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration, contourWidth);
+            myContour.drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration,
+                                              s.dottedContourSettings.segmentWidth);
         }
     }
 }

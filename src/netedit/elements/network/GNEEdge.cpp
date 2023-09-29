@@ -909,8 +909,10 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_FROM:
+        case SUMO_ATTR_FROM_JUNCTION:
             return getFromJunction()->getID();
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_TO_JUNCTION:
             return getToJunction()->getID();
         case SUMO_ATTR_NUMLANES:
             return toString(myNBEdge->getNumLanes());
