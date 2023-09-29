@@ -143,6 +143,9 @@ GNEAdditional::getCenteringBoundary() const {
 bool
 GNEAdditional::checkDrawFromContour() const {
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // get TAZRelDataFrame
+        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check conditions
         if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // get inspected element
@@ -153,17 +156,19 @@ GNEAdditional::checkDrawFromContour() const {
             } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_FROM) == getID())) {
                 return true;
             }
-        } else {    
-            // get TAZRelDataFrame
-            const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-            // check conditions
-            if (TAZRelDataFrame->shown()) {
-                // check first TAZ
-                if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
-                    return gPostDrawing.isElementUnderCursor(this);
-                } else if (TAZRelDataFrame->getFirstTAZ() == this) {
-                    return true;
-                }
+        } else if (TAZRelDataFrame->shown()) {
+            // check first TAZ
+            if (TAZRelDataFrame->getFirstTAZ() == nullptr) {
+                return gPostDrawing.isElementUnderCursor(this);
+            } else if (TAZRelDataFrame->getFirstTAZ() == this) {
+                return true;
+            }
+        } else if (vehicleFrame->shown()) {
+            // get selected TAZs
+            const auto &selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
+            // check if this is the second selected TAZ
+            if ((selectedTAZs.size() > 0) && (selectedTAZs.front() == this)) {
+                return true;
             }
         }
     }
@@ -174,7 +179,11 @@ GNEAdditional::checkDrawFromContour() const {
 
 bool
 GNEAdditional::checkDrawToContour() const {
+    // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // get frames
+        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check conditions
         if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // get inspected element
@@ -185,17 +194,19 @@ GNEAdditional::checkDrawToContour() const {
             } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
                 return true;
             }
-        } else {    
-            // get TAZRelDataFrame
-            const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-            // check conditions
-            if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
-                // check first TAZ
-                if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
-                    return gPostDrawing.isElementUnderCursor(this);
-                } else if (TAZRelDataFrame->getSecondTAZ() == this) {
-                    return true;
-                }
+        } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) { 
+            // check first TAZ
+            if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
+                return gPostDrawing.isElementUnderCursor(this);
+            } else if (TAZRelDataFrame->getSecondTAZ() == this) {
+                return true;
+            }
+        } else if (vehicleFrame->shown()) {
+            // get selected TAZs
+            const auto &selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
+            // check if this is the second selected TAZ
+            if ((selectedTAZs.size() > 1) && (selectedTAZs.back() == this)) {
+                return true;
             }
         }
     }
@@ -212,18 +223,19 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in vehicle mode
-    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-        // get current vehicle template
-        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-        // check if vehicle can be placed over from-to TAZs
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
-            // check if edge is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
-        } else {
-            return false;
+    // special case for TAZs
+    if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // get vehicle frame
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        // check if we're in vehicle mode
+        if (vehicleFrame->shown()) {
+            // get current vehicle template
+            const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
+            // check if vehicle can be placed over from-to TAZs
+            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
+                // check if edge is under cursor
+                return gPostDrawing.isElementUnderCursor(this);
+            }
         }
     }
     return false;

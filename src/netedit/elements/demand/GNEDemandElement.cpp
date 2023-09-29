@@ -167,18 +167,19 @@ GNEDemandElement::checkDrawRelatedContour() const {
 
 bool
 GNEDemandElement::checkDrawOverContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in vehicle mode
-    if ((myTagProperty.getTag() == SUMO_TAG_ROUTE) && editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-        // get current vehicle template
-        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
-        // check if vehicle can be placed over from-to TAZs
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
-            // check if route is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
-        } else {
-            return false;
+    // special case for Route
+    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        // get vehicle frame
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        // check if we're in vehicle mode
+        if (vehicleFrame->shown()) {
+            // get current vehicle template
+            const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
+            // check if vehicle can be placed over route
+            if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
+                // check if route is under cursor
+                return gPostDrawing.isElementUnderCursor(this);
+            }
         }
     }
     return false;

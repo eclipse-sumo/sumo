@@ -153,12 +153,25 @@ GNEJunction::checkDrawFromContour() const {
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
-    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // get TLS junction (TLS Frame)
-        const auto TLSJunction = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction();
-        // check if we're joining junctions
-        if (TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
-            return true;
+    } else {
+        // get frames
+        const auto &TLSFrame = myNet->getViewNet()->getViewParent()->getTLSEditorFrame();
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        // continue depending of frames
+        if (TLSFrame->shown()) {
+            // get TLS junction (TLS Frame)
+            const auto TLSJunction = TLSFrame->getTLSJunction();
+            // check if we're joining junctions
+            if (TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
+                return true;
+            }
+        } else if (vehicleFrame->shown()) {
+            // get selected junctions
+            const auto &selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
+            // check if this is the first selected TAZ
+            if ((selectedJunctions.size() > 0) && (selectedJunctions.front() == this)) {
+                return true;
+            }
         }
     }
     // nothing to draw
@@ -176,16 +189,27 @@ GNEJunction::checkDrawToContour() const {
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
         }
-    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // get junction source (CreateEdge Frame)
-        const auto junctionSource = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource();
-        // check if we're over a destiny junction
-        if (junctionSource) {
-            if (junctionSource == this) {
+    } else {
+        // get frames
+        const auto &createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
+        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        // continue depending of frames
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            // get junction source
+            const auto junctionSource = createEdgeFrame->getJunctionSource();
+            // check if we're over a destiny junction
+            if (junctionSource) {
                 // don't create edges with the same from-to junction
-                return false;
-            } else if (gPostDrawing.isElementUnderCursor(this)) {
-                // this junction can be a destiny junction
+                if ((junctionSource != this) && gPostDrawing.isElementUnderCursor(this)) {
+                    // this junction can be a destiny junction
+                    return true;
+                }
+            }
+        } else if (vehicleFrame->shown()) {
+            // get selected junctions
+            const auto &selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
+            // check if this is the first selected TAZ
+            if ((selectedJunctions.size() > 1) && (selectedJunctions.back() == this)) {
                 return true;
             }
         }
@@ -203,12 +227,12 @@ GNEJunction::checkDrawRelatedContour() const {
 
 bool
 GNEJunction::checkDrawOverContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // get vehicle frame
+    const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
     // check if we're in vehicle mode
-    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+    if (vehicleFrame->shown()) {
         // get current vehicle template
-        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to junctions
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToJunctions()) {
             // check if junction is under cursor

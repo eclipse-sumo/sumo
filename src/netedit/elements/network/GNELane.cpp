@@ -258,12 +258,12 @@ GNELane::checkDrawRelatedContour() const {
 
 bool
 GNELane::checkDrawOverContour() const {
-    // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // get vehicle frame
+    const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
     // check if we're in vehicle mode
-    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) && (myParentEdge->getLanes().size() == 1)) {
+    if (vehicleFrame->shown()) {
         // get current vehicle template
-        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to edges
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToEdges()) {
             // check if lane is under cursor
