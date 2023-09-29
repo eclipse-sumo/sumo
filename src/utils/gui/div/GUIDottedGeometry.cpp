@@ -213,13 +213,13 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 void
 GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                      DottedGeometryColor *dottedGeometryColor, const bool addOffset, const double lineWidth) const {
+                                      DottedGeometryColor &dottedGeometryColor, const bool addOffset, const double lineWidth) const {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
         for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
             // set color
-            GLHelper::setColor(dottedGeometryColor->getColor(s, type));
+            GLHelper::setColor(dottedGeometryColor.getColor(s, type));
             // draw box line depending of addOffset
             if (addOffset) {
                 GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, -lineWidth);

@@ -29,6 +29,13 @@
 #include "GNEContour.h"
 #include "GNEAttributeCarrier.h"
 
+
+// ===========================================================================
+// static members
+// ===========================================================================
+
+GUIDottedGeometry::DottedGeometryColor GNEContour::myDottedGeometryColor;
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -37,7 +44,6 @@ GNEContour::GNEContour(GNEAttributeCarrier* AC) :
     myAC(AC),
     myCachedPosition(new Position()),
     myCachedShape(new PositionVector()),
-    myDottedGeometryColor(new GUIDottedGeometry::DottedGeometryColor()),
     myDottedGeometries(new std::vector<GUIDottedGeometry>()),
     myCachedDoubles(new std::vector<double>()) {
 }
@@ -46,7 +52,6 @@ GNEContour::GNEContour(GNEAttributeCarrier* AC) :
 GNEContour::~GNEContour() {
     delete myCachedPosition;
     delete myCachedShape;
-    delete myDottedGeometryColor;
     delete myDottedGeometries;
     delete myCachedDoubles;
 }
@@ -300,7 +305,7 @@ GNEContour::buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, c
         myCachedDoubles->at(0) = scale;
     }
     // reset dotted geometry color
-    myDottedGeometryColor->reset();
+    myDottedGeometryColor.reset();
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -351,7 +356,7 @@ GNEContour::buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s,
         myCachedDoubles->at(0) = scale;
     }
     // reset dotted geometry color
-    myDottedGeometryColor->reset();
+    myDottedGeometryColor.reset();
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -411,7 +416,7 @@ GNEContour::buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s
         myCachedDoubles->at(3) = scale;
     }
     // reset dotted geometry color
-    myDottedGeometryColor->reset();
+    myDottedGeometryColor.reset();
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -441,7 +446,7 @@ GNEContour::buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, G
         myCachedDoubles->at(0) = radius * scale;
     }
     // draw cached shape
-    myDottedGeometryColor->reset();
+    myDottedGeometryColor.reset();
     // Push draw matrix
     GLHelper::pushMatrix();
     // translate to front
@@ -509,7 +514,7 @@ GNEContour::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUI
             *myCachedShape = edgeShape;
         }
         // reset dotted geometry color
-        myDottedGeometryColor->reset();
+        myDottedGeometryColor.reset();
         // Push draw matrix
         GLHelper::pushMatrix();
         // translate to front

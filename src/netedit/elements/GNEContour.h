@@ -79,7 +79,7 @@ private:
     PositionVector *myCachedShape;
 
     /// @brief dotted geometry color
-    GUIDottedGeometry::DottedGeometryColor *myDottedGeometryColor;
+    static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
 
     /// @brief dotted geometries
     std::vector<GUIDottedGeometry> *myDottedGeometries;
