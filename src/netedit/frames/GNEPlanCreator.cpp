@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPathCreator.cpp
+/// @file    GNEPlanCreator.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
@@ -29,31 +29,31 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEPathCreator.h"
+#include "GNEPlanCreator.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPathCreator) PathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_ABORT,           GNEPathCreator::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_FINISH,          GNEPathCreator::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPathCreator::onCmdUseLastRoute),
-    FXMAPFUNC(SEL_UPDATE,  MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPathCreator::onUpdUseLastRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_REMOVELAST,      GNEPathCreator::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_SHOWCANDIDATES,  GNEPathCreator::onCmdShowCandidateEdges)
+FXDEFMAP(GNEPlanCreator) PathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_ABORT,           GNEPlanCreator::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_FINISH,          GNEPlanCreator::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPlanCreator::onCmdUseLastRoute),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPlanCreator::onUpdUseLastRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_REMOVELAST,      GNEPlanCreator::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_SHOWCANDIDATES,  GNEPlanCreator::onCmdShowCandidateEdges)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEPathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
+GNEPlanCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
           myFromBusStop(nullptr),
           myToBusStop(nullptr),
@@ -66,7 +66,7 @@ myConflictDisconnected(false) {
 }
 
 
-GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -86,7 +86,7 @@ GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 }
 
 
-GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
+GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -106,34 +106,34 @@ GNEPathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 
 
 const std::vector<GNEEdge*>&
-GNEPathCreator::Path::getSubPath() const {
+GNEPlanCreator::Path::getSubPath() const {
     return mySubPath;
 }
 
 
-GNEAdditional* GNEPathCreator::Path::getFromBusStop() const {
+GNEAdditional* GNEPlanCreator::Path::getFromBusStop() const {
     return myFromBusStop;
 }
 
 
-GNEAdditional* GNEPathCreator::Path::getToBusStop() const {
+GNEAdditional* GNEPlanCreator::Path::getToBusStop() const {
     return myToBusStop;
 }
 
 
 bool
-GNEPathCreator::Path::isConflictVClass() const {
+GNEPlanCreator::Path::isConflictVClass() const {
     return myConflictVClass;
 }
 
 
 bool
-GNEPathCreator::Path::isConflictDisconnected() const {
+GNEPlanCreator::Path::isConflictDisconnected() const {
     return myConflictDisconnected;
 }
 
 
-GNEPathCreator::Path::Path() :
+GNEPlanCreator::Path::Path() :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -141,7 +141,7 @@ GNEPathCreator::Path::Path() :
 }
 
 
-GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
+GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
@@ -180,11 +180,11 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
 }
 
 
-GNEPathCreator::~GNEPathCreator() {}
+GNEPlanCreator::~GNEPlanCreator() {}
 
 
 void
-GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives) {
+GNEPlanCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
@@ -393,7 +393,7 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
 
 
 void
-GNEPathCreator::hidePathCreatorModule() {
+GNEPlanCreator::hidePathCreatorModule() {
     // clear path
     clearPath();
     // hide modul
@@ -402,13 +402,13 @@ GNEPathCreator::hidePathCreatorModule() {
 
 
 SUMOVehicleClass
-GNEPathCreator::getVClass() const {
+GNEPlanCreator::getVClass() const {
     return myVClass;
 }
 
 
 void
-GNEPathCreator::setVClass(SUMOVehicleClass vClass) {
+GNEPlanCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
     // update edge colors
     updateEdgeColors();
@@ -416,7 +416,7 @@ GNEPathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool
-GNEPathCreator::addJunction(GNEJunction* junction) {
+GNEPlanCreator::addJunction(GNEJunction* junction) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
@@ -463,7 +463,7 @@ GNEPathCreator::addJunction(GNEJunction* junction) {
 
 
 bool
-GNEPathCreator::addTAZ(GNEAdditional* TAZ) {
+GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
     // check if TAZs are allowed
     if (((myCreationMode & START_TAZ) == 0) && ((myCreationMode & END_TAZ) == 0)) {
         return false;
@@ -506,7 +506,7 @@ GNEPathCreator::addTAZ(GNEAdditional* TAZ) {
 
 
 bool
-GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEPlanCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
         return false;
@@ -598,25 +598,25 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
 
 
 const std::vector<GNEEdge*>&
-GNEPathCreator::getSelectedEdges() const {
+GNEPlanCreator::getSelectedEdges() const {
     return mySelectedEdges;
 }
 
 
 const std::vector<GNEJunction*>&
-GNEPathCreator::getSelectedJunctions() const {
+GNEPlanCreator::getSelectedJunctions() const {
     return mySelectedJunctions;
 }
 
 
 const std::vector<GNEAdditional*>&
-GNEPathCreator::getSelectedTAZs() const {
+GNEPlanCreator::getSelectedTAZs() const {
     return mySelectedTAZs;
 }
 
 
 bool
-GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     if (stoppingPlace == nullptr) {
         return false;
     }
@@ -683,7 +683,7 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
 
 
 GNEAdditional*
-GNEPathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
+GNEPlanCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
     if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == expectedTag)) {
         return myToStoppingPlace;
     } else {
@@ -693,7 +693,7 @@ GNEPathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEPathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEPlanCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if routes aren allowed
     if ((myCreationMode & ROUTE) == 0) {
         return false;
@@ -715,25 +715,25 @@ GNEPathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/
 
 
 GNEDemandElement*
-GNEPathCreator::getRoute() const {
+GNEPlanCreator::getRoute() const {
     return myRoute;
 }
 
 
-const std::vector<GNEPathCreator::Path>&
-GNEPathCreator::getPath() const {
+const std::vector<GNEPlanCreator::Path>&
+GNEPlanCreator::getPath() const {
     return myPath;
 }
 
 
 bool
-GNEPathCreator::drawCandidateEdgesWithSpecialColor() const {
+GNEPlanCreator::drawCandidateEdgesWithSpecialColor() const {
     return (myShowCandidateEdges->getCheck() == TRUE);
 }
 
 
 void
-GNEPathCreator::updateJunctionColors() {
+GNEPlanCreator::updateJunctionColors() {
     // clear junction colors
     clearJunctionColors();
     // check if show possible candidates
@@ -761,7 +761,7 @@ GNEPathCreator::updateJunctionColors() {
 
 
 void
-GNEPathCreator::updateEdgeColors() {
+GNEPlanCreator::updateEdgeColors() {
     // clear edge colors
     clearEdgeColors();
     // first check if show candidate edges
@@ -808,7 +808,7 @@ GNEPathCreator::updateEdgeColors() {
 
 
 void
-GNEPathCreator::clearJunctionColors() {
+GNEPlanCreator::clearJunctionColors() {
     // reset all junction flags
     for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
         junction.second->resetCandidateFlags();
@@ -817,7 +817,7 @@ GNEPathCreator::clearJunctionColors() {
 
 
 void
-GNEPathCreator::clearEdgeColors() {
+GNEPlanCreator::clearEdgeColors() {
     // reset all junction flags
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
@@ -826,7 +826,7 @@ GNEPathCreator::clearEdgeColors() {
 
 
 void
-GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
+GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
     const double lineWidth = 0.35;
     const double lineWidthin = 0.25;
     // Add a draw matrix
@@ -840,7 +840,7 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         // iterate over path
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEPathCreator::Path& path = myPath.at(i);
+            const GNEPlanCreator::Path& path = myPath.at(i);
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
@@ -862,7 +862,7 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         // iterate over path again
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEPathCreator::Path& path = myPath.at(i);
+            const GNEPlanCreator::Path& path = myPath.at(i);
             // set path color color
             if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
@@ -923,14 +923,14 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 
 
 bool
-GNEPathCreator::createPath(const bool useLastRoute) {
+GNEPlanCreator::createPath(const bool useLastRoute) {
     // call create path implemented in frame parent
     return myFrameParent->createPath(useLastRoute);
 }
 
 
 void
-GNEPathCreator::abortPathCreation() {
+GNEPlanCreator::abortPathCreation() {
     // first check that there is elements
     if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
@@ -954,7 +954,7 @@ GNEPathCreator::abortPathCreation() {
 
 
 void
-GNEPathCreator::removeLastElement() {
+GNEPlanCreator::removeLastElement() {
     if (mySelectedEdges.size() > 1) {
         // remove special color of last selected edge
         mySelectedEdges.back()->resetCandidateFlags();
@@ -986,20 +986,20 @@ GNEPathCreator::removeLastElement() {
 
 
 long
-GNEPathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
+GNEPlanCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // call create path
     return createPath(false);
 }
 
 
 long
-GNEPathCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
+GNEPlanCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
     // call create path with useLastRoute = true
     return createPath(true);
 }
 
 long
-GNEPathCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
+GNEPlanCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
     if ((myCreationMode & ROUTE) && myFrameParent->getViewNet()->getLastCreatedRoute()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
@@ -1008,7 +1008,7 @@ GNEPathCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
 }
 
 long
-GNEPathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+GNEPlanCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
     // just call abort path creation
     abortPathCreation();
     return 1;
@@ -1016,7 +1016,7 @@ GNEPathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
 
 
 long
-GNEPathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+GNEPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     // just call remove last element
     removeLastElement();
     return 1;
@@ -1024,7 +1024,7 @@ GNEPathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
 
 
 long
-GNEPathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
+GNEPlanCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
     // update labels
     if (myShowCandidateEdges->getCheck() == TRUE) {
         myShiftLabel->show();
@@ -1042,7 +1042,7 @@ GNEPathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
 
 
 void
-GNEPathCreator::updateInfoRouteLabel() {
+GNEPlanCreator::updateInfoRouteLabel() {
     if (myPath.size() > 0) {
         // declare variables for route info
         double length = 0;
@@ -1071,7 +1071,7 @@ GNEPathCreator::updateInfoRouteLabel() {
 
 
 void
-GNEPathCreator::clearPath() {
+GNEPlanCreator::clearPath() {
     /// reset flags
     clearJunctionColors();
     clearEdgeColors();
@@ -1089,7 +1089,7 @@ GNEPathCreator::clearPath() {
 
 
 void
-GNEPathCreator::recalculatePath() {
+GNEPlanCreator::recalculatePath() {
     // first clear path
     myPath.clear();
     // set edges
@@ -1123,7 +1123,7 @@ GNEPathCreator::recalculatePath() {
 
 
 void
-GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
+GNEPlanCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
@@ -1138,7 +1138,7 @@ GNEPathCreator::setSpecialCandidates(GNEEdge* originEdge) {
 }
 
 void
-GNEPathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
+GNEPlanCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags

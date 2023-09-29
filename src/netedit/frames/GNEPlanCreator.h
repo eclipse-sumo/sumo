@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPathCreator.h
+/// @file    GNEPlanCreator.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
@@ -32,9 +32,9 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEPathCreator : public MFXGroupBoxModule {
+class GNEPlanCreator : public MFXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(GNEPathCreator)
+    FXDECLARE(GNEPlanCreator)
 
 public:
     /// @brief class for path
@@ -93,15 +93,15 @@ public:
     };
 
     /// @brief default constructor
-    GNEPathCreator(GNEFrame* frameParent);
+    GNEPlanCreator(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNEPathCreator();
+    ~GNEPlanCreator();
 
-    /// @brief show GNEPathCreator for the given tag
+    /// @brief show GNEPlanCreator for the given tag
     void showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives);
 
-    /// @brief show GNEPathCreator
+    /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
 
     /// @brief get vClass
@@ -192,7 +192,7 @@ public:
     /// @}
 
 protected:
-    FOX_CONSTRUCTOR(GNEPathCreator)
+    FOX_CONSTRUCTOR(GNEPlanCreator)
 
     // @brief creation mode
     enum Mode {
@@ -285,8 +285,8 @@ protected:
     FXLabel* myBackSpaceLabel;
 private:
     /// @brief Invalidated copy constructor.
-    GNEPathCreator(GNEPathCreator*) = delete;
+    GNEPlanCreator(GNEPlanCreator*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEPathCreator& operator=(GNEPathCreator*) = delete;
+    GNEPlanCreator& operator=(GNEPlanCreator*) = delete;
 };
