@@ -22,10 +22,12 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEDemandElement.h"
 #include "GNERouteHandler.h"
@@ -165,6 +167,20 @@ GNEDemandElement::checkDrawRelatedContour() const {
 
 bool
 GNEDemandElement::checkDrawOverContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in vehicle mode
+    if ((myTagProperty.getTag() == SUMO_TAG_ROUTE) && editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+        // get current vehicle template
+        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        // check if vehicle can be placed over from-to TAZs
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
+            // check if route is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        } else {
+            return false;
+        }
+    }
     return false;
 }
 

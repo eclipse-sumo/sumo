@@ -26,6 +26,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -202,6 +203,20 @@ GNEJunction::checkDrawRelatedContour() const {
 
 bool
 GNEJunction::checkDrawOverContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in vehicle mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+        // get current vehicle template
+        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        // check if vehicle can be placed over from-to junctions
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToJunctions()) {
+            // check if junction is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        } else {
+            return false;
+        }
+    }
     return false;
 }
 

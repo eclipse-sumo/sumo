@@ -29,6 +29,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netbuild/NBEdgeCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GLHelper.h>
@@ -257,6 +258,20 @@ GNELane::checkDrawRelatedContour() const {
 
 bool
 GNELane::checkDrawOverContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in vehicle mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) && (myParentEdge->getLanes().size() == 1)) {
+        // get current vehicle template
+        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        // check if vehicle can be placed over from-to edges
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToEdges()) {
+            // check if lane is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        } else {
+            return false;
+        }
+    }
     return false;
 }
 

@@ -24,6 +24,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -211,6 +212,20 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in vehicle mode
+    if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+        // get current vehicle template
+        const auto vehicleTemplate = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+        // check if vehicle can be placed over from-to TAZs
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
+            // check if edge is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        } else {
+            return false;
+        }
+    }
     return false;
 }
 
