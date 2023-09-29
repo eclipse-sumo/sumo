@@ -283,6 +283,44 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEd
 
 
 void
+GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+                                   const double lineWidth) const {
+    // first check if draw dotted contour
+    if (s.drawDottedContour(1)) {
+        // basic contours
+        if (myAC->checkDrawFromContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::FROM, fromEdge, toEdge, lineWidth);
+        }
+        if (myAC->checkDrawToContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::TO, fromEdge, toEdge, lineWidth);
+        }
+        if (myAC->checkDrawRelatedContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::RELATED, fromEdge, toEdge, lineWidth);
+        }
+        if (myAC->checkDrawOverContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::OVER, fromEdge, toEdge, lineWidth);
+        }
+        // inspect contour
+        if (myAC->checkDrawInspectContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::INSPECT, fromEdge, toEdge, lineWidth);
+        }
+        // front contour
+        if (myAC->checkDrawFrontContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::FRONT, fromEdge, toEdge, lineWidth);
+        }
+        // delete contour
+        if (myAC->checkDrawDeleteContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::REMOVE, fromEdge, toEdge, lineWidth);
+        }
+        // select contour
+        if (myAC->checkDrawSelectContour()) {
+            buildAndDrawDottedContourEdges(s, GUIDottedGeometry::DottedContourType::SELECT, fromEdge, toEdge, lineWidth);
+        }
+    }
+}
+
+
+void
 GNEContour::buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
                                             const PositionVector &shape, const double scale, const bool addOffset, const double lineWidth) const {
     // first change size of myDottedGeometries
@@ -530,6 +568,38 @@ GNEContour::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUI
         // pop matrix
         GLHelper::popMatrix();
     }
+}
+
+
+void
+GNEContour::buildAndDrawDottedContourEdges(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                           const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const {
+    // first change size of myDottedGeometries
+    if (myDottedGeometries->size() != 4) {
+        myDottedGeometries->clear();
+        for (int i = 0; i < 4; i++) {
+            myDottedGeometries->push_back(GUIDottedGeometry());
+        }
+    }
+
+    /* Finish */
+
+    // reset dotted geometry color
+    myDottedGeometryColor.reset();
+    // Push draw matrix
+    GLHelper::pushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+    // draw dotted geometry top
+    myDottedGeometries->at(0).drawDottedGeometry(s, type, myDottedGeometryColor, true, lineWidth);
+    // draw dotted geometry right
+    myDottedGeometries->at(1).drawDottedGeometry(s, type, myDottedGeometryColor, true, lineWidth);
+    // draw dotted geometry bot
+    myDottedGeometries->at(2).drawDottedGeometry(s, type, myDottedGeometryColor, true, lineWidth);
+    // draw dotted geometry left
+    myDottedGeometries->at(3).drawDottedGeometry(s, type, myDottedGeometryColor, true, lineWidth);
+    // pop matrix
+    GLHelper::popMatrix();
 }
 
 /****************************************************************************/

@@ -68,6 +68,10 @@ public:
     void drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem,
                                const bool drawLastExtrem, const double lineWidth) const;
 
+    /// @brief draw dotted contour between two edges
+    void drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+                                const double lineWidth) const;
+
 private:
     /// @brief pointer to AC
     GNEAttributeCarrier* myAC;
@@ -108,6 +112,10 @@ private:
     /// @brief draw dotted contour edge
     void buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                                        const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+
+    /// @brief draw dotted contour edges
+    void buildAndDrawDottedContourEdges(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                        const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const;
 
     /// @brief invalidate default constructor
     GNEContour() = delete;

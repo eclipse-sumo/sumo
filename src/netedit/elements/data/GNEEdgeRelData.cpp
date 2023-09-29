@@ -224,8 +224,26 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // finish
+GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // get color
+    const auto color = setColor(s);
+    if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // get flag for only draw contour
+        const bool onlyDrawContour = !isGenericDataVisible();
+        // Start drawing adding an gl identificator
+        if (!onlyDrawContour) {
+            GLHelper::pushName(getGlID());
+        }
+
+        // finish
+
+        // Pop name
+        if (!onlyDrawContour) {
+            GLHelper::popName();
+        }
+        // draw dotted contour
+        myContour.drawDottedContourEdges(s, fromLane->getParentEdge(), toLane->getParentEdge(), s.dottedContourSettings.segmentWidth);
+    }
 }
 
 
