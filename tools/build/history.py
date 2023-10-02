@@ -72,11 +72,11 @@ try:
             subprocess.call('make clean; make -j32', shell=True)
             os.chdir("../..")
             haveBuild = True
-            shutil.copytree('bin', dest, ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
+            shutil.copytree('bin', dest, ignore=shutil.ignore_patterns('*.fmu', '*.bat', '*.jar'))
             subprocess.call('strip -R .note.gnu.build-id %s/*' % dest, shell=True)
             subprocess.call("sed -i 's/%s/%s/' %s" % (desc, len(desc) * "0", dest), shell=True)
     if haveBuild:
-        for line in subprocess.check_output('fdupes -1 -q ../binv*', shell=True).splitlines():
+        for line in subprocess.check_output('fdupes -1 -q %s/binv*' % options.destination, shell=True).splitlines():
             dups = line.split()
             for d in dups[1:]:
                 subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
