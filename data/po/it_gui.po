@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-09-28 14:35+0000\n"
+"POT-Creation-Date: 2023-09-28 11:40+0200\n"
+"PO-Revision-Date: 2023-10-03 08:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2696,7 +2696,7 @@ msgstr "Annulla"
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
 #: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:106
 msgid "Redo"
-msgstr "Reimposta"
+msgstr "Ripristina"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3184
 msgid "Saving Network failed!"
@@ -2708,7 +2708,7 @@ msgstr "Rete salvata in '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3196
 msgid "Could not save network in '"
-msgstr ""
+msgstr "Non ho potuto salvare la rete in '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3252
 msgid "Plain XML saved with prefix '"
@@ -6791,7 +6791,7 @@ msgstr "Non ci sono parcheggi nella rete"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
 msgid "Undo/Redo history"
-msgstr ""
+msgstr "Cronologia annulla/ripristina"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -6829,17 +6829,17 @@ msgstr "Apri file OSG"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:266
 msgid "Could not load configuration '"
-msgstr ""
+msgstr "Non ho potuto caricare la configurazione '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:270
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:180
 #: C:\Repos\sumo/src\netedit\tools\GNEPythonTool.cpp:184
 msgid "Could not load tool configuration '"
-msgstr ""
+msgstr "Non ho potuto caricare la configurazione di utensili '"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:274
 msgid "Loaded configuration."
-msgstr ""
+msgstr "Configurazione caricata con successo."
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:294
 msgid "Save options"
@@ -6847,7 +6847,7 @@ msgstr "Salva opzioni"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:296
 msgid "Save configuration file"
-msgstr ""
+msgstr "Salva file di configurazione"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:297
 msgid "Load options"
@@ -6855,11 +6855,11 @@ msgstr "Carica opzioni"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:299
 msgid "Load configuration file"
-msgstr ""
+msgstr "Carica file di configurazione"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:300
 msgid "Default options"
-msgstr ""
+msgstr "Opzioni standard"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:302
 msgid "Reset all options to default"
