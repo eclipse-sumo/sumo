@@ -57,6 +57,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
+    myActiveRoutePermanent(false),
     myActiveType(ObjectTypeEnum::UNDEFINED),
     myHaveVia(false),
     myActiveTransportablePlan(nullptr),
@@ -323,6 +324,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
+    myActiveRoutePermanent = attrs.getOpt<bool>(SUMO_ATTR_STATE, myActiveRouteID.c_str(), ok, false);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
@@ -438,10 +440,10 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 }
             }
         }
-        MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                     myVehicleParameter == nullptr,
-                                     myActiveRouteColor, myActiveRouteStops,
-                                     myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
+        MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
+                                           myAmLoadingState ? myActiveRoutePermanent : myVehicleParameter == nullptr,
+                                           myActiveRouteColor, myActiveRouteStops,
+                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);

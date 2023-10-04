@@ -187,6 +187,9 @@ protected:
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
 
+    /// @brief whether the active route is stored indefinitely (used by state loader)
+    bool myActiveRoutePermanent;
+
     /// @brief The time at which this route was replaced (from vehroute-output)
     SUMOTime myActiveRouteReplacedAtTime;
 
