@@ -105,7 +105,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
             planTemplate.second->getTagProperty().getBackGroundColor());
     }
     // set myCurrentPlanTemplate
-    myCurrentPlanTemplate = std::make_pair("", nullptr);
+    myCurrentPlanTemplate = nullptr;
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
@@ -136,7 +136,7 @@ GNEPlanSelector::hidePlanSelector() {
 
 GNEDemandElement*
 GNEPlanSelector::getCurrentPlanTemplate() const {
-    return myCurrentPlanTemplate.second;
+    return myCurrentPlanTemplate;
 }
 
 
@@ -148,7 +148,7 @@ GNEPlanSelector::isPlanValid() const {
 
 void
 GNEPlanSelector::refreshPlanSelector() {
-    if (isPlanValid() && myCurrentPlanTemplate.second) {
+    if (isPlanValid() && myCurrentPlanTemplate) {
         // call tag selected function
         myFrameParent->tagSelected();
     } else {
@@ -163,7 +163,7 @@ GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over routes
-        return (myCurrentPlanTemplate == myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate == myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -175,7 +175,7 @@ GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over continuousEdges
-        return (myCurrentPlanTemplate == myPlanTemplates.at(3));
+        return (myCurrentPlanTemplate == myPlanTemplates.at(3).second);
     } else {
         return false;
     }
@@ -187,8 +187,8 @@ GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -200,9 +200,9 @@ GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -214,8 +214,8 @@ GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -227,8 +227,8 @@ GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -240,9 +240,9 @@ GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
     } else {
         return false;
     }
@@ -255,7 +255,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     for (const auto &planTemplate : myPlanTemplates) {
         if (planTemplate.first == myPlansComboBox->getText()) {
             // update myCurrentPlanTemplate
-            myCurrentPlanTemplate = planTemplate;
+            myCurrentPlanTemplate = planTemplate.second;
             // set color of myTypeMatchBox to black (valid)
             myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
             myPlansComboBox->killFocus();
@@ -267,7 +267,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
         }
     }
     // reset myCurrentPlanTemplate
-    myCurrentPlanTemplate = std::make_pair("", nullptr);
+    myCurrentPlanTemplate = nullptr;
     // set color of myTypeMatchBox to red (invalid)
     myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode

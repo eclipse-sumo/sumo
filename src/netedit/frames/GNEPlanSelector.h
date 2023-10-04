@@ -99,7 +99,7 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current plan template;
-    std::pair<FXString, GNEDemandElement*> myCurrentPlanTemplate;
+    GNEDemandElement* myCurrentPlanTemplate;
 
     /// @brief list with demand templates
     std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
