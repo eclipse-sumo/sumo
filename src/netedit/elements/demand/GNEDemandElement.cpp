@@ -169,8 +169,10 @@ GNEDemandElement::checkDrawRelatedContour() const {
 
 bool
 GNEDemandElement::checkDrawOverContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // get frames
-    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
     const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // special case for Route
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
@@ -184,8 +186,12 @@ GNEDemandElement::checkDrawOverContour() const {
             if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
-        } else if (personPlanFramePlanSelector->markRoutes()) {
-            return myNet->getViewNet()->checkDrawOverContour(this);
+        } else if (modes.isCurrentSupermodeDemand()) {
+            // check if we're in person or personPlan modes
+            if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markRoutes()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markRoutes()) ) {
+                return myNet->getViewNet()->checkDrawOverContour(this);
+            }
         }
     }
     return false;

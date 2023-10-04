@@ -225,8 +225,10 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // get frames
-    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
     const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
@@ -240,17 +242,23 @@ GNEAdditional::checkDrawOverContour() const {
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
-        } else if (personPlanFramePlanSelector->markTAZs()) {
+        } else if (modes.isCurrentSupermodeDemand()) {
+            // check if we're in person or personPlan modes
+            if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTAZs()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTAZs())) {
+                return myNet->getViewNet()->checkDrawOverContour(this);
+            }
+        }
+    } else if ((myTagProperty.getTag() == SUMO_TAG_BUS_STOP) && modes.isCurrentSupermodeDemand()) {
+        // check if we're in person or personPlan modes
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markBusStops()) ||
+            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
-    } else if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
-        // check if selected plan needs busStops
-        if (personPlanFramePlanSelector->markBusStops()) {
-            return myNet->getViewNet()->checkDrawOverContour(this);
-        }
-    } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
-        // check if selected plan needs trainStops
-        if (personPlanFramePlanSelector->markTrainStops()) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) && modes.isCurrentSupermodeDemand()) {
+        // check if we're in person or personPlan modes
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTrainStops()) ||
+            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }

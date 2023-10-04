@@ -276,9 +276,11 @@ GNELane::checkDrawRelatedContour() const {
 
 bool
 GNELane::checkDrawOverContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // get vehicle frame
     const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
     const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
@@ -291,8 +293,12 @@ GNELane::checkDrawOverContour() const {
         } else {
             return false;
         }
-    } else if ((personPlanFramePlanSelector->markSingleEdges() || personPlanFramePlanSelector->markContinuousEdges())) {
-        return myNet->getViewNet()->checkDrawOverContour(this);
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // check if we're in person or personPlan modes
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && (personFramePlanSelector->markContinuousEdges() || personFramePlanSelector->markSingleEdges())) ||
+            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && (personPlanFramePlanSelector->markContinuousEdges() || personPlanFramePlanSelector->markSingleEdges()))) {
+            return myNet->getViewNet()->checkDrawOverContour(this);
+        }
     }
     return false;
 }
