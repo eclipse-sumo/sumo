@@ -75,7 +75,7 @@
 
 FXDEFMAP(GUIOSGView) GUIOSGView_Map[] = {
     //________Message_Type_________        ___ID___                        ________Message_Handler________
-    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::OnIdle),
+    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::onIdle),
 };
 FXIMPLEMENT(GUIOSGView, GUISUMOAbstractView, GUIOSGView_Map, ARRAYNUMBER(GUIOSGView_Map))
 
@@ -296,11 +296,6 @@ GUIOSGView::getPositionInformation() const {
     Position pos;
     getPositionAtCursor(myOSGNormalizedCursorX, myOSGNormalizedCursorY, pos);
     return pos;
-}
-
-
-void
-GUIOSGView::recalculateBoundaries() {
 }
 
 
@@ -884,7 +879,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
+GUIOSGView::onIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     forceRefresh();
     update();
     getApp()->addChore(this, MID_CHORE);

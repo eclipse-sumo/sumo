@@ -92,12 +92,6 @@ GUIViewTraffic::~GUIViewTraffic() {
 
 
 void
-GUIViewTraffic::recalculateBoundaries() {
-    //
-}
-
-
-void
 GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
     {
