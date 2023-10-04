@@ -1171,9 +1171,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalE1TLSLines();
     // draw temporal lines between junctions in TLS Mode
     drawTemporalJunctionTLSLines();
-    // draw delete dotted contour
+    // draw dotted contours
+    drawOverDottedContour();
     drawDeleteDottedContour();
-    // draw select dotted contour
     drawSelectDottedContour();
     // draw netedit attributes references
     drawNeteditAttributesReferences();
@@ -1765,9 +1765,9 @@ GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
         return true;
     } else {
         // check if set as markedElementDeleteContour
-        if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
-            (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
-            gPostDrawing.markedElementDeleteContour = GLObject;
+        if ((gPostDrawing.markedElementOverContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementOverContour->getType())) {
+            gPostDrawing.markedElementOverContour = GLObject;
         }
         // we wan't to draw select contour in this moment
         return false;
@@ -5587,6 +5587,21 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         }
         // pop layer matrix
         GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEViewNet::drawOverDottedContour() {
+    // first check if there is a markedElementOverContour
+    if (gPostDrawing.markedElementOverContour) {
+        // check if is a basic GLObject or a path element
+        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementOverContour);
+        if (pathElement != nullptr) {
+            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+        } else {
+            gPostDrawing.markedElementOverContour->drawGL(*myVisualizationSettings);
+        }
     }
 }
 

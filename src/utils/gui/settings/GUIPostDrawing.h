@@ -63,6 +63,9 @@ public:
     /// @brief mouse position before rendering elements
     Position mousePos = Position::INVALID;
 
+    /// @brief elements marked for drawing over contour (used in netedit)
+    const GUIGlObject* markedElementOverContour;
+
     /// @brief elements marked for drawing delete contour (used in netedit)
     const GUIGlObject* markedElementDeleteContour;
 

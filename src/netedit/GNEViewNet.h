@@ -799,6 +799,9 @@ private:
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
 
+    /// @brief draw over dotted contours
+    void drawOverDottedContour();
+
     /// @brief draw delete dotted contours
     void drawDeleteDottedContour();
 

@@ -40,6 +40,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     // clear objects under cursor
     myElementsUnderCursor.clear();
     // reset marked elements
+    markedElementOverContour = nullptr;
     markedElementDeleteContour = nullptr;
     markedElementSelectContour = nullptr;
     markedEdge = nullptr;
