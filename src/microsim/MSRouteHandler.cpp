@@ -1291,7 +1291,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myActiveTransportablePlan->push_back(new MSStageWaiting(
                         edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
             } else if (myActiveTransportablePlan->back()->getDestination() != edge) {
-                throw ProcessError("Disconnected plan for " + myActiveTypeName + " '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActiveTransportablePlan->back()->getDestination()->getID() + ").");
+                throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
+                                       edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
             }
             // transporting veh stops somewhere
             else if (myActiveTransportablePlan->back()->getStageType() == MSStageType::WAITING
@@ -1300,8 +1301,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 const double end = SUMOVehicleParameter::interpretEdgePos(stop.endPos, edge->getLength(), SUMO_ATTR_ENDPOS, "stopping at " + edge->getID());
                 const double prevAr = myActiveTransportablePlan->back()->getArrivalPos();
                 if (start > prevAr + NUMERICAL_EPS || end < prevAr - NUMERICAL_EPS) {
-                    WRITE_WARNING("Disconnected plan for " + myActiveTypeName + " '" + myVehicleParameter->id
-                                  + "' (stop range " + toString(start) + "-" + toString(end) + " does not cover previous arrival position " + toString(prevAr) +  + ").");
+                    WRITE_WARNINGF(TL("Disconnected plan for % '%' (stop range %-% does not cover previous arrival position %)."),
+                                   myActiveTypeName, myVehicleParameter->id, toString(start), toString(end), toString(prevAr));
                 }
             }
             std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
@@ -1335,7 +1336,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         } else if (myHaveVia) {
             // vias were loaded, check for consistency
             if (std::find(myActiveRoute.begin(), myActiveRoute.end(), edge) == myActiveRoute.end()) {
-                WRITE_WARNINGF(TL("Stop edge '%' missing in attribute 'via' for % '%'"), edge->getID(), myActiveTypeName, myVehicleParameter->id);
+                WRITE_WARNINGF(TL("Stop edge '%' missing in attribute 'via' for % '%'."),
+                               edge->getID(), myActiveTypeName, myVehicleParameter->id);
             }
         }
     } catch (ProcessError&) {
