@@ -1190,13 +1190,13 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     try {
         std::string errorSuffix;
         if (myActiveType == ObjectTypeEnum::PERSON) {
-            errorSuffix = " in person '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in person '" + myVehicleParameter->id + "'";
         } else if (myActiveType == ObjectTypeEnum::CONTAINER) {
-            errorSuffix = " in container '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in container '" + myVehicleParameter->id + "'";
         } else if (myVehicleParameter != nullptr) {
-            errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in vehicle '" + myVehicleParameter->id + "'";
         } else {
-            errorSuffix = " in route '" + myActiveRouteID + "'.";
+            errorSuffix = " in route '" + myActiveRouteID + "'";
         }
         SUMOVehicleParameter::Stop stop;
         bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
@@ -1227,7 +1227,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             if (ok && stop.edge != "") { // edge is given directly
                 edge = MSEdge::dictionary(stop.edge);
                 if (edge == nullptr || (edge->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    throw ProcessError("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
+                    throw ProcessError(TLF("The edge '%' for a stop is not known%.", stop.edge, errorSuffix));
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
@@ -1241,7 +1241,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     edge = &stopLane->getEdge();
                 }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    throw ProcessError("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                    throw ProcessError(TLF("The lane '%' for a stop is not known%.", stop.lane, errorSuffix));
                 }
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
@@ -1258,7 +1258,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                         stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                     }
                 } else {
-                    const std::string msg = TL("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane") + errorSuffix;
+                    const std::string msg = TLF("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%.", errorSuffix);
                     if (MSGlobals::gCheckRoutes) {
                         throw ProcessError(msg);
                     } else {
@@ -1269,7 +1269,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             }
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
             if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-                WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
+                WRITE_WARNINGF(TL("Deprecated attribute 'pos' in description of stop%."), errorSuffix);
                 stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
             }
             stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
@@ -1277,10 +1277,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS))
                     || !MSGlobals::gCheckRoutes;
                 if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), 0, friendlyPos) != StopPos::STOPPOS_VALID)) {
-                    throw ProcessError("Invalid start or end position for stop on "
-                                + (stop.lane != ""
-                                   ? ("lane '" + stop.lane)
-                                   : ("edge '" + stop.edge)) + "'" + errorSuffix);
+                    throw ProcessError(TLF("Invalid start or end position for stop on %'%.",
+                                           stop.lane != "" ? ("lane '" + stop.lane) : ("edge '" + stop.edge), errorSuffix));
                 }
             }
         }

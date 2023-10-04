@@ -469,7 +469,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     // speed for counting as stopped
     stop.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, 0);
     if (stop.speed < 0) {
-        errorOutput->inform("Speed cannot be negative for stop" + errorSuffix);
+        errorOutput->inform(TLF("Speed cannot be negative for stop%.", errorSuffix));
         return false;
     }
 
@@ -485,18 +485,18 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     stop.duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
     stop.until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
     if (!expectTrigger && (!ok || (stop.duration < 0 && stop.until < 0 && stop.speed == 0))) {
-        errorOutput->inform("Invalid duration or end time is given for a stop" + errorSuffix);
+        errorOutput->inform(TLF("Invalid duration or end time is given for a stop%.", errorSuffix));
         return false;
     }
     if (triggers.size() > 0 && stop.speed > 0) {
-        errorOutput->inform("Triggers and waypoints cannot be combined" + errorSuffix);
+        errorOutput->inform(TLF("Triggers and waypoints cannot be combined%.", errorSuffix));
         return false;
     }
     stop.extension = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EXTENSION, nullptr, ok, -1);
     const bool defaultParking = (stop.triggered || stop.containerTriggered || stop.parkingarea != "");
     stop.parking = attrs.getOpt<ParkingType>(SUMO_ATTR_PARKING, nullptr, ok, defaultParking ? ParkingType::OFFROAD : ParkingType::ONROAD);
     if ((stop.parkingarea != "") && (stop.parking == ParkingType::ONROAD)) {
-        WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);
+        WRITE_WARNINGF(TL("Stop at parkingArea overrides attribute 'parking' for stop%."), errorSuffix);
         stop.parking = ParkingType::OFFROAD;
     }
 
@@ -537,7 +537,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     } else {
         stop.index = attrs.get<int>(SUMO_ATTR_INDEX, nullptr, ok);
         if (!ok || stop.index < 0) {
-            errorOutput->inform("Invalid 'index' for stop" + errorSuffix);
+            errorOutput->inform(TLF("Invalid 'index' for stop%.", errorSuffix));
             return false;
         }
     }
