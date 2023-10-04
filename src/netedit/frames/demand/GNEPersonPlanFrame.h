@@ -27,7 +27,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
-
+#include <netedit/frames/GNEPlanSelector.h>
 
 // ===========================================================================
 // class definitions
@@ -91,7 +91,7 @@ private:
     DemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    GNETagSelector* myPersonPlanTagSelector;
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myPersonPlanAttributes;

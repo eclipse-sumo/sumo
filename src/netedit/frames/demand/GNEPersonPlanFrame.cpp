@@ -43,8 +43,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // create person types selector module
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
-    // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE_EDGE);
+    // Create plan selector
+    myPlanSelector = new GNEPlanSelector(this);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEAttributesCreator(this);
@@ -73,11 +73,11 @@ GNEPersonPlanFrame::show() {
         // show person selector
         myPersonSelector->showDemandElementSelector();
         // refresh tag selector
-        myPersonPlanTagSelector->refreshTagSelector();
+        myPlanSelector->refreshTagSelector();
     } else {
         // hide all modules
         myPersonSelector->hideDemandElementSelector();
-        myPersonPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
@@ -121,30 +121,22 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         }
     }
     // finally check that person plan selected is valid
-    if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
+    if (!myPlanSelector->isPlanValid()) {
         myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
-    // Obtain current person plan tag (only for improve code legibility)
-    const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // declare flags for requirements
-    const bool requireBusStop = personPlanProperty.planFromBusStop() || personPlanProperty.planToBusStop();
-    const bool requireTrainStop = personPlanProperty.planFromTrainStop() || personPlanProperty.planToTrainStop();
-    const bool requireEdge = personPlanProperty.planFromEdge() || personPlanProperty.planToEdge() || personPlanProperty.hasAttribute(SUMO_ATTR_EDGES);
-    const bool requireJunction = personPlanProperty.planFromJunction() || personPlanProperty.planToJunction();
-    const bool requireTAZ = personPlanProperty.planFromTAZ() || personPlanProperty.planToTAZ();
-    // continue depending of tag
-    if (personPlanProperty.hasAttribute(SUMO_ATTR_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    // continue depending of marked elements
+    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+    } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireTrainStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+    } else if (myPlanSelector->markTrainStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
+    } else if ((myPlanSelector->markSingleEdges() || myPlanSelector->markContinuousEdges()) && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-    } else if (requireJunction && objectsUnderCursor.getJunctionFront()) {
+    } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
-    } else if (requireTAZ && objectsUnderCursor.getTAZFront()) {
+    } else if (myPlanSelector->markTAZs() && objectsUnderCursor.getTAZFront()) {
         return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
@@ -181,6 +173,7 @@ GNEPersonPlanFrame::getPersonSelector() const {
 
 void
 GNEPersonPlanFrame::tagSelected() {
+/*
     // first check if person is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
         // get ACs
@@ -232,6 +225,7 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
+*/
 }
 
 
@@ -240,9 +234,9 @@ GNEPersonPlanFrame::demandElementSelected() {
     // check if a valid person was selected
     if (myPersonSelector->getCurrentDemandElement()) {
         // show person plan tag selector
-        myPersonPlanTagSelector->showTagSelector();
+        myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
+        if (myPlanSelector->isPlanValid()) {
             // call tag selected
             tagSelected();
         } else {
@@ -253,7 +247,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         }
     } else {
         // hide modules if person selected isn't valid
-        myPersonPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
@@ -264,6 +258,7 @@ GNEPersonPlanFrame::demandElementSelected() {
 
 bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
+/*
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
@@ -289,6 +284,8 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
             return false;
         }
     }
+*/
+    return false;
 }
 
 /****************************************************************************/
