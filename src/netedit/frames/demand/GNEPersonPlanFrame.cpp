@@ -180,13 +180,13 @@ GNEPersonPlanFrame::getPlanSelector() const {
 void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
-    if (myPlanSelector->getCurrentTemplateAC()) {
+    if (myPlanSelector->getCurrentPlanTemplate()) {
         // get ACs
         const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
         // Obtain current person plan tag (only for improve code legibility)
-        const auto personPlanProperty = myPlanSelector->getCurrentTemplateAC()->getTagProperty();
+        const auto personPlanProperty = myPlanSelector->getCurrentPlanTemplate()->getTagProperty();
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentTemplateAC(), {});
+        myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
         // get previous container plan element
         const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
@@ -264,12 +264,12 @@ bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr() + " parameters.");
         return false;
     } else {
         // check if person plan can be created
         if (myRouteHandler.buildPersonPlan(
-                    myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+                    myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes, myPathCreator, false)) {
             // refresh GNEElementTree

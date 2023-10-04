@@ -49,8 +49,8 @@ public:
     /// @brief plan item selector
     void hidePlanSelector();
 
-    /// @brief get current templateAC
-    GNEAttributeCarrier* getCurrentTemplateAC() const;
+    /// @brief get current plan template
+    GNEDemandElement* getCurrentPlanTemplate() const;
 
     /// @brief check if selected plan is valid
     bool isPlanValid() const;
@@ -98,8 +98,8 @@ private:
     /// @brief comboBox with the tags
     MFXComboBoxIcon* myPlansComboBox;
 
-    /// @brief current templateAC;
-    GNEAttributeCarrier* myCurrentTemplateAC = nullptr;
+    /// @brief current plan template;
+    GNEDemandElement* myCurrentPlanTemplate = nullptr;
 
     /// @brief list with demand templates
     std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
