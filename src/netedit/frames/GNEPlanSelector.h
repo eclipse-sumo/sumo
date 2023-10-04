@@ -38,22 +38,31 @@ class GNEPlanSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEPlanSelector(GNEFrame* frameParent, GNETagProperties::TagType type);
+    GNEPlanSelector(GNEFrame* frameParent);
 
     /// @brief destructor
     ~GNEPlanSelector();
 
-    /// @brief show item selector
-    void showTagSelector();
+    /// @brief show plan selector
+    void showPlanSelector();
 
-    /// @brief hide item selector
-    void hideTagSelector();
+    /// @brief plan item selector
+    void hidePlanSelector();
 
-    /// @brief get current template plan
-    GNEDemandElement* getCurrentTemplatePlan() const;
+    /// @brief check if selected plan is valid
+    bool isPlanValid() const;
 
     /// @brief refresh tagSelector (used when frameParent is show)
     void refreshTagSelector();
+
+    /// @brief check if mark edges with dotted contours
+    bool markRoutes() const;
+
+    /// @brief check if mark edges with dotted contours
+    bool markEdges() const;
+
+    /// @brief check if mark edges with dotted contours
+    bool markBusStops() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -68,19 +77,12 @@ protected:
     FOX_CONSTRUCTOR(GNEPlanSelector)
 
 private:
-
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
-
-    /// @brief current tagType
-    GNETagProperties::TagType myTagType;
 
     /// @brief comboBox with the tags
     MFXComboBoxIcon* myPlansComboBox;
 
-    /// @brief current templateAC;
-    GNEDemandElement* myCurrentPlanTemplate;
-
-    /// @brief list with plan templates
-    std::map<std::string, GNEDemandElement*> myPlanTemplates;
+    /// @brief plans
+    std::vector<FXString> myPlans;
 };

@@ -84,113 +84,114 @@ FXIMPLEMENT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagS
 // method definitions
 // ===========================================================================
 
-GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, GNETagProperties::TagType type) :
-    MFXGroupBoxModule(frameParent, TL("Element")),
-    myFrameParent(frameParent),
-    myTagType(type),
-    myCurrentPlanTemplate(nullptr) {
+GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
+    MFXGroupBoxModule(frameParent, TL("Person plans")),
+    myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
     myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsLarge,
                                           this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
-    // get net
-    auto net = frameParent->getViewNet()->getNet();
-    // continue depending of plan type
-    if (myTagType == GNETagProperties::TagType::PERSON) {
-        setText(TL("Person plans"));
-        // add person plan elements
-        myPlansComboBox->appendIconItem("PersonTrip", GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE), FXRGBA(253, 255, 206, 255));
-        myPlansComboBox->appendIconItem("Walk", GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE), FXRGBA(240, 255, 205, 255));
-        myPlansComboBox->appendIconItem("Walk (Edges)", GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES), FXRGBA(240, 255, 205, 255));
-        myPlansComboBox->appendIconItem("Walk (Route)", GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE), FXRGBA(240, 255, 205, 255));
-        myPlansComboBox->appendIconItem("Ride", GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE), FXRGBA(210, 233, 255, 255));
-        // add person plan templates
-        myPlanTemplates["PersonTrip"] = new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net);
-        myPlanTemplates["Walk"] = new GNEWalk(GNE_TAG_WALK_EDGE_EDGE, net);
-        myPlanTemplates["Walk (Edges)"] = new GNEWalk(GNE_TAG_WALK_EDGES, net);
-        myPlanTemplates["Walk (Route)"] = new GNEWalk(GNE_TAG_WALK_ROUTE, net);
-        myPlanTemplates["Ride"] = new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net);
-    } else if (myTagType == GNETagProperties::TagType::CONTAINER) {
-        setText(TL("ContainerPlans"));
-        // add person plan elements
-        myPlansComboBox->appendIconItem("Transport", GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_EDGE), FXRGBA(240, 255, 205, 255));
-        myPlansComboBox->appendIconItem("Tranship", GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE), FXRGBA(210, 233, 255, 255));
-        myPlansComboBox->appendIconItem("Tranship (Edges)", GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGES), FXRGBA(210, 233, 255, 255));
-        // add person plan templates
-        myPlanTemplates["Transport"] = new GNEPersonTrip(GNE_TAG_TRANSPORT_EDGE, net);
-        myPlanTemplates["Tranship"] = new GNEWalk(GNE_TAG_TRANSHIP_EDGE, net);
-        myPlanTemplates["Tranship (Edges)"] = new GNEWalk(GNE_TAG_TRANSHIP_EDGES, net);
-    } else {
-        throw ProcessError("invalid plan parent tag");
-    }
+    // set list of plans
+    myPlans = {"PersonTrip", "Ride", "Walk", "Walk (Edges)", "Walk (Route)"};
+    // add person plan elements
+    myPlansComboBox->appendIconItem(myPlans[0], GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE), FXRGBA(253, 255, 206, 255));
+    myPlansComboBox->appendIconItem(myPlans[1], GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE), FXRGBA(210, 233, 255, 255));
+    myPlansComboBox->appendIconItem(myPlans[2], GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE), FXRGBA(240, 255, 205, 255));
+    myPlansComboBox->appendIconItem(myPlans[3], GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES), FXRGBA(240, 255, 205, 255));
+    myPlansComboBox->appendIconItem(myPlans[4], GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE), FXRGBA(240, 255, 205, 255));
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
-    // set current plan
-    myCurrentPlanTemplate = myPlanTemplates[myPlansComboBox->getText().text()];
     // GNEPlanSelector is always shown
     show();
 }
 
 
 GNEPlanSelector::~GNEPlanSelector() {
-    // clear myACTemplates and myTagsMatchBox
-    for (const auto& planTemplate : myPlanTemplates) {
-        delete planTemplate.second;
-    }
-    myPlanTemplates.clear();
 }
 
 
 void
-GNEPlanSelector::showTagSelector() {
+GNEPlanSelector::showPlanSelector() {
     show();
 }
 
 
 void
-GNEPlanSelector::hideTagSelector() {
+GNEPlanSelector::hidePlanSelector() {
     hide();
 }
 
 
-GNEDemandElement*
-GNEPlanSelector::getCurrentTemplatePlan() const {
-    return myCurrentPlanTemplate;
+bool
+GNEPlanSelector::isPlanValid() const {
+    return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
 }
 
 
 void
 GNEPlanSelector::refreshTagSelector() {
-    // call tag selected function
-    myFrameParent->tagSelected();
+    if (isPlanValid()) {
+        // call tag selected function
+        myFrameParent->tagSelected();
+    } else {
+        // set first item
+        myPlansComboBox->setCurrentItem(0, TRUE);
+    }
+}
+
+
+bool
+GNEPlanSelector::markRoutes() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // only for plan over routes
+        return (myPlansComboBox->getText() == myPlans[4]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markEdges() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan except routes
+        return (myPlansComboBox->getText() != myPlans[4]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markBusStops() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan except routes
+        return (myPlansComboBox->getText() != myPlans[4]);
+    }
+    return false;
 }
 
 
 long
 GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
-    // iterate over all plan templates
-    for (const auto& planTemplate : myPlanTemplates) {
-        if (planTemplate.first == myPlansComboBox->getText().text()) {
-            // set templateAC and currentItem
-            myCurrentPlanTemplate = planTemplate.second;
-            // set color of myTypeMatchBox to black (valid)
-            myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
-            myPlansComboBox->killFocus();
-            // call tag selected function
-            myFrameParent->tagSelected();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myPlansComboBox->getText() + "' in GNEPlanSelector").text());
-            return 1;
-        }
+    // check if selected plan of comboBox exists in plans
+    if (std::find(myPlans.begin(), myPlans.end(), myPlansComboBox->getText()) != myPlans.end()) {
+        // set color of myTypeMatchBox to black (valid)
+        myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+        myPlansComboBox->killFocus();
+        // call tag selected function
+        myFrameParent->tagSelected();
+        // Write Warning in console if we're in testing mode
+        WRITE_DEBUG(("Selected item '" + myPlansComboBox->getText() + "' in GNEPlanSelector").text());
+    } else {
+        // set color of myTypeMatchBox to red (invalid)
+        myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
+        // Write Warning in console if we're in testing mode
+        WRITE_DEBUG("Selected invalid item in TemplatePlanSelector");
+        // call tag selected function
+        myFrameParent->tagSelected();
     }
-    // reset templateAC
-    myCurrentPlanTemplate = nullptr;
-    // set color of myTypeMatchBox to red (invalid)
-    myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TemplatePlanSelector");
-    // call tag selected function
-    myFrameParent->tagSelected();
     return 1;
 }
 
