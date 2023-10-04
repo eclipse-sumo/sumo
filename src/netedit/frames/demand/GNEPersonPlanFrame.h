@@ -73,6 +73,9 @@ public:
     /// @brief get person selectors
     DemandElementSelector* getPersonSelector() const;
 
+    /// @brief get personPlan selector
+    GNEPlanSelector* getPlanSelector() const;
+
 protected:
     /// @brief Tag selected in GNETagSelector
     void tagSelected();

@@ -167,6 +167,12 @@ GNEPersonPlanFrame::getPersonSelector() const {
     return myPersonSelector;
 }
 
+
+GNEPlanSelector*
+GNEPersonPlanFrame::getPlanSelector() const {
+    return myPlanSelector;
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
