@@ -105,7 +105,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
             planTemplate.second->getTagProperty().getBackGroundColor());
     }
     // set myCurrentPlanTemplate
-    myCurrentPlanTemplate = myPlanTemplates.front().second;
+    myCurrentPlanTemplate = std::make_pair("", nullptr);
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
@@ -136,7 +136,7 @@ GNEPlanSelector::hidePlanSelector() {
 
 GNEDemandElement*
 GNEPlanSelector::getCurrentPlanTemplate() const {
-    return myCurrentPlanTemplate;
+    return myCurrentPlanTemplate.second;
 }
 
 
@@ -148,7 +148,7 @@ GNEPlanSelector::isPlanValid() const {
 
 void
 GNEPlanSelector::refreshPlanSelector() {
-    if (isPlanValid() && myCurrentPlanTemplate) {
+    if (isPlanValid() && myCurrentPlanTemplate.second) {
         // call tag selected function
         myFrameParent->tagSelected();
     } else {
@@ -161,84 +161,91 @@ GNEPlanSelector::refreshPlanSelector() {
 bool
 GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // only for plan over routes
-        return (myCurrentPlanTemplate == myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate == myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // only for plan over continuousEdges
-        return (myCurrentPlanTemplate == myPlanTemplates.at(3).second);
+        return (myCurrentPlanTemplate == myPlanTemplates.at(3));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate != myPlanTemplates.at(1)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
 bool
 GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
-    if (isPlanMode() && isPlanValid()) {
+    if (isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate != myPlanTemplates.at(1)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(3)) &&
+               (myCurrentPlanTemplate != myPlanTemplates.at(4));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
@@ -248,7 +255,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     for (const auto &planTemplate : myPlanTemplates) {
         if (planTemplate.first == myPlansComboBox->getText()) {
             // update myCurrentPlanTemplate
-            myCurrentPlanTemplate = planTemplate.second;
+            myCurrentPlanTemplate = planTemplate;
             // set color of myTypeMatchBox to black (valid)
             myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
             myPlansComboBox->killFocus();
@@ -260,7 +267,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
         }
     }
     // reset myCurrentPlanTemplate
-    myCurrentPlanTemplate = nullptr;
+    myCurrentPlanTemplate = std::make_pair("", nullptr);
     // set color of myTypeMatchBox to red (invalid)
     myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -268,17 +275,6 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
-}
-
-
-bool
-GNEPlanSelector::isPlanMode() const {
-    const auto& modes = myFrameParent->getViewNet()->getEditModes();
-    if (shown() && modes.isCurrentSupermodeDemand()) {
-        return (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) || (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN);
-    } else {
-        return false;
-    }
 }
 
 /****************************************************************************/

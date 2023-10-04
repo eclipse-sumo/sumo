@@ -99,11 +99,8 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current plan template;
-    GNEDemandElement* myCurrentPlanTemplate = nullptr;
+    std::pair<FXString, GNEDemandElement*> myCurrentPlanTemplate;
 
     /// @brief list with demand templates
     std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
-
-    /// @brief check if we're in person or personPlan mode
-    bool isPlanMode() const;
 };
