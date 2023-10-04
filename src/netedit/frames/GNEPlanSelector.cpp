@@ -152,11 +152,36 @@ GNEPlanSelector::markRoutes() const {
 
 
 bool
-GNEPlanSelector::markEdges() const {
+GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (shown() && isPlanValid()) {
-        // for all plan except routes
-        return (myPlansComboBox->getText() != myPlans[4]);
+        // only for plan over continuousEdges
+        return (myPlansComboBox->getText() == myPlans[3]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markSingleEdges() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan routes and continous edges
+        return (myPlansComboBox->getText() != myPlans[3]) &&
+               (myPlansComboBox->getText() != myPlans[4]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markJunctions() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan except rides, routes and continous edges
+        return (myPlansComboBox->getText() != myPlans[1]) &&
+               (myPlansComboBox->getText() != myPlans[3]) &&
+               (myPlansComboBox->getText() != myPlans[4]);
     }
     return false;
 }
@@ -166,8 +191,34 @@ bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (shown() && isPlanValid()) {
-        // for all plan except routes
-        return (myPlansComboBox->getText() != myPlans[4]);
+        // for all plan routes and continous edges
+        return (myPlansComboBox->getText() != myPlans[3]) &&
+               (myPlansComboBox->getText() != myPlans[4]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markTrainStops() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan routes and continous edges
+        return (myPlansComboBox->getText() != myPlans[3]) &&
+               (myPlansComboBox->getText() != myPlans[4]);
+    }
+    return false;
+}
+
+
+bool
+GNEPlanSelector::markTAZs() const {
+    // first check if this modul is shown and selected plan is valid
+    if (shown() && isPlanValid()) {
+        // for all plan except rides, routes and continous edges
+        return (myPlansComboBox->getText() != myPlans[1]) &&
+               (myPlansComboBox->getText() != myPlans[3]) &&
+               (myPlansComboBox->getText() != myPlans[4]);
     }
     return false;
 }

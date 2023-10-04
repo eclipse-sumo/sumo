@@ -55,14 +55,26 @@ public:
     /// @brief refresh tagSelector (used when frameParent is show)
     void refreshTagSelector();
 
-    /// @brief check if mark edges with dotted contours
+    /// @brief check if mark routes with dotted contours
     bool markRoutes() const;
 
     /// @brief check if mark edges with dotted contours
-    bool markEdges() const;
+    bool markContinuousEdges() const;
 
     /// @brief check if mark edges with dotted contours
+    bool markSingleEdges() const;
+
+    /// @brief check if mark junctions with dotted contours
+    bool markJunctions() const;
+
+    /// @brief check if mark busStops with dotted contours
     bool markBusStops() const;
+
+    /// @brief check if mark trainStops with dotted contours
+    bool markTrainStops() const;
+
+    /// @brief check if mark TAZs with dotted contours
+    bool markTAZs() const;
 
     /// @name FOX-callbacks
     /// @{
