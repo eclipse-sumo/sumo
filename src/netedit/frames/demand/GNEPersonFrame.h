@@ -67,6 +67,9 @@ public:
     /// @brief get Type selectors
     DemandElementSelector* getTypeSelector() const;
 
+    /// @brief get personPlan selector
+    GNEPlanSelector* getPlanSelector() const;
+
     /// @brief get attributes creator
     GNEAttributesCreator* getPersonAttributes() const;
 

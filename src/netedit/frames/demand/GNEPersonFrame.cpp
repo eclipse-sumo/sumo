@@ -156,6 +156,12 @@ GNEPersonFrame::getTypeSelector() const {
 }
 
 
+GNEPlanSelector*
+GNEPersonFrame::getPlanSelector() const {
+    return myPlanSelector;
+}
+
+
 GNEAttributesCreator*
 GNEPersonFrame::getPersonAttributes() const {
     return myPersonAttributes;
