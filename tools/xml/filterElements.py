@@ -86,18 +86,22 @@ def main(options):
     for parent, node in traverseNodes(tree.getroot()):
         # check tag
         if node.tag == options.tag:
-            # continue depending of operation
-            if options.keepValues is not None:
-                if node.get(options.attribute) not in options.keepValues:
-                    toRemove.append((parent, node))
-            elif options.values is not None:
-                if node.get(options.attribute) in options.values:
-                    toRemove.append((parent, node))
-            elif options.keepInterval is not None:
-                if not options.keepInterval[0] <= float(node.get(options.attribute)) <= options.keepInterval[1]:
-                    toRemove.append((parent, node))
-            elif options.interval is not None:
-                if options.interval[0] <= float(node.get(options.attribute)) <= options.interval[1]:
+            if options.attribute is not None:
+                attribute_value = node.get(options.attribute)
+                # continue depending of operation
+                if options.keepValues is not None:
+                    if attribute_value not in options.keepValues:
+                        toRemove.append((parent, node))
+                elif options.values is not None:
+                    if attribute_value in options.values:
+                        toRemove.append((parent, node))
+                elif options.keepInterval is not None:
+                    if attribute_value is None or not options.keepInterval[0] <= float(attribute_value) <= options.keepInterval[1]:
+                        toRemove.append((parent, node))
+                elif options.interval is not None:
+                    if attribute_value is not None and options.interval[0] <= float(attribute_value) <= options.interval[1]:
+                        toRemove.append((parent, node))
+                else:  # nothing specified, delete all occurences of tag with the given attribute
                     toRemove.append((parent, node))
             else:  # nothing specified, delete all occurences of tag
                 toRemove.append((parent, node))
