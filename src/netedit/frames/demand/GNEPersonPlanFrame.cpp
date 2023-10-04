@@ -73,7 +73,7 @@ GNEPersonPlanFrame::show() {
         // show person selector
         myPersonSelector->showDemandElementSelector();
         // refresh tag selector
-        myPlanSelector->refreshTagSelector();
+        myPlanSelector->refreshPlanSelector();
     } else {
         // hide all modules
         myPersonSelector->hideDemandElementSelector();
@@ -179,15 +179,14 @@ GNEPersonPlanFrame::getPlanSelector() const {
 
 void
 GNEPersonPlanFrame::tagSelected() {
-/*
     // first check if person is valid
-    if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
+    if (myPlanSelector->getCurrentTemplateAC()) {
         // get ACs
         const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
         // Obtain current person plan tag (only for improve code legibility)
-        const auto personPlanProperty = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
+        const auto personPlanProperty = myPlanSelector->getCurrentTemplateAC()->getTagProperty();
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+        myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentTemplateAC(), {});
         // get previous container plan element
         const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
@@ -231,7 +230,6 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
-*/
 }
 
 
@@ -264,15 +262,14 @@ GNEPersonPlanFrame::demandElementSelected() {
 
 bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
-/*
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
         return false;
     } else {
         // check if person plan can be created
         if (myRouteHandler.buildPersonPlan(
-                    myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+                    myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes, myPathCreator, false)) {
             // refresh GNEElementTree
@@ -290,7 +287,6 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
             return false;
         }
     }
-*/
     return false;
 }
 
