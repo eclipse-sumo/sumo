@@ -55,8 +55,8 @@ public:
     /// @brief check if selected plan is valid
     bool isPlanValid() const;
 
-    /// @brief refresh tagSelector (used when frameParent is show)
-    void refreshTagSelector();
+    /// @brief refresh plan selector (used when frameParent is show)
+    void refreshPlanSelector();
 
     /// @brief check if mark routes with dotted contours
     bool markRoutes() const;
@@ -99,7 +99,7 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current templateAC;
-    GNEAttributeCarrier* myCurrentTemplateAC;
+    GNEAttributeCarrier* myCurrentTemplateAC = nullptr;
 
     /// @brief list with demand templates
     std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
