@@ -143,7 +143,7 @@ GNEPlanSelector::refreshTagSelector() {
 bool
 GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // only for plan over routes
         return (myPlansComboBox->getText() == myPlans[4]);
     }
@@ -154,7 +154,7 @@ GNEPlanSelector::markRoutes() const {
 bool
 GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // only for plan over continuousEdges
         return (myPlansComboBox->getText() == myPlans[3]);
     }
@@ -165,7 +165,7 @@ GNEPlanSelector::markContinuousEdges() const {
 bool
 GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
         return (myPlansComboBox->getText() != myPlans[3]) &&
                (myPlansComboBox->getText() != myPlans[4]);
@@ -177,7 +177,7 @@ GNEPlanSelector::markSingleEdges() const {
 bool
 GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // for all plan except rides, routes and continous edges
         return (myPlansComboBox->getText() != myPlans[1]) &&
                (myPlansComboBox->getText() != myPlans[3]) &&
@@ -190,7 +190,7 @@ GNEPlanSelector::markJunctions() const {
 bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
         return (myPlansComboBox->getText() != myPlans[3]) &&
                (myPlansComboBox->getText() != myPlans[4]);
@@ -202,7 +202,7 @@ GNEPlanSelector::markBusStops() const {
 bool
 GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
         return (myPlansComboBox->getText() != myPlans[3]) &&
                (myPlansComboBox->getText() != myPlans[4]);
@@ -214,7 +214,7 @@ GNEPlanSelector::markTrainStops() const {
 bool
 GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
-    if (shown() && isPlanValid()) {
+    if (isPlanMode() && isPlanValid()) {
         // for all plan except rides, routes and continous edges
         return (myPlansComboBox->getText() != myPlans[1]) &&
                (myPlansComboBox->getText() != myPlans[3]) &&
@@ -244,6 +244,17 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
         myFrameParent->tagSelected();
     }
     return 1;
+}
+
+
+bool
+GNEPlanSelector::isPlanMode() const {
+    const auto& modes = myFrameParent->getViewNet()->getEditModes();
+    if (shown() && modes.isCurrentSupermodeDemand()) {
+        return (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) || (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN);
+    } else {
+        return false;
+    }
 }
 
 /****************************************************************************/

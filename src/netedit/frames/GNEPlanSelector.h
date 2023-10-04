@@ -97,4 +97,7 @@ private:
 
     /// @brief plans
     std::vector<FXString> myPlans;
+
+    /// @brief check if we're in person or personPlan mode
+    bool isPlanMode() const;
 };
