@@ -32,6 +32,8 @@
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -213,8 +215,10 @@ GNEEdge::checkDrawRelatedContour() const {
 
 bool
 GNEEdge::checkDrawOverContour() const {
-    // get vehicle frame
+    // get frames
     const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
         // get current vehicle template
@@ -223,9 +227,10 @@ GNEEdge::checkDrawOverContour() const {
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToEdges()) {
             // check if edge is under cursor
             return gPostDrawing.isElementUnderCursor(this);
-        } else {
-            return false;
         }
+    } else if ((personPlanFramePlanSelector->markSingleEdges() || personPlanFramePlanSelector->markContinuousEdges())) {
+        // check if edge is under cursor
+        return gPostDrawing.isElementUnderCursor(this);
     }
     return false;
 }

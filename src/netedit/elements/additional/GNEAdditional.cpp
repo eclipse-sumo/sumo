@@ -24,8 +24,10 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -223,6 +225,9 @@ GNEAdditional::checkDrawRelatedContour() const {
 
 bool
 GNEAdditional::checkDrawOverContour() const {
+    // get frames
+    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get vehicle frame
@@ -236,6 +241,21 @@ GNEAdditional::checkDrawOverContour() const {
                 // check if edge is under cursor
                 return gPostDrawing.isElementUnderCursor(this);
             }
+        } else if (personPlanFramePlanSelector->markTAZs()) {
+            // check if edge is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        }
+    } else if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
+        // check if selected plan needs busStops
+        if (personPlanFramePlanSelector->markBusStops()) {
+            // check if edge is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
+        }
+    } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
+        // check if selected plan needs trainStops
+        if (personPlanFramePlanSelector->markTrainStops()) {
+            // check if edge is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
         }
     }
     return false;

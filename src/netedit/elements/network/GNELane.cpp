@@ -30,6 +30,8 @@
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netbuild/NBEdgeCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GLHelper.h>
@@ -276,6 +278,8 @@ bool
 GNELane::checkDrawOverContour() const {
     // get vehicle frame
     const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
         // get current vehicle template
@@ -287,6 +291,9 @@ GNELane::checkDrawOverContour() const {
         } else {
             return false;
         }
+    } else if ((personPlanFramePlanSelector->markSingleEdges() || personPlanFramePlanSelector->markContinuousEdges())) {
+        // check if edge is under cursor
+        return gPostDrawing.isElementUnderCursor(this);
     }
     return false;
 }

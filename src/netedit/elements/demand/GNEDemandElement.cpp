@@ -23,6 +23,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
+#include <netedit/frames/demand/GNEPersonFrame.h>
+#include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -167,6 +169,9 @@ GNEDemandElement::checkDrawRelatedContour() const {
 
 bool
 GNEDemandElement::checkDrawOverContour() const {
+    // get frames
+    //const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
     // special case for Route
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         // get vehicle frame
@@ -180,6 +185,9 @@ GNEDemandElement::checkDrawOverContour() const {
                 // check if route is under cursor
                 return gPostDrawing.isElementUnderCursor(this);
             }
+        } else if (personPlanFramePlanSelector->markRoutes()) {
+            // check if route is under cursor
+            return gPostDrawing.isElementUnderCursor(this);
         }
     }
     return false;
