@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNETagSelector.h"
 
 // ===========================================================================
 // class declaration
@@ -48,6 +48,9 @@ public:
 
     /// @brief plan item selector
     void hidePlanSelector();
+
+    /// @brief get current templateAC
+    GNEAttributeCarrier* getCurrentTemplateAC() const;
 
     /// @brief check if selected plan is valid
     bool isPlanValid() const;
@@ -95,8 +98,11 @@ private:
     /// @brief comboBox with the tags
     MFXComboBoxIcon* myPlansComboBox;
 
-    /// @brief plans
-    std::vector<FXString> myPlans;
+    /// @brief current templateAC;
+    GNEAttributeCarrier* myCurrentTemplateAC;
+
+    /// @brief list with demand templates
+    std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
 
     /// @brief check if we're in person or personPlan mode
     bool isPlanMode() const;

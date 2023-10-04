@@ -90,14 +90,20 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
     // Create MFXComboBoxIcon
     myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsLarge,
                                           this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    // get net
+    const auto net = myFrameParent->getViewNet()->getNet();
     // set list of plans
-    myPlans = {"PersonTrip", "Ride", "Walk", "Walk (Edges)", "Walk (Route)"};
+    myPlanTemplates.push_back(std::make_pair("PersonTrip", new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
+    myPlanTemplates.push_back(std::make_pair("Ride", new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
+    myPlanTemplates.push_back(std::make_pair("Walk", new GNEPersonTrip(GNE_TAG_WALK_EDGE_EDGE, net)));
+    myPlanTemplates.push_back(std::make_pair("Walk (Edges)", new GNEPersonTrip(GNE_TAG_WALK_EDGES, net)));
+    myPlanTemplates.push_back(std::make_pair("Walk (Route)", new GNEPersonTrip(GNE_TAG_WALK_ROUTE, net)));
     // add person plan elements
-    myPlansComboBox->appendIconItem(myPlans[0], GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE), FXRGBA(253, 255, 206, 255));
-    myPlansComboBox->appendIconItem(myPlans[1], GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE), FXRGBA(210, 233, 255, 255));
-    myPlansComboBox->appendIconItem(myPlans[2], GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE), FXRGBA(240, 255, 205, 255));
-    myPlansComboBox->appendIconItem(myPlans[3], GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES), FXRGBA(240, 255, 205, 255));
-    myPlansComboBox->appendIconItem(myPlans[4], GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE), FXRGBA(240, 255, 205, 255));
+    for (const auto &planTemplate : myPlanTemplates) {
+        myPlansComboBox->appendIconItem(planTemplate.first, 
+            GUIIconSubSys::getIcon(planTemplate.second->getTagProperty().getGUIIcon()),
+            planTemplate.second->getTagProperty().getBackGroundColor());
+    }
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
@@ -107,6 +113,10 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
 
 
 GNEPlanSelector::~GNEPlanSelector() {
+    for (auto &planTemplate : myPlanTemplates) {
+        delete planTemplate.second;
+    }
+    myPlanTemplates.clear();
 }
 
 
@@ -119,6 +129,12 @@ GNEPlanSelector::showPlanSelector() {
 void
 GNEPlanSelector::hidePlanSelector() {
     hide();
+}
+
+
+GNEAttributeCarrier*
+GNEPlanSelector::getCurrentTemplateAC() const {
+    return myCurrentTemplateAC;
 }
 
 
@@ -145,7 +161,7 @@ GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // only for plan over routes
-        return (myPlansComboBox->getText() == myPlans[4]);
+        return (myPlansComboBox->getText() == myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -156,7 +172,7 @@ GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // only for plan over continuousEdges
-        return (myPlansComboBox->getText() == myPlans[3]);
+        return (myPlansComboBox->getText() == myPlanTemplates.at(3).first);
     }
     return false;
 }
@@ -167,8 +183,8 @@ GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
-        return (myPlansComboBox->getText() != myPlans[3]) &&
-               (myPlansComboBox->getText() != myPlans[4]);
+        return (myPlansComboBox->getText() != myPlanTemplates.at(3).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -179,9 +195,9 @@ GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myPlansComboBox->getText() != myPlans[1]) &&
-               (myPlansComboBox->getText() != myPlans[3]) &&
-               (myPlansComboBox->getText() != myPlans[4]);
+        return (myPlansComboBox->getText() != myPlanTemplates.at(1).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(3).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -192,8 +208,8 @@ GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
-        return (myPlansComboBox->getText() != myPlans[3]) &&
-               (myPlansComboBox->getText() != myPlans[4]);
+        return (myPlansComboBox->getText() != myPlanTemplates.at(3).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -204,8 +220,8 @@ GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // for all plan routes and continous edges
-        return (myPlansComboBox->getText() != myPlans[3]) &&
-               (myPlansComboBox->getText() != myPlans[4]);
+        return (myPlansComboBox->getText() != myPlanTemplates.at(3).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -216,9 +232,9 @@ GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanMode() && isPlanValid()) {
         // for all plan except rides, routes and continous edges
-        return (myPlansComboBox->getText() != myPlans[1]) &&
-               (myPlansComboBox->getText() != myPlans[3]) &&
-               (myPlansComboBox->getText() != myPlans[4]);
+        return (myPlansComboBox->getText() != myPlanTemplates.at(1).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(3).first) &&
+               (myPlansComboBox->getText() != myPlanTemplates.at(4).first);
     }
     return false;
 }
@@ -227,22 +243,24 @@ GNEPlanSelector::markTAZs() const {
 long
 GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // check if selected plan of comboBox exists in plans
-    if (std::find(myPlans.begin(), myPlans.end(), myPlansComboBox->getText()) != myPlans.end()) {
-        // set color of myTypeMatchBox to black (valid)
-        myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
-        myPlansComboBox->killFocus();
-        // call tag selected function
-        myFrameParent->tagSelected();
-        // Write Warning in console if we're in testing mode
-        WRITE_DEBUG(("Selected item '" + myPlansComboBox->getText() + "' in GNEPlanSelector").text());
-    } else {
-        // set color of myTypeMatchBox to red (invalid)
-        myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
-        // Write Warning in console if we're in testing mode
-        WRITE_DEBUG("Selected invalid item in TemplatePlanSelector");
-        // call tag selected function
-        myFrameParent->tagSelected();
+    for (const auto &planTemplate : myPlanTemplates) {
+
+        if (planTemplate.first == myPlansComboBox->getText()) {
+            // set color of myTypeMatchBox to black (valid)
+            myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
+            myPlansComboBox->killFocus();
+            // call tag selected function
+            myFrameParent->tagSelected();
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myPlansComboBox->getText() + "' in GNEPlanSelector").text());
+        }
     }
+    // set color of myTypeMatchBox to red (invalid)
+    myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in TemplatePlanSelector");
+    // call tag selected function
+    myFrameParent->tagSelected();
     return 1;
 }
 
