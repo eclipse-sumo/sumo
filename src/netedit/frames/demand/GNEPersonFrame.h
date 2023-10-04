@@ -28,6 +28,7 @@
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
 
 
 // ===========================================================================
@@ -92,8 +93,8 @@ private:
     /// @brief Person Type selectors
     DemandElementSelector* myTypeSelector;
 
-    /// @brief person plan selector (used to select diffent kind of person plan)
-    GNETagSelector* myPersonPlanTagSelector;
+    /// @brief personPlan selector
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myPersonAttributes;

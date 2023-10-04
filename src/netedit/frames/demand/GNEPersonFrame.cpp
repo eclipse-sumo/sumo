@@ -50,8 +50,8 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create person attributes
     myPersonAttributes = new GNEAttributesCreator(this);
 
-    // create tag Selector module for person plans
-    myPersonPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE_EDGE);
+    // create plan selector module for person plans
+    myPlanSelector = new GNEPlanSelector(this);
 
     // create person plan attributes
     myPersonPlanAttributes = new GNEAttributesCreator(this);
@@ -80,10 +80,10 @@ GNEPersonFrame::show() {
     // refresh tag selector
     myPersonTagSelector->refreshTagSelector();
     myTypeSelector->refreshDemandElementSelector();
-    myPersonPlanTagSelector->refreshTagSelector();
+    myPlanSelector->refreshPlanSelector();
     // update VClass of myPathCreator
-    if (myPersonPlanTagSelector->getCurrentTemplateAC() &&
-            myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+    if (myPlanSelector->getCurrentTemplateAC() &&
+            myPlanSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
         myPathCreator->setVClass(SVC_PASSENGER);
     } else {
         myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -124,7 +124,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return false;
     }
     // finally check that person plan selected is valid
-    if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
+    if (myPlanSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
@@ -169,38 +169,38 @@ GNEPersonFrame::getPersonAttributes() const {
 void
 GNEPersonFrame::tagSelected() {
     // first check if person is valid
-    if (myPersonTagSelector->getCurrentTemplateAC() && myPersonPlanTagSelector->getCurrentTemplateAC()) {
+    if (myPersonTagSelector->getCurrentTemplateAC() && myPlanSelector->getCurrentTemplateAC()) {
         // show PType selector and person plan selector
         myTypeSelector->showDemandElementSelector();
         // check if current person type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
-            // show person attributes depending of myPersonPlanTagSelector
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
+            // show person attributes depending of myPlanSelector
+            if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
             }
             // show person plan tag selector
-            myPersonPlanTagSelector->showTagSelector();
+            myPlanSelector->showPlanSelector();
             // now check if person plan selected is valid
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+            if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
                 // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+                myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes module
-                myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
+                myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentTemplateAC());
                 // show path creator depending of tag
-                if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() ||
-                        (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
+                if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() ||
+                        (myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
                     myPathCreator->hidePathCreatorModule();
                 } else {
                     // update VClass of myPathCreator depending if person is a ride
-                    if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+                    if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
                         myPathCreator->setVClass(SVC_PASSENGER);
                     } else {
                         myPathCreator->setVClass(SVC_PEDESTRIAN);
                     }
                     // show edge path creator module
-                    myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                    myPathCreator->showPathCreatorModule(myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                     // show path legend
                     myPathLegend->showPathLegendModule();
                 }
@@ -213,7 +213,7 @@ GNEPersonFrame::tagSelected() {
             }
         } else {
             // hide modules
-            myPersonPlanTagSelector->hideTagSelector();
+            myPlanSelector->hidePlanSelector();
             myPersonAttributes->hideAttributesCreatorModule();
             myPersonPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
@@ -223,7 +223,7 @@ GNEPersonFrame::tagSelected() {
     } else {
         // hide all modules if person isn't valid
         myTypeSelector->hideDemandElementSelector();
-        myPersonPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myPersonAttributes->hideAttributesCreatorModule();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
@@ -235,29 +235,29 @@ GNEPersonFrame::tagSelected() {
 
 void
 GNEPersonFrame::demandElementSelected() {
-    if (myTypeSelector->getCurrentDemandElement() && myPersonPlanTagSelector->getCurrentTemplateAC()) {
-        // show person attributes depending of myPersonPlanTagSelector
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
+    if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentTemplateAC()) {
+        // show person attributes depending of myPlanSelector
+        if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
         }
         // show person plan tag selector
-        myPersonPlanTagSelector->showTagSelector();
+        myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
             // update VClass of myPathCreator depending if person is a ride
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+            if (myPlanSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
                 myPathCreator->setVClass(SVC_PASSENGER);
             } else {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+            myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes module
-            myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
+            myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentTemplateAC());
             // show edge path creator module
-            myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPathCreator->showPathCreatorModule(myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show legend
             myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to containers or vehicles
@@ -274,7 +274,7 @@ GNEPersonFrame::demandElementSelected() {
         }
     } else {
         // hide modules
-        myPersonPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myPersonAttributes->hideAttributesCreatorModule();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
@@ -289,17 +289,17 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText(TL("Invalid person parameters."));
     } else if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC(), "create " +
                                         myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-                                        myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
+                                        myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person
         GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
         if (myRouteHandler.buildPersonPlan(
-                    myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
+                    myPlanSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     person, myPersonPlanAttributes, myPathCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
