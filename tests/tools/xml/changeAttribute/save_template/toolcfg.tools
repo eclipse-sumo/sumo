@@ -1,7 +1,8 @@
 <configuration>
     <file value="None" type="data_file" help="define the XML input file" category="input" required="true"/>
     <output value="None" type="data_file" help="define the XML output file" category="output" required="true"/>
-    <tag value="None" type="string" help="tag to edit" category="processing" required="true"/>
+    <tag value="None" type="string" help="tag to edit" category="processing"/>
     <attribute value="None" type="string" help="attribute to edit" category="processing" required="true"/>
     <value value="None" type="string" help="value to update (deletes attribute if not specified)" category="processing"/>
+    <upper-limit value="None" type="string" help="updates to this maximum value (reduces all greater values)" category="processing"/>
 </configuration>
