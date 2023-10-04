@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-09-28 11:40+0200\n"
-"PO-Revision-Date: 2023-10-04 12:53+0000\n"
+"PO-Revision-Date: 2023-10-04 16:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2363,72 +2363,72 @@ msgstr "modello di cambio corsia"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "guiShape"
-msgstr ""
+msgstr "guiShape"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "velocità massima desiderata [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "accelerazione massima [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "decelerazione massima [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "decelerazione d'emergenza [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "apparent deceleration [m/s^2]"
-msgstr ""
+msgstr "decelerazione apparente [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "imperfection (sigma)"
-msgstr ""
+msgstr "imperfezione (sigma)"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "intervallo di tempo desiderato (tau) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
-msgstr ""
+msgstr "fattore di velocità"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
-msgstr ""
+msgstr "durata del passo di azione [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
-msgstr ""
+msgstr "capacità di persone"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "boarding time [s]"
-msgstr ""
+msgstr "durata di salita [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "container capacity"
-msgstr ""
+msgstr "capacità di contenitori"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "loading time [s]"
-msgstr ""
+msgstr "durata di caricamento [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "distanza laterale minima [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "velocità laterale massima [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
-msgstr ""
+msgstr "allineamento laterale"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
