@@ -225,12 +225,10 @@ GNEEdge::checkDrawOverContour() const {
         const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to edges
         if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToEdges()) {
-            // check if edge is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if ((personPlanFramePlanSelector->markSingleEdges() || personPlanFramePlanSelector->markContinuousEdges())) {
-        // check if edge is under cursor
-        return gPostDrawing.isElementUnderCursor(this);
+        return myNet->getViewNet()->checkDrawOverContour(this);
     }
     return false;
 }

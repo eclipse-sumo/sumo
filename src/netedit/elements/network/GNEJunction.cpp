@@ -249,8 +249,7 @@ GNEJunction::checkDrawOverContour() const {
             return false;
         }
     } else if (personPlanFramePlanSelector->markJunctions()) {
-        // check if junction is under cursor
-        return gPostDrawing.isElementUnderCursor(this);
+        return myNet->getViewNet()->checkDrawOverContour(this);
     }
     return false;
 }

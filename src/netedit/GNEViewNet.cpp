@@ -1750,6 +1750,32 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
+GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
+    // avoid draw in position/rectangle selection
+    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
+        return false;
+    }
+    // check if element is under cursor
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
+        return false;
+    }
+    // check if we're in post drawing
+    if (myPostDrawing) {
+        // in post-drawing, draw always
+        return true;
+    } else {
+        // check if set as markedElementDeleteContour
+        if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
+            gPostDrawing.markedElementDeleteContour = GLObject;
+        }
+        // we wan't to draw select contour in this moment
+        return false;
+    }
+}
+
+
+bool
 GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
     // avoid draw in position/rectangle selection
     if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {

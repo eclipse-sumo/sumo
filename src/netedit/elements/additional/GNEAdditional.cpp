@@ -238,24 +238,20 @@ GNEAdditional::checkDrawOverContour() const {
             const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over from-to TAZs
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
-                // check if edge is under cursor
-                return gPostDrawing.isElementUnderCursor(this);
+                return myNet->getViewNet()->checkDrawOverContour(this);
             }
         } else if (personPlanFramePlanSelector->markTAZs()) {
-            // check if edge is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) {
         // check if selected plan needs busStops
         if (personPlanFramePlanSelector->markBusStops()) {
-            // check if edge is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
         // check if selected plan needs trainStops
         if (personPlanFramePlanSelector->markTrainStops()) {
-            // check if edge is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }
     return false;

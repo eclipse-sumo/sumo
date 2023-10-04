@@ -182,12 +182,10 @@ GNEDemandElement::checkDrawOverContour() const {
             const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over route
             if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
-                // check if route is under cursor
-                return gPostDrawing.isElementUnderCursor(this);
+                return myNet->getViewNet()->checkDrawOverContour(this);
             }
         } else if (personPlanFramePlanSelector->markRoutes()) {
-            // check if route is under cursor
-            return gPostDrawing.isElementUnderCursor(this);
+            return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }
     return false;

@@ -292,8 +292,7 @@ GNELane::checkDrawOverContour() const {
             return false;
         }
     } else if ((personPlanFramePlanSelector->markSingleEdges() || personPlanFramePlanSelector->markContinuousEdges())) {
-        // check if edge is under cursor
-        return gPostDrawing.isElementUnderCursor(this);
+        return myNet->getViewNet()->checkDrawOverContour(this);
     }
     return false;
 }

@@ -525,6 +525,9 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw over contour
+    bool checkDrawOverContour(const GUIGlObject* GLObject) const;
+
     /// @brief check if draw delete contour
     bool checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const;
 
