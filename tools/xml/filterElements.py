@@ -48,13 +48,16 @@ def get_options(args=None):
     optParser.add_argument("-a", "--attribute", category="processing", dest="attribute",
                            help="attribute to edit")
     optParser.add_argument("-r", "--remove-values", category="processing", dest="values",
-                           help="comma-separated list of values to filter by (deletes all occurences of tag if not specified)")  # noqa
+                           help="comma-separated list of values to filter by "
+                                "(deletes all occurences of tag if not specified)")
     optParser.add_argument("-k", "--keep-values", category="processing", dest="keepValues",
-                           help="comma-separated list of values to keep (deletes all non-matching elements")  # noqa
+                           help="comma-separated list of values to keep (deletes all non-matching elements")
     optParser.add_argument("-x", "--remove-interval", category="processing", dest="interval",
-                           help="comma-separated begin and end values of interval to filter by (deletes all occurences of tag if not specified)")
+                           help="comma-separated begin and end values of interval to filter by "
+                                "(deletes all occurences of tag if not specified)")
     optParser.add_argument("-i", "--keep-interval", category="processing", dest="keepInterval",
-                           help="comma-separated begin an end values of interval to keep (deletes all non-matching elements")
+                           help="comma-separated begin an end values of interval to keep "
+                                "(deletes all non-matching elements")
     options = optParser.parse_args(args=args)
 
     if options.values is not None:
@@ -91,14 +94,14 @@ def main(options):
                 if node.get(options.attribute) in options.values:
                     toRemove.append((parent, node))
             elif options.keepInterval is not None:
-                if float(node.get(options.attribute)) < options.keepInterval[0] or options.keepInterval[1] < float(node.get(options.attribute)):
+                if not options.keepInterval[0] <= float(node.get(options.attribute)) <= options.keepInterval[1]:
                     toRemove.append((parent, node))
             elif options.interval is not None:
                 if options.interval[0] <= float(node.get(options.attribute)) <= options.interval[1]:
                     toRemove.append((parent, node))
             else:  # nothing specified, delete all occurences of tag
                 toRemove.append((parent, node))
-                
+
     # write modified tree
     for parent, node in toRemove:
         parent.remove(node)
@@ -106,5 +109,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options()
-    main(options)
+    main(get_options())
