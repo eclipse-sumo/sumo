@@ -442,6 +442,9 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
             WRITE_WARNINGF("Vehicle '%' left % '%' without entering it.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
         }
     } else {
+#ifdef DEBUG_E3_NOTIFY_LEAVE
+        std::cout << veh.getID() << " leaves\n";
+#endif
         E3Values values = myEnteredContainer[&veh];
         values.backLeaveTime = leaveTimestep;
         const double speedFraction = veh.getSpeed() * (TS - fractionTimeOnDet);
