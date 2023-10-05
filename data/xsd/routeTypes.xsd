@@ -172,6 +172,7 @@
                     <xsd:enumeration value="DK2008"/>
                     <xsd:enumeration value="LC2013"/>
                     <xsd:enumeration value="SL2015"/>
+		    <xsd:enumeration value="AL2023"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:attribute>
