@@ -35,6 +35,7 @@
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAdditional.h"
+#include "GNETAZ.h"
 
 
 // ===========================================================================

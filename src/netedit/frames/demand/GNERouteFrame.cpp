@@ -107,7 +107,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         // show route attributes modul
         myRouteFrameParent->myRouteAttributes->showAttributesCreatorModule(myRouteTemplate, {});
         // show path creator
-        myRouteFrameParent->myPathCreator->showPathCreatorModule(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
+        myRouteFrameParent->myPathCreator->showPathCreatorModule(SUMO_TAG_ROUTE, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
         // update edge colors
         myRouteFrameParent->myPathCreator->updateEdgeColors();
         // show legend
