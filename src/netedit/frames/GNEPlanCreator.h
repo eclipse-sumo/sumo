@@ -104,6 +104,9 @@ public:
     /// @brief add TAZ
     bool addTAZ(GNEAdditional* taz);
 
+    /// @brief add consecutive edge
+    bool addConsecutiveEdge(GNEEdge* edge);
+
     /// @brief add edge
     bool addEdge(GNEEdge* edge);
     

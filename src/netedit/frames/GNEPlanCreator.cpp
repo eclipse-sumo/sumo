@@ -324,41 +324,20 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
 
 
 bool
-GNEPlanCreator::addEdge(GNEEdge* edge) {
+GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
     // check if edges are allowed
-    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0) && ((myCreationMode & CONSECUTIVE_EDGES) == 0)) {
+    if ((myCreationMode & CONSECUTIVE_EDGES) == 0) {
         return false;
     }
-    // continue depending of number of selected eges
-    if (mySelectedEdges.size() > 0) {
-        // check double edges
-        if (mySelectedEdges.back() == edge) {
-            // Write warning
-            WRITE_WARNING(TL("Double edges aren't allowed"));
-            // abort add edge
-            return false;
-        }
-        // check consecutive edges
-        if (myCreationMode & Mode::CONSECUTIVE_EDGES) {
-            // check that new edge is consecutive
-            const auto& outgoingEdges = mySelectedEdges.back()->getToJunction()->getGNEOutgoingEdges();
-            if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
-                // Write warning
-                WRITE_WARNING(TL("Only consecutives edges are allowed"));
-                // abort add edge
-                return false;
-            }
-        }
-    }
-    // check number of selected items
-    if (!(myCreationMode & Mode::CONSECUTIVE_EDGES) && (getNumberOfSelectedElements() == 2)) {
+    // check double edges
+    if ((myEdges.size() > 0) && (myEdges.back() == edge)) {
         // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
-        // abort add function
+        WRITE_WARNING(TL("Double edges aren't allowed"));
+        // abort add edge
         return false;
     }
     // All checks ok, then add it in selected elements
-    mySelectedEdges.push_back(edge);
+    myEdges.push_back(edge);
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -366,7 +345,50 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last edge button
-    if (mySelectedEdges.size() > 1) {
+    if (checkEnableLastItemButton()) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // recalculate path
+    recalculatePath();
+    // update info route label
+    updateInfoRouteLabel();
+    // edge added, then return true
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addEdge(GNEEdge* edge) {
+    // check if edges are allowed
+    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
+        return false;
+    }
+    // check double edges
+    if ((myEdges.size() > 0) && (myEdges.back() == edge)) {
+        // Write warning
+        WRITE_WARNING(TL("Double edges aren't allowed"));
+        // abort add edge
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // All checks ok, then add it in selected elements
+    myEdges.push_back(edge);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // enable or disable remove last edge button
+    if (checkEnableLastItemButton()) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -386,12 +408,15 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
         return false;
     }
     // check if stoppingPlaces are allowed
-    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0)) {
+    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0) &&
+        ((myCreationMode & START_TRAINSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0)) {
         return false;
     }
-    // avoid select first an stopping place
-    if (((myCreationMode & START_EDGE) != 0) && mySelectedEdges.empty()) {
-        WRITE_WARNING(TL("first select an edge"));
+    // check double stoppingPlaces
+    if (myFromStoppingPlace && (myFromStoppingPlace == stoppingPlace)) {
+        // Write warning
+        WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
+        // abort add stopping place
         return false;
     }
     // check number of selected items
@@ -400,6 +425,12 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
         WRITE_WARNING(TL("Only two from-to elements are allowed"));
         // abort add function
         return false;
+    }
+    // add stoppingPlace
+    if (myFromStoppingPlace == nullptr) {
+        myFromStoppingPlace = stoppingPlace;
+    } else {
+        myToStoppingPlace = stoppingPlace;
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -424,21 +455,51 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
 
 bool
 GNEPlanCreator::addRoute(GNEDemandElement* route) {
-    // check if routes aren allowed
-    if ((myCreationMode & ROUTE) == 0) {
+    if (route == nullptr) {
         return false;
     }
-    // check if previously a route was added
-    if (myRoute) {
+    // check if routes are allowed
+    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0) &&
+        ((myCreationMode & START_TRAINSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0)) {
         return false;
     }
-    // set route and create path
-    myRoute = route;
-    createPath(false);
-    myRoute = nullptr;
+    // check double routes
+    if (myFromRoute && (myFromRoute == route)) {
+        // Write warning
+        WRITE_WARNING(TL("Double routes aren't allowed"));
+        // abort add stopping place
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // add route
+    if (myFromRoute == nullptr) {
+        myFromRoute = route;
+    } else {
+        myToRoute = route;
+    }
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last route button
+    if (getNumberOfSelectedElements() == 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
     // recalculate path
     recalculatePath();
+    // update info route label
     updateInfoRouteLabel();
+    // stopping place added, then return true
     return true;
 }
 
@@ -446,8 +507,10 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
 const std::vector<std::string>
 GNEPlanCreator::getConsecutiveEdgeIDs() const {
     std::vector<std::string> edgeIDs;
-    for (const auto &edge : myEdges) {
-        edgeIDs.push_back(edge->getID());
+    if (myCreationMode & CONSECUTIVE_EDGES) {
+        for (const auto &edge : myEdges) {
+            edgeIDs.push_back(edge->getID());
+        }
     }
     return edgeIDs;
 }
@@ -455,7 +518,7 @@ GNEPlanCreator::getConsecutiveEdgeIDs() const {
 
 GNEEdge*
 GNEPlanCreator::getFromEdge() const {
-    if ((myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 0)) {
+    if (!(myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 0)) {
         return myEdges.front();
     } else {
         return false;
@@ -465,7 +528,7 @@ GNEPlanCreator::getFromEdge() const {
 
 GNEEdge*
 GNEPlanCreator::getToEdge() const {
-    if ((myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 1)) {
+    if (!(myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 1)) {
         return myEdges.back();
     } else {
         return false;
@@ -638,32 +701,26 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-    } else if (mySelectedJunctions.size() > 0) {
+    } else if (myFromJunction && myToJunction) {
         // set color
         GLHelper::setColor(RGBColor::ORANGE);
-        // draw line between junctions
-        for (int i = 0; i < (int)mySelectedJunctions.size() - 1; i++) {
-            // get two points
-            const Position posA = mySelectedJunctions.at(i)->getPositionInView();
-            const Position posB = mySelectedJunctions.at(i + 1)->getPositionInView();
-            const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
-            const double len = posA.distanceTo2D(posB);
-            // draw line
-            GLHelper::drawBoxLine(posA, rot, len, 0.25);
-        }
-    } else if (mySelectedTAZs.size() > 0) {
+        // get two points
+        const Position posA = myFromJunction->getPositionInView();
+        const Position posB = myToJunction->getPositionInView();
+        const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
+        const double len = posA.distanceTo2D(posB);
+        // draw line
+        GLHelper::drawBoxLine(posA, rot, len, 0.25);
+    } else if (myFromTAZ && myToTAZ) {
         // set color
         GLHelper::setColor(RGBColor::ORANGE);
-        // draw line between TAZs
-        for (int i = 0; i < (int)mySelectedTAZs.size() - 1; i++) {
-            // get two points
-            const Position posA = mySelectedTAZs.at(i)->getPositionInView();
-            const Position posB = mySelectedTAZs.at(i + 1)->getPositionInView();
-            const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
-            const double len = posA.distanceTo2D(posB);
-            // draw line
-            GLHelper::drawBoxLine(posA, rot, len, 0.25);
-        }
+        // get two points
+        const Position posA = myFromTAZ->getPositionInView();
+        const Position posB = myToTAZ->getPositionInView();
+        const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
+        const double len = posA.distanceTo2D(posB);
+        // draw line
+        GLHelper::drawBoxLine(posA, rot, len, 0.25);
     }
     // Pop last matrix
     GLHelper::popMatrix();
@@ -680,7 +737,7 @@ GNEPlanCreator::createPath(const bool useLastRoute) {
 void
 GNEPlanCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || (mySelectedAdditionals.size() > 0) || myRoute) {
+    if (getNumberOfSelectedElements() > 0) {
         // unblock undo/redo
         myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -699,18 +756,18 @@ GNEPlanCreator::abortPathCreation() {
 
 void
 GNEPlanCreator::removeLastElement() {
-    if (mySelectedEdges.size() > 1) {
+    if (myEdges.size() > 1) {
         // remove special color of last selected edge
-        mySelectedEdges.back()->resetCandidateFlags();
+        myEdges.back()->resetCandidateFlags();
         // remove last edge
-        mySelectedEdges.pop_back();
+        myEdges.pop_back();
         // change last edge flag
-        if ((mySelectedEdges.size() > 0) && mySelectedEdges.back()->isSourceCandidate()) {
-            mySelectedEdges.back()->setSourceCandidate(false);
-            mySelectedEdges.back()->setTargetCandidate(true);
+        if ((myEdges.size() > 0) && myEdges.back()->isSourceCandidate()) {
+            myEdges.back()->setSourceCandidate(false);
+            myEdges.back()->setTargetCandidate(true);
         }
         // enable or disable remove last edge button
-        if (mySelectedEdges.size() > 1) {
+        if (myEdges.size() > 1) {
             myRemoveLastInsertedElement->enable();
         } else {
             myRemoveLastInsertedElement->disable();
@@ -780,7 +837,7 @@ GNEPlanCreator::updateInfoRouteLabel() {
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-                << TL("- Selected edges: ") << toString(mySelectedEdges.size()) << "\n"
+                << TL("- Selected edges: ") << toString(myEdges.size()) << "\n"
                 << TL("- Path edges: ") << toString(pathSize) << "\n"
                 << TL("- Length: ") << toString(length) << "\n"
                 << TL("- Average speed: ") << toString(speed / pathSize);
@@ -818,20 +875,25 @@ GNEPlanCreator::recalculatePath() {
     // set edges
     std::vector<GNEEdge*> edges;
     // add route edges
-    if (myRoute) {
-        edges = myRoute->getParentEdges();
-    } else {
-        // add selected edges
-        for (const auto& edge : mySelectedEdges) {
-            edges.push_back(edge);
-        }
+    if (myFromRoute) {
+        edges = myFromRoute->getParentEdges();
+    } else if (myToRoute) {
+        edges = myToRoute->getParentEdges();
+    } else if (edges.size() == 2) {
+        edges = myEdges;
+    } else if (myFromStoppingPlace && myToStoppingPlace) {
+        edges = {myFromStoppingPlace->getParentLanes().front()->getParentEdge(), myToStoppingPlace->getParentLanes().front()->getParentEdge()};
+    } else if (myFromStoppingPlace && (edges.size() == 1)) {
+        edges = {myFromStoppingPlace->getParentLanes().front()->getParentEdge(), edges.front()};
+    } else if (myToStoppingPlace && (edges.size() == 1)) {
+        edges = {edges.front(), myToStoppingPlace->getParentLanes().front()->getParentEdge()};
     }
     // fill paths
     if (edges.size() == 1) {
         myPath.push_back(PlanPath(myVClass, edges.front()));
-    } else if (mySelectedJunctions.size() == 2) {
+    } else if (myFromJunction && myToJunction) {
         // add path between two junctions
-        myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
+        myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myFromJunction, myToJunction));
     } else {
         // add every segment
         for (int i = 1; i < (int)edges.size(); i++) {
