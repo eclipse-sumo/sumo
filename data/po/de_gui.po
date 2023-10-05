@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-05 07:35+0000\n"
+"PO-Revision-Date: 2023-10-05 12:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2060,15 +2060,15 @@ msgstr "Wunschhöchstgeschwindigkeit [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "Zu '%' wechseln"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "Ausschalten"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
-msgstr ""
+msgstr "Grafisches Phasenprotokoll"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
