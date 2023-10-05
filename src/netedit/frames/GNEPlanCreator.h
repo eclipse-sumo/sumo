@@ -86,8 +86,8 @@ public:
     /// @brief destructor
     ~GNEPlanCreator();
 
-    /// @brief show GNEPlanCreator for the given tag
-    void showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives);
+    /// @brief show plan creator for the given tag property
+    void showPlanCreatorModule(const GNETagProperties &tagProperty, const bool firstElement);
 
     /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
@@ -166,23 +166,19 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES        = 1 << 0,   // Path's edges are consecutives
-        NONCONSECUTIVE_EDGES     = 1 << 1,   // Path's edges aren't consecutives
-        START_EDGE               = 1 << 2,   // Path begins in edge
-        END_EDGE                 = 1 << 3,   // Path ends in edge
-        START_JUNCTION           = 1 << 4,   // Path begins in junction
-        END_JUNCTION             = 1 << 5,   // Path ends in junction
-        START_TAZ                = 1 << 6,   // Path begins in TAZ
-        END_TAZ                  = 1 << 7,   // Path ends in TAZ
-        STOP                     = 1 << 8,   // Path is stop
-        ONLY_FROMTO              = 1 << 9,   // Path only had two elements (first and last)
-        END_BUSSTOP              = 1 << 10,  // Path ends in a busStop
-        END_TRAINSTOP            = 1 << 11,  // Path ends in a trainStop
-        END_CONTAINERSTOP        = 1 << 12,  // Path ends in a containerStop
-        ROUTE                    = 1 << 13,  // Path uses a route
-        REQUIRE_FIRSTELEMENT     = 1 << 14,  // Path start always in a previous element
-        SHOW_CANDIDATE_EDGES     = 1 << 15,  // Show candidate edges
-        SHOW_CANDIDATE_JUNCTIONS = 1 << 16,  // show candidate junctions
+        CONSECUTIVE_EDGES   = 1 << 0,   // Plan requiere consecutive edges
+        ROUTE               = 1 << 1,   // Plan uses a route
+        START_EDGE          = 1 << 2,   // Plan begins in edge
+        END_EDGE            = 1 << 3,   // Plan ends in edge
+        START_JUNCTION      = 1 << 4,   // Plan begins in junction
+        END_JUNCTION        = 1 << 5,   // Plan ends in junction
+        START_TAZ           = 1 << 6,   // Plan begins in TAZ
+        END_TAZ             = 1 << 7,   // Plan ends in TAZ
+        START_BUSSTOP       = 1 << 8,   // Plan begins in busStop
+        END_BUSSTOP         = 1 << 9,   // Plan ends in busStop
+        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
+        END_TRAINSTOP       = 1 << 11,  // Plan ends in trainStop
+        // stops
     };
 
     /// @brief update InfoRouteLabel

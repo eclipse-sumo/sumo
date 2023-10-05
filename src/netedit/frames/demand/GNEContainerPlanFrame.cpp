@@ -108,7 +108,7 @@ GNEContainerPlanFrame::hide() {
 
 
 bool
-GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if container selected is valid
     if (myContainerSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
@@ -161,7 +161,7 @@ GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC()) {
         // Obtain current container plan tag (only for improve code legibility)
-        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        const auto &containerPlanTagProperty = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
         // show container attributes
         myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan element
@@ -169,7 +169,7 @@ GNEContainerPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (previousElement && previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // set path creator mode
-            myPlanCreator->showPathCreatorModule(containerPlanTag, true, false);
+            myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, true);
             // show legend
             myPathLegend->showPathLegendModule();
             // check if add previous edge
@@ -178,7 +178,7 @@ GNEContainerPlanFrame::tagSelected() {
             }
         } else {
             // set path creator mode
-            myPlanCreator->showPathCreatorModule(containerPlanTag, false, false);
+            myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }

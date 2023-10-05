@@ -59,7 +59,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if vehicle was successfully added
      */
-    bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get plan creator module
     GNEPlanCreator* getPlanCreator() const;

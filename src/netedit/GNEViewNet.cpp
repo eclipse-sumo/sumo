@@ -6139,7 +6139,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_PERSON: {
             // Handle click
-            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
@@ -6153,14 +6153,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_CONTAINER: {
             // Handle click
-            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_CONTAINERPLAN: {
             // Handle container plan click
-            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;

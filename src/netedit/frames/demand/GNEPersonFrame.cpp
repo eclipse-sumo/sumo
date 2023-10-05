@@ -104,7 +104,7 @@ GNEPersonFrame::hide() {
 
 
 bool
-GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that we clicked over an AC
     if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
         return false;
@@ -205,7 +205,7 @@ GNEPersonFrame::tagSelected() {
                         myPlanCreator->setVClass(SVC_PEDESTRIAN);
                     }
                     // show edge path creator module
-                    myPlanCreator->showPathCreatorModule(myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(), false, false);
+                    myPlanCreator->showPlanCreatorModule(myPlanSelector->getCurrentPlanTemplate()->getTagProperty(), false);
                     // show path legend
                     myPathLegend->showPathLegendModule();
                 }
@@ -262,7 +262,7 @@ GNEPersonFrame::demandElementSelected() {
             // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
-            myPlanCreator->showPathCreatorModule(myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(), false, false);
+            myPlanCreator->showPlanCreatorModule(myPlanSelector->getCurrentPlanTemplate()->getTagProperty(), false);
             // show legend
             myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to containers or vehicles

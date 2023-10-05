@@ -104,7 +104,7 @@ GNEContainerFrame::hide() {
 
 
 bool
-GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that we clicked over an AC
     if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
         return false;
@@ -190,7 +190,7 @@ GNEContainerFrame::tagSelected() {
                 // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
                 // show edge path creator module
-                myPlanCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
                 // show path legend
                 myPathLegend->showPathLegendModule();
             } else {
@@ -246,7 +246,7 @@ GNEContainerFrame::demandElementSelected() {
             // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator module
-            myPlanCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
             // show path legend
             myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to persons or vehicles

@@ -152,7 +152,7 @@ GNEPlanCreator::~GNEPlanCreator() {}
 
 
 void
-GNEPlanCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives) {
+GNEPlanCreator::showPlanCreatorModule(const GNETagProperties &tagProperty, const bool firstElement) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
