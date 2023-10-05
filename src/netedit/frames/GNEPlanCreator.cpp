@@ -521,7 +521,7 @@ GNEPlanCreator::getFromEdge() const {
     if (!(myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 0)) {
         return myEdges.front();
     } else {
-        return false;
+        return nullptr;
     }
 }
 
@@ -531,7 +531,7 @@ GNEPlanCreator::getToEdge() const {
     if (!(myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 1)) {
         return myEdges.back();
     } else {
-        return false;
+        return nullptr;
     }
 }
 
