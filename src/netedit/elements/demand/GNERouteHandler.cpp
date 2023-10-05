@@ -1223,27 +1223,26 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             stopParameters.parametersSet |= STOP_UNTIL_SET;
         }
     }
+    // get consecutive edges
+    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
     // get edges
-    GNEEdge* fromEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().front() : nullptr;
-    GNEEdge* toEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().back() : nullptr;
+    GNEEdge* fromEdge = planCreator->getFromEdge();
+    GNEEdge* toEdge = planCreator->getToEdge();
     // get junctions
-    GNEJunction* fromJunction = (planCreator->getSelectedJunctions().size() > 0) ? planCreator->getSelectedJunctions().front() : nullptr;
-    GNEJunction* toJunction = (planCreator->getSelectedJunctions().size() > 0) ? planCreator->getSelectedJunctions().back() : nullptr;
+    GNEJunction* fromJunction = planCreator->getFromJunction();
+    GNEJunction* toJunction = planCreator->getToJunction();
     // get TAZs
-    GNEAdditional* fromTAZ = (planCreator->getSelectedTAZs().size() > 0) ? planCreator->getSelectedTAZs().front() : nullptr;
-    GNEAdditional* toTAZ = (planCreator->getSelectedTAZs().size() > 0) ? planCreator->getSelectedTAZs().back() : nullptr;
-    // get busStop
-    GNEAdditional* toBusStop = planCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
-    GNEAdditional* toTrainStop = planCreator->getToStoppingPlace(SUMO_TAG_TRAIN_STOP);
-    // get path edges
-    std::vector<std::string> edges;
-    for (const auto& path : planCreator->getPath()) {
-        for (const auto& edge : path.getSubPath()) {
-            edges.push_back(edge->getID());
-        }
-    }
-    // get route
-    GNEDemandElement* route = planCreator->getRoute();
+    GNEAdditional* fromTAZ = planCreator->getFromTAZ();
+    GNEAdditional* toTAZ = planCreator->getToTAZ();
+    // get busStops
+    GNEAdditional* fromBusStop = planCreator->getFromBusStop();
+    GNEAdditional* toBusStop = planCreator->getToBusStop();
+    // get trainStops
+    GNEAdditional* fromTrainStop = planCreator->getFromTrainStop();
+    GNEAdditional* toTrainStop = planCreator->getToTrainStop();
+    // get routes
+    GNEDemandElement* fromRoute = planCreator->getFromRoute();
+    GNEDemandElement* toRoute = planCreator->getToRoute();
     // check what PersonPlan we're creating
     switch (tag) {
         // Person Trips
@@ -1412,8 +1411,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
         case GNE_TAG_WALK_EDGES: {
             // check if transport edges can be created
-            if (edges.size() > 0) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", edges, "", arrivalPos);
+            if (consecutiveEdges.size() > 0) {
+                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", consecutiveEdges, "", arrivalPos);
             } else {
                 return false;
             }
@@ -1421,8 +1420,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
         case GNE_TAG_WALK_ROUTE: {
             // check if transport edges can be created
-            if (route) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, route->getID(), arrivalPos);
+            if (fromRoute) {
+                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, fromEdge->getID(), arrivalPos);
             } else {
                 return false;
             }
@@ -1541,18 +1540,13 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             stopParameters.parametersSet |= STOP_UNTIL_SET;
         }
     }
+    // get consecutive edges
+    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
     // get edges
-    GNEEdge* fromEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().front() : nullptr;
-    GNEEdge* toEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().back() : nullptr;
+    GNEEdge* fromEdge = planCreator->getFromEdge();
+    GNEEdge* toEdge = planCreator->getToEdge();
     // get containerStop
-    GNEAdditional* toContainerStop = /*planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP)*/;
-    // get path edges
-    std::vector<std::string> edges;
-    for (const auto& path : planCreator->getPath()) {
-        for (const auto& edge : path.getSubPath()) {
-            edges.push_back(edge->getID());
-        }
-    }
+    GNEAdditional* toContainerStop = /*planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP)*/ nullptr;
     // check what ContainerPlan we're creating
     switch (tag) {
         // Transports
@@ -1599,8 +1593,8 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         }
         case GNE_TAG_TRANSHIP_EDGES: {
             // check if tranship edges can be created
-            if (edges.size() > 0) {
-                buildTranship(containerPlanObject, "", "", "", edges, speed, departPos, arrivalPos);
+            if (consecutiveEdges.size() > 0) {
+                buildTranship(containerPlanObject, "", "", "", consecutiveEdges, speed, departPos, arrivalPos);
             } else {
                 myNet->getViewNet()->setStatusBarText(TL("A tranship with edges attribute needs a list of edges"));
                 return false;
