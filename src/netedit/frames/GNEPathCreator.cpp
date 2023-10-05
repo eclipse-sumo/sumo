@@ -165,7 +165,7 @@ GNEPathCreator::~GNEPathCreator() {}
 
 
 void
-GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool consecutives) {
+GNEPathCreator::showPathCreatorModule(const GNETagProperties &tagProperty, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
@@ -190,62 +190,39 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool consecutive
     } else {
         myCreationMode |= NONCONSECUTIVE_EDGES;
     }
-    // set specific mode depending of tag
-    switch (element) {
-        // routes
-        case SUMO_TAG_ROUTE:
-        case GNE_TAG_ROUTE_EMBEDDED:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        // vehicles
-        case SUMO_TAG_VEHICLE:
-        case GNE_TAG_FLOW_ROUTE:
-        case GNE_TAG_WALK_ROUTE:
-            myCreationMode |= ROUTE;
-            // show use last inserted route
-            myUseLastRoute->show();
-            // disable other elements
-            myFinishCreationButton->hide();
-            myAbortCreationButton->hide();
-            myRemoveLastInsertedElement->hide();
-            myInfoRouteLabel->hide();
-            myShowCandidateEdges->hide();
-            myShiftLabel->hide();
-            myControlLabel->hide();
-            myBackSpaceLabel->hide();
-            break;
-        case SUMO_TAG_TRIP:
-        case SUMO_TAG_FLOW:
-        case GNE_TAG_VEHICLE_WITHROUTE:
-        case GNE_TAG_FLOW_WITHROUTE:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        case GNE_TAG_TRIP_JUNCTIONS:
-        case GNE_TAG_FLOW_JUNCTIONS:
-            myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
-            myCreationMode |= START_JUNCTION;
-            myCreationMode |= END_JUNCTION;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        case GNE_TAG_TRIP_TAZS:
-        case GNE_TAG_FLOW_TAZS:
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_TAZ;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        // generic datas
-        case SUMO_TAG_EDGEREL:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        default:
-            showPathCreator = false;
-            break;
+    // continue depending of tag
+    if (tagProperty.isRoute()) {
+        myCreationMode |= SHOW_CANDIDATE_EDGES;
+        myCreationMode |= START_EDGE;
+        myCreationMode |= END_EDGE;
+    } else if (tagProperty.overRoute()) {
+        myCreationMode |= ROUTE;
+        // show use last inserted route
+        myUseLastRoute->show();
+        // disable other elements
+        myFinishCreationButton->hide();
+        myAbortCreationButton->hide();
+        myRemoveLastInsertedElement->hide();
+        myInfoRouteLabel->hide();
+        myShowCandidateEdges->hide();
+        myShiftLabel->hide();
+        myControlLabel->hide();
+        myBackSpaceLabel->hide();
+    } else if (tagProperty.vehicleOverFromToEdges() || (tagProperty.getTag() == SUMO_TAG_EDGEREL)) {
+        myCreationMode |= SHOW_CANDIDATE_EDGES;
+        myCreationMode |= START_EDGE;
+        myCreationMode |= END_EDGE;
+    } else if (tagProperty.vehicleOverFromToJunctions()) {
+        myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
+        myCreationMode |= START_JUNCTION;
+        myCreationMode |= END_JUNCTION;
+        myCreationMode |= ONLY_FROMTO;
+    } else if (tagProperty.vehicleOverFromToTAZs()) {
+        myCreationMode |= START_TAZ;
+        myCreationMode |= END_TAZ;
+        myCreationMode |= ONLY_FROMTO;
+    } else {
+        showPathCreator = false;
     }
     // update colors
     updateEdgeColors();
@@ -472,7 +449,7 @@ GNEPathCreator::getSelectedTAZs() const {
 
 
 bool
-GNEPathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEPathCreator::addRoute(GNEDemandElement* route) {
     // check if routes aren allowed
     if ((myCreationMode & ROUTE) == 0) {
         return false;

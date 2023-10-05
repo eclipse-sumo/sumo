@@ -260,7 +260,7 @@ GNEVehicleFrame::tagSelected() {
         // show vehicle type selector modul
         myTypeSelector->showDemandElementSelector();
         // show path creator modul
-        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false);
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // check if show path legend
         if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleOverEmbeddedRoute()) {
             myPathLegend->hidePathLegendModule();
@@ -289,7 +289,7 @@ GNEVehicleFrame::demandElementSelected() {
         // set current VTypeClass in pathCreator
         myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator module
-        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false);
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // show help creation
         myHelpCreation->showHelpCreation();
         // show warning if we have selected a vType oriented to pedestrians or containers

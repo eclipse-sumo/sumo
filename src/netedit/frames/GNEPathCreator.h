@@ -87,7 +87,7 @@ public:
     ~GNEPathCreator();
 
     /// @brief show GNEPathCreator for the given tag
-    void showPathCreatorModule(SumoXMLTag element, const bool consecutives);
+    void showPathCreatorModule(const GNETagProperties &tagProperty, const bool consecutives);
 
     /// @brief show GNEPathCreator
     void hidePathCreatorModule();
@@ -117,7 +117,7 @@ public:
     const std::vector<GNETAZ*>& getSelectedTAZs() const;
     
     /// @brief add route
-    bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addRoute(GNEDemandElement* route);
 
     /// @brief get route
     GNEDemandElement* getRoute() const;
