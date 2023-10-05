@@ -126,8 +126,7 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myCreationMode(0),
-    myRoute(nullptr) {
+    myCreationMode(0) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameInformation);
     // create button for use last route
@@ -238,15 +237,12 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
     }
-    // continue depending of number of selected edge
-    if (mySelectedJunctions.size() > 0) {
-        // check double junctions
-        if (mySelectedJunctions.back() == junction) {
-            // Write warning
-            WRITE_WARNING(TL("Double junctions aren't allowed"));
-            // abort add junction
-            return false;
-        }
+    // avoid double junctions
+    if (myFromJunction && (myFromJunction == junction)) {
+        // Write warning
+        WRITE_WARNING(TL("Double junctions aren't allowed"));
+        // abort add junction
+        return false;
     }
     // check number of selected items
     if (getNumberOfSelectedElements() == 2) {
@@ -255,8 +251,12 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
         // abort add function
         return false;
     }
-    // All checks ok, then add it in selected elements
-    mySelectedJunctions.push_back(junction);
+    // set junction
+    if (myFromJunction == nullptr) {
+        myFromJunction = junction;
+    } else {
+        myToJunction = junction;
+    }
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -264,7 +264,7 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last junction button
-    if (mySelectedJunctions.size() > 1) {
+    if (checkEnableLastItemButton()) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -280,18 +280,15 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
 bool
 GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
     // check if TAZs are allowed
-    if (((myCreationMode & START_TAZ) == 0) && ((myCreationMode & END_TAZ) == 0)) {
+    if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
     }
-    // continue depending of number of selected edge
-    if (mySelectedTAZs.size() > 0) {
-        // check double TAZs
-        if (mySelectedTAZs.back() == TAZ) {
-            // Write warning
-            WRITE_WARNING(TL("Double TAZs aren't allowed"));
-            // abort add TAZ
-            return false;
-        }
+    // avoid double TAZs
+    if (myFromTAZ && (myFromTAZ == TAZ)) {
+        // Write warning
+        WRITE_WARNING(TL("Double TAZs aren't allowed"));
+        // abort add TAZ
+        return false;
     }
     // check number of selected items
     if (getNumberOfSelectedElements() == 2) {
@@ -300,8 +297,12 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
         // abort add function
         return false;
     }
-    // All checks ok, then add it in selected elements
-    mySelectedTAZs.push_back(TAZ);
+    // set TAZ
+    if (myFromTAZ == nullptr) {
+        myFromTAZ = TAZ;
+    } else {
+        myToTAZ = TAZ;
+    }
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -309,11 +310,13 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last TAZ button
-    if (mySelectedTAZs.size() > 1) {
+    if (checkEnableLastItemButton()) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
     }
+    // recalculate path
+    recalculatePath();
     // update info route label
     updateInfoRouteLabel();
     return true;
@@ -374,24 +377,6 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
     updateInfoRouteLabel();
     // edge added, then return true
     return true;
-}
-
-
-const std::vector<GNEEdge*>&
-GNEPlanCreator::getSelectedEdges() const {
-    return mySelectedEdges;
-}
-
-
-const std::vector<GNEJunction*>&
-GNEPlanCreator::getSelectedJunctions() const {
-    return mySelectedJunctions;
-}
-
-
-const std::vector<GNEAdditional*>&
-GNEPlanCreator::getSelectedTAZs() const {
-    return mySelectedTAZs;
 }
 
 
@@ -458,9 +443,129 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
 }
 
 
+const std::vector<std::string>
+GNEPlanCreator::getConsecutiveEdgeIDs() const {
+    std::vector<std::string> edgeIDs;
+    for (const auto &edge : myEdges) {
+        edgeIDs.push_back(edge->getID());
+    }
+    return edgeIDs;
+}
+
+
+GNEEdge*
+GNEPlanCreator::getFromEdge() const {
+    if ((myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 0)) {
+        return myEdges.front();
+    } else {
+        return false;
+    }
+}
+
+
+GNEEdge*
+GNEPlanCreator::getToEdge() const {
+    if ((myCreationMode & CONSECUTIVE_EDGES) && (myEdges.size() > 1)) {
+        return myEdges.back();
+    } else {
+        return false;
+    }
+}
+
+
+GNEJunction*
+GNEPlanCreator::getFromJunction() const {
+    return myFromJunction;
+}
+
+
+GNEJunction*
+GNEPlanCreator::getToJunction() const {
+    return myToJunction;
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getFromTAZ() const {
+    return myFromTAZ;
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getToTAZ() const {
+    return myToTAZ;
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getFromBusStop() const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getToBusStop() const {
+    if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+        return myToStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getFromTrainStop() const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getToTrainStop() const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getFromContainerStop() const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getToContainerStop() const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
 GNEDemandElement*
-GNEPlanCreator::getRoute() const {
-    return myRoute;
+GNEPlanCreator::getFromRoute() const {
+    return myFromRoute;
+}
+
+
+GNEDemandElement*
+GNEPlanCreator::getToRoute() const {
+    return myToRoute;
 }
 
 
@@ -690,11 +795,15 @@ GNEPlanCreator::updateInfoRouteLabel() {
 void
 GNEPlanCreator::clearPath() {
     // clear junction, TAZs, edges, additionals and route
-    mySelectedJunctions.clear();
-    mySelectedTAZs.clear();
-    mySelectedEdges.clear();
-    mySelectedAdditionals.clear();
-    myRoute = nullptr;
+    myEdges.clear();
+    myFromJunction = nullptr;
+    myToJunction = nullptr;
+    myFromTAZ = nullptr;
+    myToTAZ = nullptr;
+    myFromStoppingPlace = nullptr;
+    myToStoppingPlace = nullptr;
+    myFromRoute = nullptr;
+    myToRoute = nullptr;
     // clear path
     myPath.clear();
     // update info route label
@@ -765,10 +874,11 @@ GNEPlanCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClas
 
 size_t
 GNEPlanCreator::getNumberOfSelectedElements() const {
-    return mySelectedJunctions.size() +
-           mySelectedTAZs.size() +
-           mySelectedAdditionals.size() +
-           mySelectedEdges.size();
+    return myEdges.size() + 
+           myFromJunction? 1 : 0 + myToJunction? 1 : 0 +
+           myFromTAZ? 1 : 0 + myToTAZ? 1 : 0 +
+           myFromStoppingPlace? 1 : 0 + myToStoppingPlace? 1 : 0 +
+           myFromRoute? 1 : 0 + myToRoute? 1 : 0;
 }
 
 

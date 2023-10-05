@@ -106,15 +106,6 @@ public:
 
     /// @brief add edge
     bool addEdge(GNEEdge* edge);
-
-    /// @brief get current selected edges
-    const std::vector<GNEEdge*>& getSelectedEdges() const;
-
-    /// @brief get current selected junctions
-    const std::vector<GNEJunction*>& getSelectedJunctions() const;
-    
-    /// @brief get current selected TAZs
-    const std::vector<GNEAdditional*>& getSelectedTAZs() const;
     
     /// @brief add stoppingPlace
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
@@ -122,8 +113,50 @@ public:
     /// @brief add route
     bool addRoute(GNEDemandElement* route);
 
-    /// @brief get route
-    GNEDemandElement* getRoute() const;
+    /// @brief get consecutive edge IDs
+    const std::vector<std::string> getConsecutiveEdgeIDs() const;
+
+    /// @brief get from edge
+    GNEEdge* getFromEdge() const;
+
+    /// @brief get to edge
+    GNEEdge* getToEdge() const;
+
+    /// @brief get from junction
+    GNEJunction* getFromJunction() const;
+
+    /// @brief get to junction
+    GNEJunction* getToJunction() const;
+
+    /// @brief get from TAZ
+    GNEAdditional* getFromTAZ() const;
+
+    /// @brief get to TAZ
+    GNEAdditional* getToTAZ() const;
+
+    /// @brief get from bus stop
+    GNEAdditional* getFromBusStop() const;
+
+    /// @brief get to bus stop
+    GNEAdditional* getToBusStop() const;
+
+    /// @brief get from train stop
+    GNEAdditional* getFromTrainStop() const;
+
+    /// @brief get to train stop
+    GNEAdditional* getToTrainStop() const;
+
+    /// @brief get from container stop
+    GNEAdditional* getFromContainerStop() const;
+
+    /// @brief get to container stop
+    GNEAdditional* getToContainerStop() const;
+
+    /// @brief get from Route
+    GNEDemandElement* getFromRoute() const;
+
+    /// @brief get to Route
+    GNEDemandElement* getToRoute() const;
 
     /// @brief get path route
     const std::vector<PlanPath>& getPath() const;
@@ -203,20 +236,32 @@ protected:
     /// @brief current creation mode
     int myCreationMode;
 
-    /// @brief vector with selected junctions
-    std::vector<GNEJunction*> mySelectedJunctions;
-
-    /// @brief vector with selected TAZs
-    std::vector<GNEAdditional*> mySelectedTAZs;
-
-    /// @brief vector with selected additionals
-    std::vector<GNEAdditional*> mySelectedAdditionals;
-
     /// @brief vector with selected edges
-    std::vector<GNEEdge*> mySelectedEdges;
+    std::vector<GNEEdge*> myEdges;
 
-    /// @brief route (usually a busStop)
-    GNEDemandElement* myRoute;
+    /// @brief from junction
+    GNEJunction* myFromJunction = nullptr;
+
+    /// @brief to junction
+    GNEJunction* myToJunction = nullptr;
+
+    /// @brief from TAZ
+    GNEAdditional* myFromTAZ = nullptr;
+
+    /// @brief to TAZ
+    GNEAdditional* myToTAZ = nullptr;
+
+    /// @brief from StoppingPlace
+    GNEAdditional* myFromStoppingPlace = nullptr;
+
+    /// @brief to StoppingPlace
+    GNEAdditional* myToStoppingPlace = nullptr;
+
+    /// @brief from Route
+    GNEDemandElement* myFromRoute = nullptr;
+
+    /// @brief to Route
+    GNEDemandElement* myToRoute = nullptr;
 
     /// @brief vector with current path
     std::vector<PlanPath> myPath;
