@@ -308,8 +308,8 @@ TrafficLight::addConstraint(const std::string& tlsID, const std::string& tripId,
     if (s2 == nullptr) {
         throw TraCIException("'" + foeSignal + "' is not a rail signal");
     }
-    MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor((MSRailSignalConstraint::ConstraintType)type, s2, tripId, limit, true);
-    s->addConstraint(foeId, c);
+    MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor((MSRailSignalConstraint::ConstraintType)type, s2, foeId, limit, true);
+    s->addConstraint(tripId, c);
 }
 
 
