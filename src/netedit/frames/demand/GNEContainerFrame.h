@@ -25,7 +25,7 @@
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
-#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
 
@@ -60,8 +60,8 @@ public:
      */
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get GNEPathCreator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator modul
+    GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Type selectors
     DemandElementSelector* getTypeSelector() const;
@@ -104,8 +104,8 @@ private:
     /// @brief Netedit parameter
     GNENeteditAttributes* myNeteditAttributes;
 
-    /// @brief edge path creator (used for Walks, rides and trips)
-    GNEPathCreator* myPathCreator;
+    /// @brief path creator (used for Walks, rides and trips)
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief path legend modul
     GNEPathLegendModule* myPathLegend;

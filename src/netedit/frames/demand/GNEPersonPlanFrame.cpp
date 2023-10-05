@@ -49,8 +49,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // Create person parameters
     myPersonPlanAttributes = new GNEAttributesCreator(this);
 
-    // create myPathCreator Module
-    myPathCreator = new GNEPathCreator(this);
+    // create plan creator Module
+    myPlanCreator = new GNEPlanCreator(this);
 
     // Create GNEElementTree module
     myPersonHierarchy = new GNEElementTree(this);
@@ -79,7 +79,7 @@ GNEPersonPlanFrame::show() {
         myPersonSelector->hideDemandElementSelector();
         myPlanSelector->hidePlanSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
@@ -127,17 +127,17 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (myPlanSelector->markTrainStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if ((myPlanSelector->markSingleEdges() || myPlanSelector->markContinuousEdges()) && objectsUnderCursor.getEdgeFront()) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
+        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else if (myPlanSelector->markTAZs() && objectsUnderCursor.getTAZFront()) {
-        return myPathCreator->addTAZ(objectsUnderCursor.getTAZFront());
+        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
@@ -150,9 +150,9 @@ GNEPersonPlanFrame::resetSelectedPerson() {
 }
 
 
-GNEPathCreator*
-GNEPersonPlanFrame::getPathCreator() const {
-    return myPathCreator;
+GNEPlanCreator*
+GNEPersonPlanFrame::getPlanCreator() const {
+    return myPlanCreator;
 }
 
 
@@ -192,32 +192,32 @@ GNEPersonPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode
-            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
+            myPlanCreator->showPathCreatorModule(personPlanProperty.getTag(), true, false);
             // add previous element
             if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                 // add junction
-                myPathCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
+                myPlanCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
             } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                // update VClass of myPathCreator depending if person is a ride
+                // update VClass of myPlanCreator depending if person is a ride
                 if (personPlanProperty.isRide()) {
-                    myPathCreator->setVClass(SVC_PASSENGER);
+                    myPlanCreator->setVClass(SVC_PASSENGER);
                 } else {
-                    myPathCreator->setVClass(SVC_PEDESTRIAN);
+                    myPlanCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // add edge
-                myPathCreator->addEdge(ACs->retrieveEdge(previousElement->getID()), true, true);
+                myPlanCreator->addEdge(ACs->retrieveEdge(previousElement->getID()), true, true);
             } else if (previousElement->getTagProperty().isStoppingPlace()) {
                 // add stopping place
-                myPathCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()), true, true);
+                myPlanCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()), true, true);
             } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 // add TAZ
-                myPathCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
+                myPlanCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
             }
             // show legend
             myPathLegend->showPathLegendModule();
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModule(personPlanProperty.getTag(), false, false);
+            myPlanCreator->showPathCreatorModule(personPlanProperty.getTag(), false, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }
@@ -226,7 +226,7 @@ GNEPersonPlanFrame::tagSelected() {
     } else {
         // hide modules if tag selected isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
@@ -245,7 +245,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             tagSelected();
         } else {
             myPersonPlanAttributes->hideAttributesCreatorModule();
-            myPathCreator->hidePathCreatorModule();
+            myPlanCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
             myPathLegend->hidePathLegendModule();
         }
@@ -253,7 +253,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         // hide modules if person selected isn't valid
         myPlanSelector->hidePlanSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
@@ -271,11 +271,11 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
         if (myRouteHandler.buildPersonPlan(
                     myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
-                    myPersonPlanAttributes, myPathCreator, false)) {
+                    myPersonPlanAttributes, myPlanCreator, false)) {
             // refresh GNEElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
-            myPathCreator->abortPathCreation();
+            myPlanCreator->abortPathCreation();
             // refresh using tagSelected
             tagSelected();
             // refresh personPlan attributes

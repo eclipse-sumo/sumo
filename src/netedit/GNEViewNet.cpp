@@ -1109,11 +1109,11 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal person plan route
-        myViewParent->getPersonFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getPersonPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getPersonFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getPersonPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal container plan route
-        myViewParent->getContainerFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getContainerPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getContainerFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getContainerPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal route
         myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal edgeRelPath
@@ -1459,13 +1459,13 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getPersonFrame()->getPlanCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->resetSelectedPerson();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getContainerFrame()->getPlanCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         // abort operation depending of current mode
@@ -1600,13 +1600,13 @@ GNEViewNet::hotkeyEnter() {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->createPath(false);
+            myViewParent->getPersonFrame()->getPlanCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath(false);
+            myViewParent->getPersonPlanFrame()->getPlanCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->createPath(false);
+            myViewParent->getContainerFrame()->getPlanCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath(false);
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->createPath(false);
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1631,13 +1631,13 @@ GNEViewNet::hotkeyBackSpace() {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getPathCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getPersonFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getPersonPlanFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getContainerFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->removeLastElement();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {

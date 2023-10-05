@@ -25,6 +25,7 @@
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 
 
@@ -59,8 +60,8 @@ public:
      */
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
-    /// @brief get path creator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator modul
+    GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get container Hierarchy
     GNEElementTree* getContainerHierarchy() const;
@@ -92,7 +93,7 @@ private:
     GNEAttributesCreator* myContainerPlanAttributes;
 
     /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief path legend modul
     GNEPathLegendModule* myPathLegend;

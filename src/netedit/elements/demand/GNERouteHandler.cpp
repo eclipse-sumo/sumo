@@ -1194,7 +1194,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 bool
 GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
-                                 GNEPathCreator* pathCreator, const bool centerAfterCreation) {
+                                 GNEPlanCreator* planCreator, const bool centerAfterCreation) {
     // clear and set person object
     myPlanObject->clear();
     myPlanObject->setTag(personParent->getTagProperty().getTag());
@@ -1224,26 +1224,26 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
     }
     // get edges
-    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
-    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
+    GNEEdge* fromEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().back() : nullptr;
     // get junctions
-    GNEJunction* fromJunction = (pathCreator->getSelectedJunctions().size() > 0) ? pathCreator->getSelectedJunctions().front() : nullptr;
-    GNEJunction* toJunction = (pathCreator->getSelectedJunctions().size() > 0) ? pathCreator->getSelectedJunctions().back() : nullptr;
+    GNEJunction* fromJunction = (planCreator->getSelectedJunctions().size() > 0) ? planCreator->getSelectedJunctions().front() : nullptr;
+    GNEJunction* toJunction = (planCreator->getSelectedJunctions().size() > 0) ? planCreator->getSelectedJunctions().back() : nullptr;
     // get TAZs
-    GNEAdditional* fromTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().front() : nullptr;
-    GNEAdditional* toTAZ = (pathCreator->getSelectedTAZs().size() > 0) ? pathCreator->getSelectedTAZs().back() : nullptr;
+    GNEAdditional* fromTAZ = (planCreator->getSelectedTAZs().size() > 0) ? planCreator->getSelectedTAZs().front() : nullptr;
+    GNEAdditional* toTAZ = (planCreator->getSelectedTAZs().size() > 0) ? planCreator->getSelectedTAZs().back() : nullptr;
     // get busStop
-    GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
-    GNEAdditional* toTrainStop = pathCreator->getToStoppingPlace(SUMO_TAG_TRAIN_STOP);
+    GNEAdditional* toBusStop = planCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional* toTrainStop = planCreator->getToStoppingPlace(SUMO_TAG_TRAIN_STOP);
     // get path edges
     std::vector<std::string> edges;
-    for (const auto& path : pathCreator->getPath()) {
+    for (const auto& path : planCreator->getPath()) {
         for (const auto& edge : path.getSubPath()) {
             edges.push_back(edge->getID());
         }
     }
     // get route
-    GNEDemandElement* route = pathCreator->getRoute();
+    GNEDemandElement* route = planCreator->getRoute();
     // check what PersonPlan we're creating
     switch (tag) {
         // Person Trips
@@ -1511,7 +1511,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
 
 
 bool
-GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator, const bool centerAfterCreation) {
+GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
+                                    GNEPlanCreator* planCreator, const bool centerAfterCreation) {
     // clear and set planObject
     myPlanObject->clear();
     myPlanObject->setTag(containerParent->getTagProperty().getTag());
@@ -1541,13 +1542,13 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
         }
     }
     // get edges
-    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
-    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
+    GNEEdge* fromEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().back() : nullptr;
     // get containerStop
-    GNEAdditional* toContainerStop = pathCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP);
+    GNEAdditional* toContainerStop = planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP);
     // get path edges
     std::vector<std::string> edges;
-    for (const auto& path : pathCreator->getPath()) {
+    for (const auto& path : planCreator->getPath()) {
         for (const auto& edge : path.getSubPath()) {
             edges.push_back(edge->getID());
         }

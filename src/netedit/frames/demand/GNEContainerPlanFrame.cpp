@@ -49,8 +49,8 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     // Create container parameters
     myContainerPlanAttributes = new GNEAttributesCreator(this);
 
-    // create myPathCreator Module
-    myPathCreator = new GNEPathCreator(this);
+    // create plan creator Module
+    myPlanCreator = new GNEPlanCreator(this);
 
     // Create GNEElementTree module
     myContainerHierarchy = new GNEElementTree(this);
@@ -85,7 +85,7 @@ GNEContainerPlanFrame::show() {
         myContainerSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
@@ -126,18 +126,18 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
     const bool requireEdge = containerPlanProperty.planFromEdge() || containerPlanProperty.planToEdge() || containerPlanProperty.hasAttribute(SUMO_ATTR_EDGES);
     // continue depending of tag
     if (requireContainerStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP)) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
         return false;
     }
 }
 
 
-GNEPathCreator*
-GNEContainerPlanFrame::getPathCreator() const {
-    return myPathCreator;
+GNEPlanCreator*
+GNEContainerPlanFrame::getPlanCreator() const {
+    return myPlanCreator;
 }
 
 
@@ -169,16 +169,16 @@ GNEContainerPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (previousElement && previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // set path creator mode
-            myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
+            myPlanCreator->showPathCreatorModule(containerPlanTag, true, false);
             // show legend
             myPathLegend->showPathLegendModule();
             // check if add previous edge
             if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-                myPathCreator->addEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(previousElement->getID()), true, true);
+                myPlanCreator->addEdge(myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(previousElement->getID()), true, true);
             }
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
+            myPlanCreator->showPathCreatorModule(containerPlanTag, false, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }
@@ -187,7 +187,7 @@ GNEContainerPlanFrame::tagSelected() {
     } else {
         // hide moduls if tag selecte isn't valid
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
         myPathLegend->hidePathLegendModule();
@@ -207,7 +207,7 @@ GNEContainerPlanFrame::demandElementSelected() {
             tagSelected();
         } else {
             myContainerPlanAttributes->hideAttributesCreatorModule();
-            myPathCreator->hidePathCreatorModule();
+            myPlanCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
             myPathLegend->hidePathLegendModule();
         }
@@ -215,7 +215,7 @@ GNEContainerPlanFrame::demandElementSelected() {
         // hide moduls if container selected isn't valid
         myContainerPlanTagSelector->hideTagSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
         myPathLegend->hidePathLegendModule();
     }
@@ -233,11 +233,11 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
                     myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,
-                    myPathCreator, true)) {
+                    myPlanCreator, true)) {
             // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation
-            myPathCreator->abortPathCreation();
+            myPlanCreator->abortPathCreation();
             // refresh using tagSelected
             tagSelected();
             // refresh containerPlan attributes

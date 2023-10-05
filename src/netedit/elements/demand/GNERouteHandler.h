@@ -22,6 +22,7 @@
 
 #include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>
@@ -156,10 +157,11 @@ public:
 
     /// @brief build person plan
     bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
-                         GNEPathCreator* pathCreator, const bool centerAfterCreation);
+                         GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes, GNEPathCreator* pathCreator, const bool centerAfterCreation);
+    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
+                            GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     bool isVehicleIdDuplicated(const std::string& id);

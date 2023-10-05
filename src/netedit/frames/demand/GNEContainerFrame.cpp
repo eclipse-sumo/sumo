@@ -58,14 +58,14 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     // Create Netedit parameter
     myNeteditAttributes = new GNENeteditAttributes(this);
 
-    // create GNEPathCreator Module
-    myPathCreator = new GNEPathCreator(this);
+    // create GNEPlanCreator Module
+    myPlanCreator = new GNEPlanCreator(this);
 
     // create legend label
     myPathLegend = new GNEPathLegendModule(this);
 
     // limit path creator to pedestrians
-    myPathCreator->setVClass(SVC_PEDESTRIAN);
+    myPlanCreator->setVClass(SVC_PEDESTRIAN);
 }
 
 
@@ -80,12 +80,12 @@ GNEContainerFrame::show() {
     myContainerTagSelector->refreshTagSelector();
     myTypeSelector->refreshDemandElementSelector();
     myContainerPlanTagSelector->refreshTagSelector();
-    // update VClass of myPathCreator
+    // update VClass of myPlanCreator
     if (myContainerPlanTagSelector->getCurrentTemplateAC() &&
             myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isTransportPlan()) {
-        myPathCreator->setVClass(SVC_PASSENGER);
+        myPlanCreator->setVClass(SVC_PASSENGER);
     } else {
-        myPathCreator->setVClass(SVC_PEDESTRIAN);
+        myPlanCreator->setVClass(SVC_PEDESTRIAN);
     }
     // show frame
     GNEFrame::show();
@@ -129,20 +129,20 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_CONTAINER_STOP) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
-        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront());
+        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else {
         return false;
     }
 }
 
 
-GNEPathCreator*
-GNEContainerFrame::getPathCreator() const {
-    return myPathCreator;
+GNEPlanCreator*
+GNEContainerFrame::getPlanCreator() const {
+    return myPlanCreator;
 }
 
 
@@ -179,25 +179,25 @@ GNEContainerFrame::tagSelected() {
             myContainerPlanTagSelector->showTagSelector();
             // now check if container plan selected is valid
             if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
-                // update VClass of myPathCreator depending if container is a ride
+                // update VClass of myPlanCreator depending if container is a ride
                 if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-                    myPathCreator->setVClass(SVC_PASSENGER);
+                    myPlanCreator->setVClass(SVC_PASSENGER);
                 } else {
-                    myPathCreator->setVClass(SVC_PEDESTRIAN);
+                    myPlanCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
                 // show edge path creator module
-                myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                myPlanCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                 // show path legend
                 myPathLegend->showPathLegendModule();
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
                 myNeteditAttributes->hideNeteditAttributesModule();
-                myPathCreator->hidePathCreatorModule();
+                myPlanCreator->hidePathCreatorModule();
                 myPathLegend->hidePathLegendModule();
             }
         } else {
@@ -206,7 +206,7 @@ GNEContainerFrame::tagSelected() {
             myContainerAttributes->hideAttributesCreatorModule();
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
-            myPathCreator->hidePathCreatorModule();
+            myPlanCreator->hidePathCreatorModule();
             myPathLegend->hidePathLegendModule();
         }
     } else {
@@ -216,7 +216,7 @@ GNEContainerFrame::tagSelected() {
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
         myPathLegend->hidePathLegendModule();
     }
 }
@@ -235,18 +235,18 @@ GNEContainerFrame::demandElementSelected() {
         myContainerPlanTagSelector->showTagSelector();
         // now check if container plan selected is valid
         if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
-            // update VClass of myPathCreator depending if container is a ride
+            // update VClass of myPlanCreator depending if container is a ride
             if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-                myPathCreator->setVClass(SVC_PASSENGER);
+                myPlanCreator->setVClass(SVC_PASSENGER);
             } else {
-                myPathCreator->setVClass(SVC_PEDESTRIAN);
+                myPlanCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator module
-            myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPlanCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             // show path legend
             myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to persons or vehicles
@@ -259,7 +259,7 @@ GNEContainerFrame::demandElementSelected() {
             // hide modules
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
-            myPathCreator->hidePathCreatorModule();
+            myPlanCreator->hidePathCreatorModule();
         }
     } else {
         // hide modules
@@ -267,7 +267,7 @@ GNEContainerFrame::demandElementSelected() {
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
-        myPathCreator->hidePathCreatorModule();
+        myPlanCreator->hidePathCreatorModule();
     }
 }
 
@@ -289,11 +289,11 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
         // check if person and person plan can be created
         if (myRouteHandler.buildContainerPlan(
                     myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
-                    person, myContainerPlanAttributes, myPathCreator, true)) {
+                    person, myContainerPlanAttributes, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation
-            myPathCreator->abortPathCreation();
+            myPlanCreator->abortPathCreation();
             // refresh person and personPlan attributes
             myContainerAttributes->refreshAttributesCreator();
             myContainerPlanAttributes->refreshAttributesCreator();

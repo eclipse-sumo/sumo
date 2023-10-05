@@ -28,6 +28,8 @@
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
+
 
 // ===========================================================================
 // class definitions
@@ -64,8 +66,8 @@ public:
     /// @brief reset selected person
     void resetSelectedPerson();
 
-    /// @brief get path creator module
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Person Hierarchy
     GNEElementTree* getPersonHierarchy() const;
@@ -99,8 +101,8 @@ private:
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myPersonPlanAttributes;
 
-    /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
+    /// @brief plan Creator
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief Person Hierarchy
     GNEElementTree* myPersonHierarchy;
