@@ -88,6 +88,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
             return new MSLCM_LC2013(v);
         case LaneChangeModel::SL2015:
             return new MSLCM_SL2015(v);
+        case LaneChangeModel::AL2023:
+            return new MSLCM_AL2023(v);
         case LaneChangeModel::DEFAULT:
             if (MSGlobals::gLateralResolution <= 0) {
                 return new MSLCM_LC2013(v);
