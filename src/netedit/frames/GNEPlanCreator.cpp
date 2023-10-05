@@ -127,7 +127,6 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
-    myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameInformation);
@@ -152,9 +151,7 @@ GNEPlanCreator::~GNEPlanCreator() {}
 
 
 void
-GNEPlanCreator::showPlanCreatorModule(const GNETagProperties &tagProperty, const bool firstElement) {
-    // declare flag
-    bool showPathCreator = true;
+GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const bool firstElement) {
     // first abort creation
     abortPathCreation();
     // hide use last inserted route
@@ -172,182 +169,45 @@ GNEPlanCreator::showPlanCreatorModule(const GNETagProperties &tagProperty, const
     if (firstElement) {
         myCreationMode |= REQUIRE_FIRSTELEMENT;
     }
-    // set consecutive or non consecuives
-    if (consecutives) {
+    // continue depending of planSelector
+    if (planSelector->markContinuousEdges()) {
         myCreationMode |= CONSECUTIVE_EDGES;
+    } else if (planSelector->markRoutes()) {
+        myCreationMode |= ROUTE;
+        // show use last inserted route
+        myUseLastRoute->show();
+        // hide other buttons and labels
+        myFinishCreationButton->hide();
+        myAbortCreationButton->hide();
+        myRemoveLastInsertedElement->hide();
+        myInfoRouteLabel->hide();
+        myBackSpaceLabel->hide();
     } else {
-        myCreationMode |= NONCONSECUTIVE_EDGES;
-    }
-    // set specific mode depending of tag
-    switch (element) {
-        // routes
-        case SUMO_TAG_ROUTE:
-        case GNE_TAG_ROUTE_EMBEDDED:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
+        if (planSelector->markSingleEdges()) {
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
-            break;
-        // vehicles
-        case SUMO_TAG_VEHICLE:
-        case GNE_TAG_FLOW_ROUTE:
-        case GNE_TAG_WALK_ROUTE:
-            myCreationMode |= ROUTE;
-            // show use last inserted route
-            myUseLastRoute->show();
-            // disable other elements
-            myFinishCreationButton->hide();
-            myAbortCreationButton->hide();
-            myRemoveLastInsertedElement->hide();
-            myInfoRouteLabel->hide();
-            myBackSpaceLabel->hide();
-            break;
-        case SUMO_TAG_TRIP:
-        case SUMO_TAG_FLOW:
-        case GNE_TAG_VEHICLE_WITHROUTE:
-        case GNE_TAG_FLOW_WITHROUTE:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        case GNE_TAG_TRIP_JUNCTIONS:
-        case GNE_TAG_FLOW_JUNCTIONS:
-            myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
+        }
+        if (planSelector->markJunctions()) {
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        case GNE_TAG_TRIP_TAZS:
-        case GNE_TAG_FLOW_TAZS:
+        }
+        if (planSelector->markTAZs()) {
             myCreationMode |= START_TAZ;
             myCreationMode |= END_TAZ;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        // edges
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_TRANSHIP_EDGES:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        // edge->edge
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_EDGE:
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_TRANSPORT_EDGE:
-        case GNE_TAG_TRANSHIP_EDGE:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        // edge->taz
-        case GNE_TAG_PERSONTRIP_EDGE_TAZ:
-        case GNE_TAG_WALK_EDGE_TAZ:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_TAZ;
-            break;
-        // edge->busStop
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
+        }
+        if (planSelector->markBusStops()) {
+            myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
-            break;
-        // edge->trainStop
-        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
-        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
-        case GNE_TAG_WALK_EDGE_TRAINSTOP:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
+        }
+        if (planSelector->markTrainStops()) {
+            myCreationMode |= START_TRAINSTOP;
             myCreationMode |= END_TRAINSTOP;
-            break;
-        // edge->containerStop
-        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
-        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
-            myCreationMode |= SHOW_CANDIDATE_EDGES;
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_CONTAINERSTOP;
-            break;
-        // taz->taz
-        case GNE_TAG_PERSONTRIP_TAZ_TAZ:
-        case GNE_TAG_WALK_TAZ_TAZ:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_TAZ;
-            break;
-        // taz->edge
-        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
-        case GNE_TAG_WALK_TAZ_EDGE:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_EDGE;
-            break;
-        // taz->busStop
-        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
-        case GNE_TAG_WALK_TAZ_BUSSTOP:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_BUSSTOP;
-            break;
-        // taz->trainStop
-        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
-        case GNE_TAG_WALK_TAZ_TRAINSTOP:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_TRAINSTOP;
-            break;
-        // junction->junction
-        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION:
-        case GNE_TAG_WALK_JUNCTION_JUNCTION:
-            myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
-            myCreationMode |= START_JUNCTION;
-            myCreationMode |= END_JUNCTION;
-            myCreationMode |= ONLY_FROMTO;
-            break;
-        // stops (person and containers)
-        case GNE_TAG_STOPPERSON_BUSSTOP:
-            myCreationMode |= STOP;
-            myCreationMode |= END_BUSSTOP;
-            break;
-        case GNE_TAG_STOPPERSON_TRAINSTOP:
-            myCreationMode |= STOP;
-            myCreationMode |= END_TRAINSTOP;
-            break;
-        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
-            myCreationMode |= STOP;
-            myCreationMode |= END_CONTAINERSTOP;
-            break;
-        case GNE_TAG_STOPPERSON_EDGE:
-        case GNE_TAG_STOPCONTAINER_EDGE:
-            myCreationMode |= STOP;
-            myCreationMode |= START_EDGE;
-            break;
-        // generic datas
-        case SUMO_TAG_EDGEREL:
-            myCreationMode |= ONLY_FROMTO;
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-            break;
-        default:
-            showPathCreator = false;
-            break;
+        }
     }
-    // check if show path creator
-    if (showPathCreator) {
-        // recalc before show (to avoid graphic problems)
-        recalc();
-        // show modul
-        show();
-    } else {
-        // hide modul
-        hide();
-    }
+    // recalc before show (to avoid graphic problems)
+    recalc();
+    // show modul
+    show();
 }
 
 
@@ -388,11 +248,11 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
             return false;
         }
     }
-    // check number of junctions
-    if (mySelectedJunctions.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
         // Write warning
-        WRITE_WARNING(TL("Only two junctions are allowed"));
-        // abort add junction
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
         return false;
     }
     // All checks ok, then add it in selected elements
@@ -433,11 +293,11 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
             return false;
         }
     }
-    // check number of TAZs
-    if ((mySelectedTAZs.size() == 2) && (myCreationMode & Mode::ONLY_FROMTO)) {
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
         // Write warning
-        WRITE_WARNING(TL("Only two TAZs are allowed"));
-        // abort add TAZ
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
         return false;
     }
     // All checks ok, then add it in selected elements
@@ -463,7 +323,7 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
 bool
 GNEPlanCreator::addEdge(GNEEdge* edge) {
     // check if edges are allowed
-    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
+    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0) && ((myCreationMode & CONSECUTIVE_EDGES) == 0)) {
         return false;
     }
     // continue depending of number of selected eges
@@ -487,11 +347,11 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
             }
         }
     }
-    // check number of edges
-    if (mySelectedEdges.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+    // check number of selected items
+    if (!(myCreationMode & Mode::CONSECUTIVE_EDGES) && (getNumberOfSelectedElements() == 2)) {
         // Write warning
-        WRITE_WARNING(TL("Only two edges are allowed"));
-        // abort add edge
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
         return false;
     }
     // All checks ok, then add it in selected elements
@@ -512,21 +372,8 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // if is a stop, create inmediately
-    if (myCreationMode & STOP) {
-        if (createPath(false)) {
-            return true;
-        } else {
-            mySelectedEdges.pop_back();
-            // recalculate path again
-            recalculatePath();
-            // update info route label
-            updateInfoRouteLabel();
-            return false;
-        }
-    } else {
-        return true;
-    }
+    // edge added, then return true
+    return true;
 }
 
 
@@ -554,16 +401,7 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
         return false;
     }
     // check if stoppingPlaces are allowed
-    if (((myCreationMode & END_BUSSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0) && ((myCreationMode & END_CONTAINERSTOP) == 0)) {
-        return false;
-    }
-    if (((myCreationMode & END_BUSSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_BUS_STOP)) {
-        return false;
-    }
-    if (((myCreationMode & END_TRAINSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_TRAIN_STOP)) {
-        return false;
-    }
-    if (((myCreationMode & END_CONTAINERSTOP) != 0) && (stoppingPlace->getTagProperty().getTag() != SUMO_TAG_CONTAINER_STOP)) {
+    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0)) {
         return false;
     }
     // avoid select first an stopping place
@@ -571,11 +409,12 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
         WRITE_WARNING(TL("first select an edge"));
         return false;
     }
-    // check if previously stopping place from was set
-    if (myToStoppingPlace) {
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
         return false;
-    } else {
-        myToStoppingPlace = stoppingPlace;
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -584,7 +423,7 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
     // enable or disable remove last stoppingPlace button
-    if (myToStoppingPlace) {
+    if (getNumberOfSelectedElements() == 1) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -593,31 +432,8 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // if is a stop, create inmediately
-    if (myCreationMode & STOP) {
-        if (createPath(false)) {
-            return true;
-        } else {
-            myToStoppingPlace = nullptr;
-            // recalculate path again
-            recalculatePath();
-            // update info route label
-            updateInfoRouteLabel();
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
-
-
-GNEAdditional*
-GNEPlanCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
-    if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == expectedTag)) {
-        return myToStoppingPlace;
-    } else {
-        return nullptr;
-    }
+    // stopping place added, then return true
+    return true;
 }
 
 
@@ -693,9 +509,7 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
             // get path
             const GNEPlanCreator::PlanPath& path = myPath.at(i);
             // set path color color
-            if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
-                GLHelper::setColor(RGBColor::ORANGE);
-            } else if (path.isConflictDisconnected()) {
+            if (path.isConflictDisconnected()) {
                 GLHelper::setColor(s.candidateColorSettings.conflict);
             } else if (path.isConflictVClass()) {
                 GLHelper::setColor(s.candidateColorSettings.special);
@@ -761,7 +575,7 @@ GNEPlanCreator::createPath(const bool useLastRoute) {
 void
 GNEPlanCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
+    if ((mySelectedJunctions.size() > 0) || (mySelectedTAZs.size() > 0) || (mySelectedEdges.size() > 0) || (mySelectedAdditionals.size() > 0) || myRoute) {
         // unblock undo/redo
         myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -879,7 +693,7 @@ GNEPlanCreator::clearPath() {
     mySelectedJunctions.clear();
     mySelectedTAZs.clear();
     mySelectedEdges.clear();
-    myToStoppingPlace = nullptr;
+    mySelectedAdditionals.clear();
     myRoute = nullptr;
     // clear path
     myPath.clear();
@@ -901,10 +715,6 @@ GNEPlanCreator::recalculatePath() {
         // add selected edges
         for (const auto& edge : mySelectedEdges) {
             edges.push_back(edge);
-        }
-        // add to stopping place edge
-        if (myToStoppingPlace) {
-            edges.push_back(myToStoppingPlace->getParentLanes().front()->getParentEdge());
         }
     }
     // fill paths
@@ -949,6 +759,25 @@ GNEPlanCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClas
                 lane->getParentEdge()->setPossibleCandidate(true);
             }
         }
+    }
+}
+
+
+size_t
+GNEPlanCreator::getNumberOfSelectedElements() const {
+    return mySelectedJunctions.size() +
+           mySelectedTAZs.size() +
+           mySelectedAdditionals.size() +
+           mySelectedEdges.size();
+}
+
+
+bool
+GNEPlanCreator::checkEnableLastItemButton() const {
+    if (myCreationMode & REQUIRE_FIRSTELEMENT) {
+        return getNumberOfSelectedElements() == 2;
+    } else {
+        return getNumberOfSelectedElements() > 0;
     }
 }
 

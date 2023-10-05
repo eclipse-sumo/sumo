@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNEPlanSelector.h"
 
 // ===========================================================================
 // class declaration
@@ -87,7 +87,7 @@ public:
     ~GNEPlanCreator();
 
     /// @brief show plan creator for the given tag property
-    void showPlanCreatorModule(const GNETagProperties &tagProperty, const bool firstElement);
+    void showPlanCreatorModule(const GNEPlanSelector* planSelector, const bool firstElement);
 
     /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
@@ -118,9 +118,6 @@ public:
     
     /// @brief add stoppingPlace
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
-
-    /// @brief get to stoppingPlace
-    GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
 
     /// @brief add route
     bool addRoute(GNEDemandElement* route);
@@ -166,19 +163,20 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES   = 1 << 0,   // Plan requiere consecutive edges
-        ROUTE               = 1 << 1,   // Plan uses a route
-        START_EDGE          = 1 << 2,   // Plan begins in edge
-        END_EDGE            = 1 << 3,   // Plan ends in edge
-        START_JUNCTION      = 1 << 4,   // Plan begins in junction
-        END_JUNCTION        = 1 << 5,   // Plan ends in junction
-        START_TAZ           = 1 << 6,   // Plan begins in TAZ
-        END_TAZ             = 1 << 7,   // Plan ends in TAZ
-        START_BUSSTOP       = 1 << 8,   // Plan begins in busStop
-        END_BUSSTOP         = 1 << 9,   // Plan ends in busStop
-        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
-        END_TRAINSTOP       = 1 << 11,  // Plan ends in trainStop
-        // stops
+        REQUIRE_FIRSTELEMENT    = 1 << 0,   // Plan requiere first element
+        CONSECUTIVE_EDGES       = 1 << 1,   // Plan requiere consecutive edges
+        ROUTE                   = 1 << 2,   // Plan uses a route
+        START_EDGE              = 1 << 3,   // Plan begins in edge
+        END_EDGE                = 1 << 4,   // Plan ends in edge
+        START_JUNCTION          = 1 << 5,   // Plan begins in junction
+        END_JUNCTION            = 1 << 6,   // Plan ends in junction
+        START_TAZ               = 1 << 7,   // Plan begins in TAZ
+        END_TAZ                 = 1 << 8,   // Plan ends in TAZ
+        START_BUSSTOP           = 1 << 9,   // Plan begins in busStop
+        END_BUSSTOP             = 1 << 10,  // Plan ends in busStop
+        START_TRAINSTOP         = 1 << 11,  // Plan begins in trainStop
+        END_TRAINSTOP           = 1 << 12,  // Plan ends in trainStop
+        // stops and containerStops
     };
 
     /// @brief update InfoRouteLabel
@@ -211,11 +209,11 @@ protected:
     /// @brief vector with selected TAZs
     std::vector<GNEAdditional*> mySelectedTAZs;
 
+    /// @brief vector with selected additionals
+    std::vector<GNEAdditional*> mySelectedAdditionals;
+
     /// @brief vector with selected edges
     std::vector<GNEEdge*> mySelectedEdges;
-
-    /// @brief to additional (usually a busStop)
-    GNEAdditional* myToStoppingPlace;
 
     /// @brief route (usually a busStop)
     GNEDemandElement* myRoute;
@@ -240,7 +238,14 @@ protected:
 
     /// @brief label for backSpace information
     FXLabel* myBackSpaceLabel;
+
 private:
+    /// @brief get number of selected elements
+    size_t getNumberOfSelectedElements() const;
+
+    /// @brief check if enable remove last item button
+    bool checkEnableLastItemButton() const;
+
     /// @brief Invalidated copy constructor.
     GNEPlanCreator(GNEPlanCreator*) = delete;
 

@@ -190,7 +190,7 @@ GNEContainerFrame::tagSelected() {
                 // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
                 // show edge path creator module
-                myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
+//              myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
                 // show path legend
                 myPathLegend->showPathLegendModule();
             } else {
@@ -246,7 +246,7 @@ GNEContainerFrame::demandElementSelected() {
             // show Netedit attributes module
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator module
-            myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
+//          myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
             // show path legend
             myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to persons or vehicles

@@ -169,7 +169,7 @@ GNEContainerPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (previousElement && previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // set path creator mode
-            myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, true);
+//          myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, true);
             // show legend
             myPathLegend->showPathLegendModule();
             // check if add previous edge
@@ -178,7 +178,7 @@ GNEContainerPlanFrame::tagSelected() {
             }
         } else {
             // set path creator mode
-            myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, false);
+//          myPlanCreator->showPlanCreatorModule(containerPlanTagProperty, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }

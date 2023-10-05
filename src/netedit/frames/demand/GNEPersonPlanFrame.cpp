@@ -183,8 +183,6 @@ GNEPersonPlanFrame::tagSelected() {
     if (myPlanSelector->getCurrentPlanTemplate()) {
         // get ACs
         const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
-        // Obtain current person plan tag (only for improve code legibility)
-        const auto personPlanProperty = myPlanSelector->getCurrentPlanTemplate()->getTagProperty();
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
         // get previous container plan element
@@ -192,14 +190,14 @@ GNEPersonPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode
-            myPlanCreator->showPlanCreatorModule(personPlanProperty, true);
+            myPlanCreator->showPlanCreatorModule(myPlanSelector, true);
             // add previous element
             if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                 // add junction
                 myPlanCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
             } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                 // update VClass of myPlanCreator depending if person is a ride
-                if (personPlanProperty.isRide()) {
+                if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
                     myPlanCreator->setVClass(SVC_PASSENGER);
                 } else {
                     myPlanCreator->setVClass(SVC_PEDESTRIAN);
@@ -217,7 +215,7 @@ GNEPersonPlanFrame::tagSelected() {
             myPathLegend->showPathLegendModule();
         } else {
             // set path creator mode
-            myPlanCreator->showPlanCreatorModule(personPlanProperty, false);
+            myPlanCreator->showPlanCreatorModule(myPlanSelector, false);
             // show legend
             myPathLegend->showPathLegendModule();
         }

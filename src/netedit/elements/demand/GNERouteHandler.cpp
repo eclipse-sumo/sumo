@@ -1545,7 +1545,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     GNEEdge* fromEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().front() : nullptr;
     GNEEdge* toEdge = (planCreator->getSelectedEdges().size() > 0) ? planCreator->getSelectedEdges().back() : nullptr;
     // get containerStop
-    GNEAdditional* toContainerStop = planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP);
+    GNEAdditional* toContainerStop = /*planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP)*/;
     // get path edges
     std::vector<std::string> edges;
     for (const auto& path : planCreator->getPath()) {
