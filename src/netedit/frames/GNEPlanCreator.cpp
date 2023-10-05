@@ -54,10 +54,8 @@ FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap
 
 GNEPlanCreator::PlanPath::PlanPath(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
-          myFromBusStop(nullptr),
-          myToBusStop(nullptr),
-          myConflictVClass(false),
-myConflictDisconnected(false) {
+    myConflictVClass(false),
+    myConflictDisconnected(false) {
     // check if we have to change vClass flag
     if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
         myConflictVClass = true;
@@ -66,8 +64,6 @@ myConflictDisconnected(false) {
 
 
 GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
-    myFromBusStop(nullptr),
-    myToBusStop(nullptr),
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
@@ -86,8 +82,6 @@ GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass v
 
 
 GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
-    myFromBusStop(nullptr),
-    myToBusStop(nullptr),
     myConflictVClass(false),
     myConflictDisconnected(false) {
     // calculate subpath
@@ -110,16 +104,6 @@ GNEPlanCreator::PlanPath::getSubPath() const {
 }
 
 
-GNEAdditional* GNEPlanCreator::PlanPath::getFromBusStop() const {
-    return myFromBusStop;
-}
-
-
-GNEAdditional* GNEPlanCreator::PlanPath::getToBusStop() const {
-    return myToBusStop;
-}
-
-
 bool
 GNEPlanCreator::PlanPath::isConflictVClass() const {
     return myConflictVClass;
@@ -133,8 +117,6 @@ GNEPlanCreator::PlanPath::isConflictDisconnected() const {
 
 
 GNEPlanCreator::PlanPath::PlanPath() :
-    myFromBusStop(nullptr),
-    myToBusStop(nullptr),
     myConflictVClass(false),
     myConflictDisconnected(false) {
 }
@@ -479,7 +461,7 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
 
 
 bool
-GNEPlanCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEPlanCreator::addEdge(GNEEdge* edge) {
     // check if edges are allowed
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
         return false;
@@ -567,7 +549,7 @@ GNEPlanCreator::getSelectedTAZs() const {
 
 
 bool
-GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
     if (stoppingPlace == nullptr) {
         return false;
     }
@@ -640,7 +622,7 @@ GNEPlanCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEPlanCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEPlanCreator::addRoute(GNEDemandElement* route) {
     // check if routes aren allowed
     if ((myCreationMode & ROUTE) == 0) {
         return false;

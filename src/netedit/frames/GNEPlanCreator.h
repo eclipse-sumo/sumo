@@ -53,12 +53,6 @@ public:
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
 
-        /// @brief get from additional
-        GNEAdditional* getFromBusStop() const;
-
-        /// @brief to additional
-        GNEAdditional* getToBusStop() const;
-
         /// @brief check if current path is conflict due vClass
         bool isConflictVClass() const;
 
@@ -68,12 +62,6 @@ public:
     protected:
         /// @brief sub path
         std::vector<GNEEdge*> mySubPath;
-
-        /// @brief from additional (usually a busStop)
-        GNEAdditional* myFromBusStop;
-
-        /// @brief to additional (usually a busStop)
-        GNEAdditional* myToBusStop;
 
         /// @brief flag to mark this path as conflicted
         bool myConflictVClass;
@@ -117,7 +105,7 @@ public:
     bool addTAZ(GNEAdditional* taz);
 
     /// @brief add edge
-    bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addEdge(GNEEdge* edge);
 
     /// @brief get current selected edges
     const std::vector<GNEEdge*>& getSelectedEdges() const;
@@ -129,13 +117,13 @@ public:
     const std::vector<GNEAdditional*>& getSelectedTAZs() const;
     
     /// @brief add stoppingPlace
-    bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
     /// @brief get to stoppingPlace
     GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
 
     /// @brief add route
-    bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);
+    bool addRoute(GNEDemandElement* route);
 
     /// @brief get route
     GNEDemandElement* getRoute() const;

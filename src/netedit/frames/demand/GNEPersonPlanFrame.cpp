@@ -102,7 +102,7 @@ GNEPersonPlanFrame::hide() {
 
 
 bool
-GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
@@ -127,13 +127,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (myPlanSelector->markTrainStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if ((myPlanSelector->markSingleEdges() || myPlanSelector->markContinuousEdges()) && objectsUnderCursor.getEdgeFront()) {
-        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
     } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
         return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else if (myPlanSelector->markTAZs() && objectsUnderCursor.getTAZFront()) {
@@ -205,10 +205,10 @@ GNEPersonPlanFrame::tagSelected() {
                     myPlanCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // add edge
-                myPlanCreator->addEdge(ACs->retrieveEdge(previousElement->getID()), true, true);
+                myPlanCreator->addEdge(ACs->retrieveEdge(previousElement->getID()));
             } else if (previousElement->getTagProperty().isStoppingPlace()) {
                 // add stopping place
-                myPlanCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()), true, true);
+                myPlanCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()));
             } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 // add TAZ
                 myPlanCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
@@ -287,7 +287,6 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
             return false;
         }
     }
-    return false;
 }
 
 /****************************************************************************/
