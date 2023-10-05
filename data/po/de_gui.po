@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-05 12:39+0000\n"
+"PO-Revision-Date: 2023-10-05 13:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1212,7 +1212,7 @@ msgstr "Verkehrsteilnehmer mit Konflikt auswählen"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
-msgstr ""
+msgstr "Fahrgäste/Transportgut auswählen"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
@@ -2072,27 +2072,27 @@ msgstr "Grafisches Phasenprotokoll"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
-msgstr ""
+msgstr "Phasen anzeigen"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Hide Detectors"
-msgstr ""
+msgstr "Detektoren ausblenden"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Show Detectors"
-msgstr ""
+msgstr "Detektoren anzeigen"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:202
 msgid "Phase: %"
-msgstr ""
+msgstr "Phase: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:205
 msgid "Phase name: %"
-msgstr ""
+msgstr "Phasenname: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
@@ -3836,13 +3836,13 @@ msgstr "Fußgängerfurten"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
-msgstr ""
+msgstr "WalkingAreas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1359
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
-msgstr ""
+msgstr "Weitere Daten"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
@@ -3854,7 +3854,7 @@ msgstr "Verkehrsumlegungszonen"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
-msgstr ""
+msgstr "Oberleitungen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
@@ -3870,7 +3870,7 @@ msgstr "PoI"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "WalkableAreas"
-msgstr ""
+msgstr "Fußgängerflächen"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Obstacles"
@@ -5490,27 +5490,27 @@ msgstr "Modus zum Bearbeiten der Daten. (F4)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2106
 msgid "Change netedit view"
-msgstr ""
+msgstr "Netedit-Ansicht wechseln"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2106
 msgid "Change netedit view."
-msgstr ""
+msgstr "Wechselt die netedit-Ansicht."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2111
 msgid "Set default view"
-msgstr ""
+msgstr "Standardansicht anzeigen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2111
 msgid "Set default view."
-msgstr ""
+msgstr "Zeigt die Standardansicht an."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2116
 msgid "Set JuPedSim view"
-msgstr ""
+msgstr "JuPedSim-Ansicht anzeigen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2116
 msgid "Set JuPedSim view."
-msgstr ""
+msgstr "Zeigt die JuPedSim-Ansicht an."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Mode already selected"
@@ -5747,7 +5747,7 @@ msgstr "Auswahlmodus einstellen"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3499
 msgid "Mode for selecting elements. (S)"
-msgstr ""
+msgstr "Modus zur Auswahl von Elementen. (S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3555
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
@@ -12728,9 +12728,8 @@ msgid "Demand move options"
 msgstr "Nachfrage-Bewegungsoptionen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:163
-#, fuzzy
 msgid "Leave stopPersons connected"
-msgstr "Verbundene Haltepersonen lassen"
+msgstr "Personenhalte nicht trennen"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:199
 msgid "Shift selected edges geometry"
