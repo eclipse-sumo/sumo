@@ -1199,6 +1199,7 @@ StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValue
     { "DK2008",     LaneChangeModel::DK2008 },
     { "LC2013",     LaneChangeModel::LC2013 },
     { "SL2015",     LaneChangeModel::SL2015 },
+    { "AL2023",     LaneChangeModel::AL2023 },
     { "default",    LaneChangeModel::DEFAULT } //< must be the last one
 };
 
