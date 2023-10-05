@@ -156,7 +156,7 @@ public:
     void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person plan
-    bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
+    bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
                          GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief build container plan

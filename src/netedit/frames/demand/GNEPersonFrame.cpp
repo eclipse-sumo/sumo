@@ -303,9 +303,8 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
         // create person
         GNEDemandElement* person = buildPerson();
         // check if person and person plan can be created
-        if (myRouteHandler.buildPersonPlan(
-                    myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(),
-                    person, myPersonPlanAttributes, myPlanCreator, true)) {
+        if (myRouteHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(),
+                                           person, myPersonPlanAttributes, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation

@@ -160,8 +160,6 @@ void
 GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC()) {
-        // Obtain current container plan tag (only for improve code legibility)
-        const auto &containerPlanTagProperty = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty();
         // show container attributes
         myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan element

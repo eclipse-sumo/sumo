@@ -1193,15 +1193,16 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 bool
-GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
-                                 GNEPlanCreator* planCreator, const bool centerAfterCreation) {
+GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent,
+                                 GNEAttributesCreator* personPlanAttributes, GNEPlanCreator* planCreator,
+                                 const bool centerAfterCreation) {
     // clear and set person object
     myPlanObject->clear();
     myPlanObject->setTag(personParent->getTagProperty().getTag());
     myPlanObject->addStringAttribute(SUMO_ATTR_ID, personParent->getID());
     // declare personPlan object
     CommonXMLStructure::SumoBaseObject* personPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
-    personPlanObject->setTag(tag);
+
     // get person plan attributes
     personPlanAttributes->getAttributesAndValues(personPlanObject, true);
     // get attributes
@@ -1209,20 +1210,6 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     const std::vector<std::string> modes = personPlanObject->hasStringListAttribute(SUMO_ATTR_MODES) ? personPlanObject->getStringListAttribute(SUMO_ATTR_MODES) : std::vector<std::string>();
     const std::vector<std::string> lines = personPlanObject->hasStringListAttribute(SUMO_ATTR_LINES) ? personPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
     const double arrivalPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : -1;
-    // get stop parameters
-    SUMOVehicleParameter::Stop stopParameters;
-    // fill stops parameters
-    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
-        stopParameters.actType = personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
-        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
-            stopParameters.duration = personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
-            stopParameters.parametersSet |= STOP_DURATION_SET;
-        }
-        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
-            stopParameters.until = personPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
-            stopParameters.parametersSet |= STOP_UNTIL_SET;
-        }
-    }
     // get consecutive edges
     const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
     // get edges
@@ -1242,257 +1229,161 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     GNEAdditional* toTrainStop = planCreator->getToTrainStop();
     // get route
     GNEDemandElement* route = planCreator->getRoute();
-    // check what PersonPlan we're creating
-    switch (tag) {
-        // Person Trips
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
-            // check if person trip busStop->edge can be created
-            if (fromEdge && toEdge) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
+
+/*
+    // get stop parameters
+    SUMOVehicleParameter::Stop stopParameters;
+    // fill stops parameters
+    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
+        stopParameters.actType = personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+            stopParameters.duration = personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
+            stopParameters.parametersSet |= STOP_DURATION_SET;
         }
-        case GNE_TAG_PERSONTRIP_EDGE_TAZ: {
-            // check if person trip busStop->edge can be created
-            if (fromEdge && toTAZ) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+            stopParameters.until = personPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
+            stopParameters.parametersSet |= STOP_UNTIL_SET;
         }
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
-            // check if person trip busStop->busStop can be created
-            if (fromEdge && toBusStop) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP: {
-            // check if person trip trainStop->trainStop can be created
-            if (fromEdge && toTrainStop) {
-                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_TAZ_EDGE: {
-            // check if person trip busStop->edge can be created
-            if (fromTAZ && toEdge) {
-                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_TAZ_TAZ: {
-            // check if person trip busStop->edge can be created
-            if (fromTAZ && toTAZ) {
-                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP: {
-            // check if person trip busStop->busStop can be created
-            if (fromTAZ && toBusStop) {
-                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP: {
-            // check if person trip trainStop->trainStop can be created
-            if (fromTAZ && toTrainStop) {
-                buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION: {
-            // check if person trip busStop->junction can be created
-            if (fromJunction && toJunction) {
-                buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", arrivalPos, types, modes, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        // Walks
-        case GNE_TAG_WALK_EDGE_EDGE: {
-            // check if walk busStop->edge can be created
-            if (fromEdge && toEdge) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_EDGE_TAZ: {
-            // check if walk busStop->edge can be created
-            if (fromEdge && toTAZ) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_EDGE_BUSSTOP: {
-            // check if walk busStop->busStop can be created
-            if (fromEdge && toBusStop) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_EDGE_TRAINSTOP: {
-            // check if walk trainStop->trainStop can be created
-            if (fromEdge && toTrainStop) {
-                buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_TAZ_EDGE: {
-            // check if walk busStop->edge can be created
-            if (fromTAZ && toEdge) {
-                buildWalk(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_TAZ_TAZ: {
-            // check if walk busStop->edge can be created
-            if (fromTAZ && toTAZ) {
-                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_TAZ_BUSSTOP: {
-            // check if walk busStop->busStop can be created
-            if (fromTAZ && toBusStop) {
-                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_TAZ_TRAINSTOP: {
-            // check if walk trainStop->trainStop can be created
-            if (fromTAZ && toTrainStop) {
-                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_JUNCTION_JUNCTION: {
-            // check if walk busStop->junction can be created
-            if (fromJunction && toJunction) {
-                buildWalk(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", {}, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_EDGES: {
-            // check if transport edges can be created
-            if (consecutiveEdges.size() > 0) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", consecutiveEdges, "", arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_WALK_ROUTE: {
-            // check if transport edges can be created
-            if (route) {
-                buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, fromEdge->getID(), arrivalPos);
-            } else {
-                return false;
-            }
-            break;
-        }
-        // Rides
-        case GNE_TAG_RIDE_EDGE_EDGE: {
-            // check if ride edge->edge can be created
-            if (fromEdge && toEdge) {
-                buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", arrivalPos, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
-            // check if ride edge->busStop can be created
-            if (fromEdge && toBusStop) {
-                buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), "", arrivalPos, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_RIDE_EDGE_TRAINSTOP: {
-            // check if ride edge->trainStop can be created
-            if (fromEdge && toTrainStop) {
-                buildRide(personPlanObject, fromEdge->getID(), "", "", toTrainStop->getID(), arrivalPos, lines);
-            } else {
-                return false;
-            }
-            break;
-        }
-        // stops
-        case GNE_TAG_STOPPERSON_EDGE: {
-            // check if ride busStop->busStop can be created
-            if (fromEdge) {
-                stopParameters.edge = fromEdge->getID();
-                stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
-                stopParameters.parametersSet |= STOP_END_SET;
-                buildStop(personPlanObject, stopParameters);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_STOPPERSON_BUSSTOP: {
-            // check if ride busStop->busStop can be created
-            if (toBusStop) {
-                stopParameters.busstop = toBusStop->getID();
-                buildStop(personPlanObject, stopParameters);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_STOPPERSON_TRAINSTOP: {
-            // check if ride trainStop->trainStop can be created
-            if (toTrainStop) {
-                stopParameters.busstop = toTrainStop->getID();
-                buildStop(personPlanObject, stopParameters);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
-                return false;
-            }
-            break;
-        }
-        default:
-            throw InvalidArgument("Invalid person plan tag");
     }
+*/
+    // create plans depending of elements
+    if (consecutiveEdges.size() > 0) {
+        // consecutive edges
+        personPlanObject->setTag(GNE_TAG_WALK_EDGES);
+        buildWalk(personPlanObject, "", "", "", "", "", "", "", "", consecutiveEdges, "", arrivalPos);
+    } else if (route) {
+        // single route
+        personPlanObject->setTag(GNE_TAG_WALK_ROUTE);
+        buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, route->getID(), arrivalPos);
+    } else if (planTemplate->getTagProperty().isWalk()) {
+        if (fromEdge && toEdge) {
+            // walk: edge->edge
+            personPlanObject->setTag(GNE_TAG_WALK_EDGE_EDGE);
+            buildWalk(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
+        } else if (fromEdge && toTAZ) {
+            // walk: edge->TAZ
+            personPlanObject->setTag(GNE_TAG_WALK_EDGE_TAZ);
+            buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
+        } else if (fromEdge && toBusStop) {
+            // walk: edge->busStop
+            personPlanObject->setTag(GNE_TAG_WALK_EDGE_BUSSTOP);
+            buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
+        } else if (fromEdge && toTrainStop) {
+            // walk: edge->trainStop
+            personPlanObject->setTag(GNE_TAG_WALK_EDGE_TRAINSTOP);
+            buildWalk(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
+        } else if (fromTAZ && toEdge) {
+            // walk: TAZ->edge
+            personPlanObject->setTag(GNE_TAG_WALK_TAZ_EDGE);
+            buildWalk(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", {}, "", arrivalPos);
+        } else if (fromTAZ && toTAZ) {
+            // walk: TAZ->TAZ
+            personPlanObject->setTag(GNE_TAG_WALK_TAZ_TAZ);
+            buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", {}, "", arrivalPos);
+        } else if (fromTAZ && toBusStop) {
+            // walk: TAZ->TAZ
+            personPlanObject->setTag(GNE_TAG_WALK_TAZ_BUSSTOP);
+                buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", {}, "", arrivalPos);
+        } else if (fromTAZ && toTrainStop) {
+            // walk: TAZ->trainStop
+            personPlanObject->setTag(GNE_TAG_WALK_TAZ_TRAINSTOP);
+            buildWalk(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), {}, "", arrivalPos);
+        } else if (fromJunction && toJunction) {
+            // walk: junction->junction
+            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_JUNCTION);
+            buildWalk(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", {}, "", arrivalPos);
+        }
+    } else if (planTemplate->getTagProperty().isPersonTrip()) {
+        if (fromEdge && toEdge) {
+            // personTrip: edge->edge
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_EDGE);
+            buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
+        } else if (fromEdge && toTAZ) {
+            // personTrip: edge->TAZ
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_TAZ);
+                buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
+        } else if (fromEdge && toBusStop) {
+            // personTrip: edge->busStop
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP);
+            buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
+        } else if (fromEdge && toTrainStop) {
+            // personTrip: edge->trainStop
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP);
+            buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
+        } else if (fromTAZ && toEdge) {
+            // personTrip: TAZ->edge
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_EDGE);
+            buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", toEdge->getID(), "", "", "", "", arrivalPos, types, modes, lines);
+        } else if (fromTAZ && toTAZ) {
+            // personTrip: TAZ->TAZ
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_TAZ);
+            buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", toTAZ->getID(), "", "", "", arrivalPos, types, modes, lines);
+        } else if (fromTAZ && toBusStop) {
+            // personTrip: TAZ->busStop
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_BUSSTOP);
+            buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", toBusStop->getID(), "", arrivalPos, types, modes, lines);
+        } else if (fromTAZ && toTrainStop) {
+            // personTrip: TAZ->trainStop
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP);
+            buildPersonTrip(personPlanObject, "", fromTAZ->getID(), "", "", "", "", "", toTrainStop->getID(), arrivalPos, types, modes, lines);
+        } else if (fromJunction && toJunction) {
+            // personTrip: TAZ->trainStop
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION);
+            buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), "", "", toJunction->getID(), "", "", arrivalPos, types, modes, lines);
+        }
+    } else if (planTemplate->getTagProperty().isRide()) {
+        if (fromEdge && toEdge) {
+            // ride: edge->edge
+            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_EDGE);
+            buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", arrivalPos, lines);
+        } else if (fromEdge && toBusStop) {
+            // ride: edge->busStop
+            personPlanObject->setTag(GNE_TAG_RIDE_EDGE_BUSSTOP);
+            buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), "", arrivalPos, lines);
+        } else if (fromEdge && toTrainStop) {
+            // ride: edge->trainStop
+            personPlanObject->setTag(GNE_TAG_RIDE_EDGE_TRAINSTOP);
+            buildRide(personPlanObject, fromEdge->getID(), "", toTrainStop->getID(), "", arrivalPos, lines);
+        } 
+    }
+/*
+    // stops
+    case GNE_TAG_STOPPERSON_EDGE: {
+        // check if ride busStop->busStop can be created
+        if (fromEdge) {
+            stopParameters.edge = fromEdge->getID();
+            stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
+            stopParameters.parametersSet |= STOP_END_SET;
+            buildStop(personPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
+            return false;
+        }
+        break;
+    }
+    case GNE_TAG_STOPPERSON_BUSSTOP: {
+        // check if ride busStop->busStop can be created
+        if (toBusStop) {
+            stopParameters.busstop = toBusStop->getID();
+            buildStop(personPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
+            return false;
+        }
+        break;
+    }
+    case GNE_TAG_STOPPERSON_TRAINSTOP: {
+        // check if ride trainStop->trainStop can be created
+        if (toTrainStop) {
+            stopParameters.busstop = toTrainStop->getID();
+            buildStop(personPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
+            return false;
+        }
+        break;
+    }
+*/
     // get person
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
                         personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);

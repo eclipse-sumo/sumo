@@ -266,10 +266,8 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
         return false;
     } else {
         // check if person plan can be created
-        if (myRouteHandler.buildPersonPlan(
-                    myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag(),
-                    myPersonSelector->getCurrentDemandElement(),
-                    myPersonPlanAttributes, myPlanCreator, false)) {
+        if (myRouteHandler.buildPersonPlan(myPlanSelector->getCurrentPlanTemplate(), myPersonSelector->getCurrentDemandElement(),
+                                           myPersonPlanAttributes, myPlanCreator, false)) {
             // refresh GNEElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
