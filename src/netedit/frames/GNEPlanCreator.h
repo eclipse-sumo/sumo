@@ -143,21 +143,6 @@ public:
     /// @brief get path route
     const std::vector<PlanPath>& getPath() const;
 
-    /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
-    bool drawCandidateEdgesWithSpecialColor() const;
-
-    /// @brief update junction colors
-    void updateJunctionColors();
-
-    /// @brief update edge colors
-    void updateEdgeColors();
-
-    /// @brief clear junction colors
-    void clearJunctionColors();
-
-    /// @brief clear edge colors
-    void clearEdgeColors();
-
     /// @brief draw temporal route
     void drawTemporalRoute(const GUIVisualizationSettings& s) const;
 
@@ -186,9 +171,6 @@ public:
 
     /// @brief Called when the user click over button "Remove las inserted edge"
     long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user click over check button "show candidate edges"
-    long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -218,7 +200,7 @@ protected:
     /// @brief update InfoRouteLabel
     void updateInfoRouteLabel();
 
-    /// @brief clear edges (and restore colors)
+    /// @brief clear edges
     void clearPath();
 
     /// @brief recalculate path
@@ -271,15 +253,6 @@ protected:
 
     /// @brief button for removing last inserted element
     FXButton* myRemoveLastInsertedElement;
-
-    /// @brief CheckBox for show candidate edges
-    FXCheckButton* myShowCandidateEdges;
-
-    /// @brief label for shift information
-    FXLabel* myShiftLabel;
-
-    /// @brief label for control information
-    FXLabel* myControlLabel;
 
     /// @brief label for backSpace information
     FXLabel* myBackSpaceLabel;

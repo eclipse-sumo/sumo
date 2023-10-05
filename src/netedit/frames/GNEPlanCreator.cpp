@@ -41,8 +41,7 @@ FXDEFMAP(GNEPlanCreator) PathCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_FINISH,          GNEPlanCreator::onCmdCreatePath),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPlanCreator::onCmdUseLastRoute),
     FXMAPFUNC(SEL_UPDATE,  MID_GNE_PATHCREATOR_USELASTROUTE,    GNEPlanCreator::onUpdUseLastRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_REMOVELAST,      GNEPlanCreator::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_SHOWCANDIDATES,  GNEPlanCreator::onCmdShowCandidateEdges)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_PATHCREATOR_REMOVELAST,      GNEPlanCreator::onCmdRemoveLastElement)
 };
 
 // Object implementation
@@ -162,21 +161,8 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     // create button for remove last inserted edge
     myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last edge"), "", "", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
-    // create check button
-    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), TL("Show candidate edges"), this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);
-    myShowCandidateEdges->setCheck(TRUE);
-    // create shift label
-    myShiftLabel = new FXLabel(this,
-                               "SHIFT-click: ignore vClass",
-                               0, GUIDesignLabelFrameInformation);
-    // create control label
-    myControlLabel = new FXLabel(this,
-                                 "CTRL-click: force add",
-                                 0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
-    myBackSpaceLabel = new FXLabel(this,
-                                   "BACKSPACE: undo click",
-                                   0, GUIDesignLabelFrameInformation);
+    myBackSpaceLabel = new FXLabel(this, "BACKSPACE: undo click", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -197,9 +183,6 @@ GNEPlanCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
     myRemoveLastInsertedElement->disable();
     // show info label
     myInfoRouteLabel->show();
-    myShowCandidateEdges->show();
-    myShiftLabel->show();
-    myControlLabel->show();
     myBackSpaceLabel->show();
     // reset creation mode
     myCreationMode = 0;
@@ -234,9 +217,6 @@ GNEPlanCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             myAbortCreationButton->hide();
             myRemoveLastInsertedElement->hide();
             myInfoRouteLabel->hide();
-            myShowCandidateEdges->hide();
-            myShiftLabel->hide();
-            myControlLabel->hide();
             myBackSpaceLabel->hide();
             break;
         case SUMO_TAG_TRIP:
@@ -376,9 +356,6 @@ GNEPlanCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             showPathCreator = false;
             break;
     }
-    // update colors
-    updateEdgeColors();
-    updateJunctionColors();
     // check if show path creator
     if (showPathCreator) {
         // recalc before show (to avoid graphic problems)
@@ -410,8 +387,6 @@ GNEPlanCreator::getVClass() const {
 void
 GNEPlanCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
-    // update edge colors
-    updateEdgeColors();
 }
 
 
@@ -456,8 +431,6 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // update junction colors
-    updateJunctionColors();
     return true;
 }
 
@@ -539,24 +512,6 @@ GNEPlanCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
         // abort add edge
         return false;
     }
-    // check candidate edge
-    if ((myShowCandidateEdges->getCheck() == TRUE) && !edge->isPossibleCandidate()) {
-        if (edge->isSpecialCandidate()) {
-            if (!shiftKeyPressed) {
-                // Write warning
-                WRITE_WARNING(TL("Invalid edge (SHIFT + click to add an invalid vClass edge)"));
-                // abort add edge
-                return false;
-            }
-        } else if (edge->isConflictedCandidate()) {
-            if (!controlKeyPressed) {
-                // Write warning
-                WRITE_WARNING(TL("Invalid edge (CONTROL + click to add a disconnected edge)"));
-                // abort add edge
-                return false;
-            }
-        }
-    }
     // All checks ok, then add it in selected elements
     mySelectedEdges.push_back(edge);
     // enable abort route button
@@ -575,8 +530,6 @@ GNEPlanCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // update edge colors
-    updateEdgeColors();
     // if is a stop, create inmediately
     if (myCreationMode & STOP) {
         if (createPath(false)) {
@@ -587,8 +540,6 @@ GNEPlanCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
             recalculatePath();
             // update info route label
             updateInfoRouteLabel();
-            // update edge colors
-            updateEdgeColors();
             return false;
         }
     } else {
@@ -660,8 +611,6 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // update stoppingPlace colors
-    updateEdgeColors();
     // if is a stop, create inmediately
     if (myCreationMode & STOP) {
         if (createPath(false)) {
@@ -672,8 +621,6 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
             recalculatePath();
             // update info route label
             updateInfoRouteLabel();
-            // update stoppingPlace colors
-            updateEdgeColors();
             return false;
         }
     } else {
@@ -709,7 +656,6 @@ GNEPlanCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/
     // recalculate path
     recalculatePath();
     updateInfoRouteLabel();
-    updateEdgeColors();
     return true;
 }
 
@@ -723,105 +669,6 @@ GNEPlanCreator::getRoute() const {
 const std::vector<GNEPlanCreator::PlanPath>&
 GNEPlanCreator::getPath() const {
     return myPath;
-}
-
-
-bool
-GNEPlanCreator::drawCandidateEdgesWithSpecialColor() const {
-    return (myShowCandidateEdges->getCheck() == TRUE);
-}
-
-
-void
-GNEPlanCreator::updateJunctionColors() {
-    // clear junction colors
-    clearJunctionColors();
-    // check if show possible candidates
-    if (myCreationMode & SHOW_CANDIDATE_JUNCTIONS) {
-        // set candidate flags
-        for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-            junction.second->resetCandidateFlags();
-            junction.second->setPossibleCandidate(true);
-        }
-    }
-    // set selected junctions
-    if (mySelectedJunctions.size() > 0) {
-        // mark selected eges
-        for (const auto& junction : mySelectedJunctions) {
-            junction->resetCandidateFlags();
-            junction->setSourceCandidate(true);
-        }
-        // finally mark last selected element as target
-        mySelectedJunctions.back()->resetCandidateFlags();
-        mySelectedJunctions.back()->setTargetCandidate(true);
-    }
-    // update view net
-    myFrameParent->getViewNet()->updateViewNet();
-}
-
-
-void
-GNEPlanCreator::updateEdgeColors() {
-    // clear edge colors
-    clearEdgeColors();
-    // first check if show candidate edges
-    if (myShowCandidateEdges->getCheck() == TRUE && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
-        // mark all edges that have at least one lane that allow given vClass
-        for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
-                edge.second->setPossibleCandidate(true);
-            } else {
-                edge.second->setSpecialCandidate(true);
-            }
-        }
-    }
-    // set reachability
-    if (mySelectedEdges.size() > 0) {
-        // only coloring edges if checkbox "show candidate edges" is enabled
-        if ((myShowCandidateEdges->getCheck() == TRUE) && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
-            // mark all edges as conflicted (to mark special candidates)
-            for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->resetCandidateFlags();
-                edge.second->setConflictedCandidate(true);
-            }
-            // set special candidates (Edges that are connected but aren't compatibles with current vClass
-            setSpecialCandidates(mySelectedEdges.back());
-            // mark again all edges as conflicted (to mark possible candidates)
-            for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
-            }
-            // set possible candidates (Edges that are connected AND are compatibles with current vClass
-            setPossibleCandidates(mySelectedEdges.back(), myVClass);
-        }
-        // now mark selected eges
-        for (const auto& edge : mySelectedEdges) {
-            edge->resetCandidateFlags();
-            edge->setSourceCandidate(true);
-        }
-        // finally mark last selected element as target
-        mySelectedEdges.back()->resetCandidateFlags();
-        mySelectedEdges.back()->setTargetCandidate(true);
-    }
-    // update view net
-    myFrameParent->getViewNet()->updateViewNet();
-}
-
-
-void
-GNEPlanCreator::clearJunctionColors() {
-    // reset all junction flags
-    for (const auto& junction : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
-        junction.second->resetCandidateFlags();
-    }
-}
-
-
-void
-GNEPlanCreator::clearEdgeColors() {
-    // reset all junction flags
-    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->resetCandidateFlags();
-    }
 }
 
 
@@ -943,10 +790,6 @@ GNEPlanCreator::abortPathCreation() {
         myRemoveLastInsertedElement->disable();
         // update info route label
         updateInfoRouteLabel();
-        // update junction colors
-        updateJunctionColors();
-        // update edge colors
-        updateEdgeColors();
         // update view (to see the new route)
         myFrameParent->getViewNet()->updateViewNet();
     }
@@ -975,10 +818,6 @@ GNEPlanCreator::removeLastElement() {
         recalculatePath();
         // update info route label
         updateInfoRouteLabel();
-        // update junction colors
-        updateJunctionColors();
-        // update edge colors
-        updateEdgeColors();
         // update view
         myFrameParent->getViewNet()->updateViewNet();
     }
@@ -1023,24 +862,6 @@ GNEPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
 }
 
 
-long
-GNEPlanCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
-    // update labels
-    if (myShowCandidateEdges->getCheck() == TRUE) {
-        myShiftLabel->show();
-        myControlLabel->show();
-    } else {
-        myShiftLabel->hide();
-        myControlLabel->hide();
-    }
-    // recalc frame
-    recalc();
-    // update edge colors (view will be updated within function)
-    updateEdgeColors();
-    return 1;
-}
-
-
 void
 GNEPlanCreator::updateInfoRouteLabel() {
     if (myPath.size() > 0) {
@@ -1072,9 +893,6 @@ GNEPlanCreator::updateInfoRouteLabel() {
 
 void
 GNEPlanCreator::clearPath() {
-    /// reset flags
-    clearJunctionColors();
-    clearEdgeColors();
     // clear junction, TAZs, edges, additionals and route
     mySelectedJunctions.clear();
     mySelectedTAZs.clear();
