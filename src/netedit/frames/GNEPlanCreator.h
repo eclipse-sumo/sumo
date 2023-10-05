@@ -38,17 +38,17 @@ class GNEPlanCreator : public MFXGroupBoxModule {
 
 public:
     /// @brief class for path
-    class Path {
+    class PlanPath {
 
     public:
         /// @brief constructor for single edge
-        Path(const SUMOVehicleClass vClass, GNEEdge* edge);
+        PlanPath(const SUMOVehicleClass vClass, GNEEdge* edge);
 
         /// @brief constructor for two edges
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
 
         /// @brief constructor for two junctions
-        Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;
@@ -83,13 +83,13 @@ public:
 
     private:
         /// @brief default constructor
-        Path();
+        PlanPath();
 
         /// @brief Invalidated copy constructor.
-        Path(Path*) = delete;
+        PlanPath(PlanPath*) = delete;
 
         /// @brief Invalidated assignment operator.
-        Path& operator=(Path*) = delete;
+        PlanPath& operator=(PlanPath*) = delete;
     };
 
     /// @brief default constructor
@@ -141,7 +141,7 @@ public:
     GNEDemandElement* getRoute() const;
 
     /// @brief get path route
-    const std::vector<Path>& getPath() const;
+    const std::vector<PlanPath>& getPath() const;
 
     /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
     bool drawCandidateEdgesWithSpecialColor() const;
@@ -255,7 +255,7 @@ protected:
     GNEDemandElement* myRoute;
 
     /// @brief vector with current path
-    std::vector<Path> myPath;
+    std::vector<PlanPath> myPath;
 
     /// @brief label with route info
     FXLabel* myInfoRouteLabel;

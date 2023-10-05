@@ -53,7 +53,7 @@ FXIMPLEMENT(GNEPlanCreator,                MFXGroupBoxModule,     PathCreatorMap
 // method definitions
 // ===========================================================================
 
-GNEPlanCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
+GNEPlanCreator::PlanPath::PlanPath(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
           myFromBusStop(nullptr),
           myToBusStop(nullptr),
@@ -66,7 +66,7 @@ myConflictDisconnected(false) {
 }
 
 
-GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -86,7 +86,7 @@ GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 }
 
 
-GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
+GNEPlanCreator::PlanPath::PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo) :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -106,34 +106,34 @@ GNEPlanCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, G
 
 
 const std::vector<GNEEdge*>&
-GNEPlanCreator::Path::getSubPath() const {
+GNEPlanCreator::PlanPath::getSubPath() const {
     return mySubPath;
 }
 
 
-GNEAdditional* GNEPlanCreator::Path::getFromBusStop() const {
+GNEAdditional* GNEPlanCreator::PlanPath::getFromBusStop() const {
     return myFromBusStop;
 }
 
 
-GNEAdditional* GNEPlanCreator::Path::getToBusStop() const {
+GNEAdditional* GNEPlanCreator::PlanPath::getToBusStop() const {
     return myToBusStop;
 }
 
 
 bool
-GNEPlanCreator::Path::isConflictVClass() const {
+GNEPlanCreator::PlanPath::isConflictVClass() const {
     return myConflictVClass;
 }
 
 
 bool
-GNEPlanCreator::Path::isConflictDisconnected() const {
+GNEPlanCreator::PlanPath::isConflictDisconnected() const {
     return myConflictDisconnected;
 }
 
 
-GNEPlanCreator::Path::Path() :
+GNEPlanCreator::PlanPath::PlanPath() :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -720,7 +720,7 @@ GNEPlanCreator::getRoute() const {
 }
 
 
-const std::vector<GNEPlanCreator::Path>&
+const std::vector<GNEPlanCreator::PlanPath>&
 GNEPlanCreator::getPath() const {
     return myPath;
 }
@@ -840,7 +840,7 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         // iterate over path
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEPlanCreator::Path& path = myPath.at(i);
+            const GNEPlanCreator::PlanPath& path = myPath.at(i);
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
@@ -862,7 +862,7 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         // iterate over path again
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEPlanCreator::Path& path = myPath.at(i);
+            const GNEPlanCreator::PlanPath& path = myPath.at(i);
             // set path color color
             if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
@@ -1109,14 +1109,14 @@ GNEPlanCreator::recalculatePath() {
     }
     // fill paths
     if (edges.size() == 1) {
-        myPath.push_back(Path(myVClass, edges.front()));
+        myPath.push_back(PlanPath(myVClass, edges.front()));
     } else if (mySelectedJunctions.size() == 2) {
         // add path between two junctions
-        myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
+        myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, mySelectedJunctions.front(), mySelectedJunctions.back()));
     } else {
         // add every segment
         for (int i = 1; i < (int)edges.size(); i++) {
-            myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, edges.at(i - 1), edges.at(i)));
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, edges.at(i - 1), edges.at(i)));
         }
     }
 }
