@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-04 16:19+0000\n"
+"PO-Revision-Date: 2023-10-05 15:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1187,7 +1187,7 @@ msgstr "La cattura è stata salvata con successo!"
 #: C:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:219
 #: C:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:268
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "Codice identificativo sconosciuto in onCmdLocate"
 
 #: D:\Repos\sumo/src\gui\GUISUMOViewParent.cpp:233
 #: D:\Repos\sumo/src\netedit\GNEViewParent.cpp:530
@@ -1635,12 +1635,12 @@ msgstr "Mostra le corsie preferite"
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 msgid "Hide Link Items"
-msgstr ""
+msgstr "Nascondi punti di collegamento"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:379
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:379
 msgid "Show Link Items"
-msgstr ""
+msgstr "Mostri punti di collegamento"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
@@ -1660,7 +1660,7 @@ msgstr "Seleziona utenti in conflitto"
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
-msgstr ""
+msgstr "Seleziona passeggeri e merce"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
@@ -2334,32 +2334,32 @@ msgstr "controllo dell'incrocio"
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "pena semaforo"
 
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 msgid "tls flow penalty"
-msgstr ""
+msgstr "pena flusso al semaforo"
 
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "pena minore"
 
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
-msgstr ""
+msgstr "sorpasso"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "veicoli entrati [-]"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:156
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "lunghezza del veicolo [m]"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
