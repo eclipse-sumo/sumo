@@ -453,17 +453,6 @@ MSVehicleType::check() {
                            toString(getVehicleClass()), getID());
         }
     }
-    if (!myParameter.wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
-        const std::string key = "has.battery.device";
-        const OptionsCont& oc = OptionsCont::getOptions();
-        if (myParameter.knowsParameter(key) || myParameter.getDouble("device.battery.probability", -1.) == 1. || oc.getFloat("device.battery.probability") == 1. ||
-            myParameter.getDouble("device.stationfinder.probability", -1.) == 1. || oc.getFloat("device.stationfinder.probability") == 1.) {
-            if (!oc.getBool("device.battery.track-fuel")) {
-                WRITE_WARNINGF(TL("No emission class but a battery. Setting emission model to Energy for vehicle type '%'."), getID());
-                setEmissionClass(PollutantsInterface::getClassByName("Energy/default"));
-            }
-        }
-    }
 }
 
 void
