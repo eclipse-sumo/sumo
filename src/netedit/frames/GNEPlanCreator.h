@@ -155,11 +155,8 @@ public:
     /// @brief get to container stop
     GNEAdditional* getToContainerStop() const;
 
-    /// @brief get from Route
-    GNEDemandElement* getFromRoute() const;
-
-    /// @brief get to Route
-    GNEDemandElement* getToRoute() const;
+    /// @brief get Route
+    GNEDemandElement* getRoute() const;
 
     /// @brief get path route
     const std::vector<PlanPath>& getPath() const;
@@ -239,8 +236,14 @@ protected:
     /// @brief current creation mode
     int myCreationMode;
 
-    /// @brief vector with selected edges
-    std::vector<GNEEdge*> myEdges;
+    /// @brief vector with consecutive edges
+    std::vector<GNEEdge*> myConsecutiveEdges;
+
+    /// @brief from edge
+    GNEEdge* myFromEdge = nullptr;
+
+    /// @brief to edge
+    GNEEdge* myToEdge = nullptr;
 
     /// @brief from junction
     GNEJunction* myFromJunction = nullptr;
@@ -260,11 +263,11 @@ protected:
     /// @brief to StoppingPlace
     GNEAdditional* myToStoppingPlace = nullptr;
 
-    /// @brief from Route
+    /// @brief from Route (used for connecting plans)
     GNEDemandElement* myFromRoute = nullptr;
 
-    /// @brief to Route
-    GNEDemandElement* myToRoute = nullptr;
+    /// @brief route
+    GNEDemandElement* myRoute = nullptr;
 
     /// @brief vector with current path
     std::vector<PlanPath> myPath;

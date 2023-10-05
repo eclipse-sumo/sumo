@@ -1240,9 +1240,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     // get trainStops
     GNEAdditional* fromTrainStop = planCreator->getFromTrainStop();
     GNEAdditional* toTrainStop = planCreator->getToTrainStop();
-    // get routes
-    GNEDemandElement* fromRoute = planCreator->getFromRoute();
-    GNEDemandElement* toRoute = planCreator->getToRoute();
+    // get route
+    GNEDemandElement* route = planCreator->getRoute();
     // check what PersonPlan we're creating
     switch (tag) {
         // Person Trips
@@ -1420,7 +1419,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
         case GNE_TAG_WALK_ROUTE: {
             // check if transport edges can be created
-            if (fromRoute) {
+            if (route) {
                 buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, fromEdge->getID(), arrivalPos);
             } else {
                 return false;
