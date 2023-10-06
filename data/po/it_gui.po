@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 11:47+0000\n"
+"PO-Revision-Date: 2023-10-06 15:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2374,12 +2374,12 @@ msgstr "tempo occupato [s]"
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "veicoli entrati nell'intervallo attuale [#]"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:168
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "veicoli entrati nell'intervallo precedente [#]"
 
 #: D:\Repos\sumo/src\guisim\GUIJunctionWrapper.cpp:114
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1028
@@ -2388,57 +2388,57 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1028
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:241
 msgid "type"
-msgstr ""
+msgstr "tipo"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:964
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:964
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Copia il nome dell'arco negli appunti"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:972
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "pos: "
-msgstr ""
+msgstr "posizione: "
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:972
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:972
 msgid "height: "
-msgstr ""
+msgstr "altezza: "
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:981
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:981
 msgid "Reopen lane"
-msgstr ""
+msgstr "Riapri corsia"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:982
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:982
 msgid "Reopen edge"
-msgstr ""
+msgstr "Riapri arco"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:984
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:984
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "Riapri corsia (ignora rerouter)"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:985
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:985
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "Riapri arco (ignore rerouter)"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:988
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:988
 msgid "Close lane"
-msgstr ""
+msgstr "Chiudi corsia"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:989
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:989
 msgid "Close edge"
-msgstr ""
+msgstr "Chiudi arco"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:991
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:991
 msgid "Add rerouter"
-msgstr ""
+msgstr "Aggiungi rerouter"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:996
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2114
@@ -2446,34 +2446,34 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2114
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2063
 msgid "Select reachable"
-msgstr ""
+msgstr "Seleziona accessibili/e"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1009
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "limite di velocità [m/s]"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1017
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:222
 msgid "width [m]"
-msgstr ""
+msgstr "larghezza [m]"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1019
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1019
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "tempo di percorrenza accumulato [s]"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1020
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1020
 msgid "loaded weight"
-msgstr ""
+msgstr "peso caricato"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1022
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1022
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "coefficiente di attrito della corsia [%]"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1025
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
