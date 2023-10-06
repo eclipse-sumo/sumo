@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 09:08+0000\n"
+"PO-Revision-Date: 2023-10-06 09:57+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1201,11 +1201,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 msgid "Start Tracking"
-msgstr ""
+msgstr "Iniciar seguimiento"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:385
 msgid "Stop Tracking"
-msgstr ""
+msgstr "Detener seguimiento"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:387
 msgid "Select Foes"
@@ -1217,7 +1217,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 msgid "Abort stop"
-msgstr ""
+msgstr "Abortar parada"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:391
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
@@ -1653,7 +1653,7 @@ msgstr "ocupación bruta del segmento [%]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:203
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "velocidad media del vehículo en el segmento [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:204
 msgid "segment flow [veh/h/lane]"
@@ -1661,11 +1661,11 @@ msgstr "flujo del segmento [veh/h/carril]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:205
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "vehículos en el segmento [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:206
 msgid "segment leader leave time"
-msgstr ""
+msgstr "tiempo de salida del líder del segmento"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:207
 msgid "segment headway [s]"
@@ -1701,11 +1701,11 @@ msgstr "taujj"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:232
 msgid "jam threshold"
-msgstr ""
+msgstr "umbral del atasco"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:233
 msgid "junction control"
-msgstr ""
+msgstr "control de cruce"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
@@ -2064,11 +2064,11 @@ msgstr "velocidad máxima deseada [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "Cambiar a '%'"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "Apagar"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
@@ -2076,31 +2076,31 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
-msgstr ""
+msgstr "Mostrar fases"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Hide Detectors"
-msgstr ""
+msgstr "Ocultar detectores"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Show Detectors"
-msgstr ""
+msgstr "Mostrar detectores"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:202
 msgid "Phase: %"
-msgstr ""
+msgstr "Fase: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:205
 msgid "Phase name: %"
-msgstr ""
+msgstr "Nombre de la fase: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
-msgstr ""
+msgstr "tlLogic [id]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:242
 msgid "program"
@@ -2344,7 +2344,7 @@ msgstr "altura [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:224
 msgid "minGap [m]"
-msgstr ""
+msgstr "brecha mínima [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:225
 msgid "vehicle class"
