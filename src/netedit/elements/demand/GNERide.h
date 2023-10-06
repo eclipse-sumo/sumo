@@ -43,14 +43,17 @@ public:
      * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
      * @param[in] toEdge to edge
      * @param[in] toBusStop to busStop
      * @param[in] toTrainStop to trainStop
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] lines list of lines
      */
-    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
+        GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+        GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief default constructor

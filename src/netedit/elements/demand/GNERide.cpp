@@ -32,7 +32,8 @@
 // ===========================================================================
 
 GNERide*
-GNERide::buildRide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
+GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
+        GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
         GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, const std::vector<std::string>& lines) {
     // declare icon an tag

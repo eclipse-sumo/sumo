@@ -662,7 +662,8 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     if (personParent) {
         // build person trip
         GNEDemandElement* personTrip = GNEPersonTrip::buildPersonTrip(myNet, personParent, 
-            fromEdge, fromTAZ, fromJunction, toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
+            fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
+            toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
             arrivalPos, types, modes, lines);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
@@ -680,17 +681,23 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             if (fromTAZ) {
                 fromTAZ->addChildElement(personTrip);
             }
-            if (toEdge) {
-                toEdge->addChildElement(personTrip);
-            }
             if (fromJunction) {
                 fromJunction->addChildElement(personTrip);
             }
-            if (toJunction) {
-                toJunction->addChildElement(personTrip);
+            if (fromBusStop) {
+                fromBusStop->addChildElement(personTrip);
+            }
+            if (fromTrainStop) {
+                fromTrainStop->addChildElement(personTrip);
+            }
+            if (toEdge) {
+                toEdge->addChildElement(personTrip);
             }
             if (toTAZ) {
                 toTAZ->addChildElement(personTrip);
+            }
+            if (toJunction) {
+                toJunction->addChildElement(personTrip);
             }
             if (toBusStop) {
                 toBusStop->addChildElement(personTrip);
@@ -723,13 +730,13 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
     GNEAdditional* fromTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, fromTrainStopID, false);
     GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
+    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
+    std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // chek if we're parsing the train stop as a busStop
     if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
         toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
         toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
     }
-    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
-    std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
     // check from edge
@@ -748,7 +755,8 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     if (personParent) {
         // build person trip
         GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent, 
-            fromEdge, fromTAZ, fromJunction, toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
+            fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
+            toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
             arrivalPos, edges, route);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
@@ -766,17 +774,23 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             if (fromTAZ) {
                 fromTAZ->addChildElement(walk);
             }
-            if (toEdge) {
-                toEdge->addChildElement(walk);
-            }
             if (fromJunction) {
                 fromJunction->addChildElement(walk);
             }
-            if (toJunction) {
-                toJunction->addChildElement(walk);
+            if (fromBusStop) {
+                fromBusStop->addChildElement(walk);
+            }
+            if (fromTrainStop) {
+                fromTrainStop->addChildElement(walk);
+            }
+            if (toEdge) {
+                toEdge->addChildElement(walk);
             }
             if (toTAZ) {
                 toTAZ->addChildElement(walk);
+            }
+            if (toJunction) {
+                toJunction->addChildElement(walk);
             }
             if (toBusStop) {
                 toBusStop->addChildElement(walk);
@@ -823,30 +837,33 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     // check conditions
     if (personParent) {
         // build ride
-        GNEDemandElement* personTrip = GNERide::buildRide(myNet, personParent, fromEdge, toEdge, toBusStop, toTrainStop, arrivalPos, lines);
-        // continue depending of undo.redo
+        GNEDemandElement* ride = GNERide::buildRide(myNet, personParent,
+            fromEdge, fromBusStop, fromTrainStop,
+            toEdge, toBusStop, toTrainStop,
+            arrivalPos, lines);
+        // continue depending of undo-redo
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
+            myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
             overwriteDemandElement();
-            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            myNet->getAttributeCarriers()->insertDemandElement(personTrip);
+            myNet->getAttributeCarriers()->insertDemandElement(ride);
             // set child references
-            personParent->addChildElement(personTrip);
+            personParent->addChildElement(ride);
             if (fromEdge) {
-                fromEdge->addChildElement(personTrip);
+                fromEdge->addChildElement(ride);
             }
             if (toEdge) {
-                toEdge->addChildElement(personTrip);
+                toEdge->addChildElement(ride);
             }
             if (toBusStop) {
-                toBusStop->addChildElement(personTrip);
+                toBusStop->addChildElement(ride);
             }
             if (toTrainStop) {
-                toTrainStop->addChildElement(personTrip);
+                toTrainStop->addChildElement(ride);
             }
-            personTrip->incRef("buildRide");
+            ride->incRef("buildRide");
         }
     }
 }
@@ -1265,7 +1282,10 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     } else if (route) {
         // single route
         personPlanObject->setTag(GNE_TAG_WALK_ROUTE);
-        buildWalk(personPlanObject, "", "", "", "", "", "", "", "", {}, route->getID(), arrivalPos);
+        buildWalk(personPlanObject,
+                  "", "", "", "", "", 
+                  "", "", "", "", "",
+                  {}, route->getID(), arrivalPos);
     } else if (planTemplate->getTagProperty().isWalk()) {
         // from edges
         if (fromEdge && toEdge) {
@@ -1456,7 +1476,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
             buildPersonTrip(personPlanObject,
                             fromEdge->getID(), "", "", "", "",
                             toEdge->getID(), "", "", "", "",
-                            {}, "", arrivalPos);
+                            arrivalPos, types, modes, lines);
         } else if (fromEdge && toTAZ) {
             // personTrip: edge->TAZ
             personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_TAZ);

@@ -33,7 +33,7 @@
 
 GNEPersonTrip*
 GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction,
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
         GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
         const std::vector<std::string>& lines) {

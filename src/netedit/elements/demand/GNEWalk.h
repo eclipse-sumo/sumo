@@ -45,6 +45,8 @@ public:
      * @param[in] fromEdge from edge
      * @param[in] fromTAZ from TAZ
      * @param[in] fromJunction from Junction
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
      * @param[in] toEdge to edge
      * @param[in] toTAZ to TAZ
      * @param[in] toJunction to Junction
@@ -55,7 +57,7 @@ public:
      * @param[in] route route
      */
     static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction,
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
         GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route);
 
