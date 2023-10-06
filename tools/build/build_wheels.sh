@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,13 +18,24 @@
 
 # If we are behind a firewall we cannot install from the CentOS repos but we can use pip via the proxy
 if test $# -ge 1; then
-  export HTTPS_PROXY=$1
+    export HTTPS_PROXY=$1
 fi
 if test -z $HTTPS_PROXY; then
     yum install -y epel-release
     yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
     yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
     pipx install -f patchelf==0.16.1.0  # see https://github.com/pypa/manylinux/issues/1421
+fi
+
+if test $# -ge 2; then
+    mkdir /github
+    cd /github
+    git clone https://github.com/PedestrianDynamics/jupedsim -b $2 --depth 1
+    mkdir jupedsim-build jupedsim-install
+    cd jupedsim-build
+    cmake -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
+    cmake --build . -j$(nproc)
+    cmake --install .
 fi
 
 mkdir -p $HOME/.ccache
