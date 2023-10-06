@@ -157,8 +157,7 @@ MSBaseVehicle::~MSBaseVehicle() {
 
 void
 MSBaseVehicle::checkRouteRemoval() {
-    if (myParameter->repetitionNumber == -1
-            || !MSNet::getInstance()->hasFlow(getFlowID())) {
+    if (!MSNet::getInstance()->hasFlow(getFlowID())) {
         myRoute->checkRemoval();
     }
 }
