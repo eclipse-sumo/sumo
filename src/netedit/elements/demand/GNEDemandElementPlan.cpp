@@ -224,6 +224,10 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
                 device.writeAttr(SUMO_ATTR_FROM_TAZ, myPlanElement->getParentAdditionals().front()->getID());
             } else if (tagProperty.planFromJunction()) {
                 device.writeAttr(SUMO_ATTR_FROM_JUNCTION, myPlanElement->getParentJunctions().front()->getID());
+            } else if (tagProperty.planFromBusStop()) {
+                device.writeAttr(SUMO_ATTR_FROM_BUSSTOP, myPlanElement->getParentAdditionals().front()->getID());
+            } else if (tagProperty.planFromTrainStop()) {
+                device.writeAttr(SUMO_ATTR_FROM_TRAINSTOP, myPlanElement->getParentAdditionals().front()->getID());
             }
         }
         // continue writting to attribute
@@ -463,33 +467,30 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myArrivalPosition);
             }
-        // edges
+        // from
         case SUMO_ATTR_FROM:
             return myPlanElement->getParentEdges().front()->getID();
-        case SUMO_ATTR_TO:
-            return myPlanElement->getParentEdges().back()->getID();
-        case SUMO_ATTR_EDGES:
-            return myPlanElement->parseIDs(myPlanElement->getParentEdges());
-        // junctions
         case SUMO_ATTR_FROM_JUNCTION:
             return myPlanElement->getParentJunctions().front()->getID();
+        case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_FROM_BUSSTOP:
+        case SUMO_ATTR_FROM_TRAINSTOP:
+            return myPlanElement->getParentAdditionals().front()->getID();
+        // to
+        case SUMO_ATTR_TO:
+            return myPlanElement->getParentEdges().back()->getID();
         case SUMO_ATTR_TO_JUNCTION:
             return myPlanElement->getParentJunctions().back()->getID();
-        // additionals
-        case SUMO_ATTR_FROM_TAZ:
-            return myPlanElement->getParentAdditionals().front()->getID();
+        case SUMO_ATTR_TO_TAZ:
         case GNE_ATTR_TO_BUSSTOP:
         case GNE_ATTR_TO_TRAINSTOP:
-        case SUMO_ATTR_TO_TAZ:
             return myPlanElement->getParentAdditionals().back()->getID();
+        // edges
+        case SUMO_ATTR_EDGES:
+            return myPlanElement->parseIDs(myPlanElement->getParentEdges());
         // route
         case SUMO_ATTR_ROUTE:
-            // get route parent
-            if (myPlanElement->isTemplate()) {
-                return "";
-            } else {
-                return myPlanElement->getParentDemandElements().at(1)->getID();
-            }
+            return myPlanElement->getParentDemandElements().at(1)->getID();
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -675,18 +676,20 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
 bool
 GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
-        // edges
+        // from
         case SUMO_ATTR_FROM:
-        case SUMO_ATTR_TO:
-        case SUMO_ATTR_EDGES:
-        // junctions
         case SUMO_ATTR_FROM_JUNCTION:
-        case SUMO_ATTR_TO_JUNCTION:
-        // additionals
         case SUMO_ATTR_FROM_TAZ:
+        case SUMO_ATTR_FROM_BUSSTOP:
+        case SUMO_ATTR_FROM_TRAINSTOP:
+        // to
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_TO_JUNCTION:
+        case SUMO_ATTR_TO_TAZ:
         case GNE_ATTR_TO_BUSSTOP:
         case GNE_ATTR_TO_TRAINSTOP:
-        case SUMO_ATTR_TO_TAZ:
+        // edges
+         case SUMO_ATTR_EDGES:
         // route
         case SUMO_ATTR_ROUTE:
             return false;
