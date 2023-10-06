@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-05 15:53+0000\n"
+"PO-Revision-Date: 2023-10-06 09:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -194,7 +194,7 @@ msgstr "Chiude l'applicazione."
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1377
 msgid "&Edit"
-msgstr "Modificare"
+msgstr "Modifi&ca"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
@@ -325,7 +325,7 @@ msgstr "(Dis)attiva il modo schermo intero."
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:532
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1413
 msgid "&Locate"
-msgstr "&localizza"
+msgstr "&Localizza"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
@@ -5600,7 +5600,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2172
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2188
 msgid "Hotkeys"
-msgstr ""
+msgstr "Scorciatoie"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2174
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2174
@@ -22628,7 +22628,7 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 msgid "Langua&ge"
-msgstr "Lingua"
+msgstr "&Lingua"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
