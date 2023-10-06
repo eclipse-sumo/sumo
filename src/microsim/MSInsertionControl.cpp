@@ -61,8 +61,8 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 
 MSInsertionControl::~MSInsertionControl() {
-    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete (i->pars);
+    for (const Flow& f : myFlows) {
+        delete (f.pars);
     }
 }
 
@@ -75,23 +75,19 @@ MSInsertionControl::add(SUMOVehicle* veh) {
 
 bool
 MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
-    const bool loadingFromState = index >= 0;
     if (myFlowIDs.count(pars->id) > 0) {
         return false;
-    } else {
-        Flow flow;
-        flow.pars = pars;
-        flow.index = loadingFromState ? index : 0;
-        flow.scale = initScale(pars->vtypeid);
-        if (!loadingFromState && pars->repetitionProbability < 0 && pars->repetitionOffset < 0) {
-            // init poisson flow (but only the timing)
-            flow.pars->incrementFlow(flow.scale, &myFlowRNG);
-            flow.pars->repetitionsDone--;
-        }
-        myFlows.push_back(flow);
-        myFlowIDs.insert(pars->id);
-        return true;
     }
+    const bool loadingFromState = index >= 0;
+    Flow flow{pars, loadingFromState ? index : 0, initScale(pars->vtypeid)};
+    if (!loadingFromState && pars->repetitionProbability < 0 && pars->repetitionOffset < 0) {
+        // init poisson flow (but only the timing)
+        flow.pars->incrementFlow(flow.scale, &myFlowRNG);
+        flow.pars->repetitionsDone--;
+    }
+    myFlows.emplace_back(flow);
+    myFlowIDs.insert(pars->id);
+    return true;
 }
 
 
@@ -119,9 +115,9 @@ MSInsertionControl::initScale(const std::string vtypeid) {
 
 void
 MSInsertionControl::updateScale(const std::string vtypeid) {
-    for (std::vector<Flow>::iterator it = myFlows.begin(); it != myFlows.end(); ++it) {
-        if (it->pars->vtypeid == vtypeid) {
-            it->scale = initScale(vtypeid);
+    for (Flow& f : myFlows) {
+        if (f.pars->vtypeid == vtypeid) {
+            f.scale = initScale(vtypeid);
         }
     }
 }
@@ -410,10 +406,11 @@ MSInsertionControl::saveState(OutputDevice& out) {
     }
 }
 
+
 void
 MSInsertionControl::clearState() {
-    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete (i->pars);
+    for (const Flow& f : myFlows) {
+        delete (f.pars);
     }
     myFlows.clear();
     myFlowIDs.clear();
