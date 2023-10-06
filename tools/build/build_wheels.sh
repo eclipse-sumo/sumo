@@ -28,19 +28,19 @@ if test -z $HTTPS_PROXY; then
 fi
 
 if test $# -ge 2; then
-    mkdir /github
-    cd /github
+    pushd ..
     git clone https://github.com/PedestrianDynamics/jupedsim -b $2 --depth 1
     mkdir jupedsim-build jupedsim-install
     cd jupedsim-build
     cmake -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
     cmake --build . -j$(nproc)
     cmake --install .
+    popd
 fi
 
 mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
-echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
+echo "base_dir = $PWD/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
 cp build/pyproject.toml .
 py=/opt/python/cp38-cp38
 $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
@@ -51,7 +51,7 @@ cp -a data tools/libsumo
 for py in /opt/python/cp3[1789]*; do
     rm dist/*.whl
     pminor=`echo $py | sed 's,/opt/python/cp3,,;s/-.*//'`
-    echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.${pminor}" >> $HOME/.ccache/ccache.conf
+    echo "base_dir = $PWD/_skbuild/linux-x86_64-3.${pminor}" >> $HOME/.ccache/ccache.conf
     $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
     $py/bin/python -m build --wheel
     $py/bin/python tools/build/version.py tools/build/setup-libsumo.py tools/setup.py

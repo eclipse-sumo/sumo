@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -128,9 +128,10 @@ if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Ma
   fi
 fi
 
-if test ${FILEPREFIX: -2} == "M1" -o ${FILEPREFIX} == "gcc4_64"; then
-  WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
-  rm -rf dist dist_native _skbuild wheelhouse
+WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
+rm -rf dist dist_native _skbuild wheelhouse
+# native macOS M1 wheels and Linux ARM
+if test ${FILEPREFIX: -2} == "M1"; then
   cp build/pyproject.toml .
   python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
   python3 -m build --wheel > $WHEELLOG 2>&1
@@ -140,9 +141,10 @@ if test ${FILEPREFIX: -2} == "M1" -o ${FILEPREFIX} == "gcc4_64"; then
   # the credentials are in ~/.pypirc
   twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
-fi
-# macOS M1 wheels
-if test ${FILEPREFIX: -2} == "M1"; then
-  docker run --rm -v $PWD:/github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
   twine upload --skip-existing -r testpypi wheelhouse/*
+fi
+# Linux x64 wheels
+if test ${FILEPREFIX} == "gcc4_64"; then
+  docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_x64 tools/build/build_wheels.sh $HTTPS_PROXY v0.13.0 >> $WHEELLOG 2>&1
 fi
