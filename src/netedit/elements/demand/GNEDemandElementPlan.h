@@ -43,8 +43,8 @@ class GNEDemandElementPlan {
 
 public:
     /// @brief get the personTrip tag and icon for the combination 
-    static std::pair<SumoXMLTag, GUIIcon> getTagIconWalk(const std::vector<std::string> &consecutiveEdges,
-        const GNERoute* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdges,
+        const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
         const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);

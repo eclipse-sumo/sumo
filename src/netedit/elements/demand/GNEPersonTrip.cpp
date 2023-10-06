@@ -38,8 +38,8 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
         const std::vector<std::string>& lines) {
     // declare icon an tag
-    SumoXMLTag tag = SUMO_TAG_NOTHING;
-    GUIIcon icon = GUIIcon::PERSON;
+    const auto iconTag = getTagIconPersonTrip(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+                                              fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
     std::vector<GNEJunction*> junctions;
     std::vector<GNEEdge*> edges;
@@ -47,56 +47,27 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
     // continue depending of input parameters
     if (fromEdge) {
         edges.push_back(fromEdge);
-        if (toEdge) {
-            edges.push_back(toEdge);
-            tag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
-            icon = GUIIcon::PERSONTRIP_EDGE;
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-            tag = GNE_TAG_PERSONTRIP_EDGE_TAZ;
-            icon = GUIIcon::PERSONTRIP_TAZ;
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-            tag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
-            icon = GUIIcon::PERSONTRIP_BUSSTOP;
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-            tag = GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP;
-            icon = GUIIcon::PERSONTRIP_TRAINSTOP;
-        }
     } else if (fromTAZ) {
         additionals.push_back(fromTAZ);
-        if (toEdge) {
-            edges.push_back(toEdge);
-            tag = GNE_TAG_PERSONTRIP_TAZ_EDGE;
-            icon = GUIIcon::PERSONTRIP_EDGE;
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-            tag = GNE_TAG_PERSONTRIP_TAZ_TAZ;
-            icon = GUIIcon::PERSONTRIP_TAZ;
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-            tag = GNE_TAG_PERSONTRIP_TAZ_BUSSTOP;
-            icon = GUIIcon::PERSONTRIP_BUSSTOP;
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-            tag = GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP;
-            icon = GUIIcon::PERSONTRIP_TRAINSTOP;
-        }
     } else if (fromJunction) {
         junctions.push_back(fromJunction);
-        if (toJunction) {
-            junctions.push_back(toJunction);
-            tag = GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
-            icon = GUIIcon::PERSONTRIP_JUNCTION;
-        }
+    } else if (fromBusStop) {
+        additionals.push_back(fromBusStop);
+    } else if (fromTrainStop) {
+        additionals.push_back(fromTrainStop);
     }
-    // check if combination was correct
-    if (tag == SUMO_TAG_NOTHING) {
-        throw ProcessError("Invalid personTrip input combination");
-    } else {
-        return new GNEPersonTrip(net, tag, icon, personParent, junctions, edges, additionals,arrivalPosition, types, modes, lines);
+    if (toEdge) {
+        edges.push_back(toEdge);
+    } else if (toTAZ) {
+        additionals.push_back(toTAZ);
+    } else if (toJunction) {
+        junctions.push_back(toJunction);
+    } else if (toBusStop) {
+        additionals.push_back(toBusStop);
+    } else if (toTrainStop) {
+        additionals.push_back(toTrainStop);
     }
+    return new GNEPersonTrip(net, iconTag.first, iconTag.second, personParent, junctions, edges, additionals,arrivalPosition, types, modes, lines);
 }
 
 

@@ -37,34 +37,27 @@ GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, const std::vector<std::string>& lines) {
     // declare icon an tag
-    SumoXMLTag tag = SUMO_TAG_NOTHING;
-    GUIIcon icon = GUIIcon::PERSON;
+    const auto iconTag = getTagIconRide(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
+    std::vector<GNEJunction*> junctions;
     std::vector<GNEEdge*> edges;
     std::vector<GNEAdditional*> additionals;
     // continue depending of input parameters
     if (fromEdge) {
         edges.push_back(fromEdge);
-        if (toEdge) {
-            edges.push_back(toEdge);
-            tag = GNE_TAG_RIDE_EDGE_EDGE;
-            icon = GUIIcon::RIDE_EDGE;
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-            tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
-            icon = GUIIcon::RIDE_BUSSTOP;
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-            tag = GNE_TAG_RIDE_EDGE_TRAINSTOP;
-            icon = GUIIcon::RIDE_TRAINSTOP;
-        }
+    } else if (fromBusStop) {
+        additionals.push_back(fromBusStop);
+    } else if (fromTrainStop) {
+        additionals.push_back(fromTrainStop);
     }
-    // check if combination was correct
-    if (tag == SUMO_TAG_NOTHING) {
-        throw ProcessError("Invalid personTrip input combination");
-    } else {
-        return new GNERide(net, tag, icon, personParent, edges, additionals,arrivalPosition, lines);
+    if (toEdge) {
+        edges.push_back(toEdge);
+    } else if (toBusStop) {
+        additionals.push_back(toBusStop);
+    } else if (toTrainStop) {
+        additionals.push_back(toTrainStop);
     }
+    return new GNERide(net, iconTag.first, iconTag.second, personParent, edges, additionals,arrivalPosition, lines);
 }
 
 

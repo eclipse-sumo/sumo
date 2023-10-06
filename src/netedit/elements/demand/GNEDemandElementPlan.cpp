@@ -40,8 +40,8 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // ===========================================================================
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconWalk(const std::vector<std::string> &consecutiveEdges,
-        const GNERoute* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+GNEDemandElementPlan::getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdges,
+        const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
         const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {

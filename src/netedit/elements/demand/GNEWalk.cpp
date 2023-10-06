@@ -39,8 +39,8 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route) {
     // declare icon an tag
-    SumoXMLTag tag = SUMO_TAG_NOTHING;
-    GUIIcon icon = GUIIcon::PERSON;
+    const auto iconTag = getTagIconWalk(edgeList, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+                                        fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
     std::vector<GNEDemandElement*> demandElements = {personParent};
     std::vector<GNEJunction*> junctions;
@@ -49,64 +49,33 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
     // continue depending of input parameters
     if (edgeList.size() > 0) {
         edges = edgeList;
-        tag = GNE_TAG_WALK_EDGES;
-        icon = GUIIcon::WALK_EDGES;
     } else if (route) {
         demandElements.push_back(route);
-        tag = GNE_TAG_WALK_ROUTE;
-        icon = GUIIcon::WALK_ROUTE;
-    } else if (fromEdge) {
-        edges.push_back(fromEdge);
-        if (toEdge) {
-            edges.push_back(toEdge);
-            tag = GNE_TAG_WALK_EDGE_EDGE;
-            icon = GUIIcon::WALK_EDGE;
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-            tag = GNE_TAG_WALK_EDGE_TAZ;
-            icon = GUIIcon::WALK_TAZ;
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-            tag = GNE_TAG_WALK_EDGE_BUSSTOP;
-            icon = GUIIcon::WALK_BUSSTOP;
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-            tag = GNE_TAG_WALK_EDGE_TRAINSTOP;
-            icon = GUIIcon::WALK_TRAINSTOP;
-        }
-    } else if (fromTAZ) {
-        additionals.push_back(fromTAZ);
-        if (toEdge) {
-            edges.push_back(toEdge);
-            tag = GNE_TAG_WALK_TAZ_EDGE;
-            icon = GUIIcon::WALK_EDGE;
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-            tag = GNE_TAG_WALK_TAZ_TAZ;
-            icon = GUIIcon::WALK_TAZ;
-        } else if (toBusStop) {
-            additionals.push_back(toBusStop);
-            tag = GNE_TAG_WALK_TAZ_BUSSTOP;
-            icon = GUIIcon::WALK_BUSSTOP;
-        } else if (toTrainStop) {
-            additionals.push_back(toTrainStop);
-            tag = GNE_TAG_WALK_TAZ_TRAINSTOP;
-            icon = GUIIcon::WALK_TRAINSTOP;
-        }
-    } else if (fromJunction) {
-        junctions.push_back(fromJunction);
-        if (toJunction) {
-            junctions.push_back(toJunction);
-            tag = GNE_TAG_WALK_JUNCTION_JUNCTION;
-            icon = GUIIcon::WALK_JUNCTION;
-        }
-    }
-    // check if combination was correct
-    if (tag == SUMO_TAG_NOTHING) {
-        throw ProcessError("Invalid walk input combination");
     } else {
-        return new GNEWalk(net, tag, icon, demandElements, junctions, edges, additionals,arrivalPosition);
+        if (fromEdge) {
+            edges.push_back(fromEdge);
+        } else if (fromTAZ) {
+            additionals.push_back(fromTAZ);
+        } else if (fromJunction) {
+            junctions.push_back(fromJunction);
+        } else if (fromBusStop) {
+            additionals.push_back(fromBusStop);
+        } else if (fromTrainStop) {
+            additionals.push_back(fromTrainStop);
+        }
+        if (toEdge) {
+            edges.push_back(toEdge);
+        } else if (toTAZ) {
+            additionals.push_back(toTAZ);
+        } else if (toJunction) {
+            junctions.push_back(toJunction);
+        } else if (toBusStop) {
+            additionals.push_back(toBusStop);
+        } else if (toTrainStop) {
+            additionals.push_back(toTrainStop);
+        }
     }
+    return new GNEWalk(net, iconTag.first, iconTag.second, demandElements, junctions, edges, additionals,arrivalPosition);
 }
 
 
