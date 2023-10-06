@@ -181,12 +181,8 @@ void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
     if (myPlanSelector->getCurrentPlanTemplate()) {
-        // get ACs
-        const auto &ACs = myViewNet->getNet()->getAttributeCarriers();
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
-        // get previous container plan element
-        const auto previousElement = myPersonSelector->getPreviousPlanElement();
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode
