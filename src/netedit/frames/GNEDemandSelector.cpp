@@ -213,36 +213,19 @@ DemandElementSelector::refreshDemandElementSelector() {
 }
 
 
-GNEAttributeCarrier*
+GNEDemandElement*
 DemandElementSelector::getPreviousPlanElement() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
-    if (!myCurrentDemandElement->getTagProperty().isPerson()) {
+    if (!myCurrentDemandElement->getTagProperty().isPerson() &&
+        !myCurrentDemandElement->getTagProperty().isContainer()) {
         return nullptr;
     }
     if (myCurrentDemandElement->getChildDemandElements().empty()) {
         return nullptr;
     }
-    // get last person plan
-    const GNEDemandElement* lastPlan = myCurrentDemandElement->getChildDemandElements().back();
-    // continue depending of tagProperty
-    if (lastPlan->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
-        // route
-        return lastPlan->getParentDemandElements().back()->getParentEdges().back();
-    } else if (lastPlan->getTagProperty().planToEdge() ||
-        lastPlan->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-        // edge
-        return lastPlan->getParentEdges().back();
-    } else if (lastPlan->getTagProperty().planToJunction()) {
-        // junction
-        return lastPlan->getParentJunctions().back();
-    } else if (lastPlan->getTagProperty().planToStoppingPlace() || lastPlan->getTagProperty().planToTAZ()) {
-        // additional
-        return lastPlan->getParentAdditionals().back();
-    } else {
-        return nullptr;
-    }
+    return myCurrentDemandElement->getChildDemandElements().back();
 }
 
 

@@ -87,7 +87,7 @@ public:
     ~GNEPlanCreator();
 
     /// @brief show plan creator for the given tag property
-    void showPlanCreatorModule(const GNEPlanSelector* planSelector, const bool firstElement);
+    void showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement *previousPlan);
 
     /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
@@ -196,19 +196,18 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        REQUIRE_FIRSTELEMENT    = 1 << 0,   // Plan requiere first element
-        CONSECUTIVE_EDGES       = 1 << 1,   // Plan requiere consecutive edges
-        ROUTE                   = 1 << 2,   // Plan uses a route
-        START_EDGE              = 1 << 3,   // Plan begins in edge
-        END_EDGE                = 1 << 4,   // Plan ends in edge
-        START_JUNCTION          = 1 << 5,   // Plan begins in junction
-        END_JUNCTION            = 1 << 6,   // Plan ends in junction
-        START_TAZ               = 1 << 7,   // Plan begins in TAZ
-        END_TAZ                 = 1 << 8,   // Plan ends in TAZ
-        START_BUSSTOP           = 1 << 9,   // Plan begins in busStop
-        END_BUSSTOP             = 1 << 10,  // Plan ends in busStop
-        START_TRAINSTOP         = 1 << 11,  // Plan begins in trainStop
-        END_TRAINSTOP           = 1 << 12,  // Plan ends in trainStop
+        CONSECUTIVE_EDGES       = 1 << 0,   // Plan requiere consecutive edges
+        ROUTE                   = 1 << 1,   // Plan uses a route
+        START_EDGE              = 1 << 2,   // Plan begins in edge
+        END_EDGE                = 1 << 3,   // Plan ends in edge
+        START_JUNCTION          = 1 << 4,   // Plan begins in junction
+        END_JUNCTION            = 1 << 5,   // Plan ends in junction
+        START_TAZ               = 1 << 6,   // Plan begins in TAZ
+        END_TAZ                 = 1 << 7,   // Plan ends in TAZ
+        START_BUSSTOP           = 1 << 8,   // Plan begins in busStop
+        END_BUSSTOP             = 1 << 9,   // Plan ends in busStop
+        START_TRAINSTOP         = 1 << 10,  // Plan begins in trainStop
+        END_TRAINSTOP           = 1 << 11,  // Plan ends in trainStop
         // stops and containerStops
     };
 
@@ -235,6 +234,9 @@ protected:
 
     /// @brief current creation mode
     int myCreationMode;
+
+    /// @brief previous person plan element
+    const GNEDemandElement* myPreviousPlanElement = nullptr;
 
     /// @brief vector with consecutive edges
     std::vector<GNEEdge*> myConsecutiveEdges;

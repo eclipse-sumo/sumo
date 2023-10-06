@@ -190,37 +190,17 @@ GNEPersonPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (myPersonSelector) {
             // show path creator mode
-            myPlanCreator->showPlanCreatorModule(myPlanSelector, true);
-            // add previous element
-            if (previousElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-                // add junction
-                myPlanCreator->addJunction(ACs->retrieveJunction(previousElement->getID()));
-            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                // update VClass of myPlanCreator depending if person is a ride
-                if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-                    myPlanCreator->setVClass(SVC_PASSENGER);
-                } else {
-                    myPlanCreator->setVClass(SVC_PEDESTRIAN);
-                }
-                // add edge
-                myPlanCreator->addEdge(ACs->retrieveEdge(previousElement->getID()));
-            } else if (previousElement->getTagProperty().isStoppingPlace()) {
-                // add stopping place
-                myPlanCreator->addStoppingPlace(ACs->retrieveAdditional(previousElement->getTagProperty().getTag(), previousElement->getID()));
-            } else if (previousElement->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                // add TAZ
-                myPlanCreator->addTAZ(ACs->retrieveAdditional(SUMO_TAG_TAZ, previousElement->getID()));
-            }
+            myPlanCreator->showPlanCreatorModule(myPlanSelector, myPersonSelector->getPreviousPlanElement());
             // show legend
             myPathLegend->showPathLegendModule();
+            // show person hierarchy
+            myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
         } else {
-            // set path creator mode
-            myPlanCreator->showPlanCreatorModule(myPlanSelector, false);
-            // show legend
-            myPathLegend->showPathLegendModule();
+            // hide modules
+            myPlanCreator->hidePathCreatorModule();
+            myPersonHierarchy->hideHierarchicalElementTree();
+            myPathLegend->hidePathLegendModule();
         }
-        // show person hierarchy
-        myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
     } else {
         // hide modules if tag selected isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModule();

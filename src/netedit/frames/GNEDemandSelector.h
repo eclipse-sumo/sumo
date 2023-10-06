@@ -71,7 +71,7 @@ public:
     void refreshDemandElementSelector();
 
     /// @brief get previous plan element
-    GNEAttributeCarrier* getPreviousPlanElement() const;
+    GNEDemandElement* getPreviousPlanElement() const;
 
     /// @name FOX-callbacks
     /// @{

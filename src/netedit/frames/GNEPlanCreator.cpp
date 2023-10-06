@@ -150,7 +150,7 @@ GNEPlanCreator::~GNEPlanCreator() {}
 
 
 void
-GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const bool firstElement) {
+GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement *previousPlan) {
     // first abort creation
     abortPathCreation();
     // hide use last inserted route
@@ -164,10 +164,8 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     myBackSpaceLabel->show();
     // reset creation mode
     myCreationMode = 0;
-    // set first element
-    if (firstElement) {
-        myCreationMode |= REQUIRE_FIRSTELEMENT;
-    }
+    // set previous plan element
+    myPreviousPlanElement = previousPlan;
     // continue depending of planSelector
     if (planSelector->markContinuousEdges()) {
         myCreationMode |= CONSECUTIVE_EDGES;
@@ -201,6 +199,20 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         if (planSelector->markTrainStops()) {
             myCreationMode |= START_TRAINSTOP;
             myCreationMode |= END_TRAINSTOP;
+        }
+    }
+    // check if add first element
+    if (myPreviousPlanElement) {
+        const auto tagProperty = myPreviousPlanElement->getTagProperty();
+        // add last element of previous plan
+        if (tagProperty.planToEdge()) {
+            addEdge(myPreviousPlanElement->getParentEdges().back());
+        } else if (tagProperty.planToJunction()) {
+            addJunction(myPreviousPlanElement->getParentJunctions().back());
+        } else if (tagProperty.planToTAZ()) {
+            addTAZ(myPreviousPlanElement->getParentAdditionals().back());
+        } else if (tagProperty.planToStoppingPlace()) {
+            addStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
         }
     }
     // recalc before show (to avoid graphic problems)
@@ -942,7 +954,7 @@ GNEPlanCreator::getNumberOfSelectedElements() const {
 
 bool
 GNEPlanCreator::checkEnableLastItemButton() const {
-    if (myCreationMode & REQUIRE_FIRSTELEMENT) {
+    if (myPreviousPlanElement) {
         return getNumberOfSelectedElements() == 2;
     } else {
         return getNumberOfSelectedElements() > 0;
