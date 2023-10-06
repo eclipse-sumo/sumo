@@ -1287,38 +1287,37 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                   "", "", "", "", "",
                   {}, route->getID(), arrivalPos);
     } else if (planTemplate->getTagProperty().isWalk()) {
+        // set walk tag
+        personPlanObject->setTag(GNEDemandElementPlan::getTagIconWalk({}, route,
+                                 fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+                                 fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
         // from edges
         if (fromEdge && toEdge) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_EDGE_EDGE);
             buildWalk(personPlanObject,
                       fromEdge->getID(), "", "", "", "",
                       toEdge->getID(), "", "", "", "",
                       {}, "", arrivalPos);
         } else if (fromEdge && toTAZ) {
             // walk: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_WALK_EDGE_TAZ);
             buildWalk(personPlanObject,
                       fromEdge->getID(), "", "", "", "", 
                       "", toTAZ->getID(), "", "", "",
                       {}, "", arrivalPos);
         } else if (fromEdge && toJunction) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_EDGE_JUNCTION);
             buildWalk(personPlanObject,
                       fromEdge->getID(), "", "", "", "", 
                       "", "", toJunction->getID(), "", "",
                       {}, "", arrivalPos);
         } else if (fromEdge && toBusStop) {
             // walk: edge->busStop
-            personPlanObject->setTag(GNE_TAG_WALK_EDGE_BUSSTOP);
             buildWalk(personPlanObject,
                       fromEdge->getID(), "", "", "", "", 
                       "", "", "", toBusStop->getID(), "",
                       {}, "", arrivalPos);
         } else if (fromEdge && toTrainStop) {
             // walk: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_WALK_EDGE_TRAINSTOP);
             buildWalk(personPlanObject,
                       fromEdge->getID(), "", "", "", "", 
                       "", "", "", "", toTrainStop->getID(),
@@ -1326,35 +1325,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from TAZs
         } else if (fromTAZ && toEdge) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_TAZ_EDGE);
             buildWalk(personPlanObject,
                       "", fromTAZ->getID(), "", "", "",
                       toEdge->getID(), "", "", "", "",
                       {}, "", arrivalPos);
         } else if (fromTAZ && toTAZ) {
             // walk: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_WALK_TAZ_TAZ);
             buildWalk(personPlanObject,
                       "", fromTAZ->getID(), "", "", "",
                       "", toTAZ->getID(), "", "", "",
                       {}, "", arrivalPos);
         } else if (fromTAZ && toJunction) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_TAZ_JUNCTION);
             buildWalk(personPlanObject,
                       "", fromTAZ->getID(), "", "", "",
                       "", "", toJunction->getID(), "", "",
                       {}, "", arrivalPos);
         } else if (fromTAZ && toBusStop) {
             // walk: edge->busStop
-            personPlanObject->setTag(GNE_TAG_WALK_TAZ_BUSSTOP);
             buildWalk(personPlanObject,
                       "", fromTAZ->getID(), "", "", "",
                       "", "", "", toBusStop->getID(), "",
                       {}, "", arrivalPos);
         } else if (fromTAZ && toTrainStop) {
             // walk: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_WALK_TAZ_TRAINSTOP);
             buildWalk(personPlanObject,
                       "", fromTAZ->getID(), "", "", "",
                       "", "", "", "", toTrainStop->getID(),
@@ -1362,35 +1356,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from junction
         } else if (fromJunction && toEdge) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_EDGE);
             buildWalk(personPlanObject,
                       "", "", fromJunction->getID(), "", "",
                       toEdge->getID(), "", "", "", "",
                       {}, "", arrivalPos);
         } else if (fromJunction && toTAZ) {
             // walk: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_TAZ);
             buildWalk(personPlanObject,
                       "", "", fromJunction->getID(), "", "",
                       "", toTAZ->getID(), "", "", "",
                       {}, "", arrivalPos);
         } else if (fromJunction && toJunction) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_JUNCTION);
             buildWalk(personPlanObject,
                       "", "", fromJunction->getID(), "", "",
                       "", "", toJunction->getID(), "", "",
                       {}, "", arrivalPos);
         } else if (fromJunction && toBusStop) {
             // walk: edge->busStop
-            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_BUSSTOP);
             buildWalk(personPlanObject,
                       "", "", fromJunction->getID(), "", "",
                       "", "", "", toBusStop->getID(), "",
                       {}, "", arrivalPos);
         } else if (fromJunction && toTrainStop) {
             // walk: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_WALK_JUNCTION_TRAINSTOP);
             buildWalk(personPlanObject,
                       "", "", fromJunction->getID(), "", "",
                       "", "", "", "", toTrainStop->getID(),
@@ -1398,35 +1387,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from busStop
         } else if (fromBusStop && toEdge) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_BUSSTOP_EDGE);
             buildWalk(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       toEdge->getID(), "", "", "", "",
                       {}, "", arrivalPos);
         } else if (fromBusStop && toTAZ) {
             // walk: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_WALK_BUSSTOP_TAZ);
             buildWalk(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       "", toTAZ->getID(), "", "", "",
                       {}, "", arrivalPos);
         } else if (fromBusStop && toJunction) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_BUSSTOP_JUNCTION);
             buildWalk(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       "", "", toJunction->getID(), "", "",
                       {}, "", arrivalPos);
         } else if (fromBusStop && toBusStop) {
             // walk: edge->busStop
-            personPlanObject->setTag(GNE_TAG_WALK_BUSSTOP_BUSSTOP);
             buildWalk(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       "", "", "", toBusStop->getID(), "",
                       {}, "", arrivalPos);
         } else if (fromBusStop && toTrainStop) {
             // walk: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_WALK_BUSSTOP_TRAINSTOP);
             buildWalk(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       "", "", "", "", toTrainStop->getID(),
@@ -1434,73 +1418,67 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from trainStop
         } else if (fromTrainStop && toEdge) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_TRAINSTOP_EDGE);
             buildWalk(personPlanObject,
                       "", "", "", "", fromTrainStop->getID(),
                       toEdge->getID(), "", "", "", "",
                       {}, "", arrivalPos);
         } else if (fromTrainStop && toTAZ) {
             // walk: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_WALK_TRAINSTOP_TAZ);
             buildWalk(personPlanObject,
                       "", "", "", "", fromTrainStop->getID(),
                       "", toTAZ->getID(), "", "", "",
                       {}, "", arrivalPos);
         } else if (fromTrainStop && toJunction) {
             // walk: edge->edge
-            personPlanObject->setTag(GNE_TAG_WALK_TRAINSTOP_JUNCTION);
             buildWalk(personPlanObject,
                       "", "", "", "", fromTrainStop->getID(),
                       "", "", toJunction->getID(), "", "",
                       {}, "", arrivalPos);
         } else if (fromTrainStop && toBusStop) {
             // walk: edge->busStop
-            personPlanObject->setTag(GNE_TAG_WALK_TRAINSTOP_BUSSTOP);
             buildWalk(personPlanObject,
                       "", "", "", "", fromTrainStop->getID(),
                       "", "", "", toBusStop->getID(), "",
                       {}, "", arrivalPos);
         } else if (fromTrainStop && toTrainStop) {
             // walk: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP);
             buildWalk(personPlanObject,
                       "", "", "", "", fromTrainStop->getID(),
                       "", "", "", "", toTrainStop->getID(),
                       {}, "", arrivalPos);
         }
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
+        // set person trip tag
+        personPlanObject->setTag(GNEDemandElementPlan::getTagIconPersonTrip( fromEdge, toEdge,
+                                 fromTAZ, toTAZ, fromJunction, toJunction, fromBusStop, toBusStop,
+                                 fromTrainStop, toTrainStop).first);
         // from edges
         if (fromEdge && toEdge) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_EDGE);
             buildPersonTrip(personPlanObject,
                             fromEdge->getID(), "", "", "", "",
                             toEdge->getID(), "", "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromEdge && toTAZ) {
             // personTrip: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_TAZ);
             buildPersonTrip(personPlanObject,
                             fromEdge->getID(), "", "", "", "", 
                             "", toTAZ->getID(), "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromEdge && toJunction) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_JUNCTION);
             buildPersonTrip(personPlanObject,
                             fromEdge->getID(), "", "", "", "", 
                             "", "", toJunction->getID(), "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromEdge && toBusStop) {
             // personTrip: edge->busStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP);
             buildPersonTrip(personPlanObject,
                             fromEdge->getID(), "", "", "", "", 
                             "", "", "", toBusStop->getID(), "",
                             arrivalPos, types, modes, lines);
         } else if (fromEdge && toTrainStop) {
             // personTrip: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP);
             buildPersonTrip(personPlanObject,
                       fromEdge->getID(), "", "", "", "", 
                       "", "", "", "", toTrainStop->getID(),
@@ -1508,35 +1486,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from TAZs
         } else if (fromTAZ && toEdge) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_EDGE);
             buildPersonTrip(personPlanObject,
                             "", fromTAZ->getID(), "", "", "",
                             toEdge->getID(), "", "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTAZ && toTAZ) {
             // personTrip: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_TAZ);
             buildPersonTrip(personPlanObject,
                             "", fromTAZ->getID(), "", "", "",
                             "", toTAZ->getID(), "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTAZ && toJunction) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_JUNCTION);
             buildPersonTrip(personPlanObject,
                             "", fromTAZ->getID(), "", "", "",
                             "", "", toJunction->getID(), "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTAZ && toBusStop) {
             // personTrip: edge->busStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_BUSSTOP);
             buildPersonTrip(personPlanObject,
                             "", fromTAZ->getID(), "", "", "",
                             "", "", "", toBusStop->getID(), "",
                             arrivalPos, types, modes, lines);
         } else if (fromTAZ && toTrainStop) {
             // personTrip: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP);
             buildPersonTrip(personPlanObject,
                             "", fromTAZ->getID(), "", "", "",
                             "", "", "", "", toTrainStop->getID(),
@@ -1544,35 +1517,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from junction
         } else if (fromJunction && toEdge) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_EDGE);
             buildPersonTrip(personPlanObject,
                             "", "", fromJunction->getID(), "", "",
                             toEdge->getID(), "", "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromJunction && toTAZ) {
             // personTrip: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_TAZ);
             buildPersonTrip(personPlanObject,
                             "", "", fromJunction->getID(), "", "",
                             "", toTAZ->getID(), "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromJunction && toJunction) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION);
             buildPersonTrip(personPlanObject,
                             "", "", fromJunction->getID(), "", "",
                             "", "", toJunction->getID(), "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromJunction && toBusStop) {
             // personTrip: edge->busStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP);
             buildPersonTrip(personPlanObject,
                             "", "", fromJunction->getID(), "", "",
                             "", "", "", toBusStop->getID(), "",
                             arrivalPos, types, modes, lines);
         } else if (fromJunction && toTrainStop) {
             // personTrip: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP);
             buildPersonTrip(personPlanObject,
                             "", "", fromJunction->getID(), "", "",
                             "", "", "", "", toTrainStop->getID(),
@@ -1580,35 +1548,30 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from busStop
         } else if (fromBusStop && toEdge) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_BUSSTOP_EDGE);
             buildPersonTrip(personPlanObject,
                             "", "", "", fromBusStop->getID(), "",
                             toEdge->getID(), "", "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromBusStop && toTAZ) {
             // personTrip: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_BUSSTOP_TAZ);
             buildPersonTrip(personPlanObject,
                             "", "", "", fromBusStop->getID(), "",
                             "", toTAZ->getID(), "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromBusStop && toJunction) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION);
             buildPersonTrip(personPlanObject,
                             "", "", "", fromBusStop->getID(), "",
                             "", "", toJunction->getID(), "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromBusStop && toBusStop) {
             // personTrip: edge->busStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP);
             buildPersonTrip(personPlanObject,
                       "", "", "", fromBusStop->getID(), "",
                       "", "", "", toBusStop->getID(), "",
                       arrivalPos, types, modes, lines);
         } else if (fromBusStop && toTrainStop) {
             // personTrip: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP);
             buildPersonTrip(personPlanObject,
                             "", "", "", fromBusStop->getID(), "",
                             "", "", "", "", toTrainStop->getID(),
@@ -1616,59 +1579,54 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from trainStop
         } else if (fromTrainStop && toEdge) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE);
             buildPersonTrip(personPlanObject,
                             "", "", "", "", fromTrainStop->getID(),
                             toEdge->getID(), "", "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTrainStop && toTAZ) {
             // personTrip: edge->TAZ
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ);
             buildPersonTrip(personPlanObject,
                             "", "", "", "", fromTrainStop->getID(),
                             "", toTAZ->getID(), "", "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTrainStop && toJunction) {
             // personTrip: edge->edge
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION);
             buildPersonTrip(personPlanObject,
                             "", "", "", "", fromTrainStop->getID(),
                             "", "", toJunction->getID(), "", "",
                             arrivalPos, types, modes, lines);
         } else if (fromTrainStop && toBusStop) {
             // personTrip: edge->busStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP);
             buildPersonTrip(personPlanObject,
                             "", "", "", "", fromTrainStop->getID(),
                             "", "", "", toBusStop->getID(), "",
                             arrivalPos, types, modes, lines);
         } else if (fromTrainStop && toTrainStop) {
             // personTrip: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP);
             buildPersonTrip(personPlanObject,
                             "", "", "", "", fromTrainStop->getID(),
                             "", "", "", "", toTrainStop->getID(),
                             arrivalPos, types, modes, lines);
         }
     } else if (planTemplate->getTagProperty().isRide()) {
+        // set ride tag
+        personPlanObject->setTag(GNEDemandElementPlan::getTagIconRide( fromEdge, toEdge,
+                                 fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
         // from edges
         if (fromEdge && toEdge) {
             // ride: edge->edge
-            personPlanObject->setTag(GNE_TAG_RIDE_EDGE_EDGE);
             buildRide(personPlanObject,
                       fromEdge->getID(), "", "",
                       toEdge->getID(), "", "",
                       arrivalPos, lines);
         } else if (fromEdge && toBusStop) {
             // ride: edge->busStop
-            personPlanObject->setTag(GNE_TAG_RIDE_EDGE_BUSSTOP);
             buildRide(personPlanObject,
                       fromEdge->getID(), "", "",
                       "", toBusStop->getID(), "",
                       arrivalPos, lines);
         } else if (fromEdge && toTrainStop) {
             // ride: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_RIDE_EDGE_TRAINSTOP);
             buildRide(personPlanObject,
                       fromEdge->getID(), "", "",
                       "", "", toTrainStop->getID(),
@@ -1676,21 +1634,18 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from busStop
         } else if (fromBusStop && toEdge) {
             // ride: edge->edge
-            personPlanObject->setTag(GNE_TAG_RIDE_BUSSTOP_EDGE);
             buildRide(personPlanObject,
                        "", fromBusStop->getID(), "",
                        toEdge->getID(), "", "",
                       arrivalPos, lines);
         } else if (fromBusStop && toBusStop) {
             // ride: edge->busStop
-            personPlanObject->setTag(GNE_TAG_RIDE_BUSSTOP_BUSSTOP);
             buildRide(personPlanObject,
                       "", fromBusStop->getID(), "",
                       "", toBusStop->getID(), "",
                       arrivalPos, lines);
         } else if (fromBusStop && toTrainStop) {
             // ride: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_RIDE_BUSSTOP_TRAINSTOP);
             buildRide(personPlanObject,
                       "", fromBusStop->getID(), "",
                       "", "", toTrainStop->getID(),
@@ -1698,21 +1653,18 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         // from trainStop
         } else if (fromTrainStop && toEdge) {
             // ride: edge->edge
-            personPlanObject->setTag(GNE_TAG_RIDE_TRAINSTOP_EDGE);
             buildRide(personPlanObject,
                       "", "", fromTrainStop->getID(),
                       toEdge->getID(), "", "",
                       arrivalPos, lines);
         } else if (fromTrainStop && toBusStop) {
             // ride: edge->busStop
-            personPlanObject->setTag(GNE_TAG_RIDE_TRAINSTOP_BUSSTOP);
             buildRide(personPlanObject,
                       "", "", fromTrainStop->getID(),
                       "", toBusStop->getID(), "",
                       arrivalPos, lines);
         } else if (fromTrainStop && toTrainStop) {
             // ride: edge->trainStop
-            personPlanObject->setTag(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP);
             buildRide(personPlanObject,
                       "", "", fromTrainStop->getID(),
                       "", "", toTrainStop->getID(),
