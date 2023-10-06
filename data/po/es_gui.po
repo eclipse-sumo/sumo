@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 09:57+0000\n"
+"PO-Revision-Date: 2023-10-06 11:47+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8432,7 +8432,7 @@ msgstr "Nombre del punto de interés (POI)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3094
 msgid "TAZ Source"
-msgstr ""
+msgstr "Fuente TAZ"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3105
 msgid "Depart weight associated to this Edge"
@@ -8440,7 +8440,7 @@ msgstr "Peso de salida asociado con esta arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3115
 msgid "TAZ Sink"
-msgstr ""
+msgstr "Sumidero TAZ"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3126
 msgid "Arrival weight associated to this Edge"
@@ -8776,15 +8776,15 @@ msgstr "El ID del tipo de vehículo a usar para este viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3635
 msgid "The ID of the edge the trip starts at"
-msgstr ""
+msgstr "El ID de la arista en la cual inicia el viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3640
 msgid "The ID of the edge the trip ends at"
-msgstr ""
+msgstr "El ID de la arista en la cual finaliza el viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3645
 msgid "List of intermediate edge ids which shall be part of the trip"
-msgstr ""
+msgstr "Lista de IDs de las aristas intermedias que deberán ser parte del viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3653
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3693
@@ -9345,23 +9345,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5135
 msgid "The position at which the vehicle shall enter the net"
-msgstr ""
+msgstr "La posición en la cual el vehículo deberá ingresar a la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5141
 msgid "The speed with which the vehicle shall enter the network"
-msgstr ""
+msgstr "La velocidad con la cual el vehículo deberá ingresar a la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5147
 msgid "The lane at which the vehicle shall leave the network"
-msgstr ""
+msgstr "El carril por el cual el vehículo deberá abandonar la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5153
 msgid "The position at which the vehicle shall leave the network"
-msgstr ""
+msgstr "La posición por la cual el vehículo deberá abandonar la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5159
 msgid "The speed with which the vehicle shall leave the network"
-msgstr ""
+msgstr "La velocidad con la cual el vehículo deberá abandonar la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5165
 msgid ""
@@ -9371,11 +9371,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5170
 msgid "The number of occupied seats when the vehicle is inserted"
-msgstr ""
+msgstr "El número de asientos ocupados cuando el vehículo es insertado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5176
 msgid "The number of occupied container places when the vehicle is inserted"
 msgstr ""
+"El número de plazas de contenedor ocupadas cuando el vehículo es insertado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5182
 msgid ""
@@ -9390,7 +9391,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5194
 msgid "Insertion checks"
-msgstr ""
+msgstr "Comprobaciones de inserción"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5207
 msgid "First flow departure time"
@@ -10562,12 +10563,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:180
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
 msgid "lanes aren't consecutives"
-msgstr ""
+msgstr "carriles no son consecutivos"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:184
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:129
 msgid "lanes aren't connected"
-msgstr ""
+msgstr "carrilles no están conectados"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:203
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:147
@@ -10577,23 +10578,23 @@ msgstr " y "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:115
 msgid "' needs at least one entry and one exit"
-msgstr ""
+msgstr "' requiere al menos una entrada y una salida"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:322
 msgid "An entry-exit detector needs at least one entry detector"
-msgstr ""
+msgstr "Un detector entrada-salida requiere al menos un detector de entrada"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:325
 msgid "An entry-exit detector needs at least one exit detector"
-msgstr ""
+msgstr "Un detector entrada-salida requiere al menos un detector de salida"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:326
 msgid "Release from lane"
-msgstr ""
+msgstr "Liberar del carril"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:330
 msgid "Attach to nearest lane"
-msgstr ""
+msgstr "Vincular al carril más cercano"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:249
 msgid "Simplify Shape"
@@ -10601,7 +10602,7 @@ msgstr "Simplificar forma"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:249
 msgid "Replace current shape with a rectangle"
-msgstr ""
+msgstr "Reemplazar la forma actual por un rectángulo"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:257
 msgid "Open shape"
@@ -10609,7 +10610,7 @@ msgstr "Abrir forma"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:257
 msgid "Open polygon's shape"
-msgstr ""
+msgstr "Abrir la forma del polígono"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:259
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:79
@@ -10618,11 +10619,11 @@ msgstr "Cerrar forma"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:259
 msgid "Close polygon's shape"
-msgstr ""
+msgstr "Cerrar la forma del polígono"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:262
 msgid "Select elements within polygon"
-msgstr ""
+msgstr "Seleccionar elementos dentro del polígono"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:262
 msgid "Select elements within polygon boundary"
@@ -10638,7 +10639,7 @@ msgstr "Eliminar punto geométrico debajo del cursor"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:273
 msgid "Set first geometry point"
-msgstr ""
+msgstr "Establecer el primer punto de geometría"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:454
 msgid "Number of remaining points insufficient"
@@ -10646,36 +10647,36 @@ msgstr "Número de puntos restantes insuficiente"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:481
 msgid "Polygon already opened"
-msgstr ""
+msgstr "Polígono ya abierto"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:502
 msgid "Polygon already closed"
-msgstr ""
+msgstr "Polígono ya cerrado"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:513
 msgid "Selected point must be different of the first point"
-msgstr ""
+msgstr "El punto seleccionado debe ser diferente del primer punto"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:578
 msgid "Polygon already simplified"
-msgstr ""
+msgstr "Polígono ya simplificado"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZ.cpp:281
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:815
 msgid "Set custom Geometry Point"
-msgstr ""
+msgstr "Establecer punto de geometría personalizado"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:62
 msgid "add data set"
-msgstr ""
+msgstr "agregar conjunto de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:87
 msgid "add data set and data interval"
-msgstr ""
+msgstr "agregar conjunto de datos e intervalo de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:102
 msgid "add data interval"
-msgstr ""
+msgstr "agregar intervalo de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:130
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:175
@@ -10703,11 +10704,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "Could not build % with ID '%'"
-msgstr ""
+msgstr "No se pudo generar % con la ID '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "declared twice."
-msgstr ""
+msgstr "declarado dos veces."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
@@ -11772,7 +11773,7 @@ msgstr "El punto de referencia actual seleccionado no es válido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:159
 msgid "Invalid length"
-msgstr ""
+msgstr "Longitud no válida"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:172
 msgid ""
@@ -13762,7 +13763,7 @@ msgstr "Estadísticas"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:376
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1129
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- Número de aristas: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:377
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1134
@@ -13842,28 +13843,28 @@ msgstr "Alternar membresía:"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
 msgid "Create new Sources/Sinks with given weights."
-msgstr ""
+msgstr "Crear nuevas fuentes/sumideros con los pesos dados."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:563
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:655
 msgid "Remove all edges"
-msgstr ""
+msgstr "Remover todas las aristas"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
-msgstr ""
+msgstr "Remover todas las aristas de la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
-msgstr ""
+msgstr "Añadir todas las aristas a la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:588
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "Remover arista de la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:590
 msgid "Add edge to selection"
-msgstr ""
+msgstr "Añadir arista a la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid "Remove "
@@ -14154,7 +14155,7 @@ msgstr "separar semáforo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1382
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "Programas semafóricos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create TLS"
@@ -14162,7 +14163,7 @@ msgstr "Crear semáforo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1395
 msgid "Create a new traffic light program."
-msgstr ""
+msgstr "Crear un nuevo programa semafórico."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1398
 msgid ""
@@ -14178,7 +14179,7 @@ msgstr "Restablecer individual"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "Restablecer el programa semafórico actual."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all"
@@ -14186,15 +14187,15 @@ msgstr "Restablecer todo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1404
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "Restablecer todos los programas semafóricos."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1407
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "Guardar modificaciones al programa. (Enter)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1410
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "Descartar modificaciones al programa. (Esc)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1504
 msgid "TLSDefinition cannot be found"
@@ -14212,7 +14213,7 @@ msgstr "El semáforo no puede ser creado porque el cruce debe tener"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
 msgid "at least one incoming edge and one outgoing edge."
-msgstr ""
+msgstr "al menos una arista entrante y una arista saliente."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1560
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1579
@@ -14233,7 +14234,7 @@ msgstr "Duplicar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1663
 msgid "reset current program"
-msgstr ""
+msgstr "restablecer programa actual"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1702
 msgid "reset TLS"
@@ -14241,7 +14242,7 @@ msgstr "restablecer semáforos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1863
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
+msgstr "duplicar programa '%' del semáforo '%'"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1909
 msgid "Traffic light does not control any links"
@@ -14253,29 +14254,33 @@ msgstr "Fases"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1932
 msgid "Clean States"
-msgstr ""
+msgstr "Limpiar estados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
 msgid "Clean unused states from all phase"
-msgstr ""
+msgstr "Eliminar estados no utilizados de todas las fases"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
+"Eliminar estados no utilizados de todas las fases. (No permitido para "
+"múltiples programas)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
 msgid "Add States"
-msgstr ""
+msgstr "Añadir estados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
 msgid "Extend the state vector for all phases by one entry"
-msgstr ""
+msgstr "Ampliar el vector de estado para todas las fases por una entrada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1940
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
+"Ampliar el vector de estado para todas las fases por una entrada. (No usado "
+"hasta que una conexión o paso peatonal sea asignado al nuevo índice)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
@@ -15292,7 +15297,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1627
 msgid "custom shape"
-msgstr ""
+msgstr "forma personalizada"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1683
 msgid "by origin taz"
@@ -15431,7 +15436,7 @@ msgstr "Guardar imágenes de fondo"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1261
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1326
 msgid "No Data"
-msgstr ""
+msgstr "Sin datos"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1592
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1637
@@ -15466,7 +15471,7 @@ msgstr "Fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1635
 msgid "Draw with constant size when zoomed out"
-msgstr ""
+msgstr "Dibujar con tamaño constante al alejarse"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1640
 msgid "Minimum Size"
@@ -15478,7 +15483,7 @@ msgstr "Exagerar por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1690
 msgid "Save the setting to registry"
-msgstr ""
+msgstr "Guardar la configuración en el registro"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1691
 msgid "Remove the setting from registry"
@@ -15486,11 +15491,11 @@ msgstr "Eliminar el ajuste del registro"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1692
 msgid "Export setting to file"
-msgstr ""
+msgstr "Exportar configuración a un archivo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1693
 msgid "Load setting from file"
-msgstr ""
+msgstr "Cargar configuración desde un archivo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1696
 msgid "Export includes:"
@@ -15573,23 +15578,23 @@ msgstr "Escalar ancho"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1803
 msgid "Show bike markings"
-msgstr ""
+msgstr "Mostrar marcación de bicicletas"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1805
 msgid "Show turning arrows"
-msgstr ""
+msgstr "Mostrar flechas direccionales"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1808
 msgid "Show right-of-way rules"
-msgstr ""
+msgstr "Mostrar reglas de derecho de paso"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1810
 msgid "Realistic stop line colors"
-msgstr ""
+msgstr "Colores realistas de la línea de parada"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1813
 msgid "Show lane borders"
-msgstr ""
+msgstr "Mostrar bordes del carril"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1815
 msgid "Show lane direction"
@@ -15597,11 +15602,11 @@ msgstr "Mostrar dirección del carril"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1818
 msgid "Hide macro connectors"
-msgstr ""
+msgstr "Ocultar conectores macro"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1820
 msgid "Show sublanes"
-msgstr ""
+msgstr "Mostrar sub-carriles"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1823
 msgid "Show rails"
