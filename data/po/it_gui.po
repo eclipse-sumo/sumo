@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 09:08+0000\n"
+"PO-Revision-Date: 2023-10-06 11:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1266,7 +1266,7 @@ msgstr "condizioni"
 #: D:\Repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
 #: C:\Repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "E accaduto un trabocco nel calcolo dell'ora."
 
 #: D:\Repos\sumo/src\gui\GUIViewTraffic.cpp:108
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
@@ -2364,12 +2364,12 @@ msgstr "lunghezza del veicolo [m]"
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:158
 msgid "empty time [s]"
-msgstr ""
+msgstr "tempo senza veicoli [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:160
 msgid "occupied time [s]"
-msgstr ""
+msgstr "tempo occupato [s]"
 
 #: D:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
 #: C:\Repos\sumo/src\guisim\GUIInductLoop.cpp:162
