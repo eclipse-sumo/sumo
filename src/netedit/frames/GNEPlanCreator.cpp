@@ -264,7 +264,7 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
         return false;
     }
     // set junction
-    if (myFromJunction == nullptr) {
+    if (getNumberOfSelectedElements() == 0) {
         myFromJunction = junction;
     } else {
         myToJunction = junction;
@@ -310,7 +310,7 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
         return false;
     }
     // set TAZ
-    if (myFromTAZ == nullptr) {
+    if (getNumberOfSelectedElements() == 0) {
         myFromTAZ = TAZ;
     } else {
         myToTAZ = TAZ;
@@ -392,7 +392,7 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
         return false;
     }
     // set edge
-    if (myFromEdge == nullptr) {
+    if (getNumberOfSelectedElements() == 0) {
         myFromEdge = edge;
     } else {
         myToEdge = edge;
@@ -443,7 +443,7 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
         return false;
     }
     // add stoppingPlace
-    if (myFromStoppingPlace == nullptr) {
+    if (getNumberOfSelectedElements() == 0) {
         myFromStoppingPlace = stoppingPlace;
     } else {
         myToStoppingPlace = stoppingPlace;
