@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-08-28 14:09+0000\n"
+"PO-Revision-Date: 2023-10-06 15:00+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -523,7 +523,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "Comprobando de nuevo los flujos cargados"
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:198
 msgid "Writing emitters"
@@ -2511,7 +2511,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2085
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "Vehículo '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2114
 #, c-format
@@ -4667,7 +4667,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1015
 msgid "start"
-msgstr ""
+msgstr "inicio"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1020
 msgid "Found sharp turn with radius % at the % of edge '%'."
@@ -5573,7 +5573,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:94
 msgid "Removing self-loops"
-msgstr ""
+msgstr "Removiendo bucles (self-loops)"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:98
 msgid "Finding isolated roads"
@@ -6682,11 +6682,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:200
 msgid "Import sidewalks"
-msgstr ""
+msgstr "Importar aceras"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:203
 msgid "Import crossings"
-msgstr ""
+msgstr "Importar pasos peatonales"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:206
 msgid "Import turning arrows from OSM to help with connection building"
@@ -6845,7 +6845,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:335
 msgid "Excludes connectors"
-msgstr ""
+msgstr "Excluye conectores"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:339
 msgid "Computes the number of lanes from the edges' capacities"
@@ -8982,7 +8982,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:197
 msgid "No input specified."
-msgstr ""
+msgstr "No se ha especificado ninguna entrada."
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
@@ -10036,7 +10036,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:188
 #, c-format
 msgid "done (%ms)."
-msgstr ""
+msgstr "hecho (%ms)."
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:190
 msgid "done."
@@ -10260,11 +10260,11 @@ msgstr "No hay resultados"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
-msgstr ""
+msgstr "Agregar fondo"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal."
-msgstr ""
+msgstr "Agregar fondo."
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:159
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:170
@@ -10282,7 +10282,7 @@ msgstr "Columna inválida"
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:340
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal"
-msgstr ""
+msgstr "Abrir fondo"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:345
 msgid "All files (*)"
@@ -10290,15 +10290,15 @@ msgstr "Todos los archivos (*)"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:797
 msgid "Open decal."
-msgstr ""
+msgstr "Abrir fondo."
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal"
-msgstr ""
+msgstr "Remover fondo"
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:805
 msgid "Remove decal."
-msgstr ""
+msgstr "Remover fondo."
 
 #: C:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:73
 msgid "Expand"
@@ -10661,7 +10661,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "Cargando configuración"
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
@@ -11069,7 +11069,7 @@ msgstr " En el archivo '"
 
 #: C:\Repos\sumo/src\utils\xml\GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " En línea/columna "
 
 #: C:\Repos\sumo/src\utils\xml\SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
