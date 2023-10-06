@@ -23,7 +23,9 @@ fi
 if test -z $HTTPS_PROXY; then
     yum install -y epel-release
     yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
-    yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3 eigen3-devel geos-devel
+    yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3 eigen3-devel
+    yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    yum install -y geos311-devel
     pipx install -f patchelf==0.16.1.0  # see https://github.com/pypa/manylinux/issues/1421
 fi
 
