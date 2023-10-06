@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-09-19 07:11+0000\n"
+"PO-Revision-Date: 2023-10-06 09:08+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -1156,32 +1156,32 @@ msgstr "GUI-triggered stop no implementada para meso"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:350
 msgid "Hide Current Route"
-msgstr ""
+msgstr "Ocultar ruta actual"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:352
 msgid "Show Current Route"
-msgstr ""
+msgstr "Mostrar ruta actual"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:355
 msgid "Hide Future Route"
-msgstr ""
+msgstr "Ocultar ruta futura"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:357
 msgid "Show Future Route"
-msgstr ""
+msgstr "Mostrar ruta futura"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:360
 msgid "Hide All Routes"
-msgstr ""
+msgstr "Ocultar todas las rutas"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:362
 msgid "Show All Routes"
-msgstr ""
+msgstr "Mostrar todas las rutas"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:365
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:368
 msgid "Draw looped routes"
-msgstr ""
+msgstr "Dibujar rutas en bucle"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:372
 msgid "Hide Best Lanes"
