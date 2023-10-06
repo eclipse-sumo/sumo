@@ -30,12 +30,35 @@
 
 class SUMOVehicleParameter;
 class GNEDemandElement;
+class GNEEdge;
+class GNEJunction;
+class GNEAdditional;
+class GNERoute;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 class GNEDemandElementPlan {
+
+public:
+    /// @brief get the personTrip tag and icon for the combination 
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconWalk(const std::vector<std::string> &consecutiveEdges,
+        const GNERoute* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+
+    /// @brief get the personTrip tag and icon for the combination 
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+
+    /// @brief get the personTrip tag and icon for the combination 
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
 
 protected:
     /// @brief constructor

@@ -39,6 +39,166 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // GNEDemandElement method definitions
 // ===========================================================================
 
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getTagIconWalk(const std::vector<std::string> &consecutiveEdges,
+        const GNERoute* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
+    // check elements
+    if (consecutiveEdges.size() > 0) {
+        return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
+    } else if (route) {
+        return std::make_pair(GNE_TAG_WALK_ROUTE, GUIIcon::WALK_ROUTE);
+    } else if (fromEdge && toEdge) {
+        return std::make_pair(GNE_TAG_WALK_EDGE_EDGE, GUIIcon::WALK_EDGE);
+    } else if (fromEdge && toTAZ) {
+        return std::make_pair(GNE_TAG_WALK_EDGE_TAZ, GUIIcon::WALK_TAZ);
+    } else if (fromEdge && toJunction) {
+        return std::make_pair(GNE_TAG_WALK_EDGE_JUNCTION, GUIIcon::WALK_JUNCTION);
+    } else if (fromEdge && toBusStop) {
+        return std::make_pair(GNE_TAG_WALK_EDGE_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+    } else if (fromEdge && toTrainStop) {
+        return std::make_pair(GNE_TAG_WALK_EDGE_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    } else if (fromTAZ && toEdge) {
+        return std::make_pair(GNE_TAG_WALK_TAZ_EDGE, GUIIcon::WALK_EDGE);
+    } else if (fromTAZ && toTAZ) {
+        return std::make_pair(GNE_TAG_WALK_TAZ_TAZ, GUIIcon::WALK_TAZ);
+    } else if (fromTAZ && toJunction) {
+        return std::make_pair(GNE_TAG_WALK_TAZ_JUNCTION, GUIIcon::WALK_JUNCTION);
+    } else if (fromTAZ && toBusStop) {
+        return std::make_pair(GNE_TAG_WALK_TAZ_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+    } else if (fromTAZ && toTrainStop) {
+        return std::make_pair(GNE_TAG_WALK_TAZ_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    } else if (fromJunction && toEdge) {
+        return std::make_pair(GNE_TAG_WALK_JUNCTION_EDGE, GUIIcon::WALK_EDGE);
+    } else if (fromJunction && toTAZ) {
+        return std::make_pair(GNE_TAG_WALK_JUNCTION_TAZ, GUIIcon::WALK_TAZ);
+    } else if (fromJunction && toJunction) {
+        return std::make_pair(GNE_TAG_WALK_JUNCTION_JUNCTION, GUIIcon::WALK_JUNCTION);
+    } else if (fromJunction && toBusStop) {
+        return std::make_pair(GNE_TAG_WALK_JUNCTION_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+    } else if (fromJunction && toTrainStop) {
+        return std::make_pair(GNE_TAG_WALK_JUNCTION_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    } else if (fromBusStop && toEdge) {
+        return std::make_pair(GNE_TAG_WALK_BUSSTOP_EDGE, GUIIcon::WALK_EDGE);
+    } else if (fromBusStop && toTAZ) {
+        return std::make_pair(GNE_TAG_WALK_BUSSTOP_TAZ, GUIIcon::WALK_TAZ);
+    } else if (fromBusStop && toJunction) {
+        return std::make_pair(GNE_TAG_WALK_BUSSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
+    } else if (fromBusStop && toBusStop) {
+        return std::make_pair(GNE_TAG_WALK_BUSSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+    } else if (fromBusStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_WALK_BUSSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    } else if (fromTrainStop && toEdge) {
+        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_EDGE, GUIIcon::WALK_EDGE);
+    } else if (fromTrainStop && toTAZ) {
+        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TAZ, GUIIcon::WALK_TAZ);
+    } else if (fromTrainStop && toJunction) {
+        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_JUNCTION, GUIIcon::WALK_JUNCTION);
+    } else if (fromTrainStop && toBusStop) {
+        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
+    } else if (fromTrainStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
+    }
+    else {
+        throw ProcessError("invalid walk combination");
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
+    // check elements
+    if (fromEdge && toEdge) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
+    } else if (fromEdge && toTAZ) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TAZ, GUIIcon::PERSONTRIP_TAZ);
+    } else if (fromEdge && toJunction) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+    } else if (fromEdge && toBusStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+    } else if (fromEdge && toTrainStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    } else if (fromTAZ && toEdge) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_EDGE, GUIIcon::PERSONTRIP_EDGE);
+    } else if (fromTAZ && toTAZ) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TAZ, GUIIcon::PERSONTRIP_TAZ);
+    } else if (fromTAZ && toJunction) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+    } else if (fromTAZ && toBusStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+    } else if (fromTAZ && toTrainStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    } else if (fromJunction && toEdge) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_EDGE, GUIIcon::PERSONTRIP_EDGE);
+    } else if (fromJunction && toTAZ) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TAZ, GUIIcon::PERSONTRIP_TAZ);
+    } else if (fromJunction && toJunction) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+    } else if (fromJunction && toBusStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+    } else if (fromJunction && toTrainStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    } else if (fromBusStop && toEdge) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
+    } else if (fromBusStop && toTAZ) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
+    } else if (fromBusStop && toJunction) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+    } else if (fromBusStop && toBusStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+    } else if (fromBusStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    } else if (fromTrainStop && toEdge) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
+    } else if (fromTrainStop && toTAZ) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ, GUIIcon::PERSONTRIP_TAZ);
+    } else if (fromTrainStop && toJunction) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION, GUIIcon::PERSONTRIP_JUNCTION);
+    } else if (fromTrainStop && toBusStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
+    } else if (fromTrainStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
+    }
+    else {
+        throw ProcessError("invalid personTrip combination");
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
+    // check elements
+    if (fromEdge && toEdge) {
+        return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
+    } else if (fromEdge && toBusStop) {
+        return std::make_pair(GNE_TAG_RIDE_EDGE_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+    } else if (fromEdge && toTrainStop) {
+        return std::make_pair(GNE_TAG_RIDE_EDGE_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+    } else if (fromBusStop && toEdge) {
+        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_EDGE, GUIIcon::RIDE_EDGE);
+    } else if (fromBusStop && toBusStop) {
+        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+    } else if (fromBusStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_RIDE_BUSSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+    } else if (fromTrainStop && toEdge) {
+        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_EDGE, GUIIcon::RIDE_EDGE);
+    } else if (fromTrainStop && toBusStop) {
+        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_BUSSTOP, GUIIcon::RIDE_BUSSTOP);
+    } else if (fromTrainStop && toTrainStop) {
+        return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
+    } else {
+        throw ProcessError("invalid ride combination");
+    }
+}
+
+
 GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition) :
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
