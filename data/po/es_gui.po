@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 11:47+0000\n"
+"PO-Revision-Date: 2023-10-06 15:00+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10495,7 +10495,7 @@ msgstr "Declarado dos veces."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1990
 msgid "Could not build % '%' in netedit"
-msgstr ""
+msgstr "No se pudo crear % '%' en netedit"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1992
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
@@ -10546,12 +10546,12 @@ msgstr "La lista de carriles no es válida."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:195
 msgid "Both edges and lanes aren't defined"
-msgstr ""
+msgstr "Tanto las aristas como los carriles no están definidos"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:239
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibrator.cpp:481
 msgid "Both myEdge and myLane aren't defined"
-msgstr ""
+msgstr "Tanto myEdge como myLane no están definidos"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:95
 #, c-format
@@ -10778,11 +10778,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:733
 msgid "reverse"
-msgstr ""
+msgstr "invertir"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:735
 msgid "reverse current %"
-msgstr ""
+msgstr "invertir % actual"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:736
 msgid "Add reverse %"
@@ -10791,7 +10791,7 @@ msgstr "Agregar % inverso"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:983
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:996
 msgid "Edge '%' is not consecutive with edge '%'"
-msgstr ""
+msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:772
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1831
@@ -10834,7 +10834,7 @@ msgstr "Ya existe otro % con el mismo ID='%'."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1159
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1179
 msgid "add "
-msgstr ""
+msgstr "añadir "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:183
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:257
@@ -10885,7 +10885,7 @@ msgstr "La ruta '%' usada en % '%' no es válida."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:751
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:821
 msgid "add % in '%'"
-msgstr ""
+msgstr "añadir % en '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1072
 msgid "Containers don't support stops at busStops or trainStops"
@@ -10927,16 +10927,16 @@ msgstr "Una parada necesita solo un lugar de parada, arista o carril"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1468
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1618
 msgid "A stop has to be placed over an edge"
-msgstr ""
+msgstr "Una parada debe colocarse sobre una arista"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1479
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1629
 msgid "A stop has to be placed over a busStop"
-msgstr ""
+msgstr "Una parada debe colocarse sobre una busStop"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1490
 msgid "A stop has to be placed over a trainStop"
-msgstr ""
+msgstr "Una parada debe colocarse sobre una trainStop"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1563
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1584
@@ -14515,27 +14515,27 @@ msgstr "¡Códec desconocido!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
-msgstr ""
+msgstr "¡No se pudo asignar el contexto del códec de video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "¡No se pudo abrir el códec!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
-msgstr ""
+msgstr "¡No se pudo asignar el fotograma de video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:148
 msgid "Could not allocate the video frame data!"
-msgstr ""
+msgstr "¡No se pudieron asignar los datos del fotograma de video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:155
 msgid "Failed to open output file!"
-msgstr ""
+msgstr "¡No se pudo abrir el archivo de salida!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:160
 msgid "Failed to write file header!"
-msgstr ""
+msgstr "¡Error al escribir el encabezado del archivo!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:165
 msgid "Could not allocate video packet!"
@@ -14844,7 +14844,7 @@ msgstr "por tiempo de viaje"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:765
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1260
 msgid "by global speed percentage"
-msgstr ""
+msgstr "por porcentaje de velocidad global"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:770
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
@@ -14900,7 +14900,7 @@ msgstr "por velocidad relativa media "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:832
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "por velocidad asumida del dispositivo de enrutamiento "
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:839
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1035
@@ -14913,7 +14913,7 @@ msgstr "por consumo de energía eléctrica"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1373
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1408
 msgid "by insertion-backlog (streetwise)"
-msgstr ""
+msgstr "por inserción atrasada (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:852
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1378
@@ -15001,7 +15001,7 @@ msgstr "acción en el siguiente paso"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:912
 msgid "had action step"
-msgstr ""
+msgstr "tuvo acción"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:914
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1119
@@ -15027,12 +15027,12 @@ msgstr "por velocidad máxima"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:999
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1451
 msgid "by reroute number"
-msgstr ""
+msgstr "por número de procedimientos de reroute"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1006
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1455
 msgid "by offset from best lane"
-msgstr ""
+msgstr "por desplazamiento respecto al mejor carril"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1007
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1456
@@ -15047,7 +15047,7 @@ msgstr "por aceleración"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1023
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1472
 msgid "by time gap on lane"
-msgstr ""
+msgstr "por brecha de tiempo en el carril"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1029
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1478
@@ -15056,11 +15056,11 @@ msgstr "por retraso en la salida"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1043
 msgid "by relative battery charge"
-msgstr ""
+msgstr "por carga relativa de la batería"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1052
 msgid "by charged energy"
-msgstr ""
+msgstr "por energía cargada"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1061
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1484
@@ -15118,7 +15118,7 @@ msgstr "caminando"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1115
 msgid "riding"
-msgstr ""
+msgstr "montando"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1147
