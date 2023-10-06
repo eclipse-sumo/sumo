@@ -159,8 +159,8 @@
                     <xsd:enumeration value="REDosto7" />
                     <xsd:enumeration value="RB628" />
                     <xsd:enumeration value="Freight" />
-					<xsd:enumeration value="MireoPlusB" />
-					<xsd:enumeration value="MireoPlusH" />
+                    <xsd:enumeration value="MireoPlusB" />
+                    <xsd:enumeration value="MireoPlusH" />
                 </xsd:restriction>
             </xsd:simpleType>
 
