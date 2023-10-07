@@ -941,14 +941,19 @@ GNEPlanCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClas
 }
 
 
-size_t
+int
 GNEPlanCreator::getNumberOfSelectedElements() const {
-    return myConsecutiveEdges.size() + 
-           myFromEdge? 1 : 0 + myToEdge? 1 : 0 +
-           myFromJunction? 1 : 0 + myToJunction? 1 : 0 +
-           myFromTAZ? 1 : 0 + myToTAZ? 1 : 0 +
-           myFromStoppingPlace? 1 : 0 + myToStoppingPlace? 1 : 0 +
-           myFromRoute? 1 : 0 + myRoute? 1 : 0;
+    return (int)myConsecutiveEdges.size() +
+           (myFromEdge != nullptr ? 1 : 0) +
+           (myToEdge != nullptr ? 1 : 0) +
+           (myFromJunction != nullptr ? 1 : 0) +
+           (myToJunction != nullptr ? 1 : 0) +
+           (myFromTAZ != nullptr ? 1 : 0) +
+           (myToTAZ != nullptr ? 1 : 0) +
+           (myFromStoppingPlace != nullptr ? 1 : 0) +
+           (myToStoppingPlace != nullptr ? 1 : 0) +
+           (myFromRoute != nullptr ? 1 : 0) +
+           (myRoute != nullptr ? 1 : 0);
 }
 
 

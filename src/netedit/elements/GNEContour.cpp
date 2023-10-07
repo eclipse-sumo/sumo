@@ -573,7 +573,7 @@ GNEContour::buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUI
 
 void
 GNEContour::buildAndDrawDottedContourEdges(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                           const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const {
+                                           const GNEEdge* /* fromEdge */, const GNEEdge* /* toEdge */, const double lineWidth) const {
     // first change size of myDottedGeometries
     if (myDottedGeometries->size() != 4) {
         myDottedGeometries->clear();

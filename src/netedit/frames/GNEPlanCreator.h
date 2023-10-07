@@ -294,7 +294,7 @@ protected:
 
 private:
     /// @brief get number of selected elements
-    size_t getNumberOfSelectedElements() const;
+    int getNumberOfSelectedElements() const;
 
     /// @brief check if enable remove last item button
     bool checkEnableLastItemButton() const;
