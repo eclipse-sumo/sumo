@@ -157,7 +157,9 @@ MSBaseVehicle::~MSBaseVehicle() {
 
 void
 MSBaseVehicle::checkRouteRemoval() {
-    if (!MSNet::getInstance()->hasFlow(getFlowID())) {
+    // the check for an instance is needed for the unit tests which do not construct a network
+    // TODO Optimize for speed and there should be a better way to check whether a vehicle is part of a flow
+    if (MSNet::hasInstance() && !MSNet::getInstance()->hasFlow(getFlowID())) {
         myRoute->checkRemoval();
     }
 }
