@@ -39,28 +39,21 @@ class GNEVehicle;
 class GNETransport : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
+    /**@brief general constructor for walks
+     * @param[in] net Network in which this walk is placed
+     * @param[in] containerParent container parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromContainerStop from containerStop
+     * @param[in] toEdge to edge
+     * @param[in] toContainerStop to containerStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
+    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
+        GNEAdditional* toContainerStop, double arrivalPosition);
+
     /// @brief default constructor
     GNETransport(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for container edge->edge
-     * @param[in] viewNet view in which this Transport is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] lines transport lines
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition);
-
-    /**@brief parameter constructor for container edge->containerStop
-     * @param[in] viewNet view in which this Transport is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toContainerStop to containerStop
-     * @param[in] lines transport lines
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition);
 
     /// @brief destructor
     ~GNETransport();
@@ -229,6 +222,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildTransport
+     * @param[in] net Network in which this Transport is placed
+     * @param[in] tag transport tag
+     * @param[in] icon transport icon
+     * @param[in] containerParent container parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     */
+    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
+                 const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
+                 double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNETransport(GNETransport*) = delete;
