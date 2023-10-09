@@ -44,7 +44,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create plan selector
-    myPlanSelector = new GNEPlanSelector(this);
+    myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
     // Create container parameters
     myContainerPlanAttributes = new GNEAttributesCreator(this);

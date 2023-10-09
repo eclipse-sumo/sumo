@@ -51,7 +51,7 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myContainerAttributes = new GNEAttributesCreator(this);
 
     // create plan selector module for container plans
-    myPlanSelector = new GNEPlanSelector(this);
+    myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
 
     // create container plan attributes
     myContainerPlanAttributes = new GNEAttributesCreator(this);
