@@ -84,20 +84,30 @@ FXIMPLEMENT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagS
 // method definitions
 // ===========================================================================
 
-GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Person plans")),
+GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
+    MFXGroupBoxModule(frameParent, TL("Plan type")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
     myPlansComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsLarge,
                                           this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // get net
     const auto net = myFrameParent->getViewNet()->getNet();
-    // set list of plans
-    myPlanTemplates.push_back(std::make_pair("PersonTrip", new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
-    myPlanTemplates.push_back(std::make_pair("Ride", new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
-    myPlanTemplates.push_back(std::make_pair("Walk", new GNEPersonTrip(GNE_TAG_WALK_EDGE_EDGE, net)));
-    myPlanTemplates.push_back(std::make_pair("Walk (Edges)", new GNEPersonTrip(GNE_TAG_WALK_EDGES, net)));
-    myPlanTemplates.push_back(std::make_pair("Walk (Route)", new GNEPersonTrip(GNE_TAG_WALK_ROUTE, net)));
+    // continue depending of plan type
+    if (planType == SUMO_TAG_PERSON) {
+        // set list of person plans
+        myPlanTemplates.push_back(std::make_pair("PersonTrip", new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Ride", new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Walk", new GNEPersonTrip(GNE_TAG_WALK_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Walk (Edges)", new GNEPersonTrip(GNE_TAG_WALK_EDGES, net)));
+        myPlanTemplates.push_back(std::make_pair("Walk (Route)", new GNEPersonTrip(GNE_TAG_WALK_ROUTE, net)));
+    } else if (planType == SUMO_TAG_CONTAINER) {
+        // set list of container plans
+        myPlanTemplates.push_back(std::make_pair("Transport", new GNEPersonTrip(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Tranship", new GNEPersonTrip(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Tranship (Edges)", new GNEPersonTrip(GNE_TAG_TRANSHIP_EDGES, net)));
+    } else {
+        throw ProcessError("Invalid plan");
+    }
     // add person plan elements
     for (const auto &planTemplate : myPlanTemplates) {
         myPlansComboBox->appendIconItem(planTemplate.first, 
@@ -163,7 +173,7 @@ GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over routes
-        return (myCurrentPlanTemplate == myPlanTemplates.at(4).second);
+        return (myCurrentPlanTemplate->getTagProperty().planFromBusStop;
     } else {
         return false;
     }

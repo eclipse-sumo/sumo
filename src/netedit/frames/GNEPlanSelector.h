@@ -38,7 +38,7 @@ class GNEPlanSelector : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEPlanSelector(GNEFrame* frameParent);
+    GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType);
 
     /// @brief destructor
     ~GNEPlanSelector();
