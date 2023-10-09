@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-04 18:26+0200\n"
+"POT-Creation-Date: 2023-10-09 09:30+0200\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1001,7 +1001,7 @@ msgid ""
 msgstr "車輛'%' 的開車時間已經過去; 改用目前時間。"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1944
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:438
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:439
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "車輛 '%' 的替代路徑無效。 %"
 
@@ -1300,70 +1300,70 @@ msgstr ""
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "錯誤:狀態中有無效車輛（可能是在微觀狀態）!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:188
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:189
 msgid "Changing a vehicle ID is not permitted"
 msgstr "不允許改變車輛的識別名(ID)"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:305
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:306
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr "車輛 '%' 不允許在路段 '%' 上的任一車道上。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:333
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:334
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr "車輛 '%' 從路段 '%' 到停止的路段 '%' 沒有有效路徑。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:377
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:378
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr "車輛 '%' 沒有有效路徑。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:379
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:380
 msgid "Removing vehicle '%' which has no valid route."
 msgstr "移除沒有有效路徑的車輛 '%'。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:393
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:394
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr "無法為車輛 '%' 找到路徑。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:463
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:464
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "在新路徑中找不到目前的路段 '%'"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:476
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:477
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "車輛在路口內銜接到其他路段的內部路段"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:489
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:490
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "車輛正駛過路口並將移動到另一個後續路段"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:559
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:560
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr "車輛 '%' 無法指派到停靠點'%',其發生在重新導引路徑 (%) 後,; 時間=% 。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:699
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:700
 msgid "No connection between edge '%' and edge '%'."
 msgstr "路段 '%' 和路段 '%' 之間未連接。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:708
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:709
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "禁止使用路段 '%'。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:722
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:723
 #, c-format
 msgid "Vehicle '%' is not allowed to depart on its first edge."
 msgstr "車輛 '%' 不允許在其第一個路段上出發。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:752
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:753
 msgid "Vehicle '%' has no valid route. %"
 msgstr "車輛 '%' 無有效路徑。 %"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:815
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:816
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1371,24 +1371,24 @@ msgstr ""
 "車輛 '%' 忽略屬性抵達路段(arrivalEdge)= % 其發生在時間=% 的重新導引路徑後（路"
 "段長度(routeLength)=%）"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:829
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:830
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "車輛 '%' 將無法抵達給定的位置!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:849
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:850
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "車輛 '%' 將無法抵達給定的車道 '%_%'!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:861
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:873
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:862
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:874
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "車輛 '%' 在路段 '%' 上沒有可使用的抵達車道(arrivalLane)。"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:885
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:886
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "車輛 '%' 將無法以給定的速度抵達!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:901
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
@@ -2545,7 +2545,7 @@ msgid ""
 msgstr ""
 "積分方法設定為'彈道(ballistic)'，因為指定了預設的動作步長(action step)。"
 
-#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:287
+#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:283
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
@@ -10716,12 +10716,12 @@ msgid "Parameters must be defined within an object."
 msgstr "參數必須定義於一個物件(object)內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1843
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "參數無法定義於附加檔案(additional file)的根(root)中內。"
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1845
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:963
 msgid "Parameters cannot be defined within another parameter."
 msgstr "參數無法定義於其它參數內。"
 
@@ -10744,61 +10744,61 @@ msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:402
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:408
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr "無法在 netedit 中構建 % (其識別名(ID)為 '%'); ID 含有無效字元。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:415
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr "無法在netedit內建立% (ID為 '%'); 不同數量的分佈值和機率。"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:469
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr "路徑必須定義於一個車輛/流量內, 或是用一個識別名(ID)屬性"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:487
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "週期時間(cycleTime) % 必須大於或等於 0"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:540
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:620
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:542
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:622
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:586
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
 "旅次(trip)定義需要 'from/to' 或 'fromJunction/toJunction' 或 'fromTaz/toTaz'"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:959
 msgid "Parameters must be defined within an object"
 msgstr "參數必須定義在一個物件(object)內"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)不可以是空的"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:973
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr "解析 % 通用參數的密鑰(key)發生錯誤。 密鑰(key)含有無效的字元"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:989
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:201
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -10807,22 +10807,22 @@ msgstr ""
 "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用"
 "屬性(attributes)!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:997
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:999
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:204
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:206
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1083
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1099
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1102
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"

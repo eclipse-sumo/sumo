@@ -449,9 +449,9 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
         std::string caption = undoName();
         // set caption of FXmenuCommand edit/undo
         if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
-            caption = "Cannot Undo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled();
+            caption = TL("Cannot Undo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabled();
         } else if (hasCommandGroup()) {
-            caption = "Cannot Undo in the middle of " + myChangeGroups.top()->getDescription();
+            caption = TL("Cannot Undo in the middle of ") + myChangeGroups.top()->getDescription();
         } else if (!canUndo()) {
             caption = TL("Undo");
         }
@@ -496,9 +496,9 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         std::string caption = redoName();
         // set caption of FXmenuCommand edit/undo
         if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
-            caption = "Cannot Redo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled();
+            caption = TL("Cannot Redo in the middle of ") + myGNEApplicationWindowParent->isUndoRedoEnabled();
         } else if (hasCommandGroup()) {
-            caption = "Cannot Redo in the middle of " + myChangeGroups.top()->getDescription();
+            caption = TL("Cannot Redo in the middle of ") + myChangeGroups.top()->getDescription();
         } else if (!canRedo()) {
             caption = TL("Redo");
         }

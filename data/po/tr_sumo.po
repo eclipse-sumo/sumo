@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-04 18:26+0200\n"
+"POT-Creation-Date: 2023-10-09 09:30+0200\n"
 "PO-Revision-Date: 2023-09-28 14:35+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1063,7 +1063,7 @@ msgstr ""
 "Araç '%' için kalkış saati geçmişte; bunun yerine mevcut saati kullanın."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1944
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:438
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:439
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "Araç '%' İçin Geçersiz Rota Değişimi. %"
 
@@ -1384,74 +1384,74 @@ msgstr ""
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "Hata oluştu: Durumdaki araçlar geçersiz (bir mikro durum olabilir)!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:188
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:189
 msgid "Changing a vehicle ID is not permitted"
 msgstr "Araç kimliğinin değiştirilmesine izin verilmez"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:305
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:306
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr "'%' Aracına '%' Kanal Kesiminin Herhangi Bir Şeridinde İzin Verilmez."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:333
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:334
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
 "Araç '%', '%' Kesiminden '%' Durak Kesimine Kadar Geçerli Bir Rotaya Sahip "
 "Değil."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:377
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:378
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr "'%' Aracının Geçerli Bir Rotası Yok."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:379
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:380
 msgid "Removing vehicle '%' which has no valid route."
 msgstr "Geçerli Rotası Olmayan '%' Aracı Kaldırılıyor."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:393
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:394
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr "'%' Aracı İçin Rota Bulunamadı."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:463
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:464
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "Geçerli Kesim '%' Yeni Rotada Bulunamadı"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:476
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:477
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "Araç Başka Bir Yere Yönlenen Kavşağın İç Kenarında"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:489
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:490
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "Araç Kavşaktan Hareket Ediyor ve Başka Bir Ardıl Kesime Geçmeye İşli"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:559
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:560
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 "Araç '%', % Zamanda Yeniden Rota Belirlendikten (%) Sonra '%' Durağını "
 "Atayamadı."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:699
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:700
 msgid "No connection between edge '%' and edge '%'."
 msgstr "'%' Kesimi ve '%' Kesimi Arasında Bağlantı Yok."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:708
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:709
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "Kesim '%' Yasaklar."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:722
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:723
 #, c-format
 msgid "Vehicle '%' is not allowed to depart on its first edge."
 msgstr "'%' Aracının İlk Kesiminden Ayrılmasına İzin Verilmez."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:752
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:753
 msgid "Vehicle '%' has no valid route. %"
 msgstr "'%' Aracının Geçerli Bir Rotası Yok. %"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:815
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:816
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1459,24 +1459,24 @@ msgstr ""
 "'%' Aracı % Zamanda Yeniden Rotalama Yapıldıktan Sonra arrivalEdge=% "
 "Özniteliğini Yok Sayar (routeLength=%)"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:829
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:830
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "Araç '%' verilen konuma ulaşamayacaktır!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:849
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:850
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "Araç '%', verilen '%_%' şeridine varamayacaktır!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:861
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:873
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:862
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:874
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "'%' aracının '%' kesiminde kullanılabilir bir varışŞeridi yok."
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:885
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:886
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "Araç '%' verilen hız ile varamayacaktır!"
 
-#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:901
+#: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "Rota kesimleri % olan '%' aracı için kalkışKesimi % yok sayılıyor"
 
@@ -2723,7 +2723,7 @@ msgstr ""
 "Varsayılan Eylem Adımı Uzunluğu Belirtildiği İçin Entegrasyon Yöntemi "
 "'ballistic' Olarak Ayarlandı."
 
-#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:287
+#: C:\Repos\sumo/src\microsim\MSInsertionControl.cpp:283
 #: C:\Repos\sumo/src\router\RONet.cpp:481
 #, c-format
 msgid "Another vehicle with the id '%' exists."
@@ -11382,12 +11382,12 @@ msgid "Parameters must be defined within an object."
 msgstr "Parametreler bir nesne içinde tanımlanmalıdır."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1843
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:944
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:961
 msgid "Parameters cannot be defined in the additional file's root."
 msgstr "Parametreler ek dosyanın kök dizininde tanımlanamaz."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1845
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:946
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:963
 msgid "Parameters cannot be defined within another parameter."
 msgstr "Parametreler başka bir parametre içinde tanımlanamaz."
 
@@ -11414,13 +11414,13 @@ msgstr "Veri Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 msgid "MeanData elements cannot load attributes as params"
 msgstr "MeanData Öğeleri, Öznitelikleri Parametreler Olarak Yükleyemez"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:402
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:408
 msgid ""
 "Could not build % with ID '%' in netedit; ID contains invalid characters."
 msgstr ""
 "netedit'te '%' ID'li % oluşturulamadı; ID geçersiz karakterler içeriyor."
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:409
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:415
 msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
@@ -11428,29 +11428,29 @@ msgstr ""
 "Netedit'te '%' ID'li % oluşturulamadı; Farklı sayıda dağılım değeri ve "
 "olasılığı."
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:463
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:469
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
 "bir rota ya bir araç/akış içinde ya da bir ID niteliği ile tanımlanmalıdır"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:481
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:487
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
 msgstr "'nin döngü süresi 0'a eşit veya 0'dan büyük olmalıdır"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:534
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:614
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:540
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:620
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "'dan', 'danBağlantı' ve 'danTaz' öznitelikleri birlikte tanımlanamaz"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:536
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:616
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:542
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:622
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "'-e', '-eBağlantı' ve '-eTaz' öznitelikleri birlikte tanımlanamaz"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:580
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:586
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
@@ -11458,18 +11458,18 @@ msgstr ""
 "gezi tanımının 'from/to' veya 'fromJunction/toJunction' veya 'fromTaz/toTaz' "
 "olması gerekir"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:942
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:959
 msgid "Parameters must be defined within an object"
 msgstr "Parametreler bir nesne içinde tanımlanmalıdır"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:954
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:971
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar boş "
 "olamaz"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:956
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:973
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
@@ -11477,7 +11477,7 @@ msgstr ""
 "Genel % parametresinden anahtar ayrıştırılırken hata oluştu. Anahtar "
 "geçersiz karakterler içeriyor"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:972
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:989
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:201
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
@@ -11486,24 +11486,24 @@ msgstr ""
 "İç içe geçmiş bir öğede araç takip parametrelerinin tanımlanması vTürü '%'de "
 "kullanımdan kaldırılmıştır, bunun yerine öznitelikleri kullanın!"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:980
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:982
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:997
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:999
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:204
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:206
 msgid "Invalid parsing embedded VType"
 msgstr "Geçersiz Ayrıştırma Tümleşik VType"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1066
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1083
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
 "Bir durak ya bir kenarla ya da bir şeritle tanımlanmalıdır, ikisi birden "
 "değil"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1082
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1099
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "Bir durak yalnızca bir DurakYeri içinde tanımlanmalıdır"
 
-#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1085
+#: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:1102
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
 "Bir durak bir kenarda, bir şeritte veya bir DurakYerinde tanımlanmalıdır"
