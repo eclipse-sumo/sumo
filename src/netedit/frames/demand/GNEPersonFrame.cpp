@@ -51,7 +51,7 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myPersonAttributes = new GNEAttributesCreator(this);
 
     // create plan selector module for person plans
-    myPlanSelector = new GNEPlanSelector(this);
+    myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // create person plan attributes
     myPersonPlanAttributes = new GNEAttributesCreator(this);

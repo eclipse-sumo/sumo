@@ -44,7 +44,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create plan selector
-    myPlanSelector = new GNEPlanSelector(this);
+    myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEAttributesCreator(this);
