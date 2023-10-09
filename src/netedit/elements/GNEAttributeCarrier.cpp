@@ -405,13 +405,13 @@ bool
 GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
     // we need at least two lanes
     if (lanes.size() > 1) {
-        // now check that lanes are consecutives (not neccesary connected)
+        // now check that lanes are consecutive (not necessary connected)
         int currentLane = 0;
         while (currentLane < ((int)lanes.size() - 1)) {
             int nextLane = -1;
-            // iterate over outgoing edges of destiny juntion of edge's lane
+            // iterate over outgoing edges of destiny junction of edge's lane
             for (int i = 0; (i < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().size()) && (nextLane == -1); i++) {
-                // iterate over lanes of outgoing edges of destiny juntion of edge's lane
+                // iterate over lanes of outgoing edges of destiny junction of edge's lane
                 for (int j = 0; (j < (int)lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getLanes().size()) && (nextLane == -1); j++) {
                     // check if lane correspond to the next lane of "lanes"
                     if (lanes.at(currentLane)->getParentEdge()->getToJunction()->getGNEOutgoingEdges().at(i)->getLanes().at(j) == lanes.at(currentLane + 1)) {
