@@ -96,10 +96,12 @@ def main(options):
                     if attribute_value in options.values:
                         toRemove.append((parent, node))
                 elif options.keepInterval is not None:
-                    if attribute_value is None or not options.keepInterval[0] <= float(attribute_value) <= options.keepInterval[1]:
+                    if (attribute_value is None or
+                            not options.keepInterval[0] <= float(attribute_value) <= options.keepInterval[1]):
                         toRemove.append((parent, node))
                 elif options.interval is not None:
-                    if attribute_value is not None and options.interval[0] <= float(attribute_value) <= options.interval[1]:
+                    if (attribute_value is not None and
+                            options.interval[0] <= float(attribute_value) <= options.interval[1]):
                         toRemove.append((parent, node))
                 else:  # nothing specified, delete all occurences of tag with the given attribute
                     toRemove.append((parent, node))

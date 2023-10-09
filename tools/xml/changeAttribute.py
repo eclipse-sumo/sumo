@@ -39,7 +39,8 @@ def get_options(args=None):
     optParser.add_argument("-t", "--tag", required=False, help="tag to edit")
     optParser.add_argument("-a", "--attribute", required=True, help="attribute to edit")
     optParser.add_argument("-v", "--value", help="value to update (deletes attribute if not specified)")
-    optParser.add_argument("-u", "--upper-limit", dest="maximum", help="updates to this maximum value (reduces all greater values)")
+    optParser.add_argument("-u", "--upper-limit", dest="maximum",
+                           help="updates to this maximum value (reduces all greater values)")
     options = optParser.parse_args(args=args)
     return options
 
