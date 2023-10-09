@@ -42,7 +42,7 @@ class GNERoute;
 class GNEDemandElementPlan {
 
 public:
-    /// @brief get the personTrip tag and icon for the combination 
+    /// @brief get the walk tag and icon for the combination 
     static std::pair<SumoXMLTag, GUIIcon> getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdges,
         const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
@@ -55,10 +55,19 @@ public:
         const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
 
-    /// @brief get the personTrip tag and icon for the combination 
+    /// @brief get the ride tag and icon for the combination 
     static std::pair<SumoXMLTag, GUIIcon> getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+
+    /// @brief get the transport tag and icon for the combination 
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconTransport(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+
+    /// @brief get the tranship tag and icon for the combination 
+    static std::pair<SumoXMLTag, GUIIcon> getTagIconTranship(const std::vector<GNEEdge*> &consecutiveEdges,
+        const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
+        const GNEAdditional* toContainerStop);
 
 protected:
     /// @brief constructor

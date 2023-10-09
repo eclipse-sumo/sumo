@@ -100,8 +100,7 @@ GNEDemandElementPlan::getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdg
         return std::make_pair(GNE_TAG_WALK_TRAINSTOP_BUSSTOP, GUIIcon::WALK_BUSSTOP);
     } else if (fromTrainStop && toTrainStop) {
         return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
-    }
-    else {
+    } else {
         throw ProcessError("invalid walk combination");
     }
 }
@@ -163,8 +162,7 @@ GNEDemandElementPlan::getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdg
         return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP, GUIIcon::PERSONTRIP_BUSSTOP);
     } else if (fromTrainStop && toTrainStop) {
         return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
-    }
-    else {
+    } else {
         throw ProcessError("invalid personTrip combination");
     }
 }
@@ -195,6 +193,45 @@ GNEDemandElementPlan::getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toE
         return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
     } else {
         throw ProcessError("invalid ride combination");
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getTagIconTransport(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+        const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop) {
+    // check elements
+    if (fromEdge && toEdge) {
+        return std::make_pair(GNE_TAG_TRANSPORT_EDGE_EDGE, GUIIcon::TRANSPORT_EDGE);
+    } else if (fromEdge && toContainerStop) {
+        return std::make_pair(GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+    } else if (fromContainerStop && toEdge) {
+        return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
+    } else if (fromContainerStop && toContainerStop) {
+        return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
+    } else {
+        throw ProcessError("invalid transport combination");
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getTagIconTranship(const std::vector<GNEEdge*> &consecutiveEdges,
+        const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
+        const GNEAdditional* toContainerStop) {
+    // check elements
+    if (consecutiveEdges.size() > 0) {
+        return std::make_pair(GNE_TAG_TRANSHIP_EDGES, GUIIcon::TRANSHIP_EDGES);
+    } else if (fromEdge && toEdge) {
+        return std::make_pair(GNE_TAG_TRANSHIP_EDGE_EDGE, GUIIcon::TRANSHIP_EDGE);
+    } else if (fromEdge && toContainerStop) {
+        return std::make_pair(GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+    } else if (fromContainerStop && toEdge) {
+        return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
+    } else if (fromContainerStop && toContainerStop) {
+        return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+    } else {
+        throw ProcessError("invalid tranship combination");
     }
 }
 
