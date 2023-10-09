@@ -566,6 +566,18 @@ GNETagProperties::vehicleOverFromToTAZs() const {
 
 
 bool
+GNETagProperties::planEdges() const {
+    return (myTagProperty & PLAN_EDGES) != 0;
+}
+
+
+bool
+GNETagProperties::planRoute() const {
+    return (myTagProperty & PLAN_ROUTE) != 0;
+}
+
+
+bool
 GNETagProperties::planFromEdge() const {
     return (myTagProperty & PLAN_FROM_EDGE) != 0;
 }
