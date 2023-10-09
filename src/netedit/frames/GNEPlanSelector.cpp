@@ -53,6 +53,8 @@
 #include <netedit/elements/demand/GNEContainer.h>
 #include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNEPersonTrip.h>
+#include <netedit/elements/demand/GNETransport.h>
+#include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEStop.h>
@@ -102,9 +104,9 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
         myPlanTemplates.push_back(std::make_pair("Walk (Route)", new GNEPersonTrip(GNE_TAG_WALK_ROUTE, net)));
     } else if (planType == SUMO_TAG_CONTAINER) {
         // set list of container plans
-        myPlanTemplates.push_back(std::make_pair("Transport", new GNEPersonTrip(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Tranship", new GNEPersonTrip(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Tranship (Edges)", new GNEPersonTrip(GNE_TAG_TRANSHIP_EDGES, net)));
+        myPlanTemplates.push_back(std::make_pair("Transport", new GNETransport(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Tranship", new GNETranship(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
+        myPlanTemplates.push_back(std::make_pair("Tranship (Edges)", new GNETranship(GNE_TAG_TRANSHIP_EDGES, net)));
     } else {
         throw ProcessError("Invalid plan");
     }
@@ -115,7 +117,7 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
             planTemplate.second->getTagProperty().getBackGroundColor());
     }
     // set myCurrentPlanTemplate
-    myCurrentPlanTemplate = nullptr;
+    myCurrentPlanTemplate = myPlanTemplates.front().second;
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
@@ -173,7 +175,7 @@ GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over routes
-        return (myCurrentPlanTemplate->getTagProperty().planFromBusStop;
+        return myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
@@ -185,7 +187,7 @@ GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over continuousEdges
-        return (myCurrentPlanTemplate == myPlanTemplates.at(3).second);
+        return myCurrentPlanTemplate->getTagProperty().planEdges();
     } else {
         return false;
     }
@@ -197,8 +199,8 @@ GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        return !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
@@ -209,10 +211,11 @@ bool
 GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        // for all plan except containerPlans, rides, routes and continous edges
+        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
+               !myCurrentPlanTemplate->getTagProperty().isRide() &&
+               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
@@ -223,9 +226,10 @@ bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        // for all plan containerPlans, routes and continous edges
+        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
+               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
@@ -236,9 +240,10 @@ bool
 GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        // for all plan containerPlans, routes and continous edges
+        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
+               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
@@ -249,10 +254,11 @@ bool
 GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan except rides, routes and continous edges
-        return (myCurrentPlanTemplate != myPlanTemplates.at(1).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(3).second) &&
-               (myCurrentPlanTemplate != myPlanTemplates.at(4).second);
+        // for all plan except containerPlans, rides, routes and continous edges
+        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
+               !myCurrentPlanTemplate->getTagProperty().isRide() &&
+               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
     }
