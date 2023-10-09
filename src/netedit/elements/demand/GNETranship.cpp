@@ -33,9 +33,9 @@
 // ===========================================================================
 
 GNETranship*
-GNETranship::buildTranship(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
+GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge,
         GNEAdditional* fromContainerStop, GNEEdge* toEdge, GNEAdditional* toContainerStop,
-        double arrivalPosition, std::vector<GNEEdge*> edgeList) {
+        std::vector<GNEEdge*> edgeList, double arrivalPosition) {
     // declare icon an tag
     const auto iconTag = getTagIconTranship(edgeList, fromEdge, toEdge, fromContainerStop, toContainerStop);
     // declare containers
@@ -56,7 +56,7 @@ GNETranship::buildTranship(GNENet* net, GNEDemandElement* personParent, GNEEdge*
             additionals.push_back(toContainerStop);
         }
     }
-    return new GNETranship(net, iconTag.first, iconTag.second, personParent, edges, additionals,arrivalPosition);
+    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, edges, additionals, arrivalPosition);
 }
 
 

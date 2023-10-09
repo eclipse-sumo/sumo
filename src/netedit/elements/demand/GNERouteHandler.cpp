@@ -757,7 +757,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent, 
             fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
             toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
-            arrivalPos, edges, route);
+            edges, route, arrivalPos);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
@@ -932,45 +932,40 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
+    GNEAdditional* fromContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, fromContainerStopID, false);
     GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
     }
     // check conditions
-    if (containerParent && fromEdge) {
-        if (toEdge) {
-            // create transport from->to
-            GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toEdge, lines, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(transport, TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(transport);
-                // set child references
-                containerParent->addChildElement(transport);
+    if (containerParent) {
+        // build transport
+        GNEDemandElement* transport = GNETransport::buildTransport(myNet, containerParent, fromEdge, fromContainerStop,
+                                                                   toEdge, toContainerStop, arrivalPos);
+        // continue depending of undo-redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(transport);
+            // set child references
+            containerParent->addChildElement(transport);
+            if (fromEdge) {
                 fromEdge->addChildElement(transport);
+            }
+            if (toEdge) {
                 toEdge->addChildElement(transport);
-                transport->incRef("buildTransportFromTo");
             }
-        } else if (toContainerStop) {
-            // create transport from->containerStop
-            GNEDemandElement* transport = new GNETransport(myNet, containerParent, fromEdge, toContainerStop, lines, arrivalPos);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(transport, TL("add ") + transport->getTagStr() + " in '" + containerParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(transport, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(transport);
-                // set child references
-                containerParent->addChildElement(transport);
-                fromEdge->addChildElement(transport);
+            if (fromContainerStop) {
+                fromContainerStop->addChildElement(transport);
+            }
+            if (toContainerStop) {
                 toContainerStop->addChildElement(transport);
-                transport->incRef("buildTransportFromContainerStop");
             }
+            transport->incRef("buildTransport");
         }
     }
 }
@@ -986,6 +981,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
+    GNEAdditional* fromContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, fromContainerStopID, false);
     GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
@@ -995,56 +991,36 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         fromEdge = previousEdge;
     }
     // check conditions
-    if (containerParent && (fromEdge || (edges.size() > 0))) {
-        if (edges.size() > 0) {
-            // create tranship edges
-            GNEDemandElement* tranship = new GNETranship(myNet, containerParent, edges, speed, departPosition, arrivalPosition);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(tranship);
-                // set child references
-                containerParent->addChildElement(tranship);
-                for (const auto& edge : edges) {
-                    edge->addChildElement(tranship);
-                }
-                tranship->incRef("buildTranshipEdges");
-            }
-        } else if (toEdge) {
-            // create tranship from->to
-            GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toEdge, speed, departPosition, arrivalPosition);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " in '" + containerParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(tranship);
-                // set child references
-                containerParent->addChildElement(tranship);
+    if (containerParent) {
+        // build tranship
+        GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent, fromEdge, fromContainerStop,
+                                                                toEdge, toContainerStop, edges, arrivalPosition);
+        // continue depending of undo-redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(tranship);
+            // set child references
+            containerParent->addChildElement(tranship);
+            if (fromEdge) {
                 fromEdge->addChildElement(tranship);
+            }
+            if (toEdge) {
                 toEdge->addChildElement(tranship);
-                tranship->incRef("buildTranshipFromTo");
             }
-        } else if (toContainerStop) {
-            // create tranship from->containerStop
-            GNEDemandElement* tranship = new GNETranship(myNet, containerParent, fromEdge, toContainerStop, speed, departPosition, arrivalPosition);
-            if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(tranship, TL("add ") + tranship->getTagStr() + " '" + containerParent->getID() + "'");
-                overwriteDemandElement();
-                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(tranship, true), true);
-                myNet->getViewNet()->getUndoList()->end();
-            } else {
-                myNet->getAttributeCarriers()->insertDemandElement(tranship);
-                // set child references
-                containerParent->addChildElement(tranship);
-                fromEdge->addChildElement(tranship);
+            if (fromContainerStop) {
+                fromContainerStop->addChildElement(tranship);
+            }
+            if (toContainerStop) {
                 toContainerStop->addChildElement(tranship);
-                tranship->incRef("buildTranshipFromContainerStop");
             }
+            for (const auto &edge : edges) {
+                edge->addChildElement(tranship);
+            }
+            tranship->incRef("buildTranship");
         }
     }
 }
@@ -1228,7 +1204,6 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     myPlanObject->addStringAttribute(SUMO_ATTR_ID, personParent->getID());
     // declare personPlan object
     CommonXMLStructure::SumoBaseObject* personPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
-
     // get person plan attributes
     personPlanAttributes->getAttributesAndValues(personPlanObject, true);
     // get attributes
@@ -1726,26 +1701,35 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
 
 
 bool
-GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
-                                    GNEPlanCreator* planCreator, const bool centerAfterCreation) {
-    // clear and set planObject
+GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent,
+                                    GNEAttributesCreator* containerPlanAttributes, GNEPlanCreator* planCreator,
+                                    const bool centerAfterCreation) {
+    // clear and set container object
     myPlanObject->clear();
     myPlanObject->setTag(containerParent->getTagProperty().getTag());
     myPlanObject->addStringAttribute(SUMO_ATTR_ID, containerParent->getID());
     // declare containerPlan object
     CommonXMLStructure::SumoBaseObject* containerPlanObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
-    containerPlanObject->setTag(tag);
-    // get attributes and values
+    // get container plan attributes
     containerPlanAttributes->getAttributesAndValues(containerPlanObject, true);
     // get attributes
+    const double speed = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) : 0;
     const std::vector<std::string> lines = containerPlanObject->hasStringListAttribute(SUMO_ATTR_LINES) ? containerPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
-    const double speed = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) : 1.39;
     const double departPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_DEPARTPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS) : -1;
     const double arrivalPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : -1;
+    // get consecutive edges
+    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
+    // get edges
+    GNEEdge* fromEdge = planCreator->getFromEdge();
+    GNEEdge* toEdge = planCreator->getToEdge();
+    // get containerStops
+    GNEAdditional* fromContainerStop = planCreator->getFromContainerStop();
+    GNEAdditional* toContainerStop = planCreator->getToContainerStop();
+/*
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
     // fill stops parameters
-    if ((tag == GNE_TAG_STOPCONTAINER_EDGE) || (tag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP)) {
+    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
         stopParameters.actType = containerPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
         if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
             stopParameters.duration = containerPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
@@ -1756,98 +1740,119 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             stopParameters.parametersSet |= STOP_UNTIL_SET;
         }
     }
-    // get consecutive edges
-    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
-    // get edges
-    GNEEdge* fromEdge = planCreator->getFromEdge();
-    GNEEdge* toEdge = planCreator->getToEdge();
-    // get containerStop
-    GNEAdditional* toContainerStop = /*planCreator->getToStoppingPlace(SUMO_TAG_CONTAINER_STOP)*/ nullptr;
-    // check what ContainerPlan we're creating
-    switch (tag) {
-        // Transports
-        case GNE_TAG_TRANSPORT_EDGE_EDGE: {
-            // check if transport busStop->edge can be created
-            if (fromEdge && toEdge) {
-                buildTransport(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", lines, arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
-                return false;
-            }
-            break;
+*/
+    // create plans depending of elements
+    if (consecutiveEdges.size() > 0) {
+        // consecutive edges
+        containerPlanObject->setTag(GNE_TAG_TRANSHIP_EDGES);
+        buildTranship(containerPlanObject,
+                  "", "",
+                  "", "",
+                  consecutiveEdges, speed, departPos, arrivalPos);
+    } else if (planTemplate->getTagProperty().isTranshipPlan()) {
+        // set tranship tag
+        containerPlanObject->setTag(GNEDemandElementPlan::getTagIconTranship({},
+                                    fromEdge, toEdge, fromContainerStop, toContainerStop).first);
+        // from edges
+        if (fromEdge && toEdge) {
+            // tranship: edge->edge
+            buildTranship(containerPlanObject,
+                      fromEdge->getID(), "",
+                      toEdge->getID(), "",
+                      {}, speed, departPos, arrivalPos);
+        } else if (fromEdge && toContainerStop) {
+            // tranship: edge->containerStop
+            buildTranship(containerPlanObject,
+                      fromEdge->getID(), "",
+                      "", toContainerStop->getID(),
+                      {}, speed, departPos, arrivalPos);
+        // from containerStop
+        } else if (fromContainerStop && toEdge) {
+            // tranship: edge->edge
+            buildTranship(containerPlanObject,
+                      "", fromContainerStop->getID(),
+                      toEdge->getID(), "",
+                      {}, speed, departPos, arrivalPos);
+        } else if (fromContainerStop && toContainerStop) {
+            // tranship: edge->containerStop
+            buildTranship(containerPlanObject,
+                      "", fromContainerStop->getID(),
+                      "", toContainerStop->getID(),
+                      {}, speed, departPos, arrivalPos);
         }
-        case GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP: {
-            // check if transport busStop->busStop can be created
-            if (fromEdge && toContainerStop) {
-                buildTransport(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), lines, arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A transport from busStop to busStop needs two busStops"));
-                return false;
-            }
-            break;
+    } else if (planTemplate->getTagProperty().isTransportPlan()) {
+        // set container trip tag
+        containerPlanObject->setTag(GNEDemandElementPlan::getTagIconTransport(fromEdge, toEdge,
+                                    fromContainerStop, toContainerStop).first);
+        // from edges
+        if (fromEdge && toEdge) {
+            // containerTrip: edge->edge
+            buildTransport(containerPlanObject,
+                           fromEdge->getID(), "",
+                           toEdge->getID(), "",
+                           lines, arrivalPos);
+        } else if (fromEdge && toContainerStop) {
+            // containerTrip: edge->containerStop
+            buildTransport(containerPlanObject,
+                           fromEdge->getID(), "",
+                           "", toContainerStop->getID(),
+                           lines, arrivalPos);
+        // from containerStop
+        } else if (fromContainerStop && toEdge) {
+            // containerTrip: edge->edge
+            buildTransport(containerPlanObject,
+                           "", fromContainerStop->getID(),
+                           toEdge->getID(), "",
+                           lines, arrivalPos);
+        } else if (fromContainerStop && toContainerStop) {
+            // containerTrip: edge->containerStop
+            buildTransport(containerPlanObject,
+                           "", fromContainerStop->getID(),
+                           "", toContainerStop->getID(),
+                           lines, arrivalPos);
         }
-        // Tranships
-        case GNE_TAG_TRANSHIP_EDGE_EDGE: {
-            // check if tranship busStop->edge can be created
-            if (fromEdge && toEdge) {
-                buildTranship(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", {}, speed, departPos, arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP: {
-            // check if tranship busStop->busStop can be created
-            if (fromEdge && toContainerStop) {
-                buildTranship(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), {}, speed, departPos, arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A tranship from busStop to busStop needs two busStops"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_TRANSHIP_EDGES: {
-            // check if tranship edges can be created
-            if (consecutiveEdges.size() > 0) {
-                buildTranship(containerPlanObject, "", "", "", consecutiveEdges, speed, departPos, arrivalPos);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A tranship with edges attribute needs a list of edges"));
-                return false;
-            }
-            break;
-        }
-        // stops
-        case GNE_TAG_STOPCONTAINER_EDGE: {
-            // check if ride busStop->busStop can be created
-            if (fromEdge) {
-                stopParameters.edge = fromEdge->getID();
-                stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
-                stopParameters.parametersSet |= STOP_END_SET;
-                buildStop(containerPlanObject, stopParameters);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
-                return false;
-            }
-            break;
-        }
-        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP: {
-            // check if ride busStop->busStop can be created
-            if (toContainerStop) {
-                stopParameters.containerstop = toContainerStop->getID();
-                buildStop(containerPlanObject, stopParameters);
-            } else {
-                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
-                return false;
-            }
-            break;
-        }
-        default:
-            throw InvalidArgument("Invalid container plan tag");
     }
+/*
+    // stops
+    case GNE_TAG_STOPPERSON_EDGE: {
+        // check if ride containerStop->containerStop can be created
+        if (fromEdge) {
+            stopParameters.edge = fromEdge->getID();
+            stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
+            stopParameters.parametersSet |= STOP_END_SET;
+            buildStop(containerPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
+            return false;
+        }
+        break;
+    }
+    case GNE_TAG_STOPPERSON_BUSSTOP: {
+        // check if ride containerStop->containerStop can be created
+        if (toContainerStop) {
+            stopParameters.containerstop = toContainerStop->getID();
+            buildStop(containerPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a containerStop"));
+            return false;
+        }
+        break;
+    }
+    case GNE_TAG_STOPPERSON_TRAINSTOP: {
+        // check if ride trainStop->trainStop can be created
+        if (toTrainStop) {
+            stopParameters.containerstop = toTrainStop->getID();
+            buildStop(containerPlanObject, stopParameters);
+        } else {
+            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
+            return false;
+        }
+        break;
+    }
+*/
     // get container
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
-                           containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+                        containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (container) {
         // compute container (and all container plans)
         container->computePathElement();

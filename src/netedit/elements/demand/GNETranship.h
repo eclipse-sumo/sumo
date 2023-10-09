@@ -41,64 +41,20 @@ class GNETranship : public GNEDemandElement, public Parameterised, public GNEDem
 public:
     /**@brief general constructor for tranships
      * @param[in] net Network in which this tranship is placed
-     * @param[in] personParent person parent
+     * @param[in] containerParent person parent
      * @param[in] fromEdge from edge
-     * @param[in] fromTAZ from TAZ
-     * @param[in] fromJunction from Junction
      * @param[in] fromContainerStop from containerStop
-     * @param[in] fromTrainStop from trainStop
      * @param[in] toEdge to edge
-     * @param[in] toTAZ to TAZ
-     * @param[in] toJunction to Junction
      * @param[in] toContainerStop to containerStop
-     * @param[in] toTrainStop to trainStop
-     * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] edgeList list of edges
-     * @param[in] route route
+     * @param[in] arrivalPosition arrival position on the destination edge
      */
-    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* personParent, 
+    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent, 
         GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-        GNEAdditional* toContainerStop, double arrivalPosition, std::vector<GNEEdge*> edgeList);
+        GNEAdditional* toContainerStop, std::vector<GNEEdge*> edgeList, double arrivalPosition);
 
     /// @brief default constructor
     GNETranship(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for container edge->edge
-     * @param[in] viewNet view in which this Tranship is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] speed depart position of from edge
-     * @param[in] departPosition arrival position on the destination edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                const double speed, const double departPosition, const double arrivalPosition);
-
-    /**@brief parameter constructor for container edge->containerStop
-     * @param[in] viewNet view in which this Tranship is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toContainerStop to containerStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] speed depart position of from edge
-     * @param[in] departPosition arrival position on the destination edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
-                const double speed, const double departPosition, const double arrivalPosition);
-
-    /**@brief parameter constructor for container edge->edge
-     * @param[in] viewNet view in which this Tranship is placed
-     * @param[in] containerParent container parent
-     * @param[in] edges list of edges
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] speed depart position of from edge
-     * @param[in] departPosition arrival position on the destination edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges,
-                const double speed, const double departPosition, const double arrivalPosition);
 
     /// @brief destructor
     ~GNETranship();

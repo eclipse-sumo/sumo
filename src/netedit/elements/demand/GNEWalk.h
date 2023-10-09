@@ -52,14 +52,14 @@ public:
      * @param[in] toJunction to Junction
      * @param[in] toBusStop to busStop
      * @param[in] toTrainStop to trainStop
-     * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] edgeList list of edges
      * @param[in] route route
+     * @param[in] arrivalPosition arrival position on the destination edge
      */
     static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, 
         GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
         GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route);
+        std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
 
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);

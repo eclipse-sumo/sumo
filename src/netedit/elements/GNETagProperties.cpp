@@ -418,11 +418,11 @@ GNETagProperties::isTransportPlan() const {
     return (myTagType & TRANSPORT) != 0;
 }
 
+
 bool
 GNETagProperties::isTranshipPlan() const {
     return (myTagType & TRANSHIP) != 0;
 }
-
 
 
 bool

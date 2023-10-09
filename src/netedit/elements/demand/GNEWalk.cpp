@@ -37,7 +37,7 @@ GNEWalk*
 GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent, 
         GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
         GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        double arrivalPosition, std::vector<GNEEdge*> edgeList, GNEDemandElement* route) {
+        std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition) {
     // declare icon an tag
     const auto iconTag = getTagIconWalk(edgeList, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
                                         fromBusStop, toBusStop, fromTrainStop, toTrainStop);

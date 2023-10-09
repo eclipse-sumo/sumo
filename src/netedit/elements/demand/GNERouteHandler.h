@@ -162,7 +162,7 @@ public:
                          GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
+    bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
                             GNEPlanCreator* planCreator, const bool centerAfterCreation);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
