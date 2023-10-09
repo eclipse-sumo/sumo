@@ -76,7 +76,7 @@ title: ChangeLog
   - Added buttons next to lane attribute to shift element between edge's lanes. #13387
   - Added search field in comboBox. #12394, #13735
   - Added drawing reference for creating additionals. #13769
-  - Now internal lanes can be drawn. 13790
+  - Now internal lanes can be drawn. #13790
   - Added JuPedSim elements WalkableArea and Obstacle. #13667, #13687, #13837
   - Add new view "JuPedSim". #13750
   - Support persons over TAZs in netedit. #13784
