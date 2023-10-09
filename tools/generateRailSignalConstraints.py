@@ -1701,8 +1701,7 @@ def removeDeadlockingBidiConstraints(conflicts, tl_to_stop, verbose):
             key = (c.tripID, c.otherTripID, other_stop)
             rkey = (c.otherTripID, c.tripID, other_stop)
             if key in tfcMap and verbose:
-                print("Deadlock-causing conflict between '%s' and '%s' between busStops'%s' and '%s'." % key,
-                      file=sys.stderr)
+                print("Deadlock-causing conflict between '%s' and '%s' at busStop '%s'." % key, file=sys.stderr)
             tfcMap[key].append(c)
             if rkey in tfcMap:
                 keyToRemove = None
@@ -1716,8 +1715,7 @@ def removeDeadlockingBidiConstraints(conflicts, tl_to_stop, verbose):
                     numRemoved += 1
                     conflicts[c.signal].remove(c)
                     if verbose:
-                        print("Found bidi conflict causing deadlock (tripId=%s, foeId=%s,busStop=%s busStop2=%s)." %
-                              keyToRemove)
+                        print("Found bidi conflict causing deadlock (tripId=%s, foeId=%s, busStop=%s)." % keyToRemove)
                     if not conflicts[c.signal]:
                         del conflicts[c.signal]
                 del tfcMap[keyToRemove]
