@@ -13,20 +13,22 @@
 /****************************************************************************/
 /// @file    GNEContainerPlanFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    Jun 2019
 ///
 // The Widget for add ContainerPlan elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
-#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
 
 
 // ===========================================================================
@@ -38,6 +40,7 @@
 class GNEContainerPlanFrame : public GNEFrame {
 
 public:
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -59,14 +62,20 @@ public:
      */
     bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get plan creator modul
+    /// @brief reset selected container
+    void resetSelectedContainer();
+
+    /// @brief get plan creator module
     GNEPlanCreator* getPlanCreator() const;
 
-    /// @brief get container Hierarchy
+    /// @brief get Container Hierarchy
     GNEElementTree* getContainerHierarchy() const;
 
     /// @brief get container selectors
     DemandElementSelector* getContainerSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -86,17 +95,17 @@ private:
     DemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNETagSelector* myContainerPlanTagSelector;
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerPlanAttributes;
 
-    /// @brief Path Creator
+    /// @brief plan Creator
     GNEPlanCreator* myPlanCreator;
-
-    /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
 
     /// @brief Container Hierarchy
     GNEElementTree* myContainerHierarchy;
+
+    /// @brief path legend modul
+    GNEPathLegendModule* myPathLegend;
 };
