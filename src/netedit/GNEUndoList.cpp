@@ -453,7 +453,7 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
         } else if (hasCommandGroup()) {
             caption = "Cannot Undo in the middle of " + myChangeGroups.top()->getDescription();
         } else if (!canUndo()) {
-            caption = "Undo";
+            caption = TL("Undo");
         }
         menuCommand->setText(caption.c_str());
         menuCommand->update();
@@ -500,7 +500,7 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
         } else if (hasCommandGroup()) {
             caption = "Cannot Redo in the middle of " + myChangeGroups.top()->getDescription();
         } else if (!canRedo()) {
-            caption = "Redo";
+            caption = TL("Redo");
         }
         menuCommand->setText(caption.c_str());
         menuCommand->update();
