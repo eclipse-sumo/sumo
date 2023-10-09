@@ -13,7 +13,7 @@
 /****************************************************************************/
 /// @file    GNEContainerFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    May 2019
 ///
 // The Widget for add container elements
 /****************************************************************************/
@@ -28,6 +28,7 @@
 #include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
 
 
 // ===========================================================================
@@ -60,11 +61,14 @@ public:
      */
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get plan creator modul
+    /// @brief get plan creator module
     GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Type selectors
     DemandElementSelector* getTypeSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
     /// @brief get attributes creator
     GNEAttributesCreator* getContainerAttributes() const;
@@ -92,8 +96,8 @@ private:
     /// @brief Container Type selectors
     DemandElementSelector* myTypeSelector;
 
-    /// @brief container plan selector (used to select diffent kind of container plan)
-    GNETagSelector* myContainerPlanTagSelector;
+    /// @brief containerPlan selector
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerAttributes;
@@ -104,7 +108,7 @@ private:
     /// @brief Netedit parameter
     GNENeteditAttributes* myNeteditAttributes;
 
-    /// @brief path creator (used for Walks, rides and trips)
+    /// @brief edge path creator (used for Walks, rides and trips)
     GNEPlanCreator* myPlanCreator;
 
     /// @brief path legend modul

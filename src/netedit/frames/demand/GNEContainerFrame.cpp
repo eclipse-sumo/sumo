@@ -13,15 +13,16 @@
 /****************************************************************************/
 /// @file    GNEContainerFrame.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    May 2019
 ///
 // The Widget for add Container elements
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
@@ -43,14 +44,14 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create tag Selector module for containers
     myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
-    // create container types selector module and set DEFAULT_CONTAINERTYPE_ID as default element
-    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
+    // create container types selector module and set DEFAULT_PEDTYPE_ID as default element
+    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID));
 
     // create container attributes
     myContainerAttributes = new GNEAttributesCreator(this);
 
-    // create tag Selector module for container plans
-    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE_EDGE);
+    // create plan selector module for container plans
+    myPlanSelector = new GNEPlanSelector(this);
 
     // create container plan attributes
     myContainerPlanAttributes = new GNEAttributesCreator(this);
@@ -79,10 +80,9 @@ GNEContainerFrame::show() {
     // refresh tag selector
     myContainerTagSelector->refreshTagSelector();
     myTypeSelector->refreshDemandElementSelector();
-    myContainerPlanTagSelector->refreshTagSelector();
+    myPlanSelector->refreshPlanSelector();
     // update VClass of myPlanCreator
-    if (myContainerPlanTagSelector->getCurrentTemplateAC() &&
-            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isTransportPlan()) {
+    if (myPlanSelector->getCurrentPlanTemplate() && myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
         myPlanCreator->setVClass(SVC_PASSENGER);
     } else {
         myPlanCreator->setVClass(SVC_PEDESTRIAN);
@@ -123,17 +123,21 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
         return false;
     }
     // finally check that container plan selected is valid
-    if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
+    if (myPlanSelector->getCurrentPlanTemplate() == nullptr) {
         myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
         return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
-    } else if (clickedACTag == SUMO_TAG_CONTAINER_STOP) {
+    } else if ((clickedACTag == SUMO_TAG_BUS_STOP) || (clickedACTag == SUMO_TAG_TRAIN_STOP)) {
         return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
+    } else if (clickedACTag == SUMO_TAG_ROUTE) {
+        return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
         return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
+    } else if (clickedACTag == SUMO_TAG_TAZ) {
+        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
@@ -152,6 +156,12 @@ GNEContainerFrame::getTypeSelector() const {
 }
 
 
+GNEPlanSelector*
+GNEContainerFrame::getPlanSelector() const {
+    return myPlanSelector;
+}
+
+
 GNEAttributesCreator*
 GNEContainerFrame::getContainerAttributes() const {
     return myContainerAttributes;
@@ -164,35 +174,41 @@ GNEContainerFrame::getContainerAttributes() const {
 void
 GNEContainerFrame::tagSelected() {
     // first check if container is valid
-    if (myContainerTagSelector->getCurrentTemplateAC()) {
+    if (myContainerTagSelector->getCurrentTemplateAC() && myPlanSelector->getCurrentPlanTemplate()) {
         // show PType selector and container plan selector
         myTypeSelector->showDemandElementSelector();
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
-            // show container attributes depending of myContainerPlanTagSelector
-            if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
+            // show container attributes depending of myPlanSelector
+            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer()) {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
             }
             // show container plan tag selector
-            myContainerPlanTagSelector->showTagSelector();
+            myPlanSelector->showPlanSelector();
             // now check if container plan selected is valid
-            if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
-                // update VClass of myPlanCreator depending if container is a ride
-                if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-                    myPlanCreator->setVClass(SVC_PASSENGER);
-                } else {
-                    myPlanCreator->setVClass(SVC_PEDESTRIAN);
-                }
+            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
                 // show container plan attributes
-                myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
+                myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
-                myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
-                // show edge path creator module
-//              myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
-                // show path legend
-                myPathLegend->showPathLegendModule();
+                myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
+                // show path creator depending of tag
+                if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer() ||
+                        (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
+                    myPlanCreator->hidePathCreatorModule();
+                } else {
+                    // update VClass of myPlanCreator depending if container is a ride
+                    if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
+                        myPlanCreator->setVClass(SVC_PASSENGER);
+                    } else {
+                        myPlanCreator->setVClass(SVC_PEDESTRIAN);
+                    }
+                    // show edge path creator module
+                    myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
+                    // show path legend
+                    myPathLegend->showPathLegendModule();
+                }
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
@@ -202,7 +218,7 @@ GNEContainerFrame::tagSelected() {
             }
         } else {
             // hide modules
-            myContainerPlanTagSelector->hideTagSelector();
+            myPlanSelector->hidePlanSelector();
             myContainerAttributes->hideAttributesCreatorModule();
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
@@ -212,7 +228,7 @@ GNEContainerFrame::tagSelected() {
     } else {
         // hide all modules if container isn't valid
         myTypeSelector->hideDemandElementSelector();
-        myContainerPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
@@ -224,36 +240,36 @@ GNEContainerFrame::tagSelected() {
 
 void
 GNEContainerFrame::demandElementSelected() {
-    if (myTypeSelector->getCurrentDemandElement()) {
-        // show container attributes depending of myContainerPlanTagSelector
-        if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
+    if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
+        // show container attributes depending of myPlanSelector
+        if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer()) {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
         }
         // show container plan tag selector
-        myContainerPlanTagSelector->showTagSelector();
+        myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
-        if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
             // update VClass of myPlanCreator depending if container is a ride
-            if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
                 myPlanCreator->setVClass(SVC_PASSENGER);
             } else {
                 myPlanCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show container plan attributes
-            myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
+            myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
-            myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
+            myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
             // show edge path creator module
-//          myPlanCreator->showPlanCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
-            // show path legend
+            myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
+            // show legend
             myPathLegend->showPathLegendModule();
-            // show warning if we have selected a vType oriented to persons or vehicles
-            if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-                WRITE_WARNING(TL("VType with vClass == 'pedestrian' is oriented to pedestrians"));
-            } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_IGNORING) {
-                WRITE_WARNING(TL("VType with vClass != 'ignoring' is not oriented to containers"));
+            // show warning if we have selected a vType oriented to containers or vehicles
+            if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
+                WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
+            } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_PEDESTRIAN) {
+                WRITE_WARNING(TL("VType with vClass != 'pedestrian' is not oriented to containers"));
             }
         } else {
             // hide modules
@@ -263,7 +279,7 @@ GNEContainerFrame::demandElementSelected() {
         }
     } else {
         // hide modules
-        myContainerPlanTagSelector->hideTagSelector();
+        myPlanSelector->hidePlanSelector();
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
@@ -273,37 +289,36 @@ GNEContainerFrame::demandElementSelected() {
 
 
 bool
-GNEContainerFrame::createPath(const bool /* useLastRoute */) {
+GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
         myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-                                        myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
-        // create person
-        GNEDemandElement* person = buildContainer();
-        // check if person and person plan can be created
-        if (myRouteHandler.buildContainerPlan(
-                    myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
-                    person, myContainerPlanAttributes, myPlanCreator, true)) {
+                                        myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr());
+        // create container
+        GNEDemandElement* container = buildContainer();
+        // check if container and container plan can be created
+        if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(),
+                                           container, myContainerPlanAttributes, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation
             myPlanCreator->abortPathCreation();
-            // refresh person and personPlan attributes
+            // refresh container and containerPlan attributes
             myContainerAttributes->refreshAttributesCreator();
             myContainerPlanAttributes->refreshAttributesCreator();
-            // compute person
-            person->computePathElement();
-            // enable show all person plans
+            // compute container
+            container->computePathElement();
+            // enable show all container plans
             myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->setChecked(TRUE);
             return true;
         } else {
-            // abort person creation
+            // abort container creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
@@ -322,7 +337,7 @@ GNEContainerFrame::buildContainer() {
     SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     // set tag
     myContainerBaseObject->setTag(containerTag);
-    // Declare map to keep attributes from myContainerAttributes
+    // get attribute ad values
     myContainerAttributes->getAttributesAndValues(myContainerBaseObject, false);
     // Check if ID has to be generated
     if (!myContainerBaseObject->hasStringAttribute(SUMO_ATTR_ID)) {
@@ -340,21 +355,18 @@ GNEContainerFrame::buildContainer() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain container parameters
         SUMOVehicleParameter* containerParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_CONTAINER, SUMOSAXAttrs, false, false, false);
-        // check personParameters
+        // check containerParameters
         if (containerParameters) {
             myContainerBaseObject->setVehicleParameter(containerParameters);
             // parse vehicle
             myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
-            // delete personParameters
+            // delete containerParameters
             delete containerParameters;
         }
     } else {
         // set begin and end attributes
-        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
+        if (!myContainerBaseObject->hasStringAttribute(SUMO_ATTR_BEGIN) || myContainerBaseObject->getStringAttribute(SUMO_ATTR_BEGIN).empty()) {
             myContainerBaseObject->addStringAttribute(SUMO_ATTR_BEGIN, "0");
-        }
-        if (myContainerBaseObject->hasStringAttribute(SUMO_ATTR_END) && myContainerBaseObject->getStringAttribute(SUMO_ATTR_END).empty()) {
-            myContainerBaseObject->addStringAttribute(SUMO_ATTR_END, "3600");
         }
         // adjust poisson value
         if (myContainerBaseObject->hasTimeAttribute(GNE_ATTR_POISSON)) {
@@ -364,12 +376,12 @@ GNEContainerFrame::buildContainer() {
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain containerFlow parameters
         SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
-        // check personParameters
+        // check containerParameters
         if (containerFlowParameters) {
             myContainerBaseObject->setVehicleParameter(containerFlowParameters);
             // parse vehicle
             myRouteHandler.parseSumoBaseObject(myContainerBaseObject);
-            // delete personParameters
+            // delete containerParameters
             delete containerFlowParameters;
         }
     }
