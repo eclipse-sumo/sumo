@@ -86,7 +86,7 @@ GNEPersonTrip::~GNEPersonTrip() {}
 GNEMoveOperation*
 GNEPersonTrip::getMoveOperation() {
     // only move personTrips defined over edges
-    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
+    if (myTagProperty.planToEdge()) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared

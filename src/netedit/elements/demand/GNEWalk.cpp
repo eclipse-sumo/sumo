@@ -94,7 +94,7 @@ GNEWalk::~GNEWalk() {}
 GNEMoveOperation*
 GNEWalk::getMoveOperation() {
     // only move personTrips defined over edges
-    if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_EDGES)) {
+    if (myTagProperty.planToEdge() || (myTagProperty.getTag() == GNE_TAG_WALK_EDGES)) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared
