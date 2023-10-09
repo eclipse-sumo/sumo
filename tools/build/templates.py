@@ -312,18 +312,7 @@ def formatBinTemplate(templateStr):
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # split lines
-    templateStr = templateStr.replace("\n", '"\n    "')
-    # remove empty lines
-    templateStr = templateStr.replace('    ""\n', '')
-    # replace first backspace
-    templateStr = templateStr.replace("\\b'", '"')
-    # add last "
-    templateStr += '"'
-    # remove last line
-    templateStr = templateStr.replace('\n    ""', '')
-    # add ending
-    templateStr += ';\n'
-    return templateStr
+    return templateStr.replace("\n", '"\n    "')
 
 
 def formatToolTemplate(templateStr):
@@ -345,20 +334,15 @@ def generateTemplate(app, appBin):
     """
     @brief generate template for the given app
     """
-    if os.path.exists(appBin):
-        # show info
-        print("Obtaining " + app + " template")
-        # obtain template piping stdout using check_output
-        try:
-            template = check_output([appBin, "--save-template", "stdout"], universal_newlines=True)
-        except CalledProcessError as e:
-            sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
-            return 'const std::string ' + app + 'Template = "";'
-        # join variable and formatted template
-        return 'const std::string ' + app + 'Template = "' + formatBinTemplate(template)
-    # if binary wasn't found, then raise exception
-    raise Exception(app + "template cannot be generated. " + app + " binary not found. "
-                    "Make sure that " + app + " or " + app + "D was generated in bin folder")
+    print("Obtaining " + app + " template")
+    # obtain template piping stdout using check_output
+    try:
+        template = formatBinTemplate(check_output([appBin, "--save-template", "stdout"], universal_newlines=True))
+    except CalledProcessError as e:
+        sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
+        template = ""
+    # join variable and formatted template
+    return 'const std::string %sTemplate = "%s";\n' % (app, template)
 
 
 def generateToolTemplate(toolDir, toolPath):
@@ -367,23 +351,18 @@ def generateToolTemplate(toolDir, toolPath):
     """
     toolName = os.path.basename(toolPath)[:-3]
     # create templateTool
-    dirname = os.path.dirname(toolPath)
-    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(dirname, dirname))
-    # check if exists
-    if os.path.exists(join(toolDir, toolPath)):
-        # show info
-        print("Obtaining '" + toolName + "' tool template.")
-        # obtain template piping stdout using check_output
-        try:
-            with open(os.devnull, "w") as null:
-                template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
-                                        stderr=null, universal_newlines=True)
-            # join variable and formatted template
-            return templateTool + formatToolTemplate(template) + '),\n'
-        except CalledProcessError as e:
-            print("Error when generating tool template for %s: '%s'." % (toolName, e), file=sys.stderr)
-    else:
-        print(toolName + "Template cannot be generated. '" + toolPath + "' not found.", file=sys.stderr)
+    d = os.path.dirname(toolPath)
+    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
+    print("Obtaining '" + toolName + "' tool template.")
+    # obtain template piping stdout using check_output
+    try:
+        with open(os.devnull, "w") as null:
+            template = check_output([sys.executable, join(toolDir, toolPath), "--save-template", "stdout"],
+                                    stderr=null, universal_newlines=True)
+        # join variable and formatted template
+        return templateTool + formatToolTemplate(template) + '),\n'
+    except CalledProcessError as e:
+        print("Cannot generate tool template for %s: '%s'." % (toolName, e), file=sys.stderr)
     return templateTool + '""),\n'
 
 
