@@ -454,12 +454,12 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_CONTAINERFLOW:
             myAC = new GNEContainer(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_TRANSPORT_EDGE:
-        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+        case GNE_TAG_TRANSPORT_EDGE_EDGE:
+        case GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP:
             myAC = new GNETransport(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_TRANSHIP_EDGE:
-        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+        case GNE_TAG_TRANSHIP_EDGE_EDGE:
+        case GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP:
         case GNE_TAG_TRANSHIP_EDGES:
             myAC = new GNETranship(tagProperty.getTag(), net);
             break;

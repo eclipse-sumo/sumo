@@ -1765,7 +1765,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     // check what ContainerPlan we're creating
     switch (tag) {
         // Transports
-        case GNE_TAG_TRANSPORT_EDGE: {
+        case GNE_TAG_TRANSPORT_EDGE_EDGE: {
             // check if transport busStop->edge can be created
             if (fromEdge && toEdge) {
                 buildTransport(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", lines, arrivalPos);
@@ -1775,7 +1775,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             }
             break;
         }
-        case GNE_TAG_TRANSPORT_CONTAINERSTOP: {
+        case GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP: {
             // check if transport busStop->busStop can be created
             if (fromEdge && toContainerStop) {
                 buildTransport(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), lines, arrivalPos);
@@ -1786,7 +1786,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             break;
         }
         // Tranships
-        case GNE_TAG_TRANSHIP_EDGE: {
+        case GNE_TAG_TRANSHIP_EDGE_EDGE: {
             // check if tranship busStop->edge can be created
             if (fromEdge && toEdge) {
                 buildTranship(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", {}, speed, departPos, arrivalPos);
@@ -1796,7 +1796,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             }
             break;
         }
-        case GNE_TAG_TRANSHIP_CONTAINERSTOP: {
+        case GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP: {
             // check if tranship busStop->busStop can be created
             if (fromEdge && toContainerStop) {
                 buildTranship(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), {}, speed, departPos, arrivalPos);

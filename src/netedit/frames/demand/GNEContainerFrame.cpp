@@ -50,7 +50,7 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myContainerAttributes = new GNEAttributesCreator(this);
 
     // create tag Selector module for container plans
-    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE_EDGE);
 
     // create container plan attributes
     myContainerPlanAttributes = new GNEAttributesCreator(this);
