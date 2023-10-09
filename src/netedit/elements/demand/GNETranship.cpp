@@ -231,6 +231,8 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myDepartPosition);
             }
+        case SUMO_ATTR_SPEED:
+            return toString(mySpeed);
         default:
             return getPlanAttribute(key);
     }
@@ -251,7 +253,16 @@ GNETranship::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    setPlanAttribute(key, value, undoList);
+    switch (key) {
+        // Common attributes
+        case SUMO_ATTR_DEPARTPOS:
+        case SUMO_ATTR_SPEED:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            setPlanAttribute(key, value, undoList);
+            break;
+    }
 }
 
 
@@ -290,7 +301,15 @@ GNETranship::getACParametersMap() const {
 
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setPlanAttribute(key, value);
+    switch (key) {
+        // Common attributes
+        case SUMO_ATTR_DEPARTPOS:
+        case SUMO_ATTR_SPEED:
+            break;
+        default:
+            setPlanAttribute(key, value);
+            break;
+    }
 }
 
 
