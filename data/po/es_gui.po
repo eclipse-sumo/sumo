@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-04 18:26+0200\n"
-"PO-Revision-Date: 2023-10-06 15:00+0000\n"
+"PO-Revision-Date: 2023-10-09 07:28+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8644,6 +8644,8 @@ msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr ""
+"El multiplicador esperado del vehículo para los límites de velocidad del "
+"carril (o un especificador de distribución)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3460
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
@@ -8717,6 +8719,8 @@ msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
 msgstr ""
+"La brecha lateral mínima a una diferencia de velocidad de 50 km/h cuando se "
+"utiliza el modelo de sub-carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3544
 msgid "The maximum lateral speed when using the sublane-model"
@@ -8727,6 +8731,8 @@ msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr ""
+"La duración del intervalo durante el cual el vehículo realiza su lógica de "
+"decisión (aceleración y cambio de carril)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3556
 msgid ""
@@ -8793,6 +8799,8 @@ msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
 msgstr ""
+"El tiempo de salida del (primer) viaje que se genera utilizando esta "
+"definición de viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3663
 msgid "TripJunctions"
@@ -8879,11 +8887,11 @@ msgstr "La ID del tipo de vehículo a usar para este flujo (flow)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3845
 msgid "The ID of the edge the flow starts at"
-msgstr ""
+msgstr "El ID de la arista en la que inicia el flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3850
 msgid "The ID of the edge the flow ends at"
-msgstr ""
+msgstr "El ID de la arista en la que finaliza el flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3855
 msgid "List of intermediate edge ids which shall be part of the flow"
@@ -8933,12 +8941,12 @@ msgstr "El ID de la ruta en la cual debe conducir el flujo"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3966
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4003
 msgid "The index of the edge within route the flow starts at"
-msgstr ""
+msgstr "El índice de la arista dentro de la ruta, en la que inicia el flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3971
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4008
 msgid "The index of the edge within route the flow ends at"
-msgstr ""
+msgstr "El índice de la arista dentro de la ruta, en la que finaliza el flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3986
 msgid "FlowEmbeddedRoute"
@@ -8959,6 +8967,8 @@ msgstr "El nombre del carril en el cual la parada deberá ser ubicada"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4059
 msgid "The lateral offset on the named lane at which the vehicle must stop"
 msgstr ""
+"El desplazamiento lateral en el carril designado en el que el vehículo debe "
+"detenerse"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4071
 msgid "StopBusStop"
@@ -9014,6 +9024,8 @@ msgstr "El nombre del carril donde el punto de referencia deberá ubicarse"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4192
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
+"El desplazamiento lateral en el carril designado en el que el vehículo debe "
+"pasar un punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4204
 msgid "WaypointBusStop"
@@ -9021,7 +9033,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4209
 msgid "BusWaypoint associated with this waypoint"
-msgstr ""
+msgstr "BusWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4221
 msgid "WaypointTrainStop"
@@ -9029,7 +9041,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4226
 msgid "TrainWaypoint associated with this waypoint"
-msgstr ""
+msgstr "TrainWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4238
 msgid "WaypointContainerStop"
@@ -9037,7 +9049,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4243
 msgid "ContainerWaypoint associated with this waypoint"
-msgstr ""
+msgstr "ContainerWaypoint asociado a este punto de referencia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4255
 msgid "WaypointChargingStation"
@@ -9079,18 +9091,18 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4382
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4413
 msgid "The ID of the edge the transport starts at"
-msgstr ""
+msgstr "El ID de la arista en la cual inicia el envío"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4387
 msgid "The ID of the edge the transport ends at"
-msgstr ""
+msgstr "El ID de la arista en la cual finaliza el envío"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4392
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4462
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5897
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5971
 msgid "arrival position on the destination edge"
-msgstr ""
+msgstr "posición de llegada sobre la arista destino"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4398
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4423
@@ -9111,11 +9123,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4446
 msgid "The ID of the edge the tranship starts at"
-msgstr ""
+msgstr "El ID de la arista en la que inicia el transbordo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4451
 msgid "The ID of the edge the tranship ends at"
-msgstr ""
+msgstr "El ID de la arista en la que finaliza el transbordo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4456
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4493
@@ -9136,7 +9148,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4483
 msgid "The name of the edge the tranship starts at"
-msgstr ""
+msgstr "El nombre de la arista en la que inicia el transbordo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4488
 msgid "Id of the destination container stop"
@@ -9149,7 +9161,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4514
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4856
 msgid "id of the edges to walk"
-msgstr ""
+msgstr "ID de las aristas a caminar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4525
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4861
@@ -9164,7 +9176,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4555
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4949
 msgid "The ID of the edge the stop shall be located at"
-msgstr ""
+msgstr "El ID de la arista en la que deba ubicarse la parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4573
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4606
@@ -9182,7 +9194,7 @@ msgstr "Duración mínima de parada"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5040
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5807
 msgid "The time step at which the route continues"
-msgstr ""
+msgstr "El intervalo de tiempo en el que continúa la ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4586
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4619
