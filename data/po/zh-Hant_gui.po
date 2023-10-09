@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-09 09:49+0200\n"
+"POT-Creation-Date: 2023-10-09 16:22+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -3895,7 +3895,7 @@ msgstr "車程(rides)"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1424
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
 msgid "Containers"
 msgstr "貨櫃"
@@ -7980,7 +7980,7 @@ msgid ""
 msgstr "考慮的車輛類型 ID , 並以空格分隔的清單（空的(empty)表示影響所有類型）"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2450
-msgid "VaribleSpeedSign Symbol"
+msgid "VariableSpeedSign Symbol"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2459
@@ -10471,10 +10471,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "Could not build % in netedit"
 msgstr ""
@@ -10488,10 +10488,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "% doesn't exist."
 msgstr ""
@@ -10755,8 +10755,8 @@ msgstr ""
 msgid "Add reverse %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1146
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1159
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1183
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1196
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
@@ -10769,9 +10769,9 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:104
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:137
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1869
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1893
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1905
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1875
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1899
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1911
 msgid "There is another % with the same ID='%'."
 msgstr ""
 
@@ -10792,14 +10792,9 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:610
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:884
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:911
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:946
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:962
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1002
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1019
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1035
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1169
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1184
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1204
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1146
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1161
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1181
 msgid "add "
 msgstr "新增 "
 
@@ -10851,85 +10846,62 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:670
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:763
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:846
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:948
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1000
 msgid "add % in '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1097
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1074
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1105
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1082
 msgid "Persons don't support stops at containerStops"
 msgstr "人員不支援停靠於貨櫃停靠點"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1113
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1090
 msgid "Persons don't support stops at chargingStations"
 msgstr "人員不支援停靠於充電站"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1116
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1093
 msgid "Containers don't support stops at chargingStations"
 msgstr "貨櫃不支援停靠於充電站"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1124
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1101
 msgid "Persons don't support stops at parkingAreas"
 msgstr "人員不支援停靠於停車區域"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1104
 msgid "Containers don't support stops at parkingAreas"
 msgstr "貨櫃不支援停靠於停車區域"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1137
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1114
 msgid "vehicles don't support stops at edges"
 msgstr "車輛不支援停靠點位於路段上"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1150
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
 "一個停靠點必須定義在一個停靠位置(stoppingPlace), 一個路段或是一個車道上"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1152
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1129
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr "一個停靠點只需要一個停靠位置(stoppingPlace), 一個路段或是一個車道"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1773
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1794
-msgid "A ride from busStop to edge needs a busStop and an edge"
-msgstr "一個從公車站到公車站的車程需要兩個公車停靠站"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1783
-msgid "A transport from busStop to busStop needs two busStops"
-msgstr "一個從公車站到公車站的運送需要兩個公車停靠站"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1804
-msgid "A tranship from busStop to busStop needs two busStops"
-msgstr "一個從公車站到公車站的轉運需要兩個公車站"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1814
-msgid "A tranship with edges attribute needs a list of edges"
-msgstr "一個以路段屬性為主的轉運需要一個路段清單"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1828
-msgid "A stop has to be placed over an edge"
-msgstr "一個停靠點必須設置於路段上"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1839
-msgid "A stop has to be placed over a busStop"
-msgstr "一個停靠點必須設置於公車停靠站"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1881
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1887
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2960
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2966
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2968
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
 msgid "invalid probability % in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2980
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -11988,10 +11960,9 @@ msgstr ""
 msgid "Double routes aren't allowed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:88
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
-msgid "Person plans"
-msgstr "人員出行計畫"
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:90
+msgid "Plan type"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -12134,6 +12105,10 @@ msgstr "分區元素"
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:165
 msgid "Wire elements"
 msgstr "通訊線元素"
+
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
+msgid "Person plans"
+msgstr "人員出行計畫"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:183
 msgid "Container plans"
@@ -12823,7 +12798,7 @@ msgid "There is already a % defined between TAZ'%' and '%'."
 msgstr "已經有一個 % 定義於分區 '%' 及 '%' 之間。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:114
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
 msgid "Current selected container isn't valid."
 msgstr "目前選定的貨櫃是無效的。"
 
@@ -12832,22 +12807,23 @@ msgid "Current selected container type isn't valid."
 msgstr "目前選定的貨櫃類型是無效的。"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:125
 msgid "Current selected container plan isn't valid."
 msgstr "目前選定的貨櫃運送計畫是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:254
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
-msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)是以行人為導向"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:256
-msgid "VType with vClass != 'ignoring' is not oriented to containers"
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
+msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
-"具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃(containers)"
-"為導向"
+"具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃(containers)為"
+"導向"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:279
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:272
+msgid "VType with vClass != 'pedestrian' is not oriented to containers"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:295
 msgid "Invalid container parameters."
 msgstr "無效的貨櫃參數。"
 
@@ -12900,13 +12876,6 @@ msgstr "目前選擇的人員類型是無效的。"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:125
 msgid "Current selected person plan isn't valid."
 msgstr "目前選擇的人員出型計畫是無效的。"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
-msgid "VType with vClass == 'ignoring' is oriented to containers"
-msgstr ""
-"具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃(containers)為"
-"導向"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:272
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
@@ -13085,6 +13054,10 @@ msgstr "目前選擇的車輛無效。"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
 msgstr "目前選擇的車輛類型無效。"
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
+msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
+msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)是以行人為導向"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
@@ -16047,6 +16020,29 @@ msgstr "投影方式未定義"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "無法將座標轉換為%單位。"
+
+#~ msgid "A ride from busStop to edge needs a busStop and an edge"
+#~ msgstr "一個從公車站到公車站的車程需要兩個公車停靠站"
+
+#~ msgid "A transport from busStop to busStop needs two busStops"
+#~ msgstr "一個從公車站到公車站的運送需要兩個公車停靠站"
+
+#~ msgid "A tranship from busStop to busStop needs two busStops"
+#~ msgstr "一個從公車站到公車站的轉運需要兩個公車站"
+
+#~ msgid "A tranship with edges attribute needs a list of edges"
+#~ msgstr "一個以路段屬性為主的轉運需要一個路段清單"
+
+#~ msgid "A stop has to be placed over an edge"
+#~ msgstr "一個停靠點必須設置於路段上"
+
+#~ msgid "A stop has to be placed over a busStop"
+#~ msgstr "一個停靠點必須設置於公車停靠站"
+
+#~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
+#~ msgstr ""
+#~ "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃"
+#~ "(containers)為導向"
 
 #~ msgid "first select an edge"
 #~ msgstr "首先選擇一個路段"

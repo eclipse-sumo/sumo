@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-09 09:49+0200\n"
+"POT-Creation-Date: 2023-10-09 16:22+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3907,7 +3907,7 @@ msgstr "Binişler"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1424
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
 msgid "Containers"
 msgstr "Konteynerler"
@@ -8082,7 +8082,7 @@ msgstr ""
 "türleri etkilemek için boş)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2450
-msgid "VaribleSpeedSign Symbol"
+msgid "VariableSpeedSign Symbol"
 msgstr "DeğişkenHızİşareti Sembolü"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2459
@@ -10691,10 +10691,10 @@ msgstr "Netedit'te % '%' oluşturulamadı"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "Netedit'te % oluşturulamadı"
@@ -10708,10 +10708,10 @@ msgstr "% '%' mevcut değil."
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "% doesn't exist."
 msgstr "% yok."
@@ -10977,8 +10977,8 @@ msgstr "ters akım %"
 msgid "Add reverse %"
 msgstr "Ters % ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1146
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1159
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1183
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1196
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "'%' kesimi '%' kesimi ile ardışık değil"
 
@@ -10991,9 +10991,9 @@ msgstr "kopyala % '%'"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:104
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:137
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1869
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1893
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1905
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1875
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1899
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1911
 msgid "There is another % with the same ID='%'."
 msgstr "Aynı ID='%' ile başka bir % daha vardır."
 
@@ -11014,14 +11014,9 @@ msgstr "Aynı ID='%' ile başka bir % daha vardır."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:610
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:884
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:911
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:946
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:962
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1002
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1019
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1035
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1169
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1184
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1204
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1146
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1161
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1181
 msgid "add "
 msgstr "ekle "
 
@@ -11073,95 +11068,65 @@ msgstr "'%' içinde kullanılan geçersiz rota '%'."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:670
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:763
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:846
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:948
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1000
 msgid "add % in '%'"
 msgstr "'%' içine % ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1097
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1074
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
 "Konteynerler OtobüsDurakları veya Trenİstasyonlar'daki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1105
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1082
 msgid "Persons don't support stops at containerStops"
 msgstr "Yolcular konteyner duraklarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1113
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1090
 msgid "Persons don't support stops at chargingStations"
 msgstr "Yolcular şarj istasyonlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1116
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1093
 msgid "Containers don't support stops at chargingStations"
 msgstr "Konteynerler şarj istasyonlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1124
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1101
 msgid "Persons don't support stops at parkingAreas"
 msgstr "Yolcular park alanlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1104
 msgid "Containers don't support stops at parkingAreas"
 msgstr "Konteynerler park alanlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1137
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1114
 msgid "vehicles don't support stops at edges"
 msgstr "araçlar kesimlerdeki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1150
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
 "Bir durak ya bir durak yeri (stoppingPlace), bir kesim ya da bir şerit "
 "üzerinde tanımlanmalıdır"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1152
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1129
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
 "Bir durak sadece bir durak yeri (stoppingPlace), kesim veya şerit gerektirir"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1773
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1794
-msgid "A ride from busStop to edge needs a busStop and an edge"
-msgstr ""
-"Otobüs durağından (busStop) kesime yolculuk için bir Otobüs durağı (busStop) "
-"ve bir kesim gerekir"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1783
-msgid "A transport from busStop to busStop needs two busStops"
-msgstr ""
-"Otobüs durağından (busStop) otobüs durağına (busStop) ulaşım için iki otobüs "
-"durağı (busStop) gerekir"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1804
-msgid "A tranship from busStop to busStop needs two busStops"
-msgstr ""
-"Otobüs durağından (busStop) otobüs durağına aktarma için iki otobüs durağı "
-"(busStop) gerekir"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1814
-msgid "A tranship with edges attribute needs a list of edges"
-msgstr ""
-"Kesimler özelliğine sahip bir aktarma, kesimlerin bir listesine ihtiyaç duyar"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1828
-msgid "A stop has to be placed over an edge"
-msgstr "Bir durak kesimin üzerine yerleştirilmelidir"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1839
-msgid "A stop has to be placed over a busStop"
-msgstr "Bir durak, bir otobüs durağı (busStop) üzerine yerleştirilmelidir"
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1881
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1887
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr "'%' kesim mevcut değildir."
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2960
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2966
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "'%' id'li % '%' içinde mevcut değil"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2968
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
 msgid "invalid probability % in % '%'"
 msgstr "'%' içinde geçersiz olasılık %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2980
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -12243,10 +12208,9 @@ msgstr ""
 msgid "Double routes aren't allowed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:88
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
-msgid "Person plans"
-msgstr "Yolcu Planları"
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:90
+msgid "Plan type"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -12389,6 +12353,10 @@ msgstr "TAB Elemanları"
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:165
 msgid "Wire elements"
 msgstr "Enerji Hattı Elemanları"
+
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
+msgid "Person plans"
+msgstr "Yolcu Planları"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:183
 msgid "Container plans"
@@ -13104,7 +13072,7 @@ msgid "There is already a % defined between TAZ'%' and '%'."
 msgstr "TAB '%' ve '%' arasında zaten tanımlanmış bir % var."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:114
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
 msgid "Current selected container isn't valid."
 msgstr "Mevcut seçili konteyner geçerli değil."
 
@@ -13113,21 +13081,21 @@ msgid "Current selected container type isn't valid."
 msgstr "Mevcut seçili konteyner tipi geçerli değil."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:125
 msgid "Current selected container plan isn't valid."
 msgstr "Mevcut seçili konteyner planı geçerli değil."
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:254
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
-msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-msgstr "vClass == 'pedestrian' araç türü (VType) yayalara yöneliktir"
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
+msgid "VType with vClass == 'ignoring' is oriented to containers"
+msgstr "vClass == 'ignoring' içeren araç tipi (VType) konteynerlere yöneliktir"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:256
-msgid "VType with vClass != 'ignoring' is not oriented to containers"
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:272
+msgid "VType with vClass != 'pedestrian' is not oriented to containers"
 msgstr ""
-"vClass != 'ignoring' içeren araç tipi (VType) konteynerlere yönelik değildir"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:279
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:295
 msgid "Invalid container parameters."
 msgstr "Geçersiz konteyner parametreleri."
 
@@ -13180,11 +13148,6 @@ msgstr "Mevcut seçili yolcu tipi geçerli değil."
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:125
 msgid "Current selected person plan isn't valid."
 msgstr "Geçerli seçili yolcu planı geçerli değil."
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
-msgid "VType with vClass == 'ignoring' is oriented to containers"
-msgstr "vClass == 'ignoring' içeren araç tipi (VType) konteynerlere yöneliktir"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:272
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
@@ -13364,6 +13327,10 @@ msgstr "Mevcut seçilen araç geçerli değil."
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
 msgstr "Mevcut seçili araç türü geçerli değil."
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
+msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
+msgstr "vClass == 'pedestrian' araç türü (VType) yayalara yöneliktir"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
@@ -16374,6 +16341,40 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
 msgstr "Koordinatlar % cinsinden dönüştürülemedi."
+
+#~ msgid "VaribleSpeedSign Symbol"
+#~ msgstr "DeğişkenHızİşareti Sembolü"
+
+#~ msgid "A ride from busStop to edge needs a busStop and an edge"
+#~ msgstr ""
+#~ "Otobüs durağından (busStop) kesime yolculuk için bir Otobüs durağı "
+#~ "(busStop) ve bir kesim gerekir"
+
+#~ msgid "A transport from busStop to busStop needs two busStops"
+#~ msgstr ""
+#~ "Otobüs durağından (busStop) otobüs durağına (busStop) ulaşım için iki "
+#~ "otobüs durağı (busStop) gerekir"
+
+#~ msgid "A tranship from busStop to busStop needs two busStops"
+#~ msgstr ""
+#~ "Otobüs durağından (busStop) otobüs durağına aktarma için iki otobüs "
+#~ "durağı (busStop) gerekir"
+
+#~ msgid "A tranship with edges attribute needs a list of edges"
+#~ msgstr ""
+#~ "Kesimler özelliğine sahip bir aktarma, kesimlerin bir listesine ihtiyaç "
+#~ "duyar"
+
+#~ msgid "A stop has to be placed over an edge"
+#~ msgstr "Bir durak kesimin üzerine yerleştirilmelidir"
+
+#~ msgid "A stop has to be placed over a busStop"
+#~ msgstr "Bir durak, bir otobüs durağı (busStop) üzerine yerleştirilmelidir"
+
+#~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
+#~ msgstr ""
+#~ "vClass != 'ignoring' içeren araç tipi (VType) konteynerlere yönelik "
+#~ "değildir"
 
 #~ msgid "walk: edge->edge"
 #~ msgstr "yürüyüş: kesim->kesim"

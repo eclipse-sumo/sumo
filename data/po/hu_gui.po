@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-09 09:49+0200\n"
+"POT-Creation-Date: 2023-10-09 16:22+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3885,7 +3885,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1424
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:39
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
 msgid "Containers"
 msgstr ""
@@ -7943,7 +7943,7 @@ msgid ""
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2450
-msgid "VaribleSpeedSign Symbol"
+msgid "VariableSpeedSign Symbol"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2459
@@ -10412,10 +10412,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "Could not build % in netedit"
 msgstr ""
@@ -10429,10 +10429,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2731
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2742
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2753
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2766
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2737
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2748
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2759
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
 #, c-format
 msgid "% doesn't exist."
 msgstr ""
@@ -10696,8 +10696,8 @@ msgstr ""
 msgid "Add reverse %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1146
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1159
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1183
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1196
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
@@ -10710,9 +10710,9 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:104
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:137
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1869
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1893
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1905
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1875
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1899
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1911
 msgid "There is another % with the same ID='%'."
 msgstr ""
 
@@ -10733,14 +10733,9 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:610
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:884
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:911
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:946
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:962
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1002
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1019
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1035
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1169
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1184
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1204
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1146
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1161
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1181
 msgid "add "
 msgstr ""
 
@@ -10792,84 +10787,61 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:670
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:763
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:846
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:948
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1000
 msgid "add % in '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1097
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1074
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1105
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1082
 msgid "Persons don't support stops at containerStops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1113
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1090
 msgid "Persons don't support stops at chargingStations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1116
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1093
 msgid "Containers don't support stops at chargingStations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1124
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1101
 msgid "Persons don't support stops at parkingAreas"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1104
 msgid "Containers don't support stops at parkingAreas"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1137
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1114
 msgid "vehicles don't support stops at edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1150
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1127
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1152
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1129
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1773
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1794
-msgid "A ride from busStop to edge needs a busStop and an edge"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1783
-msgid "A transport from busStop to busStop needs two busStops"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1804
-msgid "A tranship from busStop to busStop needs two busStops"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1814
-msgid "A tranship with edges attribute needs a list of edges"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1828
-msgid "A stop has to be placed over an edge"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1839
-msgid "A stop has to be placed over a busStop"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1881
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1887
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2960
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2966
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2968
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
 msgid "invalid probability % in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2974
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2980
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -11927,9 +11899,8 @@ msgstr ""
 msgid "Double routes aren't allowed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:88
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
-msgid "Person plans"
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:90
+msgid "Plan type"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
@@ -12072,6 +12043,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:165
 msgid "Wire elements"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
+msgid "Person plans"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:183
@@ -12754,7 +12729,7 @@ msgid "There is already a % defined between TAZ'%' and '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:114
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
 msgid "Current selected container isn't valid."
 msgstr ""
 
@@ -12763,20 +12738,21 @@ msgid "Current selected container type isn't valid."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:125
 msgid "Current selected container plan isn't valid."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:254
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
-msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
+msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:256
-msgid "VType with vClass != 'ignoring' is not oriented to containers"
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:272
+msgid "VType with vClass != 'pedestrian' is not oriented to containers"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:279
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:295
 msgid "Invalid container parameters."
 msgstr ""
 
@@ -12828,11 +12804,6 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:127
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:125
 msgid "Current selected person plan isn't valid."
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
-msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:272
@@ -13011,6 +12982,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
+msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41

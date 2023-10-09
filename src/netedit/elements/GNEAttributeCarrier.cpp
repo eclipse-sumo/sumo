@@ -2447,7 +2447,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE,
-                                      GUIIcon::LANE, currentTag, TL("VaribleSpeedSign Symbol"),
+                                      GUIIcon::LANE, currentTag, TL("VariableSpeedSign Symbol"),
                                       {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
     }
     currentTag = SUMO_TAG_STEP;
