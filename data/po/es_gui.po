@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-09 09:49+0200\n"
-"PO-Revision-Date: 2023-10-09 07:28+0000\n"
+"PO-Revision-Date: 2023-10-09 14:10+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2072,7 +2072,7 @@ msgstr "Apagar"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
-msgstr ""
+msgstr "Seguimiento visual de fases"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
@@ -2132,11 +2132,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
-msgstr ""
+msgstr "fin más temprano"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:250
 msgid "latestEnd"
-msgstr ""
+msgstr "fin más tarde"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
@@ -2396,7 +2396,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
-msgstr ""
+msgstr "factor de velocidad"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
@@ -2429,7 +2429,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
-msgstr ""
+msgstr "alineación lateral"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
@@ -3413,7 +3413,7 @@ msgstr "Crear cruces y aristas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Traffic light"
-msgstr ""
+msgstr "Semáforo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Modes traffic lights over junctions."
@@ -3430,7 +3430,7 @@ msgstr "Modo para conexión entre carriles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Prohibition"
-msgstr ""
+msgstr "Prohibiciones"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Modes connection prohibitions."
@@ -3479,7 +3479,7 @@ msgstr "Formas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:639
 msgid "Create Shapes."
-msgstr ""
+msgstr "Crear formas."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
@@ -4965,12 +4965,12 @@ msgstr "Deshacer reemplazo en semáforo"
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:452
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:454
 msgid "Cannot Undo in the middle of "
-msgstr ""
+msgstr "No se puede deshacer en medio de "
 
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:499
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:501
 msgid "Cannot Redo in the middle of "
-msgstr ""
+msgstr "No se puede rehacer en medio de "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
 msgid "Locate a junction within the network. (Shift+J)"
@@ -7170,7 +7170,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1018
 msgid "EdgeType"
-msgstr ""
+msgstr "Tipo de arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1022
 msgid "The id of the edge"
@@ -7239,7 +7239,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1083
 msgid "LaneType"
-msgstr ""
+msgstr "Tipo de carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1087
 msgid "The maximum speed allowed on the lane in m/s"
@@ -7506,7 +7506,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1543
 msgid "InternalLanes"
-msgstr ""
+msgstr "Carriles internos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1560
 msgid "BusStop"
@@ -7673,7 +7673,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1690
 msgid "Access"
-msgstr ""
+msgstr "Acceso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1695
 msgid "The name of the lane the stop access shall be located at"
@@ -7767,11 +7767,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1852
 msgid "Battery charging type"
-msgstr ""
+msgstr "Tipo de carga de la batería"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1859
 msgid "Waiting time before start charging"
-msgstr ""
+msgstr "Tiempo de espera antes de empezar a cargar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1869
 msgid "ParkingArea"
@@ -7956,7 +7956,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2129
 msgid "E2 MultiLaneAreaDetector"
-msgstr ""
+msgstr "Detector multicarril E2"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2134
 msgid "The id of Multilane E2"
@@ -7976,7 +7976,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2211
 msgid "E3 EntryExitDetector"
-msgstr ""
+msgstr "Detector de entrada-salida E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2216
 msgid "The id of E3"
@@ -8051,7 +8051,7 @@ msgstr "El instante de tiempo en el que comenzar a generar la salida de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2415
 msgid "VariableSpeedSign"
-msgstr ""
+msgstr "Señal de velocidad variable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2420
 msgid "The id of Variable Speed Signal"
@@ -8085,7 +8085,7 @@ msgstr "Velocidad"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2479
 msgid "Calibrator"
-msgstr ""
+msgstr "Calibrador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2484
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2541
@@ -8182,7 +8182,7 @@ msgstr "Velocidad del vehículo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2641
 msgid "Rerouter"
-msgstr ""
+msgstr "Rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2647
 msgid "The id of Rerouter"
@@ -8293,7 +8293,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2844
 msgid "Vaporizer"
-msgstr ""
+msgstr "Vaporizador"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2849
 msgid "Edge in which vaporizer is placed"
@@ -8361,7 +8361,7 @@ msgstr "Ángulo de renderizado de la imagen en grados"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2955
 msgid "PointOfInterest"
-msgstr ""
+msgstr "Punto de interés"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2960
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2982
@@ -8375,7 +8375,7 @@ msgstr "La posición en la vista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2977
 msgid "PointOfInterestLane"
-msgstr ""
+msgstr "Punto de interés en carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2987
 msgid "The name of the lane at which the POI is located at"
@@ -8399,7 +8399,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3018
 msgid "PointOfInterestGeo"
-msgstr ""
+msgstr "Punto de interés geográfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3029
 msgid "The longitude position of the parking vehicle on the view"
@@ -8539,7 +8539,7 @@ msgstr "ID del segmento de la catenaria (overheadWireIDEndClamp)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3265
 msgid "JuPedSim WalkableArea"
-msgstr ""
+msgstr "Área caminable de JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3270
 msgid "The id of the walkable area"
@@ -8555,7 +8555,7 @@ msgstr "Nombre del área transitable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3290
 msgid "JuPedSim Obstacle"
-msgstr ""
+msgstr "Obstáculo JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3295
 msgid "The id of the obstacle"
@@ -10501,6 +10501,8 @@ msgstr "agregar rerouter '"
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
+"No se pudo construir el intervalo con ID '%' en netedit; el comienzo es "
+"mayor que el final."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
 msgid "add rerouter interval in '"
@@ -10549,6 +10551,8 @@ msgstr ""
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
+"No se pudo construir el vaporizador con ID '%' en netedit; el comienzo es "
+"mayor que el final."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
 msgid "add vaporizer in '"
@@ -12187,7 +12191,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:485
 msgid "Double routes aren't allowed"
-msgstr ""
+msgstr "No se permiten rutas dobles"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:88
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
@@ -12771,7 +12775,7 @@ msgstr "Elementos JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Transport"
-msgstr ""
+msgstr "Envío"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 msgid "Modification Mode"
@@ -15299,7 +15303,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 msgid "transport"
-msgstr ""
+msgstr "envío"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 msgid "waiting for transport"
@@ -15307,7 +15311,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1149
 msgid "tranship"
-msgstr ""
+msgstr "transbordo"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1186
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1648
@@ -15901,7 +15905,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1977
 msgid "Show JuPedSim pedestrian network"
-msgstr ""
+msgstr "Mostrar red peatonal JuPedSim"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2017
 msgid "Show container id"
@@ -15973,7 +15977,7 @@ msgstr "cuerpo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2082
 msgid "sign"
-msgstr ""
+msgstr "símbolo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2105
 msgid "element"
