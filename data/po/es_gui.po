@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-09 09:49+0200\n"
-"PO-Revision-Date: 2023-10-09 14:10+0000\n"
+"PO-Revision-Date: 2023-10-09 14:24+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1709,7 +1709,7 @@ msgstr "control de cruce"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:234
 msgid "tls penalty"
-msgstr ""
+msgstr "penalización semafórica"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:235
 msgid "tls flow penalty"
@@ -1717,7 +1717,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:236
 msgid "minor penalty"
-msgstr ""
+msgstr "penalización menor"
 
 #: C:\Repos\sumo/src\guisim\GUIEdge.cpp:237
 msgid "overtaking"
@@ -1846,7 +1846,7 @@ msgstr "clase de vehículo no permitido"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
-msgstr ""
+msgstr "código de permiso"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
@@ -1900,7 +1900,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "detenidos [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
@@ -8006,12 +8006,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2271
 msgid "E3 DetEntry"
-msgstr ""
+msgstr "Detector de entrada E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2299
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2327
 msgid "E3 DetExit"
-msgstr ""
+msgstr "Detector de salida E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2332
 msgid "The id of Instant Induction Loop (E1Instant)"
@@ -15316,7 +15316,7 @@ msgstr "transbordo"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1186
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1648
 msgid "by height"
-msgstr ""
+msgstr "por altura"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1196
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1658
@@ -15429,7 +15429,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1530
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1628
 msgid "data mode"
-msgstr ""
+msgstr "modo de datos"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1535
 msgid "by permission code"
@@ -15445,15 +15445,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
 msgid "junction bubble"
-msgstr ""
+msgstr "burbuja sobre el cruce"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1625
 msgid "geometry points"
-msgstr ""
+msgstr "puntos geométricos"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1626
 msgid "connections missing"
-msgstr ""
+msgstr "conexiones faltantes"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1627
 msgid "custom shape"
