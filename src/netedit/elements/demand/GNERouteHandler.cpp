@@ -924,8 +924,8 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
 
 
 void
-GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                                const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
+GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
+                                const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(false, sumoBaseObject);
     // first parse parents
@@ -977,8 +977,9 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
 
 
 void
-GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                               const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, const double arrivalPosition) {
+GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
+                               const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
+                               const double departPosition, const double arrivalPosition) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(false, sumoBaseObject);
     // first parse parents

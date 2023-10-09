@@ -145,13 +145,13 @@ public:
     void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
 
     /// @brief build transport
-    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                        const std::string& toBusStopID, const std::vector<std::string>& lines, const double arrivalPos);
+    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
+                        const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos);
 
     /// @brief build tranship
-    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                       const std::string& toBusStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition,
-                       const double arrivalPosition);
+    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
+                       const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
+                       const double departPosition, const double arrivalPosition);
     /// @}
 
     /// @brief build stop

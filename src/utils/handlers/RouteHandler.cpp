@@ -359,6 +359,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_TRANSPORT:
             buildTransport(obj,
                            obj->getStringAttribute(SUMO_ATTR_FROM),
+                           obj->getStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP),
                            obj->getStringAttribute(SUMO_ATTR_TO),
                            obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                            obj->getStringListAttribute(SUMO_ATTR_LINES),
@@ -367,6 +368,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_TRANSHIP:
             buildTranship(obj,
                           obj->getStringAttribute(SUMO_ATTR_FROM),
+                          obj->getStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP),
                           obj->getStringAttribute(SUMO_ATTR_TO),
                           obj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP),
                           obj->getStringListAttribute(SUMO_ATTR_EDGES),
@@ -891,18 +893,20 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // optional attributes
-    const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
-    const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
-    const std::string containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
+    const std::string fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    const std::string toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    const std::string fromContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
+    const std::string toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRANSPORT);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, containerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, fromEdge);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, toEdge);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, toContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
     }
@@ -915,9 +919,10 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // optional attributes
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
-    const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
-    const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
-    const std::string containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
+    const std::string fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    const std::string toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    const std::string fromContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
+    const std::string toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
@@ -926,9 +931,10 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRANSHIP);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, containerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, fromEdge);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, toEdge);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM_CONTAINERSTOP, fromContainerStop);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONTAINER_STOP, toContainerStop);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
