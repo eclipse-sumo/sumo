@@ -133,9 +133,9 @@ def main(options):
         tripFile[mode] = io.open(filePrefix + '.rou.xml', 'w', encoding="utf8")
         tripFile[mode].write(u"<routes>\n")
     timeIndex = 0
-    for _, trip_data in full_data_merged.groupby(['route_id']):
+    for _, trip_data in full_data_merged.groupby('route_id'):
         seqs = {}
-        for trip_id, data in trip_data.groupby(['trip_id']):
+        for trip_id, data in trip_data.groupby('trip_id'):
             stopSeq = []
             buf = u""
             offset = 0
