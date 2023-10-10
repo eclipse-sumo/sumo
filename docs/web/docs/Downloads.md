@@ -191,7 +191,12 @@ To install the latest nightly version (it is strongly encouraged to do this in a
 ```
 pip install -i https://test.pypi.org/simple/ eclipse-sumo
 ```
-Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)).
+Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)). Due to space limitiations of test.pypi.org, this is going to be replaced by
+a self-hosted solution. You may already try out:
+```
+pip install -f https://sumo.dlr.de/daily/wheels/ eclipse-sumo
+```
+The nightly python wheels are also available for libsumo, sumolib and traci.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
 This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
