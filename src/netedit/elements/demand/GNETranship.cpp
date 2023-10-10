@@ -35,7 +35,7 @@
 GNETranship*
 GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge,
         GNEAdditional* fromContainerStop, GNEEdge* toEdge, GNEAdditional* toContainerStop,
-        std::vector<GNEEdge*> edgeList, double arrivalPosition) {
+        std::vector<GNEEdge*> edgeList, const double departPosition, const double arrivalPosition, const double speed) {
     // declare icon an tag
     const auto iconTag = getTagIconTranship(edgeList, fromEdge, toEdge, fromContainerStop, toContainerStop);
     // declare containers
@@ -56,16 +56,15 @@ GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEd
             additionals.push_back(toContainerStop);
         }
     }
-    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, edges, additionals, arrivalPosition);
+    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, edges, additionals, departPosition, arrivalPosition, speed);
 }
 
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1),
-    mySpeed(0),
-    myDepartPosition(0) {
+    GNEDemandElementPlan(this, -1, -1),
+    mySpeed(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -108,10 +107,6 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
     // write plan attributes
     writePlanAttributes(device);
-    // only write departPos if is different of -1
-    if (myDepartPosition != -1) {
-        device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
-    }
     // close tag
     device.closeTag();
 }
@@ -225,12 +220,6 @@ std::string
 GNETranship::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         // Common attributes
-        case SUMO_ATTR_DEPARTPOS:
-            if (myDepartPosition == -1) {
-                return "";
-            } else {
-                return toString(myDepartPosition);
-            }
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
         default:
@@ -255,7 +244,6 @@ void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         // Common attributes
-        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_SPEED:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -303,7 +291,6 @@ void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         // Common attributes
-        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_SPEED:
             break;
         default:
@@ -333,10 +320,11 @@ GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 
 GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
                          const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
-                         double arrivalPosition) :
+                         const double departPosition, const double arrivalPosition, const double speed) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition) {
+    GNEDemandElementPlan(this, departPosition, arrivalPosition),
+    mySpeed(speed) {
 }
 
 /****************************************************************************/

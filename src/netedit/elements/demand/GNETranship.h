@@ -47,11 +47,14 @@ public:
      * @param[in] toEdge to edge
      * @param[in] toContainerStop to containerStop
      * @param[in] edgeList list of edges
-     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] departPosition depart pos
+     * @param[in] arrivalPosition arrival pos
+     * @param[in] speed tranship speed
      */
     static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent, 
         GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-        GNEAdditional* toContainerStop, std::vector<GNEEdge*> edgeList, double arrivalPosition);
+        GNEAdditional* toContainerStop, std::vector<GNEEdge*> edgeList, 
+        const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief default constructor
     GNETranship(SumoXMLTag tag, GNENet* net);
@@ -214,9 +217,6 @@ protected:
     /// @brief speed
     double mySpeed;
 
-    /// @brief depart position
-    double myDepartPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -234,10 +234,13 @@ private:
      * @param[in] containerParent demand element parent
      * @param[in] eges from-to edges
      * @param[in] additionals from-to additionals
+     * @param[in] departPosition depart pos
+     * @param[in] arrivalPosition arrival pos
+     * @param[in] speed tranship speed
      */
     GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
             const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
-            double arrivalPosition);
+            const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief Invalidated copy constructor.
     GNETranship(GNETranship*) = delete;

@@ -74,7 +74,7 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1) {
+    GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -357,7 +357,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDeman
                              const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, {personParent}, {}),
-    GNEDemandElementPlan(this, arrivalPosition),
+    GNEDemandElementPlan(this, -1, arrivalPosition),
     myVTypes(types),
     myModes(modes),
     myLines(lines) {

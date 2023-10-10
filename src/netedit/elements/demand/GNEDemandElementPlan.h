@@ -71,7 +71,7 @@ public:
 
 protected:
     /// @brief constructor
-    GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition);
+    GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
 
     /// @brief write plan element common attributes
     void writePlanAttributes(OutputDevice& device) const;
@@ -163,6 +163,9 @@ protected:
 
     /// @brief get plan problem
     std::string getPersonPlanProblem() const;
+    
+    /// @brief depart position
+    double myDepartPosition;
 
     /// @brief arrival position
     double myArrivalPosition;

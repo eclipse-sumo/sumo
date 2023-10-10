@@ -973,8 +973,8 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
 
 void
 GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                               const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double /* speed */,
-                               const double /* departPosition */, const double arrivalPosition) {
+                               const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
+                               const double departPosition, const double arrivalPosition) {
     // get previous plan edge
     const auto previousEdge = getPreviousPlanEdge(false, sumoBaseObject);
     // first parse parents
@@ -993,8 +993,8 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
     // check conditions
     if (containerParent) {
         // build tranship
-        GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent, fromEdge, fromContainerStop,
-                                                                toEdge, toContainerStop, edges, arrivalPosition);
+        GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent, fromEdge, fromContainerStop, toEdge,
+                                                                toContainerStop, edges, departPosition, arrivalPosition, speed);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));

@@ -236,7 +236,8 @@ GNEDemandElementPlan::getTagIconTranship(const std::vector<GNEEdge*> &consecutiv
 }
 
 
-GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, double arrivalPosition) :
+GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition) :
+    myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
 }
@@ -284,8 +285,12 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentAdditionals().back()->getID());
         }
     }
+    // check if write depart position
+    if (tagProperty.hasAttribute(SUMO_ATTR_DEPARTPOS) && (myDepartPosition > 0)) {
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
+    }
     // check if write arrival position
-    if ((tagProperty.planEdges() || tagProperty.planToEdge()) && (myArrivalPosition > 0)) {
+    if (tagProperty.hasAttribute(SUMO_ATTR_ARRIVALPOS) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
 }
@@ -500,6 +505,12 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             return myPlanElement->getParentDemandElements().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(myPlanElement->isAttributeCarrierSelected());
+        case SUMO_ATTR_DEPARTPOS:
+            if (myDepartPosition < 0) {
+                return "";
+            } else {
+                return toString(myDepartPosition);
+            }
         case SUMO_ATTR_ARRIVALPOS:
             if (myArrivalPosition < 0) {
                 return "";
@@ -682,6 +693,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
     // continue depending of key
     switch (key) {
         // common attributes
+        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
@@ -697,6 +709,7 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
     // continue depending of key
     switch (key) {
         // common attributes
+        case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 return true;
@@ -734,6 +747,13 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         // route
         case SUMO_ATTR_ROUTE:
             return false;
+        case SUMO_ATTR_DEPARTPOS:
+            // depart position only enabled for first plan element
+            if (myPlanElement->getParentDemandElements().size() > 0) {
+                return myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == 0;
+            } else {
+                return false;
+            }
         default:
             return true;
     }
@@ -744,6 +764,13 @@ void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         // Common plan attributes
+        case SUMO_ATTR_DEPARTPOS:
+            if (value.empty()) {
+                myDepartPosition = -1;
+            } else {
+                myDepartPosition = GNEAttributeCarrier::parse<double>(value);
+            }
+            break;
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 myArrivalPosition = -1;
