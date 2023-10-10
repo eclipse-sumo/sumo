@@ -221,6 +221,9 @@ MSDevice_SSM::cleanup() {
         OutputDevice::getDevice(fn).closeTag();
     }
     myCreatedOutputFiles.clear();
+    myEdgeFilter.clear();
+    myEdgeFilterInitialized = false;
+    myEdgeFilterActive = false;
 }
 
 
