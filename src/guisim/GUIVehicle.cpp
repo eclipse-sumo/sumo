@@ -131,7 +131,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeGapOnLane));
     ret->mkItem(TL("waiting time [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getWaitingSeconds));
-    ret->mkItem(("waiting time (accumulated, " + time2string(MSGlobals::gWaitingTimeMemory) + "s) [s]").c_str(), true,
+    ret->mkItem(TLF("waiting time (accumulated, % s) [s]", time2string(MSGlobals::gWaitingTimeMemory)).c_str(), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getAccumulatedWaitingSeconds));
     ret->mkItem(TL("time since startup [s]"), true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getTimeSinceStartupSeconds));
