@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-09 14:24+0000\n"
+"PO-Revision-Date: 2023-10-10 17:52+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5285,17 +5285,19 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3180
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3188
 msgid " to selected lanes"
-msgstr ""
+msgstr " a los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3100
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3181
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
 msgstr ""
+"Todos los carriles ya poseen otro carril en la misma arista con una "
+"restricción para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3108
 msgid " lanes will be restricted for "
-msgstr ""
+msgstr " carriles serán restringidos para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3109
 msgid ". Continue?"
@@ -5303,7 +5305,7 @@ msgstr ". ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3136
 msgid "restrict lane to "
-msgstr ""
+msgstr "restringir el carril a "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3179
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3187
@@ -5331,19 +5333,19 @@ msgstr "agregar vClass para "
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3282
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3312
 msgid "Remove vclass for "
-msgstr ""
+msgstr "Remover clase de vehículo para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3275
 msgid " from selected lanes"
-msgstr ""
+msgstr " de carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3276
 msgid "Selected lanes and edges haven't a restriction for "
-msgstr ""
+msgstr "Los carriles y aristas seleccionadas no tienen restricciones para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3283
 msgid " in selected lanes"
-msgstr ""
+msgstr " en los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3285
 msgid " will be removed. Continue?"
@@ -5351,7 +5353,7 @@ msgstr " será eliminado. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3454
 msgid "reset edge endpoints"
-msgstr ""
+msgstr "restablecer puntos finales de la arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3499
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3766
@@ -5370,11 +5372,11 @@ msgstr "restablecer forma de cruce (junction) personalizada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3636
 msgid "clear connections of selected junctions"
-msgstr ""
+msgstr "remover conexiones en los cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3668
 msgid "reset connections of selected junctions"
-msgstr ""
+msgstr "restablecer conexiones en los cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3692
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3719
@@ -7163,15 +7165,15 @@ msgstr "Nombre opcional del cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:995
 msgid "An optional type for the traffic light algorithm"
-msgstr ""
+msgstr "Un tipo opcional para el algoritmo semafórico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1001
 msgid "An optional layout for the traffic light plan"
-msgstr ""
+msgstr "Una disposición opcional para el plan semafórico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1010
 msgid "An optional id for the traffic light program"
-msgstr ""
+msgstr "Un ID opcional para el programa semafórico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1019
 msgid "EdgeType"
@@ -7266,14 +7268,18 @@ msgstr "ID de la arista"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1124
 msgid "The name of a node within the nodes-file the edge shall start at"
 msgstr ""
+"El nombre de un nodo dentro del archivo de nodos, en el cual la deba "
+"comenzar la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1129
 msgid "The name of a node within the nodes-file the edge shall end at"
 msgstr ""
+"El nombre de un nodo dentro del archivo de nodos, en el cual la deba "
+"finalizar la arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1152
 msgid "The name of a type within the SUMO edge type file"
-msgstr ""
+msgstr "El nombre de un tipo, del archivo de tipos de aristas de SUMO"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1168
 msgid ""
@@ -7674,7 +7680,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1682
 msgid "The RGBA color with which the trainStop shall be displayed"
-msgstr ""
+msgstr "El color RGBA con el que se mostrará la parada de tren (trainStop)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1692
 msgid "Access"
@@ -7723,6 +7729,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1782
 msgid "The RGBA color with which the containerStop shall be displayed"
 msgstr ""
+"El color RGBA con el que se mostrará la parada de contenedor (containerStop)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1791
 msgid "ChargingStation"
@@ -7977,7 +7984,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
 msgid "Name of Multilane E2 detector"
-msgstr ""
+msgstr "Nombre del detector multicarril E2"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2213
 msgid "E3 EntryExitDetector"
@@ -14188,7 +14195,7 @@ msgstr "Asignar detector E1"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:564
 msgid "Enable assign E1 mode"
-msgstr "Activar modo de asignación der E1s"
+msgstr "Activar modo de asignación del E1"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:564
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
@@ -14197,7 +14204,7 @@ msgstr "Asignar detector E1 al semáforo actual"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 msgid "Disable assign E1 mode"
-msgstr "Desactivar modo de asignación der E1s"
+msgstr "Desactivar modo de asignación del E1"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:881
 msgid "Traffic Light"
