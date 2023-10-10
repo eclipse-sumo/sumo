@@ -1251,6 +1251,12 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         }
     }
 */
+    // special case for elements with from-to edge
+    if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
+        !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
+        consecutiveEdges.empty() && !route) {
+        toEdge = fromEdge;
+    }
     // create plans depending of elements
     if (consecutiveEdges.size() > 0) {
         // consecutive edges
@@ -1749,6 +1755,10 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
         }
     }
 */
+    // special case for elements with from-to edge
+    if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop && consecutiveEdges.empty()) {
+        toEdge = fromEdge;
+    }
     // create plans depending of elements
     if (consecutiveEdges.size() > 0) {
         // consecutive edges
