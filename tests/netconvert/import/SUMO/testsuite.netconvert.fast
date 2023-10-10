@@ -1,0 +1,129 @@
+# Tests parsing of stopOffsets (lane / edge child elements)
+stopOffsets
+
+# whether connectiosn are correctly read and processed
+connections
+customTLS
+
+# network with one actuated and one static tls,
+# test rebuilding with different tlType
+rebuild_tlType
+
+# handle them!
+internal_lanes
+
+# demonstrate the ability to import traffic lights
+traffic_lights
+
+# load network where one linkIndex is used to control multiple connections
+traffic_lights_resused_linkIndex
+
+# whether discarding traffic lights works
+traffic_lights-discard
+
+# re-import network with right_on_red logic
+traffic_light_right_on_red
+
+# demonstrate the ability to import actuated traffic lights
+traffic_light_actuated
+
+# handle shape, allow, disallow, type
+attributes
+
+# dismiss vclass information
+dismiss-vclasses
+
+# handle non-default spreadType
+spreadType
+
+# apply offset to a loaded network
+offset
+
+# load network without internal lanes and output a network without internal lanes by default
+no_internal_lanes
+
+# load network without internal lanes and set option to output a network with internal lanes
+no_internal_lanes_modify
+
+# when importing networks with roundabouts, the ouput network should have the same roundabouts
+# see ticket775
+roundabouts
+
+# modify edges within a roundabout using option --geometry.remove
+roundabout_modify
+
+# test discarding traffic lights for geometry-like junctions
+tls.discard-simple
+
+# test discarding traffic lights for geometry-like junctions, protect joined tls
+tls.discard-simple_joined
+
+# see ticket917
+infer_option_street_names
+add_split
+
+# add split at an edge that is controlled by a tls
+add_split_at_tls
+
+# importing a complex network with deprecated vclasses
+adlershof_dlr_deprecated_vclass
+joined_traffic_lights_with_controlledInner
+joined_traffic_light_with_internal_junctions
+
+# import network with a rail signal
+rail_signal
+
+# add another tls program to an existing tls definition
+add_tls_prgram
+
+# apply option --geometry.remove to a loaded .net.xml
+geometry.remove
+
+# import lefthand and junctionCornerDetail
+network_attributes
+remove_lane
+
+# load a network with edge types and write it to plain-xml and .net.xml
+edge_types
+params
+
+# discarding params
+discard_params
+short_edge
+
+# merge 2 networks without geo-referencing that are shifted appropriately
+merge
+
+# merge 2 networks without geo-referencing that are shifted appropriately.  Networks overlap (with identical ids)
+merge_overlap
+
+# merge 2 geo-referenced networks
+merge_geo
+merge_geo_overlap
+
+# see #12824
+#merge_geo_overlap2
+
+# load geo-encoded patch into geo network
+patch_geo
+
+# re-import limited speed on junctions based on radius
+limit-turn-speed
+
+# re-import limited speed on junctions based on radius and overwrite with a new limit argument
+limit-turn-speed_overwrite
+
+# import check-lane-foes options from .net.xml
+checkLaneFoes
+
+# test computation of lane shapes from edge shapes with elevation
+elevation
+
+# load a network with junction names and write it to plain-xml and .net.xml
+junction_name
+
+# use stored option in network (#4397)
+internalJunctionVehicleWidth
+
+# load bidi attribute from input network
+bidi
