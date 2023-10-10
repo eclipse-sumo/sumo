@@ -6390,17 +6390,17 @@ GNEAttributeCarrier::fillPlanFromToAttributes(SumoXMLTag currentTag) {
                                               TL("Junction end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     } else if (tagProperty.planToBusStop()) {
-        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_BUSSTOP,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("BuStop end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     } else if (tagProperty.planToTrainStop()) {
-        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("TrainStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     } else if (tagProperty.planToContainerStop()) {
-        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("ContainerStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);

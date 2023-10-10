@@ -1472,12 +1472,6 @@ enum SumoXMLAttr {
     /// @brief flag to center camera after element creation
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)
-    GNE_ATTR_TO_BUSSTOP,
-    /// @brief to trainStop (used by personPlans)
-    GNE_ATTR_TO_TRAINSTOP,
-    /// @brief to busStop (used by containerPlans)
-    GNE_ATTR_TO_CONTAINERSTOP,
-    /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
     /// @brief shift lane index (only used by elements over lanes)
     GNE_ATTR_SHIFTLANEINDEX,
