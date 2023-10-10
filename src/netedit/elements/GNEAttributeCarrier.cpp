@@ -6373,7 +6373,15 @@ GNEAttributeCarrier::fillPlanFromToAttributes(SumoXMLTag currentTag) {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("Edge end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
-
+        // departPos only for tranships
+        if (tagProperty.isTranshipPlan()) {
+            // depart pos
+            attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                                    TL("The position at which the tranship shall enter the net"),
+                                                    "0");
+            myTagProperties[currentTag].addAttribute(attrProperty);
+        }
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("arrival position on the destination edge"),
@@ -6469,15 +6477,6 @@ void
 GNEAttributeCarrier::fillTranshipCommonAttributes(SumoXMLTag currentTag) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
-    if (myTagProperties[currentTag].planFromEdge() || myTagProperties[currentTag].planEdges()) {
-        // depart pos
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                                TL("The position at which the tranship shall enter the net"),
-                                                "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
 
     // speed
     attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
