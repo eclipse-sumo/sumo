@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNEDemandElementPlan.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -147,6 +148,45 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
 
 
 GNEPlanCreator::~GNEPlanCreator() {}
+
+
+bool
+GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
+    if (planTemplate == nullptr) {
+        return false;
+    } else if (planTemplate->getTagProperty().isPersonTrip()) {
+        return GNEDemandElementPlan::getTagIconPersonTrip(
+            getFromEdge(), getToEdge(),
+            getFromTAZ(), getToTAZ(),
+            getFromJunction(), getToJunction(),
+            getFromBusStop(), getToBusStop(),
+            getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isWalk()) {
+        return GNEDemandElementPlan::getTagIconWalk(
+            getConsecutiveEdges(), getRoute(),
+            getFromEdge(), getToEdge(),
+            getFromTAZ(), getToTAZ(),
+            getFromJunction(), getToJunction(),
+            getFromBusStop(), getToBusStop(),
+            getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isRide()) {
+        return GNEDemandElementPlan::getTagIconRide(
+        getFromEdge(), getToEdge(),
+            getFromBusStop(), getToBusStop(),
+            getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isTransportPlan()) {
+        return GNEDemandElementPlan::getTagIconTransport(
+            getFromEdge(), getToEdge(),
+            getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isTranshipPlan()) {
+        return GNEDemandElementPlan::getTagIconTranship(
+            getConsecutiveEdges(),
+            getFromEdge(), getToEdge(),
+            getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
+    } else {
+        return false;
+    }
+}
 
 
 void
@@ -513,6 +553,12 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
     updateInfoRouteLabel();
     // stopping place added, then return true
     return true;
+}
+
+
+const std::vector<GNEEdge*>
+GNEPlanCreator::getConsecutiveEdges() const {
+    return myConsecutiveEdges;
 }
 
 

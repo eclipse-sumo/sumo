@@ -152,15 +152,9 @@ GNEPlanSelector::getCurrentPlanTemplate() const {
 }
 
 
-bool
-GNEPlanSelector::isPlanValid() const {
-    return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
-}
-
-
 void
 GNEPlanSelector::refreshPlanSelector() {
-    if (isPlanValid() && myCurrentPlanTemplate) {
+    if (isPlanValid()) {
         // call tag selected function
         myFrameParent->tagSelected();
     } else {
@@ -291,6 +285,16 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // call tag selected function
     myFrameParent->tagSelected();
     return 1;
+}
+
+
+bool
+GNEPlanSelector::isPlanValid() const {
+    if (myCurrentPlanTemplate) {
+        return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
+    } else {
+        return false;
+    }
 }
 
 /****************************************************************************/

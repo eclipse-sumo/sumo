@@ -52,9 +52,6 @@ public:
     /// @brief get current plan template
     GNEDemandElement* getCurrentPlanTemplate() const;
 
-    /// @brief check if selected plan is valid
-    bool isPlanValid() const;
-
     /// @brief refresh plan selector (used when frameParent is show)
     void refreshPlanSelector();
 
@@ -90,6 +87,9 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEPlanSelector)
+
+    /// @brief check if selected plan is valid
+    bool isPlanValid() const;
 
 private:
     /// @brief pointer to Frame Parent

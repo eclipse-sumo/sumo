@@ -86,6 +86,9 @@ public:
     /// @brief destructor
     ~GNEPlanCreator();
 
+    /// @brief check if plan can be created
+    bool planCanBeCreated(const GNEDemandElement *planTemplate) const;
+
     /// @brief show plan creator for the given tag property
     void showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement *previousPlan);
 
@@ -115,6 +118,9 @@ public:
 
     /// @brief add route
     bool addRoute(GNEDemandElement* route);
+
+    /// @brief get consecutive edge
+    const std::vector<GNEEdge*> getConsecutiveEdges() const;
 
     /// @brief get consecutive edge IDs
     const std::vector<std::string> getConsecutiveEdgeIDs() const;
