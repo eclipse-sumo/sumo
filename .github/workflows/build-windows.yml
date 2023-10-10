@@ -93,9 +93,11 @@ jobs:
       run: |
         cd sumo/build_msvc
         $env:TEXTTEST_TMP = "D:/texttest"
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
         ctest -R texttest --verbose
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
+        ctest -R texttest --verbose
+        $env:TEXTTEST_CI_APPS = "-a sumo"
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
