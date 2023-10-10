@@ -69,18 +69,7 @@ GNETransport::~GNETransport() {}
 
 GNEMoveOperation*
 GNETransport::getMoveOperation() {
-    // only move personTrips defined over edges
-    if (myTagProperty.planToEdge()) {
-        // get geometry end pos
-        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-        // calculate circle width squared
-        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
-        // check if we clicked over a geometry end pos
-        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= circleWidthSquared + 2) {
-            return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
-        }
-    }
-    return nullptr;
+    return getPlanMoveOperation();
 }
 
 

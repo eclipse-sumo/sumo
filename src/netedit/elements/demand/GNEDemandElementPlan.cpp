@@ -101,7 +101,7 @@ GNEDemandElementPlan::getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdg
     } else if (fromTrainStop && toTrainStop) {
         return std::make_pair(GNE_TAG_WALK_TRAINSTOP_TRAINSTOP, GUIIcon::WALK_TRAINSTOP);
     } else {
-        throw ProcessError("invalid walk combination");
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
 }
 
@@ -163,7 +163,7 @@ GNEDemandElementPlan::getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdg
     } else if (fromTrainStop && toTrainStop) {
         return std::make_pair(GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP, GUIIcon::PERSONTRIP_TRAINSTOP);
     } else {
-        throw ProcessError("invalid personTrip combination");
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
 }
 
@@ -192,7 +192,7 @@ GNEDemandElementPlan::getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toE
     } else if (fromTrainStop && toTrainStop) {
         return std::make_pair(GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP, GUIIcon::RIDE_TRAINSTOP);
     } else {
-        throw ProcessError("invalid ride combination");
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
 }
 
@@ -210,7 +210,7 @@ GNEDemandElementPlan::getTagIconTransport(const GNEEdge* fromEdge, const GNEEdge
     } else if (fromContainerStop && toContainerStop) {
         return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSPORT_CONTAINERSTOP);
     } else {
-        throw ProcessError("invalid transport combination");
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
 }
 
@@ -231,7 +231,7 @@ GNEDemandElementPlan::getTagIconTranship(const std::vector<GNEEdge*> &consecutiv
     } else if (fromContainerStop && toContainerStop) {
         return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
     } else {
-        throw ProcessError("invalid tranship combination");
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
 }
 
@@ -240,6 +240,30 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const 
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
+}
+
+
+GNEMoveOperation*
+GNEDemandElementPlan::getPlanMoveOperation() {
+    // get tag property
+    const auto tagProperty = myPlanElement->getTagProperty();
+    // only move personTrips defined over edges
+    if (tagProperty.planToEdge() || tagProperty.planEdges()) {
+        // get geometry end pos
+        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        // calculate circle width squared
+        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
+        // check if we clicked over a geometry end pos
+        if (myPlanElement->myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
+            // continue depending of parent edges
+            if (myPlanElement->getParentEdges().size() > 0) {
+                return new GNEMoveOperation(myPlanElement, myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
+            } else {
+                return new GNEMoveOperation(myPlanElement, myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(myPlanElement->getVClass()), myArrivalPosition, false);
+            }
+        }
+    }
+    return nullptr;
 }
 
 
@@ -801,7 +825,14 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // declare result
-    auto result = myPlanElement->getTagStr() + ": ";
+    std::string result;
+    // clear result
+    int index = 0;
+    while (tagProperty.getTagStr().at(index) != ':') {
+        result.push_back(tagProperty.getTagStr().at(index));
+        index++;
+    }
+    result += ": ";
     // continue depending of attributes
     if (tagProperty.planEdges()) {
         // edges

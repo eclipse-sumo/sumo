@@ -1198,6 +1198,10 @@ bool
 GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent,
                                  GNEAttributesCreator* personPlanAttributes, GNEPlanCreator* planCreator,
                                  const bool centerAfterCreation) {
+    // first check if person is valid
+    if (personParent == nullptr) {
+        return false;
+    }
     // clear and set person object
     myPlanObject->clear();
     myPlanObject->setTag(personParent->getTagProperty().getTag());
@@ -1704,6 +1708,10 @@ bool
 GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent,
                                     GNEAttributesCreator* containerPlanAttributes, GNEPlanCreator* planCreator,
                                     const bool centerAfterCreation) {
+    // first check if container is valid
+    if (containerParent == nullptr) {
+        return false;
+    }
     // clear and set container object
     myPlanObject->clear();
     myPlanObject->setTag(containerParent->getTagProperty().getTag());

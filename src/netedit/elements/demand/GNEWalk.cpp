@@ -93,23 +93,7 @@ GNEWalk::~GNEWalk() {}
 
 GNEMoveOperation*
 GNEWalk::getMoveOperation() {
-    // only move personTrips defined over edges
-    if (myTagProperty.planToEdge() || (myTagProperty.getTag() == GNE_TAG_WALK_EDGES)) {
-        // get geometry end pos
-        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-        // calculate circle width squared
-        const double circleWidthSquared = myArrivalPositionDiameter * myArrivalPositionDiameter;
-        // check if we clicked over a geometry end pos
-        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= ((circleWidthSquared + 2))) {
-            // continue depending of parent edges
-            if (getParentEdges().size() > 0) {
-                return new GNEMoveOperation(this, getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
-            } else {
-                return new GNEMoveOperation(this, getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass()), myArrivalPosition, false);
-            }
-        }
-    }
-    return nullptr;
+    return getPlanMoveOperation();
 }
 
 

@@ -73,6 +73,11 @@ protected:
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
 
+    /**@brief get move operation
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    GNEMoveOperation* getPlanMoveOperation();
+
     /// @brief write plan element common attributes
     void writePlanAttributes(OutputDevice& device) const;
 
