@@ -71,28 +71,28 @@ The meanings of the written values are given in the following table.
 | time_step          | (simulation) seconds | The time step described by the values within this timestep-element                                                      |
 | id                  | id                   | The id of the vehicle/lane/edge/trafficlight                                                                            |
 | eclass              | id                   | The id of the specific emission class of the vehicle                                                                    |
-| co2\@vehicle         | mg/s                 | The amount of CO2 emitted by the vehicle in the actual simulation step                                                  |
-| co2\@lane            | mg/s                 | The complete amount of CO2 emitted by the vehicles on this lane during the actual simulation step                       |
-| co\@vehicle          | mg/s                 | The amount of CO emitted by the vehicle in the actual simulation step                                                   |
-| co\@lane             | mg/s                 | The complete amount of CO emitted by the vehicles on this lane during the actual simulation step                        |
-| hc\@vehicle          | mg/s                 | The amount of HC emitted by the vehicle in the actual simulation step                                                   |
-| hc\@lane             | mg/s                 | The complete amount of HC emitted by the vehicles on this lane during the actual simulation step                        |
-| nox\@vehicle         | mg/s                 | The amount of NOX emitted by the vehicle in the actual simulation step                                                  |
-| nox\@lane            | mg/s                 | The complete amount of NOX emitted by the vehicles on this lane during the actual simulation step                       |
-| pmx\@vehicle         | mg/s                 | The amount of PMX emitted by the vehicle in the actual simulation step                                                  |
-| pmx\@lane            | mg/s                 | The complete amount of PMX emitted by the vehicles on this lane during the actual simulation step                       |
-| noise\@vehicle       | dB                   | The noise emitted by the vehicle in the actual simulation step                                                          |
+| co2\@vehicle         | mg/s                 | The amount of CO2 emitted by the vehicle in the current simulation step                                                  |
+| co2\@lane            | mg/s                 | The complete amount of CO2 emitted by the vehicles on this lane during the current simulation step                       |
+| co\@vehicle          | mg/s                 | The amount of CO emitted by the vehicle in the current simulation step                                                   |
+| co\@lane             | mg/s                 | The complete amount of CO emitted by the vehicles on this lane during the current simulation step                        |
+| hc\@vehicle          | mg/s                 | The amount of HC emitted by the vehicle in the current simulation step                                                   |
+| hc\@lane             | mg/s                 | The complete amount of HC emitted by the vehicles on this lane during the current simulation step                        |
+| nox\@vehicle         | mg/s                 | The amount of NOX emitted by the vehicle in the current simulation step                                                  |
+| nox\@lane            | mg/s                 | The complete amount of NOX emitted by the vehicles on this lane during the current simulation step                       |
+| pmx\@vehicle         | mg/s                 | The amount of PMX emitted by the vehicle in the current simulation step                                                  |
+| pmx\@lane            | mg/s                 | The complete amount of PMX emitted by the vehicles on this lane during the current simulation step                       |
+| noise\@vehicle       | dB                   | The noise emitted by the vehicle in the current simulation step                                                          |
 | noise\@lane          | dB                   | The noise emitted by the vehicles on the specific lane                                                                  |
-| fuel\@vehicle        | mg/s                 | The fuel consumed by the vehicle in the actual simulation step                                                          |
+| fuel\@vehicle        | mg/s                 | The fuel consumed by the vehicle in the current simulation step                                                          |
 | fuel\@lane           | mg/s                 | The fuel consumed by the vehicles on the specific lane                                                                  |
-| electricity\@vehicle | Wh/s                 | The electricity consumed by the vehicle in the actual simulation step                                                   |
+| electricity\@vehicle | Wh/s                 | The electricity consumed by the vehicle in the current simulation step                                                   |
 | electricity\@lane    | Wh/s                 | The electricity consumed by the vehicles on the specific lane                                                           |
 | route               | id                   | The name of the route                                                                                                   |
 | type                | id                   | The name of the vehicle type                                                                                            |
 | waiting             | seconds              | The total time a vehicle is waiting                                                                                     |
 | lane                | id                   | The name of the lane                                                                                                    |
 | pos                 | meters               | The position of the vehicle on a specific lane (distance of the front bumper from the start of the lane)                |
-| speed               | m/s                  | The actual speed of the vehicle                                                                                         |
+| speed               | m/s                  | The current speed of the vehicle                                                                                         |
 | angle               | degree               | The angle of the vehicle                                                                                                |
 | pos_x              | \---                 | The absolut X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. |
 | pos_y              | \---                 | The absolut Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection  |
