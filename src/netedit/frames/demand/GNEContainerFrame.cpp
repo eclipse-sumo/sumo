@@ -295,7 +295,7 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
         myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr() + " parameters.");
-    } else {
+    } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
@@ -304,7 +304,7 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
         if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(),
-                                           container, myContainerPlanAttributes, myPlanCreator, true)) {
+                                              container, myContainerPlanAttributes, myPlanCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation

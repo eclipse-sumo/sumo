@@ -121,7 +121,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         }
     }
     // finally check that person plan selected is valid
-    if (!myPlanSelector->isPlanValid()) {
+    if (!myPlanSelector->getCurrentPlanTemplate()) {
         myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
@@ -214,7 +214,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         // show person plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
-        if (myPlanSelector->isPlanValid()) {
+        if (myPlanSelector->getCurrentPlanTemplate()) {
             // call tag selected
             tagSelected();
         } else {

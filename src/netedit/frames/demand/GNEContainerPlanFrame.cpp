@@ -121,7 +121,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
         }
     }
     // finally check that container plan selected is valid
-    if (!myPlanSelector->isPlanValid()) {
+    if (!myPlanSelector->getCurrentPlanTemplate()) {
         myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
@@ -214,7 +214,7 @@ GNEContainerPlanFrame::demandElementSelected() {
         // show container plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
-        if (myPlanSelector->isPlanValid()) {
+        if (myPlanSelector->getCurrentPlanTemplate()) {
             // call tag selected
             tagSelected();
         } else {
