@@ -127,6 +127,8 @@ These application bundles determine the location of your SUMO installation by ev
 !!! note
     When using these launchers for the first time, macOS may need you to authorize them to run.
 
+For building SUMO from its sources see [building SUMO on macOS](MacOS_Build.md).
+
 ## macOS Troubleshooting
 
 ### Segmentation faults on macOS Catalina
