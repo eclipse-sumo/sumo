@@ -916,6 +916,7 @@ void
 GNEAttributeCarrier::fillNetworkElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // obtain Node Types except SumoXMLNodeType::DEAD_END_DEPRECATED
     const auto& neteditOptions = OptionsCont::getOptions();
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
@@ -1550,6 +1551,7 @@ void
 GNEAttributeCarrier::fillAdditionalElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill additional elements
     SumoXMLTag currentTag = SUMO_TAG_BUS_STOP;
     {
@@ -2873,6 +2875,7 @@ void
 GNEAttributeCarrier::fillShapeElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill shape ACs
     SumoXMLTag currentTag = SUMO_TAG_POLY;
     {
@@ -3044,6 +3047,7 @@ void
 GNEAttributeCarrier::fillTAZElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill TAZ ACs
     SumoXMLTag currentTag = SUMO_TAG_TAZ;
     {
@@ -3253,8 +3257,9 @@ GNEAttributeCarrier::fillWireElements() {
 
 void
 GNEAttributeCarrier::fillJuPedSimElements() {
-// declare empty GNEAttributeProperties
+    // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill shape ACs
     SumoXMLTag currentTag = GNE_TAG_JPS_WALKABLEAREA;
     {
@@ -3608,6 +3613,7 @@ void
 GNEAttributeCarrier::fillVehicleElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_TRIP;
     {
@@ -4021,6 +4027,7 @@ void
 GNEAttributeCarrier::fillStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill stops ACs
     SumoXMLTag currentTag = GNE_TAG_STOP_LANE;
     {
@@ -4154,6 +4161,7 @@ void
 GNEAttributeCarrier::fillWaypointElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill waypoints ACs
     SumoXMLTag currentTag = GNE_TAG_WAYPOINT_LANE;
     {
@@ -4287,6 +4295,7 @@ void
 GNEAttributeCarrier::fillPersonElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_PERSON;
     {
@@ -4328,6 +4337,7 @@ void
 GNEAttributeCarrier::fillContainerElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill vehicle ACs
     SumoXMLTag currentTag = SUMO_TAG_CONTAINER;
     {
@@ -4367,62 +4377,55 @@ void
 GNEAttributeCarrier::fillContainerTransportElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-    // fill walks
+
+    // fill transport
     SumoXMLTag currentTag = GNE_TAG_TRANSPORT_EDGE_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("TransportEdge"),
+                                      GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: edge->edge"),
                                       {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
-        // from edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The ID of the edge the transport starts at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // to edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The ID of the edge the transport ends at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // arrival position
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("arrival position on the destination edge"),
-                                              "-1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // lines
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("list of vehicle alternatives to take for the transport"),
-                                              "ANY");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("TransportContainerStop"),
+                                      GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_CONTAINERSTOP | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: edge->containerStop"),
                                       {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
-        // from edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The ID of the edge the transport starts at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // to busStop
-        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("ID of the destination container stop"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // lines
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("list of vehicle alternatives to take for the transport"),
-                                              "ANY");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->edge"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagProperty::PLAN_TO_CONTAINERSTOP | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->containerStop"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
     }
 }
 
@@ -4431,106 +4434,72 @@ void
 GNEAttributeCarrier::fillContainerTranshipElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill walks
     SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGE_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("TranshipEdge"),
+                                      GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: edge->edge"),
                                       {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-        // from edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The ID of the edge the tranship starts at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // to edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The ID of the edge the tranship ends at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // depart pos
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The position at which the tranship shall enter the net"),
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // arrival position
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("arrival position on the destination edge"),
-                                              "-1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // speed
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("speed of the container for this tranship in m/s"),
-                                              "1.39");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("TranshipContainerStop"),
+                                      GNETagProperties::TagProperty::PLAN_FROM_EDGE | GNETagProperties::TagProperty::PLAN_TO_CONTAINERSTOP | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: edge->containerStop"),
                                       {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
-        // from edge
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The name of the edge the tranship starts at"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // to busStop
-        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Id of the destination container stop"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // depart pos
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The position at which the tranship shall enter the net"),
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // speed
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("speed of the container for this tranship in m/s"),
-                                              "1.39");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagProperty::PLAN_TO_EDGE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->edge"),
+                                      {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagProperty::PLAN_TO_CONTAINERSTOP | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->containerStop"),
+                                      {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
+
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGES;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, TL("TranshipEdges"),
+                                      GNETagProperties::TagProperty::PLAN_EDGES | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, TL("Tranship: edges"),
                                       {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-        // edges
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("id of the edges to walk"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // depart pos
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The position at which the tranship shall enter the net"),
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // arrival pos
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Arrival position on the destination edge"),
-                                              "-1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        // speed
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("speed of the container for this tranship in m/s"),
-                                              "1.39");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // set values of attributes
+        fillPlanFromToAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
 }
 
@@ -4539,6 +4508,7 @@ void
 GNEAttributeCarrier::fillContainerStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill vehicle ACs
     SumoXMLTag currentTag = GNE_TAG_STOPCONTAINER_EDGE;
     {
@@ -4626,6 +4596,7 @@ void
 GNEAttributeCarrier::fillPersonPlanTrips() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // from edge
     SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
     {
@@ -4939,6 +4910,7 @@ void
 GNEAttributeCarrier::fillPersonPlanWalks() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     SumoXMLTag currentTag = GNE_TAG_WALK_EDGES;
     {
         // set values of tag
@@ -5292,7 +5264,7 @@ void
 GNEAttributeCarrier::fillPersonPlanRides() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-    // from edge
+
     SumoXMLTag currentTag = GNE_TAG_RIDE_EDGE_EDGE;
     {
         // set values of tag
@@ -5410,7 +5382,7 @@ void
 GNEAttributeCarrier::fillStopPersonElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-    // fill vehicle ACs
+
     SumoXMLTag currentTag = GNE_TAG_STOPPERSON_EDGE;
     {
         // set values of tag
@@ -5595,6 +5567,7 @@ void
 GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("This vehicle's color"),
@@ -6012,6 +5985,7 @@ void
 GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_JM_CROSSING_GAP,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           TL("Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle."),
@@ -6358,8 +6332,9 @@ void
 GNEAttributeCarrier::fillPlanFromToAttributes(SumoXMLTag currentTag) {
     // get rag property
     auto &tagProperty = myTagProperties[currentTag];
-        // declare empty GNEAttributeProperties
+    // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // continue depending of from
     if (tagProperty.planFromEdge()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -6386,7 +6361,12 @@ GNEAttributeCarrier::fillPlanFromToAttributes(SumoXMLTag currentTag) {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("TrainStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
-    } 
+    } else if (tagProperty.planFromContainerStop()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM_CONTAINERSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ContainerStop start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     // continue depending of to
     if (tagProperty.planToEdge()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
@@ -6418,6 +6398,11 @@ GNEAttributeCarrier::fillPlanFromToAttributes(SumoXMLTag currentTag) {
         attrProperty = GNEAttributeProperties(GNE_ATTR_TO_TRAINSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("TrainStop start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    } else if (tagProperty.planToContainerStop()) {
+        attrProperty = GNEAttributeProperties(GNE_ATTR_TO_CONTAINERSTOP,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ContainerStop start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
@@ -6467,9 +6452,47 @@ GNEAttributeCarrier::fillRideCommonAttributes(SumoXMLTag currentTag) {
 
 
 void
+GNEAttributeCarrier::fillTransportCommonAttributes(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    // lines
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("list of vehicle alternatives to take for the transport"),
+                                            "ANY");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void
+GNEAttributeCarrier::fillTranshipCommonAttributes(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    if (myTagProperties[currentTag].planFromEdge() || myTagProperties[currentTag].planEdges()) {
+        // depart pos
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                                GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                                TL("The position at which the tranship shall enter the net"),
+                                                "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+
+    // speed
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                            TL("speed of the container for this tranship in m/s"),
+                                            "1.39");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+}
+
+
+void
 GNEAttributeCarrier::fillDataElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
+
     // fill data set element
     SumoXMLTag currentTag = SUMO_TAG_DATASET;
     {
@@ -6598,6 +6621,7 @@ GNEAttributeCarrier::fillDataElements() {
 void
 GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
     GNEAttributeProperties attrProperty;
+
     // fill all meanData attributes
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,

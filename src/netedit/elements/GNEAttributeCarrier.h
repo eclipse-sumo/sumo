@@ -447,6 +447,12 @@ private:
     /// @brief fill ride common attributes
     static void fillRideCommonAttributes(SumoXMLTag currentTag);
 
+    /// @brief fill transport common attributes
+    static void fillTransportCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill ride common attributes
+    static void fillTranshipCommonAttributes(SumoXMLTag currentTag);
+
     /// @brief fill Data elements
     static void fillDataElements();
 
