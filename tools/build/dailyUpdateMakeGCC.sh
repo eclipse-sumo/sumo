@@ -141,10 +141,11 @@ if test ${FILEPREFIX: -2} == "M1"; then
   # the credentials are in ~/.pypirc
   twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
-  docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
   twine upload --skip-existing -r testpypi wheelhouse/*
 fi
 # Linux x64 wheels
 if test ${FILEPREFIX} == "gcc4_64"; then
-  docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_x64 tools/build/build_wheels.sh $HTTPS_PROXY v0.13.0 >> $WHEELLOG 2>&1
+  mv dist dist_native  # just as backup
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build/build_wheels.sh $HTTPS_PROXY v0.13.0 > $WHEELLOG 2>&1
 fi

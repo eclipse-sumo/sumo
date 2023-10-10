@@ -43,6 +43,7 @@ fi
 mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 echo "base_dir = $PWD/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
+rm -rf dist _skbuild wheelhouse
 cp build/pyproject.toml .
 py=/opt/python/cp38-cp38
 $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
@@ -63,3 +64,4 @@ for py in /opt/python/cp3[1789]*; do
     auditwheel repair dist/libsumo*.whl
     auditwheel repair dist/libtraci*.whl
 done
+rm -rf tools/*.egg-info tools/build/*.egg-info tools/libsumo/data pyproject.toml
