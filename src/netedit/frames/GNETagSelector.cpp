@@ -454,44 +454,6 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_CONTAINERFLOW:
             myAC = new GNEContainer(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_TRANSPORT_EDGE_EDGE:
-        case GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP:
-            myAC = new GNETransport(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_TRANSHIP_EDGE_EDGE:
-        case GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP:
-        case GNE_TAG_TRANSHIP_EDGES:
-            myAC = new GNETranship(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
-        case GNE_TAG_PERSONTRIP_EDGE_TAZ:
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP:
-        case GNE_TAG_PERSONTRIP_TAZ_EDGE:
-        case GNE_TAG_PERSONTRIP_TAZ_TAZ:
-        case GNE_TAG_PERSONTRIP_TAZ_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP:
-        case GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION:
-            myAC = new GNEPersonTrip(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_WALK_EDGE_TAZ:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_TRAINSTOP:
-        case GNE_TAG_WALK_TAZ_EDGE:
-        case GNE_TAG_WALK_TAZ_TAZ:
-        case GNE_TAG_WALK_TAZ_BUSSTOP:
-        case GNE_TAG_WALK_TAZ_TRAINSTOP:
-        case GNE_TAG_WALK_JUNCTION_JUNCTION:
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_WALK_ROUTE:
-            myAC = new GNEWalk(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_RIDE_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_TRAINSTOP:
-            myAC = new GNERide(tagProperty.getTag(), net);
-            break;
         default:
             throw ProcessError("Non-supported tagProperty in ACTemplate");
             break;
