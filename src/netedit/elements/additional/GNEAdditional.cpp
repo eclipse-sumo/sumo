@@ -145,6 +145,8 @@ GNEAdditional::getCenteringBoundary() const {
 
 bool
 GNEAdditional::checkDrawFromContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get TAZRelDataFrame
         const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
@@ -175,6 +177,21 @@ GNEAdditional::checkDrawFromContour() const {
             }
         }
     }
+    // get current GNEPlanCreator
+    GNEPlanCreator* planCreator = nullptr;
+    if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSON)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    }
+    // continue depending of planCreator
+    if (planCreator) {
+        // check if this is the from additional
+        if ((planCreator->getFromBusStop() == this) || (planCreator->getFromTrainStop() == this) ||
+            (planCreator->getFromContainerStop() == this) || (planCreator->getFromTAZ() == this)) {
+            return true;
+        }
+    }
     // nothing to draw
     return false;
 }
@@ -182,6 +199,8 @@ GNEAdditional::checkDrawFromContour() const {
 
 bool
 GNEAdditional::checkDrawToContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get frames
@@ -211,6 +230,21 @@ GNEAdditional::checkDrawToContour() const {
             if ((selectedTAZs.size() > 1) && (selectedTAZs.back() == this)) {
                 return true;
             }
+        }
+    }
+    // get current GNEPlanCreator
+    GNEPlanCreator* planCreator = nullptr;
+    if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSON)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    }
+    // continue depending of planCreator
+    if (planCreator) {
+        // check if this is the from additional
+        if ((planCreator->getToBusStop() == this) || (planCreator->getToTrainStop() == this) ||
+            (planCreator->getToContainerStop() == this) || (planCreator->getToTAZ() == this)) {
+            return true;
         }
     }
     // nothing to draw

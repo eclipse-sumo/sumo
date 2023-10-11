@@ -145,6 +145,8 @@ GNEJunction::getPositionInView() const {
 
 bool
 GNEJunction::checkDrawFromContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (myAmCreateEdgeSource) {
         return true;
@@ -157,7 +159,7 @@ GNEJunction::checkDrawFromContour() const {
             (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID());
         }
-    } else {
+    } else if (modes.isCurrentSupermodeNetwork()) {
         // get frames
         const auto &TLSFrame = myNet->getViewNet()->getViewParent()->getTLSEditorFrame();
         const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
@@ -177,6 +179,21 @@ GNEJunction::checkDrawFromContour() const {
                 return true;
             }
         }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            // check if this is the from edge
+            if (planCreator->getFromJunction() == this) {
+                return true;
+            }
+        }
     }
     // nothing to draw
     return false;
@@ -185,6 +202,8 @@ GNEJunction::checkDrawFromContour() const {
 
 bool
 GNEJunction::checkDrawToContour() const {
+    // get modes
+    const auto &modes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
@@ -195,7 +214,7 @@ GNEJunction::checkDrawToContour() const {
             (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID());
         }
-    } else {
+    } else if (modes.isCurrentSupermodeNetwork()) {
         // get frames
         const auto &createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
         const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
@@ -216,6 +235,21 @@ GNEJunction::checkDrawToContour() const {
             const auto &selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
             // check if this is the first selected TAZ
             if ((selectedJunctions.size() > 1) && (selectedJunctions.back() == this)) {
+                return true;
+            }
+        }
+    } else if (modes.isCurrentSupermodeDemand()) {
+        // get current GNEPlanCreator
+        GNEPlanCreator* planCreator = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+        }
+        // continue depending of planCreator
+        if (planCreator) {
+            // check if this is the from edge
+            if (planCreator->getToJunction() == this) {
                 return true;
             }
         }
