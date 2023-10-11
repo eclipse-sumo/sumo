@@ -267,11 +267,26 @@ protected:
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
-    /// @brief get previous person/container plan edge
-    GNEEdge* getPreviousPlanEdge(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
+    /// @brief get previous plan obj
+    const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* obj) const;
 
-    /// @brief get previous person/container plan junction
-    GNEJunction* getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
+    /// @brief get previous plan edge
+    GNEEdge* getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get previous plan TAZ
+    GNEAdditional* getPreviousPlanTAZ(const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get previous plan junction
+    GNEJunction* getPreviousPlanJunction(const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get previous plan busStop
+    GNEAdditional* getPreviousPlanBusStop(const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get previous plan trainStop
+    GNEAdditional* getPreviousPlanTrainStop(const CommonXMLStructure::SumoBaseObject* obj) const;
+
+    /// @brief get previous plan containerStop
+    GNEAdditional* getPreviousPlanContainerStop(const CommonXMLStructure::SumoBaseObject* obj) const;
 
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
