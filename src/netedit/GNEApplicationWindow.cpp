@@ -4634,6 +4634,8 @@ GNEApplicationWindow::updateControls() {
     if (myViewNet) {
         myViewNet->updateControls();
     }
+    // update require recomputing
+    updateRecomputingLabel();
 }
 
 
