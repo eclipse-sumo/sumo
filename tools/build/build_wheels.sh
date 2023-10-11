@@ -59,9 +59,6 @@ for py in /opt/python/cp3[1789]*; do
     $py/bin/python -m build --wheel
     $py/bin/python tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
     $py/bin/python -m build --wheel tools -o dist
-    $py/bin/python tools/build/version.py tools/build/setup-libtraci.py tools/setup.py
-    $py/bin/python -m build --wheel tools -o dist
     auditwheel repair dist/libsumo*.whl
-    auditwheel repair dist/libtraci*.whl
 done
 rm -rf tools/*.egg-info tools/build/*.egg-info tools/libsumo/data pyproject.toml
