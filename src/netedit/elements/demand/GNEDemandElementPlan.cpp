@@ -597,22 +597,19 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             if (tagProperty.planFromStoppingPlace()) {
                 // use end position of stoppingPlace parent
                 return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
+                // junctions and TAZs return always -1
+                return -1;
             } else {
                 // get previous plan element
                 const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
                 // continue depending of previous plan
                 if (previousPlan) {
-                    // use previous plan end position
+                    // use previous plan end position (normally the arrival position)
                     return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
-                    // this is the first plan, then continue depending of parents
-                    if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
-                        // junctions and TAZs return always -1
-                        return -1;
-                    } else {
-                        // use parent's depart position (edges)
-                        return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                    }
+                    // use depart position defined in parent (person or container)
+                    return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
                 }
             }
         }
@@ -643,43 +640,41 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     // continue depending of key
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
-            // get previous plan
-            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-            // continue depending of previous plan
-            if (previousPlan) {
-                // use previous plan geometry end position
-                return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-            } else {
-                // this is the first element, then continue depending of from element
-                if (tagProperty.planFromStoppingPlace()) {
-                    return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
-                } else if (tagProperty.planFromJunction()) {
-                    // junctions
-                    return myPlanElement->getParentJunctions().front()->getPositionInView();
-                } else if (tagProperty.planFromTAZ()) {
-                    // TAZs
-                    return myPlanElement->getParentAdditionals().front()->getPositionInView();
+            // continue depending of from element
+            if (tagProperty.planFromStoppingPlace()) {
+                return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+            } else if (tagProperty.planFromJunction()) {
+                // junction view position
+                return myPlanElement->getParentJunctions().front()->getPositionInView();
+            } else if (tagProperty.planFromTAZ()) {
+                // TAZ view position
+                return myPlanElement->getParentAdditionals().front()->getPositionInView();
+            } else if (tagProperty.planEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
+                // check if this is the first person plan
+                if (planParent->getPreviousChildDemandElement(myPlanElement) != nullptr) {
+                    return Position::INVALID;
                 } else {
                     // get first lane
                     const auto firstLane = myPlanElement->getFirstPathLane();
                     // check if first lane exists
-                    if (firstLane) {
-                        // get lane shape
-                        const auto &laneShape = firstLane->getLaneShape();
-                        // declare use parent depart position
-                        double departPosition = planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                        // continue depending of arrival position
-                        if (departPosition == 0) {
-                            return laneShape.front();
-                        } else if ((departPosition == -1) || (departPosition >= laneShape.length2D())) {
-                            return laneShape.back();
-                        } else {
-                            return laneShape.positionAtOffset2D(departPosition);
-                        }
-                    } else {
+                    if (firstLane == nullptr) {
                         throw ProcessError("firstLane cannot be null");
                     }
+                    // get lane shape
+                    const auto &laneShape = firstLane->getLaneShape();
+                    // check if use my depart position (tranships) or container depart position
+                    double departPosition = myDepartPosition < 0? planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS) : myDepartPosition;
+                    // continue depending of arrival position
+                    if (departPosition == 0) {
+                        return laneShape.front();
+                    } else if ((departPosition == -1) || (departPosition >= laneShape.length2D())) {
+                        return laneShape.back();
+                    } else {
+                        return laneShape.positionAtOffset2D(departPosition);
+                    }
                 }
+            } else {
+                return Position::INVALID;
             }
         }
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
@@ -693,24 +688,25 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
-            } else {
+            } else if (tagProperty.planEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // get last lane
                 const auto lastLane = myPlanElement->getLastPathLane();
                 // check if last lane exists
-                if (lastLane) {
-                    // get lane shape
-                    const auto& laneShape = lastLane->getLaneShape();
-                    // continue depending of arrival position
-                    if (myArrivalPosition == 0) {
-                        return laneShape.front();
-                    } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
-                        return laneShape.back();
-                    } else {
-                        return laneShape.positionAtOffset2D(myArrivalPosition);
-                    }
-                } else {
+                if (lastLane == nullptr) {
                     throw ProcessError("lastLane cannot be null");
                 }
+                // get lane shape
+                const auto& laneShape = lastLane->getLaneShape();
+                // continue depending of arrival position
+                if (myArrivalPosition == 0) {
+                    return laneShape.front();
+                } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(myArrivalPosition);
+                }
+            } else {
+                return Position::INVALID;
             }
         }
         default:
