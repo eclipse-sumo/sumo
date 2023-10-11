@@ -61,4 +61,4 @@ for py in /opt/python/cp3[1789]*; do
     $py/bin/python -m build --wheel tools -o dist
     auditwheel repair dist/libsumo*.whl
 done
-rm -rf tools/*.egg-info tools/build/*.egg-info tools/libsumo/data pyproject.toml
+rm -rf tools/*.egg-info tools/build/bdist* tools/build/*.egg-info tools/build/lib* tools/libsumo/data pyproject.toml
