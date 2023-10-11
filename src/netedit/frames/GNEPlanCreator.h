@@ -202,35 +202,26 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES       = 1 << 0,   // Plan requiere consecutive edges
-        ROUTE                   = 1 << 1,   // Plan uses a route
-        START_EDGE              = 1 << 2,   // Plan begins in edge
-        END_EDGE                = 1 << 3,   // Plan ends in edge
-        START_JUNCTION          = 1 << 4,   // Plan begins in junction
-        END_JUNCTION            = 1 << 5,   // Plan ends in junction
-        START_TAZ               = 1 << 6,   // Plan begins in TAZ
-        END_TAZ                 = 1 << 7,   // Plan ends in TAZ
-        START_BUSSTOP           = 1 << 8,   // Plan begins in busStop
-        END_BUSSTOP             = 1 << 9,   // Plan ends in busStop
-        START_TRAINSTOP         = 1 << 10,  // Plan begins in trainStop
-        END_TRAINSTOP           = 1 << 11,  // Plan ends in trainStop
+        CONSECUTIVE_EDGES   = 1 << 0,   // Plan requiere consecutive edges
+        ROUTE               = 1 << 1,   // Plan uses a route
+        START_EDGE          = 1 << 2,   // Plan begins in edge
+        END_EDGE            = 1 << 3,   // Plan ends in edge
+        START_JUNCTION      = 1 << 4,   // Plan begins in junction
+        END_JUNCTION        = 1 << 5,   // Plan ends in junction
+        START_TAZ           = 1 << 6,   // Plan begins in TAZ
+        END_TAZ             = 1 << 7,   // Plan ends in TAZ
+        START_BUSSTOP       = 1 << 8,   // Plan begins in busStop
+        END_BUSSTOP         = 1 << 9,   // Plan ends in busStop
+        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
+        END_TRAINSTOP       = 1 << 11,  // Plan ends in trainStop
         // stops and containerStops
     };
-
-    /// @brief update InfoRouteLabel
-    void updateInfoRouteLabel();
 
     /// @brief clear edges
     void clearPath();
 
     /// @brief recalculate path
     void recalculatePath();
-
-    /// @brief set special candidates (This function will be called recursively)
-    void setSpecialCandidates(GNEEdge* originEdge);
-
-    /// @brief set edgereachability (This function will be called recursively)
-    void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
 
     /// @brief current frame parent
     GNEFrame* myFrameParent;
@@ -280,9 +271,6 @@ protected:
     /// @brief vector with current path
     std::vector<PlanPath> myPath;
 
-    /// @brief label with route info
-    FXLabel* myInfoRouteLabel;
-
     /// @brief button for use last inserted route
     FXButton* myUseLastRoute;
 
@@ -303,7 +291,7 @@ private:
     int getNumberOfSelectedElements() const;
 
     /// @brief check if enable remove last item button
-    bool checkEnableLastItemButton() const;
+    void updateRemoveLastItemButton() const;
 
     /// @brief Invalidated copy constructor.
     GNEPlanCreator(GNEPlanCreator*) = delete;

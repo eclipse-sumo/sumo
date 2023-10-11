@@ -128,8 +128,6 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0) {
-    // create label for route info
-    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameInformation);
     // create button for use last route
     myUseLastRoute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use last route"), "", "", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
@@ -140,7 +138,7 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     myAbortCreationButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Abort route creation"), "", "", nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last edge"), "", "", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last element"), "", "", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create backspace label (always shown)
     myBackSpaceLabel = new FXLabel(this, "BACKSPACE: undo click", 0, GUIDesignLabelFrameInformation);
@@ -199,8 +197,7 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedElement->disable();
-    // show info label
-    myInfoRouteLabel->show();
+    // show label
     myBackSpaceLabel->show();
     // reset creation mode
     myCreationMode = 0;
@@ -217,7 +214,6 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         myFinishCreationButton->hide();
         myAbortCreationButton->hide();
         myRemoveLastInsertedElement->hide();
-        myInfoRouteLabel->hide();
         myBackSpaceLabel->hide();
     } else {
         if (planSelector->markSingleEdges()) {
@@ -315,16 +311,10 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // enable or disable remove last junction button
-    if (checkEnableLastItemButton()) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
+    // update remove last item button
+    updateRemoveLastItemButton();
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     return true;
 }
 
@@ -361,16 +351,10 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // enable or disable remove last TAZ button
-    if (checkEnableLastItemButton()) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
+    // update remove last item button
+    updateRemoveLastItemButton();
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     return true;
 }
 
@@ -396,16 +380,10 @@ GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // enable or disable remove last edge button
-    if (checkEnableLastItemButton()) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
+    // update remove last item button
+    updateRemoveLastItemButton();
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     // edge added, then return true
     return true;
 }
@@ -443,16 +421,10 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // enable or disable remove last edge button
-    if (checkEnableLastItemButton()) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
+    // update remove last item button
+    updateRemoveLastItemButton();
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     // edge added, then return true
     return true;
 }
@@ -502,8 +474,6 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
     }
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     // stopping place added, then return true
     return true;
 }
@@ -548,8 +518,6 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
     }
     // recalculate path
     recalculatePath();
-    // update info route label
-    updateInfoRouteLabel();
     // stopping place added, then return true
     return true;
 }
@@ -787,8 +755,6 @@ GNEPlanCreator::abortPathCreation() {
         myFinishCreationButton->disable();
         myAbortCreationButton->disable();
         myRemoveLastInsertedElement->disable();
-        // update info route label
-        updateInfoRouteLabel();
         // update view (to see the new route)
         myFrameParent->getViewNet()->updateViewNet();
     }
@@ -797,26 +763,34 @@ GNEPlanCreator::abortPathCreation() {
 
 void
 GNEPlanCreator::removeLastElement() {
-
-// check
-
-    if (myConsecutiveEdges.size() > 1) {
-        // remove special color of last selected edge
-        myConsecutiveEdges.back()->resetCandidateFlags();
-        // remove last edge
-        myConsecutiveEdges.pop_back();
-        // enable or disable remove last edge button
-        if (myConsecutiveEdges.size() > 1) {
-            myRemoveLastInsertedElement->enable();
+    if (myRemoveLastInsertedElement->isEnabled()) {
+        if (myConsecutiveEdges.size() > 0) {
+            myConsecutiveEdges.pop_back();
+        } else if (myRoute) {
+            myRoute = nullptr;
         } else {
-            myRemoveLastInsertedElement->disable();
+            if (myToEdge) {
+                myToEdge = nullptr;
+            } else if (myToJunction) {
+                myToJunction = nullptr;
+            } else if (myToTAZ) {
+                myToTAZ = nullptr;
+            } else if (myToStoppingPlace) {
+                myToStoppingPlace = nullptr;
+            } else if (myFromEdge) {
+                myFromEdge = nullptr;
+            } else if (myFromJunction) {
+                myFromJunction = nullptr;
+            } else if (myFromTAZ) {
+                myFromTAZ = nullptr;
+            } else if (myFromStoppingPlace) {
+                myFromStoppingPlace = nullptr;
+            }
         }
+        // update remove last item button
+        updateRemoveLastItemButton();
         // recalculate path
         recalculatePath();
-        // update info route label
-        updateInfoRouteLabel();
-        // update view
-        myFrameParent->getViewNet()->updateViewNet();
     }
 }
 
@@ -860,35 +834,6 @@ GNEPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
 
 
 void
-GNEPlanCreator::updateInfoRouteLabel() {
-    if (myPath.size() > 0) {
-        // declare variables for route info
-        double length = 0;
-        double speed = 0;
-        int pathSize = 0;
-        for (const auto& path : myPath) {
-            for (const auto& edge : path.getSubPath()) {
-                length += edge->getNBEdge()->getLength();
-                speed += edge->getNBEdge()->getSpeed();
-            }
-            pathSize += (int)path.getSubPath().size();
-        }
-        // declare ostringstream for label and fill it
-        std::ostringstream information;
-        information
-                << TL("- Selected edges: ") << toString(myConsecutiveEdges.size()) << "\n"
-                << TL("- Path edges: ") << toString(pathSize) << "\n"
-                << TL("- Length: ") << toString(length) << "\n"
-                << TL("- Average speed: ") << toString(speed / pathSize);
-        // set new label
-        myInfoRouteLabel->setText(information.str().c_str());
-    } else {
-        myInfoRouteLabel->setText(TL("No edges selected"));
-    }
-}
-
-
-void
 GNEPlanCreator::clearPath() {
     // clear junction, TAZs, edges, additionals and route
     myConsecutiveEdges.clear();
@@ -904,8 +849,6 @@ GNEPlanCreator::clearPath() {
     myRoute = nullptr;
     // clear path
     myPath.clear();
-    // update info route label
-    updateInfoRouteLabel();
 }
 
 
@@ -948,37 +891,6 @@ GNEPlanCreator::recalculatePath() {
 }
 
 
-void
-GNEPlanCreator::setSpecialCandidates(GNEEdge* originEdge) {
-    // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
-    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
-    // change flags
-    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
-            if (lane->getReachability() > 0) {
-                lane->getParentEdge()->resetCandidateFlags();
-                lane->getParentEdge()->setSpecialCandidate(true);
-            }
-        }
-    }
-}
-
-void
-GNEPlanCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
-    // first calculate reachability for pedestrians
-    myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
-    // change flags
-    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
-            if (lane->getReachability() > 0) {
-                lane->getParentEdge()->resetCandidateFlags();
-                lane->getParentEdge()->setPossibleCandidate(true);
-            }
-        }
-    }
-}
-
-
 int
 GNEPlanCreator::getNumberOfSelectedElements() const {
     return (int)myConsecutiveEdges.size() +
@@ -995,12 +907,20 @@ GNEPlanCreator::getNumberOfSelectedElements() const {
 }
 
 
-bool
-GNEPlanCreator::checkEnableLastItemButton() const {
+void
+GNEPlanCreator::updateRemoveLastItemButton() const {
     if (myPreviousPlanElement) {
-        return getNumberOfSelectedElements() == 2;
+        if (getNumberOfSelectedElements() == 2) {
+            myRemoveLastInsertedElement->enable();
+        } else {
+            myRemoveLastInsertedElement->disable();
+        }
     } else {
-        return getNumberOfSelectedElements() > 0;
+        if (getNumberOfSelectedElements() > 0) {
+            myRemoveLastInsertedElement->enable();
+        } else {
+            myRemoveLastInsertedElement->disable();
+        }
     }
 }
 
