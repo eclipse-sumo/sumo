@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-10 17:52+0000\n"
+"PO-Revision-Date: 2023-10-11 07:41+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9277,7 +9277,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4920
 msgid "walk: edges"
-msgstr ""
+msgstr "caminata: aristas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4925
 msgid "id of the edges to walk"
@@ -9290,105 +9290,105 @@ msgstr "Posición de llegada en la arista destino"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4940
 msgid "walk: route"
-msgstr ""
+msgstr "caminata: ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4945
 msgid "The id of the route to walk"
-msgstr ""
+msgstr "El ID de la ruta a caminar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4961
 msgid "Walk: edge->edge"
-msgstr ""
+msgstr "Caminata: arista->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4973
 msgid "Walk: edge->taz"
-msgstr ""
+msgstr "Caminata: arista->zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4985
 msgid "Walk: edge->junction"
-msgstr ""
+msgstr "Caminata: arista->cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4997
 msgid "Walk: edge->busStop"
-msgstr ""
+msgstr "Caminata: arista->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5009
 msgid "Walk: edge->trainStop"
-msgstr ""
+msgstr "Caminata: arista->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5022
 msgid "Walk: taz->edge"
-msgstr ""
+msgstr "Caminata: zona de análisis de tráfico->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5034
 msgid "Walk: taz->taz"
-msgstr ""
+msgstr "Caminata: zona de análisis de tráfico->zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5046
 msgid "Walk: taz->junction"
-msgstr ""
+msgstr "Caminata: zona de análisis de tráfico->cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5059
 msgid "Walk: taz->busStop"
-msgstr ""
+msgstr "Caminata: zona de análisis de tráfico->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5071
 msgid "Walk: taz->trainStop"
-msgstr ""
+msgstr "Caminata: zona de análisis de tráfico->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5084
 msgid "Walk: junction->edge"
-msgstr ""
+msgstr "Caminata: cruce->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5096
 msgid "Walk: junction->taz"
-msgstr ""
+msgstr "Caminata: cruce->zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5108
 msgid "Walk: junction->junction"
-msgstr ""
+msgstr "Caminata: cruce->cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5120
 msgid "Walk: junction->busStop"
-msgstr ""
+msgstr "Caminata: cruce->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5132
 msgid "Walk: junction->trainStop"
-msgstr ""
+msgstr "Caminata: cruce->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5145
 msgid "Walk: busstop->edge"
-msgstr ""
+msgstr "Caminata: parada de bus->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5157
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5169
 msgid "Walk: busstop->taz"
-msgstr ""
+msgstr "Caminata: parada de bus->zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5181
 msgid "Walk: busstop->busStop"
-msgstr ""
+msgstr "Caminata: parada de bus ->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5193
 msgid "Walk: busstop->trainStop"
-msgstr ""
+msgstr "Caminata: parada de bus->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5206
 msgid "Walk: train->edge"
-msgstr ""
+msgstr "Caminata: tren->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5218
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5230
 msgid "Walk: train->taz"
-msgstr ""
+msgstr "Caminata: tren->zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5242
 msgid "Walk: train->busStop"
-msgstr ""
+msgstr "Caminata: tren->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5254
 msgid "Walk: train->trainStop"
-msgstr ""
+msgstr "Caminata: tren->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5274
 msgid "Ride: edge->edge"
@@ -9478,7 +9478,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5579
 msgid "The lane on which thevehicle shall be inserted"
-msgstr ""
+msgstr "El carril en el que deberá ser insertado el vehículo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5585
 msgid "The position at which the vehicle shall enter the net"
@@ -9532,7 +9532,7 @@ msgstr "Comprobaciones de inserción"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5657
 msgid "First flow departure time"
-msgstr ""
+msgstr "Tiempo de salida del primer flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5669
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5690
@@ -14412,53 +14412,62 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
-msgstr ""
+msgstr "Agrupar señales"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
 msgstr ""
+"Acortar la definición de estado permitiendo que las conexiones con los "
+"mismos estados de señal utilicen el mismo índice"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
+"Acortar la definición de estado permitiendo que las conexiones con los "
+"mismos estados de señal utilicen el mismo índice. (No permitido para "
+"múltiples programas)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "Desagrupar señales"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
+"Dejar que cada conexión use un índice distinto (revertir agrupación de "
+"estados)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
 msgstr ""
+"Dejar que cada conexión use un índice distinto (revertir agrupación de "
+"estados). (No permitido para múltiples programas)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2080
 msgid "invalid column"
-msgstr ""
+msgstr "columna no válida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2639
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "Error al eliminar la fase '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2904
 msgid "TLS Program File"
-msgstr ""
+msgstr "Archivo de programa semafórico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2908
 msgid "Load TLS program from additional file"
-msgstr ""
+msgstr "Cargar programa semafórico desde archivo adicional"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2910
 msgid "Save TLS program to additional file"
-msgstr ""
+msgstr "Guardar programa semafórico en el archivo adicional"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2969
 msgid " new programs for tlLogic '"
