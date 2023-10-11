@@ -9322,7 +9322,7 @@ msgid "This vehicle's color"
 msgstr "此車輛的顏色"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5579
-msgid "The lane on which thevehicle shall be inserted"
+msgid "The lane on which the vehicle shall be inserted"
 msgstr "車輛應該被置入的車道"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5585

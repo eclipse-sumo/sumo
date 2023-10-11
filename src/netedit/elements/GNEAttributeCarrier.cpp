@@ -5576,7 +5576,7 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTLANE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE |  GNEAttributeProperties::UPDATEGEOMETRY,
-                                          TL("The lane on which thevehicle shall be inserted"),
+                                          TL("The lane on which the vehicle shall be inserted"),
                                           "first");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
