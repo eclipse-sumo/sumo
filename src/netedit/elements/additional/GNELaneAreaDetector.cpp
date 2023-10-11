@@ -364,16 +364,22 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, geometryEndPos,      // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                      geometryDepartPos,
+                                      Position::INVALID,
+                                      geometryEndPos,
+                                      Position::INVALID);
         } else if (segment->isFirstSegment()) {
             E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      geometryDepartPos, -1,                  // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                      geometryDepartPos,
+                                      Position::INVALID,
+                                      -1,
+                                      Position::INVALID);
         } else if (segment->isLastSegment()) {
             E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                      -1, geometryEndPos,                     // extrem positions
-                                      Position::INVALID, Position::INVALID);  // extra positions
+                                      -1,
+                                      Position::INVALID,
+                                      geometryEndPos,
+                                      Position::INVALID);
         } else {
             E2Geometry = lane->getLaneGeometry();
         }

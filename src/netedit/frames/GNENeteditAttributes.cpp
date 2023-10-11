@@ -222,9 +222,10 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             GUIGeometry geometry;
             // trim geomtry
             geometry.updateGeometry(laneShape, 
-                (startPos == INVALID_DOUBLE) ? -1 : startPos,
-                (endPos == INVALID_DOUBLE) ? -1 : endPos,
-                Position::INVALID, Position::INVALID);
+                                    (startPos == INVALID_DOUBLE) ? -1 : startPos,
+                                    Position::INVALID,
+                                    (endPos == INVALID_DOUBLE) ? -1 : endPos,
+                                    Position::INVALID);
             // push layer matrix
             GLHelper::pushMatrix();
             // translate to temporal shape layer
@@ -236,7 +237,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // check if draw starPos
             if (startPos != INVALID_DOUBLE) {
                 // cut start pos
-                geometry.updateGeometry(laneShape, startPos, startPos + 0.5, Position::INVALID, Position::INVALID);
+                geometry.updateGeometry(laneShape, startPos, Position::INVALID, startPos + 0.5, Position::INVALID);
                 // draw startPos
                 GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
             } else {
@@ -252,7 +253,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // check if draw endPos
             if (endPos != INVALID_DOUBLE) {
                 // cut endPos
-                geometry.updateGeometry(laneShape, endPos - 0.5, endPos, Position::INVALID, Position::INVALID);
+                geometry.updateGeometry(laneShape, endPos - 0.5, Position::INVALID, endPos, Position::INVALID);
                 // draw endPos
                 GUIGeometry::drawGeometry(s, myFrameParent->getViewNet()->getPositionInformation(), geometry, 1);
             } else {
@@ -272,7 +273,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // check if draw at end, or over circle
             if (endPos == INVALID_DOUBLE) {
                 // cut endPos
-                geometry.updateGeometry(laneShape, laneShape.length() - 0.5, laneShape.length(), Position::INVALID, Position::INVALID);
+                geometry.updateGeometry(laneShape, laneShape.length() - 0.5, Position::INVALID, laneShape.length(), Position::INVALID);
                 // draw triangle at end
                 GLHelper::drawTriangleAtEnd(geometry.getShape().front(), geometry.getShape().back(), (double) 0.45, (double) 0.3, 0.3);
             } else {

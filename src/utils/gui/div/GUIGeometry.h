@@ -50,8 +50,8 @@ public:
     void updateGeometry(const PositionVector& shape, double starPosOverShape, double endPosOverShape, const double lateralOffset);
 
     /// @brief update geometry (using a shape to be trimmed)
-    void updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-                        const Position& extraFirstPosition, const Position& extraLastPosition);
+    void updateGeometry(const PositionVector& shape, double beginTrimPosition, const Position& extraFirstPosition,
+                        double endTrimPosition, const Position& extraLastPosition);
 
     /// @brief update position and rotation
     void updateSinglePosGeometry(const Position& position, const double rotation);

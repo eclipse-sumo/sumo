@@ -594,37 +594,36 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     // continue depending of key
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
-            // get previous plan
-            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-            // if we have a previous plan, use their end position
-            if (previousPlan) {
-                // special case for stoppingPlaces
-                if (previousPlan->getTagProperty().planFromStoppingPlace()) {
-                    return previousPlan->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-                } else {
-                    return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                }
+            if (tagProperty.planFromStoppingPlace()) {
+                // use end position of stoppingPlace parent
+                return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else {
-                // this is the first plan, then continue depending of parents
-                if ((tagProperty.planFromJunction() && tagProperty.planToJunction()) ||
-                    (tagProperty.planFromTAZ() && tagProperty.planToTAZ())) {
-                    // junctions and TAZs
-                    return -1;
+                // get previous plan element
+                const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
+                // continue depending of previous plan
+                if (previousPlan) {
+                    // use previous plan end position
+                    return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
-                    // use parent's depart position
-                    return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                    // this is the first plan, then continue depending of parents
+                    if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
+                        // junctions and TAZs return always -1
+                        return -1;
+                    } else {
+                        // use parent's depart position (edges)
+                        return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                    }
                 }
             }
         }
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
             // continue depending of parents
-            if ((tagProperty.planFromJunction() && tagProperty.planToJunction()) ||
-                (tagProperty.planFromTAZ() && tagProperty.planToTAZ())) {
-                // junctions and TAZs
-                return -1;
-            } else if (tagProperty.planToStoppingPlace()) {
+             if (tagProperty.planToStoppingPlace()) {
                 // use start position of the stoppingPlace
                 return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
+                // junctions and TAZs return always -1
+                return -1;
             } else {
                 // use arrival position
                 return myArrivalPosition;
@@ -646,25 +645,20 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
             // get previous plan
             const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-            // if we have a previous plan, use their geometry end position
+            // continue depending of previous plan
             if (previousPlan) {
-                // special case for stoppingPlaces
-                if (previousPlan->getTagProperty().planToStoppingPlace()) {
-                    return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
-                } else {
-                    return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                }
+                // use previous plan geometry end position
+                return previousPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
             } else {
-                // check parents
-                if (tagProperty.planFromJunction()) {
+                // this is the first element, then continue depending of from element
+                if (tagProperty.planFromStoppingPlace()) {
+                    return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+                } else if (tagProperty.planFromJunction()) {
                     // junctions
                     return myPlanElement->getParentJunctions().front()->getPositionInView();
                 } else if (tagProperty.planFromTAZ()) {
                     // TAZs
                     return myPlanElement->getParentAdditionals().front()->getPositionInView();
-                } else if (tagProperty.planFromStoppingPlace()) {
-                    // stoppingPlaces
-                    return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
                 } else {
                     // get first lane
                     const auto firstLane = myPlanElement->getFirstPathLane();
@@ -1037,20 +1031,20 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else if (segment->isFirstSegment()) {
             planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        -1,
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                        -1,
                                         Position::INVALID);
         } else if (segment->isLastSegment()) {
             planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
                                         -1,
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         Position::INVALID,
+                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else {
             planGeometry = lane->getLaneGeometry();

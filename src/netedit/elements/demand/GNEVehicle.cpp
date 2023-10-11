@@ -1052,16 +1052,22 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           geometryDepartPos, geometryEndPos,      // extreme positions
-                                           Position::INVALID, Position::INVALID);  // extra positions
+                                           geometryDepartPos,
+                                           Position::INVALID, 
+                                           geometryEndPos,
+                                           Position::INVALID);
         } else if (segment->isFirstSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           geometryDepartPos, -1,                  // extreme positions
-                                           Position::INVALID, Position::INVALID);  // extra positions
+                                           geometryDepartPos,
+                                           Position::INVALID,
+                                           -1,
+                                           Position::INVALID);
         } else if (segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                           -1, geometryEndPos,                     // extreme positions
-                                           Position::INVALID, Position::INVALID);  // extra positions
+                                           -1,
+                                           Position::INVALID,
+                                           geometryEndPos,
+                                           Position::INVALID);
         } else {
             vehicleGeometry = lane->getLaneGeometry();
         }
