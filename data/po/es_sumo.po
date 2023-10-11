@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-09 09:30+0200\n"
-"PO-Revision-Date: 2023-10-06 15:00+0000\n"
+"PO-Revision-Date: 2023-10-11 09:01+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -760,7 +760,7 @@ msgstr ""
 #: C:\Repos\sumo/src\jtrrouter\ROJTREdge.cpp:64
 #, c-format
 msgid "The edges '%' and '%' are not connected."
-msgstr ""
+msgstr "Las aristas '%' y '%' no están conectadas."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
@@ -806,7 +806,7 @@ msgstr ""
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "La arista '%' declarada como sumidero no es conocida."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -815,7 +815,7 @@ msgstr ""
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:128
 #, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr ""
+msgstr "La arista '%' declarada como fuente no es conocida."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:152
 #, c-format
@@ -838,7 +838,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1400
 #, c-format
 msgid "The edge '%' is not known."
-msgstr ""
+msgstr "La arista '%' no es conocida."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
@@ -897,11 +897,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1399
 msgid "Vehicle '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "El vehículo '%' fue removido, a pesar de estar controlado por TraCI"
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1408
 msgid "Person '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "La persona '%' fue removida, a pesar de estar controlada por TraCI"
 
 #: C:\Repos\sumo/src\libsumo\MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
@@ -980,6 +980,8 @@ msgstr ""
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
+"La hora de salida del vehículo '%' ya pasó; usando la hora actual en su "
+"lugar."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1944
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:439
@@ -1025,17 +1027,17 @@ msgstr ""
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:81
 #: C:\Repos\sumo/src\od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "Cargar archivos origen/destino desde FILE(s)"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:86
 #: C:\Repos\sumo/src\od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr ""
+msgstr "Cargar matriz origen/destino en formato Amitran desde FILE(s)"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:89
 #: C:\Repos\sumo/src\od2trips_main.cpp:93
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
-msgstr ""
+msgstr "Cargar matriz origen/destino en formato relación TAZ desde FILE(s)"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:93
 #: C:\Repos\sumo/src\od2trips_main.cpp:97
@@ -1072,7 +1074,7 @@ msgstr ""
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:153
 #: C:\Repos\sumo/src\od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr ""
+msgstr "Escalar los flujos cargados por FLOAT"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:156
 #: C:\Repos\sumo/src\od2trips_main.cpp:146
@@ -2556,7 +2558,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4315
 msgid "Invalid % '%'."
-msgstr ""
+msgstr "% no válido '%'."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:4452
 msgid ""
@@ -3938,7 +3940,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
-msgstr ""
+msgstr "¡Algoritmo de enrutamiento desconocido '%'!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSTransportableDevice_Routing.cpp:46
 msgid "The period with which the person shall be rerouted"
@@ -4046,7 +4048,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1078
 msgid "Invalid empty condition '%'"
-msgstr ""
+msgstr "Condición vacía no válida '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1093
 msgid "Unsupported condition '%'"
@@ -4321,7 +4323,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportableControl.cpp:76
 msgid "Unknown pedestrian model '%'"
-msgstr ""
+msgstr "Modelo peatonal no conocido '%'"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
@@ -4622,7 +4624,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:403
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:710
 msgid "Could not set connection!"
-msgstr ""
+msgstr "¡No se pudo establecer la conexión!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:356
 msgid "Ups - could not build off-ramp for edge '%' (node could not be build)!"
@@ -5510,7 +5512,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "No se puede cargar el archivo GeoTIFF."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
@@ -5701,11 +5703,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:402
 msgid "Computing node shapes"
-msgstr ""
+msgstr "Calculando formas de nodos"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:410
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "Calculando formas de arista"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:423
 msgid "Applying speed modifications"
@@ -6510,12 +6512,12 @@ msgstr " Generación realizada;"
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:268
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   % nodos generados."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:269
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   % aristas generadas."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
@@ -7280,11 +7282,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:813
 msgid "Ambiguous start of connection."
-msgstr ""
+msgstr "Inicio ambiguo de la conexión."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:830
 msgid "Ambiguous end of connection."
-msgstr ""
+msgstr "Final ambiguo de la conexión."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:843
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:858
@@ -8131,7 +8133,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:674
 #, c-format
 msgid "Duplicate edge '%' occurred."
-msgstr ""
+msgstr "Se produjo una arista duplicada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:683
 msgid "An important information is missing in edge '%'."
@@ -8276,7 +8278,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:378
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:385
 msgid ". Using default."
-msgstr ""
+msgstr ". Usando predeterminado."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
@@ -9780,7 +9782,7 @@ msgstr "Saliendo (debido a un error)."
 
 #: C:\Repos\sumo/src\sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
-msgstr ""
+msgstr "Cerrando (por error desconocido)."
 
 #: C:\Repos\sumo/src\tools\TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
@@ -10348,7 +10350,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:307
 msgid "Inverses projection"
-msgstr ""
+msgstr "Invertir proyección"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:310
 msgid "Convert from Gauss-Krueger to UTM"
