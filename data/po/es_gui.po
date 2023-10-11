@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-11 07:41+0000\n"
+"PO-Revision-Date: 2023-10-11 09:01+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2176,7 +2176,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "desplazamiento lateral [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:120
 msgid "lateral speed [m/s]"
@@ -2192,12 +2192,12 @@ msgstr "inclinación [grado]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:130
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "brecha temporal en el carril [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:134
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "tiempo de espera (acumulado, % s) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
@@ -2301,11 +2301,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:185
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "lado derecho en la arista [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:186
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "lado izquierdo en la arista [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:187
 msgid "rightmost edge sublane [#]"
@@ -2430,7 +2430,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "maxSpeedLat [m/s]"
-msgstr ""
+msgstr "velocidad lateral máxima [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "latAlignment"
@@ -2438,7 +2438,7 @@ msgstr "alineación lateral"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "ángulo de maniobra vs tiempos"
 
 #: C:\Repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -3062,7 +3062,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
-msgstr ""
+msgstr "Recargar"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:265
@@ -10227,7 +10227,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6699
 msgid "List of attribute names that shall be written"
-msgstr ""
+msgstr "Lista de nombres de atributo que deberán escribirse"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6704
 msgid "Restrict output to the given list of edge ids"
@@ -10384,7 +10384,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
-msgstr ""
+msgstr "No se pudo crear el acceso en netedit; El carril '%' no admite peatones"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:196
 msgid "add access in '"
@@ -10450,7 +10450,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:489
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:550
 msgid "add lane area detector '"
-msgstr ""
+msgstr "agregar detector de área de carril '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:522
 #, c-format
@@ -10458,6 +10458,8 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr ""
+"No se pudo crear el detector de área de carril con ID '%' en netedit; Los "
+"carriles no son consecutivos."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:595
 msgid "add entry-exit detector '"
@@ -10551,7 +10553,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
 msgid "add vaporizer in '"
-msgstr ""
+msgstr "agregar vaporizador en '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1306
 #, c-format
@@ -10601,13 +10603,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1607
 msgid "add polygon '"
-msgstr ""
+msgstr "agregar polígono '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1641
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1686
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1726
 msgid "add POI '"
-msgstr ""
+msgstr "agregar punto de interés '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1718
 #, c-format
@@ -10840,7 +10842,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:171
 msgid "There is already a edgeRel defined between '%' and '%'."
-msgstr ""
+msgstr "Ya existe una relación de arista definida entre '%' y '%'."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:214
 msgid "There is already a TAZ rel defined between '%' and '%'."
