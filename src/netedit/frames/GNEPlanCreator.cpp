@@ -515,8 +515,7 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
         return false;
     }
     // check if routes are allowed
-    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0) &&
-        ((myCreationMode & START_TRAINSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0)) {
+    if ((myCreationMode & ROUTE) == 0) {
         return false;
     }
     // check double routes
@@ -527,9 +526,9 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
         return false;
     }
     // check number of selected items
-    if (getNumberOfSelectedElements() == 2) {
+    if (myRoute) {
         // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        WRITE_WARNING(TL("Route already selected"));
         // abort add function
         return false;
     }
@@ -914,44 +913,37 @@ void
 GNEPlanCreator::recalculatePath() {
     // first clear path
     myPath.clear();
-    // case for plan between junctions
-    if (myFromJunction && myToJunction) {
-        // add path between two junctions
-        myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myFromJunction, myToJunction));
+    // continue depending of elements
+    if (myConsecutiveEdges.size() > 0) {
+        // add every segment
+        for (int i = 1; i < (int)myConsecutiveEdges.size(); i++) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myConsecutiveEdges.at(i - 1), myConsecutiveEdges.at(i)));
+        }
     } else {
-        // set edges
-        std::vector<GNEEdge*> edges;
-        // obtain from edge
-        if (myFromRoute) {
-            edges.push_back(myFromRoute->getParentEdges().back());
+        // get from edge
+        GNEEdge* fromEdge = nullptr;
+        if (myFromEdge) {
+            fromEdge = myFromEdge;
         } else if (myFromStoppingPlace) {
-            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
-        } else if (myFromEdge) {
-            edges.push_back(myFromEdge);
+            fromEdge = myFromStoppingPlace->getParentLanes().front()->getParentEdge();
         }
-        // add consecutive edges
-        for (const auto &edge : myConsecutiveEdges) {
-            edges.push_back(edge);
-        }
-        // add route edges
-        if (myRoute) {
-            for (const auto &edge : myFromRoute->getParentEdges()) {
-                edges.push_back(edge);
-            }
+        // get to edge
+        GNEEdge* toEdge = nullptr;
+        if (myToEdge) {
+            toEdge = myToEdge;
         } else if (myFromStoppingPlace) {
-            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
-        } else if (myToEdge) {
-            edges.push_back(myToEdge);
+            toEdge = myFromStoppingPlace->getParentLanes().front()->getParentEdge();
         }
-        // fill paths
-        if (edges.size() == 1) {
-            myPath.push_back(PlanPath(myVClass, edges.front()));
-        } else {
-            // add every segment
-            for (int i = 1; i < (int)edges.size(); i++) {
-                myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, edges.at(i - 1), edges.at(i)));
-            }
-        }
+        // continue depending of edges and junctions
+        if (fromEdge && toEdge) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, toEdge));
+        } else if (fromEdge && myToJunction) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge->getFromJunction(), myToJunction));
+        } else if (myFromJunction && toEdge) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myFromJunction, toEdge->getToJunction()));
+        } else if (myFromJunction && myToJunction) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myFromJunction, myToJunction));
+        } 
     }
 }
 
