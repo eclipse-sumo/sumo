@@ -278,7 +278,7 @@ GNEJunction::checkDrawOverContour() const {
         // get current vehicle template
         const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to junctions
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToJunctions()) {
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
             // check if junction is under cursor
             return gPostDrawing.isElementUnderCursor(this);
         } else {

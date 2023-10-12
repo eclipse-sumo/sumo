@@ -210,7 +210,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
-    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overRoute()) {
+    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRoute()) {
         return buildVehicleOverRoute(vehicleTag, objectsUnderCursor.getDemandElementFront());
     } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
@@ -262,7 +262,7 @@ GNEVehicleFrame::tagSelected() {
         // show path creator modul
         myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // check if show path legend
-        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleOverEmbeddedRoute()) {
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRouteEmbedded()) {
             myPathLegend->hidePathLegendModule();
         } else {
             myPathLegend->showPathLegendModule();

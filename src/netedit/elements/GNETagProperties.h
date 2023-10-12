@@ -99,26 +99,26 @@ public:
 
     enum TagParents {
         // exclusive of vehicles
-        VEHICLE_ROUTE =             1 << 13,    // Vehicle is placed over route
-        VEHICLE_EMBEDDED_ROUTE =    1 << 14,    // Vehicle has an embedded route
-        VEHICLE_FROMTO_EDGES =      1 << 15,    // Vehicle is placed over a from-to edges
-        VEHICLE_FROMTO_JUNCTIONS =  1 << 16,    // Vehicle is placed over a from-to junctions
-        VEHICLE_FROMTO_TAZS =       1 << 17,    // Vehicle is placed over a from-to TAZs
+        VEHICLE_ROUTE =             1 << 0,     // Vehicle is placed over route
+        VEHICLE_ROUTE_EMBEDDED =    1 << 1,     // Vehicle has an embedded route
+        VEHICLE_EDGES =             1 << 2,     // Vehicle is placed over a from-to edges
+        VEHICLE_JUNCTIONS =         1 << 3,     // Vehicle is placed over a from-to junctions
+        VEHICLE_TAZS =              1 << 4,     // Vehicle is placed over a from-to TAZs
         // exclusive of plans
-        PLAN_EDGES =                1 << 18,    // Plan placed in edges
-        PLAN_ROUTE =                1 << 19,    // Plan placed in routes
-        PLAN_FROM_EDGE =            1 << 20,    // Plan starts in edge
-        PLAN_FROM_TAZ =             1 << 21,    // Plan starts in TAZ
-        PLAN_FROM_JUNCTION =        1 << 22,    // Plan starts in junction
-        PLAN_FROM_BUSSTOP =         1 << 23,    // Plan starts in busStop
-        PLAN_FROM_TRAINSTOP =       1 << 24,    // Plan starts in trainStop
-        PLAN_FROM_CONTAINERSTOP =   1 << 25,    // Plan starts in containerStop
-        PLAN_TO_EDGE =              1 << 26,    // Plan ends in edge
-        PLAN_TO_TAZ =               1 << 27,    // Plan ends in TAZ
-        PLAN_TO_JUNCTION =          1 << 28,    // Plan ends in junction
-        PLAN_TO_BUSSTOP =           1 << 29,    // Plan ends in busStop
-        PLAN_TO_TRAINSTOP =         1 << 30,    // Plan ends in trainStop
-        PLAN_TO_CONTAINERSTOP =     1 << 31,    // Plan ends in containerStop
+        PLAN_EDGES =                1 << 5,     // Plan placed in edges
+        PLAN_ROUTE =                1 << 6,     // Plan placed in routes
+        PLAN_FROM_EDGE =            1 << 7,     // Plan starts in edge
+        PLAN_FROM_TAZ =             1 << 8,     // Plan starts in TAZ
+        PLAN_FROM_JUNCTION =        1 << 9,     // Plan starts in junction
+        PLAN_FROM_BUSSTOP =         1 << 10,    // Plan starts in busStop
+        PLAN_FROM_TRAINSTOP =       1 << 11,    // Plan starts in trainStop
+        PLAN_FROM_CONTAINERSTOP =   1 << 12,    // Plan starts in containerStop
+        PLAN_TO_EDGE =              1 << 13,    // Plan ends in edge
+        PLAN_TO_TAZ =               1 << 14,    // Plan ends in TAZ
+        PLAN_TO_JUNCTION =          1 << 15,    // Plan ends in junction
+        PLAN_TO_BUSSTOP =           1 << 16,    // Plan ends in busStop
+        PLAN_TO_TRAINSTOP =         1 << 17,    // Plan ends in trainStop
+        PLAN_TO_CONTAINERSTOP =     1 << 18,    // Plan ends in containerStop
     };
 
     /// @brief default constructor
@@ -322,19 +322,19 @@ public:
     bool vClassIcon() const;
 
     /// @brief return true if tag correspond to a vehicle placed over a route
-    bool overRoute() const;
+    bool vehicleRoute() const;
 
     /// @brief return true if tag correspond to a vehicle placed over an embedded route
-    bool vehicleOverEmbeddedRoute() const;
+    bool vehicleRouteEmbedded() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to edges
-    bool vehicleOverFromToEdges() const;
+    bool vehicleEdges() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to junctions
-    bool vehicleOverFromToJunctions() const;
+    bool vehicleJunctions() const;
 
     /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
-    bool vehicleOverFromToTAZs() const;
+    bool vehicleTAZs() const;
 
     /// @brief return true if tag correspond to a plan placed over edges
     bool planEdges() const;

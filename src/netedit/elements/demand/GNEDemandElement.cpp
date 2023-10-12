@@ -183,7 +183,7 @@ GNEDemandElement::checkDrawOverContour() const {
             // get current vehicle template
             const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over route
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().overRoute()) {
+            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleRoute()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
         } else if (modes.isCurrentSupermodeDemand()) {
@@ -589,12 +589,12 @@ GNEDemandElement::getEdgeStopIndex() const {
         // continue depending of parent
         if (parent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
             pathEdges = parent->getParentEdges();
-        } else if (parent->getTagProperty().overRoute()) {
+        } else if (parent->getTagProperty().vehicleRoute()) {
             // get route edges
             if (parent->getParentDemandElements().size() > 1) {
                 pathEdges = parent->getParentDemandElements().at(1)->getParentEdges();
             }
-        } else if (parent->getTagProperty().vehicleOverEmbeddedRoute()) {
+        } else if (parent->getTagProperty().vehicleRouteEmbedded()) {
             // get embedded route edges
             pathEdges = parent->getChildDemandElements().front()->getParentEdges();
         } else {
@@ -702,11 +702,11 @@ GNEDemandElement::buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const {
     std::vector<GNEEdge*> edges;
     if (myTagProperty.isRoute()) {
         edges = getParentEdges();
-    } else if (myTagProperty.overRoute()) {
+    } else if (myTagProperty.vehicleRoute()) {
         edges = getParentDemandElements().at(1)->getParentEdges();
-    } else if (myTagProperty.vehicleOverEmbeddedRoute()) {
+    } else if (myTagProperty.vehicleRouteEmbedded()) {
         edges = getChildDemandElements().front()->getParentEdges();
-    } else if (myTagProperty.vehicleOverFromToEdges()) {
+    } else if (myTagProperty.vehicleEdges()) {
         edges = getParentEdges();
     }
     // calculate path

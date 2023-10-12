@@ -274,7 +274,7 @@ GNEAdditional::checkDrawOverContour() const {
             // get current vehicle template
             const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over from-to TAZs
-            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToTAZs()) {
+            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
         } else if (modes.isCurrentSupermodeDemand()) {

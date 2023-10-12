@@ -265,7 +265,7 @@ GNEEdge::checkDrawOverContour() const {
         // get current vehicle template
         const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
         // check if vehicle can be placed over from-to edges
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleOverFromToEdges()) {
+        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -2305,7 +2305,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
             vehicles.insert(std::make_pair(edgeChild->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild));
         } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_ROUTE) && (edgeChild->getParentEdges().front() == this)) {
             for (const auto& routeChild : edgeChild->getChildDemandElements()) {
-                if (routeChild->getTagProperty().overRoute()) {
+                if (routeChild->getTagProperty().vehicleRoute()) {
                     vehicles.insert(std::make_pair(routeChild->getAttributeDouble(SUMO_ATTR_DEPART), routeChild));
                 }
             }

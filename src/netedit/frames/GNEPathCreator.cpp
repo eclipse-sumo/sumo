@@ -195,7 +195,7 @@ GNEPathCreator::showPathCreatorModule(const GNETagProperties &tagProperty, const
         myCreationMode |= SHOW_CANDIDATE_EDGES;
         myCreationMode |= START_EDGE;
         myCreationMode |= END_EDGE;
-    } else if (tagProperty.overRoute()) {
+    } else if (tagProperty.vehicleRoute()) {
         myCreationMode |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
@@ -208,16 +208,16 @@ GNEPathCreator::showPathCreatorModule(const GNETagProperties &tagProperty, const
         myShiftLabel->hide();
         myControlLabel->hide();
         myBackSpaceLabel->hide();
-    } else if (tagProperty.vehicleOverFromToEdges() || (tagProperty.getTag() == SUMO_TAG_EDGEREL)) {
+    } else if (tagProperty.vehicleEdges() || (tagProperty.getTag() == SUMO_TAG_EDGEREL)) {
         myCreationMode |= SHOW_CANDIDATE_EDGES;
         myCreationMode |= START_EDGE;
         myCreationMode |= END_EDGE;
-    } else if (tagProperty.vehicleOverFromToJunctions()) {
+    } else if (tagProperty.vehicleJunctions()) {
         myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
         myCreationMode |= START_JUNCTION;
         myCreationMode |= END_JUNCTION;
         myCreationMode |= ONLY_FROMTO;
-    } else if (tagProperty.vehicleOverFromToTAZs()) {
+    } else if (tagProperty.vehicleTAZs()) {
         myCreationMode |= START_TAZ;
         myCreationMode |= END_TAZ;
         myCreationMode |= ONLY_FROMTO;
