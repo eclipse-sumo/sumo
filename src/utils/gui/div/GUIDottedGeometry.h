@@ -90,17 +90,20 @@ public:
     GUIDottedGeometry();
 
     /// @brief constructor for shapes
-    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
+    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
 
     /// @brief update GUIDottedGeometry (using lane shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape, const bool resample);
 
     /// @brief update GUIDottedGeometry (using shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
 
-    /// @brief draw inspected dottedShape
+    /// @brief draw dotted geometry
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                             DottedGeometryColor &dottedGeometryColor, const bool addOffset, const double lineWidth) const;
+
+    /// @brief draw innen geometry
+    void drawInnenGeometry(const GUIVisualizationSettings& s, const double lineWidth) const;
 
     /// @brief move shape to side
     void moveShapeToSide(const double value);

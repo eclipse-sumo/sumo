@@ -46,6 +46,9 @@ public:
     /// @brief reset dotted contour
     void reset();
 
+    /// @brief dotted contours
+    /// @{
+
     /// @brief draw dotted contour (for closed shapes)
     void drawDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
                                  const double scale, const bool addOffset, const double lineWidth) const;
@@ -71,6 +74,16 @@ public:
     /// @brief draw dotted contour between two edges
     void drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge,
                                 const double lineWidth) const;
+    
+    /// @}
+
+    /// @brief innen contours
+    /// @{
+
+    /// @brief draw innen contour (for closed shapes)
+    void drawInnenContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
+                                const double scale, const bool addOffset, const double lineWidth) const;
+    /// @}
 
 private:
     /// @brief pointer to AC

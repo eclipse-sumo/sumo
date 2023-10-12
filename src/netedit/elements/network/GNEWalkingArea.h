@@ -172,6 +172,9 @@ protected:
     /// @brief exaggeration used in tesselation
     mutable double myExaggeration;
 
+    /// @brief variable used for draw innen contour
+    GNEContour myInnenContour;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

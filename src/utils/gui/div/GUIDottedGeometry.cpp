@@ -146,7 +146,8 @@ GUIDottedGeometry::Segment::Segment(PositionVector newShape) :
 GUIDottedGeometry::GUIDottedGeometry() {}
 
 
-GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
+GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape,
+                                     const bool closeShape, const bool resample) {
     // check if shape has to be closed
     if (closeShape && (shape.size() > 2)) {
         shape.closePolygon();
@@ -161,9 +162,11 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
         if (shape.length2D() > MAXIMUM_DOTTEDGEOMETRYLENGTH) {
             segmentLength = shape.length2D() / (MAXIMUM_DOTTEDGEOMETRYLENGTH * 0.5);
         }
-        // resample
-        for (auto& segment : myDottedGeometrySegments) {
-            segment.shape = segment.shape.resample(segmentLength, true);
+        // check if resample
+        if (resample) {
+            for (auto& segment : myDottedGeometrySegments) {
+                segment.shape = segment.shape.resample(segmentLength, true);
+            }
         }
         // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
@@ -172,16 +175,19 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
 
 
 void
-GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape) {
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape,
+                                        const bool resample) {
     // reset segments
     myDottedGeometrySegments.clear();
     // get shape
     for (int i = 1; i < (int)laneShape.size(); i++) {
         myDottedGeometrySegments.push_back(Segment({laneShape[i - 1], laneShape[i]}));
     }
-    // resample
-    for (auto& segment : myDottedGeometrySegments) {
-        segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+    // check if resample
+    if (resample) {
+        for (auto& segment : myDottedGeometrySegments) {
+            segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+        }
     }
     // calculate shape rotations and lengths
     calculateShapeRotationsAndLengths();
@@ -189,7 +195,8 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const
 
 
 void
-GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) {
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape,
+                                        const bool resample) {
     // reset segments
     myDottedGeometrySegments.clear();
     // check if shape has to be closed
@@ -201,9 +208,11 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
         for (int i = 1; i < (int)shape.size(); i++) {
             myDottedGeometrySegments.push_back(Segment({shape[i - 1], shape[i]}));
         }
-        // resample
-        for (auto& segment : myDottedGeometrySegments) {
-            segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+        // check if resample
+        if (resample) {
+            for (auto& segment : myDottedGeometrySegments) {
+                segment.shape = segment.shape.resample(s.dottedContourSettings.segmentLength, true);
+            }
         }
         // calculate shape rotations and lengths
         calculateShapeRotationsAndLengths();
@@ -226,6 +235,18 @@ GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDott
             } else {
                 GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth);
             }
+        }
+    }
+}
+
+
+void
+GUIDottedGeometry::drawInnenGeometry(const GUIVisualizationSettings& s, const double lineWidth) const {
+    // iterate over all segments
+    for (auto& segment : myDottedGeometrySegments) {
+        // iterate over shape
+        for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
+            GLHelper::drawBoxLine(segment.shape[i], segment.rotations.at(i), segment.lengths.at(i), lineWidth, lineWidth);
         }
     }
 }

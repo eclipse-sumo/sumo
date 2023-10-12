@@ -40,8 +40,9 @@
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
                       GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-                                myParentJunction(parentJunction),
-myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+                    myParentJunction(parentJunction),
+    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
+    myInnenContour(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -191,25 +192,30 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                     // pop matrix
                     GLHelper::popMatrix();
                 }
-            } else if ((s.scale * walkingAreaExaggeration * myParentJunction->getMaxDrawingSize()) >= 40) {
-                // draw shape with high detail
-                myTesselation.drawTesselation(myTesselation.getShape());
+            } else if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // draw innen contour
+                myInnenContour.drawInnenContourClosed(s, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
             } else {
-                // draw shape
-                GLHelper::drawFilledPoly(myTesselation.getShape(), true);
-            }
-            // draw shape points only in Network supemode
-            if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                // color
-                const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, 1,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
-                // draw moving hint
-                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+                if ((s.scale * walkingAreaExaggeration * myParentJunction->getMaxDrawingSize()) >= 40) {
+                    // draw shape with high detail
+                    myTesselation.drawTesselation(myTesselation.getShape());
+                } else {
+                    // draw shape
+                    GLHelper::drawFilledPoly(myTesselation.getShape(), true);
+                }
+                // draw shape points only in Network supemode
+                if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // color
+                    const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, 1,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+                    // draw moving hint
+                    if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                        GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+                    }
                 }
             }
             // pop layer Matrix
