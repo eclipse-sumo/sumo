@@ -616,7 +616,8 @@ GNETagProperties::planFromJunction() const {
 
 bool
 GNETagProperties::planFromStoppingPlace() const {
-    return planFromBusStop() || planFromTrainStop() || planFromContainerStop();
+    return planBusStop() || planTrainStop() || planContainerStop() ||
+           planFromBusStop() || planFromTrainStop() || planFromContainerStop();
 }
 
 
@@ -658,7 +659,8 @@ GNETagProperties::planToJunction() const {
 
 bool
 GNETagProperties::planToStoppingPlace() const {
-    return planToBusStop() || planToTrainStop() || planToContainerStop();
+    return planBusStop() || planTrainStop() || planContainerStop() ||
+           planToBusStop() || planToTrainStop() || planToContainerStop();
 }
 
 
