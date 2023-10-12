@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-11 09:01+0000\n"
+"PO-Revision-Date: 2023-10-12 09:19+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8108,7 +8108,7 @@ msgstr "La id del calibrator"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3103
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3124
 msgid "The id of edge in the simulation network"
-msgstr ""
+msgstr "El ID de la arista en la red simulada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2496
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2553
