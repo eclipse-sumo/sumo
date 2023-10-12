@@ -39,9 +39,6 @@ public:
     /// @brief constructor used for stops over lane (only for vehicle/route stops)
     GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
 
-    /// @brief constructor used for stops over edge (only for person/container stops)
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
-
     /// @brief destructor
     ~GNEStop();
 
@@ -225,20 +222,11 @@ protected:
     /// @brief creation index (using for saving sorted)
     const int myCreationIndex;
 
-    /// @brief get first valid lane
-    const GNELane* getFirstAllowedLane() const;
-
     /// @brief check if vehicle stop can be draw
     bool canDrawVehicleStop() const;
 
     /// @brief draw vehicle stop
     void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over lane
-    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over stoppingPlace
-    void drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @brief draw index
     bool drawIndex() const;

@@ -1178,26 +1178,6 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                     stopParent->addChildElement(stop);
                     stop->incRef("buildLaneStop");
                 }
-            } else {
-                // create stop using stopParameters and edge
-                GNEDemandElement* stop = nullptr;
-                if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStop(GNE_TAG_STOPPERSON_EDGE, myNet, stopParent, edge, stopParameters);
-                } else {
-                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_EDGE, myNet, stopParent, edge, stopParameters);
-                }
-                // add it depending of undoDemandElements
-                if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
-                    overwriteDemandElement();
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
-                    myNet->getViewNet()->getUndoList()->end();
-                } else {
-                    myNet->getAttributeCarriers()->insertDemandElement(stop);
-                    edge->addChildElement(stop);
-                    stopParent->addChildElement(stop);
-                    stop->incRef("buildLaneStop");
-                }
             }
         }
     }

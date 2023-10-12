@@ -106,46 +106,12 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     setStopMicrosimID();
 }
 
-
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edge}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    GNEDemandElementPlan(this, -1, -1),
-    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
-    // enable parking for stops in parkingAreas
-    if ((tag == GNE_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
-        parametersSet |= STOP_PARKING_SET;
-    }
-    // set flags
-    if (parametersSet & STOP_PARKING_SET) {
-        parking = ParkingType::OFFROAD;
-    }
-    triggered = (parametersSet & STOP_TRIGGER_SET);
-    containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
-    joinTriggered = (parametersSet & STOP_JOIN_SET);
-    // set tripID and line
-    (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
-    (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
-    stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
-    // set waypoint speed
-    myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
-    // set jump
-    (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
-    // set locator sufix
-    setStopMicrosimID();
-}
-
-
 GNEStop::~GNEStop() {}
 
 
 GNEMoveOperation*
 GNEStop::getMoveOperation() {
-    if ((myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) || (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
-        // return move operation for additional placed over shape
-        return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos, false);
-    } else if ((myTagProperty.getTag() == GNE_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
+    if ((myTagProperty.getTag() == GNE_TAG_STOP_LANE) || (myTagProperty.getTag() == GNE_TAG_WAYPOINT_LANE)) {
         // get allow change lane
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
@@ -212,8 +178,6 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
     } else {
         if (getParentLanes().size() > 0) {
             device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-        } else {
-            device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
         }
         if ((parametersSet & STOP_START_SET) != 0) {
             device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
@@ -229,30 +193,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        // get lane
-        const GNELane* firstLane = getFirstAllowedLane();
-        // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
-            return isPersonPlanValid();
-        } else if (friendlyPos) {
-            // with friendly position enabled position are "always fixed"
-            return isPersonPlanValid();
-        } else if (firstLane != nullptr) {
-            // obtain lane length
-            const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
-            // declare end pos fixed
-            const double endPosFixed = (endPos < 0) ? (endPos + laneLength) : endPos;
-            // check values
-            if ((endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0)) {
-                return isPersonPlanValid();
-            } else {
-                return Problem::INVALID_STOPPOSITION;
-            }
-        } else {
-            return Problem::INVALID_ELEMENT;
-        }
-    } else if (getPathStopIndex() == -1) {
+    if (getPathStopIndex() == -1) {
         return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
@@ -287,24 +228,7 @@ GNEStop::isDemandElementValid() const {
 
 std::string
 GNEStop::getDemandElementProblem() const {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        if (friendlyPos || (getParentAdditionals().size() > 0)) {
-            return getPersonPlanProblem();
-        } else {
-            // obtain lane length
-            const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength();
-            // declare end pos fixed
-            const double endPosFixed = (endPos < 0) ? (endPos + laneLength) : endPos;
-            // check positions over lane
-            if (endPosFixed < 0) {
-                return (toString(SUMO_ATTR_ENDPOS) + " < 0");
-            } else if (endPosFixed > getParentEdges().front()->getNBEdge()->getFinalLength()) {
-                return (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
-            } else {
-                return getPersonPlanProblem();
-            }
-        }
-    } else if (getPathStopIndex() == -1) {
+    if (getPathStopIndex() == -1) {
         return ("Downstream stop");
     } else {
         // declare a copy of start and end positions
@@ -394,57 +318,18 @@ GNEStop::updateGeometry() {
             // use geometry of additional (busStop)
             myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
         }
-    } else if (getParentEdges().size() > 0) {
-        // get front and back lane
-        const GNELane* frontLane = getParentEdges().front()->getLanes().front();
-        const GNELane* backLane = getParentEdges().front()->getLanes().back();
-        // get lane drawing constants
-        GNELane::LaneDrawingConstants laneDrawingConstantsFront(myNet->getViewNet()->getVisualisationSettings(), frontLane);
-        GNELane::LaneDrawingConstants laneDrawingConstantBack(myNet->getViewNet()->getVisualisationSettings(), backLane);
-        // calculate front position
-        const Position frontPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), laneDrawingConstantsFront.halfWidth);
-        // calulate length between both shapes
-        const double length = backLane->getLaneShape().distance2D(frontPosition, true);
-        // calculate back position
-        const Position backPosition = frontLane->getLaneShape().positionAtOffset2D(getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), (length + laneDrawingConstantBack.halfWidth - laneDrawingConstantsFront.halfWidth) * -1);
-        // update demand element geometry using both positions
-        myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     }
-    /*
-        // recompute geometry of all Demand elements related with this this stop
-        if (getParentDemandElements().front()->getTagProperty().isRoute()) {
-            getParentDemandElements().front()->updateGeometry();
-        }
-    */
 }
 
 
 Position
 GNEStop::getPositionInView() const {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        // check if is placed over a busStop
-        if (getParentAdditionals().size() > 0) {
-            return getParentAdditionals().front()->getPositionInView();
-        } else {
-            // get lane
-            const GNELane* personLane = getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
-            // get position over lane shape
-            if (endPos <= 0) {
-                return personLane->getLaneShape().front();
-            } else if (endPos >= personLane->getLaneShape().length2D()) {
-                return personLane->getLaneShape().back();
-            } else {
-                return personLane->getLaneShape().positionAtOffset2D(endPos);
-            }
-        }
+    if (getParentLanes().size() > 0) {
+        return getParentLanes().front()->getLaneShape().positionAtOffset((startPos + endPos) / 2.0);
+    } else if (getParentAdditionals().size() > 0) {
+        return getParentAdditionals().front()->getPositionInView();
     } else {
-        if (getParentLanes().size() > 0) {
-            return getParentLanes().front()->getLaneShape().positionAtOffset((startPos + endPos) / 2.0);
-        } else if (getParentAdditionals().size() > 0) {
-            return getParentAdditionals().front()->getPositionInView();
-        } else {
-            throw ProcessError(TL("Invalid Stop parent"));
-        }
+        throw ProcessError(TL("Invalid Stop parent"));
     }
 }
 
@@ -495,29 +380,10 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double exaggeration = getExaggeration(s);
     // check if draw an stop for person/containers or for vehicles/routes
-    if (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) {
-        // check if stop can be draw
-        if ((getTagProperty().isStopPerson() && checkDrawPersonPlan()) ||
-                (getTagProperty().isStopContainer() && checkDrawContainerPlan())) {
-            // check if draw stopPerson over busStop oder over lane
-            if (getParentAdditionals().size() > 0) {
-                drawStopPersonOverStoppingPlace(s, exaggeration);
-            } else {
-                drawStopPersonOverEdge(s, exaggeration);
-            }
-        }
-        // draw person parent if this stop if their first person plan child
-        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
-            getParentDemandElements().front()->drawGL(s);
-        }
-        // Draw name
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    } else if (canDrawVehicleStop()) {
+    if (canDrawVehicleStop()) {
         // draw vehicle over stop
-        drawVehicleStop(s, exaggeration);
+        drawVehicleStop(s, getExaggeration(s));
         // Draw name
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
@@ -548,8 +414,6 @@ GNEStop::getFirstPathLane() const {
     // check if stop is placed over a busStop
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
-    } else if (getParentEdges().size() > 0) {
-        return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     } else {
         return getParentLanes().front();
     }
@@ -638,9 +502,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
             return getParentAdditionals().front()->getID();
-        // specific of stops over edges
-        case SUMO_ATTR_EDGE:
-            return getParentEdges().front()->getID();
         // specific of stops over lanes
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
@@ -783,112 +644,22 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         // only for waypoints
         case SUMO_ATTR_SPEED:
         // specific of Stops over stoppingPlaces
+        case SUMO_ATTR_BUS_STOP:
+        case SUMO_ATTR_TRAIN_STOP:
+        case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
         // specific of stops over lanes
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
+        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_POSITION_LAT:
-        //
+        // other
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            break;
-        // special case for person plans
-        case SUMO_ATTR_EDGE: {
-            // get next personPlan
-            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-            // continue depending of nextPersonPlan
-            if (nextPersonPlan) {
-                undoList->begin(this, "Change from attribute of next personPlan");
-                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                undoList->end();
-            } else {
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            }
-            break;
-        }
-        case SUMO_ATTR_BUS_STOP:
-            if (myTagProperty.isStopPerson()) {
-                // get next person plan
-                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-                // continue depending of nextPersonPlan
-                if (nextPersonPlan) {
-                    // obtain busStop
-                    const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value);
-                    // change from attribute using edge ID
-                    undoList->begin(this, "Change from attribute of next personPlan");
-                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                    undoList->end();
-                } else {
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                }
-            } else {
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            }
-            break;
-        case SUMO_ATTR_TRAIN_STOP:
-            if (myTagProperty.isStopPerson()) {
-                // get next person plan
-                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-                // continue depending of nextPersonPlan
-                if (nextPersonPlan) {
-                    // obtain busStop
-                    const GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, value);
-                    // change from attribute using edge ID
-                    undoList->begin(this, "Change from attribute of next personPlan");
-                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, busStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                    undoList->end();
-                } else {
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                }
-            } else {
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            }
-            break;
-        case SUMO_ATTR_CONTAINER_STOP:
-            if (myTagProperty.isStopContainer()) {
-                // get next person plan
-                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-                // continue depending of nextPersonPlan
-                if (nextPersonPlan) {
-                    // obtain containerStop
-                    const GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
-                    // change from attribute using edge ID
-                    undoList->begin(this, "Change from attribute of next personPlan");
-                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                    undoList->end();
-                } else {
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                }
-            } else {
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-                // get previous person plan
-                GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-                // check if leave presonStop connected is enabled
-                if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getDemandModeOptions()->getLeaveStopPersonsConnected() &&
-                        previousPersonPlan && previousPersonPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-                    // change from attribute using edge ID
-                    undoList->begin(this, "Change arrivalPos attribute of previous personPlan");
-                    previousPersonPlan->setAttribute(SUMO_ATTR_ARRIVALPOS, value, undoList);
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                    undoList->end();
-                } else {
-                    GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-                }
-            } else {
-                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
-            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -987,13 +758,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
         case SUMO_ATTR_PARKING_AREA:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
-        // specific of stops over edges
-        case SUMO_ATTR_EDGE:
-            if (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
         // specific of stops over lanes
         case SUMO_ATTR_LANE:
             if (myNet->getAttributeCarriers()->retrieveLane(value, false) != nullptr) {
@@ -1008,9 +772,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-                return canParse<double>(value) && fabs(parse<double>(value)) < getParentEdges().front()->getNBEdge()->getFinalLength();
-            } else if (canParse<double>(value)) {
+            if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
@@ -1027,13 +789,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
-                return true;
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         case GNE_ATTR_PARAMETERS:
             return areParametersValid(value);
         default:
@@ -1126,8 +882,6 @@ GNEStop::getHierarchyName() const {
         } else {
             return "parkingArea: " + getParentAdditionals().front()->getID();
         }
-    } else if (getParentEdges().size() > 0) {
-        return "edge: " + getParentEdges().front()->getID();
     } else if (getParentLanes().size() > 0) {
         return "lane: " + getParentLanes().front()->getID();
     } else {
@@ -1165,20 +919,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
 // ===========================================================================
 // protected
 // ===========================================================================
-
-const GNELane*
-GNEStop::getFirstAllowedLane() const {
-    if (getParentEdges().empty()) {
-        return nullptr;
-    }
-    for (const auto& pLane : getParentEdges().front()->getLanes()) {
-        if (pLane->allowPedestrians()) {
-            return pLane;
-        }
-    }
-    return getParentEdges().front()->getLanes().front();
-}
-
 
 bool
 GNEStop::canDrawVehicleStop() const {
@@ -1301,137 +1041,6 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     // draw dotted geometry
     myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration, true, true,
                                         s.dottedContourSettings.segmentWidth);
-}
-
-
-void
-GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // declare stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // avoid draw invisible elements
-    if (stopColor.alpha() != 0) {
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // declare stop color
-        // declare central line color
-        const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
-        // set base color
-        GLHelper::setColor(stopColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
-        // move to front
-        glTranslated(0, 0, .1);
-        // set central color
-        GLHelper::setColor(centralLineColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
-        // move to icon position and front
-        glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-        // move again
-        glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(180, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
-            }
-        } else {
-            // rotate
-            glRotated(22.5, 0, 0, 1);
-            // set stop color
-            GLHelper::setColor(stopColor);
-            // move matrix
-            glTranslated(0, 0, 0);
-            // draw filled circle
-            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
-        }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    }
-    // check if mouse is over element
-    mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
-    // draw dotted geometry
-    myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
-                                        s.dottedContourSettings.segmentWidth);
-}
-
-
-void
-GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // declare stop color
-    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // avoid draw invisible elements
-    if (stopColor.alpha() != 0) {
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // set base color
-        GLHelper::setColor(stopColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.trainStopWidth * exaggeration);
-        } else {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
-        }
-        // move to icon position and front
-        glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-        // move again
-        glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(-90, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED),
-                                                   s.additionalSettings.vaporizerSize * exaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON),
-                                                   s.additionalSettings.vaporizerSize * exaggeration);
-            }
-        } else {
-            // rotate
-            glRotated(22.5, 0, 0, 1);
-            // set stop color
-            GLHelper::setColor(stopColor);
-            // move matrix
-            glTranslated(0, 0, 0);
-            // draw filled circle
-            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
-        }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true,
-                                            s.dottedContourSettings.segmentWidth);
-    }
 }
 
 
@@ -1597,12 +1206,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceFirstParentAdditional(SUMO_TAG_PARKING_AREA, value);
             updateGeometry();
             break;
-        // specific of Stops over edges
-        case SUMO_ATTR_EDGE:
-            replaceDemandParentEdges(value);
-            updateGeometry();
-            edge = value;
-            break;
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
             replaceDemandParentLanes(value);
@@ -1637,11 +1240,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARENT:
-            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
-                replaceDemandElementParent(SUMO_TAG_PERSON, value, 0);
-            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) != nullptr) {
-                replaceDemandElementParent(SUMO_TAG_PERSONFLOW, value, 0);
-            }
             updateGeometry();
             break;
         case GNE_ATTR_PARAMETERS:
@@ -1706,31 +1304,26 @@ GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
 
 void
 GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        // change endPos
-        endPos = moveResult.newFirstPos;
-    } else {
-        if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
-            // change only start position
-            startPos = moveResult.newFirstPos;
-            // adjust startPos
-            if (startPos > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
-                startPos = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
-            }
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-            // change only end position
-            endPos = moveResult.newFirstPos;
-            // adjust endPos
-            if (endPos < (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS)) {
-                endPos = (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS);
-            }
-        } else {
-            // change both position
-            startPos = moveResult.newFirstPos;
-            endPos = moveResult.newSecondPos;
-            // set lateral offset
-            myMoveElementLateralOffset = moveResult.firstLaneOffset;
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // change only start position
+        startPos = moveResult.newFirstPos;
+        // adjust startPos
+        if (startPos > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
+            startPos = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
         }
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // change only end position
+        endPos = moveResult.newFirstPos;
+        // adjust endPos
+        if (endPos < (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS)) {
+            endPos = (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS);
+        }
+    } else {
+        // change both position
+        startPos = moveResult.newFirstPos;
+        endPos = moveResult.newSecondPos;
+        // set lateral offset
+        myMoveElementLateralOffset = moveResult.firstLaneOffset;
     }
     // update geometry
     updateGeometry();
@@ -1741,26 +1334,21 @@ void
 GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
     undoList->begin(this, "position of " + getTagStr());
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        // now adjust endPos position
-        setAttribute(SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
+    // set attributes depending of operation type
+    if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
+        // set only start position
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
+    } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+        // set only end position
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
     } else {
-        // set attributes depending of operation type
-        if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
-            // set only start position
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-            // set only end position
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newFirstPos), undoList);
-        } else {
-            // set both
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
-            GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
-            // check if lane has to be changed
-            if (moveResult.newFirstLane) {
-                // set new lane
-                setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
-            }
+        // set both
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.newFirstPos), undoList);
+        GNEChange_Attribute::changeAttribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.newSecondPos), undoList);
+        // check if lane has to be changed
+        if (moveResult.newFirstLane) {
+            // set new lane
+            setAttribute(SUMO_ATTR_LANE, moveResult.newFirstLane->getID(), undoList);
         }
     }
     // end change attribute
@@ -1830,8 +1418,6 @@ GNEStop::setStopMicrosimID() {
         setDemandElementID(getMicrosimID() + " (" + getParentAdditionals().front()->getTagStr() + ")");
     } else if (getParentLanes().size() > 0) {
         setDemandElementID(getMicrosimID() + " (" + getParentLanes().front()->getTagStr() + ")");
-    } else if (getParentEdges().size() > 0) {
-        setDemandElementID(getMicrosimID() + " (" + getParentEdges().front()->getTagStr() + ")");
     }
 }
 
