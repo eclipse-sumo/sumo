@@ -874,7 +874,7 @@ model as in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_Krauss.cpp]({{Source}}src/
 
 ### Transient carFollowModel Parameters
 
-carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
+carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
 
 - carFollowModel.ignoreIDs : ignore foe vehicles with the given ids
 - carFollowModel.ignoreTypes : ignore foe vehicles that have any of the given types
