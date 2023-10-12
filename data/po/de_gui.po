@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-12 01:52+0000\n"
+"PO-Revision-Date: 2023-10-13 09:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2434,7 +2434,7 @@ msgstr "seitliche Ausrichtung"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "Manöverwinkel über die Zeit"
 
 #: C:\Repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -7549,7 +7549,7 @@ msgstr "Linkstand für diese Verbindung (berechnet)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1544
 msgid "InternalLanes"
-msgstr ""
+msgstr "Interne Fahrstreifen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1562
 msgid "BusStop"
@@ -7735,7 +7735,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1692
 msgid "Access"
-msgstr ""
+msgstr "Zugang"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
 msgid "The name of the lane the stop access shall be located at"
@@ -8147,7 +8147,7 @@ msgstr "Die Zeit zu welcher die Generierung der Ausgabe startet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2417
 msgid "VariableSpeedSign"
-msgstr ""
+msgstr "Dynamische Geschwindigkeitsanzeige"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2422
 msgid "The id of Variable Speed Signal"
@@ -8287,7 +8287,7 @@ msgstr "Fahrzeuggeschwindigkeit"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2643
 msgid "Rerouter"
-msgstr ""
+msgstr "Rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2649
 msgid "The id of Rerouter"
@@ -8468,7 +8468,7 @@ msgstr "Winkel des gerenderten Bildes in Grad"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2958
 msgid "PointOfInterest"
-msgstr ""
+msgstr "PoI"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2963
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2985
@@ -8516,7 +8516,7 @@ msgstr "Breitengrad des geparkten Fahrzeugs in der Ansicht"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3058
 msgid "TrafficAssignmentZones"
-msgstr ""
+msgstr "Verkehrsumlegungszonen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3062
 msgid "The id of the TAZ"
@@ -8640,35 +8640,35 @@ msgstr "ID der Oberleitungssegmentspur von overheadWireIDEndClamp"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3270
 msgid "JuPedSim WalkableArea"
-msgstr ""
+msgstr "JuPedSim-Fußgängerfläche"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3275
 msgid "The id of the walkable area"
-msgstr ""
+msgstr "Die ID der Fußgängerfläche"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3280
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "Der Shape der Fußgängerfläche"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3286
 msgid "Walkable area's name"
-msgstr ""
+msgstr "Name der Fußgängerfläche"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3295
 msgid "JuPedSim Obstacle"
-msgstr ""
+msgstr "JuPedSim-Hindernis"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3300
 msgid "The id of the obstacle"
-msgstr ""
+msgstr "Die ID des Hindernis"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3305
 msgid "The shape of the obstacle"
-msgstr ""
+msgstr "Der Shape des Hindernis"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3311
 msgid "Obstacle's name"
-msgstr ""
+msgstr "Der Name des Hindernis"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3334
 msgid "The id of Route"
@@ -8714,7 +8714,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3376
 msgid "The id of route distribution"
-msgstr ""
+msgstr "Die ID der Routenverteilung"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3385
 msgid "RouteEmbedded"
@@ -8722,7 +8722,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3418
 msgid "VehicleType"
-msgstr ""
+msgstr "Fahrzeugtyp"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3423
 msgid "type ID"
@@ -8877,7 +8877,7 @@ msgstr "Lücke zwischen Eisenbahnwagen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3601
 msgid "VehicleTypeDistribution"
-msgstr ""
+msgstr "Fahrzeugtypverteilung"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3606
 msgid "The id of VehicleType distribution"
