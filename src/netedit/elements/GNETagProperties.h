@@ -95,6 +95,9 @@ public:
         CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
         REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
         VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
+    };
+
+    enum TagParents {
         // exclusive of vehicles
         VEHICLE_ROUTE =             1 << 13,    // Vehicle is placed over route
         VEHICLE_EMBEDDED_ROUTE =    1 << 14,    // Vehicle has an embedded route
@@ -122,8 +125,8 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                     const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
+    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
+                     const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
 
     /// @brief destructor
@@ -383,25 +386,28 @@ public:
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
-    SumoXMLTag myTag;
+    SumoXMLTag myTag = SUMO_TAG_NOTHING;
 
     /// @brief Sumo XML Tag vinculated wit this tag Property in String format
     std::string myTagStr;
 
-    /// @brief Attribute Type
-    int myTagType;
+    /// @brief tag Types
+    int myTagType = 0;
 
-    /// @brief Attribute properties
-    int myTagProperty;
+    /// @brief tag properties
+    int myTagProperty = 0;
+
+    /// @brief tag parents
+    int myTagParents = 0;
 
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<GNEAttributeProperties> myAttributeProperties;
 
     /// @brief icon associated to this Tag
-    GUIIcon myIcon;
+    GUIIcon myIcon = GUIIcon::EMPTY;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
-    SumoXMLTag myXMLTag;
+    SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
 
     /// @brief tooltip text
     std::string myTooltipText;
@@ -413,7 +419,7 @@ private:
     std::string myFieldString;
 
     /// @brief background color (used in labels and textFields, by default white)
-    unsigned int myBackgroundColor;
+    unsigned int myBackgroundColor = 0;
 };
 
 /****************************************************************************/

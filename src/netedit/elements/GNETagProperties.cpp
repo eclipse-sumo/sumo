@@ -35,23 +35,18 @@
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties() :
-    myTag(SUMO_TAG_NOTHING),
-    myTagType(0),
-    myTagProperty(0),
-    myIcon(GUIIcon::EMPTY),
-    myXMLTag(SUMO_TAG_NOTHING),
-    myBackgroundColor(0) {
+GNETagProperties::GNETagProperties() {
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
                                    const SumoXMLTag XMLTag, const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
                                    const unsigned int backgroundColor, const std::string fieldString) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
+    myTagParents(tagParents),
     myIcon(icon),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
@@ -537,61 +532,61 @@ GNETagProperties::vClassIcon() const {
 
 bool
 GNETagProperties::overRoute() const {
-    return (myTagProperty & VEHICLE_ROUTE) != 0;
+    return (myTagParents & VEHICLE_ROUTE) != 0;
 }
 
 
 bool
 GNETagProperties::vehicleOverEmbeddedRoute() const {
-    return (myTagProperty & VEHICLE_EMBEDDED_ROUTE) != 0;
+    return (myTagParents & VEHICLE_EMBEDDED_ROUTE) != 0;
 }
 
 
 bool
 GNETagProperties::vehicleOverFromToEdges() const {
-    return (myTagProperty & VEHICLE_FROMTO_EDGES) != 0;
+    return (myTagParents & VEHICLE_FROMTO_EDGES) != 0;
 }
 
 
 bool
 GNETagProperties::vehicleOverFromToJunctions() const {
-    return (myTagProperty & VEHICLE_FROMTO_JUNCTIONS) != 0;
+    return (myTagParents & VEHICLE_FROMTO_JUNCTIONS) != 0;
 }
 
 
 bool
 GNETagProperties::vehicleOverFromToTAZs() const {
-    return (myTagProperty & VEHICLE_FROMTO_TAZS) != 0;
+    return (myTagParents & VEHICLE_FROMTO_TAZS) != 0;
 }
 
 
 bool
 GNETagProperties::planEdges() const {
-    return (myTagProperty & PLAN_EDGES) != 0;
+    return (myTagParents & PLAN_EDGES) != 0;
 }
 
 
 bool
 GNETagProperties::planRoute() const {
-    return (myTagProperty & PLAN_ROUTE) != 0;
+    return (myTagParents & PLAN_ROUTE) != 0;
 }
 
 
 bool
 GNETagProperties::planFromEdge() const {
-    return (myTagProperty & PLAN_FROM_EDGE) != 0;
+    return (myTagParents & PLAN_FROM_EDGE) != 0;
 }
 
 
 bool
 GNETagProperties::planFromTAZ() const {
-    return (myTagProperty & PLAN_FROM_TAZ) != 0;
+    return (myTagParents & PLAN_FROM_TAZ) != 0;
 }
 
 
 bool
 GNETagProperties::planFromJunction() const {
-    return (myTagProperty & PLAN_FROM_JUNCTION) != 0;
+    return (myTagParents & PLAN_FROM_JUNCTION) != 0;
 }
 
 
@@ -603,37 +598,37 @@ GNETagProperties::planFromStoppingPlace() const {
 
 bool
 GNETagProperties::planFromBusStop() const {
-    return (myTagProperty & PLAN_FROM_BUSSTOP) != 0;
+    return (myTagParents & PLAN_FROM_BUSSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::planFromTrainStop() const {
-    return (myTagProperty & PLAN_FROM_TRAINSTOP) != 0;
+    return (myTagParents & PLAN_FROM_TRAINSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::planFromContainerStop() const {
-    return (myTagProperty & PLAN_FROM_CONTAINERSTOP) != 0;
+    return (myTagParents & PLAN_FROM_CONTAINERSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::planToEdge() const {
-    return (myTagProperty & PLAN_TO_EDGE) != 0;
+    return (myTagParents & PLAN_TO_EDGE) != 0;
 }
 
 
 bool
 GNETagProperties::planToTAZ() const {
-    return (myTagProperty & PLAN_TO_TAZ) != 0;
+    return (myTagParents & PLAN_TO_TAZ) != 0;
 }
 
 
 bool
 GNETagProperties::planToJunction() const {
-    return (myTagProperty & PLAN_TO_JUNCTION) != 0;
+    return (myTagParents & PLAN_TO_JUNCTION) != 0;
 }
 
 
@@ -645,19 +640,19 @@ GNETagProperties::planToStoppingPlace() const {
 
 bool
 GNETagProperties::planToBusStop() const {
-    return (myTagProperty & PLAN_TO_BUSSTOP) != 0;
+    return (myTagParents & PLAN_TO_BUSSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::planToTrainStop() const {
-    return (myTagProperty & PLAN_TO_TRAINSTOP) != 0;
+    return (myTagParents & PLAN_TO_TRAINSTOP) != 0;
 }
 
 
 bool
 GNETagProperties::planToContainerStop() const {
-    return (myTagProperty & PLAN_TO_CONTAINERSTOP) != 0;
+    return (myTagParents & PLAN_TO_CONTAINERSTOP) != 0;
 }
 
 /****************************************************************************/
