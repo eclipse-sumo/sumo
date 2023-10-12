@@ -23,6 +23,8 @@ set(netedit_elements_demand_SRCS
    GNEVehicle.cpp
    GNEStop.h
    GNEStop.cpp
+   GNEStopPlan.h
+   GNEStopPlan.cpp
    GNEPerson.h
    GNEPerson.cpp
    GNEPersonTrip.h
