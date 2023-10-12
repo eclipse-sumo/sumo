@@ -181,7 +181,7 @@ GNEPlanSelector::markContinuousEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // only for plan over continuousEdges
-        return myCurrentPlanTemplate->getTagProperty().planEdges();
+        return myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges();
     } else {
         return false;
     }
@@ -193,7 +193,7 @@ GNEPlanSelector::markSingleEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
         // for all plan routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+        return !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
                !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
@@ -208,7 +208,7 @@ GNEPlanSelector::markJunctions() const {
         // for all plan except containerPlans, rides, routes and continous edges
         return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
                !myCurrentPlanTemplate->getTagProperty().isRide() &&
-               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
                !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
@@ -222,7 +222,7 @@ GNEPlanSelector::markBusStops() const {
     if (isPlanValid()) {
         // for all plan containerPlans, routes and continous edges
         return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
                !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
@@ -236,7 +236,7 @@ GNEPlanSelector::markTrainStops() const {
     if (isPlanValid()) {
         // for all plan containerPlans, routes and continous edges
         return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
                !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
@@ -251,7 +251,7 @@ GNEPlanSelector::markTAZs() const {
         // for all plan except containerPlans, rides, routes and continous edges
         return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
                !myCurrentPlanTemplate->getTagProperty().isRide() &&
-               !myCurrentPlanTemplate->getTagProperty().planEdges() &&
+               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
                !myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;

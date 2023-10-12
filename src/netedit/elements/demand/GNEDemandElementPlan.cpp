@@ -261,7 +261,7 @@ GNEDemandElementPlan::getPlanMoveOperation() {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // only move personTrips defined over edges
-    if (tagProperty.planToEdge() || tagProperty.planEdges()) {
+    if (tagProperty.planToEdge() || tagProperty.planConsecutiveEdges()) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared
@@ -287,7 +287,7 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
     // write attributes depending of parent elements
     if (tagProperty.planRoute()) {
         device.writeAttr(SUMO_ATTR_ROUTE, myPlanElement->getParentDemandElements().at(1)->getID());
-    } else if (tagProperty.planEdges()) {
+    } else if (tagProperty.planConsecutiveEdges()) {
         device.writeAttr(SUMO_ATTR_EDGES, myPlanElement->parseIDs(myPlanElement->getParentEdges()));
     } else {
         // write from attribute (if this is the first element)
@@ -369,7 +369,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
         if (tagProperty.planRoute()) {
             // route
             return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
-        } else if (tagProperty.planEdges() || tagProperty.planFromEdge()) {
+        } else if (tagProperty.planConsecutiveEdges() || tagProperty.planFromEdge()) {
             // edges
             return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
         } else if (tagProperty.planFromStoppingPlace()) {
@@ -393,7 +393,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
     if (tagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
-    } else if (tagProperty.planEdges() || tagProperty.planToEdge()) {
+    } else if (tagProperty.planConsecutiveEdges() || tagProperty.planToEdge()) {
         // edges
         return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
     } else if (tagProperty.planToStoppingPlace()) {
@@ -418,7 +418,7 @@ GNEDemandElementPlan::computePlanPathElement() {
     if (tagProperty.planRoute()) {
         // calculate consecutive path using route edges
         pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentDemandElements().at(1)->getParentEdges());
-    } else if (tagProperty.planEdges()) {
+    } else if (tagProperty.planConsecutiveEdges()) {
         // calculate consecutive path using edges
         pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentEdges());
     } else {
@@ -516,7 +516,7 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     if (myPlanElement->myTagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
-    } else if (tagProperty.planFromJunction() || tagProperty.planEdges()) {
+    } else if (tagProperty.planFromJunction() || tagProperty.planConsecutiveEdges()) {
         // first edge
         return myPlanElement->getParentEdges().front()->getPositionInView();
     } else if (tagProperty.planFromJunction()) {
@@ -649,7 +649,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             } else if (tagProperty.planFromTAZ()) {
                 // TAZ view position
                 return myPlanElement->getParentAdditionals().front()->getPositionInView();
-            } else if (tagProperty.planEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
+            } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // check if this is the first person plan
                 if (planParent->getPreviousChildDemandElement(myPlanElement) != nullptr) {
                     return Position::INVALID;
@@ -688,7 +688,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
-            } else if (tagProperty.planEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
+            } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // get last lane
                 const auto lastLane = myPlanElement->getLastPathLane();
                 // check if last lane exists
@@ -837,7 +837,7 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
     }
     result += ": ";
     // continue depending of attributes
-    if (tagProperty.planEdges()) {
+    if (tagProperty.planConsecutiveEdges()) {
         // edges
         return result + myPlanElement->getParentEdges().front()->getID() + " ... " + myPlanElement->getParentEdges().back()->getID();
     } else if (tagProperty.planRoute()) {

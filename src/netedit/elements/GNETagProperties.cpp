@@ -561,14 +561,38 @@ GNETagProperties::vehicleTAZs() const {
 
 
 bool
-GNETagProperties::planEdges() const {
-    return (myTagParents & PLAN_EDGES) != 0;
+GNETagProperties::planConsecutiveEdges() const {
+    return (myTagParents & PLAN_CONSECUTIVE_EDGES) != 0;
 }
 
 
 bool
 GNETagProperties::planRoute() const {
     return (myTagParents & PLAN_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::planEdge() const {
+    return (myTagParents & PLAN_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planBusStop() const {
+    return (myTagParents & PLAN_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planTrainStop() const {
+    return (myTagParents & PLAN_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planContainerStop() const {
+    return (myTagParents & PLAN_CONTAINERSTOP) != 0;
 }
 
 

@@ -393,8 +393,8 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill stopPerson elements
-    static void fillStopPersonElements();
+    /// @brief fill person stop elements
+    static void fillPersonStopElements();
 
     /// @brief fill container elements
     static void fillContainerElements();
@@ -436,7 +436,7 @@ private:
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
 
     /// @brief fill plan from-to attribute
-    static void fillPlanFromToAttributes(SumoXMLTag currentTag);
+    static void fillPlanParentAttributes(SumoXMLTag currentTag);
 
     /// @brief fill person trip common attributes
     static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);
@@ -452,6 +452,9 @@ private:
 
     /// @brief fill ride common attributes
     static void fillTranshipCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan stop common attributes
+    static void fillPlanStopCommonAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Data elements
     static void fillDataElements();

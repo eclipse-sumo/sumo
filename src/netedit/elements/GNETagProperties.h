@@ -105,20 +105,24 @@ public:
         VEHICLE_JUNCTIONS =         1 << 3,     // Vehicle is placed over a from-to junctions
         VEHICLE_TAZS =              1 << 4,     // Vehicle is placed over a from-to TAZs
         // exclusive of plans
-        PLAN_EDGES =                1 << 5,     // Plan placed in edges
-        PLAN_ROUTE =                1 << 6,     // Plan placed in routes
-        PLAN_FROM_EDGE =            1 << 7,     // Plan starts in edge
-        PLAN_FROM_TAZ =             1 << 8,     // Plan starts in TAZ
-        PLAN_FROM_JUNCTION =        1 << 9,     // Plan starts in junction
-        PLAN_FROM_BUSSTOP =         1 << 10,    // Plan starts in busStop
-        PLAN_FROM_TRAINSTOP =       1 << 11,    // Plan starts in trainStop
-        PLAN_FROM_CONTAINERSTOP =   1 << 12,    // Plan starts in containerStop
-        PLAN_TO_EDGE =              1 << 13,    // Plan ends in edge
-        PLAN_TO_TAZ =               1 << 14,    // Plan ends in TAZ
-        PLAN_TO_JUNCTION =          1 << 15,    // Plan ends in junction
-        PLAN_TO_BUSSTOP =           1 << 16,    // Plan ends in busStop
-        PLAN_TO_TRAINSTOP =         1 << 17,    // Plan ends in trainStop
-        PLAN_TO_CONTAINERSTOP =     1 << 18,    // Plan ends in containerStop
+        PLAN_CONSECUTIVE_EDGES =    1 << 5,     // Plan placed in consecutive edges
+        PLAN_ROUTE =                1 << 6,     // Plan placed in route
+        PLAN_EDGE =                 1 << 7,     // Plan placed in edge
+        PLAN_BUSSTOP =              1 << 8,     // Plan placed in busStop
+        PLAN_TRAINSTOP =            1 << 9,     // Plan placed in trainStop
+        PLAN_CONTAINERSTOP =        1 << 10,    // Plan placed in containerStop
+        PLAN_FROM_EDGE =            1 << 11,    // Plan starts in edge
+        PLAN_FROM_TAZ =             1 << 12,    // Plan starts in TAZ
+        PLAN_FROM_JUNCTION =        1 << 13,    // Plan starts in junction
+        PLAN_FROM_BUSSTOP =         1 << 14,    // Plan starts in busStop
+        PLAN_FROM_TRAINSTOP =       1 << 15,    // Plan starts in trainStop
+        PLAN_FROM_CONTAINERSTOP =   1 << 16,    // Plan starts in containerStop
+        PLAN_TO_EDGE =              1 << 17,    // Plan ends in edge
+        PLAN_TO_TAZ =               1 << 18,    // Plan ends in TAZ
+        PLAN_TO_JUNCTION =          1 << 19,    // Plan ends in junction
+        PLAN_TO_BUSSTOP =           1 << 20,    // Plan ends in busStop
+        PLAN_TO_TRAINSTOP =         1 << 21,    // Plan ends in trainStop
+        PLAN_TO_CONTAINERSTOP =     1 << 22,    // Plan ends in containerStop
     };
 
     /// @brief default constructor
@@ -337,10 +341,22 @@ public:
     bool vehicleTAZs() const;
 
     /// @brief return true if tag correspond to a plan placed over edges
-    bool planEdges() const;
+    bool planConsecutiveEdges() const;
 
     /// @brief return true if tag correspond to a plan placed over route
     bool planRoute() const;
+
+    /// @brief return true if tag correspond to a plan placed over edge
+    bool planEdge() const;
+
+    /// @brief return true if tag correspond to a plan placed over busStop
+    bool planBusStop() const;
+
+    /// @brief return true if tag correspond to a plan placed over trainStop
+    bool planTrainStop() const;
+
+    /// @brief return true if tag correspond to a plan placed over containerStop
+    bool planContainerStop() const;
 
     /// @brief return true if tag correspond to a plan that starts in edge
     bool planFromEdge() const;
