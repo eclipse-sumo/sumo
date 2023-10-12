@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-12 09:19+0000\n"
+"PO-Revision-Date: 2023-10-12 09:22+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8113,7 +8113,7 @@ msgstr "El ID de la arista en la red simulada"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2496
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2553
 msgid "The position of the calibrator on the specified lane"
-msgstr ""
+msgstr "La posición del calibrador sobre el carril especificado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2502
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2559
@@ -8136,7 +8136,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2518
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2575
 msgid "The output file for writing calibrator information or NULL"
-msgstr ""
+msgstr "El archivo de salida para escribir la información del calibrador o NULL"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2523
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2580
