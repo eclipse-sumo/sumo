@@ -346,8 +346,6 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const Posi
     myDottedGeometryColor.reset();
     // Push draw matrix
     GLHelper::pushMatrix();
-    // translate to front
-    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw dotted
     myDottedGeometries->at(0).drawInnenGeometry(s, lineWidth);
     // pop matrix

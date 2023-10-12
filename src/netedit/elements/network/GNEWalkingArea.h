@@ -176,6 +176,12 @@ protected:
     GNEContour myInnenContour;
 
 private:
+    /// @brief draw tesselated walking area
+    void drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &color) const;
+
+    /// @brief draw contour walking area
+    void drawContourWalkingArea(const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration, const RGBColor &color) const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
