@@ -11,9 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEStop.h
+/// @file    GNEStopPlan.h
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2019
+/// @date    Oct 2023
 ///
 // Representation of Stops in netedit
 /****************************************************************************/
@@ -27,23 +27,23 @@
 // class definitions
 // ===========================================================================
 
-class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop, public GNEDemandElementPlan {
+class GNEStopPlan : public GNEDemandElement, public SUMOVehicleParameter::Stop, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
-    GNEStop(SumoXMLTag tag, GNENet* net);
+    GNEStopPlan(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor used for stops over stoppingPlaces
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over lane (only for vehicle/route stops)
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over edge (only for person/container stops)
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
-    ~GNEStop();
+    ~GNEStopPlan();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -266,8 +266,8 @@ private:
     void setStopMicrosimID();
 
     /// @brief Invalidated copy constructor.
-    GNEStop(const GNEStop&) = delete;
+    GNEStopPlan(const GNEStopPlan&) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEStop& operator=(const GNEStop&) = delete;
+    GNEStopPlan& operator=(const GNEStopPlan&) = delete;
 };

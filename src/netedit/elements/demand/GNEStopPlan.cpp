@@ -11,9 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEStop.cpp
+/// @file    GNEStopPlan.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2019
+/// @date    Oct 2023
 ///
 // Representation of Stops in netedit
 /****************************************************************************/
@@ -27,13 +27,13 @@
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <utils/gui/div/GLHelper.h>
 
-#include "GNEStop.h"
+#include "GNEStopPlan.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
+GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
     GNEDemandElementPlan(this, -1, -1),
@@ -57,7 +57,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
+GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
@@ -84,7 +84,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 }
 
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
+GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
@@ -107,7 +107,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
 }
 
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
+GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edge}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
@@ -137,11 +137,11 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
 }
 
 
-GNEStop::~GNEStop() {}
+GNEStopPlan::~GNEStopPlan() {}
 
 
 GNEMoveOperation*
-GNEStop::getMoveOperation() {
+GNEStopPlan::getMoveOperation() {
     if ((myTagProperty.getTag() == GNE_TAG_STOPPERSON_EDGE) || (myTagProperty.getTag() == GNE_TAG_STOPCONTAINER_EDGE)) {
         // return move operation for additional placed over shape
         return new GNEMoveOperation(this, getParentEdges().front()->getLanes().front(), endPos, false);
@@ -191,7 +191,7 @@ GNEStop::getMoveOperation() {
 
 
 void
-GNEStop::writeDemandElement(OutputDevice& device) const {
+GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
     if (getParentAdditionals().size() > 0) {
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
@@ -228,7 +228,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 
 GNEDemandElement::Problem
-GNEStop::isDemandElementValid() const {
+GNEStopPlan::isDemandElementValid() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // get lane
         const GNELane* firstLane = getFirstAllowedLane();
@@ -286,7 +286,7 @@ GNEStop::isDemandElementValid() const {
 
 
 std::string
-GNEStop::getDemandElementProblem() const {
+GNEStopPlan::getDemandElementProblem() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         if (friendlyPos || (getParentAdditionals().size() > 0)) {
             return getPersonPlanProblem();
@@ -342,19 +342,19 @@ GNEStop::getDemandElementProblem() const {
 
 
 void
-GNEStop::fixDemandElementProblem() {
+GNEStopPlan::fixDemandElementProblem() {
     //
 }
 
 
 SUMOVehicleClass
-GNEStop::getVClass() const {
+GNEStopPlan::getVClass() const {
     return getParentDemandElements().front()->getVClass();
 }
 
 
 const RGBColor&
-GNEStop::getColor() const {
+GNEStopPlan::getColor() const {
     if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
     } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
@@ -379,7 +379,7 @@ GNEStop::getColor() const {
 
 
 void
-GNEStop::updateGeometry() {
+GNEStopPlan::updateGeometry() {
     // update geometry depending of parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
@@ -420,7 +420,7 @@ GNEStop::updateGeometry() {
 
 
 Position
-GNEStop::getPositionInView() const {
+GNEStopPlan::getPositionInView() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // check if is placed over a busStop
         if (getParentAdditionals().size() > 0) {
@@ -450,7 +450,7 @@ GNEStop::getPositionInView() const {
 
 
 std::string
-GNEStop::getParentName() const {
+GNEStopPlan::getParentName() const {
     if (getParentDemandElements().size() > 0) {
         return getParentDemandElements().front()->getID();
     } else if (getParentAdditionals().size() > 0) {
@@ -464,13 +464,13 @@ GNEStop::getParentName() const {
 
 
 double
-GNEStop::getExaggeration(const GUIVisualizationSettings& s) const {
+GNEStopPlan::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }
 
 
 Boundary
-GNEStop::getCenteringBoundary() const {
+GNEStopPlan::getCenteringBoundary() const {
     Boundary b;
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (getParentAdditionals().size() > 0) {
@@ -488,13 +488,13 @@ GNEStop::getCenteringBoundary() const {
 
 
 void
-GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEStopPlan::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
 
 void
-GNEStop::drawGL(const GUIVisualizationSettings& s) const {
+GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = getExaggeration(s);
     // check if draw an stop for person/containers or for vehicles/routes
@@ -525,26 +525,26 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEStop::computePathElement() {
+GNEStopPlan::computePathElement() {
     // only update geometry
     updateGeometry();
 }
 
 
 void
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEStopPlan::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
 void
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEStopPlan::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
 GNELane*
-GNEStop::getFirstPathLane() const {
+GNEStopPlan::getFirstPathLane() const {
     // check if stop is placed over a busStop
     if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
@@ -557,14 +557,14 @@ GNEStop::getFirstPathLane() const {
 
 
 GNELane*
-GNEStop::getLastPathLane() const {
+GNEStopPlan::getLastPathLane() const {
     // first and last path lane are the same
     return getFirstPathLane();
 }
 
 
 std::string
-GNEStop::getAttribute(SumoXMLAttr key) const {
+GNEStopPlan::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -688,7 +688,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEStop::getAttributeDouble(SumoXMLAttr key) const {
+GNEStopPlan::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_STARTPOS:
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
@@ -737,7 +737,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
 
 
 Position
-GNEStop::getAttributePosition(SumoXMLAttr key) const {
+GNEStopPlan::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS: {
             if (getParentAdditionals().size() > 0) {
@@ -763,7 +763,7 @@ GNEStop::getAttributePosition(SumoXMLAttr key) const {
 
 
 void
-GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEStopPlan::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -897,7 +897,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
 
 
 bool
-GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
+GNEStopPlan::isValid(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
@@ -1043,7 +1043,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+GNEStopPlan::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
@@ -1059,7 +1059,7 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 void
-GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+GNEStopPlan::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
@@ -1075,7 +1075,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
 
 
 bool
-GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
+GNEStopPlan::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         // Currently stops parents cannot be edited
         case SUMO_ATTR_BUS_STOP:
@@ -1107,13 +1107,13 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 std::string
-GNEStop::getPopUpID() const {
+GNEStopPlan::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNEStop::getHierarchyName() const {
+GNEStopPlan::getHierarchyName() const {
     if (getParentAdditionals().size() > 0) {
         if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
             return "BusStop: " + getParentAdditionals().front()->getID();
@@ -1137,12 +1137,12 @@ GNEStop::getHierarchyName() const {
 
 
 const Parameterised::Map&
-GNEStop::getACParametersMap() const {
+GNEStopPlan::getACParametersMap() const {
     return getParametersMap();
 }
 
 double
-GNEStop::getStartGeometryPositionOverLane() const {
+GNEStopPlan::getStartGeometryPositionOverLane() const {
     double fixedPos = startPos;
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     if (fixedPos < 0) {
@@ -1153,7 +1153,7 @@ GNEStop::getStartGeometryPositionOverLane() const {
 
 
 double
-GNEStop::getEndGeometryPositionOverLane() const {
+GNEStopPlan::getEndGeometryPositionOverLane() const {
     double fixedPos = endPos;
     const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     if (fixedPos < 0) {
@@ -1167,7 +1167,7 @@ GNEStop::getEndGeometryPositionOverLane() const {
 // ===========================================================================
 
 const GNELane*
-GNEStop::getFirstAllowedLane() const {
+GNEStopPlan::getFirstAllowedLane() const {
     if (getParentEdges().empty()) {
         return nullptr;
     }
@@ -1181,7 +1181,7 @@ GNEStop::getFirstAllowedLane() const {
 
 
 bool
-GNEStop::canDrawVehicleStop() const {
+GNEStopPlan::canDrawVehicleStop() const {
     if (isAttributeCarrierSelected()) {
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
@@ -1204,7 +1204,7 @@ GNEStop::canDrawVehicleStop() const {
 
 
 void
-GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare value to save stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
     // get lane
@@ -1305,7 +1305,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
 
 
 void
-GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements
@@ -1373,7 +1373,7 @@ GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double 
 
 
 void
-GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements
@@ -1436,7 +1436,7 @@ GNEStop::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, cons
 
 
 bool
-GNEStop::drawIndex() const {
+GNEStopPlan::drawIndex() const {
     // get stop frame
     const auto stopFrame = myNet->getViewNet()->getViewParent()->getStopFrame();
     // check conditions
@@ -1454,7 +1454,7 @@ GNEStop::drawIndex() const {
 // ===========================================================================
 
 void
-GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEStopPlan::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
@@ -1654,7 +1654,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
+GNEStopPlan::toggleAttribute(SumoXMLAttr key, const bool value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value) {
@@ -1705,7 +1705,7 @@ GNEStop::toggleAttribute(SumoXMLAttr key, const bool value) {
 
 
 void
-GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
+GNEStopPlan::setMoveShape(const GNEMoveResult& moveResult) {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // change endPos
         endPos = moveResult.newFirstPos;
@@ -1738,7 +1738,7 @@ GNEStop::setMoveShape(const GNEMoveResult& moveResult) {
 
 
 void
-GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // begin change attribute
     undoList->begin(this, "position of " + getTagStr());
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
@@ -1769,7 +1769,7 @@ GNEStop::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 
 
 void
-GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
+GNEStopPlan::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
             (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
@@ -1808,7 +1808,7 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
 
 
 int
-GNEStop::getPathStopIndex() const {
+GNEStopPlan::getPathStopIndex() const {
     // get edge stop indexes
     const auto edgeStopIndex = getEdgeStopIndex();
     // finally find stopIndex in edgeStopIndexes
@@ -1825,7 +1825,7 @@ GNEStop::getPathStopIndex() const {
 
 
 void
-GNEStop::setStopMicrosimID() {
+GNEStopPlan::setStopMicrosimID() {
     if (getParentAdditionals().size() > 0) {
         setDemandElementID(getMicrosimID() + " (" + getParentAdditionals().front()->getTagStr() + ")");
     } else if (getParentLanes().size() > 0) {
