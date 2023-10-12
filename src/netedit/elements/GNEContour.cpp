@@ -322,7 +322,7 @@ GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEE
 
 void
 GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
-                                   const double scale, const bool addOffset, const double lineWidth) const {
+                                   const double scale, const double lineWidth) const {
     // first change size of myDottedGeometries
     if (myDottedGeometries->empty() || myCachedDoubles->empty()) {
         myDottedGeometries->push_back(GUIDottedGeometry());
@@ -347,7 +347,7 @@ GNEContour::drawInnenContourClosed(const GUIVisualizationSettings& s, const Posi
     // Push draw matrix
     GLHelper::pushMatrix();
     // draw dotted
-    myDottedGeometries->at(0).drawInnenGeometry(s, lineWidth);
+    myDottedGeometries->at(0).drawInnenGeometry(lineWidth);
     // pop matrix
     GLHelper::popMatrix();
 }

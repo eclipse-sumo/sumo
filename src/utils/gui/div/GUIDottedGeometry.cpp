@@ -241,7 +241,7 @@ GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDott
 
 
 void
-GUIDottedGeometry::drawInnenGeometry(const GUIVisualizationSettings& s, const double lineWidth) const {
+GUIDottedGeometry::drawInnenGeometry(const double lineWidth) const {
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape

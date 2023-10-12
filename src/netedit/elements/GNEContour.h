@@ -82,7 +82,7 @@ public:
 
     /// @brief draw innen contour (for closed shapes)
     void drawInnenContourClosed(const GUIVisualizationSettings& s, const PositionVector &shape,
-                                const double scale, const bool addOffset, const double lineWidth) const;
+                                const double scale, const double lineWidth) const;
     /// @}
 
 private:

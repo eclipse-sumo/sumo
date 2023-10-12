@@ -103,7 +103,7 @@ public:
                             DottedGeometryColor &dottedGeometryColor, const bool addOffset, const double lineWidth) const;
 
     /// @brief draw innen geometry
-    void drawInnenGeometry(const GUIVisualizationSettings& s, const double lineWidth) const;
+    void drawInnenGeometry(const double lineWidth) const;
 
     /// @brief move shape to side
     void moveShapeToSide(const double value);

@@ -389,7 +389,7 @@ GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const 
     // set color
     GLHelper::setColor(color);
     // draw innen contour
-    myInnenContour.drawInnenContourClosed(s, shape, exaggeration, true, s.dottedContourSettings.segmentWidth);
+    myInnenContour.drawInnenContourClosed(s, shape, exaggeration, s.dottedContourSettings.segmentWidth);
     // pop layer Matrix
     GLHelper::popMatrix();
 }
