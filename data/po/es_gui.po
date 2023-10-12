@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-12 09:22+0000\n"
+"PO-Revision-Date: 2023-10-12 09:36+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8149,6 +8149,8 @@ msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
+"lista separada por espacios de los IDs de tipos de vehículos a considerar ("
+"dejar vacía para influir a todos los tipos)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2538
 msgid "CalibratorLane"
@@ -8156,7 +8158,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2548
 msgid "The id of lane in the simulation network"
-msgstr ""
+msgstr "El ID del carril en la red simulada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2565
 msgid "Name of calibrator lane"
@@ -8415,11 +8417,11 @@ msgstr "Punto de interés geográfico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3032
 msgid "The longitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "La posición longitudinal del vehículo estacionado en la vista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3037
 msgid "The latitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "La posición latitudinal del vehículo estacionado en la vista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3058
 msgid "TrafficAssignmentZones"
@@ -8633,7 +8635,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3418
 msgid "VehicleType"
-msgstr ""
+msgstr "Tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3423
 msgid "type ID"
@@ -8784,7 +8786,7 @@ msgstr "Espacio entre vagones"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3601
 msgid "VehicleTypeDistribution"
-msgstr ""
+msgstr "Distribución de tipo de vehículo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3606
 msgid "The id of VehicleType distribution"
@@ -9111,39 +9113,39 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4388
 msgid "Transport: edge->edge"
-msgstr ""
+msgstr "Envío: arista->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4400
 msgid "Transport: edge->containerStop"
-msgstr ""
+msgstr "Envío: arista->parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4412
 msgid "Transport: containerStop->edge"
-msgstr ""
+msgstr "Envío: parada de contenedor->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4424
 msgid "Transport: containerStop->containerStop"
-msgstr ""
+msgstr "Envío: parada de contenedor->parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4445
 msgid "Tranship: edge->edge"
-msgstr ""
+msgstr "Transbordo: arista->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4458
 msgid "Tranship: edge->containerStop"
-msgstr ""
+msgstr "Transbordo: arista->parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4471
 msgid "Tranship: containerStop->edge"
-msgstr ""
+msgstr "Transbordo: parada de contenedor->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4484
 msgid "Tranship: containerStop->containerStop"
-msgstr ""
+msgstr "Transbordo: parada de contenedor->parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4497
 msgid "Tranship: edges"
-msgstr ""
+msgstr "Transbordo: aristas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4519
 msgid "StopContainer Edge"
