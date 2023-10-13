@@ -34,6 +34,8 @@
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
+#include <netedit/frames/demand/GNEContainerFrame.h>
+#include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -205,6 +207,10 @@ GNEEdge::checkDrawFromContour() const {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
     } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
     }
     // continue depending of planCreator
     if (planCreator) {
@@ -234,6 +240,10 @@ GNEEdge::checkDrawToContour() const {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
     } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
     }
     // continue depending of planCreator
     if (planCreator) {
@@ -260,8 +270,8 @@ GNEEdge::checkDrawOverContour() const {
     const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
     const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
     const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
         // get current vehicle template

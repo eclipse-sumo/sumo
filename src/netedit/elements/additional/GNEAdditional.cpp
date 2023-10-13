@@ -185,6 +185,10 @@ GNEAdditional::checkDrawFromContour() const {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
     } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
     }
     // continue depending of planCreator
     if (planCreator) {
@@ -240,6 +244,10 @@ GNEAdditional::checkDrawToContour() const {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
     } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN)) {
         planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanCreator();
+    } else if (modes.isCurrentSupermodeDemand() && (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN)) {
+        planCreator = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanCreator();
     }
     // continue depending of planCreator
     if (planCreator) {
