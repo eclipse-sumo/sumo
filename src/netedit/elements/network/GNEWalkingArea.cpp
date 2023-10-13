@@ -171,7 +171,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 myTesselation.myTesselation.clear();
             }
             // check if draw walking area tesselated or contour
-            if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
                 drawTesselatedWalkingArea(s, walkingAreaExaggeration, walkingAreaColor);
             } else {
                 drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
