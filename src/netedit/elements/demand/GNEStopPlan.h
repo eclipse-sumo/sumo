@@ -247,9 +247,6 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
-    /// @brief draw geometry points
-    void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
-
     /// @brief get pathStopIndex
     int getPathStopIndex() const;
 

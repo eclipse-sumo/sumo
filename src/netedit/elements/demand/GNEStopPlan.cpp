@@ -933,32 +933,8 @@ GNEStopPlan::toggleAttribute(SumoXMLAttr key, const bool value) {
 
 void
 GNEStopPlan::setMoveShape(const GNEMoveResult& moveResult) {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
-        // change endPos
-        endPos = moveResult.newFirstPos;
-    } else {
-        if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
-            // change only start position
-            startPos = moveResult.newFirstPos;
-            // adjust startPos
-            if (startPos > (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS)) {
-                startPos = (getAttributeDouble(SUMO_ATTR_ENDPOS) - POSITION_EPS);
-            }
-        } else if (moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
-            // change only end position
-            endPos = moveResult.newFirstPos;
-            // adjust endPos
-            if (endPos < (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS)) {
-                endPos = (getAttributeDouble(SUMO_ATTR_STARTPOS) + POSITION_EPS);
-            }
-        } else {
-            // change both position
-            startPos = moveResult.newFirstPos;
-            endPos = moveResult.newSecondPos;
-            // set lateral offset
-            myMoveElementLateralOffset = moveResult.firstLaneOffset;
-        }
-    }
+    // change endPos
+    endPos = moveResult.newFirstPos;
     // update geometry
     updateGeometry();
 }
@@ -992,45 +968,6 @@ GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     }
     // end change attribute
     undoList->end();
-}
-
-
-void
-GNEStopPlan::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
-    // first check that we're in move mode and shift key is pressed
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-            (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        // calculate new color
-        const RGBColor color = baseColor.changedBrightness(-50);
-        // push matrix
-        GLHelper::pushMatrix();
-        // translated to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // draw points
-        if (startPos != INVALID_DOUBLE) {
-            // push geometry point matrix
-            GLHelper::pushMatrix();
-            glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), 0.1);
-            // draw geometry point
-            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
-            // pop geometry point matrix
-            GLHelper::popMatrix();
-        }
-        if (endPos != INVALID_DOUBLE) {
-            // push geometry point matrix
-            GLHelper::pushMatrix();
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
-            // draw geometry point
-            GLHelper::drawFilledCircle(s.neteditSizeSettings.additionalGeometryPointRadius, s.getCircleResolution());
-            // pop geometry point matrix
-            GLHelper::popMatrix();
-        }
-        // pop draw matrix
-        GLHelper::popMatrix();
-    }
 }
 
 
