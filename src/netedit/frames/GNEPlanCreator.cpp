@@ -248,13 +248,13 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         const auto tagProperty = myPreviousPlanElement->getTagProperty();
         // add last element of previous plan
         if (tagProperty.planToEdge()) {
-            addEdge(myPreviousPlanElement->getParentEdges().back());
+            addFromToEdge(myPreviousPlanElement->getParentEdges().back());
         } else if (tagProperty.planToJunction()) {
-            addJunction(myPreviousPlanElement->getParentJunctions().back());
+            addFromToJunction(myPreviousPlanElement->getParentJunctions().back());
         } else if (tagProperty.planToTAZ()) {
-            addTAZ(myPreviousPlanElement->getParentAdditionals().back());
+            addFromToTAZ(myPreviousPlanElement->getParentAdditionals().back());
         } else if (tagProperty.planToStoppingPlace()) {
-            addStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
+            addFromToStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
         }
     }
     // recalc before show (to avoid graphic problems)
@@ -286,7 +286,37 @@ GNEPlanCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool
-GNEPlanCreator::addJunction(GNEJunction* junction) {
+GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
+    // check if edges are allowed
+    if ((myCreationMode & CONSECUTIVE_EDGES) == 0) {
+        return false;
+    }
+    // check double edges
+    if ((myConsecutiveEdges.size() > 0) && (myConsecutiveEdges.back() == edge)) {
+        // Write warning
+        WRITE_WARNING(TL("Double edges aren't allowed"));
+        // abort add edge
+        return false;
+    }
+    // All checks ok, then add it in selected elements
+    myConsecutiveEdges.push_back(edge);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // update remove last item button
+    updateRemoveLastItemButton();
+    // recalculate path
+    recalculatePath();
+    // edge added, then return true
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
@@ -326,7 +356,7 @@ GNEPlanCreator::addJunction(GNEJunction* junction) {
 
 
 bool
-GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
+GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     // check if TAZs are allowed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
@@ -366,37 +396,7 @@ GNEPlanCreator::addTAZ(GNEAdditional* TAZ) {
 
 
 bool
-GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
-    // check if edges are allowed
-    if ((myCreationMode & CONSECUTIVE_EDGES) == 0) {
-        return false;
-    }
-    // check double edges
-    if ((myConsecutiveEdges.size() > 0) && (myConsecutiveEdges.back() == edge)) {
-        // Write warning
-        WRITE_WARNING(TL("Double edges aren't allowed"));
-        // abort add edge
-        return false;
-    }
-    // All checks ok, then add it in selected elements
-    myConsecutiveEdges.push_back(edge);
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // update remove last item button
-    updateRemoveLastItemButton();
-    // recalculate path
-    recalculatePath();
-    // edge added, then return true
-    return true;
-}
-
-
-bool
-GNEPlanCreator::addEdge(GNEEdge* edge) {
+GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     // check if edges are allowed
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
         return false;
@@ -437,7 +437,7 @@ GNEPlanCreator::addEdge(GNEEdge* edge) {
 
 
 bool
-GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
+GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     if (stoppingPlace == nullptr) {
         return false;
     }

@@ -129,15 +129,15 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
+        return myPlanCreator->addFromToStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (myPlanSelector->markTrainStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
-        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
+        return myPlanCreator->addFromToStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if ((myPlanSelector->markSingleEdges() || myPlanSelector->markContinuousEdges()) && objectsUnderCursor.getEdgeFront()) {
-        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        return myPlanCreator->addFromToEdge(objectsUnderCursor.getEdgeFront());
     } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
-        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
+        return myPlanCreator->addFromToJunction(objectsUnderCursor.getJunctionFront());
     } else if (myPlanSelector->markTAZs() && objectsUnderCursor.getTAZFront()) {
-        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
+        return myPlanCreator->addFromToTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }
