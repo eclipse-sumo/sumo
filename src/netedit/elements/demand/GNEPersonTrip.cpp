@@ -144,7 +144,7 @@ GNEPersonTrip::getVClass() const {
 
 const RGBColor&
 GNEPersonTrip::getColor() const {
-    return getParentDemandElements().front()->getColor();
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.personTripColor;
 }
 
 

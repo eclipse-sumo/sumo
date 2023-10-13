@@ -140,7 +140,7 @@ GNEWalk::getVClass() const {
 
 const RGBColor&
 GNEWalk::getColor() const {
-    return getParentDemandElements().front()->getColor();
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.walkColor;
 }
 
 

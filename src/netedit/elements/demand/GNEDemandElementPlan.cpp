@@ -547,13 +547,13 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     if (myPlanElement->myTagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
-    } else if (tagProperty.planFromEdge() || tagProperty.planConsecutiveEdges()) {
+    } else if (tagProperty.planFromEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // first edge
         return myPlanElement->getParentEdges().front()->getPositionInView();
     } else if (tagProperty.planFromJunction()) {
         // first junction
         return myPlanElement->getParentJunctions().front()->getPositionInView();
-    } else if (myPlanElement->getParentAdditionals().size() > 0) {
+    } else if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
         // first additional
         return myPlanElement->getParentAdditionals().front()->getPositionInView();
     } else {

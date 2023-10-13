@@ -122,7 +122,7 @@ GNETranship::getVClass() const {
 
 const RGBColor&
 GNETranship::getColor() const {
-    return getParentDemandElements().front()->getColor();
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.transhipColor;
 }
 
 

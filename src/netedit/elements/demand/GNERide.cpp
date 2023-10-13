@@ -128,7 +128,7 @@ GNERide::getVClass() const {
 
 const RGBColor&
 GNERide::getColor() const {
-    return getParentDemandElements().front()->getColor();
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.rideColor;
 }
 
 

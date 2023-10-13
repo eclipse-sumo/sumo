@@ -120,7 +120,7 @@ GNETransport::getVClass() const {
 
 const RGBColor&
 GNETransport::getColor() const {
-    return getParentDemandElements().front()->getColor();
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.transportColor;
 }
 
 
