@@ -27,17 +27,40 @@
 // class definitions
 // ===========================================================================
 
-class GNEStopPlan : public GNEDemandElement, public GNEDemandElementPlan {
+class GNEStopPlan : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
+    /**@brief general constructor for person stop plans
+     * @param[in] net Network in which this rides is placed
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] busStop bus stop
+     * @param[in] trainStop train stop
+     * @param[in] endPos end position
+     * @param[in] duration stop duration
+     * @param[in] until stop until
+     * @param[in] actType act type
+     */
+    static GNEStopPlan* buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
+        GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
+        const SUMOTime duration, const SUMOTime until, const std::string &actType);
+
+    /**@brief general constructor for container stop plans
+     * @param[in] net Network in which this rides is placed
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] containerStop container stop
+     * @param[in] endPos end position
+     * @param[in] duration stop duration
+     * @param[in] until stop until
+     * @param[in] actType act type
+     */
+    static GNEStopPlan* buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
+        GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
+        const SUMOTime duration, const SUMOTime until, const std::string &actType);
+
     /// @brief default constructor
     GNEStopPlan(SumoXMLTag tag, GNENet* net);
-
-    /// @brief constructor used for stops over stoppingPlaces
-    GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
-
-    /// @brief constructor used for stops over edge (only for person/container stops)
-    GNEStopPlan(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEStopPlan();
@@ -200,39 +223,24 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
-
 protected:
-    /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
-    Boundary myMovingGeometryBoundary;
+    /// @brief duration
+    SUMOTime myDuration;
 
-    /// @brief value for saving first original position over lane before moving
-    Position myOriginalViewPosition;
+    /// @brief until
+    SUMOTime myUntil;
 
-    /// @brief value for saving first original position over lane before moving
-    std::string myFirstOriginalLanePosition;
+    /// @brief act type
+    std::string myActType;
 
-    /// @brief value for saving second original position over lane before moving
-    std::string mySecondOriginalPosition;
-
-    /// @brief creation index (using for saving sorted)
-    const int myCreationIndex;
-
-    /// @brief get first valid lane
-    const GNELane* getFirstAllowedLane() const;
+    /// @brief parameter set
+    int myParametersSet = 0;
 
     /// @brief draw stopPerson over lane
     void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @brief draw stopPerson over stoppingPlace
     void drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw index
-    bool drawIndex() const;
 
 private:
     /// @brief method for setting the attribute and nothing else
@@ -247,11 +255,21 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
-    /// @brief get pathStopIndex
-    int getPathStopIndex() const;
-
-    /// @brief set stop microsim ID
-    void setStopMicrosimID();
+    /**@brief constructor called in buldStopPlan
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     * @param[in] endPos end position
+     * @param[in] duration stop duration
+     * @param[in] until stop until
+     * @param[in] actType act type
+     */
+    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
+                const std::vector<GNEAdditional*> &additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
+                const std::string &actType);
 
     /// @brief Invalidated copy constructor.
     GNEStopPlan(const GNEStopPlan&) = delete;
