@@ -59,10 +59,7 @@ public:
     bool markRoutes() const;
 
     /// @brief check if mark edges with dotted contours
-    bool markContinuousEdges() const;
-
-    /// @brief check if mark edges with dotted contours
-    bool markSingleEdges() const;
+    bool markEdges() const;
 
     /// @brief check if mark junctions with dotted contours
     bool markJunctions() const;
@@ -72,6 +69,9 @@ public:
 
     /// @brief check if mark trainStops with dotted contours
     bool markTrainStops() const;
+
+    /// @brief check if mark containerStops with dotted contours
+    bool markContainerStops() const;
 
     /// @brief check if mark TAZs with dotted contours
     bool markTAZs() const;

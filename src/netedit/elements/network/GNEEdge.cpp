@@ -270,8 +270,8 @@ GNEEdge::checkDrawOverContour() const {
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && (personFramePlanSelector->markContinuousEdges() || personFramePlanSelector->markSingleEdges())) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && (personPlanFramePlanSelector->markContinuousEdges() || personPlanFramePlanSelector->markSingleEdges()))) {
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markEdges()) ||
+            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }

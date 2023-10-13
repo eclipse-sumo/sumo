@@ -296,6 +296,12 @@ GNEAdditional::checkDrawOverContour() const {
             ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
+    } else if ((myTagProperty.getTag() == SUMO_TAG_CONTAINER_STOP) && modes.isCurrentSupermodeDemand()) {
+        // check if we're in person or personPlan modes
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markContainerStops()) ||
+            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markContainerStops())) {
+            return myNet->getViewNet()->checkDrawOverContour(this);
+        }
     }
     return false;
 }

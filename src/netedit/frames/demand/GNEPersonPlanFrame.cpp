@@ -132,7 +132,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return myPlanCreator->addFromToStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (myPlanSelector->markTrainStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP)) {
         return myPlanCreator->addFromToStoppingPlace(objectsUnderCursor.getAdditionalFront());
-    } else if ((myPlanSelector->markSingleEdges() || myPlanSelector->markContinuousEdges()) && objectsUnderCursor.getEdgeFront()) {
+    } else if (myPlanSelector->markEdges() && objectsUnderCursor.getEdgeFront()) {
         return myPlanCreator->addFromToEdge(objectsUnderCursor.getEdgeFront());
     } else if (myPlanSelector->markJunctions() && objectsUnderCursor.getJunctionFront()) {
         return myPlanCreator->addFromToJunction(objectsUnderCursor.getJunctionFront());

@@ -209,10 +209,12 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     myCreationMode = 0;
     // set previous plan element
     myPreviousPlanElement = previousPlan;
-    // continue depending of planSelector
-    if (planSelector->markContinuousEdges()) {
+    // get current plan template
+    const auto &planTemplate = planSelector->getCurrentPlanTemplate()->getTagProperty();
+    // continue depending of plan selector template
+    if (planTemplate.planConsecutiveEdges()) {
         myCreationMode |= CONSECUTIVE_EDGES;
-    } else if (planSelector->markRoutes()) {
+    } else if (planTemplate.planRoute()) {
         myCreationMode |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
@@ -221,26 +223,51 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         myAbortCreationButton->hide();
         myRemoveLastInsertedElement->hide();
         myBackSpaceLabel->hide();
+    } else if (planTemplate.planBusStop()) {
+        myCreationMode |= BUSSTOP;
+        // hide other buttons and labels
+        myFinishCreationButton->hide();
+        myAbortCreationButton->hide();
+        myRemoveLastInsertedElement->hide();
+        myBackSpaceLabel->hide();
+    } else if (planTemplate.planTrainStop()) {
+        myCreationMode |= TRAINSTOP;
+        // hide other buttons and labels
+        myFinishCreationButton->hide();
+        myAbortCreationButton->hide();
+        myRemoveLastInsertedElement->hide();
+        myBackSpaceLabel->hide();
+    } else if (planTemplate.planContainerStop()) {
+        myCreationMode |= CONTAINERSTOP;
+        // hide other buttons and labels
+        myFinishCreationButton->hide();
+        myAbortCreationButton->hide();
+        myRemoveLastInsertedElement->hide();
+        myBackSpaceLabel->hide();
     } else {
-        if (planSelector->markSingleEdges()) {
+        if (planTemplate.planFromEdge() || planTemplate.planToEdge()) {
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
         }
-        if (planSelector->markJunctions()) {
+        if (planTemplate.planFromJunction() || planTemplate.planToJunction()) {
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
         }
-        if (planSelector->markTAZs()) {
+        if (planTemplate.planFromTAZ() || planTemplate.planToTAZ()) {
             myCreationMode |= START_TAZ;
             myCreationMode |= END_TAZ;
         }
-        if (planSelector->markBusStops()) {
+        if (planTemplate.planFromBusStop() || planTemplate.planToBusStop()) {
             myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
         }
-        if (planSelector->markTrainStops()) {
+        if (planTemplate.planFromTrainStop() || planTemplate.planToTrainStop()) {
             myCreationMode |= START_TRAINSTOP;
             myCreationMode |= END_TRAINSTOP;
+        }
+        if (planTemplate.planFromContainerStop() || planTemplate.planToContainerStop()) {
+            myCreationMode |= START_CONTAINERSTOP;
+            myCreationMode |= END_CONTAINERSTOP;
         }
     }
     // check if add first element

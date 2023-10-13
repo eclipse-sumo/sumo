@@ -214,23 +214,24 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over edges
-        ROUTE               = 1 << 1,   // Plan is placed over edge
-        EDGE                = 1 << 2,   // Plan is placed over a edge
-        BUSSTOP             = 1 << 3,   // Plan is placed over a busStop
-        TRAINSTOP           = 1 << 4,   // Plan is placed over a trainStop
-        CONTAINERSTOP       = 1 << 5,   // Plan is placed over a containerStop
+        CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over consecutive edges
+        ROUTE               = 1 << 1,   // Plan is placed over a single route
+        EDGE                = 1 << 2,   // Plan is placed over a single edge
+        BUSSTOP             = 1 << 3,   // Plan is placed over a single busStop
+        TRAINSTOP           = 1 << 4,   // Plan is placed over a single trainStop
+        CONTAINERSTOP       = 1 << 5,   // Plan is placed over a single containerStop
         START_EDGE          = 1 << 6,   // Plan begins in edge
-        END_EDGE            = 1 << 7,   // Plan ends in edge
+        START_TAZ           = 1 << 7,   // Plan begins in TAZ
         START_JUNCTION      = 1 << 8,   // Plan begins in junction
-        END_JUNCTION        = 1 << 9,   // Plan ends in junction
-        START_TAZ           = 1 << 10,  // Plan begins in TAZ
-        END_TAZ             = 1 << 11,  // Plan ends in TAZ
-        START_BUSSTOP       = 1 << 12,  // Plan begins in busStop
-        END_BUSSTOP         = 1 << 13,  // Plan ends in busStop
-        START_TRAINSTOP     = 1 << 14,  // Plan begins in trainStop
-        END_TRAINSTOP       = 1 << 15,  // Plan ends in trainStop
-        // stops and containerStops
+        START_BUSSTOP       = 1 << 9,   // Plan begins in busStop
+        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
+        START_CONTAINERSTOP = 1 << 11,  // Plan begins in containerStop
+        END_EDGE            = 1 << 12,  // Plan ends in edge
+        END_TAZ             = 1 << 13,  // Plan ends in TAZ
+        END_JUNCTION        = 1 << 14,  // Plan ends in junction
+        END_BUSSTOP         = 1 << 15,  // Plan ends in busStop
+        END_TRAINSTOP       = 1 << 16,  // Plan ends in trainStop
+        END_CONTAINERSTOP   = 1 << 17,  // Plan ends in containerStop
     };
 
     /// @brief clear edges

@@ -168,7 +168,6 @@ bool
 GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // only for plan over routes
         return myCurrentPlanTemplate->getTagProperty().planRoute();
     } else {
         return false;
@@ -177,24 +176,13 @@ GNEPlanSelector::markRoutes() const {
 
 
 bool
-GNEPlanSelector::markContinuousEdges() const {
+GNEPlanSelector::markEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // only for plan over continuousEdges
-        return myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges();
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanSelector::markSingleEdges() const {
-    // first check if this modul is shown and selected plan is valid
-    if (isPlanValid()) {
-        // for all plan routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
-               !myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() ||
+               myCurrentPlanTemplate->getTagProperty().planEdge() ||
+               myCurrentPlanTemplate->getTagProperty().planFromEdge() ||
+               myCurrentPlanTemplate->getTagProperty().planToEdge();
     } else {
         return false;
     }
@@ -205,11 +193,8 @@ bool
 GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan except containerPlans, rides, routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().isRide() &&
-               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
-               !myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate->getTagProperty().planFromJunction() ||
+               myCurrentPlanTemplate->getTagProperty().planToJunction();
     } else {
         return false;
     }
@@ -220,10 +205,9 @@ bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan containerPlans, routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
-               !myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate->getTagProperty().planBusStop() ||
+               myCurrentPlanTemplate->getTagProperty().planFromBusStop() ||
+               myCurrentPlanTemplate->getTagProperty().planToBusStop();
     } else {
         return false;
     }
@@ -234,10 +218,22 @@ bool
 GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan containerPlans, routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
-               !myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate->getTagProperty().planTrainStop() ||
+               myCurrentPlanTemplate->getTagProperty().planFromTrainStop() ||
+               myCurrentPlanTemplate->getTagProperty().planToTrainStop();
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanSelector::markContainerStops() const {
+    // first check if this modul is shown and selected plan is valid
+    if (isPlanValid()) {
+        return myCurrentPlanTemplate->getTagProperty().planContainerStop() ||
+               myCurrentPlanTemplate->getTagProperty().planFromContainerStop() ||
+               myCurrentPlanTemplate->getTagProperty().planToContainerStop();
     } else {
         return false;
     }
@@ -248,11 +244,8 @@ bool
 GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        // for all plan except containerPlans, rides, routes and continous edges
-        return !myCurrentPlanTemplate->getTagProperty().isContainerPlan() &&
-               !myCurrentPlanTemplate->getTagProperty().isRide() &&
-               !myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() &&
-               !myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate->getTagProperty().planFromTAZ() ||
+               myCurrentPlanTemplate->getTagProperty().planToTAZ();
     } else {
         return false;
     }
