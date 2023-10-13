@@ -154,7 +154,7 @@ private:
 
     JPS_GeometryBuilder myJPSGeometryBuilder;
     JPS_Geometry myJPSGeometry;
-    JPS_VelocityModelBuilder myJPSModelBuilder;
+    JPS_CollisionFreeSpeedModelBuilder myJPSModelBuilder;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
 

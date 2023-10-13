@@ -64,7 +64,7 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
-    JPS_VelocityModelBuilder_Free(myJPSModelBuilder);
+    JPS_CollisionFreeSpeedModelBuilder_Free(myJPSModelBuilder);
     JPS_Geometry_Free(myJPSGeometry);
     JPS_GeometryBuilder_Free(myJPSGeometryBuilder);
 
@@ -75,10 +75,11 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
 void
 MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
-	JPS_VelocityModelAgentParameters agent_parameters{};
+	JPS_CollisionFreeSpeedModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = state->getJourneyId();
 	agent_parameters.stageId = state->getStageId();
 	agent_parameters.position = {state->getPosition(*state->getStage(), 0).x(), state->getPosition(*state->getStage(), 0).y()};
+    /*
     const double angle = state->getAngle(*state->getStage(), 0);
     JPS_Point orientation;
     if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
@@ -91,6 +92,7 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
         orientation = JPS_Point{1., tan(angle)};
     }
     agent_parameters.orientation = orientation;
+    */
     agent_parameters.radius = 0.3;
     const MSVehicleType& type = state->getPerson()->getVehicleType();
     if (type.wasSet(VTYPEPARS_LENGTH_SET) || type.wasSet(VTYPEPARS_WIDTH_SET)) {
@@ -104,7 +106,7 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
     }
     agent_parameters.v0 = MIN2(type.getMaxSpeed(), type.getDesiredMaxSpeed());
     JPS_ErrorMessage message = nullptr;
-    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, &message);
+    JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding an agent: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
@@ -318,7 +320,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 registerArrived();
-                JPS_Simulation_RemoveAgent(myJPSSimulation, state->getAgentId(), nullptr);
+                JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, state->getAgentId(), nullptr);
                 stateIt = myPedestrianStates.erase(stateIt);                
             }
         } else {
@@ -718,8 +720,8 @@ MSPModel_JuPedSim::initialize() {
         JPS_ErrorMessage_Free(message);
         return;
     }
-    myJPSModelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
-    myJPSModel = JPS_VelocityModelBuilder_Build(myJPSModelBuilder, &message);
+    myJPSModelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
+    myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(myJPSModelBuilder, &message);
     if (myJPSModel == nullptr) {
         WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
