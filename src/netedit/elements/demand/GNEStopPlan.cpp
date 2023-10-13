@@ -88,6 +88,16 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_STOP);
     // write plan attributes
     writePlanAttributes(device);
+    // write stop attributes
+    if (isAttributeEnabled(SUMO_ATTR_DURATION)) {
+        device.writeAttr(SUMO_ATTR_DURATION, getAttribute(SUMO_ATTR_DURATION));
+    }
+    if (isAttributeEnabled(SUMO_ATTR_UNTIL)) {
+        device.writeAttr(SUMO_ATTR_UNTIL, getAttribute(SUMO_ATTR_UNTIL));
+    }
+    if (isAttributeEnabled(SUMO_ATTR_ACTTYPE)) {
+        device.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
+    }
     // close tag
     device.closeTag();
 }
