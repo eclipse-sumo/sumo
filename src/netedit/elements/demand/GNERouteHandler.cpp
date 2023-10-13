@@ -40,6 +40,7 @@
 #include "GNEVType.h"
 #include "GNEVTypeDistribution.h"
 #include "GNEWalk.h"
+#include "GNEStopPlan.h"
 
 // ===========================================================================
 // member method definitions
@@ -1037,10 +1038,72 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 void
-GNERouteHandler::buildPlanStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edge, const std::string& busStop,
-                               const std::string& trainStop, const std::string& containerStop, const double endPos, const SUMOTime duration,
-                               const SUMOTime until, const std::string &actType) {
-        XXXX
+GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
+                                 const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+    // parse parents
+    GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
+    GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, busStopID, false);
+    GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, trainStopID, false);
+    // check conditions
+    if (personParent) {
+        // build person stop
+        GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop, endPos, duration, until, actType);
+        // continue depending of undo-redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), personParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPlan, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
+            // set child references
+            personParent->addChildElement(stopPlan);
+            if (edge) {
+                edge->addChildElement(stopPlan);
+            }
+            if (busStop) {
+                busStop->addChildElement(stopPlan);
+            }
+            if (trainStop) {
+                trainStop->addChildElement(stopPlan);
+            }
+            stopPlan->incRef("buildPersonStop");
+        }
+    }
+}
+
+
+void
+GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
+                                    const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+    // parse parents
+    GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
+    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
+    GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, containerStopID, false);
+    // check conditions
+    if (containerParent) {
+        // build container stop
+        GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop, endPos, duration, until, actType);
+        // continue depending of undo-redo
+        if (myAllowUndoRedo) {
+            myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), containerParent->getID()));
+            overwriteDemandElement();
+            myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stopPlan, true), true);
+            myNet->getViewNet()->getUndoList()->end();
+        } else {
+            myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
+            // set child references
+            containerParent->addChildElement(stopPlan);
+            if (edge) {
+                edge->addChildElement(stopPlan);
+            }
+            if (containerStop) {
+                containerStop->addChildElement(stopPlan);
+            }
+            stopPlan->incRef("buildContainerStop");
+        }
+    }
 }
 
 

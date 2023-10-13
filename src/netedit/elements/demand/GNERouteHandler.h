@@ -153,10 +153,13 @@ public:
                        const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
                        const double departPosition, const double arrivalPosition);
 
-    /// @brief build ride
-    void buildPlanStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edge, const std::string& busStop,
-                       const std::string& trainStop, const std::string& containerStop, const double endPos, const SUMOTime duration,
-                       const SUMOTime until, const std::string &actType);
+    /// @brief build person stop
+    void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
+                         const std::string& trainStopID,const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType);
+
+    /// @brief build container stop
+    void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
+                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType);
     /// @}
 
     /// @brief build stop
