@@ -152,6 +152,11 @@ public:
     void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
                        const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
                        const double departPosition, const double arrivalPosition);
+
+    /// @brief build ride
+    void buildPlanStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edge, const std::string& busStop,
+                       const std::string& trainStop, const std::string& containerStop, const double endPos, const SUMOTime duration,
+                       const SUMOTime until, const std::string &actType);
     /// @}
 
     /// @brief build stop

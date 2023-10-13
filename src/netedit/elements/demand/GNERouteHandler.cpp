@@ -1037,6 +1037,14 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 void
+GNERouteHandler::buildPlanStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edge, const std::string& busStop,
+                               const std::string& trainStop, const std::string& containerStop, const double endPos, const SUMOTime duration,
+                               const SUMOTime until, const std::string &actType) {
+        XXXX
+}
+
+
+void
 GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
     // get obj parent
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
