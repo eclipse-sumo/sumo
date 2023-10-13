@@ -153,14 +153,14 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
     if (planTemplate == nullptr) {
         return false;
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
-        return GNEDemandElementPlan::getTagIconPersonTrip(
+        return GNEDemandElementPlan::getPersonTripTagIcon(
             getFromEdge(), getToEdge(),
             getFromTAZ(), getToTAZ(),
             getFromJunction(), getToJunction(),
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isWalk()) {
-        return GNEDemandElementPlan::getTagIconWalk(
+        return GNEDemandElementPlan::getWalkTagIcon(
             getConsecutiveEdges(), getRoute(),
             getFromEdge(), getToEdge(),
             getFromTAZ(), getToTAZ(),
@@ -168,16 +168,16 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isRide()) {
-        return GNEDemandElementPlan::getTagIconRide(
+        return GNEDemandElementPlan::getRideTagIcon(
         getFromEdge(), getToEdge(),
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isTransportPlan()) {
-        return GNEDemandElementPlan::getTagIconTransport(
+        return GNEDemandElementPlan::getTransportTagIcon(
             getFromEdge(), getToEdge(),
             getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isTranshipPlan()) {
-        return GNEDemandElementPlan::getTagIconTranship(
+        return GNEDemandElementPlan::getTranshipTagIcon(
             getConsecutiveEdges(),
             getFromEdge(), getToEdge(),
             getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;

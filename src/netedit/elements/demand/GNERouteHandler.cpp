@@ -1264,7 +1264,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                   {}, route->getID(), arrivalPos);
     } else if (planTemplate->getTagProperty().isWalk()) {
         // set walk tag
-        personPlanObject->setTag(GNEDemandElementPlan::getTagIconWalk({}, route,
+        personPlanObject->setTag(GNEDemandElementPlan::getWalkTagIcon({}, route,
                                  fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
                                  fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
         // from edges
@@ -1425,7 +1425,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         }
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
         // set person trip tag
-        personPlanObject->setTag(GNEDemandElementPlan::getTagIconPersonTrip( fromEdge, toEdge,
+        personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon( fromEdge, toEdge,
                                  fromTAZ, toTAZ, fromJunction, toJunction, fromBusStop, toBusStop,
                                  fromTrainStop, toTrainStop).first);
         // from edges
@@ -1586,7 +1586,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         }
     } else if (planTemplate->getTagProperty().isRide()) {
         // set ride tag
-        personPlanObject->setTag(GNEDemandElementPlan::getTagIconRide( fromEdge, toEdge,
+        personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon( fromEdge, toEdge,
                                  fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
         // from edges
         if (fromEdge && toEdge) {
@@ -1759,7 +1759,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
                   consecutiveEdges, speed, departPos, arrivalPos);
     } else if (planTemplate->getTagProperty().isTranshipPlan()) {
         // set tranship tag
-        containerPlanObject->setTag(GNEDemandElementPlan::getTagIconTranship({},
+        containerPlanObject->setTag(GNEDemandElementPlan::getTranshipTagIcon({},
                                     fromEdge, toEdge, fromContainerStop, toContainerStop).first);
         // from edges
         if (fromEdge && toEdge) {
@@ -1790,7 +1790,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
         }
     } else if (planTemplate->getTagProperty().isTransportPlan()) {
         // set container trip tag
-        containerPlanObject->setTag(GNEDemandElementPlan::getTagIconTransport(fromEdge, toEdge,
+        containerPlanObject->setTag(GNEDemandElementPlan::getTransportTagIcon(fromEdge, toEdge,
                                     fromContainerStop, toContainerStop).first);
         // from edges
         if (fromEdge && toEdge) {

@@ -38,7 +38,7 @@ GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
         const std::vector<std::string>& lines) {
     // declare icon an tag
-    const auto iconTag = getTagIconPersonTrip(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+    const auto iconTag = getPersonTripTagIcon(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
                                               fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
     std::vector<GNEJunction*> junctions;

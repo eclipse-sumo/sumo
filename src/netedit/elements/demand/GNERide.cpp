@@ -37,7 +37,7 @@ GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
         double arrivalPosition, const std::vector<std::string>& lines) {
     // declare icon an tag
-    const auto iconTag = getTagIconRide(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop);
+    const auto iconTag = getRideTagIcon(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
     std::vector<GNEJunction*> junctions;
     std::vector<GNEEdge*> edges;

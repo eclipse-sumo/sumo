@@ -36,7 +36,7 @@ GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
         GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
         GNEAdditional* toContainerStop, double arrivalPosition) {
     // declare icon an tag
-    const auto iconTag = getTagIconTransport(fromEdge, toEdge, fromContainerStop, toContainerStop);
+    const auto iconTag = getTransportTagIcon(fromEdge, toEdge, fromContainerStop, toContainerStop);
     // declare containers
     std::vector<GNEEdge*> edges;
     std::vector<GNEAdditional*> additionals;

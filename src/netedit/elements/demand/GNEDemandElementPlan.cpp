@@ -40,7 +40,7 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // ===========================================================================
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdges,
+GNEDemandElementPlan::getWalkTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
         const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
         const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
@@ -111,7 +111,7 @@ GNEDemandElementPlan::getTagIconWalk(const std::vector<GNEEdge*> &consecutiveEdg
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+GNEDemandElementPlan::getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
         const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
@@ -176,7 +176,7 @@ GNEDemandElementPlan::getTagIconPersonTrip(const GNEEdge* fromEdge, const GNEEdg
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+GNEDemandElementPlan::getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
     // special case for elements with from-to edge
@@ -207,7 +207,7 @@ GNEDemandElementPlan::getTagIconRide(const GNEEdge* fromEdge, const GNEEdge* toE
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconTransport(const GNEEdge* fromEdge, const GNEEdge* toEdge,
+GNEDemandElementPlan::getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
         const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop) {
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop) {
@@ -227,7 +227,7 @@ GNEDemandElementPlan::getTagIconTransport(const GNEEdge* fromEdge, const GNEEdge
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTagIconTranship(const std::vector<GNEEdge*> &consecutiveEdges,
+GNEDemandElementPlan::getTranshipTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
         const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
         const GNEAdditional* toContainerStop) {
     // special case for elements with from-to edge
@@ -243,6 +243,32 @@ GNEDemandElementPlan::getTagIconTranship(const std::vector<GNEEdge*> &consecutiv
         return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
     } else if (fromContainerStop && toContainerStop) {
         return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP, GUIIcon::TRANSHIP_CONTAINERSTOP);
+    } else {
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop, const GNEAdditional* trainStop) {
+    if (edge) {
+        return std::make_pair(GNE_TAG_STOPPERSON_EDGE, GUIIcon::STOPELEMENT);
+    } else if (busStop) {
+        return std::make_pair(GNE_TAG_STOPPERSON_BUSSTOP, GUIIcon::STOPELEMENT);
+    } else if (trainStop) {
+        return std::make_pair(GNE_TAG_STOPPERSON_TRAINSTOP, GUIIcon::STOPELEMENT);
+    } else {
+        return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
+    }
+}
+
+
+std::pair<SumoXMLTag, GUIIcon>
+GNEDemandElementPlan::getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop) {
+    if (edge) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_EDGE, GUIIcon::STOPELEMENT);
+    } else if (containerStop) {
+        return std::make_pair(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, GUIIcon::STOPELEMENT);
     } else {
         return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
     }
