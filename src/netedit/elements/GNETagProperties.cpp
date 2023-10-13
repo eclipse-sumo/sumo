@@ -179,6 +179,12 @@ GNETagProperties::getFieldString() const {
 }
 
 
+const std::string&
+GNETagProperties::getTooltipText() const {
+    return myTooltipText;
+}
+
+
 unsigned int
 GNETagProperties::getBackGroundColor() const {
     return myBackgroundColor;

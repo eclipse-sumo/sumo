@@ -154,6 +154,9 @@ public:
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
 
+    /// @brief get tooltip text
+    const std::string& getTooltipText() const;
+
     /// @brief get background color
     unsigned int getBackGroundColor() const;
 

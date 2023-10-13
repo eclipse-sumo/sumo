@@ -96,28 +96,20 @@ GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
     const auto net = myFrameParent->getViewNet()->getNet();
     // continue depending of plan type
     if (planType == SUMO_TAG_PERSON) {
-        // set list of person plans
-        myPlanTemplates.push_back(std::make_pair("PersonTrip", new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Ride", new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Walk", new GNEPersonTrip(GNE_TAG_WALK_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Walk (Edges)", new GNEPersonTrip(GNE_TAG_WALK_EDGES, net)));
-        myPlanTemplates.push_back(std::make_pair("Walk (Route)", new GNEPersonTrip(GNE_TAG_WALK_ROUTE, net)));
+        fillPersonPlanTemplates(net);
     } else if (planType == SUMO_TAG_CONTAINER) {
-        // set list of container plans
-        myPlanTemplates.push_back(std::make_pair("Transport", new GNETransport(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Tranship", new GNETranship(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
-        myPlanTemplates.push_back(std::make_pair("Tranship (Edges)", new GNETranship(GNE_TAG_TRANSHIP_EDGES, net)));
+        fillContainerPlanTemplates(net);
     } else {
         throw ProcessError("Invalid plan");
     }
     // add person plan elements
     for (const auto &planTemplate : myPlanTemplates) {
-        myPlansComboBox->appendIconItem(planTemplate.first, 
+        myPlansComboBox->appendIconItem(planTemplate.first.getTooltipText().c_str(), 
             GUIIconSubSys::getIcon(planTemplate.second->getTagProperty().getGUIIcon()),
             planTemplate.second->getTagProperty().getBackGroundColor());
     }
     // set myCurrentPlanTemplate
-    myCurrentPlanTemplate = myPlanTemplates.front().second;
+    myCurrentPlanTemplate = myPlanTemplates.front();
     // set color of myTypeMatchBox to black (valid)
     myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
     myPlansComboBox->killFocus();
@@ -148,7 +140,7 @@ GNEPlanSelector::hidePlanSelector() {
 
 GNEDemandElement*
 GNEPlanSelector::getCurrentPlanTemplate() const {
-    return myCurrentPlanTemplate;
+    return myCurrentPlanTemplate.second;
 }
 
 
@@ -168,7 +160,7 @@ bool
 GNEPlanSelector::markRoutes() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planRoute();
+        return myCurrentPlanTemplate.first.planRoute();
     } else {
         return false;
     }
@@ -179,10 +171,10 @@ bool
 GNEPlanSelector::markEdges() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planConsecutiveEdges() ||
-               myCurrentPlanTemplate->getTagProperty().planEdge() ||
-               myCurrentPlanTemplate->getTagProperty().planFromEdge() ||
-               myCurrentPlanTemplate->getTagProperty().planToEdge();
+        return myCurrentPlanTemplate.first.planConsecutiveEdges() ||
+               myCurrentPlanTemplate.first.planEdge() ||
+               myCurrentPlanTemplate.first.planFromEdge() ||
+               myCurrentPlanTemplate.first.planToEdge();
     } else {
         return false;
     }
@@ -193,8 +185,8 @@ bool
 GNEPlanSelector::markJunctions() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planFromJunction() ||
-               myCurrentPlanTemplate->getTagProperty().planToJunction();
+        return myCurrentPlanTemplate.first.planFromJunction() ||
+               myCurrentPlanTemplate.first.planToJunction();
     } else {
         return false;
     }
@@ -205,9 +197,9 @@ bool
 GNEPlanSelector::markBusStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planBusStop() ||
-               myCurrentPlanTemplate->getTagProperty().planFromBusStop() ||
-               myCurrentPlanTemplate->getTagProperty().planToBusStop();
+        return myCurrentPlanTemplate.first.planBusStop() ||
+               myCurrentPlanTemplate.first.planFromBusStop() ||
+               myCurrentPlanTemplate.first.planToBusStop();
     } else {
         return false;
     }
@@ -218,9 +210,9 @@ bool
 GNEPlanSelector::markTrainStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planTrainStop() ||
-               myCurrentPlanTemplate->getTagProperty().planFromTrainStop() ||
-               myCurrentPlanTemplate->getTagProperty().planToTrainStop();
+        return myCurrentPlanTemplate.first.planTrainStop() ||
+               myCurrentPlanTemplate.first.planFromTrainStop() ||
+               myCurrentPlanTemplate.first.planToTrainStop();
     } else {
         return false;
     }
@@ -231,9 +223,9 @@ bool
 GNEPlanSelector::markContainerStops() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planContainerStop() ||
-               myCurrentPlanTemplate->getTagProperty().planFromContainerStop() ||
-               myCurrentPlanTemplate->getTagProperty().planToContainerStop();
+        return myCurrentPlanTemplate.first.planContainerStop() ||
+               myCurrentPlanTemplate.first.planFromContainerStop() ||
+               myCurrentPlanTemplate.first.planToContainerStop();
     } else {
         return false;
     }
@@ -244,8 +236,8 @@ bool
 GNEPlanSelector::markTAZs() const {
     // first check if this modul is shown and selected plan is valid
     if (isPlanValid()) {
-        return myCurrentPlanTemplate->getTagProperty().planFromTAZ() ||
-               myCurrentPlanTemplate->getTagProperty().planToTAZ();
+        return myCurrentPlanTemplate.first.planFromTAZ() ||
+               myCurrentPlanTemplate.first.planToTAZ();
     } else {
         return false;
     }
@@ -256,9 +248,9 @@ long
 GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
     // check if selected plan of comboBox exists in plans
     for (const auto &planTemplate : myPlanTemplates) {
-        if (planTemplate.first == myPlansComboBox->getText()) {
+        if (planTemplate.first.getTooltipText().c_str() == myPlansComboBox->getText()) {
             // update myCurrentPlanTemplate
-            myCurrentPlanTemplate = planTemplate.second;
+            myCurrentPlanTemplate = planTemplate;
             // set color of myTypeMatchBox to black (valid)
             myPlansComboBox->setTextColor(FXRGB(0, 0, 0));
             myPlansComboBox->killFocus();
@@ -270,7 +262,7 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
         }
     }
     // reset myCurrentPlanTemplate
-    myCurrentPlanTemplate = nullptr;
+    myCurrentPlanTemplate = std::make_pair(GNETagProperties(), nullptr);
     // set color of myTypeMatchBox to red (invalid)
     myPlansComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -283,11 +275,75 @@ GNEPlanSelector::onCmdSelectPlan(FXObject*, FXSelector, void*) {
 
 bool
 GNEPlanSelector::isPlanValid() const {
-    if (myCurrentPlanTemplate) {
+    if (myCurrentPlanTemplate.second) {
         return myPlansComboBox->getTextColor() == FXRGB(0, 0, 0);
     } else {
         return false;
     }
+}
+
+
+void
+GNEPlanSelector::fillPersonPlanTemplates(GNENet* net) {
+    GNETagProperties tagProperty;
+    // person trip
+    tagProperty = GNETagProperties(SUMO_TAG_PERSONTRIP, 0, 0,
+        GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
+        GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ |
+        GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION |
+        GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
+        GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "PersonTrip");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
+    // ride
+    tagProperty = GNETagProperties(SUMO_TAG_RIDE, 0, 0,
+        GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
+        GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
+        GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Ride");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
+    // walk
+    tagProperty = GNETagProperties(SUMO_TAG_WALK, 0, 0,
+        GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
+        GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ |
+        GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION |
+        GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
+        GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Walk");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGE_EDGE, net)));
+    // walk (edges)
+    tagProperty = GNETagProperties(SUMO_TAG_WALK, 0, 0,
+        GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Walk (edges)");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGES, net)));
+    // walk (route)
+    tagProperty = GNETagProperties(SUMO_TAG_WALK, 0, 0,
+        GNETagProperties::TagParents::PLAN_ROUTE,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Walk (route)");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_ROUTE, net)));
+}
+
+
+void
+GNEPlanSelector::fillContainerPlanTemplates(GNENet* net) {
+    GNETagProperties tagProperty;
+    // person trip
+    tagProperty = GNETagProperties(SUMO_TAG_TRANSPORT, 0, 0,
+        GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
+        GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Transport");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETransport(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
+    // walk
+    tagProperty = GNETagProperties(SUMO_TAG_TRANSHIP, 0, 0,
+        GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
+        GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Tranship");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
+    // walk (edges)
+    tagProperty = GNETagProperties(SUMO_TAG_TRANSHIP, 0, 0,
+        GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
+        GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Tranship (edges)");
+    myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGES, net)));
 }
 
 /****************************************************************************/

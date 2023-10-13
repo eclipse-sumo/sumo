@@ -91,6 +91,12 @@ protected:
     /// @brief check if selected plan is valid
     bool isPlanValid() const;
 
+    /// @brief fill person templates
+    void fillPersonPlanTemplates(GNENet* net);
+
+    /// @brief fill container templates
+    void fillContainerPlanTemplates(GNENet* net);
+
 private:
     /// @brief pointer to Frame Parent
     GNEFrame* myFrameParent;
@@ -99,8 +105,8 @@ private:
     MFXComboBoxIcon* myPlansComboBox;
 
     /// @brief current plan template;
-    GNEDemandElement* myCurrentPlanTemplate;
+    std::pair<GNETagProperties, GNEDemandElement*> myCurrentPlanTemplate;
 
     /// @brief list with demand templates
-    std::vector<std::pair<FXString, GNEDemandElement*> > myPlanTemplates;
+    std::vector<std::pair<GNETagProperties, GNEDemandElement*> > myPlanTemplates;
 };
