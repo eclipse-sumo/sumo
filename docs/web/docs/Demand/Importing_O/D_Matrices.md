@@ -390,7 +390,7 @@ following scaling factors at page 31.
 | NRW other streets | 82,6%   | 74%     | 78,3%   | 71,6%   |
 | Bavaria           | 75%     | 67,2%   | 73,9%   | 64,7%   |
 
-One may note that this information is 15 years old. Additionally, no
+One may note that this information is several years old. Additionally, no
 information about the type of vehicles is given.
 
 A 24h time line a given O/D-matrix shall be split by may be given to
