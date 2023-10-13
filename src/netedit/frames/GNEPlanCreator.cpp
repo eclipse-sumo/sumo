@@ -181,6 +181,12 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
             getConsecutiveEdges(),
             getFromEdge(), getToEdge(),
             getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isStopPerson()) {
+        return GNEDemandElementPlan::getPersonStopTagIcon(
+            getEdge(), getBusStop(), getTrainStop()).first != SUMO_TAG_NOTHING;
+    } else if (planTemplate->getTagProperty().isStopContainer()) {
+        return GNEDemandElementPlan::getContainerStopTagIcon(
+            getEdge(), getContainerStop()).first != SUMO_TAG_NOTHING;
     } else {
         return false;
     }
@@ -638,6 +644,42 @@ GNEPlanCreator::getToContainerStop() const {
 GNEDemandElement*
 GNEPlanCreator::getRoute() const {
     return myRoute;
+}
+
+
+GNEEdge*
+GNEPlanCreator::getEdge() const {
+    return myEdge;
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getBusStop() const {
+    if (myStoppingPlace && myStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+        return myStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getTrainStop() const {
+    if (myStoppingPlace && myStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP) {
+        return myStoppingPlace;
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
+GNEPlanCreator::getContainerStop() const {
+    if (myStoppingPlace && myStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+        return myStoppingPlace;
+    } else {
+        return nullptr;
+    }
 }
 
 

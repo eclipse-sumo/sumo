@@ -161,8 +161,20 @@ public:
     /// @brief get to container stop
     GNEAdditional* getToContainerStop() const;
 
-    /// @brief get Route
+    /// @brief get route
     GNEDemandElement* getRoute() const;
+
+    /// @brief get edge
+    GNEEdge* getEdge() const;
+
+    /// @brief get busStop
+    GNEAdditional* getBusStop() const;
+
+    /// @brief get trainStop
+    GNEAdditional* getTrainStop() const;
+
+    /// @brief get containerStop
+    GNEAdditional* getContainerStop() const;
 
     /// @brief get path route
     const std::vector<PlanPath>& getPath() const;
@@ -202,18 +214,22 @@ protected:
 
     // @brief creation mode
     enum Mode {
-        CONSECUTIVE_EDGES   = 1 << 0,   // Plan requiere consecutive edges
-        ROUTE               = 1 << 1,   // Plan uses a route
-        START_EDGE          = 1 << 2,   // Plan begins in edge
-        END_EDGE            = 1 << 3,   // Plan ends in edge
-        START_JUNCTION      = 1 << 4,   // Plan begins in junction
-        END_JUNCTION        = 1 << 5,   // Plan ends in junction
-        START_TAZ           = 1 << 6,   // Plan begins in TAZ
-        END_TAZ             = 1 << 7,   // Plan ends in TAZ
-        START_BUSSTOP       = 1 << 8,   // Plan begins in busStop
-        END_BUSSTOP         = 1 << 9,   // Plan ends in busStop
-        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
-        END_TRAINSTOP       = 1 << 11,  // Plan ends in trainStop
+        CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over edges
+        ROUTE               = 1 << 1,   // Plan is placed over edge
+        EDGE                = 1 << 2,   // Plan is placed over a edge
+        BUSSTOP             = 1 << 3,   // Plan is placed over a busStop
+        TRAINSTOP           = 1 << 4,   // Plan is placed over a trainStop
+        CONTAINERSTOP       = 1 << 5,   // Plan is placed over a containerStop
+        START_EDGE          = 1 << 6,   // Plan begins in edge
+        END_EDGE            = 1 << 7,   // Plan ends in edge
+        START_JUNCTION      = 1 << 8,   // Plan begins in junction
+        END_JUNCTION        = 1 << 9,   // Plan ends in junction
+        START_TAZ           = 1 << 10,  // Plan begins in TAZ
+        END_TAZ             = 1 << 11,  // Plan ends in TAZ
+        START_BUSSTOP       = 1 << 12,  // Plan begins in busStop
+        END_BUSSTOP         = 1 << 13,  // Plan ends in busStop
+        START_TRAINSTOP     = 1 << 14,  // Plan begins in trainStop
+        END_TRAINSTOP       = 1 << 15,  // Plan ends in trainStop
         // stops and containerStops
     };
 
@@ -267,6 +283,12 @@ protected:
 
     /// @brief route
     GNEDemandElement* myRoute = nullptr;
+
+    /// @brief ege
+    GNEEdge* myEdge = nullptr;
+
+    /// @brief stoppingPlace
+    GNEAdditional* myStoppingPlace = nullptr;
 
     /// @brief vector with current path
     std::vector<PlanPath> myPath;
