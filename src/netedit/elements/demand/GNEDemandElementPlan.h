@@ -176,18 +176,21 @@ protected:
     /// @brief get plan problem
     std::string getPersonPlanProblem() const;
     
-    /// @brief depart position
+    /// @brief depart position (used in tranships)
     double myDepartPosition;
 
-    /// @brief arrival position
+    /// @brief arrival position (used in all plans over edges)
     double myArrivalPosition;
 
-    /// @brief arrival position diameter
-    static const double myArrivalPositionDiameter;
+    /// @brief end position (used in stops over edges)
+    double myEndPosition;
 
 private:
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
+
+    /// @brief arrival position diameter
+    static const double myArrivalPositionDiameter;
 
     /// @brief update geometry of plan that starts or ends in TAZ
     void updateTAZGeometry();

@@ -364,6 +364,10 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
     if (tagProperty.hasAttribute(SUMO_ATTR_ARRIVALPOS) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
+    // check if write end position
+    if (tagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
 }
 
 
@@ -393,26 +397,19 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
     const auto tagProperty = myPlanElement->getTagProperty();
     // get vclass parent
     auto vClassParent = myPlanElement->getParentDemandElements().at(0)->getVClass();
-    // get previous plan
-    const auto previousPlan = myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement);
-    // first check if this is the first plan
-    if (previousPlan) {
-        return previousPlan->getLastPathLane();
+    // continue depending of parents
+    if (tagProperty.planRoute()) {
+        // route
+        return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
+    } else if (tagProperty.planConsecutiveEdges() || tagProperty.planFromEdge() || tagProperty.planEdge()) {
+        // edges
+        return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
+    } else if (tagProperty.planFromStoppingPlace()) {
+        // additional
+        return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
     } else {
-        // check parents
-        if (tagProperty.planRoute()) {
-            // route
-            return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
-        } else if (tagProperty.planConsecutiveEdges() || tagProperty.planFromEdge() || tagProperty.planEdge()) {
-            // edges
-            return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
-        } else if (tagProperty.planFromStoppingPlace()) {
-            // additional
-            return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
-        } else {
-            // in other cases (TAZ, junctions, etc.) return null
-            return nullptr;
-        }
+        // in other cases (TAZ, junctions, etc.) return null
+        return nullptr;
     }
 }
 
@@ -588,6 +585,8 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myArrivalPosition);
             }
+        case SUMO_ATTR_ENDPOS:
+            return toString(myEndPosition);
         // edges
         case SUMO_ATTR_EDGES:
             return myPlanElement->parseIDs(myPlanElement->getParentEdges());
@@ -758,6 +757,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
         // common attributes
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
+        case SUMO_ATTR_ENDPOS:
         case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
             break;
@@ -781,6 +781,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_ENDPOS:
+            return GNEAttributeCarrier::canParse<double>(value);
         case GNE_ATTR_SELECTED:
             return GNEAttributeCarrier::canParse<bool>(value);
         default:
@@ -793,9 +795,9 @@ bool
 GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         // edges
-         case SUMO_ATTR_EDGES:
-         // edge
-         case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_EDGES:
+        // edge
+        case SUMO_ATTR_EDGE:
         // route
         case SUMO_ATTR_ROUTE:
         // from
@@ -843,6 +845,9 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
                 myArrivalPosition = GNEAttributeCarrier::parse<double>(value);
             }
             break;
+        case SUMO_ATTR_ENDPOS:
+            myEndPosition = GNEAttributeCarrier::parse<double>(value);
+            break;
         case GNE_ATTR_SELECTED:
             if (GNEAttributeCarrier::parse<bool>(value)) {
                 myPlanElement->selectAttributeCarrier();
@@ -881,6 +886,12 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
     } else if (tagProperty.planRoute()) {
         // route
         return result + myPlanElement->getParentDemandElements().at(1)->getID();
+    } else if (tagProperty.planEdge()) {
+        // edge
+        return result + myPlanElement->getParentEdges().front()->getID();
+    } else if (tagProperty.planBusStop() || tagProperty.planTrainStop() || tagProperty.planContainerStop()) {
+        // stoppingPlace
+        return myPlanElement->getParentJunctions().front()->getID();
     } else {
         // additional
         if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
