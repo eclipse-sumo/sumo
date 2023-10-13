@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-10 19:28+0200\n"
-"PO-Revision-Date: 2023-10-06 15:00+0000\n"
+"PO-Revision-Date: 2023-10-13 09:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1824,40 +1824,40 @@ msgstr "coefficiente di attrito della corsia [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1025
 msgid "netto occupancy [%]"
-msgstr ""
+msgstr "occupazione netta [%]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1027
 msgid "edge type"
-msgstr ""
+msgstr "tipo di arco"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1029
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:257
 msgid "priority"
-msgstr ""
+msgstr "priorità"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1030
 msgid "distance [km]"
-msgstr ""
+msgstr "distanza [km]"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1031
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "classe di veicoli ammessa"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1032
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "classe di veicoli esclusa"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1033
 msgid "permission code"
-msgstr ""
+msgstr "codice di ammissione"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1034
 msgid "color value"
-msgstr ""
+msgstr "valore del colore"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1036
 msgid "bidi-lane"
-msgstr ""
+msgstr "corsia bidirezionale"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1902,55 +1902,55 @@ msgstr "fermi [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:499
 msgid "stopped [#]"
-msgstr ""
+msgstr "veicoli fermi [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:501
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "velocità media [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:503
 msgid "avg. relative speed"
-msgstr ""
+msgstr "media della velocità relativa"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:506
 msgid "loaded persons [#]"
-msgstr ""
+msgstr "persone caricate [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:508
 msgid "running persons [#]"
-msgstr ""
+msgstr "persone in movimento [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:510
 msgid "jammed persons [#]"
-msgstr ""
+msgstr "persone bloccate [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr ""
+msgstr "tempo finale [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr ""
+msgstr "tempo iniziale [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
-msgstr ""
+msgstr "durata del passo [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:518
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:519
 msgid "simulation duration [ms]"
-msgstr ""
+msgstr "durata della simulazione [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:525
 msgid "idle duration [ms]"
-msgstr ""
+msgstr "durata di inattività [ms]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:526
 msgid "duration factor"
-msgstr ""
+msgstr "fattore di durata"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:532
 msgid "updates per second"
@@ -1994,7 +1994,7 @@ msgstr "durata media dei cammini [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:545
 msgid "avg. walk time loss [s]"
-msgstr "tempo morto medio nel corso di cammini [s]"
+msgstr "media di tempo morto nel corso di cammini [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:548
 msgid "nodes [#]"
@@ -2018,12 +2018,14 @@ msgstr "versione della rete "
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:667
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "Sto provando a impostare dati per l'arco sconosciuto '%'."
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:691
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
+"Sto provando a impostare dati per la relazione sconosciuta tra l'arco '%' e "
+"l'arco '%'."
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:709
 msgid "No data defined after simulation begin time."
@@ -2031,23 +2033,23 @@ msgstr "Nessun dato definito dopo il tempo iniziale della simulazione."
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:110
 msgid "occupancy [#]"
-msgstr ""
+msgstr "occupazione [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:111
 msgid "capacity [#]"
-msgstr ""
+msgstr "capacità [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIParkingArea.cpp:112
 msgid "alternatives [#]"
-msgstr ""
+msgstr "alternative [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:233
 msgid "dest stop [id]"
-msgstr ""
+msgstr "fermata di destinazione [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 msgid "arrival position [m]"
-msgstr ""
+msgstr "posizione di arrivo [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:241
 msgid "vehicle [id]"
@@ -2063,39 +2065,39 @@ msgstr "velocità desiderata massima [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:174
 msgid "Switch to '%'"
-msgstr ""
+msgstr "Attiva '%'"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:182
 msgid "Switch off"
-msgstr ""
+msgstr "Spegni"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:184
 msgid "Track Phases"
-msgstr ""
+msgstr "Grafico delle ultime fasi"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:185
 msgid "Show Phases"
-msgstr ""
+msgstr "Grafico delle fasi tratte dal ciclo semaforico"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Hide Detectors"
-msgstr ""
+msgstr "Nascondi rivelatori"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:188
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:192
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:196
 msgid "Show Detectors"
-msgstr ""
+msgstr "Mostra rivelatori"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:202
 msgid "Phase: %"
-msgstr ""
+msgstr "Fase: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:205
 msgid "Phase name: %"
-msgstr ""
+msgstr "Nome della fase: %"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:240
 msgid "tlLogic [id]"
@@ -2139,80 +2141,80 @@ msgstr "fine tardiva"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:251
 msgid "time in cycle"
-msgstr ""
+msgstr "tempo nel ciclo"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:252
 msgid "cycle time"
-msgstr ""
+msgstr "durata del ciclo"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:255
 msgid "blocking"
-msgstr ""
+msgstr "bloccando"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:256
 msgid "rival"
-msgstr ""
+msgstr "rivale"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:258
 msgid "constraint"
-msgstr ""
+msgstr "restrizione"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:104
 msgid "lane [id]"
-msgstr ""
+msgstr "corsia [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:106
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "corsia ombra [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:109
 msgid "target lane [id]"
-msgstr ""
+msgstr "corsia meta [id]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "corsia della coda [id,..]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "spostamento laterale [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:120
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "velocità laterale [m/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:122
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "accelerazione [m/s^2]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:126
 msgid "slope [degree]"
-msgstr ""
+msgstr "pendenza [grado]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:130
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "intervallo di tempo sulla corsia [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:134
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "tempo d'attesa (accumulato, % s) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:136
 msgid "time since startup [s]"
-msgstr ""
+msgstr "tempo dalla partenza [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:138
 msgid "time loss [s]"
-msgstr ""
+msgstr "tempo morto [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:140
 msgid "impatience"
-msgstr ""
+msgstr "impazienza"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:142
 msgid "last lane change [s]"
-msgstr ""
+msgstr "ultimo cambio di corsia [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
