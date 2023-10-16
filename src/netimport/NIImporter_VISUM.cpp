@@ -1161,7 +1161,7 @@ void NIImporter_VISUM::parse_stopPoints() {
     if (edgeID == "") {
         WRITE_WARNINGF(TL("Ignoring stopping place '%' without edge id"), id);
     } else if (from == nullptr && to == nullptr) {
-        WRITE_WARNINGF(TL("Ignoring stopping place '%' without node informatio"), id);
+        WRITE_WARNINGF(TL("Ignoring stopping place '%' without node information"), id);
     } else {
         NBEdge* edge = getNamedEdge(KEYS.getString(VISUM_LINKNO));
         if (edge == nullptr) {
