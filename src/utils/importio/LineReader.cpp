@@ -209,6 +209,7 @@ LineReader::reinit() {
             mySkipBOM = 3;
             myAvailable -= mySkipBOM;
         } else {
+            mySkipBOM = 0;
             myStrm.seekg(0, std::ios::beg);
         }
     }
