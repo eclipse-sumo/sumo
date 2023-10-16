@@ -95,12 +95,15 @@ public:
     /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
 
-    /// @brief get vClass
-    SUMOVehicleClass getVClass() const;
+    /// @brief add route
+    bool addRoute(GNEDemandElement* route);
 
-    /// @brief set vClass
-    void setVClass(SUMOVehicleClass vClass);
-    
+    /// @brief add edge
+    bool addEdge(GNEDemandElement* route);
+
+    /// @brief add stoppingPlace
+    bool addStoppingPlace(GNEDemandElement* route);
+
     /// @brief add consecutive edge
     bool addConsecutiveEdge(GNEEdge* edge);
 
@@ -115,9 +118,6 @@ public:
     
     /// @brief add from to stoppingPlace
     bool addFromToStoppingPlace(GNEAdditional* stoppingPlace);
-
-    /// @brief add route
-    bool addRoute(GNEDemandElement* route);
 
     /// @brief get consecutive edge
     const std::vector<GNEEdge*> getConsecutiveEdges() const;
@@ -210,10 +210,11 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEPlanCreator)
 
-    // @brief creation mode
-    enum Mode {
+    // @brief planParents
+    enum PlanParents {
         CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over consecutive edges
         ROUTE               = 1 << 1,   // Plan is placed over a single route
         EDGE                = 1 << 2,   // Plan is placed over a single edge
@@ -246,8 +247,8 @@ protected:
     /// @brief current vClass
     SUMOVehicleClass myVClass;
 
-    /// @brief current creation mode
-    int myCreationMode;
+    /// @brief allowed plan parents
+    int myPlanParents;
 
     /// @brief previous person plan element
     const GNEDemandElement* myPreviousPlanElement = nullptr;
@@ -306,8 +307,8 @@ protected:
     /// @brief button for removing last inserted element
     FXButton* myRemoveLastInsertedElement;
 
-    /// @brief label for backSpace information
-    FXLabel* myBackSpaceLabel;
+    /// @brief info label
+    FXLabel* myInfoLabel;
 
 private:
     /// @brief get number of selected elements
@@ -315,6 +316,12 @@ private:
 
     /// @brief check if enable remove last item button
     void updateRemoveLastItemButton() const;
+
+    /// @brief show creation buttons
+    void showCreationButtons();
+
+    /// @brief hide creation buttons
+    void hideCreationButtons();
 
     /// @brief Invalidated copy constructor.
     GNEPlanCreator(GNEPlanCreator*) = delete;

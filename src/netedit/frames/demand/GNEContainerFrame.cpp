@@ -64,9 +64,6 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
 
     // create legend label
     myPathLegend = new GNEPathLegendModule(this);
-
-    // limit path creator to pedestrians
-    myPlanCreator->setVClass(SVC_PEDESTRIAN);
 }
 
 
@@ -81,12 +78,6 @@ GNEContainerFrame::show() {
     myContainerTagSelector->refreshTagSelector();
     myTypeSelector->refreshDemandElementSelector();
     myPlanSelector->refreshPlanSelector();
-    // update VClass of myPlanCreator
-    if (myPlanSelector->getCurrentPlanTemplate() && myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-        myPlanCreator->setVClass(SVC_PASSENGER);
-    } else {
-        myPlanCreator->setVClass(SVC_PEDESTRIAN);
-    }
     // show frame
     GNEFrame::show();
 }
@@ -193,22 +184,10 @@ GNEContainerFrame::tagSelected() {
                 myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
-                // show path creator depending of tag
-                if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer() ||
-                        (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-                    myPlanCreator->hidePathCreatorModule();
-                } else {
-                    // update VClass of myPlanCreator depending if container is a ride
-                    if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-                        myPlanCreator->setVClass(SVC_PASSENGER);
-                    } else {
-                        myPlanCreator->setVClass(SVC_PEDESTRIAN);
-                    }
-                    // show edge path creator module
-                    myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
-                    // show path legend
-                    myPathLegend->showPathLegendModule();
-                }
+                // show edge path creator module
+                myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
+                // show path legend
+                myPathLegend->showPathLegendModule();
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
@@ -251,12 +230,6 @@ GNEContainerFrame::demandElementSelected() {
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
         if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
-            // update VClass of myPlanCreator depending if container is a ride
-            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-                myPlanCreator->setVClass(SVC_PASSENGER);
-            } else {
-                myPlanCreator->setVClass(SVC_PEDESTRIAN);
-            }
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module

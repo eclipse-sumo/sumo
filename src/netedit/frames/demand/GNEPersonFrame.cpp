@@ -64,9 +64,6 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
 
     // create legend label
     myPathLegend = new GNEPathLegendModule(this);
-
-    // limit path creator to pedestrians
-    myPlanCreator->setVClass(SVC_PEDESTRIAN);
 }
 
 
@@ -81,12 +78,6 @@ GNEPersonFrame::show() {
     myPersonTagSelector->refreshTagSelector();
     myTypeSelector->refreshDemandElementSelector();
     myPlanSelector->refreshPlanSelector();
-    // update VClass of myPlanCreator
-    if (myPlanSelector->getCurrentPlanTemplate() && myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-        myPlanCreator->setVClass(SVC_PASSENGER);
-    } else {
-        myPlanCreator->setVClass(SVC_PEDESTRIAN);
-    }
     // show frame
     GNEFrame::show();
 }
@@ -193,22 +184,10 @@ GNEPersonFrame::tagSelected() {
                 myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
                 myNeteditAttributes->showNeteditAttributesModule(myPlanSelector->getCurrentPlanTemplate());
-                // show path creator depending of tag
-                if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopPerson() ||
-                        (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-                    myPlanCreator->hidePathCreatorModule();
-                } else {
-                    // update VClass of myPlanCreator depending if person is a ride
-                    if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-                        myPlanCreator->setVClass(SVC_PASSENGER);
-                    } else {
-                        myPlanCreator->setVClass(SVC_PEDESTRIAN);
-                    }
-                    // show edge path creator module
-                    myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
-                    // show path legend
-                    myPathLegend->showPathLegendModule();
-                }
+                // show edge path creator module
+                myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
+                // show path legend
+                myPathLegend->showPathLegendModule();
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModule();
@@ -251,12 +230,6 @@ GNEPersonFrame::demandElementSelected() {
         myPlanSelector->showPlanSelector();
         // now check if person plan selected is valid
         if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
-            // update VClass of myPlanCreator depending if person is a ride
-            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isRide()) {
-                myPlanCreator->setVClass(SVC_PASSENGER);
-            } else {
-                myPlanCreator->setVClass(SVC_PEDESTRIAN);
-            }
             // show person plan attributes
             myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module

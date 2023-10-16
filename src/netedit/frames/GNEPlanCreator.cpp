@@ -127,7 +127,7 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myCreationMode(0) {
+    myPlanParents(0) {
     // create button for use last route
     myUseLastRoute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use last route"), "", "", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
@@ -140,8 +140,8 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     // create button for remove last inserted edge
     myRemoveLastInsertedElement = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Remove last element"), "", "", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
-    // create backspace label (always shown)
-    myBackSpaceLabel = new FXLabel(this, "BACKSPACE: undo click", 0, GUIDesignLabelFrameInformation);
+    // create info label
+    myInfoLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -197,78 +197,72 @@ void
 GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement *previousPlan) {
     // first abort creation
     abortPathCreation();
-    // hide use last inserted route
-    myUseLastRoute->hide();
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedElement->disable();
-    // show label
-    myBackSpaceLabel->show();
-    // reset creation mode
-    myCreationMode = 0;
+    // hide creation buttons
+    hideCreationButtons();
+    // reset plan parents
+    myPlanParents = 0;
     // set previous plan element
     myPreviousPlanElement = previousPlan;
     // get current plan template
     const auto &planTemplate = planSelector->getCurrentPlanTemplate()->getTagProperty();
     // continue depending of plan selector template
-    if (planTemplate.planConsecutiveEdges()) {
-        myCreationMode |= CONSECUTIVE_EDGES;
-    } else if (planTemplate.planRoute()) {
-        myCreationMode |= ROUTE;
+    if (planTemplate.planRoute()) {
+        myPlanParents |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
-        // hide other buttons and labels
-        myFinishCreationButton->hide();
-        myAbortCreationButton->hide();
-        myRemoveLastInsertedElement->hide();
-        myBackSpaceLabel->hide();
-    } else if (planTemplate.planBusStop()) {
-        myCreationMode |= BUSSTOP;
-        // hide other buttons and labels
-        myFinishCreationButton->hide();
-        myAbortCreationButton->hide();
-        myRemoveLastInsertedElement->hide();
-        myBackSpaceLabel->hide();
-    } else if (planTemplate.planTrainStop()) {
-        myCreationMode |= TRAINSTOP;
-        // hide other buttons and labels
-        myFinishCreationButton->hide();
-        myAbortCreationButton->hide();
-        myRemoveLastInsertedElement->hide();
-        myBackSpaceLabel->hide();
-    } else if (planTemplate.planContainerStop()) {
-        myCreationMode |= CONTAINERSTOP;
-        // hide other buttons and labels
-        myFinishCreationButton->hide();
-        myAbortCreationButton->hide();
-        myRemoveLastInsertedElement->hide();
-        myBackSpaceLabel->hide();
     } else {
-        if (planTemplate.planFromEdge() || planTemplate.planToEdge()) {
-            myCreationMode |= START_EDGE;
-            myCreationMode |= END_EDGE;
-        }
-        if (planTemplate.planFromJunction() || planTemplate.planToJunction()) {
-            myCreationMode |= START_JUNCTION;
-            myCreationMode |= END_JUNCTION;
-        }
-        if (planTemplate.planFromTAZ() || planTemplate.planToTAZ()) {
-            myCreationMode |= START_TAZ;
-            myCreationMode |= END_TAZ;
-        }
-        if (planTemplate.planFromBusStop() || planTemplate.planToBusStop()) {
-            myCreationMode |= START_BUSSTOP;
-            myCreationMode |= END_BUSSTOP;
-        }
-        if (planTemplate.planFromTrainStop() || planTemplate.planToTrainStop()) {
-            myCreationMode |= START_TRAINSTOP;
-            myCreationMode |= END_TRAINSTOP;
-        }
-        if (planTemplate.planFromContainerStop() || planTemplate.planToContainerStop()) {
-            myCreationMode |= START_CONTAINERSTOP;
-            myCreationMode |= END_CONTAINERSTOP;
-        }
+        // hide use last inserted route
+        myUseLastRoute->hide();
+    }
+    if (planTemplate.planBusStop()) {
+        myPlanParents |= BUSSTOP;
+    } 
+    if (planTemplate.planTrainStop()) {
+        myPlanParents |= TRAINSTOP;
+    } 
+    if (planTemplate.planContainerStop()) {
+        myPlanParents |= CONTAINERSTOP;
+    }
+    if (planTemplate.planConsecutiveEdges()) {
+        myPlanParents |= CONSECUTIVE_EDGES;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromEdge() || planTemplate.planToEdge()) {
+        myPlanParents |= START_EDGE;
+        myPlanParents |= END_EDGE;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromJunction() || planTemplate.planToJunction()) {
+        myPlanParents |= START_JUNCTION;
+        myPlanParents |= END_JUNCTION;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromTAZ() || planTemplate.planToTAZ()) {
+        myPlanParents |= START_TAZ;
+        myPlanParents |= END_TAZ;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromBusStop() || planTemplate.planToBusStop()) {
+        myPlanParents |= START_BUSSTOP;
+        myPlanParents |= END_BUSSTOP;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromTrainStop() || planTemplate.planToTrainStop()) {
+        myPlanParents |= START_TRAINSTOP;
+        myPlanParents |= END_TRAINSTOP;
+        // show creation buttons
+        showCreationButtons();
+    }
+    if (planTemplate.planFromContainerStop() || planTemplate.planToContainerStop()) {
+        myPlanParents |= START_CONTAINERSTOP;
+        myPlanParents |= END_CONTAINERSTOP;
+        // show creation buttons
+        showCreationButtons();
     }
     // check if add first element
     if (myPreviousPlanElement) {
@@ -283,6 +277,12 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         } else if (tagProperty.planToStoppingPlace()) {
             addFromToStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
         }
+    }
+    // set vClass
+    if (planTemplate.isRide() || planTemplate.isContainerPlan()) {
+        myVClass = SVC_PASSENGER;
+    } else {
+        myVClass = SVC_PASSENGER;
     }
     // recalc before show (to avoid graphic problems)
     recalc();
@@ -300,22 +300,66 @@ GNEPlanCreator::hidePathCreatorModule() {
 }
 
 
-SUMOVehicleClass
-GNEPlanCreator::getVClass() const {
-    return myVClass;
+bool
+GNEPlanCreator::addRoute(GNEDemandElement* route) {
+    if (route == nullptr) {
+        return false;
+    }
+    // check if routes are allowed
+    if ((myPlanParents & ROUTE) == 0) {
+        return false;
+    }
+    // check double routes
+    if (myFromRoute && (myFromRoute == route)) {
+        // Write warning
+        WRITE_WARNING(TL("Double routes aren't allowed"));
+        // abort add route
+        return false;
+    }
+    // check number of selected items
+    if (myRoute) {
+        // Write warning
+        WRITE_WARNING(TL("Route already selected"));
+        // abort add function
+        return false;
+    }
+    // add route
+    myRoute = route;
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last route button
+    if (getNumberOfSelectedElements() == 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // recalculate path
+    recalculatePath();
+    // stopping place added, then return true
+    return true;
 }
 
 
-void
-GNEPlanCreator::setVClass(SUMOVehicleClass vClass) {
-    myVClass = vClass;
+bool
+GNEPlanCreator::addEdge(GNEDemandElement* route) {
+    return false;
+}
+
+
+bool
+GNEPlanCreator::addStoppingPlace(GNEDemandElement* route) {
+    return false;
 }
 
 
 bool
 GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
     // check if edges are allowed
-    if ((myCreationMode & CONSECUTIVE_EDGES) == 0) {
+    if ((myPlanParents & CONSECUTIVE_EDGES) == 0) {
         return false;
     }
     // check double edges
@@ -345,7 +389,7 @@ GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
 bool
 GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     // check if junctions are allowed
-    if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
+    if (((myPlanParents & START_JUNCTION) == 0) && ((myPlanParents & END_JUNCTION) == 0)) {
         return false;
     }
     // avoid double junctions
@@ -385,7 +429,7 @@ GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
 bool
 GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     // check if TAZs are allowed
-    if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
+    if (((myPlanParents & START_JUNCTION) == 0) && ((myPlanParents & END_JUNCTION) == 0)) {
         return false;
     }
     // avoid double TAZs
@@ -425,7 +469,7 @@ GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
 bool
 GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     // check if edges are allowed
-    if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
+    if (((myPlanParents & START_EDGE) == 0) && ((myPlanParents & END_EDGE) == 0)) {
         return false;
     }
     // check double edges
@@ -469,8 +513,8 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
         return false;
     }
     // check if stoppingPlaces are allowed
-    if (((myCreationMode & START_BUSSTOP) == 0) && ((myCreationMode & END_BUSSTOP) == 0) &&
-        ((myCreationMode & START_TRAINSTOP) == 0) && ((myCreationMode & END_TRAINSTOP) == 0)) {
+    if (((myPlanParents & START_BUSSTOP) == 0) && ((myPlanParents & END_BUSSTOP) == 0) &&
+        ((myPlanParents & START_TRAINSTOP) == 0) && ((myPlanParents & END_TRAINSTOP) == 0)) {
         return false;
     }
     // check double stoppingPlaces
@@ -500,50 +544,6 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
     // enable or disable remove last stoppingPlace button
-    if (getNumberOfSelectedElements() == 1) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
-    // recalculate path
-    recalculatePath();
-    // stopping place added, then return true
-    return true;
-}
-
-
-bool
-GNEPlanCreator::addRoute(GNEDemandElement* route) {
-    if (route == nullptr) {
-        return false;
-    }
-    // check if routes are allowed
-    if ((myCreationMode & ROUTE) == 0) {
-        return false;
-    }
-    // check double routes
-    if (myFromRoute && (myFromRoute == route)) {
-        // Write warning
-        WRITE_WARNING(TL("Double routes aren't allowed"));
-        // abort add route
-        return false;
-    }
-    // check number of selected items
-    if (myRoute) {
-        // Write warning
-        WRITE_WARNING(TL("Route already selected"));
-        // abort add function
-        return false;
-    }
-    // add route
-    myRoute = route;
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // enable or disable remove last route button
     if (getNumberOfSelectedElements() == 1) {
         myRemoveLastInsertedElement->enable();
     } else {
@@ -879,7 +879,7 @@ GNEPlanCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
 
 long
 GNEPlanCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
-    if ((myCreationMode & ROUTE) && myFrameParent->getViewNet()->getLastCreatedRoute()) {
+    if ((myPlanParents & ROUTE) && myFrameParent->getViewNet()->getLastCreatedRoute()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -991,6 +991,26 @@ GNEPlanCreator::updateRemoveLastItemButton() const {
             myRemoveLastInsertedElement->disable();
         }
     }
+}
+
+
+void
+GNEPlanCreator::showCreationButtons() {
+    myFinishCreationButton->show();
+    myAbortCreationButton->show();
+    myRemoveLastInsertedElement->show();
+    // show label
+    myInfoLabel->setText(TL("- Click over scenario elements\n  for creating from-toplans"));
+}
+
+
+void
+GNEPlanCreator::hideCreationButtons() {
+    myFinishCreationButton->hide();
+    myAbortCreationButton->hide();
+    myRemoveLastInsertedElement->hide();
+    // set text
+    myInfoLabel->setText(TL("- Click over scenario elements\n  for creating plans"));
 }
 
 /****************************************************************************/
