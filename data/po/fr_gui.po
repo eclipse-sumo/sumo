@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-03-28 15:53+0000\n"
+"PO-Revision-Date: 2023-10-16 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -627,8 +628,8 @@ msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
 msgstr ""
-"Temps:\tBasculer le format des temps\tBasculer l'affichage entre secondes et"
-" heures:minutes:secondes."
+"Temps :\tBasculer le format des temps\tBasculer l'affichage entre secondes "
+"et heures :minutes :secondes."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:703
 msgid ""
@@ -781,7 +782,7 @@ msgstr "Echec sauvegarde configuration à %."
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1268
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2124
 msgid "No simulation loaded!"
-msgstr "Aucune simulation chargée!"
+msgstr "Aucune simulation chargée !"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1284
 msgid "Save Simulation State"
@@ -1121,7 +1122,7 @@ msgstr "Sauvegarder Points d'arrêt"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1119
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1200
 msgid "Storing failed!"
-msgstr "Echec sauvegarde!"
+msgstr "Echec sauvegarde !"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:244
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:247
@@ -2719,7 +2720,7 @@ msgstr "Sauvegarde au format Plain XML avec le préfixe '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3257
 msgid "Saving plain xml failed!"
-msgstr "Echec sauvegarde au format plain xml!"
+msgstr "Echec sauvegarde au format plain xml !"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3281
 msgid "Joined junctions saved to '"
@@ -3782,9 +3783,8 @@ msgid "Load additionals in sumo-gui"
 msgstr "Chargement de données additionnelles depuis '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1304
-#, fuzzy
 msgid "Load additionals in sumo-gui."
-msgstr "Chargement de données additionnelles depuis '"
+msgstr "Chargement de données additionnelles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1308
 msgid "Load demand in sumo-gui"
@@ -14339,11 +14339,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
-msgstr ""
+msgstr "Valeur"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:78
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamique"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
