@@ -41,14 +41,17 @@ public:
     class PlanPath {
 
     public:
-        /// @brief constructor for single edge
-        PlanPath(const SUMOVehicleClass vClass, GNEEdge* edge);
+        /// @brief constructor for from-to edges
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
 
-        /// @brief constructor for two edges
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+        /// @brief constructor for from edge and to junction
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
 
-        /// @brief constructor for two junctions
-        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* junctionFrom, GNEJunction* junctionTo);
+        /// @brief constructor for from junction and to edge
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge);
+
+        /// @brief constructor for from-to edges
+        PlanPath(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
 
         /// @brief get sub path
         const std::vector<GNEEdge*>& getSubPath() const;

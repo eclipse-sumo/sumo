@@ -262,34 +262,34 @@ GNEPathManager::PathCalculator::updatePathCalculator() {
 
 
 std::vector<GNEEdge*>
-GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial myEdges
-    if (partialEdges.size() == 0) {
+    if (edges.size() == 0) {
         // partial edges empty, then return a empty vector
         return solution;
     }
     // check if path calculator is updated
     if (!myPathCalculatorUpdated) {
         // use partialEdges as solution
-        solution = partialEdges;
+        solution = edges;
         return solution;
     }
-    if (partialEdges.size() == 1) {
+    if (edges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
-        solution.push_back(partialEdges.front());
+        solution.push_back(edges.front());
         return solution;
     } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // obtain pointer to GNENet
-        GNENet* net = partialEdges.front()->getNet();
+        GNENet* net = edges.front()->getNet();
         // iterate over every selected myEdges
-        for (int i = 1; i < (int)partialEdges.size(); i++) {
+        for (int i = 1; i < (int)edges.size(); i++) {
             // declare a temporal route in which save route between two last myEdges
             std::vector<const NBRouterEdge*> partialRoute;
-            myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+            myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
             // save partial route in solution
             for (const auto& edgeID : partialRoute) {
                 solution.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID->getID()));
@@ -316,7 +316,47 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
 
 
 std::vector<GNEEdge*>
-GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const GNEJunction* fromJunction, const GNEJunction* toJunction) const {
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) const {
+    return calculateDijkstraPath(vClass, {fromEdge, toEdge});
+}
+
+
+std::vector<GNEEdge*>
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) const {
+    std::vector<GNEEdge*> edges;
+    // get from and to edges
+    const auto toEdges = toJunction->getGNEIncomingEdges();
+    // try to find a path
+    for (const auto& toEdge : toEdges) {
+        edges = calculateDijkstraPath(vClass, fromEdge, toEdge);
+        // if a path was found, clean it
+        if (edges.size() > 0) {
+            return optimizeJunctionPath(edges);
+        }
+    }
+    return {};
+}
+
+
+std::vector<GNEEdge*>
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) const {
+    std::vector<GNEEdge*> edges;
+    // get from and to edges
+    const auto fromEdges = fromJunction->getGNEOutgoingEdges();
+    // try to find a path
+    for (const auto& fromEdge : fromEdges) {
+        edges = calculateDijkstraPath(vClass, fromEdge, toEdge);
+        // if a path was found, clean it
+        if (edges.size() > 0) {
+            return optimizeJunctionPath(edges);
+        }
+    }
+    return {};
+}
+
+
+std::vector<GNEEdge*>
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction) const {
     std::vector<GNEEdge*> edges;
     // get from and to edges
     const auto fromEdges = fromJunction->getGNEOutgoingEdges();
@@ -324,7 +364,7 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
     // try to find a path
     for (const auto& fromEdge : fromEdges) {
         for (const auto& toEdge : toEdges) {
-            edges = calculateDijkstraPath(vClass, {fromEdge, toEdge});
+            edges = calculateDijkstraPath(vClass, fromEdge, toEdge);
             // if a path was found, clean it
             if (edges.size() > 0) {
                 return optimizeJunctionPath(edges);

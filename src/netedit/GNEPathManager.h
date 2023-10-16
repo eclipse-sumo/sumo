@@ -232,11 +232,20 @@ public:
         /// @brief update path calculator (called when SuperModes Demand or Data is selected)
         void updatePathCalculator();
 
-        /// @brief calculate Dijkstra path between a list of partial edges
-        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
+        /// @brief calculate Dijkstra path between a list of edges (for example, from-via-to edges)
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+
+        /// @brief calculate Dijkstra path between one edge 
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) const;
+
+        /// @brief calculate Dijkstra path between from edge and to junction
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) const;
+
+        /// @brief calculate Dijkstra path between from junction and to edge
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) const;
 
         /// @brief calculate Dijkstra path between two Junctions
-        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const GNEJunction* fromJunction, const GNEJunction* toJunction) const;
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction) const;
 
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
