@@ -109,10 +109,10 @@ GNEViewNetHelper::LockManager::isObjectLocked(GUIGlObjectType objectType, const 
         return myLockedElements.at(GLO_PERSON).lock;
     } else if ((objectType == GLO_CONTAINER) || (objectType == GLO_CONTAINERFLOW)) {
         // containers
-        return myLockedElements.at(GLO_PERSON).lock;
-    } else if ((objectType >= GLO_STOP) && (objectType <= GLO_STOP_CONTAINER)) {
+        return myLockedElements.at(GLO_CONTAINER).lock;
+    } else if ((objectType >= GLO_STOP) && (objectType <= GLO_STOP_PLAN)) {
         // stops
-        return myLockedElements.at(GLO_ADDITIONALELEMENT).lock;
+        return myLockedElements.at(GLO_STOP).lock;
     } else {
         return myLockedElements.at(objectType).lock;
     }
@@ -4100,8 +4100,8 @@ GNEViewNetHelper::filterElementsByLayer(const std::vector<GUIGlObject*>& GLObjec
             if ((GLO_RIDE <= firstLayer) && (firstLayer <= GLO_TRANSHIP) &&
                     (GLO_RIDE <= GLObject->getType()) && (GLObject->getType() <= GLO_TRANSHIP)) {
                 filteredGLObjects.push_back(GLObject);
-            } else if ((GLO_STOP <= firstLayer) && (firstLayer <= GLO_STOP_CONTAINER) &&
-                       (GLO_STOP <= GLObject->getType()) && (GLObject->getType() <= GLO_STOP_CONTAINER)) {
+            } else if ((GLO_STOP <= firstLayer) && (firstLayer <= GLO_STOP_PLAN) &&
+                       (GLO_STOP <= GLObject->getType()) && (GLObject->getType() <= GLO_STOP_PLAN)) {
                 filteredGLObjects.push_back(GLObject);
             } else if ((GLO_VEHICLE <= firstLayer) && (firstLayer <= GLO_ROUTEFLOW) &&
                        (GLO_VEHICLE <= GLObject->getType()) && (GLObject->getType() <= GLO_ROUTEFLOW)) {
