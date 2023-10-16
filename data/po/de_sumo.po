@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:12+0200\n"
-"PO-Revision-Date: 2023-07-19 08:31+0000\n"
+"PO-Revision-Date: 2023-10-16 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/applications/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -57,7 +58,7 @@ msgstr "Zuweisung von Autostellplätzen"
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Ungültiger Wert % der Kante % wird zu Null angenommen."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, c-format
@@ -1090,6 +1091,10 @@ msgid ""
 "in other vehicle or flow definitions. Please remove all references to route "
 "'%' in case it is internal."
 msgstr ""
+"Interne Routen erhalten eine mit '!' beginnende ID und dürfen nicht in "
+"anderen Fahrzeug- oder Flussdefinitionen referenziert werden. Bitte alle "
+"Referenzen auf die Route '%' entfernen, sollte es sich um eine interne "
+"handeln."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1579
 #, c-format
@@ -1534,6 +1539,7 @@ msgstr "Fahrzeug '%' kann nicht die gegebene Geschwindigkeit erreichen!"
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
+"Die Abfahrtskante % von Fahrzeug % wird ignoriert (% Kanten auf seiner Route)"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:919
 msgid "getLeader not yet implemented for meso"
@@ -2060,6 +2066,8 @@ msgid ""
 "How to deal with collisions between vehicle and pedestrian: "
 "[none,warn,teleport,remove]"
 msgstr ""
+"Wie mit Kollisionen zwischen Fahrzeugen und Fußgängern umgegangen werden "
+"soll: [none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:386
 msgid ""
@@ -2074,6 +2082,8 @@ msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
 msgstr ""
+"Halte Fahrzeug für TIME an, bevor die Aktion aus intermodel-collision.action "
+"ausgeführt wird (außer bei 'none')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:392
 msgid "Enables collisions checks on junctions"
@@ -2446,12 +2456,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "The update interval of the JuPedSim simulation (in seconds)"
-msgstr ""
+msgstr "Das Aktualisierungsintervall der JuPedSim-Simulation (in Sekunden)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid ""
 "The distance to the destination point considered as arrival (in meters)"
-msgstr ""
+msgstr "Die Entfernung zum Zielpunkt (in Metern)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid ""
@@ -2888,12 +2898,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2085
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "Fahrzeug '%'"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2114
 #, c-format
 msgid "Teleporting vehicle '%' after"
-msgstr ""
+msgstr "Fahrzeug '%' wird teleportiert"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2119
 #, c-format
