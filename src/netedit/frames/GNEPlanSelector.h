@@ -48,6 +48,9 @@ public:
 
     /// @brief plan item selector
     void hidePlanSelector();
+    
+    /// @brief get current plan tag properties
+    const GNETagProperties &getCurrentPlanTagProperties() const;
 
     /// @brief get current plan template
     GNEDemandElement* getCurrentPlanTemplate() const;

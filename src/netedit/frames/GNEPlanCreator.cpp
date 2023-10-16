@@ -204,9 +204,9 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     // set previous plan element
     myPreviousPlanElement = previousPlan;
     // get current plan template
-    const auto &planTemplate = planSelector->getCurrentPlanTemplate()->getTagProperty();
+    const auto &planTagProperties = planSelector->getCurrentPlanTagProperties();
     // continue depending of plan selector template
-    if (planTemplate.planRoute()) {
+    if (planTagProperties.planRoute()) {
         myPlanParents |= ROUTE;
         // show use last inserted route
         myUseLastRoute->show();
@@ -214,56 +214,58 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         // hide use last inserted route
         myUseLastRoute->hide();
     }
-    if (planTemplate.planBusStop()) {
+    if (planTagProperties.planBusStop()) {
         myPlanParents |= BUSSTOP;
     } 
-    if (planTemplate.planTrainStop()) {
+    if (planTagProperties.planTrainStop()) {
         myPlanParents |= TRAINSTOP;
     } 
-    if (planTemplate.planContainerStop()) {
+    if (planTagProperties.planContainerStop()) {
         myPlanParents |= CONTAINERSTOP;
     }
-    if (planTemplate.planConsecutiveEdges()) {
+    if (planTagProperties.planConsecutiveEdges()) {
         myPlanParents |= CONSECUTIVE_EDGES;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromEdge() || planTemplate.planToEdge()) {
+    if (planTagProperties.planFromEdge() || planTagProperties.planToEdge()) {
         myPlanParents |= START_EDGE;
         myPlanParents |= END_EDGE;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromJunction() || planTemplate.planToJunction()) {
+    if (planTagProperties.planFromJunction() || planTagProperties.planToJunction()) {
         myPlanParents |= START_JUNCTION;
         myPlanParents |= END_JUNCTION;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromTAZ() || planTemplate.planToTAZ()) {
+    if (planTagProperties.planFromTAZ() || planTagProperties.planToTAZ()) {
         myPlanParents |= START_TAZ;
         myPlanParents |= END_TAZ;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromBusStop() || planTemplate.planToBusStop()) {
+    if (planTagProperties.planFromBusStop() || planTagProperties.planToBusStop()) {
         myPlanParents |= START_BUSSTOP;
         myPlanParents |= END_BUSSTOP;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromTrainStop() || planTemplate.planToTrainStop()) {
+    if (planTagProperties.planFromTrainStop() || planTagProperties.planToTrainStop()) {
         myPlanParents |= START_TRAINSTOP;
         myPlanParents |= END_TRAINSTOP;
         // show creation buttons
         showCreationButtons();
     }
-    if (planTemplate.planFromContainerStop() || planTemplate.planToContainerStop()) {
+    if (planTagProperties.planFromContainerStop() || planTagProperties.planToContainerStop()) {
         myPlanParents |= START_CONTAINERSTOP;
         myPlanParents |= END_CONTAINERSTOP;
         // show creation buttons
         showCreationButtons();
     }
+    // update info label (after setting myPlanParents)
+    updateInfoLabel();
     // check if add first element
     if (myPreviousPlanElement) {
         const auto tagProperty = myPreviousPlanElement->getTagProperty();
@@ -279,10 +281,10 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         }
     }
     // set vClass
-    if (planTemplate.isRide() || planTemplate.isContainerPlan()) {
+    if (planTagProperties.isRide() || planTagProperties.isContainerPlan()) {
         myVClass = SVC_PASSENGER;
     } else {
-        myVClass = SVC_PASSENGER;
+        myVClass = SVC_PEDESTRIAN;
     }
     // recalc before show (to avoid graphic problems)
     recalc();
@@ -999,8 +1001,6 @@ GNEPlanCreator::showCreationButtons() {
     myFinishCreationButton->show();
     myAbortCreationButton->show();
     myRemoveLastInsertedElement->show();
-    // show label
-    myInfoLabel->setText(TL("- Click over scenario elements\n  for creating from-toplans"));
 }
 
 
@@ -1009,8 +1009,47 @@ GNEPlanCreator::hideCreationButtons() {
     myFinishCreationButton->hide();
     myAbortCreationButton->hide();
     myRemoveLastInsertedElement->hide();
-    // set text
-    myInfoLabel->setText(TL("- Click over scenario elements\n  for creating plans"));
+}
+
+
+void
+GNEPlanCreator::updateInfoLabel() {
+    // declare booleans
+    const bool consecutiveEdges = (myPlanParents & CONSECUTIVE_EDGES);
+    const bool route = (myPlanParents & ROUTE);
+    const bool edges = (myPlanParents & EDGE) ||
+                       (myPlanParents & START_EDGE) ||
+                       (myPlanParents & END_EDGE);
+    const bool TAZs = (myPlanParents & START_TAZ) ||
+                      (myPlanParents & END_TAZ);
+    const bool junctions = (myPlanParents & START_JUNCTION) ||
+                           (myPlanParents & END_JUNCTION);
+    const bool busStops = (myPlanParents & BUSSTOP) ||
+                          (myPlanParents & START_BUSSTOP) ||
+                           (myPlanParents & END_BUSSTOP);
+    const bool trainStops = (myPlanParents & TRAINSTOP) ||
+                            (myPlanParents & START_TRAINSTOP) ||
+                            (myPlanParents & END_TRAINSTOP);
+    const bool containerStops = (myPlanParents & CONTAINERSTOP) ||
+                                (myPlanParents & START_CONTAINERSTOP) ||
+                                (myPlanParents & END_CONTAINERSTOP);
+
+    // declare ostringstream for label and fill it
+    std::ostringstream information;
+    information
+            << TL("Click over:") << "\n"
+            << (route? "- Routes\n" : "")
+            << (edges? "- Edges\n" : "")
+            << (TAZs? "- TAZs\n" : "")
+            << (junctions? "- Junctions\n" : "")
+            << (busStops? "- BusStops\n" : "")
+            << (trainStops? "- TrainStops\n" : "")
+            << (containerStops? "- ContainerStops\n" : "");
+    // remove last \n
+    std::string informationStr = information.str();
+    informationStr.pop_back();
+    // set label text
+    myInfoLabel->setText(informationStr.c_str());
 }
 
 /****************************************************************************/

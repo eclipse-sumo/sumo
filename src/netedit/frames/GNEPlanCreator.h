@@ -323,6 +323,9 @@ private:
     /// @brief hide creation buttons
     void hideCreationButtons();
 
+    /// @brief update info label
+    void updateInfoLabel();
+
     /// @brief Invalidated copy constructor.
     GNEPlanCreator(GNEPlanCreator*) = delete;
 

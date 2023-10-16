@@ -139,6 +139,12 @@ GNEPlanSelector::hidePlanSelector() {
 }
 
 
+const GNETagProperties&
+GNEPlanSelector::getCurrentPlanTagProperties() const {
+    return myCurrentPlanTemplate.first;
+}
+
+
 GNEDemandElement*
 GNEPlanSelector::getCurrentPlanTemplate() const {
     return myCurrentPlanTemplate.second;

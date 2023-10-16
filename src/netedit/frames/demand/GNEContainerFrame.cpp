@@ -171,7 +171,7 @@ GNEContainerFrame::tagSelected() {
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer()) {
+            if (myPlanSelector->getCurrentPlanTagProperties().isStopContainer()) {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
@@ -179,7 +179,7 @@ GNEContainerFrame::tagSelected() {
             // show container plan tag selector
             myPlanSelector->showPlanSelector();
             // now check if container plan selected is valid
-            if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+            if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
@@ -221,7 +221,7 @@ void
 GNEContainerFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().isStopContainer()) {
+        if (myPlanSelector->getCurrentPlanTagProperties().isStopContainer()) {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
@@ -229,7 +229,7 @@ GNEContainerFrame::demandElementSelected() {
         // show container plan tag selector
         myPlanSelector->showPlanSelector();
         // now check if container plan selected is valid
-        if (myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
+        if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
             // show container plan attributes
             myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
             // show Netedit attributes module
@@ -267,12 +267,12 @@ GNEContainerFrame::createPath(const bool /*useLastRoute*/) {
     if (!myContainerAttributes->areValuesValid()) {
         myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPlanSelector->getCurrentPlanTagProperties().getTagStr() + " parameters.");
     } else if (myPlanCreator->planCanBeCreated(myPlanSelector->getCurrentPlanTemplate())) {
         // begin undo-redo operation
         myViewNet->getUndoList()->begin(myContainerTagSelector->getCurrentTemplateAC(), "create " +
                                         myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
-                                        myPlanSelector->getCurrentPlanTemplate()->getTagProperty().getTagStr());
+                                        myPlanSelector->getCurrentPlanTagProperties().getTagStr());
         // create container
         GNEDemandElement* container = buildContainer();
         // check if container and container plan can be created
