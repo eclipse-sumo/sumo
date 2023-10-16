@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-16 14:44+0000\n"
+"PO-Revision-Date: 2023-10-16 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -66,15 +66,15 @@ msgstr "Apre una nuova finestra di sumo-gui."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:454
 msgid "&Open Simulation..."
-msgstr "Apri simulazione"
+msgstr "Apri simulazione..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:454
 msgid "Open a simulation (Configuration file)."
-msgstr "Apre una simulazione (configurazione)"
+msgstr "Apre una simulazione (configurazione)."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:457
 msgid "Open &Network..."
-msgstr "Apri rete"
+msgstr "Apri rete..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:457
 msgid "Open a network."
@@ -3467,7 +3467,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Create wires."
-msgstr "Crea catenarie"
+msgstr "Crea catenarie."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:635
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
@@ -4437,8 +4437,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Opzione ingresso rete invalida. Procedi con configurazione "
-"sumo/netedit/netconvertoppure con l'opzione -new."
+"Opzione ingresso rete invalida. Procedi con configurazione sumo/netedit/"
+"netconvertoppure con l'opzione -new"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:136
 msgid "Invalid Options. Nothing loaded"
@@ -5436,7 +5436,7 @@ msgstr "Salva file individuali"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1975
 msgid "Save individual files."
-msgstr "Salva file individuali"
+msgstr "Salva file individuali."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1980
 msgid "Save additional elements"
@@ -5680,7 +5680,7 @@ msgstr "Attiva/disattiva forme (poligoni e punti di interesse)."
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Attiva/disattiva di mostrare tutte le corse (necessita aggiornamento della "
-"domanda - F5)"
+"domanda - F5)."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2722
 msgid "Toggle show all person plans."
@@ -6024,7 +6024,7 @@ msgstr "Annulla creazione "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_GenericData.cpp:130
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_MeanData.cpp:120
 msgid "Undo delete "
-msgstr "Annulla rimozione"
+msgstr "Annulla rimozione "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Additional.cpp:130
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_DataInterval.cpp:118
@@ -6086,11 +6086,11 @@ msgstr "Ripristina spostamento indietro "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Connection.cpp:108
 msgid "Redo create connection '"
-msgstr "Ripristina creazione del collegamento "
+msgstr "Ripristina creazione del collegamento '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Connection.cpp:111
 msgid "Redo delete connection '"
-msgstr "Ripristina rimozione del collegamento "
+msgstr "Ripristina rimozione del collegamento '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Crossing.cpp:163
 msgid "Undo create crossing"
@@ -7349,7 +7349,7 @@ msgid ""
 " is the leftmost one)"
 msgstr ""
 "L'indice della corsia (da 0 per quella più a destra fino a <numero di "
-"corsie>-1 per quella  più a sinistra)"
+"corsie>-1 per quella più a sinistra)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
 msgid "Speed in meters per second"
@@ -11347,92 +11347,92 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1946
 msgid "Reverse %"
-msgstr ""
+msgstr "Rivolta %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
 msgid "Add reverse direction for %"
-msgstr ""
+msgstr "Aggiungi direzione opposta per %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1951
 msgid "Add reverse disconnected direction for %"
-msgstr ""
+msgstr "Aggiungi direzione opposta scollegata per %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
 msgid "Reset lengths for %"
-msgstr ""
+msgstr "Resetta lunghezze per %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1953
 msgid "Straighten %"
-msgstr ""
+msgstr "Rettifica %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1954
 msgid "Smooth %"
-msgstr ""
+msgstr "Appiana %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1955
 msgid "Straighten elevation of %"
-msgstr ""
+msgstr "Rettifica il livello di %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1956
 msgid "Smooth elevation of %"
-msgstr ""
+msgstr "Appiana il livello di %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2003
 #, c-format
 msgid "Lane operations (% selected)"
-msgstr ""
+msgstr "Operazioni di corsia (% selezionate)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2005
 msgid "Lane operations"
-msgstr ""
+msgstr "Operazioni di corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2007
 msgid "Duplicate lane"
-msgstr ""
+msgstr "Duplifica corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2008
 msgid "Set custom lane shape"
-msgstr ""
+msgstr "Imposta una forma personalizzata per la corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2009
 msgid "Reset custom shape"
-msgstr ""
+msgstr "Resetta forma personalizzata"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2013
 msgid "Reset opposite lane"
-msgstr ""
+msgstr "Resetta corsia opposta"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2025
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2036
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2045
 msgid "Sidewalk"
-msgstr ""
+msgstr "Marciapiede"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2026
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2046
 msgid "Bike lane"
-msgstr ""
+msgstr "Pista ciclabile"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2027
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2040
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2047
 msgid "Bus lane"
-msgstr ""
+msgstr "Corsia preferenziale"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2030
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2042
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
 msgid "Green verge"
-msgstr ""
+msgstr "Bordo verde"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
 msgid "Green verge (front)"
-msgstr ""
+msgstr "Bordo verde (a sinistra)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
 msgid "Green verge (back)"
-msgstr ""
+msgstr "Bordo verde (a destra)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2050
 msgid "Add restricted %"
@@ -13025,16 +13025,16 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:119
 msgid "Current selected person isn't valid."
-msgstr ""
+msgstr "La persona selezionata non è valida."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:122
 msgid "Current selected person type isn't valid."
-msgstr ""
+msgstr "Il tipo di persona selezionato non è valido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:127
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:125
 msgid "Current selected person plan isn't valid."
-msgstr ""
+msgstr "L'itinerario personale selezionato non è valido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:272
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
@@ -13278,11 +13278,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:441
 msgid "List of edges cannot be empty"
-msgstr ""
+msgstr "L'elenco di archi non può essere lasciato vuoto"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:451
 msgid "List of lanes cannot be empty"
-msgstr ""
+msgstr "L'elenco di corsie non può essere lasciato vuoto"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:551
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:232
@@ -13339,6 +13339,8 @@ msgstr "Errore nel salvare i collegamenti"
 #, c-format
 msgid "Connection edition cannot be saved because route '%' is broken."
 msgstr ""
+"Le modifiche ai collegamenti non possono essere salvati perché l'itinerario "
+"'%' è rotto."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:139
 msgid "Changes accepted"
@@ -14554,11 +14556,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
-msgstr ""
+msgstr "Valore"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:78
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamico"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
