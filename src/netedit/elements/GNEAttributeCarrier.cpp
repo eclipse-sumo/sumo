@@ -6452,9 +6452,9 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
         if (tagProperty.isTranshipPlan()) {
             // depart pos
             attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
-                                                    GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                                    TL("The position at which the tranship shall enter the net"),
-                                                    "0");
+                                                  GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                                  TL("The position at which the tranship shall enter the net"),
+                                                  "0");
             myTagProperties[currentTag].addAttribute(attrProperty);
         }
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
@@ -6502,19 +6502,19 @@ GNEAttributeCarrier::fillPersonTripCommonAttributes(SumoXMLTag currentTag) {
     GNEAttributeProperties attrProperty;
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("List of possible vehicle types to take"));
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("List of possible vehicle types to take"));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("List of possible traffic modes. Walking is always possible regardless of this value"));
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("List of possible traffic modes. Walking is always possible regardless of this value"));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("list of vehicle alternatives to take for the person trip"),
-                                            "ANY");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("list of vehicle alternatives to take for the person trip"),
+                                          "ANY");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
@@ -6532,9 +6532,9 @@ GNEAttributeCarrier::fillRideCommonAttributes(SumoXMLTag currentTag) {
 
     // lines
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("list of vehicle alternatives to take for the ride"),
-                                            "ANY");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("list of vehicle alternatives to take for the ride"),
+                                          "ANY");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
@@ -6546,9 +6546,9 @@ GNEAttributeCarrier::fillTransportCommonAttributes(SumoXMLTag currentTag) {
 
     // lines
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("list of vehicle alternatives to take for the transport"),
-                                            "ANY");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("list of vehicle alternatives to take for the transport"),
+                                          "ANY");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
@@ -6560,9 +6560,9 @@ GNEAttributeCarrier::fillTranshipCommonAttributes(SumoXMLTag currentTag) {
 
     // speed
     attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
-                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("speed of the container for this tranship in m/s"),
-                                            "1.39");
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("speed of the container for this tranship in m/s"),
+                                          "1.39");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
@@ -6573,31 +6573,31 @@ GNEAttributeCarrier::fillPlanStopCommonAttributes(SumoXMLTag currentTag) {
     GNEAttributeProperties attrProperty;
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("Minimum duration for stopping"),
-                                            "60");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("Minimum duration for stopping"),
+                                          "60");
     attrProperty.setDefaultActivated(true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("The time step at which the route continues"),
-                                            "0.00");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("The time step at which the route continues"),
+                                          "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                            TL("Activity displayed for stopped person in GUI and output files "));
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("Activity displayed for stopped person in GUI and output files "));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     // friendlyPos attribute only for stops over edges
     if (myTagProperties[currentTag].hasAttribute(SUMO_ATTR_EDGE)) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                                                  GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                                  TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                                                  TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                                                  TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                                                  "0");
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
+                                              TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
+                                              TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
