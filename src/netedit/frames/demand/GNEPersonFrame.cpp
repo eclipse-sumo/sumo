@@ -120,15 +120,15 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        return myPlanCreator->addFromToEdge(objectsUnderCursor.getEdgeFront());
-    } else if ((clickedACTag == SUMO_TAG_BUS_STOP) || (clickedACTag == SUMO_TAG_TRAIN_STOP)) {
-        return myPlanCreator->addFromToStoppingPlace(objectsUnderCursor.getAdditionalFront());
+        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
+    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
+        return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
-        return myPlanCreator->addFromToJunction(objectsUnderCursor.getJunctionFront());
+        return myPlanCreator->addJunction(objectsUnderCursor.getJunctionFront());
     } else if (clickedACTag == SUMO_TAG_TAZ) {
-        return myPlanCreator->addFromToTAZ(objectsUnderCursor.getTAZFront());
+        return myPlanCreator->addTAZ(objectsUnderCursor.getTAZFront());
     } else {
         return false;
     }

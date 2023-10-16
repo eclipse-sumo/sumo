@@ -304,257 +304,71 @@ GNEPlanCreator::hidePathCreatorModule() {
 
 bool
 GNEPlanCreator::addRoute(GNEDemandElement* route) {
-    if (route == nullptr) {
-        return false;
-    }
     // check if routes are allowed
     if ((myPlanParents & ROUTE) == 0) {
         return false;
     }
-    // check double routes
-    if (myFromRoute && (myFromRoute == route)) {
-        // Write warning
-        WRITE_WARNING(TL("Double routes aren't allowed"));
-        // abort add route
-        return false;
-    }
-    // check number of selected items
-    if (myRoute) {
-        // Write warning
-        WRITE_WARNING(TL("Route already selected"));
-        // abort add function
-        return false;
-    }
-    // add route
+    // add edge
     myRoute = route;
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // enable or disable remove last route button
-    if (getNumberOfSelectedElements() == 1) {
-        myRemoveLastInsertedElement->enable();
+    // create path
+    return myFrameParent->createPath(false);
+}
+
+
+bool
+GNEPlanCreator::addEdge(GNEEdge* edge) {
+    // continue depending of plan parent
+    if (myPlanParents & CONSECUTIVE_EDGES) {
+        return addConsecutiveEdge(edge);
+    } else if (myPlanParents & EDGE) {
+        return addSingleEdge(edge);
+    } else if ((myPlanParents & START_EDGE) || (myPlanParents & END_EDGE)) {
+        return addFromToEdge(edge);
     } else {
-        myRemoveLastInsertedElement->disable();
+        return false;
     }
-    // recalculate path
-    recalculatePath();
-    // stopping place added, then return true
-    return true;
 }
 
 
 bool
-GNEPlanCreator::addEdge(GNEDemandElement* route) {
-    return false;
-}
-
-
-bool
-GNEPlanCreator::addStoppingPlace(GNEDemandElement* route) {
-    return false;
-}
-
-
-bool
-GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
-    // check if edges are allowed
-    if ((myPlanParents & CONSECUTIVE_EDGES) == 0) {
-        return false;
-    }
-    // check double edges
-    if ((myConsecutiveEdges.size() > 0) && (myConsecutiveEdges.back() == edge)) {
-        // Write warning
-        WRITE_WARNING(TL("Double edges aren't allowed"));
-        // abort add edge
-        return false;
-    }
-    // All checks ok, then add it in selected elements
-    myConsecutiveEdges.push_back(edge);
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // update remove last item button
-    updateRemoveLastItemButton();
-    // recalculate path
-    recalculatePath();
-    // edge added, then return true
-    return true;
-}
-
-
-bool
-GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
-    // check if junctions are allowed
-    if (((myPlanParents & START_JUNCTION) == 0) && ((myPlanParents & END_JUNCTION) == 0)) {
-        return false;
-    }
-    // avoid double junctions
-    if (myFromJunction && (myFromJunction == junction)) {
-        // Write warning
-        WRITE_WARNING(TL("Double junctions aren't allowed"));
-        // abort add junction
-        return false;
-    }
-    // check number of selected items
-    if (getNumberOfSelectedElements() == 2) {
-        // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
-        // abort add function
-        return false;
-    }
-    // set junction
-    if (getNumberOfSelectedElements() == 0) {
-        myFromJunction = junction;
+GNEPlanCreator::addJunction(GNEJunction* junction) {
+    if ((myPlanParents & START_JUNCTION) || (myPlanParents & END_JUNCTION)) {
+        return addFromToJunction(junction);
     } else {
-        myToJunction = junction;
+        return false;
     }
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // update remove last item button
-    updateRemoveLastItemButton();
-    // recalculate path
-    recalculatePath();
-    return true;
 }
 
 
 bool
-GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
-    // check if TAZs are allowed
-    if (((myPlanParents & START_JUNCTION) == 0) && ((myPlanParents & END_JUNCTION) == 0)) {
-        return false;
-    }
-    // avoid double TAZs
-    if (myFromTAZ && (myFromTAZ == TAZ)) {
-        // Write warning
-        WRITE_WARNING(TL("Double TAZs aren't allowed"));
-        // abort add TAZ
-        return false;
-    }
-    // check number of selected items
-    if (getNumberOfSelectedElements() == 2) {
-        // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
-        // abort add function
-        return false;
-    }
-    // set TAZ
-    if (getNumberOfSelectedElements() == 0) {
-        myFromTAZ = TAZ;
+GNEPlanCreator::addTAZ(GNEAdditional* taz) {
+    if ((myPlanParents & START_TAZ) || (myPlanParents & END_TAZ)) {
+        return addFromToTAZ(taz);
     } else {
-        myToTAZ = TAZ;
+        return false;
     }
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // update remove last item button
-    updateRemoveLastItemButton();
-    // recalculate path
-    recalculatePath();
-    return true;
 }
-
+    
 
 bool
-GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
-    // check if edges are allowed
-    if (((myPlanParents & START_EDGE) == 0) && ((myPlanParents & END_EDGE) == 0)) {
-        return false;
-    }
-    // check double edges
-    if (myFromEdge && (myFromEdge == edge)) {
-        // Write warning
-        WRITE_WARNING(TL("Double edges aren't allowed"));
-        // abort add edge
-        return false;
-    }
-    // check number of selected items
-    if (getNumberOfSelectedElements() == 2) {
-        // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
-        // abort add function
-        return false;
-    }
-    // set edge
-    if (getNumberOfSelectedElements() == 0) {
-        myFromEdge = edge;
+GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
+    // get stoppingPlace tag
+    auto tag = stoppingPlace->getTagProperty().getTag();
+    if ((tag == SUMO_TAG_BUS_STOP) && (myPlanParents & BUSSTOP)) {
+        return addSingleStoppingPlace(stoppingPlace);
+    } else if ((tag == SUMO_TAG_BUS_STOP) && ((myPlanParents & START_BUSSTOP) || (myPlanParents & END_BUSSTOP))) {
+        return addFromToStoppingPlace(stoppingPlace);
+    } else if ((tag == SUMO_TAG_TRAIN_STOP) && (myPlanParents & TRAINSTOP)) {
+        return addSingleStoppingPlace(stoppingPlace);
+    } else if ((tag == SUMO_TAG_TRAIN_STOP) && ((myPlanParents & START_TRAINSTOP) || (myPlanParents & END_TRAINSTOP))) {
+        return addFromToStoppingPlace(stoppingPlace);
+    } else if ((tag == SUMO_TAG_CONTAINER_STOP) && (myPlanParents & CONTAINERSTOP)) {
+        return addSingleStoppingPlace(stoppingPlace);
+    } else if ((tag == SUMO_TAG_CONTAINER_STOP) && ((myPlanParents & START_CONTAINERSTOP) || (myPlanParents & END_CONTAINERSTOP))) {
+        return addFromToStoppingPlace(stoppingPlace);
     } else {
-        myToEdge = edge;
-    }
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
-    // update remove last item button
-    updateRemoveLastItemButton();
-    // recalculate path
-    recalculatePath();
-    // edge added, then return true
-    return true;
-}
-
-
-bool
-GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
-    if (stoppingPlace == nullptr) {
         return false;
     }
-    // check if stoppingPlaces are allowed
-    if (((myPlanParents & START_BUSSTOP) == 0) && ((myPlanParents & END_BUSSTOP) == 0) &&
-        ((myPlanParents & START_TRAINSTOP) == 0) && ((myPlanParents & END_TRAINSTOP) == 0)) {
-        return false;
-    }
-    // check double stoppingPlaces
-    if (myFromStoppingPlace && (myFromStoppingPlace == stoppingPlace)) {
-        // Write warning
-        WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
-        // abort add stopping place
-        return false;
-    }
-    // check number of selected items
-    if (getNumberOfSelectedElements() == 2) {
-        // Write warning
-        WRITE_WARNING(TL("Only two from-to elements are allowed"));
-        // abort add function
-        return false;
-    }
-    // add stoppingPlace
-    if (getNumberOfSelectedElements() == 0) {
-        myFromStoppingPlace = stoppingPlace;
-    } else {
-        myToStoppingPlace = stoppingPlace;
-    }
-    // enable abort route button
-    myAbortCreationButton->enable();
-    // enable finish button
-    myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // enable or disable remove last stoppingPlace button
-    if (getNumberOfSelectedElements() == 1) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
-    // recalculate path
-    recalculatePath();
-    // stopping place added, then return true
-    return true;
 }
 
 
@@ -807,13 +621,6 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 }
 
 
-bool
-GNEPlanCreator::createPath(const bool useLastRoute) {
-    // call create path implemented in frame parent
-    return myFrameParent->createPath(useLastRoute);
-}
-
-
 void
 GNEPlanCreator::abortPathCreation() {
     // first check that there is elements
@@ -837,26 +644,22 @@ GNEPlanCreator::removeLastElement() {
     if (myRemoveLastInsertedElement->isEnabled()) {
         if (myConsecutiveEdges.size() > 0) {
             myConsecutiveEdges.pop_back();
-        } else if (myRoute) {
-            myRoute = nullptr;
-        } else {
-            if (myToEdge) {
-                myToEdge = nullptr;
-            } else if (myToJunction) {
-                myToJunction = nullptr;
-            } else if (myToTAZ) {
-                myToTAZ = nullptr;
-            } else if (myToStoppingPlace) {
-                myToStoppingPlace = nullptr;
-            } else if (myFromEdge) {
-                myFromEdge = nullptr;
-            } else if (myFromJunction) {
-                myFromJunction = nullptr;
-            } else if (myFromTAZ) {
-                myFromTAZ = nullptr;
-            } else if (myFromStoppingPlace) {
-                myFromStoppingPlace = nullptr;
-            }
+        } else if (myToEdge) {
+            myToEdge = nullptr;
+        } else if (myToJunction) {
+            myToJunction = nullptr;
+        } else if (myToTAZ) {
+            myToTAZ = nullptr;
+        } else if (myToStoppingPlace) {
+            myToStoppingPlace = nullptr;
+        } else if (myFromEdge) {
+            myFromEdge = nullptr;
+        } else if (myFromJunction) {
+            myFromJunction = nullptr;
+        } else if (myFromTAZ) {
+            myFromTAZ = nullptr;
+        } else if (myFromStoppingPlace) {
+            myFromStoppingPlace = nullptr;
         }
         // update remove last item button
         updateRemoveLastItemButton();
@@ -869,15 +672,16 @@ GNEPlanCreator::removeLastElement() {
 long
 GNEPlanCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // call create path
-    return createPath(false);
+    return myFrameParent->createPath(false);
 }
 
 
 long
 GNEPlanCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
-    // call create path with useLastRoute = true
-    return createPath(true);
+    // call create path using last route
+    return myFrameParent->createPath(true);
 }
+
 
 long
 GNEPlanCreator::onUpdUseLastRoute(FXObject* sender, FXSelector, void*) {
@@ -906,7 +710,7 @@ GNEPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
 
 void
 GNEPlanCreator::clearPath() {
-    // clear junction, TAZs, edges, additionals and route
+    // clear all elements
     myConsecutiveEdges.clear();
     myFromEdge = nullptr;
     myToEdge = nullptr;
@@ -916,7 +720,8 @@ GNEPlanCreator::clearPath() {
     myToTAZ = nullptr;
     myFromStoppingPlace = nullptr;
     myToStoppingPlace = nullptr;
-    myFromRoute = nullptr;
+    myStoppingPlace = nullptr;
+    myEdge = nullptr;
     myRoute = nullptr;
     // clear path
     myPath.clear();
@@ -972,9 +777,7 @@ GNEPlanCreator::getNumberOfSelectedElements() const {
            (myFromTAZ != nullptr ? 1 : 0) +
            (myToTAZ != nullptr ? 1 : 0) +
            (myFromStoppingPlace != nullptr ? 1 : 0) +
-           (myToStoppingPlace != nullptr ? 1 : 0) +
-           (myFromRoute != nullptr ? 1 : 0) +
-           (myRoute != nullptr ? 1 : 0);
+           (myToStoppingPlace != nullptr ? 1 : 0);
 }
 
 
@@ -1050,6 +853,200 @@ GNEPlanCreator::updateInfoLabel() {
     informationStr.pop_back();
     // set label text
     myInfoLabel->setText(informationStr.c_str());
+}
+
+
+bool
+GNEPlanCreator::addSingleEdge(GNEEdge* edge) {
+    // add edge
+    myEdge = edge;
+    // create path
+    return myFrameParent->createPath(false);
+}
+
+
+bool
+GNEPlanCreator::addSingleStoppingPlace(GNEAdditional* stoppingPlace) {
+    // add edge
+    myStoppingPlace = stoppingPlace;
+    // create path
+    return myFrameParent->createPath(false);
+}
+
+
+bool
+GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
+    // check double edges
+    if ((myConsecutiveEdges.size() > 0) && (myConsecutiveEdges.back() == edge)) {
+        // Write warning
+        WRITE_WARNING(TL("Double edges aren't allowed"));
+        // abort add edge
+        return false;
+    }
+    // All checks ok, then add it in selected elements
+    myConsecutiveEdges.push_back(edge);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // update remove last item button
+    updateRemoveLastItemButton();
+    // recalculate path
+    recalculatePath();
+    // edge added, then return true
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
+    // avoid double junctions
+    if (myFromJunction && (myFromJunction == junction)) {
+        // Write warning
+        WRITE_WARNING(TL("Double junctions aren't allowed"));
+        // abort add junction
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // set junction
+    if (getNumberOfSelectedElements() == 0) {
+        myFromJunction = junction;
+    } else {
+        myToJunction = junction;
+    }
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // update remove last item button
+    updateRemoveLastItemButton();
+    // recalculate path
+    recalculatePath();
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
+    // avoid double TAZs
+    if (myFromTAZ && (myFromTAZ == TAZ)) {
+        // Write warning
+        WRITE_WARNING(TL("Double TAZs aren't allowed"));
+        // abort add TAZ
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // set TAZ
+    if (getNumberOfSelectedElements() == 0) {
+        myFromTAZ = TAZ;
+    } else {
+        myToTAZ = TAZ;
+    }
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // update remove last item button
+    updateRemoveLastItemButton();
+    // recalculate path
+    recalculatePath();
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
+    // check double edges
+    if (myFromEdge && (myFromEdge == edge)) {
+        // Write warning
+        WRITE_WARNING(TL("Double edges aren't allowed"));
+        // abort add edge
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // set edge
+    if (getNumberOfSelectedElements() == 0) {
+        myFromEdge = edge;
+    } else {
+        myToEdge = edge;
+    }
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
+    // update remove last item button
+    updateRemoveLastItemButton();
+    // recalculate path
+    recalculatePath();
+    // edge added, then return true
+    return true;
+}
+
+
+bool
+GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
+    // check double stoppingPlaces
+    if (myFromStoppingPlace && (myFromStoppingPlace == stoppingPlace)) {
+        // Write warning
+        WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
+        // abort add stopping place
+        return false;
+    }
+    // check number of selected items
+    if (getNumberOfSelectedElements() == 2) {
+        // Write warning
+        WRITE_WARNING(TL("Only two from-to elements are allowed"));
+        // abort add function
+        return false;
+    }
+    // add stoppingPlace
+    if (getNumberOfSelectedElements() == 0) {
+        myFromStoppingPlace = stoppingPlace;
+    } else {
+        myToStoppingPlace = stoppingPlace;
+    }
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last stoppingPlace button
+    if (getNumberOfSelectedElements() == 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // recalculate path
+    recalculatePath();
+    // stopping place added, then return true
+    return true;
 }
 
 /****************************************************************************/

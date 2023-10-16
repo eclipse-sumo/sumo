@@ -99,25 +99,16 @@ public:
     bool addRoute(GNEDemandElement* route);
 
     /// @brief add edge
-    bool addEdge(GNEDemandElement* route);
-
-    /// @brief add stoppingPlace
-    bool addStoppingPlace(GNEDemandElement* route);
-
-    /// @brief add consecutive edge
-    bool addConsecutiveEdge(GNEEdge* edge);
+    bool addEdge(GNEEdge* edge);
 
     /// @brief add junction
-    bool addFromToJunction(GNEJunction* junction);
+    bool addJunction(GNEJunction* junction);
 
     /// @brief add TAZ
-    bool addFromToTAZ(GNEAdditional* taz);
-
-    /// @brief add from to edge
-    bool addFromToEdge(GNEEdge* edge);
+    bool addTAZ(GNEAdditional* taz);
     
     /// @brief add from to stoppingPlace
-    bool addFromToStoppingPlace(GNEAdditional* stoppingPlace);
+    bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
     /// @brief get consecutive edge
     const std::vector<GNEEdge*> getConsecutiveEdges() const;
@@ -181,9 +172,6 @@ public:
 
     /// @brief draw temporal route
     void drawTemporalRoute(const GUIVisualizationSettings& s) const;
-
-    /// @brief create path
-    bool createPath(const bool useLastRoute);
 
     /// @brief abort path creation
     void abortPathCreation();
@@ -280,9 +268,6 @@ protected:
     /// @brief to StoppingPlace
     GNEAdditional* myToStoppingPlace = nullptr;
 
-    /// @brief from Route (used for connecting plans)
-    GNEDemandElement* myFromRoute = nullptr;
-
     /// @brief route
     GNEDemandElement* myRoute = nullptr;
 
@@ -325,6 +310,27 @@ private:
 
     /// @brief update info label
     void updateInfoLabel();
+
+    /// @brief add edge
+    bool addSingleEdge(GNEEdge* edge);
+
+    /// @brief add stoppingPlace
+    bool addSingleStoppingPlace(GNEAdditional* stoppingPlace);
+
+    /// @brief add consecutive edge
+    bool addConsecutiveEdge(GNEEdge* edge);
+
+    /// @brief add junction
+    bool addFromToJunction(GNEJunction* junction);
+
+    /// @brief add TAZ
+    bool addFromToTAZ(GNEAdditional* taz);
+
+    /// @brief add from to edge
+    bool addFromToEdge(GNEEdge* edge);
+    
+    /// @brief add from to stoppingPlace
+    bool addFromToStoppingPlace(GNEAdditional* stoppingPlace);
 
     /// @brief Invalidated copy constructor.
     GNEPlanCreator(GNEPlanCreator*) = delete;
