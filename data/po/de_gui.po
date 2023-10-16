@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-13 09:57+0000\n"
+"PO-Revision-Date: 2023-10-16 14:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -12329,26 +12330,26 @@ msgstr " Kante unterbrochen"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:141
 msgid "Remove last element"
-msgstr ""
+msgstr "Letztes Element löschen"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:298
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:338
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:408
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:453
 msgid "Only two from-to elements are allowed"
-msgstr ""
+msgstr "Es sind nur zwei Quelle-Ziel-Elemente erlaubt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:446
 msgid "Double stoppingPlaces aren't allowed"
-msgstr ""
+msgstr "Doppelte Halte sind nicht erlaubt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:494
 msgid "Double routes aren't allowed"
-msgstr ""
+msgstr "Doppelte Routen sind nicht erlaubt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:501
 msgid "Route already selected"
-msgstr ""
+msgstr "Route schon ausgewählt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:90
 msgid "Plan type"
