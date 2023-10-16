@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-13 09:57+0000\n"
+"PO-Revision-Date: 2023-10-16 14:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -2218,63 +2219,63 @@ msgstr "ultimo cambio di corsia [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:145
 msgid "depart delay [s]"
-msgstr ""
+msgstr "ritardo in partenza [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:146
 msgid "odometer [m]"
-msgstr ""
+msgstr "odometro [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:149
 msgid "remaining [#]"
-msgstr ""
+msgstr "rimasti [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:152
 msgid "insertion period [s]"
-msgstr ""
+msgstr "periodo di inserzione [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:155
 msgid "insertion probability"
-msgstr ""
+msgstr "probabilità di inserzione"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:157
 msgid "stop info"
-msgstr ""
+msgstr "informazione fermata"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
 msgid "line"
-msgstr ""
+msgstr "linea"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:163
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:165
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:167
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:169
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "carburante [mg/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:171
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "elettricità [Wh/s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:173
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "rumore (Harmonoise) [dB]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
