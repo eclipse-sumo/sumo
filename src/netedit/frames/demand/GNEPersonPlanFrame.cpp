@@ -103,6 +103,10 @@ GNEPersonPlanFrame::hide() {
 
 bool
 GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check that we clicked over an AC
+    if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
+        return false;
+    }
     // check if we have to select a new person
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isPerson()) {
@@ -126,9 +130,11 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // continue depending of marked elements
-    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() &&
+        (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
-    } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+    } else if ((myPlanSelector->markBusStops() || myPlanSelector->markTrainStops()) && objectsUnderCursor.getAdditionalFront() &&
+               (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (myPlanSelector->markEdges() && objectsUnderCursor.getEdgeFront()) {
         return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());

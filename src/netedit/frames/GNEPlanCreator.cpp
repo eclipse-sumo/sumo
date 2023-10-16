@@ -841,6 +841,7 @@ GNEPlanCreator::updateInfoLabel() {
     std::ostringstream information;
     information
             << TL("Click over:") << "\n"
+            << (consecutiveEdges? "- Consecutive edges\n" : "")
             << (route? "- Routes\n" : "")
             << (edges? "- Edges\n" : "")
             << (TAZs? "- TAZs\n" : "")
@@ -889,8 +890,6 @@ GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // update remove last item button
     updateRemoveLastItemButton();
     // recalculate path
@@ -926,8 +925,6 @@ GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // update remove last item button
     updateRemoveLastItemButton();
     // recalculate path
@@ -962,8 +959,6 @@ GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // update remove last item button
     updateRemoveLastItemButton();
     // recalculate path
@@ -998,8 +993,6 @@ GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
-    // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // update remove last item button
     updateRemoveLastItemButton();
     // recalculate path

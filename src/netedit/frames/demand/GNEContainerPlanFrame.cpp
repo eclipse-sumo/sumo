@@ -103,6 +103,10 @@ GNEContainerPlanFrame::hide() {
 
 bool
 GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // first check that we clicked over an AC
+    if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
+        return false;
+    }
     // check if we have to select a new container
     if (myContainerSelector->getCurrentDemandElement() == nullptr) {
         if (objectsUnderCursor.getDemandElementFront() && objectsUnderCursor.getDemandElementFront()->getTagProperty().isContainer()) {
@@ -126,9 +130,11 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
         return false;
     }
     // continue depending of marked elements
-    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() &&
+        (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
-    } else if (myPlanSelector->markBusStops() && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
+    } else if (myPlanSelector->markContainerStops() && objectsUnderCursor.getAdditionalFront() &&
+               (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (myPlanSelector->markEdges() && objectsUnderCursor.getEdgeFront()) {
         return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
