@@ -1164,7 +1164,10 @@ void NIImporter_VISUM::parse_stopPoints() {
         WRITE_WARNINGF(TL("Ignoring stopping place '%' without node informatio"), id);
     } else {
         NBEdge* edge = getNamedEdge(KEYS.getString(VISUM_LINKNO));
-        if (from != nullptr) {
+        if (edge == nullptr) {
+            WRITE_WARNINGF(TL("Ignoring stopping place '%' with invalid edge reference '%'"), id, edgeID);
+            return;
+        } else if (from != nullptr) {
             if (edge->getToNode() == from) {
                 NBEdge* edge2 = myNetBuilder.getEdgeCont().retrieve("-" + edge->getID());
                 if (edge2 == nullptr) {
