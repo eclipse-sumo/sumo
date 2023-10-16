@@ -6386,14 +6386,6 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               TL("The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m"));
         myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
-                                              TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
-                                              TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planBusStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
@@ -6597,6 +6589,17 @@ GNEAttributeCarrier::fillPlanStopCommonAttributes(SumoXMLTag currentTag) {
                                             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                             TL("Activity displayed for stopped person in GUI and output files "));
     myTagProperties[currentTag].addAttribute(attrProperty);
+
+    // friendlyPos attribute only for stops over edges
+    if (myTagProperties[currentTag].hasAttribute(SUMO_ATTR_EDGE)) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+                                                  GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                                  TL("If set, no error will be reported if element is placed behind the lane.") + std::string("\n") +
+                                                  TL("Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,") + std::string("\n") +
+                                                  TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
+                                                  "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 

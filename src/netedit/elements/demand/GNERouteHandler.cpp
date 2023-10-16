@@ -1039,7 +1039,8 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 void
 GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
-                                 const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+                                 const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
+                                 const std::string &actType, const bool friendlyPos) {
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -1048,7 +1049,8 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     // check conditions
     if (personParent) {
         // build person stop
-        GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop, endPos, duration, until, actType);
+        GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop,
+                                                                      endPos, duration, until, actType, friendlyPos);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), personParent->getID()));
@@ -1076,7 +1078,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
 
 void
 GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
-                                    const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+                                    const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType, const bool friendlyPos) {
     // parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -1084,7 +1086,8 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
     // check conditions
     if (containerParent) {
         // build container stop
-        GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop, endPos, duration, until, actType);
+        GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop,
+                                                                         endPos, duration, until, actType, friendlyPos);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), containerParent->getID()));

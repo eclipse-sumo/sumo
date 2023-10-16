@@ -36,7 +36,8 @@
 GNEStopPlan*
 GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+        const SUMOTime duration, const SUMOTime until, const std::string &actType,
+        bool friendlyPos) {
     // declare icon an tag
     const auto iconTag = getPersonStopTagIcon(edge, busStop, trainStop);
     // declare containers
@@ -50,14 +51,16 @@ GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
     } else if (trainStop) {
         additionals.push_back(trainStop);
     }
-    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals, endPos, duration, until, actType);
+    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
+                           endPos, duration, until, actType, friendlyPos);
 }
 
 
 GNEStopPlan*
 GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType) {
+        const SUMOTime duration, const SUMOTime until, const std::string &actType,
+        bool friendlyPos) {
     // declare icon an tag
     const auto iconTag = getContainerStopTagIcon(edge, containerStop);
     // declare containers
@@ -69,7 +72,17 @@ GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
     } else if (containerStop) {
         additionals.push_back(containerStop);
     }
-    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals, endPos, duration, until, actType);
+    return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
+                           endPos, duration, until, actType, friendlyPos);
+}
+
+
+GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
+    GNEDemandElement("", net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    GNEDemandElementPlan(this, -1, -1) {
+    // reset default values
+    resetDefaultValues();
 }
 
 
@@ -97,6 +110,9 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
     }
     if (isAttributeEnabled(SUMO_ATTR_ACTTYPE)) {
         device.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
+    }
+    if (myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS)) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, myFriendlyPos);
     }
     // close tag
     device.closeTag();
@@ -266,6 +282,8 @@ GNEStopPlan::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ACTTYPE:
             return myActType;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return toString(myFriendlyPos);
         default:
             return getPlanAttribute(key);
     }
@@ -290,6 +308,7 @@ GNEStopPlan::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_ACTTYPE:
+        case SUMO_ATTR_FRIENDLY_POS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -311,6 +330,8 @@ GNEStopPlan::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_ACTTYPE:
             return true;
+        case SUMO_ATTR_FRIENDLY_POS:
+            return canParse<bool>(value);
         default:
             return isPlanValid(key, value);
     }
@@ -351,7 +372,7 @@ GNEStopPlan::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_UNTIL:
             return (myParametersSet & STOP_UNTIL_SET) != 0;
         default:
-            return false;
+            return true;
     }
 }
 
@@ -533,6 +554,9 @@ GNEStopPlan::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACTTYPE:
             myActType = value;
             break;
+        case SUMO_ATTR_FRIENDLY_POS:
+            myFriendlyPos = parse<bool>(value);
+            break;
         default:
             setPlanAttribute(key, value);
             break;
@@ -583,13 +607,14 @@ GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 
 GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
                          const std::vector<GNEAdditional*> &additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string &actType) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                         const std::string &actType, bool friendlyPos) :
+    GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
     GNEDemandElementPlan(this, -1, endPos),
     myDuration(duration),
     myUntil(until), 
-    myActType(actType) {
+    myActType(actType),
+    myFriendlyPos(friendlyPos) {
 }
 
 /****************************************************************************/

@@ -40,10 +40,12 @@ public:
      * @param[in] duration stop duration
      * @param[in] until stop until
      * @param[in] actType act type
+     * @param[in] friendlyPos friendly position
      */
     static GNEStopPlan* buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType);
+        const SUMOTime duration, const SUMOTime until, const std::string &actType,
+        const bool friendlyPos);
 
     /**@brief general constructor for container stop plans
      * @param[in] net Network in which this rides is placed
@@ -54,10 +56,12 @@ public:
      * @param[in] duration stop duration
      * @param[in] until stop until
      * @param[in] actType act type
+     * @param[in] friendlyPos friendly position
      */
     static GNEStopPlan* buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType);
+        const SUMOTime duration, const SUMOTime until, const std::string &actType,
+        const bool friendlyPos);
 
     /// @brief default constructor
     GNEStopPlan(SumoXMLTag tag, GNENet* net);
@@ -232,7 +236,10 @@ protected:
 
     /// @brief act type
     std::string myActType;
-
+    
+    /// @brief friendly pos
+    bool myFriendlyPos;
+    
     /// @brief parameter set
     int myParametersSet = 0;
 
@@ -266,10 +273,11 @@ private:
      * @param[in] duration stop duration
      * @param[in] until stop until
      * @param[in] actType act type
+     * @param[in] friendlyPos friendly pos
      */
     GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
                 const std::vector<GNEAdditional*> &additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                const std::string &actType);
+                const std::string &actType, bool friendlyPos);
 
     /// @brief Invalidated copy constructor.
     GNEStopPlan(const GNEStopPlan&) = delete;
