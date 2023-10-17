@@ -223,11 +223,11 @@ def get_options(args=None):
         if any([period < 0 for period in options.period]):
             raise ValueError("Period / insertionRate must be non-negative.")
         if all([period == 0 for period in options.period]):
-            print("Warning: No vehicles will be generated.")
+            print("Warning: No vehicles will be generated.", file=sys.stderr)
         options.period = list(map(intIfPossible, options.period))
         if options.binomial:
             for p in options.period:
-                if 1.0 / p / options.binomial >= 1:
+                if p != 0.0 and 1.0 / p / options.binomial >= 1:
                     print("Warning: Option --binomial %s is too low for insertion period %s." % (options.binomial, p)
                           + " Insertions will not be randomized.", file=sys.stderr)
 
@@ -652,7 +652,7 @@ def main(options):
     vias = {}
 
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
-    times = [parseTime(options.begin) + i*time_delta for i in range(len(options.period)+1)]
+    times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
     times = list(map(intIfPossible, times))
 
     def generate_origin_destination(trip_generator, options):
@@ -780,6 +780,8 @@ def main(options):
                     time = departureTime = parseTime(times[i])
                     arrivalTime = parseTime(times[i+1])
                     period = options.period[i]
+                    if period == 0.0:
+                        continue
                     if options.binomial is None:
                         departures = []
                         if options.randomDepart:
@@ -832,6 +834,8 @@ def main(options):
                             departureTime = times[i]
                             arrivalTime = times[i+1]
                             period = options.period[i]
+                            if period == 0.0:
+                                continue
                             origin, destination, intermediate = origins_destinations[j]
                             generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
                 except Exception as exc:
