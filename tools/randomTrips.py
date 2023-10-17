@@ -217,13 +217,13 @@ def get_options(args=None):
         options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
     if options.insertionRate:
-        if any([rate <= 0 for rate in options.insertionRate]):
-            raise ValueError("insertionRate must be positive.")
-        options.period = [3600.0 / rate for rate in options.insertionRate]
+        options.period = [3600.0 / rate if rate != 0.0 else 0.0 for rate in options.insertionRate]
 
     if options.period:
-        if any([period <= 0 for period in options.period]):
-            raise ValueError("Period must be positive.")
+        if any([period < 0 for period in options.period]):
+            raise ValueError("Period must be non-negative.")
+        if all([period == 0 for period in options.period]):
+            print("Warning: No vehicles will be generated.")
         options.period = list(map(intIfPossible, options.period))
         if options.binomial:
             for p in options.period:
