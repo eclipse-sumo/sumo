@@ -637,9 +637,13 @@ if (NOT ${PYTHON_SETUPTOOLS_MISSING})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-sumolib.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} . WORKING_DIRECTORY ${TOOLS_DIR})"
-                COMPONENT pysumolib)
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-traci.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} . WORKING_DIRECTORY ${TOOLS_DIR})"
+        add_custom_target(pure_wheels ALL
+                          COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-sumolib.py ./setup.py
+                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-traci.py ./setup.py
+                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          WORKING_DIRECTORY ${TOOLS_DIR})
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
                 COMPONENT pytraci)
     endif ()
 endif ()
