@@ -329,13 +329,13 @@ public:
     const GNELane* getFirstLane(const PathElement* pathElement) const;
 
     /// @brief calculate path between from-to edges (using dijkstra, require path calculator updated)
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane);
 
     /// @brief calculate path between from edge and to junction(using dijkstra, require path calculator updated)
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNELane* fromLane, GNEJunction* toJunction);
 
     /// @brief calculate path between from junction and to edge (using dijkstra, require path calculator updated)
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge);
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNELane* toLane);
 
     /// @brief calculate path between from junction and to junction (using dijkstra, require path calculator updated)
     void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
@@ -391,7 +391,7 @@ protected:
 
     /// @brief build path
     void buildPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> path,
-                   GNEEdge* fromEdge, GNEJunction* fromJunction, GNEEdge* toEdge, GNEJunction* toJunction);
+                   GNELane* fromLane, GNEJunction* fromJunction, GNELane* toLane, GNEJunction* toJunction);
 
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;

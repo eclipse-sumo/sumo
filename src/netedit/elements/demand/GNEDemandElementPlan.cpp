@@ -463,7 +463,8 @@ GNEDemandElementPlan::computePlanPathElement() {
         } else if (myPlanElement->myTagProperty.planToEdge()) {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
         }
-        // pathManager->calculatePathJunctions(myPlanElement, vClass, {previousPlan->getParentJunctions().back(), myPlanElement->getParentJunctions().front()});
+        // calculate path
+        pathManager->calculatePath(myPlanElement, vClass, myPlanElement->getParentJunctions().front(), lastLane);
     } else if (myPlanElement->myTagProperty.planToJunction()) {
         // declare first lane
         GNELane* firstLane = nullptr;
@@ -472,28 +473,29 @@ GNEDemandElementPlan::computePlanPathElement() {
         } else if (myPlanElement->myTagProperty.planFromEdge()) {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
         }
-        // pathManager->calculatePathJunctions(myPlanElement, vClass, {previousPlan->getParentJunctions().back(), myPlanElement->getParentJunctions().front()});
+        // calculate path
+        pathManager->calculatePath(myPlanElement, vClass, firstLane, myPlanElement->getParentJunctions().back());
     } else {
         // declare first edge
-        GNEEdge* firstEdge = nullptr;
+        GNELane* firstLane = nullptr;
         if (myPlanElement->myTagProperty.planFromEdge()) {
-            firstEdge = myPlanElement->getParentEdges().front();
+            firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
         } else if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
-            firstEdge = myPlanElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().front();
         }
         // declare last lane
-        GNEEdge* lastEdge = nullptr;
+        GNELane* lastLane = nullptr;
         if (myPlanElement->myTagProperty.planToEdge()) {
-            lastEdge = myPlanElement->getParentEdges().back();
+            lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
         } else if (myPlanElement->myTagProperty.planToStoppingPlace()) {
-            lastEdge = myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
+            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().front();
         }
-        if (firstEdge && lastEdge) {
-            pathManager->calculatePath(myPlanElement, vClass, firstEdge, lastEdge);
-        } else if (firstEdge) {
-            pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, {firstEdge});
-        } else if (lastEdge) {
-            pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, {lastEdge});
+        if (firstLane && lastLane) {
+            pathManager->calculatePath(myPlanElement, vClass, firstLane, lastLane);
+        } else if (firstLane) {
+            pathManager->calculateConsecutivePathLanes(myPlanElement, {firstLane});
+        } else if (lastLane) {
+            pathManager->calculateConsecutivePathLanes(myPlanElement, {lastLane});
         }
     }
     // update geometry

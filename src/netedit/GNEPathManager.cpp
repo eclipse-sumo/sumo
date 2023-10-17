@@ -700,23 +700,26 @@ GNEPathManager::getFirstLane(const PathElement* pathElement) const {
 
 
 void
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) {
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane) {
     // build path
-    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromEdge, toEdge), fromEdge, nullptr, toEdge, nullptr);
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromLane->getParentEdge(), toLane->getParentEdge()),
+              fromLane, nullptr, toLane, nullptr);
 }
 
 
 void
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) {
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNELane* fromLane, GNEJunction* toJunction) {
     // build path
-    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromEdge, toJunction), fromEdge, nullptr, nullptr, toJunction);
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromLane->getParentEdge(), toJunction),
+              fromLane, nullptr, nullptr, toJunction);
 }
 
 
 void
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) {
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNELane* toLane) {
     // build path
-    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromJunction, toEdge), nullptr, fromJunction, toEdge, nullptr);
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromJunction, toLane->getParentEdge()),
+              nullptr, fromJunction, toLane, nullptr);
 }
 
 
@@ -731,7 +734,8 @@ void
 GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
     // build path
     if (edges.size() > 0) {
-        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), edges.front(), nullptr, edges.back(), nullptr);
+        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges),
+                  edges.front()->getLaneByAllowedVClass(vClass), nullptr, edges.back()->getLaneByAllowedVClass(vClass), nullptr);
     } else {
         removePath(pathElement);
     }
@@ -748,7 +752,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         for (const auto &lane : lanes) {
             edges.push_back(lane->getParentEdge());
         }
-        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), edges.front(), nullptr, edges.back(), nullptr);
+        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), lanes.front(), nullptr, lanes.back(), nullptr);
     } else {
         removePath(pathElement);
     }
@@ -1034,7 +1038,7 @@ GNEPathManager::connectedLanes(const GNELane* fromLane, const GNELane* toLane) c
 
 void
 GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> path,
-                          GNEEdge* fromEdge, GNEJunction* fromJunction, GNEEdge* toEdge, GNEJunction* toJunction) {
+                          GNELane* fromLane, GNEJunction* fromJunction, GNELane* toLane, GNEJunction* toJunction) {
     // declare segment vector
     std::vector<Segment*> segments;
     // declare lane segments
@@ -1077,13 +1081,13 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
         Segment* firstSegment = nullptr;
         Segment* lastSegment = nullptr;
         // continue depending of from-to elements
-        if (fromEdge) {
-            firstSegment = new Segment(this, pathElement, fromEdge->getLaneByAllowedVClass(vClass), true, false);
+        if (fromLane) {
+            firstSegment = new Segment(this, pathElement, fromLane, true, false);
         } else if (fromJunction) {
             firstSegment = new Segment(this, pathElement, fromJunction, nullptr, nullptr);
         }
-        if (toEdge) {
-            firstSegment = new Segment(this, pathElement, toEdge->getLaneByAllowedVClass(vClass), true, false);
+        if (toLane) {
+            firstSegment = new Segment(this, pathElement, toLane, true, false);
         } else if (toJunction) {
             firstSegment = new Segment(this, pathElement, toJunction, nullptr, nullptr);
         }
