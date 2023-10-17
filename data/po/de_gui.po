@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-16 16:36+0000\n"
+"PO-Revision-Date: 2023-10-17 13:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4973,12 +4973,12 @@ msgstr "Rückgängig: LSA ersetzen"
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:452
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:454
 msgid "Cannot Undo in the middle of "
-msgstr ""
+msgstr "Rückgängig inmitten dieses Vorgangs nicht möglich: "
 
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:499
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:501
 msgid "Cannot Redo in the middle of "
-msgstr ""
+msgstr "Wiederholen inmitten dieses Vorgangs nicht möglich: "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
 msgid "Locate a junction within the network. (Shift+J)"
@@ -8558,7 +8558,7 @@ msgstr "Name des Pol"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3143
 msgid "TAZ Source"
-msgstr ""
+msgstr "Abfahrt in Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3154
 msgid "Depart weight associated to this Edge"
@@ -8566,7 +8566,7 @@ msgstr "Abfahrgewicht, das dieser Kante zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3165
 msgid "TAZ Sink"
-msgstr ""
+msgstr "Ankunft in Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3176
 msgid "Arrival weight associated to this Edge"
@@ -9206,39 +9206,39 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4471
 msgid "Transport: edge->edge"
-msgstr ""
+msgstr "Versand: Kante->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4484
 msgid "Transport: edge->containerStop"
-msgstr ""
+msgstr "Versand: Kante->Containerumschlag"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4497
 msgid "Transport: containerStop->edge"
-msgstr ""
+msgstr "Versand: Containerumschlag->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4510
 msgid "Transport: containerStop->containerStop"
-msgstr ""
+msgstr "Versand: Containerumschlag->Containerumschlag"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4532
 msgid "Tranship: edge->edge"
-msgstr ""
+msgstr "Umladen: Kante->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4546
 msgid "Tranship: edge->containerStop"
-msgstr ""
+msgstr "Umladen: Kante->Containerumschlag"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4560
 msgid "Tranship: containerStop->edge"
-msgstr ""
+msgstr "Umladen: Containerumschlag->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4574
 msgid "Tranship: containerStop->containerStop"
-msgstr ""
+msgstr "Umladen: Containerumschlag->Containerumschlag"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4588
 msgid "Tranship: edges"
-msgstr ""
+msgstr "Umladen: Kanten"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4611
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5478
