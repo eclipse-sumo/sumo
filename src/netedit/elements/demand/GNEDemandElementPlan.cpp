@@ -896,9 +896,9 @@ GNEDemandElementPlan::getPlanHierarchyName() const {
     } else if (tagProperty.planEdge()) {
         // edge
         return result + myPlanElement->getParentEdges().front()->getID();
-    } else if (tagProperty.planBusStop() || tagProperty.planTrainStop() || tagProperty.planContainerStop()) {
+    } else if (tagProperty.planStoppingPlace()) {
         // stoppingPlace
-        return myPlanElement->getParentJunctions().front()->getID();
+        return myPlanElement->getParentAdditionals().front()->getID();
     } else {
         // additional
         if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {

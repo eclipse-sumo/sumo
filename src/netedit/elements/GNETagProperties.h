@@ -361,6 +361,9 @@ public:
     /// @brief return true if tag correspond to a plan placed over containerStop
     bool planContainerStop() const;
 
+    /// @brief return true if tag correspond to a plan placed in stoppingPlace
+    bool planStoppingPlace() const;
+
     /// @brief return true if tag correspond to a plan that starts in edge
     bool planFromEdge() const;
 

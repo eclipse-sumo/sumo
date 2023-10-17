@@ -1066,7 +1066,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-    GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, busStopID, false);
+    GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, busStopID, false);
     GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, trainStopID, false);
     // check conditions
     if (personParent == nullptr) {
@@ -1309,6 +1309,11 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     const std::vector<std::string> modes = personPlanObject->hasStringListAttribute(SUMO_ATTR_MODES) ? personPlanObject->getStringListAttribute(SUMO_ATTR_MODES) : std::vector<std::string>();
     const std::vector<std::string> lines = personPlanObject->hasStringListAttribute(SUMO_ATTR_LINES) ? personPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
     const double arrivalPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : -1;
+    const double endPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ENDPOS) : 0;
+    const SUMOTime duration = personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION) ? personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION) : 0;
+    const SUMOTime until = personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL) ? personPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL) : 0;
+    const std::string actType = personPlanObject->hasStringAttribute(SUMO_ATTR_ACTTYPE) ? personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE) : "";
+    const bool friendlyPos = personPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? personPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) : false;
     // get consecutive edges
     const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
     // get edges
@@ -1328,23 +1333,12 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     GNEAdditional* toTrainStop = planCreator->getToTrainStop();
     // get route
     GNEDemandElement* route = planCreator->getRoute();
-
-/*
-    // get stop parameters
-    SUMOVehicleParameter::Stop stopParameters;
-    // fill stops parameters
-    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
-        stopParameters.actType = personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
-        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
-            stopParameters.duration = personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
-            stopParameters.parametersSet |= STOP_DURATION_SET;
-        }
-        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
-            stopParameters.until = personPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
-            stopParameters.parametersSet |= STOP_UNTIL_SET;
-        }
-    }
-*/
+    // get edge
+    GNEEdge* edge = planCreator->getEdge();
+    // get busStop
+    GNEAdditional* busStop = planCreator->getBusStop();
+    // get trainStop
+    GNEAdditional* trainStop = planCreator->getTrainStop();
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
         !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
@@ -1529,7 +1523,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         }
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
         // set person trip tag
-        personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon( fromEdge, toEdge,
+        personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon(fromEdge, toEdge,
                                  fromTAZ, toTAZ, fromJunction, toJunction, fromBusStop, toBusStop,
                                  fromTrainStop, toTrainStop).first);
         // from edges
@@ -1690,7 +1684,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         }
     } else if (planTemplate->getTagProperty().isRide()) {
         // set ride tag
-        personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon( fromEdge, toEdge,
+        personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon(fromEdge, toEdge,
                                  fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
         // from edges
         if (fromEdge && toEdge) {
@@ -1750,45 +1744,18 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                       "", "", toTrainStop->getID(),
                       arrivalPos, lines);
         }
-    }
-/*
-    // stops
-    case GNE_TAG_STOPPERSON_EDGE: {
-        // check if ride busStop->busStop can be created
-        if (fromEdge) {
-            stopParameters.edge = fromEdge->getID();
-            stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
-            stopParameters.parametersSet |= STOP_END_SET;
-            buildStop(personPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
-            return false;
+    } else if (planTemplate->getTagProperty().isStopPerson()) {
+        // set ride tag
+        personPlanObject->setTag(GNEDemandElementPlan::getPersonStopTagIcon(edge, busStop, trainStop).first);
+        // from edges
+        if (edge) {
+            buildPersonStop(personPlanObject, edge->getID(), "", "", endPos, duration, until, actType, friendlyPos);
+        } else if (busStop) {
+            buildPersonStop(personPlanObject, "", busStop->getID(), "", endPos, duration, until, actType, friendlyPos);
+        } else if (trainStop) {
+            buildPersonStop(personPlanObject, "", "", trainStop->getID(), endPos, duration, until, actType, friendlyPos);
         }
-        break;
     }
-    case GNE_TAG_STOPPERSON_BUSSTOP: {
-        // check if ride busStop->busStop can be created
-        if (toBusStop) {
-            stopParameters.busstop = toBusStop->getID();
-            buildStop(personPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
-            return false;
-        }
-        break;
-    }
-    case GNE_TAG_STOPPERSON_TRAINSTOP: {
-        // check if ride trainStop->trainStop can be created
-        if (toTrainStop) {
-            stopParameters.busstop = toTrainStop->getID();
-            buildStop(personPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
-            return false;
-        }
-        break;
-    }
-*/
     // get person
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
                         personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
@@ -1825,6 +1792,11 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     const std::vector<std::string> lines = containerPlanObject->hasStringListAttribute(SUMO_ATTR_LINES) ? containerPlanObject->getStringListAttribute(SUMO_ATTR_LINES) : std::vector<std::string>();
     const double departPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_DEPARTPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS) : -1;
     const double arrivalPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : -1;
+    const double endPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ENDPOS) : 0;
+    const SUMOTime duration = containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION) ? containerPlanObject->getTimeAttribute(SUMO_ATTR_DURATION) : 0;
+    const SUMOTime until = containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL) ? containerPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL) : 0;
+    const std::string actType = containerPlanObject->hasStringAttribute(SUMO_ATTR_ACTTYPE) ? containerPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE) : "";
+    const bool friendlyPos = containerPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? containerPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) : false;
     // get consecutive edges
     const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
     // get edges
@@ -1833,22 +1805,10 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     // get containerStops
     GNEAdditional* fromContainerStop = planCreator->getFromContainerStop();
     GNEAdditional* toContainerStop = planCreator->getToContainerStop();
-/*
-    // get stop parameters
-    SUMOVehicleParameter::Stop stopParameters;
-    // fill stops parameters
-    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_TRAINSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
-        stopParameters.actType = containerPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
-        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
-            stopParameters.duration = containerPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
-            stopParameters.parametersSet |= STOP_DURATION_SET;
-        }
-        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
-            stopParameters.until = containerPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
-            stopParameters.parametersSet |= STOP_UNTIL_SET;
-        }
-    }
-*/
+    // get edge
+    GNEEdge* edge = planCreator->getEdge();
+    // get containerStop
+    GNEAdditional* containerStop = planCreator->getContainerStop();
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop && consecutiveEdges.empty()) {
         toEdge = fromEdge;
@@ -1923,45 +1883,15 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
                            "", toContainerStop->getID(),
                            lines, arrivalPos);
         }
-    }
-/*
-    // stops
-    case GNE_TAG_STOPPERSON_EDGE: {
-        // check if ride containerStop->containerStop can be created
-        if (fromEdge) {
-            stopParameters.edge = fromEdge->getID();
-            stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
-            stopParameters.parametersSet |= STOP_END_SET;
-            buildStop(containerPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
-            return false;
+    } else if (planTemplate->getTagProperty().isStopContainer()) {
+        // set ride tag
+        containerPlanObject->setTag(GNEDemandElementPlan::getContainerStopTagIcon(edge, containerStop).first);
+        if (edge) {
+            buildContainerStop(containerPlanObject, edge->getID(), "", endPos, duration, until, actType, friendlyPos);
+        } else if (containerStop) {
+            buildContainerStop(containerPlanObject, "", containerStop->getID(), endPos, duration, until, actType, friendlyPos);
         }
-        break;
     }
-    case GNE_TAG_STOPPERSON_BUSSTOP: {
-        // check if ride containerStop->containerStop can be created
-        if (toContainerStop) {
-            stopParameters.containerstop = toContainerStop->getID();
-            buildStop(containerPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a containerStop"));
-            return false;
-        }
-        break;
-    }
-    case GNE_TAG_STOPPERSON_TRAINSTOP: {
-        // check if ride trainStop->trainStop can be created
-        if (toTrainStop) {
-            stopParameters.containerstop = toTrainStop->getID();
-            buildStop(containerPlanObject, stopParameters);
-        } else {
-            myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a trainStop"));
-            return false;
-        }
-        break;
-    }
-*/
     // get container
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
                         containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);

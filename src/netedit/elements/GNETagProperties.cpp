@@ -603,6 +603,12 @@ GNETagProperties::planContainerStop() const {
 
 
 bool
+GNETagProperties::planStoppingPlace() const {
+    return planBusStop() || planTrainStop() || planContainerStop();
+}
+
+
+bool
 GNETagProperties::planFromEdge() const {
     return (myTagParents & PLAN_FROM_EDGE) != 0;
 }
