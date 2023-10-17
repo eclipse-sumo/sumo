@@ -609,6 +609,15 @@ GNETagProperties::planStoppingPlace() const {
 
 
 bool
+GNETagProperties::planFromTo() const {
+    return planFromEdge() || planToEdge() ||
+           planFromJunction() || planToJunction() ||
+           planFromTAZ() || planToTAZ() ||
+           planFromStoppingPlace() || planToStoppingPlace();
+}
+
+
+bool
 GNETagProperties::planFromEdge() const {
     return (myTagParents & PLAN_FROM_EDGE) != 0;
 }

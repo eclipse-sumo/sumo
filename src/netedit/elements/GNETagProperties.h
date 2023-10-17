@@ -364,6 +364,9 @@ public:
     /// @brief return true if tag correspond to a plan placed in stoppingPlace
     bool planStoppingPlace() const;
 
+    /// @brief return true if tag correspond to a plan with from-to parents
+    bool planFromTo() const;
+
     /// @brief return true if tag correspond to a plan that starts in edge
     bool planFromEdge() const;
 

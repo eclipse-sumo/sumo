@@ -178,12 +178,6 @@ GNEStopPlan::updateGeometry() {
         // update demand element geometry using both positions
         myDemandElementGeometry.updateGeometry({frontPosition, backPosition});
     }
-    /*
-        // recompute geometry of all Demand elements related with this this stop
-        if (getParentDemandElements().front()->getTagProperty().isRoute()) {
-            getParentDemandElements().front()->updateGeometry();
-        }
-    */
 }
 
 
@@ -229,6 +223,10 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
             drawStopPersonOverStoppingPlace(s, exaggeration);
         } else {
             drawStopPersonOverEdge(s, exaggeration);
+        }
+        // check if draw plan parent
+        if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
+            getParentDemandElements().at(0)->drawGL(s);
         }
     }
 }

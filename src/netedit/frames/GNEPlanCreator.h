@@ -101,8 +101,8 @@ public:
     /// @brief add route
     bool addRoute(GNEDemandElement* route);
 
-    /// @brief add edge
-    bool addEdge(GNEEdge* edge);
+    /// @brief add edge (clicking over lanes)
+    bool addEdge(GNELane* lane);
 
     /// @brief add junction
     bool addJunction(GNEJunction* junction);
@@ -169,6 +169,9 @@ public:
 
     /// @brief get containerStop
     GNEAdditional* getContainerStop() const;
+
+    /// @brief get clicked position over lane
+    double getClickedPositionOverLane() const;
 
     /// @brief get path route
     const std::vector<PlanPath>& getPath() const;
@@ -280,6 +283,9 @@ protected:
     /// @brief stoppingPlace
     GNEAdditional* myStoppingPlace = nullptr;
 
+    /// @brief clicked position over lane
+    double myClickedPositionOverLane = 0;
+
     /// @brief vector with current path
     std::vector<PlanPath> myPath;
 
@@ -315,7 +321,7 @@ private:
     void updateInfoLabel();
 
     /// @brief add edge
-    bool addSingleEdge(GNEEdge* edge);
+    bool addSingleEdge(GNELane* lane);
 
     /// @brief add stoppingPlace
     bool addSingleStoppingPlace(GNEAdditional* stoppingPlace);

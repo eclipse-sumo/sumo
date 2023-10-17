@@ -551,9 +551,11 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // continue depending of parents
-    if (myPlanElement->myTagProperty.planRoute()) {
+    if (tagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
+    } else if (tagProperty.isStopPerson() || tagProperty.isStopContainer()) {
+        return myPlanElement->getDemandElementGeometry().getShape().front();
     } else if (tagProperty.planFromEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // first edge
         return myPlanElement->getParentEdges().front()->getPositionInView();
@@ -594,12 +596,13 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPosition);
-        // edges
-        case SUMO_ATTR_EDGES:
-            return myPlanElement->parseIDs(myPlanElement->getParentEdges());
         // route
         case SUMO_ATTR_ROUTE:
             return myPlanElement->getParentDemandElements().at(1)->getID();
+        // edges
+        case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_EDGES:
+            return myPlanElement->parseIDs(myPlanElement->getParentEdges());
         // stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_TRAIN_STOP:

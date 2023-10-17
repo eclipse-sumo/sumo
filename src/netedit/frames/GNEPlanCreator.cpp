@@ -242,6 +242,9 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         // hide use last inserted route
         myUseLastRoute->hide();
     }
+    if (planTagProperties.planEdge()) {
+        myPlanParents |= EDGE;
+    } 
     if (planTagProperties.planBusStop()) {
         myPlanParents |= BUSSTOP;
     } 
@@ -295,16 +298,16 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     // update info label (after setting myPlanParents)
     updateInfoLabel();
     // check if add first element
-    if (myPreviousPlanElement) {
-        const auto tagProperty = myPreviousPlanElement->getTagProperty();
+    if (myPreviousPlanElement && planTagProperties.planFromTo()) {
+        const auto previousTagProperty = myPreviousPlanElement->getTagProperty();
         // add last element of previous plan
-        if (tagProperty.planToEdge()) {
+        if (previousTagProperty.planToEdge() || previousTagProperty.planEdge()) {
             addFromToEdge(myPreviousPlanElement->getParentEdges().back());
-        } else if (tagProperty.planToJunction()) {
+        } else if (previousTagProperty.planToJunction()) {
             addFromToJunction(myPreviousPlanElement->getParentJunctions().back());
-        } else if (tagProperty.planToTAZ()) {
+        } else if (previousTagProperty.planToTAZ()) {
             addFromToTAZ(myPreviousPlanElement->getParentAdditionals().back());
-        } else if (tagProperty.planToStoppingPlace()) {
+        } else if (previousTagProperty.planToStoppingPlace() || previousTagProperty.planStoppingPlace()) {
             addFromToStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
         }
     }
@@ -344,14 +347,14 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
 
 
 bool
-GNEPlanCreator::addEdge(GNEEdge* edge) {
+GNEPlanCreator::addEdge(GNELane* lane) {
     // continue depending of plan parent
     if (myPlanParents & CONSECUTIVE_EDGES) {
-        return addConsecutiveEdge(edge);
+        return addConsecutiveEdge(lane->getParentEdge());
     } else if (myPlanParents & EDGE) {
-        return addSingleEdge(edge);
+        return addSingleEdge(lane);
     } else if ((myPlanParents & START_EDGE) || (myPlanParents & END_EDGE)) {
-        return addFromToEdge(edge);
+        return addFromToEdge(lane->getParentEdge());
     } else {
         return false;
     }
@@ -554,6 +557,12 @@ GNEPlanCreator::getContainerStop() const {
 }
 
 
+double
+GNEPlanCreator::getClickedPositionOverLane() const {
+    return myClickedPositionOverLane;
+}
+
+
 const std::vector<GNEPlanCreator::PlanPath>&
 GNEPlanCreator::getPath() const {
     return myPath;
@@ -751,6 +760,7 @@ GNEPlanCreator::clearPath() {
     myStoppingPlace = nullptr;
     myEdge = nullptr;
     myRoute = nullptr;
+    myClickedPositionOverLane = 0;
     // clear path
     myPath.clear();
 }
@@ -886,9 +896,12 @@ GNEPlanCreator::updateInfoLabel() {
 
 
 bool
-GNEPlanCreator::addSingleEdge(GNEEdge* edge) {
+GNEPlanCreator::addSingleEdge(GNELane* lane) {
     // add edge
-    myEdge = edge;
+    myEdge = lane->getParentEdge();
+    // set position over lane
+    const auto clickedPos = myFrameParent->getViewNet()->getPositionInformation();
+    myClickedPositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(clickedPos);
     // create path
     return myFrameParent->createPath(false);
 }

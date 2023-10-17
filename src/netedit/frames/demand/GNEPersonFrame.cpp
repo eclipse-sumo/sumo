@@ -120,7 +120,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        return myPlanCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        return myPlanCreator->addEdge(objectsUnderCursor.getLaneFront());
     } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
         return myPlanCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront());
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
