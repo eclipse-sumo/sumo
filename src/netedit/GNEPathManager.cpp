@@ -970,13 +970,13 @@ GNEPathManager::clearDemandPaths() {
 
 void
 GNEPathManager::addSegmentInLaneSegments(Segment* segment, const GNELane* lane) {
-    myLaneSegments[lane].insert(segment);
+    myLaneSegments[lane].push_back(segment);
 }
 
 
 void
 GNEPathManager::addSegmentInJunctionSegments(Segment* segment, const GNEJunction* junction) {
-    myJunctionSegments[junction].insert(segment);
+    myJunctionSegments[junction].push_back(segment);
 }
 
 
@@ -984,23 +984,29 @@ void
 GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     // check if segment has a lane
     if (segment->getLane()) {
+        auto lane = segment->getLane();
         // remove segment from segments associated with lane
-        if (myLaneSegments.at(segment->getLane()).find(segment) != myLaneSegments.at(segment->getLane()).end()) {
-            myLaneSegments.at(segment->getLane()).erase(segment);
+        auto it = std::find(myLaneSegments.at(lane).begin(), myLaneSegments.at(lane).end(), segment);
+        while (it != myLaneSegments.at(lane).end()) {
+            myLaneSegments.at(lane).erase(it);
+            it = std::find(myLaneSegments.at(lane).begin(), myLaneSegments.at(lane).end(), segment);
         }
         // clear lane if doesn't have more segments
-        if (myLaneSegments.at(segment->getLane()).empty()) {
-            myLaneSegments.erase(segment->getLane());
+        if (myLaneSegments.at(lane).empty()) {
+            myLaneSegments.erase(lane);
         }
     }
     if (segment->getJunction()) {
+        auto junction = segment->getJunction();
         // remove segment from segments associated with junction
-        if (myJunctionSegments.at(segment->getJunction()).find(segment) != myJunctionSegments.at(segment->getJunction()).end()) {
-            myJunctionSegments.at(segment->getJunction()).erase(segment);
+        auto it = std::find(myJunctionSegments.at(junction).begin(), myJunctionSegments.at(junction).end(), segment);
+        while (it != myJunctionSegments.at(junction).end()) {
+            myJunctionSegments.at(junction).erase(it);
+            it = std::find(myJunctionSegments.at(junction).begin(), myJunctionSegments.at(junction).end(), segment);
         }
         // clear junction if doesn't have more segments
-        if (myJunctionSegments.at(segment->getJunction()).empty()) {
-            myJunctionSegments.erase(segment->getJunction());
+        if (myJunctionSegments.at(junction).empty()) {
+            myJunctionSegments.erase(junction);
         }
     }
 }
@@ -1039,6 +1045,8 @@ GNEPathManager::connectedLanes(const GNELane* fromLane, const GNELane* toLane) c
 void
 GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> path,
                           GNELane* fromLane, GNEJunction* fromJunction, GNELane* toLane, GNEJunction* toJunction) {
+    // first remove path element from paths
+    removePath(pathElement);
     // declare segment vector
     std::vector<Segment*> segments;
     // declare lane segments
@@ -1104,8 +1112,8 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
             // add segments in path
             myPaths[pathElement] = segments;
         } else {
-            // remove path element from paths
-            removePath(pathElement);
+            delete firstSegment;
+            delete lastSegment;
         }
     }
 }

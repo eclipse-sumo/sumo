@@ -403,10 +403,10 @@ protected:
     std::map<const PathElement*, std::vector<Segment*> > myPaths;
 
     /// @brief map with lane segments
-    std::map<const GNELane*, std::set<Segment*> > myLaneSegments;
+    std::map<const GNELane*, std::vector<Segment*> > myLaneSegments;
 
     /// @brief map with junction segments
-    std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
+    std::map<const GNEJunction*, std::vector<Segment*> > myJunctionSegments;
 
 private:
     /// @brief empty segments (used in getPathElementSegments)
