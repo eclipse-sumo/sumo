@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-16 16:36+0000\n"
+"PO-Revision-Date: 2023-10-17 13:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2279,63 +2279,63 @@ msgstr "rumore (Harmonoise) [dB]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:175
 msgid "devices"
-msgstr ""
+msgstr "attrezzi"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:176
 msgid "persons"
-msgstr ""
+msgstr "persone"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:178
 msgid "containers"
-msgstr ""
+msgstr "contenitori"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
-msgstr ""
+msgstr "stato di cambio corsia verso la destra"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:181
 msgid "lcState left"
-msgstr ""
+msgstr "stato di cambio corsia verso la sinistra"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:184
 msgid "lcState center"
-msgstr ""
+msgstr "stato di cambio corsia centro"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:185
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "lato destro sull'arco [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:186
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "lato sinistro sull'arco [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:187
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "frazione di corsia più a destra [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:188
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "frazione di corsia più a sinistra [#]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "distanza percorsa per un cambio corsia [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:192
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "stato di carica attuale [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:196
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "stato di carica relativo [-]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:198
 msgid "currently charging [Wh]"
-msgstr ""
+msgstr "caricando attualmente [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:202
 msgid "present electric current [A]"
-msgstr ""
+msgstr "corrente elettrica presente [A]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
 msgid "speed mode"
@@ -2440,7 +2440,7 @@ msgstr "allineamento laterale"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:261
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "angolo di manovra verso tempi"
 
 #: C:\Repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -2550,7 +2550,7 @@ msgstr "Distretti"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 msgid "DRT"
-msgstr ""
+msgstr "trasporto a chiamata"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1440
 msgid "CityBrain"
@@ -2800,11 +2800,11 @@ msgstr "Salvataggio degli elementi addizionali fallito!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3825
 msgid "JuPedSim elements saved in '"
-msgstr ""
+msgstr "Elementi JuPedSim salvati in '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3834
 msgid "Saving JuPedSim elements failed!"
-msgstr ""
+msgstr "Il salvataggio degli elementi JuPedSim è fallito!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3873
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4847
@@ -2832,7 +2832,7 @@ msgstr "Elementi di domanda salvati in '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3964
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "Il salvataggio degli elementi di domanda è fallito!"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4036
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4916
@@ -3064,7 +3064,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 msgid "Reload"
-msgstr ""
+msgstr "Ricarica"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:261
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:265
@@ -3252,11 +3252,11 @@ msgstr "Salva elementi addizionali in un file nuovo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:453
 msgid "Save JuPedSim Elements As..."
-msgstr ""
+msgstr "Salva elementi JuPedSim con nome..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:453
 msgid "Save JuPedSim elements in a separated file."
-msgstr ""
+msgstr "Salva elementi JuPedSim in un file nuovo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:459
 msgid "Reload Additionals"
@@ -3401,7 +3401,7 @@ msgstr "Seleziona elementi."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:693
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 msgid "Move"
-msgstr ""
+msgstr "Sposta"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:603
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:693
@@ -3419,7 +3419,7 @@ msgstr "Crea nodi e archi."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Traffic light"
-msgstr ""
+msgstr "Semaforo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Modes traffic lights over junctions."
@@ -3428,7 +3428,7 @@ msgstr "Modo dei semafori."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1418
 msgid "Connection"
-msgstr ""
+msgstr "Collegamento"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
 msgid "Modes connections between lanes."
@@ -3436,7 +3436,7 @@ msgstr "Collega due corsie tra di loro."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Prohibition"
-msgstr ""
+msgstr "Precedenze"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Modes connection prohibitions."
@@ -3445,7 +3445,7 @@ msgstr "Modo per visionare le precedenze."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:623
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1340
 msgid "Crossing"
-msgstr ""
+msgstr "Passaggio pedonale"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:623
 msgid "Create crossings between edges."
@@ -3463,7 +3463,7 @@ msgstr "Crea elementi addizionali."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Wire"
-msgstr ""
+msgstr "Catenaria"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:631
 msgid "Create wires."
@@ -3472,7 +3472,7 @@ msgstr "Crea catenarie."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:635
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
 msgid "TAZ"
-msgstr ""
+msgstr "Zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:635
 msgid "Create Traffic Assignment Zones."
@@ -3485,17 +3485,17 @@ msgstr "Forme"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:639
 msgid "Create Shapes."
-msgstr ""
+msgstr "Crea forme."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1699
 msgid "Decals"
-msgstr ""
+msgstr "Immagini di sfondo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 msgid "Create decals."
-msgstr ""
+msgstr "Crea immagini di sfondo."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
 msgid "Create Routes."
@@ -3504,11 +3504,11 @@ msgstr "Crea itinerari."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3391
 msgid "Route distribution"
-msgstr ""
+msgstr "Distribuzione di itinerari"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
 msgid "Create and edit route distributions."
-msgstr ""
+msgstr "Crea e modifica distribuzioni di itinerari."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:703
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:119
@@ -3529,11 +3529,11 @@ msgstr "Crea tipi (di veicoli, di persone e di contenitori)."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:709
 msgid "TypeDistribution"
-msgstr ""
+msgstr "Distribuzione di tipi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:709
 msgid "Create and edit type distributions."
-msgstr ""
+msgstr "Crea e modifica distribuzioni di tipi."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:712
 msgid "Create stops."
@@ -3831,13 +3831,13 @@ msgstr "Corsie"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1344
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:100
 msgid "Connections"
-msgstr ""
+msgstr "Collegamenti"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1349
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:561
 msgid "Crossings"
-msgstr ""
+msgstr "Passaggi pedonali"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1354
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
@@ -3849,7 +3849,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:136
 msgid "Additionals"
-msgstr ""
+msgstr "Elementi addizionali"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1364
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:105
@@ -3861,19 +3861,19 @@ msgstr "Zone di assegnazione del traffico"
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:104
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:35
 msgid "Wires"
-msgstr ""
+msgstr "Catenarie"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1374
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:108
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2182
 msgid "Polygons"
-msgstr ""
+msgstr "Poligoni"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1379
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:109
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2147
 msgid "POIs"
-msgstr ""
+msgstr "Punti di interesse"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1384
 msgid "WalkableAreas"
@@ -3881,13 +3881,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1389
 msgid "Obstacles"
-msgstr ""
+msgstr "Ostacoli"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1394
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:114
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
 msgid "Routes"
-msgstr ""
+msgstr "Itinerari"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1399
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2002
@@ -3897,7 +3897,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1855
 msgid "Vehicles"
-msgstr ""
+msgstr "Veicoli"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1404
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2005
@@ -3906,7 +3906,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1940
 msgid "Persons"
-msgstr ""
+msgstr "Persone"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1409
 msgid "PersonTrips"
@@ -3916,13 +3916,13 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:189
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
 msgid "Walks"
-msgstr ""
+msgstr "Cammini"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1419
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:192
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
 msgid "Rides"
-msgstr ""
+msgstr "Passaggi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1424
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
@@ -3930,7 +3930,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
 msgid "Containers"
-msgstr ""
+msgstr "Contenitori"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1429
 msgid "Transports"
@@ -3939,7 +3939,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1434
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 msgid "Tranships"
-msgstr ""
+msgstr "Trasbordi"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1439
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2014
@@ -3947,7 +3947,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
 msgid "Stops"
-msgstr ""
+msgstr "Fermate"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1444
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
@@ -4097,12 +4097,12 @@ msgstr "Apre un dialogo per localizzare una fermata."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
 msgid "PoI"
-msgstr ""
+msgstr "Punto di interesse"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2026
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2926
 msgid "Polygon"
-msgstr ""
+msgstr "Poligono"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2144
 msgid "Toggle this Status Bar on/off."
@@ -4114,11 +4114,11 @@ msgstr "Svuota la finestra di messaggi."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2167
 msgid "Online Documentation"
-msgstr ""
+msgstr "Documentazione in linea"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2170
 msgid "Changelog"
-msgstr ""
+msgstr "Registro delle modifiche"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2172
 msgid "Hotkeys"
@@ -4126,11 +4126,11 @@ msgstr "Scorciatoie"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2174
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2176
 msgid "Feedback"
-msgstr ""
+msgstr "Riscontro"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2176
 msgid "Open feedback channels."
@@ -4138,7 +4138,7 @@ msgstr "Va ai canali feedback."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2179
 msgid "About"
-msgstr ""
+msgstr "Su di"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2179
 msgid "About netedit."
@@ -4313,7 +4313,7 @@ msgstr "Salva configurazione netedit con nome"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2830
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2834
 msgid "Netedit Config files (*.netecfg)"
-msgstr ""
+msgstr "File configurazione netedit (*.netecfg)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2833
 msgid "Open netedit Config file"
