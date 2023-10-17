@@ -177,26 +177,26 @@ GNERide::computePathElement() {
     if (firstPathLane && lastPathLane) {
         const std::vector<GNELane*> lanes = {firstPathLane, lastPathLane};
         // calculate path
-        myNet->getPathManager()->calculatePathLanes(this, SVC_PASSENGER, lanes);
+        myNet->getPathManager()->calculatePath(this, SVC_PASSENGER, lanes);
         // check path (taxis)
         if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePathLanes(this, SVC_TAXI, lanes);
+            myNet->getPathManager()->calculatePath(this, SVC_TAXI, lanes);
         }
         // check path (bus)
         if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePathLanes(this, SVC_BUS, lanes);
+            myNet->getPathManager()->calculatePath(this, SVC_BUS, lanes);
         }
         // check path (bicycle)
         if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePathLanes(this, SVC_BICYCLE, lanes);
+            myNet->getPathManager()->calculatePath(this, SVC_BICYCLE, lanes);
         }
         // check path (pedestrian)
         if (!myNet->getPathManager()->isPathValid(this)) {
-            myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, lanes);
+            myNet->getPathManager()->calculatePath(this, SVC_PEDESTRIAN, lanes);
         }
     } else {
         // reset path
-        myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {});
+        myNet->getPathManager()->removePath(this);
     }
     // update geometry
     updateGeometry();

@@ -22,6 +22,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
@@ -327,18 +328,27 @@ public:
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;
 
-    /// @brief calculate path edges (using dijkstra, require path calculator updated)
-    void calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+    /// @brief calculate path between from-to edges (using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge);
 
-    /// @brief calculate path lanes (using dijkstra, require path calculator updated)
-    void calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
+    /// @brief calculate path between from edge and to junction(using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction);
 
-    /// @brief calculate path junctions (using dijkstra, require path calculator updated)
-    void calculatePathJunctions(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEJunction*> junctions);
+    /// @brief calculate path between from junction and to edge (using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge);
+
+    /// @brief calculate path between from junction and to junction (using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction);
+
+    /// @brief calculate path lanes between list of edges (using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
+
+    /// @brief calculate path lanes between list of lanes (using dijkstra, require path calculator updated)
+    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
 
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
-
+    
     /// @brief calculate consecutive path lanes
     void calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes);
 
@@ -378,6 +388,10 @@ protected:
 
     /// @brief check if given lanes are connected
     bool connectedLanes(const GNELane* fromLane, const GNELane* toLane) const;
+
+    /// @brief build path
+    void buildPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> path,
+                   GNEEdge* fromEdge, GNEJunction* fromJunction, GNEEdge* toEdge, GNEJunction* toJunction);
 
     /// @brief PathCalculator instance
     PathCalculator* myPathCalculator;

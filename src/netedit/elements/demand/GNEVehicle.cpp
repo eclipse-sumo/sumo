@@ -979,7 +979,7 @@ GNEVehicle::computePathElement() {
     // calculate path (only for flows and trips)
     if (myTagProperty.vehicleJunctions()) {
         // calculate path
-        myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+        myNet->getPathManager()->calculatePath(this, getVClass(), getParentJunctions().front(), getParentJunctions().back());
     } else if (myTagProperty.vehicleEdges()) {
         // declare lane stops
         std::vector<GNELane*> laneStopWaypoints;
@@ -1021,7 +1021,7 @@ GNEVehicle::computePathElement() {
             // add last lane
             lanes.push_back(lastLane);
             // calculate path
-            myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
+            myNet->getPathManager()->calculatePath(this, getVClass(), lanes);
         }
     }
     // update geometry

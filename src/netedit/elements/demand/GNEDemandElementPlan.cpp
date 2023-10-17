@@ -454,7 +454,7 @@ GNEDemandElementPlan::computePlanPathElement() {
         pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, myPlanElement->getParentEdges());
     } else if (myPlanElement->myTagProperty.planFromJunction() && myPlanElement->myTagProperty.planToJunction()) {
         // calculate path using junctions
-        pathManager->calculatePathJunctions(myPlanElement, vClass, myPlanElement->getParentJunctions());
+        pathManager->calculatePath(myPlanElement, vClass, myPlanElement->getParentJunctions().front(), myPlanElement->getParentJunctions().back());
     } else if (myPlanElement->myTagProperty.planFromJunction()) {
         // declare last lane
         GNELane* lastLane = nullptr;
@@ -489,11 +489,11 @@ GNEDemandElementPlan::computePlanPathElement() {
             lastEdge = myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
         }
         if (firstEdge && lastEdge) {
-            pathManager->calculatePathEdges(myPlanElement, vClass, {firstEdge, lastEdge});
+            pathManager->calculatePath(myPlanElement, vClass, firstEdge, lastEdge);
         } else if (firstEdge) {
-            pathManager->calculatePathEdges(myPlanElement, vClass, {firstEdge});
+            pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, {firstEdge});
         } else if (lastEdge) {
-            pathManager->calculatePathEdges(myPlanElement, vClass, {lastEdge});
+            pathManager->calculateConsecutivePathEdges(myPlanElement, vClass, {lastEdge});
         }
     }
     // update geometry

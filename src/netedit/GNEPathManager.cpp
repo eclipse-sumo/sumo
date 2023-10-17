@@ -698,100 +698,59 @@ GNEPathManager::getFirstLane(const PathElement* pathElement) const {
 }
 
 
+
 void
-GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
-    // check if path element exist already in myPaths
-    if (myPaths.find(pathElement) != myPaths.end()) {
-        // delete segments
-        for (const auto& segment : myPaths.at(pathElement)) {
-            delete segment;
-        }
-        // remove path element from myPaths
-        myPaths.erase(pathElement);
-    }
-    // continue depending of number of edges
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) {
+    // build path
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromEdge, toEdge), fromEdge, nullptr, toEdge, nullptr);
+}
+
+
+void
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEJunction* toJunction) {
+    // build path
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromEdge, toJunction), fromEdge, nullptr, nullptr, toJunction);
+}
+
+
+void
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEEdge* toEdge) {
+    // build path
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromJunction, toEdge), nullptr, fromJunction, toEdge, nullptr);
+}
+
+
+void
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, GNEJunction* fromJunction, GNEJunction* toJunction) {
+    // build path
+    buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, fromJunction, toJunction), nullptr, fromJunction, nullptr, toJunction);
+}
+
+
+void
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges) {
+    // build path
     if (edges.size() > 0) {
-        // declare segment vector
-        std::vector<Segment*> segments;
-        // declare lane segments
-        std::vector<Segment*> laneSegments;
-        // calculate Dijkstra path
-        const std::vector<GNEEdge*> path = myPathCalculator->calculateDijkstraPath(vClass, edges);
-        // continue if path isn't empty
-        if (path.size() > 0) {
-            // reserve
-            segments.reserve(2 * (int)path.size() - 1);
-            laneSegments.reserve(path.size());
-            // iterate over path
-            for (int i = 0; i < (int)path.size(); i++) {
-                // get first and last segment flags
-                const bool firstSegment = (i == 0);
-                const bool lastSegment = (i == ((int)path.size() - 1));
-                // get first allowed lane
-                const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
-                // create segments
-                Segment* laneSegment = new Segment(this, pathElement, lane, firstSegment, lastSegment);
-                // add it into segment and laneSegment vectors
-                segments.push_back(laneSegment);
-                laneSegments.push_back(laneSegment);
-                // continue if this isn't the last edge
-                if (!lastSegment) {
-                    // obtain next lane
-                    const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
-                    // create junction segments
-                    Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
-                    // add it into segment vector
-                    segments.push_back(junctionSegment);
-                }
-            }
-            // get lane segment index
-            const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
-            // mark middle label as label segment
-            laneSegments.at(laneSegmentIndex)->markSegmentLabel();
-        } else {
-            // create first segment
-            Segment* firstSegment = new Segment(this, pathElement, edges.front()->getLaneByAllowedVClass(vClass), true, false);
-            // mark segment as label segment
-            firstSegment->markSegmentLabel();
-            // add to segments
-            segments.push_back(firstSegment);
-            // create last segment
-            Segment* lastSegment = new Segment(this, pathElement, edges.back()->getLaneByAllowedVClass(vClass), false, true);
-            // add to segments
-            segments.push_back(lastSegment);
-            // set previous and next segment for vinculating first and last segment with a red line
-            firstSegment->setNextSegment(lastSegment);
-            lastSegment->setPreviousSegment(firstSegment);
+        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), edges.front(), nullptr, edges.back(), nullptr);
+    } else {
+        removePath(pathElement);
+    }
+}
+
+
+void
+GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
+    // build path
+    if (lanes.size() > 0) {
+        // extract parent edges
+        std::vector<GNEEdge*> edges;
+        edges.reserve(lanes.size());
+        for (const auto &lane : lanes) {
+            edges.push_back(lane->getParentEdge());
         }
-        // add segment in path
-        myPaths[pathElement] = segments;
-    }
-}
-
-
-void
-GNEPathManager::calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
-    // declare edges
-    std::vector<GNEEdge*> edges;
-    // reserve edges
-    edges.reserve(lanes.size());
-    // get parent of every lane
-    for (const auto& lane : lanes) {
-        edges.push_back(lane->getParentEdge());
-    }
-    // calculate path edges
-    calculatePathEdges(pathElement, vClass, edges);
-}
-
-
-void
-GNEPathManager::calculatePathJunctions(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEJunction*> junctions) {
-    // first calculate edge path between both elements
-    const auto junctionPath = myPathCalculator->calculateDijkstraPath(vClass, junctions.front(), junctions.back());
-    // if exist, then calculate edgePath between the first edges
-    if (junctionPath.size() > 0) {
-        // calculate path edges
-        calculatePathEdges(pathElement, vClass, {junctionPath.front(), junctionPath.back()});
+        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), edges.front(), nullptr, edges.back(), nullptr);
+    } else {
+        removePath(pathElement);
     }
 }
 
@@ -1070,6 +1029,81 @@ GNEPathManager::connectedLanes(const GNELane* fromLane, const GNELane* toLane) c
                 NBEdge::connections_finder(fromLane->getIndex(), toNBEdge, toLane->getIndex()));
     // check if connection was found
     return (con_it != connections.end());
+}
+
+
+void
+GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> path,
+                          GNEEdge* fromEdge, GNEJunction* fromJunction, GNEEdge* toEdge, GNEJunction* toJunction) {
+    // declare segment vector
+    std::vector<Segment*> segments;
+    // declare lane segments
+    std::vector<Segment*> laneSegments;
+    // continue if path isn't empty
+    if (path.size() > 0) {
+        // reserve
+        segments.reserve(2 * (int)path.size() - 1);
+        laneSegments.reserve(path.size());
+        // iterate over path
+        for (int i = 0; i < (int)path.size(); i++) {
+            // get first and last segment flags
+            const bool firstSegment = (i == 0);
+            const bool lastSegment = (i == ((int)path.size() - 1));
+            // get first allowed lane
+            const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
+            // create segments
+            Segment* laneSegment = new Segment(this, pathElement, lane, firstSegment, lastSegment);
+            // add it into segment and laneSegment vectors
+            segments.push_back(laneSegment);
+            laneSegments.push_back(laneSegment);
+            // continue if this isn't the last edge
+            if (!lastSegment) {
+                // obtain next lane
+                const GNELane* nextLane = path.at(i + 1)->getLaneByAllowedVClass(vClass);
+                // create junction segments
+                Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getParentJunctions().at(1), lane, nextLane);
+                // add it into segment vector
+                segments.push_back(junctionSegment);
+            }
+        }
+        // get lane segment index
+        const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
+        // mark middle label as label segment
+        laneSegments.at(laneSegmentIndex)->markSegmentLabel();
+        // add segment in path
+        myPaths[pathElement] = segments;
+    } else {
+        // create first segment
+        Segment* firstSegment = nullptr;
+        Segment* lastSegment = nullptr;
+        // continue depending of from-to elements
+        if (fromEdge) {
+            firstSegment = new Segment(this, pathElement, fromEdge->getLaneByAllowedVClass(vClass), true, false);
+        } else if (fromJunction) {
+            firstSegment = new Segment(this, pathElement, fromJunction, nullptr, nullptr);
+        }
+        if (toEdge) {
+            firstSegment = new Segment(this, pathElement, toEdge->getLaneByAllowedVClass(vClass), true, false);
+        } else if (toJunction) {
+            firstSegment = new Segment(this, pathElement, toJunction, nullptr, nullptr);
+        }
+        // continue depending of segments
+        if (firstSegment && lastSegment) {
+            // mark segment as label segment
+            firstSegment->markSegmentLabel();
+            // add in segments
+            segments.push_back(firstSegment);
+            segments.push_back(lastSegment);
+            // set previous and next segment for vinculating first and last segment with a red line
+            firstSegment->setNextSegment(lastSegment);
+            lastSegment->setPreviousSegment(firstSegment);
+            // add segments in path
+            myPaths[pathElement] = segments;
+        } else {
+            // remove path element from paths
+            removePath(pathElement);
+        }
+    }
 }
 
 /****************************************************************************/
