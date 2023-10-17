@@ -2371,7 +2371,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
         NWFrame::checkOptions(neteditOptions);
         SystemFrame::checkOptions(neteditOptions); // needed to set precision
         // check if mar netedit config as unsaved
-        if (dialog.second) {
+        if (dialog.second && myNet) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
         }
     }
@@ -2383,7 +2383,7 @@ long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, mySumoOptions, myOriginalSumoOptions, TL("Sumo options"));
     // check if mark sumoConfig as unsaved
-    if ((dialog.first == TRUE) && dialog.second) {
+    if ((dialog.first == TRUE) && dialog.second && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
     }
     return 1;
