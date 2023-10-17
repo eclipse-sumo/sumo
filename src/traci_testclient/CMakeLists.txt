@@ -37,3 +37,10 @@ set_target_properties(testlibtraci PROPERTIES OUTPUT_NAME_DEBUG testlibtraci${BI
 set_property(TARGET testlibtraci PROPERTY FOLDER "test_exe")
 target_link_libraries(testlibtraci libtracicpp)
 add_test(NAME libtracitest COMMAND $<TARGET_FILE:testlibtraci> $<TARGET_FILE:sumo> -c ${CMAKE_SOURCE_DIR}/docs/examples/sumo/hokkaido/test.sumocfg)
+
+find_package(MantleAPI)
+if (MantleAPI_FOUND)
+    find_package(GTest)
+    add_executable(testmantle testmantle_main.cpp)
+    target_link_libraries(testmantle MantleAPI::MantleAPI GTest::gmock libsumocpp ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
+endif()
