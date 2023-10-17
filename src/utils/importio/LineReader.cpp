@@ -120,7 +120,7 @@ std::string
 LineReader::readLine() {
     std::string toReport;
     while (toReport.length() == 0 && myStrm.good()) {
-        const std::string::size_type idx = myStrBuffer.find('\n');       
+        const std::string::size_type idx = myStrBuffer.find('\n');
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
@@ -138,7 +138,6 @@ LineReader::readLine() {
                             ? myAvailable - myRead
                             : 1024);
                 int noBytes = myAvailable - myRead;
-                bool bomAtStart = myBuffer[0] == '\xef' && myBuffer[1] == '\xbb' && myBuffer[2] == '\xbf';
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 myStrBuffer += std::string(myBuffer, noBytes);
                 myRead += 1024;
