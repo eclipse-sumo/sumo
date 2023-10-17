@@ -662,7 +662,12 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
     }
     // check conditions
-    if (personParent) {
+    if (personParent == nullptr) {
+        WRITE_WARNING(TL("invalid person parent"));
+    } else if(GNEPersonTrip::getPersonTripTagIcon(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+                                                  fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for personTrip"));
+    } else {
         // build person trip
         GNEDemandElement* personTrip = GNEPersonTrip::buildPersonTrip(myNet, personParent, 
             fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
@@ -757,7 +762,12 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
     }
     // check conditions
-    if (personParent) {
+    if (personParent == nullptr) {
+        WRITE_WARNING(TL("invalid person parent"));
+    } else if(GNEWalk::getWalkTagIcon(edges, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
+                                      fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for personTrip"));
+    } else {
         // build person trip
         GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent, 
             fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
@@ -844,7 +854,11 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
     }
     // check conditions
-    if (personParent) {
+    if (personParent == nullptr) {
+        WRITE_WARNING(TL("invalid person parent"));
+    } else if(GNERide::getRideTagIcon(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for ride"));
+    } else {
         // build ride
         GNEDemandElement* ride = GNERide::buildRide(myNet, personParent,
             fromEdge, fromBusStop, fromTrainStop,
@@ -949,7 +963,11 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         fromContainerStop = getPreviousPlanContainerStop(sumoBaseObject);
     }
     // check conditions
-    if (containerParent) {
+    if (containerParent == nullptr) {
+        WRITE_WARNING(TL("invalid container parent"));
+    } else if(GNETransport::getTransportTagIcon(fromEdge, toEdge, fromContainerStop, toContainerStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for personTrip"));
+    } else {
         // build transport
         GNEDemandElement* transport = GNETransport::buildTransport(myNet, containerParent, fromEdge, fromContainerStop,
                                                                    toEdge, toContainerStop, arrivalPos);
@@ -1002,7 +1020,11 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         fromContainerStop = getPreviousPlanContainerStop(sumoBaseObject);
     }
     // check conditions
-    if (containerParent) {
+    if (containerParent == nullptr) {
+        WRITE_WARNING(TL("invalid container parent"));
+    } else if(GNETranship::getTranshipTagIcon(edges, fromEdge, toEdge, fromContainerStop, toContainerStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for personTrip"));
+    } else {
         // build tranship
         GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent, fromEdge, fromContainerStop, toEdge,
                                                                 toContainerStop, edges, departPosition, arrivalPosition, speed);
@@ -1047,7 +1069,11 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, busStopID, false);
     GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, trainStopID, false);
     // check conditions
-    if (personParent) {
+    if (personParent == nullptr) {
+        WRITE_WARNING(TL("invalid person parent"));
+    } else if(GNETranship::getPersonStopTagIcon(edge, busStop, trainStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for person stop"));
+    } else {
         // build person stop
         GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop,
                                                                       endPos, duration, until, actType, friendlyPos);
@@ -1084,7 +1110,11 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, containerStopID, false);
     // check conditions
-    if (containerParent) {
+    if (containerParent == nullptr) {
+        WRITE_WARNING(TL("invalid container parent"));
+    } else if(GNETranship::getContainerStopTagIcon(edge, containerStop).first == SUMO_TAG_NOTHING) {
+        WRITE_WARNING(TL("invalid combination for containerStop"));
+    } else {
         // build container stop
         GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop,
                                                                          endPos, duration, until, actType, friendlyPos);
