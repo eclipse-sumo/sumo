@@ -221,7 +221,7 @@ def get_options(args=None):
 
     if options.period:
         if any([period < 0 for period in options.period]):
-            raise ValueError("Period must be non-negative.")
+            raise ValueError("Period / insertionRate must be non-negative.")
         if all([period == 0 for period in options.period]):
             print("Warning: No vehicles will be generated.")
         options.period = list(map(intIfPossible, options.period))
