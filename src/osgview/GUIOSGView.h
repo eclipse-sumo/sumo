@@ -60,13 +60,13 @@ class CameraManipulator;
  * @brief An OSG-based 3D view on the simulation
  */
 class GUIOSGView : public GUISUMOAbstractView {
-#if __GNUC__ > 3
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Winconsistent-missing-override"
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winconsistent-missing-override"
 #endif
     FXDECLARE(GUIOSGView)
-#if __GNUC__ > 3
-#pragma GCC diagnostic pop
+#ifdef __clang__
+#pragma clang diagnostic pop
 #endif
 
 public:
