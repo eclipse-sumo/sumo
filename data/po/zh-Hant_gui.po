@@ -13153,7 +13153,7 @@ msgstr "選擇通過(passing)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid ""
-"Selects all lanes with a connection that has has the 'pass' attribute set"
+"Selects all lanes with a connection that has the 'pass' attribute set"
 msgstr "選擇所有具有一條'通過(pass)'屬性的連接線(connection)的車道"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171

@@ -165,7 +165,7 @@ GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame*
     mySelectConflictsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Conflicts"), "", TL("Selects all lanes with more than one incoming connection from the same edge (clears previous selection)"),
                                            0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
-    mySelectPassingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Passing"), "", TL("Selects all lanes with a connection that has has the 'pass' attribute set"),
+    mySelectPassingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Passing"), "", TL("Selects all lanes with a connection that has the 'pass' attribute set"),
                                          0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
     myClearSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear Selected"), "", TL("Clears all connections of all selected objects"),
