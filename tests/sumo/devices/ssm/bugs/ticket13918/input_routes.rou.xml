@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="p" vClass="passenger" probability="0.90" length="5.00" width="1.80" maxSpeed="55.55" lcOpposite="1.0" lcSpeedGainLookahead="0.0" lcSpeedGain="1.0" lcOvertakeDeltaSpeedFactor="0.0" lcStrategic="1.0" lcCooperative="1.0"/>
+    <flow id="flow_0" type="p" begin="0" end="450" from="E1" to="E8" insertionChecks="none" departPos="base" departLane="best" departSpeed="max" vehsPerHour="1000" /> <!-- EW:  East to West -->
+    <flow id="flow_1" type="p" begin="0" end="450" from="E9" to="E16" insertionChecks="none" departPos="base" departLane="best" departSpeed="max" vehsPerHour="1000" /> <!-- WE:  West to East -->
+</routes>
