@@ -29,6 +29,12 @@
 
 
 // ===========================================================================
+// defines
+// ===========================================================================
+
+//#define DEBUG_PATHMANAGER
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -132,6 +138,11 @@ public:
 
         /// @brief flag for check if this segment is a label segment
         bool myLabelSegment;
+
+        #ifdef DEBUG_PATHMANAGER
+        /// @brief path element ID
+        std::string myPathElementID;
+        #endif
 
     private:
         /// @brief default constructor

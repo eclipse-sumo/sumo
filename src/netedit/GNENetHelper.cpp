@@ -2458,6 +2458,10 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
     if (myNet->isUpdateGeometryEnabled()) {
         demandElement->updateGeometry();
     }
+    // compute path element
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        demandElement->computePathElement();
+    }
     // update demand elements frames
     updateDemandElementFrames(demandElement->getTagProperty());
     // demandElements has to be saved

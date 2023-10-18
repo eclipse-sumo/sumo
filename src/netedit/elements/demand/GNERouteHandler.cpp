@@ -208,8 +208,6 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
                 vehicle->incRef("buildEmbeddedRoute");
                 route->incRef("buildEmbeddedRoute");
             }
-            // compute path
-            vehicle->computePathElement();
         }
     }
 }
@@ -277,8 +275,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
                 route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
             }
-            // compute path
-            vehicle->computePathElement();
         }
     }
 }
@@ -314,8 +310,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
                 route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -358,8 +352,6 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 fromEdge->addChildElement(trip);
                 toEdge->addChildElement(trip);
             }
-            // compute path
-            trip->computePathElement();
         }
     }
 }
@@ -398,8 +390,6 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
                 fromJunction->addChildElement(flow);
                 toJunction->addChildElement(flow);
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -438,8 +428,6 @@ GNERouteHandler::buildTripTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
                 fromTAZ->addChildElement(flow);
                 toTAZ->addChildElement(flow);
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -482,8 +470,6 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 fromEdge->addChildElement(flow);
                 toEdge->addChildElement(flow);
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -522,8 +508,6 @@ GNERouteHandler::buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* /*
                 fromJunction->addChildElement(flow);
                 toJunction->addChildElement(flow);
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -562,8 +546,6 @@ GNERouteHandler::buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* /*sumoB
                 fromTAZ->addChildElement(flow);
                 toTAZ->addChildElement(flow);
             }
-            // compute path
-            flow->computePathElement();
         }
     }
 }
@@ -1760,8 +1742,6 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
                         personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (person) {
-        // compute person (and all person plans)
-        person->computePathElement();
         // center view after creation
         if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(person->getPositionInView())) {
             myNet->getViewNet()->centerTo(person->getPositionInView(), false);
@@ -1896,8 +1876,6 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
                         containerPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (container) {
-        // compute container (and all container plans)
-        container->computePathElement();
         // center view after creation
         if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(container->getPositionInView())) {
             myNet->getViewNet()->centerTo(container->getPositionInView(), false);

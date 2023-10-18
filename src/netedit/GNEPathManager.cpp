@@ -50,6 +50,9 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myLabelSegment(false) {
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
+    #ifdef DEBUG_PATHMANAGER
+    myPathElementID = element->getMicrosimID();
+    #endif
 }
 
 
@@ -68,6 +71,9 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
     myLabelSegment(false) {
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
+    #ifdef DEBUG_PATHMANAGER
+    myPathElementID = element->getMicrosimID();
+    #endif
 }
 
 
@@ -776,15 +782,8 @@ GNEPathManager::calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehi
 
 void
 GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes) {
-    // check if path element exist already in myPaths
-    if (myPaths.find(pathElement) != myPaths.end()) {
-        // delete segments
-        for (const auto& segment : myPaths.at(pathElement)) {
-            delete segment;
-        }
-        // remove path element from myPaths
-        myPaths.erase(pathElement);
-    }
+    // first remove path element from paths
+    removePath(pathElement);
     // continue depending of number of lanes
     if (lanes.size() > 0) {
         // declare segment vector
