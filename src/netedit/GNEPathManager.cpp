@@ -838,7 +838,7 @@ GNEPathManager::removePath(PathElement* pathElement) {
 
 
 void
-GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
+GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) const {
     if (myLaneSegments.count(lane) > 0) {
         int numRoutes = 0;
         // first draw selected elements (for drawing over other elements)
@@ -872,7 +872,7 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
 
 
 void
-GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) {
+GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) const {
     if (myJunctionSegments.count(junction) > 0) {
         // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
@@ -985,10 +985,13 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     if (segment->getLane()) {
         auto lane = segment->getLane();
         // remove segment from segments associated with lane
-        auto it = std::find(myLaneSegments.at(lane).begin(), myLaneSegments.at(lane).end(), segment);
+        auto it = myLaneSegments.at(lane).begin();
         while (it != myLaneSegments.at(lane).end()) {
-            myLaneSegments.at(lane).erase(it);
-            it = std::find(myLaneSegments.at(lane).begin(), myLaneSegments.at(lane).end(), segment);
+            if (*it == segment) {
+                it = myLaneSegments.at(lane).erase(it);
+            } else {
+                it++;
+            }
         }
         // clear lane if doesn't have more segments
         if (myLaneSegments.at(lane).empty()) {
@@ -997,11 +1000,14 @@ GNEPathManager::clearSegmentFromJunctionAndLaneSegments(Segment* segment) {
     }
     if (segment->getJunction()) {
         auto junction = segment->getJunction();
-        // remove segment from segments associated with junction
-        auto it = std::find(myJunctionSegments.at(junction).begin(), myJunctionSegments.at(junction).end(), segment);
+        // remove segment from segments asociated with junction
+        auto it = myJunctionSegments.at(junction).begin();
         while (it != myJunctionSegments.at(junction).end()) {
-            myJunctionSegments.at(junction).erase(it);
-            it = std::find(myJunctionSegments.at(junction).begin(), myJunctionSegments.at(junction).end(), segment);
+            if (*it == segment) {
+                it = myJunctionSegments.at(junction).erase(it);
+            } else {
+                it++;
+            }
         }
         // clear junction if doesn't have more segments
         if (myJunctionSegments.at(junction).empty()) {
@@ -1094,9 +1100,9 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
             firstSegment = new Segment(this, pathElement, fromJunction, nullptr, nullptr);
         }
         if (toLane) {
-            firstSegment = new Segment(this, pathElement, toLane, true, false);
+            lastSegment = new Segment(this, pathElement, toLane, true, false);
         } else if (toJunction) {
-            firstSegment = new Segment(this, pathElement, toJunction, nullptr, nullptr);
+            lastSegment = new Segment(this, pathElement, toJunction, nullptr, nullptr);
         }
         // continue depending of segments
         if (firstSegment && lastSegment) {
