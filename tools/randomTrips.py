@@ -222,8 +222,6 @@ def get_options(args=None):
     if options.period:
         if any([period < 0 for period in options.period]):
             raise ValueError("Period / insertionRate must be non-negative.")
-        if all([period == 0 for period in options.period]):
-            print("Warning: No vehicles will be generated.", file=sys.stderr)
         options.period = list(map(intIfPossible, options.period))
         if options.binomial:
             for p in options.period:
@@ -630,6 +628,10 @@ def samplePosition(edge):
 
 
 def main(options):
+    if all([period == 0 for period in options.period]):
+        print("Warning: All intervals are empty.", file=sys.stderr)
+        return False
+
     if not options.random:
         random.seed(options.seed)
 
@@ -926,7 +928,7 @@ if __name__ == "__main__":
     try:
         if not main(get_options()):
             print("Error: Trips couldn't be generated as requested. "
-                  "Try the --verbose option to output more details on the failure.")
+                  "Try the --verbose option to output more details on the failure.", file=sys.stderr)
             sys.exit(1)
     except ValueError as e:
         print("Error:", e, file=sys.stderr)
