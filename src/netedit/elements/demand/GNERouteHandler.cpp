@@ -2897,31 +2897,39 @@ GNERouteHandler::getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* o
     // check if previous plan object has to edge
     if (previousPlanObj == nullptr) {
         return nullptr;
-    } else
+    } else {
         // continue depending of attributes
-        if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
+        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
             return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
-        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
             return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE), false);
-        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+            // busStop
             const auto busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
             if (busStop) {
                 return busStop->getParentLanes().front()->getParentEdge();
             }
-        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+            // trainStop
             const auto trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
             if (trainStop) {
                 return trainStop->getParentLanes().front()->getParentEdge();
             }
-        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            // containerStop
             const auto containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
             if (containerStop) {
                 return containerStop->getParentLanes().front()->getParentEdge();
             }
-        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGES)) {
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGES)) {
             const auto edges = StringTokenizer(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE)).getVector();
             if (edges.size() > 0) {
                 return myNet->getAttributeCarriers()->retrieveEdge(edges.back(), false);
+            }
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE), false);
+            if (route) {
+                return route->getParentEdges().back();
             }
         }
         // no previous edge
