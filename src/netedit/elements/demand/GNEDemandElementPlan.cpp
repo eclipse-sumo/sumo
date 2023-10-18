@@ -695,28 +695,35 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // TAZ view position
                 return myPlanElement->getParentAdditionals().front()->getPositionInView();
             } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
-                // check if this is the first person plan
-                if (planParent->getPreviousChildDemandElement(myPlanElement) != nullptr) {
+                // get first path lane
+                const auto firstLane = myPlanElement->getFirstPathLane();
+                // check if first lane exists
+                if (firstLane == nullptr) {
                     return Position::INVALID;
+                }
+                // continue with lanePosition
+                double lanePosition = 0;
+                // get previous plan
+                const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
+                if (previousPlan) {
+                    // use previous geometry end position
+                    lanePosition = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                } else if (myDepartPosition < 0) {
+                    // use departPos defined in planParent
+                    lanePosition = planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
                 } else {
-                    // get first lane
-                    const auto firstLane = myPlanElement->getFirstPathLane();
-                    // check if first lane exists
-                    if (firstLane == nullptr) {
-                        throw ProcessError("firstLane cannot be null");
-                    }
-                    // get lane shape
-                    const auto &laneShape = firstLane->getLaneShape();
-                    // check if use my depart position (tranships) or container depart position
-                    double departPosition = myDepartPosition < 0? planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS) : myDepartPosition;
-                    // continue depending of arrival position
-                    if (departPosition == 0) {
-                        return laneShape.front();
-                    } else if ((departPosition == -1) || (departPosition >= laneShape.length2D())) {
-                        return laneShape.back();
-                    } else {
-                        return laneShape.positionAtOffset2D(departPosition);
-                    }
+                    // use departPos (only for tranships)
+                    lanePosition = myDepartPosition;
+                }
+                // get lane shape
+                const auto &laneShape = firstLane->getLaneShape();
+                // continue depending of arrival position
+                if (lanePosition == 0) {
+                    return laneShape.front();
+                } else if ((lanePosition == -1) || (lanePosition >= laneShape.length2D())) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(lanePosition);
                 }
             } else {
                 return Position::INVALID;
@@ -734,11 +741,13 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
             } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
-                // get last lane
-                const auto lastLane = myPlanElement->getLastPathLane();
+                // get next plan
+                const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
+                // if next plan exist, then use their first lane (needed to maintain connectivity with rides)
+                const auto lastLane = nextPlan? nextPlan->getFirstPathLane() : myPlanElement->getLastPathLane();
                 // check if last lane exists
                 if (lastLane == nullptr) {
-                    throw ProcessError("lastLane cannot be null");
+                    return Position::INVALID;
                 }
                 // get lane shape
                 const auto& laneShape = lastLane->getLaneShape();
