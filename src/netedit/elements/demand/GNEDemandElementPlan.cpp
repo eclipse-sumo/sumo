@@ -287,7 +287,7 @@ GNEDemandElementPlan::getPlanMoveOperation() {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // only move personTrips defined over edges
-    if (tagProperty.planToEdge() || tagProperty.planConsecutiveEdges()) {
+    if (tagProperty.planToEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // get geometry end pos
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
         // calculate circle width squared
@@ -366,7 +366,7 @@ GNEDemandElementPlan::writePlanAttributes(OutputDevice& device) const {
     }
     // check if write end position
     if (tagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
-        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+        device.writeAttr(SUMO_ATTR_ENDPOS, myArrivalPosition);
     }
 }
 
@@ -588,14 +588,13 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(myDepartPosition);
             }
+        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (myArrivalPosition < 0) {
                 return "";
             } else {
                 return toString(myArrivalPosition);
             }
-        case SUMO_ATTR_ENDPOS:
-            return toString(myEndPosition);
         // route
         case SUMO_ATTR_ROUTE:
             return myPlanElement->getParentDemandElements().at(1)->getID();
@@ -666,9 +665,18 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
                 // junctions and TAZs return always -1
                 return -1;
-            } else {
-                // use arrival position
+            } else if ((tagProperty.isStopPerson() || tagProperty.isStopContainer()) && tagProperty.planEdge()) {
                 return myArrivalPosition;
+            } else {
+                // check if next plan is a stop over edge
+                const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
+                if (nextPlan && (nextPlan->getTagProperty().isStopPerson() || nextPlan->getTagProperty().isStopContainer()) &&
+                    nextPlan->getTagProperty().planEdge()) {
+                    return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                } else {
+                    // use arrival position
+                    return myArrivalPosition;
+                }
             }
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
@@ -857,15 +865,13 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
                 myDepartPosition = GNEAttributeCarrier::parse<double>(value);
             }
             break;
+        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 myArrivalPosition = -1;
             } else {
                 myArrivalPosition = GNEAttributeCarrier::parse<double>(value);
             }
-            break;
-        case SUMO_ATTR_ENDPOS:
-            myEndPosition = GNEAttributeCarrier::parse<double>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (GNEAttributeCarrier::parse<bool>(value)) {

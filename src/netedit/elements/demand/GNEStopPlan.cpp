@@ -588,7 +588,7 @@ GNEStopPlan::toggleAttribute(SumoXMLAttr key, const bool value) {
 void
 GNEStopPlan::setMoveShape(const GNEMoveResult& moveResult) {
     // change endPos
-    myEndPosition = moveResult.newFirstPos;
+    myArrivalPosition = moveResult.newFirstPos;
     // update geometry
     updateGeometry();
 }

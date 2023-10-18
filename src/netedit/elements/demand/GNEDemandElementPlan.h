@@ -182,9 +182,6 @@ protected:
     /// @brief arrival position (used in all plans over edges)
     double myArrivalPosition;
 
-    /// @brief end position (used in stops over edges)
-    double myEndPosition;
-
 private:
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
