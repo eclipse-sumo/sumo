@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:13+0200\n"
-"PO-Revision-Date: 2023-10-17 13:14+0000\n"
+"PO-Revision-Date: 2023-10-19 11:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3810,7 +3810,7 @@ msgstr "Apre l'applicazione sumo-gui con la rete attuale."
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 msgid "Junctions"
-msgstr ""
+msgstr "Incroci"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1334
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1996
@@ -3843,7 +3843,7 @@ msgstr "Passaggi pedonali"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
-msgstr ""
+msgstr "Aree pedonali"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1359
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:103
@@ -4511,14 +4511,18 @@ msgstr "Aggiungi esplicazione dell'attributo nel file"
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:321
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
+"Ignora il dialogo di conferma del cambio supermodi nella cronologia annulla-"
+"ripristina"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr ""
+"Ignora elementi addizionali durante il caricamento delle configurazioni sumo"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:327
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr ""
+"Ignora elementi di itinerari durante il caricamento di configurazioni sumo"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:332
 msgid "Prefix for node naming"
@@ -4604,11 +4608,11 @@ msgstr "Prefisso per la denominazione di punti di interesse"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:394
 msgid "Prefix for jps walkable area naming"
-msgstr ""
+msgstr "Prefisso per il nome di aree pedonali JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:397
 msgid "Prefix for jps obstacle naming"
-msgstr ""
+msgstr "Prefisso per il nome di ostacoli JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:402
 msgid "Prefix for route naming"
@@ -4616,15 +4620,15 @@ msgstr "Prefisso per la denominazione di itinerari (route)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:405
 msgid "Prefix for route distribution naming"
-msgstr ""
+msgstr "Prefisso per il nome di distribuzioni di itinerari"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:408
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "Prefisso per il nome di tipi"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:411
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "Prefisso per il nome di distribuzioni di tipi"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:414
 msgid "Prefix for vehicle naming"
