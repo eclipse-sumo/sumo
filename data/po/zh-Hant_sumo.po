@@ -11207,14 +11207,14 @@ msgstr "發生錯誤: % 發生於解析 '%' 時"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:193
 msgid ""
-"SAX error occured while parsing '%':\n"
+"SAX error occurred while parsing '%':\n"
 " %"
 msgstr ""
 "SAX 錯誤發生於解析 '%' 時:\n"
 " %"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
-msgid "Unspecified error occurred wile parsing '%'"
+msgid "Unspecified error occurred while parsing '%'"
 msgstr "當解析'%'時,發生未指定的錯誤"
 
 #~ msgid ""

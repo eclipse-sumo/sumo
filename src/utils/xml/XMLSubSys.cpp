@@ -190,9 +190,9 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
     } catch (const std::exception& ex) {
         errorMsg = TLF("Error occurred: % while parsing '%'", ex.what(), file);
     } catch (const XERCES_CPP_NAMESPACE::SAXException& e) {
-        errorMsg = TLF("SAX error occured while parsing '%':\n %", file, StringUtils::transcode(e.getMessage()));
+        errorMsg = TLF("SAX error occurred while parsing '%':\n %", file, StringUtils::transcode(e.getMessage()));
     } catch (...) {
-        errorMsg = TLF("Unspecified error occurred wile parsing '%'", file);
+        errorMsg = TLF("Unspecified error occurred while parsing '%'", file);
     }
     if (errorMsg != "") {
         if (catchExceptions) {

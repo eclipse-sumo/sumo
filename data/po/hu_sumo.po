@@ -11151,10 +11151,10 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:193
 msgid ""
-"SAX error occured while parsing '%':\n"
+"SAX error occurred while parsing '%':\n"
 " %"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
-msgid "Unspecified error occurred wile parsing '%'"
+msgid "Unspecified error occurred while parsing '%'"
 msgstr ""

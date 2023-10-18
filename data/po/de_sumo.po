@@ -12631,14 +12631,14 @@ msgstr "Fehler aufgetreten: % beim Einlesen von '%'"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:193
 msgid ""
-"SAX error occured while parsing '%':\n"
+"SAX error occurred while parsing '%':\n"
 " %"
 msgstr ""
 "Beim Einlesen von '%' ist ein SAX-Fehler aufgetreten:\n"
 " %"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
-msgid "Unspecified error occurred wile parsing '%'"
+msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
 
 #~ msgid "Stop edge '%' missing in attribute 'via' for % '%'"
