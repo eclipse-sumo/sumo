@@ -395,15 +395,15 @@ GNELane*
 GNEDemandElementPlan::getFirstPlanPathLane() const {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
-    // get vclass parent
-    auto vClassParent = myPlanElement->getParentDemandElements().at(0)->getVClass();
+    // get vclass
+    auto vClass = myPlanElement->getVClass();
     // continue depending of parents
     if (tagProperty.planRoute()) {
         // route
-        return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
+        return myPlanElement->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planConsecutiveEdges() || tagProperty.planFromEdge() || tagProperty.planEdge()) {
         // edges
-        return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClassParent);
+        return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planFromStoppingPlace()) {
         // additional
         return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
@@ -418,18 +418,18 @@ GNELane*
 GNEDemandElementPlan::getLastPlanPathLane() const {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
-    // get vclass parent
-    auto vClassParent = myPlanElement->getParentDemandElements().at(0)->getVClass();
+    // get vclass
+    auto vClass = myPlanElement->getVClass();
     // check parents
     if (tagProperty.planRoute()) {
         // route
-        return myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
+        return myPlanElement->getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planConsecutiveEdges() || tagProperty.planToEdge() || tagProperty.planEdge()) {
         // edges
-        return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClassParent);
+        return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
     } else if (tagProperty.planToStoppingPlace()) {
         // additional
-        return myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClassParent);
+        return myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClass);
     } else {
         // in other cases (TAZ, junctions, etc.) return null
         return nullptr;

@@ -139,7 +139,7 @@ GNEStopPlan::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNEStopPlan::getVClass() const {
-    return getParentDemandElements().front()->getVClass();
+    return SVC_PASSENGER;
 }
 
 

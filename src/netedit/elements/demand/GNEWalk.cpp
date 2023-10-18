@@ -134,7 +134,7 @@ GNEWalk::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNEWalk::getVClass() const {
-    return getParentDemandElements().front()->getVClass();
+    return SVC_PEDESTRIAN;
 }
 
 

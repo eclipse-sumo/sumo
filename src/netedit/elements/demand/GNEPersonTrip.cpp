@@ -138,7 +138,7 @@ GNEPersonTrip::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNEPersonTrip::getVClass() const {
-    return getParentDemandElements().front()->getVClass();
+    return SVC_PEDESTRIAN;
 }
 
 

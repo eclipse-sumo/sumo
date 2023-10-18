@@ -116,7 +116,7 @@ GNETranship::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNETranship::getVClass() const {
-    return getParentDemandElements().front()->getVClass();
+    return SVC_IGNORING;
 }
 
 

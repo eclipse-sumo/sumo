@@ -122,7 +122,7 @@ GNERide::fixDemandElementProblem() {
 
 SUMOVehicleClass
 GNERide::getVClass() const {
-    return getParentDemandElements().front()->getVClass();
+    return SVC_PEDESTRIAN;
 }
 
 
@@ -176,7 +176,11 @@ GNERide::computePathElement() {
     // continue depending of pathLane
     if (firstPathLane && lastPathLane) {
         // calculate path
-        myNet->getPathManager()->calculatePath(this, SVC_IGNORING, firstPathLane, lastPathLane);
+        myNet->getPathManager()->calculatePath(this, SVC_PASSENGER, firstPathLane, lastPathLane);
+        // check if calculate ignoring path
+        if (!myNet->getPathManager()->isPathValid(this)) {
+            myNet->getPathManager()->calculatePath(this, SVC_IGNORING, firstPathLane, lastPathLane);
+        }
     } else {
         // reset path
         myNet->getPathManager()->removePath(this);
