@@ -4,7 +4,7 @@ title: IntermodalRouting
 
 # Basic Concepts
 
-Every person may have multiple modes of transport to chose from.
+Every person may have multiple modes of transport to choose from.
 Currently those are walking (which is assumed to be always possible),
 riding by public transport and going by car. Intermodal routing uses
 [person trips](Specification/Persons.md#persontrips) to define a
