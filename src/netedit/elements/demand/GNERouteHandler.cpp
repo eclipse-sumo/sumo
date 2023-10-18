@@ -25,6 +25,7 @@
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "GNEContainer.h"
 #include "GNEPerson.h"
@@ -1126,143 +1127,157 @@ void
 GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
     // get obj parent
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
-    // set tag
-    SumoXMLTag tag = objParent->getTag();
-    if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE) && !objParent->hasStringAttribute(SUMO_ATTR_FROM) && !objParent->hasStringAttribute(SUMO_ATTR_TO)) {
-        if (tag == SUMO_TAG_VEHICLE) {
-            tag = GNE_TAG_VEHICLE_WITHROUTE;
-        } else if (tag == SUMO_TAG_FLOW) {
-            tag = GNE_TAG_FLOW_WITHROUTE;
-        }
-    }
-    // special case for flows over route
-    if (objParent->hasStringAttribute(SUMO_ATTR_ROUTE) && (objParent->getTag() == SUMO_TAG_FLOW)) {
-        tag = GNE_TAG_FLOW_ROUTE;
-    }
-    // get stop parent
-    GNEDemandElement* stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(tag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
-    // check if stopParent exist
-    if (stopParent) {
-        // flag for waypoint (is like a stop, but with extra attribute speed)
-        bool waypoint = false;
-        // avoid waypoints for person and containers
-        if (!stopParent->getTagProperty().isPerson() && !stopParent->getTagProperty().isContainer()) {
-            waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
-        }
-        // declare pointers to parent elements
-        GNEAdditional* stoppingPlace = nullptr;
-        GNELane* lane = nullptr;
-        GNEEdge* edge = nullptr;
-        // declare stopTagType
-        SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
-        bool validParentDemandElement = true;
-        // check conditions
-        if (stopParameters.busstop.size() > 0) {
-            stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : GNE_TAG_STOP_BUSSTOP;
-            // check if is a train stop
-            if (stoppingPlace == nullptr) {
-                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, stopParameters.busstop, false);
-                stopTagType = waypoint ? GNE_TAG_WAYPOINT_TRAINSTOP : GNE_TAG_STOP_TRAINSTOP;
+    // continue depending of objParent
+    if (objParent == nullptr) {
+        WRITE_WARNING(TL("Stops needs a parent"));
+    } else if ((objParent->getTag() == SUMO_TAG_PERSON) || (objParent->getTag() == SUMO_TAG_PERSONFLOW)) {
+        buildPersonStop(sumoBaseObject, stopParameters.edge, stopParameters.busstop, stopParameters.busstop, stopParameters.endPos,
+                        stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos);
+    } else if ((objParent->getTag() == SUMO_TAG_CONTAINER) || (objParent->getTag() == SUMO_TAG_CONTAINERFLOW)) {
+        buildContainerStop(sumoBaseObject, stopParameters.edge, stopParameters.containerstop, stopParameters.endPos,
+                           stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos);
+    } else {
+        // get vehicle tag
+        SumoXMLTag vehicleTag = objParent->getTag();
+        if (vehicleTag == SUMO_TAG_VEHICLE) {
+            // check if vehicle is placed over route or with embedded route
+            if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                vehicleTag = GNE_TAG_VEHICLE_WITHROUTE;
             }
-            // containers cannot stops in busStops
-            if (stopParent->getTagProperty().isContainer()) {
-                writeError(TL("Containers don't support stops at busStops or trainStops"));
-                validParentDemandElement = false;
-            }
-        } else if (stopParameters.containerstop.size() > 0) {
-            stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CONTAINERSTOP : GNE_TAG_STOP_CONTAINERSTOP;
-            // persons cannot stops in containerStops
-            if (stopParent->getTagProperty().isPerson()) {
-                writeError(TL("Persons don't support stops at containerStops"));
-                validParentDemandElement = false;
-            }
-        } else if (stopParameters.chargingStation.size() > 0) {
-            stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_CHARGINGSTATION : GNE_TAG_STOP_CHARGINGSTATION;
-            // check person and containers
-            if (stopParent->getTagProperty().isPerson()) {
-                writeError(TL("Persons don't support stops at chargingStations"));
-                validParentDemandElement = false;
-            } else if (stopParent->getTagProperty().isContainer()) {
-                writeError(TL("Containers don't support stops at chargingStations"));
-                validParentDemandElement = false;
-            }
-        } else if (stopParameters.parkingarea.size() > 0) {
-            stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_PARKINGAREA : GNE_TAG_STOP_PARKINGAREA;
-            // check person and containers
-            if (stopParent->getTagProperty().isPerson()) {
-                writeError(TL("Persons don't support stops at parkingAreas"));
-                validParentDemandElement = false;
-            } else if (stopParent->getTagProperty().isContainer()) {
-                writeError(TL("Containers don't support stops at parkingAreas"));
-                validParentDemandElement = false;
-            }
-        } else if (stopParameters.lane.size() > 0) {
-            lane = myNet->getAttributeCarriers()->retrieveLane(stopParameters.lane, false);
-            stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : GNE_TAG_STOP_LANE;
-        } else if (stopParameters.edge.size() > 0) {
-            edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
-            // check vehicles
-            if (stopParent->getTagProperty().isVehicle()) {
-                writeError(TL("vehicles don't support stops at edges"));
-                validParentDemandElement = false;
+        } else if (vehicleTag == SUMO_TAG_FLOW) {
+            if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+                vehicleTag = GNE_TAG_FLOW_ROUTE;
+            } else if (objParent->hasStringAttribute(SUMO_ATTR_FROM) && objParent->hasStringAttribute(SUMO_ATTR_TO)) {
+                vehicleTag = SUMO_TAG_FLOW;
+            } else {
+                vehicleTag = GNE_TAG_FLOW_WITHROUTE;
             }
         }
-        // overwrite lane with edge parent if we're handling a personStop
-        if (lane && (stopParent->getTagProperty().isPerson() || stopParent->getTagProperty().isContainer())) {
-            edge = lane->getParentEdge();
-            lane = nullptr;
-        }
-        // first check that parent is valid
-        if (validParentDemandElement) {
-            // check if values are correct
-            if (stoppingPlace && lane && edge) {
-                writeError(TL("A stop must be defined either over a stoppingPlace, a edge or a lane"));
-            } else if (!stoppingPlace && !lane && !edge) {
-                writeError(TL("A stop requires only a stoppingPlace, edge or lane"));
-            } else if (stoppingPlace) {
-                // create stop using stopParameters and stoppingPlace
-                GNEDemandElement* stop = nullptr;
+        // get stop parent
+        GNEDemandElement* stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(vehicleTag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
+        // check if stopParent exist
+        if (stopParent) {
+            // flag for waypoint (is like a stop, but with extra attribute speed)
+            bool waypoint = false;
+            // avoid waypoints for person and containers
+            if (!stopParent->getTagProperty().isPerson() && !stopParent->getTagProperty().isContainer()) {
+                waypoint = (sumoBaseObject->getStopParameter().parametersSet & STOP_SPEED_SET) || (sumoBaseObject->getStopParameter().speed > 0);
+            }
+            // declare pointers to parent elements
+            GNEAdditional* stoppingPlace = nullptr;
+            GNELane* lane = nullptr;
+            GNEEdge* edge = nullptr;
+            // declare stopTagType
+            SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
+            bool validParentDemandElement = true;
+            // check conditions
+            if (stopParameters.busstop.size() > 0) {
+                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : GNE_TAG_STOP_BUSSTOP;
+                // check if is a train stop
+                if (stoppingPlace == nullptr) {
+                    stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, stopParameters.busstop, false);
+                    stopTagType = waypoint ? GNE_TAG_WAYPOINT_TRAINSTOP : GNE_TAG_STOP_TRAINSTOP;
+                }
+                // containers cannot stops in busStops
+                if (stopParent->getTagProperty().isContainer()) {
+                    writeError(TL("Containers don't support stops at busStops or trainStops"));
+                    validParentDemandElement = false;
+                }
+            } else if (stopParameters.containerstop.size() > 0) {
+                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_CONTAINERSTOP : GNE_TAG_STOP_CONTAINERSTOP;
+                // persons cannot stops in containerStops
                 if (stopParent->getTagProperty().isPerson()) {
-                    if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
-                        stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
-                    } else {
-                        stop = new GNEStop(GNE_TAG_STOPPERSON_TRAINSTOP, myNet, stopParent, stoppingPlace, stopParameters);
-                    }
+                    writeError(TL("Persons don't support stops at containerStops"));
+                    validParentDemandElement = false;
+                }
+            } else if (stopParameters.chargingStation.size() > 0) {
+                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_CHARGINGSTATION : GNE_TAG_STOP_CHARGINGSTATION;
+                // check person and containers
+                if (stopParent->getTagProperty().isPerson()) {
+                    writeError(TL("Persons don't support stops at chargingStations"));
+                    validParentDemandElement = false;
                 } else if (stopParent->getTagProperty().isContainer()) {
-                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
-                } else {
-                    stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
+                    writeError(TL("Containers don't support stops at chargingStations"));
+                    validParentDemandElement = false;
                 }
-                // add it depending of undoDemandElements
-                if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
-                    overwriteDemandElement();
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
-                    myNet->getViewNet()->getUndoList()->end();
-                } else {
-                    myNet->getAttributeCarriers()->insertDemandElement(stop);
-                    stoppingPlace->addChildElement(stop);
-                    stopParent->addChildElement(stop);
-                    stop->incRef("buildStoppingPlaceStop");
+            } else if (stopParameters.parkingarea.size() > 0) {
+                stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_PARKINGAREA : GNE_TAG_STOP_PARKINGAREA;
+                // check person and containers
+                if (stopParent->getTagProperty().isPerson()) {
+                    writeError(TL("Persons don't support stops at parkingAreas"));
+                    validParentDemandElement = false;
+                } else if (stopParent->getTagProperty().isContainer()) {
+                    writeError(TL("Containers don't support stops at parkingAreas"));
+                    validParentDemandElement = false;
                 }
-            } else if (lane) {
-                // create stop using stopParameters and lane (only for vehicles)
-                GNEDemandElement* stop = new GNEStop(stopTagType, myNet, stopParent, lane, stopParameters);
-                // add it depending of undoDemandElements
-                if (myAllowUndoRedo) {
-                    myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
-                    overwriteDemandElement();
-                    myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
-                    myNet->getViewNet()->getUndoList()->end();
-                } else {
-                    myNet->getAttributeCarriers()->insertDemandElement(stop);
-                    lane->addChildElement(stop);
-                    stopParent->addChildElement(stop);
-                    stop->incRef("buildLaneStop");
+            } else if (stopParameters.lane.size() > 0) {
+                lane = myNet->getAttributeCarriers()->retrieveLane(stopParameters.lane, false);
+                stopTagType = waypoint ? GNE_TAG_WAYPOINT_LANE : GNE_TAG_STOP_LANE;
+            } else if (stopParameters.edge.size() > 0) {
+                edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
+                // check vehicles
+                if (stopParent->getTagProperty().isVehicle()) {
+                    writeError(TL("vehicles don't support stops at edges"));
+                    validParentDemandElement = false;
+                }
+            }
+            // overwrite lane with edge parent if we're handling a personStop
+            if (lane && (stopParent->getTagProperty().isPerson() || stopParent->getTagProperty().isContainer())) {
+                edge = lane->getParentEdge();
+                lane = nullptr;
+            }
+            // first check that parent is valid
+            if (validParentDemandElement) {
+                // check if values are correct
+                if (stoppingPlace && lane && edge) {
+                    writeError(TL("A stop must be defined either over a stoppingPlace, a edge or a lane"));
+                } else if (!stoppingPlace && !lane && !edge) {
+                    writeError(TL("A stop requires only a stoppingPlace, edge or lane"));
+                } else if (stoppingPlace) {
+                    // create stop using stopParameters and stoppingPlace
+                    GNEDemandElement* stop = nullptr;
+                    if (stopParent->getTagProperty().isPerson()) {
+                        if (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+                            stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                        } else {
+                            stop = new GNEStop(GNE_TAG_STOPPERSON_TRAINSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                        }
+                    } else if (stopParent->getTagProperty().isContainer()) {
+                        stop = new GNEStop(GNE_TAG_STOPCONTAINER_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
+                    } else {
+                        stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
+                    }
+                    // add it depending of undoDemandElements
+                    if (myAllowUndoRedo) {
+                        myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                        overwriteDemandElement();
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+                        myNet->getViewNet()->getUndoList()->end();
+                    } else {
+                        myNet->getAttributeCarriers()->insertDemandElement(stop);
+                        stoppingPlace->addChildElement(stop);
+                        stopParent->addChildElement(stop);
+                        stop->incRef("buildStoppingPlaceStop");
+                    }
+                } else if (lane) {
+                    // create stop using stopParameters and lane (only for vehicles)
+                    GNEDemandElement* stop = new GNEStop(stopTagType, myNet, stopParent, lane, stopParameters);
+                    // add it depending of undoDemandElements
+                    if (myAllowUndoRedo) {
+                        myNet->getViewNet()->getUndoList()->begin(stop, TL("add ") + stop->getTagStr() + " in '" + stopParent->getID() + "'");
+                        overwriteDemandElement();
+                        myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+                        myNet->getViewNet()->getUndoList()->end();
+                    } else {
+                        myNet->getAttributeCarriers()->insertDemandElement(stop);
+                        lane->addChildElement(stop);
+                        stopParent->addChildElement(stop);
+                        stop->incRef("buildLaneStop");
+                    }
                 }
             }
         }
@@ -2880,9 +2895,36 @@ GNEEdge*
 GNERouteHandler::getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const {
     const auto previousPlanObj = getPreviousPlanObj(obj);
     // check if previous plan object has to edge
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
-        return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
-    } else {
+    if (previousPlanObj == nullptr) {
+        return nullptr;
+    } else
+        // continue depending of attributes
+        if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
+            return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
+        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
+            return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE), false);
+        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+            const auto busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
+            if (busStop) {
+                return busStop->getParentLanes().front()->getParentEdge();
+            }
+        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+            const auto trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
+            if (trainStop) {
+                return trainStop->getParentLanes().front()->getParentEdge();
+            }
+        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            const auto containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
+            if (containerStop) {
+                return containerStop->getParentLanes().front()->getParentEdge();
+            }
+        } else if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGES)) {
+            const auto edges = StringTokenizer(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE)).getVector();
+            if (edges.size() > 0) {
+                return myNet->getAttributeCarriers()->retrieveEdge(edges.back(), false);
+            }
+        }
+        // no previous edge
         return nullptr;
     }
 }
