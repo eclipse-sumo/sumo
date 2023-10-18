@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:12+0200\n"
-"PO-Revision-Date: 2023-10-18 10:14+0000\n"
+"PO-Revision-Date: 2023-10-18 15:03+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2033,6 +2033,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:488
 msgid "Select default car following model (Krauss, IDM, ...)"
 msgstr ""
+"Seleccionar modelo de seguimiento vehicular por defecto (Krauss, IDM, ...)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:492
 msgid ""
@@ -2052,7 +2053,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:498
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
-msgstr ""
+msgstr "Usar las leyes de Kirchhoff para resolver el circuito de catenarias"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:501
 msgid ""
@@ -5629,20 +5630,25 @@ msgstr "Eliminando aristas no deseadas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:117
 msgid "Processing public transport stops"
-msgstr ""
+msgstr "Procesando paradas de transporte público"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:132
 msgid "Revising public transport stops based on pt lines"
 msgstr ""
+"Revisando paradas de transporte público basado en las líneas de transporte "
+"público"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:138
 msgid "Cleaning up public transport stops that are not served by any line"
 msgstr ""
+"Eliminando paradas de transporte público a las que no llega ninguna línea"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:144
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
 msgstr ""
+"Se eliminaron % paradas de transporte público porque no se pudieron asignar "
+"a la red"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:149
 msgid "Align pt stop id signs with corresponding edge id signs"
@@ -5667,12 +5673,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:236
 msgid "Joining junctions with identical coordinates"
-msgstr ""
+msgstr "Combinando cruces con coordenadas idénticas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:240
 #, c-format
 msgid " Joined % junctions."
-msgstr ""
+msgstr " % cruces combinados."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:245
 msgid "Joining lanes"
@@ -5681,7 +5687,7 @@ msgstr "Combinando carriles"
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:248
 #, c-format
 msgid "   Joined lanes on % edges."
-msgstr ""
+msgstr "   Carriles combinados en % aristas."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:258
 #, c-format
@@ -5698,11 +5704,11 @@ msgstr "Combinando aristas similares"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:295
 msgid "guessing opposite direction edges"
-msgstr ""
+msgstr "adivinando aristas de la dirección opuesta"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:301
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "Dividiendo aristas geométricas"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:308
 #, c-format
@@ -5715,7 +5721,7 @@ msgstr "Computando direcciones de giro"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:322
 msgid "Assigning nodes to traffic lights"
-msgstr ""
+msgstr "Asignando nodos a semáforos"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:345
 msgid "Guessing and setting on-/off-ramps"
@@ -8230,16 +8236,16 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:161
 #, c-format
 msgid "Lane '%' for stop '%' not found"
-msgstr ""
+msgstr "Carril '%' para la parada '%' no encontrado"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:173
 msgid "Could not add public transport stop '%' (already exists)"
-msgstr ""
+msgstr "No se pudo agregar la parada de transporte público '%' (ya existe)"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:192
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
-msgstr ""
+msgstr "Arista '%' para el acceso a la parada '%' no encontrada"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
@@ -10690,7 +10696,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:674
 msgid "Could not save configuration to '%'"
-msgstr ""
+msgstr "No se pudo guardar la configuración en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:678
 msgid "Written configuration to '%'"
@@ -10698,28 +10704,28 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:691
 msgid "Could not save template to '%'"
-msgstr ""
+msgstr "No se pudo guardar la plantilla en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:695
 msgid "Written template to '%'"
-msgstr ""
+msgstr "Plantilla guardada en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:707
 msgid "Could not save schema to '%'"
-msgstr ""
+msgstr "No se pudo guardar el esquema en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:711
 msgid "Written schema to '%'"
-msgstr ""
+msgstr "Esquema guardado en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:88
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:135
 msgid "Could not parse commandline options."
-msgstr ""
+msgstr "No se pudieron leer las opciones de línea de comando."
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:103
 msgid "Could not access configuration '%'."
-msgstr ""
+msgstr "No se pudo acceder a la configuración '%'."
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:107
 msgid "Loading configuration"
@@ -10727,16 +10733,17 @@ msgstr "Cargando configuración"
 
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
-msgstr ""
+msgstr "No se pudo cargar la configuración '%'."
 
 #: C:\Repos\sumo/src\utils\options\OptionsLoader.cpp:77
 msgid "Could not set option '%' (probably defined twice)."
 msgstr ""
+"No se pudo configurar la opción '%' (probablemente esté definida dos veces)."
 
 #: C:\Repos\sumo/src\utils\options\OptionsParser.cpp:127
 #: C:\Repos\sumo/src\utils\options\OptionsParser.cpp:134
 msgid "Missing value for parameter '%'."
-msgstr ""
+msgstr "Falta valor para el parámetro '%'."
 
 #: C:\Repos\sumo/src\utils\options\OptionsParser.cpp:146
 #, c-format
@@ -10747,16 +10754,17 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\options\OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
-msgstr ""
+msgstr "Sintaxis de parámetros mixtos en '%'."
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:124
 msgid "Could not load landmark-lookup-table from '%'."
 msgstr ""
+"No se pudo cargar la tabla de búsqueda de puntos de referencia desde '%'."
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:138
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr ""
+msgstr "Arista duplicada '%' en el archivo de referencia."
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:143
 #, c-format
@@ -10789,23 +10797,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:293
 msgid "Saving new matrix to '%'."
-msgstr ""
+msgstr "Guardando matriz nueva en '%'."
 
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:295
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr ""
+msgstr "Arista '%' no encontrada en la red intermodal.'"
 
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:304
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:338
 #, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr ""
+msgstr "Arista de salida '%' no encontrada en la red intermodal."
 
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:350
 #, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr ""
+msgstr "Arista de llegada '%' no encontrada en la red intermodal."
 
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:651
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
@@ -10825,17 +10833,17 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\router\IntermodalRouter.h:220
 #: C:\Repos\sumo/src\utils\router\PedestrianRouter.h:125
 msgid "Do not use this method"
-msgstr ""
+msgstr "No usar este método"
 
 #: C:\Repos\sumo/src\utils\router\PedestrianRouter.h:87
 #, c-format
 msgid "Departure edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "La arista de salida '%' no permite peatones."
 
 #: C:\Repos\sumo/src\utils\router\PedestrianRouter.h:91
 #, c-format
 msgid "Destination edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "La arista destino '%' no permite peatones."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:85
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
@@ -10849,7 +10857,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:145
 msgid "Invalid characters for PoI ID"
-msgstr ""
+msgstr "Caracteres no válidos para el ID del punto de interés"
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:176
 msgid ""
@@ -10869,34 +10877,34 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:198
 #, c-format
 msgid "PoI '%' already exists."
-msgstr ""
+msgstr "El punto de interés '%' ya existe."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:216
 msgid "Invalid characters for Poly ID"
-msgstr ""
+msgstr "Caracteres no válidos para el ID del polígono"
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:259
 msgid "Polygon's shape cannot be empty."
-msgstr ""
+msgstr "La forma del polígono no puede estar vacía."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:264
 msgid "Polygon's lineWidth must be greater than 0."
-msgstr ""
+msgstr "El ancho de línea del polígono debe ser mayor a 0."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:269
 #, c-format
 msgid "Polygon '%' already exists."
-msgstr ""
+msgstr "El polígono '%' ya existe."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:286
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "Error al cargar formas desde %."
 
 #: C:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:44
 #, c-format
 msgid "The node: '%' already exists."
-msgstr ""
+msgstr "El nodo: '%' ya existe."
 
 #: C:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
@@ -11188,7 +11196,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:191
 msgid "Error occurred: % while parsing '%'"
-msgstr ""
+msgstr "Se produjo un error: % al leer '%'"
 
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:193
 msgid ""
