@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:12+0200\n"
-"PO-Revision-Date: 2023-10-16 14:44+0000\n"
+"PO-Revision-Date: 2023-10-18 10:14+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -783,7 +783,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:79
 msgid "Ignore road restrictions based on vehicle class"
-msgstr ""
+msgstr "Ignora las restricciones de la vía según la clase de vehículo"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
@@ -791,7 +791,7 @@ msgstr "Permitir reutilizar una vía"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:85
 msgid "Use all source edges as sink edges."
-msgstr ""
+msgstr "Usar todas las aristas fuente como aristas sumidero."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRFrame.cpp:88
 msgid ""
@@ -799,11 +799,16 @@ msgid ""
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
 msgstr ""
+"Restar el flujo ascendente al insertar un nuevo flujo. Cuando se establece "
+"la opción --sources-are-sinks, el flujo ascendente se limita al valor del "
+"flujo de origen y la parte restante termina."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:68
 msgid ""
 "The turn-file format with elements %, % is deprecated, please use % instead."
 msgstr ""
+"El archivo de giro con elementos %, % está obsoleto, favor usar % en su "
+"lugar."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:87
 #: C:\Repos\sumo/src\jtrrouter\jtrrouter_main.cpp:143
@@ -813,7 +818,7 @@ msgstr "La arista '%' declarada como sumidero no es conocida."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
-msgstr ""
+msgstr "Ignorando flujo '%', no tiene 'from'"
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:128
 #, c-format
@@ -908,7 +913,7 @@ msgstr "La persona '%' fue removida, a pesar de estar controlada por TraCI"
 
 #: C:\Repos\sumo/src\libsumo\MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
-msgstr ""
+msgstr "Se encontraron % definiciones de meanData con ID '%'."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:535
 #, c-format
@@ -916,21 +921,26 @@ msgid ""
 "Departure time=% for person '%' is in the past; using current time=% "
 "instead."
 msgstr ""
+"La hora de salida=% de la persona '%' ya pasó; usando la hora actual=% en su "
+"lugar."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:934
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1744
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr ""
+"No se pudo determinar la posición en el carril '%' en la posición lateral %."
 
 #: C:\Repos\sumo/src\libsumo\Simulation.cpp:105
 msgid "Simulation version % started via libsumo with time: %."
-msgstr ""
+msgstr "La versión de simulación % se inició a través de libsumo con tiempo: %."
 
 #: C:\Repos\sumo/src\libsumo\Simulation.cpp:699
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
 msgstr ""
+"Ignorando el tipo de vehículo '%' al realizar rutas intermodales porque no "
+"está permitido en la arista de inicio '%'."
 
 #: C:\Repos\sumo/src\libsumo\TrafficLight.cpp:715
 #, c-format
@@ -990,7 +1000,7 @@ msgstr ""
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1944
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:439
 msgid "Invalid route replacement for vehicle '%'. %"
-msgstr ""
+msgstr "Reemplazo de ruta no válido para el vehículo '%'. %"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:2640
 msgid ""
@@ -1003,10 +1013,14 @@ msgstr ""
 msgid ""
 "Automatically setting emergencyDecel to % for vType '%' to match decel."
 msgstr ""
+"Estableciendo automáticamente la desaceleración de emergencia en % para el "
+"tipo de vehículo '%', para coincidir con la desaceleración."
 
 #: C:\Repos\sumo/src\libsumo\VehicleType.cpp:334
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
 msgstr ""
+"El nuevo valor de la desaceleración de emergencia (%) es menor al de la "
+"desaceleración (%)"
 
 #: C:\Repos\sumo/src\marouter\ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
@@ -1019,15 +1033,15 @@ msgstr "Destino '%' desconocido."
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:71
 #: C:\Repos\sumo/src\od2trips_main.cpp:121
 msgid "Does not save vtype information"
-msgstr ""
+msgstr "No guardar información de tipo de vehículo"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr ""
+msgstr "Guardar cargas de arista y costos finales en FILE"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr ""
+msgstr "Guarda la matriz de distancia completa en FILE"
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:81
 #: C:\Repos\sumo/src\od2trips_main.cpp:85
@@ -3028,6 +3042,8 @@ msgid ""
 "Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: "
 "%)."
 msgstr ""
+"La velocidad máxima del vehículo '%' es inferior a la velocidad mínima (min: "
+"%, max: %)."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -3035,7 +3051,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:54
 msgid "Unknown train type: %. Exiting!"
-msgstr ""
+msgstr "Tipo de tren desconocido: %. ¡Saliendo!"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:256
 msgid ""
@@ -3046,24 +3062,26 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:165
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr ""
+msgstr "El dispositivo '%' no puede guardar el estado"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:204
 msgid ""
 "Invalid distribution / float value '%' for parameter '%' in vehicle '%'."
 msgstr ""
+"Distribución / valor flotante '%' no válido para el parámetro '%' en el "
+"vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:216
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Valor booleano '%' no válido para el parámetro '%' en el vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:228
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Valor de tiempo '%' no válido para el parámetro '%' en el vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
-msgstr ""
+msgstr "El alcance del receptor Bluetooth"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
@@ -3084,22 +3102,28 @@ msgstr ""
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btreceiver: No se puede actualizar la posición del vehículo '%', el cual no "
+"está en la vía."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTsender.cpp:120
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTsender.cpp:134
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btsender: No se puede actualizar la posición del vehículo '%', el cual no "
+"está en la vía."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:52
 msgid "Track fuel consumption for non-electric vehicles"
-msgstr ""
+msgstr "Seguir el consumo de combustible para vehículos no eléctricos"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:84
 msgid ""
 "Battery device in vehicle '%s' still uses old parameter '%'. Please update "
 "to 'device.%'."
 msgstr ""
+"El dispositivo de batería en el vehículo '%s' todavía usa el antiguo "
+"parámetro '%'. Actualice a 'device.%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:116
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:129
@@ -3110,7 +3134,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:200
 #, c-format
 msgid "Battery of vehicle '%' is depleted."
-msgstr ""
+msgstr "La batería del vehículo '%' está agotada."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:310
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:320
