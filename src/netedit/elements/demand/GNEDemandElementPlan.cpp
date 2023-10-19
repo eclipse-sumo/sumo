@@ -1194,6 +1194,22 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw geometry
         GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
+        // check if draw last segment
+        if (segment->getNextSegment() && segment->getNextSegment()->getJunction() &&
+            (segment->getNextSegment()->getNextSegment() == nullptr)) {
+            Position fromPos = planGeometry.getShape().back();
+            Position toPos = Position::INVALID;
+            if (myPlanElement->getTagProperty().planToJunction()) {
+                toPos = myPlanElement->getParentJunctions().back()->getPositionInView();
+            } else if (myPlanElement->getTagProperty().planToTAZ()) {
+                toPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+            }
+            // draw last segment
+            if (toPos != Position::INVALID) {
+                planGeometry.updateGeometry({fromPos, toPos});
+                GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
+            }
+        }
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting

@@ -522,8 +522,11 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
                 // stop center
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {
-                // use first position of plan geometry
-                return personPlan->getDemandElementGeometry().getShape().front();
+                // TAZ
+                return personPlan->getParentAdditionals().front()->getPositionInView();
+            } else if (personPlan->getTagProperty().planFromJunction()) {
+                // juncrtion
+                return personPlan->getParentJunctions().front()->getPositionInView();
             } else {
                 return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
