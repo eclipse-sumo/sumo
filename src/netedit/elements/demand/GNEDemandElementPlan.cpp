@@ -1121,7 +1121,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     // check if this is a dotted element
     const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1252,7 +1252,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(myPlanElement->checkDrawContour(), fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), fromLane, toLane, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1275,11 +1275,17 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw lane2lane
             GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), lane2laneGeometry, pathWidth);
-        } else {
+        } else if (fromLane && toLane) {
             // Set invalid plan color
             GLHelper::setColor(RGBColor::RED);
             // draw line between end of first shape and first position of second shape
             GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * pathWidth));
+        } else if (myPlanElement->getTagProperty().planFromJunction() && myPlanElement->getTagProperty().planToJunction()) {
+            // Set plan color
+            GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
+            // draw line between both junctions
+            GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), 
+                                    myPlanElement->getParentJunctions().back()->getPositionInView()}, (0.5 * pathWidth));
         }
         // Pop last matrix
         GLHelper::popMatrix();
@@ -1288,7 +1294,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
         // check if shape dotted contour has to be drawn
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
+        if (fromLane && fromLane->getLane2laneConnections().exist(toLane)) {
             // get shape
             const auto &shape = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape();
             // check if mouse is over element

@@ -302,10 +302,10 @@ public:
         void clearPathDraw();
 
         /// @brief check if path element geometry must be drawn in the given lane
-        bool checkDrawPathGeometry(const bool dottedElement, const GNELane* lane, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool checkDrawPathGeometry(const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes

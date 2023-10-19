@@ -1038,9 +1038,8 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawContour = checkDrawContour();
     // check conditions
-    if (!s.drawForRectangleSelection &&
-            (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(drawContour, lane, myTagProperty.getTag())) {
+    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, lane, myTagProperty.getTag())) {
         // calculate width
         const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
         // calculate startPos
@@ -1152,10 +1151,9 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawContour = checkDrawContour();
     // check conditions
-    if (!s.drawForRectangleSelection &&
-            fromLane->getLane2laneConnections().exist(toLane) &&
-            (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(drawContour, fromLane, toLane, myTagProperty.getTag())) {
+    if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) &&
+        (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, fromLane, toLane, myTagProperty.getTag())) {
         // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry

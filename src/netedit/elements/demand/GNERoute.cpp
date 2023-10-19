@@ -402,10 +402,9 @@ GNERoute::computePathElement() {
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(checkDrawContour(), lane, myTagProperty.getTag())) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), lane, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -500,11 +499,9 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
     // check conditions
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            fromLane->getLane2laneConnections().exist(toLane) &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(checkDrawContour(), fromLane, toLane, myTagProperty.getTag())) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), fromLane, toLane, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width

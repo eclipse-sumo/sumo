@@ -558,12 +558,11 @@ GNEPathManager::PathDraw::clearPathDraw() {
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const bool dottedElement, const GNELane* lane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* lane, SumoXMLTag tag) {
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (lane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection ||
-               lane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+    } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
         return true;
     } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
@@ -586,12 +585,11 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const bool dottedElement, const 
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag) {
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForPositionSelection ||
-               fromLane->getNet()->getViewNet()->getVisualisationSettings().drawForRectangleSelection) {
+    } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
         return true;
     } else {
         // declare lane2lane
