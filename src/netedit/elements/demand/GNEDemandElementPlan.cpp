@@ -466,7 +466,9 @@ GNEDemandElementPlan::computePlanPathElement() {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
         }
         // calculate path
-        pathManager->calculatePath(myPlanElement, vClass, myPlanElement->getParentJunctions().front(), lastLane);
+        if (lastLane) {
+            pathManager->calculatePath(myPlanElement, vClass, myPlanElement->getParentJunctions().front(), lastLane);
+        }
     } else if (myPlanElement->myTagProperty.planToJunction()) {
         // declare first lane
         GNELane* firstLane = nullptr;
@@ -478,7 +480,9 @@ GNEDemandElementPlan::computePlanPathElement() {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
         }
         // calculate path
-        pathManager->calculatePath(myPlanElement, vClass, firstLane, myPlanElement->getParentJunctions().back());
+        if (firstLane) {
+            pathManager->calculatePath(myPlanElement, vClass, firstLane, myPlanElement->getParentJunctions().back());
+        }
     } else {
         // declare first edge
         GNELane* firstLane = nullptr;
@@ -515,9 +519,27 @@ void
 GNEDemandElementPlan::updatePlanGeometry() {
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
-    // only for plans defined between TAZs
-    if (tagProperty.planFromTAZ() || tagProperty.planToTAZ()) {
-        updateTAZGeometry();
+    // declare first and last positions
+    Position firstPos = Position::INVALID;
+    Position lastPos = Position::INVALID;
+    // set first position
+    if (tagProperty.planFromJunction() && tagProperty.planToTAZ()) {
+        firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
+        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+    } else if (tagProperty.planFromTAZ() && tagProperty.planToJunction()) {
+        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
+        lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
+    } else if (tagProperty.planFromTAZ() && tagProperty.planToTAZ()) {
+        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
+        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+    }
+    // use both position to calculate a line
+    if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
+        // remove from grid
+        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
+        myPlanElement->myDemandElementGeometry.updateGeometry({firstPos, lastPos});
+        // add into grid again
+        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
     }
     // update child demand elements
     for (const auto& demandElement : myPlanElement->getChildDemandElements()) {
@@ -1078,6 +1100,14 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     if (drawPlan && (planGeometry.getShape().size() > 0)) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
+        // get inspected attribute carriers
+        const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
+        // get inspected plan
+        const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
+        // flag to check if width must be duplicated
+        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
+        // calculate path width
+        const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
@@ -1091,7 +1121,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // set color
         GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw line
-        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, 0.5);
+        GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
         GLHelper::drawTriangleAtEnd(
             *(planGeometry.getShape().end() - 2),
             *(planGeometry.getShape().end() - 1),
@@ -1101,7 +1131,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         // pop name
         GLHelper::popName();
         // draw dotted geometry
-        myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), 0.5, 1, true, true,
+        myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), pathWidth, 1, true, true,
                                                               s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
@@ -1280,12 +1310,6 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
             GLHelper::setColor(RGBColor::RED);
             // draw line between end of first shape and first position of second shape
             GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * pathWidth));
-        } else if (myPlanElement->getTagProperty().planFromJunction() && myPlanElement->getTagProperty().planToJunction()) {
-            // Set plan color
-            GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
-            // draw line between both junctions
-            GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), 
-                                    myPlanElement->getParentJunctions().back()->getPositionInView()}, (0.5 * pathWidth));
         }
         // Pop last matrix
         GLHelper::popMatrix();
@@ -1379,39 +1403,6 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
     }
     // undefined problem
     return "undefined problem";
-}
-
-
-void
-GNEDemandElementPlan::updateTAZGeometry() {
-    // remove from grid
-    myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-    // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
-    // declare two positions
-    Position startPos, endPos;
-    // set start position
-    if (tagProperty.planFromTAZ()) {
-        startPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
-    } else if (tagProperty.planFromJunction()) {
-        startPos = myPlanElement->getParentJunctions().front()->getPositionInView();
-    } else {
-        // use first path lane
-        startPos = getFirstPlanPathLane()->getLaneShape().back();
-    }
-    // set end position
-    if (tagProperty.planToTAZ()) {
-        endPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
-    } else if (tagProperty.planToJunction()) {
-        endPos = myPlanElement->getParentJunctions().back()->getPositionInView();
-    } else {
-        // use last path lane
-        endPos = getLastPlanPathLane()->getLaneShape().front();
-    }
-    // use both position to calculate a line
-    myPlanElement->myDemandElementGeometry.updateGeometry({startPos, endPos});
-    // add into grid again
-    myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
 }
 
 /****************************************************************************/

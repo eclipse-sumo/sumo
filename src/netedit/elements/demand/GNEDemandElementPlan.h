@@ -189,9 +189,6 @@ private:
     /// @brief arrival position diameter
     static const double myArrivalPositionDiameter;
 
-    /// @brief update geometry of plan that starts or ends in TAZ
-    void updateTAZGeometry();
-
     /// @brief Invalidated copy constructor.
     GNEDemandElementPlan(const GNEDemandElementPlan&) = delete;
 
