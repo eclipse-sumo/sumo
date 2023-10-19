@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-16 11:12+0200\n"
-"PO-Revision-Date: 2023-10-18 15:03+0000\n"
+"PO-Revision-Date: 2023-10-19 11:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -58,7 +58,7 @@ msgstr "Asignando lugares para vehículos"
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Valor % no válido de la arista %, se asumirá que es cero."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, c-format
@@ -86,15 +86,19 @@ msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
 msgstr ""
+"Establece la hora de inicio de la simulación durante el primer día (en "
+"segundos)"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
 msgstr ""
+"Establece la hora de finalización de la simulación durante el último día (en "
+"segundos)"
 
 #: C:\Repos\sumo/src\activitygen\AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Establece la duración de la simulación en días"
 
 #: C:\Repos\sumo/src\activitygen\activitygen_main.cpp:64
 #: C:\Repos\sumo/src\router\ROLoader.cpp:111
@@ -1352,7 +1356,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:709
 #, c-format
 msgid "Edge '%' prohibits."
-msgstr ""
+msgstr "La arista '%' lo prohibe."
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:723
 #, c-format
@@ -2374,7 +2378,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:818
 msgid "No network file (-n) specified."
-msgstr ""
+msgstr "No se ha especificado ningún archivo de red (-n)."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:822
 msgid "Invalid scaling factor."
@@ -2403,7 +2407,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:876
 msgid "the minimum step-length is 0.001"
-msgstr ""
+msgstr "la longitud mínima de paso es 0.001"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:891
 msgid "The save-state time=% will not be used before simulation end at %."
@@ -2457,7 +2461,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:969
 msgid "You need a non-negative delay."
-msgstr ""
+msgstr "Se necesita un retardo no negativo."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:982
 msgid "Parallel simulation is only possible when compiled with Fox."
@@ -3186,33 +3190,42 @@ msgid ""
 "General scaling coefficient for applying the error to the vehicle's own "
 "speed when driving without a leader (error also scales with own speed)."
 msgstr ""
+"Coeficiente de escala general para aplicar el error a la propia velocidad "
+"del vehículo cuando se conduce sin líder (el error también escala con la "
+"velocidad propia)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:78
 msgid ""
 "Base threshold for recognizing changes in the speed difference (threshold "
 "also scales with distance)."
 msgstr ""
+"Umbral base para reconocer cambios en la diferencia de velocidad (el umbral "
+"también aumenta con la distancia)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
 msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales"
 " with distance)."
 msgstr ""
+"Umbral base para reconocer cambios en la distancia de seguimiento (el umbral "
+"también aumenta con la distancia)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 msgid "Minimal admissible value for the driver's awareness."
-msgstr ""
+msgstr "Valor mínimo admisible para la conciencia del conductor."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:84
 msgid ""
 "Maximal reaction time (~action step length) induced by decreased awareness "
 "level (reached for awareness=minAwareness)."
 msgstr ""
+"Tiempo de reacción máximo (~longitud del paso de acción) inducido por una "
+"disminución del nivel de conciencia (alcanzado para conciencia=minAwareness)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:102
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:116
 msgid "Invalid value '%'for vType parameter '%'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro '%' del tipo de vehículo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:166
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:179
@@ -3220,6 +3233,8 @@ msgid ""
 "ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % "
 "(%)."
 msgstr ""
+"Constructor ElecHybrid: El vehículo '%' no tiene un valor válido para el "
+"parámetro % (%)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:374
 #, c-format
@@ -3239,31 +3254,33 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:648
 #: C:\Repos\sumo/src\utils\traction_wire\Circuit.cpp:883
 msgid "The element or node with the last Id was not found in the circuit!"
-msgstr ""
+msgstr "¡El elemento o nodo con el último ID no se encontró en el circuito!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Emissions.cpp:47
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "Tiempo de inicio del registro de datos de emisiones"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Emissions.cpp:50
 msgid "Recording period for emission-output"
-msgstr ""
+msgstr "Período registrado en la salida de emisiones"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:48
 msgid ""
 "An exemplary parameter which can be used by all instances of the example "
 "device"
 msgstr ""
+"Un parámetro de ejemplo que puede ser utilizado por todas las instancias del "
+"dispositivo de ejemplo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:63
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'example'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'example'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Example.cpp:75
 #, c-format
 msgid "Invalid value '%' for vType parameter 'example'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de tipo de vehículo 'example'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
@@ -3305,20 +3322,21 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
-msgstr ""
+msgstr "El rango de comunicación hacia un semáforo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:52
 msgid "The maximum speed factor when approaching a green light"
-msgstr ""
+msgstr "El factor de velocidad máxima al acercarse a un semáforo en verde"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:55
 msgid "Minimum speed when coasting towards a red light"
-msgstr ""
+msgstr "Velocidad mínima al avanzar por inercia hacia un semáforo en rojo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:171
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
+"Valor no válido '%' para el parámetro 'device.glosa.range' del semáforo '%'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:54
 msgid "The period with which the vehicle shall be rerouted"
@@ -3338,25 +3356,32 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:70
 msgid "The interval for updating the edge weights"
-msgstr ""
+msgstr "El intervalo para actualizar los pesos de las aristas"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:75
 msgid "Use zones (districts) as routing start- and endpoints"
 msgstr ""
+"Usar zonas (distritos) como puntos de inicio y finalización de enrutamiento"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:78
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr ""
+"Usar los archivos de peso proporcionados con la opción --weight-files para "
+"inicializar los pesos de las aristas"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
 msgstr ""
+"El número de hilos de ejecución paralelos utilizados para el "
+"redireccionamiento"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
 msgstr ""
+"Permitir que el redireccionamiento de rutas se realice al mismo tiempo para "
+"todos los vehículos"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 msgid "Allow rerouting triggered by rail signals."
@@ -3364,11 +3389,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Compute separate average speeds for bicycles"
-msgstr ""
+msgstr "Calcular velocidades promedio separadas para bicicletas"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
-msgstr ""
+msgstr "Guardar pesos adaptados en FILE"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:102
 msgid ""
@@ -3378,25 +3403,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:106
 msgid "weights.random-factor cannot be less than 1"
-msgstr ""
+msgstr "weights.random-factor no puede ser menor a 1"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:110
 msgid "Negative value for device.rerouting.adaptation-interval!"
-msgstr ""
+msgstr "¡Valor negativo para device.rerouting.adaptation-interval!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:115
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
-msgstr ""
+msgstr "¡El valor de device.rerouting.adaptation-weight debe estar entre 0 y 1!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:120
 #: C:\Repos\sumo/src\router\ROFrame.cpp:243
 msgid "Parallel routing is only possible when compiled with Fox."
-msgstr ""
+msgstr "El enrutamiento paralelo sólo es posible cuando se compila con Fox."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:125
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr ""
+"Adaptar el número de hilos de enrutamiento al número de hilos de la "
+"simulación."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
@@ -3697,7 +3724,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:58
 msgid "Type of energy transfer"
-msgstr ""
+msgstr "Tipo de tranferencia de energía"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:60
 msgid ""
@@ -3749,7 +3776,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:149
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr ""
+msgstr "El algoritmo de despacho '%' no es conocido"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:328
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
@@ -4517,7 +4544,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:423
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:358
 msgid "Could not allocate tls '%'."
-msgstr ""
+msgstr "No se pudo asignar el semáforo '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:176
 msgid ""
@@ -4683,7 +4710,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:463
 msgid "Invalid edge id '%'."
-msgstr ""
+msgstr "ID de arista '%' no válida."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:493
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:627
@@ -5865,7 +5892,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:299
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:321
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "ID de nodo '%' no válido."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
@@ -6025,7 +6052,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:1714
 msgid "Could not join junctions %."
-msgstr ""
+msgstr "No se pudieron combinar los cruces %."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:1958
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
@@ -6935,7 +6962,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:362
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "Importar formas de carriles internos"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:364
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
@@ -7299,7 +7326,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:637
 #, c-format
 msgid "Edge '%' has no lanes."
-msgstr ""
+msgstr "La arista '%' no tiene carriles."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:678
 #, c-format
@@ -7987,7 +8014,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1527
 msgid " Both nodes are the same"
-msgstr ""
+msgstr " Ambos nodos son iguales"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1542
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:435
@@ -8249,7 +8276,7 @@ msgstr "Arista '%' para el acceso a la parada '%' no encontrada"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
-msgstr ""
+msgstr "Ruta encontrada por fuera de la definición de línea"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:263
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:283
@@ -8439,7 +8466,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
-msgstr ""
+msgstr "Omitiendo semáforo desconocido."
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
@@ -8518,7 +8545,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:427
 msgid "Loading % from '%'"
-msgstr ""
+msgstr "Cargando % desde '%'"
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:447
 #, c-format
@@ -9010,7 +9037,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:124
 msgid "Writes trips between junctions"
-msgstr ""
+msgstr "Guardar viajes entre cruces"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:129
 #: C:\Repos\sumo/src\router\ROFrame.cpp:116
@@ -9233,7 +9260,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
-msgstr ""
+msgstr "Falta ID en '%'"
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:234
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:267
@@ -9396,7 +9423,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr ""
+msgstr "Cargar tipos desde FILE"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
@@ -9460,7 +9487,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:215
 msgid "Fills polygons by default"
-msgstr ""
+msgstr "Rellena polígonos por defecto"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:218
 msgid "Sets STR as default icon"
@@ -9556,7 +9583,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr ""
+msgstr "Supone que la entrada no está ordenada"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:148
 msgid "generate random departure times for flow input"
@@ -10121,7 +10148,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\MsgHandler.cpp:299
 msgid "Could not find localized messages."
-msgstr ""
+msgstr "No se pudieron encontrar mensajes localizados."
 
 #: C:\Repos\sumo/src\utils\common\Parameterised.cpp:87
 msgid "Invalid conversion from string to double (%)"
@@ -10221,11 +10248,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:80
 msgid "Prints the current version"
-msgstr ""
+msgstr "Retorna la versión actual"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:97
 msgid "Disables output of warnings"
-msgstr ""
+msgstr "Desactivar las advertencias"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
@@ -10673,7 +10700,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:397
 msgid "Empty file name given; ignoring."
-msgstr ""
+msgstr "El nombre de archivo dado es vacío; haciendo caso omiso."
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:418
 msgid "Option '%' needs option '%'."
@@ -11031,7 +11058,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:402
 msgid "Invalid % id '%'."
-msgstr ""
+msgstr "ID de % no válido '%'."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:404
 msgid "Invalid % id '%'. Contains invalid characters."
