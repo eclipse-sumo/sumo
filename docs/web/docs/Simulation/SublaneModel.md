@@ -92,8 +92,8 @@ minimum width of the given resolution (**--lateral-resolution**). If the lane wi
 multiple of the given value, the leftmost sublane has a reduced with.
 The default lane-width of SUMO is 3.2m so a lateral resolution of 0.8
 will created exactly 4 sublanes of that width per lane. A resolution of
-1.0 will create three sublanes of 1.0m width and on more lane of 0.2m
-width. It is recommended use a resolution that is at least as small as
+1.0 will create three sublanes of 1.0m width and one more lane of 0.2m
+width. It is recommended to use a resolution that is at least as small as
 the least wide vehicle being simulated (i.e. motorcycles).
 
 ### Car-Following
