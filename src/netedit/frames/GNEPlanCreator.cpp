@@ -187,7 +187,7 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
             getFromJunction(), getToJunction(),
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isWalk()) {
+    } else if (planTemplate->getTagProperty().isPlanWalk()) {
         return GNEDemandElementPlan::getWalkTagIcon(
             getConsecutiveEdges(), getRoute(),
             getFromEdge(), getToEdge(),
@@ -195,24 +195,24 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement *planTemplate) const {
             getFromJunction(), getToJunction(),
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isRide()) {
+    } else if (planTemplate->getTagProperty().isPlanRide()) {
         return GNEDemandElementPlan::getRideTagIcon(
         getFromEdge(), getToEdge(),
             getFromBusStop(), getToBusStop(),
             getFromTrainStop(), getToTrainStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isTransportPlan()) {
+    } else if (planTemplate->getTagProperty().isPlanTransport()) {
         return GNEDemandElementPlan::getTransportTagIcon(
             getFromEdge(), getToEdge(),
             getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isTranshipPlan()) {
+    } else if (planTemplate->getTagProperty().isPlanTranship()) {
         return GNEDemandElementPlan::getTranshipTagIcon(
             getConsecutiveEdges(),
             getFromEdge(), getToEdge(),
             getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isStopPerson()) {
+    } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
         return GNEDemandElementPlan::getPersonStopTagIcon(
             getEdge(), getBusStop(), getTrainStop()).first != SUMO_TAG_NOTHING;
-    } else if (planTemplate->getTagProperty().isStopContainer()) {
+    } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
         return GNEDemandElementPlan::getContainerStopTagIcon(
             getEdge(), getContainerStop()).first != SUMO_TAG_NOTHING;
     } else {
@@ -312,7 +312,7 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         }
     }
     // set vClass
-    if (planTagProperties.isRide() || planTagProperties.isContainerPlan()) {
+    if (planTagProperties.isPlanRide() || planTagProperties.isPlanContainer()) {
         myVClass = SVC_PASSENGER;
     } else {
         myVClass = SVC_PEDESTRIAN;

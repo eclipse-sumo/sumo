@@ -375,6 +375,17 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 }
 
 
+void
+GNEStoppingPlace::drawStoppingPlaceChildren(const GUIVisualizationSettings& s) const {
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+            demandElement->drawGL(s);
+        }
+    }
+}
+
+
 double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myStartPosition != INVALID_DOUBLE) {

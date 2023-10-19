@@ -279,9 +279,7 @@ GNEStop::getVClass() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopPersonColor;
-    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // get inspected AC
         const auto AC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if is a route or a vehicle
@@ -309,15 +307,8 @@ GNEStop::updateGeometry() {
         // Cut shape using as delimitators fixed start position and fixed end position
         myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane(), myMoveElementLateralOffset);
     } else if (getParentAdditionals().size() > 0) {
-        if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
-            // get busStop shape
-            const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
-            // update demand element geometry using both positions
-            myDemandElementGeometry.updateGeometry(busStopShape, busStopShape.length2D() - 0.6, busStopShape.length2D(), 0);
-        } else {
-            // use geometry of additional (busStop)
-            myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
-        }
+        // use geometry of additional (busStop)
+        myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
     }
 }
 

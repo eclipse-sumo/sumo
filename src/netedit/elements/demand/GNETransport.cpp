@@ -96,7 +96,7 @@ GNETransport::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNETransport::isDemandElementValid() const {
-    return isPersonPlanValid();
+    return isPlanPersonValid();
 }
 
 

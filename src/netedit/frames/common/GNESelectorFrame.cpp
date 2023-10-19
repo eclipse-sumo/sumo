@@ -837,7 +837,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto& personPlan : person->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isRide()) {
+                if (personPlan->getTagProperty().isPlanRide()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
@@ -850,7 +850,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         }
         for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
             for (const auto& personPlan : personFlow->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isRide()) {
+                if (personPlan->getTagProperty().isPlanRide()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
@@ -869,7 +869,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
             for (const auto& personPlan : person->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isWalk()) {
+                if (personPlan->getTagProperty().isPlanWalk()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
@@ -882,7 +882,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         }
         for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
             for (const auto& personPlan : personFlow->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isWalk()) {
+                if (personPlan->getTagProperty().isPlanWalk()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
@@ -942,7 +942,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
             for (const auto& containerPlan : container->getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isTranshipPlan()) {
+                if (containerPlan->getTagProperty().isPlanTranship()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
@@ -955,7 +955,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         }
         for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
             for (const auto& containerPlan : containerFlow->getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isTranshipPlan()) {
+                if (containerPlan->getTagProperty().isPlanTranship()) {
                     if (onlyCount) {
                         return true;
                     } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
@@ -978,7 +978,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 if (!demandElement->getTagProperty().isType()) {
                     // iterate over every child
                     for (const auto& stop : demandElement->getChildDemandElements()) {
-                        if (stop->getTagProperty().isVehicleStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {
+                        if (stop->getTagProperty().isVehicleStop() || stop->getTagProperty().isPlanStopPerson() || stop->getTagProperty().isPlanStopContainer()) {
                             if (onlyCount) {
                                 return true;
                             } else if (onlyUnselect || stop->isAttributeCarrierSelected()) {
@@ -990,8 +990,8 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                             // special case for embedded routes
                             for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
                                 if (stopEmbeddedRoute->getTagProperty().isVehicleStop() ||
-                                    stopEmbeddedRoute->getTagProperty().isStopPerson() ||
-                                    stopEmbeddedRoute->getTagProperty().isStopContainer()) {
+                                    stopEmbeddedRoute->getTagProperty().isPlanStopPerson() ||
+                                    stopEmbeddedRoute->getTagProperty().isPlanStopContainer()) {
                                     if (onlyCount) {
                                         return true;
                                     } else if (onlyUnselect || stopEmbeddedRoute->isAttributeCarrierSelected()) {

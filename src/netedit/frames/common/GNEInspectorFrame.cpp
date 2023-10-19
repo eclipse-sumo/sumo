@@ -1046,8 +1046,12 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             headerString = "Route: ";
         } else if (ACs.front()->getTagProperty().isPerson()) {
             headerString = "Person: ";
-        } else if (ACs.front()->getTagProperty().isPersonPlan()) {
+        } else if (ACs.front()->getTagProperty().isPlanPerson()) {
             headerString = "PersonPlan: ";
+        } else if (ACs.front()->getTagProperty().isContainer()) {
+            headerString = "Container: ";
+        } else if (ACs.front()->getTagProperty().isPlanContainer()) {
+            headerString = "ContainerPlan: ";
         } else if (ACs.front()->getTagProperty().isVehicleStop()) {
             headerString = "Stop: ";
         } else if (ACs.front()->getTagProperty().isDataElement()) {

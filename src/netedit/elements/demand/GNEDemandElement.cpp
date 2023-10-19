@@ -300,12 +300,12 @@ GNEDemandElement::markAsFrontElement() {
 void
 GNEDemandElement::deleteGLObject() {
     // we need an special checks due hierarchies
-    if (myTagProperty.isPersonPlan() || myTagProperty.isContainerPlan()) {
+    if (myTagProperty.isPlan()) {
         // get person/container plarent
-        GNEDemandElement* parent = getParentDemandElements().front();
+        GNEDemandElement* planParent = getParentDemandElements().front();
         // if this is the last person/container plan element, remove parent instead plan
-        if (parent->getChildDemandElements().size() == 1) {
-            parent->deleteGLObject();
+        if (planParent->getChildDemandElements().size() == 1) {
+            planParent->deleteGLObject();
         } else {
             myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
         }

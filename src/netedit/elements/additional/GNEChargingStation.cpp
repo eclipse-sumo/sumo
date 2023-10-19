@@ -184,12 +184,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted geometry (don't exaggerate contour)
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);
-            // draw child demand elements
-            for (const auto& demandElement : getChildDemandElements()) {
-                if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                    demandElement->drawGL(s);
-                }
-            }
+            // draw stoppingPlace children
+            drawStoppingPlaceChildren(s);
         }
         // Draw additional ID
         drawAdditionalID(s);

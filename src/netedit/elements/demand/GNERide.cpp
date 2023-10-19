@@ -104,7 +104,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNERide::isDemandElementValid() const {
-    return isPersonPlanValid();
+    return isPlanPersonValid();
 }
 
 

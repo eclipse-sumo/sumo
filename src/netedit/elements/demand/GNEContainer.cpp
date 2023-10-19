@@ -185,7 +185,7 @@ GNEContainer::~GNEContainer() {}
 GNEMoveOperation*
 GNEContainer::getMoveOperation() {
     // check first container plan
-    if (getChildDemandElements().front()->getTagProperty().isStopContainer()) {
+    if (getChildDemandElements().front()->getTagProperty().isPlanStopContainer()) {
         return nullptr;
     } else {
         // get lane
@@ -304,7 +304,7 @@ Boundary
 GNEContainer::getCenteringBoundary() const {
     Boundary containerBoundary;
     if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().front()->getTagProperty().isStopContainer()) {
+        if (getChildDemandElements().front()->getTagProperty().isPlanStopContainer()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
@@ -383,7 +383,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw line between junctions if container plan isn't valid
             for (const auto& containerPlan : getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isContainerPlan() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
                     drawJunctionLine(containerPlan);
                 }
             }
@@ -521,7 +521,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             // get container plan
             const GNEDemandElement* containerPlan = getChildDemandElements().front();
             // first check if first container plan is a stop
-            if (containerPlan->getTagProperty().isStopContainer()) {
+            if (containerPlan->getTagProperty().isPlanStopContainer()) {
                 return containerPlan->getPositionInView();
             } else {
                 // declare lane lane

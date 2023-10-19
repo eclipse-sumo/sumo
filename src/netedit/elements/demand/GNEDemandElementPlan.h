@@ -171,7 +171,7 @@ protected:
     /// @}
 
     /// @brief check if plan is valid
-    GNEDemandElement::Problem isPersonPlanValid() const;
+    GNEDemandElement::Problem isPlanPersonValid() const;
 
     /// @brief get plan problem
     std::string getPersonPlanProblem() const;

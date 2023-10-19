@@ -121,7 +121,7 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStopPlan::isDemandElementValid() const {
-return isPersonPlanValid();
+return isPlanPersonValid();
 }
 
 
@@ -153,15 +153,10 @@ void
 GNEStopPlan::updateGeometry() {
     // update geometry depending of parent
     if (getParentAdditionals().size() > 0) {
-        if (getTagProperty().isPersonPlan() || getTagProperty().isContainerPlan()) {
-            // get busStop shape
-            const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
-            // update demand element geometry using both positions
-            myDemandElementGeometry.updateGeometry(busStopShape, busStopShape.length2D() - 0.6, busStopShape.length2D(), 0);
-        } else {
-            // use geometry of additional (busStop)
-            myDemandElementGeometry = getParentAdditionals().at(0)->getAdditionalGeometry();
-        }
+        // get busStop shape
+        const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
+        // update demand element geometry using both positions
+        myDemandElementGeometry.updateGeometry(busStopShape, busStopShape.length2D() - 0.6, busStopShape.length2D(), 0);
     } else if (getParentEdges().size() > 0) {
         // get front and back lane
         const GNELane* frontLane = getParentEdges().front()->getLanes().front();
@@ -216,8 +211,8 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = getExaggeration(s);
     // check if stop can be draw
-    if ((getTagProperty().isStopPerson() && checkDrawPersonPlan()) ||
-            (getTagProperty().isStopContainer() && checkDrawContainerPlan())) {
+    if ((getTagProperty().isPlanStopPerson() && checkDrawPersonPlan()) ||
+            (getTagProperty().isPlanStopContainer() && checkDrawContainerPlan())) {
         // check if draw stopPerson over busStop oder over lane
         if (getParentAdditionals().size() > 0) {
             drawStopPersonOverStoppingPlace(s, exaggeration);

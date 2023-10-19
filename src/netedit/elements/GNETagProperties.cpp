@@ -373,8 +373,26 @@ GNETagProperties::isPerson() const {
 
 
 bool
-GNETagProperties::isPersonPlan() const {
+GNETagProperties::isContainer() const {
+    return (myTagType & CONTAINER) != 0;
+}
+
+
+bool
+GNETagProperties::isPlan() const {
+    return isPlanPerson() || isPlanContainer();
+}
+
+
+bool
+GNETagProperties::isPlanPerson() const {
     return (myTagType & PERSONPLAN) != 0;
+}
+
+
+bool
+GNETagProperties::isPlanContainer() const {
+    return (myTagType & CONTAINERPLAN) != 0;
 }
 
 
@@ -385,55 +403,43 @@ GNETagProperties::isPersonTrip() const {
 
 
 bool
-GNETagProperties::isWalk() const {
+GNETagProperties::isPlanWalk() const {
     return (myTagType & WALK) != 0;
 }
 
 
 bool
-GNETagProperties::isRide() const {
+GNETagProperties::isPlanRide() const {
     return (myTagType & RIDE) != 0;
 }
 
 
 bool
-GNETagProperties::iStopPlan() const {
-    return isStopPerson() || isStopContainer();
-}
-
-
-bool
-GNETagProperties::isStopPerson() const {
-    return (myTagType & STOPPERSON) != 0;
-}
-
-
-bool
-GNETagProperties::isContainer() const {
-    return (myTagType & CONTAINER) != 0;
-}
-
-
-bool
-GNETagProperties::isContainerPlan() const {
-    return (myTagType & CONTAINERPLAN) != 0;
-}
-
-
-bool
-GNETagProperties::isTransportPlan() const {
+GNETagProperties::isPlanTransport() const {
     return (myTagType & TRANSPORT) != 0;
 }
 
 
 bool
-GNETagProperties::isTranshipPlan() const {
+GNETagProperties::isPlanTranship() const {
     return (myTagType & TRANSHIP) != 0;
 }
 
 
 bool
-GNETagProperties::isStopContainer() const {
+GNETagProperties::isPlanStop() const {
+    return isPlanStopPerson() || isPlanStopContainer();
+}
+
+
+bool
+GNETagProperties::isPlanStopPerson() const {
+    return (myTagType & STOPPERSON) != 0;
+}
+
+
+bool
+GNETagProperties::isPlanStopContainer() const {
     return (myTagType & STOPCONTAINER) != 0;
 }
 
@@ -447,98 +453,6 @@ GNETagProperties::isGenericData() const {
 bool
 GNETagProperties::isMeanData() const {
     return (myTagType & MEANDATA) != 0;
-}
-
-
-bool
-GNETagProperties::isChild() const {
-    return (myTagProperty & CHILD) != 0;
-}
-
-
-bool
-GNETagProperties::isSymbol() const {
-    return (myTagType & SYMBOL) != 0;
-}
-
-
-bool
-GNETagProperties::isInternalLane() const {
-    return (myTagType & INTERNALLANE) != 0;
-}
-
-
-bool
-GNETagProperties::isDrawable() const {
-    return (myTagProperty & NOTDRAWABLE) == 0;
-}
-
-
-bool
-GNETagProperties::isSelectable() const {
-    // note: By default all elements can be selected, except Tags with "NOTSELECTABLE"
-    return (myTagProperty & NOTSELECTABLE) == 0;
-}
-
-
-bool
-GNETagProperties::canCloseShape() const {
-    return (myTagProperty & CLOSESHAPE) != 0;
-}
-
-
-bool
-GNETagProperties::hasGEOShape() const {
-    return (myTagProperty & GEOSHAPE) != 0;
-}
-
-
-bool
-GNETagProperties::hasDialog() const {
-    return (myTagProperty & DIALOG) != 0;
-}
-
-
-bool
-GNETagProperties::hasParameters() const {
-    // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
-    return (myTagProperty & NOPARAMETERS) == 0;
-}
-
-
-bool
-GNETagProperties::isPlacedInRTree() const {
-    return (myTagProperty & RTREE) != 0;
-}
-
-
-bool
-GNETagProperties::canBeReparent() const {
-    return (myTagProperty & REPARENT) != 0;
-}
-
-
-bool
-GNETagProperties::canMaskStartEndPos() const {
-    return (myTagProperty & MASKSTARTENDPOS) != 0;
-}
-
-
-bool
-GNETagProperties::canCenterCameraAfterCreation() const {
-    return (myTagProperty & CENTERAFTERCREATION) != 0;
-}
-
-
-bool
-GNETagProperties::requireProj() const {
-    return (myTagProperty & REQUIRE_PROJ) != 0;
-}
-
-
-bool
-GNETagProperties::vClassIcon() const {
-    return (myTagProperty & VCLASS_ICON) != 0;
 }
 
 
@@ -704,6 +618,98 @@ GNETagProperties::planToTrainStop() const {
 bool
 GNETagProperties::planToContainerStop() const {
     return (myTagParents & PLAN_TO_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::isChild() const {
+    return (myTagProperty & CHILD) != 0;
+}
+
+
+bool
+GNETagProperties::isSymbol() const {
+    return (myTagType & SYMBOL) != 0;
+}
+
+
+bool
+GNETagProperties::isInternalLane() const {
+    return (myTagType & INTERNALLANE) != 0;
+}
+
+
+bool
+GNETagProperties::isDrawable() const {
+    return (myTagProperty & NOTDRAWABLE) == 0;
+}
+
+
+bool
+GNETagProperties::isSelectable() const {
+    // note: By default all elements can be selected, except Tags with "NOTSELECTABLE"
+    return (myTagProperty & NOTSELECTABLE) == 0;
+}
+
+
+bool
+GNETagProperties::canCloseShape() const {
+    return (myTagProperty & CLOSESHAPE) != 0;
+}
+
+
+bool
+GNETagProperties::hasGEOShape() const {
+    return (myTagProperty & GEOSHAPE) != 0;
+}
+
+
+bool
+GNETagProperties::hasDialog() const {
+    return (myTagProperty & DIALOG) != 0;
+}
+
+
+bool
+GNETagProperties::hasParameters() const {
+    // note: By default all elements support parameters, except Tags with "NOPARAMETERS"
+    return (myTagProperty & NOPARAMETERS) == 0;
+}
+
+
+bool
+GNETagProperties::isPlacedInRTree() const {
+    return (myTagProperty & RTREE) != 0;
+}
+
+
+bool
+GNETagProperties::canBeReparent() const {
+    return (myTagProperty & REPARENT) != 0;
+}
+
+
+bool
+GNETagProperties::canMaskStartEndPos() const {
+    return (myTagProperty & MASKSTARTENDPOS) != 0;
+}
+
+
+bool
+GNETagProperties::canCenterCameraAfterCreation() const {
+    return (myTagProperty & CENTERAFTERCREATION) != 0;
+}
+
+
+bool
+GNETagProperties::requireProj() const {
+    return (myTagProperty & REQUIRE_PROJ) != 0;
+}
+
+
+bool
+GNETagProperties::vClassIcon() const {
+    return (myTagProperty & VCLASS_ICON) != 0;
 }
 
 /****************************************************************************/

@@ -562,7 +562,7 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     if (tagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
-    } else if (tagProperty.iStopPlan()) {
+    } else if (tagProperty.isPlanStop()) {
         return myPlanElement->getDemandElementGeometry().getShape().front();
     } else if (tagProperty.planFromEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // first edge
@@ -679,12 +679,12 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
                 // junctions and TAZs return always -1
                 return -1;
-            } else if ((tagProperty.isStopPerson() || tagProperty.isStopContainer()) && tagProperty.planEdge()) {
+            } else if ((tagProperty.isPlanStopPerson() || tagProperty.isPlanStopContainer()) && tagProperty.planEdge()) {
                 return myArrivalPosition;
             } else {
                 // check if next plan is a stop over edge
                 const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
-                if (nextPlan && (nextPlan->getTagProperty().isStopPerson() || nextPlan->getTagProperty().isStopContainer()) &&
+                if (nextPlan && (nextPlan->getTagProperty().isPlanStopPerson() || nextPlan->getTagProperty().isPlanStopContainer()) &&
                     nextPlan->getTagProperty().planEdge()) {
                     return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
@@ -709,7 +709,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
             // get previous plan
             const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
-            if (previousPlan && previousPlan->getTagProperty().iStopPlan() && previousPlan->getTagProperty().planStoppingPlace()) {
+            if (previousPlan && previousPlan->getTagProperty().isPlanStop() && previousPlan->getTagProperty().planStoppingPlace()) {
                 return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
             }
             // continue depending of from element
@@ -782,7 +782,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // get lane shape
                 const auto& laneShape = lastLane->getLaneShape();
                 // continue depending of arrival position
-                if (nextPlan && nextPlan->getTagProperty().iStopPlan()) {
+                if (nextPlan && nextPlan->getTagProperty().isPlanStop()) {
                     return nextPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else if (myArrivalPosition == 0) {
                     return laneShape.front();
@@ -1003,7 +1003,7 @@ GNEDemandElementPlan::checkDrawPersonPlan() const {
         // get inspected AC
         const GNEAttributeCarrier* AC = viewNet->getInspectedAttributeCarriers().front();
         // check condition
-        if (AC->getTagProperty().isPersonPlan() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
+        if (AC->getTagProperty().isPlanPerson() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
             // common person parent
             return true;
         } else {
@@ -1044,7 +1044,7 @@ GNEDemandElementPlan::checkDrawContainerPlan() const {
         // get inspected AC
         const GNEAttributeCarrier* AC = viewNet->getInspectedAttributeCarriers().front();
         // check condition
-        if (AC->getTagProperty().isContainerPlan() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
+        if (AC->getTagProperty().isPlanContainer() && AC->getAttribute(GNE_ATTR_PARENT) == myPlanElement->getAttribute(GNE_ATTR_PARENT)) {
             // common container parent
             return true;
         } else {
@@ -1300,7 +1300,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
 
 
 GNEDemandElement::Problem
-GNEDemandElementPlan::isPersonPlanValid() const {
+GNEDemandElementPlan::isPlanPersonValid() const {
     // get previous plan
     const auto previousPlan = myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement);
     if (previousPlan) {

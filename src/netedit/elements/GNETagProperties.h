@@ -190,6 +190,9 @@ public:
     /// @brief check if current TagProperties owns the attribute "attr"
     bool hasAttribute(SumoXMLAttr attr) const;
 
+    /// @brief element sets
+    /// @{
+
     /// @brief return true if tag correspond to a network element
     bool isNetworkElement() const;
 
@@ -205,6 +208,10 @@ public:
     /// @brief return true if tag correspond to a data element
     bool isDataElement() const;
 
+    /// @}
+
+    /// @brief additional elements
+    /// @{
     /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
     bool isStoppingPlace() const;
 
@@ -225,7 +232,11 @@ public:
 
     /// @brief return true if tag correspond to a JuPedSim element
     bool isJuPedSimElement() const;
+    
+    /// @}
 
+    /// @brief demand elements
+    /// @{
     /// @brief return true if tag correspond to a vehicle/person/container type element
     bool isType() const;
 
@@ -247,89 +258,60 @@ public:
     /// @brief return true if tag correspond to a person element
     bool isPerson() const;
 
+    /// @brief return true if tag correspond to a container element
+    bool isContainer() const;
+    
+    /// @}
+    
+    /// @brief plans
+    /// @{
+    /// @brief return true if tag correspond to a plan
+    bool isPlan() const;
+
     /// @brief return true if tag correspond to a person plan
-    bool isPersonPlan() const;
+    bool isPlanPerson() const;
+
+    /// @brief return true if tag correspond to a container plan
+    bool isPlanContainer() const;
 
     /// @brief return true if tag correspond to a person trip
     bool isPersonTrip() const;
 
-    /// @brief return true if tag correspond to a walk element
-    bool isWalk() const;
+    /// @brief return true if tag correspond to a walk plan
+    bool isPlanWalk() const;
 
-    /// @brief return true if tag correspond to a ride element
-    bool isRide() const;
-
-    /// @brief return true if tag correspond to a stop plan
-    bool iStopPlan() const;
-
-    /// @brief return true if tag correspond to a person stop element
-    bool isStopPerson() const;
-
-    /// @brief return true if tag correspond to a container element
-    bool isContainer() const;
-
-    /// @brief return true if tag correspond to a container plan
-    bool isContainerPlan() const;
+    /// @brief return true if tag correspond to a ride plan
+    bool isPlanRide() const;
 
     /// @brief return true if tag correspond to a transport
-    bool isTransportPlan() const;
+    bool isPlanTransport() const;
 
     /// @brief return true if tag correspond to a tranship
-    bool isTranshipPlan() const;
+    bool isPlanTranship() const;
 
-    /// @brief return true if tag correspond to a container stop element
-    bool isStopContainer() const;
+    /// @brief return true if tag correspond to a stop plan
+    bool isPlanStop() const;
 
+    /// @brief return true if tag correspond to a person stop plan
+    bool isPlanStopPerson() const;
+
+    /// @brief return true if tag correspond to a container stop plan
+    bool isPlanStopContainer() const;
+    
+    /// @}
+    
+    /// @brief data elements
+    /// @{
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
 
     /// @brief return true if tag correspond to a mean data element
     bool isMeanData() const;
 
-    /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
-    bool isChild() const;
+    /// @}
 
-    /// @brief return true if tag correspond to a symbol element
-    bool isSymbol() const;
-
-    /// @brief return true if tag correspond to an internal lane
-    bool isInternalLane() const;
-
-    /// @brief return true if tag correspond to a drawable element
-    bool isDrawable() const;
-
-    /// @brief return true if tag correspond to a selectable element
-    bool isSelectable() const;
-
-    /// @brief return true if tag correspond to an element that can close their shape
-    bool canCloseShape() const;
-
-    /// @brief return true if tag correspond to an element that can use a geo shape
-    bool hasGEOShape() const;
-
-    /// @brief return true if tag correspond to an element that can be edited using a dialog
-    bool hasDialog() const;
-
-    /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
-    bool hasParameters() const;
-
-    /// @brief return true if Tag correspond to an element that has to be placed in RTREE
-    bool isPlacedInRTree() const;
-
-    /// @brief return true if tag correspond to an element that can be reparent
-    bool canBeReparent() const;
-
-    /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
-    bool canMaskStartEndPos() const;
-
-    /// @brief return true if tag correspond to an element that center camera after creation
-    bool canCenterCameraAfterCreation() const;
-
-    /// @brief return true if tag correspond to an element that requires a geo projection
-    bool requireProj() const;
-
-    /// @brief return true if tag correspond to an element that has vClass icons
-    bool vClassIcon() const;
+    /// @brief plan parents
+    /// @{
 
     /// @brief return true if tag correspond to a vehicle placed over a route
     bool vehicleRoute() const;
@@ -346,6 +328,10 @@ public:
     /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
     bool vehicleTAZs() const;
 
+    /// @}
+
+    /// @brief plan parents
+    /// @{
     /// @brief return true if tag correspond to a plan placed over edges
     bool planConsecutiveEdges() const;
 
@@ -411,6 +397,53 @@ public:
 
     /// @brief return true if tag correspond to a plan that starts in containerStop
     bool planToContainerStop() const;
+
+    /// @}
+
+    /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
+    bool isChild() const;
+
+    /// @brief return true if tag correspond to a symbol element
+    bool isSymbol() const;
+
+    /// @brief return true if tag correspond to an internal lane
+    bool isInternalLane() const;
+
+    /// @brief return true if tag correspond to a drawable element
+    bool isDrawable() const;
+
+    /// @brief return true if tag correspond to a selectable element
+    bool isSelectable() const;
+
+    /// @brief return true if tag correspond to an element that can close their shape
+    bool canCloseShape() const;
+
+    /// @brief return true if tag correspond to an element that can use a geo shape
+    bool hasGEOShape() const;
+
+    /// @brief return true if tag correspond to an element that can be edited using a dialog
+    bool hasDialog() const;
+
+    /// @brief return true if Tag correspond to an element that supports parameters "key1=value1|key2=value2|...|keyN=valueN"
+    bool hasParameters() const;
+
+    /// @brief return true if Tag correspond to an element that has to be placed in RTREE
+    bool isPlacedInRTree() const;
+
+    /// @brief return true if tag correspond to an element that can be reparent
+    bool canBeReparent() const;
+
+    /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
+    bool canMaskStartEndPos() const;
+
+    /// @brief return true if tag correspond to an element that center camera after creation
+    bool canCenterCameraAfterCreation() const;
+
+    /// @brief return true if tag correspond to an element that requires a geo projection
+    bool requireProj() const;
+
+    /// @brief return true if tag correspond to an element that has vClass icons
+    bool vClassIcon() const;
 
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property

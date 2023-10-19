@@ -2355,7 +2355,7 @@ GNEEdge::getPersonsOverEdgeMap() const {
     std::set<std::pair<double, GNEDemandElement*> > persons;
     // first obtain all persons of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
-        if (edgeChild->getTagProperty().isPersonPlan()) {
+        if (edgeChild->getTagProperty().isPlanPerson()) {
             persons.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
         }
     }
@@ -2388,7 +2388,7 @@ GNEEdge::getContainersOverEdgeMap() const {
     std::set<std::pair<double, GNEDemandElement*> > containers;
     // first obtain all containers of this edge
     for (const auto& edgeChild : getChildDemandElements()) {
-        if (edgeChild->getTagProperty().isContainerPlan()) {
+        if (edgeChild->getTagProperty().isPlanContainer()) {
             containers.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS), edgeChild->getParentDemandElements().front()));
         }
     }

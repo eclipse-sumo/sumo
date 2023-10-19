@@ -185,7 +185,7 @@ GNEPerson::~GNEPerson() {}
 GNEMoveOperation*
 GNEPerson::getMoveOperation() {
     // check first person plan
-    if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
+    if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
         return nullptr;
     } else {
         // get lane
@@ -304,7 +304,7 @@ Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
     if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
+        if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
@@ -407,12 +407,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             // draw flow label
             if (myTagProperty.isFlow()) {
                 drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
-            }
-            // draw line between junctions if person plan isn't valid
-            for (const auto& personPlan : getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
-                    drawJunctionLine(personPlan);
-                }
             }
             // pop name
             GLHelper::popName();
@@ -524,7 +518,7 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isStopPerson()) {
+            if (personPlan->getTagProperty().isPlanStopPerson()) {
                 // stop center
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {

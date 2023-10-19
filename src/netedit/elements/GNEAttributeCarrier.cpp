@@ -762,7 +762,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::PERSONPLAN) {
         // fill person plan tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isPersonPlan()) {
+            if (tagProperty.second.isPlanPerson()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -778,7 +778,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::WALK) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isWalk()) {
+            if (tagProperty.second.isPlanWalk()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -786,7 +786,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::RIDE) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isRide()) {
+            if (tagProperty.second.isPlanRide()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -794,7 +794,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::STOPPERSON) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isStopPerson()) {
+            if (tagProperty.second.isPlanStopPerson()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -826,7 +826,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::CONTAINERPLAN) {
         // fill container plan tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isContainerPlan()) {
+            if (tagProperty.second.isPlanContainer()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -834,7 +834,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSPORT) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isTransportPlan()) {
+            if (tagProperty.second.isPlanTransport()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -842,7 +842,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::TRANSHIP) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isTranshipPlan()) {
+            if (tagProperty.second.isPlanTranship()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -850,7 +850,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::STOPCONTAINER) {
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isStopContainer()) {
+            if (tagProperty.second.isPlanStopContainer()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -6449,7 +6449,7 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
                                               TL("Edge end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
         // departPos only for tranships
-        if (tagProperty.isTranshipPlan()) {
+        if (tagProperty.isPlanTranship()) {
             // depart pos
             attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
                                                   GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,

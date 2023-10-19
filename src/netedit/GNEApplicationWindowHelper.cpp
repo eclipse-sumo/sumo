@@ -1783,19 +1783,19 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockPersons->setCheck(value);
     } else if (AC->getTagProperty().isPersonTrip()) {
         menuCheckLockPersonTrip->setCheck(value);
-    } else if (AC->getTagProperty().isWalk()) {
+    } else if (AC->getTagProperty().isPlanWalk()) {
         menuCheckLockWalk->setCheck(value);
-    } else if (AC->getTagProperty().isRide()) {
+    } else if (AC->getTagProperty().isPlanRide()) {
         menuCheckLockRides->setCheck(value);
     } else if (AC->getTagProperty().isContainer()) {
         menuCheckLockContainers->setCheck(value);
-    } else if (AC->getTagProperty().isTransportPlan()) {
+    } else if (AC->getTagProperty().isPlanTransport()) {
         menuCheckLockTransports->setCheck(value);
-    } else if (AC->getTagProperty().isTranshipPlan()) {
+    } else if (AC->getTagProperty().isPlanTranship()) {
         menuCheckLockTranships->setCheck(value);
     } else if (AC->getTagProperty().isVehicleStop() ||
-               AC->getTagProperty().isStopPerson() ||
-               AC->getTagProperty().isStopContainer()) {
+               AC->getTagProperty().isPlanStopPerson() ||
+               AC->getTagProperty().isPlanStopContainer()) {
         menuCheckLockStops->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
         menuCheckLockEdgeDatas->setCheck(value);

@@ -184,7 +184,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
                 if (!demandElement->getTagProperty().isPlacedInRTree() &&
-                        (!demandElement->getTagProperty().isContainerPlan() || demandElement->getTagProperty().isStopContainer())) {
+                        (!demandElement->getTagProperty().isPlanContainer() || demandElement->getTagProperty().isPlanStopContainer())) {
                     demandElement->drawGL(s);
                 }
             }

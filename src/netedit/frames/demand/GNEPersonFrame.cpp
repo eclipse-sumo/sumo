@@ -171,7 +171,7 @@ GNEPersonFrame::tagSelected() {
         // check if current person type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show person attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTagProperties().isStopPerson()) {
+            if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopPerson()) {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
@@ -221,7 +221,7 @@ void
 GNEPersonFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show person attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTagProperties().isStopPerson()) {
+        if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopPerson()) {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});

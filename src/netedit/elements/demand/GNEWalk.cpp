@@ -116,7 +116,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEWalk::isDemandElementValid() const {
-    return isPersonPlanValid();
+    return isPlanPersonValid();
 }
 
 

@@ -171,7 +171,7 @@ GNEContainerFrame::tagSelected() {
         // check if current container type selected is valid
         if (myTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myPlanSelector
-            if (myPlanSelector->getCurrentPlanTagProperties().isStopContainer()) {
+            if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopContainer()) {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
@@ -221,7 +221,7 @@ void
 GNEContainerFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement() && myPlanSelector->getCurrentPlanTemplate()) {
         // show container attributes depending of myPlanSelector
-        if (myPlanSelector->getCurrentPlanTagProperties().isStopContainer()) {
+        if (myPlanSelector->getCurrentPlanTagProperties().isPlanStopContainer()) {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
