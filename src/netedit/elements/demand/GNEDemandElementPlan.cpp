@@ -650,7 +650,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                 // use startpos of stoppingPlace parent (stops)
                 return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else if (tagProperty.planFromStoppingPlace()) {
-                // use end position of stoppingPlace parent
+                // use end position of stoppingPlace parent (for plans that starts in stoppingPlaces)
                 return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
                 // junctions and TAZs return always -1
@@ -661,7 +661,14 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                 // continue depending of previous plan
                 if (previousPlan) {
                     // use previous plan end position (normally the arrival position)
-                    return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                    const auto posOverLane = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                    // if posOverLane is -1, means that previousPlan ends in the end of lane.
+                    if (posOverLane == -1) {
+                        // INVALID_DOUBLE will put the startPositio at the end of line
+                        return INVALID_DOUBLE;
+                    } else {
+                        return previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                    }
                 } else {
                     // use depart position defined in parent (person or container)
                     return planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
@@ -674,18 +681,21 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                 // use end position of the stoppingPlace (stops)
                 return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else if (tagProperty.planToStoppingPlace()) {
-                // use start position of the stoppingPlace
+                // use start position of the stoppingPlace (for elements that ends in stoppingPlaces)
                 return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
                 // junctions and TAZs return always -1
                 return -1;
             } else if ((tagProperty.isPlanStopPerson() || tagProperty.isPlanStopContainer()) && tagProperty.planEdge()) {
+                // elements that ends in stop always uses the end (arrival) position of the stops over edges
                 return myArrivalPosition;
             } else {
                 // check if next plan is a stop over edge
                 const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
-                if (nextPlan && (nextPlan->getTagProperty().isPlanStopPerson() || nextPlan->getTagProperty().isPlanStopContainer()) &&
+                if (nextPlan && (nextPlan->getTagProperty().isPlanStopPerson() ||
+                    nextPlan->getTagProperty().isPlanStopContainer()) &&
                     nextPlan->getTagProperty().planEdge()) {
+                    // if next plan is an stop over stoppingPlaces, use ends of stoppingPlace
                     return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
                     // use arrival position
@@ -730,8 +740,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 if (firstLane == nullptr) {
                     return Position::INVALID;
                 }
-                // continue with lanePosition
+                // declare lane position
                 double lanePosition = 0;
+                // continue depending of conditions
                 if (previousPlan) {
                     // use previous geometry end position
                     lanePosition = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
@@ -744,7 +755,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 }
                 // get lane shape
                 const auto &laneShape = firstLane->getLaneShape();
-                // continue depending of arrival position
+                // continue depending of lane position
                 if (lanePosition == 0) {
                     return laneShape.front();
                 } else if ((lanePosition == -1) || (lanePosition >= laneShape.length2D())) {
