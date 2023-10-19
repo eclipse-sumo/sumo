@@ -94,5 +94,21 @@ jobs:
       run: |
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
+        $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a sumo.extra"
         ctest --build-config Release --output-on-failure
+
+    - name: Compressing test results
+      if: failure()
+      run: |
+        dir d:\texttest
+        Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
+        dir d:\texttest
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: texttesttmp-${{ matrix.build_type }}
+        path: D:/texttest/tt.zip
+        if-no-files-found: warn
