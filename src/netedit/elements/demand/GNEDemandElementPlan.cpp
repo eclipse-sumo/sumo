@@ -404,7 +404,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
     } else if (tagProperty.planConsecutiveEdges() || tagProperty.planFromEdge() || tagProperty.planEdge()) {
         // edges
         return myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
-    } else if (tagProperty.planFromStoppingPlace()) {
+    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planToStoppingPlace()) {
         // additional
         return myPlanElement->getParentAdditionals().front()->getParentLanes().front();
     } else {
@@ -427,7 +427,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
     } else if (tagProperty.planConsecutiveEdges() || tagProperty.planToEdge() || tagProperty.planEdge()) {
         // edges
         return myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
-    } else if (tagProperty.planToStoppingPlace()) {
+    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planToStoppingPlace()) {
         // additional
         return myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getParentEdge()->getLaneByAllowedVClass(vClass);
     } else {
@@ -458,7 +458,9 @@ GNEDemandElementPlan::computePlanPathElement() {
     } else if (myPlanElement->myTagProperty.planFromJunction()) {
         // declare last lane
         GNELane* lastLane = nullptr;
-        if (myPlanElement->myTagProperty.planToStoppingPlace()) {
+        if (myPlanElement->myTagProperty.planStoppingPlace()) {
+            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().back();
+        } else if (myPlanElement->myTagProperty.planToStoppingPlace()) {
             lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().front();
         } else if (myPlanElement->myTagProperty.planToEdge()) {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
@@ -468,7 +470,9 @@ GNEDemandElementPlan::computePlanPathElement() {
     } else if (myPlanElement->myTagProperty.planToJunction()) {
         // declare first lane
         GNELane* firstLane = nullptr;
-        if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
+        if (myPlanElement->myTagProperty.planStoppingPlace()) {
+            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().back();
+        } else if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
             firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().front();
         } else if (myPlanElement->myTagProperty.planFromEdge()) {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
@@ -480,6 +484,8 @@ GNEDemandElementPlan::computePlanPathElement() {
         GNELane* firstLane = nullptr;
         if (myPlanElement->myTagProperty.planFromEdge()) {
             firstLane = myPlanElement->getParentEdges().front()->getLaneByAllowedVClass(vClass);
+        } else if (myPlanElement->myTagProperty.planStoppingPlace()) {
+            firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planFromStoppingPlace()) {
             firstLane = myPlanElement->getParentAdditionals().front()->getParentLanes().front();
         }
@@ -487,6 +493,8 @@ GNEDemandElementPlan::computePlanPathElement() {
         GNELane* lastLane = nullptr;
         if (myPlanElement->myTagProperty.planToEdge()) {
             lastLane = myPlanElement->getParentEdges().back()->getLaneByAllowedVClass(vClass);
+        } else if (myPlanElement->myTagProperty.planStoppingPlace()) {
+            lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().back();
         } else if (myPlanElement->myTagProperty.planToStoppingPlace()) {
             lastLane = myPlanElement->getParentAdditionals().back()->getParentLanes().front();
         }
@@ -562,7 +570,7 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     } else if (tagProperty.planFromJunction()) {
         // first junction
         return myPlanElement->getParentJunctions().front()->getPositionInView();
-    } else if (tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
+    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
         // first additional
         return myPlanElement->getParentAdditionals().front()->getPositionInView();
     } else {
@@ -638,7 +646,10 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     // continue depending of key
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
-            if (tagProperty.planFromStoppingPlace()) {
+            if (tagProperty.planStoppingPlace()) {
+                // use startpos of stoppingPlace parent (stops)
+                return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            } else if (tagProperty.planFromStoppingPlace()) {
                 // use end position of stoppingPlace parent
                 return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             } else if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
@@ -659,7 +670,10 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
         }
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
             // continue depending of parents
-             if (tagProperty.planToStoppingPlace()) {
+            if (tagProperty.planStoppingPlace()) {
+                // use end position of the stoppingPlace (stops)
+                return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else if (tagProperty.planToStoppingPlace()) {
                 // use start position of the stoppingPlace
                 return myPlanElement->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
             } else if (tagProperty.planToJunction() || tagProperty.planToTAZ()) {
@@ -693,8 +707,15 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     // continue depending of key
     switch (key) {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS: {
+            // get previous plan
+            const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
+            if (previousPlan && previousPlan->getTagProperty().iStopPlan() && previousPlan->getTagProperty().planStoppingPlace()) {
+                return previousPlan->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+            }
             // continue depending of from element
-            if (tagProperty.planFromStoppingPlace()) {
+            if (tagProperty.planStoppingPlace()) {
+                return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().front();
+            } else if (tagProperty.planFromStoppingPlace()) {
                 return myPlanElement->getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
             } else if (tagProperty.planFromJunction()) {
                 // junction view position
@@ -711,8 +732,6 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 }
                 // continue with lanePosition
                 double lanePosition = 0;
-                // get previous plan
-                const auto previousPlan = planParent->getPreviousChildDemandElement(myPlanElement);
                 if (previousPlan) {
                     // use previous geometry end position
                     lanePosition = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
@@ -745,6 +764,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
             } else if (tagProperty.planToTAZ()) {
                 // taz
                 return myPlanElement->getParentAdditionals().back()->getPositionInView();
+            } else if (tagProperty.planStoppingPlace()) {
+                // get additional back shape (stops)
+                return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
             } else if (tagProperty.planToStoppingPlace()) {
                 // get additional front shape
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
