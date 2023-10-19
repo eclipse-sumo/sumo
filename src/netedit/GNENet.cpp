@@ -1667,7 +1667,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
         // first check route has stops
         bool hasStops = false;
         for (const auto& stop : route->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop()) {
+            if (stop->getTagProperty().isVehicleStop()) {
                 hasStops = true;
             }
         }

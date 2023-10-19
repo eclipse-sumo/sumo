@@ -743,10 +743,10 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TagType::STOP) {
-        // fill stop tags
+    if (tagPropertyCategory & GNETagProperties::TagType::VEHICLESTOP) {
+        // fill stop (and waypoints) tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isStop()) {
+            if (tagProperty.second.isVehicleStop()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -4099,7 +4099,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopLane"),
@@ -4140,7 +4140,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopBusStop"),
@@ -4158,7 +4158,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopTrainStop"),
@@ -4176,7 +4176,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopContainerStop"),
@@ -4194,7 +4194,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopChargingStation"),
@@ -4212,7 +4212,7 @@ GNEAttributeCarrier::fillStopElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("StopParkingArea"),
@@ -4239,7 +4239,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::MASKSTARTENDPOS,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointLane"),
@@ -4280,7 +4280,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointBusStop"),
@@ -4298,7 +4298,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointTrainStop"),
@@ -4316,7 +4316,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointContainerStop"),
@@ -4334,7 +4334,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointChargingStation"),
@@ -4352,7 +4352,7 @@ GNEAttributeCarrier::fillWaypointElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP | GNETagProperties::TagType::WAYPOINT,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::VEHICLESTOP | GNETagProperties::TagType::VEHICLEWAYPOINT,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       0,
                                       GUIIcon::WAYPOINT, SUMO_TAG_STOP, TL("WaypointParkingArea"),

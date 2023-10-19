@@ -57,8 +57,8 @@ public:
         VTYPE =             1 << 11, // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 12, // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 13, // Routes and embedded routes
-        STOP =              1 << 14, // Stops
-        WAYPOINT =          1 << 15, // Waypoints (note: All waypoints are also Stops)
+        VEHICLESTOP =       1 << 14, // Vehicle stops
+        VEHICLEWAYPOINT =   1 << 15, // Vehicle waypoints (note: All waypoints are also Stops)
         FLOW =              1 << 16, // Flows
         // persons
         PERSON =            1 << 17, // Persons (Persons and personFlows)
@@ -235,11 +235,11 @@ public:
     /// @brief return true if tag correspond to a route element
     bool isRoute() const;
 
-    /// @brief return true if tag correspond to a stop element
-    bool isStop() const;
+    /// @brief return true if tag correspond to a vehicle stop element
+    bool isVehicleStop() const;
 
-    /// @brief return true if tag correspond to a waypoint element
-    bool isWaypoint() const;
+    /// @brief return true if tag correspond to a vehicle waypoint element
+    bool isVehicleWaypoint() const;
 
     /// @brief return true if tag correspond to a flow element
     bool isFlow() const;

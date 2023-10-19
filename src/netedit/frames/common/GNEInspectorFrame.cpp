@@ -1048,7 +1048,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             headerString = "Person: ";
         } else if (ACs.front()->getTagProperty().isPersonPlan()) {
             headerString = "PersonPlan: ";
-        } else if (ACs.front()->getTagProperty().isStop()) {
+        } else if (ACs.front()->getTagProperty().isVehicleStop()) {
             headerString = "Stop: ";
         } else if (ACs.front()->getTagProperty().isDataElement()) {
             headerString = "Data: ";

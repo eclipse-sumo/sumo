@@ -617,7 +617,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             getChildDemandElements().front()->writeDemandElement(device);
             // write stops
             for (const auto& demandElement : getChildDemandElements()) {
-                if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                if (demandElement->getTagProperty().isVehicleStop()) {
                     demandElement->writeDemandElement(device);
                 }
             }
@@ -986,7 +986,7 @@ GNEVehicle::computePathElement() {
         // iterate over child demand elements
         for (const auto& demandElement : getChildDemandElements()) {
             // extract lanes
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            if (demandElement->getTagProperty().isVehicleStop()) {
                 if (demandElement->getParentAdditionals().size() > 0) {
                     laneStopWaypoints.push_back(demandElement->getParentAdditionals().front()->getParentLanes().front());
                 } else {

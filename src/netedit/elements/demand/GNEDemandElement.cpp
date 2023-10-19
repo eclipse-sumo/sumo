@@ -427,7 +427,7 @@ GNEDemandElement::getRouteParent() const {
 
 std::vector<GNEDemandElement*>
 GNEDemandElement::getInvalidStops() const {
-    if (myTagProperty.isStop() || myTagProperty.isWaypoint()) {
+    if (myTagProperty.isVehicleStop()) {
         // get stops
         std::vector<GNEDemandElement*> invalidStops;
         // get edge stop index
@@ -621,7 +621,7 @@ GNEDemandElement::getEdgeStopIndex() const {
         }
         // get all parent's stops and waypoints sorted by position
         for (const auto& demandElement : parent->getChildDemandElements()) {
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            if (demandElement->getTagProperty().isVehicleStop()) {
                 // get stop/waypoint edge
                 GNEEdge* edge = nullptr;
                 if (demandElement->getParentAdditionals().size() > 0) {

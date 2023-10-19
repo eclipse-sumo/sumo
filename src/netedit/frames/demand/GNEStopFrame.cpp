@@ -124,7 +124,7 @@ GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myStopParentSelector = new DemandElementSelector(this, {GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector module for Stops
-    myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::STOP, GNE_TAG_STOP_LANE);
+    myStopTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLESTOP, GNE_TAG_STOP_LANE);
 
     // Create Stop parameters
     myStopAttributes = new GNEAttributesCreator(this);
@@ -213,7 +213,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
                                      myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // show all trips
-            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isStop()) {
+            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isVehicleStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
             } else {
                 myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);

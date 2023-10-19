@@ -386,7 +386,7 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
                 myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueComboBox->getText().text());
             }
             // special case for trigger stops (in the future will be changed)
-            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().isVehicleStop() && (myAttrProperties.getAttr() == SUMO_ATTR_TRIGGERED)) {
                 // refresh entire GNEAttributesCreator
                 myAttributesCreatorParent->refreshAttributesCreator();
             }

@@ -215,7 +215,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         // write stops
         for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            if (demandElement->getTagProperty().isVehicleStop()) {
                 demandElement->writeDemandElement(device);
             }
         }
@@ -232,7 +232,7 @@ GNERoute::isDemandElementValid() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isStop()) {
+        if (routeChild->getTagProperty().isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -261,7 +261,7 @@ GNERoute::getDemandElementProblem() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isStop()) {
+        if (routeChild->getTagProperty().isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -306,7 +306,7 @@ GNERoute::updateGeometry() {
     computePathElement();
     // update child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isStopPerson() && !demandElement->getTagProperty().isStop()) {
+        if (!demandElement->getTagProperty().isVehicleStop()) {
             demandElement->updateGeometry();
         }
     }

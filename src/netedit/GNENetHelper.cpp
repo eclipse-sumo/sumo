@@ -66,7 +66,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     for (const auto& demandElementTag : demandElementTags) {
         myDemandElements.insert(std::make_pair(demandElementTag.getTag(), std::set<GNEDemandElement*>()));
     }
-    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::STOP);
+    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP);
     for (const auto& stopTag : stopTags) {
         myDemandElements.insert(std::make_pair(stopTag.getTag(), std::set<GNEDemandElement*>()));
     }
@@ -1822,28 +1822,28 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
     // vehicles
     for (const auto& trip : myDemandElements.at(SUMO_TAG_TRIP)) {
         for (const auto& stop : trip->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+            if (stop->getTagProperty().isVehicleStop() && stop->isAttributeCarrierSelected()) {
                 counter++;
             }
         }
     }
     for (const auto& vehicle : myDemandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
         for (const auto& stop : vehicle->getChildDemandElements().front()->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+            if (stop->getTagProperty().isVehicleStop() && stop->isAttributeCarrierSelected()) {
                 counter++;
             }
         }
     }
     for (const auto& flow : myDemandElements.at(SUMO_TAG_FLOW)) {
         for (const auto& stop : flow->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+            if (stop->getTagProperty().isVehicleStop() && stop->isAttributeCarrierSelected()) {
                 counter++;
             }
         }
     }
     for (const auto& flow : myDemandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
         for (const auto& stop : flow->getChildDemandElements().front()->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop() && stop->isAttributeCarrierSelected()) {
+            if (stop->getTagProperty().isVehicleStop() && stop->isAttributeCarrierSelected()) {
                 counter++;
             }
         }

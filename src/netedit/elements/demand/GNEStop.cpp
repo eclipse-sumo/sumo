@@ -49,7 +49,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
         parking = ParkingType::OFFROAD;
     }
     // set waypoint speed
-    myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -76,7 +76,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
-    myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -99,7 +99,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
-    myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    myTagProperty.isVehicleWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
     // set jump
     (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
     // set locator sufix
@@ -294,7 +294,7 @@ GNEStop::getColor() const {
         }
     }
     // return default color
-    if (myTagProperty.isWaypoint()) {
+    if (myTagProperty.isVehicleWaypoint()) {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.waypointColor;
     } else {
         return myNet->getViewNet()->getVisualisationSettings().colorSettings.stopColor;
@@ -526,7 +526,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
-                if (parent->getTagProperty().isStop()) {
+                if (parent->getTagProperty().isVehicleStop()) {
                     stops.push_back(parent);
                 }
             }
@@ -571,7 +571,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops, filteredStops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
-                if (parent->getTagProperty().isStop()) {
+                if (parent->getTagProperty().isVehicleStop()) {
                     stops.push_back(parent);
                 }
             }
@@ -990,7 +990,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
             // draw "S" symbol
-            GLHelper::drawText(myTagProperty.isWaypoint() ? "W" : "S", Position(), .1, 2.8, stopColor, 180);
+            GLHelper::drawText(myTagProperty.isVehicleWaypoint() ? "W" : "S", Position(), .1, 2.8, stopColor, 180);
             // move to subtitle position
             glTranslated(0, 1.4, 0);
             // draw subtitle depending of tag

@@ -978,7 +978,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                 if (!demandElement->getTagProperty().isType()) {
                     // iterate over every child
                     for (const auto& stop : demandElement->getChildDemandElements()) {
-                        if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {
+                        if (stop->getTagProperty().isVehicleStop() || stop->getTagProperty().isStopPerson() || stop->getTagProperty().isStopContainer()) {
                             if (onlyCount) {
                                 return true;
                             } else if (onlyUnselect || stop->isAttributeCarrierSelected()) {
@@ -989,9 +989,9 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                         } else {
                             // special case for embedded routes
                             for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
-                                if (stopEmbeddedRoute->getTagProperty().isStop() ||
-                                        stopEmbeddedRoute->getTagProperty().isStopPerson() ||
-                                        stopEmbeddedRoute->getTagProperty().isStopContainer()) {
+                                if (stopEmbeddedRoute->getTagProperty().isVehicleStop() ||
+                                    stopEmbeddedRoute->getTagProperty().isStopPerson() ||
+                                    stopEmbeddedRoute->getTagProperty().isStopContainer()) {
                                     if (onlyCount) {
                                         return true;
                                     } else if (onlyUnselect || stopEmbeddedRoute->isAttributeCarrierSelected()) {

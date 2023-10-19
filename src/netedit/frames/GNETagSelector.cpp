@@ -167,7 +167,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
         case GNETagProperties::TagType::VEHICLE:
             setText(TL("Vehicles"));
             break;
-        case GNETagProperties::TagType::STOP:
+        case GNETagProperties::TagType::VEHICLESTOP:
             setText(TL("Stops"));
             break;
         case GNETagProperties::TagType::PERSON:

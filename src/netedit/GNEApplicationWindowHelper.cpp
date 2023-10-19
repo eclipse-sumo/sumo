@@ -1793,8 +1793,9 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockTransports->setCheck(value);
     } else if (AC->getTagProperty().isTranshipPlan()) {
         menuCheckLockTranships->setCheck(value);
-    } else if (AC->getTagProperty().isStop() ||
-               AC->getTagProperty().isStopPerson()) {
+    } else if (AC->getTagProperty().isVehicleStop() ||
+               AC->getTagProperty().isStopPerson() ||
+               AC->getTagProperty().isStopContainer()) {
         menuCheckLockStops->setCheck(value);
     } else if (AC->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
         menuCheckLockEdgeDatas->setCheck(value);

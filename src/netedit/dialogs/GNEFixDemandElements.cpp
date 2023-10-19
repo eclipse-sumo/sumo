@@ -77,7 +77,7 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
             invalidRoutes.push_back(invalidDemandElement);
         } else if (invalidDemandElement->getTagProperty().isVehicle()) {
             invalidVehicles.push_back(invalidDemandElement);
-        } else if (invalidDemandElement->getTagProperty().isStop()) {
+        } else if (invalidDemandElement->getTagProperty().isVehicleStop()) {
             invalidStops.push_back(invalidDemandElement);
         } else {
             invalidPlans.push_back(invalidDemandElement);

@@ -349,14 +349,14 @@ GNETagProperties::isRoute() const {
 
 
 bool
-GNETagProperties::isStop() const {
-    return (myTagType & STOP) != 0;
+GNETagProperties::isVehicleStop() const {
+    return (myTagType & VEHICLESTOP) != 0;
 }
 
 
 bool
-GNETagProperties::isWaypoint() const {
-    return (myTagType & WAYPOINT) != 0;
+GNETagProperties::isVehicleWaypoint() const {
+    return (myTagType & VEHICLEWAYPOINT) != 0;
 }
 
 

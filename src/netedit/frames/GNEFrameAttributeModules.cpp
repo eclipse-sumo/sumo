@@ -870,7 +870,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                     attributeEnabled = true;
                 }
                 // extra check for Triggered and container Triggered
-                if (ACs.front()->getTagProperty().isStop() || ACs.front()->getTagProperty().isStopPerson()) {
+                if (ACs.front()->getTagProperty().isVehicleStop()) {
                     if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
@@ -973,7 +973,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (ACs.front()->getTagProperty().isStop() || ACs.front()->getTagProperty().isStopPerson()) {
+                if (ACs.front()->getTagProperty().isVehicleStop()) {
                     if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((attrProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (ACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
