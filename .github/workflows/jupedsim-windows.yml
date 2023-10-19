@@ -109,6 +109,6 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v3
       with:
-        name: texttesttmp-${{ matrix.build_type }}
+        name: texttesttmp-${{ matrix.jps_version }}
         path: D:/texttest/tt.zip
         if-no-files-found: warn
