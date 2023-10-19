@@ -397,6 +397,12 @@ GNETagProperties::isRide() const {
 
 
 bool
+GNETagProperties::iStopPlan() const {
+    return isStopPerson() || isStopContainer();
+}
+
+
+bool
 GNETagProperties::isStopPerson() const {
     return (myTagType & STOPPERSON) != 0;
 }

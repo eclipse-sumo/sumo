@@ -259,6 +259,9 @@ public:
     /// @brief return true if tag correspond to a ride element
     bool isRide() const;
 
+    /// @brief return true if tag correspond to a stop plan
+    bool iStopPlan() const;
+
     /// @brief return true if tag correspond to a person stop element
     bool isStopPerson() const;
 

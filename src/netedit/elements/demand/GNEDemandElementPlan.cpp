@@ -554,7 +554,7 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     if (tagProperty.planRoute()) {
         // route
         return myPlanElement->getParentDemandElements().at(1)->getPositionInView();
-    } else if (tagProperty.isStopPerson() || tagProperty.isStopContainer()) {
+    } else if (tagProperty.iStopPlan()) {
         return myPlanElement->getDemandElementGeometry().getShape().front();
     } else if (tagProperty.planFromEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // first edge
@@ -760,7 +760,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // get lane shape
                 const auto& laneShape = lastLane->getLaneShape();
                 // continue depending of arrival position
-                if (myArrivalPosition == 0) {
+                if (nextPlan && nextPlan->getTagProperty().iStopPlan()) {
+                    return nextPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+                } else if (myArrivalPosition == 0) {
                     return laneShape.front();
                 } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
                     return laneShape.back();
