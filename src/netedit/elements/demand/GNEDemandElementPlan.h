@@ -183,6 +183,17 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief draw from arrow
+    void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+                       const bool dottedElement) const;
+
+    /// @brief draw to arrow
+    void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+                     const bool dottedElement) const;
+
+    /// @brief draw to arrow
+    void drawEndPosition(const GUIVisualizationSettings& s,const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
 

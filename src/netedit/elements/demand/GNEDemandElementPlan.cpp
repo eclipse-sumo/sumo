@@ -1210,63 +1210,16 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                 GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
             }
         }
+        // draw red arrows
+        drawFromArrow(s, lane, segment, dottedElement);
+        drawToArrow(s, lane, segment, dottedElement);
+        // draw end position
+        drawEndPosition(s, segment, duplicateWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             myPlanElement->drawName(myPlanElement->getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-        // check if myPlanElement is the last segment
-        if (segment->isLastSegment()) {
-            // calculate circle width
-            const double circleRadius = (duplicateWidth ? myArrivalPositionDiameter : (myArrivalPositionDiameter / 2.0));
-            const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
-            const double circleWidthSquared = circleWidth * circleWidth;
-            // get geometryEndPos
-            const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-            // check if endPos can be drawn
-            if (!s.drawForRectangleSelection || (viewNet->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
-                // push draw matrix
-                GLHelper::pushMatrix();
-                // Start with the drawing of the area traslating matrix to origin
-                viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType());
-                // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                glTranslated(geometryEndPos.x(), geometryEndPos.y(), 0);
-                // resolution of drawn circle depending of the zoom (To improve smothness)
-                GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                // pop draw matrix
-                GLHelper::popMatrix();
-            }
-        }
-        // check if we have to draw an red arrow or line
-        if (segment->getNextSegment() && segment->getNextSegment()->getLane()) {
-            // get firstPosition (last position of current lane shape)
-            const Position from = lane->getLaneShape().back();
-            // get lastPosition (first position of next lane shape)
-            const Position to = segment->getNextSegment()->getLane()->getLaneShape().front();
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType());
-            // draw child line
-            GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-        // check if we have to draw an red arrow or line
-        if (segment->getPreviousSegment() && segment->getPreviousSegment()->getLane()) {
-            // get firstPosition (last position of current lane shape)
-            const Position from = lane->getLaneShape().front();
-            // get lastPosition (first position of next lane shape)
-            const Position to = segment->getPreviousSegment()->getLane()->getLaneShape().back();
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType());
-            // draw child line
-            GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
-            // pop draw matrix
-            GLHelper::popMatrix();
         }
         // Pop name
         GLHelper::popName();
@@ -1419,6 +1372,73 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
     }
     // undefined problem
     return "undefined problem";
+}
+
+
+void
+GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+        const bool dottedElement) const {
+    // draw ifcurrent amd next segment is placed over lanes
+    if (segment->getNextSegment() && segment->getNextSegment()->getLane()) {
+        // get firstPosition (last position of current lane shape)
+        const Position from = lane->getLaneShape().back();
+        // get lastPosition (first position of next lane shape)
+        const Position to = segment->getNextSegment()->getLane()->getLaneShape().front();
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // move front
+        glTranslated(0, 0, 4);
+        // draw child line
+        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
+        const bool dottedElement) const {
+    // draw the line if previos segment and current segment is placed over lanes
+    if (segment->getPreviousSegment() && segment->getPreviousSegment()->getLane()) {
+        // get firstPosition (last position of current lane shape)
+        const Position from = lane->getLaneShape().front();
+        // get lastPosition (first position of next lane shape)
+        const Position to = segment->getPreviousSegment()->getLane()->getLaneShape().back();
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // move front
+        glTranslated(0, 0, 4);
+        // draw child line
+        GUIGeometry::drawChildLine(s, from, to, RGBColor::RED, dottedElement || myPlanElement->isAttributeCarrierSelected(), .05);
+        // pop draw matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s,const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+    // check if myPlanElement is the last segment
+    if (segment->isLastSegment()) {
+        // calculate circle width
+        const double circleRadius = (duplicateWidth ? myArrivalPositionDiameter : (myArrivalPositionDiameter / 2.0));
+        const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
+        const double circleWidthSquared = circleWidth * circleWidth;
+        // get geometryEndPos
+        const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
+        // check if endPos can be drawn
+        if (!s.drawForRectangleSelection || (myPlanElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
+            // push draw matrix
+            GLHelper::pushMatrix();
+            // translate to pos and move to 
+            glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
+            // resolution of drawn circle depending of the zoom (To improve smothness)
+            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            // pop draw matrix
+            GLHelper::popMatrix();
+        }
+    }
 }
 
 /****************************************************************************/
