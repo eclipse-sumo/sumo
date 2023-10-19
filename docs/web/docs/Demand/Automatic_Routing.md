@@ -100,7 +100,7 @@ without the need to instantiate the device for them explicitly. Whenever
 an error occurs on routing because no route can be found which includes
 all mandatory edges ("from", "to", and all stop edges in the correct
 order) and is connected (also respecting the vehicle class permissions)
-this is a fatal error and stops th simulation. This can be switched off
+this is a fatal error and stops the simulation. This can be switched off
 by using **--ignore-route-errors** which will leave the route untouched in the error case. If the
 vehicle did not have a route yet (because it was defined using a trip)
 and cannot find one and **--ignore-route-errors** is used, it will not be inserted.
