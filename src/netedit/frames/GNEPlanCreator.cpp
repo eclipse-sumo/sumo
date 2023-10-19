@@ -789,7 +789,7 @@ GNEPlanCreator::recalculatePath() {
         if (myToEdge) {
             toEdge = myToEdge;
         } else if (myToStoppingPlace) {
-            toEdge = myFromStoppingPlace->getParentLanes().front()->getParentEdge();
+            toEdge = myToStoppingPlace->getParentLanes().front()->getParentEdge();
         }
         // continue depending of edges and junctions
         if (fromEdge && toEdge) {
