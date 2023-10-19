@@ -1098,7 +1098,7 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
             firstSegment = new Segment(this, pathElement, fromJunction, nullptr, nullptr);
         }
         if (toLane) {
-            lastSegment = new Segment(this, pathElement, toLane, true, false);
+            lastSegment = new Segment(this, pathElement, toLane, false, true);
         } else if (toJunction) {
             lastSegment = new Segment(this, pathElement, toJunction, nullptr, nullptr);
         }
