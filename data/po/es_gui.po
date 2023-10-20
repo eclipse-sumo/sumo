@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 14:29+0200\n"
+"POT-Creation-Date: 2023-10-20 16:17+0200\n"
 "PO-Revision-Date: 2023-10-20 10:06+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1799,6 +1799,7 @@ msgid "Select reachable"
 msgstr "Seleccionar accesibilidad"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:1013
 msgid "allowed speed [m/s]"
 msgstr "velocidad permitida [m/s]"
 
@@ -10927,13 +10928,13 @@ msgstr "invertir % actual"
 msgid "Add reverse %"
 msgstr "Agregar % inverso"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1358
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1371
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1834
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1852
 msgid "copy % '%'"
 msgstr "copiar % '%'"
 
@@ -11254,11 +11255,11 @@ msgstr "Flujos"
 msgid "Invalid vehicle tag"
 msgstr "Etiqueta de vehículo no válida"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2342
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
 msgid "departPos of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2352
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
 msgid "arrivalPos of %"
 msgstr ""
 
@@ -12496,6 +12497,11 @@ msgstr "Usar como plantilla"
 msgid "clear Edge Template"
 msgstr "Limpiar plantilla de arista"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
+#, c-format
+msgid "Set edge '%' as Template"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
 msgstr "Solo una arista debe ser inspeccionada"
@@ -12653,6 +12659,14 @@ msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
 "     edge; speed; '>10' -> coincide con todas las aristas con una velocidad "
 "superior a 10\n"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
+msgid "Match Data Attribute"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:66
+msgid "Interval [begin, end]"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""

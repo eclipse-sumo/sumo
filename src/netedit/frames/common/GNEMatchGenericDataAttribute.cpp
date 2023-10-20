@@ -52,7 +52,7 @@ FXIMPLEMENT(GNEMatchGenericDataAttribute, MFXGroupBoxModule, GNEMatchGenericData
 // ===========================================================================
 
 GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    MFXGroupBoxModule(elementSet->getSelectorFrameParent(), "Match Data Attribute"),
+    MFXGroupBoxModule(elementSet->getSelectorFrameParent(), TL("Match Data Attribute")),
     myElementSet(elementSet),
     myIntervalSelector(nullptr),
     myBegin(nullptr),
@@ -63,7 +63,7 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
     // Create MFXComboBoxIcon for interval
-    new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
+    new FXLabel(getCollapsableFrame(), TL("Interval [begin, end]"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
                                              this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end

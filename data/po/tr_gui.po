@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 14:29+0200\n"
+"POT-Creation-Date: 2023-10-20 16:17+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1792,6 +1792,7 @@ msgid "Select reachable"
 msgstr "Ulaşılabilir olanı seç"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:1013
 msgid "allowed speed [m/s]"
 msgstr "izin verilen hız [m/s]"
 
@@ -10950,13 +10951,13 @@ msgstr "ters akım %"
 msgid "Add reverse %"
 msgstr "Ters % ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1358
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1371
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "'%' kesimi '%' kesimi ile ardışık değil"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1834
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1852
 msgid "copy % '%'"
 msgstr "kopyala % '%'"
 
@@ -11280,11 +11281,11 @@ msgstr "Akışlar"
 msgid "Invalid vehicle tag"
 msgstr "Geçersiz araç etiketi"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2342
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
 msgid "departPos of %"
 msgstr "kalkışPos %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2352
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
 msgid "arrivalPos of %"
 msgstr "varışPos %"
 
@@ -12532,6 +12533,11 @@ msgstr "Şablon Olarak Ayarla"
 msgid "clear Edge Template"
 msgstr "Kesim Şablonunu temizle"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
+#, c-format
+msgid "Set edge '%' as Template"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
 msgstr "Sadece bir kesim incelenmelidir"
@@ -12688,6 +12694,14 @@ msgstr ""
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
 "     edge; speed; '>10' -> hızı 10'un üzerinde olan tüm kesimlerle eşleşir\n"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
+msgid "Match Data Attribute"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:66
+msgid "Interval [begin, end]"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 14:29+0200\n"
+"POT-Creation-Date: 2023-10-20 16:17+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1783,6 +1783,7 @@ msgid "Select reachable"
 msgstr "选择可达部分"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1009
+#: C:\Repos\sumo/src\guisim\GUILane.cpp:1013
 msgid "allowed speed [m/s]"
 msgstr "限速 [m/s]"
 
@@ -10714,13 +10715,13 @@ msgstr "反向流量 %"
 msgid "Add reverse %"
 msgstr "添加反向 %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1358
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1371
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1834
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1852
 msgid "copy % '%'"
 msgstr "复制 % '%'"
 
@@ -11038,11 +11039,11 @@ msgstr "流 (Flows)"
 msgid "Invalid vehicle tag"
 msgstr "无效车辆标签"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2342
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
 msgid "departPos of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2352
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
 msgid "arrivalPos of %"
 msgstr ""
 
@@ -12259,6 +12260,11 @@ msgstr "设为模板"
 msgid "clear Edge Template"
 msgstr "清除路段模板"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
+#, c-format
+msgid "Set edge '%' as Template"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
 msgstr "只有一路段必须被检查"
@@ -12406,6 +12412,14 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr "     edge; speed; '>10' -> 匹配所有速度高于10的路段\n"
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
+msgid "Match Data Attribute"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:66
+msgid "Interval [begin, end]"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""
