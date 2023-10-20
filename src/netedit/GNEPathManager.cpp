@@ -1028,17 +1028,33 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
         const int lastIndex = ((int)path.size() - 1);
         // reserve segments
         segments.reserve(2 * path.size());
+        if (fromJunction) {
+            // create lane segment using fromJunction
+            new Segment(this, pathElement, fromJunction, segments);
+        }
         // iterate over path
         for (int i = 0; i < (int)path.size(); i++) {
-            // get first allowed lane
-            const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
-            // create lane segment
-            new Segment(this, pathElement, lane, segments);
-            // continue if this isn't the last path edge
-            if (i != lastIndex) {
-                // create junction segment using to junction
-                new Segment(this, pathElement, path.at(i)->getToJunction(), segments);
+            if ((i == 0) && fromLane) {
+                // create lane segment using fromLane
+                new Segment(this, pathElement, fromLane, segments);
+            } else if ((i == lastIndex) && toLane) {
+                // create lane segment using toLane
+                new Segment(this, pathElement, toLane, segments);
+            } else {
+                // get first allowed lane
+                const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
+                // create lane segment
+                new Segment(this, pathElement, lane, segments);
+                // continue if this isn't the last path edge
+                if (i != lastIndex) {
+                    // create junction segment using to junction
+                    new Segment(this, pathElement, path.at(i)->getToJunction(), segments);
+                }
             }
+        }
+        if (toJunction) {
+            // create lane segment using toJunction
+            new Segment(this, pathElement, toJunction, segments);
         }
         // mark label segment
         markLabelSegment(segments);
