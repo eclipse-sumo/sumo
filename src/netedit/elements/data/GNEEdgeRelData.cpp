@@ -160,10 +160,10 @@ GNEEdgeRelData::computePathElement() {
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get color
     const auto color = setColor(s);
-    if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // Start drawing adding an gl identificator
@@ -171,7 +171,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             GLHelper::pushName(getGlID());
         }
         // draw over all edge's lanes
-        for (const auto& laneEdge : lane->getParentEdge()->getLanes()) {
+        for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
             // get lane width
             const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
                                      (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
@@ -213,10 +213,10 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             GLHelper::popName();
         }
         // draw dotted contour
-        if (getParentEdges().front() == lane->getParentEdge()) {
+        if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
             myContour.drawDottedContourEdge(s, getParentEdges().front(), true, false, s.dottedContourSettings.segmentWidth);
         }
-        if (getParentEdges().back() == lane->getParentEdge()) {
+        if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
             myContour.drawDottedContourEdge(s, getParentEdges().back(), false, true, s.dottedContourSettings.segmentWidth);
         }
     }

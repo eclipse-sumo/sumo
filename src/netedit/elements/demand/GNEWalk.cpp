@@ -195,8 +195,8 @@ GNEWalk::computePathElement() {
 
 
 void
-GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    drawPlanPartial(checkDrawPersonPlan(), s, lane, segment, offsetFront, s.widthSettings.walkWidth, s.colorSettings.walkColor, s.colorSettings.selectedPersonPlanColor);
+GNEWalk::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+    drawLanePlanPartial(checkDrawPersonPlan(), s, segment, offsetFront, s.widthSettings.walkWidth, s.colorSettings.walkColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 

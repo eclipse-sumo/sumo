@@ -339,7 +339,7 @@ GNETAZRelData::computePathElement() {
 
 
 void
-GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNETAZRelData::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // nothing to draw
 }
 

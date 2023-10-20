@@ -1030,7 +1030,7 @@ GNEVehicle::computePathElement() {
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
@@ -1038,37 +1038,37 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawContour = checkDrawContour();
     // check conditions
-    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, lane, myTagProperty.getTag())) {
+    if (segment->getLane() && !s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment->getLane(), myTagProperty.getTag())) {
         // calculate width
-        const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.tripWidth;
+        const double width = s.vehicleSize.getExaggeration(s, segment->getLane()) * s.widthSettings.tripWidth;
         // calculate startPos
         const double geometryDepartPos = (getParentJunctions().size() > 0) ? 0 : getAttributeDouble(SUMO_ATTR_DEPARTPOS) + getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         // get endPos
-        const double geometryEndPos = (getParentJunctions().size() > 0) ? lane->getLaneGeometry().getShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        const double geometryEndPos = (getParentJunctions().size() > 0) ? segment->getLane()->getLaneGeometry().getShape().length2D() : getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
         // declare path geometry
         GUIGeometry vehicleGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            vehicleGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                            geometryDepartPos,
                                            Position::INVALID, 
                                            geometryEndPos,
                                            Position::INVALID);
         } else if (segment->isFirstSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            vehicleGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                            geometryDepartPos,
                                            Position::INVALID,
                                            -1,
                                            Position::INVALID);
         } else if (segment->isLastSegment()) {
-            vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            vehicleGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                            -1,
                                            Position::INVALID,
                                            geometryEndPos,
                                            Position::INVALID);
         } else {
-            vehicleGeometry = lane->getLaneGeometry();
+            vehicleGeometry = segment->getLane()->getLaneGeometry();
         }
         // obtain color
         const RGBColor pathColor = drawUsingSelectColor() ? s.colorSettings.selectedVehicleColor : s.colorSettings.vehicleTripColor;
@@ -1097,7 +1097,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // Set red color
             GLHelper::setColor(RGBColor::RED);
             // get firstPosition (last position of current lane shape)
-            const Position& firstPosition = lane->getLaneShape().back();
+            const Position& firstPosition = segment->getLane()->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
             const Position& arrivalPosition = segment->getNextLane()->getLaneShape().front();
             // draw box line
@@ -1134,7 +1134,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             myContour.drawDottedContourExtruded(s, vehicleGeometry.getShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                                 s.dottedContourSettings.segmentWidthSmall);
         } else {
-            myContour.drawDottedContourExtruded(s, lane->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
+            myContour.drawDottedContourExtruded(s, segment->getLane()->getLaneShape(), width, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                                 s.dottedContourSettings.segmentWidthSmall);
         }
     }

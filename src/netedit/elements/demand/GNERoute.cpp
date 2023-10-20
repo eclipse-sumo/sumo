@@ -400,11 +400,11 @@ GNERoute::computePathElement() {
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+    if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
         myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), lane, myTagProperty.getTag())) {
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -417,25 +417,25 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         GUIGeometry routeGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                          geometryDepartPos,
                                          Position::INVALID, 
                                          geometryEndPos,
                                          Position::INVALID);
         } else if (segment->isFirstSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                          geometryDepartPos,
                                          Position::INVALID, 
                                          -1,
                                          Position::INVALID);
         } else if (segment->isLastSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                          -1,
                                          Position::INVALID,
                                          geometryEndPos,
                                          Position::INVALID);
         } else {
-            routeGeometry = lane->getLaneGeometry();
+            routeGeometry = segment->getLane()->getLaneGeometry();
         }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
@@ -468,7 +468,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                 // Set red color
                 GLHelper::setColor(RGBColor::RED);
                 // get firstPosition (last position of current lane shape)
-                const Position firstPosition = lane->getLaneShape().back();
+                const Position firstPosition = segment->getLane()->getLaneShape().back();
                 // get lastPosition (first position of next lane shape)
                 const Position arrivalPos = segment->getNextLane()->getLaneShape().front();
                 // draw box line
@@ -486,7 +486,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             gPostDrawing.markedRoute = this;
         }
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : lane->getLaneShape());
+        const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : segment->getLane()->getLaneShape());
         // check if mouse is over element
         mouseWithinGeometry(shape, routeWidth);
         // draw dotted geometry

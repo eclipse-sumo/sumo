@@ -1142,8 +1142,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
 
 
 void
-GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-                                        const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
+GNEDemandElementPlan::drawLanePlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment,
+                                         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
@@ -1151,7 +1151,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
     // check if this is a dotted element
     const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, lane, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1159,30 +1159,30 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // flag to check if width must be duplicated
         const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
         // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, lane) * planWidth * (duplicateWidth ? 2 : 1);
+        const double pathWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else if (segment->isFirstSegment()) {
-            planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
                                         -1,
                                         Position::INVALID);
         } else if (segment->isLastSegment()) {
-            planGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                         -1,
                                         Position::INVALID,
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
                                         getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
         } else {
-            planGeometry = lane->getLaneGeometry();
+            planGeometry = segment->getLane()->getLaneGeometry();
         }
         // Start drawing adding an gl identificator
         GLHelper::pushName(myPlanElement->getGlID());
@@ -1194,27 +1194,9 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // draw geometry
         GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
-        // check if draw last segment
-/*
-        if (segment->getNextSegment() && segment->getNextSegment()->getJunction() &&
-            (segment->getNextSegment()->getNextSegment() == nullptr)) {
-            Position fromPos = planGeometry.getShape().back();
-            Position toPos = Position::INVALID;
-            if (myPlanElement->getTagProperty().planToJunction()) {
-                toPos = myPlanElement->getParentJunctions().back()->getPositionInView();
-            } else if (myPlanElement->getTagProperty().planToTAZ()) {
-                toPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
-            }
-            // draw last segment
-            if (toPos != Position::INVALID) {
-                planGeometry.updateGeometry({fromPos, toPos});
-                GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
-            }
-        }
-*/
         // draw red arrows
-        drawFromArrow(s, lane, segment, dottedElement);
-        drawToArrow(s, lane, segment, dottedElement);
+        drawFromArrow(s, segment->getLane(), segment, dottedElement);
+        drawToArrow(s, segment->getLane(), segment, dottedElement);
         // draw end position
         drawEndPosition(s, segment, duplicateWidth);
         // Pop last matrix
@@ -1226,7 +1208,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // Pop name
         GLHelper::popName();
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : lane->getLaneShape();
+        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
         // check if mouse is over element
         myPlanElement->mouseWithinGeometry(shape, pathWidth);
         // draw dotted geometry

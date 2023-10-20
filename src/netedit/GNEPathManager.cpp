@@ -817,7 +817,7 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
         for (const auto& segment : myLaneSegments.at(lane)) {
             if (segment->getPathElement()->isPathElementSelected()) {
                 // draw segment
-                segment->getPathElement()->drawPartialGL(s, lane, segment, 2);
+                segment->getPathElement()->drawLanePartialGL(s, segment, 2);
                 // check if path element is a route
                 if (segment->getPathElement()->isRoute()) {
                     numRoutes++;
@@ -828,7 +828,7 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
         for (const auto& segment : myLaneSegments.at(lane)) {
             if (!segment->getPathElement()->isPathElementSelected()) {
                 // draw segment
-                segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
+                segment->getPathElement()->drawLanePartialGL(s, segment, 0);
                 // check if path element is a route
                 if (segment->getPathElement()->isRoute()) {
                     numRoutes++;
@@ -868,7 +868,7 @@ GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathEleme
     for (const auto& laneSegment : myLaneSegments) {
         for (const auto& segment : laneSegment.second) {
             if (segment->getPathElement() == pathElement) {
-                pathElement->drawPartialGL(s, laneSegment.first, segment, 0);
+                pathElement->drawLanePartialGL(s, segment, 0);
             }
         }
     }

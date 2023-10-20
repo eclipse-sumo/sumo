@@ -187,13 +187,12 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)

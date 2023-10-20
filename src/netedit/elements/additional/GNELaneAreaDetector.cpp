@@ -349,11 +349,11 @@ GNELaneAreaDetector::computePathElement() {
 
 
 void
-GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
-    const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
+    const double E2DetectorWidth = s.addSize.getExaggeration(s, segment->getLane());
     // check if E2 can be drawn
-    if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
+    if (segment->getLane() && (myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
@@ -363,25 +363,25 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
         GUIGeometry E2Geometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            E2Geometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                       geometryDepartPos,
                                       Position::INVALID,
                                       geometryEndPos,
                                       Position::INVALID);
         } else if (segment->isFirstSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            E2Geometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                       geometryDepartPos,
                                       Position::INVALID,
                                       -1,
                                       Position::INVALID);
         } else if (segment->isLastSegment()) {
-            E2Geometry.updateGeometry(lane->getLaneGeometry().getShape(),
+            E2Geometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                       -1,
                                       Position::INVALID,
                                       geometryEndPos,
                                       Position::INVALID);
         } else {
-            E2Geometry = lane->getLaneGeometry();
+            E2Geometry = segment->getLane()->getLaneGeometry();
         }
         // obtain color
         const RGBColor E2Color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
@@ -441,7 +441,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             }
         }
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : lane->getLaneShape();
+        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : segment->getLane()->getLaneShape();
         // check if mouse is over element
         mouseWithinGeometry(shape, s.detectorSettings.E2Width);
         // draw dotted geometry

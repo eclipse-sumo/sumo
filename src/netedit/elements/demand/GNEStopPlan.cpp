@@ -235,7 +235,7 @@ GNEStopPlan::computePathElement() {
 
 
 void
-GNEStopPlan::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEStopPlan::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 

@@ -200,10 +200,10 @@ GNEEdgeData::computePathElement() {
 
 
 void
-GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get color
     const auto color = setColor(s);
-    if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (segment->getLane() && (color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // Start drawing adding an gl identificator
@@ -211,7 +211,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
             GLHelper::pushName(getGlID());
         }
         // draw over all edge's lanes
-        for (const auto& laneEdge : lane->getParentEdge()->getLanes()) {
+        for (const auto& laneEdge : segment->getLane()->getParentEdge()->getLanes()) {
             // get lane width
             const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
                                      (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);

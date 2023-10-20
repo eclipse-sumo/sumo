@@ -177,8 +177,8 @@ GNETranship::computePathElement() {
 
 
 void
-GNETranship::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    drawPlanPartial(checkDrawContainerPlan(), s, lane, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor, s.colorSettings.selectedContainerPlanColor);
+GNETranship::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+    drawLanePlanPartial(checkDrawContainerPlan(), s, segment, offsetFront, s.widthSettings.transhipWidth, s.colorSettings.transhipColor, s.colorSettings.selectedContainerPlanColor);
 }
 
 

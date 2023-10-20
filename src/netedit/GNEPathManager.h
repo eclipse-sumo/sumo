@@ -163,13 +163,12 @@ public:
         /// @brief check if path element is selectd
         virtual bool isPathElementSelected() const = 0;
 
-        /**@brief Draws partial object (lane)
+        /**@brief Draws partial object over lane
          * @param[in] s The settings for the current view (may influence drawing)
-         * @param[in] lane GNELane in which draw partial
-         * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-         * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+         * @param[in] segment lane segment
+         * @param[in] offsetFront front offset
          */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+        virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
         /**@brief Draws partial object (junction)
          * @param[in] s The settings for the current view (may influence drawing)

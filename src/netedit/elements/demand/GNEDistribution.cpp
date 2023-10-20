@@ -143,7 +143,7 @@ GNEDistribution::computePathElement() {
 
 
 void
-GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // route distributions don't use drawPartialGL
 }
 
