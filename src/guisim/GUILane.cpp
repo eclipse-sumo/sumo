@@ -1010,7 +1010,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     const std::map<SUMOVehicleClass, double>* restrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
     if (restrictions != nullptr) {
         for (const auto& elem : *restrictions) {
-            ret->mkItem(("  allowed speed [m/s]: " + toString(elem.first)).c_str(), false, elem.second);
+            ret->mkItem((std::string("   ") + TL("allowed speed [m/s]") + std::string(": ") + toString(elem.first)).c_str(), false, elem.second);
         }
     }
     ret->mkItem(TL("length [m]"), false, myLength);

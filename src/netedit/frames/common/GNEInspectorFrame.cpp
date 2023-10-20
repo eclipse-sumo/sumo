@@ -587,7 +587,7 @@ GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
         // show "Set As Template"
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             mySetTemplateButton->show();
-            mySetTemplateButton->setText(("Set edge '" + myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID() + "' as Template").c_str());
+            mySetTemplateButton->setText((TLF("Set edge '%' as Template", myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID())).c_str());
         }
         // update buttons
         updateButtons();
