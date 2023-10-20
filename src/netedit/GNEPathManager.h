@@ -29,12 +29,6 @@
 
 
 // ===========================================================================
-// defines
-// ===========================================================================
-
-//#define DEBUG_PATHMANAGER
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -56,12 +50,10 @@ public:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane,
-                const bool firstSegment, const bool lastSegment);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, Segment* previousSegment);
 
         /// @brief constructor for junctions
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction,
-                const GNELane* previousLane, const GNELane* nextLane);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, Segment* previousSegment);
 
         /// @brief destructor
         ~Segment();
@@ -90,14 +82,8 @@ public:
         /// @brief get next segment
         Segment* getNextSegment() const;
 
-        /// @brief set next segment
-        void setNextSegment(Segment* nexSegment);
-
         /// @brief get previous segment
         Segment* getPreviousSegment() const;
-
-        /// @brief set previous segment
-        void setPreviousSegment(Segment* nexSegment);
 
         /// @brief check if segment is label segment
         bool isLabelSegment() const;
@@ -112,20 +98,8 @@ public:
         /// @brief path element
         PathElement* myPathElement;
 
-        /// @brief first segment
-        const bool myFirstSegment;
-
-        /// @brief lastSegment
-        const bool myLastSegment;
-
         /// @brief lane associated with this segment
         const GNELane* myLane;
-
-        /// @brief previous lane
-        const GNELane* myPreviousLane;
-
-        /// @brief next lane
-        const GNELane* myNextLane;
 
         /// @brief junction associated with this segment
         const GNEJunction* myJunction;
@@ -138,11 +112,6 @@ public:
 
         /// @brief flag for check if this segment is a label segment
         bool myLabelSegment;
-
-        #ifdef DEBUG_PATHMANAGER
-        /// @brief path element ID
-        std::string myPathElementID;
-        #endif
 
     private:
         /// @brief default constructor

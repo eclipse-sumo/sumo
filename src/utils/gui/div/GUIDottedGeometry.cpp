@@ -263,7 +263,7 @@ GUIDottedGeometry::moveShapeToSide(const double value) {
 
 Position
 GUIDottedGeometry::getFrontPosition() const {
-    if (myDottedGeometrySegments.size() > 0 && myDottedGeometrySegments.back().shape.size() > 0) {
+    if (myDottedGeometrySegments.size() > 0 && myDottedGeometrySegments.front().shape.size() > 0) {
         return myDottedGeometrySegments.front().shape.front();
     } else {
         return Position::INVALID;

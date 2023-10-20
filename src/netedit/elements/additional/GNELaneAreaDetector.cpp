@@ -487,7 +487,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
                                                 s.dottedContourSettings.segmentWidth);
-        } else {
+        } else if (fromLane && toLane) {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
             // calculate invalid geometry
