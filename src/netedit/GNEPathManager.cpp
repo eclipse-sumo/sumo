@@ -1063,9 +1063,6 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
         if (firstSegment && lastSegment) {
             // mark segment as label segment
             firstSegment->markSegmentLabel();
-            // add in segments
-            segments.push_back(firstSegment);
-            segments.push_back(lastSegment);
             // add segments in path
             myPaths[pathElement] = segments;
         } else {
