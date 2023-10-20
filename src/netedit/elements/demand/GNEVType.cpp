@@ -185,7 +185,7 @@ GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
 }
 

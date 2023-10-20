@@ -282,7 +282,7 @@ public:
      * @param[in] segment PathManager segment (used for segment options)
      * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;

@@ -254,7 +254,7 @@ public:
      * @param[in] toLane to GNELane
      * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;

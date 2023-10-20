@@ -568,15 +568,17 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment *segment, SumoXMLTag tag) {
     // check conditions
-    if (dottedElement) {
+    if (!segment->getPreviousLane() || !segment->getNextLane()) {
+        return false;
+    } else if (dottedElement) {
         return true;
     } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
         return true;
     } else {
         // declare lane2lane
-        const std::pair<const GNELane*, const GNELane*> lane2lane(fromLane, toLane);
+        const std::pair<const GNELane*, const GNELane*> lane2lane(segment->getPreviousLane(), segment->getNextLane());
         // check lane2lane
         if (myLane2laneDrawedElements.count(lane2lane) > 0) {
             // check tag
@@ -845,13 +847,13 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
         // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
             if (segment->getPathElement()->isPathElementSelected()) {
-                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+                segment->getPathElement()->drawPartialGL(s, segment, 0);
             }
         }
         // now draw non selected elements
         for (const auto& segment : myJunctionSegments.at(junction)) {
             if (!segment->getPathElement()->isPathElementSelected()) {
-                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+                segment->getPathElement()->drawPartialGL(s, segment, 0);
             }
         }
     }
@@ -872,7 +874,7 @@ GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathEleme
     for (const auto& junctionSegment : myJunctionSegments) {
         for (const auto& segment : junctionSegment.second) {
             if (segment->getPathElement() == pathElement) {
-                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+                segment->getPathElement()->drawPartialGL(s, segment, 0);
             }
         }
     }

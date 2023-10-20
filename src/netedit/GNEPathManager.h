@@ -178,7 +178,7 @@ public:
          * @param[in] segment PathManager segment (used for segment options)
          * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
          */
-        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+        virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
         /// @brief get first path lane
         virtual GNELane* getFirstPathLane() const = 0;
@@ -274,7 +274,7 @@ public:
         bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* fromLane, const GNELane* toLane, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment *segment, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes

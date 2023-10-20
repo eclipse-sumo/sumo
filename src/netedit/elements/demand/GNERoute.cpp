@@ -470,7 +470,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                 // get firstPosition (last position of current lane shape)
                 const Position firstPosition = lane->getLaneShape().back();
                 // get lastPosition (first position of next lane shape)
-                const Position arrivalPos = segment->getNextSegment()->getLane()->getLaneShape().front();
+                const Position arrivalPos = segment->getNextLane()? segment->getNextLane()->getLaneShape().front() : segment->getNextSegment()->getJunction()->getPositionInView();
                 // draw box line
                 GLHelper::drawBoxLine(arrivalPos,
                                       RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
@@ -497,17 +497,17 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), fromLane, toLane, myTagProperty.getTag())) {
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
         const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
         // obtain lane2lane geometry
-        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator

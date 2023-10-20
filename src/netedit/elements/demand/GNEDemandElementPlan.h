@@ -165,8 +165,8 @@ protected:
                          const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @brief draw plan partial junction
-    void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
+    void drawPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront,
+                        const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const;
 
     /// @}
 

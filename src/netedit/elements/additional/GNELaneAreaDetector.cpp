@@ -452,11 +452,12 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
 
 
 void
-GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
-    const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
+    const double E2DetectorWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if E2 can be drawn
     if ((myTagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) && s.drawAdditionals(E2DetectorWidth) &&
+            segment->getPreviousLane() && segment->getNextLane() &&
             myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get flag for show only contour
         const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
@@ -473,9 +474,9 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             GLHelper::setColor(s.detectorSettings.E2Color);
         }
         // draw lane2lane
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
+        if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get geometry
-            const auto &connectionGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+            const auto &connectionGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
             // check if draw only contour
             if (onlyContour) {
                 GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);
@@ -487,11 +488,11 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
                                                 s.dottedContourSettings.segmentWidth);
-        } else if (fromLane && toLane) {
+        } else {
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
             // calculate invalid geometry
-            const GUIGeometry invalidGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+            const GUIGeometry invalidGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
             // check if draw only contour
             if (onlyContour) {
                 GUIGeometry::drawContourGeometry(invalidGeometry, (0.5 * E2DetectorWidth));

@@ -149,7 +149,7 @@ GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEL
 
 
 void
-GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // route distributions don't use drawPartialGL
 }
 

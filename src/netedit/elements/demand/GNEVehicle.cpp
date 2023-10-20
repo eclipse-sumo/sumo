@@ -1099,7 +1099,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // get firstPosition (last position of current lane shape)
             const Position& firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position& arrivalPosition = segment->getNextSegment()->getLane()->getLaneShape().front();
+            const Position& arrivalPosition = segment->getNextLane()? segment->getNextLane()->getLaneShape().front() : segment->getNextSegment()->getJunction()->getPositionInView();
             // draw box line
             GLHelper::drawBoxLine(arrivalPosition,
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
@@ -1142,7 +1142,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 
 void
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get flags
     const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                  myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
@@ -1151,15 +1151,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
     const bool drawContour = checkDrawContour();
     // check conditions
-    if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) &&
-        (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, fromLane, toLane, myTagProperty.getTag())) {
+    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || drawContour || isAttributeCarrierSelected()) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, drawContour, segment, myTagProperty.getTag())) {
         // Start drawing adding an gl identifier
         GLHelper::pushName(getGlID());
         // obtain lane2lane geometry
-        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
         // calculate width
-        const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.tripWidth;
+        const double width = s.vehicleSize.getExaggeration(s, segment->getPreviousLane()) * s.widthSettings.tripWidth;
         // Add a draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area translating matrix to origin
