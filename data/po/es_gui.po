@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-20 11:07+0200\n"
-"PO-Revision-Date: 2023-10-20 09:05+0000\n"
+"PO-Revision-Date: 2023-10-20 10:06+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3626,8 +3626,7 @@ msgstr "Ocultar las formas de los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:855
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
-"Dibujar vehículos repartidos en el carril (lane) o en posición de partida"
+msgstr "Dibujar vehículos repartidos en el carril o en posición de partida"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:860
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1176
@@ -4756,7 +4755,7 @@ msgstr "reemplazar arista"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:545
 msgid "delete lane"
-msgstr "eliminar carril (lane)"
+msgstr "eliminar carril"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:580
 msgid "delete connection"
@@ -4782,7 +4781,7 @@ msgstr "Intentando eliminar un tipo de vehículo predeterminado"
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:729
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2925
 msgid "duplicate lane"
-msgstr "duplicar carril (lane)"
+msgstr "duplicar carril"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:848
 msgid "split edge"
@@ -5205,11 +5204,11 @@ msgstr "No hay carriles alrededor de % para adjuntar"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2737
 msgid "attach POI into lane"
-msgstr "adjuntar punto de interés (POI) al carril (lane)"
+msgstr "adjuntar punto de interés al carril"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2750
 msgid "release POI from lane"
-msgstr "desanclar punto de interés (POI) del carril (lane)"
+msgstr "desanclar punto de interés del carril"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2769
 msgid "reverse % '%'"
@@ -5562,14 +5561,12 @@ msgstr "Alternar si mostrar o no las formas de los cruces. (Ctrl+J)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
 msgid "Draw vehicles spread in lane or depart position"
-msgstr ""
-"Dibujar vehículos extendidos en el carril (lane) o en la posición de inicio"
+msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2417
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2701
 msgid "Draw vehicles spread in lane or in depart position."
-msgstr ""
-"Dibujar vehículos extendidos en el carril (lane) o en la posición de inicio."
+msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2424
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2984
@@ -6181,19 +6178,19 @@ msgstr "Rehacer eliminación de cruce (junction) '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:158
 msgid "Undo create lane '"
-msgstr "Deshacer creación de carril (lane) '"
+msgstr "Deshacer creación de carril '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:160
 msgid "Undo delete lane '"
-msgstr "Deshacer eliminación de carril (lane) '"
+msgstr "Deshacer eliminación de carril '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:168
 msgid "Redo create lane '"
-msgstr "Rehacer creación de carril (lane) '"
+msgstr "Rehacer creación de carril '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:170
 msgid "Redo delete lane '"
-msgstr "Rehacer eliminación de carril (lane) '"
+msgstr "Rehacer eliminación de carril '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
@@ -7334,11 +7331,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1245
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:67
 msgid "Lane"
-msgstr "Carril (lane)"
+msgstr "Carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1249
 msgid "Lane ID (Automatic, non editable)"
-msgstr "ID del carril (lane) (Automático, no editable)"
+msgstr "ID del carril (Automático, no editable)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1254
 msgid ""
@@ -7356,7 +7353,7 @@ msgstr "Ancho en metros (usado para la visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1288
 msgid "Enable or disable lane as acceleration lane"
-msgstr "Activa o desactiva el uso del carril (lane) como carril de aceleración"
+msgstr "Activa o desactiva el uso del carril como carril de aceleración"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1294
 msgid "If the shape is given it overrides the computation based on edge shape"
@@ -7364,7 +7361,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1299
 msgid "If given, this defines the opposite direction lane"
-msgstr "Define la dirección opuesta del carril (lane)"
+msgstr "Define la dirección opuesta del carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1304
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1512
@@ -7380,7 +7377,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1318
 msgid "Lane type description (optional)"
-msgstr "Descripción del tipo de carril (lane) (Opcional)"
+msgstr "Descripción del tipo de carril (Opcional)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1344
 msgid "Crossing ID"
@@ -8275,7 +8272,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2792
 msgid "Lane ID"
-msgstr "Id del carril (lane)"
+msgstr "ID del carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2813
 msgid "DestinyProbabilityReroute"
@@ -8391,23 +8388,19 @@ msgstr "Punto de interés en carril"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3032
 msgid "The name of the lane at which the POI is located at"
-msgstr ""
-"El nombre del carril (lane) en el que el punto de interés (POI) está "
-"localizado"
+msgstr "El nombre del carril en el que el punto de interés está localizado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3037
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr ""
-"La posición en el carril (lane) o en la red en metros en la que se encuentra "
-"el punto de interés (POI)"
+"La posición en el carril o en la red (en metros) en la que se encuentra el "
+"punto de interés"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3050
 msgid "The lateral offset on the named lane at which the POI is located at"
-msgstr ""
-"Posición lateral del carril (lane) en la que está situado el punto de "
-"interés (POI)"
+msgstr "Posición lateral del carril en la que está situado el punto de interés"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3064
 msgid "PointOfInterestGeo"
@@ -8504,11 +8497,11 @@ msgstr "Lista de carriles consecutivos del circuito"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3247
 msgid "Starting position in the specified lane"
-msgstr "Posición de inicio en el carril (lane) especificado"
+msgstr "Posición de inicio en el carril especificado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3253
 msgid "Ending position in the specified lane"
-msgstr "Posición final en el carril (lane) especificado"
+msgstr "Posición final en el carril especificado"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3267
 msgid "Inner lanes, where placing of overhead wire is restricted"
@@ -8534,8 +8527,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3291
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
-msgstr ""
-"ID del segmento de carril (lane) de la catenaria (overheadWireIDStartClamp)"
+msgstr "ID del segmento de carril de la catenaria (overheadWireIDStartClamp)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3296
 msgid ""
@@ -10308,7 +10300,7 @@ msgstr "El atributo '%' no existe"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:132
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:137
 msgid " > lanes's length"
-msgstr " > largo del carril (lane)"
+msgstr " > largo del carril"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:356
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:146
@@ -10338,7 +10330,7 @@ msgstr "Posición del cursor sobre la forma del elemento adicional: "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:377
 msgid "Cursor position over lane: "
-msgstr "Posición del cursor sobre el carril (lane): "
+msgstr "Posición del cursor sobre el carril: "
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:387
 msgid "Mouse position over edge: "
@@ -11578,7 +11570,7 @@ msgstr "-ESC: Abortar creación de trayectoria"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
-msgstr "Carril (lane) inválido"
+msgstr "Carril no válido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
@@ -11931,7 +11923,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:267
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:448
 msgid "Netedit Parameters Help"
-msgstr ""
+msgstr "Ayuda con parámetros de netedit"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
 msgid "- Reference point: Mark the initial position of the additional element."
@@ -11944,7 +11936,7 @@ msgid ""
 "100 of the lane:"
 msgstr ""
 "  Ejemplo: Si quiere crear una parada de autobus con un largo de 30 metros "
-"en el punto 100 del carril (lane):"
+"en el punto 100 del carril:"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
@@ -12515,7 +12507,7 @@ msgstr "Abrir ventana para calibradores"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:776
 msgid "Open calibrator lane dialog"
-msgstr "Abrir ventan para calibratos sobre carril (lane)"
+msgstr "Abrir ventan para calibratos sobre carril"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:782
 msgid "Open VSS dialog"
@@ -12544,17 +12536,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
 msgid "  according to the current 'Modification Mode'.\n"
-msgstr ""
+msgstr "  de acuerdo al 'Modo de modificación' seleccionado.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:455
 msgid "     1. Select an object type from the first input box\n"
-msgstr ""
+msgstr "     1. Seleccione un tipo de objeto en el primer cuadro de entrada\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:275
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:456
 msgid "     2. Select an attribute from the second input box\n"
-msgstr ""
+msgstr "     2. Seleccione un atributo en el segundo cuadro de entrada\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:457
@@ -12562,6 +12554,8 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
+"     3. Ingrese una 'expresión coincidente' en el tercer cuadro de entrada y "
+"presione <ENTER>\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
@@ -12607,17 +12601,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 msgid "     '=' matches if string is an exact match.\n"
-msgstr ""
+msgstr "     '=' coincide si la cadena es una coincidencia exacta.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:285
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 msgid "     '!' matches if string is not a substring.\n"
-msgstr ""
+msgstr "     '!' coincide si la cadena no es una subcadena.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
 msgid "     '^' matches if string is not an exact match.\n"
-msgstr ""
+msgstr "     '^' coincide si la cadena no es una coincidencia exacta.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
@@ -13399,11 +13393,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:69
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:79
 msgid "No lane selected"
-msgstr "No se ha seleccionado ningún carril (lane)"
+msgstr "No se ha seleccionado ningún carril"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:81
 msgid "Current Lane: "
-msgstr "Carril (lane) actual: "
+msgstr "Carril actual: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:90
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:396
@@ -13694,7 +13688,7 @@ msgstr "Atributos de arista inválidos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:685
 msgid "Invalid lane attributes"
-msgstr "Atributos del carril (lane) inválidos"
+msgstr "Atributos del carril no válidos"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:696
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:784
