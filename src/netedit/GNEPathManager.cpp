@@ -570,9 +570,7 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
 bool
 GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment *segment, SumoXMLTag tag) {
     // check conditions
-    if (!segment->getPreviousLane() || !segment->getNextLane()) {
-        return false;
-    } else if (dottedElement) {
+    if (dottedElement) {
         return true;
     } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
         return true;

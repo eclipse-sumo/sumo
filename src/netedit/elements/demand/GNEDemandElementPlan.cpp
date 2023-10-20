@@ -1250,19 +1250,27 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType(), offsetFront);
+        // Set plan color
+        GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
         // check if draw lane2lane connection or a red line
-        if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
-            // obtain lane2lane geometry
-            const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
-            // Set plan color
-            GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
-            // draw lane2lane
-            GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), lane2laneGeometry, pathWidth);
-        } else {
-            // Set invalid plan color
-            GLHelper::setColor(RGBColor::RED);
-            // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidth));
+        if (segment->getPreviousLane() && segment->getNextLane()) {
+            if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
+                // obtain lane2lane geometry
+                const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
+                // draw lane2lane
+                GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), lane2laneGeometry, pathWidth);
+            } else {
+                // Set invalid plan color
+                GLHelper::setColor(RGBColor::RED);
+                // draw line between end of first shape and first position of second shape
+                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidth));
+            }
+        } else if (segment->getPreviousLane()) {
+            // draw line between center of junction and last lane shape
+            GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()}, pathWidth);
+        } else if (segment->getNextLane()) {
+            // draw line between center of junction and first lane shape
+            GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, pathWidth);
         }
         // Pop last matrix
         GLHelper::popMatrix();
@@ -1271,19 +1279,27 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
         // check if shape dotted contour has to be drawn
-        if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
-            // get shape
-            const auto &shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
-            // check if mouse is over element
-            myPlanElement->mouseWithinGeometry(shape, pathWidth);
-            // draw dotted geometry
-            if (duplicateWidth) {
-                myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                      s.dottedContourSettings.segmentWidth);
-            } else {
-                myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                      s.dottedContourSettings.segmentWidthSmall);
+        if (segment->getPreviousLane() && segment->getNextLane()) {
+            if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
+                // get shape
+                const auto &shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
+                // check if mouse is over element
+                myPlanElement->mouseWithinGeometry(shape, pathWidth);
+                // draw dotted geometry
+                if (duplicateWidth) {
+                    myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                          s.dottedContourSettings.segmentWidth);
+                } else {
+                    myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
+                                                                          s.dottedContourSettings.segmentWidthSmall);
+                }
             }
+        } else if (segment->getPreviousLane()) {
+            myPlanElement->getContour().drawDottedContourExtruded(s, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
+                                                                  pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+        } else if (segment->getNextLane()) {
+            myPlanElement->getContour().drawDottedContourExtruded(s, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
+                                                                  pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
     }
     // check if draw plan parent
