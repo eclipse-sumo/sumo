@@ -264,7 +264,7 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), TL("Netedit Parameters Help"), GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
@@ -280,7 +280,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
             << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
             << "\n"
             << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
-            << TL("     '' (no operator) matches if string is a substring of that object'ts attribute.\n")
+            << TL("     '' (no operator) matches if string is a substring of that object's attribute.\n")
             << TL("     '=' matches if string is an exact match.\n")
             << TL("     '!' matches if string is not a substring.\n")
             << TL("     '^' matches if string is not an exact match.\n")

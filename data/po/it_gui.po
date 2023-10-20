@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 10:04+0200\n"
+"POT-Creation-Date: 2023-10-20 11:07+0200\n"
 "PO-Revision-Date: 2023-10-19 11:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10899,13 +10899,13 @@ msgstr ""
 msgid "Add reverse %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1357
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1370
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:778
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1837
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1835
 msgid "copy % '%'"
 msgstr ""
 
@@ -11225,11 +11225,11 @@ msgstr ""
 msgid "Invalid vehicle tag"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2345
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2343
 msgid "departPos of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2355
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2353
 msgid "arrivalPos of %"
 msgstr ""
 
@@ -11891,6 +11891,12 @@ msgid ""
 "length"
 msgstr ""
 
+#: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:375
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:267
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:448
+msgid "Netedit Parameters Help"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
 msgid "- Reference point: Mark the initial position of the additional element."
 msgstr ""
@@ -12530,7 +12536,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
 msgid ""
-"     '' (no operator) matches if string is a substring of that object'ts "
+"     '' (no operator) matches if string is a substring of that object's "
 "attribute.\n"
 msgstr ""
 
