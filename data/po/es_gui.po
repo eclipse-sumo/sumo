@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-20 10:04+0200\n"
-"PO-Revision-Date: 2023-10-16 14:44+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-10-20 09:05+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -12517,7 +12517,7 @@ msgstr "Abrir ventana para VSS"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
-msgstr ""
+msgstr "Corresponder atributo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:60
 msgid "Apply selection"
@@ -12532,6 +12532,8 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
 msgstr ""
+"- Los controles 'Corresponder atributo' permiten especificar un conjunto de "
+"objetos que luego se aplican a la selección actual\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
@@ -12558,7 +12560,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 msgid "- The empty expression matches all objects\n"
-msgstr ""
+msgstr "- La expresión vacía coincide con todos los objetos\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
@@ -12566,6 +12568,8 @@ msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
 msgstr ""
+"- Para atributos numéricos, la expresión debe consistir en un operador de "
+"comparación ('<', '>', '=') y un número.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
@@ -12573,6 +12577,8 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
+"- Un objeto coincide si la comparación entre su atributo y el número dado "
+"por el operador dado se evalúa como 'verdadero'\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
@@ -12580,6 +12586,8 @@ msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
+"- Para atributos de cadena de caracteres (string), la expresión debe "
+"consistir en un operador de comparación ('', '=', '!', '^') y una cadena.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
@@ -12587,6 +12595,8 @@ msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
 msgstr ""
+"     '' (sin operador) coincide si la cadena es una subcadena del atributo "
+"de ese objeto.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
@@ -12613,6 +12623,8 @@ msgstr "- Ejemplos:\n"
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
+"     junction; id; 'foo' -> coincide con todos los cruces que tienen 'foo' "
+"en su ID\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
@@ -12620,11 +12632,15 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
+"     junction; type; '=priority' -> coincide con todos los cruces de tipo "
+"'priority', pero no del tipo 'priority_stop'\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
+"     edge; speed; '>10' -> coincide con todas las aristas con una velocidad "
+"superior a 10\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""
