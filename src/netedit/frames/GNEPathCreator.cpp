@@ -148,15 +148,15 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
-                               "SHIFT-click: ignore vClass",
+                               TL("SHIFT-click: ignore vClass"),
                                0, GUIDesignLabelFrameInformation);
     // create control label
     myControlLabel = new FXLabel(this,
-                                 "CTRL-click: force add",
+                                 TL("CTRL-click: force add"),
                                  0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
     myBackSpaceLabel = new FXLabel(this,
-                                   "BACKSPACE: undo click",
+                                   TL("BACKSPACE: undo click"),
                                    0, GUIDesignLabelFrameInformation);
 }
 

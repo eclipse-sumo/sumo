@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 11:07+0200\n"
+"POT-Creation-Date: 2023-10-20 14:29+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -10714,13 +10714,13 @@ msgstr "反向流量 %"
 msgid "Add reverse %"
 msgstr "添加反向 %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1358
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1371
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1835
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1834
 msgid "copy % '%'"
 msgstr "复制 % '%'"
 
@@ -11038,11 +11038,11 @@ msgstr "流 (Flows)"
 msgid "Invalid vehicle tag"
 msgstr "无效车辆标签"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2343
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2342
 msgid "departPos of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2353
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2352
 msgid "arrivalPos of %"
 msgstr ""
 
@@ -11845,6 +11845,18 @@ msgstr "删除最后路段"
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:147
 msgid "Show candidate edges"
 msgstr "显示候选路段"
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:151
+msgid "SHIFT-click: ignore vClass"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
+msgid "CTRL-click: force add"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:159
+msgid "BACKSPACE: undo click"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:277
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:948
