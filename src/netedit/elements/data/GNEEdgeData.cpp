@@ -260,8 +260,8 @@ GNEEdgeData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathM
 
 
 void
-GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // EdgeDatas don't use drawPartialGL over junction
+GNEEdgeData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // EdgeDatas don't use drawJunctionPartialGL over junction
 }
 
 

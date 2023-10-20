@@ -236,13 +236,13 @@ GNEStopPlan::computePathElement() {
 
 void
 GNEStopPlan::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+    // Stops don't use drawJunctionPartialGL
 }
 
 
 void
-GNEStopPlan::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+GNEStopPlan::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Stops don't use drawJunctionPartialGL
 }
 
 

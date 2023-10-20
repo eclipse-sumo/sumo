@@ -440,13 +440,13 @@ GNEPerson::computePathElement() {
 
 void
 GNEPerson::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+    // Stops don't use drawJunctionPartialGL
 }
 
 
 void
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+GNEPerson::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Stops don't use drawJunctionPartialGL
 }
 
 

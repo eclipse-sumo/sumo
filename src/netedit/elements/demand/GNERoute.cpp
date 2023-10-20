@@ -360,7 +360,7 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Routes are drawn in drawPartialGL
+    // Routes are drawn in drawJunctionPartialGL
 }
 
 
@@ -497,7 +497,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
         myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&

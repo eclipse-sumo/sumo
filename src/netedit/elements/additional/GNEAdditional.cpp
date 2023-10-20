@@ -476,7 +476,7 @@ GNEAdditional::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GN
 
 
 void
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEAdditional::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Nothing to draw
 }
 

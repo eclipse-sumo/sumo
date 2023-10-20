@@ -197,7 +197,7 @@ GNEPersonTrip::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPat
 
 
 void
-GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEPersonTrip::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     drawPlanPartial(checkDrawPersonPlan(), s, segment, offsetFront, s.widthSettings.personTripWidth, s.colorSettings.personTripColor, s.colorSettings.selectedPersonPlanColor);
 }
 

@@ -447,13 +447,13 @@ GNEContainer::computePathElement() {
 
 void
 GNEContainer::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+    // Stops don't use drawJunctionPartialGL
 }
 
 
 void
-GNEContainer::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+GNEContainer::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Stops don't use drawJunctionPartialGL
 }
 
 

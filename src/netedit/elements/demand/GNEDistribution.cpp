@@ -144,13 +144,13 @@ GNEDistribution::computePathElement() {
 
 void
 GNEDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // route distributions don't use drawPartialGL
+    // route distributions don't use drawJunctionPartialGL
 }
 
 
 void
-GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // route distributions don't use drawPartialGL
+GNEDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawJunctionPartialGL
 }
 
 

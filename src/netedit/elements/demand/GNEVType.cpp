@@ -180,13 +180,13 @@ GNEVType::computePathElement() {
 
 void
 GNEVType::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+GNEVType::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 

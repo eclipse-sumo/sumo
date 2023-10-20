@@ -452,7 +452,7 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
 
 
 void
-GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if E2 can be drawn

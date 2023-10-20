@@ -849,13 +849,13 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
         // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
             if (segment->getPathElement()->isPathElementSelected()) {
-                segment->getPathElement()->drawPartialGL(s, segment, 0);
+                segment->getPathElement()->drawJunctionPartialGL(s, segment, 0);
             }
         }
         // now draw non selected elements
         for (const auto& segment : myJunctionSegments.at(junction)) {
             if (!segment->getPathElement()->isPathElementSelected()) {
-                segment->getPathElement()->drawPartialGL(s, segment, 0);
+                segment->getPathElement()->drawJunctionPartialGL(s, segment, 0);
             }
         }
     }
@@ -876,7 +876,7 @@ GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathEleme
     for (const auto& junctionSegment : myJunctionSegments) {
         for (const auto& segment : junctionSegment.second) {
             if (segment->getPathElement() == pathElement) {
-                segment->getPathElement()->drawPartialGL(s, segment, 0);
+                segment->getPathElement()->drawJunctionPartialGL(s, segment, 0);
             }
         }
     }

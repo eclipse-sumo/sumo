@@ -324,7 +324,7 @@ GNEOverheadWire::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEP
 
 
 void
-GNEOverheadWire::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
+GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // calculate overheadWire width
     const double overheadWireWidth = s.addSize.getExaggeration(s, segment->getPreviousLane());
     // check if E2 can be drawn

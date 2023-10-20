@@ -224,7 +224,7 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
 
 
 void
-GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double /*offsetFront*/) const {
+GNEEdgeRelData::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double /*offsetFront*/) const {
     // get color
     const auto color = setColor(s);
     if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {

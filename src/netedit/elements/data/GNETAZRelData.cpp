@@ -345,7 +345,7 @@ GNETAZRelData::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GN
 
 
 void
-GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNETAZRelData::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // nothing to draw
 }
 
