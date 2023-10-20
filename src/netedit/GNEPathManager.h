@@ -50,10 +50,10 @@ public:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, Segment* previousSegment);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*> &segments);
 
         /// @brief constructor for junctions
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, Segment* previousSegment);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*> &segments);
 
         /// @brief destructor
         ~Segment();
@@ -389,6 +389,9 @@ protected:
     std::map<const GNEJunction*, std::vector<Segment*> > myJunctionSegments;
 
 private:
+    /// @brief mark label segment
+    void markLabelSegment(const std::vector<Segment*> &segments) const;
+
     /// @brief empty segments (used in getPathElementSegments)
     const std::vector<Segment*> myEmptySegments;
 

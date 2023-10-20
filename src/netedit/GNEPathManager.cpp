@@ -35,35 +35,43 @@
 // GNEPathManager::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, Segment* previousSegment) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*> &segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(lane),
     myJunction(nullptr),
     myNextSegment(nullptr),
-    myPreviousSegment(previousSegment),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
-    // connect segments
-    if (previousSegment) {
-        previousSegment->myNextSegment = this;
+    // set previous segment
+    if (segments.size() > 0) {
+        // set previous segment
+        myPreviousSegment = segments.back();
+        myPreviousSegment->myNextSegment = this;
     }
+    // add this segment in segments
+    segments.push_back(this);
     // add segment in laneSegments
     myPathManager->addSegmentInLaneSegments(this, lane);
 }
 
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, Segment* previousSegment) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*> &segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(nullptr),
     myJunction(junction),
     myNextSegment(nullptr),
-    myPreviousSegment(previousSegment),
+    myPreviousSegment(nullptr),
     myLabelSegment(false) {
-    // connect segments
-    if (previousSegment) {
-        previousSegment->myNextSegment = this;
+    // set previous segment
+    if (segments.size() > 0) {
+        // set previous segment
+        myPreviousSegment = segments.back();
+        myPreviousSegment->myNextSegment = this;
     }
+    // add this segment in segments
+    segments.push_back(this);
     // add segment in junctionSegments
     myPathManager->addSegmentInJunctionSegments(this, junction);
 }
@@ -761,35 +769,23 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
     if (lanes.size() > 0) {
         // declare segment vector
         std::vector<Segment*> segments;
-        // declare lane segments (used for set label)
-        std::vector<Segment*> laneSegments;
         // declare last index
         const int lastIndex = ((int)lanes.size() - 1);
         // reserve segments
         segments.reserve(2 * lanes.size());
-        laneSegments.reserve(lanes.size());
         // iterate over lanes
         for (int i = 0; i < (int)lanes.size(); i++) {
-            // get previous segment
-            Segment* previousSegment = (segments.size() > 0)? segments.back() : nullptr;
             // create lane segment
-            Segment* laneSegment = new Segment(this, pathElement, lanes.at(i), previousSegment);
-            // add it into segment vector
-            segments.push_back(laneSegment);
-            laneSegments.push_back(laneSegment);
+            new Segment(this, pathElement, lanes.at(i), segments);
             // continue if this isn't the last lane
             if (i != lastIndex) {
                 // create junction segments
-                Segment* junctionSegment = new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getToJunction(), segments.back());
-                // add it into segment vector
-                segments.push_back(junctionSegment);
+                new Segment(this, pathElement, lanes.at(i)->getParentEdge()->getToJunction(), segments);
             }
         }
-        // get lane segment index
-        const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
-        // mark middle label as label segment
-        laneSegments.at(laneSegmentIndex)->markSegmentLabel();
-        // add segment in path
+        // mark label segment
+        markLabelSegment(segments);
+        // add segments in paths
         myPaths[pathElement] = segments;
     }
 }
@@ -1028,37 +1024,25 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
     std::vector<Segment*> segments;
     // continue if path isn't empty
     if (path.size() > 0) {
-        // declare lane segments (used for set label)
-        std::vector<Segment*> laneSegments;
         // declare last index
         const int lastIndex = ((int)path.size() - 1);
         // reserve segments
         segments.reserve(2 * path.size());
-        laneSegments.reserve(path.size());
         // iterate over path
         for (int i = 0; i < (int)path.size(); i++) {
             // get first allowed lane
             const GNELane* lane = path.at(i)->getLaneByAllowedVClass(vClass);
-            // get previous segment
-            Segment* previousSegment = (segments.size() > 0)? segments.back() : nullptr;
-            // create segments
-            Segment* laneSegment = new Segment(this, pathElement, lane, previousSegment);
-            // add it into segment and laneSegment vectors
-            segments.push_back(laneSegment);
-            laneSegments.push_back(laneSegment);
+            // create lane segment
+            new Segment(this, pathElement, lane, segments);
             // continue if this isn't the last path edge
             if (i != lastIndex) {
                 // create junction segment using to junction
-                Segment* junctionSegment = new Segment(this, pathElement, path.at(i)->getToJunction(), segments.back());
-                // add it into segment vector
-                segments.push_back(junctionSegment);
+                new Segment(this, pathElement, path.at(i)->getToJunction(), segments);
             }
         }
-        // get lane segment index
-        const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
-        // mark middle lane label as label segment
-        laneSegments.at(laneSegmentIndex)->markSegmentLabel();
-        // add segment in path
+        // mark label segment
+        markLabelSegment(segments);
+        // add segments in paths
         myPaths[pathElement] = segments;
     } else {
         // create first segment
@@ -1066,14 +1050,14 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
         Segment* lastSegment = nullptr;
         // continue depending of from-to elements
         if (fromLane) {
-            firstSegment = new Segment(this, pathElement, fromLane, nullptr);
+            firstSegment = new Segment(this, pathElement, fromLane, segments);
         } else if (fromJunction) {
-            firstSegment = new Segment(this, pathElement, fromJunction, nullptr);
+            firstSegment = new Segment(this, pathElement, fromJunction, segments);
         }
         if (toLane) {
-            lastSegment = new Segment(this, pathElement, toLane, firstSegment);
+            lastSegment = new Segment(this, pathElement, toLane, segments);
         } else if (toJunction) {
-            lastSegment = new Segment(this, pathElement, toJunction, firstSegment);
+            lastSegment = new Segment(this, pathElement, toJunction, segments);
         }
         // continue depending of segments
         if (firstSegment && lastSegment) {
@@ -1089,6 +1073,23 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
             delete lastSegment;
         }
     }
+}
+
+
+void
+GNEPathManager::markLabelSegment(const std::vector<Segment*> &segments) const {
+    // separate junction segments and lane segments
+    std::vector<Segment*> laneSegments;
+    laneSegments.reserve(segments.size());
+    for (const auto &segment : segments) {
+        if (segment->getLane()) {
+            laneSegments.push_back(segment);
+        }
+    }
+    // get lane segment index
+    const int laneSegmentIndex = (int)((double)laneSegments.size() * 0.5);
+    // mark middle label as label segment
+    laneSegments.at(laneSegmentIndex)->markSegmentLabel();
 }
 
 /****************************************************************************/
