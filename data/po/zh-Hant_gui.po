@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-16 11:13+0200\n"
+"POT-Creation-Date: 2023-10-20 10:04+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
 "Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,7 +249,7 @@ msgid "&Junctions"
 msgstr "&路口"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 msgid "Open a dialog for locating a Junction."
 msgstr "開啟對話框以進行路口定位。"
 
@@ -257,7 +258,7 @@ msgid "&Edges"
 msgstr "&路段"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:537
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1996
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 msgid "Open a dialog for locating an Edge."
 msgstr "開啟對話框以進行路段定位。"
 
@@ -266,7 +267,7 @@ msgid "&Vehicles"
 msgstr "&車輛"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:540
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2002
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 msgid "Open a dialog for locating a Vehicle."
 msgstr "開啟對話框以進行車輛定位。"
 
@@ -275,7 +276,7 @@ msgid "&Persons"
 msgstr "&人員"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:543
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
 msgid "Open a dialog for locating a Person."
 msgstr "開啟對話框以進行人員定位。"
 
@@ -284,7 +285,7 @@ msgid "&Container"
 msgstr "&貨櫃"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:546
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2009
 msgid "Open a dialog for locating a Container."
 msgstr "開啟對話窗以進行貨櫃定位。"
 
@@ -293,7 +294,7 @@ msgid "&TLS"
 msgstr "&號誌"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:549
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "開啟對話框以進行交通號誌定位。"
 
@@ -302,7 +303,7 @@ msgid "&Additional"
 msgstr "&額外的"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:552
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2020
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2021
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "開啟對話框以進行附加結構定位。"
 
@@ -311,7 +312,7 @@ msgid "P&oI"
 msgstr "P&oI"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:555
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2024
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "開啟對話框以進行興趣點定位。"
 
@@ -320,7 +321,7 @@ msgid "Po&lygon"
 msgstr "多邊形"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:558
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2026
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 msgid "Open a dialog for locating a Polygon."
 msgstr "開啟對話框以進行多邊形物件定位。"
 
@@ -491,7 +492,7 @@ msgid "&Others..."
 msgstr "&其它..."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:620
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2144
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2145
 msgid "Show Status Line"
 msgstr "顯示狀態列"
 
@@ -500,12 +501,12 @@ msgid "Toggle the Status Bar on/off."
 msgstr "切換狀態控制桿(開啟/關閉)。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:621
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2147
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2148
 msgid "Show Message Window"
 msgstr "顯示訊息窗"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:621
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2147
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2148
 msgid "Toggle the Message Window on/off."
 msgstr "切換訊息窗(開啟/關閉)。"
 
@@ -526,7 +527,7 @@ msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "切換模擬延遲輸入(開啟/關閉)。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:628
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2151
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2152
 msgid "Clear Message Window"
 msgstr "清除訊息窗內訊息"
 
@@ -544,7 +545,7 @@ msgid "&Online Documentation"
 msgstr "&線上使用手冊"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:637
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2167
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2168
 msgid "Open Online documentation."
 msgstr "開啟線上使用手冊。"
 
@@ -553,7 +554,7 @@ msgid "&Changelog"
 msgstr "&變更記錄"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:640
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2170
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2171
 msgid "Open Changelog."
 msgstr "開啟變更記錄。"
 
@@ -562,7 +563,7 @@ msgid "&Hotkeys"
 msgstr "&快捷鍵"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:642
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2172
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2173
 msgid "Open Hotkeys."
 msgstr "開啟快捷鍵。"
 
@@ -571,7 +572,7 @@ msgid "&Tutorial"
 msgstr "&範例教學"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:644
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2174
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2175
 msgid "Open Tutorial."
 msgstr "開啟範例教學。"
 
@@ -617,15 +618,17 @@ msgstr "\t時間節距\t執行單一模擬時間節距。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:689
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr "時間:\t切換時間格式\t時間顯示切換：秒 或 小時：分鐘：秒。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:703
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr "延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒的延遲. 按鍵進行最後兩個延遲值的切換。"
+msgstr ""
+"延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒的延遲. 按鍵進行最"
+"後兩個延遲值的切換。"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:726
 msgid "Scale Traffic:"
@@ -1779,7 +1782,7 @@ msgid "Add rerouter"
 msgstr "新增路徑導引器(rerouter)"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2114
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2120
 msgid "Select reachable"
 msgstr "選擇可到達的車道"
 
@@ -2556,7 +2559,7 @@ msgstr "路網"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1446
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2011
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2868
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3381
 msgid "Route"
@@ -2567,7 +2570,7 @@ msgid "Output"
 msgstr "輸出"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1449
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
 msgid "TLS"
 msgstr "交通號誌"
 
@@ -2660,7 +2663,7 @@ msgid "Netedit options"
 msgstr "Netedit 選項"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2384
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1874
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1875
 msgid "Sumo options"
 msgstr "sumo選項"
 
@@ -2749,12 +2752,12 @@ msgid "load additionals from '"
 msgstr "從 ' 載入附加物(additionals)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1307
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1299
 msgid "Loading of additional file failed: "
 msgstr "載入附加檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3688
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1309
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
 msgid "Loading of additional file successfully: "
 msgstr "成功載入附加檔案： "
 
@@ -2789,12 +2792,12 @@ msgid "loading demand elements from '"
 msgstr "從 ' 載入交通需求元素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1318
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1310
 msgid "Loading of route file failed: "
 msgstr "載入路徑檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3883
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1320
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
 msgid "Loading of route file successfully: "
 msgstr "成功載入路徑檔案： "
 
@@ -2816,12 +2819,12 @@ msgid "loading data elements from '"
 msgstr "從 '載入資料元素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1329
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1321
 msgid "Loading of data file failed: "
 msgstr "載入資料檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4046
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1331
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
 msgid "Loading of data file successfully: "
 msgstr "成功載入資料檔案： "
 
@@ -2846,13 +2849,13 @@ msgid "load meanDatas from '"
 msgstr "從 ' 載入meanDatas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1340
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1332
 msgid "Loading of meandata file failed: "
 msgstr "載入meandata檔案失敗： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4210
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4241
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
 msgid "Loading of meandata file successfully: "
 msgstr "成功載入meandata檔案： "
 
@@ -3156,8 +3159,7 @@ msgid "Save TLS Programs As..."
 msgstr "將交通號誌計畫另存為..."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:401
-msgid ""
-"Save all traffic light programs of the current network to another file."
+msgid "Save all traffic light programs of the current network to another file."
 msgstr "現有路網內所有交通號誌計畫另存新檔。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:407
@@ -3337,8 +3339,8 @@ msgid "Reload meanDatas."
 msgstr "重新載入MeanDatas。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:548
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:323
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1089
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:326
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1093
 msgid "Inspect"
 msgstr "檢視"
 
@@ -3347,7 +3349,7 @@ msgid "Inspect elements and change their attributes."
 msgstr "檢查元素並更改其屬性。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:551
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:324
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:327
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:331
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:264
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:87
@@ -3426,7 +3428,7 @@ msgid "Create crossings between edges."
 msgstr "在路段之間建立人行穿越道。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:627
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2020
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2021
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2067
 msgid "Additional"
 msgstr "附加物"
@@ -3557,7 +3559,7 @@ msgid "Create edgeData elements."
 msgstr "建立edgeData 元素。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6678
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6681
 msgid "EdgeRelation"
 msgstr ""
 
@@ -3566,7 +3568,7 @@ msgid "Create edgeRelation elements."
 msgstr "建立edgeRelation元素。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6698
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6701
 msgid "TAZRelation"
 msgstr ""
 
@@ -3777,15 +3779,15 @@ msgid "Opens the sumo-gui application with the current network."
 msgstr "使用現有路網開啟 sumo-gui 應用程式。"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1329
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 msgid "Junctions"
 msgstr "路口"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1334
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1996
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:893
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1324
@@ -3793,7 +3795,7 @@ msgid "Edges"
 msgstr "路段"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1339
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:890
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:893
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:99
 msgid "Lanes"
@@ -3811,7 +3813,7 @@ msgid "Crossings"
 msgstr "人行穿越道"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1354
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:102
 msgid "WalkingAreas"
 msgstr ""
@@ -3861,7 +3863,7 @@ msgid "Routes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1399
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2002
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:286
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:168
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:115
@@ -3871,7 +3873,7 @@ msgid "Vehicles"
 msgstr "車輛"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1404
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:174
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:116
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:40
@@ -3896,7 +3898,7 @@ msgid "Rides"
 msgstr "車程(rides)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1424
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2008
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2009
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:120
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1989
@@ -3913,7 +3915,7 @@ msgid "Tranships"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1439
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2014
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:171
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
@@ -3955,230 +3957,207 @@ msgstr "所有元素"
 msgid "Unlock all elements"
 msgstr "解除鎖定所有的元素"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1833
 msgid "Compute Junctions"
 msgstr "計算路口"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1833
 msgid "Compute junction shape and logic."
 msgstr "計算路口的形狀和邏輯。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1835
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1836
 msgid "Compute Junctions with volatile options"
 msgstr "根據可變選項計算路口"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1835
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1836
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr "根據可變路口計算路口形狀和邏輯。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1838
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1839
 msgid "Clean Junctions"
 msgstr "清除路口"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1838
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1839
 msgid "Remove solitary junctions."
 msgstr "移除孤立的路口。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1841
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1842
 msgid "Join Selected Junctions"
 msgstr "合併選定的路口"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1841
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1842
 msgid "Join selected junctions into a single junction."
 msgstr "將選定的路口合併為一個單一路口。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1844
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1845
 msgid "Clean invalid crossings"
 msgstr "清除無效的人行道"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1844
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1845
 msgid "Clear invalid crossings."
 msgstr "清除無效的人行道。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1850
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1851
 msgid "Recompute Network in Data Mode"
 msgstr "在資料模式下重新計算路網"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1857
 msgid "Compute demand"
 msgstr "計算需求"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1857
 msgid "Computes demand elements."
 msgstr "計算需求元素。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1859
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1860
 msgid "Clean routes"
 msgstr "清除路徑"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1859
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1860
 msgid "Removes routes without vehicles."
 msgstr "移除沒有車輛的路徑。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1862
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1863
 msgid "Join routes"
 msgstr "合併路徑"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1862
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1863
 msgid "Joins routes with the same edges."
 msgstr "合併具有相同路段的路徑。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1865
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1866
 msgid "Adjust person plans"
 msgstr "調整個人旅運計劃"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1865
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1866
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr "調整個人旅運計劃（起始/结束位置、抵達位置等）"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1868
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1869
 msgid "Clean invalid route elements"
 msgstr "清除無效的路徑元素"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1868
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1869
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr "清除與無效路線相關的元素(路徑、旅程、流量...)。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1874
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1875
 msgid "Configure sumo Options."
 msgstr "設定sumo的選項。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1880
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1881
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:311
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:61
 msgid "Options"
 msgstr "選項"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1880
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1881
 msgid "Configure netedit Options."
 msgstr "設定netedit 的選項。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1999
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "Open a dialog for locating a Walking Area."
 msgstr "開啟對話框以進行步行區定位。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2011
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
 msgid "Open a dialog for locating a Route."
 msgstr "開啟對話框以進行路徑定位。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2014
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
 msgid "Open a dialog for locating a Stop."
 msgstr "開啟對話框以進行停靠點定位。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2024
 msgid "PoI"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2026
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2926
 msgid "Polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2144
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2145
 msgid "Toggle this Status Bar on/off."
 msgstr "切換狀態控制桿(開啟/關閉)。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2151
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2152
 msgid "Clear the Message Window."
 msgstr "清除訊息窗內訊息。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2167
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2168
 msgid "Online Documentation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2170
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2171
 msgid "Changelog"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2172
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2173
 msgid "Hotkeys"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2174
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2175
 msgid "Tutorial"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2176
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2177
 msgid "Feedback"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2176
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2177
 msgid "Open feedback channels."
 msgstr "打開反饋管道。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2179
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2180
 msgid "About"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2179
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2180
 msgid "About netedit."
 msgstr "關於netedit。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2216
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2217
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2088
 msgid "Network"
 msgstr "路網"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2216
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2217
 msgid "Select network mode."
 msgstr "選擇路網模式。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2219
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2220
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2093
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2100
 msgid "Demand"
 msgstr "需求"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2219
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2220
 msgid "Select demand mode."
 msgstr "選擇需求模式。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2222
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2223
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2098
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2244
 msgid "Data"
 msgstr "資料"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2222
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2223
 msgid "Select data mode."
 msgstr "選擇資料模式。"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2257
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2261
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2258
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2262
 msgid "Could not load SUMO configuration '"
 msgstr "無法載入SUMO 設定檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2308
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2312
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2309
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2313
 msgid "Could not load netedit configuration '"
 msgstr "無法載入netedit的設定檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2758
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2759
 msgid "Save file as"
 msgstr "將檔案另存為"
-
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2759
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2763
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2779
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2789
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2797
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2806
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2860
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2865
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2876
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2881
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2892
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2897
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2908
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2913
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2924
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2929
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2940
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2945
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2955
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2959
-msgid "XML files (*.xml)"
-msgstr "XML檔案 (*.xml)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2760
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2764
@@ -4186,11 +4165,6 @@ msgstr "XML檔案 (*.xml)"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2790
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2798
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2807
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2815
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2831
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2836
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2846
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2850
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2861
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2866
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2877
@@ -4205,26 +4179,54 @@ msgstr "XML檔案 (*.xml)"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2946
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2956
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2960
+msgid "XML files (*.xml)"
+msgstr "XML檔案 (*.xml)"
+
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2761
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2765
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2781
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2791
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2799
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2808
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2816
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2832
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2837
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2847
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2851
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2862
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2867
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2878
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2883
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2894
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2899
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2910
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2915
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2926
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2931
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2942
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2947
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2957
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2961
 msgid "All files (*)"
 msgstr "所有檔案 (*)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2762
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2763
 msgid "Open file"
 msgstr "開啟檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2772
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2773
 msgid "Save Network file as"
 msgstr "將路網檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2773
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2774
 msgid "SUMO Network files (*.net.xml)"
 msgstr "SUMO 路網檔案 (*.net.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2774
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2775
 msgid "SUMO Network files zipped (*.net.xml.gz)"
 msgstr "SUMO 路網壓縮檔案 (*.net.xml.gz)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2775
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2776
 msgid ""
 "XML files (*.xml)\n"
 "All files (*)"
@@ -4232,163 +4234,163 @@ msgstr ""
 "XML 檔案(*.xml)\n"
 "所有檔案 (*)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2777
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2778
 msgid "Open Network file"
 msgstr "開啟路網檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2778
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2779
 msgid "SUMO Network files (*.net.xml,*.net.xml.gz)"
 msgstr "SUMO 路網檔案 (*.net.xml,*.net.xml.gz)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2787
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2788
 msgid "Open NetConvert file"
 msgstr "開啟NetConvert 檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2788
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2789
 msgid "Netconvert files (*.netccfg)"
 msgstr "NetConvert 設定檔案(*.netccfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2796
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2797
 msgid "Save plain XML as"
 msgstr "將純 XML 另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2804
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2805
 msgid "Save joined Junctions as"
 msgstr "將合併的路口另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2805
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2806
 msgid "Junction files (*.nod.xml)"
 msgstr "路口檔案(*.nod.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2813
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2814
 msgid "Save tool log"
 msgstr "儲存工具紀錄(log)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2814
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2815
 msgid "Text file (*.txt)"
 msgstr "文字檔（*.txt）"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2821
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2822
 msgid "Open OSM file"
 msgstr "開啟開放街圖(OSM)檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2822
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2823
 msgid "OSM net (*.osm.xml,*.osm)"
 msgstr "OSM路網 (*.osm.xml,*.osm)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2829
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2830
 msgid "Save netedit Config file as"
 msgstr "將netedit的設定檔案儲存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2830
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2834
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2831
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2835
 msgid "Netedit Config files (*.netecfg)"
 msgstr "Netedit 設定檔案 (*.netecfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2833
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2834
 msgid "Open netedit Config file"
 msgstr "開啟netedit的設定檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2835
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2836
 msgid "Netedit Config files (*.neteditcfg)"
 msgstr "netedit的設定檔案 (*.neteditcfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2844
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2845
 msgid "Save SUMO Config file as"
 msgstr "將SUMO設定檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2845
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2849
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2846
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2850
 msgid "SUMO Config files (*.sumocfg)"
 msgstr "SUMO設定檔案 (*.sumocfg)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2848
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2849
 msgid "Open SUMO Config file"
 msgstr "開啟SUMO設定檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2858
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2859
 msgid "Save TLS file as"
 msgstr "將交通號誌檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2859
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2864
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2860
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2865
 msgid "TLS files (*.tll.xml)"
 msgstr "交通號誌檔案 (*.tll.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2863
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2864
 msgid "Open TLS file"
 msgstr "開啟交通號誌檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2874
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2875
 msgid "Save EdgeType file as"
 msgstr "將EdgeType檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2875
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2880
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2876
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2881
 msgid "EdgeType files (*.typ.xml)"
 msgstr "EdgeType檔案 (*.typ.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2879
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2880
 msgid "Open EdgeType file"
 msgstr "開啟EdgeType檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2890
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2891
 msgid "Save Additionals file as"
 msgstr "將附加(additionals)檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2891
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2896
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2892
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2897
 msgid "Additional files (*.add.xml)"
 msgstr "附加檔案 (*.add.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2895
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2896
 msgid "Open Additionals file"
 msgstr "開啟附加檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2906
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2907
 msgid "Save Route file as"
 msgstr "將路徑檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2907
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2912
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2908
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2913
 msgid "Route files (*.rou.xml)"
 msgstr "路徑檔案(*.rou.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2911
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2912
 msgid "Open Route file"
 msgstr "開啟路徑檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2922
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2923
 msgid "Save Data file as"
 msgstr "將資料檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2923
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2928
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2924
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2929
 msgid "Data files (*.dat.xml)"
 msgstr "資料檔案 (*.dat.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2927
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2928
 msgid "Open Data file"
 msgstr "開啟資料檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2938
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2939
 msgid "Save MeanData file as"
 msgstr "將MeanData檔案另存為"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2939
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2944
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2940
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2945
 msgid "Meandata files (*.add.xml)"
 msgstr "MeanData檔案 (*.add.xml)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2943
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2944
 msgid "Open MeanData file"
 msgstr "開啟MeanData檔案"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2954
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2955
 msgid "Save options file as"
 msgstr "將選項檔案另存於"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2958
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2959
 msgid "Open options file"
 msgstr "開啟選項檔案"
 
@@ -4406,7 +4408,8 @@ msgstr "載入 netedit 設定檔 '%' 失敗。"
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
-msgstr "輸入路網選項無效。使用 sumo/netedit/netconvert 設定檔案或 -new 選項載入"
+msgstr ""
+"輸入路網選項無效。使用 sumo/netedit/netconvert 設定檔案或 -new 選項載入"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:136
 msgid "Invalid Options. Nothing loaded"
@@ -4684,14 +4687,17 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"在跟車模式及車道變換模式內行動點(action "
-"point)之間的預設區間長度（以秒為單位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設值。必須是模擬步長的倍數。"
+"在跟車模式及車道變換模式內行動點(action point)之間的預設區間長度（以秒為單"
+"位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設"
+"值。必須是模擬步長的倍數。"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:496
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
-msgstr "選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0.1為小客車等級的預設值)"
+msgstr ""
+"選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0.1為小客車等級的"
+"預設值)"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:535
 msgid "Failed to reset options."
@@ -4705,201 +4711,200 @@ msgstr "刪除路口"
 msgid "delete edge"
 msgstr "刪除路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:491
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:483
 msgid "replace edge"
 msgstr "替換路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:553
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:545
 msgid "delete lane"
 msgstr "刪除車道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:588
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:580
 msgid "delete connection"
 msgstr "刪除連接線"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:603
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:595
 msgid "delete crossing"
 msgstr "刪除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:621
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:650
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:672
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:685
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:698
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:728
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:613
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:642
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:664
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:677
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:690
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:720
 msgid "delete "
 msgstr "刪除 "
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:644
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:636
 msgid "Trying to delete a default Vehicle Type"
 msgstr "嘗試刪除預設的車輛類型"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:737
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:729
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2925
 msgid "duplicate lane"
 msgstr "複製車道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:856
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:848
 msgid "split edge"
 msgstr "分割路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:973
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:965
 msgid "split edges"
 msgstr "分割路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:995
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:987
 msgid "reverse edge"
 msgstr "反向路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1012
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1004
 msgid "add reversed edge"
 msgstr "新增反向路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1046
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1038
 msgid "merge junctions"
 msgstr "合併路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1082
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1074
 msgid "select roundabout"
 msgstr "選擇圓環"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1098
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1090
 msgid "create roundabout"
 msgstr "建立圓環"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1276
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1268
 msgid "Forced computing junctions with volatile options ..."
 msgstr "根據可變選項強制計算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1278
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1270
 msgid "Forced computing junctions ..."
 msgstr "強制計算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1285
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1277
 msgid "Computing junctions with volatile options ..."
 msgstr "根據可變選項計算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1287
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1279
 msgid "Computing junctions ..."
 msgstr "計算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1350
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
 msgid "Finished computing junctions."
 msgstr "完成路口計算。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1356
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1348
 msgid "Computing demand elements ..."
 msgstr "計算需求元素..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1370
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1362
 msgid "Finished computing demand elements."
 msgstr "完成計算需求元素。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1376
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1368
 msgid "Computing data elements ..."
 msgstr "計算資料元素..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1383
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1375
 msgid "Finished computing data elements."
 msgstr "完成計算資料元素。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1462
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1454
 msgid "Position of joined junction"
 msgstr "合併路口的位置"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1463
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1455
 msgid ""
-"There is another unselected junction in the same position of joined "
-"junction."
+"There is another unselected junction in the same position of joined junction."
 msgstr "在合併路口的相同位置上有另外一個未被選擇的路口。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1464
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "此路口將與其它已選擇的路口一起進行合併。繼續執行？"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1585
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1595
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1577
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1587
 msgid "Clear crossings"
 msgstr "清除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1586
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1578
 msgid "There are no invalid crossings to remove."
 msgstr "沒有要移除的無效人行道。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1596
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1588
 msgid "Crossings will be cleared. Continue?"
 msgstr "人行道將被清除。繼續執行？"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1607
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1599
 msgid "clear crossings"
 msgstr "清除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1620
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1612
 msgid "clear junctions"
 msgstr "清除路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1649
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1641
 msgid "clear unused routes"
 msgstr "清除未使用的路徑"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1704
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1696
 msgid "merge routes"
 msgstr "合併路徑"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1758
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1750
 msgid "adjust person plans"
 msgstr "調整個人旅運計劃"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1798
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1790
 msgid "remove invalid demand elements"
 msgstr "移除無效的需求元素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1813
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1805
 msgid "replace junction by geometry"
 msgstr "用幾何形狀替換路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1858
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1850
 msgid "Junction isn't removable"
 msgstr "路口無法被移除"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1870
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1862
 msgid "split junction"
 msgstr "分割路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1910
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1902
 msgid "Could not rename split node to '%'"
 msgstr "無法將分割的節點重新命名為 '%'"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1949
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1941
 msgid "clear junction connections"
 msgstr "清除路口內的連結線"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1961
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1953
 msgid "reset junction connections"
 msgstr "重置路口內連接線"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1972
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1964
 msgid "clear additional elements"
 msgstr "清除附加元素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1985
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1977
 msgid "clear demand elements"
 msgstr "清除需求元素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1998
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1990
 msgid "clear data elements"
 msgstr "清除資料元素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2009
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2001
 msgid "clear meanData elements"
 msgstr "清除meanData元素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2348
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2445
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2340
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2437
 msgid "Duplicated ID"
 msgstr "複製的ID"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2735
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2727
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "路網規模超過 1 光年。 請重新考慮您的輸入。"
 
@@ -4907,15 +4912,15 @@ msgstr "路網規模超過 1 光年。 請重新考慮您的輸入。"
 msgid "Default vType doesn't exist"
 msgstr "預設的vType 不存在"
 
-#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2557
+#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2561
 msgid "Invalid meanData pointer"
 msgstr "無效的meanData指標"
 
-#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2874
+#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2878
 msgid "Redo replace in TLS"
 msgstr "重作在TLS內的替換"
 
-#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2880
+#: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2884
 msgid "Undo replace in TLS"
 msgstr "取消在TLS內的替換"
 
@@ -4998,7 +5003,7 @@ msgid "Remove from Selected"
 msgstr "從選定項中刪除"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:515
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:300
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:299
 msgid "Add to Selected"
 msgstr "新增到選定項內"
 
@@ -5335,7 +5340,8 @@ msgstr "於多個路口上新增交通號誌(TLS)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5875
 msgid "Shift + click to create two additionals in the same position"
-msgstr "移位鍵(shift) + 點選(click) 將在同一個位置上新稱兩個附加物(additionals)"
+msgstr ""
+"移位鍵(shift) + 點選(click) 將在同一個位置上新稱兩個附加物(additionals)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:6129
 msgid "Control + click to create two stop in the same position"
@@ -5569,7 +5575,9 @@ msgstr "將狀態應用於所有相位(phases)"
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
-msgstr "切換是否點擊時應將更改的狀態(state)應用於現有交通號誌(TLS) 計劃的所有相位(phase)。"
+msgstr ""
+"切換是否點擊時應將更改的狀態(state)應用於現有交通號誌(TLS) 計劃的所有相位"
+"(phase)。"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2479
 msgid "Automatic merging junction"
@@ -5600,8 +5608,7 @@ msgid "Edge chain mode"
 msgstr "路段鏈(chain)模式"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2499
-msgid ""
-"Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr "單擊一下即可建立連續的路段（按 ESC 取消鏈(chain))。"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2506
@@ -6162,8 +6169,7 @@ msgid "Graphical editor for road networks and infrastructure."
 msgstr "道路路網和基礎設施的圖形編輯軟體。"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
-msgid ""
-"This application is based on code provided by the Eclipse SUMO project."
+msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr "此應用軟體是以Eclipse SUMO專案提供的代碼為基礎開發的。"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:67
@@ -6652,8 +6658,8 @@ msgstr "變數是由一個密鑰(key)及值(value)定義的。\n"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format "
-"key1=parameter1|key2=parameter2|...\n"
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
 msgstr "- 在netedit 內可以用格式密鑰 1=變數1|密鑰 2=變數2|...定義\n"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
@@ -7189,9 +7195,11 @@ msgstr "在SUMO路段類型檔案內的一個類型名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1172
 msgid ""
-"If the shape is given it should start and end with the positions of the "
-"from-node and to-node"
-msgstr "如果給定形狀(shape)，則應以起始節點(from-node)和終止節點(to-node)的位置開始和結束"
+"If the shape is given it should start and end with the positions of the from-"
+"node and to-node"
+msgstr ""
+"如果給定形狀(shape)，則應以起始節點(from-node)和終止節點(to-node)的位置開始和"
+"結束"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1177
 msgid "The length of the edge in meter"
@@ -7245,8 +7253,8 @@ msgstr "車道識別名(自動產生, 無法編輯)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1254
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
-" is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
+"is the leftmost one)"
 msgstr "車道的列舉索引(0是最右邊的車道, 車道數減去1是最左邊的車道)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
@@ -7356,21 +7364,27 @@ msgstr "如果設定, 車輛通過此車道與車道連接的連接線(connectio
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1448
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
-" worry about blocking the intersection"
-msgstr "如果設定為假值(false), 車輛通過此車道與車道連接的連接線(connection)時, 將不會擔心是否會阻塞路口"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
+"worry about blocking the intersection"
+msgstr ""
+"如果設定為假值(false), 車輛通過此車道與車道連接的連接線(connection)時, 將不會"
+"擔心是否會阻塞路口"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1454
 msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
-msgstr "如果設定為大於0的值, 內部路口將會被建立在此連接線(connection)的內部車道起點的位置(公尺為單位)"
+msgstr ""
+"如果設定為大於0的值, 內部路口將會被建立在此連接線(connection)的內部車道起點的"
+"位置(公尺為單位)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1460
 msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
-msgstr "如果設為真值(true), 儘管節點路口受號誌控制, 此連接線(connection)不會受到號誌控制"
+msgstr ""
+"如果設為真值(true), 儘管節點路口受號誌控制, 此連接線(connection)不會受到號誌"
+"控制"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1466
 msgid "Vision distance between vehicles"
@@ -7451,7 +7465,9 @@ msgstr "車道上的起始位置(車道上較低位置)(以公尺為單位)"
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
-msgstr "車道上的結束位置(車道上較高的位置) (以公尺為單位), 必須比起始位置(startPos)大於 0.1公尺以上"
+msgstr ""
+"車道上的結束位置(車道上較高的位置) (以公尺為單位), 必須比起始位置(startPos)大"
+"於 0.1公尺以上"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1597
 msgid "Name of busStop"
@@ -7473,9 +7489,8 @@ msgstr "公車停靠站(busStop)的名稱"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3259
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4125
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4265
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6392
-msgid ""
-"If set, no error will be reported if element is placed behind the lane."
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6597
+msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr "如果設定，若元素放置在車道後面，不會報告任何錯誤。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1603
@@ -7499,7 +7514,7 @@ msgstr "相反地，它將放置在距離車道盡頭 0.1 米處或 0.1位置(po
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3261
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4127
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4267
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6394
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6599
 msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
@@ -7514,8 +7529,8 @@ msgstr "意思是在這個公車停靠站的公車線路的名稱。這僅用於
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1615
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1681
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the"
-" sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the "
+"sidewalk"
 msgstr "大量人群試圖進入將會在人行道上造成上游堵塞"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1621
@@ -7559,7 +7574,7 @@ msgstr "火車站(trainStop)名稱"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3260
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4126
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4266
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6393
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6598
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr "相反地，它將放置在距離車道末端 0.1 米處或 0.1 米位置，"
@@ -7662,8 +7677,8 @@ msgstr "在運輸過程中啟用或禁用充電，即車輛必須或不得停車
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1862
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station,"
-" before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station, "
+"before the energy transfer (charging) begins"
 msgstr "車輛到達/停在充電站後，能量傳輸（充電）開始之前的時間延遲"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1868
@@ -7710,8 +7725,8 @@ msgstr "路邊停車位的寬度"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1947
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) /"
-" roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) / "
+"roadsideCapacity"
 msgstr "路邊停車位的長度。預設情況下為（終點位置 - 開始位置）/路邊容量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1953
@@ -7755,8 +7770,8 @@ msgstr "E1 的id"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2328
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2362
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of"
-" the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of "
+"the network used"
 msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2028
@@ -7764,13 +7779,14 @@ msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
-msgstr "偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
+msgstr ""
+"偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2033
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2093
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2175
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2249
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6757
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6760
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
 msgstr "在匯總週期內偵測器採集的值應相加"
@@ -7836,14 +7852,17 @@ msgstr "時間為基礎的閾值用來定義車輛必須停等多少時間才會
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
-msgstr "速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
+msgstr ""
+"速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2131
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2213
 msgid ""
 "The minimum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam) in m"
-msgstr "車輛到下一個停等的車輛得最短距離(公尺), 此距離用於計算該車輛是否被視為堵塞的參與者"
+msgstr ""
+"車輛到下一個停等的車輛得最短距離(公尺), 此距離用於計算該車輛是否被視為堵塞的"
+"參與者"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2150
 msgid "E2 MultiLaneAreaDetector"
@@ -8097,15 +8116,19 @@ msgstr "車輛重新搜尋路徑(rerouting)機率(0-1)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2707
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting"
-" (default -1 which disables the threshold)"
-msgstr "啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, 表示禁用此閾值)"
+"The waiting time threshold (in s) that must be reached to activate rerouting "
+"(default -1 which disables the threshold)"
+msgstr ""
+"啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, 表示禁用此閾"
+"值)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2713
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
-msgstr "受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影響)"
+msgstr ""
+"受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影"
+"響)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2718
 msgid ""
@@ -8395,8 +8418,8 @@ msgstr "架空電線開始夾(overheadWireIDStartClamp)的架空電線區段車�
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3296
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp"
-" is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp "
+"is connected"
 msgstr "與架空電線夾終點連結的架空電線區段的識別名(ID)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3301
@@ -8442,8 +8465,8 @@ msgstr "路徑識別名(id)"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3396
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3445
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using"
-" spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using "
+"spaces"
 msgstr "車輛行經的路段(使用空格分隔)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3401
@@ -8516,15 +8539,15 @@ msgstr "車輛的最大速度[公尺/秒]"
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
-msgstr "車輛預期的車道速度限制乘數(multiplicator) (或一個分佈說明符(specifier))"
+msgstr ""
+"車輛預期的車道速度限制乘數(multiplicator) (或一個分佈說明符(specifier))"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3520
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "車輛所需的最大速度 (與 speedFactor 交互作用)。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3521
-msgid ""
-"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr "適用於沒有速度限制的情況 (腳踏車, 某些高速公路） [m/s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3526
@@ -8545,8 +8568,8 @@ msgstr "車輛長度 [公尺] (只用於繪製)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3550
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow"
-" functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow "
+"functional coloring)"
 msgstr "用於呈現此類別車輛的圖像檔案(應為灰階標度以允許功能性著色)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3555
@@ -8866,8 +8889,7 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "定位點(waypoint)應位於的車道的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4273
-msgid ""
-"The lateral offset on the named lane at which the vehicle must waypoint"
+msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr "車輛必須在已指定車道上定點的側向偏移值"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4286
@@ -9269,8 +9291,8 @@ msgstr "車輛離該路網時的應有速度"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5630
 msgid ""
-"A string specifying the id of a public transport line which can be used when"
-" specifying person rides"
+"A string specifying the id of a public transport line which can be used when "
+"specifying person rides"
 msgstr "當指定人員乘車(ride)時, 一個用於指定公共運輸路線的識別名的字串"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5635
@@ -9349,8 +9371,8 @@ msgstr "此類型車輛的減速能力[公尺/平方秒]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5738
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model "
-"[m/s^2]"
+"The apparent deceleration of the vehicle as used by the standard model [m/"
+"s^2]"
 msgstr "標準模式使用的車輛視在減速 [公尺/平方秒]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5744
@@ -9420,9 +9442,10 @@ msgstr "EIDM 最大急衝變數 [公尺/立方秒]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5843
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) "
-"[m/s^2]"
-msgstr "在兩個動作點(action points)之間的EIDM模式最大負加速度（閾值） [公尺/平方秒]"
+"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
+"s^2]"
+msgstr ""
+"在兩個動作點(action points)之間的EIDM模式最大負加速度（閾值） [公尺/平方秒]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5849
 msgid ""
@@ -9439,8 +9462,8 @@ msgstr "EIDM 啟動/起步曲線的偏移變數 [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5867
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration"
-" calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration "
+"calculation [0/1]"
 msgstr "EIDM 變數，如果模式應將車輛動力學納入加速度計算 [0/1]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5873
@@ -9520,14 +9543,14 @@ msgstr "如果黃燈相位的時間低於給定的閾值，則此值會導致車
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6024
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red"
-" phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red "
+"phase is lower than the given threshold."
 msgstr "如果紅燈相位的時間低於給定的閾值，則此值會導致車輛闖紅燈。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6030
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
-" violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
+"violating a red light."
 msgstr "此值會導致受 jmDriveAfterRedTime 影響的車輛在闖紅燈時減速。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6036
@@ -9632,9 +9655,10 @@ msgstr "每秒最大側向加速度。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6147
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the"
-" left is necessary (relative to right lookahead)."
-msgstr "當需要向左變換（相對於向右前看）時, 用於設定策略性向前看距離的係數(factor)。"
+"Factor for configuring the strategic lookahead distance when a change to the "
+"left is necessary (relative to right lookahead)."
+msgstr ""
+"當需要向左變換（相對於向右前看）時, 用於設定策略性向前看距離的係數(factor)。"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6153
 msgid ""
@@ -9650,12 +9674,13 @@ msgstr "站立時側向速度的上限。"
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
-msgstr "移動時側向速度上限的計算為lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
+msgstr ""
+"移動時側向速度上限的計算為lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * "
+"getSpeed()"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6171
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the "
-"alignment"
+"Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr "在車輛路徑上，到即將轉彎的距離，低於該距離的對齊方式"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6172
@@ -9705,12 +9730,12 @@ msgid "This container's color"
 msgstr "此貨櫃的顏色"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6266
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6585
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6577
 msgid "Minimum duration for stopping"
 msgstr "最短停靠時間"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6273
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6592
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6584
 msgid "The time step at which the route continues"
 msgstr "路徑繼續時的時間長度"
 
@@ -9718,7 +9743,8 @@ msgstr "路徑繼續時的時間長度"
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
-msgstr "如果設定一個非負數的時間值,則停等的時間可以被延長 最多以秒為單位的延長值"
+msgstr ""
+"如果設定一個非負數的時間值,則停等的時間可以被延長 最多以秒為單位的延長值"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6286
 msgid "Whether a person or container or both may end the stop"
@@ -9758,8 +9784,7 @@ msgstr "在開始位置(startPos)和 結束位置(endPos)之間行駛時要保�
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6333
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or "
-"disembark"
+"Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr "如果沒有乘客要上下車，是否可以跳過該站"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6340
@@ -9783,229 +9808,229 @@ msgstr ""
 msgid "Arrival position on the destination edge"
 msgstr "目的地路段上的抵達位置"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6401
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6393
 msgid "Bus stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6407
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6399
 msgid "Train stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6413
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6405
 msgid "Container stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6420
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6412
 msgid "Edge start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6426
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6418
 msgid "TAZ start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6432
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6424
 msgid "Junction start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6438
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6430
 msgid "BuStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6444
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6495
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6436
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6487
 msgid "TrainStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6450
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6501
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6442
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6493
 msgid "ContainerStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6457
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6449
 msgid "Edge end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6464
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6456
 msgid "The position at which the tranship shall enter the net"
 msgstr "轉運應進入路網時的位置"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6470
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6462
 msgid "arrival position on the destination edge"
 msgstr "目標路段上的抵達位置"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6477
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6469
 msgid "TAZ end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6483
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6475
 msgid "Junction end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6489
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6481
 msgid "BuStop end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6514
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6506
 msgid "List of possible vehicle types to take"
 msgstr "可供使用的車輛類型的清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6519
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6511
 msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr "可能的交通運具清單。無論此值如何，步行始終是可能的"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6524
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6516
 msgid "list of vehicle alternatives to take for the person trip"
 msgstr "人旅次可以使用的替代車輛清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6544
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6536
 msgid "list of vehicle alternatives to take for the ride"
 msgstr "乘車時可以使用的替代車輛清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6558
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6550
 msgid "list of vehicle alternatives to take for the transport"
 msgstr "運送的替代車輛清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6572
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6564
 msgid "speed of the container for this tranship in m/s"
 msgstr "貨櫃(container)的轉運速度(公尺/秒)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6598
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6590
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr "在GUI及輸出檔案中為停等人員顯示的活動 "
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6616
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6619
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 msgid "DataSet"
 msgstr "資料集"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6621
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6624
 msgid "Data set ID"
 msgstr "資料集合識別名(ID)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6633
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6636
 msgid "DataInterval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6639
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6642
 msgid "Interval ID"
 msgstr "區間識別名(ID)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6645
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6648
 msgid "Data interval begin time"
 msgstr "資料區間開始時間"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6651
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6654
 msgid "Data interval end time"
 msgstr "資料區間結束時間"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6663
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6666
 msgid "EdgeRelationSingle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6668
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6671
 msgid "edge ID"
 msgstr "路段識別名(ID)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6683
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6686
 msgid "The ID of the edge the edgeRel starts at"
 msgstr "路段關係(edgeRel)開始的路段的識別名(ID)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6688
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6691
 msgid "The ID of the edge the edgeRel ends at"
 msgstr "路段關係(edgeRel)結束的路段的識別名(ID)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6704
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6707
 msgid "The name of the TAZ the TAZRel starts at"
 msgstr "交通分區(TAZ)的名稱,其分區關係(TAZRel)開始於"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6709
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6712
 msgid "The name of the TAZ the TAZRel ends at"
 msgstr "TAZ的名稱,其TAZRel結束於"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6719
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6722
 msgid "MeanDataEdge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6732
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6735
 msgid "MeanDataLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6747
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6750
 msgid "The id of this set of measurements"
 msgstr "此測量值集合的識別名(id)"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6752
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6755
 msgid "The path to the output file. The path may be relative"
 msgstr "輸出檔案的路徑。路徑可能可以是相對路徑"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6762
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6765
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr "開始寫出的時間。如果沒有給定，將使用模擬開始的時間。"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6767
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6770
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr "結束寫出的時間。如果沒有給定，將使用模擬結束的時間。"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6772
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6775
 msgid ""
 "If set to true, edges/lanes which were not use by a vehicle during this "
 "period will not be written"
 msgstr "如果設定為真值(true)，則在此區間未被車輛使用的路段及車道將不會被寫出"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6779
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6782
 msgid "If set, junction internal edges/lanes will be written as well"
 msgstr "如果設定，路口內部路段/車道將也被寫出"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6785
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6788
 msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr "如果僅發生非常小的移動, 則寫出以秒為單位最長旅行時間"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6791
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6794
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr "如果路段/車道最多具有這麼多取樣秒數，則考慮此未使用的路段/車道"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6797
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6800
 msgid "The maximum speed to consider a vehicle halting;"
 msgstr "考慮車輛停止的最大速度;"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6803
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6806
 msgid "space separated list of vehicle type ids to consider"
 msgstr "考慮以空白分隔的車輛類型清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6808
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6811
 msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr "是否應該對所有進入路段/車道的車輛在聚合時間區間內進行匯總內進行匯總"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6814
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6817
 msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr "是否應該紀錄行人,而非車輛。允許值為 行走"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6819
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6822
 msgid "List of attribute names that shall be written"
 msgstr "應寫入的屬性名稱清單"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6824
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6827
 msgid "Restrict output to the given list of edge ids"
 msgstr "僅對給定清單內的路段識別名(ID)輸出結果"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6829
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6832
 msgid "Restrict output to the given the list of edges given in file"
 msgstr "僅對給定檔案內的路段識別名(ID)輸出結果"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6834
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6837
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single"
-" value"
+"Whether the traffic statistic of all edges shall be aggregated into a single "
+"value"
 msgstr "是否所有路段的交通統計應被彙整為一個單一 值"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
@@ -10017,16 +10042,16 @@ msgid ""
 "element must be at least networkElement, additional, TAZ, demandElement, "
 "dataElement or meanData"
 msgstr ""
-"元素必須至少是路網元素(networkElement), 附加物(additional), 交通分區(TAZ),需求元素(demandElement),"
-" 資料元素(dataElement) 或平均資料(meanData)"
+"元素必須至少是路網元素(networkElement), 附加物(additional), 交通分區(TAZ),需"
+"求元素(demandElement), 資料元素(dataElement) 或平均資料(meanData)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:96
 msgid ""
-"element can be only a networkElement, additional, demandElement, dataElement"
-" or meanData at the same time"
+"element can be only a networkElement, additional, demandElement, dataElement "
+"or meanData at the same time"
 msgstr ""
-"元素只能同時是路網元素(networkElement), 附加物(additional),需求元素(demandElement), "
-"資料元素(dataElement) 或平均資料(meanData)"
+"元素只能同時是路網元素(networkElement), 附加物(additional),需求元素"
+"(demandElement), 資料元素(dataElement) 或平均資料(meanData)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:100
 msgid "element can be only a shape, TAZ or wire element at the same time"
@@ -10070,7 +10095,7 @@ msgstr "已超出標記 % 的最大屬性數量"
 msgid "Attribute '%' already inserted"
 msgstr "已插入屬性 '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:197
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:203
 #, c-format
 msgid "Attribute '%' doesn't exist"
 msgstr "屬性 '%' 不存在"
@@ -10090,7 +10115,7 @@ msgstr "屬性 '%' 不存在"
 msgid " > lanes's length"
 msgstr " > 車道長度"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:338
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:356
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:146
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:178
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:179
@@ -10098,38 +10123,38 @@ msgstr " > 車道長度"
 msgid "Copy % name to clipboard"
 msgstr "複製 % 名稱到剪貼簿"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:339
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:357
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:147
 msgid "Copy % typed name to clipboard"
 msgstr "複製 % 類型名稱到剪貼簿"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:347
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:365
 msgid "Open "
 msgstr "開啟 "
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:347
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:365
 msgid " Dialog"
 msgstr " 對話"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:355
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:365
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:373
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:383
 msgid "Cursor position over additional shape: "
 msgstr "游標在附加形狀物上的位置: "
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:359
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:377
 msgid "Cursor position over lane: "
 msgstr "游標在車道上的位置: "
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:369
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:387
 msgid "Mouse position over edge: "
 msgstr "滑鼠在路段上的位置: "
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:372
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:390
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:189
 msgid "Cursor position in view: "
 msgstr "游標在檢視窗內的位置: "
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:641
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditional.cpp:659
 msgid "Invalid number of edges"
 msgstr "無效的路段數量"
 
@@ -10145,7 +10170,9 @@ msgstr "新增火車站 '"
 msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
-msgstr "無法在 netedit 中建立連通通道(access)； 公車站的親代(parent)在路段上已有連通通道(access) '"
+msgstr ""
+"無法在 netedit 中建立連通通道(access)； 公車站的親代(parent)在路段上已有連通"
+"通道(access) '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:190
 #, c-format
@@ -10170,7 +10197,9 @@ msgstr "新增充電站 '"
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
-msgstr "無法在 netedit 中用識別號(ID) '%' 建立停車區域; 車道上的出發位置(departPos)無效."
+msgstr ""
+"無法在 netedit 中用識別號(ID) '%' 建立停車區域; 車道上的出發位置(departPos)無"
+"效."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:333
 msgid "add parking area '"
@@ -10178,8 +10207,8 @@ msgstr "新增停車區域 '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:355
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute width cannot be parse to "
+"float."
 msgstr "無法在netedit建立停車區域; 屬性寬度無法解析為浮點數。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:357
@@ -10190,8 +10219,8 @@ msgstr "無法在netedit內建立停車空間; 屬性長度無法剖析為浮點
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:359
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to"
-" float."
+"Could not build parking space in netedit; attribute angle cannot be parse to "
+"float."
 msgstr "浮點數。"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:380
@@ -10208,7 +10237,9 @@ msgstr "新增偵測器 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
-msgstr "無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 交通號誌識別號 (ID) 無效."
+msgstr ""
+"無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 交通號誌識別號 (ID) 無"
+"效."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:489
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:550
@@ -10306,7 +10337,9 @@ msgstr "新增可變速度標誌(VSS)時間步長於 '"
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
-msgstr "無法在 netedit 中用識別號(ID) '%' 建立蒸發器(vaporizer); 開始時間大於結束時間."
+msgstr ""
+"無法在 netedit 中用識別號(ID) '%' 建立蒸發器(vaporizer); 開始時間大於結束時"
+"間."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
 msgid "add vaporizer in '"
@@ -10412,10 +10445,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2745
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2756
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2767
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2780
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2783
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2794
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2807
 #, c-format
 msgid "Could not build % in netedit"
 msgstr ""
@@ -10429,10 +10462,10 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2745
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2756
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2767
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2780
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2783
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2794
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2807
 #, c-format
 msgid "% doesn't exist."
 msgstr ""
@@ -10572,7 +10605,7 @@ msgid "Polygon already simplified"
 msgstr "多邊形已簡化"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNETAZ.cpp:281
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:815
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:821
 msgid "Set custom Geometry Point"
 msgstr "設定自行定義的幾何點"
 
@@ -10680,24 +10713,24 @@ msgstr ""
 msgid "Attribute '%' doesn't exist."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:723
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:729
 msgid "Route length: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:733
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:739
 msgid "reverse"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:735
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:741
 msgid "reverse current %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:736
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:742
 msgid "Add reverse %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1297
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1310
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1357
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1370
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr ""
 
@@ -10706,151 +10739,190 @@ msgstr ""
 msgid "copy % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:69
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:104
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:137
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:106
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:139
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1883
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1907
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1919
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1910
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1934
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1946
 msgid "There is another % with the same ID='%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:79
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:109
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:147
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:194
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:81
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:111
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:149
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:196
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:229
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:268
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:305
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:347
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:387
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:427
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:471
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:511
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:551
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:583
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:610
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:892
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:919
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1156
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1171
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:303
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:343
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:381
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:419
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:461
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:499
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:537
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:567
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:594
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:890
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:917
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1256
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1271
 msgid "add "
 msgstr "新增 "
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:183
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:185
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:257
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:294
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:338
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:378
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:418
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:462
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:502
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:542
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:578
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:605
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:887
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:914
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:292
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:334
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:372
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:410
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:452
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:490
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:528
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:562
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:589
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:885
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:912
 msgid "Invalid vehicle type '%' used in % '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:185
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:187
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:261
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:298
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:340
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:380
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:420
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:464
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:504
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:544
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:296
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:336
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:374
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:412
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:454
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:492
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:530
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:187
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:189
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:263
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:300
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:342
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:382
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:422
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:466
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:506
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:546
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:298
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:338
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:376
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:414
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:456
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:494
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:532
 msgid "Invalid % used in % '%'. % is greater than type %"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:259
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:296
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:294
 msgid "Invalid route '%' used in % '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:672
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:767
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:854
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:957
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1010
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:649
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:749
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:841
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1056
+msgid "invalid person parent"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:652
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:752
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:952
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1009
+msgid "invalid combination for personTrip"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:661
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:761
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:852
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:959
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1016
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1065
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1106
 msgid "add % in '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1084
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:843
+msgid "invalid combination for ride"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:950
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1007
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1097
+msgid "invalid container parent"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1058
+msgid "invalid combination for person stop"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1099
+msgid "invalid combination for containerStop"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1132
+msgid "Stops needs a parent"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1184
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1092
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1192
 msgid "Persons don't support stops at containerStops"
 msgstr "人員不支援停靠於貨櫃停靠點"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1100
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1200
 msgid "Persons don't support stops at chargingStations"
 msgstr "人員不支援停靠於充電站"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1103
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1203
 msgid "Containers don't support stops at chargingStations"
 msgstr "貨櫃不支援停靠於充電站"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1111
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1211
 msgid "Persons don't support stops at parkingAreas"
 msgstr "人員不支援停靠於停車區域"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1114
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1214
 msgid "Containers don't support stops at parkingAreas"
 msgstr "貨櫃不支援停靠於停車區域"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1124
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1224
 msgid "vehicles don't support stops at edges"
 msgstr "車輛不支援停靠點位於路段上"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1137
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1237
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
-msgstr "一個停靠點必須定義在一個停靠位置(stoppingPlace), 一個路段或是一個車道上"
+msgstr ""
+"一個停靠點必須定義在一個停靠位置(stoppingPlace), 一個路段或是一個車道上"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1139
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1239
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr "一個停靠點只需要一個停靠位置(stoppingPlace), 一個路段或是一個車道"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1895
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1922
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2952
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3014
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2960
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3022
 msgid "invalid probability % in % '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2966
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3028
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:332
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:323
 msgid "Invalid Stop parent"
 msgstr "無效的停靠點親代(Stop parent)"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:346
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:337
 msgid "Invalid parent"
 msgstr "無效的親代(parent)"
 
@@ -10994,11 +11066,11 @@ msgstr ""
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "無法設定屬性 '%' (交通號誌(tls)損壞)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2232
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2246
 msgid "Could not compute smooth shape for edge '%'"
 msgstr "無法計算路段 '%' 的平滑形狀"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2250
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2264
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr "無法計算路段 '%' 的平滑高程"
 
@@ -11006,242 +11078,242 @@ msgstr "無法計算路段 '%' 的平滑高程"
 msgid "invalid link state='%'"
 msgstr "無效的連結狀態(link state) ='%'"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:517
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:523
 msgid "Reset junction shapes"
 msgstr "重新設定路口形狀"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1307
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1313
 msgid "change junction position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1328
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1334
 msgid "change keepClear for whole junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:565
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:571
 msgid "Unexpected LinkState '%'"
 msgstr "無預期的連結狀態(LinkState) '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:772
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:778
 msgid "Copy parent edge name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:781
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:787
 msgid "Remove Lane From Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:783
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:789
 msgid "Add Lane To Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:787
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:793
 msgid "Remove Edge From Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:789
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:795
 msgid "Add Edge To Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:806
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:812
 msgid "Reset edge end points"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:833
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:839
 msgid "Select state for all links from this edge:"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:843
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:849
 msgid "Additional options available in 'Inspect Mode'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:858
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:864
 msgid "Shape pos: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:859
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:865
 msgid "Length pos: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:861
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:867
 msgid "Distance: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:863
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:869
 msgid "Height: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:864
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:870
 msgid "Angle: "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:912
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:918
 msgid "Lane Parametric Length cannot be never 0"
 msgstr "車道參數長度永遠不能為 0"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1078
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1084
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr "對向車道 '%' 不與路段 '%' 相同的節點連接!"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1913
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1919
 #, c-format
 msgid "Edge operations (% selected)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1915
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1921
 msgid "Edge operations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1918
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1924
 msgid "Split edge here"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1919
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1925
 msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1924
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1930
 msgid "Split edge in both directions here (no opposite edge)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1931
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1937
 msgid "Split edge in both directions here"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1935
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
 msgid "Set geometry endpoint here (shift-click)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1939
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1945
 msgid "Restore both geometry endpoints"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
 msgid "Restore geometry endpoints of all selected edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1944
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1950
 msgid "Restore geometry endpoint (shift-click)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1946
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
 msgid "Reverse %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1953
 msgid "Add reverse direction for %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1951
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1957
 msgid "Add reverse disconnected direction for %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1958
 msgid "Reset lengths for %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1953
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
 msgid "Straighten %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1954
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
 msgid "Smooth %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1955
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
 msgid "Straighten elevation of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1956
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1962
 msgid "Smooth elevation of %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2003
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2009
 #, c-format
 msgid "Lane operations (% selected)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2005
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2011
 msgid "Lane operations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2007
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2013
 msgid "Duplicate lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2008
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2014
 msgid "Set custom lane shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2009
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2015
 msgid "Reset custom shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2013
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2019
 msgid "Reset opposite lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2025
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2036
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2045
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2031
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2042
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2051
 msgid "Sidewalk"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2026
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2046
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2044
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2052
 msgid "Bike lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2027
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2040
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2047
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2046
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2053
 msgid "Bus lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2030
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2042
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2036
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Green verge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
 msgid "Green verge (front)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2039
 msgid "Green verge (back)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2050
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2056
 msgid "Add restricted %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2051
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2057
 msgid "Remove restricted %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2052
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2058
 msgid "Transform to restricted %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2093
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2099
 #, c-format
 msgid "Template operations (% selected)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2095
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2101
 msgid "Template operations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2098
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2104
 msgid "Use edge as template"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2099
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2105
 msgid "Apply template"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2119
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2125
 msgid "Select reachable (compute junctions)"
 msgstr ""
 
@@ -11308,10 +11380,6 @@ msgstr "車道路徑至少需要兩條車道"
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:296
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:343
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:415
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:313
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:353
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:382
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:423
 msgid "route creation"
 msgstr "路徑建立"
 
@@ -11389,66 +11457,66 @@ msgstr "階層"
 msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "預設車輛類型 '%' 無法移除"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:316
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:319
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:278
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:277
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 msgid "Center"
 msgstr "中心"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:397
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:416
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:477
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:400
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:419
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:480
 msgid " origin"
 msgstr " 起點"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:398
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:417
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:478
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:401
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:420
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:481
 msgid " destination"
 msgstr " 迄點"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:506
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:632
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:706
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:509
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:635
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:709
 msgid " additionals..."
 msgstr " 附加物(additionals)..."
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:520
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:583
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:646
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:720
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:523
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:586
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:649
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:723
 msgid " demand elements..."
 msgstr " 需求元素..."
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:534
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:597
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:660
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:738
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:537
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:600
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:663
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:741
 msgid " edges..."
 msgstr " 路段..."
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:548
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:611
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:674
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:756
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:551
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:614
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:677
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:759
 msgid " lanes..."
 msgstr " 車道..."
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:569
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:572
 msgid " TAZElements..."
 msgstr " 分區元素(TAZElements)..."
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:815
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:911
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:818
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:914
 msgid "Data elements"
 msgstr "資料元素"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:841
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:844
 msgid "Incomings"
 msgstr "進入的路段/連接線"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:851
+#: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:854
 msgid "Outgoing"
 msgstr "離開的路段/連接線"
 
@@ -11652,15 +11720,15 @@ msgid ""
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
-msgid ""
-"- Reference point: Mark the initial position of the additional element."
+msgid "- Reference point: Mark the initial position of the additional element."
 msgstr "- 參考點：標記附加元素的初始位置。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:381
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
-msgstr "  範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
+msgstr ""
+"  範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
@@ -11699,8 +11767,7 @@ msgid "  the mouse. This option can be modified inspecting element."
 msgstr "  滑鼠。這個選項可以修改檢視的元素。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:393
-msgid ""
-"- Center view: if is enabled, view will be center over created element."
+msgid "- Center view: if is enabled, view will be center over created element."
 msgstr "- 中心視圖：如果啟用，建立的元素將展示於中間位置。"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
@@ -11757,7 +11824,7 @@ msgid "   previous element"
 msgstr "   前一個元素"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:127
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:155
 msgid "Route creator"
 msgstr "路徑產生器"
 
@@ -11768,17 +11835,17 @@ msgid "No edges selected"
 msgstr "未選擇路段"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:135
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:132
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:160
 msgid "Use last route"
 msgstr "使用最後一個路徑"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:138
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:135
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:163
 msgid "Finish route creation"
 msgstr "完成路徑建立"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:141
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:138
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:166
 msgid "Abort route creation"
 msgstr "中止路徑建立"
 
@@ -11791,7 +11858,7 @@ msgid "Show candidate edges"
 msgstr "顯示候選路段"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:277
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:291
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:948
 msgid "Double junctions aren't allowed"
 msgstr "不允許雙重的路口"
 
@@ -11800,7 +11867,7 @@ msgid "Only two junctions are allowed"
 msgstr "僅允許兩個路口"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:324
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:331
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:982
 msgid "Double TAZs aren't allowed"
 msgstr ""
 
@@ -11809,8 +11876,8 @@ msgid "Only two TAZs are allowed"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:367
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:371
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:401
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:924
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1016
 msgid "Double edges aren't allowed"
 msgstr "不允許雙重的路段"
 
@@ -11877,30 +11944,26 @@ msgstr " 路段衝突 (車輛類別)"
 msgid " edge disconnected"
 msgstr " 不連接的路段"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:141
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:169
 msgid "Remove last element"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:298
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:338
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:408
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:453
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:881
+msgid "Click over:"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:955
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:989
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1023
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1058
 msgid "Only two from-to elements are allowed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:446
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1051
 msgid "Double stoppingPlaces aren't allowed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:494
-msgid "Double routes aren't allowed"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:501
-msgid "Route already selected"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:90
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:91
 msgid "Plan type"
 msgstr ""
 
@@ -12128,7 +12191,8 @@ msgstr "設定新的親代(parent)"
 msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
-msgstr "標記前端元素(front element): 標記元素為前端元素 (將會繪製在其他元素之上)\n"
+msgstr ""
+"標記前端元素(front element): 標記元素為前端元素 (將會繪製在其他元素之上)\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:369
 msgid "- Block movement: disable movement in move mode\n"
@@ -12142,8 +12206,8 @@ msgstr "- 鎖住形狀物:禁止移動形狀物的點和邊。整個形狀物可
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
-"- Close shape: Add or remove the last vertex with the same position of first"
-" edge'."
+"- Close shape: Add or remove the last vertex with the same position of first "
+"edge'."
 msgstr "- 封閉形狀物: 新增或移除與第一個路段位置相同的最後一個端點。"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
@@ -12223,6 +12287,10 @@ msgstr "開啟校估裝置車道對話窗"
 msgid "Open VSS dialog"
 msgstr "開啟可變性標誌及號誌(VSS)對話窗"
 
+#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:47
+msgid "Match Attribute"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:60
 msgid "Apply selection"
 msgstr "套用 選擇"
@@ -12233,8 +12301,8 @@ msgstr "未知集"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are"
-" then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are "
+"then applied to the current selection\n"
 msgstr "- '匹配屬性'的控制允許指定一組物件,其可以用於現有的選擇內\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
@@ -12267,9 +12335,10 @@ msgstr "- 空白表式會匹配到所有的物件\n"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison"
-" operator ('<', '>', '=') and a number.\n"
-msgstr "對於數值屬性,其匹配表式必須包含一個比較運算子('<', '>', '=')及一個數字。\n"
+"- For numerical attributes the match expression must consist of a comparison "
+"operator ('<', '>', '=') and a number.\n"
+msgstr ""
+"對於數值屬性,其匹配表式必須包含一個比較運算子('<', '>', '=')及一個數字。\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
@@ -12283,7 +12352,9 @@ msgstr "如果給定運算子的屬性與給定數字之間的比較結果為真
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
-msgstr "對於字串屬性,其匹配表式必須包含一個比較運算子('', '=', '!', '^')及一個字串。\n"
+msgstr ""
+"對於字串屬性,其匹配表式必須包含一個比較運算子('', '=', '!', '^')及一個字"
+"串。\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
@@ -12315,8 +12386,7 @@ msgstr "- 範例:\n"
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
-"id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr "     路口; 識別名(id); 'foo' -> 匹配所有識別名(id)中有 'foo' 的路口\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
@@ -12325,8 +12395,8 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
-"     路口; 類型; '=優先' -> 匹配所有類型為優先'priority'的路口, "
-"但不匹配'優先停等'(priority_stop)類型的路口\n"
+"     路口; 類型; '=優先' -> 匹配所有類型為優先'priority'的路口, 但不匹配'優先"
+"停等'(priority_stop)類型的路口\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
@@ -12337,7 +12407,9 @@ msgstr "     路段; 速度; '>10' -> 匹配所有速度大於 10 的路段\n"
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
-msgstr "匹配通用資料屬性(MatchGenericData Attribute)控制允許指定一組物件，並然後將其應用於目前的選擇\n"
+msgstr ""
+"匹配通用資料屬性(MatchGenericData Attribute)控制允許指定一組物件，並然後將其"
+"應用於目前的選擇\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Common move options"
@@ -12732,31 +12804,33 @@ msgstr "已經有一個 % 定義於分區 '%'內。"
 msgid "There is already a % defined between TAZ'%' and '%'."
 msgstr "已經有一個 % 定義於分區 '%' 及 '%' 之間。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:108
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:123
 msgid "Current selected container isn't valid."
 msgstr "目前選定的貨櫃是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:122
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:113
 msgid "Current selected container type isn't valid."
 msgstr "目前選定的貨櫃類型是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:125
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:118
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:129
 msgid "Current selected container plan isn't valid."
 msgstr "目前選定的貨櫃運送計畫是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:270
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:270
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:243
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:243
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
 msgid "VType with vClass == 'ignoring' is oriented to containers"
-msgstr "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃(containers)為導向"
+msgstr ""
+"具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃(containers)為"
+"導向"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:272
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:245
 msgid "VType with vClass != 'pedestrian' is not oriented to containers"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:295
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:268
 msgid "Invalid container parameters."
 msgstr "無效的貨櫃參數。"
 
@@ -12796,25 +12870,25 @@ msgstr ""
 msgid "Add new distribution value"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:119
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:108
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:123
 msgid "Current selected person isn't valid."
 msgstr "目前選擇的人員是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:122
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:113
 msgid "Current selected person type isn't valid."
 msgstr "目前選擇的人員類型是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:127
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:125
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:118
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:129
 msgid "Current selected person plan isn't valid."
 msgstr "目前選擇的人員出型計畫是無效的。"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:272
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:245
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
 msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)不是以人員(persons)為導向"
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:295
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:268
 msgid "Invalid person parameters."
 msgstr "無效的人員參數。"
 
@@ -13145,15 +13219,15 @@ msgstr "選擇衝突"
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
-msgstr "選擇所有至少有一條進入連接線(incoming connection)的車道 （清除之前的選擇）"
+msgstr ""
+"選擇所有至少有一條進入連接線(incoming connection)的車道 （清除之前的選擇）"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Select Passing"
 msgstr "選擇通過(passing)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
-msgid ""
-"Selects all lanes with a connection that has the 'pass' attribute set"
+msgid "Selects all lanes with a connection that has the 'pass' attribute set"
 msgstr "選擇所有具有一條'通過(pass)'屬性的連接線(connection)的車道"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171
@@ -13187,8 +13261,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
-" nodes or with incompatible permissions"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
+"nodes or with incompatible permissions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
@@ -13353,8 +13427,7 @@ msgstr "建立路段"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:681
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or "
-"template"
+"Select either default edgeType or short edge or a custom edgeType or template"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:683
@@ -14011,7 +14084,8 @@ msgstr "建立新的交通號誌計畫。"
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
-msgstr "刪除交通號誌計畫。如果全部的計畫都被刪除,路口將轉為以優先順序方式控制。"
+msgstr ""
+"刪除交通號誌計畫。如果全部的計畫都被刪除,路口將轉為以優先順序方式控制。"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset single"
@@ -14101,8 +14175,7 @@ msgid "Clean unused states from all phase"
 msgstr "清除所有相位內未使用的狀態"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
-msgid ""
-"Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr "清除所有相位內未使用的狀態。（不允許使用於多個計畫）"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
@@ -14117,7 +14190,9 @@ msgstr "用一個輸入延伸所有相位的狀態向量"
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
-msgstr "通過一個輸入來延伸所有相位的狀態列。 (除非一個連接線或是穿越道被指定一個新的索引,否則將不使用)"
+msgstr ""
+"通過一個輸入來延伸所有相位的狀態列。 (除非一個連接線或是穿越道被指定一個新的"
+"索引,否則將不使用)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
@@ -14127,13 +14202,16 @@ msgstr "進行號誌群組。"
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
-msgstr "通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義"
+msgstr ""
+"通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
-msgstr "通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義(不允許使用於多個時制計畫)"
+msgstr ""
+"通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義(不允"
+"許使用於多個時制計畫)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
@@ -14200,7 +14278,8 @@ msgstr "一個 % 需要至少兩個車道的位置"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
-msgstr "目前尚未支援。使用可變速度標誌(VSS)對話窗建立VSS步驟元素(steps elements)"
+msgstr ""
+"目前尚未支援。使用可變速度標誌(VSS)對話窗建立VSS步驟元素(steps elements)"
 
 #: C:\Repos\sumo/src\netedit\netedit_main.cpp:49
 msgid ""
@@ -14397,44 +14476,44 @@ msgstr "進行編碼時,發生錯誤!"
 msgid "Object must be a lane"
 msgstr "物件必須是一個車道"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:287
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:286
 msgid "Copy name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:287
 msgid "Copy typed name to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:297
 msgid "Remove From Selected"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:310
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:309
 msgid "Show Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:319
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:318
 msgid "Show Type Parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:327
 msgid "Copy cursor position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:330
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:329
 msgid "Copy cursor geo-position to clipboard"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:334
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:333
 msgid "Show cursor geo-position in "
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:352
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:351
 msgid "Open Manipulator..."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:391
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:414
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:390
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:413
 msgid "type: %"
 msgstr ""
 
@@ -14471,8 +14550,7 @@ msgid "Invalid vClass"
 msgstr "無效的車輛類別(vClass)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
-msgid ""
-"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr "對於暫停點(breakpoints),不宜使用屬性'value'。請使用 'time'。"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
@@ -15934,8 +16012,7 @@ msgstr "更改顯示語言需要重啟才能生效。"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:418
 msgid ""
-"For the Debug build you might also need to set the LANG environment "
-"variable."
+"For the Debug build you might also need to set the LANG environment variable."
 msgstr "對於除錯組建(Debug build)，您可能還需要設定LANG的環境變數。"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:421
@@ -16002,7 +16079,9 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgstr "一個停靠點必須設置於公車停靠站"
 
 #~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
-#~ msgstr "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃(containers)為導向"
+#~ msgstr ""
+#~ "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃"
+#~ "(containers)為導向"
 
 #~ msgid "first select an edge"
 #~ msgstr "首先選擇一個路段"
@@ -16154,16 +16233,23 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgid "reference center"
 #~ msgstr "以中心為主的參考點"
 
-#~ msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-#~ msgstr "  開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點將會建立。"
+#~ msgid ""
+#~ "  - Reference Left will create it with startPos = 70 and endPos = 100."
+#~ msgstr ""
+#~ "  開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點"
+#~ "將會建立。"
 
 #~ msgid ""
 #~ "  - Reference Right will create it with startPos = 100 and endPos = 130."
-#~ msgstr "  - 開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參考點將會建立。"
+#~ msgstr ""
+#~ "  - 開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參"
+#~ "考點將會建立。"
 
 #~ msgid ""
 #~ "  - Reference Center will create it with startPos = 85 and endPos = 115."
-#~ msgstr "  - 開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考點將會建立。"
+#~ msgstr ""
+#~ "  - 開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考"
+#~ "點將會建立。"
 
 #~ msgid "Select either default edgeType or a custom edgeType or template"
 #~ msgstr "選擇預設的路段類型,自訂的路段類型或是範本"
@@ -16923,8 +17009,8 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgstr "停車車輛在視圖上的緯度位置"
 
 #~ msgid ""
-#~ "The vehicles expected multiplicator for lane speed limits (or a distribution"
-#~ " specifier)"
+#~ "The vehicles expected multiplicator for lane speed limits (or a "
+#~ "distribution specifier)"
 #~ msgstr "車輛預期的車道速限乘數(multiplicator)(或是分配說明符(specifier))"
 
 #~ msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
@@ -17052,7 +17138,8 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgid "0"
 #~ msgstr "0"
 
-#~ msgid "The list of secuencial lane ids in which the detector shall be laid on"
+#~ msgid ""
+#~ "The list of secuencial lane ids in which the detector shall be laid on"
 #~ msgstr "應放置偵測器的安全車道的識別名(id)清單"
 
 #~ msgid "red"
