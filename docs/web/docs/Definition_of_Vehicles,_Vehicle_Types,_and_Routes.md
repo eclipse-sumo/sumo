@@ -598,7 +598,7 @@ Define a flow of vehicles that desire to drive at 120% of the speed limit withou
 Define a vehicle type with high speed deviation and no cut-off
 
 ```xml
-  <vType id="example2" speedFactor="norm(1.0, 0.5)"/>  
+  <vType id="example2" speedFactor="norm(1.0,0.5)"/>  
 ```
 
 ## Vehicle Length
