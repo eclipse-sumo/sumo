@@ -1195,6 +1195,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
         // draw geometry
         GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
         // check if draw last segment
+/*
         if (segment->getNextSegment() && segment->getNextSegment()->getJunction() &&
             (segment->getNextSegment()->getNextSegment() == nullptr)) {
             Position fromPos = planGeometry.getShape().back();
@@ -1210,6 +1211,7 @@ GNEDemandElementPlan::drawPlanPartial(const bool drawPlan, const GUIVisualizatio
                 GUIGeometry::drawGeometry(s, viewNet->getPositionInformation(), planGeometry, pathWidth);
             }
         }
+*/
         // draw red arrows
         drawFromArrow(s, lane, segment, dottedElement);
         drawToArrow(s, lane, segment, dottedElement);
@@ -1379,11 +1381,11 @@ void
 GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
         const bool dottedElement) const {
     // draw ifcurrent amd next segment is placed over lanes
-    if (segment->getNextSegment() && segment->getNextSegment()->getLane()) {
+    if (segment->getNextLane()) {
         // get firstPosition (last position of current lane shape)
         const Position from = lane->getLaneShape().back();
         // get lastPosition (first position of next lane shape)
-        const Position to = segment->getNextSegment()->getLane()->getLaneShape().front();
+        const Position to = segment->getNextLane()->getLaneShape().front();
         // push draw matrix
         GLHelper::pushMatrix();
         // move front
@@ -1400,11 +1402,11 @@ void
 GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
         const bool dottedElement) const {
     // draw the line if previos segment and current segment is placed over lanes
-    if (segment->getPreviousSegment() && segment->getPreviousSegment()->getLane()) {
+    if (segment->getPreviousLane()) {
         // get firstPosition (last position of current lane shape)
         const Position from = lane->getLaneShape().front();
         // get lastPosition (first position of next lane shape)
-        const Position to = segment->getPreviousSegment()->getLane()->getLaneShape().back();
+        const Position to = segment->getPreviousLane()->getLaneShape().back();
         // push draw matrix
         GLHelper::pushMatrix();
         // move front

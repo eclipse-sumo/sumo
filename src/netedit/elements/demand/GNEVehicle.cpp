@@ -1088,8 +1088,8 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
-        // check if we have to draw a red line to the next segment
-        if (segment->getNextSegment()) {
+        // check if we have to draw a red line to the next segment (if next segment isnt' a junction
+        if (segment->getNextLane()) {
             // push draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
@@ -1099,7 +1099,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             // get firstPosition (last position of current lane shape)
             const Position& firstPosition = lane->getLaneShape().back();
             // get lastPosition (first position of next lane shape)
-            const Position& arrivalPosition = segment->getNextLane()? segment->getNextLane()->getLaneShape().front() : segment->getNextSegment()->getJunction()->getPositionInView();
+            const Position& arrivalPosition = segment->getNextLane()->getLaneShape().front();
             // draw box line
             GLHelper::drawBoxLine(arrivalPosition,
                                   RAD2DEG(firstPosition.angleTo2D(arrivalPosition)) - 90,
