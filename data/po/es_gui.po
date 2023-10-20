@@ -10930,11 +10930,14 @@ msgstr "Agregar % inverso"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1358
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1371
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1852
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1834
 msgid "copy % '%'"
 msgstr "copiar % '%'"
 
@@ -11256,10 +11259,12 @@ msgid "Invalid vehicle tag"
 msgstr "Etiqueta de vehículo no válida"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2342
 msgid "departPos of %"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2352
 msgid "arrivalPos of %"
 msgstr ""
 
@@ -11382,7 +11387,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
 msgid "Set geometry endpoint here (shift-click)"
-msgstr ""
+msgstr "Establecer punto final de geometría aquí (shift+clic)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1945
 msgid "Restore both geometry endpoints"
@@ -11394,7 +11399,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1950
 msgid "Restore geometry endpoint (shift-click)"
-msgstr ""
+msgstr "Restaurar punto final de geometría (shift+clic)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
 msgid "Reverse %"
@@ -12072,15 +12077,15 @@ msgstr "Mostrar aristas candidatas"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:151
 msgid "SHIFT-click: ignore vClass"
-msgstr ""
+msgstr "SHIFT-clic: ignorar clase de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
 msgid "CTRL-click: force add"
-msgstr ""
+msgstr "CTRL-clic: forzar agregación"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:159
 msgid "BACKSPACE: undo click"
-msgstr ""
+msgstr "BACKSPACE: deshacer clic"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:277
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:948
