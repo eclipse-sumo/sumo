@@ -664,13 +664,15 @@ bool
 GNEPathManager::isPathValid(const PathElement* pathElement) const {
     // first check if path element exist
     if (myPaths.count(pathElement) > 0) {
-        // check if path hat more than one element
-        if (myPaths.at(pathElement).size() > 0) {
-            // if there is a next segment, then is invalid
-            return (myPaths.at(pathElement).front()->getNextSegment() == nullptr);
-        } else {
-            return false;
+        // iterate over all segments
+        for (const auto &segment : myPaths.at(pathElement)) {
+            // if we have two consecutive lane segments, then path isn't valid
+            if (segment->getLane() && segment->getNextLane()) {
+                return false;
+            }
         }
+        // all ok, then return true
+        return true;
     } else {
         return false;
     }
@@ -1039,6 +1041,11 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
             if ((i == 0) && fromLane) {
                 // create lane segment using fromLane
                 new Segment(this, pathElement, fromLane, segments);
+                // continue if this isn't the last path edge
+                if (i != lastIndex) {
+                    // create junction segment using to junction
+                    new Segment(this, pathElement, path.at(i)->getToJunction(), segments);
+                }
             } else if ((i == lastIndex) && toLane) {
                 // create lane segment using toLane
                 new Segment(this, pathElement, toLane, segments);
