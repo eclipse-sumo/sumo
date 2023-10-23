@@ -444,6 +444,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             } else {
                 deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
+        } else {
+            deleteDemandElement(edge->getChildDemandElements().front(), undoList);
         }
     }
     // delete edge child generic datas
