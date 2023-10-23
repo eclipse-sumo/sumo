@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_18_0+1693-deba9701844
+Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -447,7 +447,7 @@ Junctions Options:
                                         lane-changing while turning
   --junctions.limit-turn-speed FLOAT   Limits speed on junctions to an average
                                         lateral acceleration of at most FLOAT
-                                        m/s^2)
+                                        (m/s^2)
   --junctions.limit-turn-speed.min-angle FLOAT  Do not limit turn speed for
                                         angular changes below FLOAT (degrees).
                                         The value is subtracted from the
