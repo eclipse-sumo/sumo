@@ -151,7 +151,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
             # TODO: use 'historical data' from dict in get_cost_matrix instead
             route = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
             if cost_type == CostType.TIME:
-                direct_route_cost = route.traveltime
+                direct_route_cost = route.travelTime
             elif cost_type == CostType.DISTANCE:
                 direct_route_cost = route.length
             else:
@@ -164,9 +164,10 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
         stage = traci.person.getStage(person_id, 0)
         # stage type 3 is defined as 'driving'
         assert stage.type == 3
-        # print("travel time: ", stage.travelTime)
-        # print("travel length: ", stage.length)
-        # print("travel cost: ", stage.cost)
+        #if verbose:
+        #    print("travel time: ", stage.travelTime)
+        #    print("travel length: ", stage.length)
+        #    print("travel cost: ", stage.cost)
         if cost_type == CostType.DISTANCE:
             setattr(res, 'current_route_cost', stage.length)
         elif cost_type == CostType.TIME:

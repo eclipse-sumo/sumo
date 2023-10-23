@@ -139,45 +139,70 @@ def add_transportation_requests_constraint(data, routing, manager, solver, dista
 
 
 def add_direct_route_factor_constraint(data, routing, manager, solver, distance_dimension, verbose):
-    if data['drf'] != -1:
+    if data['drf'] == -1:
+        return
+    if verbose:
+        print(' Add direct route factor constraints...')
+    for request in data['pickups_deliveries']:
+        # hard constraint for new requests:
+        if hasattr(request, 'is_new') and request.is_new:
+            add_hard_direct_route_factor_constraint(request, data, manager, solver, distance_dimension, verbose)
+        # soft constraint for old (know) requests:
+        else:
+            add_soft_direct_route_factor_constraint(routing, data, request, solver, manager, distance_dimension, verbose)
+
+    # if possible, let the route costs of the dropoffs less than the drf allows,
+    # else minimize the route costs (in case the costs became larger than expected)
+    for request in data['dropoffs']:  # TODO: test needed
+        direct_route_cost = request.direct_route_cost
+        direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
+        delivery_index = manager.NodeToIndex(request.to_node)
+        distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(
+            direct_route_cost * data['drf'] - request.current_route_cost), 10)
         if verbose:
-            print(' Add direct route factor constraints...')
-        for request in data['pickups_deliveries']:  # if the costs changed and cannot hold anymore? --> see 'dropoffs'
-            pickup_index = manager.NodeToIndex(request.from_node)
-            delivery_index = manager.NodeToIndex(request.to_node)
-            # let the route cost be less or equal the direct route cost times drf
-            direct_route_cost = request.direct_route_cost
-            solver.Add(
-                distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index) <=  # route cost
-                solver.IntConst(round(direct_route_cost * data['drf'])))  # direct route cost times direct route factor
-            route_cost = distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index)
-            direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
-            if verbose:
-                print('reservation %s with direct route cost %s * drf %s = max cost %s' % (
-                    request.id, direct_route_cost, data['drf'], direct_route_cost_drf.Value()))
-        # if possible, let the route costs of the dropoffs less than the drf allows,
-        # else minimize the route costs (in case the costs became larger than expected)
-        for request in data['dropoffs']:  # TODO: not sure that it works, test needed!
-            direct_route_cost = request.direct_route_cost
-            direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
-            delivery_index = manager.NodeToIndex(request.to_node)
-            route_cost = (distance_dimension.CumulVar(delivery_index) +  # cost from veh start to dropoff node
-                          solver.IntConst(round(request.current_route_cost)))  # cost from pickup to veh start
-            # max_cost = solver.Max(route_cost, direct_route_cost_drf)
-            # objective_to_minimize = solver.Minimize(max_cost, 10)
-            # objective_to_minimize.EnterSearch()
-            # solver.Add(max_cost <= objective_to_minimize)
-            # routing.AddVariableMinimizedByFinalizer(max_cost.Var())
-            # solver.Add(
-            #    route_cost <=  # route cost
-            #    direct_route_cost_drf  # direct route cost times direct route factor
-            # )
-            # routing_dimension = routing.GetDimensionOrDie('Costs')
-            distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(
-                direct_route_cost * data['drf'] - request.current_route_cost), 10)
-            if verbose:
-                print('reservation %s with max cost %s, already used costs %s, possible route costs %s' %
-                      (request.id, direct_route_cost_drf.Value(), request.current_route_cost, route_cost))
+            print(f"reservation {request.id}: direct route cost {request.direct_route_cost:.1f} and (soft) max cost {direct_route_cost_drf.Value()}, already used costs {request.current_route_cost:.1f}, ")
+
+
+def add_hard_direct_route_factor_constraint(request, data, manager, solver, distance_dimension, verbose):
+    pickup_index = manager.NodeToIndex(request.from_node)
+    delivery_index = manager.NodeToIndex(request.to_node)
+    # let the route cost be less or equal the direct route cost times drf
+    direct_route_cost = request.direct_route_cost
+    solver.Add(
+        distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index) <=  # route cost
+        solver.IntConst(round(direct_route_cost * data['drf'])))  # direct route cost times direct route factor
+    route_cost = distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index)
+    direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
+    if verbose:
+        print(f"reservation {request.id}: direct route cost {direct_route_cost} and (hard) max cost {direct_route_cost_drf.Value()}")
+
+
+def add_soft_direct_route_factor_constraint(routing, data, request, solver, manager, distance_dimension, verbose):
+    '''If the costs changed and the drf-constraint cannot be hold anymore use a soft constraint.
+    '''
+    matrix_costs = int(np.sum(data['cost_matrix']))
+    # Add new dimension only for this request:
+    request_cost_dimension_name = f'request_cost_{request.id}'
+    routing.AddConstantDimensionWithSlack(
+        0,             # Transition is 0
+        matrix_costs,  # reasonable maximum request costs
+        matrix_costs,  # reasonable maximum slack
+        True,          # force start request costs with 0
+        request_cost_dimension_name)
+    request_cost_dimension = routing.GetDimensionOrDie(request_cost_dimension_name)
+    pickup_index = manager.NodeToIndex(request.from_node)
+    delivery_index = manager.NodeToIndex(request.to_node)
+    route_start = distance_dimension.CumulVar(pickup_index)
+    route_end = distance_dimension.CumulVar(delivery_index)
+    route_cost = request_cost_dimension.CumulVar(delivery_index)
+    solver.Add(route_cost == route_end - route_start)
+    request_cost_dimension.SetCumulVarSoftUpperBound(
+        delivery_index,
+        round( request.direct_route_cost * data['drf'] ),
+        10
+    )
+    if verbose:
+            print(f"reservation {request.id}: direct route cost {request.direct_route_cost} and (soft) max cost {request.direct_route_cost * data['drf']}")
 
 
 def add_dropoff_constraint(data, routing, manager, verbose):
@@ -335,7 +360,7 @@ def add_waiting_time_constraints(data, routing, manager, solver, time_dimension,
 def solve_from_initial_solution(routing, manager, search_parameters, data, verbose):
     solution_requests = data['initial_routes']
     # get inital solution
-    inital_solution = []
+    initial_routes = []
     if solution_requests is not None:
         for index_vehicle in solution_requests:
             # use request ids ([0]) here and align with current status of the requests
@@ -373,13 +398,13 @@ def solve_from_initial_solution(routing, manager, search_parameters, data, verbo
                 else:
                     nodes_order.insert(0, manager.NodeToIndex(req.from_node))
             # nodes_order = solution_requests[index_vehicle][2]  # [2] for nodes
-            inital_solution.append(nodes_order)
+            initial_routes.append(nodes_order)
     routing.CloseModelWithParameters(search_parameters)
     if verbose:
         print('Initial solution:')
-        for index_vehicle, index_list in enumerate(inital_solution):
+        for index_vehicle, index_list in enumerate(initial_routes):
             print('veh %s: %s' % (index_vehicle, [manager.IndexToNode(index) for index in index_list]))
-    initial_solution = routing.ReadAssignmentFromRoutes(inital_solution, True)
+    initial_solution = routing.ReadAssignmentFromRoutes(initial_routes, True)
     solution = routing.SolveFromAssignmentWithParameters(initial_solution, search_parameters)
     return solution
 
