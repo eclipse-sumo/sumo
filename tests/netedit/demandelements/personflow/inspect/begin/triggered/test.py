@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("ride: edge", False)
+netedit.changePersonPlan("ride", False)
 
 # change Person
 netedit.changeElement("personFlow")
