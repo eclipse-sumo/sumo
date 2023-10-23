@@ -69,16 +69,16 @@ allow to reject new reservation 8
 pickup/dropoff nodes: 10/20
 allow to reject new reservation 9
  Add direct route factor constraints...
-reservation 0 with direct route cost 870 * drf 1.5 = max cost 1305
-reservation 1 with direct route cost 771 * drf 1.5 = max cost 1156
-reservation 2 with direct route cost 785 * drf 1.5 = max cost 1178
-reservation 3 with direct route cost 770 * drf 1.5 = max cost 1155
-reservation 4 with direct route cost 1576 * drf 1.5 = max cost 2364
-reservation 5 with direct route cost 777 * drf 1.5 = max cost 1166
-reservation 6 with direct route cost 1166 * drf 1.5 = max cost 1749
-reservation 7 with direct route cost 565 * drf 1.5 = max cost 848
-reservation 8 with direct route cost 276 * drf 1.5 = max cost 414
-reservation 9 with direct route cost 1575 * drf 1.5 = max cost 2362
+reservation 0: direct route cost 870 and (hard) max cost 1305
+reservation 1: direct route cost 771 and (hard) max cost 1156
+reservation 2: direct route cost 785 and (hard) max cost 1178
+reservation 3: direct route cost 770 and (hard) max cost 1155
+reservation 4: direct route cost 1576 and (hard) max cost 2364
+reservation 5: direct route cost 777 and (hard) max cost 1166
+reservation 6: direct route cost 1166 and (hard) max cost 1749
+reservation 7: direct route cost 565 and (hard) max cost 848
+reservation 8: direct route cost 276 and (hard) max cost 414
+reservation 9: direct route cost 1575 and (hard) max cost 2362
  Add dropoff constraints...
  Add capacity constraints...
  Add time windows constraints...
