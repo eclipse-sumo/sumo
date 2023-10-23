@@ -36,7 +36,7 @@
 // method definitions
 // ===========================================================================
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
-    FXDialogBox(parent, "About Eclipse SUMO sumo-gui", GUIDesignDialogBox) {
+    FXDialogBox(parent, TL("About Eclipse SUMO sumo-gui"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
 
@@ -51,7 +51,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     (new FXLabel(descriptionFrame, "SUMO sumo-gui " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, "Graphical user interface for the microscopic, multi-modal traffic simulation SUMO.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice
