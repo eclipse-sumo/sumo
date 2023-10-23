@@ -13899,7 +13899,7 @@ msgid "Unregulated conflict"
 msgstr "Düzenlenmemiş çatışma"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
-msgid "Connection has a unregulated conflict with the selected connection"
+msgid "Connection has an unregulated conflict with the selected connection"
 msgstr "Bağlantı, seçilen bağlantı ile düzensiz bir çatışmaya sahip"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125

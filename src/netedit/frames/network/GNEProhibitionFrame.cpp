@@ -117,7 +117,7 @@ GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent)
     legendLabel = new MFXLabelTooltip(getCollapsableFrame(),
                                       prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
                                       TL("Unregulated conflict"), nullptr, GUIDesignLabelFrameInformation);
-    legendLabel->setTipText(TL("Connection has a unregulated conflict with the selected connection"));
+    legendLabel->setTipText(TL("Connection has an unregulated conflict with the selected connection"));
     legendLabel->setBackColor(MFXUtils::getFXColor(myUnregulatedConflictColor));
     // label for mutual conflict
     legendLabel = new MFXLabelTooltip(getCollapsableFrame(),

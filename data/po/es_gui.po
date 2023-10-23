@@ -13851,7 +13851,7 @@ msgid "Unregulated conflict"
 msgstr "Conflicto no regulado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
-msgid "Connection has a unregulated conflict with the selected connection"
+msgid "Connection has an unregulated conflict with the selected connection"
 msgstr "La conexión tiene un conflicto no regulado con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125

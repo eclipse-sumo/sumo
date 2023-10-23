@@ -13593,7 +13593,7 @@ msgid "Unregulated conflict"
 msgstr "不受管制的冲突"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
-msgid "Connection has a unregulated conflict with the selected connection"
+msgid "Connection has an unregulated conflict with the selected connection"
 msgstr "连接与选定的连接有不规范的冲突"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125
