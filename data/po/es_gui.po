@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-20 16:17+0200\n"
-"PO-Revision-Date: 2023-10-22 11:00+0000\n"
+"PO-Revision-Date: 2023-10-23 09:06+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.1.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -1185,19 +1185,19 @@ msgstr "Dibujar rutas en bucle"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:372
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "Ocultar mejores carriles"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:374
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "Mostrar mejores carriles"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:377
 msgid "Hide Link Items"
-msgstr ""
+msgstr "Ocultar elementos de enlace"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:379
 msgid "Show Link Items"
-msgstr ""
+msgstr "Mostrar elementos de enlace"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:383
 msgid "Start Tracking"
@@ -1209,7 +1209,7 @@ msgstr "Detener seguimiento"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:387
 msgid "Select Foes"
-msgstr ""
+msgstr "Seleccionar usuarios en conflicto"
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:389
 msgid "Select transported"
@@ -3671,7 +3671,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:900
 msgid "Ask for confirmation before merging junction"
-msgstr "Preguntar por confirmación antes de fusionar cruce (junction)"
+msgstr "Preguntar por confirmación antes de fusionar cruce"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:905
 msgid "Show bubbles over junctions shapes"
@@ -4744,7 +4744,7 @@ msgstr "Error al restablecer las opciones."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:370
 msgid "delete junction"
-msgstr "eliminar cruce (junction)"
+msgstr "eliminar cruce"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:412
 msgid "delete edge"
@@ -4856,8 +4856,7 @@ msgstr "Posición de la unión de cruces"
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
-"Hay otro cruce (junction) no seleccionado en la misma posición que la unión "
-"de cruces."
+"Hay otro cruce no seleccionado en la misma posición que la unión de cruces."
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
 msgid "It will be joined with the other selected junctions. Continue?"
@@ -4902,19 +4901,19 @@ msgstr "eliminar elementos de demanda inválidos"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1805
 msgid "replace junction by geometry"
-msgstr "reemplazar cruce (junction) por geometría"
+msgstr "reemplazar cruce por geometría"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1850
 msgid "Junction isn't removable"
-msgstr "el cruce (junction) no se puede eliminar"
+msgstr "el cruce no se puede eliminar"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1862
 msgid "split junction"
-msgstr "dividir cruce (junction)"
+msgstr "dividir cruce"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1902
 msgid "Could not rename split node to '%'"
-msgstr "No se puede renombrar el cruce (junction) dividido a '%'"
+msgstr "No se puede renombrar el cruce dividido a '%'"
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1941
 msgid "clear junction connections"
@@ -5364,11 +5363,11 @@ msgstr "La cuadrícula aún está activa, presione ctrl+g para desactivarla"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3518
 msgid "reset custom junction shapes"
-msgstr "restablecer formas de cruce (junction) personalizadas"
+msgstr "restablecer formas de cruce personalizadas"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3525
 msgid "reset custom junction shape"
-msgstr "restablecer forma de cruce (junction) personalizada"
+msgstr "restablecer forma de cruce personalizada"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3636
 msgid "clear connections of selected junctions"
@@ -5635,7 +5634,7 @@ msgstr "Unir cruce automáticamente"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2479
 msgid "Toggle ask for confirmation before merging junction."
-msgstr "Alternar entre preguntar o no antes de unir un cruce (junction)."
+msgstr "Alternar entre preguntar o no antes de unir un cruce."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2485
 msgid "Show bubbles"
@@ -6163,19 +6162,19 @@ msgstr "Rehacer eliminación de edgeType '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
-msgstr "Deshacer creación de cruce (junction) '"
+msgstr "Deshacer creación de cruce '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:111
 msgid "Undo delete junction '"
-msgstr "Deshacer eliminación de cruce (junction) '"
+msgstr "Deshacer eliminación de cruce '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:119
 msgid "Redo create junction '"
-msgstr "Rehacer creación de cruce (junction) '"
+msgstr "Rehacer creación de cruce '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:121
 msgid "Redo delete junction '"
-msgstr "Rehacer eliminación de cruce (junction) '"
+msgstr "Rehacer eliminación de cruce '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:158
 msgid "Undo create lane '"
@@ -6484,7 +6483,7 @@ msgstr "resetear a los valores previos"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDialogACChooser.cpp:111
 msgid "Invalid Junction"
-msgstr "Cruce (junction) inválido"
+msgstr "Cruce no válido"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDialogACChooser.cpp:117
 msgid "Invalid number of TLSs"
@@ -7120,24 +7119,24 @@ msgstr "Nada que alternar, implementar en descendientes"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:940
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:70
 msgid "Junction"
-msgstr "Cruce (junction)"
+msgstr "Cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:944
 msgid "The id of the node"
-msgstr "La ID del cruce (junction)"
+msgstr "El ID del cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:949
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1976
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr "las posiciones x-y-z del cruce (junction) en el plano, en metros"
+msgstr "las posiciones x-y-z del cruce en el plano, en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:954
 msgid "An optional type for the node"
-msgstr "Un tipo opcional para el cruce (junction)"
+msgstr "Un tipo opcional para el cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:960
 msgid "A custom shape for that node"
-msgstr "Forma personalizada para el cruce (junction)"
+msgstr "Forma personalizada para el cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:965
 msgid "Optional turning radius (for all corners) for that node in meters"
@@ -8835,7 +8834,7 @@ msgstr "El nombre del cruce en el cual el viaje inicia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3749
 msgid "The name of the junction the trip ends at"
-msgstr "El nombre del cruce (junction) en el que el viaje (trip) termina"
+msgstr "El nombre del cruce en el que el viaje termina"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3768
 msgid "TripTAZs"
@@ -8927,11 +8926,11 @@ msgstr "La ID del flujo (flow)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3956
 msgid "The name of the junction the flow starts at"
-msgstr "La ID del cruce (junction) en el que el flujo (flow) debe comenzar"
+msgstr "El ID del cruce en el que el flujo debe comenzar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3961
 msgid "The name of the junction the flow ends at"
-msgstr "La ID del cruce (junction) en el que el flujo (flow) debe terminar"
+msgstr "El ID del cruce en el que el flujo debe terminar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3977
 msgid "FlowTAZs"
@@ -12390,7 +12389,7 @@ msgstr "Proteger elementos adicionales"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:247
 msgid "Protect TAZ elements"
-msgstr "Proteger zonas de análisis de tráfico (TAZ)"
+msgstr "Proteger zonas de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:250
 msgid "Protect demand elements"
@@ -13602,7 +13601,7 @@ msgstr "Crear arista predeterminada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Create default edge short"
-msgstr ""
+msgstr "Crear arista corta predeterminada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:85
 msgid "Disallow for pedestrians"
@@ -13801,7 +13800,7 @@ msgstr "Conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr ""
+msgstr "No se ha seleccionado ninguna conexión\n"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
@@ -13841,11 +13840,11 @@ msgstr "La conexión le cede el paso a la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
-msgstr ""
+msgstr "Tiene derecho de paso"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
-msgstr ""
+msgstr "La conexión tiene el derecho de paso sobre la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
@@ -13853,7 +13852,7 @@ msgstr "Conflicto no regulado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
 msgid "Connection has a unregulated conflict with the selected connection"
-msgstr ""
+msgstr "La conexión tiene un conflicto no regulado con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
@@ -13861,7 +13860,7 @@ msgstr "Conflicto mutuo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
-msgstr ""
+msgstr "La conexión tiene un conflicto mutuo con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
@@ -14284,11 +14283,11 @@ msgstr "Semáforo"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:886
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:950
 msgid "Junction ID"
-msgstr "cruce (junction) ID"
+msgstr "ID del cruce"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:893
 msgid "TLS ID"
-msgstr "Semáforo (TLS) ID"
+msgstr "ID del Semáforo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:907
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
