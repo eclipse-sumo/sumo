@@ -88,7 +88,7 @@ GNETranship::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNETranship::writeDemandElement(OutputDevice& device) const {
     // open tag
-    device.openTag(SUMO_TAG_WALK);
+    device.openTag(SUMO_TAG_TRANSHIP);
     // write plan attributes
     writePlanAttributes(device);
     // close tag
