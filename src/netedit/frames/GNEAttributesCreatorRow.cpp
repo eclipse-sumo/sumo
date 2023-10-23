@@ -263,7 +263,12 @@ GNEAttributesCreatorRow::refreshRow() {
                     myValueComboBox->appendIconItem(item.c_str());
                 }
             }
-            myValueComboBox->setCurrentItem(myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str()));
+            auto index = myValueComboBox->findItem(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            if (index < 0) {
+                myValueComboBox->setCurrentItem(0);
+            } else {
+                myValueComboBox->setCurrentItem(index);
+            }
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
             } else {
