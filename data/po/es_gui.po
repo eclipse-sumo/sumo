@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 14:45+0200\n"
-"PO-Revision-Date: 2023-10-23 11:58+0000\n"
+"PO-Revision-Date: 2023-10-23 12:59+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1027,13 +1027,15 @@ msgstr "Localiza un polígono dentro de la red."
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:39
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "Acerca de Eclipse SUMO sumo-gui"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
 msgid ""
 "Graphical user interface for the microscopic, multi-modal traffic simulation "
 "SUMO."
 msgstr ""
+"Interfaz gráfica de usuario para la simulación de tráfico microscópica y "
+"multimodal de SUMO."
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
@@ -14792,19 +14794,19 @@ msgstr "¡Error durante la codificación!"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:62
 msgid "Overlapped objects"
-msgstr ""
+msgstr "Objetos superpuestos"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:64
 msgid "Delete element"
-msgstr ""
+msgstr "Eliminar elemento"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:66
 msgid "Select element"
-msgstr ""
+msgstr "Seleccionar elemento"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:68
 msgid "Mark front element"
-msgstr ""
+msgstr "Marcar elemento frontal"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
