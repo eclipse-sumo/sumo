@@ -1,3 +1,10 @@
+# to build this image run the following command
+# $ docker build -t sumo:alpine - < Dockerfile.alpine
+# to use it run (GUI applications won't work)
+# $ docker run -it sumo:alpine bash
+# now you have a bash inside a docker container and can for instance run
+# $ cd sumo; bin/sumo -c docs/examples/sumo/busses/test.sumocfg
+
 FROM alpine:latest
 
 RUN apk upgrade --no-cache 
@@ -17,8 +24,8 @@ RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://
 
 # Create virtual environment for python packages
 RUN python3 -m venv /opt/venv; \
-    . /opt/venv/bin/activate \
-    pip3 install --no-cache -r /opt/sumo/tools/requirements.txt
+ . /opt/venv/bin/activate \
+ pip3 install --no-cache -r /opt/sumo/tools/requirements.txt
 
 # Build and run all examples
 RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; \
