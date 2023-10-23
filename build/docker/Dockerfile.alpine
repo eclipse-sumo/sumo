@@ -7,6 +7,7 @@ RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/a
 
 # Build dependencies
 RUN apk add bash
+RUN apk add --no-cache make
 RUN apk add git cmake g++ fox-dev@testing mesa-dev mesa-gl \
  gdal-dev xerces-c-dev proj-dev eigen-dev gettext
 RUN apk add swig python3-dev py3-pip py3-setuptools py3-build openjdk11-jdk maven
