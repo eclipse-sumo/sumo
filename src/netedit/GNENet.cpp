@@ -159,7 +159,7 @@ GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Copy view geo-boundary to clipboard", nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy view geo-boundary to clipboard"), nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
     }
     return ret;
 }
