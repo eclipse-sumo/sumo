@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-23 12:59+0000\n"
+"PO-Revision-Date: 2023-10-23 14:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1878,7 +1878,7 @@ msgstr ""
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:470
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:162
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "Copiar el límite geográfico de la vista al portapapeles"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
@@ -10600,7 +10600,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1556
 msgid "add overhead wire '"
-msgstr ""
+msgstr "agregar catenaria '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1607
 msgid "add polygon '"
@@ -12692,17 +12692,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
 msgid "Match Data Attribute"
-msgstr ""
+msgstr "Corresponder atributo"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:66
 msgid "Interval [begin, end]"
-msgstr ""
+msgstr "Intervalo [inicio, fin]"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
 msgstr ""
+"- Los controles 'Corresponder atributo' permiten especificar un conjunto de "
+"condiciones a aplicar a la selección actual\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Common move options"
@@ -13016,11 +13018,11 @@ msgstr "ID del set de datos inválido"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:141
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "ID de conjunto de datos vacío no válido"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:143
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "ID de conjunto de datos duplicado no válido"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:197
 msgid "Interval"
@@ -13036,7 +13038,7 @@ msgstr "crear intervalo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
-msgstr ""
+msgstr "Atributos de los datos"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
@@ -13236,7 +13238,7 @@ msgstr "Hacer clic sobre el carril para crear una parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "No stop parents in current network."
-msgstr ""
+msgstr "No hay elementos padre de parada en la red actual."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
@@ -13256,15 +13258,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
-msgstr ""
+msgstr "El tipo de parada seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:352
 msgid "Stop must be placed over a route's edge"
-msgstr ""
+msgstr "La parada debe estar ubicada sobre una arista de la ruta"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:365
 msgid "Stop must be placed over an embedded route's edge"
-msgstr ""
+msgstr "La parada debe estar ubicada sobre una arista de la ruta integrada"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNETypeDistributionFrame.cpp:30
 msgid "Type Distributions"
@@ -16101,15 +16103,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2197
 msgid "Show polygon id"
-msgstr ""
+msgstr "Mostrar ID del polígono"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2198
 msgid "Show polygon types"
-msgstr ""
+msgstr "Mostrar tipos de polígono"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2212
 msgid "Default Selection Color"
-msgstr ""
+msgstr "Color de selección predeterminado"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2215
 msgid "Miscellaneous"
@@ -16129,19 +16131,19 @@ msgstr "Exagerar ancho de tazRelation por"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2282
 msgid "Show data color value"
-msgstr ""
+msgstr "Mostrar valor de color de datos"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2293
 msgid "Show Size Legend"
-msgstr ""
+msgstr "Mostrar leyenda de tamaño"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2296
 msgid "Show Edge Color Legend"
-msgstr ""
+msgstr "Mostrar leyenda de color de arista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2299
 msgid "Show Vehicle Color Legend"
-msgstr ""
+msgstr "Mostrar leyenda de color de vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2312
 msgid "Dither"
@@ -16149,7 +16151,7 @@ msgstr "Tramado (dither)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2318
 msgid "Draw boundaries"
-msgstr ""
+msgstr "Dibujar límites"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2321
 msgid "Force draw for position selection"
@@ -16161,15 +16163,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2327
 msgid "Disable dotted contours during selection/deletion"
-msgstr ""
+msgstr "Deshabilitar los contornos punteados durante la selección/eliminación"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2330
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "Recalcular límites"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2333
 msgid "Show geometry point indices"
-msgstr ""
+msgstr "Mostrar índices de puntos de geometría"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2339
 msgid "3D view"
@@ -16193,7 +16195,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2358
 msgid "Sun brightness"
-msgstr ""
+msgstr "Brillo del sol"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2370
 msgid "Sky color"
@@ -16205,7 +16207,7 @@ msgstr "Recentrar vista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter view to the simulated area."
-msgstr ""
+msgstr "Recentrar la vista al área simulada."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1596
