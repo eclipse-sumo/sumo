@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 12:51+0200\n"
-"PO-Revision-Date: 2023-10-23 10:53+0000\n"
+"PO-Revision-Date: 2023-10-23 11:58+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -853,7 +853,7 @@ msgstr "No se puede cargar el archivo edgeData '%'"
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:108
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:114
 msgid "Quitting (on error)."
-msgstr "Saliendo (debido a un error)."
+msgstr "Cerrando (debido a un error)."
 
 #: C:\Repos\sumo/src\gui\GUIRunThread.cpp:273
 msgid "Simulation started with time: %."
@@ -4274,7 +4274,7 @@ msgstr "Archivos de red de SUMO (*.net.xml,*.net.xml.gz)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2788
 msgid "Open NetConvert file"
-msgstr "Abrir archivo de NetConvert"
+msgstr "Abrir archivo de netconvert"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2789
 msgid "Netconvert files (*.netccfg)"
@@ -7218,6 +7218,8 @@ msgid ""
 "The spreadType defines how to compute the lane geometry from the edge "
 "geometry (used for visualization)"
 msgstr ""
+"El atributo spreadType define cómo calcular la geometría del carril a partir "
+"de la geometría de la arista (usado para la visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1060
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1144
@@ -11280,15 +11282,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:443
 msgid "TLS operations"
-msgstr ""
+msgstr "Operaciones de semáforo"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:445
 msgid "Add TLS"
-msgstr ""
+msgstr "Agregar semáforo"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:446
 msgid "Add joined TLS"
-msgstr ""
+msgstr "Agregar semáforo unido"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:523
 msgid "Reset junction shapes"
@@ -13513,11 +13515,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Select Passing"
-msgstr ""
+msgstr "Seleccionar 'passing'"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Selects all lanes with a connection that has the 'pass' attribute set"
 msgstr ""
+"Selecciona todos los carriles con una conexión que tiene el atributo 'pass' "
+"establecido"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:171
 msgid "Clear Selected"
@@ -13547,12 +13551,16 @@ msgstr "restablecer conexiones de los carriles seleccionados"
 msgid ""
 "Hold <SHIFT> while clicking to create unyielding connections (pass=true)."
 msgstr ""
+"Presionar <SHIFT> mientras se hace clic para crear conexiones "
+"inquebrantables (pass=true)."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
 "nodes or with incompatible permissions"
 msgstr ""
+"Presionar <CTRL> mientras se hace clic para crear conexiones conflictivas ("
+"en nodos cremallera o con permisos incompatibles)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
 msgid "Possible Target"
@@ -13608,7 +13616,7 @@ msgstr "Crear arista predeterminada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Create default edge short"
-msgstr "Crear arista corta predeterminada"
+msgstr "Crear arista corta"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:85
 msgid "Disallow for pedestrians"
@@ -13783,11 +13791,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over junction to mark candidate edges."
-msgstr ""
+msgstr "Haga clic sobre un cruce para marcar las aristas candidatas."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over candidate edges for selecting."
-msgstr ""
+msgstr "Haga clic sobre una aristas candidata para seleccionarla."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 msgid " Candidate"
@@ -13947,7 +13955,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:161
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:205
 msgid "No TAZ selected"
-msgstr ""
+msgstr "No se ha seleccionado ninguna zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:174
 msgid "Current TAZ: "
@@ -14003,7 +14011,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:387
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "No se ha seleccionado ninguna zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:399
 msgid "Confirm changes"
@@ -14260,7 +14268,7 @@ msgstr "Cambios no guardados. Cancelar o guardar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:548
 msgid "Traffic light Attributes"
-msgstr "atributos de semáforo"
+msgstr "Atributos del semáforo"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:557
 msgid "parameters"
@@ -15548,7 +15556,7 @@ msgstr "&Ocultar no seleccionados"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "By &Name"
-msgstr "Por &Nombre"
+msgstr "Por &nombre"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "Locate item by name"
@@ -15592,7 +15600,7 @@ msgstr "Actualizar todos los ids"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:102
 msgid "case-sensitive search"
-msgstr "la búsqueda distingue mayúsculas y minúsculas"
+msgstr "distinguir mayúsculas y minúsculas"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:104
 msgid "auto-center"
