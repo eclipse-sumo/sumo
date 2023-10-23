@@ -373,7 +373,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("junctions.limit-turn-speed", new Option_Float(5.5));
     oc.addDescription("junctions.limit-turn-speed", "Junctions",
-                      "Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)");
+                      "Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2)");
 
     oc.doRegister("junctions.limit-turn-speed.min-angle", new Option_Float(15));
     oc.addDescription("junctions.limit-turn-speed.min-angle", "Junctions",
