@@ -54,7 +54,7 @@
 #include "textures/VariableSpeedSignSelected.cpp"
 #include "textures/VariableSpeedSign_Step.cpp"
 
-#include "textures/POITextures/Tree.cpp"
+#include "textures/POITextures/Nature.cpp"
 #include "textures/POITextures/Hotel.cpp"
 
 // ===========================================================================
@@ -198,8 +198,8 @@ GUITextureSubSys::getPOITexture(POIIcon icon) {
     // first check if texture exist
     if (myInstance->myPOITextures.count(icon) == 0) {
         switch (icon) {
-            case POIIcon::TREE:
-                myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Tree, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+            case POIIcon::NATURE:
+                myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Nature, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case POIIcon::HOTEL:
                 myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Hotel, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));

@@ -621,7 +621,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value=""/>
                     <xsd:enumeration value="hotel"/>
-                    <xsd:enumeration value="tree"/>
+                    <xsd:enumeration value="nature"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>

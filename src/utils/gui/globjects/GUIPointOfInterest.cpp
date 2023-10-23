@@ -162,7 +162,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
             // rotate
             glRotated(180, 0, 0, 1);
             // draw texture
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration);
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration * 0.8);
         }
     }
     GLHelper::popMatrix();

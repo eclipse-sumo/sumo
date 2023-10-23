@@ -1301,7 +1301,7 @@ StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
 };
 
 StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
-    {"tree",    POIIcon::TREE},
+    {"tree",    POIIcon::NATURE},
     {"hotel",   POIIcon::HOTEL},
     {"",        POIIcon::NONE} //< must be the last one
 };

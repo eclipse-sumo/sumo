@@ -29,8 +29,8 @@
 FXIcon*
 POIIcons::getPOIIcon(POIIcon iconType) {
     switch (iconType) {
-        case POIIcon::TREE:
-            return GUIIconSubSys::getIcon(GUIIcon::POIICON_TREE);
+        case POIIcon::NATURE:
+            return GUIIconSubSys::getIcon(GUIIcon::POIICON_NATURE);
         case POIIcon::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
         case POIIcon::NONE:

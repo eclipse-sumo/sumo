@@ -465,7 +465,7 @@ enum class GUIIcon {
 
     /// @name poi icons
     /// @{
-    POIICON_TREE,
+    POIICON_NATURE,
     POIICON_HOTEL,
     /// @}
 
