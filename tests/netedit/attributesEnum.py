@@ -1271,13 +1271,14 @@ class poi:
         colorButton = 6
         color = 7
         type = 8
-        name = 9
-        layer = 10
-        width = 11
-        height = 12
-        imgFile = 13
-        relativePath = 14
-        angle = 15
+        icon = 9        
+        name = 11
+        layer = 12
+        width = 13
+        height = 14
+        imgFile = 15
+        relativePath = 16
+        angle = 18
 
     class inspect:
         id = 1
@@ -1285,6 +1286,21 @@ class poi:
         colorButton = 3
         color = 4
         type = 5
+        icon = 6        
+        name = 8
+        layer = 9
+        width = 10
+        height = 11
+        imgFile = 12
+        relativePath = 13
+        angle = 14
+        parameters = 18
+
+    class inspectSelection:
+        colorButton = 1
+        color = 2
+        type = 3
+        icon = 4        
         name = 6
         layer = 7
         width = 8
@@ -1293,19 +1309,6 @@ class poi:
         relativePath = 11
         angle = 12
         parameters = 15
-
-    class inspectSelection:
-        colorButton = 1
-        color = 2
-        type = 3
-        name = 4
-        layer = 5
-        width = 6
-        height = 7
-        imgFile = 8
-        relativePath = 9
-        angle = 10
-        parameters = 13
 
 # POIGEO
 
@@ -1316,14 +1319,15 @@ class poiGeo:
         colorButton = 6
         color = 7
         type = 8
-        name = 9
-        layer = 10
-        width = 11
-        height = 12
-        imgFile = 13
-        relativePath = 14
-        angle = 15
-        lonLat = 20
+        icon = 9        
+        name = 11
+        layer = 12
+        width = 13
+        height = 14
+        imgFile = 15
+        relativePath = 16
+        angle = 17
+        lonLat = 22
 
     class inspect:
         id = 1
@@ -1332,27 +1336,29 @@ class poiGeo:
         colorButton = 4
         color = 5
         type = 6
-        name = 7
-        layer = 8
-        width = 9
-        height = 10
-        imgFile = 11
-        relativePath = 12
-        angle = 13
-        parameters = 16
+        icon = 7        
+        name = 9
+        layer = 10
+        width = 11
+        height = 12
+        imgFile = 13
+        relativePath = 14
+        angle = 15
+        parameters = 18
 
     class inspectSelection:
         colorButton = 1
         color = 2
         type = 3
-        name = 4
-        layer = 5
-        width = 6
-        height = 7
-        imgFile = 8
-        relativePath = 9
-        angle = 10
-        parameters = 13
+        icon = 4        
+        name = 6
+        layer = 7
+        width = 8
+        height = 9
+        imgFile = 10
+        relativePath = 11
+        angle = 12
+        parameters = 15
 
 # POILane
 
@@ -1365,13 +1371,14 @@ class poiLane:
         colorButton = 8
         color = 9
         type = 10
-        name = 11
-        layer = 12
-        width = 13
-        height = 14
-        imgFile = 15
-        relativePath = 16
-        angle = 14
+        icon = 11   
+        name = 13
+        layer = 14
+        width = 15
+        height = 16
+        imgFile = 17
+        relativePath = 18
+        angle = 16
 
     class inspect:
         id = 1
@@ -1383,14 +1390,15 @@ class poiLane:
         colorButton = 7
         color = 8
         type = 9
-        name = 10
-        layer = 11
-        width = 12
-        height = 13
-        imgFile = 14
-        relativePath = 15
-        angle = 16
-        parameters = 19
+        icon = 10        
+        name = 12
+        layer = 13
+        width = 14
+        height = 15
+        imgFile = 16
+        relativePath = 17
+        angle = 18
+        parameters = 21
 
     class inspectSelection:
         friendlyPos = 1
@@ -1398,14 +1406,15 @@ class poiLane:
         colorButton = 3
         color = 4
         type = 5
-        name = 6
-        layer = 7
-        width = 8
-        height = 9
-        imgFile = 10
-        relativePath = 11
-        angle = 12
-        parameters = 15
+        icon = 6        
+        name = 8
+        layer = 9
+        width = 10
+        height = 11
+        imgFile = 12
+        relativePath = 13
+        angle = 14
+        parameters = 17
 
 # jps walkableArea
 
