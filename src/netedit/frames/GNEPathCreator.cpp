@@ -191,7 +191,7 @@ GNEPathCreator::showPathCreatorModule(const GNETagProperties &tagProperty, const
         myCreationMode |= NONCONSECUTIVE_EDGES;
     }
     // continue depending of tag
-    if (tagProperty.isRoute()) {
+    if (tagProperty.isRoute() || tagProperty.vehicleRouteEmbedded()) {
         myCreationMode |= SHOW_CANDIDATE_EDGES;
         myCreationMode |= START_EDGE;
         myCreationMode |= END_EDGE;
