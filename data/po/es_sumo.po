@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-19 13:52+0200\n"
-"PO-Revision-Date: 2023-10-23 14:02+0000\n"
+"PO-Revision-Date: 2023-10-24 13:59+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2359,7 +2359,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:759
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Habilitar superposición para reconocimiento de pantalla"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:763
 msgid "Enable output messages during GUI-Testing"
