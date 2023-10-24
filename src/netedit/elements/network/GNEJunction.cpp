@@ -440,10 +440,10 @@ GNEJunction::buildTLSOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMen
     // create menu pane for edge operations
     FXMenuPane* TLSOperations = new FXMenuPane(ret);
     ret->insertMenuPaneChild(TLSOperations);
-    new FXMenuCascade(ret, "TLS operations", GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSOperations);
+    new FXMenuCascade(ret, TL("TLS operations"), GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSOperations);
     // create menu commands for all TLS operations
-    FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDTLS);
-    FXMenuCommand* mcAddJoinedTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, "Add joined TLS", nullptr, &parent, MID_GNE_JUNCTION_ADDJOINTLS);
+    FXMenuCommand* mcAddTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, TL("Add TLS"), nullptr, &parent, MID_GNE_JUNCTION_ADDTLS);
+    FXMenuCommand* mcAddJoinedTLS = GUIDesigns::buildFXMenuCommand(TLSOperations, TL("Add joined TLS"), nullptr, &parent, MID_GNE_JUNCTION_ADDJOINTLS);
     // check if disable create TLS
     if (myNBNode->getControllingTLS().size() > 0) {
         mcAddTLS->disable();
@@ -1639,7 +1639,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s,
             // draw shape
             GLHelper::drawFilledPoly(myTesselation.getShape(), true);
         }
-        // draw shape points only in Network supemode
+        // draw shape points only in Network supermode
         if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // set color
             const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
@@ -1755,7 +1755,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE: {
             // set new shape (without updating grid)
             myNBNode->setCustomShape(parse<PositionVector>(value));
-            // mark this connections and all of the junction's Neighbours as deprecated
+            // mark this connections and all of the junction's neighbors as deprecated
             markConnectionsDeprecated(true);
             // update centering boundary and grid
             updateCenteringBoundary(true);

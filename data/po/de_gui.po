@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 16:17+0200\n"
-"PO-Revision-Date: 2023-10-20 12:10+0000\n"
+"POT-Creation-Date: 2023-10-23 15:00+0200\n"
+"PO-Revision-Date: 2023-10-23 14:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.1.1-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -1024,6 +1024,18 @@ msgstr "Polygone finden"
 msgid "Locate a Polygon within the network."
 msgstr "Findet ein Polygon im Netz."
 
+#: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:39
+msgid "About Eclipse SUMO sumo-gui"
+msgstr "Über Eclipse SUMO sumo-gui"
+
+#: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
+msgid ""
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
+msgstr ""
+"Grafische Nutzeroberfläche für die mikroskopische, multimodale "
+"Verkehrssimulation SUMO."
+
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_HallOfFame.cpp:57
@@ -1859,6 +1871,11 @@ msgstr "Zweirichtungsfahrstreifen"
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr "Netz größer als ein Lichtjahr. Bitte die Eingabedaten prüfen.\n"
+
+#: C:\Repos\sumo/src\guisim\GUINet.cpp:470
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:162
+msgid "Copy view geo-boundary to clipboard"
+msgstr "Geografische Koordinaten des Ansichtsrands in Zwischenablage"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
@@ -2770,12 +2787,12 @@ msgid "load additionals from '"
 msgstr "Lädt weitere Daten aus '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1299
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
 msgid "Loading of additional file failed: "
 msgstr "Laden weiterer Daten aus der folgenden Datei fehlgeschlagen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3688
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1303
 msgid "Loading of additional file successfully: "
 msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
@@ -2811,12 +2828,12 @@ msgid "loading demand elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1310
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
 msgid "Loading of route file failed: "
 msgstr "Laden der folgenden Route-Datei fehlgeschlagen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3883
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1314
 msgid "Loading of route file successfully: "
 msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
@@ -2838,12 +2855,12 @@ msgid "loading data elements from '"
 msgstr "Lädt Nachfrageelemente aus '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1321
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
 msgid "Loading of data file failed: "
 msgstr "Laden der Datendatei ist fehlgeschlagen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4046
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1325
 msgid "Loading of data file successfully: "
 msgstr "Laden der Datendatei war erfolgreich: "
 
@@ -2868,13 +2885,13 @@ msgid "load meanDatas from '"
 msgstr "Lädt meanData aus '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1332
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
 msgid "Loading of meandata file failed: "
 msgstr "Laden der folgenden meanData-Datei fehlgeschlagen: "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4210
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4241
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1336
 msgid "Loading of meandata file successfully: "
 msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
@@ -4750,203 +4767,203 @@ msgstr "Knotenpunkt löschen"
 msgid "delete edge"
 msgstr "Kante löschen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:483
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:485
 msgid "replace edge"
 msgstr "Kante ersetzen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:545
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:547
 msgid "delete lane"
 msgstr "Fahrstreifen löschen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:580
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:582
 msgid "delete connection"
 msgstr "Verbindung löschen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:595
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:597
 msgid "delete crossing"
 msgstr "Fußgängerfurt löschen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:613
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:642
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:664
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:677
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:690
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:720
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:615
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:644
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:666
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:679
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:692
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:722
 msgid "delete "
 msgstr "löschen "
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:636
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:638
 msgid "Trying to delete a default Vehicle Type"
 msgstr "Versuche einen Standardfahrzeugtypen zu löschen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:729
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:731
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2925
 msgid "duplicate lane"
 msgstr "Fahrstreifen duplizieren"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:848
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:850
 msgid "split edge"
 msgstr "Kante auftrennen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:965
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:967
 msgid "split edges"
 msgstr "Kanten auftrennen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:987
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:989
 msgid "reverse edge"
 msgstr "Kante umdrehen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1004
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1006
 msgid "add reversed edge"
 msgstr "Kante in Gegenrichtung hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1038
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1040
 msgid "merge junctions"
 msgstr "Knotenpunkte vereinigen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1074
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1076
 msgid "select roundabout"
 msgstr "Kreisverkehr auswählen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1090
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1092
 msgid "create roundabout"
 msgstr "Kreisverkehr erstellen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1268
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1270
 msgid "Forced computing junctions with volatile options ..."
 msgstr "Berechnung der Knotenpunkte mit volatilen Optionen erzwingen..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1270
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1272
 msgid "Forced computing junctions ..."
 msgstr "Erzwinge Berechnung von Knotenpunkten..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1277
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1279
 msgid "Computing junctions with volatile options ..."
 msgstr "Berechne Knotenpunkte mit instabilen Optionen..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1279
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1281
 msgid "Computing junctions ..."
 msgstr "Berechne Knotenpunkte ..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1344
 msgid "Finished computing junctions."
 msgstr "Berechnung von Knotenpunkten abgeschlossen."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1348
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1350
 msgid "Computing demand elements ..."
 msgstr "Berechne Nachfrageelemente..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1362
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1364
 msgid "Finished computing demand elements."
 msgstr "Berechnung der Nachfragelemente abgeschlossen."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1368
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1370
 msgid "Computing data elements ..."
 msgstr "Berechne Datenelemente ..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1375
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1377
 msgid "Finished computing data elements."
 msgstr "Berechnung der Datenelemente abgeschlossen."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1454
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
 msgid "Position of joined junction"
 msgstr "Position des vereinigten Knotenpunkts"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1455
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1457
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 "An der Position des vereinigten Knotenpunkts gibt es einen weiteren, nicht "
 "ausgewählten Knotenpunkt."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1458
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr ""
 "Der Knotenpunkt wird mit den anderen ausgewählten vereinigt. Fortfahren?"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1577
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1587
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1579
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1589
 msgid "Clear crossings"
 msgstr "Fußgängerfurten entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1578
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1580
 msgid "There are no invalid crossings to remove."
 msgstr "Es gibt keine ungültigen Fußgängerfurten zu entfernen."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1588
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1590
 msgid "Crossings will be cleared. Continue?"
 msgstr "Fußgängerfurten werden entfernt. Fortfahren?"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1599
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1601
 msgid "clear crossings"
 msgstr "Fußgängerfurten entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1612
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1614
 msgid "clear junctions"
 msgstr "Knotenpunkte entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1641
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1643
 msgid "clear unused routes"
 msgstr "Ungenutzte Routen entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1696
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1698
 msgid "merge routes"
 msgstr "Routen verbinden"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1750
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1752
 msgid "adjust person plans"
 msgstr "Personenpläne anpassen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1790
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1792
 msgid "remove invalid demand elements"
 msgstr "Ungültige Nachfrageelemente entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1805
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1807
 msgid "replace junction by geometry"
 msgstr "Knotenpunkt durch Geometriestützpunkt ersetzen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1850
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1852
 msgid "Junction isn't removable"
 msgstr "Knotenpunt kann nicht entfernt werden"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1862
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1864
 msgid "split junction"
 msgstr "Knotenpunkt auftrennen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1902
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1904
 msgid "Could not rename split node to '%'"
 msgstr "Aufgetrennter Knoten konnte nicht zu '%' unbenannt werden"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1941
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1943
 msgid "clear junction connections"
 msgstr "Verbindungen an Knotenpunkten entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1953
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1955
 msgid "reset junction connections"
 msgstr "Verbindungen an Knotenpunkten zurücksetzen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1964
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1966
 msgid "clear additional elements"
 msgstr "Weitere Elemente entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1977
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1979
 msgid "clear demand elements"
 msgstr "Nachfrageelemente entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1992
 msgid "clear data elements"
 msgstr "Datenelemente entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2001
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2003
 msgid "clear meanData elements"
 msgstr "MeanData-Elemente entfernen"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2340
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2437
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2342
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2439
 msgid "Duplicated ID"
 msgstr "ID schon vergeben"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2727
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2729
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "Netz größer als ein Lichtjahr - bitte Eingabedaten überdenken."
 
@@ -6680,7 +6697,7 @@ msgstr "Leeren"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:802
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:813
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
@@ -6835,8 +6852,8 @@ msgid "Key '%' already exists"
 msgstr "Der Schlüssel '%' existiert bereits"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:455
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1221
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1230
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1232
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1241
 msgid "Edit parameters"
 msgstr "Parameter bearbeiten"
 
@@ -6845,7 +6862,7 @@ msgid "Invalid row type"
 msgstr "Ungültiger Zeilentyp"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:651
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:433
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:438
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:199
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1250
 msgid "Color Dialog"
@@ -11459,6 +11476,18 @@ msgstr "Konnte glatte Erhöhung für Kante '%' nicht berechnen"
 msgid "invalid link state='%'"
 msgstr "ungültiger Linkstand='%'"
 
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:443
+msgid "TLS operations"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:445
+msgid "Add TLS"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:446
+msgid "Add joined TLS"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:523
 msgid "Reset junction shapes"
 msgstr "Knotenpunkt-Shapes zurücksetzen"
@@ -11701,7 +11730,7 @@ msgid "Select reachable (compute junctions)"
 msgstr "Erreichbare Fahrstreifen auswählen (berechne Knotenpunkte)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:792
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:803
 msgid "Internal attributes"
 msgstr "Interne Attribute"
 
@@ -11714,7 +11743,7 @@ msgstr "Ungültiger Input-Parameter von "
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:491
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:496
 msgid "Unsupported additional ID"
 msgstr "Nicht unterstützte ID für weitere Elemente"
 
@@ -12010,50 +12039,50 @@ msgstr "deaktiviere Attribut '"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:514
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:633
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:634
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:645
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:646
 #, c-format
 msgid "Inspect % parent"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:530
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:531
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
 msgid "Open dialog for editing allowed vClasses"
 msgstr "Öffne Dialog zum Bearbeiten erlaubter Fahrzeugklassen"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:543
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:544
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
 msgid "Open dialog for editing color"
 msgstr "Öffne Dialog zur Farbwahl"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:587
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:588
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:593
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:594
 msgid "Move element up one lane"
 msgstr "Element einen Fahrstreifen weiterschieben"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:593
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:594
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:599
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:600
 msgid "Move element down one lane"
 msgstr "Element einen Fahrstreifen zurückschieben"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1033
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1044
 msgid "Extended attributes"
 msgstr "Erweiterte Attribute"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1036
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1047
 msgid "Open attributes editor"
 msgstr "Öffne Attributeditor"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1067
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1078
 msgid "Attributes"
 msgstr "Attribute"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1071
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1082
 msgid "Edit attributes"
 msgstr "Bearbeite Attribute"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1217
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1226
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1228
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1237
 msgid "Parameters"
 msgstr "Parameter"
 
@@ -13747,7 +13776,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions"
+"nodes or with incompatible permissions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
@@ -14976,6 +15005,22 @@ msgstr "Fehler beim Senden des Frame zur Encodierung!"
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:222
 msgid "Error during encoding!"
 msgstr "Fehler beim Encodieren!"
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:62
+msgid "Overlapped objects"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:64
+msgid "Delete element"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:66
+msgid "Select element"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:68
+msgid "Mark front element"
+msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 11:05:00 by Eclipse SUMO netgenerate Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2023-10-23 20:43:22 by Eclipse SUMO netgenerate Version v1_18_0+2224-9463baa5d5c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -216,7 +216,7 @@
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>
         <junctions.join-turns value="false" type="BOOL" help="Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning"/>
-        <junctions.limit-turn-speed value="5.5" type="FLOAT" help="Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)"/>
+        <junctions.limit-turn-speed value="5.5" type="FLOAT" help="Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2)"/>
         <junctions.limit-turn-speed.min-angle value="15" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.min-angle.railway value="35" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT" help="Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT"/>

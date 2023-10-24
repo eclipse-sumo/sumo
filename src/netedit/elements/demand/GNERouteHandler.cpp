@@ -1145,7 +1145,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 vehicleTag = GNE_TAG_VEHICLE_WITHROUTE;
             }
         } else if (vehicleTag == SUMO_TAG_FLOW) {
-            if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            if (objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
                 vehicleTag = GNE_TAG_FLOW_ROUTE;
             } else if (objParent->hasStringAttribute(SUMO_ATTR_FROM) && objParent->hasStringAttribute(SUMO_ATTR_TO)) {
                 vehicleTag = SUMO_TAG_FLOW;

@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-08 09:59:09 by Eclipse SUMO netedit Version v1_13_0+1477-18ae478306d
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-10-24 09:28:42 by Eclipse SUMO netedit Version v1_18_0+2218-6fd7de11f4c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct092647.10960\netedit.gui\netelements\edges\templates\create\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct092647.10960\netedit.gui\netelements\edges\templates\create\netedit.net.xml"/>
     </output>
 
-    <processing>
-        <offset.disable-normalization value="true"/>
-    </processing>
-
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\datas.xml"/>
+        <new-network value="false"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct092647.10960\netedit.gui\netelements\edges\templates\create\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct092647.10960\netedit.gui\netelements\edges\templates\create\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\create\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct092647.10960\netedit.gui\netelements\edges\templates\create\log.txt"/>
     </report>
 
 </configuration>
@@ -43,22 +34,22 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,25.00,85.00,75.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-30.00,25.00,50.00,75.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="15">
-        <lane id="E0_0" index="0" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,67.00 85.00,67.00"/>
-        <lane id="E0_1" index="1" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,70.20 85.00,70.20"/>
-        <lane id="E0_2" index="2" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,73.40 85.00,73.40"/>
+        <lane id="E0_0" index="0" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,67.00 50.00,67.00"/>
+        <lane id="E0_1" index="1" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,70.20 50.00,70.20"/>
+        <lane id="E0_2" index="2" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,73.40 50.00,73.40"/>
     </edge>
     <edge id="E1" from="J2" to="J3" priority="15">
-        <lane id="E1_0" index="0" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,17.00 85.00,17.00"/>
-        <lane id="E1_1" index="1" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,20.20 85.00,20.20"/>
-        <lane id="E1_2" index="2" allow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,23.40 85.00,23.40"/>
+        <lane id="E1_0" index="0" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,17.00 50.00,17.00"/>
+        <lane id="E1_1" index="1" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,20.20 50.00,20.20"/>
+        <lane id="E1_2" index="2" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,23.40 50.00,23.40"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="0.00" y="75.00" incLanes="" intLanes="" shape="0.00,75.00 0.00,65.40"/>
-    <junction id="J1" type="dead_end" x="85.00" y="75.00" incLanes="E0_0 E0_1 E0_2" intLanes="" shape="85.00,65.40 85.00,75.00"/>
-    <junction id="J2" type="dead_end" x="0.00" y="25.00" incLanes="" intLanes="" shape="0.00,25.00 0.00,15.40"/>
-    <junction id="J3" type="dead_end" x="85.00" y="25.00" incLanes="E1_0 E1_1 E1_2" intLanes="" shape="85.00,15.40 85.00,25.00"/>
+    <junction id="J0" type="dead_end" x="-30.00" y="75.00" incLanes="" intLanes="" shape="-30.00,75.00 -30.00,65.40"/>
+    <junction id="J1" type="dead_end" x="50.00" y="75.00" incLanes="E0_0 E0_1 E0_2" intLanes="" shape="50.00,65.40 50.00,75.00"/>
+    <junction id="J2" type="dead_end" x="-30.00" y="25.00" incLanes="" intLanes="" shape="-30.00,25.00 -30.00,15.40"/>
+    <junction id="J3" type="dead_end" x="50.00" y="25.00" incLanes="E1_0 E1_1 E1_2" intLanes="" shape="50.00,15.40 50.00,25.00"/>
 
 </net>

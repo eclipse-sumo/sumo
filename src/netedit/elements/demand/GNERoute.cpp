@@ -506,8 +506,19 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
         const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
-        // obtain lane2lane geometry
-        const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
+        // calculate geometry geometry
+        GUIGeometry geometry;
+        if (segment->getPreviousLane() && segment->getNextLane()) {
+            if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
+                geometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
+            } else {
+                geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
+            }
+        } else if (segment->getPreviousLane()) {
+            geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getJunction()->getPositionInView()});
+        } else if (segment->getNextLane()) {
+            geometry.updateGeometry({segment->getJunction()->getPositionInView(), segment->getNextLane()->getLaneShape().back()});
+        }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
@@ -519,7 +530,7 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         // Set color
         GLHelper::setColor(routeColor);
         // draw lane2lane
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, routeWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -529,13 +540,13 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                templateAC->getTagProperty().vehicleRoute() && (lane2laneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // check if mouse is over element
-        mouseWithinGeometry(lane2laneGeometry.getShape(), routeWidth);
+        mouseWithinGeometry(geometry.getShape(), routeWidth);
         // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, lane2laneGeometry.getShape(), routeWidth, 1, false, false,
+        myContour.drawDottedContourExtruded(s, geometry.getShape(), routeWidth, 1, false, false,
                                             s.dottedContourSettings.segmentWidth);
     }
 }

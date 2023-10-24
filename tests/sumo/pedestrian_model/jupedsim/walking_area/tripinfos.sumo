@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-19 17:26:28 by Eclipse SUMO sumo Version v1_18_0+1652-b95170ef208
+<!-- generated on 2023-10-23 13:27:05 by Eclipse SUMO sumo Version v1_18_0+2206-65a8fc2fdb0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
+
+    <time>
+        <end value="2000"/>
+    </time>
 
     <processing>
         <default.speeddev value="0"/>
@@ -55,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <walk depart="0.00" departPos="0.00" arrival="65.00" arrivalPos="74.33" duration="65.00" routeLength="91.29" timeLoss="-0.73" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="7" depart="7.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <walk depart="7.00" departPos="0.00" arrival="78.00" arrivalPos="69.85" duration="71.00" routeLength="100.46" timeLoss="-1.33" maxSpeed="1.39"/>
+        <walk depart="7.00" departPos="0.00" arrival="79.00" arrivalPos="69.85" duration="72.00" routeLength="100.46" timeLoss="-0.33" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="3" depart="3.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="3.00" departPos="0.00" arrival="157.00" arrivalPos="74.33" duration="154.00" routeLength="216.42" timeLoss="-1.82" maxSpeed="1.39"/>

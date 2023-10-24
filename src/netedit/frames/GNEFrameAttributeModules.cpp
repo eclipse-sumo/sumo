@@ -502,7 +502,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
     // get static tooltip menu
     const auto tooltipMenu = myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // check if disable element
-    const bool disableElement = !attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
+    const bool disableRow = !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of attribute
     if (myACParent) {
 		myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
@@ -513,15 +513,21 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         myAttributeButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
         myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
         // check if disable
-        if (disableElement) {
+        if (disableRow) {
             myAttributeButton->disable();
         }
     } else if (myACAttr.isActivatable()) {
         myAttributeCheckButton = new FXCheckButton(this, myACAttr.getAttrStr().c_str(), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+        // check
+        if (attributeEnabled) {
+            myAttributeCheckButton->setCheck(TRUE);
+        } else {
+            myAttributeCheckButton->setCheck(FALSE);
+        }
         // set color text depending of computed
         myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check if disable
-        if (disableElement) {
+        if (disableRow) {
             myAttributeCheckButton->disable();
         }
     } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
@@ -530,7 +536,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         myAttributeButton->setTipText(TL("Open dialog for editing allowed vClasses"));
         myAttributeButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
         // check if disable
-        if (disableElement) {
+        if (disableRow) {
             myAttributeButton->disable();
         }
     } else if (myACAttr.isColor()) {
@@ -543,7 +549,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         myAttributeButton->setTipText(TL("Open dialog for editing color"));
         myAttributeButton->setHelpText(TL("Open dialog for editing color"));
         // check if disable
-        if (disableElement) {
+        if (disableRow) {
             myAttributeButton->disable();
         }
 	} else {
@@ -611,11 +617,17 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
 void
 GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const std::string &value, const bool attributeEnabled, const bool computed) {
     // check if disable element
-    const bool disableElement = !attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
+    const bool disableElement =!isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of attribute element
     if (myAttributeCheckButton) {
         // set color text depending of computed
         myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        // check
+        if (attributeEnabled) {
+            myAttributeCheckButton->setCheck(TRUE);
+        } else {
+            myAttributeCheckButton->setCheck(FALSE);
+        }
         // check if disable
         if (disableElement) {
             myAttributeCheckButton->disable();
@@ -700,7 +712,6 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
     const auto inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // clear and enable comboBox
     myValueComboBox->clearItems();
-    myValueComboBox->enable();
     // fill depeding of ACAttr
     if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
         // add all vClasses with their icons

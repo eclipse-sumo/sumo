@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-19 13:52+0200\n"
-"PO-Revision-Date: 2023-10-23 09:06+0000\n"
+"PO-Revision-Date: 2023-10-23 14:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4916,27 +4916,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1739
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "La arista '%' se superpone con la arista '%' por %."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1755
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
-msgstr ""
+msgstr "La arista '%' tiene un salto vertical de %m."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1757
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "La arista '%' tiene una pendiente de %%."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1767
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr ""
+msgstr "La conexión '%' tiene un salto vertical de %m."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1769
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "La conexión '%' tiene una pendiente de %%."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1809
 msgid "Not joining tram edge '%' with % lanes."
@@ -5821,7 +5821,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:529
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "Verificando nuevamente los finales de carril"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:551
 msgid "Joining traffic light nodes"
@@ -5829,15 +5829,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:558
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "Computando información de control de semáforo"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:565
 msgid "Computing node logics"
-msgstr ""
+msgstr "Computando lógicas de nodo"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:570
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "Computando lógicas de semáforo"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:577
 msgid " % traffic light(s) %computed."
@@ -5987,11 +5987,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
-msgstr ""
+msgstr "Se encontraron % componentes y se eliminaron % (% arista(s))."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:447
 msgid "Removed % railway components (% edges)."
-msgstr ""
+msgstr "Se eliminaron % componentes ferroviarios (% arista(s))."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:663
 #, c-format
@@ -7685,7 +7685,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:118
 msgid "Could not open sumo-net-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo de red de sumo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:146
 #, c-format
@@ -9316,7 +9316,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:55
 msgid "Could not open net-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo de red '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:71
 msgid "Could not find projection parameter in net."
@@ -9842,7 +9842,7 @@ msgstr "Una simulación de tráfico microscópica y multi-modal."
 
 #: C:\Repos\sumo/src\sumo_main.cpp:114 C:\Repos\sumo/src\sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr "Saliendo (debido a un error)."
+msgstr "Cerrando (debido a un error)."
 
 #: C:\Repos\sumo/src\sumo_main.cpp:126
 msgid "Quitting (on unknown error)."

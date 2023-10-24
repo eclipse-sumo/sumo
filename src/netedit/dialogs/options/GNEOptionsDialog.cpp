@@ -289,7 +289,7 @@ GNEOptionsDialog::GNEOptionsDialog(GNEApplicationWindow* GNEApp, GUIIcon icon, O
     // add buttons frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrameNoPadding);
     myShowToolTipsMenu = new MFXCheckableButton(false, buttonsFrame,
-            myGNEApp->getStaticTooltipMenu(), "\tToggle Menu Tooltips\tToggles whether tooltips in the menu shall be shown.",
+            myGNEApp->getStaticTooltipMenu(), (std::string("\t") + TL("Toggle Menu Tooltips") + std::string("\t") + TL("Toggles whether tooltips in the menu shall be shown.")).c_str(),
             GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS_MENU), this, MID_SHOWTOOLTIPS_MENU, GUIDesignMFXCheckableButtonSquare);
     auto saveFile = new MFXButtonTooltip(buttonsFrame, myGNEApp->getStaticTooltipMenu(), TL("Save options"),
                                          GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignButtonConfiguration);

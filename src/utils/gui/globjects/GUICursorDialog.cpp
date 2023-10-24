@@ -59,13 +59,13 @@ GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAb
     myView(view) {
     // continue depending of properties
     if (type == GUIGLObjectPopupMenu::PopupType::PROPERTIES) {
-        buildDialogElements(view, "Overlapped objects", GUIIcon::MODEINSPECT, MID_CURSORDIALOG_PROPERTIES, objects);
+        buildDialogElements(view, TL("Overlapped objects"), GUIIcon::MODEINSPECT, MID_CURSORDIALOG_PROPERTIES, objects);
     } else if (type == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
-        buildDialogElements(view, "Delete element", GUIIcon::MODEDELETE, MID_CURSORDIALOG_DELETEELEMENT, objects);
+        buildDialogElements(view, TL("Delete element"), GUIIcon::MODEDELETE, MID_CURSORDIALOG_DELETEELEMENT, objects);
     } else if (type == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
-        buildDialogElements(view, "Select element", GUIIcon::MODESELECT, MID_CURSORDIALOG_SELECTELEMENT, objects);
+        buildDialogElements(view, TL("Select element"), GUIIcon::MODESELECT, MID_CURSORDIALOG_SELECTELEMENT, objects);
     } else if (type == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
-        buildDialogElements(view, "Mark front element", GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
+        buildDialogElements(view, TL("Mark front element"), GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
     }
 }
 

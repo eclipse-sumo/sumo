@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-20 16:17+0200\n"
+"POT-Creation-Date: 2023-10-23 15:00+0200\n"
 "PO-Revision-Date: 2023-08-20 12:53+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1011,6 +1011,16 @@ msgstr "定位多边形物件"
 msgid "Locate a Polygon within the network."
 msgstr "在路网內定位一个多边形。"
 
+#: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:39
+msgid "About Eclipse SUMO sumo-gui"
+msgstr ""
+
+#: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
+msgid ""
+"Graphical user interface for the microscopic, multi-modal traffic simulation "
+"SUMO."
+msgstr ""
+
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_HallOfFame.cpp:57
@@ -1844,6 +1854,11 @@ msgstr "双向车道"
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:327
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr "路网规模超过1光年。请重新考虑您的输入。\n"
+
+#: C:\Repos\sumo/src\guisim\GUINet.cpp:470
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:162
+msgid "Copy view geo-boundary to clipboard"
+msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:481
 msgid "loaded vehicles [#]"
@@ -2748,12 +2763,12 @@ msgid "load additionals from '"
 msgstr "载入其它档案 '"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1299
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
 msgid "Loading of additional file failed: "
 msgstr "载入附加档案失败： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3688
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1303
 msgid "Loading of additional file successfully: "
 msgstr "成功载入附加档案： "
 
@@ -2788,12 +2803,12 @@ msgid "loading demand elements from '"
 msgstr "从 ' 载入交通需求要素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1310
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
 msgid "Loading of route file failed: "
 msgstr "载入路径档案失败： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3883
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1314
 msgid "Loading of route file successfully: "
 msgstr "成功载入路径档案： "
 
@@ -2815,12 +2830,12 @@ msgid "loading data elements from '"
 msgstr "从 '载入数据要素"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1321
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
 msgid "Loading of data file failed: "
 msgstr "载入数据档案失败： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4046
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1325
 msgid "Loading of data file successfully: "
 msgstr "成功载入数据档案： "
 
@@ -2845,13 +2860,13 @@ msgid "load meanDatas from '"
 msgstr "从' 载入meanDatas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1332
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
 msgid "Loading of meandata file failed: "
 msgstr "载入meandata档案失败： "
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4210
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4241
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1336
 msgid "Loading of meandata file successfully: "
 msgstr "成功载入meandata档案： "
 
@@ -4706,200 +4721,200 @@ msgstr "刪除路口"
 msgid "delete edge"
 msgstr "刪除路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:483
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:485
 msgid "replace edge"
 msgstr "替換路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:545
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:547
 msgid "delete lane"
 msgstr "刪除车道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:580
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:582
 msgid "delete connection"
 msgstr "刪除连接线"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:595
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:597
 msgid "delete crossing"
 msgstr "刪除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:613
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:642
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:664
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:677
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:690
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:720
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:615
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:644
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:666
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:679
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:692
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:722
 msgid "delete "
 msgstr "刪除 "
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:636
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:638
 msgid "Trying to delete a default Vehicle Type"
 msgstr "尝试刪除预设的车辆类型"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:729
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:731
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2925
 msgid "duplicate lane"
 msgstr "复制车道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:848
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:850
 msgid "split edge"
 msgstr "分割路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:965
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:967
 msgid "split edges"
 msgstr "分割路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:987
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:989
 msgid "reverse edge"
 msgstr "反向路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1004
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1006
 msgid "add reversed edge"
 msgstr "新增反向路段"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1038
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1040
 msgid "merge junctions"
 msgstr "合并路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1074
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1076
 msgid "select roundabout"
 msgstr "选择绕行"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1090
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1092
 msgid "create roundabout"
 msgstr "建立绕行"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1268
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1270
 msgid "Forced computing junctions with volatile options ..."
 msgstr "根据可变选项強制计算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1270
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1272
 msgid "Forced computing junctions ..."
 msgstr "強制计算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1277
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1279
 msgid "Computing junctions with volatile options ..."
 msgstr "根据可变选项计算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1279
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1281
 msgid "Computing junctions ..."
 msgstr "计算路口..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1342
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1344
 msgid "Finished computing junctions."
 msgstr "完成路口计算。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1348
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1350
 msgid "Computing demand elements ..."
 msgstr "计算需求要素..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1362
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1364
 msgid "Finished computing demand elements."
 msgstr "完成计算需求要素。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1368
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1370
 msgid "Computing data elements ..."
 msgstr "计算数据要素..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1375
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1377
 msgid "Finished computing data elements."
 msgstr "完成计算数据要素。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1454
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
 msgid "Position of joined junction"
 msgstr "合并路口的位置"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1455
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1457
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr "在合并路口的相同位置上有另外一个未被选择的路口。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1456
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1458
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "此路口將与其它已选择的路口一起进行合并。继续执行？"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1577
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1587
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1579
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1589
 msgid "Clear crossings"
 msgstr "清除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1578
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1580
 msgid "There are no invalid crossings to remove."
 msgstr "沒有要移除的无效人行道。"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1588
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1590
 msgid "Crossings will be cleared. Continue?"
 msgstr "人行道將被清除。继续执行？"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1599
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1601
 msgid "clear crossings"
 msgstr "清除人行道"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1612
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1614
 msgid "clear junctions"
 msgstr "清除路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1641
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1643
 msgid "clear unused routes"
 msgstr "清除未使用的路径"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1696
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1698
 msgid "merge routes"
 msgstr "合并路径"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1750
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1752
 msgid "adjust person plans"
 msgstr "调整个人旅行计划"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1790
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1792
 msgid "remove invalid demand elements"
 msgstr "移除无效的需求要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1805
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1807
 msgid "replace junction by geometry"
 msgstr "用几何形狀替换路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1850
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1852
 msgid "Junction isn't removable"
 msgstr "路口无法被移除"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1862
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1864
 msgid "split junction"
 msgstr "分割路口"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1902
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1904
 msgid "Could not rename split node to '%'"
 msgstr "无法將分割的节点重新命名为%'"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1941
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1943
 msgid "clear junction connections"
 msgstr "清除路口內的连接线"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1953
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1955
 msgid "reset junction connections"
 msgstr "重置路口內连接线"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1964
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1966
 msgid "clear additional elements"
 msgstr "清除附加要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1977
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1979
 msgid "clear demand elements"
 msgstr "清除需求要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1990
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1992
 msgid "clear data elements"
 msgstr "清除数据要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2001
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2003
 msgid "clear meanData elements"
 msgstr "清除meanData要素"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2340
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2437
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2342
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2439
 msgid "Duplicated ID"
 msgstr "复制的ID"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2727
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2729
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "路网規模超过 1 光年。 请重新考虑您的输入。"
 
@@ -6603,7 +6618,7 @@ msgstr "清空"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:802
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:813
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
@@ -6755,8 +6770,8 @@ msgid "Key '%' already exists"
 msgstr "键(key) '%' 已经存在"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:455
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1221
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1230
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1232
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1241
 msgid "Edit parameters"
 msgstr "编辑 参数"
 
@@ -6765,7 +6780,7 @@ msgid "Invalid row type"
 msgstr "无效的行类型"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:651
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:433
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:438
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:199
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1250
 msgid "Color Dialog"
@@ -11063,6 +11078,18 @@ msgstr "无法计算路段'%'的平滑高程"
 msgid "invalid link state='%'"
 msgstr "无效链接状态='%'"
 
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:443
+msgid "TLS operations"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:445
+msgid "Add TLS"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:446
+msgid "Add joined TLS"
+msgstr ""
+
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:523
 msgid "Reset junction shapes"
 msgstr "重置路口形状"
@@ -11303,7 +11330,7 @@ msgid "Select reachable (compute junctions)"
 msgstr "选择可达车道（计算交叉口）"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:792
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:803
 msgid "Internal attributes"
 msgstr "内部属性"
 
@@ -11316,7 +11343,7 @@ msgstr "无效的输入参数 "
 msgid "Disabled"
 msgstr "残障人士"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:491
+#: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:496
 msgid "Unsupported additional ID"
 msgstr "不支持的附加ID"
 
@@ -11610,50 +11637,50 @@ msgstr "禁用属性'"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:514
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:633
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:634
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:645
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:646
 #, c-format
 msgid "Inspect % parent"
 msgstr "检查 % 的父项 (parent)"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:530
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:531
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
 msgid "Open dialog for editing allowed vClasses"
 msgstr "打开编辑允许的vClasses的对话框"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:543
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:544
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
 msgid "Open dialog for editing color"
 msgstr "打开编辑颜色的对话框"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:587
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:588
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:593
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:594
 msgid "Move element up one lane"
 msgstr "将元素上移一条车道"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:593
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:594
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:599
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:600
 msgid "Move element down one lane"
 msgstr "将元素下移一条车道"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1033
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1044
 msgid "Extended attributes"
 msgstr "扩展属性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1036
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1047
 msgid "Open attributes editor"
 msgstr "打开属性编辑器"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1067
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1078
 msgid "Attributes"
 msgstr "属性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1071
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1082
 msgid "Edit attributes"
 msgstr "编辑属性"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1217
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1226
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1228
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1237
 msgid "Parameters"
 msgstr "参数"
 
@@ -13285,7 +13312,7 @@ msgstr "在单击时按住 <Shift> 以创建牢固 (unyielding) 连接 (pass=tru
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
 "Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions"
+"nodes or with incompatible permissions)"
 msgstr ""
 "在单击时按住 <Ctrl> 以创建冲突连接（例如，在拉链节点或具有不兼容的权限时）"
 
@@ -14493,6 +14520,22 @@ msgstr "发送编码帧时出错!"
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:222
 msgid "Error during encoding!"
 msgstr "编码时出错!"
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:62
+msgid "Overlapped objects"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:64
+msgid "Delete element"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:66
+msgid "Select element"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:68
+msgid "Mark front element"
+msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
