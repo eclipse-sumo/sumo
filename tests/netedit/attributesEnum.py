@@ -174,25 +174,25 @@ class junction:
 
 class edge:
     class create:
-        numLanes = 7
-        speed = 8
-        allowButton = 9
-        allow = 10
-        disallow = 11
-        spreadType = 12
-        priority = 14
-        width = 15
-        sidewalkWidth = 16
-        bikelaneWidth = 17
+        numLanes = 8
+        speed = 9
+        allowButton = 10
+        allow = 11
+        disallow = 12
+        spreadType = 13
+        priority = 15
+        width = 16
+        sidewalkWidth = 17
+        bikelaneWidth = 18
 
     class createLane:
-        add = 23
-        remove = 24
-        speed = 25
-        allowButton = 26
-        allow = 27
-        disallow = 28
-        width = 29
+        add = 24
+        remove = 25
+        speed = 26
+        allowButton = 27
+        allow = 28
+        disallow = 29
+        width = 30
 
     class inspect:
         id = 1
@@ -240,9 +240,9 @@ class edge:
         parameters = 21
 
     class template:
-        create = 32
-        copy = 33
-        clear = 34
+        create = 33
+        copy = 34
+        clear = 35
 
     class contextualMenu:
         splitEdge = 1

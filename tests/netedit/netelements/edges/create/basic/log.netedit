@@ -1,0 +1,12 @@
+Warning: Lane '-E4_0' is not connected from any incoming edge at junction 'J2'.
+Warning: Edge 'E1' is not connected to outgoing edges at junction 'J2'.
+Warning: Edge 'E2' is not connected to outgoing edges at junction 'J4'.
+Warning: Edge 'E3' is not connected to outgoing edges at junction 'J5'.
+Warning: Lane 'E3_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J5'.
+Warning: Lane '-E4_0' is not connected from any incoming edge at junction 'J2'.
+Warning: Edge 'E1' is not connected to outgoing edges at junction 'J2'.
+Warning: Edge 'E2' is not connected to outgoing edges at junction 'J4'.
+Warning: Lane 'E3_0' is not connected from any incoming edge at junction 'J4'.
+Warning: 6 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 6 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

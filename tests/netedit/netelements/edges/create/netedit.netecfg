@@ -8,7 +8,7 @@
 
     <visualisation>
         <gui-settings-file value="gui-settings.xml"/>
-        <window-size value="936, 697"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing.setting-output value="guisettingsoutput.xml"/>

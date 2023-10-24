@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 11:43:49 by Eclipse SUMO netedit Version v1_13_0+0593-81dd51a759b
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-10-24 08:48:41 by Eclipse SUMO netedit Version v1_18_0+2218-6fd7de11f4c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct084651.18760\netedit.gui\netelements\edges\create\numlanes\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct084651.18760\netedit.gui\netelements\edges\create\numlanes\netedit.net.xml"/>
     </output>
 
-    <processing>
-        <offset.disable-normalization value="true"/>
-    </processing>
-
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\datas.xml"/>
+        <new-network value="false"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct084651.18760\netedit.gui\netelements\edges\create\numlanes\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct084651.18760\netedit.gui\netelements\edges\create\numlanes\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.03Jun115020.8176\netedit.gui\netelements\edges\create\numlanes\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct084651.18760\netedit.gui\netelements\edges\create\numlanes\log.txt"/>
     </report>
 
 </configuration>
@@ -43,15 +34,15 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,30.00,85.00,30.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-30.00,30.00,50.00,30.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="85.00" shape="0.00,22.00 85.00,22.00"/>
-        <lane id="E0_1" index="1" speed="13.89" length="85.00" shape="0.00,25.20 85.00,25.20"/>
-        <lane id="E0_2" index="2" speed="13.89" length="85.00" shape="0.00,28.40 85.00,28.40"/>
+        <lane id="E0_0" index="0" speed="13.89" length="80.00" shape="-30.00,22.00 50.00,22.00"/>
+        <lane id="E0_1" index="1" speed="13.89" length="80.00" shape="-30.00,25.20 50.00,25.20"/>
+        <lane id="E0_2" index="2" speed="13.89" length="80.00" shape="-30.00,28.40 50.00,28.40"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="0.00" y="30.00" incLanes="" intLanes="" shape="0.00,30.00 0.00,20.40"/>
-    <junction id="J1" type="dead_end" x="85.00" y="30.00" incLanes="E0_0 E0_1 E0_2" intLanes="" shape="85.00,20.40 85.00,30.00"/>
+    <junction id="J0" type="dead_end" x="-30.00" y="30.00" incLanes="" intLanes="" shape="-30.00,30.00 -30.00,20.40"/>
+    <junction id="J1" type="dead_end" x="50.00" y="30.00" incLanes="E0_0 E0_1 E0_2" intLanes="" shape="50.00,20.40 50.00,30.00"/>
 
 </net>
