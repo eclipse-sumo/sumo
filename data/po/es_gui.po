@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-23 14:02+0000\n"
+"PO-Revision-Date: 2023-10-24 09:37+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8040,7 +8040,7 @@ msgstr "Detector de salida E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2357
 msgid "The id of Instant Induction Loop (E1Instant)"
-msgstr ""
+msgstr "El ID del detector de bucle de inducción instantáneo (E1Instant)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2372
 msgid "Name of instant induction loop"
@@ -8056,7 +8056,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2410
 msgid "The id of an edge in the simulation network"
-msgstr ""
+msgstr "El ID de una arista en la red simulada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2415
 msgid "The frequency in which to report the distribution"
@@ -8080,11 +8080,11 @@ msgstr "Señal de velocidad variable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2447
 msgid "The id of Variable Speed Signal"
-msgstr ""
+msgstr "El ID de la señal de velocidad variable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2458
 msgid "List of Variable Speed Sign lanes"
-msgstr ""
+msgstr "Lista de carriles con señales de velocidad variable"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2463
 msgid "Name of Variable Speed Signal"
@@ -8095,6 +8095,8 @@ msgid ""
 "Space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
+"Lista separada por espacios de los IDs de tipos de vehículos a considerar ("
+"dejar vacía para influir a todos los tipos)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2478
 msgid "VariableSpeedSign Symbol"
