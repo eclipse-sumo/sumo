@@ -284,15 +284,17 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::VShapeRow(VTypeAttributes* VTy
 void
 GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::setVariable() {
     // set color of myComboBoxShape, depending if current value is valid or not
-    if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
-        myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
-        myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
-                myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
-        setVShapeLabelImage();
-    } else {
-        myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
-        myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_GUISHAPE;
+    if (myComboBoxShape->isEnabled()) {
+        if (myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
+            myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
+            myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
+                    myVTypeAttributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
+            setVShapeLabelImage();
+        } else {
+            myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
+            myVTypeAttributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+            myVTypeAttributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_GUISHAPE;
+        }
     }
 }
 
