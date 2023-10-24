@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-24 09:37+0000\n"
+"PO-Revision-Date: 2023-10-24 13:21+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10934,7 +10934,7 @@ msgstr "El atributo '%' no existe."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:729
 msgid "Route length: "
-msgstr ""
+msgstr "Longitud de la ruta: "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:739
 msgid "reverse"
@@ -11277,11 +11277,11 @@ msgstr "Etiqueta de vehículo no válida"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
 msgid "departPos of %"
-msgstr ""
+msgstr "posición de salida de %"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
 msgid "arrivalPos of %"
-msgstr ""
+msgstr "posición de llegada de %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEConnection.cpp:720
 msgid "Could not set attribute '%' (tls is broken)"
@@ -11418,11 +11418,12 @@ msgstr "Establecer punto final de geometría aquí (shift+clic)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1945
 msgid "Restore both geometry endpoints"
-msgstr ""
+msgstr "Restaurar ambos puntos finales de geometría"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
 msgid "Restore geometry endpoints of all selected edges"
 msgstr ""
+"Restaurar puntos finales de geometría de todas las aristas seleccionadas"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1950
 msgid "Restore geometry endpoint (shift-click)"
@@ -11507,15 +11508,15 @@ msgstr "Carril de bus"
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Green verge"
-msgstr ""
+msgstr "Borde verde"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
 msgid "Green verge (front)"
-msgstr ""
+msgstr "Borde verde (a la izquierda)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2039
 msgid "Green verge (back)"
-msgstr ""
+msgstr "Borde verde (a la derecha)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2056
 msgid "Add restricted %"
@@ -11912,27 +11913,27 @@ msgstr "Atributos de netedit"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:55
 msgid "Reference Left"
-msgstr ""
+msgstr "Referencia a la izquierda"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
 msgid "Reference Right"
-msgstr ""
+msgstr "Referencia a la derecha"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:58
 msgid "Extended Left"
-msgstr ""
+msgstr "Extendido hacia la izquierda"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:59
 msgid "Extended Right"
-msgstr ""
+msgstr "Extendido hacia la derecha"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:60
 msgid "Extended"
-msgstr ""
+msgstr "Extendido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:75
 msgid "Force leng."
-msgstr ""
+msgstr "Forzar longitud"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:83
 msgid "Center view"
@@ -11951,6 +11952,8 @@ msgid ""
 "Invalid position. Uncheck 'Force length' to create element with flexible "
 "length"
 msgstr ""
+"Posición no válida. Desactive 'Forzar longitud' para crear un elemento con "
+"longitud flexible"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:375
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:267
@@ -11974,28 +11977,35 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
 msgstr ""
+"  - Referencia a la izquierda: posición inicial = 70 y posición final = 100."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:384
 msgid "  - Reference Right: will have startPos = 100 and endPos = 130."
 msgstr ""
+"  - Referencia a la derecha: posición inicial = 100 y posición final = 130."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:385
 msgid "  - Center: will have startPos = 85 and endPos = 115."
-msgstr ""
+msgstr "  - Centrar: posición inicial = 85 y posición final = 115."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:387
 msgid ""
 "  - Extended Left: will have startPos = 85 and endPos until lane's length."
 msgstr ""
+"  - Extendido hacia la izquierda: posición inicial = 85 y posición final "
+"será el final del carril."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:388
 msgid "  - Extended Right: will have startPos from start and endPos = 115."
 msgstr ""
+"  - Extendido hacia la derecha: posición inicial del carril y posición final "
+"= 115."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:389
 msgid ""
 "  - Extended: will have startPos from start and endPos until lane's length."
 msgstr ""
+"  - Extendido: posición inicial y final será toda la longitud del carril."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:391
 msgid ""
@@ -12211,14 +12221,14 @@ msgstr "Eliminar el último elemento"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:881
 msgid "Click over:"
-msgstr ""
+msgstr "Hacer clic sobre:"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:955
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:989
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1023
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1058
 msgid "Only two from-to elements are allowed"
-msgstr ""
+msgstr "Sólo se permiten dos elementos from-to"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1051
 msgid "Double stoppingPlaces aren't allowed"
@@ -13126,10 +13136,13 @@ msgstr "El plan de contenedores seleccionado no es válido."
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
 msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
+"El tipo de vehículo con clase == 'ignoring' está orientado a contenedores"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:245
 msgid "VType with vClass != 'pedestrian' is not oriented to containers"
 msgstr ""
+"El tipo de vehículo con clase != 'pedestrian' no está orientado a "
+"contenedores"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:268
 msgid "Invalid container parameters."
@@ -13183,11 +13196,12 @@ msgstr "El tipo de persona seleccionado actualmente no es válido."
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:118
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:129
 msgid "Current selected person plan isn't valid."
-msgstr ""
+msgstr "El plan actual de la persona seleccionada no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:245
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
 msgstr ""
+"El tipo de vehículo con clase != 'pedestrian' no está orientado a personas"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:268
 msgid "Invalid person parameters."
@@ -15977,7 +15991,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1915
 msgid "Show Bluetooth range"
-msgstr ""
+msgstr "Mostrar alcance de Bluetooth"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1917
 msgid "Show route index"
