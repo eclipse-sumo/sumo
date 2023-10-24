@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-23 14:02+0000\n"
+"PO-Revision-Date: 2023-10-24 09:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -8900,7 +8900,7 @@ msgstr "Die ID der Fahrzeugtyp-Verteilung"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3681
 msgid "TripEdges"
-msgstr ""
+msgstr "Fahrt zwischen Kanten"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3687
 msgid "The ID of trip"
@@ -8936,7 +8936,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3727
 msgid "TripJunctions"
-msgstr ""
+msgstr "Fahrt zwischen Knotenpunkten"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3733
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3774
@@ -8953,7 +8953,7 @@ msgstr "Der Name des Knotenpunkts an dem die Fahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3768
 msgid "TripTAZs"
-msgstr ""
+msgstr "Fahrt zwischen Verkehrsumlegungszonen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3785
 msgid "The name of the TAZ the trip starts at"
@@ -8965,7 +8965,7 @@ msgstr "Der Name der Verkehrsumlegungszone, an der die Fahrt endet"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3809
 msgid "VehicleRoute"
-msgstr ""
+msgstr "Fahrzeug mit Route"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3815
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3861
@@ -8994,11 +8994,11 @@ msgstr "Der Zeitschritt, zu dem das Fahrzeug in das Netz eintreten soll"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3855
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "Fahrzeug mit interner Route"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3896
 msgid "FlowEdges"
-msgstr ""
+msgstr "Fluss zwischen Kanten"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3902
 msgid "The ID of the flow"
@@ -9194,7 +9194,7 @@ msgstr "Der Zeitschritt, zu dem die Person in das Netz eintreten soll"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4405
 msgid "PersonFlow"
-msgstr ""
+msgstr "Personenfluss"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4436
 msgid "The time step at which the container shall enter the network"
@@ -9251,97 +9251,97 @@ msgstr "Halt: Container-Haltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4648
 msgid "PersonTrip: edge->edge"
-msgstr ""
+msgstr "Personenfahrt: Kante->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4661
 msgid "PersonTrip: edge->taz"
-msgstr ""
+msgstr "Personenfahrt: Kante->Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4674
 msgid "PersonTrip: edge->junction"
-msgstr ""
+msgstr "Personenfahrt: Kante->Knotenpunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4687
 msgid "PersonTrip: edge->busStop"
-msgstr ""
+msgstr "Personenfahrt: Kante->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4700
 msgid "PersonTrip: edge->trainStop"
-msgstr ""
+msgstr "Personenfahrt: Kante->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4714
 msgid "PersonTrip: taz->edge"
-msgstr ""
+msgstr "Personenfahrt: Verkehrsumlegungszone->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4727
 msgid "PersonTrip: taz->taz"
-msgstr ""
+msgstr "Personenfahrt: Verkehrsumlegungszone->Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4740
 msgid "PersonTrip: taz->junction"
-msgstr ""
+msgstr "Personenfahrt: Verkehrsumlegungszone->Knotenpunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4754
 msgid "PersonTrip: taz->busStop"
-msgstr ""
+msgstr "Personenfahrt: Verkehrsumlegungszone->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4767
 msgid "PersonTrip: taz->trainStop"
-msgstr ""
+msgstr "Personenfahrt: Verkehrsumlegungszone->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4781
 msgid "PersonTrip: junction->edge"
-msgstr ""
+msgstr "Personenfahrt: Knotenpunkt->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4794
 msgid "PersonTrip: junction->taz"
-msgstr ""
+msgstr "Personenfahrt: Knotenpunkt->Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4807
 msgid "PersonTrip: junction->junction"
-msgstr ""
+msgstr "Personenfahrt: Knotenpunkt->Knotenpunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4820
 msgid "PersonTrip: junction->busStop"
-msgstr ""
+msgstr "Personenfahrt: Knotenpunkt->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4833
 msgid "PersonTrip: junction->trainStop"
-msgstr ""
+msgstr "Personenfahrt: Knotenpunkt->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4847
 msgid "PersonTrip: busStop->edge"
-msgstr ""
+msgstr "Personenfahrt: Bushaltepunkt->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4860
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4873
 msgid "PersonTrip: busStop->taz"
-msgstr ""
+msgstr "Personenfahrt: Bushaltepunkt->Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4886
 msgid "PersonTrip: busStop->busStop"
-msgstr ""
+msgstr "Personenfahrt: Bushaltepunkt->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4899
 msgid "PersonTrip: busStop->trainStop"
-msgstr ""
+msgstr "Personenfahrt: Bushaltepunkt->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4913
 msgid "PersonTrip: trainStop->edge"
-msgstr ""
+msgstr "Personenfahrt: Zughaltepunkt->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4926
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4939
 msgid "PersonTrip: trainStop->taz"
-msgstr ""
+msgstr "Personenfahrt: Zughaltepunkt->Verkehrsumlegungszone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4952
 msgid "PersonTrip: trainStop->busStop"
-msgstr ""
+msgstr "Personenfahrt: Zughaltepunkt->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4965
 msgid "PersonTrip: trainStop->trainStop"
-msgstr ""
+msgstr "Personenfahrt: Zughaltepunkt->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4986
 msgid "walk: edges"
@@ -9475,19 +9475,19 @@ msgstr "Mitfahrt: Zughaltepunkt->Kante"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5444
 msgid "Ride: train->busStop"
-msgstr ""
+msgstr "Mitfahrt: Zug->Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5457
 msgid "Ride: train->trainStop"
-msgstr ""
+msgstr "Mitfahrt: Zug->Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5492
 msgid "Stop: busStop"
-msgstr ""
+msgstr "Halt: Bushaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5506
 msgid "Stop: trainStop"
-msgstr ""
+msgstr "Halt: Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5521
 msgid "The color with which the POI shall be displayed"
