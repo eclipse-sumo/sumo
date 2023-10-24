@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-24 13:40+0000\n"
+"PO-Revision-Date: 2023-10-24 13:59+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4709,7 +4709,7 @@ msgstr "Crear ventana inicial en la posición x,y dada"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:471
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Habilitar superposición para reconocimiento de pantalla"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:474
 msgid "Enable output messages during GUI-Testing"
@@ -5281,20 +5281,20 @@ msgstr "seleccionar accesibilidad del carril"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3081
 msgid "Multiple lane in the same edge selected"
-msgstr ""
+msgstr "Múltiples carriles seleccionados en la misma arista"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3082
 msgid "There are selected lanes that belong to the same edge."
-msgstr ""
+msgstr "Hay carriles seleccionados que pertenecen a la misma arista."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3083
 msgid "Only one lane per edge will be restricted for "
-msgstr ""
+msgstr "Sólo un carril por arista será restringido a "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3098
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3106
 msgid "Set vclass for "
-msgstr ""
+msgstr "Establecer clase de vehículo para "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3099
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3107
@@ -7428,7 +7428,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1378
 msgid "Overrides default shape of pedestrian crossing"
-msgstr ""
+msgstr "Sobrescribe la forma predeterminada del paso de peatones"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1388
 msgid "WalkingArea"
