@@ -1573,7 +1573,7 @@ class type:
         create = 2
         delete = 3
         copy = 3
-        dialog = 25
+        dialog = 24
 
     class edit:
         id = 8
@@ -1621,20 +1621,20 @@ class type:
         osgFile = 18
         laneChangeModel = 19
         guiShape = 21
-        probability = 23
-        personCapacity = 24
-        containerCapacity = 25
-        boardingDuration = 26
-        loadingDuration = 27
-        latAlignment = 28
-        minGapLat = 30
-        maxSpeedLat = 31
-        actionStepLength = 32
-        carriageLength = 33
-        locomotiveLength = 34
-        carriageGap = 35
-        parametersButton = 36
-        parameters = 37
+        probability = 21
+        personCapacity = 22
+        containerCapacity = 23
+        boardingDuration = 24
+        loadingDuration = 25
+        latAlignment = 26
+        minGapLat = 28
+        maxSpeedLat = 29
+        actionStepLength = 30
+        carriageLength = 31
+        locomotiveLength = 32
+        carriageGap = 33
+        parametersButton = 34
+        parameters = 35
 
 # route
 
