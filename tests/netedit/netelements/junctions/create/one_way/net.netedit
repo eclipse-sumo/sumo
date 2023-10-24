@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-22 13:32:55 by Eclipse SUMO netedit Version v1_16_0+2291-742022843de
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-10-24 13:42:08 by Eclipse SUMO netedit Version v1_18_0+2229-87101adba1e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way/netedit.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct134051.22444\netedit.gui\netelements\junctions\create\one_way\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way/netedit.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct134051.22444\netedit.gui\netelements\junctions\create\one_way\netedit.net.xml"/>
     </output>
-
-    <processing>
-        <offset.disable-normalization value="true"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-    </junctions>
 
     <netedit>
         <new-network value="false"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way/gui-settings.xml"/>
-        <window-size value="936, 697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct134051.22444\netedit.gui\netelements\junctions\create\one_way\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct134051.22444\netedit.gui\netelements\junctions\create\one_way\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.1_from_22Apr103726.168801/netedit.daily.net.junctions/netelements/junctions/create/one_way/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct134051.22444\netedit.gui\netelements\junctions\create\one_way\log.txt"/>
     </report>
 
 </configuration>
@@ -41,13 +34,13 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,90.00,20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-40.00,90.00,-20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="20.00" shape="0.00,88.40 20.00,88.40"/>
+        <lane id="E0_0" index="0" speed="13.89" length="20.00" shape="-40.00,88.40 -20.00,88.40"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="0.00" y="90.00" incLanes="" intLanes="" shape="0.00,90.00 0.00,86.80"/>
-    <junction id="J1" type="dead_end" x="20.00" y="90.00" incLanes="E0_0" intLanes="" shape="20.00,86.80 20.00,90.00"/>
+    <junction id="J0" type="dead_end" x="-40.00" y="90.00" incLanes="" intLanes="" shape="-40.00,90.00 -40.00,86.80"/>
+    <junction id="J1" type="dead_end" x="-20.00" y="90.00" incLanes="E0_0" intLanes="" shape="-20.00,86.80 -20.00,90.00"/>
 
 </net>
