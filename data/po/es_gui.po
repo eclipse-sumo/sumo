@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-24 13:21+0000\n"
+"PO-Revision-Date: 2023-10-24 13:40+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2627,7 +2627,7 @@ msgstr "Red computada"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1544
 msgid "Press F5"
-msgstr "Presiona F5"
+msgstr "Presione F5"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1545
 msgid "Network requires recomputing"
@@ -15979,7 +15979,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1909
 msgid "Show blinker / brake lights"
-msgstr ""
+msgstr "Mostrar luces intermitentes / de freno"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1911
 msgid "Show minimum gap"
@@ -16047,15 +16047,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2055
 msgid "Show junction id"
-msgstr ""
+msgstr "Mostrar ID del cruce"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2056
 msgid "Show internal junction id"
-msgstr ""
+msgstr "Mostrar ID del cruce interno"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2057
 msgid "Show internal edge id"
-msgstr ""
+msgstr "Mostrar ID de la arista interna"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2058
 msgid "Show crossing and walkingarea id"
@@ -16075,11 +16075,11 @@ msgstr "Mostrar nombre del cruce"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2072
 msgid "Show object id"
-msgstr "Mostrar id del objeto"
+msgstr "Mostrar ID del objeto"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2073
 msgid "Show full name"
-msgstr ""
+msgstr "Mostrar nombre completo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2080
 msgid "StoppingPlace"
@@ -16103,19 +16103,19 @@ msgstr "color"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2163
 msgid "POI detail"
-msgstr ""
+msgstr "Número de vértices"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2168
 msgid "Show poi id"
-msgstr ""
+msgstr "Mostrar ID del punto de interés"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2169
 msgid "Show poi type"
-msgstr ""
+msgstr "Mostrar tipo de punto de interés"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2170
 msgid "Show poi text param"
-msgstr ""
+msgstr "Mostrar parámetro de texto"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2197
 msgid "Show polygon id"
@@ -16135,7 +16135,7 @@ msgstr "Misceláneos"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2264
 msgid "hide below threshold"
-msgstr "ocultar menor al umbral"
+msgstr "ocultar menor a"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2271
 msgid "Exaggerate edgeRelation width by"
@@ -16215,7 +16215,7 @@ msgstr "Brillo del sol"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2370
 msgid "Sky color"
-msgstr "Color de cielo"
+msgstr "Color del cielo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter View"
