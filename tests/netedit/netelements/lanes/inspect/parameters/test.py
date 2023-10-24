@@ -38,10 +38,10 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 400, 165)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.lane.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.lane.inspect.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

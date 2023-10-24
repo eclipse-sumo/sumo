@@ -281,9 +281,8 @@ class lane:
         changeRight = 13
         type = 14
         stopOffset = 15
-        stopOffsetExceptionButton = 16
-        stopOffsetException = 17
-        parameters = 20
+        stopOffsetException = 18
+        parameters = 21
 
     class inspectSelection:
         speed = 1
@@ -299,9 +298,8 @@ class lane:
         changeRight = 11
         type = 12
         stopOffset = 13
-        stopOffsetExceptionButton = 14
-        stopOffsetException = 15
-        parameters = 18
+        stopOffsetException = 14
+        parameters = 17
 
     class contextualMenu:
         duplicateLane = 1

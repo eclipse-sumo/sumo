@@ -38,10 +38,10 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 400, 165)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(netedit.attrs.lane.inspect.acceleration, True)
+netedit.modifyBoolAttribute(netedit.attrs.lane.inspect.acceleration, False)
 
 # recompute
 netedit.rebuildNetwork()

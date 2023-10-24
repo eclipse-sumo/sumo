@@ -38,22 +38,22 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 400, 165)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "dummyStopOffset", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "dummyStopOffset", False)
 
 # Change parameter 4 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "", False)
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "-3", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "-3", False)
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "800", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "800", False)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.stopOffset, "12.5", False)
 
 # recompute
 netedit.rebuildNetwork()

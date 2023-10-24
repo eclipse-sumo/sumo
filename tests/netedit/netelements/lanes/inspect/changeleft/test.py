@@ -38,26 +38,26 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 400, 165)
 
 # Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "DummyAllowed", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "DummyAllowed", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "", False)
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspect.changeLeftButton, True)
+netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspect.changeLeftButton, False)
 
 # Change parameter 1 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.changeLeft,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+                        "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -38,19 +38,19 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 400, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(netedit.attrs.lane.inspectSelection.acceleration, True)
+netedit.modifyBoolAttribute(netedit.attrs.lane.inspectSelection.acceleration, False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -38,31 +38,31 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 400, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "dummyWidth", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "dummyWidth", False)
 
 # Change parameter 3 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "", False)
 
 # Change parameter 3 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "-2", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "-2", False)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "default", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "default", False)
 
 # Change parameter 3 with a valid value (default)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "4", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -38,13 +38,13 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 400, 165)
 
 # Change parameter 0 with a non valid value (empty speed)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "%%%&&&", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "%%%&&&", False)
 
 # Change parameter 0 with a non valid value (dummy speed)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "gneE3_1", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.opposite, "gneE3_1", False)
 
 # recompute
 netedit.rebuildNetwork()
