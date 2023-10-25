@@ -10,10 +10,6 @@ Warning: Found sharp turn with radius 6.37 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 8.52 at the start of edge '122820534#0'.
 Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Found sharp turn with radius 7.15 at the start of edge '194167259#1'.
-Warning: Found sharp turn with radius 3.53 at the end of edge '195071823'.
-Warning: Found sharp turn with radius 8.32 at the end of edge '202162471'.
-Warning: Found sharp turn with radius 8.48 at the start of edge '23852053#1'.
-Warning: Found sharp turn with radius 6.37 at the end of edge '52348720#0'.
 Warning: Found angle of 142.82 degrees at edge '6227654#2', segment 0.
 Warning: Lane '-24992424#0_6' is not connected from any incoming edge at junction '2882261426'.
 Warning: Lane '-24992424#1_6' is not connected from any incoming edge at junction 'cluster_2086246926_28373974'.
@@ -32,13 +28,11 @@ Warning: Speed of straight connection '167140670#0_0->30719903#2_0' reduced by 7
 Warning: Speed of straight connection '30719903#0_0->167140669#2_0' reduced by 8.49 due to turning radius of 5.30 (length=9.01, angle=149.80).
 Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47, angle=172.60).
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0.
-Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10m short.
 Warning: 16 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 6 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 8 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 14 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 22 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 290 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 20 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
 Warning: 40 total messages of type: The rail crossing '%' does not have any roads.
