@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-24 13:59+0000\n"
+"PO-Revision-Date: 2023-10-25 10:53+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15401,7 +15401,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
 msgid "waiting for ride"
-msgstr ""
+msgstr "esperando a que lo lleven"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1125
 msgid "by jammed state"
@@ -15409,11 +15409,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
 msgid "given container/type color"
-msgstr ""
+msgstr "color de contenedor/tipo dado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1137
 msgid "given/assigned container color"
-msgstr ""
+msgstr "color de contenedor dado/asignado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 msgid "transport"
@@ -15435,12 +15435,12 @@ msgstr "por altura"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1196
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1658
 msgid "given POI color"
-msgstr ""
+msgstr "color de punto de interés dado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1203
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1665
 msgid "given polygon color"
-msgstr ""
+msgstr "color de polígono dado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1212
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1674
