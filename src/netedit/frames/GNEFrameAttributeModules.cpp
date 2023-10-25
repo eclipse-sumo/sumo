@@ -325,8 +325,8 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             newVal = myValueTextField->getText().text();
         }
     } else if (myACAttr.isDiscrete()) {
-        // Check if are VClasses
-        if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isVClasses()) {
+        // check if we have the new value in a text field or in the combo box
+        if (myValueTextField->shown()) {
             // Get value obtained using AttributesEditor
             newVal = myValueTextField->getText().text();
         } else {
