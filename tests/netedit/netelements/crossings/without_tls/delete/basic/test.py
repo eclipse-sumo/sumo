@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete first crossing
-netedit.leftClick(referencePosition, 250, 225)
+netedit.leftClick(referencePosition, 415, 225)
 
 # delete second crossing
 netedit.leftClick(referencePosition, 410, 225)

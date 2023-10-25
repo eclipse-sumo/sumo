@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, 325, 225)
+netedit.leftClick(referencePosition, 500, 225)
 
 # create split crossing
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "4")

@@ -35,11 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, 325, 225)
+netedit.leftClick(referencePosition, 500, 225)
 
 # Check clear
-netedit.leftClick(referencePosition, 150, 200)
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 300, 200)
+netedit.leftClick(referencePosition, 300, 250)
 netedit.crossingClearEdges()
 
 # save Netedit config
