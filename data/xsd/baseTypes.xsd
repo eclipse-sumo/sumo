@@ -355,6 +355,16 @@
         <xsd:attribute name="idAfter" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
+    <xsd:simpleType name="signedTimeType">
+        <xsd:union memberTypes="floatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="timeType">
         <xsd:union memberTypes="nonNegativeFloatType">
             <xsd:simpleType>
