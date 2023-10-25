@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectTLS.parameters, False)

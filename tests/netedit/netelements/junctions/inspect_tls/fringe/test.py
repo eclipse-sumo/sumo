@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # set dummy value
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.fringe, "dummyValue", False)

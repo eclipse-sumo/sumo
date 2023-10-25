@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change type of junction
 netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "traffic_light_right_on_red", False)

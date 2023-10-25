@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change ID (Duplicated)
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.id, "gneJ1", False)
