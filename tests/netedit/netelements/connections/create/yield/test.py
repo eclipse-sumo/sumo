@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.connectionMode()
 
 # create connection
-netedit.createConnection(referencePosition, 600, 190, 350, 0, "yield")
+netedit.createConnection(referencePosition, 140, 270, 600, -8, "yield")
 
 # save changes
 netedit.saveConnectionEdit()

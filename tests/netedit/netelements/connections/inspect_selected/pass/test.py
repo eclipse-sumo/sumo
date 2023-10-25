@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, 228, 170)
+netedit.leftClick(referencePosition, 400, 130)
 
 # Change pass
 netedit.modifyBoolAttribute(netedit.attrs.connection.inspectSelection.passC, True)

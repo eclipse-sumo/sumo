@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, 228, 170)
+netedit.leftClick(referencePosition, 400, 130)
 
 # Change parameter 8 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.disallow, "DummyAllowed", True)
