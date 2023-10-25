@@ -63,7 +63,12 @@ date >> $MAKELOG
 echo `grep -ci 'warn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 
 echo "--" >> $STATUSLOG
-cd $PREFIX/sumo
+cd $PREFIX/sumo/bin
+if test -e sumoD; then
+  # it seems the plain build also had the debug config so we symlink to run the tests with the proper binaries
+  for i in *D; do ln -sf ${i} ${i::-1}; done
+fi
+cd ..
 if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
