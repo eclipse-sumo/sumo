@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-23 14:02+0000\n"
+"PO-Revision-Date: 2023-10-25 10:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1027,7 +1027,7 @@ msgstr "Localizza un poligono nella rete."
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:39
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "Su Eclipse SUMO sumo-gui"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
 msgid ""
@@ -2723,7 +2723,7 @@ msgstr "Annulla"
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
 #: C:\Repos\sumo/src\netedit\changes\GNEChangeGroup.cpp:106
 msgid "Redo"
-msgstr "Ripristina"
+msgstr "Reimposta"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3184
 msgid "Saving Network failed!"
@@ -4528,7 +4528,7 @@ msgstr "Aggiungi esplicazione dell'attributo nel file"
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
 "Ignora il dialogo di conferma del cambio supermodi nella cronologia annulla-"
-"ripristina"
+"reimposta"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:324
 msgid "Ignore additional elements during loading of sumo-configs"
@@ -4700,23 +4700,25 @@ msgstr "Carica veduta attuale da registry"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:463
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Crea una finestra iniziale con le misure x,y date"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:466
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Crea una finestra alla posizione data x,y"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:471
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Attiva l'interferenza per l'identificazione del monitore"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:474
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Attiva messaggi uscita durante il test dell'interfaccia grafica"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:477
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr ""
+"Attiva messaggi uscita durante il test dell'interfaccia grafica al riguardo "
+"di funzioni GL"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:480
 msgid "Save gui settings in the given settings-output file"
@@ -4976,21 +4978,21 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2878
 msgid "Redo replace in TLS"
-msgstr ""
+msgstr "Reimposta sostituzione semaforo"
 
 #: C:\Repos\sumo/src\netedit\GNENetHelper.cpp:2884
 msgid "Undo replace in TLS"
-msgstr ""
+msgstr "Annulla sostituzione semaforo"
 
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:452
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:454
 msgid "Cannot Undo in the middle of "
-msgstr ""
+msgstr "Impossibile annullare nel mezzo di "
 
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:499
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:501
 msgid "Cannot Redo in the middle of "
-msgstr ""
+msgstr "Impossible reimpostare nel mezzo di "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:343
 msgid "Locate a junction within the network. (Shift+J)"
@@ -5018,11 +5020,11 @@ msgstr "Localizza una persona nella rete. (Shift+P)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:363
 msgid "Locate Containers"
-msgstr ""
+msgstr "Localizza contenitori"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:363
 msgid "Locate a container within the network. (Shift+C)"
-msgstr ""
+msgstr "Localizza un contenitore nella rete. (Shift+C)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:367
 msgid "Locate Route"
@@ -5079,7 +5081,7 @@ msgstr "Vuoi combinare gli incroci '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:867
 msgid "' and '"
-msgstr ""
+msgstr "' e '"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:868
 msgid "' will be eliminated and its roads added to '"
@@ -5988,7 +5990,7 @@ msgstr "Annulla l'ultimo cambio. (Ctrl+Z)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
 msgid "Redo the last change. (Ctrl+Y)"
-msgstr "Ripristina l'ultimo cambio. (Ctrl+Y)"
+msgstr "Reimposta l'ultimo cambio. (Ctrl+Y)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:118
 msgid "Compute path manager"
@@ -6049,7 +6051,7 @@ msgstr "Annulla rimozione "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_GenericData.cpp:138
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_MeanData.cpp:128
 msgid "Redo create "
-msgstr "Ripristina creazione "
+msgstr "Reimposta creazione "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Additional.cpp:132
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_DataInterval.cpp:120
@@ -6058,7 +6060,7 @@ msgstr "Ripristina creazione "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_GenericData.cpp:140
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_MeanData.cpp:130
 msgid "Redo delete "
-msgstr "Ripristina rimozione "
+msgstr "Reimposta rimozione "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:45
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:62
@@ -6071,7 +6073,7 @@ msgstr "Annulla cambio "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Attribute.cpp:160
 msgid "Redo change "
-msgstr "Ripristina cambio "
+msgstr "Reimposta cambio "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Children.cpp:147
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Children.cpp:158
@@ -6098,15 +6100,15 @@ msgstr "Rispristina spostamento in avanti "
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Children.cpp:173
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Children.cpp:182
 msgid "Redo moving back "
-msgstr "Ripristina spostamento indietro "
+msgstr "Reimposta spostamento indietro "
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Connection.cpp:108
 msgid "Redo create connection '"
-msgstr "Ripristina creazione del collegamento '"
+msgstr "Reimposta creazione del collegamento '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Connection.cpp:111
 msgid "Redo delete connection '"
-msgstr "Ripristina rimozione del collegamento '"
+msgstr "Reimposta rimozione del collegamento '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Crossing.cpp:163
 msgid "Undo create crossing"
@@ -6118,11 +6120,11 @@ msgstr "Annulla rimozione di un passaggio pedonale"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Crossing.cpp:173
 msgid "Redo create crossing"
-msgstr "Ripristina creazione di un passaggio pedonale"
+msgstr "Reimposta creazione di un passaggio pedonale"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Crossing.cpp:175
 msgid "Redo delete crossing"
-msgstr "Ripristina rimozione di un passaggio pedonale"
+msgstr "Reimposta rimozione di un passaggio pedonale"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:41
 msgid "add '%' key in % '%'"
@@ -6154,11 +6156,11 @@ msgstr "Annulla la rimozione del arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:146
 msgid "Redo create edge '"
-msgstr "Ripristina creazione del arco '"
+msgstr "Reimposta creazione del arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:148
 msgid "Redo delete edge '"
-msgstr "Ripristina rimozione del arco '"
+msgstr "Reimposta rimozione del arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EdgeType.cpp:111
 msgid "Undo create edgeType '"
@@ -6170,11 +6172,11 @@ msgstr "Annulla rimozione del tipo di arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EdgeType.cpp:121
 msgid "Redo create edgeType '"
-msgstr "Ripristina creazione del tipo di arco '"
+msgstr "Reimposta creazione del tipo di arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_EdgeType.cpp:123
 msgid "Redo delete edgeType '"
-msgstr "Ripristina rimozione del tipo di arco '"
+msgstr "Reimposta rimozione del tipo di arco '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
@@ -6186,11 +6188,11 @@ msgstr "Annulla rimozione del incrocio '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:119
 msgid "Redo create junction '"
-msgstr "Ripristina creazione del incrocio '"
+msgstr "Reimposta creazione del incrocio '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Junction.cpp:121
 msgid "Redo delete junction '"
-msgstr "Ripristina rimozione del incrocio '"
+msgstr "Reimposta rimozione del incrocio '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:158
 msgid "Undo create lane '"
@@ -6202,11 +6204,11 @@ msgstr "Annulla rimozione della corsia '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:168
 msgid "Redo create lane '"
-msgstr "Ripristina creazione della corsia '"
+msgstr "Reimposta creazione della corsia '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Lane.cpp:170
 msgid "Redo delete lane '"
-msgstr "Ripristina rimozione della corsia '"
+msgstr "Reimposta rimozione della corsia '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
@@ -6218,11 +6220,11 @@ msgstr "Annulla rimozione del semaforo '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_TLS.cpp:182
 msgid "Redo create TLS '"
-msgstr "Ripristina creazione del semaforo '"
+msgstr "Reimposta creazione del semaforo '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_TLS.cpp:184
 msgid "Redo delete TLS '"
-msgstr "Ripristina rimozione del semaforo '"
+msgstr "Reimposta rimozione del semaforo '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_ToggleAttribute.cpp:112
 msgid "Undo toggle % attribute in '%'"
@@ -6286,7 +6288,7 @@ msgstr "Resetta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:64
 msgid "Reset to previous values"
-msgstr "Ripristina i valori anteriori"
+msgstr "Reimposta i valori anteriori"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:66
 msgid "Edit allow vClasses"
@@ -6494,7 +6496,7 @@ msgstr "&Resetta"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:65
 #: C:\Repos\sumo/src\netedit\dialogs\GNEGeometryPointDialog.cpp:77
 msgid "reset to previous values"
-msgstr "ripristina i valori anteriori"
+msgstr "reimposta i valori anteriori"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDialogACChooser.cpp:111
 msgid "Invalid Junction"
@@ -6832,7 +6834,7 @@ msgstr "Non ci sono parcheggi nella rete"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
 msgid "Undo/Redo history"
-msgstr "Cronologia annulla/ripristina"
+msgstr "Cronologia annulla/reimposta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
