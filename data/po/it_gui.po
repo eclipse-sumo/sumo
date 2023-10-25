@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-25 10:53+0000\n"
+"PO-Revision-Date: 2023-10-25 13:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5435,11 +5435,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1957
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "Salva configurazione netedit. (Ctrl+Shift+E)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1962
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "Salva configurazione sumo. (Ctrl+Shift+S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1967
 msgid "Save network"
@@ -5491,7 +5491,7 @@ msgstr "Salva elementi meanData. (Ctrl+Shift+M)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2028
 msgid "Switch between seconds and HH:MM:SS"
-msgstr ""
+msgstr "Cambia formato dell'ora tra secondi e HH:MM:SS"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2088
 msgid "Edit network elements"
@@ -5519,27 +5519,27 @@ msgstr "Sceglie il modo per modificare elementi di dati. (F4)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2106
 msgid "Change netedit view"
-msgstr ""
+msgstr "Cambia veduta netedit"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2106
 msgid "Change netedit view."
-msgstr ""
+msgstr "Cambia veduta netedit."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2111
 msgid "Set default view"
-msgstr ""
+msgstr "Imposta veduta standard"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2111
 msgid "Set default view."
-msgstr ""
+msgstr "Imposta la veduta standard."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2116
 msgid "Set JuPedSim view"
-msgstr ""
+msgstr "Imposta veduta JuPedSim"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2116
 msgid "Set JuPedSim view."
-msgstr ""
+msgstr "Imposta la veduta JuPedSim."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2130
 msgid "Mode already selected"
@@ -5776,11 +5776,11 @@ msgstr "Modo per rimuovere elementi. (D)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3499
 msgid "Set select mode"
-msgstr ""
+msgstr "Scegli modo di selezione"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3499
 msgid "Mode for selecting elements. (S)"
-msgstr ""
+msgstr "Modo per selezionare degli elementi. (S)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3555
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3708
