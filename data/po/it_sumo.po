@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-19 13:52+0200\n"
-"PO-Revision-Date: 2023-10-17 13:14+0000\n"
+"PO-Revision-Date: 2023-10-25 10:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.1.1-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2313,11 +2313,11 @@ msgstr "Carica veduta attuale da registry"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:744
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Crea una finestra iniziale con le misure x,y date"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:747
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Crea una finestra alla posizione data x,y"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:750
 msgid "The aggregation period for value tracker windows"
@@ -2329,11 +2329,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:759
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Attiva l'interferenza per l'identificazione del monitore"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:763
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Attiva messaggi uscita durante il test dell'interfaccia grafica"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:767
 msgid "Save gui settings in the given settings output file"
