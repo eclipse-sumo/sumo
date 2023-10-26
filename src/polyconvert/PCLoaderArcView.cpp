@@ -80,7 +80,7 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& 
 const PositionVector
 PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
     OGRSpatialReference* srs = geom->getSpatialReference();
-    bool latLongOrder = srs->GetAxisMappingStrategy() == OSRAxisMappingStrategy::OAMS_AUTHORITY_COMPLIANT;
+    bool latLongOrder = srs != nullptr && srs->GetAxisMappingStrategy() == OSRAxisMappingStrategy::OAMS_AUTHORITY_COMPLIANT;
     if (myWarnMissingProjection) {
         int outOfRange = 0;
         for (int j = 0; j < geom->getNumPoints(); j++) {
