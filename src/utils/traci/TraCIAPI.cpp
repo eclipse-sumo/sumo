@@ -723,6 +723,11 @@ TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& v
 // ---------------------------------------------------------------------------
 // TraCIAPI::InductionLoopScope-methods
 // ---------------------------------------------------------------------------
+
+int TraCIAPI::InductionLoopScope::getIntervalVehicleNumber(const std::string &loopID) const {
+    return getInt(libsumo::INTERVAL_NUMBER, loopID);
+}
+
 double
 TraCIAPI::InductionLoopScope::getPosition(const std::string& loopID) const {
     return getDouble(libsumo::VAR_POSITION, loopID);
