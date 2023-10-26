@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-19 13:52+0200\n"
-"PO-Revision-Date: 2023-10-25 10:53+0000\n"
+"PO-Revision-Date: 2023-10-26 10:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1-dev\n"
+"X-Generator: Weblate 5.1.1\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3705,7 +3705,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:149
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr ""
+msgstr "L'algoritmo di invio '%' è sconosciuto"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:328
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
