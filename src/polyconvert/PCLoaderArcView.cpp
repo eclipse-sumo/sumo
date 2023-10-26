@@ -79,8 +79,8 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& 
 #ifdef HAVE_GDAL
 const PositionVector
 PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
-    OGRSpatialReference* srs = geom->getSpatialReference();
-    bool latLongOrder = srs != nullptr && srs->GetAxisMappingStrategy() == OSRAxisMappingStrategy::OAMS_AUTHORITY_COMPLIANT;
+    const OGRSpatialReference* const srs = geom->getSpatialReference();
+    const bool latLongOrder = srs != nullptr && srs->GetAxisMappingStrategy() == OSRAxisMappingStrategy::OAMS_AUTHORITY_COMPLIANT;
     if (myWarnMissingProjection) {
         int outOfRange = 0;
         for (int j = 0; j < geom->getNumPoints(); j++) {
@@ -103,15 +103,10 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
         Position pos(geom->getX(j), geom->getY(j));
 #else
     for (const OGRPoint& p : *geom) {
-        double x, y;
+        Position pos(p.getX(), p.getY());
         if (latLongOrder) {
-            x = p.getY();
-            y = p.getX();
-        } else {
-            x = p.getX();
-            y = p.getY();
+            pos.set(p.getY(), p.getX());
         }
-        Position pos(x, y); 
 #endif
         if (!geoConvHelper.x2cartesian(pos)) {
             WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
