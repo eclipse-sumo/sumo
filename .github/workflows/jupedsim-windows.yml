@@ -1,15 +1,15 @@
 name: jupedsim-windows
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
     - cron:  '5 0 * * *'
@@ -22,7 +22,8 @@ jobs:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
-        jps_version: ['v0.14.0', 'master']
+        jps_version: ['rls-1.0', 'master']
+        build_config: ['Release', 'Debug']
 
     steps:
     - name: Cloning jupedsim
@@ -33,36 +34,16 @@ jobs:
         path: jupedsim
 
     - name: Building jupedsim
-      shell: cmd
       run: |
-        mkdir jupedsim-build
-        mkdir jupedsim-install
-        cd jupedsim-build
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install ../jupedsim
-        cmake --build . -j4 --config Release
-        cmake --install . --config Release
+        cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
+        cmake --build jupedsim-build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }}
+        cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
 
-    - name: Uploading release artifacts
+    - name: Uploading artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: jupedsim-release
-        path: jupedsim-install
-
-    - name: Building jupedsim debug
-      shell: cmd
-      run: |
-        mkdir jupedsim-build-debug
-        mkdir jupedsim-install-debug
-        cd jupedsim-build-debug
-        cmake -DCMAKE_INSTALL_PREFIX=%CD%/../jupedsim-install-debug ../jupedsim
-        cmake --build . -j4 --config Debug
-        cmake --install . --config Debug
-
-    - name: Uploading debug artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: jupedsim-debug
-        path: jupedsim-install-debug
+        name: jupedsim-${{ matrix.build_config }}
+        path: jupedsim-install-${{ matrix.build_config }}
 
     - name: Cloning SUMO
       uses: actions/checkout@v3
@@ -82,21 +63,16 @@ jobs:
         path: sumolibraries
 
     - name: Configuring and building SUMO
-      shell: cmd
       run: |
-        cd sumo
-        mkdir build_msvc
-        cd build_msvc
-        cmake -DJUPEDSIM_CUSTOMDIR=%CD%/../../jupedsim-install ..
-        cmake --build . -j4 --config Release
+        cmake -B sumo/build-${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
+        cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
 
     - name: Building Examples and Tests
       run: |
-        cd sumo/build_msvc
-        cmake --build . --config Release --target examples
+        cd sumo/build-${{ matrix.build_config }}
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a sumo.extra"
-        ctest --build-config Release --output-on-failure
+        ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
 
     - name: Compressing test results
       if: failure()
@@ -109,6 +85,6 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v3
       with:
-        name: texttesttmp-${{ matrix.jps_version }}
+        name: texttesttmp-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: D:/texttest/tt.zip
         if-no-files-found: warn

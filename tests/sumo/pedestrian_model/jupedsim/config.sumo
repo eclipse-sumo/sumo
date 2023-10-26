@@ -1,2 +1,4 @@
+kill_timeout:3000
+
 [run_dependent_text]
 fcd:<timestep.*/>
