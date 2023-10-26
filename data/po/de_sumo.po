@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-19 13:52+0200\n"
-"PO-Revision-Date: 2023-10-25 14:44+0000\n"
+"PO-Revision-Date: 2023-10-26 10:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4267,19 +4267,19 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:149
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr "Absendungs-Algorithmus %' ist nicht bekannt"
+msgstr "Abfertigungsalgorithmus %' ist nicht bekannt"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:328
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
-"Ungültiger Neuversand für den existierenden Kunden '%' mit einer neuen "
+"Ungültige erneute Abfertigung des existierenden Kunden '%' mit einer neuen "
 "Reservierung"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:361
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
 msgstr ""
-"Beim erneuten Versand wurde die Abholung für den bestehenden Kunden '%' "
-"nicht erwähnt"
+"Bei der erneuten Abfertigung wurde die Abholung für den bestehenden Kunden "
+"'%' nicht erwähnt"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:468
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
@@ -8235,12 +8235,12 @@ msgstr "Kante '%' hat keine Fahrstreifen."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:678
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr "Beim Setzten von Verbindungen: Ausgangskante '%' ist nicht bekannt."
+msgstr "Beim Setzen von Verbindungen: Ausgangskante '%' ist nicht bekannt."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:688
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr "Beim Setzten von Verbindungen: Endkante '%' ist nicht bekannt."
+msgstr "Beim Setzen von Verbindungen: Endkante '%' ist nicht bekannt."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:714
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:717
@@ -8295,8 +8295,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1397
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
-"Beim Setzten von Verbindungen: ankommende Straße '%' ist nicht bekannt."
+msgstr "Beim Setzen von Verbindungen: eingehende Straße '%' ist nicht bekannt."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1440
 msgid "Could not find node '%'."
@@ -8351,7 +8350,7 @@ msgstr ""
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
 msgstr ""
-"Im Fahrstreifenverbindungs-Element: ankommenden Straße '%' ist nicht bekannt."
+"Im Fahrstreifenverbindungs-Element: eingehende Straße '%' ist nicht bekannt."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2617
 msgid "Ignoring object without id at edge '%'."
@@ -8871,7 +8870,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:930
 msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
-msgstr "Ignoriere SIGNALGRUPPEZUFSABBIEGER da LsaNr is nicht bekannt ist"
+msgstr "Ignoriere SIGNALGRUPPEZUFSABBIEGER da LsaNr nicht bekannt ist"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:987
 msgid "Unknown edge in TEILFLAECHENELEMENT"
