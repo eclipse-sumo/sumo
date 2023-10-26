@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-24 09:37+0000\n"
+"PO-Revision-Date: 2023-10-26 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1-dev\n"
+"X-Generator: Weblate 5.1.1\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -3507,7 +3507,7 @@ msgstr "Erstellt Shapes."
 #: C:\Repos\sumo/src\netedit\frames\network\GNEDecalFrame.cpp:43
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1699
 msgid "Decals"
-msgstr "Bilder"
+msgstr "Hintergrundbilder"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 msgid "Create decals."
@@ -9507,7 +9507,7 @@ msgstr "Die Ebene vom Pol zum Zeichnen und Auswählen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5551
 msgid "Width of rendered image in meters"
-msgstr "Breite des gerendertem Bild in Metern"
+msgstr "Breite des gerenderten Bildes in Metern"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5557
 msgid "Height of rendered image in meters"
