@@ -291,6 +291,7 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
     myWaitingEdge->addTransportable(transportable);
 }
 
+
 void
 MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
@@ -388,15 +389,18 @@ MSStageDriving::getEdges() const {
     return result;
 }
 
+
 double
 MSStageDriving::getArrivalPos() const {
     return unspecifiedArrivalPos() ? getDestination()->getLength() : myArrivalPos;
 }
 
+
 bool
 MSStageDriving::unspecifiedArrivalPos() const {
     return myArrivalPos == std::numeric_limits<double>::infinity();
 }
+
 
 const std::string
 MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
@@ -409,6 +413,34 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
             myArrivalPos = myVehicle->getArrivalPos();
         } else {
             myArrivalPos = myVehicle->getPositionOnLane();
+        }
+        const MSStoppingPlace* const stop = getDestinationStop();
+        if (stop != nullptr) {
+            bool useDoors = false;
+            for (const auto& access : stop->getAllAccessPos()) {
+                if (access.useDoors) {
+                    useDoors = true;
+                    break;
+                }
+            }
+            if (useDoors) {
+                // TODO refactor this with GUIVehicle::drawAction_drawCarriageClass
+                const SUMOVTypeParameter& pars = myVehicle->getVehicleType().getParameter();
+                const double totalLength = myVehicle->getVehicleType().getLength();
+                const int numCarriages = MAX2(1, 1 + (int)((totalLength - pars.locomotiveLength) / (pars.carriageLength + pars.carriageGap) + 0.5));
+                const int firstPassengerCarriage = numCarriages == 1
+                                                || (myVehicle->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
+                const int randomCarriage = RandHelper::rand(numCarriages - firstPassengerCarriage) + firstPassengerCarriage;
+                if (randomCarriage == 0) {
+                    const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * pars.locomotiveLength;
+                    myArrivalPos = myVehicle->getPositionOnLane() - randomDoorOffset;
+                } else {
+                    const double carriageLengthWithGap = totalLength / numCarriages;
+                    const double frontPosOnLane = myVehicle->getPositionOnLane() - pars.locomotiveLength - pars.carriageGap - carriageLengthWithGap * (randomCarriage - 1);
+                    const double randomDoorOffset = (RandHelper::rand(pars.carriageDoors) + 1.) / (pars.carriageDoors + 1.) * (carriageLengthWithGap - pars.carriageGap);
+                    myArrivalPos = frontPosOnLane - randomDoorOffset;
+                }
+            }
         }
     } else {
         myVehicleDistance = -1.;

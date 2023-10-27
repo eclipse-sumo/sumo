@@ -90,7 +90,7 @@ MSTransportable::getRNG() const {
 
 bool
 MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
-    MSStage* prior = *myStep;
+    MSStage* const prior = *myStep;
     const std::string& error = prior->setArrived(net, this, time, vehicleArrived);
     // must be done before increasing myStep to avoid invalid state for rendering
     prior->getEdge()->removeTransportable(this);
@@ -98,6 +98,13 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     if (error != "") {
         throw ProcessError(error);
     }
+    /* We need to check whether an access stage is needed (or maybe even two).
+       The general scheme is: If the prior stage ended at a stop and the next stage
+       starts at an edge which is not the one the stop is at, but the stop has an access to it
+       we need an access stage. The same is true if prior ends at an edge, the next stage 
+       is allowed to start at any stop the edge has access to.
+       If we start at a stop or end at a stop no access is needed.
+    */
     bool accessToStop = false;
     if (prior->getStageType() == MSStageType::WALKING || prior->getStageType() == MSStageType::DRIVING) {
         accessToStop = checkAccess(prior);

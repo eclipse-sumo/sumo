@@ -63,6 +63,7 @@ public:
         const double startPos;
         const double endPos;
         const double length;
+        const bool useDoors;
     };
 
     /** @brief Constructor
@@ -198,7 +199,7 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length);
+    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors);
 
     /// @brief lanes and positions connected to this stop
     const std::vector<Access>& getAllAccessPos() const {
@@ -208,8 +209,8 @@ public:
     /// @brief the position on the given edge which is connected to this stop, -1 on failure
     double getAccessPos(const MSEdge* edge, SumoRNG* rng = nullptr) const;
 
-    /// @brief the distance from the access on the given edge to the stop, -1 on failure
-    double getAccessDistance(const MSEdge* edge) const;
+    /// @brief the access on the given edge to the stop, nullptr if there is none
+    const Access* getAccess(const MSEdge* edge) const;
 
     const std::string& getMyName() const;
 

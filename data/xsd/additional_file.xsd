@@ -491,6 +491,7 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="doors"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>

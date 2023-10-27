@@ -1559,7 +1559,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
         for (const auto& i : stopType.second) {
             const MSEdge* const edge = &i.second->getLane().getEdge();
             router.getNetwork()->addAccess(i.first, edge, i.second->getBeginLanePosition(), i.second->getEndLanePosition(),
-                                           i.second->getAccessDistance(edge), element, false, taxiWait);
+                                           0., element, false, taxiWait);
             if (element == SUMO_TAG_BUS_STOP) {
                 // add access to all public transport stops
                 for (const auto& a : i.second->getAllAccessPos()) {

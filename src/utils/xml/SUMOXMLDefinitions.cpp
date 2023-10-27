@@ -1047,6 +1047,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
     { "carriageGap",        SUMO_ATTR_CARRIAGE_GAP },
+    { "carriageDoors",      SUMO_ATTR_CARRIAGE_DOORS },
 
     { "targetLanes",    SUMO_ATTR_TARGETLANE },
     { "crossing",       SUMO_ATTR_CROSSING },

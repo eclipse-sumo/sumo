@@ -181,8 +181,9 @@ public:
     class MSPersonStage_Access : public MSStage {
     public:
         /// constructor
-        MSPersonStage_Access(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist, const bool isExit);
+        MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
+                             const double arrivalPos, const double dist, const bool isExit,
+                             const Position& startPos, const Position& endPos);
 
         /// destructor
         ~MSPersonStage_Access();

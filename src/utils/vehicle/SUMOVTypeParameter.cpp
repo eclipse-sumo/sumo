@@ -73,6 +73,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     osgFile("car-normal-citrus.obj"),
     carriageLength(-1),
     locomotiveLength(-1),
+    carriageDoors(2),
     latAlignmentProcedure(LatAlignmentDefinition::CENTER) {
     // update default values
     switch (vclass) {
@@ -298,6 +299,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageLength(-1),
       locomotiveLength(-1),
       carriageGap(1),
+      carriageDoors(2),
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
       speedFactorPremature(-1),
@@ -330,6 +332,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     osgFile = defaultValues.osgFile;
     carriageLength = defaultValues.carriageLength;
     locomotiveLength = defaultValues.locomotiveLength;
+    carriageDoors = defaultValues.carriageDoors;
     latAlignmentProcedure = defaultValues.latAlignmentProcedure;
     // check if default speeddev was defined
     if (oc.exists("default.speeddev")) {
@@ -556,6 +559,13 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.openTag(SUMO_TAG_PARAM);
         dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_GAP));
         dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageGap));
+        dev.closeTag();
+    }
+    // Write carriage doors
+    if (wasSet(VTYPEPARS_CARRIAGE_DOORS_SET)) {
+        dev.openTag(SUMO_TAG_PARAM);
+        dev.writeAttr(SUMO_ATTR_KEY, toString(SUMO_ATTR_CARRIAGE_DOORS));
+        dev.writeAttr(SUMO_ATTR_VALUE, toString(carriageDoors));
         dev.closeTag();
     }
     // Write rest of parameters
