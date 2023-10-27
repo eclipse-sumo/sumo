@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-27 08:00+0000\n"
+"PO-Revision-Date: 2023-10-27 08:32+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8045,6 +8045,8 @@ msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr ""
+"Si no se debe emitir ninguna advertencia cuando un vehículo llega al área "
+"del detector."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2294
 msgid "E3 DetEntry"
@@ -13794,11 +13796,11 @@ msgstr "crear arista nueva"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:789
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "¡Ya existe una arista con la misma geometría!"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:792
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "¡El punto inicial y final de una arista deben ser distintos!"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:98
 msgid "selection of edges"
@@ -13875,11 +13877,11 @@ msgstr "- Cruce: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- Desde el carril: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- Hacia el carril: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:94
 msgid "Selected"
@@ -13932,7 +13934,7 @@ msgstr "La conexión tiene un conflicto mutuo con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Guardar modificaciones de prohibición (Enter)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -13940,7 +13942,7 @@ msgstr "Deseleccionar conexión"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Deseleccionar conexión (Esc)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
@@ -13960,7 +13962,7 @@ msgstr "Formato: Lat-Lon"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:67
 msgid "Center View after creation"
-msgstr ""
+msgstr "Centrar vista después de crear"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:69
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:122
@@ -13977,16 +13979,16 @@ msgstr "Equivalente cartesiano:"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = ingresar longitud válida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:74
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:143
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = ingresar latitud válida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:120
 msgid "Create GEO POI"
-msgstr ""
+msgstr "Crear POI geométrico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:172
 msgid "Using clipboard"
@@ -13998,7 +14000,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:337
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "La forma del polígono no puede estar vacía"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:498
 msgid "POILane can be only placed over lanes"
