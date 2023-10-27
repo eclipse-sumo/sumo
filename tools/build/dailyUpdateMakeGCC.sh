@@ -135,7 +135,7 @@ if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Ma
 fi
 
 WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
-rm -rf dist dist_native _skbuild wheelhouse
+rm -rf dist dist_native
 # native macOS M1 wheels and Linux ARM
 if test ${FILEPREFIX: -2} == "M1"; then
   cp build/pyproject.toml .
