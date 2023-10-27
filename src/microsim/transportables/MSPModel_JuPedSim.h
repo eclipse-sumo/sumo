@@ -48,10 +48,10 @@ public:
     void remove(MSTransportableStateAdapter* state) override;
     SUMOTime execute(SUMOTime time);
 
-    bool usingInternalLanes();
+    bool usingInternalLanes() override;
     void registerArrived();
-    int getActiveNumber();
-    void clearState();
+    int getActiveNumber() override;
+    void clearState() override;
 
     class Event : public Command {
     public:
@@ -75,29 +75,29 @@ private:
         PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyDescription journey, JPS_JourneyId journeyId, JPS_StageId stageId, const PositionVector& waypoints);
         ~PState() override;
 
-        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         void setPosition(double x, double y);
 
         Position getPreviousPosition() const;
         void setPreviousPosition(Position previousPosition);
 
-        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
         void setAngle(double angle);
 
         MSStageMoving* getStage();
         MSPerson* getPerson();
 
         void setLanePosition(double lanePosition);
-        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
-        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
-        double getSpeed(const MSStageMoving& stage) const;
-        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
+        int getDirection(const MSStageMoving& stage, SUMOTime now) const override;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
+        double getSpeed(const MSStageMoving& stage) const override;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
         const Position& getNextWaypoint() const;
         JPS_AgentId getAgentId() const;
 
         /// @brief whether the transportable has finished walking
-        bool isFinished() const {
+        bool isFinished() const override {
             return myWaypoints.empty();
         }
 

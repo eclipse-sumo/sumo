@@ -3656,7 +3656,9 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
         if (seenLanes.find(lane) != seenLanes.end()) {
             return;
         }
+#ifdef DEBUG_SSM_SURROUNDING
         int foundCount = 0;
+#endif
         for (MSVehicle* const veh : lane->getVehiclesSecure()) {
             if (foeCollector.find(veh) != foeCollector.end()) {
                 // vehicle already recognized, earlier recognized conflict has priority
@@ -3667,12 +3669,12 @@ MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInf
                 if (gDebugFlag3) {
                     std::cout << "\t" << veh->getID() << "\n";
                 }
+                foundCount++;
 #endif
                 FoeInfo* c = new FoeInfo(); // c is deleted in updateEncounter()
                 c->egoDistToConflictLane = scanStart.egoDistToConflictLane;
                 c->egoConflictLane = scanStart.egoConflictLane;
                 foeCollector[veh] = c;
-                foundCount++;
             }
         }
         lane->releaseVehicles();
