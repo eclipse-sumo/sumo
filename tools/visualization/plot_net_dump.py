@@ -93,8 +93,13 @@ def main(args=None):
                   help="The label to put on the color bar")
     ap.add_option("--internal", action="store_true",
                   default=False, help="include internal edges in generated shapes")
+<<<<<<< HEAD
     ap.add_option("--traffic-volume-legend", dest="volumelegend", action="store_true",
                   default=False, help="Removes color bar and plots line weight legend for link volumes")
+=======
+    ap.add_option("--customlinkflowtheme", dest="customlinkflowtheme", action="store_true",
+                  default=False, help="customized network flow plot theme")
+>>>>>>> 7d59f7d1db7ee6f93217a369828122a951e1ce21
 
     # standard plot options
     helpers.addInteractionOptions(ap)
@@ -233,7 +238,11 @@ def main(args=None):
         ax.set_aspect("equal", None, 'C')
         helpers.plotNet(net, colors, widths, options)
                 
+<<<<<<< HEAD
         if options.volumelegend:
+=======
+        if options.customlinkflowtheme:
+>>>>>>> 7d59f7d1db7ee6f93217a369828122a951e1ce21
             # Define label steps
             ratio = (options.maxWidth/options.minWidth)**(1./3)
             label_steps = [options.minWidth, ratio * options.minWidth, ratio * ratio * options.minWidth, options.maxWidth]
@@ -260,7 +269,11 @@ def main(args=None):
             # "fake up the array of the scalar mappable. Urgh..."
             # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
             sm._A = []
+<<<<<<< HEAD
         if not options.volumelegend:
+=======
+        if not options.customlinkflowtheme:
+>>>>>>> 7d59f7d1db7ee6f93217a369828122a951e1ce21
             color_bar = plt.colorbar(sm, ax=ax)
             color_bar.set_label(options.colorBarLabel)
         else:
