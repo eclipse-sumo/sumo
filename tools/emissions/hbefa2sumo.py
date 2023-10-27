@@ -28,6 +28,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
+
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate cpp file and docs from HBEFA4 csv data")
     op.add_argument("csv", nargs='?', default="HBEFACoefs_ms.csv.gz",
@@ -37,6 +38,7 @@ def get_options(args=None):
     op.add_argument("-p", "--pm-mode", choices=('sum', 'plain', 'non-exhaust'), default="sum",
                     help="how to handle particular matter values")
     return op.parse_args(args=args)
+
 
 def main(args=None):
     options = get_options(args)
@@ -72,8 +74,9 @@ double
 HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
         for vc, s in share.items():
             print("##", vc, file=wiki_out)
-            print("""| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |""", file=wiki_out)
+            print("| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | "
+                  "error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |", file=wiki_out)
+            print("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |""", file=wiki_out)
             for segment, val in s:
                 print("    {", file=cpp_out)
                 print(8 * " " + "//", segment, file=cpp_out)
@@ -89,7 +92,8 @@ HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
                     if emi == "PM" and "PM (non-exhaust)" in coeffs[segment] and options.pm_mode != "plain":
                         if options.pm_mode == "sum":
                             emi = "PM + PM (non-exhaust)"
-                            coeffs[segment][emi] = [float(c1) + float(c2) for c1, c2 in zip(coeffs[segment]["PM"], coeffs[segment]["PM (non-exhaust)"])]
+                            coeffs[segment][emi] = [float(c1) + float(c2) for c1, c2 in
+                                                    zip(coeffs[segment]["PM"], coeffs[segment]["PM (non-exhaust)"])]
                         else:
                             emi = "PM (non-exhaust)"
                         if "PM (non-exhaust)" in errors[segment]:
@@ -100,7 +104,8 @@ HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
                             err[-1] = "-"
                         else:
                             scale = 1000. / 3.6
-                    print(8 * " " + "{", ", ".join(["%.3e" % (scale * float(c)) for c in coeffs[segment][emi]]), "}, //", emi, file=cpp_out)
+                    print(8 * " " + "{", ", ".join(["%.3e" % (scale * float(c))
+                          for c in coeffs[segment][emi]]), "}, //", emi, file=cpp_out)
                 print("    },", file=cpp_out)
                 classes.append((segment, "" if vc in ('PC', 'LCV', 'MC') else " | PollutantsInterface::HEAVY_BIT"))
                 print("|", segment, "|", " | ".join(id[segment]), "|", val, "|", " | ".join(err), "|", file=wiki_out)

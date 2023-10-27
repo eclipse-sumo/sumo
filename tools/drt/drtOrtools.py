@@ -164,7 +164,7 @@ def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
         stage = traci.person.getStage(person_id, 0)
         # stage type 3 is defined as 'driving'
         assert stage.type == 3
-        #if verbose:
+        # if verbose:
         #    print("travel time: ", stage.travelTime)
         #    print("travel length: ", stage.length)
         #    print("travel cost: ", stage.cost)

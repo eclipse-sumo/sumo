@@ -1269,7 +1269,7 @@ class poi:
         colorButton = 6
         color = 7
         type = 8
-        icon = 9        
+        icon = 9
         name = 11
         layer = 12
         width = 13
@@ -1284,7 +1284,7 @@ class poi:
         colorButton = 3
         color = 4
         type = 5
-        icon = 6        
+        icon = 6
         name = 8
         layer = 9
         width = 10
@@ -1298,7 +1298,7 @@ class poi:
         colorButton = 1
         color = 2
         type = 3
-        icon = 4        
+        icon = 4
         name = 6
         layer = 7
         width = 8
@@ -1317,7 +1317,7 @@ class poiGeo:
         colorButton = 6
         color = 7
         type = 8
-        icon = 9        
+        icon = 9
         name = 11
         layer = 12
         width = 13
@@ -1334,7 +1334,7 @@ class poiGeo:
         colorButton = 4
         color = 5
         type = 6
-        icon = 7        
+        icon = 7
         name = 9
         layer = 10
         width = 11
@@ -1348,7 +1348,7 @@ class poiGeo:
         colorButton = 1
         color = 2
         type = 3
-        icon = 4        
+        icon = 4
         name = 6
         layer = 7
         width = 8
@@ -1369,7 +1369,7 @@ class poiLane:
         colorButton = 8
         color = 9
         type = 10
-        icon = 11   
+        icon = 11
         name = 13
         layer = 14
         width = 15
@@ -1388,7 +1388,7 @@ class poiLane:
         colorButton = 7
         color = 8
         type = 9
-        icon = 10        
+        icon = 10
         name = 12
         layer = 13
         width = 14
@@ -1404,7 +1404,7 @@ class poiLane:
         colorButton = 3
         color = 4
         type = 5
-        icon = 6        
+        icon = 6
         name = 8
         layer = 9
         width = 10

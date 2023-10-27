@@ -343,7 +343,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
         # wait for reference
         time.sleep(DELAY_REFERENCE)
     # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3, confidence = 0.95)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3, confidence=0.95)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)

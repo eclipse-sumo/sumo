@@ -149,7 +149,8 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
             add_hard_direct_route_factor_constraint(request, data, manager, solver, distance_dimension, verbose)
         # soft constraint for old (know) requests:
         else:
-            add_soft_direct_route_factor_constraint(routing, data, request, solver, manager, distance_dimension, verbose)
+            add_soft_direct_route_factor_constraint(routing, data, request, solver,
+                                                    manager, distance_dimension, verbose)
 
     # if possible, let the route costs of the dropoffs less than the drf allows,
     # else minimize the route costs (in case the costs became larger than expected)
@@ -160,7 +161,8 @@ def add_direct_route_factor_constraint(data, routing, manager, solver, distance_
         distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(
             direct_route_cost * data['drf'] - request.current_route_cost), 10)
         if verbose:
-            print(f"reservation {request.id}: direct route cost {request.direct_route_cost:.1f} and (soft) max cost {direct_route_cost_drf.Value()}, already used costs {request.current_route_cost:.1f}, ")
+            print("reservation %s: direct route cost %s and (soft) max cost %s, already used costs %s" %
+                  (request.id, direct_route_cost, direct_route_cost_drf.Value(), request.current_route_cost))
 
 
 def add_hard_direct_route_factor_constraint(request, data, manager, solver, distance_dimension, verbose):
@@ -171,10 +173,10 @@ def add_hard_direct_route_factor_constraint(request, data, manager, solver, dist
     solver.Add(
         distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index) <=  # route cost
         solver.IntConst(round(direct_route_cost * data['drf'])))  # direct route cost times direct route factor
-    route_cost = distance_dimension.CumulVar(delivery_index) - distance_dimension.CumulVar(pickup_index)
     direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
     if verbose:
-        print(f"reservation {request.id}: direct route cost {direct_route_cost} and (hard) max cost {direct_route_cost_drf.Value()}")
+        print("reservation %s: direct route cost %s and (hard) max cost %s" %
+              (request.id, direct_route_cost, direct_route_cost_drf.Value()))
 
 
 def add_soft_direct_route_factor_constraint(routing, data, request, solver, manager, distance_dimension, verbose):
@@ -198,11 +200,12 @@ def add_soft_direct_route_factor_constraint(routing, data, request, solver, mana
     solver.Add(route_cost == route_end - route_start)
     request_cost_dimension.SetCumulVarSoftUpperBound(
         delivery_index,
-        round( request.direct_route_cost * data['drf'] ),
+        round(request.direct_route_cost * data['drf']),
         10
     )
     if verbose:
-            print(f"reservation {request.id}: direct route cost {request.direct_route_cost} and (soft) max cost {request.direct_route_cost * data['drf']}")
+        print("reservation %s: direct route cost %s and (soft) max cost %s" %
+              (request.id, request.direct_route_cost, request.direct_route_cost * data['drf']))
 
 
 def add_dropoff_constraint(data, routing, manager, verbose):
