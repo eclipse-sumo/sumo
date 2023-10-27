@@ -43,7 +43,7 @@ fi
 mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 echo "base_dir = $PWD/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
-rm -rf _skbuild wheelhouse
+rm -rf _skbuild
 cp build/pyproject.toml .
 py=/opt/python/cp38-cp38
 $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
