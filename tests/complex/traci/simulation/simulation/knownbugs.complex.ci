@@ -1,7 +1,6 @@
 [Reported by micha at 14Oct10:09:37]
-search_string:distance2Dgeo nan
+search_string:distance2Dgeo .*nan
 search_file:output
-ignore_other_errors:1
 full_description:Rerun
 brief_description:Rerun
 rerun_count:2
