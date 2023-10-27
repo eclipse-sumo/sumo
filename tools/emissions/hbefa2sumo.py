@@ -30,9 +30,10 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate cpp file and docs from HBEFA4 csv data")
-    op.add_argument("csv", default="HBEFACoefs.csv.gz", help="define the input data file")
-    op.add_argument("-o", "--output-basename", dest="basename",
-                    default="HBEFA4", help="define the base name of all output files")
+    op.add_argument("csv", nargs='?', default="HBEFACoefs_ms.csv.gz",
+                    help="define the input data file")
+    op.add_argument("-o", "--output-basename", dest="basename", default="HBEFA4",
+                    help="define the base name of all output files")
     op.add_argument("-p", "--pm-mode", choices=('sum', 'plain', 'non-exhaust'), default="sum",
                     help="how to handle particular matter values")
     return op.parse_args(args=args)
@@ -67,8 +68,8 @@ def main(args=None):
     classes = []
     with open(wiki, "w") as wiki_out, open(cpp, "w") as cpp_out, open(txt, "w") as txt_out:
         print("""
-    double
-    HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
+double
+HelpersHBEFA4::myFunctionParameter[%s][7][7] = {""" % len(coeffs), file=cpp_out)
         for vc, s in share.items():
             print("##", vc, file=wiki_out)
             print("""| SUMO emission class | HBEFA subsegment | HBEFA subsegment ID | fleet share 2022 | error CO2 | error CO | error HC | error FC | error NOx | error PM | error FC_MJ |
