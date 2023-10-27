@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-23 15:00+0200\n"
-"PO-Revision-Date: 2023-10-25 10:53+0000\n"
+"PO-Revision-Date: 2023-10-27 08:32+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -7659,7 +7659,7 @@ msgstr "El id de la parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1648
 msgid "The name of the lane the train stop shall be located at"
-msgstr ""
+msgstr "El nombre del carril en donde se ubicará la parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1663
 msgid "Name of trainStop"
@@ -7684,12 +7684,16 @@ msgstr "Nombre de la parada de tren"
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
+"En su lugar, se colocará a 0.1 metros del final del carril o en la posición 0"
+".1,"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1676
 msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
 msgstr ""
+"Deben ser los nombres de las líneas de tren que paran en esta parada de "
+"tren. Esto solo se usa con fines de visualización"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1693
 msgid "The RGBA color with which the trainStop shall be displayed"
@@ -7701,43 +7705,48 @@ msgstr "Acceso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1709
 msgid "The name of the lane the stop access shall be located at"
-msgstr ""
+msgstr "El nombre del carril en el que se ubicará el acceso a la parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1714
 msgid "The position on the lane (the lower position on the lane) in meters"
 msgstr ""
+"La posición sobre el carril (la posición inferior sobre el carril) en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1720
 msgid "The walking length of the access in meters"
-msgstr ""
+msgstr "La longitud de caminata del acceso en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1740
 msgid "ContainerStop"
-msgstr ""
+msgstr "Parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1745
 msgid "The id of container stop"
-msgstr ""
+msgstr "El ID de la parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1750
 msgid "The name of the lane the container stop shall be located at"
-msgstr ""
+msgstr "El nombre del carril en el que se ubicará la parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1765
 msgid "Name of containerStop"
-msgstr ""
+msgstr "Nombre de la parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1778
 msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
 msgstr ""
+"Deben ser los nombres de las líneas de autobús que paran en esta parada de "
+"contenedor. Esto solo se usa con fines de visualización"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1783
 msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
 msgstr ""
+"Un mayor número de contenedores que intenten ingresar creará un atasco "
+"ascendente en la acera"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1795
 msgid "The RGBA color with which the containerStop shall be displayed"
@@ -7746,7 +7755,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1805
 msgid "ChargingStation"
-msgstr ""
+msgstr "Estación de carga"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1810
 msgid "The id of charging station"
@@ -7789,6 +7798,9 @@ msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
 msgstr ""
+"Retardo de tiempo después de que los vehículos hayan llegado / detenido en "
+"la estación de carga, antes de que comience la transferencia de energía "
+"(carga)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1868
 msgid "Battery charging type"
@@ -7820,7 +7832,7 @@ msgstr "Nombre de la zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1921
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " El número de plazas de aparcamiento al borde de la vía"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
 msgid ""
@@ -7839,6 +7851,8 @@ msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
 msgstr ""
+"La longitud de las plazas de aparcamiento en la vía. Por defecto (endPos - "
+"startPos) / roadsideCapacity"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1953
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1996
@@ -7846,6 +7860,9 @@ msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
 msgstr ""
+"El ángulo de los espacios de estacionamiento al borde de la vía con respecto "
+"al ángulo del carril, positivo significa en el sentido de las agujas del "
+"reloj"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1959
 msgid "Enable or disable lefthand position"
@@ -8028,6 +8045,8 @@ msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr ""
+"Si no se debe emitir ninguna advertencia cuando un vehículo llega al área "
+"del detector."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2294
 msgid "E3 DetEntry"
@@ -9398,11 +9417,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5492
 msgid "Stop: busStop"
-msgstr ""
+msgstr "Parada: parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5506
 msgid "Stop: trainStop"
-msgstr ""
+msgstr "Parada: parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5521
 msgid "The color with which the POI shall be displayed"
@@ -10005,15 +10024,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6357
 msgid "list of consecutive edges"
-msgstr ""
+msgstr "lista de aristas consecutivas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6362
 msgid "Arrival position on the last edge"
-msgstr ""
+msgstr "Posición de llegada en la última arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6369
 msgid "Route ID"
-msgstr ""
+msgstr "ID de la ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6374
 msgid "Arrival position on the destination edge"
@@ -10021,15 +10040,15 @@ msgstr "Posición de llegada en la arista destino"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6393
 msgid "Bus stop ID"
-msgstr ""
+msgstr "ID de la parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6399
 msgid "Train stop ID"
-msgstr ""
+msgstr "ID de la parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6405
 msgid "Container stop ID"
-msgstr ""
+msgstr "ID de la parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6412
 msgid "Edge start ID"
@@ -11071,11 +11090,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1058
 msgid "invalid combination for person stop"
-msgstr ""
+msgstr "combinación no válida para parada de persona"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1099
 msgid "invalid combination for containerStop"
-msgstr ""
+msgstr "combinación no válida para parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1132
 msgid "Stops needs a parent"
@@ -13777,11 +13796,11 @@ msgstr "crear arista nueva"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:789
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "¡Ya existe una arista con la misma geometría!"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:792
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "¡El punto inicial y final de una arista deben ser distintos!"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:98
 msgid "selection of edges"
@@ -13858,11 +13877,11 @@ msgstr "- Cruce: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- Desde el carril: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- Hacia el carril: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:94
 msgid "Selected"
@@ -13915,7 +13934,7 @@ msgstr "La conexión tiene un conflicto mutuo con la conexión seleccionada"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Guardar modificaciones de prohibición (Enter)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -13923,7 +13942,7 @@ msgstr "Deseleccionar conexión"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Deseleccionar conexión (Esc)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
@@ -13943,7 +13962,7 @@ msgstr "Formato: Lat-Lon"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:67
 msgid "Center View after creation"
-msgstr ""
+msgstr "Centrar vista después de crear"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:69
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:122
@@ -13960,16 +13979,16 @@ msgstr "Equivalente cartesiano:"
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = ingresar longitud válida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:74
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:143
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = ingresar latitud válida"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:120
 msgid "Create GEO POI"
-msgstr ""
+msgstr "Crear POI geométrico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:172
 msgid "Using clipboard"
@@ -13981,7 +14000,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:337
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "La forma del polígono no puede estar vacía"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:498
 msgid "POILane can be only placed over lanes"
