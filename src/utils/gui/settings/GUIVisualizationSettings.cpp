@@ -1832,6 +1832,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_PERSONS);
     dev.writeAttr("personMode", personColorer.getActive());
     dev.writeAttr("personQuality", personQuality);
+    dev.writeAttr("showPedestrianNetwork", showPedestrianNetwork);
+    dev.writeAttr("pedestrianNetworkColor", pedestrianNetworkColor);
     personSize.print(dev, "person");
     dev.lf();
     dev << "                ";
@@ -1840,8 +1842,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "                 ";
     personValue.print(dev, "personValue");
     personColorer.save(dev);
-    dev.writeAttr("showPedestrianNetwork", showPedestrianNetwork);
-    dev.writeAttr("pedestrianNetworkColor", pedestrianNetworkColor);
     dev.closeTag();
     // containers
     dev.openTag(SUMO_TAG_VIEWSETTINGS_CONTAINERS);
