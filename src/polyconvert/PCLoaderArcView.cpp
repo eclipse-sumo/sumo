@@ -80,7 +80,6 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& 
 const PositionVector
 PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
     const OGRSpatialReference* const srs = geom->getSpatialReference();
-    const bool latLongOrder = srs != nullptr && srs->GetAxisMappingStrategy() == OSRAxisMappingStrategy::OAMS_AUTHORITY_COMPLIANT;
     if (myWarnMissingProjection) {
         int outOfRange = 0;
         for (int j = 0; j < geom->getNumPoints(); j++) {
@@ -104,9 +103,6 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
 #else
     for (const OGRPoint& p : *geom) {
         Position pos(p.getX(), p.getY());
-        if (latLongOrder) {
-            pos.set(p.getY(), p.getX());
-        }
 #endif
         if (!geoConvHelper.x2cartesian(pos)) {
             WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
@@ -154,7 +150,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
 #if GDAL_VERSION_MAJOR > 2
-    if (oc.getBool("shapefile.traditional-axis-mapping")) {
+    if (oc.getBool("shapefile.traditional-axis-mapping") || origTransf != nullptr) {
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif
