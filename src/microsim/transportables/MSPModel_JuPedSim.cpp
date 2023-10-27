@@ -43,6 +43,10 @@
 #include "MSPModel_JuPedSim.h"
 #include "MSPerson.h"
 
+
+#define DEBUG_GEOMETRY_GENERATION
+
+
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT= 5.0;
 const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
@@ -212,7 +216,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
         }
         stageOffset++;
     }
-
 
     const MSStage* const arrivalStage = person->getNextStage(stageOffset - 1);
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(arrivalStage->getDestination());
@@ -415,12 +418,14 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape) {
         GEOSCoordSeq_setXY(coordSeq, i, shape[i].x(), shape[i].y());
     }
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordSeq);
-    if (GEOSisSimple(linearRing)) {
-        return GEOSGeom_createPolygon(GEOSGeom_clone(linearRing), nullptr, 0);
+    GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
+    if (GEOSisSimple(polygon)) { 
+        return polygon;
     }
     else {
+        // Non-simple polygons raise a problem upon merging.
         return nullptr;
-    } 
+    }
 }
 
 
@@ -529,17 +534,38 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 
     // Take the union of all walkable areas.
     GEOSGeometry* disjointWalkableAreas = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, walkableAreas.data(), (unsigned int)walkableAreas.size());
-    GEOSGeometry* pedestrianNetwork = GEOSUnaryUnion(disjointWalkableAreas);
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(disjointWalkableAreas, "disjointWalkableAreas.wkt");
+#endif
+    GEOSGeometry* initialWalkableAreas = GEOSUnaryUnion(disjointWalkableAreas);
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(initialWalkableAreas, "initialWalkableAreas.wkt");
+#endif
     GEOSGeom_destroy(disjointWalkableAreas);
 
-    // At last, remove additional obstacles from the merged walkable area.
+    // At last, remove additional obstacles from the merged walkable areas.
     GEOSGeometry* disjointAdditionalObstacles = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, additionalObstacles.data(), (unsigned int)additionalObstacles.size());
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(disjointAdditionalObstacles, "disjointAdditionalObstacles.wkt");
+#endif    
     GEOSGeometry* additionalObstaclesUnion = GEOSUnaryUnion(disjointAdditionalObstacles); // Obstacles may overlap, e.g. if they were loaded from separate files.
-    pedestrianNetwork = GEOSDifference(pedestrianNetwork, additionalObstaclesUnion);
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(additionalObstaclesUnion, "additionalObstaclesUnion.wkt");
+#endif    
+    GEOSGeometry* finalWalkableAreas = GEOSDifference(initialWalkableAreas, additionalObstaclesUnion); 
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(finalWalkableAreas, "finalWalkableAreas.wkt");
+#endif
+    GEOSGeom_destroy(initialWalkableAreas);
     GEOSGeom_destroy(additionalObstaclesUnion);
     GEOSGeom_destroy(disjointAdditionalObstacles);
 
-    return pedestrianNetwork;
+    if (!GEOSisSimple(finalWalkableAreas)) {
+        const std::string error = "Union of walkable areas minus union of obstacles is not a simple polygon.";
+        throw ProcessError(error);
+    }
+
+    return finalWalkableAreas;
 }
 
 
@@ -625,21 +651,11 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
 
 
 void 
-MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::string& polygonId) {
-    std::ofstream dumpFile;
-    dumpFile.open(polygonId + std::string(".txt"));
-    int maxPrecision = std::numeric_limits<double>::max_digits10 + 2;
-
+MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon) {
     // Handle the exterior polygon.
     const GEOSGeometry* exterior =  GEOSGetExteriorRing(polygon);
     std::vector<JPS_Point> exteriorCoordinates = convertToJPSPoints(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
-
-    for (const JPS_Point& c : exteriorCoordinates) {
-        dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
-        dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
-    }
-    dumpFile << std::endl;
 
     // Handle the interior polygons (holes).
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
@@ -650,17 +666,22 @@ MSPModel_JuPedSim::preparePolygonForJPS(const GEOSGeometry* polygon, const std::
             if (area > GEOS_MIN_AREA) {
                 std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
                 JPS_GeometryBuilder_ExcludeFromAccessibleArea(myJPSGeometryBuilder, holeCoordinates.data(), holeCoordinates.size());
-
-                for (const JPS_Point& c : holeCoordinates) {
-                    dumpFile << std::setprecision(maxPrecision) << c.x << std::endl;
-                    dumpFile << std::setprecision(maxPrecision) << c.y << std::endl;
-                }
-                dumpFile << std::endl;
             }
         }
     }
+}
 
+
+void 
+MSPModel_JuPedSim::dumpGeometry(const GEOSGeometry* polygon, const std::string& filename) {
+    std::ofstream dumpFile;
+    dumpFile.open(filename);
+    GEOSWKTWriter* writer = GEOSWKTWriter_create();
+    char* wkt = GEOSWKTWriter_write(writer, polygon);
+    dumpFile << wkt << std::endl;
     dumpFile.close();
+    GEOSFree(wkt);
+    GEOSWKTWriter_destroy(writer);
 }
 
 
@@ -679,11 +700,11 @@ MSPModel_JuPedSim::initialize() {
     //     const GEOSGeometry* connectedComponentPolygon = GEOSGetGeometryN(myGEOSPedestrianNetwork, i);
     //     std::string polygonId = std::string("pedestrian_network_connected_component_") + std::to_string(i);
     //     preparePolygonForDrawing(connectedComponentPolygon, polygonId);
-    //     preparePolygonForJPS(connectedComponentPolygon, polygonId);
+    //     preparePolygonForJPS(connectedComponentPolygon);
     // }
     // prepareAdditionalPolygonsForJPS();
     
-    // For the moment, JuPedSim only supports one connected component.
+    // For the moment, JuPedSim only supports one connected component, select the one with max area.
     const GEOSGeometry* maxAreaConnectedComponentPolygon = nullptr;
     std::string maxAreaPolygonId;
     double maxArea = 0.0;
@@ -698,39 +719,32 @@ MSPModel_JuPedSim::initialize() {
             maxAreaPolygonId = polygonId;
         }
     }
+#ifdef DEBUG_GEOMETRY_GENERATION
+    dumpGeometry(maxAreaConnectedComponentPolygon, "pedestrianNetwork.wkt");
+#endif   
     myJPSGeometryBuilder = JPS_GeometryBuilder_Create();
-    preparePolygonForJPS(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
+    preparePolygonForJPS(maxAreaConnectedComponentPolygon);
     preparePolygonForDrawing(maxAreaConnectedComponentPolygon, maxAreaPolygonId);
-
-#ifdef DEBUG
-    std::ofstream GEOSGeometryDumpFile;
-    GEOSGeometryDumpFile.open("pedestrianNetwork.wkt");
-    GEOSWKTWriter* writer = GEOSWKTWriter_create();
-    char* wkt = GEOSWKTWriter_write(writer, maxAreaConnectedComponentPolygon); // Change to myGEOSPedestrianNetwork when multiple components have been implemented.
-    GEOSGeometryDumpFile << wkt << std::endl;
-    GEOSGeometryDumpFile.close();
-    GEOSFree(wkt);
-    GEOSWKTWriter_destroy(writer);
-#endif
 
     JPS_ErrorMessage message = nullptr; 
     myJPSGeometry = JPS_GeometryBuilder_Build(myJPSGeometryBuilder, &message);
     if (myJPSGeometry == nullptr) {
-        WRITE_WARNINGF(TL("Error creating the geometry: %"), JPS_ErrorMessage_GetMessage(message));
+        const std::string error = TLF("Error creating the geometry: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
-        return;
+        throw ProcessError(error);
     }
     myJPSModelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(myJPSModelBuilder, &message);
     if (myJPSModel == nullptr) {
-        WRITE_WARNINGF(TL("Error creating the pedestrian model: %"), JPS_ErrorMessage_GetMessage(message));
+        const std::string error = TLF("Error creating the pedestrian model: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
-        return;
+        throw ProcessError(error);
     }
     myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
-        WRITE_WARNINGF(TL("Error creating the simulation: %"), JPS_ErrorMessage_GetMessage(message));
+        const std::string error = TLF("Error creating the simulation: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
+        throw ProcessError(error);
     }
 }
 
