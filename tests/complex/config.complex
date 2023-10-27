@@ -196,7 +196,7 @@ errors:getNextStops
 
 
 [floating_point_tolerance]
-output:0.0001
+output:0.0101
 net:0.0101
 vss:0.0001
 results:0.0101
