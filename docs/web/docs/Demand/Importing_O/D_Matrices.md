@@ -282,6 +282,9 @@ every vehicle type as follows:
 </demand>
 ```
 
+!!! note
+    The time values are given in milliseconds.
+
 For details on the types and units see the schema at
 <https://sumo.dlr.de/xsd/amitran/od.xsd>
 
