@@ -32,7 +32,7 @@ zero. You can also add a prefix to the generated trip definition names
 using (**--prefix** {{DT_STR}}). As usual, they are written to the output file named using the
 **--output-file** {{DT_FILE}} (**-o** {{DT_FILE}} for short). You can specify a vehicle type to be added to the trip
 definitions using **--vtype** {{DT_STR}}. Please remark that vehicles will have no type unless
-not given in the O/D-matrices or defined using this option. The command
+given in the O/D-matrices or defined using this option. The command
 line option overrides type names given in the O/D-matrices. The type
 itself will not be generated. Vehicles will be generated for the time
 period between **--begin** {{DT_TIME}} (**-b** {{DT_TIME}}) and -**-end** {{DT_TIME}} (**-e** {{DT_TIME}}), having 0 and 86400 as default values,
