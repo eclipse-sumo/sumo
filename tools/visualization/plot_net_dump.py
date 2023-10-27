@@ -93,6 +93,8 @@ def main(args=None):
                   help="The label to put on the color bar")
     ap.add_option("--internal", action="store_true",
                   default=False, help="include internal edges in generated shapes")
+    ap.add_option("--customlinkflowtheme", dest="customlinkflowtheme", action="store_true",
+                  default=False, help="customized network flow plot theme")
 
     # standard plot options
     helpers.addInteractionOptions(ap)
@@ -230,6 +232,24 @@ def main(args=None):
         fig, ax = helpers.openFigure(options)
         ax.set_aspect("equal", None, 'C')
         helpers.plotNet(net, colors, widths, options)
+                
+        if options.customlinkflowtheme:
+            # Define label steps
+            ratio = (options.maxWidth/options.minWidth)**(1./3)
+            label_steps = [options.minWidth, ratio * options.minWidth, ratio * ratio * options.minWidth, options.maxWidth]
+
+            # Create proxy function
+            def make_proxy(**kwargs):
+                return matplotlib.lines.Line2D([0, 1], [0, 1], color=options.defaultColor, **kwargs)
+            # Generate legend proxies and labels
+            proxies = [make_proxy(linewidth=item) for item in label_steps]
+            labels = [str(int(options.widthMin + (e - label_steps[0]) * (options.widthMax - options.widthMin) / (label_steps[-1] - label_steps[0]))) for e in label_steps]
+
+            # Add legend to the plot
+            ax.legend(proxies, labels)
+
+            # Set the title
+            # ax.set_title("Link flows: {} am - {} am (vehicles/hour)".format(int(t / 3600), int(t / 3600) + 1))
 
         # drawing the legend, at least for the colors
         norm = matplotlib.colors.LogNorm if options.logColors else matplotlib.colors.Normalize
@@ -240,8 +260,13 @@ def main(args=None):
             # "fake up the array of the scalar mappable. Urgh..."
             # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
             sm._A = []
-        color_bar = plt.colorbar(sm, ax=ax)
-        color_bar.set_label(options.colorBarLabel)
+        if not options.customlinkflowtheme:
+            color_bar = plt.colorbar(sm, ax=ax)
+            color_bar.set_label(options.colorBarLabel)
+        else:
+            ax.set_xticks([])
+            ax.set_yticks([])
+            plt.tight_layout()
 
         # Should we also save the figure to a file / list of files (comma
         # separated)?
