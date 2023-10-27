@@ -178,5 +178,6 @@ private:
     static std::vector<JPS_Point> convertToJPSPoints(const PositionVector& coordinates);
     static double getHoleArea(const GEOSGeometry* hole);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId);
-    void preparePolygonForJPS(const GEOSGeometry* polygon, const std::string& polygonId = std::string());
+    void preparePolygonForJPS(const GEOSGeometry* polygon);
+    static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename);
 };
