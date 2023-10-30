@@ -415,7 +415,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     myDecalsLockMutex.lock();
     for (GUISUMOAbstractView::Decal& d : myDecals) {
-        if (!d.initialised) {
+        if (!d.initialised && d.filename.length() > 0) {
             if (d.filename.length() == 6 && d.filename.substr(0, 5) == "light") {
                 GUIOSGBuilder::buildLight(d, *myRoot);
             } else if (d.filename.length() > 3 && d.filename.substr(0, 3) == "tl:") {
