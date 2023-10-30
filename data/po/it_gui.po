@@ -6889,17 +6889,15 @@ msgstr "Non ho potuto caricare la configurazione di utensili '"
 msgid "Loaded configuration."
 msgstr "Configurazione caricata con successo."
 
-#: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:292
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggle Menu Tooltips"
-msgstr ""
+msgstr "(Dis)attiva i testi di aiuto nel menu"
 
-#: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:292
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:69
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:144
 msgid "Toggles whether tooltips in the menu shall be shown."
-msgstr ""
+msgstr "(Dis)attiva i testi di aiuto da mostrare nel menu."
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:294
 msgid "Save options"
@@ -6923,24 +6921,24 @@ msgstr "Opzioni standard"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:302
 msgid "Reset all options to default"
-msgstr ""
+msgstr "Resetta tutte le opzioni al valore standard"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:310
 msgid "Topics"
-msgstr ""
+msgstr "Soggetti"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:361
 msgid "Search"
-msgstr ""
+msgstr "Ricerca"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:363
 msgid "Include description in search"
-msgstr ""
+msgstr "Cerchi anche nella descrizione"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:81
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:138
 msgid "Reset value"
-msgstr "resetta valore"
+msgstr "Resetta valore"
 
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:226
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialogElements.cpp:238
@@ -7003,19 +7001,19 @@ msgstr "Chiudi dialogo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:71
 msgid "Save toolcfg"
-msgstr ""
+msgstr "Salva configurazione utensile"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:73
 msgid "Save file with tool configuration"
-msgstr ""
+msgstr "Salva file di configurazione utensile"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:74
 msgid "Load toolcfg"
-msgstr ""
+msgstr "Carica configurazione di utensile"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:76
 msgid "Load file with tool configuration"
-msgstr ""
+msgstr "Carica file di configurazione utensile"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:77
 msgid "Sorted by name"
@@ -7027,7 +7025,7 @@ msgstr "Aggruppato per categoria"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:90
 msgid "Blue options are mandatory"
-msgstr ""
+msgstr "Le opzioni blu sono obbligatorie"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "run python tool"
@@ -7049,11 +7047,11 @@ msgstr "Utilizza il file attuale %"
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:251
 #, c-format
 msgid "Select % file"
-msgstr ""
+msgstr "Seleziona file %"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:274
 msgid "Use current selected edges"
-msgstr ""
+msgstr "Utilizza gli archi attualmente selezionati"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:349
 msgid "network"
@@ -7073,7 +7071,7 @@ msgstr "dati"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialogElements.cpp:521
 msgid "sumo config"
-msgstr ""
+msgstr "configurazione sumo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:70
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunPythonToolDialog.cpp:71
@@ -7122,20 +7120,20 @@ msgstr "chiudi dialogo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:156
 msgid "Nothing to enable, implement in Children"
-msgstr ""
+msgstr "Niente da attivare, da implementare negli elementi figli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:163
 msgid "Nothing to disable, implement in Children"
-msgstr ""
+msgstr "Niente da disattivare, da implementare negli elementi figli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:659
 #, c-format
 msgid "TagProperty for tag '%' not defined"
-msgstr ""
+msgstr "TagProperty non definita per il tag '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:877
 msgid "Nothing to toggle, implement in Children"
-msgstr ""
+msgstr "Niente da (dis)attivare, da implementare negli elementi figli"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:940
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:70
@@ -7194,7 +7192,7 @@ msgstr "Un codice identificativo opzionale per il piano semaforico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1021
 msgid "EdgeType"
-msgstr ""
+msgstr "Tipo di arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1025
 msgid "The id of the edge"
@@ -7268,7 +7266,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1087
 msgid "LaneType"
-msgstr ""
+msgstr "Tipo di corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1091
 msgid "The maximum speed allowed on the lane in m/s"
@@ -7313,6 +7311,8 @@ msgstr "La lunghezza del arco in metri"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1189
 msgid "street name (does not need to be unique, used for visualization)"
 msgstr ""
+"Nome di via (non necessariamente unico, poiché usato soltanto nella "
+"visualizzazione)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1200
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1282
@@ -7336,7 +7336,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1216
 msgid "Show if edge is bidirectional"
-msgstr ""
+msgstr "Mostra se l'arco è bidirezionale"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1222
 msgid "Distance"
