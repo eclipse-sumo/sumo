@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-10-25 13:27+0000\n"
+"PO-Revision-Date: 2023-10-30 16:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -7286,11 +7286,11 @@ msgstr "Codice identificativo del arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1128
 msgid "The name of a node within the nodes-file the edge shall start at"
-msgstr ""
+msgstr "Il nome del nodo tratto dal file di nodi dove deve iniziare l'arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1133
 msgid "The name of a node within the nodes-file the edge shall end at"
-msgstr ""
+msgstr "Il nome del nodo tratto dal file di nodi dove deve terminare l'arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1156
 msgid "The name of a type within the SUMO edge type file"
