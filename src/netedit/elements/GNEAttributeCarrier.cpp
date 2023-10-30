@@ -1105,7 +1105,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Lane width for all lanes of this lane in meters (used for visualization)"),
+                                              TL("Lane width for all lanes of this type in meters (used for visualization)"),
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
