@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -173,7 +174,7 @@ allow to reject new reservation 2
  Add direct route factor constraints...
 reservation 1: direct route cost 385 and (soft) max cost 577.5
 reservation 2: direct route cost 485 and (hard) max cost 728
-reservation 0: direct route cost 680.0 and (soft) max cost 1020, already used costs 675.1, 
+reservation 0: direct route cost 680 and (soft) max cost 1020, already used costs 675.0740624587158
  Add dropoff constraints...
 reservation 0 in veh v0(0), droppoff node: 5
  Add "no re-allocation" constraints...
