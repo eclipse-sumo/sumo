@@ -4,4 +4,4 @@ search_file:output
 full_description:Rerun
 brief_description:Rerun
 rerun_count:2
-rerun_only:1
+#rerun_only:1
