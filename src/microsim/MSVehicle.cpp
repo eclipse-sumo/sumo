@@ -2287,13 +2287,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << sublaneOffset << " outsideLeft=" << outsideLeft << "\n";
                     }
 #endif
-                    int addedOutsideCands = 0;
                     for (const MSVehicle* cand : lane->getVehiclesSecure()) {
                         if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
                                 && ((!outsideLeft && cand->getLeftSideOnEdge() < 0)
                                     || (outsideLeft && cand->getLeftSideOnEdge() > lane->getEdge().getWidth()))) {
                             outsideLeaders.addLeader(cand, true);
-                            addedOutsideCands++;
 #ifdef DEBUG_PLAN_MOVE
                             if (DEBUG_COND) {
                                 std::cout << " outsideLeader=" << cand->getID() << " ahead=" << outsideLeaders.toString() << "\n";

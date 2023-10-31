@@ -174,11 +174,9 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
     RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // attributes of the poly
     // parse
-    int l = 0;
     LineReader lr(file);
     while (lr.hasMore()) {
         std::string line = lr.readLine();
-        ++l;
         // skip invalid/empty lines
         if (line.length() == 0 || line.find("#") != std::string::npos) {
             continue;

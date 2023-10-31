@@ -79,7 +79,6 @@ PCLoaderArcView::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& 
 #ifdef HAVE_GDAL
 const PositionVector
 PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
-    const OGRSpatialReference* const srs = geom->getSpatialReference();
     if (myWarnMissingProjection) {
         int outOfRange = 0;
         for (int j = 0; j < geom->getNumPoints(); j++) {
