@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "StringUtils.h"
 #include "SysUtils.h"
 
 #ifndef WIN32
@@ -78,7 +79,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
     StartupInfo.wShowWindow = SW_HIDE;
 
     // "/c" option - Do the command then terminate the command window
-    std::string winCmd = "CMD.exe /c " + cmd;
+    std::string winCmd = "CMD.exe /c " + StringUtils::transcodeToLocal(cmd);
     char* args = new char[winCmd.size() + 1];
     args[0] = 0;
     strcpy(args, winCmd.c_str());
