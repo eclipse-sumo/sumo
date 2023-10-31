@@ -37,8 +37,7 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-rm -rf build/$FILEPREFIX
-git clean -f -x bin &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+git clean -f -x -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 basename $MAKELOG >> $STATUSLOG
 git pull >> $MAKELOG 2>&1 || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
