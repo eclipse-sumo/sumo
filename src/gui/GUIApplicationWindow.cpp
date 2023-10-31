@@ -374,7 +374,9 @@ GUIApplicationWindow::create() {
     const std::string& onlineMaps = getApp()->reg().readStringEntry("gui", "onlineMaps", "");
     for (const std::string& entry : StringTokenizer(onlineMaps, "\n").getVector()) {
         const std::vector<std::string> split = StringTokenizer(entry, "\t").getVector();
-        myOnlineMaps[split[0]] = split[1];
+        if (split.size() == 2) {
+            myOnlineMaps[split[0]] = split[1];
+        }
     }
     if (myOnlineMaps.empty()) {
         myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
