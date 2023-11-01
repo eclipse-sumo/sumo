@@ -2,7 +2,7 @@
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8346388.svg )](https://doi.org/10.5281/zenodo.8346388  )
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8346388.svg  )](https://doi.org/10.5281/zenodo.8346388   )
 [![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
 [![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml)
 [![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml)
@@ -17,8 +17,10 @@ What is SUMO
 highly portable, microscopic traffic simulation package designed to handle
 large road networks and different modes of transport.
 
+<p align="center"><img width=70% src="https://raw.githubusercontent.com/eclipse/sumo/main/docs/web/docs/images/multiple-screenshots.png"></p>
+
 It is mainly developed by employees of the [Institute of Transportation Systems
-at the German Aerospace Center](https://www.dlr.de/ts).
+at the German Aerospace Center](https://www.dlr.de/ts/en/).
 
 
 Where to get it
