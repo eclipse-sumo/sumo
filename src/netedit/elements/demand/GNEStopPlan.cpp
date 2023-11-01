@@ -365,7 +365,7 @@ GNEStopPlan::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_UNTIL:
             return (myParametersSet & STOP_UNTIL_SET) != 0;
         default:
-            return true;
+            return isPlanAttributeEnabled(key);
     }
 }
 
