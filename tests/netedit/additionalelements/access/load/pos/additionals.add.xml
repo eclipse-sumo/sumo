@@ -7,7 +7,7 @@
         <!-- non valid Position (empty) -->
         <access lane="E1_0" pos="" length="10" friendlyPos="0"/>
 
-        <!-- non valid Position (negative) -->
+        <!-- valid Position (negative) -->
         <access lane="E1_0" pos="-1" length="10" friendlyPos="0"/>
 
         <!-- non valid Position (overpassing lane) -->
@@ -15,6 +15,13 @@
 
         <!-- valid Position -->
         <access lane="E4_0" pos="1.1" length="10" friendlyPos="0"/>
+
+    </busStop>
+	
+	<busStop id="busStop_1" lane="center0_1" startPos="23.00" endPos="33.00">
+
+        <!-- valid Position -->
+        <access lane="E4_0" pos="random" length="10" friendlyPos="0"/>
 
     </busStop>
 </additional>
