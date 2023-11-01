@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-10-30 16:41+0000\n"
+"PO-Revision-Date: 2023-11-01 14:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7564,11 +7564,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1553
 msgid "InternalLanes"
-msgstr ""
+msgstr "Corsie interne"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1572
 msgid "BusStop"
-msgstr ""
+msgstr "Fermata di autobus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1577
 msgid "The id of bus stop"
@@ -7690,7 +7690,7 @@ msgstr "Il colore in modo RGBA nel quale si dipingeranno le fermate di autobus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1638
 msgid "TrainStop"
-msgstr ""
+msgstr "Fermata ferroviaria"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1643
 msgid "The id of train stop"
@@ -7742,7 +7742,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1704
 msgid "Access"
-msgstr ""
+msgstr "Accesso"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1709
 msgid "The name of the lane the stop access shall be located at"
@@ -7759,7 +7759,7 @@ msgstr "La lunghezza dell'accesso in metri da percorrere"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1740
 msgid "ContainerStop"
-msgstr ""
+msgstr "Fermata per contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1745
 msgid "The id of container stop"
@@ -7785,14 +7785,16 @@ msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
 msgstr ""
+"Si creerà una coda se si cerca di depositare un numero maggiore di "
+"contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1795
 msgid "The RGBA color with which the containerStop shall be displayed"
-msgstr ""
+msgstr "Il colore RGBA nel quale la fermata per contenitori deve essere dipinta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1805
 msgid "ChargingStation"
-msgstr ""
+msgstr "Stazione di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1810
 msgid "The id of charging station"
