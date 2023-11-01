@@ -65,7 +65,7 @@ public:
     GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Type selectors
-    DemandElementSelector* getTypeSelector() const;
+    GNEDemandElementSelector* getTypeSelector() const;
 
     /// @brief get personPlan selector
     GNEPlanSelector* getPlanSelector() const;
@@ -94,7 +94,7 @@ private:
     GNETagSelector* myPersonTagSelector;
 
     /// @brief Person Type selectors
-    DemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector;
 
     /// @brief personPlan selector
     GNEPlanSelector* myPlanSelector;

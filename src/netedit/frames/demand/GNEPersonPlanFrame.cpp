@@ -41,7 +41,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create person types selector module
-    myPersonSelector = new DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
+    myPersonSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create plan selector
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_PERSON);
@@ -166,7 +166,7 @@ GNEPersonPlanFrame::getPersonHierarchy() const {
 }
 
 
-DemandElementSelector*
+GNEDemandElementSelector*
 GNEPersonPlanFrame::getPersonSelector() const {
     return myPersonSelector;
 }

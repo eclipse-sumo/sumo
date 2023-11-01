@@ -72,7 +72,7 @@ public:
     GNEElementTree* getContainerHierarchy() const;
 
     /// @brief get container selectors
-    DemandElementSelector* getContainerSelector() const;
+    GNEDemandElementSelector* getContainerSelector() const;
 
     /// @brief get containerPlan selector
     GNEPlanSelector* getPlanSelector() const;
@@ -92,7 +92,7 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    DemandElementSelector* myContainerSelector;
+    GNEDemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
     GNEPlanSelector* myPlanSelector;

@@ -72,7 +72,7 @@ public:
     GNEElementTree* getPersonHierarchy() const;
 
     /// @brief get person selectors
-    DemandElementSelector* getPersonSelector() const;
+    GNEDemandElementSelector* getPersonSelector() const;
 
     /// @brief get personPlan selector
     GNEPlanSelector* getPlanSelector() const;
@@ -92,7 +92,7 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    DemandElementSelector* myPersonSelector;
+    GNEDemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
     GNEPlanSelector* myPlanSelector;

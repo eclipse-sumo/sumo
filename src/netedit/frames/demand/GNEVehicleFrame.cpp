@@ -128,7 +128,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myVehicleTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
-    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::VEHICLE);
 
     // Create vehicle parameters
     myVehicleAttributes = new GNEAttributesCreator(this);
@@ -233,7 +233,7 @@ GNEVehicleFrame::getVehicleTagSelector() const {
 }
 
 
-DemandElementSelector*
+GNEDemandElementSelector*
 GNEVehicleFrame::getTypeSelector() const {
     return myTypeSelector;
 }

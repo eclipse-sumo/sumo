@@ -41,7 +41,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
     myRouteHandler("", viewNet->getNet(), true, false) {
 
     // create container types selector module
-    myContainerSelector = new DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
+    myContainerSelector = new GNEDemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create plan selector
     myPlanSelector = new GNEPlanSelector(this, SUMO_TAG_CONTAINER);
@@ -166,7 +166,7 @@ GNEContainerPlanFrame::getContainerHierarchy() const {
 }
 
 
-DemandElementSelector*
+GNEDemandElementSelector*
 GNEContainerPlanFrame::getContainerSelector() const {
     return myContainerSelector;
 }

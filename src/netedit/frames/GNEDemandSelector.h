@@ -32,19 +32,19 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class DemandElementSelector : public MFXGroupBoxModule {
+class GNEDemandElementSelector : public MFXGroupBoxModule {
     /// @brief FOX-declaration
-    FXDECLARE(DemandElementSelector)
+    FXDECLARE(GNEDemandElementSelector)
 
 public:
     /// @brief constructor with a single tag
-    DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement = nullptr);
+    GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, int tagType);
 
     /// @brief constructor with tag type
-    DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
+    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
 
     /// @brief destructor
-    ~DemandElementSelector();
+    ~GNEDemandElementSelector();
 
     /// @brief get current demand element
     GNEDemandElement* getCurrentDemandElement() const;
@@ -81,7 +81,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    FOX_CONSTRUCTOR(DemandElementSelector)
+    FOX_CONSTRUCTOR(GNEDemandElementSelector)
 
 private:
     /// @brief pointer to frame Parent
@@ -95,6 +95,9 @@ private:
 
     /// @brief demand element tags
     std::vector<SumoXMLTag> myDemandElementTags;
+
+    /// @brief tag type (person, container or vehicle)
+    int myTagType;
 
     /// @brief flag for enable/disable multiple element selection
     bool mySelectingMultipleElements;

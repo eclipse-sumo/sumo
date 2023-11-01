@@ -45,7 +45,7 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myContainerTagSelector = new GNETagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector module and set DEFAULT_PEDTYPE_ID as default element
-    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID));
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::CONTAINER);
 
     // create container attributes
     myContainerAttributes = new GNEAttributesCreator(this);
@@ -141,7 +141,7 @@ GNEContainerFrame::getPlanCreator() const {
 }
 
 
-DemandElementSelector*
+GNEDemandElementSelector*
 GNEContainerFrame::getTypeSelector() const {
     return myTypeSelector;
 }

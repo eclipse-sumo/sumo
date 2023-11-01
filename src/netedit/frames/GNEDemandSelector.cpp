@@ -32,23 +32,24 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(DemandElementSelector) DemandElementSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    DemandElementSelector::onCmdSelectDemandElement),
+FXDEFMAP(GNEDemandElementSelector) DemandElementSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEDemandElementSelector::onCmdSelectDemandElement),
 };
 
 // Object implementation
-FXIMPLEMENT(DemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEDemandElementSelector,      MFXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement) :
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, int tagType) :
     MFXGroupBoxModule(frameParent, (TL("Parent ") + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
-    myCurrentDemandElement(defaultElement),
+    myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}),
+    myTagType(tagType),
     mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
@@ -60,7 +61,7 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag d
 }
 
 
-DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
     MFXGroupBoxModule(frameParent, TL("Parent element")),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
@@ -82,23 +83,23 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
 }
 
 
-DemandElementSelector::~DemandElementSelector() {}
+GNEDemandElementSelector::~GNEDemandElementSelector() {}
 
 
 GNEDemandElement*
-DemandElementSelector::getCurrentDemandElement() const {
+GNEDemandElementSelector::getCurrentDemandElement() const {
     return myCurrentDemandElement;
 }
 
 
 const std::vector<SumoXMLTag>&
-DemandElementSelector::getAllowedTags() const {
+GNEDemandElementSelector::getAllowedTags() const {
     return myDemandElementTags;
 }
 
 
 void
-DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
+GNEDemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     mySelectingMultipleElements = false;
     // Set new current demand element
     myCurrentDemandElement = demandElement;
@@ -115,7 +116,7 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
 
 
 void
-DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& demandElements) {
+GNEDemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& demandElements) {
     mySelectingMultipleElements = true;
     myCurrentDemandElement = nullptr;
     myDemandElementsComboBox->clearItems();
@@ -126,7 +127,7 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
 
 
 void
-DemandElementSelector::showDemandElementSelector() {
+GNEDemandElementSelector::showDemandElementSelector() {
     // first refresh modul
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
@@ -144,36 +145,57 @@ DemandElementSelector::showDemandElementSelector() {
 
 
 void
-DemandElementSelector::hideDemandElementSelector() {
+GNEDemandElementSelector::hideDemandElementSelector() {
     hide();
 }
 
 
 bool
-DemandElementSelector::isDemandElementSelectorShown() const {
+GNEDemandElementSelector::isDemandElementSelectorShown() const {
     return shown();
 }
 
 
 void
-DemandElementSelector::refreshDemandElementSelector() {
+GNEDemandElementSelector::refreshDemandElementSelector() {
     // get demand elemenst container
-    const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
+    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // clear demand elements comboBox
     myDemandElementsComboBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
     for (const auto& demandElementTag : myDemandElementTags) {
         // special case for VTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
-            // add default  types in the first positions
-            myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            // get view parent
+            auto viewParent = myFrameParent->getViewNet()->getViewParent();
+            // add default types in the first positions depending of frame parent
+            if (myTagType & GNETagProperties::TagType::PERSON) {
+                // first pedestrian
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
+            } else if (myTagType & GNETagProperties::TagType::CONTAINER) {
+                // first container
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
+            } else {
+                // first default vType
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
+            }
             // add rest of vTypes
-            for (const auto& vType : demandElements.at(demandElementTag)) {
+            for (const auto& vType : ACs->getDemandElements().at(demandElementTag)) {
                 // avoid insert duplicated default vType
                 if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
                     myDemandElementsComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
@@ -181,7 +203,7 @@ DemandElementSelector::refreshDemandElementSelector() {
             }
         } else {
             // insert all Ids
-            for (const auto& demandElement : demandElements.at(demandElementTag)) {
+            for (const auto& demandElement : ACs->getDemandElements().at(demandElementTag)) {
                 myDemandElementsComboBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
             }
         }
@@ -196,16 +218,14 @@ DemandElementSelector::refreshDemandElementSelector() {
             }
         }
     } else {
-        // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
-        if (myDemandElementsComboBox->getItemText(0) == DEFAULT_VTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultType();
-        } else {
-            // disable myCurrentDemandElement
-            myCurrentDemandElement = nullptr;
+        for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
+            myCurrentDemandElement = ACs->retrieveDemandElement(*i, myDemandElementsComboBox->getItemText(0), false);
+        }
+        if (myCurrentDemandElement == nullptr) {
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
-                if (demandElements.at(*i).size() > 0) {
-                    myCurrentDemandElement = *demandElements.at(*i).begin();
+                if (ACs->getDemandElements().at(*i).size() > 0) {
+                    myCurrentDemandElement = *ACs->getDemandElements().at(*i).begin();
                 }
             }
         }
@@ -214,7 +234,7 @@ DemandElementSelector::refreshDemandElementSelector() {
 
 
 GNEDemandElement*
-DemandElementSelector::getPreviousPlanElement() const {
+GNEDemandElementSelector::getPreviousPlanElement() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
@@ -230,7 +250,7 @@ DemandElementSelector::getPreviousPlanElement() const {
 
 
 long
-DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
+GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element
     for (const auto& demandElementTag : myDemandElementTags) {
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
