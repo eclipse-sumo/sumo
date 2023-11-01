@@ -3218,11 +3218,10 @@ class personTripEdgeEdge:
         lines = 11
 
     class inspect:
-        to = 1
-        arrivalPos = 2
-        vTypes = 3
-        modes = 4
-        lines = 5
+        arrivalPos = 1
+        vTypes = 2
+        modes = 3
+        lines = 4
 
     class inspectSelection:
         arrivalPos = 1
@@ -3238,10 +3237,9 @@ class personTripEdgeBusStop:
         lines = 10
 
     class inspect:
-        to = 1
-        vTypes = 2
-        modes = 3
-        lines = 4
+        vTypes = 1
+        modes = 2
+        lines = 3
 
     class inspectSelection:
         vTypes = 1
@@ -3256,10 +3254,9 @@ class personTripJunctions:
         lines = 10
 
     class inspect:
-        to = 1
-        vTypes = 2
-        modes = 3
-        lines = 4
+        vTypes = 1
+        modes = 2
+        lines = 3
 
     class inspectSelection:
         vTypes = 1
@@ -3273,9 +3270,8 @@ class rideEdgeEdge:
         lines = 9
 
     class inspect:
-        to = 1
-        arrivalPos = 2
-        lines = 3
+        arrivalPos = 1
+        lines = 2
 
     class inspectSelection:
         arrivalPos = 1
@@ -3287,8 +3283,7 @@ class rideEdgeBusStop:
         lines = 8
 
     class inspect:
-        to = 1
-        lines = 2
+        lines = 1
 
     class inspectSelection:
         lines = 1
@@ -3299,8 +3294,7 @@ class walkEdgeEdge:
         arrivalPos = 8
 
     class inspect:
-        to = 1
-        arrivalPos = 2
+        arrivalPos = 1
 
     class inspectSelection:
         arrivalPos = 1
@@ -3311,8 +3305,7 @@ class walkEdges:
         arrivalPos = 8
 
     class inspect:
-        edges = 1
-        arrivalPos = 2
+        arrivalPos = 1
 
     class inspectSelection:
         arrivalPos = 1
@@ -3323,22 +3316,10 @@ class walkRoute:
         arrivalPos = 8
 
     class inspect:
-        route = 1
-        arrivalPos = 2
+        arrivalPos = 1
 
     class inspectSelection:
         arrivalPos = 1
-
-
-class walkEdgeBusStop:
-    class inspect:
-        to = 1
-
-
-class walkJunctions:
-    class inspect:
-        to = 1
-
 
 class personStopEdge:
     class create:
@@ -3350,14 +3331,13 @@ class personStopEdge:
         actType = 12
 
     class inspect:
-        edge = 1
-        endPos = 2
-        friendlyPos = 3
-        durationEnable = 4
-        duration = 5
-        untilEnable = 6
-        until = 7
-        actType = 7
+        endPos = 1
+        friendlyPos = 2
+        durationEnable = 3
+        duration = 4
+        untilEnable = 5
+        until = 6
+        actType = 6
 
     class inspectSelection:
         friendlyPos = 1
@@ -3468,9 +3448,8 @@ class transportEdgeEdge:
         lines = 9
 
     class inspect:
-        to = 1
-        arrivalPos = 2
-        lines = 3
+        arrivalPos = 1
+        lines = 2
 
     class inspectSelection:
         arrivalPos = 1
@@ -3482,8 +3461,7 @@ class transportEdgeContainerStop:
         lines = 8
 
     class inspect:
-        to = 1
-        lines = 2
+        lines = 1
 
     class inspectSelection:
         lines = 1
@@ -3496,10 +3474,9 @@ class transhipEdgeEdge:
         speed = 9
 
     class inspect:
-        to = 1
-        departPos = 2
-        arrivalPos = 3
-        speed = 4
+        departPos = 1
+        arrivalPos = 2
+        speed = 3
 
     class inspectSelection:
         departPos = 1
@@ -3513,9 +3490,8 @@ class transhipEdgeContainerStop:
         speed = 9
 
     class inspect:
-        to = 1
-        departPos = 2
-        speed = 3
+        departPos = 1
+        speed = 2
 
     class inspectSelection:
         departPos = 1
@@ -3529,10 +3505,9 @@ class transhipEdges:
         speed = 9
 
     class inspect:
-        edges = 1
-        departPos = 2
-        arrivalPos = 3
-        speed = 4
+        departPos = 1
+        arrivalPos = 2
+        speed = 3
 
     class inspectSelection:
         departPos = 1
@@ -3550,14 +3525,13 @@ class containerStopEdge:
         actType = 12
 
     class inspect:
-        edge = 1
-        endPos = 2
-        friendlyPos = 3
-        durationEnable = 4
-        duration = 5
-        untilEnable = 6
-        until = 7
-        actType = 7
+        endPos = 1
+        friendlyPos = 2
+        durationEnable = 3
+        duration = 4
+        untilEnable = 5
+        until = 6
+        actType = 6
 
     class inspectSelection:
         friendlyPos = 1
