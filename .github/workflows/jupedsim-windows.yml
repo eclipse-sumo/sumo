@@ -42,7 +42,7 @@ jobs:
     - name: Uploading artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: jupedsim-${{ matrix.build_config }}
+        name: jupedsim-${{ matrix.jps_version }}-${{ matrix.build_config }}
         path: jupedsim-install-${{ matrix.build_config }}
 
     - name: Cloning SUMO
