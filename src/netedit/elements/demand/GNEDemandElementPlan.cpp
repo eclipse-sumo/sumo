@@ -778,9 +778,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // get lane shape
                 const auto &laneShape = firstLane->getLaneShape();
                 // continue depending of lane position
-                if (lanePosition == 0) {
+                if (lanePosition <= 0) {
                     return laneShape.front();
-                } else if ((lanePosition == -1) || (lanePosition >= laneShape.length2D())) {
+                } else if (lanePosition >= laneShape.length2D()) {
                     return laneShape.back();
                 } else {
                     return laneShape.positionAtOffset2D(lanePosition);
