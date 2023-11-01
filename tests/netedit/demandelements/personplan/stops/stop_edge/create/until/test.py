@@ -44,40 +44,40 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.selectPerson("p_0")
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.changePersonPlanMode("stop")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.untilEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.untilEnable)
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 200, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.until, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "dummy")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 220, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.until, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "-20")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 240, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.until, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "30.2")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 260, 65)
 
 # Check undo redo

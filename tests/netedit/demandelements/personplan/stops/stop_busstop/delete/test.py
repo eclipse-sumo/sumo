@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopBusStop mode
+# go to StopPlanStoppingPlace mode
 netedit.personPlanMode()
 
-# go to personStopBusStop mode
+# go to StopPlanStoppingPlace mode
 netedit.changePersonPlanMode("stop")
 
-# create personStopBusStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
@@ -59,7 +59,7 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete personStopBusStop
+# delete StopPlanStoppingPlace
 netedit.leftClick(referencePosition, 147, 40)
 
 # Check undo redo

@@ -44,40 +44,40 @@ netedit.leftClick(referencePosition, 180, 65)
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 180, 65)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 200, 65)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "dummy")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 220, 65)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "-20")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 240, 65)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "30.2")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 260, 65)
 
 # Check undo redo

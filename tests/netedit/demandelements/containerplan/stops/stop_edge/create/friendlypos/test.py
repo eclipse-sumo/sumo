@@ -44,19 +44,19 @@ netedit.leftClick(referencePosition, 180, 65)
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 180, 65)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.friendlyPos)
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 200, 65)
 
 # Check undo redo

@@ -44,28 +44,28 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.selectPerson("p_0")
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.changePersonPlanMode("stop")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.actType, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.actType, "dummy")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 280, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.actType, "singing")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 240, 65)
 
 # Check undo redo

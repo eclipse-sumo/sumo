@@ -47,24 +47,24 @@ netedit.typeEnter()
 # go to container plan mode
 netedit.containerPlanMode()
 
-# go to containerstopStop mode
+# go to StopPlanStoppingPlace mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerstopStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.actType, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "dummy")
 
-# create containerstopStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "singing")
 
-# create containerstopStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 

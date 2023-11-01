@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 180, 65)
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
@@ -59,11 +59,11 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerStopEdge
+# inspect StopPlanEdge
 netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.containerStopEdge.inspect.friendlyPos, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.friendlyPos, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

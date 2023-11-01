@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 180, 65)
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
@@ -59,7 +59,7 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete containerStopEdge
+# delete StopPlanEdge
 netedit.leftClick(referencePosition, 180, 45)
 
 # Check undo redo

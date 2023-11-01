@@ -47,22 +47,22 @@ netedit.typeEnter()
 # go to person plan mode
 netedit.personPlanMode()
 
-# go to personStopBusStop mode
+# go to StopPlanStoppingPlace mode
 netedit.changePersonPlanMode("stop")
 
-# create personStopBusStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.actType, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "dummy")
 
-# create personStopBusStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "singing")
 
-# create personStopBusStop
+# create StopPlanStoppingPlace
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # Check undo redo

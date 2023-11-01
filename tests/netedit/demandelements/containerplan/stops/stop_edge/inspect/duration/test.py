@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 180, 65)
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
@@ -59,23 +59,23 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerStopEdge
+# inspect StopPlanEdge
 netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.containerStopEdge.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.durationEnable, False)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.containerStopEdge.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.durationEnable, False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.duration, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.duration, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.duration, "-7.3", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.duration, "-7.3", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspect.duration, "6.7", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.duration, "6.7", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

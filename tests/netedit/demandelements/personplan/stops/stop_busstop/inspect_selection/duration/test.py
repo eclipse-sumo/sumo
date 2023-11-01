@@ -43,20 +43,20 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personStopBusStop
+# inspect StopPlanStoppingPlace
 netedit.leftClick(referencePosition, 147, 40)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.personStopBusStop.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.durationEnable, False)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.personStopBusStop.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.durationEnable, False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.duration, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.duration, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.duration, "20.15", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.duration, "20.15", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

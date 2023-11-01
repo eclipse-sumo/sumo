@@ -43,15 +43,15 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personStopEdge
+# inspect StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x,
                   netedit.positions.demandElements.stopPerson.y)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.friendlyPos, "false", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspectSelection.friendlyPos, "false", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.friendlyPos, "true", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspectSelection.friendlyPos, "true", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

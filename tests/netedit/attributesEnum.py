@@ -1449,7 +1449,7 @@ class jpsObstacle:
     class inspectSelection:
         name = 1
         parameters = 4
-        
+
 # --------------------------------
 # TAZ ELEMENTS
 # --------------------------------
@@ -3249,57 +3249,7 @@ class walkRoute:
     class inspectSelection:
         arrivalPos = 1
 
-class personStopEdge:
-    class create:
-        friendlyPos = 8
-        durationEnable = 9
-        duration = 10
-        untilEnable = 11
-        until = 12
-        actType = 12
-
-    class inspect:
-        endPos = 1
-        friendlyPos = 2
-        durationEnable = 3
-        duration = 4
-        untilEnable = 5
-        until = 6
-        actType = 6
-
-    class inspectSelection:
-        friendlyPos = 1
-        durationEnable = 2
-        duration = 3
-        untilEnable = 4
-        until = 5
-        actType = 6
-
-
-class personStopBusStop:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 10
-        until = 11
-        actType = 11
-
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        actType = 4
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        actType = 4
-
 # Container
-
 
 class container:
     class create:
@@ -3442,8 +3392,9 @@ class transhipEdges:
         arrivalPos = 2
         speed = 3
 
+# stop plans
 
-class containerStopEdge:
+class stopPlanEdge:
     class create:
         friendlyPos = 8
         durationEnable = 9
@@ -3470,7 +3421,7 @@ class containerStopEdge:
         actType = 6
 
 
-class containerStopContainerStop:
+class stopPlanStoppingPlace:
     class create:
         durationEnable = 8
         duration = 9
@@ -3491,6 +3442,7 @@ class containerStopContainerStop:
         untilEnable = 3
         until = 4
         actType = 4
+
 
 # --------------------------------
 # DATA ELEMENTS
