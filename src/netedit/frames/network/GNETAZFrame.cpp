@@ -174,7 +174,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         myCurrentTAZLabel->setText((TL("Current TAZ: ") + myEditedTAZ->getID()).c_str());
         // obtain a copy of all SELECTED edges of the net (to avoid slowdown during manipulations)
         mySelectedEdges = myTAZFrameParent->myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
-        // resfresh TAZ Edges
+        // refresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
         myTAZFrameParent->myTAZParameters->hideTAZParametersModule();
