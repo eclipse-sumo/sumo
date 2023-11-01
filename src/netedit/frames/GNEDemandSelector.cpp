@@ -166,8 +166,6 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
     for (const auto& demandElementTag : myDemandElementTags) {
         // special case for VTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
-            // get view parent
-            auto viewParent = myFrameParent->getViewNet()->getViewParent();
             // add default types in the first positions depending of frame parent
             if (myTagType & GNETagProperties::TagType::PERSON) {
                 // first pedestrian
