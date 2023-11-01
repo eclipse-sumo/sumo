@@ -344,8 +344,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         // obtain exaggeration (and add the special containerExaggeration)
         const double exaggeration = getExaggeration(s) + s.detailSettings.personExaggeration;
         // obtain width and length
-        const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+        const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         // obtain diameter around container (used to calculate distance bewteen cursor and container)
         const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
@@ -367,9 +367,26 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(color);
             // set scale
             glScaled(exaggeration, exaggeration, 1);
-            drawAction_drawAsPoly(width, length);
+            // draw container depending of detail level
+            switch (s.containerQuality) {
+                case 0:
+                case 1:
+                case 2:
+                    drawAction_drawAsPoly();
+                    break;
+                case 3:
+                default:
+                    drawAction_drawAsImage(s);
+                    break;
+            }
             // pop matrix
             GLHelper::popMatrix();
+            // draw line between junctions if container plan isn't valid
+            for (const auto& containerPlan : getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                    drawJunctionLine(containerPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
             // draw stack label
@@ -408,11 +425,11 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // check if mouse is over element
-            mouseWithinGeometry(containerPosition, length *  0.5, width * 0.5, -width, 0, 0);
+            mouseWithinGeometry(containerPosition, 0.5, 0.2, -2.5, 0, 0);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
             // draw dotted contour
-            myContour.drawDottedContourRectangle(s, containerPosition, length *  0.5, width * 0.5, -width, 0, 0, exaggeration,
+            myContour.drawDottedContourRectangle(s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
                                                  s.dottedContourSettings.segmentWidth);
         }
     }
@@ -633,9 +650,12 @@ GNEContainer::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEContainer::drawAction_drawAsPoly(const double width, const double length) const {
-    // draw container shape
-    glScaled(length, width, 1);
+GNEContainer::drawAction_drawAsPoly() const {
+    // obtain width and length
+    const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
+    // draw pedestrian shape
+    glScaled(length * 0.2, width * 0.2, 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);
     glVertex2d(0, -0.5);
@@ -650,6 +670,31 @@ GNEContainer::drawAction_drawAsPoly(const double width, const double length) con
     glVertex2d(-0.9, -0.4);
     glVertex2d(-0.9, 0.4);
     glEnd();
+}
+
+
+void
+GNEContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
+    const std::string& file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
+    // obtain width and length
+    const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
+    if (file != "") {
+        // @todo invent an option for controlling whether images should be rotated or not
+        //if (getVehicleType().getGuiShape() == SVS_CONTAINER) {
+        //    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
+        //}
+        int textureID = GUITexturesHelper::getTextureID(file);
+        if (textureID > 0) {
+            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double halfLength = length / 2.0 * exaggeration;
+            const double halfWidth = width / 2.0 * exaggeration;
+            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
+        }
+    } else {
+        // fallback if no image is defined
+        drawAction_drawAsPoly();
+    }
 }
 
 // ===========================================================================

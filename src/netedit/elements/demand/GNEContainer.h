@@ -274,7 +274,10 @@ public:
 
 protected:
     /// @brief draw container as poly
-    void drawAction_drawAsPoly(const double width, const double length) const;
+    void drawAction_drawAsPoly() const;
+
+    /// @brief draw container as image
+    void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
 
 private:
     // @brief struct used for calculating container plan geometry segments
