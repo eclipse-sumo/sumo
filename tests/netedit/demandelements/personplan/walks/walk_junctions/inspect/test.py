@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
                   netedit.positions.demandElements.person.y)
 
 # go to personTripJunctions mode
-netedit.changePersonPlanMode("personTrip: junctions")
+netedit.changePersonPlanMode("personTrip")
 
 # create walkJunctions
 netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,

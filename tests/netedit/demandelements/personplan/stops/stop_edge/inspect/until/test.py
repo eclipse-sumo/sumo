@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -51,7 +51,7 @@ netedit.personPlanMode()
 netedit.selectPerson("p_0")
 
 # go to personStopEdge mode
-netedit.changePersonPlanMode("stopPerson: edge")
+netedit.changePersonPlanMode("stop")
 
 # create personStopEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)

@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -47,35 +47,35 @@ netedit.typeEnter()
 # go to container plan mode
 netedit.containerPlanMode()
 
-# go to containerStopContainerStop mode
-netedit.changeContainerPlanMode("stopContainer: containerStop")
+# go to containerstopStop mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopContainerStop.create.untilEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.containerstopStop.create.untilEnable)
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, 182, 40)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.until, "dummy")
+netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.until, "dummy")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, 184, 40)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.until, "-20")
+netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.until, "-20")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, 186, 40)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.until, "30.2")
+netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.until, "30.2")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, 188, 40)
 
 # press enter to create route

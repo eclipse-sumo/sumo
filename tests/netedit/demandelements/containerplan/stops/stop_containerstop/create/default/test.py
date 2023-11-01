@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopContainerStop mode
+# go to containerstopStop mode
 netedit.containerPlanMode()
 
-# go to containerStopContainerStop mode
-netedit.changeContainerPlanMode("stopContainer: containerStop")
+# go to containerstopStop mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 

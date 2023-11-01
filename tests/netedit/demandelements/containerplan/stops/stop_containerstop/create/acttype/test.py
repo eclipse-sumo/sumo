@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -47,24 +47,24 @@ netedit.typeEnter()
 # go to container plan mode
 netedit.containerPlanMode()
 
-# go to containerStopContainerStop mode
-netedit.changeContainerPlanMode("stopContainer: containerStop")
+# go to containerstopStop mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.actType, "dummy")
+netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.actType, "dummy")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.containerstopStop.create.actType, "singing")
 
-# create containerStopContainerStop
+# create containerstopStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
                   netedit.positions.demandElements.containerStop.y)
 
