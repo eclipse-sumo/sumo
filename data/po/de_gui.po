@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-10-26 12:45+0000\n"
+"PO-Revision-Date: 2023-11-01 14:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -16038,11 +16038,11 @@ msgstr "Regenbogen neu kalibrieren"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1770
 msgid "hide below"
-msgstr "unten verstecken"
+msgstr "unter ... ausblenden"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1774
 msgid "hide above"
-msgstr "oben verstecken"
+msgstr "oberhalb ... ausblenden"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1783
 msgid "Scale width"
