@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-01 11:16+0000\n"
+"PO-Revision-Date: 2023-11-01 14:17+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -13447,7 +13447,7 @@ msgstr "El tipo de vehículo seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
 msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-msgstr ""
+msgstr "Tipo de vehículo con clase == 'pedestrian' está orientado a peatones"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
@@ -15994,11 +15994,11 @@ msgstr "Mostrar nombre de la calle"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1848
 msgid "Show edge color value"
-msgstr ""
+msgstr "Mostrar valor de color de arista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1849
 msgid "Show edge scale value"
-msgstr ""
+msgstr "Mostrar valor de escala de arista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1860
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1945
@@ -16044,15 +16044,15 @@ msgstr "Mostrar ID del vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1901
 msgid "Show vehicle color value"
-msgstr ""
+msgstr "Mostrar valor de color del vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1902
 msgid "Show vehicle scale value"
-msgstr ""
+msgstr "Mostrar valor de escala del vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1903
 msgid "Show vehicle text param"
-msgstr ""
+msgstr "Mostrar parámetro de texto del vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1909
 msgid "Show blinker / brake lights"
@@ -16060,11 +16060,11 @@ msgstr "Mostrar luces intermitentes / de freno"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1911
 msgid "Show minimum gap"
-msgstr ""
+msgstr "Mostrar brecha mínima"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1913
 msgid "Show brake gap"
-msgstr ""
+msgstr "Mostrar brecha de frenado"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1915
 msgid "Show Bluetooth range"
@@ -16072,19 +16072,19 @@ msgstr "Mostrar alcance de Bluetooth"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1917
 msgid "Show route index"
-msgstr ""
+msgstr "Mostrar índice de ruta"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1919
 msgid "Scale length with geometry"
-msgstr ""
+msgstr "Escalar longitud de acuerdo a la geometría"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1921
 msgid "Show parking info"
-msgstr ""
+msgstr "Mostrar información de parqueo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
 msgid "Draw reversed vehicles in reverse"
-msgstr ""
+msgstr "Dibujar vehículos invertidos al revés"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1968
 msgid "Show person id"
@@ -16092,7 +16092,7 @@ msgstr "Mostrar ID de la pesona"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1969
 msgid "Show person color value"
-msgstr ""
+msgstr "Mostrar valor de color de persona"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1977
 msgid "Show JuPedSim pedestrian network"
@@ -16136,15 +16136,15 @@ msgstr "Mostrar ID de la arista interna"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2058
 msgid "Show crossing and walkingarea id"
-msgstr ""
+msgstr "Mostrar ID del paso y área peatonal"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2059
 msgid "Show traffic light phase index"
-msgstr ""
+msgstr "Mostrar el índice de fase del semáforo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2060
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "Mostrar el nombre de la fase del semáforo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2061
 msgid "Show junction name"
