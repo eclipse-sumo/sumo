@@ -165,7 +165,7 @@ GNEContainerFrame::getContainerAttributes() const {
 void
 GNEContainerFrame::tagSelected() {
     // first check if container is valid
-    if (myContainerTagSelector->getCurrentTemplateAC() && myPlanSelector->getCurrentPlanTemplate()) {
+    if (myContainerTagSelector->getCurrentTemplateAC()) {
         // show PType selector and container plan selector
         myTypeSelector->showDemandElementSelector();
         // check if current container type selected is valid
@@ -178,8 +178,8 @@ GNEContainerFrame::tagSelected() {
             }
             // show container plan tag selector
             myPlanSelector->showPlanSelector();
-            // now check if container plan selected is valid
-            if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
+            // check current plan template
+            if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show container plan attributes
                 myContainerPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module

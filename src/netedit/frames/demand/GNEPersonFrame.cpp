@@ -165,7 +165,7 @@ GNEPersonFrame::getPersonAttributes() const {
 void
 GNEPersonFrame::tagSelected() {
     // first check if person is valid
-    if (myPersonTagSelector->getCurrentTemplateAC() && myPlanSelector->getCurrentPlanTemplate()) {
+    if (myPersonTagSelector->getCurrentTemplateAC()) {
         // show PType selector and person plan selector
         myTypeSelector->showDemandElementSelector();
         // check if current person type selected is valid
@@ -178,8 +178,8 @@ GNEPersonFrame::tagSelected() {
             }
             // show person plan tag selector
             myPlanSelector->showPlanSelector();
-            // now check if person plan selected is valid
-            if (myPlanSelector->getCurrentPlanTagProperties().getTag() != SUMO_TAG_NOTHING) {
+            // check current plan template
+            if (myPlanSelector->getCurrentPlanTemplate()) {
                 // show person plan attributes
                 myPersonPlanAttributes->showAttributesCreatorModule(myPlanSelector->getCurrentPlanTemplate(), {});
                 // show Netedit attributes module
