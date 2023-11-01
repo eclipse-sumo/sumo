@@ -46,10 +46,6 @@ netedit.typeEnter()
 # go to walkEdgeEdge mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
-
 # go to walkEdgeEdge mode
 netedit.changePersonPlanMode("walk")
 
