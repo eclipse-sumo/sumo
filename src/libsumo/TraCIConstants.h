@@ -704,9 +704,6 @@ TRACI_CONST int AUTOMATIC_CONTEXT_SUBSCRIPTION = 0x03;
 // generic attributes (get/set: all)
 TRACI_CONST int GENERIC_ATTRIBUTE = 0x03;
 
-// The number of vehicles (or persons, if so configured) that passed the detector during the current interval
-TRACI_CONST int INTERVAL_NUMBER = 0x25;
-
 // last step vehicle number (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 TRACI_CONST int LAST_STEP_VEHICLE_NUMBER = 0x10;
 
