@@ -445,7 +445,7 @@ long
 GNETAZFrame::TAZSaveChanges::onCmdSaveChanges(FXObject*, FXSelector, void*) {
     // check that save changes is enabled
     if (mySaveChangesButton->isEnabled()) {
-        // disable mySaveChangesButton and myCancelChangesButtonand
+        // disable mySaveChangesButton and myCancelChangesButton
         mySaveChangesButton->disable();
         myCancelChangesButton->disable();
         // finish undo list set
@@ -1077,7 +1077,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // declare string sets for TextFields (to avoid duplicated values)
         std::set<std::string> weightSourceSet;
         std::set<std::string> weightSinkSet;
-        // declare stadistic variables
+        // declare statistic variables
         double weight = 0;
         double maxWeightSource = 0;
         double minWeightSource = -1;
@@ -1183,7 +1183,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create Label and CheckButton for use innen edges with true as default value
+    // create Label and CheckButton for use inner edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(useInnenEdges, TL("Edges within"), 0, GUIDesignLabelThickedFixed(100));
     myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
