@@ -1,5 +1,5 @@
 mkdocs>=1.4.3
-mkdocs-macros-plugin==0.2.4
+mkdocs-macros-plugin>=0.2.4
 mdx_gh_links
 pymdown-extensions
 mkdocs-git-revision-date-plugin>=0.2
