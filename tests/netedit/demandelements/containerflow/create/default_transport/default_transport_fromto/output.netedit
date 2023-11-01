@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
 transport: edge
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 484 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 198
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
