@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-01 14:17+0000\n"
+"PO-Revision-Date: 2023-11-01 14:24+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -16310,7 +16310,7 @@ msgstr "Editar parámetros de la vista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:123
 msgid "Opens a menu which lets you edit the viewport. (Ctrl+I)"
-msgstr ""
+msgstr "Abrir una ventana para editar la vista. (Ctrl+I)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:127
 msgid "Toggle Zooming Style"
@@ -16321,6 +16321,8 @@ msgid ""
 "Toggles whether zooming is based at cursor position or at the center of the "
 "view."
 msgstr ""
+"Alternar si el zoom se basa en la posición del cursor o en el centro de la "
+"vista."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:134
 msgid "Locate Structures"
@@ -16356,11 +16358,11 @@ msgstr "Tomar una instantánea de la vista."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
-msgstr ""
+msgstr "la opción window-size requiere INT,INT"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:311
 msgid "option window-pos requires INT,INT"
-msgstr ""
+msgstr "la opción window-pos requiere INT,INT"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 msgid "Langua&ge"
@@ -16457,6 +16459,8 @@ msgid ""
 "For the Debug build you might also need to set the LANG environment "
 "variable."
 msgstr ""
+"Para la compilación de depuración, es posible que se necesite configurar la "
+"variable de entorno LANG."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:421
 msgid "Under development. You can help to improve the translation at:"
@@ -16468,7 +16472,7 @@ msgstr "(Sin proyección definida)"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1747
 msgid "Could not convert coordinates in %."
-msgstr ""
+msgstr "No se pudieron convertir las coordenadas en %."
 
 #~ msgid "Double routes aren't allowed"
 #~ msgstr "No se permiten rutas dobles"
