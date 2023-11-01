@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-10-26 10:19+0000\n"
+"PO-Revision-Date: 2023-11-01 14:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3593,7 +3593,7 @@ msgstr ""
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
 msgstr ""
-"Blaulicht-Einrichtung ist nicht kompatibel mit der mesoskopischen Simulation "
+"Blaulicht-Einrichtung ist nicht mit der mesoskopischen Simulation kompatibel "
 "(wurde für Fahrzeug '%' ignoriert)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
@@ -4619,7 +4619,8 @@ msgstr "Unbekannte Kennzeichnung '%' während der Analyse."
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:82
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
-msgstr "Spurenwechselmodel '%' ist nicht kompatibel mit der Sublane-Simulation"
+msgstr ""
+"Fahrstreifenwechselmodell '%' ist nicht mit der Sublane-Simulation kompatibel"
 
 #: C:\Repos\sumo/src\microsim\lcmodels\MSAbstractLaneChangeModel.cpp:98
 #, c-format
