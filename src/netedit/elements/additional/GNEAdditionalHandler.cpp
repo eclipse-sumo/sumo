@@ -165,7 +165,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID,
-                                  const double pos, const double length, const bool friendlyPos, const Parameterised::Map& parameters) {
+                                  const std::string &pos, const double length, const bool friendlyPos, const Parameterised::Map& parameters) {
     // get netedit parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // get lane
@@ -175,12 +175,25 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     if (busStop == nullptr) {
         busStop = getAdditionalParent(sumoBaseObject, SUMO_TAG_TRAIN_STOP);
     }
+    // pos double
+    bool validPos = true;
+    double posDouble = 0;
+    if (GNEAttributeCarrier::canParse<double>(pos)) {
+        posDouble = GNEAttributeCarrier::parse<double>(pos);
+        validPos = checkLanePosition(posDouble, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
+    } else if (pos == "random") {
+        posDouble = INVALID_DOUBLE;
+    } else if (pos.empty()) {
+        posDouble = 0;
+    } else {
+        validPos = false;
+    }
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ACCESS, "", SUMO_TAG_LANE, laneID);
     } else if (busStop == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_ACCESS, "", SUMO_TAG_BUS_STOP, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
-    } else if (!checkLanePosition(pos, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+    } else if (!validPos) {
         writeErrorInvalidPosition(SUMO_TAG_ACCESS, busStop->getID());
     } else if ((length != -1) && (length < 0)) {
         writeErrorInvalidNegativeValue(SUMO_TAG_ACCESS, busStop->getID(), SUMO_ATTR_LENGTH);
@@ -190,7 +203,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         WRITE_WARNING(TLF("Could not build access in netedit; The lane '%' doesn't support pedestrians", lane->getID()));
     } else {
         // build access
-        GNEAdditional* access = new GNEAccess(busStop, lane, myNet, pos, length, friendlyPos, parameters);
+        GNEAdditional* access = new GNEAccess(busStop, lane, myNet, posDouble, length, friendlyPos, parameters);
         // insert depending of allowUndoRedo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(access, TL("add access in '") + busStop->getID() + "'");

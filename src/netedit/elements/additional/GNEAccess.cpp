@@ -39,9 +39,9 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(0),
-              myLength(0),
-myFriendlyPosition(false) {
+    myPositionOverLane(0),
+    myLength(0),
+    myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -50,10 +50,10 @@ myFriendlyPosition(false) {
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-Parameterised(parameters),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+    Parameterised(parameters),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -75,9 +75,7 @@ void
 GNEAccess::updateGeometry() {
     // set start position
     double fixedPositionOverLane;
-    if (myPositionOverLane == -1) {
-        fixedPositionOverLane = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    } else if (myPositionOverLane < 0) {
+    if (myPositionOverLane < 0) {
         fixedPositionOverLane = 0;
     } else if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
         fixedPositionOverLane = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
@@ -122,7 +120,7 @@ GNEAccess::isAccessPositionFixed() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        if (myPositionOverLane != -1) {
+        if (myPositionOverLane != INVALID_DOUBLE) {
             return (myPositionOverLane >= 0) && (myPositionOverLane <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
         } else {
             return false;
@@ -135,7 +133,7 @@ void
 GNEAccess::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ACCESS);
     device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
-    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    device.writeAttr(SUMO_ATTR_POSITION, getAttribute(SUMO_ATTR_POSITION));
     if (myLength != -1) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
@@ -150,6 +148,8 @@ bool
 GNEAccess::isAdditionalValid() const {
     // with friendly position enabled position is "always fixed"
     if (myFriendlyPosition) {
+        return true;
+    } else if (myPositionOverLane == INVALID_DOUBLE) {
         return true;
     } else {
         return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
@@ -265,7 +265,11 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
-            return toString(myPositionOverLane);
+            if (myPositionOverLane == INVALID_DOUBLE) {
+                return "random";
+            } else {
+                return toString(myPositionOverLane);
+            }
         case SUMO_ATTR_LENGTH:
             return toString(myLength);
         case SUMO_ATTR_FRIENDLY_POS:
@@ -331,7 +335,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty()) {
+            if (value.empty() || (value == "random")) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -379,7 +383,13 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value);
+            if (value.empty()) {
+                myPositionOverLane = 0;
+            } else if (value == "random") {
+                myPositionOverLane = INVALID_DOUBLE;
+            } else {
+                myPositionOverLane = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_LENGTH:
             myLength = parse<double>(value);
