@@ -37,7 +37,7 @@ GNEStopPlan*
 GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
         const SUMOTime duration, const SUMOTime until, const std::string &actType,
-        bool friendlyPos) {
+        bool friendlyPos, const int parameterSet) {
     // declare icon an tag
     const auto iconTag = getPersonStopTagIcon(edge, busStop, trainStop);
     // declare containers
@@ -52,7 +52,7 @@ GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
         additionals.push_back(trainStop);
     }
     return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
-                           endPos, duration, until, actType, friendlyPos);
+                           endPos, duration, until, actType, friendlyPos, parameterSet);
 }
 
 
@@ -60,7 +60,7 @@ GNEStopPlan*
 GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
         GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
         const SUMOTime duration, const SUMOTime until, const std::string &actType,
-        bool friendlyPos) {
+        bool friendlyPos, const int parameterSet) {
     // declare icon an tag
     const auto iconTag = getContainerStopTagIcon(edge, containerStop);
     // declare containers
@@ -73,7 +73,7 @@ GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
         additionals.push_back(containerStop);
     }
     return new GNEStopPlan(net, iconTag.first, iconTag.second, personParent, edges, additionals,
-                           endPos, duration, until, actType, friendlyPos);
+                           endPos, duration, until, actType, friendlyPos, parameterSet);
 }
 
 
@@ -600,14 +600,15 @@ GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 
 GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
                          const std::vector<GNEAdditional*> &additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string &actType, bool friendlyPos) :
+                         const std::string &actType, bool friendlyPos, const int parameterSet) :
     GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
     GNEDemandElementPlan(this, -1, endPos),
     myDuration(duration),
     myUntil(until), 
     myActType(actType),
-    myFriendlyPos(friendlyPos) {
+    myFriendlyPos(friendlyPos),
+    myParametersSet(parameterSet) {
 }
 
 /****************************************************************************/

@@ -1045,7 +1045,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
 void
 GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
                                  const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
-                                 const std::string &actType, const bool friendlyPos) {
+                                 const std::string &actType, const bool friendlyPos, const int parameterSet) {
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -1059,7 +1059,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
     } else {
         // build person stop
         GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop,
-                                                                      endPos, duration, until, actType, friendlyPos);
+                                                                      endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), personParent->getID()));
@@ -1086,8 +1086,9 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
 
 
 void
-GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
-                                    const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType, const bool friendlyPos) {
+GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
+                                    const std::string& containerStopID, const double endPos, const SUMOTime duration,
+                                    const SUMOTime until, const std::string &actType, const bool friendlyPos, const int parameterSet) {
     // parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
@@ -1100,7 +1101,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
     } else {
         // build container stop
         GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop,
-                                                                         endPos, duration, until, actType, friendlyPos);
+                                                                         endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(stopPlan, TLF("add % in '%'", stopPlan->getTagStr(), containerParent->getID()));
@@ -1132,10 +1133,10 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         WRITE_WARNING(TL("Stops needs a parent"));
     } else if ((objParent->getTag() == SUMO_TAG_PERSON) || (objParent->getTag() == SUMO_TAG_PERSONFLOW)) {
         buildPersonStop(sumoBaseObject, stopParameters.edge, stopParameters.busstop, stopParameters.busstop, stopParameters.endPos,
-                        stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos);
+                        stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
     } else if ((objParent->getTag() == SUMO_TAG_CONTAINER) || (objParent->getTag() == SUMO_TAG_CONTAINERFLOW)) {
         buildContainerStop(sumoBaseObject, stopParameters.edge, stopParameters.containerstop, stopParameters.endPos,
-                           stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos);
+                           stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
     } else {
         // get vehicle tag
         SumoXMLTag vehicleTag = objParent->getTag();
@@ -1744,13 +1745,21 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
         // set ride tag
         personPlanObject->setTag(GNEDemandElementPlan::getPersonStopTagIcon(edge, busStop, trainStop).first);
+        // set parameters
+        int parameterSet = 0;
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+            parameterSet |= STOP_DURATION_SET;
+        }
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+            parameterSet |= STOP_UNTIL_SET;
+        }
         // from edges
         if (edge) {
-            buildPersonStop(personPlanObject, edge->getID(), "", "", endPos, duration, until, actType, friendlyPos);
+            buildPersonStop(personPlanObject, edge->getID(), "", "", endPos, duration, until, actType, friendlyPos, parameterSet);
         } else if (busStop) {
-            buildPersonStop(personPlanObject, "", busStop->getID(), "", endPos, duration, until, actType, friendlyPos);
+            buildPersonStop(personPlanObject, "", busStop->getID(), "", endPos, duration, until, actType, friendlyPos, parameterSet);
         } else if (trainStop) {
-            buildPersonStop(personPlanObject, "", "", trainStop->getID(), endPos, duration, until, actType, friendlyPos);
+            buildPersonStop(personPlanObject, "", "", trainStop->getID(), endPos, duration, until, actType, friendlyPos, parameterSet);
         }
     }
     // get person
@@ -1881,10 +1890,18 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
         // set ride tag
         containerPlanObject->setTag(GNEDemandElementPlan::getContainerStopTagIcon(edge, containerStop).first);
+        // set parameters
+        int parameterSet = 0;
+        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+            parameterSet |= STOP_DURATION_SET;
+        }
+        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+            parameterSet |= STOP_UNTIL_SET;
+        }
         if (edge) {
-            buildContainerStop(containerPlanObject, edge->getID(), "", endPos, duration, until, actType, friendlyPos);
+            buildContainerStop(containerPlanObject, edge->getID(), "", endPos, duration, until, actType, friendlyPos, parameterSet);
         } else if (containerStop) {
-            buildContainerStop(containerPlanObject, "", containerStop->getID(), endPos, duration, until, actType, friendlyPos);
+            buildContainerStop(containerPlanObject, "", containerStop->getID(), endPos, duration, until, actType, friendlyPos, parameterSet);
         }
     }
     // get container

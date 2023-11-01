@@ -156,11 +156,12 @@ public:
     /// @brief build person stop
     void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
                          const std::string& trainStopID,const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string &actType, const bool friendlyPos);
+                         const std::string &actType, const bool friendlyPos, const int parameterSet);
 
     /// @brief build container stop
     void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
-                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType, const bool friendlyPos);
+                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType, const bool friendlyPos,
+                            const int parameterSet);
     /// @}
 
     /// @brief build stop
