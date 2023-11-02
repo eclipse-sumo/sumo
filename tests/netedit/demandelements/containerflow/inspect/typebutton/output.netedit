@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 TestFunctions: Clicked over position 439 - 648
 custom_vType
 12,13,14

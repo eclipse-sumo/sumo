@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 walk
 TestFunctions: Clicked over position 754 - 608
 ride
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 TestFunctions: Clicked over position 437 - 647
 TestFunctions: Clicked over position 1054 - 203
 dummy

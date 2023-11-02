@@ -4,19 +4,19 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 dummySpacing
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 poisson
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 dummy
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 -30
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 2.5
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
