@@ -119,7 +119,7 @@ class demandElements:
 
     class planTopEdge:
         x = 750
-        y = 5
+        y = 3
 
     class planTopBusStop:
         x = 750
