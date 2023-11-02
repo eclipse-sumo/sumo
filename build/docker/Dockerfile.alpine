@@ -1,0 +1,33 @@
+# to build this image run the following command
+# $ docker build -t sumo:alpine - < Dockerfile.alpine
+# to use it run (GUI applications won't work)
+# $ docker run -it sumo:alpine bash
+# now you have a bash inside a docker container and can for instance run
+# $ cd sumo; bin/sumo -c docs/examples/sumo/busses/test.sumocfg
+
+FROM alpine:latest
+
+RUN apk upgrade --no-cache 
+
+# Enable edge installations on apk ref: https://wiki.alpinelinux.org/wiki/Repositories#Using_the_testing_repository_on_stable_branches
+RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+
+# Build dependencies
+RUN apk add bash
+RUN apk add --no-cache make
+RUN apk add git cmake g++ fox-dev@testing mesa-dev mesa-gl \
+ gdal-dev xerces-c-dev proj-dev eigen-dev gettext
+RUN apk add swig python3-dev py3-pip py3-setuptools py3-build openjdk11-jdk maven
+
+# Clone the repo
+RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
+
+# Create virtual environment for python packages
+RUN python3 -m venv /opt/venv; \
+ . /opt/venv/bin/activate \
+ pip3 install --no-cache -r /opt/sumo/tools/requirements.txt
+
+# Build and run all examples
+RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; \
+ cmake ../.. -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
+ make -j8 all examples doc install; cd /opt/sumo; rm -rf build/cmake-build
