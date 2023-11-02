@@ -238,12 +238,6 @@ GNEPersonFrame::demandElementSelected() {
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
             myPathLegend->showPathLegendModule();
-            // show warning if we have selected a vType oriented to containers or vehicles
-            if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-                WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
-            } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_PEDESTRIAN) {
-                WRITE_WARNING(TL("VType with vClass != 'pedestrian' is not oriented to persons"));
-            }
         } else {
             // hide modules
             myPersonPlanAttributes->hideAttributesCreatorModule();
