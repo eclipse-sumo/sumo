@@ -52,15 +52,21 @@ netedit.changePersonPlanMode("personTrip")
 # create personTripEdgeBusStop
 netedit.leftClick(referencePosition, 295, 50)
 
+XXXX
+
 # press enter to create route
 netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripEdgeBusStop
+# inspect person
 netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
                   netedit.positions.demandElements.person.y)
+                  
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
+                  netedit.positions.demandElements.planTopEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.vTypes, "customType", False)
