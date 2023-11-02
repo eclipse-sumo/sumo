@@ -57,25 +57,25 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.untilEnable)
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 200, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "dummy")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 220, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "-20")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 240, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.until, "30.2")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 260, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

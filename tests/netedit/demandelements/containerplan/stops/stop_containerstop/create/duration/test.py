@@ -58,7 +58,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.containerS
 netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.durationEnable)
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, 182, 40)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.durationEnable)
@@ -67,19 +68,22 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.durati
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "dummy")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, 184, 40)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "-20")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, 186, 40)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "30.2")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, 188, 40)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # press enter to create route
 netedit.typeEnter()

@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.friendlyPos)
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 200, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
