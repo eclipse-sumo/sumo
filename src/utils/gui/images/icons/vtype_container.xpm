@@ -1,16 +1,15 @@
 /* XPM */
 static const char *vtype_container_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 6 1",
+"16 16 5 1",
 "  c black",
 ". c gray25",
 "X c red",
 "o c #808080",
-"O c gray94",
 "+ c None",
 /* pixels */
 "++++++++++++++++",
-"OO..............",
+"++..............",
 "               .",
 " ooooooooooooo .",
 " o o o o o o o .",
@@ -18,7 +17,7 @@ static const char *vtype_container_xpm[] = {
 " o o o o o o o .",
 " o o o o o o o .",
 " ooooooooooooo .",
-"               O",
+"               +",
 "++++++++++++++++",
 "++++++++++++++++",
 "+XXX+X+X+XX+XX++",
