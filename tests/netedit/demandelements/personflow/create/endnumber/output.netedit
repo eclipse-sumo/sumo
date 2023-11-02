@@ -2,28 +2,28 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
-walk: busStop
+walk
 dummyTerminate
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 end-number
 dummy
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 -30
 20.5
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 dummy
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 -30
 20.5
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 51
-TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 574 - 211
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 180
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
