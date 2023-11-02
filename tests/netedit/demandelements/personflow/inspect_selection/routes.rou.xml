@@ -9,7 +9,7 @@
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
-        <personTrip from="Edge0" to="Edge2"/>
+        <personTrip from="Edge0" to="Edge1"/>
     </personFlow>
     <personFlow id="pf_1" color="blue" departPos="11.00" begin="12.00" end="3800.00" personsPerHour="11500.00">
         <param key="KeyB1" value="valueB1"/>

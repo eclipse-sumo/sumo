@@ -52,7 +52,7 @@ netedit.changeElement("personFlow")
 netedit.changePersonPlan("walk (route)", True)
 
 # create person
-netedit.leftClick(referencePosition, 274, 410)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()

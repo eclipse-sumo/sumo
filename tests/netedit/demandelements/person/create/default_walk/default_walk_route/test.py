@@ -49,7 +49,7 @@ netedit.personMode()
 netedit.changePersonPlan("walk (route)", False)
 
 # create person
-netedit.leftClick(referencePosition, 274, 440)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
