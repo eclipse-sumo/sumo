@@ -60,13 +60,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.actType, "dummy")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 280, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.actType, "singing")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, 240, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

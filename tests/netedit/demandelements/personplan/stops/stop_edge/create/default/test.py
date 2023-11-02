@@ -48,9 +48,6 @@ netedit.typeEnter()
 netedit.personPlanMode()
 
 # go to StopPlanEdge mode
-netedit.selectPerson("p_0")
-
-# go to StopPlanEdge mode
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge

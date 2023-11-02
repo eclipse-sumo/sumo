@@ -62,13 +62,8 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
-                  
 # now inspect plan top
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
-                  netedit.positions.demandElements.planTopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # change depart with an invalid value
 netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.friendlyPos, False)

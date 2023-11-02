@@ -140,15 +140,10 @@ class demandElements:
         x = 133
         y = 479
 
-    # click over person stop
-    class stopPerson:
-        x = 280
-        y = 0
-
     # click over stop edge
     class stopEdge:
-        x = 260
-        y = 35
+        x = 375
+        y = 40
 
     # click over single trip or flow over junctions
     class singleVehicleJunction:
