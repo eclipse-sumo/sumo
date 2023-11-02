@@ -31,7 +31,7 @@ class demandElements:
 
     class edge2:
         x = 375
-        y = 30
+        y = 33
 
     class edge3:
         x = 280
