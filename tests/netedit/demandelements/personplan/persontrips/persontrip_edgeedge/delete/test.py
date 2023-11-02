@@ -58,8 +58,9 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete personTripEdgeEdge
-netedit.leftClick(referencePosition, 158, 65)
+# inspect person
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
