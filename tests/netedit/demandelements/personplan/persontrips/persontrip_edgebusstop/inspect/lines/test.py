@@ -52,8 +52,6 @@ netedit.changePersonPlanMode("personTrip")
 # create personTripEdgeBusStop
 netedit.leftClick(referencePosition, 295, 50)
 
-XXX
-
 # press enter to create route
 netedit.typeEnter()
 

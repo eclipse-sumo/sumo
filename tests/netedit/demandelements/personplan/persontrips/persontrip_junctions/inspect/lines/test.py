@@ -52,8 +52,6 @@ netedit.changePersonPlanMode("personTrip")
 # create personTripJunctions
 netedit.leftClick(referencePosition, 95, 223)
 
-XXXX
-
 # press enter to create route
 netedit.typeEnter()
 
