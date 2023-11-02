@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: containerStop", False)
+netedit.changeContainerPlan("tranship", False)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.container.create.depart, "dummy")

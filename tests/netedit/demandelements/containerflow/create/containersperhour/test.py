@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("tranship: containerStop", True)
+netedit.changeContainerPlan("tranship", True)
 
 # set invalid containerFlow number
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.begin, "dummy")

@@ -129,8 +129,8 @@ class demandElements:
 
     # click over single person / flow over edges
     class person:
-        x = 136
-        y = 472
+        x = 133
+        y = 479
 
     # click over person stop
     class stopPerson:
