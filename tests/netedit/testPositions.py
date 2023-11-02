@@ -121,9 +121,13 @@ class demandElements:
         x = 750
         y = 5
 
+    class planTopBusStop:
+        x = 750
+        y = 33        
+
     class planTopRide:
         x = 750
-        y = 35
+        y = 33
 
     class planTop:
         x = 720
