@@ -121,6 +121,10 @@ class demandElements:
         x = 750
         y = 5
 
+    class planTopRide:
+        x = 750
+        y = 35        
+
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160

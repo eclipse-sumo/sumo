@@ -50,10 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("walk (route)")
 
 # create walkEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-
-# press enter to create route
-netedit.typeEnter()
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

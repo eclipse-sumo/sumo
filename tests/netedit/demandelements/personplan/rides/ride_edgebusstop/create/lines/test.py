@@ -50,7 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("ride")
 
 # create rideEdgeBusStop
-netedit.leftClick(referencePosition, 295, 50)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.rideEdgeBusStop.create.lines, "custom line")

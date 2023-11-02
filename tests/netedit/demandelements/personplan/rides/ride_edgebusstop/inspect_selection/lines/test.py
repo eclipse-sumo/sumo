@@ -43,13 +43,9 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
-                  
 # now inspect plan top
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
-                  netedit.positions.demandElements.planTopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopRide.x,
+                  netedit.positions.demandElements.planTopRide.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeBusStop.inspectSelection.lines, "custom line", False)

@@ -50,7 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("ride")
 
 # create rideEdgeBusStop
-netedit.leftClick(referencePosition, 295, 50)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -63,8 +63,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
                   netedit.positions.demandElements.person.y)
                   
 # now inspect plan top
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
-                  netedit.positions.demandElements.planTopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopRide.x,
+                  netedit.positions.demandElements.planTopRide.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeBusStop.inspect.lines, "custom line", False)
