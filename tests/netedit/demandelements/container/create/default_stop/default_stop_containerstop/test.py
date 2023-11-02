@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("stopContainer: containerStop", False)
+netedit.changeContainerPlan("stopContainer", False)
 
 # create route clicking over containerStop
-netedit.leftClick(referencePosition, 270, 43)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

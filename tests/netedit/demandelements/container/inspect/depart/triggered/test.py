@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("transport: edge", False)
+netedit.changeContainerPlan("transport", False)
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)

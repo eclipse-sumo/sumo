@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("transport: edge", False)
+netedit.changeContainerPlan("transport", False)
 
 # change Container
 netedit.changeElement("containerFlow")
