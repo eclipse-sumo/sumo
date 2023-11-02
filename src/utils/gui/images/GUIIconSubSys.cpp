@@ -348,6 +348,10 @@
 #include "icons/route.xpm"
 #include "icons/routedistribution.xpm"
 #include "icons/vtype.xpm"
+#include "icons/vtype_default.xpm"
+#include "icons/vtype_bike.xpm"
+#include "icons/vtype_taxi.xpm"
+#include "icons/vtype_rail.xpm"
 #include "icons/vtype_pedestrian.xpm"
 #include "icons/vtype_container.xpm"
 #include "icons/vtypedistribution.xpm"
@@ -841,6 +845,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
     myIcons[GUIIcon::ROUTEDISTRIBUTION] = new FXXPMIcon(a, routedistribution_xpm);
     myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[GUIIcon::VTYPE_DEFAULT] = new FXXPMIcon(a, vtype_default_xpm);
+    myIcons[GUIIcon::VTYPE_BIKE] = new FXXPMIcon(a, vtype_bike_xpm);
+    myIcons[GUIIcon::VTYPE_TAXI] = new FXXPMIcon(a, vtype_taxi_xpm);
+    myIcons[GUIIcon::VTYPE_RAIL] = new FXXPMIcon(a, vtype_rail_xpm);
     myIcons[GUIIcon::VTYPE_PEDESTRIAN] = new FXXPMIcon(a, vtype_pedestrian_xpm);
     myIcons[GUIIcon::VTYPE_CONTAINER] = new FXXPMIcon(a, vtype_container_xpm);
     myIcons[GUIIcon::VTYPEDISTRIBUTION] = new FXXPMIcon(a, vtypedistribution_xpm);

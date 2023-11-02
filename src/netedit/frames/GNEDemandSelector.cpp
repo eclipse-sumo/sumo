@@ -169,28 +169,28 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             // add default types in the first positions depending of frame parent
             if (myTagType & GNETagProperties::TagType::PERSON) {
                 // first pedestrian
-                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_DEFAULT), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_BIKE), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_TAXI), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_RAIL), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER), FXRGBA(253, 255, 206, 255));
             } else if (myTagType & GNETagProperties::TagType::CONTAINER) {
                 // first container
-                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_DEFAULT), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_BIKE), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_RAIL), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_RAIL), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN), FXRGBA(253, 255, 206, 255));
             } else {
                 // first default vType
-                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN));
-                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_DEFAULT), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_BIKE), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_RAIL), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_RAILTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_RAIL), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_PEDESTRIAN), FXRGBA(253, 255, 206, 255));
+                myDemandElementsComboBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE_CONTAINER), FXRGBA(253, 255, 206, 255));
             }
             // add rest of vTypes
             for (const auto& vType : ACs->getDemandElements().at(demandElementTag)) {
