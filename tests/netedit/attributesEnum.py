@@ -3160,9 +3160,10 @@ class personTripEdgeEdge:
 
 class personTripEdgeBusStop:
     class create:
-        vTypes = 8
-        modes = 9
-        lines = 10
+        arrivalPos = 8
+        vTypes = 9
+        modes = 10
+        lines = 11
 
     class inspect:
         vTypes = 1
@@ -3177,9 +3178,10 @@ class personTripEdgeBusStop:
 
 class personTripJunctions:
     class create:
-        vTypes = 8
-        modes = 9
-        lines = 10
+        arrivalPos = 8
+        vTypes = 9
+        modes = 10
+        lines = 11
 
     class inspect:
         vTypes = 1
