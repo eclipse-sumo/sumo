@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
 netedit.deleteMode()
 
 # delete StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTop.x, netedit.positions.demandElements.planTop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -58,9 +58,8 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
+# delete created plan
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTop.x, netedit.positions.demandElements.planTop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

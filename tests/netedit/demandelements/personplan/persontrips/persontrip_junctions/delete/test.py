@@ -50,7 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("personTrip")
 
 # create personTripJunctions
-netedit.leftClick(referencePosition, 95, 223)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -58,8 +58,8 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete personTripJunctions
-netedit.leftClick(referencePosition, 171, 65)
+# delete created plan
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTop.x, netedit.positions.demandElements.planTop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
