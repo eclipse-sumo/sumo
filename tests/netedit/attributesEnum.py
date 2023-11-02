@@ -3208,7 +3208,8 @@ class rideEdgeEdge:
 
 class rideEdgeBusStop:
     class create:
-        lines = 8
+        arrivalPos = 8
+        lines = 9
 
     class inspect:
         lines = 1

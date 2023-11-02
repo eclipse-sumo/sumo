@@ -141,7 +141,7 @@ class demandElements:
         y = 479
 
     # click over stop edge
-    class stopEdge:
+    class stopBusStop:
         x = 375
         y = 40
 
