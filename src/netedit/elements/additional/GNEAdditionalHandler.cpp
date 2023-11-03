@@ -178,15 +178,17 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
     // pos double
     bool validPos = true;
     double posDouble = 0;
-    if (GNEAttributeCarrier::canParse<double>(pos)) {
-        posDouble = GNEAttributeCarrier::parse<double>(pos);
-        validPos = checkLanePosition(posDouble, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
-    } else if (pos == "random") {
-        posDouble = INVALID_DOUBLE;
-    } else if (pos.empty()) {
-        posDouble = 0;
-    } else {
-        validPos = false;
+    if (lane) {
+        if (GNEAttributeCarrier::canParse<double>(pos)) {
+            posDouble = GNEAttributeCarrier::parse<double>(pos);
+            validPos = checkLanePosition(posDouble, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
+        } else if (pos == "random") {
+            posDouble = INVALID_DOUBLE;
+        } else if (pos.empty()) {
+            posDouble = 0;
+        } else {
+            validPos = false;
+        }
     }
     // Check if busStop parent and lane is correct
     if (lane == nullptr) {
