@@ -134,8 +134,6 @@ NBRailwayTopologyAnalyzer::repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPT
 
 int
 NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
-    int numRailEdges = 0;
-    int numBidiEdges = 0;
     int numNotCenterEdges = 0;
     int numAddedBidiEdges = 0;
     std::string inputfile = OptionsCont::getOptions().getString("railway.topology.all-bidi.input-file");
@@ -156,7 +154,6 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
     }
     for (NBEdge* edge : edges) {
         if (hasRailway(edge->getPermissions())) {
-            numRailEdges++;
             // rebuild connections if given from an earlier network
             edge->invalidateConnections(true);
             if (!edge->isBidiRail()) {
@@ -168,8 +165,6 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
                 } else {
                     numNotCenterEdges++;
                 }
-            } else {
-                numBidiEdges++;
             }
         }
     }
@@ -692,7 +687,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
                 WRITE_WARNINGF(TL("Ignoring buffer stop junction '%' with % edges."), node->getID(), node->getEdges().size());
                 continue;
             }
-            int numAddedBidi = 0;
+            // int numAddedBidi = 0;
             numBufferStops++;
             NBEdge* prev = nullptr;
             NBEdge* prev2 = nullptr;
@@ -734,7 +729,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
                 }
                 prev = e;
                 prev2 = e2;
-                numAddedBidi++;
+                // numAddedBidi++;
                 numAddedBidiTotal++;
                 inRail.clear();
                 outRail.clear();

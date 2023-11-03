@@ -87,11 +87,6 @@ Warning: Found sharp turn with radius 7.81 at the end of edge '-150634670#0'.
 Warning: Found sharp turn with radius 7.23 at the start of edge '-150634670#1'.
 Warning: Found sharp turn with radius 5.72 at the end of edge '-285825377'.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-330832908'.
-Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
-Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
-Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
-Warning: Found sharp turn with radius 7.23 at the end of edge '150634670#1'.
-Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_2058568011_#5more_c2' across [-195411601#1 195411601#1 -4402228 4402228 165409971#1 -165409971#1] has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
@@ -112,7 +107,7 @@ Warning: 11 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
-Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 14 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.

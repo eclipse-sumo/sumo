@@ -37,13 +37,13 @@ netedit.changeElement("parkingArea")
 # set invalid name
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.name, "&&>>><<<")
 
-# try to create parkingArea in mode "reference left"
+# try to create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # set name
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.name, "custon name")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # Check undo redo

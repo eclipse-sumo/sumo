@@ -38,33 +38,33 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 400, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # Change parameter 2 with an non valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "DummyDisallowed", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "DummyDisallowed", False)
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "", False)
 
 # Change parameter 2 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "", False)
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow,
                         "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
-                        "rail_electric motorcycle moped pedestrian custom1", True)
+                        "rail_electric motorcycle moped pedestrian custom1", False)
 
 # recompute
 netedit.rebuildNetwork()

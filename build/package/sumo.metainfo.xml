@@ -14,28 +14,28 @@
            to remotely control the simulation.
         </p>
     </description>
-    <url type="homepage">https://www.eclipse.org/sumo/</url>
+    <url type="homepage">https://www.eclipse.dev/sumo/</url>
     <url type="help">https://sumo.dlr.de/docs/</url>
-    <url type="bugtracker">https://github.com/eclipse/sumo/issues</url>
+    <url type="bugtracker">https://github.com/eclipse-sumo/sumo/issues</url>
     <developer_name>German Aerospace Center and contributors</developer_name>
     <screenshots>
         <screenshot type="default">
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot1.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot1.png</image>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot2.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot2.png</image>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot3.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot3.png</image>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot4.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot4.png</image>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot5.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot5.png</image>
         </screenshot>
         <screenshot>
-            <image>https://www.eclipse.org/sumo/images/screenshots/screenshot6.png</image>
+            <image>https://www.eclipse.dev/sumo/images/screenshots/screenshot6.png</image>
         </screenshot>
     </screenshots>
     <content_rating type="oars-1.1"/>
@@ -51,4 +51,3 @@
         <release version="v1_11_0" date="2021-11-22"/>
     </releases>
 </component>
-

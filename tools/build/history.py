@@ -22,7 +22,6 @@ and tries to eliminate duplicates afterwards.
 from __future__ import absolute_import
 
 import subprocess
-import optparse
 import shutil
 import os
 import sys
@@ -32,26 +31,40 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 
 
-optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="v1_3_0", help="first revision to build")
-optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
-options, args = optParser.parse_args()
+arg_parser = sumolib.options.ArgumentParser()
+arg_parser.add_argument("-b", "--begin", default="v1_3_0", help="first revision to build")
+arg_parser.add_argument("-e", "--end", default="HEAD", help="last revision to build")
+arg_parser.add_argument("-d", "--destination", default="..", help="where to put build results")
+arg_parser.add_argument("-t", "--tags-only", action="store_true", default=False,
+                        help="only build tagged revisions")
+options = arg_parser.parse_args()
 
 LOCK = "../history.lock"
 if os.path.exists(LOCK):
     sys.exit("History building is still locked!")
 open(LOCK, 'w').close()
 try:
-    subprocess.call(["git", "checkout", "-q", "master"])
+    subprocess.call(["git", "checkout", "-q", "main"])
     subprocess.call(["git", "pull"])
     commits = {}
-    for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
-        if line.startswith("commit "):
-            h = line.split()[1]
-            commits[h] = sumolib.version.gitDescribe(h)
+    if options.tags_only:
+        active = False
+        for tag in subprocess.check_output(["git", "tag", "--sort=taggerdate"], universal_newlines=True).splitlines():
+            if tag == options.begin:
+                active = True
+            if active:
+                commits[tag] = tag
+            if tag == options.end:
+                active = False
+    else:
+        for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
+            if line.startswith("commit "):
+                h = line.split()[1]
+                commits[h] = sumolib.version.gitDescribe(h)
     haveBuild = False
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
-        if not os.path.exists('../bin%s' % desc):
+        dest = os.path.join(options.destination, 'bin%s' % desc)
+        if not os.path.exists(dest):
             ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
                 continue
@@ -59,16 +72,15 @@ try:
             subprocess.call('make clean; make -j32', shell=True)
             os.chdir("../..")
             haveBuild = True
-            shutil.copytree('bin', '../bin%s' % desc,
-                            ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))
-            subprocess.call('strip -R .note.gnu.build-id ../bin%s/*' % desc, shell=True)
-            subprocess.call("sed -i 's/%s/%s/' ../bin%s/*" % (desc, len(desc) * "0", desc), shell=True)
+            shutil.copytree('bin', dest, ignore=shutil.ignore_patterns('*.fmu', '*.bat', '*.jar'))
+            subprocess.call('strip -R .note.gnu.build-id %s/*' % dest, shell=True)
+            subprocess.call("sed -i 's/%s/%s/' %s" % (desc, len(desc) * "0", dest), shell=True)
     if haveBuild:
-        for line in subprocess.check_output('fdupes -1 -q ../binv*', shell=True).splitlines():
+        for line in subprocess.check_output('fdupes -1 -q %s/binv*' % options.destination, shell=True).splitlines():
             dups = line.split()
             for d in dups[1:]:
                 subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
-    subprocess.call(["git", "checkout", "-q", "master"])
+    subprocess.call(["git", "checkout", "-q", "main"])
 except Exception:
     traceback.print_exc()
 os.remove(LOCK)

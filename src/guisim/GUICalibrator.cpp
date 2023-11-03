@@ -44,29 +44,18 @@
 #include <guisim/GUICalibrator.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GUICalibrator.h"
-
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * GUICalibrator::GUICalibratorPopupMenu - mapping
- * ----------------------------------------------------------------------- */
-FXDEFMAP(GUICalibrator::GUICalibratorPopupMenu)
-GUICalibratorPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip),
 
+FXDEFMAP(GUICalibrator::GUICalibratorPopupMenu) GUICalibratorPopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,  GUICalibrator::GUICalibratorPopupMenu::onCmdOpenManip),
 };
 
-// Object implementation
-FXIMPLEMENT(GUICalibrator::GUICalibratorPopupMenu, GUIGLObjectPopupMenu, GUICalibratorPopupMenuMap, ARRAYNUMBER(GUICalibratorPopupMenuMap))
-
-
-/* -------------------------------------------------------------------------
- * GUICalibrator::GUIManip_Calibrator - mapping
- * ----------------------------------------------------------------------- */
 FXDEFMAP(GUICalibrator::GUIManip_Calibrator) GUIManip_CalibratorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUICalibrator::GUIManip_Calibrator::MID_USER_DEF, GUICalibrator::GUIManip_Calibrator::onCmdUserDef),
     FXMAPFUNC(SEL_UPDATE,   GUICalibrator::GUIManip_Calibrator::MID_USER_DEF, GUICalibrator::GUIManip_Calibrator::onUpdUserDef),
@@ -76,12 +65,14 @@ FXDEFMAP(GUICalibrator::GUIManip_Calibrator) GUIManip_CalibratorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUICalibrator::GUIManip_Calibrator::MID_CLOSE,    GUICalibrator::GUIManip_Calibrator::onCmdClose),
 };
 
-FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator, GUIManipulator, GUIManip_CalibratorMap, ARRAYNUMBER(GUIManip_CalibratorMap))
-
+// Object implementation
+FXIMPLEMENT(GUICalibrator::GUICalibratorPopupMenu,  GUIGLObjectPopupMenu,   GUICalibratorPopupMenuMap,  ARRAYNUMBER(GUICalibratorPopupMenuMap))
+FXIMPLEMENT(GUICalibrator::GUIManip_Calibrator,     GUIManipulator,         GUIManip_CalibratorMap,     ARRAYNUMBER(GUIManip_CalibratorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 /* -------------------------------------------------------------------------
  * GUICalibrator::GUIManip_Calibrator - methods
  * ----------------------------------------------------------------------- */
@@ -128,8 +119,8 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new MFXComboBoxIcon(gf2, 10, false, false, this, MID_PRE_DEF,
-                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
+            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxVisibleItemsSmall, this, MID_PRE_DEF,
+                                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
         myPredefinedValues->appendIconItem("60 km/h");
@@ -140,7 +131,6 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
         myPredefinedValues->appendIconItem("160 km/h");
         myPredefinedValues->appendIconItem("180 km/h");
         myPredefinedValues->appendIconItem("200 km/h");
-        myPredefinedValues->setNumVisible(5);
     }
     {
         // free
@@ -159,7 +149,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
         myUserDefinedSpeed->setValue(0);
         //static_cast<GUICalibrator*>(myObject)->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     //static_cast<GUICalibrator*>(myObject)->setOverriding(true);
 }

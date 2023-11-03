@@ -1,0 +1,15 @@
+two_edges
+
+# Test that checks there is no bad state recorded. The problem stemed from the way moveToXY works.
+bad_state_bug
+
+# Starting two agents at the same position
+identical_start_pos
+
+# small network including a walking area
+walking_area
+
+# larger network
+larger_net
+
+waypoints

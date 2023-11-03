@@ -230,7 +230,7 @@ The attributes used within a destProbReroute are:
 
 ## Assigning a new Route
 
-A "route_prob_reroute" forces the rerouter to assign a new route to
+A "routeProbReroute" forces the rerouter to assign a new route to
 vehicles which pass one of the edges defined in the edges-attribute of
 the rerouter's declaration. In this case, the id of a complete route
 must be supplied instead of a new destination:

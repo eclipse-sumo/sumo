@@ -63,9 +63,12 @@ public:
     static void setHeight(const std::string& poiID, double height);
     static void setAngle(const std::string& poiID, double angle);
     static void setImageFile(const std::string& poiID, const std::string& imageFile);
-    static bool add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType = "", int layer = 0, const std::string& imgFile = "", double width = 1, double height = 1, double angle = 0);
+    static bool add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color,
+                    const std::string& poiType = "", int layer = 0, const std::string& imgFile = "",
+                    double width = 1, double height = 1, double angle = 0, const std::string& icon = "");
     static bool remove(const std::string& poiID, int layer = 0);
-    static void highlight(const std::string& poiID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
+    static void highlight(const std::string& poiID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255),
+                          double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
 
 
 #ifndef LIBTRACI

@@ -35,26 +35,25 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 280, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopBusStop mode
+# go to StopPlanStoppingPlace mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+# go to StopPlanStoppingPlace mode
+netedit.changePersonPlanMode("stop")
 
-# go to personStopBusStop mode
-netedit.changePersonPlanMode("stopPerson: busStop")
-
-# create personStopBusStop
-netedit.leftClick(referencePosition, 180, 50)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -62,20 +61,21 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personStopBusStop
-netedit.leftClick(referencePosition, 147, 40)
+# inspect StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopBusStop.x,
+                  netedit.positions.stopBusStop.busStop.y)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.personStopBusStop.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.untilEnable, False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.until, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.until, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.until, "-7.3", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.until, "-7.3", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.until, "6.7", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.until, "6.7", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

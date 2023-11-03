@@ -169,4 +169,6 @@ private:
     /// @brief Information how many lines were read for meaningful error messages
     int myLinesRead;
 
+    /// @brief Number of skipped characters at the file begin (UTF-8 BOM)
+    int mySkipBOM;
 };

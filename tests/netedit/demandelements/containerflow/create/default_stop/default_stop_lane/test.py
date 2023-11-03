@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("stopContainer: edge", True)
+netedit.changeContainerPlan("stopContainer", True)
 
 # create stop clicking over lane
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)

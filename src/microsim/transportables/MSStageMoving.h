@@ -110,6 +110,10 @@ public:
         return myDepartPos;
     }
 
+    inline void setDepartPos(const double pos) {
+        myDepartPos = pos;
+    }
+
     inline double getDepartPosLat() const {
         return myDepartPosLat;
     }

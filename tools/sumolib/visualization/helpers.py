@@ -28,10 +28,11 @@ if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
         matplotlib.use('Agg')
 from ..options import ArgumentParser
-from pylab import arange, close, cm, get_cmap, figure, legend, log, plt, savefig, show, title  # noqa
+from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, title  # noqa
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
 from matplotlib.ticker import FuncFormatter as ff  # noqa
 from matplotlib.collections import LineCollection  # noqa
+mpl_version = tuple(map(int, matplotlib.__version__.split(".")))
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 
@@ -251,6 +252,12 @@ def plotNet(net, colors, widths, options):
     ax.autoscale_view(True, True, True)
 
 
+def getColorMap(options):
+    if mpl_version < (3, 7, 0):
+        return matplotlib.cm.get_cmap(options.colormap)
+    return matplotlib.colormaps[options.colormap]
+
+
 def getColor(options, i, a):
     if options.colors:
         v = options.colors.split(",")
@@ -259,12 +266,13 @@ def getColor(options, i, a):
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])
-        cm.register_cmap(name="CUSTOM", cmap=colormap)
+        if mpl_version < (3, 7, 0):
+            cm.register_cmap(name="CUSTOM", cmap=colormap)
+        else:
+            matplotlib.colormaps.register(name="CUSTOM", cmap=colormap)
         options.colormap = "CUSTOM"
-    colormap = get_cmap(options.colormap)
-    # cm = options.colormap# get_cmap(options.colormap)
     cNorm = matplotlib.colors.Normalize(vmin=0, vmax=a)
-    scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=colormap)
+    scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=getColorMap(options))
     return scalarMap.to_rgba(i)
 
 

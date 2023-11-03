@@ -149,14 +149,6 @@ enum GUIGlObjectType {
     GLO_JPS_WALKABLEAREA = 203,
     /// @brief obstacles
     GLO_JPS_OBSTACLE = 204,
-    /// @brief waiting areas
-    GLO_JPS_WAITINGAREA = 205,
-    /// @brief waiting areas
-    GLO_JPS_SOURCE = 206,
-    /// @brief waiting areas
-    GLO_JPS_SINK = 207,
-    /// @brief poi waypoints
-    GLO_JPS_WAYPOINT = 208,
 
     /// @}
 
@@ -199,10 +191,8 @@ enum GUIGlObjectType {
 
     /// @brief a stop
     GLO_STOP = 330,
-    /// @brief a person stop
-    GLO_STOP_PERSON = 331,
-    /// @brief a container stop
-    GLO_STOP_CONTAINER = 332,
+    /// @brief a stop plan stop
+    GLO_STOP_PLAN = 331,
 
     /// @}
 
@@ -270,8 +260,8 @@ enum GUIGlObjectType {
     /// @brief front element (used in netedit)
     GLO_FRONTELEMENT = 1030,
 
-    /// @brief dotted contour inspected element (used in netedit)
-    GLO_DOTTEDCONTOUR_INSPECTED = 1040,
+    /// @brief dotted contour (used in netedit)
+    GLO_DOTTEDCONTOUR = 1040,
 
     /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,

@@ -190,17 +190,9 @@ def get_options(args=None):
                     help="If this is set, the number of departures per second will be drawn from a binomial " +
                     "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period")
 
-    try:
-        options = op.parse_args(args=args)
-    except (NotImplementedError, ValueError) as e:
-        print(e, file=sys.stderr)
-        sys.exit(1)
-
-    if options.vclass:
-        if not is_vehicle_class(options.vclass):
-            print("Error: The string '%s' doesn't correspond to a legit vehicle class" % options.vclass,
-                  file=sys.stderr)
-            sys.exit(1)
+    options = op.parse_args(args=args)
+    if options.vclass and not is_vehicle_class(options.vclass):
+        raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.vclass)
 
     if options.persontrips or options.personrides:
         options.pedestrians = True
@@ -208,9 +200,7 @@ def get_options(args=None):
     if options.pedestrians:
         options.vclass = 'pedestrian'
         if options.flows > 0:
-            print("Error: Person flows are not supported yet", file=sys.stderr)
-            sys.exit(1)
-
+            raise ValueError("Person flows are not supported yet.")
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
@@ -227,29 +217,24 @@ def get_options(args=None):
         options.insertionRate = [density * (length / 1000.0) for density in options.insertionDensity]
 
     if options.insertionRate:
-        options.period = [3600.0 / rate for rate in options.insertionRate]
+        options.period = [3600.0 / rate if rate != 0.0 else 0.0 for rate in options.insertionRate]
 
     if options.period:
-        if any(options.period) <= 0:
-            print("Error: Period must be positive", file=sys.stderr)
-            sys.exit(1)
+        if any([period < 0 for period in options.period]):
+            raise ValueError("Period / insertionRate must be non-negative.")
         options.period = list(map(intIfPossible, options.period))
-        if options.binomial is not None:
+        if options.binomial:
             for p in options.period:
-                if 1.0 / p / options.binomial >= 1:
-                    print(("Warning: Option --binomial %s is too low for insertion period %s." % (
-                           options.binomial, p))
+                if p != 0.0 and 1.0 / p / options.binomial >= 1:
+                    print("Warning: Option --binomial %s is too low for insertion period %s." % (options.binomial, p)
                           + " Insertions will not be randomized.", file=sys.stderr)
 
     if options.jtrrouter and options.flows <= 0:
-        print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError("Option --jtrrouter must be used with option --flows.")
 
     if options.vehicle_class:
         if not is_vehicle_class(options.vehicle_class):
-            print("Error: The string '%s' doesn't correspond to a legit vehicle class" %
-                  options.vehicle_class, file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.vehicle_class)
 
         if options.tripprefix:
             options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
@@ -257,30 +242,23 @@ def get_options(args=None):
             options.vtypeID = options.vehicle_class
 
         if 'type=' in options.tripattrs:
-            print("Error: trip-attribute 'type' cannot be used together with option --vehicle-class", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("Trip-attribute 'type' cannot be used together with option --vehicle-class.")
 
     if options.randomDepartPos:
         if 'departPos' in options.tripattrs:
-            print("Error: trip-attribute 'departPos' cannot be used together with option --random-departpos",
-                  file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("Trip-attribute 'departPos' cannot be used together with option --random-departpos.")
 
     if options.randomArrivalPos:
         if 'arrivalPos' in options.tripattrs:
-            print("Error: trip-attribute 'arrivalPos' cannot be used together with option --random-arrivalpos",
-                  file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("Trip-attribute 'arrivalPos' cannot be used together with option --random-arrivalpos.")
 
     if options.weightsprefix:
         weight_files = [options.weightsprefix + s for s in (SOURCE_SUFFIX, DEST_SUFFIX, VIA_SUFFIX)]
         if not any([os.path.isfile(w) for w in weight_files]):
-            print("Error: None of the weight files '%s' exists." % "', '".join(weight_files), file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("None of the weight files '%s' exists." % "', '".join(weight_files))
 
     if options.randomFactor < 1:
-        print("Error: Option --random-factor requires a value >= 1.")
-        sys.exit(1)
+        raise ValueError("Option --random-factor requires a value >= 1.")
 
     if options.fromStops or options.toStops:
         options.edgeFromStops, options.edgeToStops = loadStops(options)
@@ -296,11 +274,9 @@ def get_options(args=None):
         try:
             options.fringe_factor = float(options.fringe_factor)
             if options.fringe_factor < 0:
-                print("Error: --fringe-factor argument may not be negative", file=sys.stderr)
-                sys.exit(1)
+                raise ValueError("--fringe-factor argument may not be negative.")
         except ValueError:
-            print("Error: --fringe-factor argument must be a float or 'max'", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError("--fringe-factor argument must be a float or 'max'.")
 
     return options
 
@@ -652,6 +628,10 @@ def samplePosition(edge):
 
 
 def main(options):
+    if all([period == 0 for period in options.period]):
+        print("Warning: All intervals are empty.", file=sys.stderr)
+        return False
+
     if not options.random:
         random.seed(options.seed)
 
@@ -674,7 +654,7 @@ def main(options):
     vias = {}
 
     time_delta = (parseTime(options.end) - parseTime(options.begin)) / len(options.period)
-    times = [parseTime(options.begin) + i*time_delta for i in range(len(options.period)+1)]
+    times = [parseTime(options.begin) + i * time_delta for i in range(len(options.period) + 1)]
     times = list(map(intIfPossible, times))
 
     def generate_origin_destination(trip_generator, options):
@@ -802,6 +782,8 @@ def main(options):
                     time = departureTime = parseTime(times[i])
                     arrivalTime = parseTime(times[i+1])
                     period = options.period[i]
+                    if period == 0.0:
+                        continue
                     if options.binomial is None:
                         departures = []
                         if options.randomDepart:
@@ -854,6 +836,8 @@ def main(options):
                             departureTime = times[i]
                             arrivalTime = times[i+1]
                             period = options.period[i]
+                            if period == 0.0:
+                                continue
                             origin, destination, intermediate = origins_destinations[j]
                             generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
                 except Exception as exc:
@@ -941,7 +925,11 @@ def main(options):
 
 
 if __name__ == "__main__":
-    if not main(get_options()):
-        print("Error: Trips couldn't be generated as requested. "
-              "Try the --verbose option to output more details on the failure.")
+    try:
+        if not main(get_options()):
+            print("Error: Trips couldn't be generated as requested. "
+                  "Try the --verbose option to output more details on the failure.", file=sys.stderr)
+            sys.exit(1)
+    except ValueError as e:
+        print("Error:", e, file=sys.stderr)
         sys.exit(1)

@@ -54,7 +54,7 @@ public:
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon
      * @param[in] shape The shape of the polygon
-     * @param[in] geo specifiy if shape was loaded as GEO
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] color The color of the polygon
      * @param[in] layer The layer of the polygon
      * @param[in] angle The rotation of the polygon
@@ -73,10 +73,11 @@ public:
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon
      * @param[in] shape The shape of the polygon
+     * @param[in] geo specify if shape was loaded as GEO
      * @param[in] name Poly's name
      * @param[in] parameters generic parameters
      */
-    GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, const std::string& name,
+    GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
             const Parameterised::Map& parameters);
 
     /// @brief Destructor

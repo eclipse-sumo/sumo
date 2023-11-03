@@ -38,7 +38,7 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 250, 225)
+netedit.leftClick(referencePosition, 415, 225)
 
 # Change shape with a non valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspect.customShape, "dummyShape", True)

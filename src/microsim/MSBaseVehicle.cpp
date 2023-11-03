@@ -157,8 +157,9 @@ MSBaseVehicle::~MSBaseVehicle() {
 
 void
 MSBaseVehicle::checkRouteRemoval() {
-    if (myParameter->repetitionNumber == -1
-            || !MSNet::getInstance()->hasFlow(getFlowID())) {
+    // the check for an instance is needed for the unit tests which do not construct a network
+    // TODO Optimize for speed and there should be a better way to check whether a vehicle is part of a flow
+    if (MSNet::hasInstance() && !MSNet::getInstance()->hasFlow(getFlowID())) {
         myRoute->checkRemoval();
     }
 }
@@ -271,7 +272,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (stops.size() > 0) {
             const double sourcePos = onInit ? 0 : getPositionOnLane();
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos);
+            const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos && (
                                       stops.size() < 2 || stops.back() != stops[stops.size() - 2]);
 #ifdef DEBUG_REROUTE
@@ -297,7 +298,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         // there is a consistency check in MSRouteHandler::addStop that warns when a stop edge is not part of the via edges
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
             MSEdge* viaEdge = MSEdge::dictionary(*it);
-            if (viaEdge == source || viaEdge == sink) {
+            if ((viaEdge == source && it == myParameter->via.begin()) || (viaEdge == sink && myParameter->via.end() - it == 1)) {
                 continue;
             }
             assert(viaEdge != 0);

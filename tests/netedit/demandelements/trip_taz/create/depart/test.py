@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x, netedit.positions.demandElements.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x,
+                  netedit.positions.demandElements.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -48,8 +50,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.depart, "-12")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x, netedit.positions.demandElements.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x,
+                  netedit.positions.demandElements.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -58,8 +62,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.depart, "30")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x, netedit.positions.demandElements.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x,
+                  netedit.positions.demandElements.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -68,8 +74,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.depart, "20")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x, netedit.positions.demandElements.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZGreen.x,
+                  netedit.positions.demandElements.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create trip
 netedit.typeEnter()

@@ -432,6 +432,16 @@
         <xsd:attribute name="efficiency" type="floatType" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
         <xsd:attribute name="chargeDelay" type="floatType" use="optional"/>
+        <xsd:attribute name="chargeType" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="normal"/>
+                    <xsd:enumeration value="electric"/>
+                    <xsd:enumeration value="fuel"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="waitingTime" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="overheadWireSegmentType">
@@ -476,12 +486,22 @@
         <xsd:attribute name="forbiddenInnerLanes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
+    <xsd:simpleType name="accessPosType">
+        <xsd:union memberTypes="floatType">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:complexType name="accessType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
-        <xsd:attribute name="pos" type="floatType" use="required"/>
+        <xsd:attribute name="pos" type="accessPosType" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="length" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
@@ -596,6 +616,15 @@
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
+        <xsd:attribute name="icon" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value=""/>
+                    <xsd:enumeration value="hotel"/>
+                    <xsd:enumeration value="nature"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType" use="optional"/>

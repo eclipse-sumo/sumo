@@ -109,7 +109,7 @@ The following table lists the different encounter types along with their codes, 
 !!! note
     When ego and foe vehicles are on subsequent lanes, the gaps are computed by adding the distances of the intermediate lanes
 
-## Conflict Types:    
+## Conflict Types   
 Basically, we distinguish between three types of encounters for two vehicles:
 
 - **Lead/follow situation:** vehicles are passing the same sequence of lanes before and after the conflict point

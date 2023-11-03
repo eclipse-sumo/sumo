@@ -26,6 +26,7 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
@@ -346,49 +347,49 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     //
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
-        GUIDesigns::buildFXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Hide Current Route"), nullptr, ret, MID_HIDE_CURRENTROUTE);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Show Current Route"), nullptr, ret, MID_SHOW_CURRENTROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_FUTURE_ROUTE)) {
-        GUIDesigns::buildFXMenuCommand(ret, "Hide Future Route", nullptr, ret, MID_HIDE_FUTUREROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Hide Future Route"), nullptr, ret, MID_HIDE_FUTUREROUTE);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Show Future Route", nullptr, ret, MID_SHOW_FUTUREROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Show Future Route"), nullptr, ret, MID_SHOW_FUTUREROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ALL_ROUTES)) {
-        GUIDesigns::buildFXMenuCommand(ret, "Hide All Routes", nullptr, ret, MID_HIDE_ALLROUTES);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Hide All Routes"), nullptr, ret, MID_HIDE_ALLROUTES);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Show All Routes", nullptr, ret, MID_SHOW_ALLROUTES);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Show All Routes"), nullptr, ret, MID_SHOW_ALLROUTES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE_NOLOOP)) {
-        FXMenuCheck* showLoops = new FXMenuCheck(ret, "Draw looped routes", ret, MID_HIDE_ROUTE_NOLOOPS);
+        FXMenuCheck* showLoops = new FXMenuCheck(ret, TL("Draw looped routes"), ret, MID_HIDE_ROUTE_NOLOOPS);
         showLoops->setCheck(false);
     } else {
-        FXMenuCheck* showLoops = new FXMenuCheck(ret, "Draw looped routes", ret, MID_SHOW_ROUTE_NOLOOPS);
+        FXMenuCheck* showLoops = new FXMenuCheck(ret, TL("Draw looped routes"), ret, MID_SHOW_ROUTE_NOLOOPS);
         showLoops->setCheck(true);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_BEST_LANES)) {
-        GUIDesigns::buildFXMenuCommand(ret, "Hide Best Lanes", nullptr, ret, MID_HIDE_BEST_LANES);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Hide Best Lanes"), nullptr, ret, MID_HIDE_BEST_LANES);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Show Best Lanes", nullptr, ret, MID_SHOW_BEST_LANES);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Show Best Lanes"), nullptr, ret, MID_SHOW_BEST_LANES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_LFLINKITEMS)) {
-        GUIDesigns::buildFXMenuCommand(ret, "Hide Link Items", nullptr, ret, MID_HIDE_LFLINKITEMS);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Hide Link Items"), nullptr, ret, MID_HIDE_LFLINKITEMS);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Show Link Items", nullptr, ret, MID_SHOW_LFLINKITEMS);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Show Link Items"), nullptr, ret, MID_SHOW_LFLINKITEMS);
     }
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Start Tracking"), nullptr, ret, MID_START_TRACK);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Stop Tracking"), nullptr, ret, MID_STOP_TRACK);
     }
-    GUIDesigns::buildFXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Select Foes"), nullptr, ret, MID_SHOW_FOES);
     if (myVehicle.getPersons().size() + myVehicle.getContainers().size() > 0) {
-        GUIDesigns::buildFXMenuCommand(ret, "Select transported", nullptr, ret, MID_SELECT_TRANSPORTED);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Select transported"), nullptr, ret, MID_SELECT_TRANSPORTED);
     }
-    GUIDesigns::buildFXMenuCommand(ret, myVehicle.isStopped() ? "Abort stop" : "Stop", nullptr, ret, MID_TOGGLE_STOP);
-    GUIDesigns::buildFXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
+    GUIDesigns::buildFXMenuCommand(ret, myVehicle.isStopped() ? TL("Abort stop") : TL("Stop"), nullptr, ret, MID_TOGGLE_STOP);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Remove"), nullptr, ret, MID_REMOVE_OBJECT);
 
     new FXMenuSeparator(ret);
     //

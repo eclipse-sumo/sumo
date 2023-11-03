@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
+                  netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +50,9 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.singleVehicleTAZ.x,
+                                netedit.positions.demandElements.singleVehicleTAZ.y,
                                 netedit.attrs.flowTAZ.reverseElement,
                                 netedit.attrs.flowTAZ.reverse.current)
 

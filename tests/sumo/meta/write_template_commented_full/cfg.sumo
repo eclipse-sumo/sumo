@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-20 16:45:00 by Eclipse SUMO sumo Version v1_18_0+0436-f0eaeb5034c
+<!-- generated on 2023-09-22 15:49:47 by Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -519,8 +519,11 @@
         <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
         <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
 
-        <!-- The address (host:port) of the external simulation -->
-        <pedestrian.remote.address value="localhost:9000" type="STR"/>
+        <!-- The update interval of the JuPedSim simulation (in seconds) -->
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
+
+        <!-- The distance to the destination point considered as arrival (in meters) -->
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
 
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>
@@ -674,6 +677,12 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Writes timestamps in front of all messages -->
+        <log.timestamps value="false" type="BOOL"/>
+
+        <!-- Writes process ID in front of all messages -->
+        <log.processid value="false" type="BOOL"/>
 
         <!-- Language to use in messages -->
         <language value="C" type="STR"/>
@@ -1001,6 +1010,9 @@
 
         <!-- Set the distance at which other drivers react to the blue light and siren sound -->
         <device.bluelight.reactiondist value="25" type="FLOAT"/>
+
+        <!-- Reduce the minGap for reacting vehicles by the given factor -->
+        <device.bluelight.mingapfactor value="1" type="FLOAT"/>
 
     </bluelight_device>
 

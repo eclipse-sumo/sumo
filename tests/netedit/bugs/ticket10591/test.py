@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.deleteMode()
 
 # remove edge
-netedit.leftClick(referencePosition, 300, 245)
+netedit.leftClick(referencePosition, 408, 245)
 
 # rebuild network
 netedit.rebuildNetwork()

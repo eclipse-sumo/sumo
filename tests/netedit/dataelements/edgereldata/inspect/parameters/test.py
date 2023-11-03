@@ -41,15 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeRelData
-netedit.leftClick(referencePosition, 250, 90)
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 700, 180)
+netedit.leftClick(referencePosition, 265, 180)
 netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edgeRelData
-netedit.leftClick(referencePosition, 250, 90)
+netedit.leftClick(referencePosition, 265, 180)
 
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, netedit.attrs.edgeRelData.inspect.parameters, False, 0, 30)

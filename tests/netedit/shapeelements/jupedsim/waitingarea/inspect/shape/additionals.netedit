@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- generated on 2023-08-03 14:17:48 by Eclipse SUMO netedit Version v1_18_0+0729-f9ce78016db
--->
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- JuPedSim elements -->
-    <poly id="jps.waiting_area_0" type="jupedsim.waiting_area" color="50,200,50" fill="1" layer="3.00" shape="12.000000,8.000000 9.000000,13.000000 12.000000,18.000000 7.000000,15.000000 2.000000,18.000000 5.000000,13.000000 2.000000,8.000000 7.000000,11.000000 12.000000,8.000000"/>
-</additional>

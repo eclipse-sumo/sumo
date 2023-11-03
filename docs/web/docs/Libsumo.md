@@ -144,7 +144,7 @@ public class Test {
 ```
 
 Please note that starting with SUMO 1.16.0 it seems to be necessary to preload more libraries
-on Windows, see https://github.com/eclipse/sumo/issues/12605
+on Windows, see https://github.com/eclipse-sumo/sumo/issues/12605
 
 ### compiling on Linux (make sure SUMO_HOME is set and sumo has been built)
 

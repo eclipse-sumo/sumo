@@ -44,6 +44,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -122,7 +123,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y,
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
-            new MFXComboBoxIcon(gf2, 10, false, false, this, MID_PRE_DEF,
+            new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxVisibleItemsSmall, this, MID_PRE_DEF,
                            ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
@@ -134,7 +135,6 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myPredefinedValues->appendIconItem("160 km/h");
         myPredefinedValues->appendIconItem("180 km/h");
         myPredefinedValues->appendIconItem("200 km/h");
-        myPredefinedValues->setNumVisible(5);
     }
     {
         // free
@@ -152,7 +152,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myUserDefinedSpeed->setRange(0, 300);
         myUserDefinedSpeed->setValue(myObject->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     myObject->setOverriding(true);
 }

@@ -907,7 +907,7 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.CMD_CHANGELANE, vehID, "i", direction)
 
     def getLaneChangeStatePretty(self, vehID, direction):
-        """getLaneChangeState(string, int) -> ([string, ...], [string, ...])
+        """getLaneChangeStatePretty(string, int) -> ([string, ...], [string, ...])
         Return the lane change state for the vehicle as two lists of string
         constants. The first list returns the state as computed by the lane change
         model and the second list returns the state after incorporation TraCI requests.

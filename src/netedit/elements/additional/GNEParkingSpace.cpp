@@ -252,22 +252,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         mouseWithinGeometry(myShapeLength, width);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myShapeLength, width, parkingAreaExaggeration, true, true);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myShapeLength, width, parkingAreaExaggeration, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myShapeLength, width, parkingAreaExaggeration, true, true);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myShapeLength, width, parkingAreaExaggeration, true, true);
-        }
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true,
+                                            s.dottedContourSettings.segmentWidth);
         // Draw additional ID
         drawAdditionalID(s);
         // draw additional name

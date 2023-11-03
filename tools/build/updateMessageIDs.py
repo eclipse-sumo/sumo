@@ -83,11 +83,12 @@ def main(args=None):
     if options.replace is not None:
         if len(options.replace) % 2 != 0:
             print("The replace string for the search string '%s' is missing. The named search string will be neglected."
-                % options.replace[-1])
+                  % options.replace[-1])
             options.replace = options.replace[:-1]
         for i in range(0, len(options.replace), 2):
             if options.strict:
-                replaceRules.append((options.replace[i], options.replace[i+1], re.compile(options.replace[i]), True, True))
+                replaceRules.append((options.replace[i], options.replace[i+1],
+                                     re.compile(options.replace[i]), True, True))
             else:
                 prefixes = list(options.searchPrefix)
                 if len(prefixes) == 0:
@@ -98,7 +99,7 @@ def main(args=None):
                 for prefix in prefixes:
                     for suffix in suffixes:
                         replaceRules.append((prefix + options.replace[i] + suffix,
-                            prefix + options.replace[i+1] + suffix, None, False, False))
+                                             prefix + options.replace[i+1] + suffix, None, False, False))
                     replaceRules.append((options.replace[i] + suffix, options.replace[i+1] + suffix, None, True, False))
                     replaceRules.append((prefix + options.replace[i], prefix + options.replace[i+1], None, False, True))
     if options.lang is None:
@@ -112,7 +113,6 @@ def main(args=None):
     gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     py_pot_file = options.sumo_home + "/data/po/py.pot"
     potFiles = [pot_file, gui_pot_file, py_pot_file]
-    uniLangPoFiles = []
     for potFile in potFiles:
         print("Read pot file '%s'..." % potFile)
         updatePotFile(path, potFile, replaceRules, options)
@@ -140,7 +140,6 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
 
         # apply the changes to the source code
         for sourceFile, replaceCommands in fileReplaceCommands.items():
-            content = ""
             lines = []
             with io.open(sourceFile, "r", encoding="utf-8") as f:
                 lines.extend([line for line in f])
@@ -148,7 +147,6 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
             updated = False
             for search, replace, lineNr in replaceCommands:
                 if lineNr <= lineCount and replace not in lines[lineNr-1]:
-                    before = lines[lineNr-1]
                     lines[lineNr-1] = lines[lineNr-1].replace(search, replace)
                     updated = True
             if updated:
@@ -159,7 +157,7 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
         # change the msgid in other language files accordingly
         for langCode in options.lang:
             translatedPoFile = os.path.join(os.path.dirname(potFile), "%s_" % langCode +
-                os.path.basename(potFile)[:-4] + ".po")
+                                            os.path.basename(potFile)[:-4] + ".po")
             if not os.path.exists(translatedPoFile):
                 print("Missing po translation file %s to update" % translatedPoFile)
                 continue
@@ -197,7 +195,7 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
                 replaced = replaced[:placeholderIndex + len(options.placeholder)] + str(i) +\
                     replaced[placeholderIndex + len(options.placeholder):]
                 placeholderIndex = replaced.find(options.placeholder, placeholderIndex +
-                    len(options.placeholder) + len(str(i)))
+                                                 len(options.placeholder) + len(str(i)))
                 i += 1
         for replaceRule in replaceRules:
             if options.strict and replaceRule[0] == entry.msgstr:
@@ -216,7 +214,7 @@ def processRules(poFilePath, replaceRules, options, markObsolete=False, filterID
                 print("Transfer duplicate entries for msgid '%s' (was '%s')." % (replaced, entry.msgstr))
                 transferOccurrences(entry, match)
                 if options.removeObsolete:
-                    print("Remove obsolete entry '%' completely." % entry.msgstr)
+                    print("Remove obsolete entry '%s' completely." % entry.msgstr)
                     toRemove.append(entry)
             else:
                 entry.msgstr = replaced

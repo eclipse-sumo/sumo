@@ -94,7 +94,7 @@ network type (passenger, roadvehicles, all), a shape file is included.
 
 - Solved problems on importing OSM road networks, including
   [defect 17: OSM network importer creates large
-  junctions](https://github.com/eclipse/sumo/issues/17)
+  junctions](https://github.com/eclipse-sumo/sumo/issues/17)
 - Includes joined tls (solves few synchronization problems)
 - Patched import of shapes (POIs/Polygons) and included them
 - Remapped the routes

@@ -460,9 +460,12 @@ struct GUIVisualizationStoppingPlaceSettings {
 struct GUIVisualizationDottedContourSettings {
 
     /// @brief width of dotted contour segments
+    static const double segmentWidth;
+
+    /// @brief width of small dotted contour segments
     static const double segmentWidthSmall;
 
-    /// @brief width of dotted contour segments
+    /// @brief width of large dotted contour segments
     static const double segmentWidthLarge;
 
     /// @brief length of dotted contour segments
@@ -826,6 +829,12 @@ public:
 
     // Setting bundles for optional drawing person names
     GUIVisualizationTextSettings personName, personValue;
+
+    /// @brief Flag for visualizing the pedestrian network generated for JuPedSim
+    bool showPedestrianNetwork;
+
+    /// @brief The color of the pedestrian network generated for JuPedSim
+    RGBColor pedestrianNetworkColor;
     /// @}
 
 

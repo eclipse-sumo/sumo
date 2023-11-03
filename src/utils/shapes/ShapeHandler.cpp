@@ -47,6 +47,7 @@ ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const Ge
     myShapeContainer(sc),
     myPrefix(""),
     myDefaultColor(RGBColor::RED),
+    myDefaultIcon(SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE)),
     myDefaultLayer(0),
     myDefaultFill(false),
     myLastParameterised(nullptr),
@@ -120,6 +121,12 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double lanePos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const double lanePosLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, id.c_str(), ok, 0);
+    std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myDefaultIcon);
+    // check icon
+    if (SUMOXMLDefinitions::POIIcons.hasString(icon) == false) {
+        WRITE_WARNING(TLF("Invalid icon % for POI '%', using default", icon, id));
+        icon = "none";
+    }
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     const std::string laneID = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
@@ -127,7 +134,6 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : (imgFile != "" ? RGBColor::WHITE : myDefaultColor);
     bool relativePath = attrs.getOpt<bool>(SUMO_ATTR_RELATIVEPATH, id.c_str(), ok, Shape::DEFAULT_RELATIVEPATH);
-
     // If the image file is set, change the default POI color to white.
     if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
         imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
@@ -187,7 +193,8 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 }
             }
         }
-        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, icon,
+                                     layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
             WRITE_ERRORF(TL("PoI '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);
@@ -285,9 +292,10 @@ ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh)
 
 
 void
-ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const double layer, const bool fill) {
+ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const std::string &icon, const double layer, const bool fill) {
     myPrefix = prefix;
     myDefaultColor = color;
+    myDefaultIcon = icon;
     myDefaultLayer = layer;
     myDefaultFill = fill;
 }

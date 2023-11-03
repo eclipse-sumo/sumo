@@ -44,6 +44,8 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -135,10 +137,10 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
     FXGroupBox* gp2 = new FXGroupBox(f1, "Change Route Probability",
                                      GROUPBOX_TITLE_LEFT | FRAME_SUNKEN | FRAME_RIDGE,
                                      0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
-    new FXButton(gp2, "Shift", nullptr, this, MID_SHIFT_PROBS,
+    GUIDesigns::buildFXButton(gp2, "Shift", "", "", nullptr, this, MID_SHIFT_PROBS,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 
-    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
+    GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
 
 }

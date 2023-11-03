@@ -149,7 +149,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
 #if GDAL_VERSION_MAJOR > 2
-    if (oc.getBool("shapefile.traditional-axis-mapping")) {
+    if (oc.getBool("shapefile.traditional-axis-mapping") || origTransf != nullptr) {
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif
@@ -192,6 +192,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             type += poFeature->GetFieldAsString(typeField.c_str());
         }
         RGBColor color = RGBColor::parseColor(oc.getString("color"));
+        std::string icon = oc.getString("icon");
         double layer = oc.getFloat("layer");
         double angle = Shape::DEFAULT_ANGLE;
         std::string imgFile = Shape::DEFAULT_IMG_FILE;
@@ -202,6 +203,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     continue;
                 }
                 color = def.color;
+                icon = def.icon;
                 layer = def.layer;
                 angle = def.angle;
                 imgFile = def.imgFile;
@@ -231,7 +233,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 if (!geoConvHelper.x2cartesian(pos)) {
                     WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), id);
                 }
-                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
+                PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, icon, layer, angle, imgFile);
                 if (toFill.add(poi)) {
                     parCont.push_back(poi);
                 }
@@ -264,7 +266,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     if (!geoConvHelper.x2cartesian(pos)) {
                         WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), tid);
                     }
-                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
+                    PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, false, 0, icon, layer, angle, imgFile);
                     if (toFill.add(poi)) {
                         parCont.push_back(poi);
                     }

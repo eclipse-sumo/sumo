@@ -45,7 +45,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
+                  netedit.positions.demandElements.container.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.container.inspect.parameters, False)

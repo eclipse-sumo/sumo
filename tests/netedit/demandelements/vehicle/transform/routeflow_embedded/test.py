@@ -52,7 +52,9 @@ netedit.changeElement("vehicle (over route)")
 netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.singleVehicleEdge.x,
+                                netedit.positions.demandElements.singleVehicleEdge.y,
                                 netedit.attrs.vehicle.transformTo,
                                 netedit.attrs.vehicle.transform.routeFlowEmbedded)
 

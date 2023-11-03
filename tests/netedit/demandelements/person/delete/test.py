@@ -45,7 +45,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -57,7 +58,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, 570, 160)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -66,7 +67,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their person
-netedit.leftClick(referencePosition, 570, 160)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

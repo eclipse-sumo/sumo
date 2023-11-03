@@ -98,8 +98,8 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     b = new FXCheckButton(f1, TL("Allow Textures"), this, MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
-    FXButton* initial = new FXButton(f2, TL("&OK"), nullptr, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
-    new FXButton(f2, TL("&Cancel"), nullptr, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    FXButton* initial = GUIDesigns::buildFXButton(f2, TL("&OK"), "", "", nullptr, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    GUIDesigns::buildFXButton(f2, TL("&Cancel"), "", "", nullptr, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     initial->setFocus();
     setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
 }

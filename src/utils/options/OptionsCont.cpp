@@ -490,7 +490,7 @@ OptionsCont::isWriteable(const std::string& name) {
 
 void
 OptionsCont::clear() {
-    // delete only adresse (because synonyms placed in values aim to the same Option)
+    // delete only address (because synonyms placed in values aim to the same Option)
     for (const auto& addresse : myAddresses) {
         delete addresse.second;
     }

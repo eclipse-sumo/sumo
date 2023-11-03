@@ -50,11 +50,13 @@ class CostType(Enum):
     TIME = 2
 
 
-def dispatch(reservations, fleet, time_limit, cost_type, drf, end, fix_allocation, solution_requests, verbose):
+def dispatch(reservations, fleet, time_limit, cost_type, drf, waiting_time, end,
+             fix_allocation, solution_requests, verbose):
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
-    data = create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, solution_requests, verbose)
+    data = create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
+                             fix_allocation, solution_requests, verbose)
     if verbose:
         print('Start solving the problem.')
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
@@ -64,7 +66,8 @@ def dispatch(reservations, fleet, time_limit, cost_type, drf, end, fix_allocatio
     return solution_requests
 
 
-def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, solution_requests, verbose):
+def create_data_model(reservations, fleet, cost_type, drf, waiting_time, end,
+                      fix_allocation, solution_requests, verbose):
     """Creates the data for the problem."""
     n_vehicles = len(fleet)
     # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
@@ -126,6 +129,16 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
     dropoff_indices = range(1 + n_dp_reservations, 1 + 2*n_dp_reservations + n_do_reservations)
     cost_matrix, time_matrix = get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices)
 
+    # safe cost and time matrix
+    # if verbose:
+    #    import csv
+    #    with open("cost_matrix.csv", 'a') as cost_file:
+    #        wr = csv.writer(cost_file)
+    #        wr.writerows(cost_matrix)
+    #    with open("time_matrix.csv", 'a') as time_file:
+    #        wr = csv.writer(time_file)
+    #        wr.writerows(time_matrix)
+
     # add "direct route cost" to the requests:
     for res in reservations:
         if hasattr(res, 'direct_route_cost'):
@@ -138,7 +151,7 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
             # TODO: use 'historical data' from dict in get_cost_matrix instead
             route = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
             if cost_type == CostType.TIME:
-                direct_route_cost = route.traveltime
+                direct_route_cost = route.travelTime
             elif cost_type == CostType.DISTANCE:
                 direct_route_cost = route.length
             else:
@@ -151,9 +164,10 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
         stage = traci.person.getStage(person_id, 0)
         # stage type 3 is defined as 'driving'
         assert stage.type == 3
-        # print("travel time: ", stage.travelTime)
-        # print("travel length: ", stage.length)
-        # print("travel cost: ", stage.cost)
+        # if verbose:
+        #    print("travel time: ", stage.travelTime)
+        #    print("travel length: ", stage.length)
+        #    print("travel cost: ", stage.cost)
         if cost_type == CostType.DISTANCE:
             setattr(res, 'current_route_cost', stage.length)
         elif cost_type == CostType.TIME:
@@ -185,6 +199,7 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
     time_windows = get_time_windows(reservations, fleet, end)
 
     data = {}
+    data['depot'] = 0  # node_id of the depot
     data['cost_matrix'] = cost_matrix
     data['time_matrix'] = time_matrix
     data['pickups_deliveries'] = dp_reservations
@@ -195,6 +210,7 @@ def create_data_model(reservations, fleet, cost_type, drf, end, fix_allocation, 
     data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + veh_demand
     data['vehicle_capacities'] = vehicle_capacities
     data['drf'] = drf
+    data['waiting_time'] = waiting_time
     data['time_windows'] = time_windows
     data['fix_allocation'] = fix_allocation
     data['max_time'] = end
@@ -334,11 +350,12 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
                 continue
             solution[1] = solution_ortools[key][1]  # costs
             solution[2].append(i_route)  # node
-            solution_requests[key] = solution
+        solution_requests[key] = solution
     return solution_requests
 
 
-def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix_allocation=False, verbose=False):
+def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, waiting_time=900,
+        fix_allocation=False, verbose=False):
     """
     Execute the TraCI control loop and run the scenario.
 
@@ -363,12 +380,13 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
     if verbose:
         print('Simulation parameters:')
-        print('  end: %s' % end)
-        print('  interval: %s' % interval)
-        print('  time_limit: %s' % time_limit)
-        print('  cost_type: %s' % cost_type)
-        print('  drf: %s' % drf)
-        print('  fix_allocation: %s' % fix_allocation)
+        print(f'  end: {end}')
+        print(f'  interval: {interval}')
+        print(f'  time_limit: {time_limit}')
+        print(f'  cost_type: {cost_type}')
+        print(f'  drf: {drf}')
+        print(f'  waiting_time: {waiting_time}')
+        print(f'  fix_allocation: {fix_allocation}')
 
     reservations_all = list()
     solution_requests = None
@@ -412,6 +430,18 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
         fleet = traci.vehicle.getTaxiFleet(-1)
         reservations_not_assigned = traci.person.getTaxiReservations(3)
+
+        # find and remove unassigned reservations that cannot be picked up by time
+        reservations_removed = [
+            res for res in reservations_not_assigned if res.reservationTime + waiting_time < timestep]
+        for res in reservations_removed:
+            for person in res.persons:
+                traci.person.removeStages(person)
+        reservations_new = [res for res in reservations_new if res not in reservations_removed]
+        if verbose:
+            if reservations_removed:
+                print(f"Reservations rejected: {[res.id for res in reservations_removed]}")
+
         # if fix_allocation=True only take new reservations from traci
         # and add to all_reservations to keep the vehicle allocation for the older reservations
         current_reservations = traci.person.getTaxiReservations(0)
@@ -430,8 +460,8 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
         if reservations_not_assigned:
             if verbose:
                 print("Solve CPDP")
-            solution_requests = dispatch(reservations_all, fleet, time_limit,
-                                         cost_type, drf, int(end), fix_allocation, solution_requests, verbose)
+            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, waiting_time, int(end),
+                                         fix_allocation, solution_requests, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -442,6 +472,8 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
                 for index_vehicle in solution_requests:
                     id_vehicle = fleet[index_vehicle]
                     reservations_order = [res_id for res_id in solution_requests[index_vehicle][0]]
+                    if fix_allocation and not reservations_order:  # ignore empty reservations if allocation is fixed
+                        continue
                     traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)  # overwrite existing dispatch
             else:
                 if verbose:
@@ -477,6 +509,8 @@ def get_arguments():
     ap.add_argument("-a", "--fix-allocation", action="store_true", default=False,
                     help="if true: after first solution the allocation of reservations to vehicles" +
                     "does not change anymore")
+    ap.add_argument("-w", "--waiting-time", type=ap.time, default=900,
+                    help="maximum waiting time to serve a request in s")
     return ap.parse_args()
 
 
@@ -492,10 +526,15 @@ def check_set_arguments(arguments):
     elif arguments.cost_type == "time":
         arguments.cost_type = CostType.TIME
     else:
-        raise ValueError("Wrong cost type '%s'. Only 'distance' and 'time' are allowed." % (arguments.cost_type))
+        raise ValueError(f"Wrong cost type '{arguments.cost_type}'. Only 'distance' and 'time' are allowed.")
 
     if arguments.drf < 1 and arguments.drf != -1:
-        raise ValueError("Wrong value for drf '%s'. Value must be equal or greater than 1. -1 means no drf is used.")
+        raise ValueError(
+            f"Wrong value for drf '{arguments.drf}'. Value must be equal or greater than 1. -1 means no drf is used.")
+
+    if arguments.waiting_time < 0:
+        raise ValueError(
+            f"Wrong value for waiting time '{arguments.waiting_time}'. Value must be equal or greater than 0.")
 
 
 if __name__ == "__main__":
@@ -508,5 +547,5 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([arguments.sumoBinary, "-c", arguments.sumo_config])
-    run(arguments.end, arguments.interval,
-        arguments.time_limit, arguments.cost_type, arguments.drf, arguments.fix_allocation, arguments.verbose)
+    run(arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
+        arguments.waiting_time, arguments.fix_allocation, arguments.verbose)

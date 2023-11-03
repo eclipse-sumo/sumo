@@ -41,8 +41,10 @@ netedit.changeElement("flow (from-to junctions)")
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.insertionChecks, "%%%%%%")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -52,8 +54,10 @@ netedit.changeDefaultValue(netedit.attrs.flowJunction.create.insertionChecks,
                            "leaderGap junction speedLimit pedestrian")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()

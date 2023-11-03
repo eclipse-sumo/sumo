@@ -213,23 +213,13 @@ AGCity::generatePopulation() {
     int nbrCouple = 0;
     int nbrChild = 0;
     int nbrHH = 0;
-    int workingP = 0;
     std::list<AGHousehold>::iterator itt;
     for (itt = households.begin(); itt != households.end(); ++itt) {
         if (itt->getAdultNbr() == 1) {
             nbrSingle++;
-            if (itt->getAdults().front().isWorking()) {
-                workingP++;
-            }
         }
         if (itt->getAdultNbr() == 2) {
             nbrCouple += 2;
-            if (itt->getAdults().front().isWorking()) {
-                workingP++;
-            }
-            if (itt->getAdults().back().isWorking()) {
-                workingP++;
-            }
         }
         nbrChild += itt->getPeopleNbr() - itt->getAdultNbr();
         nbrHH++;

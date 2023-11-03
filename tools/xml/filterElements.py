@@ -13,6 +13,7 @@
 
 # @file    filterElements.py
 # @author  Jakob Erdmann
+# @author  Johannes Rummel
 # @date    2022-12-15
 
 """
@@ -47,15 +48,26 @@ def get_options(args=None):
     optParser.add_argument("-a", "--attribute", category="processing", dest="attribute",
                            help="attribute to edit")
     optParser.add_argument("-r", "--remove-values", category="processing", dest="values",
-                           help="comma-separated list of values to filter by (deletes all occurences of tag if not specified)")  # noqa
+                           help="comma-separated list of values to filter by "
+                                "(deletes all occurences of tag if not specified)")
     optParser.add_argument("-k", "--keep-values", category="processing", dest="keepValues",
-                           help="comma-separated list of values to keep (deletes all non-matching elements")  # noqa
+                           help="comma-separated list of values to keep (deletes all non-matching elements")
+    optParser.add_argument("-x", "--remove-interval", category="processing", dest="interval",
+                           help="comma-separated begin and end values of interval to filter by "
+                                "(deletes all occurences of tag if not specified)")
+    optParser.add_argument("-i", "--keep-interval", category="processing", dest="keepInterval",
+                           help="comma-separated begin an end values of interval to keep "
+                                "(deletes all non-matching elements")
     options = optParser.parse_args(args=args)
 
     if options.values is not None:
         options.values = set(options.values.split(','))
     if options.keepValues is not None:
         options.keepValues = set(options.keepValues.split(','))
+    if options.interval is not None:
+        options.interval = [float(i) for i in options.interval.split(',')]
+    if options.keepInterval is not None:
+        options.keepInterval = [float(i) for i in options.keepInterval.split(',')]
     return options
 
 
@@ -74,12 +86,28 @@ def main(options):
     for parent, node in traverseNodes(tree.getroot()):
         # check tag
         if node.tag == options.tag:
-            # continue depending of operation
-            if options.keepValues is not None:
-                if node.get(options.attribute) not in options.keepValues:
+            if options.attribute is not None:
+                attribute_value = node.get(options.attribute)
+                # continue depending of operation
+                if options.keepValues is not None:
+                    if attribute_value not in options.keepValues:
+                        toRemove.append((parent, node))
+                elif options.values is not None:
+                    if attribute_value in options.values:
+                        toRemove.append((parent, node))
+                elif options.keepInterval is not None:
+                    if (attribute_value is None or
+                            not options.keepInterval[0] <= float(attribute_value) <= options.keepInterval[1]):
+                        toRemove.append((parent, node))
+                elif options.interval is not None:
+                    if (attribute_value is not None and
+                            options.interval[0] <= float(attribute_value) <= options.interval[1]):
+                        toRemove.append((parent, node))
+                else:  # nothing specified, delete all occurences of tag with the given attribute
                     toRemove.append((parent, node))
-            elif options.values is None or node.get(options.attribute) in options.values:
+            else:  # nothing specified, delete all occurences of tag
                 toRemove.append((parent, node))
+
     # write modified tree
     for parent, node in toRemove:
         parent.remove(node)
@@ -87,5 +115,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    options = get_options()
-    main(options)
+    main(get_options())

@@ -244,14 +244,23 @@ public:
         return (*(myStep + next))->getEdges();
     }
 
+    /// @brief Return the total number stages in this person's plan
+    inline int getNumStages() const {
+        return (int)myPlan->size();
+    }
+
     /// @brief Return the number of remaining stages (including the current)
-    int getNumRemainingStages() const;
+    inline int getNumRemainingStages() const {
+        return (int)(myPlan->end() - myStep);
+    }
 
-    /// @brief Return the total number stages in this persons plan
-    int getNumStages() const;
+    /// @brief Return the index of the current stage
+    inline int getCurrentStageIndex() const {
+        return (int)(myStep - myPlan->begin());
+    }
 
-    /// @brief return index of edge within route
-    int getRoutePosition() const {
+    /// @brief return the index of the edge within the route
+    inline int getRoutePosition() const {
         return (*myStep)->getRoutePosition();
     }
 

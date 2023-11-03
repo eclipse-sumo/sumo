@@ -41,6 +41,9 @@ netedit.createVType()
 netedit.openVTypeDialog()
 
 # modify attribute
+netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.vClass, "emergency")
+
+# modify attribute
 netedit.modifyVTypeAttribute(netedit.attrs.type.editDialog.guiShape, "dummy")
 
 # modify attribute

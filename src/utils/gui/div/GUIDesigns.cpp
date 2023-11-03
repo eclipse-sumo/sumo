@@ -54,6 +54,23 @@ GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* 
 
 
 FXMenuCommand*
+GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, const std::string& help, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable) {
+    // build menu command
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
+    // set help
+    menuCommand->setHelpText(help.c_str());
+    // set width and height (to avoid problems between Windows und Linux)
+    menuCommand->setHeight(GUIDesignHeight);
+    // check if disable after creation (used in certain parts of netedit)
+    if (disable) {
+        menuCommand->disable();
+    }
+    // return menuCommand
+    return menuCommand;
+}
+
+
+FXMenuCommand*
 GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
     // build menu command with shortcut
     FXMenuCommand* menuCommand = new FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
@@ -94,4 +111,34 @@ GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text
     menuCommand->setHeight(GUIDesignHeight);
     // return menuCommand
     return menuCommand;
+}
+
+
+FXLabel*
+GUIDesigns::buildFXLabel(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXIcon* ic, 
+                         FXuint opts, FXint x, FXint y, FXint w , FXint h, FXint pl, FXint pr, FXint pt, FXint pb) {
+    FXLabel* label = new FXLabel(p, text.c_str(), ic, opts, x, y, w, h, pl, pr, pt, pb);
+    label->setTipText(tip.c_str());
+    label->setHelpText(help.c_str());
+    return label;
+}
+
+
+FXButton*
+GUIDesigns::buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXIcon* ic, FXObject* tgt,
+                          FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) {
+    FXButton* button = new FXButton(p, text.c_str(), ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb);
+    button->setTipText(tip.c_str());
+    button->setHelpText(help.c_str());
+    return button;
+}
+
+
+FXRadioButton*
+GUIDesigns::buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help, FXObject* tgt,
+                               FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl,FXint pr,FXint pt,FXint pb) {
+    FXRadioButton* radioButton = new FXRadioButton(p, text.c_str(), tgt, sel, opts, x, y, w, h, pl, pr, pt, pb);
+    radioButton->setTipText(tip.c_str());
+    radioButton->setHelpText(help.c_str());
+    return radioButton;
 }

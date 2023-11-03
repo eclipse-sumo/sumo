@@ -1563,7 +1563,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
             if (element == SUMO_TAG_BUS_STOP) {
                 // add access to all public transport stops
                 for (const auto& a : i.second->getAllAccessPos()) {
-                    router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<1>(a), std::get<2>(a), element, true, taxiWait);
+                    router.getNetwork()->addAccess(i.first, &a.lane->getEdge(), a.startPos, a.endPos, a.length, element, true, taxiWait);
                 }
                 if (external != nullptr) {
                     external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);

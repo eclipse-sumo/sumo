@@ -159,7 +159,7 @@ GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Copy view geo-boundary to clipboard", nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy view geo-boundary to clipboard"), nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
     }
     return ret;
 }
@@ -436,17 +436,11 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         // special case for embedded routes
         if (edge->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             deleteDemandElement(edge->getChildDemandElements().front()->getParentDemandElements().front(), undoList);
-        } else if (edge->getChildDemandElements().front()->getTagProperty().isPersonPlan()) {
-            const auto person = edge->getChildDemandElements().front()->getParentDemandElements().front();
-            if (person->getChildDemandElements().size() == 1) {
-                deleteDemandElement(person, undoList);
-            } else {
-                deleteDemandElement(edge->getChildDemandElements().front(), undoList);
-            }
-        } else if (edge->getChildDemandElements().front()->getTagProperty().isContainerPlan()) {
-            const auto container = edge->getChildDemandElements().front()->getParentDemandElements().front();
-            if (container->getChildDemandElements().size() == 1) {
-                deleteDemandElement(container, undoList);
+        } else if (edge->getChildDemandElements().front()->getTagProperty().isPlan()) {
+            const auto planParent = edge->getChildDemandElements().front()->getParentDemandElements().front();
+            // if this is the last person child, remove plan parent (person/container) instead plan element
+            if (planParent->getChildDemandElements().size() == 1) {
+                deleteDemandElement(planParent, undoList);
             } else {
                 deleteDemandElement(edge->getChildDemandElements().front(), undoList);
             }
@@ -1667,7 +1661,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
         // first check route has stops
         bool hasStops = false;
         for (const auto& stop : route->getChildDemandElements()) {
-            if (stop->getTagProperty().isStop()) {
+            if (stop->getTagProperty().isVehicleStop()) {
                 hasStops = true;
             }
         }
@@ -2106,10 +2100,6 @@ GNENet::saveJuPedSimElements(const std::string &file) {
     writeJuPedSimComment(device);
     writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
-    writeAdditionalByType(device, {GNE_TAG_JPS_SOURCE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_SINK});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAYPOINT});
     // close device
     device.close();
 }
@@ -2263,10 +2253,6 @@ GNENet::saveAdditionalsConfirmed() {
     writeJuPedSimComment(device);
     writeAdditionalByType(device, {GNE_TAG_JPS_WALKABLEAREA});
     writeAdditionalByType(device, {GNE_TAG_JPS_OBSTACLE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAITINGAREA});
-    writeAdditionalByType(device, {GNE_TAG_JPS_SOURCE});
-    writeAdditionalByType(device, {GNE_TAG_JPS_SINK});
-    writeAdditionalByType(device, {GNE_TAG_JPS_WAYPOINT});
     // close device
     device.close();
     // mark additionals as saved

@@ -38,13 +38,15 @@ netedit.stopMode()
 netedit.changeStopType("waypointParkingArea")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
+                  netedit.positions.demandElements.parkingArea.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
+                  netedit.positions.demandElements.parkingArea.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointParking.inspect.line, ";;;", False)

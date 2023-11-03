@@ -146,16 +146,17 @@ keywords:
   - traffic
 date-released: "2023-06-29"
 version: 1.18.0
-repository-code: "https://github.com/eclipse/sumo"
+doi: 10.5281/zenodo.8346388
+repository-code: "https://github.com/eclipse-sumo/sumo"
 type: software
 url: "https://www.eclipse.dev/sumo/"
 identifiers:
   - description: "The GitHub tag"
     type: url
-    value: "https://github.com/eclipse/sumo/releases/tag/v1_14_1"
+    value: "https://github.com/eclipse-sumo/sumo/releases/tag/v1_18_0"
   - description: "The download folder"
     type: url
-    value: "https://sumo.dlr.de/releases/1.14.1/"
+    value: "https://sumo.dlr.de/releases/1.18.0/"
 license:
   - "EPL-2.0"
   - "GPL-2.0-or-later"

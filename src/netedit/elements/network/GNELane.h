@@ -90,6 +90,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief get lane geometry
     const GUIGeometry& getLaneGeometry() const;
 
@@ -107,6 +108,30 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @name Functions related with move elements
@@ -299,9 +324,6 @@ private:
 
     /// @brief check if mouse is over lane
     void checkMouseOverLane(const double laneWidth) const;
-
-    /// @brief draw dotted contours
-    void drawDottedContours(const GUIVisualizationSettings& s, const bool drawRailway, const double laneWidth) const;
 
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;

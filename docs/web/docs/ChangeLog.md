@@ -36,6 +36,8 @@ title: ChangeLog
   - Now vType is a combobox when a selection of vehicles is inspected. #12719
   - Fixed error with FXIconComboBox size. #12623
   - Disabled invalid combinations for node 'type' and 'rightOfWay'. #13436
+  - Fixed problem moving vehicles. #13824
+  - Fixed crash in netedit due to netbuild / connections. #13731
   
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -72,14 +74,15 @@ title: ChangeLog
   - Implemented frame for edit vType distributions. #13393
   - Implemented frame for edit route distributions. #13635
   - Added buttons next to lane attribute to shift element between edge's lanes. #13387
-  - Added search field in comboBox. #12394
-  - Added JuPedSim elements. #13667, #13687
-    - Walkable area
-    - Obstacle
-    - Waypoint
-    - WaitingArea
-    - Source
-    - Sink
+  - Added search field in comboBox. #12394, #13735
+  - Added drawing reference for creating additionals. #13769
+  - Now internal lanes can be drawn. #13790
+  - Added JuPedSim elements WalkableArea and Obstacle. #13667, #13687, #13837
+  - Add new view "JuPedSim". #13750
+  - Support persons over TAZs in netedit. #13784
+  - Now in edge frame small edges can be created. #13833
+  - Added "icon" attribute for pois. #13718
+  - Improved drawing of walking areas. #13934, #13893
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
@@ -109,11 +112,11 @@ title: ChangeLog
   - Fixed crash after rerouting and losing a stop. Issue #13190
   - Fixed invalid TTC computation when both vehicles are extrapolated to stop. Issue #13212
   - A parkingReroute now works even if the parkingArea on the current edge is not included in the alternatives list. Issue #13288
-  - Fixed unnecessary emergency braking when cars urgently need to swap lanes. Issue #13295  
+  - Fixed unnecessary emergency braking when cars urgently need to swap lanes. Issue #13295
   - IDM no longer violates right of way due to imprecise stopping at minor link. Issue #13369
   - Fixed error when loading personTrip between identical stops. Issue #13385
   - Fixed invalid error message for disconnected personTrip between stops. Issue #13386
-  - Fixed collision on junction due to unsafe lane changing. Issue #13363  
+  - Fixed collision on junction due to unsafe lane changing. Issue #13363
   - Fixed error when using option **--replay-rerouting**. Issue #13389
   - Fixed invalid saved state when input contains route distribution within a vehicle. Issue #13449
   - Fixed emergency braking / collision at roundabout. Issue #13292
@@ -166,28 +169,28 @@ title: ChangeLog
 
 - netconvert
   - Fixed inconsistent network file after setting **--default.spreadtype center**. Issue #13127
-  - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432  
+  - OpenDRIVE export: fixed invalid crosswalk shape. Issue #10432
   - Fixed invalid connection permissions after joining junction. Issue #13217
   - Fixed broken network after setting option **--tls.rebuild**. Issue #13240
-  - Fixed classification of turnaround connection on some divided highways. Issue #13238    
+  - Fixed classification of turnaround connection on some divided highways. Issue #13238
   - Fixed invalid consistency error for circular public transport line. Issue #13255
   - OSM: fixed incomplete pt-route. Issue #13249
   - OSM: fixed problems with one-way bus and bicycle infrastructure. Issue #12592
   - OSM: fixed crash when using option **--osm.turn-lanes**. Issue #13413
-  - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064      
+  - User defined node radius is no longer ignored for geometry-like nodes. Issue #13064
   - Fixed incomplete ptline-output for circular route. Issue #13431
   - Fixed minor links in rail taxi network. Issue #13456
   - Fixed unsafe signal plan at joined tls. Issue #13502
   - Fixed overly large junction shapes when edges meet at a sharp angle. Issue #13505
   - bidi edges
     - Option **--railway.topology.repair.minimal** now performs minimal repair with respect to public transport lines. Issue #13248
-    - Fixed bug where bidi edge could not be declared. Issue #13225    
+    - Fixed bug where bidi edge could not be declared. Issue #13225
     - Fixed bug where option **--railway.topology.repair** created superfluous bidi edges. Issue #13247
     - Fixed missing bidi attribute for shared median lane with disconnected outer lanes. Issue #13335
     - Fixed invalid bidi attribute for internal edge. Issue #13344
     - Fixed invalid right of way rules when shared median lane ends. Issue #13345
     - Fixed unsafe right of way rules at internal junction with bidiLane. Issue #13400
-    - Fixed asymmetrical bidi attribute. Issue #13510  
+    - Fixed asymmetrical bidi attribute. Issue #13510
 
 - duarouter
   - Fixed railway routing failure if the stop is defined on a short buffer edge (also applies to sumo). Issue #13277
@@ -214,8 +217,8 @@ title: ChangeLog
   - Fixed error when calling some tools without argument. Issue #13388 (regression in 1.17.0)
   - abstractRail.py: Failure to optimize one region is now recoverable. Issue #13193
   - gridDistricts.py: Networks with non-normalized offsets now create correct taz shapes. Issue #13264
-  - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320  
-  - When loading a tool configuration, unknown options now raise an error. Issue #13091  
+  - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
+  - When loading a tool configuration, unknown options now raise an error. Issue #13091
   - generateRailSignalConstraints.py: fixed invalid bidi constraint for trains with multiple diversionary tracks between stops. Issue #13519
   
 
@@ -223,11 +226,11 @@ title: ChangeLog
 
 - Simulation
   - Added options **--intermodal-collision.action** and **--intermodal-collision.stoptime** to configure vehicle behavior after colliding with a pedestrian. Issue #13133
-  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170  
+  - In the sublane mode, vehicle elevation is now interpolated when lane changing between lanes that have different z-values. Issue #13170
   - Added `device.taxi.idle-algorithm` value `taxistand` which makes idle taxis return to a pre-configured set of locations. Issue #13334
   - The SSM-device now supports the new surrogate safety measure "MDRAC" which is modified maximum deceleration rate to avoid crash with perception/reaction time. Issue #13350
   - statistic-output now include the number of emergency braking events. Issue #10596
-  - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362  
+  - Vehicles can now be configured to ignore specific vehicles during car-following by using [generic parameters](Simulation/GenericParameters.md) `carFollowMode.ignoreIDs` and `carFollowModel.ignoreTypes`. Issue #13362
   - Stops now support custom parameters #13365
   - Multi-Entry-Exit (E3) detectors now support attribute `expectArrival` to suppress arrival warnings. Issue #13476
   - Vehicles with `depart="split"` now automatically adapt their departPos to the rear of the [train from which they split](Simulation/Railways.md#portion_working). Issue #13480
@@ -244,7 +247,7 @@ title: ChangeLog
   - Implemented new dialog for setting netedit and sumo options. This dialog supports option help, file selection dialogs and permits dynamic filtering of listed options. Issue #12007
   - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
   - Simplified selection of edge is when calling python tools. Issue #12852
-  - The traffic light join mode now has  'OK / 'cancel' buttons. Issue #13028
+  - The traffic light join mode now has 'OK / 'cancel' buttons. Issue #13028
   - Now netedit supports trip and flows over TAZs. Issue #13311
   - Improved error messages when loading additional objects. Issue #13507
 
@@ -264,7 +267,7 @@ title: ChangeLog
   - Added function `simpla.getPlatoonID`. Issue #13029
   - Added functions `lane.getAngle` and `edge.getAngle`. Issue #10901
   - Added function `vehicle.getJunctionFoes`. Issue #12640
-  - Using UTF-8 consistently. Issue #7171  
+  - Using UTF-8 consistently. Issue #7171
   - getAllContextSubscriptionResults has now entries also for objects without results. Issue #6446
   - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue #13293
   - Function `traci.vehicle.setStopParameter` and `getStopParameter` now supports optional argument `customParam=True` to work with user defined stop parameters. Issue #13365
@@ -282,13 +285,13 @@ title: ChangeLog
   - abstractRail.py: Now handles regions without stops. Issue #13221
   - gtfs2pt.py: can now disable generation of pedestrian access via option **--skip-access**. Issue #12774
   - gtfs2pt: stop names are now included in route-output. Issue #13274
-  - ptlines2flows.py: now support configuration files. Issue #13254  
+  - ptlines2flows.py: now support configuration files. Issue #13254
   - generateParkingAreas.py: now support option **--lefthand** to create lefthand parking areas. Issue #13305
   - [scheduleStats.py](Tools/Railways.md#schedulestatspy): Now permits analysis of planned and actual travel time between pairs of stops. Issue #13354
   - tileGet.py now supports option **--parallel-jobs** to speed up data retrieval. Issue #13327
   - checkStopOrder.py: can now generate a combined stop table for multiple stop locations. Issue #13259
   - checkStopOrder.py: marks waypoints in stop table output. Issue #13420
-  - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488  
+  - checkStopOrder.py: added option **--filter-ids** to filter the input by vehicle id. Issue #13488
   - generateRailSignalConstraints.py: now supports [portion working](Simulation/Railways.md#portion_working) (vehicles with `depart="split"`). Issue #13478
   - generateRailSignalConstraints.py: now finds additional bidi conflicts. Issue #12085
   - improved game internationalization. Issue #13082
@@ -312,21 +315,21 @@ title: ChangeLog
 
 - Simulation
  
-  - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)  
+  - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)
   - Fixed collision at parallel lanes with different lengths. Issue #12590
   - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
-  - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615  
+  - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
-  - Fixed invalid error: "Disconnected walk for person". Issue #12744  
+  - Fixed invalid error: "Disconnected walk for person". Issue #12744
   - Fixed invalid duration value in summary-output. Issue #13006
   - NEMA Controller now works with uneven yellow time at barrier. Issue #12989
   - A triggered stop is now always aborted when the vehicle is full. Issue #13015
   - Setting attribute expected or expectedContainer now always marks the stop as triggered (for person or container respectively). Issue #13016
   - Persons during access stage are now counted as walking rather than riding. Issue #13019
-  - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017  
+  - Fixed bug where the simulation does not abort when the last active transportable is riding inside an inactive (triggered) vehicle. Issue #13017
   - Setting phase minDur=0 is now working for `actuated` and `delay_based` traffic lights. Issue #12952, #13089
-  - Bike lane detector placement for 'actuated' traffic lights now uses correct bike length. Issue #13109  
+  - Bike lane detector placement for 'actuated' traffic lights now uses correct bike length. Issue #13109
   - Lane changing
     - Fixed crash related to lane-changing in tight corners. Issue #12618 (regression in 1.13.0)
     - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
@@ -347,7 +350,7 @@ title: ChangeLog
 
 - netedit
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
-  - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)  
+  - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)
   - The name of the current network is shown in application title bar again. Issue #12702 (regression in 1.16.0)
   - Fixed bug that caused junction shape to change on repeated computations. Issue #12584
   - Fixed running phase duration for rail crossing in parameter window. Issue #12642
@@ -418,7 +421,7 @@ title: ChangeLog
   - Error messages concerning subscription filters now use the correct command id
   - Fixed bug where user-triggered lane-change were not executed when using the sublane model. Issue #12810, #12944
   - `trafficlight.swapConstraints` now returns constraint parameters for derived constraints. Issue #12935
-  - Fixed crash when using `vehicle.moveToXY`. Issue #13053  
+  - Fixed crash when using `vehicle.moveToXY`. Issue #13053
 
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -436,7 +439,7 @@ title: ChangeLog
   - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
   - Stop-output now includes optional attribute `usedEnded` to indicate whether a stop was affected by option **--use-stop-ended**. Issue #12863
-  - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`.  If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
+  - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`. If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
   - Simulating a Two-way-left-turn-lane is now supported. Issues #12924
   - Added option **--personinfo-output** to separate `<personinfo>` elements from `<tripinfo>` elements. Issue #12929
   - vType attribute `startupDelay` is now applied to scheduled stops when using `carFollowModel="Rail"`. Issue #12943
@@ -447,7 +450,7 @@ title: ChangeLog
   - Vehicle attribute `depart` now supports the new value `begin` referring to the start of the simulation. Issue #12270
 
 - netconvert
-  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575  
+  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
   - Option **--osm.extra-attributes** now also applies to all node attributes. Issue #12677
   - OSM: Exceptions for turning restrictions are now imported. Issue #12645
   - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
@@ -491,13 +494,13 @@ title: ChangeLog
 
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
-  - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632  
+  - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
   - Functions [vehicle.getParameter](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) and [simulation.getParameter](TraCI/Simulation_Value_Retrieval.md#device_parameter_retrieval) can now retrieve various aggregated trip statistics. Issue #12631
   - TraCIConstants are now available as static values for the Java bindings. Issue #12371
   - Added function `vehicle.getNextLinks` to retrieve all upcoming intersections. Issue #12551
   - Added functions `lane.setChangePermissions` and `lane.getChangePermissions` to dynamically modify 'changeLeft' and 'changeRight' attributes. Issue #12562
   - Simpla can now report platoon-based information and statistics. Issue #12124
-  - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091  
+  - Added function `traci.executeMove` to only do vehicle movements and allow further interaction before writing the outputs at `simulationStep`. Issue #11091
 
 - tools
   - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
@@ -556,22 +559,22 @@ title: ChangeLog
 
 - Simulation
   - Improved simulation speed in large networks with simulation routing. Issue #12416 (regression in 1.2.0)
-  - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108  
+  - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules for two conflicting connections with internal junctions. Issue #11988
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
   - stop-output now always contains the correct 'started' values even if other values were part of the input. Issue #12125
   - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
   - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118, #12461
-  - Fixed crash in public transport scenario with looped routes. Issue #12150  
+  - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
-  - Fixed collision on bidi edge. Issue #12393    
+  - Fixed collision on bidi edge. Issue #12393
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
   - Fixed vehicle angles when using 'lcSigma' with the continuos lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
-  - Fixed invalid change to lane with stopped leader. Issue #12113    
+  - Fixed invalid change to lane with stopped leader. Issue #12113
   - Fixed invalid error when using departSpeed values 'avg', 'last', 'desired' or 'speedLimit' near a minor link or speed reduction. Issue #12398, #12401
   - Vehicles no longer become stuck when using a waypoint with parking=true. Issue #12468
   - The simulation now aborts after an unknown stoppingPlace has been loaded for a vehicle. To obtain the old behavior, option **--ignore-route-errors** may be used. Issue #12487
@@ -604,7 +607,7 @@ title: ChangeLog
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
   - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
-  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction wasn't drawn wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction wasn't drawn wit magenta dotted contour. Issue #12013 (regression in 1.15.0)
   - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
@@ -646,19 +649,19 @@ title: ChangeLog
   - Fixed xml-validation error when importing MATSim network. Issue #12509 (regression in 1.15.0)
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
-  - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047  
-  - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988  
+  - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047
+  - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
   - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
   - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
   - Fixed bug where **--junctions.join** joins to much. Issue #10589
   - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
-  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086  
+  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
   - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181, #12327
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores `spreadType` in typemap. Issue #12141
   - Fixed invalid bike lane in OSM import. Issue #12216
   - Fixed invalid bidirectional combined foot/bike path in OSM import. Issue #12214
-  - Traffic light building on large intersections now adds extra red time after left-turn phases to ensure safety. Issue #10796  
+  - Traffic light building on large intersections now adds extra red time after left-turn phases to ensure safety. Issue #10796
   - Fixed creation of invalid pedestrian crossings. Issue #12234
   - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
   - Fixed invalid link state at zipper junction. Issue #7676
@@ -675,7 +678,7 @@ title: ChangeLog
     
 - duarouter
   - Fixed crash on unknown landmark edge. Issue #12438
-  - Fixed invalid routing result by routing algorithm  A* / "astar" (minor difference caused by internal edge lengths). Issue #12463
+  - Fixed invalid routing result by routing algorithm A* / "astar" (minor difference caused by internal edge lengths). Issue #12463
     
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
@@ -802,7 +805,7 @@ title: ChangeLog
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
-  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090  
+  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
   - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296

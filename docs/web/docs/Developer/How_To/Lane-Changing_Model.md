@@ -64,12 +64,10 @@ located in
 
 
 For further interaction, you also have to adapt the "id" of the model in
-the new model's .h class:
+the new model's constructor call to the base class constructor:
 
 ```
-virtual int getModelID() const {
- return LaneChangeModel::LCXYZ;
-}
+MSAbstractLaneChangeModel(v, LaneChangeModel::LCXYZ),
 ```
 
 ## Using Custom Parameters via TraCI

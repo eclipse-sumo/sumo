@@ -58,6 +58,13 @@ class Position;
  */
 class MSStoppingPlace : public Named, public Parameterised {
 public:
+    struct Access {
+        MSLane* const lane;
+        const double startPos;
+        const double endPos;
+        const double length;
+    };
+
     /** @brief Constructor
      *
      * @param[in] id The id of the stop
@@ -191,15 +198,15 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* lane, const double pos, double length);
+    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length);
 
     /// @brief lanes and positions connected to this stop
-    const std::vector<std::tuple<MSLane*, double, double> >& getAllAccessPos() const {
+    const std::vector<Access>& getAllAccessPos() const {
         return myAccessPos;
     }
 
     /// @brief the position on the given edge which is connected to this stop, -1 on failure
-    double getAccessPos(const MSEdge* edge) const;
+    double getAccessPos(const MSEdge* edge, SumoRNG* rng = nullptr) const;
 
     /// @brief the distance from the access on the given edge to the stop, -1 on failure
     double getAccessDistance(const MSEdge* edge) const;
@@ -284,14 +291,12 @@ protected:
     /// @brief row depth of waiting transportables
     const double myTransportableDepth;
 
-protected:
-
     /// @brief Persons waiting at this stop (mapped to waiting position)
     std::map<const MSTransportable*, int> myWaitingTransportables;
     std::set<int> myWaitingSpots;
 
     /// @brief lanes and positions connected to this stop
-    std::vector<std::tuple<MSLane*, double, double> > myAccessPos;
+    std::vector<Access> myAccessPos;
 
 private:
     /// @brief Invalidated copy constructor.

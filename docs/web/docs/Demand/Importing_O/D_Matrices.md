@@ -32,7 +32,7 @@ zero. You can also add a prefix to the generated trip definition names
 using (**--prefix** {{DT_STR}}). As usual, they are written to the output file named using the
 **--output-file** {{DT_FILE}} (**-o** {{DT_FILE}} for short). You can specify a vehicle type to be added to the trip
 definitions using **--vtype** {{DT_STR}}. Please remark that vehicles will have no type unless
-not given in the O/D-matrices or defined using this option. The command
+given in the O/D-matrices or defined using this option. The command
 line option overrides type names given in the O/D-matrices. The type
 itself will not be generated. Vehicles will be generated for the time
 period between **--begin** {{DT_TIME}} (**-b** {{DT_TIME}}) and -**-end** {{DT_TIME}} (**-e** {{DT_TIME}}), having 0 and 86400 as default values,
@@ -282,6 +282,9 @@ every vehicle type as follows:
 </demand>
 ```
 
+!!! note
+    The time values are given in milliseconds.
+
 For details on the types and units see the schema at
 <https://sumo.dlr.de/xsd/amitran/od.xsd>
 
@@ -390,7 +393,7 @@ following scaling factors at page 31.
 | NRW other streets | 82,6%   | 74%     | 78,3%   | 71,6%   |
 | Bavaria           | 75%     | 67,2%   | 73,9%   | 64,7%   |
 
-One may note that this information is 15 years old. Additionally, no
+One may note that this information is several years old. Additionally, no
 information about the type of vehicles is given.
 
 A 24h time line a given O/D-matrix shall be split by may be given to

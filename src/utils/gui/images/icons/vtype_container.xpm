@@ -1,0 +1,27 @@
+/* XPM */
+static const char *vtype_container_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c gray25",
+"X c red",
+"o c #808080",
+"+ c None",
+/* pixels */
+"++++++++++++++++",
+"++..............",
+"               .",
+" ooooooooooooo .",
+" o o o o o o o .",
+" o o o o o o o .",
+" o o o o o o o .",
+" o o o o o o o .",
+" ooooooooooooo .",
+"               +",
+"++++++++++++++++",
+"++++++++++++++++",
+"+XXX+X+X+XX+XX++",
+"++X++XXX+XX+X+++",
+"++X+++X++X++XX++",
+"++++++++++++++++"
+};

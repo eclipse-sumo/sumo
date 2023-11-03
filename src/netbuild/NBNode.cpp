@@ -745,7 +745,7 @@ NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& 
     } else {
         Position dir = intersect;
         dir.sub(endShape[0]);
-        dir.norm2d();
+        dir.norm2D();
         const double radius = myRadius == NBNode::UNSPECIFIED_RADIUS ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myRadius;
         dir.mul(radius);
         result.push_back(intersect + dir);
@@ -1923,20 +1923,20 @@ NBNode::getEmptyDir() const {
     for (const NBEdge* const in : myIncomingEdges) {
         Position toAdd = in->getFromNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.norm2d();
+        toAdd.norm2D();
         pos.add(toAdd);
     }
     for (const NBEdge* const out : myOutgoingEdges) {
         Position toAdd = out->getToNode()->getPosition();
         toAdd.sub(myPosition);
-        toAdd.norm2d();
+        toAdd.norm2D();
         pos.add(toAdd);
     }
     pos.mul(-1. / (double)(myIncomingEdges.size() + myOutgoingEdges.size()));
     if (pos.x() == 0. && pos.y() == 0.) {
         pos = Position(1, 0);
     }
-    pos.norm2d();
+    pos.norm2D();
     return pos;
 }
 

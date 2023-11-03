@@ -43,8 +43,9 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripJunctions
-netedit.leftClick(referencePosition, 415, 65)
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
+                  netedit.positions.demandElements.planTopEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.vTypes, "customType", True)

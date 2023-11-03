@@ -49,19 +49,19 @@ netedit.leftClick(referencePosition, 497, 257)
 # Change length
 netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "5")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 544, 257)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Reference Right")
 
-# create busStop in mode "reference right"
+# create busStop in mode "Reference Right"
 netedit.leftClick(referencePosition, 406, 257)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
-# create busStop in mode "reference center"
+# create busStop in mode "Center"
 netedit.leftClick(referencePosition, 496, 257)
 
 # Check undo redo

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-10-13 16:08:31 by Eclipse SUMO sumo Version v1_18_0+2071-a9e2bd2bef5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="jupedsim"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.period value="10"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="p_0" x="-4.91" y="79.33" angle="180.00" speed="0.00" pos="0.00" edge="E0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <person id="p_0" x="0.14" y="66.55" angle="151.78" speed="1.39" pos="8.10" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <person id="p_0" x="6.71" y="54.31" angle="151.73" speed="1.39" pos="21.99" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <person id="p_0" x="13.30" y="42.08" angle="151.63" speed="1.39" pos="35.88" edge="E1" slope="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <person id="p_0" x="23.22" y="35.64" angle="37.43" speed="1.34" pos="2.00" edge="E2" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <person id="p_0" x="27.56" y="48.83" angle="18.00" speed="1.39" pos="13.78" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <person id="p_0" x="31.85" y="62.04" angle="18.00" speed="1.39" pos="27.64" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <person id="p_0" x="36.14" y="75.25" angle="17.89" speed="1.39" pos="41.51" edge="E3" slope="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <person id="p_0" x="46.55" y="80.41" angle="87.54" speed="1.39" pos="8.82" edge="E4" slope="0.00"/>
+    </timestep>
+    <timestep time="90.00">
+        <person id="p_0" x="58.05" y="76.48" angle="149.69" speed="1.39" pos="4.73" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="100.00">
+        <person id="p_0" x="65.06" y="64.49" angle="149.69" speed="1.39" pos="18.59" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="110.00">
+        <person id="p_0" x="72.07" y="52.50" angle="149.69" speed="1.39" pos="32.45" edge="E5" slope="0.00"/>
+    </timestep>
+    <timestep time="120.00">
+        <person id="p_0" x="80.33" y="42.19" angle="93.03" speed="1.39" pos="3.56" edge="E6" slope="0.00"/>
+    </timestep>
+    <timestep time="130.00">
+        <person id="p_0" x="85.87" y="52.55" angle="13.15" speed="1.39" pos="10.68" edge="E7" slope="0.00"/>
+    </timestep>
+    <timestep time="140.00">
+        <person id="p_0" x="89.03" y="66.07" angle="13.15" speed="1.39" pos="24.56" edge="E7" slope="0.00"/>
+    </timestep>
+    <timestep time="150.00">
+        <person id="p_0" x="92.19" y="79.60" angle="13.15" speed="1.39" pos="0.51" edge="E8" slope="0.00"/>
+    </timestep>
+</fcd-export>

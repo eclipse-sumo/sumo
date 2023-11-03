@@ -133,8 +133,8 @@ Filters a flow file by detector ids and time range
 Given a file `det.csv` of the following form
 ```
 id;lat;lon
-det1;52.432559;13.496612;1000
-det2;52.432373;13.496142;500
+det1;52.432559;13.496612
+det2;52.432373;13.496142
 ```
 
 It can be turned into a file with detectors with:

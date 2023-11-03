@@ -488,6 +488,18 @@ value is also shown in the table.
   <td><p>Returns the list of upcoming links with each compound containing info about (lane, via, priority, opened, foe, state, direction, length)</p></td>
   <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextLinks">getNextLinks</a></p></td>
 </tr>
+<tr class="odd">
+<td><p>actual departure time (0x3a)</p></td>
+<td><p>double</p></td>
+<td><p><Returns the actual departure time (after possibly queueing for insertion)/p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDeparture">getDeparture</a></p></td>
+</tr>
+<tr class="even">
+  <td><p>departure delay (0x3b)</p></td>
+  <td><p>double</p></td>
+  <td><p>Returns the time difference between the planned and the actual departure</p></td>
+  <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDepartDelay">getDepartDelay</a></p></td>
+</tr>
 </tbody>
 </table>
 

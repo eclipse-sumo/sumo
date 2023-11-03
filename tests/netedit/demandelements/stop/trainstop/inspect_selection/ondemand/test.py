@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x,
+                  netedit.positions.demandElements.trainStop.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspectSelection.onDemand, "true", False)

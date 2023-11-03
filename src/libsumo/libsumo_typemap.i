@@ -429,7 +429,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_ValueError, s.c_str());
@@ -448,7 +448,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             std::cerr << "Error: " << s << std::endl;
         }
 #ifdef SWIGPYTHON
-        PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), PyUnicode_FromString(s.c_str()));
+        PyErr_SetString(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__FatalTraCIError), s.c_str());
         SWIG_fail;
 #else
         SWIG_exception(SWIG_UnknownError, s.c_str());

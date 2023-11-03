@@ -19,44 +19,41 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GNETransport : public GNEDemandElement, public Parameterised {
+
+class GNETransport : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
 public:
+    /**@brief general constructor for walks
+     * @param[in] net Network in which this walk is placed
+     * @param[in] containerParent container parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromContainerStop from containerStop
+     * @param[in] toEdge to edge
+     * @param[in] toContainerStop to containerStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     */
+    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
+        GNEAdditional* toContainerStop, double arrivalPosition);
+
     /// @brief default constructor
     GNETransport(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for container edge->edge
-     * @param[in] viewNet view in which this Transport is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] lines transport lines
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, const double arrivalPosition);
-
-    /**@brief parameter constructor for container edge->containerStop
-     * @param[in] viewNet view in which this Transport is placed
-     * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] toContainerStop to containerStop
-     * @param[in] lines transport lines
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNETransport(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop, const std::vector<std::string>& lines, const double arrivalPosition);
 
     /// @brief destructor
     ~GNETransport();
@@ -138,22 +135,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -216,9 +210,6 @@ protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 
-    /// @brief arrival position
-    double myArrivalPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -228,6 +219,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildTransport
+     * @param[in] net Network in which this Transport is placed
+     * @param[in] tag transport tag
+     * @param[in] icon transport icon
+     * @param[in] containerParent container parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     */
+    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
+                 const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
+                 double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNETransport(GNETransport*) = delete;

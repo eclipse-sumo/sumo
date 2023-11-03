@@ -44,31 +44,36 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnab
 netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.extensionEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 1, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  1, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 2, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  2, netedit.positions.demandElements.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 3, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  3, netedit.positions.demandElements.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.extension, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x + 4, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
+                  4, netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

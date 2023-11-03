@@ -46,7 +46,7 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
-    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", Parameterised::Map()),
+    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE), 0, 0, "", false, 0, 0, "", Parameterised::Map()),
     GNEAdditional("", net, GLO_POI, tag, GUIIconSubSys::getIcon(GUIIcon::POI), "", {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
@@ -54,10 +54,10 @@ GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-               const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
-               const bool relativePath, const double width, const double height, const std::string& name,
-               const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
+               const std::string& imgFile, const bool relativePath, const double width, const double height,
+               const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI),
                   "", {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
@@ -74,22 +74,11 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
-               const bool friendlyPos, const double posLat, const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
-               const double height, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
+               const bool friendlyPos, const double posLat, const std::string& icon, const double layer, const double angle,
+               const std::string& imgFile, const bool relativePath, const double width, const double height,
+               const std::string& name, const Parameterised::Map& parameters) :
+    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, GNE_TAG_POILANE, GUIIconSubSys::getIcon(GUIIcon::POILANE), "", {}, {}, {lane}, {}, {}, {}) {
-    // update geometry (needed for adjust myShapeWidth and myShapeHeight)
-    updateGeometry();
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
-}
-
-
-GNEPOI::GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name, const Parameterised::Map& parameters) :
-    PointOfInterest(id, getJuPedSimType(GNE_TAG_JPS_WAYPOINT), getJuPedSimColor(GNE_TAG_JPS_WAYPOINT), Position(x, y),
-                    false, "", 0, false, 0, getJuPedSimLayer(GNE_TAG_JPS_WAYPOINT), 0, "", false, 0, 0, name, parameters),
-    GNEAdditional(id, net, getJuPedSimGLO(GNE_TAG_JPS_WAYPOINT), GNE_TAG_JPS_WAYPOINT, getJuPedSimIcon(GNE_TAG_JPS_WAYPOINT), "",
-                  {}, {}, {}, {}, {}, {}) {
     // update geometry (needed for adjust myShapeWidth and myShapeHeight)
     updateGeometry();
     // update centering boundary without updating grid
@@ -158,6 +147,7 @@ GNEPOI::getSumoBaseObject() const {
     POIBaseObject->addStringAttribute(SUMO_ATTR_ID, myID);
     POIBaseObject->addColorAttribute(SUMO_ATTR_COLOR, getShapeColor());
     POIBaseObject->addStringAttribute(SUMO_ATTR_TYPE, getShapeType());
+    POIBaseObject->addStringAttribute(SUMO_ATTR_ICON, getIconStr());
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
     POIBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
     POIBaseObject->addDoubleAttribute(SUMO_ATTR_WIDTH, getWidth());
@@ -229,7 +219,7 @@ GNEPOI::fixAdditionalProblem() {
     if (getParentLanes().size() > 0) {
         // declare new position
         double newPositionOverLane = myPosOverLane;
-        // declare new lenght (but unsed in this context)
+        // declare new length (but unsed in this context)
         double length = 0;
         // fix pos and length with fixLanePosition
         GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
@@ -394,37 +384,13 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 mouseWithinGeometry(*this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree());
             }
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                if (getShapeImgFile().empty()) {
-                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, *this, 1.3, POIExaggeration);
-                } else {
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
-                }
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                if (getShapeImgFile().empty()) {
-                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, *this, 1.3, POIExaggeration);
-                } else {
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
-                }
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                if (getShapeImgFile().empty()) {
-                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, 1.3, POIExaggeration);
-                } else {
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
-                }
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                if (getShapeImgFile().empty()) {
-                    GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, *this, 1.3, POIExaggeration);
-                } else {
-                    GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration);
-                }
+            // draw contour
+            if (getShapeImgFile().empty()) {
+                myContour.drawDottedContourCircle(s, *this, 1.3, POIExaggeration,
+                                                  s.dottedContourSettings.segmentWidth);
+            } else {
+                myContour.drawDottedContourRectangle(s, *this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree(), POIExaggeration,
+                                                     s.dottedContourSettings.segmentWidth);
             }
         }
     }
@@ -466,6 +432,8 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         }
         case SUMO_ATTR_TYPE:
             return getShapeType();
+        case SUMO_ATTR_ICON:
+            return getIconStr();
         case SUMO_ATTR_LAYER:
             if (getShapeLayer() == Shape::DEFAULT_LAYER_POI) {
                 return "default";
@@ -520,6 +488,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case SUMO_ATTR_LON:
         case SUMO_ATTR_LAT:
         case SUMO_ATTR_TYPE:
+        case SUMO_ATTR_ICON:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_IMGFILE:
         case SUMO_ATTR_RELATIVEPATH:
@@ -563,6 +532,8 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_TYPE:
             return true;
+        case SUMO_ATTR_ICON:
+            return SUMOXMLDefinitions::POIIcons.hasString(value);
         case SUMO_ATTR_LAYER:
             if (value == "default") {
                 return true;
@@ -690,6 +661,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE:
             setShapeType(value);
+            break;
+        case SUMO_ATTR_ICON:
+            setIcon(value);
             break;
         case SUMO_ATTR_LAYER:
             if (value == "default") {

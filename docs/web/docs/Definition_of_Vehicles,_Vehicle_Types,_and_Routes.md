@@ -523,12 +523,13 @@ The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Si
 
 ### Defining a normal distribution for vehicle speeds
 
-Two types of distributions can be defined for sampling the individual speedFactor of each vehicle by giving one of the following attributes in the `<vType>` element:
+Two types of distributions can be defined for sampling the individual speedFactor of each vehicle by giving one of the following attributes in the `<vType>` element 
+(without space characters between the distribution attributes):
 
 - normal distribution:  `speedFactor="norm(mean,deviation)"`
 - truncated normal distribution:   `speedFactor="normc(mean,deviation,lowerCutOff,upperCutOff)"`
 
-The default for passenger cars is `"normc(1, 0.1, 0.2, 2)"` which implies that ~95% of the vehicles drive between 80% and 120%
+The default for passenger cars is `"normc(1,0.1,0.2,2)"` which implies that ~95% of the vehicles drive between 80% and 120%
 of the legal speed limit.
 
 Instead of giving the multi-parameter definition above, a simpler definition style is also possible.
@@ -597,7 +598,7 @@ Define a flow of vehicles that desire to drive at 120% of the speed limit withou
 Define a vehicle type with high speed deviation and no cut-off
 
 ```xml
-  <vType id="example2" speedFactor="norm(1.0, 0.5)"/>  
+  <vType id="example2" speedFactor="norm(1.0,0.5)"/>  
 ```
 
 ## Vehicle Length
@@ -820,20 +821,20 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | gapControlGainGapDot         | 0.0125                                                |          | The control gain determining the rate of the positioning deviation derivative (Gap control mode)          | CACC      |
 | collisionAvoidanceGainGap    | 0.45                                                  |          | The control gain determining the rate of positioning deviation (Collision avoidance mode)                 | CACC      |
 | collisionAvoidanceGainGapDot | 0.05                                                  |          | The control gain determining the rate of the positioning deviation derivative (Collision avoidance mode)  | CACC      |
-| cc1                          |                                                       |          | Spacing Time - s                                                                                          | W99       |
-| cc2                          |                                                       |          | Following Variation - m                                                                                   | W99       |
-| cc3                          |                                                       |          | Threshold for Entering "Following" - s                                                                    | W99       |
-| cc4                          |                                                       |          | Negative "Following" Threshold - m/s                                                                      | W99       |
-| cc5                          |                                                       |          | Positive "Following" Threshold - m/s                                                                      | W99       |
-| cc6                          |                                                       |          | Speed Dependency of Oscillation - 10^-4 rad/s                                                             | W99       |
-| cc7                          |                                                       |          | Oscillation Acceleration - m/s^2                                                                          | W99       |
-| cc8                          |                                                       |          | Standstill Acceleration - m/s^2                                                                           | W99       |
-| cc9                          |                                                       |          | Acceleration at 80km/h - m/s^2                                                                            | W99       |
+| cc1                          | 1.30                                                  |          | Spacing Time - s                                                                                          | W99       |
+| cc2                          | 8.00                                                  |          | Following Variation - m                                                                                   | W99       |
+| cc3                          | -12.00                                                |          | Threshold for Entering "Following" - s                                                                    | W99       |
+| cc4                          | -0.25                                                 |          | Negative "Following" Threshold - m/s                                                                      | W99       |
+| cc5                          | 0.35                                                  |          | Positive "Following" Threshold - m/s                                                                      | W99       |
+| cc6                          | 6.00                                                  |          | Speed Dependency of Oscillation - 10^-4 rad/s                                                             | W99       |
+| cc7                          | 0.25                                                  |          | Oscillation Acceleration - m/s^2                                                                          | W99       |
+| cc8                          | 2.00                                                  |          | Standstill Acceleration - m/s^2                                                                           | W99       |
+| cc9                          | 1.50                                                  |          | Acceleration at 80km/h - m/s^2                                                                            | W99       |
 | trainType                    |                                                       |          | [string id for pre-defined train type](Simulation/Railways.md#modelling_trains)                           | Rail      |
 | tpreview                     | 4.00                                                  | >= 1     | The look ahead time headway for the desired speed. Lower values result in late and hard braking when turning at junctions or when speed limits change (s)       | EIDM      |
 | tPersDrive                   | 3.00                                                  | >= 1     | Correlation time of the Wiener Process for the driving error (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (s)            | EIDM      |
 | tPersEstimate                | 10.00                                                 | >= 1     | Correlation time of the Wiener Process for the estimation errors (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (s)        | EIDM      |
-| treaction                    | 0.50                                                  | >= 0     | The interval length for which CF-model performs its decision logic (acceleration only). Works similiar to the [actionStepLength](Car-Following-Models.md#actionsteplength) attribute, but here it can be seen as a maximal value. The driver will react faster in critical situations. ActionStepLength/Driverstate should not be used together with this model [Reference](https://doi.org/10.1016/j.trpro.2017.05.011) (s)  | EIDM      |
+| treaction                    | 0.50                                                  | >= 0     | The interval length for which CF-model performs its decision logic (acceleration only). Works similar to the [actionStepLength](Car-Following-Models.md#actionsteplength) attribute, but here it can be seen as a maximal value. The driver will react faster in critical situations. ActionStepLength/Driverstate should not be used together with this model [Reference](https://doi.org/10.1016/j.trpro.2017.05.011) (s)  | EIDM      |
 | ccoolness                    | 0.99                                                  | [0,1]    | Coolness Parameter, the driver takes the acceleration of the leading vehicle into account. How cool the driver reacts to lane changes, which reduce the gap to the next leading vehicle. 0 means that this term is not used at all. (originally from [Enhanced Intelligent Driver Model](https://doi.org/10.1098/rsta.2010.0084) (-)  | EIDM      |
 | sigmaleader                  | 0.02                                                  | [0,1]    | Estimation error magnitude of the leading vehicle's speed (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (-)               | EIDM      |
 | sigmagap                     | 0.10                                                  | [0,1]    | Estimation error magnitude of the gap between the vehicle and the leading vehicle (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (-)  | EIDM      |
@@ -874,7 +875,7 @@ model as in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_Krauss.cpp]({{Source}}src/
 
 ### Transient carFollowModel Parameters
 
-carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](https://sumo.dlr.de/docs/Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
+carFollowModel parameters that are expected to change during the simulation are modelled via [generic parameters](Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):
 
 - carFollowModel.ignoreIDs : ignore foe vehicles with the given ids
 - carFollowModel.ignoreTypes : ignore foe vehicles that have any of the given types
@@ -1143,7 +1144,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | containerStop      | string            | valid containerStop ids                                                                      | \-                 | if given, busStop, chargingStation, edge, lane, startPos and endPos are not allowed                                    |
 | chargingStation    | string            | valid chargingStation ids                                                                    | \-                 | if given, busStop, containerStop, edge, lane, startPos and endPos are not allowed                                      |
 | parkingArea        | string            | valid parkingArea ids                                                                        | \-                 | for more info see [parkingArea](Simulation/ParkingArea.md#letting_vehicles_stop_at_a_parking_area) |
-| lane               | string            | lane id                                                                                      | \-                 | the lane id takes the form <edge_id\>\_<lane_index\>. the edge has to be part of the corresponding route. If the edge supports [opposite direciton driving](Simulation/OppositeDirectionDriving.md), the lane index may use values beyond the lane indices of the stop edge to define stops on the opposite side.   |
+| lane               | string            | lane id                                                                                      | \-                 | the lane id takes the form <edge_id\>\_<lane_index\>. the edge has to be part of the corresponding route. If the edge supports [opposite direction driving](Simulation/OppositeDirectionDriving.md), the lane index may use values beyond the lane indices of the stop edge to define stops on the opposite side.   |
 | edge               | string            | edge id  | \-                 | the vehicle with stop on the rightmost lane that allows its vClass |
 | endPos             | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | lane.length        |                                                                                                                        |
 | startPos           | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | endPos-0.2m        | there must be a difference of more than 0.1m between *startPos* and *endPos*                                           |

@@ -25,6 +25,7 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
 // ===========================================================================
 // class declarations
@@ -92,6 +93,7 @@ public:
      * @param[in] posOverLane The position over Lane
      * @param[in] friendlyPos enable or disable friendly position over lane
      * @param[in] posLat The position lateral over Lane
+     * @param[in] icon The icon of the POI
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the POI
@@ -101,8 +103,9 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false) override;
+                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string &icon, 
+                        double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
+                        bool ignorePruning = false) override;
 
     /** @brief Removes a polygon from the container
      * @param[in] id The id of the polygon
@@ -136,6 +139,22 @@ public:
 
     /// @brief allow replacement
     void allowReplacement();
+    
+    inline const std::set<std::string>& getInactiveTypes(void) const {
+        return myInactivePolygonTypes;
+    };
+
+    /// @brief Sets polygon types that define which one is active or not.
+    /// @param inactivePolygonTypes The whole set of inactive polygon types.
+    void setInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
+
+    /// @brief Adds new polygon types to the set of inactive ones.
+    /// @param inactivePolygonTypes Some set of inactive polygon types.
+    void addInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
+
+    /// @brief Remove some polygon types that were deemed as inactive.
+    /// @param inactivePolygonTypes Some set of inactive polygon types.
+    void removeInactivePolygonTypes(std::set<std::string> inactivePolygonTypes);
 
 private:
     /// @brief The mutex for adding/removing operations
@@ -146,4 +165,10 @@ private:
 
     /// @brief whether existing ids shall be replaced
     bool myAllowReplacement;
+
+    /// @brief The polygon types that define the inactive polygons.
+    std::set<std::string> myInactivePolygonTypes;
+
+    /// @brief Determine which polygons are active based on their type.
+    void computeActivePolygons(void);
 };

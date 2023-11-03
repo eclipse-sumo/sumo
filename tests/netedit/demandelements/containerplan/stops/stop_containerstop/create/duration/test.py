@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -47,38 +47,43 @@ netedit.typeEnter()
 # go to containerPlanMode mode
 netedit.containerPlanMode()
 
-# go to containerStopContainerStop mode
-netedit.changeContainerPlanMode("stopContainer: containerStop")
+# go to StopPlanStoppingPlace mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
-
-# set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopContainerStop.create.durationEnable)
-
-# create containerStopContainerStop
-netedit.leftClick(referencePosition, 182, 40)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopContainerStop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.durationEnable)
+
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.duration, "dummy")
-
-# create containerStopContainerStop
-netedit.leftClick(referencePosition, 184, 40)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.durationEnable)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "dummy")
 
-# create containerStopContainerStop
-netedit.leftClick(referencePosition, 186, 40)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopContainerStop.create.duration, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "-20")
 
-# create containerStopContainerStop
-netedit.leftClick(referencePosition, 188, 40)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.duration, "30.2")
+
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
+                  netedit.positions.demandElements.containerStop.y)
 
 # press enter to create route
 netedit.typeEnter()

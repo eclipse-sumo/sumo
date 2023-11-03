@@ -1,0 +1,27 @@
+/* XPM */
+static const char *walktaz_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c red",
+"X c #0026FF",
+"o c #00FF00",
+"O c white",
+/* pixels */
+"ooXooooooooooooo",
+"ooXooooooooooooo",
+"ooXoooo       oo",
+"XXXXXoo O O O oo",
+"oXXXooo       oo",
+"ooXoooo O o O oo",
+"o...      o   oo",
+"o...  O O o O oo",
+"o...      o   oo",
+"ooooooooooo O oo",
+"ooooooooooo   oo",
+"ooooooooooo O oo",
+"o...          oo",
+"o...  O O O O oo",
+"o...          oo",
+"oooooooooooooooo"
+};

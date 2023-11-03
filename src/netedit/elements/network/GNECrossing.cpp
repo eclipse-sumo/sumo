@@ -97,6 +97,56 @@ GNECrossing::getPositionInView() const {
 }
 
 
+bool
+GNECrossing::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNECrossing::checkDrawDeleteContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNECrossing::checkDrawSelectContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
 GNEMoveOperation*
 GNECrossing::getMoveOperation() {
     // edit depending if shape is being edited
@@ -282,26 +332,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if mouse is over element
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myCrossingGeometry.getShape(), halfWidth,
-                    selectionScale, true, true);
-        }
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, myCrossingGeometry.getShape(), halfWidth, selectionScale, true, true,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 

@@ -38,7 +38,7 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 250, 225)
+netedit.leftClick(referencePosition, 415, 225)
 
 # Change linkindex2 with a non valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.linkIndex2, "dummylinkIndex", True)

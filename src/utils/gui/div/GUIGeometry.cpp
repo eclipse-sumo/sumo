@@ -125,8 +125,8 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape
 
 
 void
-GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-                            const Position& extraFirstPosition, const Position& extraLastPosition) {
+GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, const Position& extraFirstPosition,
+                            double endTrimPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
     // set new shape

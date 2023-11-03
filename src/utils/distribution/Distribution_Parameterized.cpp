@@ -33,6 +33,14 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+/// @brief Constructor for any temporary distribution parsed directly from the description
+Distribution_Parameterized::Distribution_Parameterized(const std::string& description) :
+    Distribution("") {
+    myParameter = {0., 0.};
+    parse(description, true);
+}
+
+
 Distribution_Parameterized::Distribution_Parameterized(const std::string& id, double mean, double deviation) :
     Distribution(id) {
     myParameter.push_back(mean);
@@ -57,7 +65,7 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
     try {
         const std::string distName = description.substr(0, description.find('('));
         if (distName == "norm" || distName == "normc") {
-            std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
+            const std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
             myParameter.resize(params.size());
             std::transform(params.begin(), params.end(), myParameter.begin(), StringUtils::toDouble);
             setID(distName);
@@ -80,9 +88,8 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
 
 bool
 Distribution_Parameterized::isValidDescription(const std::string& description) {
-    Distribution_Parameterized dummy("", 0, 0);
     try {
-        dummy.parse(description, true);
+        Distribution_Parameterized dummy(description);
         std::string error;
         bool valid = dummy.isValid(error);
         if (!valid) {

@@ -53,9 +53,9 @@ FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTA
 GNETAZRelDataFrame::ConfirmTAZRelation::ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame) :
     MFXGroupBoxModule(TAZRelDataFrame, TL("Confirm TAZRelation")),
     myTAZRelDataFrame(TAZRelDataFrame) {
-    myConfirmTAZButton = new FXButton(getCollapsableFrame(), (TL("Create TAZRelation") + std::string("\t\t") + TL("Click fromTaz and toTaz (confirm hotkey <ENTER>)")).c_str(), GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
+    myConfirmTAZButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create TAZRelation"), "", TL("Click fromTaz and toTaz (confirm hotkey <ENTER>)"), GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
     myConfirmTAZButton->disable();
-    myClearTAZButton = new FXButton(getCollapsableFrame(), (TL("Clear selection") + std::string("\t\t") + TL("Clear selected TAZs (hotkey <ESC>)")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_GNE_ABORT, GUIDesignButton);
+    myClearTAZButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear selection"), "", TL("Clear selected TAZs (hotkey <ESC>)"), GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_GNE_ABORT, GUIDesignButton);
     myClearTAZButton->disable();
 }
 

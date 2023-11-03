@@ -35,50 +35,50 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
-netedit.changeContainerPlanMode("stopContainer: edge")
+# go to StopPlanEdge mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
-netedit.leftClick(referencePosition, 180, 65)
-
-# set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.durationEnable)
-
-# create containerStopEdge
-netedit.leftClick(referencePosition, 200, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
+
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "dummy")
-
-# create containerStopEdge
-netedit.leftClick(referencePosition, 220, 65)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "dummy")
 
-# create containerStopEdge
-netedit.leftClick(referencePosition, 240, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.containerStopEdge.create.duration, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "-20")
 
-# create containerStopEdge
-netedit.leftClick(referencePosition, 260, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "30.2")
+
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

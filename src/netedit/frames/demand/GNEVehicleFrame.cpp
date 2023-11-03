@@ -128,7 +128,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myVehicleTagSelector = new GNETagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
-    myTypeSelector = new DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::TagType::VEHICLE);
 
     // Create vehicle parameters
     myVehicleAttributes = new GNEAttributesCreator(this);
@@ -210,7 +210,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     // add VType
     myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
-    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overRoute()) {
+    if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRoute()) {
         return buildVehicleOverRoute(vehicleTag, objectsUnderCursor.getDemandElementFront());
     } else if (addEdge && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in GNEPathCreator
@@ -233,7 +233,7 @@ GNEVehicleFrame::getVehicleTagSelector() const {
 }
 
 
-DemandElementSelector*
+GNEDemandElementSelector*
 GNEVehicleFrame::getTypeSelector() const {
     return myTypeSelector;
 }
@@ -260,9 +260,9 @@ GNEVehicleFrame::tagSelected() {
         // show vehicle type selector modul
         myTypeSelector->showDemandElementSelector();
         // show path creator modul
-        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // check if show path legend
-        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().overEmbeddedRoute()) {
+        if (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().vehicleRouteEmbedded()) {
             myPathLegend->hidePathLegendModule();
         } else {
             myPathLegend->showPathLegendModule();
@@ -289,15 +289,9 @@ GNEVehicleFrame::demandElementSelected() {
         // set current VTypeClass in pathCreator
         myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator module
-        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+        myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), false);
         // show help creation
         myHelpCreation->showHelpCreation();
-        // show warning if we have selected a vType oriented to pedestrians or containers
-        if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-            WRITE_WARNING(TL("VType with vClass == 'pedestrian' is oriented to pedestrians"));
-        } else if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-            WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
-        }
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributes->hideAttributesCreatorModule();
@@ -473,8 +467,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 // check trip parameters
                 if (tripParameters) {
                     myVehicleBaseObject->setVehicleParameter(tripParameters);
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
                     myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete tripParameters and base object
@@ -519,8 +513,8 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 // check flowParameters
                 if (flowParameters) {
                     myVehicleBaseObject->setVehicleParameter(flowParameters);
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROMJUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
-                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TOJUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_FROM_JUNCTION, myPathCreator->getSelectedJunctions().front()->getID());
+                    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TO_JUNCTION, myPathCreator->getSelectedJunctions().back()->getID());
                     // parse vehicle
                     myRouteHandler.parseSumoBaseObject(myVehicleBaseObject);
                     // delete flowParameters and base object

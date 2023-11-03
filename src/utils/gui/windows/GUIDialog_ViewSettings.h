@@ -230,7 +230,7 @@ protected:
     /// @name Dialog elements
     /// @{
 
-    FXComboBox* mySchemeName = nullptr;
+    MFXComboBoxIcon* mySchemeName = nullptr;
     FXCheckButton* myShowGrid = nullptr;
     FXRealSpinner* myGridXSizeDialer = nullptr;
     FXRealSpinner* myGridYSizeDialer = nullptr;
@@ -294,8 +294,8 @@ protected:
     FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
     FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
-    MFXComboBoxIcon* myParamKey = nullptr;
-    MFXComboBoxIcon* myScalingParamKey = nullptr;
+    FXComboBox* myParamKey = nullptr;
+    FXComboBox* myScalingParamKey = nullptr;
     MFXComboBoxIcon* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler
@@ -346,9 +346,9 @@ protected:
     FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
-    MFXComboBoxIcon* myVehicleParamKey = nullptr;
-    MFXComboBoxIcon* myVehicleScalingParamKey = nullptr;
-    MFXComboBoxIcon* myVehicleTextParamKey = nullptr;
+    FXComboBox* myVehicleParamKey = nullptr;
+    FXComboBox* myVehicleScalingParamKey = nullptr;
+    FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
     MFXComboBoxIcon* myPersonColorMode, *myPersonShapeDetail = nullptr;
@@ -357,6 +357,8 @@ protected:
     std::vector<FXRealSpinner*> myPersonThresholds;
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation = nullptr;
+    FXCheckButton* myShowPedestrianNetwork = nullptr;
+    FXColorWell* myPedestrianNetworkColor = nullptr;
 
     /// @brief Containers
     MFXComboBoxIcon* myContainerColorMode, *myContainerShapeDetail = nullptr;
@@ -382,7 +384,7 @@ protected:
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation = nullptr;
-    MFXComboBoxIcon* myPOITextParamKey = nullptr;
+    FXComboBox* myPOITextParamKey = nullptr;
     FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
@@ -400,7 +402,7 @@ protected:
     std::vector<FXRealSpinner*> myDataThresholds;
     std::vector<FXButton*> myDataButtons;
     FXCheckButton* myDataColorInterpolation = nullptr;
-    MFXComboBoxIcon* myDataParamKey = nullptr;
+    FXComboBox* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
     FXButton* myDataColorRainbow = nullptr;

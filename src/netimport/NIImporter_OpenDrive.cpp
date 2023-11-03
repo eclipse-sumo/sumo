@@ -177,6 +177,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
 bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
+bool NIImporter_OpenDrive::myIgnoreMisplacedSignals;
 bool NIImporter_OpenDrive::myImportInternalShapes;
 NIImporter_OpenDrive::OpenDriveController NIImporter_OpenDrive::myDummyController("", "");
 
@@ -197,6 +198,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportWidths = !oc.getBool("opendrive.ignore-widths");
     myMinWidth = oc.getFloat("opendrive.min-width");
     myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
+    myIgnoreMisplacedSignals = oc.getBool("opendrive.ignore-misplaced-signals");
     bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     NBNodeCont& nc = nb.getNodeCont();
@@ -962,9 +964,9 @@ NIImporter_OpenDrive::writeRoadObjects(const OpenDriveEdge* e) {
             // cicrular shape
             // GeoConvHelper::getFinal is not ready yet
             GeoConvHelper::getLoaded().cartesian2geo(ref);
-            PointOfInterest poly(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0);
-            poly.setParameter("name", o.name);
-            poly.writeXML(dev, writeGeo);
+            PointOfInterest POI(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, false, 0, SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE));
+            POI.setParameter("name", o.name);
+            POI.writeXML(dev, writeGeo);
         } else {
             // rectangular shape
             PositionVector centerLine;
@@ -2275,9 +2277,12 @@ NIImporter_OpenDrive::myStartElement(int element,
     bool ok = true;
     switch (element) {
         case OPENDRIVE_TAG_HEADER: {
-            /*
             int majorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMAJOR, nullptr, ok);
             int minorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMINOR, nullptr, ok);
+            if (majorVersion == 1 && minorVersion > 4) { // disable flags only used for old 1.4 standard
+                NIImporter_OpenDrive::myIgnoreMisplacedSignals = false;
+            }
+            /*
             if (majorVersion != 1 || minorVersion != 2) {
                 // TODO: leave note of exceptions
                 WRITE_WARNINGF(TL("Given openDrive file '%' uses version %.%;\n Version 1.2 is supported."), getFileName(), toString(majorVersion), toString(minorVersion));
@@ -2734,6 +2739,47 @@ NIImporter_OpenDrive::myEndElement(int element) {
         break;
         case OPENDRIVE_TAG_LANESECTION: {
             myCurrentEdge.laneSections.back().buildLaneMapping(myTypeContainer);
+        }
+        break;
+        case OPENDRIVE_TAG_SIGNAL:
+        case OPENDRIVE_TAG_SIGNALREFERENCE: {
+            if (NIImporter_OpenDrive::myIgnoreMisplacedSignals) {
+                int intType = -1;
+                try {
+                    intType = StringUtils::toInt(myCurrentEdge.signals.back().type);
+                }
+                catch (NumberFormatException&) { break; }
+                catch (EmptyData&) { break; }
+                if (intType < 1000001 || (intType > 1000013 && intType != 1000020) || intType == 1000008) {
+                    // not a traffic_light (Section 6.11)
+                    break;
+                }
+                double s = myCurrentEdge.signals.back().s;
+                int minLane = myCurrentEdge.signals.back().minLane;
+                int maxLane = myCurrentEdge.signals.back().maxLane;
+                bool foundDrivingType = false;
+                for (OpenDriveLaneSection ls : myCurrentEdge.laneSections) {
+                    if (ls.s <= s && ls.s + ls.length > s) {
+                        if (myCurrentEdge.signals.back().orientation < 0) {
+                            for (OpenDriveLane l : ls.lanesByDir[OPENDRIVE_TAG_LEFT]) {
+                                if ((minLane < 0 && l.id >= minLane && l.id <= maxLane) && l.type == "driving") {
+                                    foundDrivingType = true;
+                                }
+                            }
+                        }
+                        else if (myCurrentEdge.signals.back().orientation > 0) { // 0 = center is never used for driving
+                            for (OpenDriveLane l : ls.lanesByDir[OPENDRIVE_TAG_RIGHT]) {
+                                if ((minLane > 0 && l.id >= minLane && l.id <= maxLane) && l.type == "driving") {
+                                    foundDrivingType = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!foundDrivingType) { // reject signal / signal reference if not on driving lane
+                    myCurrentEdge.signals.pop_back();
+                }
+            }
         }
         break;
         default:

@@ -20,6 +20,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include "MFXTextFieldSearch.h"
 
@@ -27,8 +28,8 @@
 // defines
 // =========================================================================
 
-#define ICON_SIZE           16
-#define ICON_SPACING        ICON_SIZE + 4   // Spacing between icon and label (2 + 2)
+#define ICON_SPACING    4   // Spacing between icon and label (2 + 2)
+#define ICON_SIZE       16
 
 // ===========================================================================
 // FOX callback mapping
@@ -43,21 +44,21 @@ FXDEFMAP(MFXTextFieldSearch) MFXTextFieldSearchMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(MFXTextFieldSearch, FXTextField, MFXTextFieldSearchMap, ARRAYNUMBER(MFXTextFieldSearchMap))
+FXIMPLEMENT(MFXTextFieldSearch, MFXTextFieldIcon, MFXTextFieldSearchMap, ARRAYNUMBER(MFXTextFieldSearchMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 MFXTextFieldSearch::MFXTextFieldSearch(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
+    MFXTextFieldIcon(p, ncols, GUIIconSubSys::getIcon(GUIIcon::SEARCH), tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
     myTarget(tgt) {
 }
 
 
 long
 MFXTextFieldSearch::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
-    FXTextField::onKeyPress(obj, sel, ptr);
+    MFXTextFieldIcon::onKeyPress(obj, sel, ptr);
     return myTarget->handle(this, FXSEL(SEL_COMMAND, MID_MTEXTFIELDSEARCH_UPDATED), ptr);
 }
 
@@ -87,11 +88,14 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
     // Draw caret
     if (flags & FLAG_CARET) {
         int xx = coord(cursor) - 1;
+        xx += ICON_SPACING + ICON_SIZE;
         dc.setForeground(cursorColor);
         dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
         dc.fillRectangle(xx - 2, padtop + border, 5, 1);
         dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
     }
+    // draw icon
+    dc.drawIcon(icon, 3, border + padtop + (height - padbottom - padtop - (border<<1) - ICON_SIZE) / 2);
     return 1;
 }
 
@@ -99,7 +103,7 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
 long
 MFXTextFieldSearch::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
     update();
-    return FXTextField::onFocusIn(sender, sel, ptr);
+    return MFXTextFieldIcon::onFocusIn(sender, sel, ptr);
 }
 
 
@@ -107,7 +111,7 @@ MFXTextFieldSearch::onFocusIn(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXTextFieldSearch::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
     update();
-    return FXTextField::onFocusOut(sender, sel, ptr);
+    return MFXTextFieldIcon::onFocusOut(sender, sel, ptr);
 }
 
 
@@ -115,12 +119,12 @@ MFXTextFieldSearch::onFocusOut(FXObject* sender, FXSelector sel, void* ptr) {
 long
 MFXTextFieldSearch::onFocusSelf(FXObject* sender, FXSelector sel, void* ptr) {
     //onPaint(sender, sel, ptr);
-    return FXTextField::onFocusSelf(sender, sel, ptr);
+    return MFXTextFieldIcon::onFocusSelf(sender, sel, ptr);
 }
 
 
 MFXTextFieldSearch::MFXTextFieldSearch() :
-    FXTextField() {
+    MFXTextFieldIcon() {
 }
 
 
@@ -168,7 +172,8 @@ MFXTextFieldSearch::drawSearchTextRange(FXDCWindow& dc, FXint fm, const FXString
         // Text centered in field
         xx = shift + mm - ww / 2;
     }
-
+    // add icon spacing
+    xx += ICON_SPACING + ICON_SIZE;
     // Reduce to avoid drawing excessive amounts of text
     lx = xx + font->getTextWidth(&searchString[0], fm);
     rx = lx + font->getTextWidth(&searchString[fm], to - fm);

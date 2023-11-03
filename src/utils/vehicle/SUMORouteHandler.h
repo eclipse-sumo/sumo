@@ -164,6 +164,12 @@ protected:
     /// @name add element functions
     //@{
 
+    /// @brief Processing of a person or container
+    virtual void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson) {
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(isPerson);
+    }
+
     /// @brief Processing of a stop
     virtual Parameterised* addStop(const SUMOSAXAttributes& attrs) = 0;
 
@@ -173,14 +179,8 @@ protected:
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
 
-    /// @brief Processing of a person
-    virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
-
     /// @brief Processing of a ride
     virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
-
-    /// @brief Processing of a container
-    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief Processing of a transport
     virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
@@ -256,6 +256,9 @@ protected:
 
     /// @brief hierachy of elements being parsed
     std::vector<int> myElementStack;
+
+    /// @brief whether references to internal routes are allowed in this context
+    bool myAllowInternalRoutes;
 
 private:
     /// @brief Invalidated copy constructor

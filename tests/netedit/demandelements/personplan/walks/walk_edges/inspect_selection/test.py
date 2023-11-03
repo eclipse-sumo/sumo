@@ -43,8 +43,9 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect walkEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
+                  netedit.positions.demandElements.planTopEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkEdges.inspectSelection.arrivalPos, "dummy", False)

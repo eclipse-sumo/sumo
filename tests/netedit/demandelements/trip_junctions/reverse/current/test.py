@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # create trip using two junctions
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
+                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
+                  netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +50,9 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.junction0.x, netedit.positions.demandElements.junction0.y,
+netedit.contextualMenuOperation(referencePosition,
+                                netedit.positions.demandElements.junction0.x,
+                                netedit.positions.demandElements.junction0.y,
                                 netedit.attrs.tripJunction.reverseElement,
                                 netedit.attrs.tripJunction.reverse.current)
 

@@ -55,6 +55,42 @@ GNELaneTemplate::updateGeometry() {
 }
 
 
+bool
+GNELaneTemplate::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNELaneTemplate::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNELaneTemplate::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNELaneTemplate::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNELaneTemplate::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNELaneTemplate::checkDrawSelectContour() const {
+    return false;
+}
+
+
 std::string
 GNELaneTemplate::getAttribute(SumoXMLAttr key) const {
     return myLane->getAttribute(key);

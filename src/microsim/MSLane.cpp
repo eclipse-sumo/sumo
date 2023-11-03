@@ -241,17 +241,18 @@ MSLane::AnyVehicleIterator::nextIsMyVehicles() const {
 // member method definitions
 // ===========================================================================
 MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double length, MSEdge* const edge,
-               int numericalID, const PositionVector& shape, double width,
-               SVCPermissions permissions,
-               SVCPermissions changeLeft, SVCPermissions changeRight,
-               int index, bool isRampAccel,
-               const std::string& type) :
+    int numericalID, const PositionVector& shape, double width,
+    SVCPermissions permissions,
+    SVCPermissions changeLeft, SVCPermissions changeRight,
+    int index, bool isRampAccel,
+    const std::string& type) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
     myFrictionCoefficient(friction),
-    myControlledByVSS(false),
+    mySpeedByVSS(false),
+    mySpeedByTraCI(false),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
     myChangeRight(changeRight),
@@ -2624,9 +2625,10 @@ MSLane::getEntryLink() const {
 
 
 void
-MSLane::setMaxSpeed(double val, bool byVSS) {
+MSLane::setMaxSpeed(double val, bool byVSS, bool byTraCI) {
     myMaxSpeed = val;
-    myControlledByVSS = byVSS;
+    mySpeedByVSS = byVSS;
+    mySpeedByTraCI = byTraCI;
     myEdge->recalcCache();
 }
 

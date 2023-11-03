@@ -31,7 +31,7 @@ class demandElements:
 
     class edge2:
         x = 375
-        y = 30
+        y = 33
 
     class edge3:
         x = 280
@@ -117,6 +117,22 @@ class demandElements:
         x = 197
         y = 37
 
+    class planTopEdge:
+        x = 750
+        y = 3
+
+    class planTopBusStop:
+        x = 750
+        y = 33
+
+    class planTopRide:
+        x = 750
+        y = 33
+
+    class planTop:
+        x = 720
+        y = 3
+
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:
         x = 160
@@ -129,18 +145,13 @@ class demandElements:
 
     # click over single person / flow over edges
     class person:
-        x = 136
-        y = 472
-
-    # click over person stop
-    class stopPerson:
-        x = 280
-        y = 0
+        x = 133
+        y = 479
 
     # click over stop edge
-    class stopEdge:
-        x = 260
-        y = 35
+    class stopBusStop:
+        x = 375
+        y = 40
 
     # click over single trip or flow over junctions
     class singleVehicleJunction:

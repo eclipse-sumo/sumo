@@ -1,0 +1,19 @@
+ Retrying in 1 seconds
+constraints for 'A'
+   Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True, active=True param=bar=23|foo=42)
+   Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+constraints for 'A' and trip 't0'
+   Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True, active=True param=bar=23|foo=42)
+   Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+constraints for 'D'
+constraints where 'D' is foeSignal
+   Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True, active=True param=bar=23|foo=42)
+   Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+constraints for 'A' (later)
+   Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=False, active=True param=bar=23|foo=42)
+   Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t3, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t5, foeId=t4, foeSignal=D, limit=1, type=0, mustWait=True, active=True)

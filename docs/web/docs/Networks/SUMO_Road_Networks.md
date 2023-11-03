@@ -238,7 +238,7 @@ where *<NODE_ID\>* is the ID of the node the edge is located within and
 the incoming and outgoing edges connected by the internal edge have
 multiple lanes, the internal edge has multiple lanes as well (according
 to the number of connections between these two edges). In case of
-multi-lane internal edges, the INDEX jumps by the number of of lanes so
+multi-lane internal edges, the INDEX jumps by the number of lanes so
 that EDGE_INDEX + LANE_INDEX = CONNECTION_INDEX.
 
 The attributes are given in the following table.
@@ -252,7 +252,7 @@ The attributes are given in the following table.
 When the network was built with internal edges, each connection will typically correspond to exactly one internal lane.
 If there are multiple connections that have the same pair of `from` and `to` edges, then the internal lanes for these edges will be part of the same internal edge. On connections marked as *straight* (`dir="s"`), lane changing on internal lanes is permitted.
 
-A special case are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
+Special cases are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
 
 - left-turning vehicles that yield to oncoming traffic
 - right-turning vehicles that yield to pedestrian crossings

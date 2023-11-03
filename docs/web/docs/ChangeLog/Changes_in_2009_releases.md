@@ -62,7 +62,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
 
 - od2trips
   - debugged problems with O/D matrices that have no comments, was:
-    [defect 148: od2trips breaks on matrices without comments](https://github.com/eclipse/sumo/issues/148);
+    [defect 148: od2trips breaks on matrices without comments](https://github.com/eclipse-sumo/sumo/issues/148);
     thanks to Wilson Wong for pointing us to it
 
 
@@ -95,10 +95,10 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
     - Removed unused/undescribed lane-change options **--lanechange.min-sight** and **--lanechange.min-sight-edges**
   - Outputs
     - patched problems with the intervals of detector outputs
-      (including [defect 73: false end step information in detectors output](https://github.com/eclipse/sumo/issues/73))
+      (including [defect 73: false end step information in detectors output](https://github.com/eclipse-sumo/sumo/issues/73))
   - removed TrafficOnline classes; new approaches will be
     described/discussed at
-    TrafficOnline; was: [enhancement 57: remove TrafficOnline classes from simulation core](https://github.com/eclipse/sumo/issues/57)
+    TrafficOnline; was: [enhancement 57: remove TrafficOnline classes from simulation core](https://github.com/eclipse-sumo/sumo/issues/57)
     - [edgelane traffic](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md),
       [edgelane hbefa](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
       and [edgelane harmonoise]../(Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
@@ -136,7 +136,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - Type descriptions allow a certain edge type to be discarded from
     being imported using the `discard="x"` attribute.
   - netconvert can guess roundabouts; force using **--guess-roundabouts**
-  - corrected usage of the `spread_type` attribute in edges; was: [defect 111 correct usage of the spread_type attribute](https://github.com/eclipse/sumo/issues/111)
+  - corrected usage of the `spread_type` attribute in edges; was: [defect 111 correct usage of the spread_type attribute](https://github.com/eclipse-sumo/sumo/issues/111)
   - patching problems with RoboCup Rescue League import
 
 - od2trips
@@ -144,7 +144,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
     [Specification](../Specification/index.md)
-  - solved [defect 67: false interpretation of the second time field (od2trips)](https://github.com/eclipse/sumo/issues/67)
+  - solved [defect 67: false interpretation of the second time field (od2trips)](https://github.com/eclipse-sumo/sumo/issues/67)
 
 - duarouter
   - The default departure/arrival behavior can be controlled on the
@@ -162,7 +162,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - changed name of "areal detectors" to "multi-entry/multi-exit
     detectors"
   - fixed crashes occurring when using the distance command
-    ([defect 70: TraCI does not recognize edges with'\['...](https://github.com/eclipse/sumo/issues/70))
+    ([defect 70: TraCI does not recognize edges with'\['...](https://github.com/eclipse-sumo/sumo/issues/70))
   - added [APIs for getting information about vehicles, vehicle types, lanes, routes, polygons, PoIs, and junctions](../TraCI.md).
   - added the possibility to change the phase and retrieve the
     current phase and complete definition of a tls using the new
@@ -239,14 +239,14 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
 - netconvert / Netgen
   - trying to deal with problems on network building; networks are
     more correct for most cases, but may look weird sometimes
-  - solved [defect 38: speed instead of length while importing XML](https://github.com/eclipse/sumo/issues/38)
+  - solved [defect 38: speed instead of length while importing XML](https://github.com/eclipse-sumo/sumo/issues/38)
   - changed the tls-guessing procedure (unverified, yet); tls which
     span over multiple junctions can now been "guessed" if both,
     nodes are marked as being controlled by traffic lights or not
-    within the imported data; see also: [task 42: (TAPAS) add possibility to generate joined tls if tls are given](https://github.com/eclipse/sumo/issues/42)
+    within the imported data; see also: [task 42: (TAPAS) add possibility to generate joined tls if tls are given](https://github.com/eclipse-sumo/sumo/issues/42)
 
 - polyconvert
-  - solved [defect 14: polyconvert does not report about double ids](https://github.com/eclipse/sumo/issues/14)
+  - solved [defect 14: polyconvert does not report about double ids](https://github.com/eclipse-sumo/sumo/issues/14)
   - renamed option **--xml-points** to **--xml**
   - renamed option **--shape-files** to **--shape-file**
 

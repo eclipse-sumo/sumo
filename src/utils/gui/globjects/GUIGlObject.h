@@ -65,6 +65,7 @@ class Node;
 // ===========================================================================
 
 class GUIGlObject {
+
 public:
     /// @brief associates object types with strings
     static StringBijection<GUIGlObjectType> TypeNames;
@@ -329,14 +330,14 @@ private:
     FXIcon* myIcon;
 
     /// @brief whether the object can be deleted
-    bool myAmBlocked;
+    bool myAmBlocked = false;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;
 
 #ifdef HAVE_OSG
     /// @brief OSG Node of this GL object
-    osg::Node* myOSGNode;
+    osg::Node* myOSGNode = nullptr;
 #endif
 
     /// @brief create full name

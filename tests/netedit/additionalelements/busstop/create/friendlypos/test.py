@@ -37,7 +37,7 @@ netedit.changeElement("busStop")
 # set friendlyPos
 netedit.changeDefaultBoolValue(netedit.attrs.busStop.create.friendlyPos)
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # Check undo redo

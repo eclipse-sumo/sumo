@@ -19,69 +19,50 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-class GNEWalk : public GNEDemandElement, public Parameterised {
+
+class GNEWalk : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
 public:
-    /// @brief default constructor
-    GNEWalk(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
+    /**@brief general constructor for walks
+     * @param[in] net Network in which this walk is placed
      * @param[in] personParent person parent
      * @param[in] fromEdge from edge
+     * @param[in] fromTAZ from TAZ
+     * @param[in] fromJunction from Junction
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
      * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->busStop or edge->trainStop
-     * @param[in] isTrain check if si tran or busStop
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
+     * @param[in] toTAZ to TAZ
+     * @param[in] toJunction to Junction
      * @param[in] toBusStop to busStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(const bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toAdditional, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] edges list of edges
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
+     * @param[in] toTrainStop to trainStop
+     * @param[in] edgeList list of edges
      * @param[in] route route
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition);
+    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
 
-    /**@brief parameter constructor for person junction->junction
-     * @param[in] net network in which this Walk is placed
-     * @param[in] personParent person parent
-     * @param[in] fromJunction from junction
-     * @param[in] toJunction to junction
-     * @param[in] arrivalPosition arrival position on the destination junction
-     */
-    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition);
+    /// @brief default constructor
+    GNEWalk(SumoXMLTag tag, GNENet* net);
 
     /// @brief destructor
     ~GNEWalk();
@@ -163,22 +144,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -237,10 +215,6 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
-protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
@@ -250,6 +224,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildWalk
+     * @param[in] net Network in which this Walk is placed
+     * @param[in] tag walk tag
+     * @param[in] icon walk icon
+     * @param[in] parents demand element parents (person and, optionally, route)
+     * @param[in] junction from-to junctions
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     */
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*> &parents, const std::vector<GNEJunction*> &junctions,
+            const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

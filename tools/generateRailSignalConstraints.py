@@ -1529,7 +1529,9 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             conflicts[conflict.signal].append(conflict)
                             numConflicts += 1
 
-    numRemoved = checkBidiConsistency(conflicts, options.verbose)
+    tl_to_stop = getStopTLS(stopEdges, net)
+    numRemoved = removeDeadlockingBidiConstraints(conflicts, tl_to_stop, options.verbose)
+    numRemoved += checkBidiConsistency(conflicts, options.verbose)
     numConflicts -= numRemoved
 
     if numConflicts > 0:
@@ -1682,6 +1684,46 @@ def checkBidiConsistency(conflicts, verbose):
     return numRemoved
 
 
+def removeDeadlockingBidiConstraints(conflicts, tl_to_stop, verbose):
+    """If there is a non-bidi section in between two single tracks
+    (like so: A--=B=--C), contradictory constraints may be generated,
+    where train at A waits for train at C to pass a signal at B, and where
+    train at C waits for train at A to pass the signal at B.
+    """
+    tfcMap = defaultdict(list)
+    numRemoved = 0
+
+    for signal in sorted(conflicts.keys()):
+        for c in conflicts[signal]:
+            other_stop = tl_to_stop.get(c.otherSignal, None)
+            if not other_stop:
+                continue
+            key = (c.tripID, c.otherTripID, other_stop)
+            rkey = (c.otherTripID, c.tripID, other_stop)
+            if key in tfcMap and verbose:
+                print("Deadlock-causing conflict between '%s' and '%s' at busStop '%s'." % key, file=sys.stderr)
+            tfcMap[key].append(c)
+            if rkey in tfcMap:
+                keyToRemove = None
+                # decide which of the two conflicts to keep
+                times = dict([t.split("=") for t in c.conflictTime.split()])
+                if parseTime(times["foeStopArrival"]) < parseTime(times["stopArrival"]):
+                    keyToRemove = rkey
+                else:
+                    keyToRemove = key
+                for c in tfcMap[keyToRemove]:
+                    numRemoved += 1
+                    conflicts[c.signal].remove(c)
+                    if verbose:
+                        print("Found bidi conflict causing deadlock (tripId=%s, foeId=%s, busStop=%s)." % keyToRemove)
+                    if not conflicts[c.signal]:
+                        del conflicts[c.signal]
+                del tfcMap[keyToRemove]
+    if numRemoved > 0 and verbose:
+        print("Removed %s deadlock-causing bidi conflicts." % numRemoved)
+    return numRemoved
+
+
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
     """return all edges along the route starting at the given stop index and startEdge
        either going forward or backward
@@ -1789,6 +1831,18 @@ def writeConstraint(options, outf, tag, c):
 
     outf.write('        <%s tripId="%s" tl="%s" foes="%s"%s%s%s%s\n' % (
         tag, c.tripID, c.otherSignal, c.otherTripID, limit, active, close, comment))
+
+
+def getStopTLS(stopEdges, net):
+    # Generates a mapping from traffic lights to associated stop locations
+    tls_to_stop = {}
+    for key, val in stopEdges.items():
+        stop = key.split("@")[-1]
+        node = net.getEdge(val).getFromNode()
+        if node.getType() == "rail_signal":
+            tl = net.getTLS(node.getID()).getID()
+            tls_to_stop[tl] = stop
+    return tls_to_stop
 
 
 def main(options):

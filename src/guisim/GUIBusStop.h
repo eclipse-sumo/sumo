@@ -25,15 +25,16 @@
 
 #include <vector>
 #include <string>
+#include <microsim/MSStoppingPlace.h>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
-#include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/Position.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <gui/GUIManipulator.h>
 
 
@@ -81,7 +82,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* lane, const double pos, double length);
+    bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length);
 
     /// @name inherited from GUIGlObject
     //@{

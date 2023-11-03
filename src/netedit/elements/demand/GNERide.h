@@ -19,12 +19,15 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
@@ -33,35 +36,28 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 
-class GNERide : public GNEDemandElement, public Parameterised {
+class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
+    /**@brief general constructor for rides
+     * @param[in] net Network in which this rides is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
+     * @param[in] toEdge to edge
+     * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] lines list of lines
+     */
+    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
+        GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+        GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, const std::vector<std::string>& lines);
+
     /// @brief default constructor
     GNERide(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] lines list of lines
-     */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-            double arrivalPosition, const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for person edge->busStop
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toBusStop to busStop
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] lines list of lines
-     */
-    GNERide(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-            double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
@@ -143,22 +139,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -218,9 +211,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
 
@@ -233,6 +223,18 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildRide
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] eges from-to edges
+     * @param[in] additionals from-to additionals
+     * @param[in] lines list of lines
+     */
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
+            const std::vector<GNEAdditional*> &additionals, double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

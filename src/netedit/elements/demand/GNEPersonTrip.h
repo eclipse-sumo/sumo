@@ -19,66 +19,52 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
+#include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
-
 // ===========================================================================
 // class definitions
-// ===========================================================================
-class GNEPersonTrip : public GNEDemandElement, public Parameterised {
-public:
+// ====================================================================
+
+class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
+
+public:    
+    /**@brief general constructor for personTrip
+     * @param[in] net Network in which this PersonTrip is placed
+     * @param[in] personParent person parent
+     * @param[in] fromEdge from edge
+     * @param[in] fromTAZ from TAZ
+     * @param[in] fromJunction from Junction
+     * @param[in] fromBusStop from busStop
+     * @param[in] fromTrainStop from trainStop
+     * @param[in] toEdge to edge
+     * @param[in] toTAZ to TAZ
+     * @param[in] toJunction to Junction
+     * @param[in] toBusStop to busStop
+     * @param[in] toTrainStop to trainStop
+     * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] types list of possible vehicle types to take
+     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
+     */
+    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent, 
+        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+        const std::vector<std::string>& lines);
+
     /// @brief default constructor
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);
-
-    /**@brief parameter constructor for person edge->edge
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toEdge to edge
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for person edge->stoppingPlace
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] toStoppingPlace to stoppingPlace
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(bool isTrain, GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toStoppingPlace,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
-
-    /**@brief parameter constructor for person junction->junction
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
-     * @param[in] fromJunction from junction
-     * @param[in] toJunction to junction
-     * @param[in] arrivalPosition arrival position on the destination junction
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -160,22 +146,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -235,9 +218,6 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief arrival position
-    double myArrivalPosition;
-
     /// @brief valid line or vehicle types
     std::vector<std::string> myVTypes;
 
@@ -256,6 +236,22 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /**@brief constructor called in buildPersonTrip
+     * @param[in] net Network in which this PersonTrip is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] junction from-to juncitons
+     * @param[in] eges from-to edges
+     * @param[in] additionlas from-to additionals
+     * @param[in] types list of possible vehicle types to take
+     * @param[in] modes list of possible traffic modes
+     * @param[in] lines list of lines
+     */
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*> &junctions,
+                  const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition,
+                  const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;

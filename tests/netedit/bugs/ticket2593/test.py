@@ -31,11 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select busStop
-netedit.changeElement("busStop")
-
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 428, 264)
 
 # quit netedit
 netedit.quit(neteditProcess, True, True, True, False)
@@ -46,11 +43,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select busStop
-netedit.changeElement("busStop")
-
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 428, 264)
 
 # save network but don't save additionals
 netedit.saveNetwork(referencePosition)
@@ -64,11 +58,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select busStop
-netedit.changeElement("busStop")
-
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 428, 264)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

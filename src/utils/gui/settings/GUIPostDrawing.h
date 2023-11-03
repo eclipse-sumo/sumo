@@ -24,6 +24,15 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEJunction;
+class GNEEdge;
+class GNELane;
+class GNERoute;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 
@@ -45,17 +54,8 @@ public:
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
-    /// @brief check if the given element is the top element under cursor
-    bool isTopElementUnderCursor(const GUIGlObject* GLObject) const;
-
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
-
-    /// @brief elements marked for drawing remove contour (used in netedit)
-    std::vector<const GUIGlObject*> elementsMarkedToRemove;
-
-    /// @brief elements marked for drawing selet contour(used in netedit)
-    std::vector<const GUIGlObject*> elementsMarkedToSelect;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
@@ -63,20 +63,26 @@ public:
     /// @brief mouse position before rendering elements
     Position mousePos = Position::INVALID;
 
-    /// @brief marked Node (used in create edge mode)
-    const GUIGlObject* markedNode = nullptr;
+    /// @brief elements marked for drawing over contour (used in netedit)
+    const GUIGlObject* markedElementOverContour;
+
+    /// @brief elements marked for drawing delete contour (used in netedit)
+    const GUIGlObject* markedElementDeleteContour;
+
+    /// @brief elements marked for drawing select contour (used in netedit)
+    const GUIGlObject* markedElementSelectContour;
 
     /// @brief marked edge (used in create edge mode, for splitting)
-    const GUIGlObject* markedEdge = nullptr;
+    const GNEEdge* markedEdge = nullptr;
 
     /// @brief marked lane (used in create edge mode, for splitting)
-    const GUIGlObject* markedLane = nullptr;
+    const GNELane* markedLane = nullptr;
 
     /// @brief marked TAZ (used in create TAZRel mode)
     const GUIGlObject* markedTAZ = nullptr;
 
-    /// @brief marked Route (used in create vehicle mode)
-    const GUIGlObject* markedRoute = nullptr;
+    /// @brief marked route (used in create vehicle mode)
+    const GNERoute* markedRoute = nullptr;
 
     /// @brief marked first geometry point (used for moving/delete geometry points)
     const GUIGlObject* markedFirstGeometryPoint = nullptr;
@@ -90,9 +96,6 @@ protected:
 
     /// @brief elements under cursor
     std::vector<const GUIGlObject*> myElementsUnderCursor;
-
-    /// @brief top element (used during selecting and deleting)
-    const GUIGlObject* myTopElement = nullptr;
 
 private:
     /// @brief set copy constructor private

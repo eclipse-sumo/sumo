@@ -76,6 +76,14 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
+    /// @name Function related with drawing
+    /// @{
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
 

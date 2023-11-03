@@ -84,11 +84,36 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
+
+    /// @}
+
+    /// @name Function related with contourdrawing (can be implemented in children)
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const = 0;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const = 0;
+
+    /// @brief check if draw related contour (cyan)
+    virtual bool checkDrawRelatedContour() const = 0;
+
+    /// @brief check if draw over contour (orange)
+    virtual bool checkDrawOverContour() const = 0;
+
+    /// @brief check if draw delete contour (pink/white)
+    virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw select contour (blue)
+    virtual bool checkDrawSelectContour() const = 0;
+
     /// @}
 
     /// @name inherited from GUIGlObject

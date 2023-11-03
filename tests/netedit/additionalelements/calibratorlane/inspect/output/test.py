@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.output, "///;;", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.output, "///;;", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.output, "myOwnFilename", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.output, "myOwnFilename", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

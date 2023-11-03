@@ -248,6 +248,12 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
+GNENeteditAttributes*
+GNEAdditionalFrame::getNeteditAttributes() const {
+    return myNeteditAttributes;
+}
+
+
 bool
 GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
@@ -507,7 +513,11 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
     // Obtain position of the mouse over lane (limited over grid)
     const double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
     // set attribute position as mouse position over lane
-    myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+    if (myBaseAdditional->getTag() == SUMO_TAG_ACCESS) {
+        myBaseAdditional->addStringAttribute(SUMO_ATTR_POSITION, toString(mousePositionOverLane));
+    } else {
+        myBaseAdditional->addDoubleAttribute(SUMO_ATTR_POSITION, mousePositionOverLane);
+    }
     // parse common attributes
     if (!buildAdditionalCommonAttributes(tagProperties)) {
         return false;

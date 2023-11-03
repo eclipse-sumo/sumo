@@ -8,9 +8,9 @@ TestFunctions: Clicked over position 608 - 412
 TestFunctions: Clicked over position 650 - 412
 5
 TestFunctions: Clicked over position 608 - 412
-reference right
+Reference Right
 TestFunctions: Clicked over position 650 - 412
-reference center
+Center
 TestFunctions: Clicked over position 608 - 412
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

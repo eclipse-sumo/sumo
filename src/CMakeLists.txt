@@ -3,7 +3,7 @@ set(netconvertlibs
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs})
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GEOS_LIBRARY})
 if (OPENSCENEGRAPH_FOUND)
     set(osgviewlib osgview)
 endif ()
@@ -57,9 +57,6 @@ add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
 target_link_libraries(sumo microsim traciserver libsumostatic ${sumolibs} ${TCMALLOC_LIBRARY})
-if (JPS_FOUND)
-    target_link_libraries(sumo jps)
-endif()
 add_dependencies(sumo generate-version-h install_dll)
 
 if (FOX_FOUND)

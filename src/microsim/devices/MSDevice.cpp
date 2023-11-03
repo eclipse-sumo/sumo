@@ -172,7 +172,7 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 
 
 std::string
-MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required) {
+MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
     const std::string key = "device." + paramName;
     if (v.getParameter().knowsParameter(key)) {
         return v.getParameter().getParameter(key, "");
@@ -196,39 +196,36 @@ MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::strin
 
 
 double
-MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required) {
-    const std::string key = "device." + paramName;
-    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
-        return StringUtils::toDouble(val);
-    } catch (...) {
-        WRITE_ERRORF(TL("Invalid float value '%'for parameter '%'"), val, key);
+        return Distribution_Parameterized(val).sample();
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid distribution / float value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }
 
 
 bool
-MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required) {
-    const std::string key = "device." + paramName;
-    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return StringUtils::toBool(val);
-    } catch (...) {
-        WRITE_ERRORF(TL("Invalid bool value '%'for parameter '%'"), val, key);
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid boolean value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }
 
 
 SUMOTime
-MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required) {
-    const std::string key = "device." + paramName;
-    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required) {
+    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return string2time(val);
-    } catch (...) {
-        WRITE_ERRORF(TL("Invalid time value '%'for parameter '%'"), val, key);
+    } catch (const ProcessError&) {
+        WRITE_ERRORF(TL("Invalid time value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
         return deflt;
     }
 }

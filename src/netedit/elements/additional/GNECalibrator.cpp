@@ -489,30 +489,9 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
     // check if mouse is over element
     mouseWithinGeometry(pos, s.additionalSettings.calibratorWidth,
                         s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
-    // inspect element
-    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, pos,
-                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
-    }
-    // front element
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, pos,
-                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
-    }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, pos,
-                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, pos,
-                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration);
-    }
+    // draw dotted contour
+    myContour.drawDottedContourRectangle(s, pos, s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 0,
+                                         s.additionalSettings.calibratorHeight * 0.5, rot, exaggeration, s.dottedContourSettings.segmentWidth);
 }
 
 void

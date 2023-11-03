@@ -302,7 +302,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_FROMJUNCTION, from->getFromJunction()->getID());
+                os.writeAttr(SUMO_ATTR_FROM_JUNCTION, from->getFromJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_FROM, from->getID());
             }
@@ -319,7 +319,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                     os.writeAttr(SUMO_ATTR_TOXY, toPos);
                 }
             } else if (writeJunctions) {
-                os.writeAttr(SUMO_ATTR_TOJUNCTION, to->getToJunction()->getID());
+                os.writeAttr(SUMO_ATTR_TO_JUNCTION, to->getToJunction()->getID());
             } else {
                 os.writeAttr(SUMO_ATTR_TO, to->getID());
             }

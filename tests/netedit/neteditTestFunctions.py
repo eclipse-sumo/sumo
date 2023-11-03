@@ -343,7 +343,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
         # wait for reference
         time.sleep(DELAY_REFERENCE)
     # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3, confidence=0.95)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
@@ -2597,43 +2597,6 @@ def TAZMode():
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
-
-def createSquaredShape(referencePosition, positionx, positiony, size, close):
-    """
-    @brief Create squared TAZ in position with a certain size
-    """
-    # focus current frame
-    focusOnFrame()
-    # start draw
-    typeEnter()
-    # create TAZ
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx, positiony - (size / 2))
-    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
-    leftClick(referencePosition, positionx - (size / 2), positiony)
-    # check if TAZ has to be closed
-    if (close is True):
-        leftClick(referencePosition, positionx, positiony)
-    # finish draw
-    typeEnter()
-
-
-def createLineShape(referencePosition, positionx, positiony, sizex, sizey, close):
-    """
-    @brief Create line TAZ in position with a certain size
-    """
-    # focus current frame
-    focusOnFrame()
-    # start draw
-    typeEnter()
-    # create TAZ
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
-    # check if TAZ has to be closed
-    if (close is True):
-        leftClick(referencePosition, positionx, positiony)
-    # finish draw
-    typeEnter()
 
 #################################################
     # datas

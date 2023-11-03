@@ -563,7 +563,8 @@ GUIPerson::getStageIndexDescription() const {
     if (hasArrived()) {
         return "arrived";
     }
-    return toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1);
+    // there is always the "start" stage which we do not count here because it is not strictly part of the plan
+    return toString(getCurrentStageIndex()) + " of " + toString(getNumStages() - 1);
 }
 
 

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_17_0+1169-1d29275
+Eclipse SUMO netconvert Version v1_18_0+2224-9463baa5d5c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -73,6 +73,8 @@ Output Options:
                                         FILE using OpenDRIVE format
   --dlr-navteq-output FILE             The generated net will be written to
                                         dlr-navteq files with the given PREFIX
+  --dlr-navteq.version STR             The dlr-navteq output format version to
+                                        write
   --dlr-navteq.precision INT           The network coordinates are written with
                                         the specified level of output precision
   --output.street-names                Street names will be included in the
@@ -445,7 +447,7 @@ Junctions Options:
                                         lane-changing while turning
   --junctions.limit-turn-speed FLOAT   Limits speed on junctions to an average
                                         lateral acceleration of at most FLOAT
-                                        m/s^2)
+                                        (m/s^2)
   --junctions.limit-turn-speed.min-angle FLOAT  Do not limit turn speed for
                                         angular changes below FLOAT (degrees).
                                         The value is subtracted from the
@@ -649,6 +651,8 @@ Formats Options:
                                         discarded lane types
   --opendrive.signal-groups            Use the OpenDRIVE controller information
                                         for the generated signal program
+  --opendrive.ignore-misplaced-signals  Ignore traffic signals which do not
+                                        control any driving lane
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -669,6 +673,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
   --language STR                       Language to use in messages
   --ignore-errors                      Continue on broken input
   --ignore-errors.connections          Continue on invalid connections

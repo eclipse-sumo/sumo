@@ -157,8 +157,9 @@ const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
 // Dotted contour values
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
 const double GUIVisualizationDottedContourSettings::segmentWidthSmall(0.1);
-const double GUIVisualizationDottedContourSettings::segmentWidthLarge(0.2);
+const double GUIVisualizationDottedContourSettings::segmentWidthLarge(0.5);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
 const RGBColor GUIVisualizationDottedContourSettings::firstInspectedColor(235, 235, 235);
 const RGBColor GUIVisualizationDottedContourSettings::secondInspectedColor(20, 20, 20);
@@ -567,6 +568,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     personSize(1),
     personName(false, 60, RGBColor(0, 153, 204, 255)),
     personValue(false, 80, RGBColor::CYAN),
+    showPedestrianNetwork(true),
+    pedestrianNetworkColor(RGBColor(179, 217, 255)),
     containerQuality(0),
     containerSize(1),
     containerName(false, 60, RGBColor(0, 153, 204, 255)),
@@ -1829,6 +1832,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_PERSONS);
     dev.writeAttr("personMode", personColorer.getActive());
     dev.writeAttr("personQuality", personQuality);
+    dev.writeAttr("showPedestrianNetwork", showPedestrianNetwork);
+    dev.writeAttr("pedestrianNetworkColor", pedestrianNetworkColor);
     personSize.print(dev, "person");
     dev.lf();
     dev << "                ";
@@ -2197,6 +2202,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (personValue != v2.personValue) {
         return false;
     }
+    if (showPedestrianNetwork != v2.showPedestrianNetwork) {
+        return false;
+    }
+    if (pedestrianNetworkColor != v2.pedestrianNetworkColor) {
+        return false;
+    }
     if (!(containerColorer == v2.containerColorer)) {
         return false;
     }
@@ -2434,7 +2445,9 @@ GUIVisualizationSettings::getCircleResolution() const {
 
 bool
 GUIVisualizationSettings::drawDottedContour(const double exaggeration) const {
-    if (drawForPositionSelection || drawForRectangleSelection) {
+    if (disableDottedContours) {
+        return false;
+    } else if (drawForPositionSelection || drawForRectangleSelection) {
         return false;
     } else {
         return (scale * exaggeration) > 3.;

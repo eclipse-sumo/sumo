@@ -191,7 +191,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_DEMAND,     GNEApplicationWindow::onCmdSetSuperMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DATA,       GNEApplicationWindow::onCmdSetSuperMode),
     // Toolbar modes
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,      GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                    GNEApplicationWindow::onCmdSetMode),
@@ -365,7 +365,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunPythonTool),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingPythonTool),
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,  GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
@@ -516,16 +516,20 @@ GNEApplicationWindow::dependentBuild() {
     // build geo coordinates label
     auto requireRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myRequireRecomputingButton = new MFXButtonTooltip(requireRecomputingFrame, myStaticTooltipMenu,
-            (TL("Recomputing") + std::string("\t\t") + TL("Recomputing is needed")).c_str(), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+            TL("Recomputing"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+    myRequireRecomputingButton->setHelpText(TL("Recomputing is needed"));
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, (TL("N/A") + std::string("\t\t") + TL("Original coordinate (before coordinate transformation in netconvert)")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myGeoCoordinate = new FXLabel(myGeoFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myGeoCoordinate->setHelpText(TL("Original coordinate (before coordinate transformation in netconvert)"));
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A") + std::string("\t\t") + TL("Network coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myCartesianCoordinate->setHelpText(TL("Network coordinate"));
     // build test coordinates label (only if gui-testing is enabled)
     myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myTestCoordinate = new FXLabel(myTestFrame, TL("N/A"), nullptr, GUIDesignLabelStatusBar);
+    myTestCoordinate->setHelpText(TL("Test coordinate"));
     myTestCoordinate->setTextColor(FXRGB(255, 0, 0));
     myTestFrame->hide();
     // make the window a mdi-window
@@ -1121,8 +1125,7 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
-        // hide all Supermode, Network and demand commands
-        mySupermodeCommands.hideSupermodeCommands();
+        // hide all menu commands
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
         myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
@@ -1295,7 +1298,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->file.c_str()));
         // force supermode network
         if (myViewNet) {
-            myViewNet->forceSupermodeNetwork();
+            myViewNet->forceSupemodeNetwork();
         }
         if (myViewNet && ec->viewportFromRegistry) {
             Position off;
@@ -1365,7 +1368,8 @@ GNEApplicationWindow::fillMenuBar() {
     myModesMenuTitle->setSelector(MID_GNE_MODESMENUTITLE);
     // build Supermode commands and hide it
     mySupermodeCommands.buildSupermodeCommands(myModesMenu);
-    mySupermodeCommands.hideSupermodeCommands();
+    // add separator
+    new FXSeparator(myModesMenu);
     // build modes menu commands
     myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
@@ -1473,6 +1477,7 @@ GNEApplicationWindow::fillMenuBar() {
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
+    // build language menu
     buildLanguageMenu(myToolbarsGrip.menu);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
@@ -1773,6 +1778,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         return 1;
     }
 }
+
 
 bool
 GNEApplicationWindow::consoleOptionsLoaded() {
@@ -2139,9 +2145,15 @@ GNEApplicationWindow::onCmdToggleTimeFormat(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         myViewNet->getTimeFormat().switchTimeFormat();
         // refresh flow frames
-        myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesCreator();
-        myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesCreator();
-        myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesCreator();
+        if (myViewNet->getViewParent()->getVehicleFrame()->shown()) {
+            myViewNet->getViewParent()->getVehicleFrame()->getVehicleAttributes()->refreshAttributesCreator();
+        }
+        if (myViewNet->getViewParent()->getPersonFrame()->shown()) {
+            myViewNet->getViewParent()->getPersonFrame()->getPersonAttributes()->refreshAttributesCreator();
+        }
+        if (myViewNet->getViewParent()->getContainerFrame()->shown()) {
+            myViewNet->getViewParent()->getContainerFrame()->getContainerAttributes()->refreshAttributesCreator();
+        }
         // refresh inspector frame
         if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             myViewNet->getViewParent()->getInspectorFrame()->inspectMultisection(myViewNet->getInspectedAttributeCarriers());
@@ -2358,14 +2370,14 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::NETEDIT_MINI, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
+    const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::OPTIONS, neteditOptions, myOriginalNeteditOptions, TL("Netedit options"));
     if (dialog.first == TRUE) {
         NIFrame::checkOptions(neteditOptions); // needed to set projection parameters
         NBFrame::checkOptions(neteditOptions);
         NWFrame::checkOptions(neteditOptions);
         SystemFrame::checkOptions(neteditOptions); // needed to set precision
         // check if mar netedit config as unsaved
-        if (dialog.second) {
+        if (dialog.second && myNet) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
         }
     }
@@ -2377,7 +2389,7 @@ long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     const auto dialog = GNEOptionsDialog::Options(this, GUIIcon::SUMO_MINI, mySumoOptions, myOriginalSumoOptions, TL("Sumo options"));
     // check if mark sumoConfig as unsaved
-    if ((dialog.first == TRUE) && dialog.second) {
+    if ((dialog.first == TRUE) && dialog.second && myNet) {
         myNet->getSavingStatus()->requireSaveSumoConfig();
     }
     return 1;
@@ -2636,14 +2648,6 @@ GNEApplicationWindow::onUpdSaveJuPedSimElementsAs(FXObject* sender, FXSelector, 
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WALKABLEAREA).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_OBSTACLE).size() > 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAITINGAREA).size() > 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SOURCE).size() > 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_SINK).size() > 0) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getAttributeCarriers()->getAdditionals().at(GNE_TAG_JPS_WAYPOINT).size() > 0) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -4636,6 +4640,8 @@ GNEApplicationWindow::updateControls() {
     if (myViewNet) {
         myViewNet->updateControls();
     }
+    // update require recomputing
+    updateRecomputingLabel();
 }
 
 
@@ -4701,6 +4707,16 @@ GNEApplicationWindow::updateSuperModeMenuCommands(const Supermode supermode) {
         myProcessingMenuCommands.hideDemandProcessingMenuCommands();
         myProcessingMenuCommands.hideDataProcessingMenuCommands();
     }
+    // continue depending of view
+    if (myViewNet) {
+        if (myViewNet->getEditModes().isDefaultView()) {
+            mySupermodeCommands.setDefaultView();
+            myModesMenuCommands.setDefaultView(supermode);
+        } else if (myViewNet->getEditModes().isJuPedSimView()) {
+            mySupermodeCommands.setJuPedSimView();
+            myModesMenuCommands.setJuPedSimView(supermode);
+        }
+    }
 }
 
 
@@ -4722,6 +4738,29 @@ GNEApplicationWindow::isUndoRedoEnabled() const {
 }
 
 
+void
+GNEApplicationWindow::clearUndoList() {
+    if (myViewNet) {
+        // destroy Popup (to avoid crashes)
+        myViewNet->destroyPopup();
+    }
+    // clear undo list and return true to continue with closing/reload
+    myUndoList->clear();
+}
+
+
+GNEApplicationWindowHelper::FileMenuCommands&
+GNEApplicationWindow::getFileMenuCommands() {
+    return myFileMenuCommands;
+}
+
+
+GNEApplicationWindowHelper::ModesMenuCommands&
+GNEApplicationWindow::getModesMenuCommands() {
+    return myModesMenuCommands;
+}
+
+
 GNEApplicationWindowHelper::EditMenuCommands&
 GNEApplicationWindow::getEditMenuCommands() {
     return myEditMenuCommands;
@@ -4731,17 +4770,6 @@ GNEApplicationWindow::getEditMenuCommands() {
 GNEApplicationWindowHelper::LockMenuCommands&
 GNEApplicationWindow::getLockMenuCommands() {
     return myLockMenuCommands;
-}
-
-
-void
-GNEApplicationWindow::clearUndoList() {
-    if (myViewNet) {
-        // destroy Popup (to avoid crashes)
-        myViewNet->destroyPopup();
-    }
-    // clear undo list and return true to continue with closing/reload
-    myUndoList->clear();
 }
 
 

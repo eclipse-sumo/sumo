@@ -18,17 +18,12 @@
 // Definition of Vehicle Types in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEVType.h"
-#include "GNEVTypeDistribution.h"
-
 
 // ===========================================================================
 // member method definitions
@@ -184,14 +179,14 @@ GNEVType::computePathElement() {
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+GNEVType::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 
 void
-GNEVType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // vehicleTypes don't use drawPartialGL
+GNEVType::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // vehicleTypes don't use drawJunctionPartialGL
 }
 
 

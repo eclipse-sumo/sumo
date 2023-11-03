@@ -27,6 +27,8 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
 
 
 // ===========================================================================
@@ -56,22 +58,24 @@ public:
 
     /**@brief add person plan element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param mouseButtonKeyPressed key pressed during click
      * @return true if element was successfully added
      */
-    bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief reset selected person
     void resetSelectedPerson();
 
-    /// @brief get path creator module
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Person Hierarchy
     GNEElementTree* getPersonHierarchy() const;
 
     /// @brief get person selectors
-    DemandElementSelector* getPersonSelector() const;
+    GNEDemandElementSelector* getPersonSelector() const;
+
+    /// @brief get personPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -88,16 +92,16 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    DemandElementSelector* myPersonSelector;
+    GNEDemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    GNETagSelector* myPersonPlanTagSelector;
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myPersonPlanAttributes;
 
-    /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
+    /// @brief plan Creator
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief Person Hierarchy
     GNEElementTree* myPersonHierarchy;

@@ -266,8 +266,6 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
     Eigen::VectorXd dx;
     // initialize progressively increasing maximal number of Newton-Rhapson iterations
     int max_iter_of_NR = 10;
-    // number of tested values of alpha
-    int attemps = 0;
     // value of scaling parameter alpha
     double alpha = 1;
     // the best (maximum) value of alpha that guarantees the existence of solution
@@ -291,7 +289,6 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
     // Search for the suitable scaling value alpha
     while (true) {
 
-        ++attemps;
         int iterNR = 0;
         // run Newton-Raphson methods
         while (true) {

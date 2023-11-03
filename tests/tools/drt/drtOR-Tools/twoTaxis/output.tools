@@ -4,6 +4,7 @@ Simulation parameters:
   time_limit: 10
   cost_type: CostType.DISTANCE
   drf: -1.0
+  waiting_time: 900
   fix_allocation: False
 timestep:  0.0
 Reservations waiting: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -44,6 +45,7 @@ Reservation 8 has direct route costs 276
 Reservation 9 has direct route costs 1575
 Start solving the problem.
  Register distance callback.
+ Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
 pickup/dropoff nodes: 1/11
@@ -69,67 +71,78 @@ allow to reject new reservation 9
  Add dropoff constraints...
  Add capacity constraints...
  Add time windows constraints...
-window for node 1: [1, 900]
-window for node 2: [1, 900]
-window for node 3: [1, 900]
-window for node 4: [1, 900]
-window for node 5: [1, 900]
-window for node 6: [1, 900]
-window for node 7: [1, 900]
-window for node 8: [1, 900]
-window for node 9: [1, 900]
-window for node 10: [1, 900]
-window for node 11: [1, 900]
-window for node 12: [1, 900]
-window for node 13: [1, 900]
-window for node 14: [1, 900]
-window for node 15: [1, 900]
-window for node 16: [1, 900]
-window for node 17: [1, 900]
-window for node 18: [1, 900]
-window for node 19: [1, 900]
-window for node 20: [1, 900]
-window for node 21: [1, 900]
-window for node 22: [1, 900]
+hard time window for node 1: [1, 900]
+hard time window for node 2: [1, 900]
+hard time window for node 3: [1, 900]
+hard time window for node 4: [1, 900]
+hard time window for node 5: [1, 900]
+hard time window for node 6: [1, 900]
+hard time window for node 7: [1, 900]
+hard time window for node 8: [1, 900]
+hard time window for node 9: [1, 900]
+hard time window for node 10: [1, 900]
+hard time window for node 11: [1, 900]
+hard time window for node 12: [1, 900]
+hard time window for node 13: [1, 900]
+hard time window for node 14: [1, 900]
+hard time window for node 15: [1, 900]
+hard time window for node 16: [1, 900]
+hard time window for node 17: [1, 900]
+hard time window for node 18: [1, 900]
+hard time window for node 19: [1, 900]
+hard time window for node 20: [1, 900]
+hard time window for node 21: [1, 900]
+hard time window for node 22: [1, 900]
+ Add waiting time constraints...
+reservation 0 has a maximum (hard) pickup time at 900
+reservation 1 has a maximum (hard) pickup time at 900
+reservation 2 has a maximum (hard) pickup time at 900
+reservation 3 has a maximum (hard) pickup time at 900
+reservation 4 has a maximum (hard) pickup time at 900
+reservation 5 has a maximum (hard) pickup time at 900
+reservation 6 has a maximum (hard) pickup time at 900
+reservation 7 has a maximum (hard) pickup time at 900
+reservation 8 has a maximum (hard) pickup time at 900
+reservation 9 has a maximum (hard) pickup time at 900
 ## Done
  Set solution heuristic...
 Start solving the problem.
 Objective: 9617
 Route for vehicle 0:
-     21 (L: 0, C: 0, T: (1,315))
- ->  9 (L: 1, C: 387, T: (33,347))
- ->  4 (L: 2, C: 772, T: (64,378))
- ->  5 (L: 3, C: 1159, T: (94,408))
- ->  19 (L: 2, C: 1835, T: (150,464))
- ->  14 (L: 1, C: 1921, T: (216,530))
- ->  3 (L: 2, C: 2486, T: (264,578))
- ->  6 (L: 3, C: 3071, T: (312,626))
- ->  13 (L: 2, C: 3551, T: (410,724))
- ->  15 (L: 1, C: 3727, T: (485,799))
- ->  16 (L: 0, C: 4209, T: (586,900))
- ->  0 (L: 0, C: 4209, T: (586,900))
+     21 (L: 0, C: 0, T: (1,1))
+ ->  9 (L: 1, C: 387, T: (33,33))
+ ->  4 (L: 2, C: 772, T: (64,64))
+ ->  5 (L: 3, C: 1159, T: (94,94))
+ ->  14 (L: 2, C: 1835, T: (150,150))
+ ->  19 (L: 1, C: 1921, T: (216,216))
+ ->  3 (L: 2, C: 2486, T: (264,264))
+ ->  6 (L: 3, C: 3071, T: (312,312))
+ ->  13 (L: 2, C: 3551, T: (410,410))
+ ->  15 (L: 1, C: 3727, T: (485,485))
+ ->  16 (L: 0, C: 4209, T: (586,586))
+ ->  0 (L: 0, C: 4209, T: (586,586))
 Costs of the route: 4209
 
 Route for vehicle 1:
-     22 (L: 0, C: 0, T: (1,1))
- ->  2 (L: 1, C: 382, T: (29,29))
- ->  1 (L: 2, C: 867, T: (70,70))
- ->  10 (L: 3, C: 1337, T: (107,107))
- ->  11 (L: 2, C: 2022, T: (221,221))
- ->  8 (L: 3, C: 2707, T: (274,274))
- ->  7 (L: 4, C: 3187, T: (311,311))
- ->  20 (L: 3, C: 3962, T: (430,430))
- ->  18 (L: 2, C: 4642, T: (540,540))
- ->  17 (L: 1, C: 5122, T: (637,637))
- ->  12 (L: 0, C: 5408, T: (718,718))
- ->  0 (L: 0, C: 5408, T: (718,718))
+     22 (L: 0, C: 0, T: (1,183))
+ ->  2 (L: 1, C: 382, T: (29,211))
+ ->  1 (L: 2, C: 867, T: (70,252))
+ ->  10 (L: 3, C: 1337, T: (107,289))
+ ->  11 (L: 2, C: 2022, T: (221,403))
+ ->  8 (L: 3, C: 2707, T: (274,456))
+ ->  7 (L: 4, C: 3187, T: (311,493))
+ ->  20 (L: 3, C: 3962, T: (430,612))
+ ->  18 (L: 2, C: 4642, T: (540,722))
+ ->  12 (L: 1, C: 5122, T: (637,819))
+ ->  17 (L: 0, C: 5408, T: (718,900))
+ ->  0 (L: 0, C: 5408, T: (718,900))
 Costs of the route: 5408
 
 Total cost of the routes: 9617
 Start interpreting the solution for SUMO.
-Dispatching v0 with ['8', '3', '4', '8', '3', '2', '5', '2', '4', '5']
+Dispatching v0 with ['8', '3', '4', '3', '8', '2', '5', '2', '4', '5']
 Costs for v0: 4209
-Dispatching v1 with ['1', '0', '9', '0', '7', '6', '9', '7', '6', '1']
+Dispatching v1 with ['1', '0', '9', '0', '7', '6', '9', '7', '1', '6']
 Costs for v1: 9617
 timestep:  30.0
 Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '9']

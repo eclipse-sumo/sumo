@@ -74,8 +74,11 @@ public:
     /// @brief Mark the entire GNEViewNet to be repainted later
     void updateViewNet() const;
 
-    /// @brief set supermode Network (used after load/create new network)
-    void forceSupermodeNetwork();
+    /// @brief force supermode network(used after load/create new network)
+    void forceSupemodeNetwork();
+
+    /// @brief called when view is updated
+    void viewUpdated();
 
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
@@ -467,7 +470,10 @@ public:
 
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
-
+        
+    /// @brief called when a new view is set
+    long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
+    
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 
@@ -519,11 +525,14 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw over contour
+    bool checkDrawOverContour(const GUIGlObject* GLObject) const;
+
     /// @brief check if draw delete contour
-    bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+    bool checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const;
 
     /// @brief check if draw select contour
-    bool drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+    bool checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const;
 
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
@@ -790,6 +799,9 @@ private:
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
 
+    /// @brief draw over dotted contours
+    void drawOverDottedContour();
+
     /// @brief draw delete dotted contours
     void drawDeleteDottedContour();
 
@@ -797,8 +809,11 @@ private:
     void drawSelectDottedContour();
 
     /// @brief draw circle in testing mode (neede for grid)
-    void drawTestsCircle() const;
+    void drawNeteditAttributesReferences();
 
+    /// @brief draw circle in testing mode (neede for grid)
+    void drawTestsCircle() const;
+        
     /// @}
 
     /// @brief mouse process functions

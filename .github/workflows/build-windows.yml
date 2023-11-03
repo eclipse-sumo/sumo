@@ -93,9 +93,11 @@ jobs:
       run: |
         cd sumo/build_msvc
         $env:TEXTTEST_TMP = "D:/texttest"
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
         ctest -R texttest --verbose
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
+        ctest -R texttest --verbose
+        $env:TEXTTEST_CI_APPS = "-a sumo"
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
@@ -107,18 +109,18 @@ jobs:
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
-        $env:TEXTTEST_CI_APPS = "-a sumo.meso,netconvert.gdal,polyconvert.gdal"
+        $env:TEXTTEST_CI_APPS = "-a sumo.meso,sumo.extra,netconvert.gdal,polyconvert.gdal"
         ctest --build-config Release --verbose
 
     - name: Compressing test results
-      if: always() && github.repository == 'DLR-TS/sumo'
+      if: failure() && github.repository == 'DLR-TS/sumo'
       run: |
         dir d:\texttest
         Compress-Archive -Path D:/texttest -DestinationPath D:/texttest/tt.zip
         dir d:\texttest
 
     - name: Uploading test results
-      if: always() && github.repository == 'DLR-TS/sumo'
+      if: failure() && github.repository == 'DLR-TS/sumo'
       uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.build_type }}

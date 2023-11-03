@@ -1,6 +1,14 @@
-Warning: Intersecting left turns at junction 'J8' from lane '-E9_0' and lane '-E13_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'J8' from lane '-E14_0' and lane '-E10_0' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'J8' from lane '-E15_0' and lane '-E11_0' (increase junction radius to avoid this).
-Warning: Intersecting left turns at junction 'J8' from lane '-E8_0' and lane '-E12_0' (increase junction radius to avoid this).
-Warning: Intersecting left turns at junction 'J8' from lane '-E9_0' and lane '-E13_0' (increase junction radius to avoid this).
-Warning: 8 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: Edge '-E0' is not connected to outgoing edges at junction 'J0'.
+Warning: Lane '-E10_0' is not connected from any incoming edge at junction 'J2'.
+Warning: Lane '-E11_0' is not connected from any incoming edge at junction 'J3'.
+Warning: Lane '-E12_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane '-E13_0' is not connected from any incoming edge at junction 'J5'.
+Warning: Lane '-E14_0' is not connected from any incoming edge at junction 'J6'.
+Warning: Edge '-E8' is not connected to outgoing edges at junction 'J8'.
+Warning: Edge 'E0' is not connected to outgoing edges at junction 'J1'.
+Warning: Edge 'E1' is not connected to outgoing edges at junction 'J2'.
+Warning: Edge 'E2' is not connected to outgoing edges at junction 'J3'.
+Warning: 9 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 9 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

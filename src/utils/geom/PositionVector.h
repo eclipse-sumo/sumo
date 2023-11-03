@@ -102,6 +102,9 @@ public:
     /// @brief returns size of position vector
     using vp::size;
 
+    /// @brief returns whether the position vector is empty
+    using vp::empty;
+
     /// @brief get the front element of position vector
     using vp::front;
 
@@ -261,6 +264,7 @@ public:
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
 
     /// @brief sort as polygon CW by angle
+    /// @remark this function works for non-convex polygons but won't possibly yield the desired polygon 
     void sortAsPolyCWByAngle();
 
     /// @brief sort by increasing X-Y Positions
@@ -309,7 +313,7 @@ public:
     /// @brief adds two vectors (requires vectors of the same length)
     PositionVector operator+(const PositionVector& v2) const;
 
-    /// @brief clase for CW Sorter
+    /// @brief class for CW Sorter
     class as_poly_cw_sorter {
     public:
         /// @brief constructor
@@ -317,6 +321,10 @@ public:
 
         /// @brief comparing operation for sort
         int operator()(const Position& p1, const Position& p2) const;
+    
+    private:
+        /// @brief computes the angle of the given vector, in the range $[0,2*\pi[$
+        double atAngle2D(const Position& p) const;
     };
 
     /// @brief clase for increasing Sorter
@@ -433,6 +441,11 @@ public:
     PositionVector bezier(int numPoints);
 
     static double localAngle(const Position& from, const Position& pos, const Position& to);
+
+    /* @brief checks if the polygon represented by the PositionVector is clockwise-oriented
+       @remark this function works for non-convex polygons
+    */
+    bool isClockwiseOriented(void);
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

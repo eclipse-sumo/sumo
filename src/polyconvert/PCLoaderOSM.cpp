@@ -377,7 +377,7 @@ PCLoaderOSM::addPOI(const PCOSMNode* node, const Position& pos, const PCTypeMap:
         PointOfInterest* poi = new PointOfInterest(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, pos, false, "", 0, false, 0, (double)def.layer);
+            def.color, pos, false, "", 0, false, 0, def.icon, def.layer);
         if (withAttributes) {
             poi->updateParameters(node->myAttributes);
         }

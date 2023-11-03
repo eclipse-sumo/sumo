@@ -13,7 +13,7 @@ You can read the Documentation online at: <https://sumo.dlr.de/docs/>
 
 Clone this repository (if not already done):
 ```
-git clone https://github.com/eclipse/sumo.git
+git clone https://github.com/eclipse-sumo/sumo.git
 ```
 
 Navigate to this path (`sumo/docs/web`).
@@ -47,4 +47,4 @@ You can click on the "Edit on GitHub" button in the top right corner of every pa
 
 We encourage you to read [this guide](https://sumo.dlr.de/docs/Editing_Articles.html) on how to edit the articles.
 
-You can also report typos and such, opening an issue [here](https://github.com/eclipse/sumo/issues).
+You can also report typos and such, opening an issue [here](https://github.com/eclipse-sumo/sumo/issues).

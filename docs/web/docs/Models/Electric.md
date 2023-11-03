@@ -13,7 +13,7 @@ features are a charging station (which can be placed on any lane in the
 network) and a new output option **--battery-output** {{DT_FILE}}.
 
 You can find a test case for these implementations at
-[\[1\]](https://github.com/eclipse/sumo/tree/main/tests/sumo/devices/battery/braunschweig)
+[\[1\]](https://github.com/eclipse-sumo/sumo/tree/main/tests/sumo/devices/battery/braunschweig)
 
 # Defining Electric Vehicles
 
@@ -89,14 +89,16 @@ of bus stops were used for the implementation of charging stations.
 | key                 | Value Type | Value range                                                                                | Default   | Description         |
 | ------------------- | ---------- | -------------------------------- | --------- | ----------------------------------------------------------------------------- |
 | **id**              | string     | id                                                                                         |           | Charging station ID (Must be unique)                                                                                            |
+| name                | string     | simple String                                                                              |           | Charging station name. This is only used for visualization purposes.                                                            |
 | **lane**            | string     | valid lane id                                                                              |           | Lane of the charging station location                                                                                           |
 | **startPos**        | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) | 0         | Begin position in the specified lane                                                                                            |
 | **endPos**          | float      | lane.length < x < lane.length (negative values count backwards from the end of the lane) |           | End position in the specified lane                                                                                              |
+| friendlyPos | bool | true or false | false | Whether invalid charging station positions should be corrected automatically |
 | **power**           | float  (W) or (mg/s)  | power \> 0  | 0  | Charging power *P<sub>chrg</sub>*  (If the battery device being charged  [is configured to track fuel](#tracking_fuel_consumption_for_non-electrical_vehicles), charging power will be interpreted as mg/s)  |
 | **efficiency**      | float      | 0 <= efficiency <= 1                                                                       | 0.95   | Charging efficiency *η<sub>chrg</sub>*                                                                                          |
 | **chargeInTransit** | bool       | 0 or 1                                                                                     | 0         | Enable or disable charge in transit, i.e. vehicle is forced/not forced to stop for charging                                     |
 | **chargeDelay**     | float      | chargeDelay \> 0                                                                           | 0         | Time delay after the vehicles have reached / stopped on the charging station, before the energy transfer (charging) is starting |
-| name                | string     | simple String                                                                              |           | Charging station name. This is only used for visualization purposes.                                                            |
+| chargeType | string | | normal | Charging type (normal, electric, fuel) |
 
 Charging stations are defined in additional using the following format:
 

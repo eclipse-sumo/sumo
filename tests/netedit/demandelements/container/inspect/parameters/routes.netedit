@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 14:31:55 by Eclipse SUMO netedit Version v1_13_0+0601-13b47cdc15a
+<!-- generated on 2023-11-01 14:45:37 by Eclipse SUMO netedit Version v1_18_0+2330-771ae636b15
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -9,6 +9,6 @@
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
-        <transport from="Edge0" to="Edge2" lines="ANY"/>
+        <transport from="Edge0" to="Edge2"/>
     </container>
 </routes>

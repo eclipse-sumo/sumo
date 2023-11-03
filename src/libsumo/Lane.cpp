@@ -392,7 +392,7 @@ Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> a
 
 void
 Lane::setMaxSpeed(const std::string& laneID, double speed) {
-    getLane(laneID)->setMaxSpeed(speed);
+    getLane(laneID)->setMaxSpeed(speed, false, true);
 }
 
 

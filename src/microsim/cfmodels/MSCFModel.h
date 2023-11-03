@@ -553,6 +553,12 @@ public:
         myApparentDecel = decel;
     }
 
+    /** @brief Sets a new value for the factor of minGap that must be maintained to avoid a collision event
+     * @param[in] factor The new minGap factor
+     */
+    inline void setCollisionMinGapFactor(const double factor) {
+        myCollisionMinGapFactor = factor;
+    }
 
     /** @brief Sets a new value for driver imperfection
      * @param[in] accel The new driver imperfection

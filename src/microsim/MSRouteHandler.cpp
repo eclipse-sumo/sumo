@@ -57,6 +57,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     SUMORouteHandler(file, addVehiclesDirectly ? "" : "routes", true),
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
+    myActiveRoutePermanent(false),
     myActiveType(ObjectTypeEnum::UNDEFINED),
     myHaveVia(false),
     myActiveTransportablePlan(nullptr),
@@ -106,10 +107,10 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // from-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
-            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROM_JUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok);
         const MSEdge* fromTaz = MSEdge::dictionary(tazID + "-source");
         if (fromTaz == nullptr) {
             throw ProcessError("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -152,10 +153,10 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
 
     // to-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
-            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TO_JUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const MSEdge* toTaz = MSEdge::dictionary(tazID + "-sink");
         if (toTaz == nullptr) {
             throw ProcessError("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -191,10 +192,10 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
             case SUMO_TAG_PERSONFLOW:
-                addPerson(attrs);
+                addTransportable(attrs, true);
                 break;
             case SUMO_TAG_CONTAINERFLOW:
-                addContainer(attrs);
+                addTransportable(attrs, false);
                 break;
             case SUMO_TAG_FLOW:
                 if (myVehicleParameter) {
@@ -235,7 +236,7 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 const std::string& vtypeID = st.next();
                 const RandomDistributor<MSVehicleType*>* const dist = MSNet::getInstance()->getVehicleControl().getVTypeDistribution(vtypeID);
                 if (dist != nullptr) {
-                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    const double distProb = ((int)probs.size() > probIndex ? probs[probIndex] : 1.) / dist->getOverallProb();
                     std::vector<double>::const_iterator probIt = dist->getProbs().begin();
                     for (MSVehicleType* const type : dist->getVals()) {
                         myCurrentVTypeDistribution->add(type, distProb * *probIt);
@@ -323,6 +324,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
+    myActiveRoutePermanent = attrs.getOpt<bool>(SUMO_ATTR_STATE, myActiveRouteID.c_str(), ok, false);
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
@@ -438,10 +440,10 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 }
             }
         }
-        MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
-                                     myVehicleParameter == nullptr,
-                                     myActiveRouteColor, myActiveRouteStops,
-                                     myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
+        MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
+                                           myAmLoadingState ? myActiveRoutePermanent : myVehicleParameter == nullptr,
+                                           myActiveRouteColor, myActiveRouteStops,
+                                           myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);
@@ -879,8 +881,14 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 *copyParam = *myVehicleParameter;
                 myVehicleParameter = copyParam;
                 MSTransportable::MSTransportablePlan* copyPlan = new MSTransportable::MSTransportablePlan();
-                for (MSStage* s : *myActiveTransportablePlan) {
+                MSStage* lastStage = nullptr;
+                for (MSStage* const s : *myActiveTransportablePlan) {
                     copyPlan->push_back(s->clone());
+                    if (lastStage != nullptr && s->getStageType() == MSStageType::WALKING && lastStage->getDestinationStop() != nullptr) {
+                        MSStageMoving* walk = static_cast<MSStageMoving*>(copyPlan->back());
+                        walk->setDepartPos(lastStage->getDestinationStop()->getAccessPos(walk->getEdge(), &myParsingRNG));
+                    }
+                    lastStage = s;
                 }
                 myActiveTransportablePlan = copyPlan;
                 if (myVehicleParameter->departPosProcedure == DepartPosDefinition::RANDOM) {
@@ -1182,13 +1190,13 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     try {
         std::string errorSuffix;
         if (myActiveType == ObjectTypeEnum::PERSON) {
-            errorSuffix = " in person '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in person '" + myVehicleParameter->id + "'";
         } else if (myActiveType == ObjectTypeEnum::CONTAINER) {
-            errorSuffix = " in container '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in container '" + myVehicleParameter->id + "'";
         } else if (myVehicleParameter != nullptr) {
-            errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+            errorSuffix = " in vehicle '" + myVehicleParameter->id + "'";
         } else {
-            errorSuffix = " in route '" + myActiveRouteID + "'.";
+            errorSuffix = " in route '" + myActiveRouteID + "'";
         }
         SUMOVehicleParameter::Stop stop;
         bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
@@ -1219,7 +1227,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             if (ok && stop.edge != "") { // edge is given directly
                 edge = MSEdge::dictionary(stop.edge);
                 if (edge == nullptr || (edge->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    throw ProcessError("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
+                    throw ProcessError(TLF("The edge '%' for a stop is not known%.", stop.edge, errorSuffix));
                 }
             } else if (ok && stop.lane != "") { // lane is given directly
                 MSLane* stopLane = MSLane::dictionary(stop.lane);
@@ -1233,7 +1241,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     edge = &stopLane->getEdge();
                 }
                 if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
-                    throw ProcessError("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                    throw ProcessError(TLF("The lane '%' for a stop is not known%.", stop.lane, errorSuffix));
                 }
             } else {
                 if (myActiveTransportablePlan && !myActiveTransportablePlan->empty()) { // use end of movement before
@@ -1250,7 +1258,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                         stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                     }
                 } else {
-                    const std::string msg = TL("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane") + errorSuffix;
+                    const std::string msg = TLF("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%.", errorSuffix);
                     if (MSGlobals::gCheckRoutes) {
                         throw ProcessError(msg);
                     } else {
@@ -1261,7 +1269,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             }
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
             if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-                WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
+                WRITE_WARNINGF(TL("Deprecated attribute 'pos' in description of stop%."), errorSuffix);
                 stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
             }
             stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
@@ -1269,10 +1277,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS))
                     || !MSGlobals::gCheckRoutes;
                 if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), 0, friendlyPos) != StopPos::STOPPOS_VALID)) {
-                    throw ProcessError("Invalid start or end position for stop on "
-                                + (stop.lane != ""
-                                   ? ("lane '" + stop.lane)
-                                   : ("edge '" + stop.edge)) + "'" + errorSuffix);
+                    throw ProcessError(TLF("Invalid start or end position for stop on %'%.",
+                                           stop.lane != "" ? ("lane '" + stop.lane) : ("edge '" + stop.edge), errorSuffix));
                 }
             }
         }
@@ -1285,7 +1291,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myActiveTransportablePlan->push_back(new MSStageWaiting(
                         edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
             } else if (myActiveTransportablePlan->back()->getDestination() != edge) {
-                throw ProcessError("Disconnected plan for " + myActiveTypeName + " '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActiveTransportablePlan->back()->getDestination()->getID() + ").");
+                throw ProcessError(TLF("Disconnected plan for % '%' (%!=%).", myActiveTypeName, myVehicleParameter->id,
+                                       edge->getID(), myActiveTransportablePlan->back()->getDestination()->getID()));
             }
             // transporting veh stops somewhere
             else if (myActiveTransportablePlan->back()->getStageType() == MSStageType::WAITING
@@ -1294,8 +1301,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 const double end = SUMOVehicleParameter::interpretEdgePos(stop.endPos, edge->getLength(), SUMO_ATTR_ENDPOS, "stopping at " + edge->getID());
                 const double prevAr = myActiveTransportablePlan->back()->getArrivalPos();
                 if (start > prevAr + NUMERICAL_EPS || end < prevAr - NUMERICAL_EPS) {
-                    WRITE_WARNING("Disconnected plan for " + myActiveTypeName + " '" + myVehicleParameter->id
-                                  + "' (stop range " + toString(start) + "-" + toString(end) + " does not cover previous arrival position " + toString(prevAr) +  + ").");
+                    WRITE_WARNINGF(TL("Disconnected plan for % '%' (stop range %-% does not cover previous arrival position %)."),
+                                   myActiveTypeName, myVehicleParameter->id, toString(start), toString(end), toString(prevAr));
                 }
             }
             std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
@@ -1329,7 +1336,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         } else if (myHaveVia) {
             // vias were loaded, check for consistency
             if (std::find(myActiveRoute.begin(), myActiveRoute.end(), edge) == myActiveRoute.end()) {
-                WRITE_WARNINGF(TL("Stop edge '%' missing in attribute 'via' for % '%'"), edge->getID(), myActiveTypeName, myVehicleParameter->id);
+                WRITE_WARNINGF(TL("Stop edge '%' missing in attribute 'via' for % '%'."),
+                               edge->getID(), myActiveTypeName, myVehicleParameter->id);
             }
         }
     } catch (ProcessError&) {
@@ -1354,7 +1362,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         departPos = 0.;
         if (lastStage != nullptr) {
             if (lastStage->getDestinationStop() != nullptr) {
-                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge);
+                departPos = lastStage->getDestinationStop()->getAccessPos(fromEdge, &myParsingRNG);
             } else if (lastStage->getDestination() == fromEdge) {
                 departPos = lastStage->getArrivalPos();
             } else if (lastStage->getDestination()->getToJunction() == fromEdge->getToJunction()) {
@@ -1407,14 +1415,14 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         const MSEdge* to = nullptr;
         parseFromViaTo(SUMO_TAG_PERSON, attrs);
         myInsertStopEdgesAt = -1;
-        if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
+        if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)) {
             from = myActiveRoute.front();
         } else if (myActiveTransportablePlan->empty()) {
             throw ProcessError(TLF("Start edge not defined for person '%'.", myVehicleParameter->id));
         } else {
             from = myActiveTransportablePlan->back()->getDestination();
         }
-        if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
+        if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)) {
             to = myActiveRoute.back();
         } // else, to may also be derived from stopping place
 
@@ -1582,33 +1590,18 @@ MSRouteHandler::interpretDepartPosLat(const std::string& value, int departLane, 
     return pos;
 }
 
-void
-MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
-    myActiveType = ObjectTypeEnum::PERSON;
-    checkTransportableType();
-    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
-}
-
 
 void
-MSRouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
-    myActiveType = ObjectTypeEnum::CONTAINER;
-    checkTransportableType();
-    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
-}
-
-void
-MSRouteHandler::checkTransportableType() {
-    try {
-        if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
-            const std::string error = "The type '" + myVehicleParameter->vtypeid + "' for " + myActiveTypeName + " '" + myVehicleParameter->id + "' is not known.";
-            throw ProcessError(error);
-        }
-    } catch (ProcessError&) {
+MSRouteHandler::addTransportable(const SUMOSAXAttributes& /*attrs*/, const bool isPerson) {
+    myActiveType = isPerson ? ObjectTypeEnum::PERSON : ObjectTypeEnum::CONTAINER;
+    if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
+        const std::string error = TLF("The type '%' for % '%' is not known.", myVehicleParameter->vtypeid, myActiveTypeName, myVehicleParameter->id);
         deleteActivePlanAndVehicleParameter();
-        throw;
+        throw ProcessError(error);
     }
+    myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
 }
+
 
 void
 MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {

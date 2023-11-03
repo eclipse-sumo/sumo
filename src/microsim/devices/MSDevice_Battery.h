@@ -102,7 +102,7 @@ private:
     * @param[in] preInsertionPeriod The route search period before insertion
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double powerMax, const double stoppingThreshold);
+                     const double stoppingThreshold);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -150,9 +150,6 @@ public:
     /// @brief Set total vehicle's Battery Capacity in kWh
     void setMaximumBatteryCapacity(const double maximumBatteryCapacity);
 
-    /// @brief Set maximum power when accelerating
-    void setPowerMax(const double new_Pmax);
-
     /// @brief Set vehicle's stopping threshold
     void setStoppingThreshold(const double stoppingThreshold);
 
@@ -168,18 +165,15 @@ public:
     /// @brief Increase myVehicleStopped
     void increaseVehicleStoppedTimer();
 
-    /// @brief Read device parameters from input
-    static double readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, double defaultVal);
-
 protected:
+    /// @brief Read device parameters from input
+    static double readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, const std::string& paramName, double defaultVal);
+
     /// @brief Parameter, The actual vehicles's Battery Capacity in Wh, [myActualBatteryCapacity <= myMaximumBatteryCapacity]
     double myActualBatteryCapacity;
 
     /// @brief Parameter, The total vehicles's Battery Capacity in Wh, [myMaximumBatteryCapacity >= 0]
     double myMaximumBatteryCapacity;
-
-    /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]
-    double myPowerMax;
 
     /// @brief Parameter, stopping vehicle threshold [myStoppingThreshold >= 0]
     double myStoppingThreshold;

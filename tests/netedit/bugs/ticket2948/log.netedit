@@ -2,6 +2,16 @@ Warning: The traffic light 'J0' does not control any links; it will not be build
 Warning: Could not build program '0' for traffic light 'J0'
 Warning: The traffic light 'J6' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'J6'
+Warning: Edge 'E0' is not connected to outgoing edges at junction 'J1'.
+Warning: Edge 'E1' is not connected to outgoing edges at junction 'J2'.
+Warning: Lane 'E1_0' is not connected from any incoming edge at junction 'J1'.
+Warning: Edge 'E2' is not connected to outgoing edges at junction 'J3'.
+Warning: Lane 'E2_0' is not connected from any incoming edge at junction 'J2'.
+Warning: Edge 'E3' is not connected to outgoing edges at junction 'J4'.
+Warning: Lane 'E3_0' is not connected from any incoming edge at junction 'J3'.
+Warning: Edge 'E4' is not connected to outgoing edges at junction 'J5'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E5_0' is not connected from any incoming edge at junction 'J5'.
 Warning: The traffic light 'J0' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'J0'
 Warning: The traffic light 'J6' does not control any links; it will not be build.

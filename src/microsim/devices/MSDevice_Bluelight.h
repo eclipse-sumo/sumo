@@ -137,7 +137,7 @@ private:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id, double reactionDist);
+    MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id, const double reactionDist, const double minGapFactor);
 
     /// @brief restore type of influenced vehicle
     void resetVehicle(MSVehicle* veh2, const std::string& targetTypeID);
@@ -153,6 +153,8 @@ private:
     /// @brief reaction distance of other vehicle (i.e. due to different noise levels of the siren)
     double myReactionDist;
 
+    /// @brief min gap reduction of other vehicles
+    double myMinGapFactor;
 
 private:
     /// @brief Invalidated copy constructor.

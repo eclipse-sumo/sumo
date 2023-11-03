@@ -55,7 +55,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x,
+                  netedit.positions.demandElements.singleVehicleEdge.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.routeFlow.inspect.parameters, True)

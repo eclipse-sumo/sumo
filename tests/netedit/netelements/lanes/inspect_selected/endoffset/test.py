@@ -38,28 +38,28 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 400, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "dummyEndOffset", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "dummyEndOffset", False)
 
 # Change parameter 4 with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "", False)
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "-3", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "-3", False)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.endOffset, "12.5", False)
 
 # recompute
 netedit.rebuildNetwork()

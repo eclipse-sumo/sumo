@@ -194,21 +194,21 @@ The system optimal condition can be achieved by replacing the path travel time w
 
 Given that SUMO provides the average travel time of each link, it is not possible to directly calculate the additional travel time that one vehicle inflicts on the link. An alternative approach to compute the link MTT is to calculate the average travel time in successive iterations (with a different number of vehicles assigned to each link in each iteration) and compute the difference in link average travel time. Using this method, the average inflicted additional travel time on the link can be calculated. Therefore, a surrogate model of MTT is used to achieve SO as follows:
 
-![grafik](https://github.com/eclipse/sumo/assets/6240630/f539a81c-8f5a-4bb5-afe4-bfd0c17866fe)
+![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/f539a81c-8f5a-4bb5-afe4-bfd0c17866fe)
 
-where ![grafik](https://github.com/eclipse/sumo/assets/6240630/c8927274-d95f-4247-a973-7a2bed921b65)
- is the surrogate MTT of link *a* at simulation step *i*;  ![grafik](https://github.com/eclipse/sumo/assets/6240630/1de5b8e7-66a3-4256-bf28-ddd484f2803e)
- and  ![grafik](https://github.com/eclipse/sumo/assets/6240630/6eb312f7-ea13-4246-a30b-5517511397f7)
- are, respectively, the travel time (cost) of link *a* at simulation steps *i-1* and *i-2* ; and ![grafik](https://github.com/eclipse/sumo/assets/6240630/b5e4ade9-6e19-40b1-9d14-c69063a853cd)
- and ![grafik](https://github.com/eclipse/sumo/assets/6240630/4f0dd98f-4ad4-4d3a-b0f3-4f181be25feb) are, respectively, the traffic flow of link *a* at simulation steps *i-1* and *i-2*. 
+where ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/c8927274-d95f-4247-a973-7a2bed921b65)
+ is the surrogate MTT of link *a* at simulation step *i*;  ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/1de5b8e7-66a3-4256-bf28-ddd484f2803e)
+ and  ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/6eb312f7-ea13-4246-a30b-5517511397f7)
+ are, respectively, the travel time (cost) of link *a* at simulation steps *i-1* and *i-2* ; and ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/b5e4ade9-6e19-40b1-9d14-c69063a853cd)
+ and ![grafik](https://github.com/eclipse-sumo/sumo/assets/6240630/4f0dd98f-4ad4-4d3a-b0f3-4f181be25feb) are, respectively, the traffic flow of link *a* at simulation steps *i-1* and *i-2*. 
  
-The Dynamic System Optimal traffic assignment can be activated by setting optons **--marginal-cost, --marginal-cost.exp**, in duaIterate.py. As the MTTs in the proposed algorithm are calculated based on a local approximation, it may lead to its overestimation. Therefore, it is recommended to use the second term of the MTT equation for calibration (option **--marginal-cost.exp**)
+The Dynamic System Optimal traffic assignment can be activated by setting options **--marginal-cost, --marginal-cost.exp**, in duaIterate.py. As the MTTs in the proposed algorithm are calculated based on a local approximation, it may lead to its overestimation. Therefore, it is recommended to use the second term of the MTT equation for calibration (option **--marginal-cost.exp**)
 For more information about dynamic system optimal modelling in SUMO please refer to https://doi.org/10.52825/scp.v3i.119. 
 
 # Iterative Assignment (Mixing DUE and SO)
 
-If traffic consists of a mix of human driven vehicles and computed controlled vehicles one migh assume that the former follow an "egoistic" routing approach (DUE) whereas the latter may be configured to route according to system optimum considerations. 
-The tool [duaIterateMix.py](../Tools/Assign.md#duaiteratemixpy) can be used to compute the Multiclass Simulation-based Traffic Assignment Problem for Mixed traffic flow. This problem involves a dynamic Traffic Assignment Problem with two vehicle classes: one class follows the System Optimum (SO) principle, while the other class follows the User Equilibrium (UE) principles. The objective is to achieve a multiclass traffic assignment where the travel time for UE-seeking vehicles and the marginal travel time for SO-seeking vehicles between the same origin-destination (OD) pair are equal and minimized. For detailed information on solving the multiclass traffic assignment problem using SUMO, please refer to the following link: https://doi.org/10.48550/arXiv.2301.11083 
+If traffic consists of a mix of human driven vehicles and computed controlled vehicles one might assume that the former follow an "egoistic" routing approach (DUE) whereas the latter may be configured to route according to system optimum considerations. 
+The tool [duaIterateMix.py](../Tools/Assign.md#duaiteratemixpy) can be used to compute the Multiclass Simulation-based Traffic Assignment Problem for Mixed traffic flow. This problem involves a dynamic Traffic Assignment Problem with two vehicle classes: one class follows the System Optimum (SO) principle, while the other class follows the User Equilibrium (UE) principles. The objective is to achieve a multiclass traffic assignment where the travel time for UE-seeking vehicles and the marginal travel time for SO-seeking vehicles between the same origin-destination (OD) pair are equal and minimized. For detailed information on solving the multiclass traffic assignment problem using SUMO, please refer to the following link: https://doi.org/10.1080/23249935.2023.2257805
 
 # oneShot-assignment
 

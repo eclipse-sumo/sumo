@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/xml/CommonXMLStructure.h>
+
 
 // ===========================================================================
 // class declaration

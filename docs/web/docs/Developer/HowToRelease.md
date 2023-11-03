@@ -53,7 +53,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
 - GitHub
-  - add new [milestone](https://github.com/eclipse/sumo/milestones)
+  - add new [milestone](https://github.com/eclipse-sumo/sumo/milestones)
     if necessary
   - check all remaining tickets and assign them to later milestones
     or to persons.
@@ -128,12 +128,13 @@ If everything is fine:
 - make new sumo.dlr.de-release
   - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.dev/sumo website
-  - modify the version number (Version) [in config.yaml](https://github.com/eclipse/sumo.website/blob/main/src/config/_default/config.yaml) in the **Default Parameters** section
+  - modify the version number (Version) [in config.yaml](https://github.com/eclipse-sumo/sumo.website/blob/main/src/config/_default/config.yaml) in the **Default Parameters** section
   - generate the static files `cd src && hugo -d ../` and commit them
 - make new sourceforge-release
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
+- publish a new "version" in Zenodo. Do not forget to delete the previous file in the new version!
 - update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
@@ -156,9 +157,10 @@ If everything is fine:
   - submit news about the release on the Eclipse Newsroom <https://newsroom.eclipse.org/node/add/news>
   - tweet about it, post on Facebook and Instagram stories
   - trigger update of main website at <https://sumo.dlr.de>
-- close [the milestone](https://github.com/eclipse/sumo/milestones)
+- close [the milestone](https://github.com/eclipse-sumo/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.
+- update the version doi in CITATION.cff and in the README badge
 
 ### After-release cleanup
 

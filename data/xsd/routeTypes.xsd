@@ -159,8 +159,8 @@
                     <xsd:enumeration value="REDosto7" />
                     <xsd:enumeration value="RB628" />
                     <xsd:enumeration value="Freight" />
-					<xsd:enumeration value="MireoPlusB" />
-					<xsd:enumeration value="MireoPlusH" />
+                    <xsd:enumeration value="MireoPlusB" />
+                    <xsd:enumeration value="MireoPlusH" />
                 </xsd:restriction>
             </xsd:simpleType>
 
@@ -634,6 +634,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="random_free"/>
+                    <xsd:enumeration value="random_location"/>
                     <xsd:enumeration value="free"/>
                     <xsd:enumeration value="base"/>
                     <xsd:enumeration value="last"/>

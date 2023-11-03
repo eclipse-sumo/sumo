@@ -65,6 +65,12 @@ enum class GUIIcon {
     CLEARMESSAGEWINDOW,
     /// @}
 
+    /// @name netedit view icons
+    /// @{
+    VIEWDEFAULT,
+    VIEWJUPEDSIM,
+    /// @}
+
     /// @brief open icons
     /// @{
     OPEN,
@@ -275,6 +281,8 @@ enum class GUIIcon {
     UNCOLLAPSE,
     EXTEND,
     CURRENT,
+    SEARCH,
+    ALLOW,
     /// @}
 
     /// @name Netedit common mode specific icons
@@ -455,15 +463,17 @@ enum class GUIIcon {
     POIGEO,
     /// @}
 
+    /// @name poi icons
+    /// @{
+    POIICON_NATURE,
+    POIICON_HOTEL,
+    /// @}
+
     /// @name juPedSim elements
     /// @{
     JPS,
     JPS_WALKABLEAREA,
     JPS_OBSTACLE,
-    JPS_WAITINGAREA,
-    JPS_SOURCE,
-    JPS_SINK,
-    JPS_WAYPOINT,
     /// @}
 
     /// @name TAZ elements icons
@@ -478,6 +488,12 @@ enum class GUIIcon {
     ROUTE,
     ROUTEDISTRIBUTION,
     VTYPE,
+    VTYPE_DEFAULT,
+    VTYPE_BIKE,
+    VTYPE_TAXI,
+    VTYPE_RAIL,
+    VTYPE_PEDESTRIAN,
+    VTYPE_CONTAINER,
     VTYPEDISTRIBUTION,
     VEHICLE,
     TRIP,
@@ -491,25 +507,27 @@ enum class GUIIcon {
     WAYPOINT,
     PERSON,
     PERSONFLOW,
-    PERSONTRIP_FROMTO,
+    PERSONTRIP_EDGE,
     PERSONTRIP_BUSSTOP,
     PERSONTRIP_TRAINSTOP,
-    PERSONTRIP_JUNCTIONS,
+    PERSONTRIP_JUNCTION,
+    PERSONTRIP_TAZ,
     WALK_EDGES,
-    WALK_FROMTO,
+    WALK_EDGE,
     WALK_BUSSTOP,
     WALK_TRAINSTOP,
     WALK_ROUTE,
-    WALK_JUNCTIONS,
-    RIDE_FROMTO,
+    WALK_JUNCTION,
+    WALK_TAZ,
+    RIDE_EDGE,
     RIDE_BUSSTOP,
     RIDE_TRAINSTOP,
     CONTAINER,
     CONTAINERFLOW,
-    TRANSPORT_FROMTO,
+    TRANSPORT_EDGE,
     TRANSPORT_CONTAINERSTOP,
     TRANSHIP_EDGES,
-    TRANSHIP_FROMTO,
+    TRANSHIP_EDGE,
     TRANSHIP_CONTAINERSTOP,
     /// @}
 

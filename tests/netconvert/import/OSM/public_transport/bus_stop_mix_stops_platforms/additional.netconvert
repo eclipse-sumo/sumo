@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-17 18:35:14 by Eclipse SUMO netconvert Version v1_14_1+8619-d2eaeb5375e
+<!-- generated on 2023-06-15 14:12:50 by Eclipse SUMO netconvert Version v1_17_0+0949-cba0d01c7a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="743127578#1_0" pos="0.00" length="69.70" friendlyPos="1"/>
     </busStop>
     <busStop id="-469786435" name="Brixton Station Road" lane="-639169633#0_0" startPos="77.62" endPos="92.62" friendlyPos="true" lines="35 45 345 P4"/>
-    <busStop id="-4701534125" name="Brixton Road / Brixton Police Station" lane="-253362216#2_0" startPos="5.46" endPos="20.46" friendlyPos="true" lines="159 3 N3 N109 59">
+    <busStop id="-4701534125" name="Brixton Road / Brixton Police Station" lane="-253362216#2_0" startPos="5.65" endPos="20.65" friendlyPos="true" lines="159 3 N3 N109 59">
         <access lane="-743127583_0" pos="46.60" length="28.31" friendlyPos="1"/>
         <access lane="743127580_0" pos="1.19" length="72.29" friendlyPos="1"/>
         <access lane="743127582_0" pos="0.20" length="70.10" friendlyPos="1"/>

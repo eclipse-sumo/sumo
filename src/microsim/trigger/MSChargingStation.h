@@ -47,12 +47,12 @@ class MSDevice_Battery;
  * @brief Definition of charging stations
  */
 class MSChargingStation : public MSStoppingPlace {
-public:
 
+public:
     /// @brief constructor
     MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
                       const std::string& name, double chargingPower, double efficency, bool chargeInTransit,
-                      SUMOTime chargeDelay);
+                      SUMOTime chargeDelay, const std::string& chargeType, SUMOTime waitingTime);
 
     /// @brief destructor
     ~MSChargingStation();
@@ -68,6 +68,12 @@ public:
 
     /// @brief Get Charge Delay
     SUMOTime getChargeDelay() const;
+
+    /// @brief Get charge type
+    const std::string &getChargeType() const;
+
+    /// @brief Get waiting time
+    SUMOTime getWaitingTime() const;
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
@@ -135,22 +141,28 @@ protected:
     static void writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged);
 
     /// @brief Charging station's charging power
-    double myChargingPower;
+    double myChargingPower = 0;
 
     /// @brief Efficiency of the charging station
-    double myEfficiency;
+    double myEfficiency = 0;
 
     /// @brief Allow charge in transit
     bool myChargeInTransit;
 
     /// @brief Charge Delay
-    SUMOTime myChargeDelay;
+    SUMOTime myChargeDelay = 0;
+
+    /// @brief charge type
+    const std::string myChargeType = "normal";
+    
+    /// @brief waiting time
+    SUMOTime myWaitingTime = 0;
 
     /// @brief Check if in the current TimeStep chargingStation is charging a vehicle
     bool myChargingVehicle;
 
     /// @brief total energy charged by this charging station
-    double myTotalCharge;
+    double myTotalCharge = 0;
 
     /// @brief map with the charges of this charging station (key = vehicleID)
     std::map<std::string, std::vector<Charge> > myChargeValues;

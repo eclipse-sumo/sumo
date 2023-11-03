@@ -87,6 +87,9 @@ intermodal_car_walk_no_place
 # train access
 access
 
+# train access at random location
+access_random
+
 # train access
 access_shortcut
 

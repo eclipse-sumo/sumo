@@ -1,10 +1,10 @@
 add
-
 remove
 
 # attribute to remove not present in all elements
 remove_missing
-
 update
 
+# Updates an attribute to a maximum value (reduces all greater values to the given one)
+update_maximum
 save_template

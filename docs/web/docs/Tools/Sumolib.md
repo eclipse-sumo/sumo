@@ -6,7 +6,7 @@ title: Sumolib
 simulation output and other simulation artifacts. For a detailed list of
 available functions see the [pydoc generated
 documentation](https://sumo.dlr.de/pydoc/sumolib.html). You can
-[browse the code here](https://github.com/eclipse/sumo/tree/main/tools/sumolib).
+[browse the code here](https://github.com/eclipse-sumo/sumo/tree/main/tools/sumolib).
 
 # importing **sumolib** in a script
 

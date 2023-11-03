@@ -1,0 +1,26 @@
+/* XPM */
+static const char *parkingzonereroute_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c #187E37",
+". c #00007F",
+"X c None",
+"o c white",
+/* pixels */
+"XXXXXXXX........",
+"XXX XXXX..ooo...",
+"XXX  XXX..o..o..",
+"X     XX..ooo...",
+"      XX..o.....",
+"  X  XXX..o.....",
+"  X XXXX........",
+"  XXXXXX........",
+"  XXXXXXXXXXXXXX",
+"  XXXXXXXXXXXXXX",
+"  XXXXXXXXXXXXXX",
+"  XXXXXXXXXXXXXX",
+"  XXXXXXXXXXXXXX",
+"  XXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

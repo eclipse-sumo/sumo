@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Fri, 19 Jul 2002
 ///
 // Retrieves a file linewise and reports the lines to a handler.
@@ -204,8 +205,10 @@ LineReader::reinit() {
         // check for BOM
         myStrm.read(myBuffer, 3);
         if (myBuffer[0] == '\xef' && myBuffer[1] == '\xbb' && myBuffer[2] == '\xbf') {
-            myAvailable -= 3;
+            mySkipBOM = 3;
+            myAvailable -= mySkipBOM;
         } else {
+            mySkipBOM = 0;
             myStrm.seekg(0, std::ios::beg);
         }
     }
@@ -218,7 +221,7 @@ LineReader::reinit() {
 
 void
 LineReader::setPos(unsigned long pos) {
-    myStrm.seekg(pos, std::ios::beg);
+    myStrm.seekg(pos + mySkipBOM, std::ios::beg);
     myRead = pos;
     myRread = pos;
     myStrBuffer = "";

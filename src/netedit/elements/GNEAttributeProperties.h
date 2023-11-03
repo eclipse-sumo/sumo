@@ -63,14 +63,13 @@ public:
         LIST =              1 << 15,    // Attribute is a list of other elements separated by spaces
         SECUENCIAL =        1 << 16,    // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
         DEFAULTVALUE =      1 << 17,    // Attribute owns a static default value
-        VCLASSES =          1 << 18,    // Attribute is a combination of VClasses (allow/disallow)
-        SYNONYM =           1 << 19,    // Attribute will be written with a different name in der XML
-        RANGE =             1 << 20,    // Attribute only accept a range of elements (example: Probability [0,1])
-        EXTENDED =          1 << 21,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
-        UPDATEGEOMETRY =    1 << 22,    // Attribute require update geometry at the end of function setAttribute(...)
-        ACTIVATABLE =       1 << 23,    // Attribute can be switch on/off using a checkbox in frame
-        FLOWDEFINITION =    1 << 24,    // Attribute is part of a flow definition (Number, vehsPerHour...)
-        AUTOMATICID =       1 << 25,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
+        SYNONYM =           1 << 18,    // Attribute will be written with a different name in der XML
+        RANGE =             1 << 19,    // Attribute only accept a range of elements (example: Probability [0,1])
+        EXTENDED =          1 << 20,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
+        UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
+        ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
+        FLOWDEFINITION =    1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
+        AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
     };
 
     /// @brief default constructor
@@ -86,7 +85,7 @@ public:
     void checkAttributeIntegrity() const;
 
     /// @brief set discrete values
-    void setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll);
+    void setDiscreteValues(const std::vector<std::string>& discreteValues);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -199,12 +198,6 @@ public:
     /// @brief return true if attribute is discrete
     bool isDiscrete() const;
 
-    /// @brief show all discrete values in the comboBox
-    bool showAllDiscreteValues() const;
-
-    /// @brief return true if attribute is a list of VClasses
-    bool isVClasses() const;
-
     /// @brief return true if attribute is extended
     bool isExtended() const;
 
@@ -244,9 +237,6 @@ private:
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;
-
-    /// @brief show all discrete values in ComboBox
-    bool myShowAllDiscreteValues = false;
 
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
     SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;

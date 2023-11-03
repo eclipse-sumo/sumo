@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO polyconvert Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-09-22 07:05:05 by Eclipse SUMO polyconvert Version v1_18_0+1732-f768a4560e8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -80,6 +80,7 @@
         <prefix value="" type="STR" help="Sets STR as default prefix"/>
         <type value="unknown" type="STR" help="Sets STR as default type"/>
         <fill value="true" type="BOOL" help="Fills polygons by default"/>
+        <icon value="" type="STR" help="Sets STR as default icon"/>
         <layer value="-1" type="FLOAT" help="Sets FLOAT as default layer"/>
         <discard value="false" type="BOOL" help="Sets default action to discard"/>
     </building_defaults>
@@ -96,6 +97,8 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <log.timestamps value="false" type="BOOL" help="Writes timestamps in front of all messages"/>
+        <log.processid value="false" type="BOOL" help="Writes process ID in front of all messages"/>
         <language value="C" type="STR" help="Language to use in messages"/>
     </report>
 

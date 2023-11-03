@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 09:12:57 by Eclipse SUMO netedit Version v1_10_0+1919-2fd86b1b558
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-10-25 06:27:56 by Eclipse SUMO netedit Version v1_18_0+2229-87101adba1e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Oct062641.12172\netedit.gui\basic\save\new_net\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Oct062641.12172\netedit.gui\basic\save\new_net\net.net.xml"/>
     </output>
 
-    <processing>
-        <offset.disable-normalization value="true"/>
-    </processing>
-
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\datas.xml"/>
+        <new-network value="false"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Oct062641.12172\netedit.gui\basic\save\new_net\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Oct062641.12172\netedit.gui\basic\save\new_net\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Nov091008.29780\netedit.gui\basic\save\new_net\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Oct062641.12172\netedit.gui\basic\save\new_net\log.txt"/>
     </report>
 
 </configuration>
@@ -44,13 +34,13 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="30.00,50.00,70.00,50.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="10.00,50.00,50.00,50.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="40.00" shape="30.00,48.40 70.00,48.40"/>
+        <lane id="E0_0" index="0" speed="13.89" length="40.00" shape="10.00,48.40 50.00,48.40"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="30.00" y="50.00" incLanes="" intLanes="" shape="30.00,50.00 30.00,46.80"/>
-    <junction id="J1" type="dead_end" x="70.00" y="50.00" incLanes="E0_0" intLanes="" shape="70.00,46.80 70.00,50.00"/>
+    <junction id="J0" type="dead_end" x="10.00" y="50.00" incLanes="" intLanes="" shape="10.00,50.00 10.00,46.80"/>
+    <junction id="J1" type="dead_end" x="50.00" y="50.00" incLanes="E0_0" intLanes="" shape="50.00,46.80 50.00,50.00"/>
 
 </net>

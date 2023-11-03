@@ -27,9 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicle
- */
+
 class GNEVehicle : public GNEDemandElement, public GNEDemandElementFlow {
 
 public:
@@ -160,6 +158,14 @@ public:
 
     /// @brief Returns position of demand element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with drawing
+    /// @{
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -203,22 +209,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -304,6 +307,9 @@ protected:
 private:
     /// @brief vehicle arrival position radius
     static const double myArrivalPositionDiameter;
+
+    /// @brief variable used for draw vehicle contour (needed because vehicles have two different contours)
+    GNEContour myVehicleContour;
 
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

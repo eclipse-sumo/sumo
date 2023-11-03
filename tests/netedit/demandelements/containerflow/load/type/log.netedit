@@ -1,3 +1,4 @@
 Error: Attribute 'type' in definition of containerFlow 'p_1' is empty.
 Error: Invalid vehicle type 'dummyType' used in containerFlow 'p_2'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containers.14Jul121719.3232/netedit.daily.demand.containers/demandelements/containerflow/load/type/routes.rou.xml failed.
+Warning: invalid container parent
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.23Oct140934.4429/netedit.gui/demandelements/containerflow/load/type/routes.rou.xml failed.

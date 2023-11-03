@@ -19,8 +19,6 @@ set(netedit_elements_network_SRCS
    GNEWalkingArea.cpp
    GNEJunction.h
    GNEJunction.cpp
-   GNEProhibition.h
-   GNEProhibition.cpp
    GNEEdgeType.h
    GNEEdgeType.cpp
    GNELaneType.h

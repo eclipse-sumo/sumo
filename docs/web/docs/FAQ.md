@@ -48,11 +48,11 @@ title: FAQ
 
 - Tell us about your extensions on the [developer mailing list](https://accounts.eclipse.org/mailing-list/sumo-dev)
 - Send us patches (bug fixes as well as extensions) either to the same
-  list or as pull requests at <https://github.com/eclipse/sumo> (also
+  list or as pull requests at <https://github.com/eclipse-sumo/sumo> (also
   see next question).
 - Report bugs (crashes, surprising behavior) or invalid documentation
   at [sumo-user](https://accounts.eclipse.org/mailing-list/sumo-user)
-  or at <https://github.com/eclipse/sumo/issues>
+  or at <https://github.com/eclipse-sumo/sumo/issues>
 - The main development team at the [DLR](https://sumo.dlr.de) is always
   looking for project partners. [Contact us](Contact.md) to
   discuss your proposals.
@@ -372,13 +372,13 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
 
 ### How do I access the code repository?
 
-Since 2018-04-10 SUMO moved to [the organizational Eclipse account at GitHub](https://github.com/eclipse/sumo/). You have the choice to
+Since 2018-04-10 SUMO moved to [the organizational Eclipse account at GitHub](https://github.com/eclipse-sumo/sumo/). You have the choice to
 access the repository using git or subversion. There are plenty of
 clients for all platforms. If you use the command line client, you
 can checkout sumo using the following command (for git):
 
 ```
-git clone --recursive https://github.com/eclipse/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 ```
 
 If you want to see the full project history in your git checkout please
@@ -1115,7 +1115,7 @@ during the execution, DisplayLink drivers must be uninstalled.
 
 ### Distorted view with green lines all over the network
 
-If your sumo-gui looks [like this](https://github.com/eclipse/sumo/issues/7511)
+If your sumo-gui looks [like this](https://github.com/eclipse-sumo/sumo/issues/7511)
 it is probably again a problem with your display driver. It seems to occur most
 of the time with on board (Intel) graphics together with a dedicated nvidia card.
 To fix it install the latest nvidia drivers, open the nvidia system control panel
@@ -1232,7 +1232,7 @@ As a work-around you can [install a .deb package](https://askubuntu.com/question
   
 ### Can SUMO simulate V2V / V2X messages?
 
-  Sumo does generally does not model messaging. The best way to do so is by managing the messages with connected code.
+  Sumo generally does not model messaging. The best way to do so is by managing the messages with connected code.
   If you want to simulate the application layer and can work with the assumption that messages "just work", you can often handle the messages with your own (simple) TraCI code. If you need to simulate the physical process, using a network simulator is recommended (see above).
   Sumo supports a [vehicle device](Simulation/Bluetooth.md) to log connectivity events but this is not designed to integrate with an application layer and aims only at logging.
   

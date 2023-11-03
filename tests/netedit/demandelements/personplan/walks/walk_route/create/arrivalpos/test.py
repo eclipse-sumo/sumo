@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -46,26 +46,20 @@ netedit.typeEnter()
 # go to walkEdgeEdge mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
-
 # go to walkEdgeEdge mode
-netedit.changePersonPlanMode("walk: route")
-
-# create walkEdgeEdge
-netedit.leftClick(referencePosition, 180, 63)
+netedit.changePersonPlanMode("walk (route)")
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.walkRoute.create.arrivalPos, "dummy")
 
-# press enter to create route
-netedit.typeEnter()
+# create walkEdgeEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.walkRoute.create.arrivalPos, "12.5")
 
-# press enter to create route
-netedit.typeEnter()
+# create walkEdgeEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

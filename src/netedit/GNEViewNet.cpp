@@ -27,6 +27,7 @@
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -89,7 +90,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,  GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_CONTAINER,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,       GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                     GNEViewNet::onCmdSetMode),
@@ -221,6 +222,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Geometry Points
     FXMAPFUNC(SEL_COMMAND, MID_GNE_CUSTOM_GEOMETRYPOINT,    GNEViewNet::onCmdSetCustomGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_RESET_GEOMETRYPOINT,     GNEViewNet::onCmdResetEndPoints),
+    // toolbar views
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_DEFAULT,   GNEViewNet::onCmdSetNeteditView),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VIEW_JUPEDSIM,  GNEViewNet::onCmdSetNeteditView),
     // IntervalBar
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_GENERICDATATYPE,     GNEViewNet::onCmdIntervalBarGenericDataType),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_INTERVALBAR_DATASET,             GNEViewNet::onCmdIntervalBarDataSet),
@@ -333,7 +337,6 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
                 v->getColoringSchemesCombo()->setCurrentItem(v->getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v->getColoringSchemesCombo()->setNumVisible(5);
     }
     // for junctions
     new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
@@ -401,8 +404,53 @@ GNEViewNet::updateViewNet() const {
 
 
 void
-GNEViewNet::forceSupermodeNetwork() {
+GNEViewNet::forceSupemodeNetwork() {
     myEditModes.setSupermode(Supermode::NETWORK, true);
+}
+
+
+void
+GNEViewNet::viewUpdated() {
+    if (myEditModes.isJuPedSimView()) {
+        // hide data button (and adjust width)
+        myEditModes.dataButton->hide();
+        // check network modes
+        switch (myEditModes.networkEditMode) {
+            case NetworkEditMode::NETWORK_CONNECT:
+            case NetworkEditMode::NETWORK_TLS:
+            case NetworkEditMode::NETWORK_PROHIBITION:
+            case NetworkEditMode::NETWORK_WIRE:
+            case NetworkEditMode::NETWORK_DECAL:
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_INSPECT);
+                break;
+            default:
+                break;
+        }
+        // check demand modes
+        switch (myEditModes.demandEditMode) {
+            case DemandEditMode::DEMAND_MOVE:
+            case DemandEditMode::DEMAND_VEHICLE:
+            case DemandEditMode::DEMAND_STOP:
+            case DemandEditMode::DEMAND_CONTAINER:
+            case DemandEditMode::DEMAND_CONTAINERPLAN:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_INSPECT);
+                break;
+            default:
+                break;
+        }
+        // go to network mode if we're in data mode
+        if (myEditModes.isCurrentSupermodeData()) {
+            forceSupemodeNetwork();
+        } else {
+            // refresh current supermode
+            myEditModes.setSupermode(myEditModes.currentSupermode, true);
+        }
+    } else {
+        // show data button
+        myEditModes.dataButton->show();
+        // refresh current supermode
+        myEditModes.setSupermode(myEditModes.currentSupermode, true);
+    }
 }
 
 
@@ -1061,11 +1109,11 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal person plan route
-        myViewParent->getPersonFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getPersonPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getPersonFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getPersonPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal container plan route
-        myViewParent->getContainerFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
-        myViewParent->getContainerPlanFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getContainerFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
+        myViewParent->getContainerPlanFrame()->getPlanCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal route
         myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(*myVisualizationSettings);
         // draw temporal edgeRelPath
@@ -1113,7 +1161,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     }
     // re-draw marked route
     if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
-        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, dynamic_cast<const GNEPathManager::PathElement*>(gPostDrawing.markedRoute));
+        myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gPostDrawing.markedRoute);
     }
     // draw temporal split junction
     drawTemporalSplitJunction();
@@ -1123,10 +1171,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawTemporalE1TLSLines();
     // draw temporal lines between junctions in TLS Mode
     drawTemporalJunctionTLSLines();
-    // draw delete dotted contour
+    // draw dotted contours
+    drawOverDottedContour();
     drawDeleteDottedContour();
-    // draw select dotted contour
     drawSelectDottedContour();
+    // draw netedit attributes references
+    drawNeteditAttributesReferences();
     // draw test circle
     drawTestsCircle();
     // pop draw matrix
@@ -1409,13 +1459,13 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getPersonFrame()->getPlanCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
             myViewParent->getPersonPlanFrame()->resetSelectedPerson();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getContainerFrame()->getPlanCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->abortPathCreation();
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         // abort operation depending of current mode
@@ -1548,15 +1598,15 @@ GNEViewNet::hotkeyEnter() {
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->getPathCreator()->createPath(false);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
-            myViewParent->getVehicleFrame()->getPathCreator()->createPath(false);
+            myViewParent->getVehicleFrame()->getPathCreator()->onCmdCreatePath(nullptr, 0, nullptr);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->createPath(false);
+            myViewParent->getPersonFrame()->getPlanCreator()->onCmdCreatePath(nullptr, 0, nullptr);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath(false);
+            myViewParent->getPersonPlanFrame()->getPlanCreator()->onCmdCreatePath(nullptr, 0, nullptr);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->createPath(false);
+            myViewParent->getContainerFrame()->getPlanCreator()->onCmdCreatePath(nullptr, 0, nullptr);
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->createPath(false);
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->onCmdCreatePath(nullptr, 0, nullptr);
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1581,13 +1631,13 @@ GNEViewNet::hotkeyBackSpace() {
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getPathCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            myViewParent->getPersonFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getPersonFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getPersonPlanFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
-            myViewParent->getContainerFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getContainerFrame()->getPlanCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
-            myViewParent->getContainerPlanFrame()->getPathCreator()->removeLastElement();
+            myViewParent->getContainerPlanFrame()->getPlanCreator()->removeLastElement();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1700,82 +1750,88 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
-    // first check disableDottedContours flag
-    if (myVisualizationSettings->disableDottedContours) {
+GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
+    // avoid draw in position/rectangle selection
+    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
-    // only draw for top element under cursor
-    if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // check if we're in the correct mode and supermode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
-            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
-        return false;
-    } else if (AC->getTagProperty().isDemandElement() &&
-               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
-        return false;
-    } else if (AC->getTagProperty().isDataElement() &&
-               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
+    // check if element is under cursor
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
     // check if we're in post drawing
     if (myPostDrawing) {
-        return gPostDrawing.isElementUnderCursor(GLObject);
-    }
-    // check ifs blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        // in post-drawing, draw always
+        return true;
+    } else {
+        // check if set as markedElementDeleteContour
+        if ((gPostDrawing.markedElementOverContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementOverContour->getType())) {
+            gPostDrawing.markedElementOverContour = GLObject;
+        }
+        // we wan't to draw select contour in this moment
         return false;
     }
-    // check if is under mouse
-    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
-        return false;
-    }
-    // add it in gPostDrawing
-    gPostDrawing.elementsMarkedToRemove.push_back(GLObject);
-    // we wan't to draw delete contour in this time
-    return false;
 }
 
 
 bool
-GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
-    // first check disableDottedContours flag
-    if (myVisualizationSettings->disableDottedContours) {
+GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
+    // avoid draw in position/rectangle selection
+    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
-    // only draw for top element under cursor
-    if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
+    // check if elemet is blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
         return false;
     }
-    // check if we're in the correct mode and supermode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
-            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT))) {
-        return false;
-    } else if (AC->getTagProperty().isDemandElement() &&
-               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
-        return false;
-    } else if (AC->getTagProperty().isDataElement() &&
-               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
+    // check if element is under cursor
+    if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
     // check if we're in post drawing
     if (myPostDrawing) {
-        return gPostDrawing.isElementUnderCursor(GLObject);
-    }
-    // check ifs blocked
-    if (myLockManager.isObjectLocked(GLObject->getType(), AC->isAttributeCarrierSelected())) {
+        // in post-drawing, draw always
+        return true;
+    } else {
+        // check if set as markedElementDeleteContour
+        if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
+            gPostDrawing.markedElementDeleteContour = GLObject;
+        }
+        // we wan't to draw select contour in this moment
         return false;
     }
-    // check if is under mouse
+}
+
+
+bool
+GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const {
+    // avoid draw in position/rectangle selection
+    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
+        return false;
+    }
+    // check if elemet is blocked
+    if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
+        return false;
+    }
+    // check if element is under cursor
     if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
-    // add it in gPostDrawing
-    gPostDrawing.elementsMarkedToSelect.push_back(GLObject);
-    // we wan't to draw select contour in this moment
-    return false;
+    // check if we're in post drawing
+    if (myPostDrawing) {
+        // in post-drawing, draw always
+        return true;
+    } else {
+        // check if set as markedElementSelectContour
+        if ((gPostDrawing.markedElementSelectContour == nullptr) ||
+            (GLObject->getType() > gPostDrawing.markedElementSelectContour->getType())) {
+            gPostDrawing.markedElementSelectContour = GLObject;
+        }
+        // we wan't to draw select contour in this moment
+        return false;
+    }
 }
 
 
@@ -2010,13 +2066,19 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
         case MID_HOTKEY_F2_SUPERMODE_NETWORK:
-            myEditModes.setSupermode(Supermode::NETWORK, false);
+            if (myEditModes.networkButton->shown()) {
+                myEditModes.setSupermode(Supermode::NETWORK, false);
+            }
             break;
         case MID_HOTKEY_F3_SUPERMODE_DEMAND:
-            myEditModes.setSupermode(Supermode::DEMAND, false);
+            if (myEditModes.demandButton->shown()) {
+                myEditModes.setSupermode(Supermode::DEMAND, false);
+            }
             break;
         case MID_HOTKEY_F4_SUPERMODE_DATA:
-            myEditModes.setSupermode(Supermode::DATA, false);
+            if (myEditModes.dataButton->shown()) {
+                myEditModes.setSupermode(Supermode::DATA, false);
+            }
             break;
         default:
             break;
@@ -2024,8 +2086,59 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
     return 1;
 }
 
+
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
+    // first filter modes depending of view
+    if (myEditModes.isJuPedSimView()) {
+        // network
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            switch (FXSELID(sel)) {
+                // common
+                case MID_HOTKEY_I_MODE_INSPECT:
+                case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
+                case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
+                // infrastructure
+                case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
+                case MID_HOTKEY_E_MODE_EDGE_EDGEDATA:
+                case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
+                case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
+                // shapes
+                case MID_HOTKEY_P_MODE_POLYGON_PERSON:
+                case MID_HOTKEY_Z_MODE_TAZ_TAZREL:
+                    break;
+                default:
+                    return 0;
+            }
+        }
+        // demand
+        if (myEditModes.isCurrentSupermodeDemand()) {
+            switch (FXSELID(sel)) {
+                // common
+                case MID_HOTKEY_I_MODE_INSPECT:
+                case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
+                case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
+                // persons
+                case MID_HOTKEY_P_MODE_POLYGON_PERSON:
+                case MID_HOTKEY_L_MODE_PERSONPLAN:
+                // routes
+                case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
+                case MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION:
+                // types
+                case MID_HOTKEY_T_MODE_TLS_TYPE:
+                case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
+                    break;
+                default:
+                    return 0;
+            }
+        }
+        // data
+        if (myEditModes.isCurrentSupermodeData()) {
+            // all modes disabled
+            return 0;
+        }
+    }
+    // continue depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
         // check what network mode will be set
         switch (FXSELID(sel)) {
@@ -2050,7 +2163,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
-            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_ADDITIONAL);
                 break;
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
@@ -2110,7 +2223,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPEDISTRIBUTION);
                 break;
-            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
             case MID_HOTKEY_P_MODE_POLYGON_PERSON:
@@ -2145,6 +2258,8 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
                 myEditModes.setDataEditMode(DataEditMode::DATA_MEANDATA);
+                break;
+            default:
                 break;
         }
     }
@@ -2431,10 +2546,7 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SOURCE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SINK)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2478,10 +2590,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SOURCE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SINK)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2514,10 +2623,7 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
                     (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WAITINGAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SOURCE) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_SINK)) {
+                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }
@@ -4525,6 +4631,14 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GNEViewNet::onCmdSetNeteditView(FXObject*, FXSelector sel, void*) {
+   myEditModes.setView(FXSELID(sel));
+   update();
+   return 1;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -5357,42 +5471,37 @@ GNEViewNet::drawTemporalSplitJunction() const {
             myMouseButtonKeyPressed.shiftKeyPressed() &&
             !myMouseButtonKeyPressed.altKeyPressed() &&
             (gPostDrawing.markedEdge != nullptr)) {
-        // get marked edge
-        const GNEEdge* edge = dynamic_cast<const GNEEdge*>(gPostDrawing.markedEdge);
-        // check that edge exist
-        if (edge) {
-            // calculate split position
-            const auto lane = edge->getLanes().back();
-            const auto laneDrawingConstants = GNELane::LaneDrawingConstants(*myVisualizationSettings, lane);
-            auto shape = lane->getLaneShape();
-            // move shape to side
-            shape.move2side(laneDrawingConstants.halfWidth * -1);
-            const auto offset = shape.nearest_offset_to_point2D(snapToActiveGrid(getPositionInformation()));
-            const auto splitPosition = shape.positionAtOffset2D(offset);
-            // get junction exaggeration
-            const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
-            // get bubble color
-            RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to temporal shape layer
-            glTranslated(0, 0, GLO_TEMPORALSHAPE);
-            // push junction matrix
-            GLHelper::pushMatrix();
-            // move matrix junction center
-            glTranslated(splitPosition.x(), splitPosition.y(), 0.1);
-            // set color
-            GLHelper::setColor(bubbleColor);
-            // draw outline circle
-            const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
-            GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
-            // draw filled circle
-            GLHelper::drawFilledCircle(0.5, myVisualizationSettings->getCircleResolution());
-            // pop junction matrix
-            GLHelper::popMatrix();
-            // pop layer matrix
-            GLHelper::popMatrix();
-        }
+        // calculate split position
+        const auto lane = gPostDrawing.markedEdge->getLanes().back();
+        const auto laneDrawingConstants = GNELane::LaneDrawingConstants(*myVisualizationSettings, lane);
+        auto shape = lane->getLaneShape();
+        // move shape to side
+        shape.move2side(laneDrawingConstants.halfWidth * -1);
+        const auto offset = shape.nearest_offset_to_point2D(snapToActiveGrid(getPositionInformation()));
+        const auto splitPosition = shape.positionAtOffset2D(offset);
+        // get junction exaggeration
+        const double junctionExaggeration = myVisualizationSettings->junctionSize.getExaggeration(*myVisualizationSettings, nullptr, 4);
+        // get bubble color
+        RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to temporal shape layer
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // push junction matrix
+        GLHelper::pushMatrix();
+        // move matrix junction center
+        glTranslated(splitPosition.x(), splitPosition.y(), 0.1);
+        // set color
+        GLHelper::setColor(bubbleColor);
+        // draw outline circle
+        const double circleWidth = myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius * junctionExaggeration;
+        GLHelper::drawOutlineCircle(circleWidth, circleWidth * 0.75, myVisualizationSettings->getCircleResolution());
+        // draw filled circle
+        GLHelper::drawFilledCircle(0.5, myVisualizationSettings->getCircleResolution());
+        // pop junction matrix
+        GLHelper::popMatrix();
+        // pop layer matrix
+        GLHelper::popMatrix();
     }
 }
 
@@ -5483,18 +5592,41 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
 
 
 void
+GNEViewNet::drawOverDottedContour() {
+    // first check if there is a markedElementOverContour
+    if (gPostDrawing.markedElementOverContour) {
+        // check if is a basic GLObject or a path element
+        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementOverContour);
+        if (pathElement != nullptr) {
+            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+        } else {
+            gPostDrawing.markedElementOverContour->drawGL(*myVisualizationSettings);
+        }
+    }
+}
+
+
+void
 GNEViewNet::drawDeleteDottedContour() {
-    // avoid draw if we're in position or rectangle selection
-    if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
-        // only draw marked elements that have the same GLType of the last element
-        for (const auto elementToRemove : gPostDrawing.elementsMarkedToRemove) {
-            if (elementToRemove->getType() == gPostDrawing.elementsMarkedToRemove.back()->getType()) {
+    // first check if there is a markedElementDeleteContour
+    if (gPostDrawing.markedElementDeleteContour) {
+        // check if is a basic GLObject or a path element
+        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementDeleteContour);
+        if (pathElement != nullptr) {
+            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+        } else {
+            gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
+        }
+        // iterate over all objects under cursor
+        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+            // compare objectUnderCursor and markedElementsDeleteContour types 
+            if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
                 // check if is a normalGLObject or a path element
-                const auto pathElement = myNet->getPathManager()->getPathElement(elementToRemove);
+                pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
                 if (pathElement != nullptr) {
                     myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
                 } else {
-                    elementToRemove->drawGL(*myVisualizationSettings);
+                    objectUnderCursor->drawGL(*myVisualizationSettings);
                 }
             }
         }
@@ -5504,20 +5636,36 @@ GNEViewNet::drawDeleteDottedContour() {
 
 void
 GNEViewNet::drawSelectDottedContour() {
-    // avoid draw if we're in position or rectangle selection
-    if (!myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
-        // only draw marked elements that have the same GLType of the last element
-        for (const auto elementToSelect : gPostDrawing.elementsMarkedToSelect) {
-            if (elementToSelect->getType() == gPostDrawing.elementsMarkedToSelect.back()->getType()) {
+    // first check if there is a markedElementSelectContour
+    if (gPostDrawing.markedElementSelectContour) {
+        // check if is a basic GLObject or a path element
+        auto pathElement = myNet->getPathManager()->getPathElement(gPostDrawing.markedElementSelectContour);
+        if (pathElement != nullptr) {
+            myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
+        } else {
+            gPostDrawing.markedElementSelectContour->drawGL(*myVisualizationSettings);
+        }
+        // iterate over all objects under cursor
+        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+            // compare objectUnderCursor and markedElementsSelectContour types 
+            if (objectUnderCursor->getType() == gPostDrawing.markedElementSelectContour->getType()) {
                 // check if is a normalGLObject or a path element
-                const auto pathElement = myNet->getPathManager()->getPathElement(elementToSelect);
+                pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
                 if (pathElement != nullptr) {
                     myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, pathElement);
                 } else {
-                    elementToSelect->drawGL(*myVisualizationSettings);
+                    objectUnderCursor->drawGL(*myVisualizationSettings);
                 }
             }
         }
+    }
+}
+
+
+void
+GNEViewNet::drawNeteditAttributesReferences() {
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
+        myViewParent->getAdditionalFrame()->getNeteditAttributes()->drawLaneReference(*myVisualizationSettings, gPostDrawing.markedLane);
     }
 }
 
@@ -5991,28 +6139,28 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_PERSON: {
             // Handle click
-            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // Handle person plan click
-            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_CONTAINER: {
             // Handle click
-            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getContainerFrame()->addContainer(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_CONTAINERPLAN: {
             // Handle container plan click
-            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
+            myViewParent->getContainerPlanFrame()->addContainerPlanElement(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;

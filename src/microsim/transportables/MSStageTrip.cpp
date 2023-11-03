@@ -140,9 +140,10 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     }
     MSStage* previous;
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-    if (transportable->getNumStages() == transportable->getNumRemainingStages()) { // this is a difficult way to check that we are the first stage
+    if (transportable->getCurrentStageIndex() == 0) {
         myDepartPos = transportable->getParameter().departPos;
         if (transportable->getParameter().departPosProcedure == DepartPosDefinition::RANDOM) {
+            // TODO we should probably use the rng of the lane here
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
         previous = new MSStageWaiting(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
@@ -194,7 +195,8 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
-                    const MSEdge* const rideOrigin = myOrigin->isTazConnector() && (transportable->getNumStages() == oldNumStages) ? it->edges.front() : nullptr;
+                    const MSEdge* const first = it->edges.front();
+                    const MSEdge* const rideOrigin = myOrigin->isTazConnector() && (transportable->getNumStages() == oldNumStages) ? first : nullptr;
                     if (it + 1 == result.end() && myHaveArrivalPos) {
                         localArrivalPos = myArrivalPos;
                     }
@@ -202,19 +204,18 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         // determine walk departPos
                         double depPos = previous->getArrivalPos();
                         if (previous->getDestinationStop() != nullptr) {
-                            depPos = previous->getDestinationStop()->getAccessPos(it->edges.front());
+                            depPos = previous->getDestinationStop()->getAccessPos(first, first->getLanes()[0]->getRNG());
                         } else if (myOrigin->isTazConnector()) {
                             // walk the whole length of the first edge
-                            const MSEdge* first = it->edges.front();
                             if (std::find(first->getPredecessors().begin(), first->getPredecessors().end(), myOrigin) != first->getPredecessors().end()) {
                                 depPos = 0;
                             } else {
                                 depPos = first->getLength();
                             }
-                        } else if (previous->getDestination() != it->edges.front()) {
-                            if ((previous->getDestination()->getToJunction() == it->edges.front()->getToJunction())
-                                    || (previous->getDestination()->getFromJunction() == it->edges.front()->getToJunction())) {
-                                depPos = it->edges.front()->getLength();
+                        } else if (previous->getDestination() != first) {
+                            if ((previous->getDestination()->getToJunction() == first->getToJunction())
+                                    || (previous->getDestination()->getFromJunction() == first->getToJunction())) {
+                                depPos = first->getLength();
                             } else {
                                 depPos = 0.;
                             }

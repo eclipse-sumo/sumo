@@ -17,24 +17,17 @@
 ///
 // An auxiliar, asbtract class for flow elements (vehicles, person and containers)
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_ToggleAttribute.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 
 #include "GNEDemandElementFlow.h"
-#include "GNEDemandElement.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEDemandElement - methods
-// ---------------------------------------------------------------------------
 
 GNEDemandElementFlow::GNEDemandElementFlow(const GNEDemandElement* flowElement) {
     // set default flow attributes

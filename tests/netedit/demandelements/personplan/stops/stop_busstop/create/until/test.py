@@ -35,11 +35,12 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 280, 60)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -47,41 +48,40 @@ netedit.typeEnter()
 # go to person plan mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+# go to StopPlanStoppingPlace mode
+netedit.changePersonPlanMode("stop")
 
-# go to personStopBusStop mode
-netedit.changePersonPlanMode("stopPerson: busStop")
-
-# create personStopBusStop
-netedit.leftClick(referencePosition, 180, 50)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.personStopBusStop.create.untilEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.untilEnable)
 
-# create personStopBusStop
-netedit.leftClick(referencePosition, 182, 50)
-
-# set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.until, "dummy")
-
-# create personStopBusStop
-netedit.leftClick(referencePosition, 184, 50)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.until, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "dummy")
 
-# create personStopBusStop
-netedit.leftClick(referencePosition, 186, 50)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.until, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "-20")
 
-# create personStopBusStop
-netedit.leftClick(referencePosition, 188, 50)
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
-# press enter to create route
-netedit.typeEnter()
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "30.2")
+
+# create StopPlanStoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

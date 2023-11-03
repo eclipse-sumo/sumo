@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
 # inspect connection
-netedit.leftClick(referencePosition, 228, 164)
+netedit.leftClick(referencePosition, 397, 150)
 
 # Change parameter 8 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.allow, "DummyAllowed", True)

@@ -162,10 +162,7 @@ protected:
     void addWalk(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person
-    void addPerson(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
+    void addTransportable(const SUMOSAXAttributes& attrs, const bool isPerson);
 
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
@@ -189,6 +186,9 @@ protected:
     /// @brief number of repetitions of the active route
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
+
+    /// @brief whether the active route is stored indefinitely (used by state loader)
+    bool myActiveRoutePermanent;
 
     /// @brief The time at which this route was replaced (from vehroute-output)
     SUMOTime myActiveRouteReplacedAtTime;
@@ -261,9 +261,6 @@ private:
 
     /// @brief Invalidated assignment operator
     MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
-
-    /// @brief Check if vtype of given transportable exists
-    void checkTransportableType();
 
     /// @brief Processing of a transport
     void addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag);

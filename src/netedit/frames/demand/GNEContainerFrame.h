@@ -13,7 +13,7 @@
 /****************************************************************************/
 /// @file    GNEContainerFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    May 2019
 ///
 // The Widget for add container elements
 /****************************************************************************/
@@ -25,9 +25,10 @@
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
-#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
 
 
 // ===========================================================================
@@ -58,13 +59,16 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if vehicle was successfully added
      */
-    bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get GNEPathCreator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
 
     /// @brief get Type selectors
-    DemandElementSelector* getTypeSelector() const;
+    GNEDemandElementSelector* getTypeSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
     /// @brief get attributes creator
     GNEAttributesCreator* getContainerAttributes() const;
@@ -90,10 +94,10 @@ private:
     GNETagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    DemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector;
 
-    /// @brief container plan selector (used to select diffent kind of container plan)
-    GNETagSelector* myContainerPlanTagSelector;
+    /// @brief containerPlan selector
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerAttributes;
@@ -105,7 +109,7 @@ private:
     GNENeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEPathCreator* myPathCreator;
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief path legend modul
     GNEPathLegendModule* myPathLegend;

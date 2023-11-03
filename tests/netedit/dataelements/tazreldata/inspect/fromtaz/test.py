@@ -41,15 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create TAZRelData
-netedit.leftClick(referencePosition, 180, 180)
-netedit.leftClick(referencePosition, 460, 180)
+netedit.leftClick(referencePosition, 300, 180)
+netedit.leftClick(referencePosition, 700, 180)
 netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect TAZRelData
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 425, 254)
 
 # Change parameter 3 with a non valid value (empty speed)
 netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "", False)

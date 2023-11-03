@@ -17,24 +17,19 @@
 ///
 // Representation of persons in netedit
 /****************************************************************************/
-#include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_ToggleAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <utils/xml/NamespaceIDs.h>
 
 #include "GNEPerson.h"
 #include "GNERouteHandler.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -190,7 +185,7 @@ GNEPerson::~GNEPerson() {}
 GNEMoveOperation*
 GNEPerson::getMoveOperation() {
     // check first person plan
-    if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
+    if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
         return nullptr;
     } else {
         // get lane
@@ -309,7 +304,7 @@ Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
     if (getChildDemandElements().size() > 0) {
-        if (getChildDemandElements().front()->getTagProperty().isStopPerson()) {
+        if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
             // use boundary of stop center
             return getChildDemandElements().front()->getCenteringBoundary();
         } else {
@@ -413,12 +408,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             if (myTagProperty.isFlow()) {
                 drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
             }
-            // draw line between junctions if person plan isn't valid
-            for (const auto& personPlan : getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
-                    drawJunctionLine(personPlan);
-                }
-            }
             // pop name
             GLHelper::popName();
             // draw name
@@ -429,29 +418,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
             // check if mouse is over element
             mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
-            }
+            // draw dotted contour
+            myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
+                                                 s.dottedContourSettings.segmentWidth);
         }
     }
 }
@@ -467,14 +439,14 @@ GNEPerson::computePathElement() {
 
 
 void
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+GNEPerson::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Stops don't use drawJunctionPartialGL
 }
 
 
 void
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // Stops don't use drawPartialGL
+GNEPerson::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // Stops don't use drawJunctionPartialGL
 }
 
 
@@ -546,27 +518,17 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isStopPerson()) {
+            if (personPlan->getTagProperty().isPlanStopPerson()) {
+                // stop center
                 return personPlan->getPositionInView();
-            } else if (personPlan->getParentJunctions().size() > 0) {
+            } else if (personPlan->getTagProperty().planFromTAZ()) {
+                // TAZ
+                return personPlan->getParentAdditionals().front()->getPositionInView();
+            } else if (personPlan->getTagProperty().planFromJunction()) {
+                // juncrtion
                 return personPlan->getParentJunctions().front()->getPositionInView();
             } else {
-                // declare lane lane
-                GNELane* lane = nullptr;
-                // update lane
-                if (personPlan->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-                    lane = personPlan->getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-                } else {
-                    lane = personPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-                }
-                // get position over lane shape
-                if (departPos <= 0) {
-                    return lane->getLaneShape().front();
-                } else if (departPos >= lane->getLaneShape().length2D()) {
-                    return lane->getLaneShape().back();
-                } else {
-                    return lane->getLaneShape().positionAtOffset2D(departPos);
-                }
+                return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
         }
         default:

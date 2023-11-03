@@ -423,14 +423,6 @@ enum SumoXMLTag {
     GNE_TAG_JPS_WALKABLEAREA,
     /// @brief polygon used for draw juPedSim obstacles
     GNE_TAG_JPS_OBSTACLE,
-    /// @brief polygon used for draw juPedSim waiting areas
-    GNE_TAG_JPS_WAITINGAREA,
-    /// @brief polygon used for draw juPedSim sources
-    GNE_TAG_JPS_SOURCE,
-    /// @brief polygon used for draw juPedSim sinks
-    GNE_TAG_JPS_SINK,
-    /// @brief waypoint used in juPedSim walkable areas
-    GNE_TAG_JPS_WAYPOINT,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
@@ -456,31 +448,83 @@ enum SumoXMLTag {
     /// @brief waypoint placed over a parking area
     GNE_TAG_WAYPOINT_PARKINGAREA,
     // @brief person trips
-    GNE_TAG_PERSONTRIP_EDGE,
-    GNE_TAG_PERSONTRIP_BUSSTOP,
-    GNE_TAG_PERSONTRIP_TRAINSTOP,
-    GNE_TAG_PERSONTRIP_JUNCTIONS,
+    GNE_TAG_PERSONTRIP_EDGE_EDGE,
+    GNE_TAG_PERSONTRIP_EDGE_TAZ,
+    GNE_TAG_PERSONTRIP_EDGE_JUNCTION,
+    GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
+    GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_TAZ_EDGE,
+    GNE_TAG_PERSONTRIP_TAZ_TAZ,
+    GNE_TAG_PERSONTRIP_TAZ_JUNCTION,
+    GNE_TAG_PERSONTRIP_TAZ_BUSSTOP,
+    GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_JUNCTION_EDGE,
+    GNE_TAG_PERSONTRIP_JUNCTION_TAZ,
+    GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION,
+    GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP,
+    GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
+    GNE_TAG_PERSONTRIP_BUSSTOP_TAZ,
+    GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION,
+    GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
+    GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP,
+    GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP,
     // @brief walks
-    GNE_TAG_WALK_EDGE,
-    GNE_TAG_WALK_BUSSTOP,
-    GNE_TAG_WALK_TRAINSTOP,
+    GNE_TAG_WALK_EDGE_EDGE,
+    GNE_TAG_WALK_EDGE_TAZ,
+    GNE_TAG_WALK_EDGE_JUNCTION,
+    GNE_TAG_WALK_EDGE_BUSSTOP,
+    GNE_TAG_WALK_EDGE_TRAINSTOP,
+    GNE_TAG_WALK_TAZ_EDGE,
+    GNE_TAG_WALK_TAZ_TAZ,
+    GNE_TAG_WALK_TAZ_JUNCTION,
+    GNE_TAG_WALK_TAZ_BUSSTOP,
+    GNE_TAG_WALK_TAZ_TRAINSTOP,
+    GNE_TAG_WALK_JUNCTION_EDGE,
+    GNE_TAG_WALK_JUNCTION_TAZ,
+    GNE_TAG_WALK_JUNCTION_JUNCTION,
+    GNE_TAG_WALK_JUNCTION_BUSSTOP,
+    GNE_TAG_WALK_JUNCTION_TRAINSTOP,
+    GNE_TAG_WALK_BUSSTOP_EDGE,
+    GNE_TAG_WALK_BUSSTOP_TAZ,
+    GNE_TAG_WALK_BUSSTOP_JUNCTION,
+    GNE_TAG_WALK_BUSSTOP_BUSSTOP,
+    GNE_TAG_WALK_BUSSTOP_TRAINSTOP,
+    GNE_TAG_WALK_TRAINSTOP_EDGE,
+    GNE_TAG_WALK_TRAINSTOP_TAZ,
+    GNE_TAG_WALK_TRAINSTOP_JUNCTION,
+    GNE_TAG_WALK_TRAINSTOP_BUSSTOP,
+    GNE_TAG_WALK_TRAINSTOP_TRAINSTOP,
     GNE_TAG_WALK_EDGES,
     GNE_TAG_WALK_ROUTE,
-    GNE_TAG_WALK_JUNCTIONS,
     // @brief rides
-    GNE_TAG_RIDE_EDGE,
-    GNE_TAG_RIDE_BUSSTOP,
-    GNE_TAG_RIDE_TRAINSTOP,
+    GNE_TAG_RIDE_EDGE_EDGE,
+    GNE_TAG_RIDE_EDGE_BUSSTOP,
+    GNE_TAG_RIDE_EDGE_TRAINSTOP,
+    GNE_TAG_RIDE_BUSSTOP_EDGE,
+    GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
+    GNE_TAG_RIDE_BUSSTOP_TRAINSTOP,
+    GNE_TAG_RIDE_TRAINSTOP_EDGE,
+    GNE_TAG_RIDE_TRAINSTOP_BUSSTOP,
+    GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP,
     // @brief person stops
     GNE_TAG_STOPPERSON_BUSSTOP,
     GNE_TAG_STOPPERSON_TRAINSTOP,
     GNE_TAG_STOPPERSON_EDGE,
-    // @brief person trips
-    GNE_TAG_TRANSPORT_EDGE,
-    GNE_TAG_TRANSPORT_CONTAINERSTOP,
-    // @brief walks
-    GNE_TAG_TRANSHIP_EDGE,
-    GNE_TAG_TRANSHIP_CONTAINERSTOP,
+    // @brief transports
+    GNE_TAG_TRANSPORT_EDGE_EDGE,
+    GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE,
+    GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP,
+    // @brief tranships
+    GNE_TAG_TRANSHIP_EDGE_EDGE,
+    GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE,
+    GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP,
     GNE_TAG_TRANSHIP_EDGES,
     // @brief container stops
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
@@ -713,8 +757,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_EFFICIENCY,
     /// @brief Allow/disallow charge in transit in Charging Stations
     SUMO_ATTR_CHARGEINTRANSIT,
-    /// @brief Delay in the charge of charging stations
+    /// @brief Delay in the charge of charging stations (different of waiting time)
     SUMO_ATTR_CHARGEDELAY,
+    /// @brief Charge type (fuel or electric)
+    SUMO_ATTR_CHARGETYPE,
     /// @}
 
     /// @name battery device parameters
@@ -981,8 +1027,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TOLONLAT,
     SUMO_ATTR_FROMXY,
     SUMO_ATTR_TOXY,
-    SUMO_ATTR_FROMJUNCTION,
-    SUMO_ATTR_TOJUNCTION,
+    SUMO_ATTR_FROM_JUNCTION,
+    SUMO_ATTR_TO_JUNCTION,
     SUMO_ATTR_PERIOD,
     SUMO_ATTR_REPEAT,
     SUMO_ATTR_CYCLETIME,
@@ -1059,6 +1105,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_LCSTATE,
     /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
+    /// @brief icon
+    SUMO_ATTR_ICON,
     /// @brief A layer number
     SUMO_ATTR_LAYER,
     /// @brief Fill the polygon
@@ -1147,6 +1195,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_TRAIN_STOP,
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
+    SUMO_ATTR_FROM_BUSSTOP,
+    SUMO_ATTR_FROM_TRAINSTOP,
+    SUMO_ATTR_FROM_CONTAINERSTOP,
     SUMO_ATTR_ROADSIDE_CAPACITY,
     SUMO_ATTR_ONROAD,
     SUMO_ATTR_CHARGING_STATION,
@@ -1421,12 +1472,6 @@ enum SumoXMLAttr {
     /// @brief flag to center camera after element creation
     GNE_ATTR_CENTER_AFTER_CREATION,
     /// @brief to busStop (used by personPlans)
-    GNE_ATTR_TO_BUSSTOP,
-    /// @brief to trainStop (used by personPlans)
-    GNE_ATTR_TO_TRAINSTOP,
-    /// @brief to busStop (used by containerPlans)
-    GNE_ATTR_TO_CONTAINERSTOP,
-    /// @brief neighboring lane, simplified lane attr instead of child element
     GNE_ATTR_OPPOSITE,
     /// @brief shift lane index (only used by elements over lanes)
     GNE_ATTR_SHIFTLANEINDEX,
@@ -1446,7 +1491,14 @@ enum SumoXMLAttr {
     GNE_ATTR_PATHSTOPINDEX,
     /// @brief check number of additional children (used in vTypeDistribution)
     GNE_ATTR_ADDITIONALCHILDREN,
-
+    /// @brief person/container geometry start position
+    GNE_ATTR_PLAN_GEOMETRY_STARTPOS,
+    /// @brief person/container geometry end position
+    GNE_ATTR_PLAN_GEOMETRY_ENDPOS,
+    /// @brief from lane ID (used in GNEConnection)
+    GNE_ATTR_FROM_LANEID,
+    /// @brief to lane ID (used in GNEConnection)
+    GNE_ATTR_TO_LANEID,
     // @}
 
     /// @name train parameters
@@ -1820,6 +1872,13 @@ enum class TrainType {
     UNKNOWN
 };
 
+/// @brief POI icons
+enum class POIIcon {
+    NATURE = 1,
+    HOTEL = 2,
+    NONE = 0,
+};
+
 // @}
 
 /**
@@ -1891,6 +1950,9 @@ public:
 
     /// @brief train types
     static StringBijection<TrainType> TrainTypes;
+    
+    /// @brief POI icon values
+    static StringBijection<POIIcon> POIIcons;
     /// @}
 
     /// @name Helper functions for ID-string manipulations
@@ -1942,8 +2004,6 @@ public:
     /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
 
-
-
 private:
     /// @brief containers for the different SUMOXMLDefinitions
     /// @{
@@ -1993,8 +2053,12 @@ private:
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
 
-    /// @brief train type values values
+    /// @brief train type values
     static StringBijection<TrainType>::Entry trainTypeValues[];
+
+    /// @brief POI icon values
+    static StringBijection<POIIcon>::Entry POIIconValues[];
+
     /// @}
 
     /// @brief all allowed characters for phase state

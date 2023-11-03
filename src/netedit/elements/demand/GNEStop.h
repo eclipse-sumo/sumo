@@ -21,14 +21,13 @@
 #include <config.h>
 
 #include "GNEDemandElement.h"
+#include "GNEDemandElementPlan.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEStop
- */
-class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
+
+class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop, public GNEDemandElementPlan {
 
 public:
     /// @brief default constructor
@@ -39,9 +38,6 @@ public:
 
     /// @brief constructor used for stops over lane (only for vehicle/route stops)
     GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
-
-    /// @brief constructor used for stops over edge (only for person/container stops)
-    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEStop();
@@ -116,22 +112,19 @@ public:
     /// @brief compute pathElement
     void computePathElement();
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane lane in which draw partial
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const;
+    void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const;
 
     /// @brief get first path lane
     GNELane* getFirstPathLane() const;
@@ -226,20 +219,11 @@ protected:
     /// @brief creation index (using for saving sorted)
     const int myCreationIndex;
 
-    /// @brief get first valid lane
-    const GNELane* getFirstAllowedLane() const;
-
     /// @brief check if vehicle stop can be draw
     bool canDrawVehicleStop() const;
 
     /// @brief draw vehicle stop
     void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over lane
-    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief draw stopPerson over stoppingPlace
-    void drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @brief draw index
     bool drawIndex() const;

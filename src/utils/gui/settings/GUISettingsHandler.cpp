@@ -277,6 +277,8 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.personSize = parseSizeSettings("person", attrs, mySettings.personSize);
             mySettings.personName = parseTextSettings("personName", attrs, mySettings.personName);
             mySettings.personValue = parseTextSettings("personValue", attrs, mySettings.personValue);
+            mySettings.showPedestrianNetwork = StringUtils::toBool(attrs.getStringSecure("showPedestrianNetwork", toString(mySettings.showPedestrianNetwork)));
+            mySettings.pedestrianNetworkColor = RGBColor::parseColorReporting(attrs.getStringSecure("pedestrianNetworkColor", toString(mySettings.pedestrianNetworkColor)), "pedestrianNetworkColor", nullptr, true, ok);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_CONTAINERS:

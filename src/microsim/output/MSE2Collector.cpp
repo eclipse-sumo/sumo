@@ -1356,14 +1356,20 @@ MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    const double meanSpeed = getIntervalMeanSpeed();
+    const double meanOccupancy = getIntervalOccupancy();
+    myPreviousMeanOccupancy = meanOccupancy;
+    myPreviousMeanSpeed = meanSpeed;
+    myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
+    myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+
     if (dev.isNull()) {
         reset();
         return;
     }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
-    const double meanSpeed = getIntervalMeanSpeed();
-    const double meanOccupancy = getIntervalOccupancy();
+
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
@@ -1437,11 +1443,6 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
-
-    myPreviousMeanOccupancy = meanOccupancy;
-    myPreviousMeanSpeed = meanSpeed;
-    myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
-    myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
 
     reset();
 }

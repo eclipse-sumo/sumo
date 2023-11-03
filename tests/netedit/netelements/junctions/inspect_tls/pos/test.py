@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 time.sleep(3)
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 250)
+netedit.leftClick(referencePosition, 500, 250)
 
 # change position with a non valid value
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.pos, "dummy position", False)
@@ -51,7 +51,7 @@ netedit.typeTwoKeys('alt', 'n')
 netedit.rebuildNetwork()
 
 # inspect central node in new position
-netedit.leftClick(referencePosition, 0, 250)
+netedit.leftClick(referencePosition, 90, 250)
 
 # change position with a valid value
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.pos, "40.00,40.00", False)

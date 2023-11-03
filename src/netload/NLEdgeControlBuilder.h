@@ -171,7 +171,7 @@ protected:
     std::vector<MSLane*>* myLaneStorage;
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
-    std::map<MSEdge*, std::string> myBidiEdges;
+    std::map<MSEdge*, std::string, ComparatorNumericalIdLess> myBidiEdges;
 
     std::vector<std::pair<MSLane*, std::string> > myOppositeLanes;
 

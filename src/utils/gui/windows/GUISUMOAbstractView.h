@@ -78,7 +78,7 @@ public:
     virtual ~GUISUMOAbstractView();
 
     /// @brief recalculate boundaries
-    virtual void recalculateBoundaries() = 0;
+    virtual void recalculateBoundaries() { };
 
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow*) { }
@@ -449,6 +449,14 @@ public:
 
     /// @brief get GUIGlChildWindow
     GUIGlChildWindow* getGUIGlChildWindow();
+
+    /// @brief Draw (or not) the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    virtual void drawPedestrianNetwork(const GUIVisualizationSettings& /*s*/) const { };
+
+    /// @brief Change the color of the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    virtual void changePedestrianNetworkColor(const GUIVisualizationSettings& /*s*/) const { };
 
 protected:
     /// @brief FOX needs this

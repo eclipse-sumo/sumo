@@ -29,8 +29,8 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
-#include "GUITexturesHelper.h"
 
+#include "GUITexturesHelper.h"
 
 // ===========================================================================
 // definition of static variables

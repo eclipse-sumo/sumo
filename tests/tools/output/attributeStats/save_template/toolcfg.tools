@@ -12,5 +12,6 @@
     <fast value="False" type="bool" help="use fast parser (does not track missing data)" category="processing"/>
     <precision value="2" type="int" help="Set output precision" category="output"/>
     <abs value="False" type="bool" help="include statistics on absolute values" category="processing"/>
+    <sum value="False" type="bool" help="include sum of values" category="processing"/>
     <human-readable-time value="False" type="bool" help="interpret values as times and write them as h:m:s" category="output"/>
 </configuration>

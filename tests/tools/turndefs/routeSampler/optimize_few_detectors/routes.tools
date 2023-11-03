@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-29 15:04:11.381182 by routeSampler.py v1_17_0+1318-85f891f765f
+<!-- generated on 2023-09-16 07:34:08.526175 by routeSampler.py v1_18_0+1600-ddd21fefb94
 <configuration>
     <route-files value="input_routes2.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -12,11 +12,11 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 <!-- begin="0.0" end="99.0" -->
-    <route id="10" edges="-27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 69 -->
+    <route id="10" edges="-27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 68 -->
     <route id="13" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 -60 -60.80.00"/> <!-- 55 -->
     <route id="17" edges="-68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60"/> <!-- 77 -->
 
-    <flow id="13" begin="0.21" end="99.00" number="55" route="13"/>
-    <flow id="10" begin="0.40" end="99.00" number="69" route="10"/>
-    <flow id="17" begin="0.90" end="99.00" number="77" route="17"/>
+    <flow id="10" begin="0.83" end="99.00" number="68" route="10"/>
+    <flow id="17" begin="0.94" end="99.00" number="77" route="17"/>
+    <flow id="13" begin="1.04" end="99.00" number="55" route="13"/>
 </routes>

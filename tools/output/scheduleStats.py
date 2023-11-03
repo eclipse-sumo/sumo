@@ -220,7 +220,7 @@ def main(options):
 
     if options.output:
         outf = open(options.output, 'w')
-        sumolib.writeXMLHeader(outf, "$Id$", "scheduleStats")  # noqa
+        sumolib.writeXMLHeader(outf, root="scheduleStats")
 
     description, fun = STATS[options.sType]
     useHist = options.histogram is not None
@@ -228,9 +228,9 @@ def main(options):
     if options.groupBy:
         numGroups = 0
         stats = []
-        gs = Statistics("%s %s grouped by [%s]" % (options.gType, description, ','.join(
-            options.groupBy)), abs=True, histogram=useGHist, scale=options.gHistogram)
-        for name, group in df.groupby(options.groupBy):
+        gs = Statistics("%s %s grouped by [%s]" % (options.gType, description, ','.join(options.groupBy)),
+                        abs=True, histogram=useGHist, scale=options.gHistogram)
+        for name, group in df.groupby(options.groupBy if len(options.groupBy) > 1 else options.groupBy[0]):
             numGroups += 1
             s = Statistics("%s:%s" % (description, name), abs=True, histogram=useHist, scale=options.histogram)
             group.apply(fun, axis=1, args=(s,))

@@ -275,6 +275,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             && variable != libsumo::VAR_NAME
             && variable != libsumo::TL_CONSTRAINT_REMOVE
             && variable != libsumo::TL_CONSTRAINT_UPDATE
+            && variable != libsumo::TL_CONSTRAINT_ADD
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -422,6 +423,35 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId index must be given as a string.", outputStorage);
                 }
                 libsumo::TrafficLight::updateConstraints(id, tripId);
+            }
+            break;
+            case libsumo::TL_CONSTRAINT_ADD: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for adding constraints.", outputStorage);
+                }
+                //read itemNo
+                inputStorage.readInt();
+                std::string tripId;
+                if (!server.readTypeCheckingString(inputStorage, tripId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId must be given as a string.", outputStorage);
+                }
+                std::string foeSignal;
+                if (!server.readTypeCheckingString(inputStorage, foeSignal)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe signal must be given as a string.", outputStorage);
+                }
+                std::string foeId;
+                if (!server.readTypeCheckingString(inputStorage, foeId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The foe tripId must be given as a string.", outputStorage);
+                }
+                int type;
+                if (!server.readTypeCheckingInt(inputStorage, type)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The type must be an int.", outputStorage);
+                }
+                int limit;
+                if (!server.readTypeCheckingInt(inputStorage, limit)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The limit must be an int.", outputStorage);
+                }
+                libsumo::TrafficLight::addConstraint(id, tripId, foeSignal, foeId, type, limit);
             }
             break;
             case libsumo::VAR_PARAMETER: {

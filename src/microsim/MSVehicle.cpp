@@ -101,9 +101,9 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
-//#define DEBUG_COND (getID() == "ego")
+//#define DEBUG_COND (getID() == "")
 //#define DEBUG_COND (true)
-#define DEBUG_COND (isSelected())
+//#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
 
@@ -1230,7 +1230,7 @@ MSVehicle::getPosition(const double offset) const {
             return Position::INVALID;
         }
     }
-    if (isParking()) {
+    if (isParking() && (myType->getVehicleClass() & SVC_NON_ROAD) == 0) {
         if (myStops.begin()->parkingarea != nullptr) {
             return myStops.begin()->parkingarea->getVehiclePosition(*this);
         } else {
@@ -2287,13 +2287,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " sublaneOffset=" << sublaneOffset << " outsideLeft=" << outsideLeft << "\n";
                     }
 #endif
-                    int addedOutsideCands = 0;
                     for (const MSVehicle* cand : lane->getVehiclesSecure()) {
                         if ((lane != myLane || cand->getPositionOnLane() > getPositionOnLane())
                                 && ((!outsideLeft && cand->getLeftSideOnEdge() < 0)
                                     || (outsideLeft && cand->getLeftSideOnEdge() > lane->getEdge().getWidth()))) {
                             outsideLeaders.addLeader(cand, true);
-                            addedOutsideCands++;
 #ifdef DEBUG_PLAN_MOVE
                             if (DEBUG_COND) {
                                 std::cout << " outsideLeader=" << cand->getID() << " ahead=" << outsideLeaders.toString() << "\n";

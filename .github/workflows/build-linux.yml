@@ -23,6 +23,11 @@ jobs:
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
+        jps_version: ['v1.0.3']
+        # include:
+        #   - build_type: full
+        #     jps_version: master
+        #     compiler: gcc
 
     steps:
     - name: Cloning SUMO
@@ -60,6 +65,24 @@ jobs:
       if: github.event_name != 'schedule'
       uses: hendrikmuhs/ccache-action@v1.2
 
+    - name: Cloning jupedsim
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      uses: actions/checkout@v3
+      with:
+        repository: PedestrianDynamics/jupedsim
+        ref: ${{ matrix.jps_version }}
+        path: jupedsim
+
+    - name: Building libjupedsim
+      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      run: |
+        sudo apt-get install libgeos-dev
+        mkdir jupedsim-build jupedsim-install
+        cd jupedsim-build
+        cmake -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
+        cmake --build . -j4 --config Release
+        cmake --install . --config Release
+
     - name: Configuring SUMO
       run: |
         mkdir -p sumo/cmake-build 
@@ -75,11 +98,11 @@ jobs:
         make traas
 
     - name: Setting up SonarQube
-      if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v4
 
     - name: Building SUMO with SonarQube wrapper
-      if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
+      if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
         cd sumo/cmake-build
         curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
@@ -89,7 +112,7 @@ jobs:
         sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
 
     - name: Building and Installing SUMO
-      if: matrix.build_type != 'full' || github.repository != 'eclipse/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
+      if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
       run: |
         cd sumo/cmake-build
         make -j4
@@ -98,9 +121,9 @@ jobs:
     - name: Building Examples and Tests
       if: matrix.build_type == 'full' && (github.repository == 'DLR-TS/sumo' || matrix.compiler == 'gcc')
       run: |
-        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf
-        sudo pip3 install ortools==9.5.2237
-        sudo pip3 install -r sumo/tools/requirements.txt
+        sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf python3-pyperclip python3-polib
+        python -m pip install ortools==9.5.2237
+        python -m pip install -r sumo/tools/requirements.txt
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
@@ -108,7 +131,7 @@ jobs:
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
         sudo apt-get install python2
-        sumo/tests/runTests.sh -b ci -a sumo.meso.ci
+        sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
         sumo/tests/runTests.sh -b ci -a tools.python2.ci
 

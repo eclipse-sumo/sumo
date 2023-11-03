@@ -1632,6 +1632,8 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             source->addSuccessor(edge);
             edge->addSuccessor(sink);
         }
+        source->setParameter("taz", myCurrentDistrictID);
+        sink->setParameter("taz", myCurrentDistrictID);
         RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, myCurrentDistrictID.c_str(), ok, RGBColor::parseColor("1.0,.33,.33"));
         const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, myCurrentDistrictID.c_str(), ok, "");
         source->setParameter("tazColor", toString(color));

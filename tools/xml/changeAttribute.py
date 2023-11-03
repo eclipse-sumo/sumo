@@ -36,23 +36,38 @@ def get_options(args=None):
                            type=optParser.data_file, help="define the XML input file")
     optParser.add_argument("-o", "--output", category="output", required=True,
                            type=optParser.data_file, help="define the XML output file")
-    optParser.add_argument("-t", "--tag", required=True, help="tag to edit")
+    optParser.add_argument("-t", "--tag", required=False, help="tag to edit")
     optParser.add_argument("-a", "--attribute", required=True, help="attribute to edit")
     optParser.add_argument("-v", "--value", help="value to update (deletes attribute if not specified)")
-    return optParser.parse_args(args=args)
+    optParser.add_argument("-u", "--upper-limit", dest="maximum",
+                           help="updates to this maximum value (reduces all greater values)")
+    options = optParser.parse_args(args=args)
+    return options
+
+
+def traverseNodes(parent):
+    for node in parent:
+        yield parent, node
+        for x in traverseNodes(node):
+            yield x
 
 
 def main(options):
     # parse tree
     tree = ET.parse(options.file)
     # iterate over all XML elements
-    for node in tree.getroot():
-        # check tag
-        if node.tag == options.tag:
+    for parent, node in traverseNodes(tree.getroot()):
+        # check tag (take all tags if it is not specified)
+        if options.tag is None or node.tag == options.tag:
             # continue depending of operation
             if options.value is not None:
                 # set new attribute (or modify existent)
                 node.set(options.attribute, options.value)
+            elif options.maximum is not None:
+                attribute_value = node.get(options.attribute)
+                if attribute_value is not None:
+                    if float(attribute_value) > float(options.maximum):
+                        node.set(options.attribute, options.maximum)
             elif options.attribute in node.attrib:
                 # delete attribute
                 del node.attrib[options.attribute]

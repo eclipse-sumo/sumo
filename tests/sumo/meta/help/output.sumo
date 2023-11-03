@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_18_0+0436-f0eaeb5034c
+Eclipse SUMO sumo Version v1_18_0+1749-26d8ef39b84
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -367,8 +367,10 @@ Processing Options:
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
                                         points to smooth out lanes within the
                                         walkingarea
-  --pedestrian.remote.address STR      The address (host:port) of the external
-                                        simulation
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to the destination
+                                        point considered as arrival (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
@@ -477,6 +479,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --log.timestamps                     Writes timestamps in front of all
+                                        messages
+  --log.processid                      Writes process ID in front of all
+                                        messages
   --language STR                       Language to use in messages
   --duration-log.disable               Disable performance reports for
                                         individual simulation steps
@@ -722,6 +728,8 @@ Bluelight Device Options:
   --device.bluelight.reactiondist FLOAT  Set the distance at which other
                                         drivers react to the blue light and
                                         siren sound
+  --device.bluelight.mingapfactor FLOAT  Reduce the minGap for reacting
+                                        vehicles by the given factor
 
 FCD Device Options:
   --device.fcd.probability FLOAT       The probability for a vehicle to have a

@@ -161,6 +161,6 @@ for c in [NEFZ1, NEFZ1, NEFZ1, NEFZ1, NEFZ2]:
 fdo = open("nefz.csv", "w")
 pv = 0
 for i in range(0, len(ts)):
-    fdo.write("%s;%s;%s\n" % (ts[i], vs[i] * 3.6, pv - vs[i]))
+    fdo.write("%s;%s;%s\n" % (ts[i], round(vs[i] * 3.6, 2), round(vs[i] - pv, 7)))
     pv = vs[i]
 fdo.close()

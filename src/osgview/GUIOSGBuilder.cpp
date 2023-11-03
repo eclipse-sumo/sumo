@@ -185,7 +185,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         if (extrude) {
             int index = upperShapeSize;
             for (int k = 0; k < upperShapeSize + sizeDiff; ++k, ++index) {
-                (*osg_coords)[index].set((*osg_coords)[k].x(), (*osg_coords)[k].y(), 0.);
+                (*osg_coords)[index].set((*osg_coords)[k].x(), (*osg_coords)[k].y(), (*osg_coords)[k].z() - zOffset);
             }
             // extrude edge to create the kerb
             for (int i = 0; i < upperShapeSize + sizeDiff; ++i) {

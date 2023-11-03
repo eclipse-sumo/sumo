@@ -191,18 +191,6 @@ MSTransportable::getSpeed() const {
 }
 
 
-int
-MSTransportable::getNumRemainingStages() const {
-    return (int)(myPlan->end() - myStep);
-}
-
-
-int
-MSTransportable::getNumStages() const {
-    return (int)myPlan->size();
-}
-
-
 void
 MSTransportable::tripInfoOutput(OutputDevice& os) const {
     os.openTag(isPerson() ? "personinfo" : "containerinfo");

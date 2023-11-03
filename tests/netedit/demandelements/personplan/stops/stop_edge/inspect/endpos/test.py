@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -44,35 +44,32 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.selectPerson("p_0")
 
-# go to personStopEdge mode
-netedit.changePersonPlanMode("stopPerson: edge")
+# go to StopPlanEdge mode
+netedit.changePersonPlanMode("stop")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
-
-# press enter to create route
-netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personStopEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x, netedit.positions.demandElements.stopPerson.y)
+# inspect StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "-40", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "-40", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "7.3", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "7.3", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

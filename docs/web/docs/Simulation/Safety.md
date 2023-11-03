@@ -73,7 +73,7 @@ Side collisions can be caused by
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
 
-Unsafe changing can be caused by configuringlower gap acceptance with parameter
+Unsafe changing can be caused by configuring a lower gap acceptance with parameter
 - *lcAssertive* (the acceptable gap is computed by dividing the safe gap by lcAssertive)
 
 ### Collisions at Intersections

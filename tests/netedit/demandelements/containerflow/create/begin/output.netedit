@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
 tranship: containerStop
 dummy
-TestFunctions: Clicked over position 578 - 568
+TestFunctions: Clicked over position 754 - 608
 TestFunctions: Clicked over position 574 - 211
 -20
 7.3

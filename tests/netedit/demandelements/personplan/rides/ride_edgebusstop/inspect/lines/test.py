@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -46,14 +46,12 @@ netedit.typeEnter()
 # go to person plan mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
-
 # go to person plan mode
-netedit.changePersonPlanMode("ride: busStop")
+netedit.changePersonPlanMode("ride")
 
 # create rideEdgeBusStop
-netedit.leftClick(referencePosition, 295, 50)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,8 +59,13 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect rideEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+# inspect person
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
+
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopBusStop.x,
+                  netedit.positions.demandElements.planTopBusStop.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeBusStop.inspect.lines, "custom line", False)

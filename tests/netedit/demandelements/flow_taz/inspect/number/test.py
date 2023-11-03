@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create flow with embedded route using two edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
+                  netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
+                  netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,7 +50,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x, netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
+                  netedit.positions.demandElements.singleVehicleTAZ.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.terminate, "dummyTerminate", False)

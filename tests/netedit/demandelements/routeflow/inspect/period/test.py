@@ -55,7 +55,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x,
+                  netedit.positions.demandElements.singleVehicleEdge.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.spacing, "dummyTerminate", True)

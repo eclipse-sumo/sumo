@@ -117,10 +117,9 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
 
 
 void
-GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll) {
+GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues) {
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
-        myShowAllDiscreteValues = showAll;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
     }
@@ -441,18 +440,6 @@ GNEAttributeProperties::isUnique() const {
 bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
-}
-
-
-bool
-GNEAttributeProperties::showAllDiscreteValues() const {
-    return myShowAllDiscreteValues;
-}
-
-
-bool
-GNEAttributeProperties::isVClasses() const {
-    return (myAttributeProperty & VCLASSES) != 0;
 }
 
 

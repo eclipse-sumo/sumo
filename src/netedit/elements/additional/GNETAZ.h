@@ -212,9 +212,6 @@ private:
     /// @brief Average Sink weight
     double myAverageWeightSink;
 
-    /// @brief draw dotted contours
-    void drawDottedContours(const GUIVisualizationSettings& s, const double TAZExaggeration) const;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

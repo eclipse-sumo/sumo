@@ -100,13 +100,13 @@ GNECrossingFrame::EdgesSelector::EdgesSelector(GNECrossingFrame* crossingFramePa
     myCurrentJunction(nullptr) {
 
     // Create button for selected edges
-    myUseSelectedEdges = new FXButton(getCollapsableFrame(), TL("Use selected edges"), nullptr, this, MID_GNE_USESELECTED, GUIDesignButton);
+    myUseSelectedEdges = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use selected edges"), "", "", nullptr, this, MID_GNE_USESELECTED, GUIDesignButton);
 
     // Create button for clear selection
-    myClearEdgesSelection = new FXButton(getCollapsableFrame(), TL("Clear edges"), nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButton);
+    myClearEdgesSelection = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear edges"), "", "", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButton);
 
     // Create button for invert selection
-    myInvertEdgesSelection = new FXButton(getCollapsableFrame(), TL("Invert edges"), nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButton);
+    myInvertEdgesSelection = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Invert edges"), "", "", nullptr, this, MID_GNE_INVERTSELECTION, GUIDesignButton);
 }
 
 
@@ -220,7 +220,7 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
     myCrossingWidthLabel->disable();
     myCrossingWidth->disable();
     // Create help button
-    myHelpCrossingAttribute = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpCrossingAttribute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Help"), "", "", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     myHelpCrossingAttribute->disable();
 }
 
@@ -485,7 +485,7 @@ GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrame
     MFXGroupBoxModule(crossingFrameParent, TL("Create")),
     myCrossingFrameParent(crossingFrameParent) {
     // Create groupbox for create crossings
-    myCreateCrossingButton = new FXButton(getCollapsableFrame(), TL("Create crossing"), 0, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateCrossingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create crossing"), "", "", 0, this, MID_GNE_CREATE, GUIDesignButton);
     myCreateCrossingButton->disable();
 }
 

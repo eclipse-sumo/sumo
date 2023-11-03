@@ -182,7 +182,7 @@ public:
             Parameterised::Map myParameters;
 
             /// @brief filter attribute name
-            FXString filterAttributeName(const SumoXMLAttr attr) const;
+            std::string filterAttributeName(const SumoXMLAttr attr) const;
         };
 
         /// @brief constructor

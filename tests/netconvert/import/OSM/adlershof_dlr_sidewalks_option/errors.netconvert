@@ -32,9 +32,7 @@ Warning: Found sharp turn with radius 4.20 at the end of edge '-245105014'.
 Warning: Found angle of 138.43 degrees at edge '-71960638#0', segment 0.
 Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
 Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
-Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
-Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found angle of 138.43 degrees at edge '71960638#0', segment 5.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 6 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 8 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

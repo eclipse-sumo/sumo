@@ -17,9 +17,7 @@
 ///
 // A abstract class for demand elements distributions
 /****************************************************************************/
-#include <config.h>
 
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Distribution.h>
 
@@ -28,10 +26,6 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEDemandElementDistribution - methods
-// ---------------------------------------------------------------------------
 
 GNEDemandElementDistribution::GNEDemandElementDistribution(GNEDemandElement* demandElement) :
     myDemandElement(demandElement) {

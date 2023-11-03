@@ -55,6 +55,7 @@
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
@@ -119,7 +120,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
 #endif
     // Time
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,           GUIApplicationWindow::onCmdStart),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,        GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,                    GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onCmdStop),
@@ -240,6 +241,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
+    // init Textures
+    GUITextureSubSys::initTextures(a);
     // init cursors
     GUICursorSubSys::initCursors(a);
     // disable tooltips
@@ -283,22 +286,22 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     {
         // build TraCi info
         myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        auto button = new FXButton(myTraCiFrame, "TraCI", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        auto button = GUIDesigns::buildFXButton(myTraCiFrame, "TraCI", "", "", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
         button->setBackColor(FXRGBA(253, 255, 206, 255));
         if (TraCIServer::getInstance() == nullptr) {
             myTraCiFrame->hide();
         }
         // build geo coordiantes
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, (TL("N/A") + std::string("\t\t") + TL("Original coordinate (before coordinate transformation in netconvert)")).c_str(), nullptr, LAYOUT_CENTER_Y);
+        myGeoCoordinate = GUIDesigns::buildFXLabel(myGeoFrame, TL("N/A"), "", TL("Original coordinate (before coordinate transformation in netconvert)"), nullptr, LAYOUT_CENTER_Y);
         // build cartesian coordinates
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A") + std::string("\t\t") + TL("Network coordinate")).c_str(), nullptr, LAYOUT_CENTER_Y);
+        myCartesianCoordinate = GUIDesigns::buildFXLabel(myCartesianFrame, TL("N/A"), "", TL("Network coordinate"), nullptr, LAYOUT_CENTER_Y);
         // build buttons
-        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
-        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
         myStatButtons.back()->hide();
-        myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
     }
     // make the window a mdi-window
@@ -371,7 +374,9 @@ GUIApplicationWindow::create() {
     const std::string& onlineMaps = getApp()->reg().readStringEntry("gui", "onlineMaps", "");
     for (const std::string& entry : StringTokenizer(onlineMaps, "\n").getVector()) {
         const std::vector<std::string> split = StringTokenizer(entry, "\t").getVector();
-        myOnlineMaps[split[0]] = split[1];
+        if (split.size() == 2) {
+            myOnlineMaps[split[0]] = split[1];
+        }
     }
     if (myOnlineMaps.empty()) {
         myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
@@ -491,9 +496,8 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Selected..."), "Ctrl+E", TL("Opens a dialog for editing the list of selected items."),
                                            GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
-    mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
-                                                 (TL("Select lanes which allow...") + std::string("\t\t") + TL("Opens a menu for selecting a vehicle class by which to selected lanes.")).c_str(),
-                                                 GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
+    mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu, TL("Select lanes which allow..."), GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
+    mySelectLanesMenuCascade->setHelpText(TL("Opens a menu for selecting a vehicle class by which to selected lanes."));
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Edit Breakpoints"), "Ctrl+B", TL("Opens a dialog for editing breakpoints."),
@@ -506,13 +510,9 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     // add open in sumo options
-    myLoadAdditionalsInNetedit = new FXMenuCheck(myEditMenu,
-                                                 (TL("Load additionals in netedit") + std::string("\t\t") + TL("Load additionals in netedit.")).c_str(),
-                                                 this, MID_TOOLBAREDIT_LOADADDITIONALS);
+    myLoadAdditionalsInNetedit = GUIDesigns::buildFXMenuCheckbox(myEditMenu, TL("Load additionals in netedit"), TL("Load additionals in netedit."), this, MID_TOOLBAREDIT_LOADADDITIONALS);
     myLoadAdditionalsInNetedit->setCheck(TRUE);
-    myLoadDemandInNetedit = new FXMenuCheck(myEditMenu,
-                                            (TL("Load demand in netedit") + std::string("\t\t") + TL("Load demand in netedit.")).c_str(),
-                                            this, MID_TOOLBAREDIT_LOADDEMAND);
+    myLoadDemandInNetedit = GUIDesigns::buildFXMenuCheckbox(myEditMenu, TL("Load demand in netedit"), TL("Load demand in netedit."), this, MID_TOOLBAREDIT_LOADDEMAND);
     myLoadDemandInNetedit->setCheck(FALSE);
     myOpenInNetedit = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                                              TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
@@ -560,16 +560,10 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Po&lygon"), "Shift+L", TL("Open a dialog for locating a Polygon."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_HOTKEY_SHIFT_L_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
-    new FXMenuCheck(myLocatorMenu,
-                    (TL("Show Internal Structures") + std::string("\t\t") + TL("Show internal junctions and streets in locator dialog.")).c_str(),
-                    this, MID_LISTINTERNAL);
-    FXMenuCheck* listParking = new FXMenuCheck(myLocatorMenu,
-                                               (TL("Show Parking Vehicles") + std::string("\t\t") + TL("Show parking vehicles in locator dialog.")).c_str(),
-                                               this, MID_LISTPARKING);
+    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Internal Structures"), TL("Show internal junctions and streets in locator dialog."), this, MID_LISTINTERNAL);
+    FXMenuCheck* listParking = GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show Parking Vehicles"), TL("Show parking vehicles in locator dialog."), this, MID_LISTPARKING);
     listParking->setCheck(myListParking);
-    new FXMenuCheck(myLocatorMenu,
-                    (TL("Show vehicles outside the road network") + std::string("\t\t") + TL("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog.")).c_str(),
-                    this, MID_LISTTELEPORTING);
+    GUIDesigns::buildFXMenuCheckbox(myLocatorMenu, TL("Show vehicles outside the road network"), TL("Show vehicles that are teleporting or driving remote-controlled outside the road network in locator dialog."), this, MID_LISTTELEPORTING);
     // build control menu
     // the shortcut designator is not only at text in the submenu but also defines the real shortcut key assigned with it!
     // secondary shortcuts (ctrl+A, ctrl+S, ctrl+D) are defined in GUIShortcutsSubSys::buildSUMOAccelerators
@@ -625,18 +619,10 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommand(myWindowMenu, TL("&Others..."), nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
 
     new FXMenuSeparator(myWindowMenu);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Status Line") + std::string("\t\t") + TL("Toggle the Status Bar on/off.")).c_str(),
-                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Message Window") + std::string("\t\t") + TL("Toggle the Message Window on/off.")).c_str(),
-                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Simulation Time") + std::string("\t\t") + TL("Toggle the Simulation Time on/off.")).c_str(),
-                    myToolBar3, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    (TL("Show Simulation Delay") + std::string("\t\t") + TL("Toggle the Simulation Delay Entry on/off.")).c_str(),
-                    myToolBar4, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Status Line"), TL("Toggle the Status Bar on/off."), myStatusbar, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Message Window"), TL("Toggle the Message Window on/off."), myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Time"), TL("Toggle the Simulation Time on/off."), myToolBar3, FXWindow::ID_TOGGLESHOWN);
+    GUIDesigns::buildFXMenuCheckbox(myWindowMenu, TL("Show Simulation Delay"), TL("Toggle the Simulation Delay Entry on/off."), myToolBar4, FXWindow::ID_TOGGLESHOWN);
     addToWindowsMenu(myWindowMenu);
 
     new FXMenuSeparator(myWindowMenu);
@@ -739,9 +725,8 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        myScaleTrafficTooltip = new MFXLabelTooltip(myToolBar8, myStaticTooltipMenu, 
-            (TL("Scale Traffic:") + std::string("\t\t") + TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files.")).c_str(),
-            nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myScaleTrafficTooltip = new MFXLabelTooltip(myToolBar8, myStaticTooltipMenu, TL("Scale Traffic:"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myScaleTrafficTooltip->setHelpText(TL("Scale traffic volume from running flows and from vehicles that are loaded incrementally from route files."));
         myDemandScaleSpinner = new MFXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
         myDemandScaleSpinner->setIncrement(0.5);
         myDemandScaleSpinner->setRange(0, 1000);
@@ -766,7 +751,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag6 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar6, (TL("Waiting Time:") + std::string("\t\t") + TL("Time spent waiting accumulated for all vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar6, TL("Waiting Time:"), "", TL("Time spent waiting accumulated for all vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myWaitingTimeLabel = new MFXLCDLabel(myToolBar6, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myWaitingTimeLabel->setHorizontal(2);
         myWaitingTimeLabel->setVertical(6);
@@ -777,7 +762,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag7 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar7, (TL("Time Loss:") + std::string("\t\t") + TL("Time lost due to being unable to drive with maximum speed for all vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar7, TL("Time Loss:"), "", TL("Time lost due to being unable to drive with maximum speed for all vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myTimeLossLabel = new MFXLCDLabel(myToolBar7, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTimeLossLabel->setHorizontal(2);
         myTimeLossLabel->setVertical(6);
@@ -788,7 +773,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag9 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar9, (TL("Distance (km):") + std::string("\t\t") + TL("Total distance driven by DRT vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar9, TL("Distance (km):"), "", TL("Total distance driven by DRT vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myTotalDistanceLabel = new MFXLCDLabel(myToolBar9, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myTotalDistanceLabel->setHorizontal(2);
         myTotalDistanceLabel->setVertical(6);
@@ -799,7 +784,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag10 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar10 = new FXToolBar(myTopDock, myToolBarDrag10, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar10, myToolBar10, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXLabel(myToolBar10, (TL("Emergency Vehicle waiting time:") + std::string("\t\t") + TL("Time spent waiting accumulated for emergency vehicles")).c_str(), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        GUIDesigns::buildFXLabel(myToolBar10, TL("Emergency Vehicle waiting time:"), "", TL("Time spent waiting accumulated for emergency vehicles"), nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myEmergencyVehicleLabel = new MFXLCDLabel(myToolBar10, myStaticTooltipMenu, 13, nullptr, 0, JUSTIFY_RIGHT);
         myEmergencyVehicleLabel->setHorizontal(2);
         myEmergencyVehicleLabel->setVertical(6);

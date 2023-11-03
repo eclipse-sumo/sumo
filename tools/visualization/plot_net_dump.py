@@ -233,7 +233,7 @@ def main(args=None):
 
         # drawing the legend, at least for the colors
         norm = matplotlib.colors.LogNorm if options.logColors else matplotlib.colors.Normalize
-        sm = plt.cm.ScalarMappable(cmap=matplotlib.cm.get_cmap(options.colormap),
+        sm = plt.cm.ScalarMappable(cmap=helpers.getColorMap(options),
                                    norm=norm(vmin=minColorValue, vmax=maxColorValue))
 
         if sys.version_info.major < 3:

@@ -51,10 +51,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
-                                       const std::string& name,
-                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay) :
-    MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
+GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos, const std::string& name,
+                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
+                                       const std::string& chargeType, SUMOTime waitingTime) :
+    MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, chargeType, waitingTime),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
@@ -88,7 +88,6 @@ GUIParameterTableWindow*
 GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table items
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-
     // add items
     ret->mkItem(TL("name"), false, getMyName());
     ret->mkItem(TL("begin position [m]"), false, myBegPos);
@@ -99,7 +98,8 @@ GUIChargingStation::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     ret->mkItem(TL("charging efficiency [#]"), false, myEfficiency);
     ret->mkItem(TL("charge in transit [true/false]"), false, myChargeInTransit);
     ret->mkItem(TL("charge delay [s]"), false, myChargeDelay);
-
+    ret->mkItem(TL("charge type"), false, myChargeType);
+    ret->mkItem(TL("waiting time [s]"), false, myWaitingTime);
     // close building
     ret->closeBuilding();
     return ret;

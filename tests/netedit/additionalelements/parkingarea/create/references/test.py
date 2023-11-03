@@ -34,19 +34,19 @@ netedit.additionalMode()
 # select parkingArea
 netedit.changeElement("parkingArea")
 
-# create parkingArea in mode "reference left"
+# create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 475, 256)
 
 # change reference to right
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference right")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Reference Right")
 
-# create parkingArea in mode "reference right"
+# create parkingArea in mode "Reference Right"
 netedit.leftClick(referencePosition, 485, 256)
 
 # change reference to center
-netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
 
-# create parkingArea in mode "reference center"
+# create parkingArea in mode "Center"
 netedit.leftClick(referencePosition, 495, 256)
 
 # Check undo redo

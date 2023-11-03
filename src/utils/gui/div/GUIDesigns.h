@@ -45,6 +45,19 @@ class MFXMenuCheckIcon;
 /// @brief elements with big images
 #define GUIDesignBigSizeElement 138
 
+/// @name ComboBox sizes
+/// @{
+/// @brief combo box size small
+#define GUIDesignComboBoxVisibleItemsSmall  5
+
+/// @brief combo box medium small
+#define GUIDesignComboBoxVisibleItemsMedium 10
+
+/// @brief combo box large small
+#define GUIDesignComboBoxVisibleItemsLarge  15
+
+/// @}
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -72,6 +85,9 @@ class MFXMenuCheckIcon;
 /// @{
 /// @brief button extended over over Frame with thick and raise frame
 #define GUIDesignButton                         (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief button extended over over Frame with thick and raise frame
+#define GUIDesignButtonLeft                     (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button extended over over column with thick and raise frame
 #define GUIDesignButtonAttribute                (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
@@ -422,6 +438,9 @@ class MFXMenuCheckIcon;
 /// @brief design for toolbar
 #define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
 
+/// @brief design for toolbar supermodes (grip + buttons)
+#define GUIDesignToolBarRaisedSupermodes    (LAYOUT_DOCK_SAME | FRAME_RAISED | LAYOUT_FIX_WIDTH), 0, 0, 23 + (3 * 100)
+
 /// @brief design for first toolbar shell positioned in the next position of dock
 #define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
 
@@ -699,6 +718,24 @@ public:
     /// @brief build menu command
     static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable = false);
 
+    /// @brief build menu command with help
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, const std::string& help, FXIcon* icon, FXObject* tgt, FXSelector sel, const bool disable = false);
+
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
+
+    /// Construct label with given text and icon
+    static FXLabel* buildFXLabel(FXComposite* p, const std::string& text,  const std::string& tip, const std::string& help,
+                                 FXIcon* ic, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
+                                 FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build button
+    static FXButton* buildFXButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                   FXIcon* ic, FXObject* tgt, FXSelector sel, FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                   FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+
+    /// @brief build radio button
+    static FXRadioButton* buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
+                                             FXObject* tgt, FXSelector sel, FXuint opts = RADIOBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                                             FXint pl = DEFAULT_PAD,FXint pr = DEFAULT_PAD,FXint pt = DEFAULT_PAD,FXint pb = DEFAULT_PAD);
 };

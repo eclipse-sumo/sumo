@@ -1011,14 +1011,14 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
             //std::cout << (start ? "  start" : "  end") << " length=" << dist << " radius=" << r << "  ";
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
-                    WRITE_MESSAGE("Removing sharp turn with radius " + toString(r) + " at the " +
-                                  (start ? "start" : "end") + " of edge '" + getID() + "'.");
+                    WRITE_MESSAGEF(TL("Removing sharp turn with radius % at the % of edge '%'."),
+                                   toString(r), start ? TL("start") : "end", getID());
                     myGeom.erase(myGeom.begin() + (start ? 1 : i + 1));
                     checkGeometry(maxAngle, minRadius, fix, silent);
                     return;
                 } else if (!silent) {
-                    WRITE_WARNINGF("Found sharp turn with radius % at the " +
-                                   toString(start ? "start" : "end") + " of edge '%'.", r, getID());
+                    WRITE_WARNINGF(TL("Found sharp turn with radius % at the % of edge '%'."),
+                                   toString(r), start ? "start" : "end", getID());
                 }
             }
         }

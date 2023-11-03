@@ -37,7 +37,7 @@ netedit.changeElement("busStop")
 # set own lines
 netedit.changeDefaultValue(netedit.attrs.busStop.create.lines, "lineA lineB")
 
-# create busStop in mode "reference left"
+# create busStop in mode "Reference Left"
 netedit.leftClick(referencePosition, 430, 256)
 
 # Check undo redo

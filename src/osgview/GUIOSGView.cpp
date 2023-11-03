@@ -72,10 +72,11 @@
 #include "GUIOSGPerspectiveChanger.h"
 #include "GUIOSGView.h"
 
+//#define DEBUG_GLERRORS
 
 FXDEFMAP(GUIOSGView) GUIOSGView_Map[] = {
     //________Message_Type_________        ___ID___                        ________Message_Handler________
-    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::OnIdle),
+    FXMAPFUNC(SEL_CHORE,                MID_CHORE,			GUIOSGView::onIdle),
 };
 FXIMPLEMENT(GUIOSGView, GUISUMOAbstractView, GUIOSGView_Map, ARRAYNUMBER(GUIOSGView_Map))
 
@@ -196,9 +197,6 @@ GUIOSGView::GUIOSGView(
     recenterView();
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
-#ifdef DEBUG
-    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after first init steps");
-#endif
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
     myText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
@@ -213,9 +211,6 @@ GUIOSGView::GUIOSGView(
     myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
-#ifdef DEBUG
-    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after myText init");
-#endif
 
     myHUD = new osg::Camera;
     myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
@@ -229,16 +224,9 @@ GUIOSGView::GUIOSGView(
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
-#ifdef DEBUG
-    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after HUD");
-#endif
 
     // adjust the main light
     adoptViewSettings();
-#ifdef DEBUG
-    myAdapter->getState()->checkGLErrors("GUIOSGView constructor after adoptViewSettings");
-#endif
-
     osgUtil::Optimizer optimizer;
     optimizer.optimize(myRoot);
 }
@@ -299,11 +287,6 @@ GUIOSGView::getPositionInformation() const {
 }
 
 
-void
-GUIOSGView::recalculateBoundaries() {
-}
-
-
 bool
 GUIOSGView::is3DView() const {
     return true;
@@ -321,51 +304,50 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
                 v->getColoringSchemesCombo()->setCurrentItem(v->getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v->getColoringSchemesCombo()->setNumVisible(5);
     }
     // for junctions
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Junction\tLocate a junction within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Junction", "Locate a junction within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
                  GUIDesignButtonPopup);
     // for edges
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Street\tLocate a street within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Street", "Locate a street within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
                  GUIDesignButtonPopup);
     // for vehicles
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a vehicle within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Vehicle", "Locate a vehicle within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
                  GUIDesignButtonPopup);
     // for persons
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Person\tLocate a person within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Person", "Locate a person within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
                  GUIDesignButtonPopup);
     // for containers
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Container\tLocate a container within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Container", "Locate a container within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
                  GUIDesignButtonPopup);
     // for tls
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate TLS\tLocate a tls within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate TLS", "Locate a tls within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
                  GUIDesignButtonPopup);
     // for additional stuff
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Additional\tLocate an additional structure within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Additional", "Locate an additional structure within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
                  GUIDesignButtonPopup);
     // for pois
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate POI\tLocate a POI within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate POI", "Locate a POI within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
                  GUIDesignButtonPopup);
     // for polygons
-    new FXButton(v->getLocatorPopup(),
-                 "\tLocate Polygon\tLocate a Polygon within the network.",
+    GUIDesigns::buildFXButton(v->getLocatorPopup(),
+                 "Locate Polygon", "Locate a Polygon within the network.", "",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
                  GUIDesignButtonPopup);
 }
@@ -433,7 +415,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     myDecalsLockMutex.lock();
     for (GUISUMOAbstractView::Decal& d : myDecals) {
-        if (!d.initialised) {
+        if (!d.initialised && d.filename.length() > 0) {
             if (d.filename.length() == 6 && d.filename.substr(0, 5) == "light") {
                 GUIOSGBuilder::buildLight(d, *myRoot);
             } else if (d.filename.length() > 3 && d.filename.substr(0, 3) == "tl:") {
@@ -885,7 +867,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-GUIOSGView::OnIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
+GUIOSGView::onIdle(FXObject* /* sender */, FXSelector /* sel */, void*) {
     forceRefresh();
     update();
     getApp()->addChore(this, MID_CHORE);
@@ -989,7 +971,7 @@ GUIOSGView::updatePositionInformation() const {
         if (GeoConvHelper::getFinal().usingGeoProjection()) {
             myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
         } else {
-            myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + TL(" (No projection defined)")).c_str());
+            myApp->getGeoLabel()->setText(TL("(No projection defined)"));
         }
     } else {
         // set placeholder
@@ -1104,7 +1086,7 @@ GUIOSGView::FXOSGAdapter::FXOSGAdapter(GUISUMOAbstractView* parent, FXCursor* cu
     if (valid()) {
         setState(new osg::State());
         getState()->setGraphicsContext(this);
-#ifdef DEBUG
+#ifdef DEBUG_GLERRORS
         getState()->setCheckForGLErrors(osg::State::ONCE_PER_ATTRIBUTE);
         std::cout << "OSG getCheckForGLErrors " << getState()->getCheckForGLErrors() << std::endl;
 #endif

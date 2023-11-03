@@ -86,7 +86,7 @@ def setPrecision(formatstr, precision, isArray=False, preformatted=False):
 
 class Statistics:
 
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False):
+    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1, printDev=False, printSum=False):
         self.label = label
         self.min = uMax
         self.min_label = None
@@ -97,6 +97,7 @@ class Statistics:
         self.printMin = printMin
         self.scale = scale
         self.printDev = printDev
+        self.printSum = printSum
         self.isArray = False
         if histogram:
             self.counts = defaultdict(int)
@@ -240,6 +241,8 @@ class Statistics:
                     fmt(self.avg_abs()), fmt(self.median_abs()))
             if self.printDev:
                 result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
+            if self.printSum:
+                result += (setPrecision(', sum %.2f', precision, self.isArray) % sum(self.values))
             if self.counts is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()

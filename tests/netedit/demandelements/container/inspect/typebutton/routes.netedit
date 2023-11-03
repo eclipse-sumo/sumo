@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-27 11:50:14 by Eclipse SUMO netedit Version v1_14_1+2004-bd823dceeab
+<!-- generated on 2023-11-01 14:44:33 by Eclipse SUMO netedit Version v1_18_0+2330-771ae636b15
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- VTypes -->
-    <vType id="custom_vType" length="20.00" vClass="ignoring" width="5.00" height="12.00" color="12,13,14"/>
+    <vType id="DEFAULT_CONTAINERTYPE" color="12,13,14"/>
+    <vType id="custom_vType" length="20.00" vClass="ignoring" width="5.00" height="12.00" color="cyan"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <container id="c_0" type="custom_vType" depart="0.00">
-        <transport from="Edge0" to="Edge2" lines="ANY"/>
+    <container id="c_0" depart="0.00">
+        <transport from="Edge0" to="Edge2"/>
     </container>
 </routes>

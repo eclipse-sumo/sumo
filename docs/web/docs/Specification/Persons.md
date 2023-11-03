@@ -215,7 +215,7 @@ positioned between the start and end position of the vehicle's stop, the
 person will enter the vehicle and start its ride. If such a vehicle
 exists but the person is not positioned between the start and end
 position of the vehicle's stop, the person will still enter if the
-vehicle is triggered by the a person and the distance between person and
+vehicle is triggered by the person and the distance between person and
 vehicle is at most 10 metres. It does not check whether the vehicle has
 the aspired destination on the current route. The first time the vehicle
 stops (on a well defined stop) at the destination edge, the ride is

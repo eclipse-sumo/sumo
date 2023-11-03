@@ -19,5 +19,8 @@ removeConstraints_foeSignal
 # update constraints after route change (remove unfulfillable)
 updateConstraints
 
+# adding a constraint
+addConstraint
+
 # tests for automatic deadlock-avoidance after swapConstraints
 swap

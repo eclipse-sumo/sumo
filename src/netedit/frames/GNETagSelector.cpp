@@ -91,7 +91,8 @@ GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType 
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon
-    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, true, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsLarge,
+                                         this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
     // set current tag without notifying
@@ -166,7 +167,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
         case GNETagProperties::TagType::VEHICLE:
             setText(TL("Vehicles"));
             break;
-        case GNETagProperties::TagType::STOP:
+        case GNETagProperties::TagType::VEHICLESTOP:
             setText(TL("Stops"));
             break;
         case GNETagProperties::TagType::PERSON:
@@ -214,8 +215,6 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     // set color of myTypeMatchBox to black (valid)
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     myTagsMatchBox->killFocus();
-    // Set visible items
-    myTagsMatchBox->setNumVisible(10);
     // set first myACTemplate as edited AC
     myCurrentTemplateAC = myACTemplates.front()->getAC();
     // call tag selected function
@@ -401,13 +400,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         // JuPedSim elements
         case GNE_TAG_JPS_WALKABLEAREA:
         case GNE_TAG_JPS_OBSTACLE:
-        case GNE_TAG_JPS_WAITINGAREA:
-        case GNE_TAG_JPS_SOURCE:
-        case GNE_TAG_JPS_SINK:
             myAC = new GNEPoly(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_JPS_WAYPOINT:
-            myAC = new GNEPOI(tagProperty.getTag(), net);
             break;
         // Demand elements
         case SUMO_TAG_ROUTE:
@@ -460,34 +453,6 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
         case SUMO_TAG_CONTAINER:
         case SUMO_TAG_CONTAINERFLOW:
             myAC = new GNEContainer(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_TRANSPORT_EDGE:
-        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
-            myAC = new GNETransport(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_TRANSHIP_EDGE:
-        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
-        case GNE_TAG_TRANSHIP_EDGES:
-            myAC = new GNETranship(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_PERSONTRIP_EDGE:
-        case GNE_TAG_PERSONTRIP_BUSSTOP:
-        case GNE_TAG_PERSONTRIP_TRAINSTOP:
-        case GNE_TAG_PERSONTRIP_JUNCTIONS:
-            myAC = new GNEPersonTrip(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_WALK_EDGE:
-        case GNE_TAG_WALK_BUSSTOP:
-        case GNE_TAG_WALK_TRAINSTOP:
-        case GNE_TAG_WALK_EDGES:
-        case GNE_TAG_WALK_ROUTE:
-        case GNE_TAG_WALK_JUNCTIONS:
-            myAC = new GNEWalk(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_RIDE_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP:
-        case GNE_TAG_RIDE_TRAINSTOP:
-            myAC = new GNERide(tagProperty.getTag(), net);
             break;
         default:
             throw ProcessError("Non-supported tagProperty in ACTemplate");

@@ -104,10 +104,6 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"jps.walkableArea",        GLO_JPS_WALKABLEAREA},
     {"jps.obstacle",            GLO_JPS_OBSTACLE},
-    {"jps.waitingArea",         GLO_JPS_WAITINGAREA},
-    {"jps.source",              GLO_JPS_SOURCE},
-    {"jps.sink",                GLO_JPS_SINK},
-    {"jps.Waypoint",            GLO_JPS_WAYPOINT},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
@@ -121,8 +117,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"tranship",                GLO_TRANSHIP},
     //
     {"stop",                    GLO_STOP},
-    {"stopPerson",              GLO_STOP_PERSON},
-    {"stopContainer",           GLO_STOP_CONTAINER},
+    {"stopPlan",                GLO_STOP_PLAN},
     //
     {"vehicle",                 GLO_VEHICLE},
     {"trip",                    GLO_TRIP},
@@ -143,7 +138,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"textName",                GLO_TEXTNAME},
     {"frontElement",            GLO_FRONTELEMENT},
     {"geometryPoint",           GLO_GEOMETRYPOINT},
-    {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
+    {"dottedContour",           GLO_DOTTEDCONTOUR},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},
     {"testElement",             GLO_TESTELEMENT},
@@ -163,8 +158,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FX
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
     myGLObjectType(type),
     myMicrosimID(microsimID),
-    myIcon(icon),
-    myAmBlocked(false) {
+    myIcon(icon) {
     // make sure that reserved GLO_ADDITIONALELEMENT isn't used
     assert(myGLObjectType != GLO_ADDITIONALELEMENT);
     myFullName = createFullName();

@@ -87,7 +87,7 @@ private:
     GNEViewNet* myViewNet;
 
     /// @brief ComboBox for terminate options (end, number, end/number)
-    FXComboBox* myTerminateComboBox = nullptr;
+    MFXComboBoxIcon* myTerminateComboBox = nullptr;
 
     /// @brief horizontal frame for terminate definition
     FXHorizontalFrame* myTerminateFrameTextField = nullptr;
@@ -102,7 +102,7 @@ private:
     FXHorizontalFrame* mySpacingFrameComboBox = nullptr;
 
     /// @brief ComboBox for spacing comboBox (perHour, period, probability)
-    FXComboBox* mySpacingComboBox = nullptr;
+    MFXComboBoxIcon* mySpacingComboBox = nullptr;
 
     /// @brief horizontal frame for spacing textField
     FXHorizontalFrame* mySpacingFrameTextField = nullptr;

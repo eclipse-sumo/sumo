@@ -71,7 +71,7 @@ suppresses all translations. If you want the binaries to respect the environment
 
 # New language
 
-If you want to add a new language either [open an issue](https://github.com/eclipse/sumo/issues) with your request
+If you want to add a new language either [open an issue](https://github.com/eclipse-sumo/sumo/issues) with your request
 or run `tools/build/i18n.py -l <lang>` and make a pull request with the resulting po files.
 
 # For developers

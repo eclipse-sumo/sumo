@@ -32,19 +32,14 @@ class GUIDottedGeometry {
 public:
     /// @enum for dotted cotour type
     enum class DottedContourType {
-        INSPECT,
-        INSPECT_SMALL,
-        REMOVE,
-        SELECT,
-        FRONT,
-        FRONT_SMALL,
-        MOVE,
-        GREEN,
-        MAGENTA,
-        ORANGE,
-        YELLOW,
-        FROMTAZ,
-        TOTAZ,
+        INSPECT,    // Inspecting element
+        REMOVE,     // Mouse over element to remove
+        SELECT,     // Mouse over element to select
+        FRONT,      // Element marked as "front element"
+        OVER,       // Mouse over element (orange)
+        FROM,       // Element marked as from (green)
+        TO,         // Element marked as to (magenta)
+        RELATED,    // Element marked as related (cyan)
         NOTHING
     };
 
@@ -53,10 +48,10 @@ public:
 
     public:
         /// @brief constructor
-        DottedGeometryColor(const GUIVisualizationSettings& settings);
+        DottedGeometryColor();
 
         /// @brief get inspected color (and change flag)
-        const RGBColor getColor(DottedContourType type);
+        const RGBColor getColor(const GUIVisualizationSettings& settings, DottedContourType type);
 
         /// @brief change color
         void changeColor();
@@ -65,9 +60,6 @@ public:
         void reset();
 
     private:
-        /// @brief pointer to GUIVisualizationSettings
-        const GUIVisualizationSettings& mySettings;
-
         /// @brief flag to get color
         bool myColorFlag;
 
@@ -77,6 +69,7 @@ public:
 
     /// @brief dotted geometry segment
     struct Segment {
+
         /// @brief default constructor
         Segment();
 
@@ -91,58 +84,35 @@ public:
 
         /// @brief lengths
         std::vector<double> lengths;
-
-        /// @brief drawing offset (-1 or 1 only)
-        double offset;
     };
 
     /// @brief constructor
     GUIDottedGeometry();
 
     /// @brief constructor for shapes
-    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
-
-    /// @brief constructor for extremes
-    GUIDottedGeometry(const GUIVisualizationSettings& s,
-                      const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-                      const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem);
+    GUIDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
 
     /// @brief update GUIDottedGeometry (using lane shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape, const bool resample);
 
     /// @brief update GUIDottedGeometry (using shape)
-    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
+    void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape, const bool resample);
 
-    /// @brief draw inspected dottedShape
+    /// @brief draw dotted geometry
     void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                            DottedGeometryColor& dottedGeometryColor, const double customWidth = 1) const;
+                            DottedGeometryColor &dottedGeometryColor, const bool addOffset, const double lineWidth) const;
+
+    /// @brief draw innen geometry
+    void drawInnenGeometry(const double lineWidth) const;
 
     /// @brief move shape to side
     void moveShapeToSide(const double value);
 
-    /// @brief invert offset of all segments
-    void invertOffset();
+    /// @brief get front position
+    Position getFrontPosition() const;
 
-    /// @name draw functions
-    /// @{
-
-    /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
-            const double exaggeration, const double customWidth = 1);
-
-    /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type, const PositionVector& shape,
-                                       const double width, const double exaggeration, const bool drawFirstExtrem, const bool drawLastExtrem);
-
-    /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
-                                        const double radius, const double exaggeration);
-
-    /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const GUIVisualizationSettings& s, const DottedContourType type, const Position& pos,
-                                       const double width, const double height, const double offsetX, const double offsetY,
-                                       const double rot, const double exaggeration);
-    /// @}
+    /// @brief get back position
+    Position getBackPosition() const;
 
 private:
     /// @brief calculate shape rotations and lengths

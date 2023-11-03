@@ -149,6 +149,56 @@ GNEConnection::getPositionInView() const {
 }
 
 
+bool
+GNEConnection::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEConnection::checkDrawDeleteContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in delete mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
+        return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEConnection::checkDrawSelectContour() const {
+    // get edit modes
+    const auto &editModes = myNet->getViewNet()->getEditModes();
+    // check if we're in select mode
+    if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
+        return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
+    } else {
+        return false;
+    }
+}
+
+
 GNEMoveOperation*
 GNEConnection::getMoveOperation() {
     // edit depending if shape is being edited
@@ -454,26 +504,9 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
                 // check if mouse is over element
                 mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
-                // inspect contour
-                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // front contour
-                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // delete contour
-                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
-                // select contour
-                if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                    // use drawDottedContourGeometry to draw it
-                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
-                }
+                // draw dotted geometry
+                myContour.drawDottedContourExtruded(s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true,
+                                                    s.dottedContourSettings.segmentWidthSmall);
             }
         }
     }
@@ -510,8 +543,12 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return myToLane->getParentEdge()->getID();
         case SUMO_ATTR_FROM_LANE:
             return myFromLane->getAttribute(SUMO_ATTR_INDEX);
+        case GNE_ATTR_FROM_LANEID:
+            return myFromLane->getID();
         case SUMO_ATTR_TO_LANE:
             return myToLane->getAttribute(SUMO_ATTR_INDEX);
+        case GNE_ATTR_TO_LANEID:
+            return myToLane->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:

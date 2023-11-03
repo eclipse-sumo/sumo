@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
+                  netedit.positions.demandElements.chargingStation.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.onDemand, "true", False)

@@ -37,25 +37,23 @@
 
 GNEChargingStation::GNEChargingStation(GNENet* net) :
     GNEStoppingPlace("", net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
-                     nullptr, 0, 0, "", false, Parameterised::Map()),
-    myChargingPower(0),
-    myEfficiency(0),
-    myChargeInTransit(0),
-    myChargeDelay(0) {
+                     nullptr, 0, 0, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition,
-                                       const Parameterised::Map& parameters) :
+                                       const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
+                                       const std::string &chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
                      lane, startPos, endPos, name, friendlyPosition, parameters),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
-    myChargeDelay(chargeDelay) {
+    myChargeDelay(chargeDelay),
+    myChargeType(chargeType),
+    myWaitingTime(waitingTime) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -92,6 +90,12 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
     }
     if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
         device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    }
+    if (getAttribute(SUMO_ATTR_CHARGETYPE) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGETYPE)) {
+        device.writeAttr(SUMO_ATTR_CHARGETYPE, myChargeType);
+    }
+    if (string2time(myTagProperty.getDefaultValue(SUMO_ATTR_WAITINGTIME)) != myWaitingTime) {
+        device.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
@@ -177,32 +181,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // front element contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
-                        chargingStationExaggeration, true, true);
-            }
-            // draw child demand elements
-            for (const auto& demandElement : getChildDemandElements()) {
-                if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                    demandElement->drawGL(s);
-                }
-            }
+            // draw dotted geometry (don't exaggerate contour)
+            myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
+                                                s.dottedContourSettings.segmentWidth);
+            // draw stoppingPlace children
+            drawStoppingPlaceChildren(s);
         }
         // Draw additional ID
         drawAdditionalID(s);
@@ -243,6 +226,10 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
             return toString(myChargeInTransit);
         case SUMO_ATTR_CHARGEDELAY:
             return time2string(myChargeDelay);
+        case SUMO_ATTR_CHARGETYPE:
+            return myChargeType;
+        case SUMO_ATTR_WAITINGTIME:
+            return time2string(myWaitingTime);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -268,6 +255,8 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case SUMO_ATTR_EFFICIENCY:
         case SUMO_ATTR_CHARGEINTRANSIT:
         case SUMO_ATTR_CHARGEDELAY:
+        case SUMO_ATTR_CHARGETYPE:
+        case SUMO_ATTR_WAITINGTIME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SHIFTLANEINDEX:
@@ -313,11 +302,22 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGINGPOWER:
             return (canParse<double>(value) && parse<double>(value) >= 0);
         case SUMO_ATTR_EFFICIENCY:
-            return (canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1);
+            if (canParse<double>(value)) {
+                const double efficiency = parse<double>(value);
+                return (efficiency >= 0) && (efficiency <= 1);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_CHARGEINTRANSIT:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
-            return canParse<SUMOTime>(value);
+            return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
+        case SUMO_ATTR_CHARGETYPE: {
+            const auto validValues = myTagProperty.getAttributeProperties(key).getDiscreteValues();
+            return std::find(validValues.begin(), validValues.end(), value) != validValues.end();
+        }
+        case SUMO_ATTR_WAITINGTIME:
+            return canParse<SUMOTime>(value) && parse<SUMOTime>(value) >= 0;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -372,6 +372,12 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_CHARGEDELAY:
             myChargeDelay = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_CHARGETYPE:
+            myChargeType = value;
+            break;
+        case SUMO_ATTR_WAITINGTIME:
+            myWaitingTime = parse<SUMOTime>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

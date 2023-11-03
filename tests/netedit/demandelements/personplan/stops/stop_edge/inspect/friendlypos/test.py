@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -44,16 +44,16 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.selectPerson("p_0")
 
-# go to personStopEdge mode
-netedit.changePersonPlanMode("stopPerson: edge")
+# go to StopPlanEdge mode
+netedit.changePersonPlanMode("stop")
 
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
@@ -62,11 +62,11 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personStopEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopPerson.x, netedit.positions.demandElements.stopPerson.y)
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.personStopEdge.inspect.friendlyPos, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.friendlyPos, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

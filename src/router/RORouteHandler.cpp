@@ -111,10 +111,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
     // from-attributes
     const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) &&
-            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_FROM_TAZ) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok, true);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_FROM_JUNCTION : SUMO_ATTR_FROM_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const ROEdge* fromTaz = myNet.getEdge(tazID + "-source");
         if (fromTaz == nullptr) {
             myErrorOutput->inform("Source " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -163,10 +163,10 @@ RORouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, b
 
     // to-attributes
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_TO)) &&
-            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION))) {
-        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TOJUNCTION);
+            (attrs.hasAttribute(SUMO_ATTR_TO_TAZ) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION))) {
+        const bool useJunction = attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION);
         const std::string tazType = useJunction ? "junction" : "taz";
-        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
+        const std::string tazID = attrs.get<std::string>(useJunction ? SUMO_ATTR_TO_JUNCTION : SUMO_ATTR_TO_TAZ, myVehicleParameter->id.c_str(), ok, true);
         const ROEdge* toTaz = myNet.getEdge(tazID + "-sink");
         if (toTaz == nullptr) {
             myErrorOutput->inform("Sink " + tazType + " '" + tazID + "' not known for " + element + " '" + myVehicleParameter->id + "'!"
@@ -268,7 +268,7 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
                 const std::string typeID = st.next();
                 const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(typeID);
                 if (dist != nullptr) {
-                    const double distProb = (int)probs.size() > probIndex ? probs[probIndex] : 1.;
+                    const double distProb = ((int)probs.size() > probIndex ? probs[probIndex] : 1.) / dist->getOverallProb();
                     std::vector<double>::const_iterator probIt = dist->getProbs().begin();
                     for (SUMOVTypeParameter* const type : dist->getVals()) {
                         myCurrentVTypeDistribution->add(type, distProb * *probIt);
@@ -636,10 +636,11 @@ RORouteHandler::closePerson() {
 
 void
 RORouteHandler::closePersonFlow() {
-    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
-    if (type == nullptr) {
+    std::string typeID = DEFAULT_PEDTYPE_ID;
+    if (myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid) == nullptr) {
         myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for personFlow '" + myVehicleParameter->id + "' is not known.");
-        type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
+    } else {
+        typeID = myVehicleParameter->vtypeid;
     }
     if (myActivePlan == nullptr || myActivePlan->empty()) {
         WRITE_WARNINGF(TL("Discarding personFlow '%' because their plan is empty"), myVehicleParameter->id);
@@ -654,7 +655,7 @@ RORouteHandler::closePersonFlow() {
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
-                        addFlowPerson(type, t, baseID, i++);
+                        addFlowPerson(typeID, t, baseID, i++);
                     }
                 }
             }
@@ -670,7 +671,7 @@ RORouteHandler::closePersonFlow() {
                 std::sort(departures.begin(), departures.end());
                 std::reverse(departures.begin(), departures.end());
                 for (; i < myVehicleParameter->repetitionNumber; i++) {
-                    addFlowPerson(type, departures[i], baseID, i);
+                    addFlowPerson(typeID, departures[i], baseID, i);
                     depart += myVehicleParameter->repetitionOffset;
                 }
             } else {
@@ -680,7 +681,7 @@ RORouteHandler::closePersonFlow() {
                     myVehicleParameter->incrementFlow(1);
                 }
                 for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
-                    addFlowPerson(type, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
+                    addFlowPerson(typeID, depart + myVehicleParameter->repetitionTotalOffset, baseID, i);
                     if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
                         myVehicleParameter->incrementFlow(1);
                     }
@@ -699,10 +700,14 @@ RORouteHandler::closePersonFlow() {
 
 
 void
-RORouteHandler::addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const std::string& baseID, int i) {
+RORouteHandler::addFlowPerson(const std::string& typeID, SUMOTime depart, const std::string& baseID, int i) {
     SUMOVehicleParameter pars = *myVehicleParameter;
     pars.id = baseID + "." + toString(i);
     pars.depart = depart;
+    const SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
+    if (!myKeepVTypeDist) {
+        pars.vtypeid = type->id;
+    }
     ROPerson* person = new ROPerson(pars, type);
     for (ROPerson::PlanItem* item : *myActivePlan) {
         person->getPlan().push_back(item->clone());
@@ -964,16 +969,6 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myInsertStopEdgesAt++;
     }
     return result;
-}
-
-
-void
-RORouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
-RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
@@ -1245,7 +1240,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const ROEdge* to = nullptr;
     parseFromViaTo(SUMO_TAG_PERSON, attrs, ok);
     myInsertStopEdgesAt = -1;
-    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
+    if (attrs.hasAttribute(SUMO_ATTR_FROM) || attrs.hasAttribute(SUMO_ATTR_FROM_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_FROM_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_FROMLONLAT) || attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         if (ok) {
             from = myActiveRoute.front();
@@ -1255,7 +1250,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     } else {
         from = myActivePlan->back()->getDestination();
     }
-    if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TOJUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
+    if (attrs.hasAttribute(SUMO_ATTR_TO) || attrs.hasAttribute(SUMO_ATTR_TO_JUNCTION) || attrs.hasAttribute(SUMO_ATTR_TO_TAZ)
             || attrs.hasAttribute(SUMO_ATTR_TOLONLAT) || attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         to = myActiveRoute.back();
     } // else, to may also be derived from stopping place

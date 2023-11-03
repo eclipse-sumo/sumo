@@ -4,13 +4,13 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 %%%%%%
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 ownLine
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
+TestFunctions: Clicked over position 679 - 201
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

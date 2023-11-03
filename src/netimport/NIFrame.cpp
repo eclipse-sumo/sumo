@@ -366,6 +366,8 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.addDescription("opendrive.lane-shapes", "Formats", TL("Use custom lane shapes to compensate discarded lane types"));
     oc.doRegister("opendrive.signal-groups", new Option_Bool(false));
     oc.addDescription("opendrive.signal-groups", "Formats", TL("Use the OpenDRIVE controller information for the generated signal program"));
+    oc.doRegister("opendrive.ignore-misplaced-signals", new Option_Bool(false));
+    oc.addDescription("opendrive.ignore-misplaced-signals", "Formats", TL("Ignore traffic signals which do not control any driving lane"));
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

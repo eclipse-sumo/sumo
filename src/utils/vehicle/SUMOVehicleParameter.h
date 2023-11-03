@@ -157,9 +157,9 @@ enum class DepartPosDefinition {
     DEFAULT,
     /// @brief The position is given
     GIVEN,
-    /// @brief The position is given
-    GIVEN_VEHROUTE,
     /// @brief The position is set by the vehroute device
+    GIVEN_VEHROUTE,
+    /// @brief A random position is chosen
     RANDOM,
     /// @brief A free position is chosen
     FREE,
@@ -169,6 +169,8 @@ enum class DepartPosDefinition {
     LAST,
     /// @brief If a fixed number of random choices fails, a free position is chosen
     RANDOM_FREE,
+    /// @brief The position may be chosen freely in a polygon defined by a taz
+    RANDOM_LOCATION,
     /// @brief depart position is endPos of first stop
     STOP
 };

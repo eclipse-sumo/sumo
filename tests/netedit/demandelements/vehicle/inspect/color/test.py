@@ -55,7 +55,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x, netedit.positions.demandElements.singleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x,
+                  netedit.positions.demandElements.singleVehicleEdge.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.vehicle.inspect.colorButton, 5, True)

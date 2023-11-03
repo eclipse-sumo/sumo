@@ -58,91 +58,93 @@ public:
     /// @brief destructor
     virtual ~GUIViewTraffic();
 
-    /// @brief recalculate boundaries
-    void recalculateBoundaries();
-
     /// @brief builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow*);
-
+    virtual void buildViewToolBars(GUIGlChildWindow*) override;
 
     /** @brief Starts vehicle tracking
      * @param[in] id The glID of the vehicle to track
      */
-    void startTrack(int id);
-
+    void startTrack(int id) override;
 
     /** @brief Stops vehicle tracking
      */
-    void stopTrack();
-
+    void stopTrack() override;
 
     /** @brief Returns the id of the tracked vehicle (-1 if none)
      * @return The glID of the vehicle to track
      */
-    GUIGlID getTrackedID() const;
+    GUIGlID getTrackedID() const override;
 
-    bool setColorScheme(const std::string& name);
+    bool setColorScheme(const std::string& name) override;
 
     /// @brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
                            bool hide = false, double hideThreshold = 0,
-                           bool hide2 = false, double hideThreshold2 = 0);
+                           bool hide2 = false, double hideThreshold2 = 0) override;
 
     /// @brief return list of loaded edgeData attributes
-    std::vector<std::string> getEdgeDataAttrs() const;
+    std::vector<std::string> getEdgeDataAttrs() const override;
 
     /// @brief return list of loaded edgeData ids (being computed in the current simulation)
-    std::vector<std::string> getMeanDataIDs() const;
+    std::vector<std::string> getMeanDataIDs() const override;
 
     /// @brief return list of available attributes for the given meanData id
-    std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const;
+    std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const override;
 
     /// @brief return list of available edge parameters
-    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
+    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const override;
 
     /// @brief return list of available vehicle parameters
-    std::vector<std::string> getVehicleParamKeys(bool vTypeKeys) const;
+    std::vector<std::string> getVehicleParamKeys(bool vTypeKeys) const override;
 
     /// @brief return list of available POI parameters
-    std::vector<std::string> getPOIParamKeys() const;
+    std::vector<std::string> getPOIParamKeys() const override;
 
     /// @brief handle mouse click in gaming mode
-    void onGamingClick(Position pos);
-    void onGamingRightClick(Position pos);
+    void onGamingClick(Position pos) override;
+    void onGamingRightClick(Position pos) override;
 
     /// @brief get the current simulation time
-    SUMOTime getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const override;
 
     /// @brief interaction with the simulation
-    long onCmdCloseLane(FXObject*, FXSelector, void*);
-    long onCmdCloseEdge(FXObject*, FXSelector, void*);
-    long onCmdAddRerouter(FXObject*, FXSelector, void*);
+    long onCmdCloseLane(FXObject*, FXSelector, void*) override;
+    long onCmdCloseEdge(FXObject*, FXSelector, void*) override;
+    long onCmdAddRerouter(FXObject*, FXSelector, void*) override;
 
     /// @brief highlight edges according to reachability
-    long onCmdShowReachability(FXObject*, FXSelector, void*);
+    long onCmdShowReachability(FXObject*, FXSelector, void*) override;
     static long showLaneReachability(GUILane* lane, FXObject*, FXSelector);
 
-    long onDoubleClicked(FXObject*, FXSelector, void*);
+    long onDoubleClicked(FXObject*, FXSelector, void*) override;
 
     /** @brief Adds a frame to a video snapshot which will be initialized if necessary
      */
-    void saveFrame(const std::string& destFile, FXColor* buf);
+    void saveFrame(const std::string& destFile, FXColor* buf) override;
 
     /** @brief Ends a video snapshot
      */
-    void endSnapshot();
+    void endSnapshot() override;
 
     /** @brief Checks whether it is time for a snapshot
      */
-    void checkSnapshots();
+    void checkSnapshots() override;
 
     /// @brief retrieve breakpoints from the current runThread
-    const std::vector<SUMOTime> retrieveBreakpoints() const;
+    const std::vector<SUMOTime> retrieveBreakpoints() const override;
+
+    /// @brief Draw (or not) the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    void drawPedestrianNetwork(const GUIVisualizationSettings& s) const override;
+
+    /// @brief Change the color of the JuPedSim pedestrian network
+    /// @param s The visualization settings
+    void changePedestrianNetworkColor(const GUIVisualizationSettings& s) const override;
 
 protected:
-    int doPaintGL(int mode, const Boundary& bound);
+    int doPaintGL(int mode, const Boundary& bound) override;
 
-    GUILane* getLaneUnderCursor();
+    GUILane* getLaneUnderCursor() override;
 
 private:
     GUIGlID myTrackedID;

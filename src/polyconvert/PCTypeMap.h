@@ -40,14 +40,13 @@ class OptionsCont;
  *  values (color, new type name etc.) that shall be assigned to them.
  */
 class PCTypeMap {
+
 public:
     /// @brief Constructor. The default type is constructed based on the given options
     PCTypeMap(const OptionsCont& oc);
 
-
     /// @brief Destructor
     ~PCTypeMap();
-
 
     /**
      * @struct TypeDef
@@ -60,6 +59,8 @@ public:
         RGBColor color;
         /// @brief The prefix to use
         std::string prefix;
+        /// @brief the icon to use
+        std::string icon;
         /// @brief The layer to use
         double layer;
         /// @brief The angle to use
@@ -70,9 +71,7 @@ public:
         bool discard;
         /// @brief Information whether polygons of this type can be filled
         bool allowFill;
-
     };
-
 
     /** @brief Adds a type definition
      *
@@ -81,6 +80,7 @@ public:
      * @param[in] color The color to set for imported objects of this type
      * @param[in] prefix The prefix to prepend to the read names of this type's objects
      * @param[in] layer The layer number to set for this type's objects
+     * @param[in] icon The icon for this type's objects
      * @param[in] angle The angle to rotate this type's objects
      * @param[in] imgFile The image file used as texture for objects of this type
      * @param[in] discard Whether objects of this type shall be discarded
@@ -88,9 +88,8 @@ public:
      * @return Whether the type could been added (was not known before)
      */
     bool add(const std::string& id, const std::string& newid, const std::string& color,
-             const std::string& prefix, double layer, double angle, const std::string& imgFile,
-             bool discard, bool allowFill);
-
+             const std::string& prefix, const std::string& icon, double layer,
+             double angle, const std::string& imgFile, bool discard, bool allowFill);
 
     /** @brief Returns a type definition
      *
@@ -100,7 +99,6 @@ public:
      * @return Definition of the named type
      */
     const TypeDef& get(const std::string& id);
-
 
     /** @brief Returns the information whether the named type is known
      * @param[in] id The id of the type

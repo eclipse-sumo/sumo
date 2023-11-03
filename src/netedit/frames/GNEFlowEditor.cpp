@@ -50,37 +50,36 @@ FXIMPLEMENT(GNEFlowEditor,                   MFXGroupBoxModule,       FlowEditor
 GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Flow attributes")),
     myViewNet(viewNet) {
+    const auto staticTooltip = frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelThickedFixed(100));
     terminatelabel->setTipText("Terminate attribute");
-    myTerminateComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myTerminateComboBox = new MFXComboBoxIcon(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+                                              this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for spacing
     mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelThickedFixed(100));
     spacingAttribute->setTipText("Terminate attribute");
-    mySpacingComboBox = new FXComboBox(mySpacingFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    mySpacingComboBox = new MFXComboBoxIcon(mySpacingFrameComboBox, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+                                            this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for option A
     myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myTerminateLabel = new MFXLabelTooltip(myTerminateFrameTextField,
-                                           frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), "A", nullptr, GUIDesignLabelThickedFixed(100));
+    myTerminateLabel = new MFXLabelTooltip(myTerminateFrameTextField, staticTooltip, "A", nullptr, GUIDesignLabelThickedFixed(100));
     myTerminateTextField = new FXTextField(myTerminateFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for spacing
     mySpacingFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    mySpacingLabel = new MFXLabelTooltip(mySpacingFrameTextField, frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                         "B", nullptr, GUIDesignLabelThickedFixed(100));
+    mySpacingLabel = new MFXLabelTooltip(mySpacingFrameTextField, staticTooltip, "B", nullptr, GUIDesignLabelThickedFixed(100));
     mySpacingTextField = new FXTextField(mySpacingFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill terminate
-    myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
-    myTerminateComboBox->appendItem(toString(SUMO_ATTR_NUMBER).c_str());
-    myTerminateComboBox->appendItem((toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)).c_str());
-    myTerminateComboBox->setNumVisible(3);
+    myTerminateComboBox->appendIconItem(toString(SUMO_ATTR_END).c_str());
+    myTerminateComboBox->appendIconItem(toString(SUMO_ATTR_NUMBER).c_str());
+    myTerminateComboBox->appendIconItem((toString(SUMO_ATTR_END) + "-" + toString(SUMO_ATTR_NUMBER)).c_str());
     // fill comboBox B
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
-    mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
-    mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-    mySpacingComboBox->setNumVisible(4);
+    mySpacingComboBox->appendIconItem(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
+    mySpacingComboBox->appendIconItem(toString(SUMO_ATTR_PERIOD).c_str());
+    mySpacingComboBox->appendIconItem(toString(GNE_ATTR_POISSON).c_str());
+    mySpacingComboBox->appendIconItem(toString(SUMO_ATTR_PROB).c_str());
 }
 
 
@@ -103,11 +102,10 @@ GNEFlowEditor::showFlowEditor(const std::vector<GNEAttributeCarrier*> editedFlow
         }
         // clear and update comboBoxB
         mySpacingComboBox->clearItems();
-        mySpacingComboBox->appendItem(toString(myPerHourAttr).c_str());
-        mySpacingComboBox->appendItem(toString(SUMO_ATTR_PERIOD).c_str());
-        mySpacingComboBox->appendItem(toString(GNE_ATTR_POISSON).c_str());
-        mySpacingComboBox->appendItem(toString(SUMO_ATTR_PROB).c_str());
-        mySpacingComboBox->setNumVisible(4);
+        mySpacingComboBox->appendIconItem(toString(myPerHourAttr).c_str());
+        mySpacingComboBox->appendIconItem(toString(SUMO_ATTR_PERIOD).c_str());
+        mySpacingComboBox->appendIconItem(toString(GNE_ATTR_POISSON).c_str());
+        mySpacingComboBox->appendIconItem(toString(SUMO_ATTR_PROB).c_str());
         // refresh
         refreshFlowEditor();
         // show
@@ -525,8 +523,8 @@ GNEFlowEditor::refreshMultipleFlows() {
     if (end && number && terminateDifferent.empty() && spacingDifferent.empty()) {
         // set first comboBox
         myTerminateComboBox->setCurrentItem(2),
-                            // hide second comboBox
-                            mySpacingFrameComboBox->hide();
+        // hide second comboBox
+        mySpacingFrameComboBox->hide();
         // set label
         myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
         mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());

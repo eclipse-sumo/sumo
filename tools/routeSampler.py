@@ -25,7 +25,7 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from math import ceil
+from math import ceil, modf
 # multiprocessing imports
 import multiprocessing
 import numpy as np
@@ -456,7 +456,7 @@ def updateOpenCounts(openCounts, countData, openRoutes):
     return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 
-def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
+def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, rng):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
     c = weight vector (vector of 1s)
@@ -534,9 +534,14 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
         del usedRoutes[:]
         routeCountsR = res.x[:k]  # cut of slack variables
         # translate to original route indices
-        routeCounts = [0] * routes.number
+        # routeCounts = [0] * routes.number
+        routeCountsRounded = [0] * routes.number
         for index, count in zip(relevantRoutes, routeCountsR):
-            routeCounts[index] = count
+            # routeCounts[index] = count
+            frac, countRound = modf(count)
+            if rng.random() < frac:
+                countRound += 1
+            routeCountsRounded[index] = int(countRound)
 
         # print("priorRouteCounts", priorRouteCounts)
         # print("relevantRoutes", relevantRoutes)
@@ -551,7 +556,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
         #    sum(map(round, routeCounts)),
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-        usedRoutes.extend(sum([[i] * int(round(count)) for i, count in enumerate(routeCounts)], []))
+        usedRoutes.extend(sum([[i] * count for i, count in enumerate(routeCountsRounded)], []))
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
     else:
@@ -993,7 +998,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
-        optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount)
+        optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount, rng)
         resetCounts(usedRoutes, routeUsage, countData)
         numSampled = len(usedRoutes)
 

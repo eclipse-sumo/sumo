@@ -57,6 +57,7 @@ public:
      * @param[in] lon The position X or Lon of the POI
      * @param[in] lat The position Y or Lat of the POI
      * @param[in[ geo use GEO coordinates (lon/lat)
+     * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -67,15 +68,16 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
-           const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
-           const bool relativePath, const double width, const double height, const std::string& name,
-           const Parameterised::Map& parameters);
+           const double yLat, const bool geo, const std::string& icon, const double layer, const double angle,
+           const std::string& imgFile, const bool relativePath, const double width, const double height,
+           const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
      * @param[in] color The color of the POI
+     * @param[in] icon the POI icon
      * @param[in] layer The layer of the POI
      * @param[in] angle The rotation of the POI
      * @param[in] imgFile The raster image of the shape
@@ -89,20 +91,9 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
-           const double posOverLane, const bool friendlyPos, const double posLat, const double layer, const double angle,
-           const std::string& imgFile, const bool relativePath, const double width, const double height,
-           const std::string& name, const Parameterised::Map& parameters);
-
-    /**@brief Constructor for POIWaypoints
-     * @param[in] net net in which this polygon is placed
-     * @param[in] id The name of the POI
-     * @param[in] x The x position in view
-     * @param[in] y The y position in view
-     * @param[in] name POI's name
-     * @param[in] parameters generic parameters
-     */
-    GNEPOI(GNENet* net, const std::string& id, double x, const double y, const std::string& name,
-           const Parameterised::Map& parameters);
+           const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+           const double layer, const double angle, const std::string& imgFile, const bool relativePath,
+           const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPOI();

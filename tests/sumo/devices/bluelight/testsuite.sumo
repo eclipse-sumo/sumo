@@ -49,4 +49,7 @@ opposite_redlight_straight
 # emergency vehicle may overtake queue before red light (if it wants to turn left)
 opposite_redlight_left
 motorway
+
+# setting a mingap factor
+mingapfactor
 bugs

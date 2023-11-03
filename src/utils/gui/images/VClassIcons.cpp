@@ -30,6 +30,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 FXIcon*
 VClassIcons::getVClassIcon(const SUMOVehicleClass vc) {
     switch (vc) {

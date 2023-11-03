@@ -135,6 +135,10 @@ corresponding edge id in the *.net.xml* file:
 <userData sumoId="sumo_edge_id"/>
 ```
 
+## Ignoring misplaced traffic signals
+
+The OpenDrive standard is difficult to follow and especially older versions like 1.4 had some problems. Up to this version, there was no proper way to separate the physical position (pole) of a traffic signal from the logical position (the stop line). Starting from OpenDrive 1.5, the physical position of signals can be defined explicitly. Although the standard underlines that the road the traffic signal is placed on is the one it should control, in some OpenDrive 1.4 networks the signal is placed on the sidewalk (its physical position). For OpenDrive 1.4 networks only, the option **--opendrive.ignore-misplaced-signals** allows to skip the signals defined out of "driving" lanes.
+
 # Road Objects
 
 By setting the option **--polygon-output** {{DT_FILE}}, any road objects present in the input are
@@ -148,7 +152,7 @@ will be written with geo-coordinate as well.
 Version 1.4 should generally be supported.
 You can check the feature support per version (and request new featuers) in our issue tracker:
 
-- [OpenDrive 1.4 features](https://github.com/eclipse/sumo/issues/6694)
-- [OpenDrive 1.5 features](https://github.com/eclipse/sumo/issues/6695)
-- [OpenDrive 1.6 features](https://github.com/eclipse/sumo/issues/8901)
+- [OpenDrive 1.4 features](https://github.com/eclipse-sumo/sumo/issues/6694)
+- [OpenDrive 1.5 features](https://github.com/eclipse-sumo/sumo/issues/6695)
+- [OpenDrive 1.6 features](https://github.com/eclipse-sumo/sumo/issues/8901)
 

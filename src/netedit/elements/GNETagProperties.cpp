@@ -20,42 +20,38 @@
 
 
 // ===========================================================================
+// defines
+// ===========================================================================
+
+#define MAXNUMBEROFATTRIBUTES 128
+
+// ===========================================================================
 // included modules
 // ===========================================================================
 
 #include "GNETagProperties.h"
 
-
-// ===========================================================================
-// static members
-// ===========================================================================
-
-const size_t GNETagProperties::MAXNUMBEROFATTRIBUTES = 128;
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNETagProperties::GNETagProperties() :
-    myTag(SUMO_TAG_NOTHING),
-    myTagType(0),
-    myTagProperty(0),
-    myIcon(GUIIcon::EMPTY),
-    myXMLTag(SUMO_TAG_NOTHING),
-    myBackgroundColor(0) {
+GNETagProperties::GNETagProperties() {
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
+                                   const SumoXMLTag XMLTag, const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
+                                   const unsigned int backgroundColor, const std::string fieldString) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
+    myTagParents(tagParents),
     myIcon(icon),
     myXMLTag(XMLTag),
+    myTooltipText(tooltip),
     myParentTags(parentTags),
-    myFieldString(toString(tag)),
+    myFieldString(fieldString.empty()? toString(tag) : fieldString),
     myBackgroundColor(backgroundColor) {
 }
 
@@ -127,7 +123,7 @@ GNETagProperties::checkTagIntegrity() const {
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attribute
-        if (attributeProperty.isVClasses()) {
+        if (attributeProperty.isSVCPermission()) {
             if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
                     (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
@@ -183,9 +179,9 @@ GNETagProperties::getFieldString() const {
 }
 
 
-void
-GNETagProperties::setFieldString(const std::string& fieldString) {
-    myFieldString = fieldString;
+const std::string&
+GNETagProperties::getTooltipText() const {
+    return myTooltipText;
 }
 
 
@@ -353,14 +349,14 @@ GNETagProperties::isRoute() const {
 
 
 bool
-GNETagProperties::isStop() const {
-    return (myTagType & STOP) != 0;
+GNETagProperties::isVehicleStop() const {
+    return (myTagType & VEHICLESTOP) != 0;
 }
 
 
 bool
-GNETagProperties::isWaypoint() const {
-    return (myTagType & WAYPOINT) != 0;
+GNETagProperties::isVehicleWaypoint() const {
+    return (myTagType & VEHICLEWAYPOINT) != 0;
 }
 
 
@@ -377,8 +373,26 @@ GNETagProperties::isPerson() const {
 
 
 bool
-GNETagProperties::isPersonPlan() const {
+GNETagProperties::isContainer() const {
+    return (myTagType & CONTAINER) != 0;
+}
+
+
+bool
+GNETagProperties::isPlan() const {
+    return isPlanPerson() || isPlanContainer();
+}
+
+
+bool
+GNETagProperties::isPlanPerson() const {
     return (myTagType & PERSONPLAN) != 0;
+}
+
+
+bool
+GNETagProperties::isPlanContainer() const {
+    return (myTagType & CONTAINERPLAN) != 0;
 }
 
 
@@ -389,49 +403,43 @@ GNETagProperties::isPersonTrip() const {
 
 
 bool
-GNETagProperties::isWalk() const {
+GNETagProperties::isPlanWalk() const {
     return (myTagType & WALK) != 0;
 }
 
 
 bool
-GNETagProperties::isRide() const {
+GNETagProperties::isPlanRide() const {
     return (myTagType & RIDE) != 0;
 }
 
 
 bool
-GNETagProperties::isStopPerson() const {
+GNETagProperties::isPlanTransport() const {
+    return (myTagType & TRANSPORT) != 0;
+}
+
+
+bool
+GNETagProperties::isPlanTranship() const {
+    return (myTagType & TRANSHIP) != 0;
+}
+
+
+bool
+GNETagProperties::isPlanStop() const {
+    return isPlanStopPerson() || isPlanStopContainer();
+}
+
+
+bool
+GNETagProperties::isPlanStopPerson() const {
     return (myTagType & STOPPERSON) != 0;
 }
 
 
 bool
-GNETagProperties::isContainer() const {
-    return (myTagType & CONTAINER) != 0;
-}
-
-
-bool
-GNETagProperties::isContainerPlan() const {
-    return (myTagType & CONTAINERPLAN) != 0;
-}
-
-
-bool
-GNETagProperties::isTransportPlan() const {
-    return (myTagType & TRANSPORT) != 0;
-}
-
-bool
-GNETagProperties::isTranshipPlan() const {
-    return (myTagType & TRANSHIP) != 0;
-}
-
-
-
-bool
-GNETagProperties::isStopContainer() const {
+GNETagProperties::isPlanStopContainer() const {
     return (myTagType & STOPCONTAINER) != 0;
 }
 
@@ -445,6 +453,171 @@ GNETagProperties::isGenericData() const {
 bool
 GNETagProperties::isMeanData() const {
     return (myTagType & MEANDATA) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleRoute() const {
+    return (myTagParents & VEHICLE_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleRouteEmbedded() const {
+    return (myTagParents & VEHICLE_ROUTE_EMBEDDED) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleEdges() const {
+    return (myTagParents & VEHICLE_EDGES) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleJunctions() const {
+    return (myTagParents & VEHICLE_JUNCTIONS) != 0;
+}
+
+
+bool
+GNETagProperties::vehicleTAZs() const {
+    return (myTagParents & VEHICLE_TAZS) != 0;
+}
+
+
+bool
+GNETagProperties::planConsecutiveEdges() const {
+    return (myTagParents & PLAN_CONSECUTIVE_EDGES) != 0;
+}
+
+
+bool
+GNETagProperties::planRoute() const {
+    return (myTagParents & PLAN_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::planEdge() const {
+    return (myTagParents & PLAN_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planBusStop() const {
+    return (myTagParents & PLAN_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planTrainStop() const {
+    return (myTagParents & PLAN_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planContainerStop() const {
+    return (myTagParents & PLAN_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planStoppingPlace() const {
+    return planBusStop() || planTrainStop() || planContainerStop();
+}
+
+
+bool
+GNETagProperties::planFromTo() const {
+    return planFromEdge() || planToEdge() ||
+           planFromJunction() || planToJunction() ||
+           planFromTAZ() || planToTAZ() ||
+           planFromStoppingPlace() || planToStoppingPlace();
+}
+
+
+bool
+GNETagProperties::planFromEdge() const {
+    return (myTagParents & PLAN_FROM_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTAZ() const {
+    return (myTagParents & PLAN_FROM_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planFromJunction() const {
+    return (myTagParents & PLAN_FROM_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planFromStoppingPlace() const {
+    return planFromBusStop() || planFromTrainStop() || planFromContainerStop();
+}
+
+
+bool
+GNETagProperties::planFromBusStop() const {
+    return (myTagParents & PLAN_FROM_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromTrainStop() const {
+    return (myTagParents & PLAN_FROM_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromContainerStop() const {
+    return (myTagParents & PLAN_FROM_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToEdge() const {
+    return (myTagParents & PLAN_TO_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::planToTAZ() const {
+    return (myTagParents & PLAN_TO_TAZ) != 0;
+}
+
+
+bool
+GNETagProperties::planToJunction() const {
+    return (myTagParents & PLAN_TO_JUNCTION) != 0;
+}
+
+
+bool
+GNETagProperties::planToStoppingPlace() const {
+    return planToBusStop() || planToTrainStop() || planToContainerStop();
+}
+
+
+bool
+GNETagProperties::planToBusStop() const {
+    return (myTagParents & PLAN_TO_BUSSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToTrainStop() const {
+    return (myTagParents & PLAN_TO_TRAINSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToContainerStop() const {
+    return (myTagParents & PLAN_TO_CONTAINERSTOP) != 0;
 }
 
 
@@ -537,36 +710,6 @@ GNETagProperties::requireProj() const {
 bool
 GNETagProperties::vClassIcon() const {
     return (myTagProperty & VCLASS_ICON) != 0;
-}
-
-
-bool
-GNETagProperties::overRoute() const {
-    return (myTagProperty & OVER_ROUTE) != 0;
-}
-
-
-bool
-GNETagProperties::overEmbeddedRoute() const {
-    return (myTagProperty & OVER_EMBEDDED_ROUTE) != 0;
-}
-
-
-bool
-GNETagProperties::overFromToEdges() const {
-    return (myTagProperty & OVER_FROMTO_EDGES) != 0;
-}
-
-
-bool
-GNETagProperties::overFromToJunctions() const {
-    return (myTagProperty & OVER_FROMTO_JUNCTIONS) != 0;
-}
-
-
-bool
-GNETagProperties::overFromToTAZs() const {
-    return (myTagProperty & OVER_FROMTO_TAZS) != 0;
 }
 
 /****************************************************************************/

@@ -170,8 +170,11 @@ protected:
     void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings& s, const double exaggeration,
-                  const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
+    void drawSign(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& baseColor,
+                  const RGBColor& signColor, const std::string& word) const;
+    
+    // draw stoppingPlace children
+    void drawStoppingPlaceChildren(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief set attribute after validation

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
 	<vType accel="1.0" decel="5.0" id="ElectricVehicle" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5">
-		<param key="maximumBatteryCapacity" value="35000"/>
-		<param key="maximumPower" value="100000"/>
+		<param key="device.battery.capacity" value="35000"/>
+		<param key="device.battery.maxPower" value="100000"/>
 		<param key="vehicleMass" value="1600"/>
 		<param key="internalMomentOfInertia" value="30"/>
 		<param key="frontSurfaceArea" value="2.2"/>
@@ -17,7 +17,7 @@
 	<route id="route01" edges="D2 L2 L12 L10 L7 D7"/>
 	
 	<vehicle depart="000" id="veh0" route="route01" type="ElectricVehicle">
-		<param key="actualBatteryCapacity" value="13000"/>	
+		<param key="device.battery.chargeLevel" value="13000"/>	
 		<stop chargingStation="CS1" parking="true" duration="7"/>
 		<stop chargingStation="CS2" parkingArea="PA2" duration="8"/>
 		<stop chargingStation="CS3" parking="true" duration="9"/>

@@ -729,13 +729,10 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                 // the next is a hack for the A100 scenario...
                 //  We have to look into further edges herein edges
                 const ROEdgeVector& appr = myApproachingEdges.find(edge)->second;
-                int noOk = 0;
                 int noFalse = 0;
                 int noSkipped = 0;
                 for (int i = 0; i < (int)appr.size(); i++) {
-                    if (!hasDetector(appr[i])) {
-                        noOk++;
-                    } else {
+                    if (hasDetector(appr[i])) {
                         noFalse++;
                     }
                 }
@@ -848,13 +845,11 @@ RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen
     }
     const ROEdgeVector& appr  = myApproachedEdges.find(edge)->second;
     bool isall = true;
-    int no = 0;
     seen.push_back(edge);
     for (int i = 0; i < (int)appr.size() && isall; i++) {
         bool had = std::find(seen.begin(), seen.end(), appr[i]) != seen.end();
         if (!had) {
             if (!isDestination(det, appr[i], seen, detectors)) {
-                no++;
                 isall = false;
             }
         }

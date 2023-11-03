@@ -60,7 +60,14 @@ class CameraManipulator;
  * @brief An OSG-based 3D view on the simulation
  */
 class GUIOSGView : public GUISUMOAbstractView {
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winconsistent-missing-override"
+#endif
     FXDECLARE(GUIOSGView)
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 public:
     friend class GUIOSGPerspectiveChanger;
@@ -138,19 +145,16 @@ public:
     virtual ~GUIOSGView();
 
     /// @brief Returns the cursor's x/y position within the network
-    Position getPositionInformation() const;
-
-    /// @brief recalculate boundaries
-    void recalculateBoundaries();
+    Position getPositionInformation() const override;
 
     /// @brief confirm 3D view to viewport editor
-    bool is3DView() const;
+    bool is3DView() const override;
 
     /// @brief builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow*);
+    virtual void buildViewToolBars(GUIGlChildWindow*) override;
 
     /// @brief recenters the view
-    void recenterView();
+    void recenterView() override;
 
     /** @brief centers to the chosen artifact
      * @param[in] id The id of the artifact to center to
@@ -161,74 +165,74 @@ public:
     //void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
     /// @brief update the viewport chooser with the current view values
-    void updateViewportValues();
+    void updateViewportValues() override;
 
     /// @brief show viewport editor
-    void showViewportEditor();
+    void showViewportEditor() override;
 
     /// @brief applies the given viewport settings
-    void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation);
+    void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation) override;
 
     /// @brief copy the viewport to the given view
-    void copyViewportTo(GUISUMOAbstractView* view);
+    void copyViewportTo(GUISUMOAbstractView* view) override;
 
     /** @brief Starts vehicle tracking
      * @param[in] id The glID of the vehicle to track
      */
-    void startTrack(int id);
+    void startTrack(int id) override;
 
     /** @brief Stops vehicle tracking
      */
-    void stopTrack();
+    void stopTrack() override;
 
     /** @brief Returns the id of the tracked vehicle (-1 if none)
      * @return The glID of the vehicle to track
      */
-    GUIGlID getTrackedID() const;
+    GUIGlID getTrackedID() const override;
 
-    bool setColorScheme(const std::string& name);
+    bool setColorScheme(const std::string& name) override;
 
     /// @brief handle mouse click in gaming mode
-    void onGamingClick(Position pos);
+    void onGamingClick(Position pos) override;
 
     /// @brief get the current simulation time
-    SUMOTime getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const override;
 
     void removeVeh(MSVehicle* veh);
     void removeTransportable(MSTransportable* t);
 
     /// @brief added some callback to OSG to resize
-    void position(int x, int y, int w, int h);
-    void resize(int w, int h);
+    void position(int x, int y, int w, int h) override;
+    void resize(int w, int h) override;
 
     // callback
-    long onConfigure(FXObject*, FXSelector, void*);
-    long onKeyPress(FXObject*, FXSelector, void*);
-    long onKeyRelease(FXObject*, FXSelector, void*);
-    long onLeftBtnPress(FXObject*, FXSelector, void*);
-    long onLeftBtnRelease(FXObject*, FXSelector, void*);
-    long onMiddleBtnPress(FXObject*, FXSelector, void*);
-    long onMiddleBtnRelease(FXObject*, FXSelector, void*);
-    long onRightBtnPress(FXObject*, FXSelector, void*);
-    long onRightBtnRelease(FXObject*, FXSelector, void*);
+    long onConfigure(FXObject*, FXSelector, void*) override;
+    long onKeyPress(FXObject*, FXSelector, void*) override;
+    long onKeyRelease(FXObject*, FXSelector, void*) override;
+    long onLeftBtnPress(FXObject*, FXSelector, void*) override;
+    long onLeftBtnRelease(FXObject*, FXSelector, void*) override;
+    long onMiddleBtnPress(FXObject*, FXSelector, void*) override;
+    long onMiddleBtnRelease(FXObject*, FXSelector, void*) override;
+    long onRightBtnPress(FXObject*, FXSelector, void*) override;
+    long onRightBtnRelease(FXObject*, FXSelector, void*) override;
     //long onMotion(FXObject*, FXSelector, void*);
-    long onMouseMove(FXObject*, FXSelector, void*);
-    long onPaint(FXObject*, FXSelector, void*);
-    long OnIdle(FXObject* sender, FXSelector sel, void* ptr);
+    long onMouseMove(FXObject*, FXSelector, void*) override;
+    long onPaint(FXObject*, FXSelector, void*) override;
+    long onIdle(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief interaction with the simulation
-    long onCmdCloseLane(FXObject*, FXSelector, void*);
-    long onCmdCloseEdge(FXObject*, FXSelector, void*);
-    long onCmdAddRerouter(FXObject*, FXSelector, void*);
+    long onCmdCloseLane(FXObject*, FXSelector, void*) override;
+    long onCmdCloseEdge(FXObject*, FXSelector, void*) override;
+    long onCmdAddRerouter(FXObject*, FXSelector, void*) override;
 
     /// @brief highlight edges according to reachability
-    long onCmdShowReachability(FXObject*, FXSelector, void*);
+    long onCmdShowReachability(FXObject*, FXSelector, void*) override;
 
     /// @brief reset graphical settings when forced to refresh the view (triggered by ViewSettings)
-    long  onVisualizationChange(FXObject*, FXSelector, void*);
+    long onVisualizationChange(FXObject*, FXSelector, void*) override;
 
     // @brief get the new camera position given a zoom value
-    void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+    void zoom2Pos(Position& camera, Position& lookAt, double zoom) override;
 
     // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
     static osg::Vec4d toOSGColorVector(RGBColor c, bool useAlpha = false);
@@ -251,7 +255,7 @@ protected:
     /* @brief Find GUILane which intersects with a ray from the camera to the stored cursor position
      * @return The first found GUILane found or nullptr
      */
-    GUILane* getLaneUnderCursor();
+    GUILane* getLaneUnderCursor() override;
 
     /// @brief implement the current view settings in OSG
     void adoptViewSettings();

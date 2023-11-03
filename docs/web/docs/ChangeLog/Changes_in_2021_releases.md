@@ -72,16 +72,16 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
     - Fixed missing turnaround after adding bike lane. Issue #9079
     - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
     - Fixed invalid edge type attributes in saved network. Issue #9070
-    - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102    
+    - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102
     - Fixed slow operation when inspecting large objects. Issue #9106
     - Fixed slow loading of large networks. Issue #9207
-    - Dotted contour now matches junction shape at reduced size. Issue #9204    
+    - Dotted contour now matches junction shape at reduced size. Issue #9204
     - Fixed invalid error when loading program in tls frame. Issue #9270
     - Attribute 'opposite' is now updated when changing lane count. Issue #9283
     - Attribute 'opposite' is now preserved when splitting edges. Issue #9316
     - Minor fixes to save-load tls-program dialog. Issue #9269
     - Fixed lost window focus. Issue #9274, #9275
-    - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348    
+    - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
     - Fixed crash related to convert-to-roundabout and undo. Issue #9449
   - demand mode
     - Multi-parameter speedFactor value can now be set. Issue #8263
@@ -238,7 +238,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Added vehicle context menu function 'Select transported'. Issue #2241
   - Time range and intervals in loaded edgedata are now reported. Issue #9217
   - Meso vehicles are now drawn with interpolated positions
-  - Segment boundaries are now drawn in meso simulation. Issue #9227  
+  - Segment boundaries are now drawn in meso simulation. Issue #9227
   - Breakpoints are now rounded down to reachable step value. Issue #6789
   - Clicking on timestamps in message window now creates breakpoints with a configurable offset. Issue #7617
   - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
@@ -262,7 +262,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - After setting new edge template, the default in create-edge frame is 'use template'. Issue #9289
   - Edge / lane context menu operations are now available in create-edge mode. Issue #9271
   - The number of routes passing an edge can now optionally be drawn. Issue #8584
-  - Routes referenced in routeProbReroute are now  written in additional files. Issue #8547
+  - Routes referenced in routeProbReroute are now written in additional files. Issue #8547
   - TAZ now support a custom center point for showing their ID and attaching tazRelations. Issue #9298
   - Colors for traffic demand elements (routes, stops, ...) can now be customized in the 'Demand' tab of the view settings dialog. Issue #6318
   - Added options **--node-prefix**, **--edge-prefix** and **--edge-infix** to customize the default names for new objects. Issue #4375
@@ -328,8 +328,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
   - Added tool [computePassengerCounts.py](../Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
   - [generateParkingAreaRerouters.py](../Tools/Misc.md#generateparkingarearerouterspy)
-    - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9372   
-    - now runs much faster. Issue #9379    
+    - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9372
+    - now runs much faster. Issue #9379
   - routeSampler.py: added option **--min-count** to set minimum number of counting locations for each used route. Issue #9415
   - Added tool [scheduleStats.py](../Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](../Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
@@ -460,7 +460,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Element `<walk>` now supports attriubte 'departLane' (i.e. to place a person on the road lane instead of the sidewalk). Issue #8874
   - A warning is now issued if a person is configured to use a vType with the default vehicular vClass 'passenger'. Issue #8922
   - Attribute 'latAlignment' now supports numerical values to configure a fixed offset from the center line. Issue #8873
-  
+
 - netedit
   - Connection mode button 'Reset connections' now immediately recomputes connections at the affected junctions. Issue #8658
   - Add demand mode toggle button to show the shortest route for all trips. Issue #8638
@@ -486,12 +486,12 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - traci
   - Added function 'traci.vehicle.getTimeLoss' to retrieve the timeLoss since departure. Issue #8679
-  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190  
+  - Added function 'traci.vehicle.setPreviousSpeed' to modify the speed assumed by Sumo during the prior step (i.e. for computation of possible acceleration). This can be combined with 'traci.vehicle.moveTo' to override the behavior in the previous step. Issue #7190
   - Added new speed mode bit to control right-of-way compliance w.r.t. foe vehicles within an intersection. Issue #8675
   - 'traci.vehicle.moveToXY' and 'traci.person.moveToXY' now support optional parameter *matchThreshold* to configure the maximum distance between position and matched road (default 100m). #8668
 
 - tools
-  - [cutRoutes.py](../Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644  
+  - [cutRoutes.py](../Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644
   - Added new tool [stateReplay.py](../Tools/Misc.md#statereplaypy) to visually observe a simulation that is running without gui (i.e. on a remote server).
   - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribute 'started', 'ended'). Issue #8610
   - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) now generates insertionPredecessor constraint to fix the insertion order after a parking-stop. Issue #8736
@@ -501,7 +501,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - [plot_trajectories.py](../Tools/Visualization.md#plot_trajectoriespy) now supports plotting by kilometrage (fcd-output.distance). Issue #8799
   - [drtOnline.py](../Tools/Drt.md) now supports option **--max-processing** increase processing efficiency. Issue #8793
   - [flowrouter.py](../Tools/Detector.md#flowrouterpy) now support output of pedestrian flows via option **--pedestrians**. Issue #8864
-  
+
 
 ### Miscellaneous
 - tools
@@ -534,7 +534,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - traci
   - Fixed crash when trying to read parameters for subscriptions that don't have them. Issue #8601 (regression in 1.9.1)
-  
+
 ### Enhancements
 
 - simulation
@@ -550,7 +550,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 - tools
   - [duaIterate.py](../Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium) now supports option **--convergence-steps** which forces route choices to converge in the given number of steps (via duarouter option **--keep-route-probability**). This is recommended when using option **--logit** which otherwise may not converge at all. Issue #8550
   - [countEdgeUsage.py](../Tools/Routes.md#countedgeusagepy) now allows filtering and grouping counts by vehicle departure time. Issue #8621
-  
+
 
 ## Version 1.9.1 (04.05.2021)
 
@@ -566,12 +566,12 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed missing vehicle-class-specific speed limits on internal lane. Issue #8556
   - Fixed bug where person did not exit ride on access edge of destination stop. Issue #8558
   - Fixed error when taxi ride starts or ends at a busStop only reachable via access. Issue #8578
-  
+
 - netconvert
   - Loaded road connections are no longer ignored when railway.topology.repair affects a junction. Issue #8505
   - Fixed invalid connections at ramp-like junctions with bike lanes. Issue #8538
   - Phases with identical states are no longer merged if their names differ. Issue #8544
-  
+
 - duarouter
   - Option **--weights.priority-factor** is no longer ignored in rail networks with bidirectional tracks. Issue #8561
 
@@ -586,7 +586,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed invalid traceFile when using traci.<domain>.unsubscribe. Issue #8491
   - Added LiSum option **--lisa-version** to allow compatibility with version below 7.2. Issue #8065
   - Fixed LiSum crash. Issue #8104
-  
+
 - tools
   - osmWebWizard.py can now import locations with negative longitude again. Issue #8521 (regression in 1.9.0)
   - Fixed problem with sumolib.xml.parse_fast_nested when an element is missing some of the attributes to be parsed. Issue #8508
@@ -656,7 +656,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed invalid chargingStation-output and overheadwiresegments-output in subsecond simulation or when multiple vehicles are charging at the same element simultaneously. Issue #8351
   - Fixed invalid depart position when using departPos="stop" with a full parkingArea. Issue #8338
   - Fixed invalid waiting pedestrian count at busStop which caused invalid pedestrian jamming. Issue #8366
-  - Fixed crash after junction collision with stoptime. Issue #8359  
+  - Fixed crash after junction collision with stoptime. Issue #8359
   - Attribute departLane is no longer ignored when validating attribute departSpeed. Issue #8226
   - Persons and containers with a `<stop>` stage at a busStop are now assigned to that stop instead of just waiting on the edge. Issue #8436
   - Fixed invalid edgeData output if simulation begin is later than edgeData begin. Issue #8464
@@ -678,8 +678,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - meso
   - Fixed invalid jam-front back-propagation speed. Issue #8000 (Regression in 1.7.0)
-  - Fixed invalid warning when using stop-output with multiple stops on the same segment. Issue #8001  
-  
+  - Fixed invalid warning when using stop-output with multiple stops on the same segment. Issue #8001
+
 - sumo-gui
   - Fixed long pause on right-click in large networks. Issue #7927 (Regression in 1.4.0)
   - Routes for vehicles with dark color are no longer colored black. Issue #7934
@@ -701,7 +701,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed bug when deleting or changing geometry-points (via dialog) in 3d-networks. Issue #8345
   - When polygons and other network elements overlap, clicks will not correctly go to the top element by default. Issue #8346
   - Fixed invalid "merging junctions" confirmation when moving a selection of junctions. Issue #8373
-  
+
 - netconvert
   - Fixed invalid signal plans in network with unusual geometry. Issue #7915
   - Option **--junctions.join-same** no longer fails due to numerical errors when comparing positions. Issue #8019
@@ -716,8 +716,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Option **--geometry.max-segment-length** now takes effect when importing from .edg.xml without edge attribute shape. Issue #8362
   - Fixed invalid z-data when importing geotiff. Issue #8364
   - Fixed invalid error when loading heightmap from geotiff with different color depths. Issue #8365
-  - Fixed crash when loaded roundabouts are removed due to option  **--keep-edges.components**. Issue #8465
-  
+  - Fixed crash when loaded roundabouts are removed due to option **--keep-edges.components**. Issue #8465
+
 - polyconvert
   - POIs are now correctly imported from VISUM files. Issue #8414
 
@@ -729,7 +729,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - duarouter
   - Fixed invalid routes when using option **--remove-loops** with **--with-taz**. Issue #8451
-  
+
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
   - Fixed issues with mapping location and speed for function 'person.moveToXY' . Issue #7907, #7908
@@ -742,7 +742,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Function 'trafficlight.setProgramLogic' new resets phase duration. Issue #2238
   - Function 'trafficlight.setPhaseDuration' now works for actuated traffic lights. Issue #1959
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
-  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285,#8398  
+  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285, #8398 
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
   - Fixed bug where traci.vehicle.dispatchTaxi could generate non-continuous routes. Issue #8424
   - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
@@ -755,10 +755,10 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
-  - Fixed invalid routes when [importing MATSim plans](../Tools/Import/MATSim.md) #7948  
+  - Fixed invalid routes when [importing MATSim plans](../Tools/Import/MATSim.md) #7948
   - randomTrips.py now generates multi-stage plans when combining option **--intermediate** with options that generated persons (i.e. **--persontrips**). Issue #8273
   - Fixed duaIterate.py crash when loading multiple route files with particular names. Issue #8411
-  
+
 ### Enhancements
 - Simulation
   - Sublane model can now be used together with overtaking through the opposite direction. Issue #1997
@@ -788,7 +788,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Added option **--stop-output.write-unfinished** to write stops that are not ended at simulation end. Issue #8401
   - Vehicle Class specific speed limits are now interpolated onto junctions. #8380
   - Option **--vehroute-output.exit-times** now applies to walks #8415
-  
+
 - sumo-gui
   - Random color for containers is now supported. Issue #7941
   - Added 'Update' button to object selection dialogs to refresh the object list. Issue #7942
@@ -799,7 +799,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Vehicle lengths will now be scaled according to [custom edge lengths](../Simulation/Distances.md) to avoid confusing visual overlap. A new vehicle visualization setting checkbox 'scale length with geometry' is provided to disable scaling. Issue #6920
   - Asymmetrical lane-change restrictions are now indicated by a combination of broken and unbroken divider lines. Issue #3656
   - Improved visualization of containers waiting at containerStop. Issue #8348
-  
+
 
 - netedit
   - Added file menu options 'reload additionals' and 'reload demand'. Issue #6099
@@ -811,7 +811,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Shapes of selected edges can now be shifted orthogonally to their driving direction via move mode frame controls. Issue #2456
   - Polygons can now be moved without changing their shape (with new move mode checkbox). Issue #5268
   - New custom cursors added to the **Inspect**, **Delete**, **Select** and **Move** modes. Issue #4818
-  - Added new top-level 'Modes' menu for selecting edit mode. All mode-specific toggle options are now included in the 'Edit'-menu  #8059
+  - Added new top-level 'Modes' menu for selecting edit mode. All mode-specific toggle options are now included in the 'Edit'-menu #8059
   - ParkingArea roadsideCapacity slots are now visible. Issue #6982
   - Configuration dialog for rerouter, calibrator and variableSpeedSign can now be accessed from the inspection frame. #8215
   - Lane attribute 'type' can now be edited. Issue #8230
@@ -832,22 +832,22 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Added option **--default.allow** to set default edge permissions (also applies to netgenerate). Issue #8271
   - Added option **--osm.extra-attributes** to import additional edge attributes (osm tags) as generic parameters. Issue #8322
   - Added option **--osm.lane-access** for import of extra lane access permissions (experimental). Issue #7601
-  - Option **--output.street-names** is now working for  VISUM network. Issue #8418
+  - Option **--output.street-names** is now working for VISUM network. Issue #8418
   - MatSim import can now split self loops and handle "half" lanes. Issue #8047, #7947
-  
+
 - netgenerate
   - Relaxed restrictions on minimum edge lengths when building grid and spider networks. Issue #8272
 
 - marouter
   - Added option **--ignore-taz** to route individual trips written by [od2trips](../od2trips.md) between their assigned edges. Issue #8343
   - Option **--scale** is now applied when loading route files instead of od-matrices. Issue #8352
-  
+
 - od2trips
   - Added option **--junctions** which interprets the loaded source and sink IDs as fromJunction and toJunction ids. #8389
 
 - dfrouter
   - Added option **--vclass** to filter eligible edges in a multi-modal network. Issue #8408
-  
+
 - polyconvert
   - Added option **--visum.language-file** to support importing shapes from English and French language versions (default is German). Issue #8414
 
@@ -898,7 +898,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - Documentation
   - Added [public transport tutorial](../Tutorials/PublicTransport.md) (without web wizard). Issue #8108
-  
+
 - Tools
   - Some obsolete tools were moved to tools/purgatory (let us know if you were using them). Issue #1425
   - The following tools were renamed/relocated: (issue #1425)

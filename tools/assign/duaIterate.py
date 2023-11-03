@@ -685,6 +685,8 @@ def main(args=None):
                                                'tripinfo', ['duration']):
                 sum += float(t.duration)
                 count += 1
+            if count == 0:
+                sys.exit("Error: No vehicle has reached its destination within the simulation duration.")
             avgTT.add(sum / count)
             relStdDev = avgTT.relStdDev(options.convIt)
             print("< relative travel time deviation in the last %s steps: %.05f" % (

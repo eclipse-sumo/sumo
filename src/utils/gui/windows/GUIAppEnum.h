@@ -40,7 +40,7 @@ enum {
     /// @{
 
     /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
-    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
+    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS,
     /// @brief hotkey for mode connecting lanes AND container
     MID_HOTKEY_C_MODE_CONNECT_CONTAINER,
     /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
@@ -768,6 +768,16 @@ enum {
 
     /// @}
 
+    /// @name Toolbar view messages
+    /// @{
+
+    /// @brief set default view
+    MID_GNE_VIEW_DEFAULT,
+    /// @brief set juPedSim view
+    MID_GNE_VIEW_JUPEDSIM,
+
+    /// @}
+
     /// @name Toolbar windows messages
     /// @{
 
@@ -953,6 +963,10 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief inspect attribute parent element
     MID_GNE_SET_ATTRIBUTE_INSPECTPARENT,
+    /// @brief edit attribute allow
+    MID_GNE_SET_ATTRIBUTE_ALLOW,
+    /// @brief edit attribute color
+    MID_GNE_SET_ATTRIBUTE_COLOR,
     /// @brief open parameters dialog
     MID_GNE_OPEN_PARAMETERS_DIALOG,
     /// @brief attribute selected using button (radio button or checkbox)

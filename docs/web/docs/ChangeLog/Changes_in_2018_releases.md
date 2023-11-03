@@ -363,7 +363,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     to sumo-gui. Issue #4002
   - Fixed crash when deleting one of multiple signal programs for
     the same junction. Issue #4132
-  - Added support for BusStops Acces. Issue #4018
+  - Added support for BusStops Access. Issue #4018
   - Crossings no longer become invalid when splitting an edge. Issue #4295
 
 - netconvert

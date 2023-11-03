@@ -57,8 +57,8 @@ public:
         VTYPE =             1 << 11, // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 12, // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 13, // Routes and embedded routes
-        STOP =              1 << 14, // Stops
-        WAYPOINT =          1 << 15, // Waypoints (note: All waypoints are also Stops)
+        VEHICLESTOP =       1 << 14, // Vehicle stops
+        VEHICLEWAYPOINT =   1 << 15, // Vehicle waypoints (note: All waypoints are also Stops)
         FLOW =              1 << 16, // Flows
         // persons
         PERSON =            1 << 17, // Persons (Persons and personFlows)
@@ -95,20 +95,43 @@ public:
         CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
         REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
         VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
+    };
+
+    enum TagParents {
         // exclusive of vehicles
-        OVER_ROUTE =                1 << 13,    // Vehicle Element is placed over route
-        OVER_EMBEDDED_ROUTE =       1 << 14,    // Vehicle Element has an embedded route
-        OVER_FROMTO_EDGES =         1 << 15,    // Vehicle Element is placed over a from-to edges
-        OVER_FROMTO_JUNCTIONS =     1 << 16,    // Vehicle Element is placed over a from-to junctions
-        OVER_FROMTO_TAZS =          1 << 17,    // Vehicle Element is placed over a from-to TAZs
+        VEHICLE_ROUTE =             1 << 0,     // Vehicle is placed over route
+        VEHICLE_ROUTE_EMBEDDED =    1 << 1,     // Vehicle has an embedded route
+        VEHICLE_EDGES =             1 << 2,     // Vehicle is placed over a from-to edges
+        VEHICLE_JUNCTIONS =         1 << 3,     // Vehicle is placed over a from-to junctions
+        VEHICLE_TAZS =              1 << 4,     // Vehicle is placed over a from-to TAZs
+        // exclusive of plans
+        PLAN_CONSECUTIVE_EDGES =    1 << 5,     // Plan placed in consecutive edges
+        PLAN_ROUTE =                1 << 6,     // Plan placed in route
+        PLAN_EDGE =                 1 << 7,     // Plan placed in edge
+        PLAN_BUSSTOP =              1 << 8,     // Plan placed in busStop
+        PLAN_TRAINSTOP =            1 << 9,     // Plan placed in trainStop
+        PLAN_CONTAINERSTOP =        1 << 10,    // Plan placed in containerStop
+        PLAN_FROM_EDGE =            1 << 11,    // Plan starts in edge
+        PLAN_FROM_TAZ =             1 << 12,    // Plan starts in TAZ
+        PLAN_FROM_JUNCTION =        1 << 13,    // Plan starts in junction
+        PLAN_FROM_BUSSTOP =         1 << 14,    // Plan starts in busStop
+        PLAN_FROM_TRAINSTOP =       1 << 15,    // Plan starts in trainStop
+        PLAN_FROM_CONTAINERSTOP =   1 << 16,    // Plan starts in containerStop
+        PLAN_TO_EDGE =              1 << 17,    // Plan ends in edge
+        PLAN_TO_TAZ =               1 << 18,    // Plan ends in TAZ
+        PLAN_TO_JUNCTION =          1 << 19,    // Plan ends in junction
+        PLAN_TO_BUSSTOP =           1 << 20,    // Plan ends in busStop
+        PLAN_TO_TRAINSTOP =         1 << 21,    // Plan ends in trainStop
+        PLAN_TO_CONTAINERSTOP =     1 << 22,    // Plan ends in containerStop
     };
 
     /// @brief default constructor
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
-                     const std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
+    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
+                     const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
+                     const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
 
     /// @brief destructor
     ~GNETagProperties();
@@ -131,8 +154,8 @@ public:
     /// @brief get field string (by default tag in string format)
     const std::string& getFieldString() const;
 
-    /// @brief set field that will be drawn in TextFields/ComboBox/etc,
-    void setFieldString(const std::string& fieldString);
+    /// @brief get tooltip text
+    const std::string& getTooltipText() const;
 
     /// @brief get background color
     unsigned int getBackGroundColor() const;
@@ -167,6 +190,9 @@ public:
     /// @brief check if current TagProperties owns the attribute "attr"
     bool hasAttribute(SumoXMLAttr attr) const;
 
+    /// @brief element sets
+    /// @{
+
     /// @brief return true if tag correspond to a network element
     bool isNetworkElement() const;
 
@@ -182,6 +208,10 @@ public:
     /// @brief return true if tag correspond to a data element
     bool isDataElement() const;
 
+    /// @}
+
+    /// @brief additional elements
+    /// @{
     /// @brief return true if tag correspond to a detector (Only used to group all stoppingPlaces in the output XML)
     bool isStoppingPlace() const;
 
@@ -202,7 +232,11 @@ public:
 
     /// @brief return true if tag correspond to a JuPedSim element
     bool isJuPedSimElement() const;
+    
+    /// @}
 
+    /// @brief demand elements
+    /// @{
     /// @brief return true if tag correspond to a vehicle/person/container type element
     bool isType() const;
 
@@ -212,11 +246,11 @@ public:
     /// @brief return true if tag correspond to a route element
     bool isRoute() const;
 
-    /// @brief return true if tag correspond to a stop element
-    bool isStop() const;
+    /// @brief return true if tag correspond to a vehicle stop element
+    bool isVehicleStop() const;
 
-    /// @brief return true if tag correspond to a waypoint element
-    bool isWaypoint() const;
+    /// @brief return true if tag correspond to a vehicle waypoint element
+    bool isVehicleWaypoint() const;
 
     /// @brief return true if tag correspond to a flow element
     bool isFlow() const;
@@ -224,41 +258,147 @@ public:
     /// @brief return true if tag correspond to a person element
     bool isPerson() const;
 
+    /// @brief return true if tag correspond to a container element
+    bool isContainer() const;
+    
+    /// @}
+    
+    /// @brief plans
+    /// @{
+    /// @brief return true if tag correspond to a plan
+    bool isPlan() const;
+
     /// @brief return true if tag correspond to a person plan
-    bool isPersonPlan() const;
+    bool isPlanPerson() const;
+
+    /// @brief return true if tag correspond to a container plan
+    bool isPlanContainer() const;
 
     /// @brief return true if tag correspond to a person trip
     bool isPersonTrip() const;
 
-    /// @brief return true if tag correspond to a walk element
-    bool isWalk() const;
+    /// @brief return true if tag correspond to a walk plan
+    bool isPlanWalk() const;
 
-    /// @brief return true if tag correspond to a ride element
-    bool isRide() const;
-
-    /// @brief return true if tag correspond to a person stop element
-    bool isStopPerson() const;
-
-    /// @brief return true if tag correspond to a container element
-    bool isContainer() const;
-
-    /// @brief return true if tag correspond to a container plan
-    bool isContainerPlan() const;
+    /// @brief return true if tag correspond to a ride plan
+    bool isPlanRide() const;
 
     /// @brief return true if tag correspond to a transport
-    bool isTransportPlan() const;
+    bool isPlanTransport() const;
 
     /// @brief return true if tag correspond to a tranship
-    bool isTranshipPlan() const;
+    bool isPlanTranship() const;
 
-    /// @brief return true if tag correspond to a container stop element
-    bool isStopContainer() const;
+    /// @brief return true if tag correspond to a stop plan
+    bool isPlanStop() const;
 
+    /// @brief return true if tag correspond to a person stop plan
+    bool isPlanStopPerson() const;
+
+    /// @brief return true if tag correspond to a container stop plan
+    bool isPlanStopContainer() const;
+    
+    /// @}
+    
+    /// @brief data elements
+    /// @{
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
 
     /// @brief return true if tag correspond to a mean data element
     bool isMeanData() const;
+
+    /// @}
+
+    /// @brief plan parents
+    /// @{
+
+    /// @brief return true if tag correspond to a vehicle placed over a route
+    bool vehicleRoute() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over an embedded route
+    bool vehicleRouteEmbedded() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to edges
+    bool vehicleEdges() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to junctions
+    bool vehicleJunctions() const;
+
+    /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
+    bool vehicleTAZs() const;
+
+    /// @}
+
+    /// @brief plan parents
+    /// @{
+    /// @brief return true if tag correspond to a plan placed over edges
+    bool planConsecutiveEdges() const;
+
+    /// @brief return true if tag correspond to a plan placed over route
+    bool planRoute() const;
+
+    /// @brief return true if tag correspond to a plan placed over edge
+    bool planEdge() const;
+
+    /// @brief return true if tag correspond to a plan placed over busStop
+    bool planBusStop() const;
+
+    /// @brief return true if tag correspond to a plan placed over trainStop
+    bool planTrainStop() const;
+
+    /// @brief return true if tag correspond to a plan placed over containerStop
+    bool planContainerStop() const;
+
+    /// @brief return true if tag correspond to a plan placed in stoppingPlace
+    bool planStoppingPlace() const;
+
+    /// @brief return true if tag correspond to a plan with from-to parents
+    bool planFromTo() const;
+
+    /// @brief return true if tag correspond to a plan that starts in edge
+    bool planFromEdge() const;
+
+    /// @brief return true if tag correspond to a plan that starts in TAZ
+    bool planFromTAZ() const;
+
+    /// @brief return true if tag correspond to a plan that starts in junction
+    bool planFromJunction() const;
+
+    /// @brief return true if tag correspond to a plan that starts in stoppingPlace
+    bool planFromStoppingPlace() const;
+
+    /// @brief return true if tag correspond to a plan that starts in busStop
+    bool planFromBusStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in trainStop
+    bool planFromTrainStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in containerStop
+    bool planFromContainerStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in edge
+    bool planToEdge() const;
+
+    /// @brief return true if tag correspond to a plan that starts in TAZ
+    bool planToTAZ() const;
+
+    /// @brief return true if tag correspond to a plan that starts in junction
+    bool planToJunction() const;
+
+    /// @brief return true if tag correspond to a plan that ends in stoppingPlace
+    bool planToStoppingPlace() const;
+
+    /// @brief return true if tag correspond to a plan that starts in busStop
+    bool planToBusStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in trainStop
+    bool planToTrainStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in containerStop
+    bool planToContainerStop() const;
+
+    /// @}
 
     /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
     bool isChild() const;
@@ -305,42 +445,33 @@ public:
     /// @brief return true if tag correspond to an element that has vClass icons
     bool vClassIcon() const;
 
-    /// @brief return true if tag correspond to a vehicle placed over a route
-    bool overRoute() const;
-
-    /// @brief return true if tag correspond to a vehicle placed over an embedded route
-    bool overEmbeddedRoute() const;
-
-    /// @brief return true if tag correspond to a vehicle placed over from-to edges
-    bool overFromToEdges() const;
-
-    /// @brief return true if tag correspond to a vehicle placed over from-to junctions
-    bool overFromToJunctions() const;
-
-    /// @brief return true if tag correspond to a vehicle placed over from-to TAZs
-    bool overFromToTAZs() const;
-
 private:
     /// @brief Sumo XML Tag vinculated wit this tag Property
-    SumoXMLTag myTag;
+    SumoXMLTag myTag = SUMO_TAG_NOTHING;
 
     /// @brief Sumo XML Tag vinculated wit this tag Property in String format
     std::string myTagStr;
 
-    /// @brief Attribute Type
-    int myTagType;
+    /// @brief tag Types
+    int myTagType = 0;
 
-    /// @brief Attribute properties
-    int myTagProperty;
+    /// @brief tag properties
+    int myTagProperty = 0;
+
+    /// @brief tag parents
+    int myTagParents = 0;
 
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<GNEAttributeProperties> myAttributeProperties;
 
     /// @brief icon associated to this Tag
-    GUIIcon myIcon;
+    GUIIcon myIcon = GUIIcon::EMPTY;
 
     /// @brief Tag written in XML and used in GNENetHelper::AttributeCarriers
-    SumoXMLTag myXMLTag;
+    SumoXMLTag myXMLTag = SUMO_TAG_NOTHING;
+
+    /// @brief tooltip text
+    std::string myTooltipText;
 
     /// @brief vector with master tags (used by child elements)
     std::vector<SumoXMLTag> myParentTags;
@@ -349,10 +480,7 @@ private:
     std::string myFieldString;
 
     /// @brief background color (used in labels and textFields, by default white)
-    unsigned int myBackgroundColor;
-
-    /// @brief max number of attributes allowed for every tag
-    static const size_t MAXNUMBEROFATTRIBUTES;
+    unsigned int myBackgroundColor = 0;
 };
 
 /****************************************************************************/

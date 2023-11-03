@@ -261,21 +261,11 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
         // check if mouse is over element
         mouseWithinGeometry(myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
                             myAdditionalGeometry.getShapeRotations().front());
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(),
-                    2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(),
-                    2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(),
-                    2.7, 1.6, 2, 0, myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration);
-        }
+
+        // draw dotted contour
+        myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
+                                             myAdditionalGeometry.getShapeRotations().front(), entryExitExaggeration,
+                                             s.dottedContourSettings.segmentWidth);
         // pop gl identificator
         GLHelper::popName();
         // draw additional name

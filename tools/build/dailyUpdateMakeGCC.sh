@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -37,9 +37,9 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-rm -rf build/$FILEPREFIX
+git clean -f -x -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 basename $MAKELOG >> $STATUSLOG
-git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+git pull >> $MAKELOG 2>&1 || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build/version.py -`
 date >> $MAKELOG
@@ -62,7 +62,12 @@ date >> $MAKELOG
 echo `grep -ci 'warn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 
 echo "--" >> $STATUSLOG
-cd $PREFIX/sumo
+cd $PREFIX/sumo/bin
+if test -e sumoD; then
+  # it seems the plain build also had the debug config so we symlink to run the tests with the proper binaries
+  for i in *D; do ln -sf ${i} ${i::-1}; done
+fi
+cd ..
 if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
@@ -128,17 +133,25 @@ if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Ma
   fi
 fi
 
-# macOS M1 wheels
+WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
+rm -rf dist dist_native
+# native macOS M1 wheels and Linux ARM
 if test ${FILEPREFIX: -2} == "M1"; then
-  WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
-  rm -rf dist dist_native _skbuild wheelhouse
-  python3 tools/build/setup-sumo.py bdist_wheel > $WHEELLOG 2>&1
-  python3 tools/build/setup-libsumo.py bdist_wheel >> $WHEELLOG 2>&1
-  python3 tools/build/setup-libtraci.py bdist_wheel >> $WHEELLOG 2>&1
-  mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp39-cp39/py2.py3-none/'`
+  cp build/pyproject.toml .
+  python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
+  python3 -m build --wheel > $WHEELLOG 2>&1
+  python3 tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
+  python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
+  python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
   # the credentials are in ~/.pypirc
   twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
-  docker run --rm -v $PWD:/github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
   twine upload --skip-existing -r testpypi wheelhouse/*
+fi
+# Linux x64 wheels
+if test ${FILEPREFIX} == "gcc4_64"; then
+  mv dist dist_native  # just as backup
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build/build_wheels.sh $HTTPS_PROXY v0.13.0 > $WHEELLOG 2>&1
+  cp build/$FILEPREFIX/*.whl wheelhouse
 fi

@@ -200,18 +200,11 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popName();
             }
         }
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
-            // iterate over symbol geometries
-            for (const auto& symbolGeometry : mySymbolGeometries) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
-            }
-        }
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
-            // iterate over symbol geometries
-            for (const auto& symbolGeometry : mySymbolGeometries) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
-            }
+        // draw dotted contour
+        for (const auto& symbolGeometry : mySymbolGeometries) {
+            myContour.drawDottedContourRectangle(s, symbolGeometry.getShape().front(), 1, 3, 0, 3,
+                                                 symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration,
+                                                 s.dottedContourSettings.segmentWidth);
         }
     }
 }

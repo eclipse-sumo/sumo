@@ -214,6 +214,9 @@ fillOptions() {
     oc.doRegister("fill", new Option_Bool(true));
     oc.addDescription("fill", "Building Defaults", TL("Fills polygons by default"));
 
+    oc.doRegister("icon", new Option_String(SUMOXMLDefinitions::POIIcons.getString(POIIcon::NONE)));
+    oc.addDescription("icon", "Building Defaults", TL("Sets STR as default icon"));
+
     oc.doRegister("layer", new Option_Float(-1));
     oc.addDescription("layer", "Building Defaults", TL("Sets FLOAT as default layer"));
 

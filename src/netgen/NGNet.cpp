@@ -227,13 +227,11 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
 
 Distribution_Parameterized
 NGNet::getDistribution(const std::string& option) {
-    std::string val = OptionsCont::getOptions().getString(option);
+    const std::string& val = OptionsCont::getOptions().getString(option);
     try {
         return Distribution_Parameterized(option, 0, StringUtils::toDouble(val));
     } catch (NumberFormatException&) {
-        Distribution_Parameterized result(option, 0, 0);
-        result.parse(val, true);
-        return result;
+        return Distribution_Parameterized(val);
     }
 }
 

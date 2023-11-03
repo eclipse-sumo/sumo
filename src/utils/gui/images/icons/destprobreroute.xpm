@@ -1,0 +1,26 @@
+/* XPM */
+static const char *destprobreroute_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+"  c #146B2F",
+". c #187E37",
+"X c gray71",
+"o c None",
+/* pixels */
+"oooooooooooooooo",
+"oooXXoooooo..ooo",
+"ooXXXXoooo....oo",
+"oXXXXXXoo......o",
+"oooXXoooooo..ooo",
+"oooXXoooooo..ooo",
+"oooXXoooooo..ooo",
+"oooXXoo  oo..ooo",
+"oooXoo    oo.ooo",
+"oooXo      o.ooo",
+"ooooooo  ooooooo",
+"ooooooo  ooooooo",
+"ooooooo  ooooooo",
+"ooooooo  ooooooo",
+"ooooooo  ooooooo",
+"ooooooo  ooooooo"
+};

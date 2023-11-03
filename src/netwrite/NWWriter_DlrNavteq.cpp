@@ -63,7 +63,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc) {
-    device << "# Format matches Extraction version: V6.5 \n";
+    device << "# Format matches Extraction version: V" << oc.getString("dlr-navteq.version") << " \n";
     std::stringstream tmp;
     oc.writeConfiguration(tmp, true, false, false);
     tmp.seekg(std::ios_base::beg);
@@ -196,7 +196,14 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
     // write format specifier
-    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\tFORM_OF_WAY\tBRUNNEL_TYPE\tFUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\tNAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\tAREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION\n";
+    device << "# LINK_ID\tNODE_ID_FROM\tNODE_ID_TO\tBETWEEN_NODE_ID\tLENGTH\tVEHICLE_TYPE\tFORM_OF_WAY\tBRUNNEL_TYPE\t"
+           << "FUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\t"
+           << "NAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\t"
+           << "AREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION";
+    if (oc.getString("dlr-navteq.version") != "6.5") {
+        device << "\tMAXHEIGHT\tMAXWIDTH\tMAXWEIGHT\tSURFACE";
+    }
+    device << "\n";
     // write edges
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         NBEdge* e = (*i).second;
@@ -246,8 +253,14 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << UNDEFINED << "\t" // special_restrictions
                << UNDEFINED << "\t" // extended_number_of_lanes
                << UNDEFINED << "\t" // isRamp
-               << "0\t" // connection (between nodes always in order)
-               << "\n";
+               << "0" << "\t"; // connection (between nodes always in order)
+        if (oc.getString("dlr-navteq.version") != "6.5") {
+            device << e->getParameter("maxheight", UNDEFINED) << "\t"
+                   << e->getParameter("maxwidth", UNDEFINED) << "\t"
+                   << e->getParameter("maxweight", UNDEFINED) << "\t"
+                   << e->getParameter("surface", UNDEFINED);
+        }
+        device << "\n";
     }
     if (oc.getBool("output.street-names")) {
         OutputDevice& namesDevice = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_names.txt");

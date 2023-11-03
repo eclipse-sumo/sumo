@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -44,44 +44,41 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 # press enter to create route
 netedit.typeEnter()
 
-# go to personStopEdge mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to personStopEdge mode
-netedit.selectPerson("p_0")
+# go to StopPlanEdge mode
+netedit.changePersonPlanMode("stop")
 
-# go to personStopEdge mode
-netedit.changePersonPlanMode("stopPerson: edge")
-
-# create personStopEdge
+# create StopPlanEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
 
-# create personStopEdge
-netedit.leftClick(referencePosition, 200, 65)
-
-# set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.durationEnable)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.duration, "dummy")
-
-# create personStopEdge
-netedit.leftClick(referencePosition, 220, 65)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "dummy")
 
-# create personStopEdge
-netedit.leftClick(referencePosition, 240, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.duration, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "-20")
 
-# create personStopEdge
-netedit.leftClick(referencePosition, 260, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "30.2")
+
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

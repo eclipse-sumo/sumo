@@ -4,16 +4,16 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
 tranship: containerStop
 dummySpacing
-TestFunctions: Clicked over position 578 - 568
+TestFunctions: Clicked over position 754 - 608
 TestFunctions: Clicked over position 574 - 211
 poisson
 dummy
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 201
 -30
 1.2
-TestFunctions: Clicked over position 578 - 560
-TestFunctions: Clicked over position 584 - 223
+TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 679 - 201
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

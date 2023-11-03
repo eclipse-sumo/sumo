@@ -50,7 +50,7 @@ brew install open-scene-graph
 ```
 
 ### Troubleshooting the fox library on macOS Catalina
-If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse/sumo/issues/6242#issuecomment-553458710)).
+If you encounter segmentation faults on macOS Catalina, please follow the following steps (see [Issue 6242](https://github.com/eclipse-sumo/sumo/issues/6242#issuecomment-553458710)).
 
 1. Uninstall Catalina bottle of fox:
 ```brew uninstall --ignore-dependencies fox```
@@ -67,7 +67,7 @@ If you encounter segmentation faults on macOS Catalina, please follow the follow
 ## Git Cloning and Building
 The source code of SUMO can be cloned with the following command to the directory `./sumo`. The environment variable `SUMO_HOME` should also be set to this directory.
 ```
-git clone --recursive https://github.com/eclipse/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 export SUMO_HOME="$PWD/sumo"
 ```
 SUMO is usually build as an out-of-source build. You need to create a directory for your build and invoke CMake to trigger the configuration from there. 
@@ -183,6 +183,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> import libsumo
 >>> 
 ```
+
+!!! note
+    To build JuPedSim and build SUMO with JuPedSim follow the [instructions for the Linux build](Linux_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim)
 
 # The Macports Approach (legacy)
 

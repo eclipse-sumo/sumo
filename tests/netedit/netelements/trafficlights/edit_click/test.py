@@ -34,13 +34,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectTLSMode()
 
 # select junction
-netedit.leftClick(referencePosition, 320, 220)
+netedit.leftClick(referencePosition, 520, 220)
 
 # create TLS
 netedit.createTLS()
 
 # obtain clicked position
-clickedPosition = [referencePosition[0] + 227, referencePosition[1] + 181]
+clickedPosition = [referencePosition[0] + 466, referencePosition[1] + 227]
 
 # click relative to offset
 pyautogui.rightClick(clickedPosition)

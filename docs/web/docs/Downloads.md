@@ -39,7 +39,7 @@ launchpad project as well as an archlinux package:
 - <https://launchpad.net/~sumo>
 - <https://aur.archlinux.org/packages/sumo/>
 
-There is also a [flatpak](https://flathub.org/apps/details/org.eclipse.sumo) available for SUMO.
+There is also a [flatpak](https://flathub.org/apps/org.eclipse.sumo) available for SUMO.
 
 To add the most recent sumo to your ubuntu you will need to do:
 
@@ -100,8 +100,8 @@ Ubuntu, Debian and Arch users please see the community repositories above.
 You can read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
 
 "Bottles" are available for installing with
-[Homebrew](https://brew.sh/). They are built for two of the most recent
-major macOS versions (currently Catalina and Big Sur) and are built
+[Homebrew](https://brew.sh/). They are built for three of the most recent
+major macOS versions (currently Big Sur, Monterey and Ventura) and are built
 from source with minimal requirements (fox, proj, xerces-c). If you need
 optional libraries, you can specify these on the brew command line and
 brew will compile SUMO from source. For details, see the [Formula's
@@ -159,10 +159,10 @@ SUMO is under active development. You can find a continuously updated
 list of bug-fixes and enhancements at our
 [ChangeLog](ChangeLog.md). To make use of the latest features
 [(and to give us pre-release feedback)](Contact.md) we encourage
-you to use the latest version from our [code repository](https://github.com/eclipse/sumo/).
+you to use the latest version from our [code repository](https://github.com/eclipse-sumo/sumo/).
 
 Every push to our main branch also triggers a build for Windows, Linux and macOS. The results can be found
-by clicking on the [relevant commit here](https://github.com/eclipse/sumo/actions) and downloading the
+by clicking on the [relevant commit here](https://github.com/eclipse-sumo/sumo/actions) and downloading the
 appropriate file for your platform (you may need to sign in to GitHub).
 
 ## Nightly Snapshots
@@ -191,7 +191,12 @@ To install the latest nightly version (it is strongly encouraged to do this in a
 ```
 pip install -i https://test.pypi.org/simple/ eclipse-sumo
 ```
-Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)).
+Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)). Due to space limitiations of test.pypi.org, this is going to be replaced by
+a self-hosted solution. You may already try out:
+```
+pip install -f https://sumo.dlr.de/daily/wheels/ eclipse-sumo
+```
+The nightly python wheels are also available for libsumo, sumolib and traci.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
 This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
@@ -204,7 +209,7 @@ analysis](https://sumo.dlr.de/daily/lcov/html/) are generated every
 night.
 
 !!! caution
-    The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
+    The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse-sumo/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
 # Older releases and alternative download
 
@@ -215,7 +220,7 @@ If you want to try out an older version you can also use the virtual environment
 `pip install eclipse-sumo==1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
-local repository or at [GitHub tags](https://github.com/eclipse/sumo/tags).
+local repository or at [GitHub tags](https://github.com/eclipse-sumo/sumo/tags).
 
 # Other
 

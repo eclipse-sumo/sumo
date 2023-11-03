@@ -35,7 +35,7 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(
-            description="Map detector locations to a network and write inductionLoop-definitions")
+        description="Map detector locations to a network and write inductionLoop-definitions")
     optParser.add_argument("-n", "--net-file", dest="netfile", category="input", type=optParser.net_file,
                            help="define the net file (mandatory)")
     optParser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=optParser.file,
@@ -96,7 +96,7 @@ def main():
             if not lanes:
                 sys.stderr.write("Could not find road for detector %s within %sm radius" % (detID, radius))
                 continue
-            lanes.sort()
+            lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
             pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape())
             outf.write('    <inductionLoop id="%s" lane="%s" pos="%s" file="%s" freq="%s"/>\n' % (

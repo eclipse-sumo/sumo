@@ -77,6 +77,30 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @name Functions related with move elements
@@ -86,6 +110,7 @@ public:
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -321,12 +346,6 @@ private:
 
     /// @brief draw junction childs
     void drawJunctionChildren(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw dotted contours (bubble)
-    void drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration) const;
-
-    /// @brief draw dotted contours (shape)
-    void drawDottedContoursShape(const GUIVisualizationSettings& s, const double junctionExaggeration) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

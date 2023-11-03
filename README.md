@@ -2,9 +2,10 @@
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
-[![Windows](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml)
-[![Linux](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml)
-[![macOS](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8346388.svg  )](https://doi.org/10.5281/zenodo.8346388   )
+[![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
+[![Linux](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-linux.yml)
+[![macOS](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-macos.yml)
 [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=org.eclipse.sumo&metric=security_rating)](https://sonarcloud.io/summary/overall?id=org.eclipse.sumo)
 [![Translation status](https://hosted.weblate.org/widgets/eclipse-sumo/-/svg-badge.svg)](https://hosted.weblate.org/engage/eclipse-sumo/)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
@@ -16,8 +17,10 @@ What is SUMO
 highly portable, microscopic traffic simulation package designed to handle
 large road networks and different modes of transport.
 
+<p align="center"><img width=70% src="https://raw.githubusercontent.com/eclipse/sumo/main/docs/web/docs/images/multiple-screenshots.png"></p>
+
 It is mainly developed by employees of the [Institute of Transportation Systems
-at the German Aerospace Center](https://www.dlr.de/ts).
+at the German Aerospace Center](https://www.dlr.de/ts/en/).
 
 
 Where to get it
@@ -29,8 +32,9 @@ As the program is still under development and is extended continuously, we advic
 use the latest sources from our GitHub repository. Using a command line client
 the following command should work:
 
-        git clone --recursive https://github.com/eclipse/sumo
-
+```
+git clone --recursive https://github.com/eclipse-sumo/sumo
+```
 
 Contact
 -------
@@ -49,19 +53,23 @@ Build and Installation
 For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
 If you want to develop under Windows, please also clone the dependent libraries using
 
-        git clone --recursive https://github.com/DLR-TS/SUMOLibraries
+```
+git clone --recursive https://github.com/DLR-TS/SUMOLibraries
+```
 
 If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 [open build service instance](https://build.opensuse.org/project/show/science:dlr).
 If you want to build sumo yourself, the steps for ubuntu are:
 
-        sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
-        cd <SUMO_DIR> # please insert the correct directory name here
-        export SUMO_HOME="$PWD"
-        mkdir build/cmake-build && cd build/cmake-build
-        cmake ../..
-        make -j$(nproc)
+```
+sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+cd <SUMO_DIR> # please insert the correct directory name here
+export SUMO_HOME="$PWD"
+mkdir build/cmake-build && cd build/cmake-build
+cmake ../..
+make -j$(nproc)
+```
 
 For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
 
@@ -79,12 +87,12 @@ Documentation
 
 - The main documentation is at [sumo.dlr.de/docs](https://sumo.dlr.de/docs). Note, that this tracks the [development version](https://sumo.dlr.de/docs/FAQ.html#why_does_sumo_not_behave_as_documented_in_this_wiki).
 - A mirror of the main documentation is at [sumo.sourceforge.net/docs](https://sumo.sourceforge.net/docs).
-- A offline version of the documentation is part of every release and can be accessed via `docs/userdoc/index.html`.
+- An offline version of the documentation is part of every release and can be accessed via `docs/userdoc/index.html`.
 
 Improving SUMO
 --------------
 
-Please use the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues) for bugs and requests, 
+Please use the [GitHub bug tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests, 
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.

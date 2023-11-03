@@ -23,7 +23,6 @@
 
 #include "GNEDistribution.h"
 
-
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -144,14 +143,14 @@ GNEDistribution::computePathElement() {
 
 
 void
-GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // route distributions don't use drawPartialGL
+GNEDistribution::drawLanePartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawJunctionPartialGL
 }
 
 
 void
-GNEDistribution::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
-    // route distributions don't use drawPartialGL
+GNEDistribution::drawJunctionPartialGL(const GUIVisualizationSettings& /*s*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+    // route distributions don't use drawJunctionPartialGL
 }
 
 

@@ -113,20 +113,19 @@ GUIParameterTracker::buildToolBar() {
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
-    new FXButton(myToolBar, (std::string("\t\t") + TL("Save the data...")).c_str(),
+    GUIDesigns::buildFXButton(myToolBar, "", "", + TL("Save the data..."),
                  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
 
     // aggregation interval combo
     myAggregationInterval =
-        new MFXComboBoxIcon(myToolBar, 8, false, false, this, MID_AGGREGATIONINTERVAL,
-                       GUIDesignComboBoxStatic);
+        new MFXComboBoxIcon(myToolBar, 8, false, GUIDesignComboBoxVisibleItemsMedium,
+                            this, MID_AGGREGATIONINTERVAL, GUIDesignComboBoxStatic);
     myAggregationInterval->appendIconItem("1s");
     myAggregationInterval->appendIconItem("1min");
     myAggregationInterval->appendIconItem("5min");
     myAggregationInterval->appendIconItem("15min");
     myAggregationInterval->appendIconItem("30min");
     myAggregationInterval->appendIconItem("60min");
-    myAggregationInterval->setNumVisible(10);
 
     myMultiPlot = new FXCheckButton(myToolBar, TL("Multiplot"), this, MID_MULTIPLOT);
     myMultiPlot->setCheck(false);

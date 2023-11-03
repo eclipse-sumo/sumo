@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walk: edge", False)
+netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -46,14 +46,12 @@ netedit.typeEnter()
 # go to walkEdgeEdge mode
 netedit.personPlanMode()
 
-# select person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
-
 # go to walkEdgeEdge mode
-netedit.changePersonPlanMode("walk: edges")
+netedit.changePersonPlanMode("walk (edges)")
 
 # create walkEdgeEdge
-netedit.leftClick(referencePosition, 560, 240)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
@@ -62,8 +60,13 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect walkEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+# inspect person
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
+                  netedit.positions.demandElements.person.y)
+
+# now inspect plan top
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
+                  netedit.positions.demandElements.planTopEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkEdges.inspect.arrivalPos, "dummy", False)

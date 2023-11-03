@@ -167,23 +167,16 @@ double MSCFModel_ACC::accelSpeedControl(double vErr) const {
     return mySpeedControlGain * vErr;
 }
 
-double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
-
-// Gap control law
+double
+MSCFModel_ACC::accelGapControl(const MSVehicle* const /* veh */, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
+    // Gap control law
     double gclAccel = 0.0;
-    double desSpacing = myHeadwayTime * speed;
-    double spacingErr = gap2pred - desSpacing;
-    double deltaVel = predSpeed - speed;
-    double L = veh->getLength();
+    const double deltaVel = predSpeed - speed;
 
-// see dynamic gap margin definition from (Xiao et. al, 2018)[3]
-    if (speed < 10.8) {
-        spacingErr = spacingErr - L - 2;
-    } else if (speed <= 15.0 && speed >= 10.8) {
-        spacingErr = spacingErr - L - (75 / speed - 5);
-    } else {
-        spacingErr = spacingErr - L;
-    }
+    // see dynamic gap margin definition from (Xiao et. al, 2018)[3], equation 5 reformulated as min/max to avoid discontinuities
+    const double d0 = MAX2(0., MIN2(75. / speed - 5., 2.));
+    // this is equation 4, gap2pred is the difference in vehicle positions minus the length
+    const double spacingErr = gap2pred - myHeadwayTime * speed - d0;
 
 
     if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
@@ -227,7 +220,7 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
     if (DEBUG_COND) {
         std::cout << SIMTIME << " MSCFModel_ACC::_v() for veh '" << veh->getID() << "'\n"
                   << "        gap=" << gap2pred << " speed="  << speed << " predSpeed=" << predSpeed
-                  << " desSpeed=" << desSpeed << std::endl;
+                  << " desSpeed=" << desSpeed << " tau=" << myHeadwayTime << std::endl;
     }
 #endif
 

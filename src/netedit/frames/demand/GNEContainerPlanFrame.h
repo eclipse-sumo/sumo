@@ -13,19 +13,22 @@
 /****************************************************************************/
 /// @file    GNEContainerPlanFrame.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2021
+/// @date    Jun 2019
 ///
 // The Widget for add ContainerPlan elements
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 #include <netedit/frames/GNETagSelector.h>
+#include <netedit/frames/GNEPlanSelector.h>
+#include <netedit/frames/GNEPlanCreator.h>
 
 
 // ===========================================================================
@@ -37,6 +40,7 @@
 class GNEContainerPlanFrame : public GNEFrame {
 
 public:
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -54,19 +58,24 @@ public:
 
     /**@brief add container plan element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param mouseButtonKeyPressed key pressed during click
      * @return true if element was successfully added
      */
-    bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
+    bool addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get path creator modul
-    GNEPathCreator* getPathCreator() const;
+    /// @brief reset selected container
+    void resetSelectedContainer();
 
-    /// @brief get container Hierarchy
+    /// @brief get plan creator module
+    GNEPlanCreator* getPlanCreator() const;
+
+    /// @brief get Container Hierarchy
     GNEElementTree* getContainerHierarchy() const;
 
     /// @brief get container selectors
-    DemandElementSelector* getContainerSelector() const;
+    GNEDemandElementSelector* getContainerSelector() const;
+
+    /// @brief get containerPlan selector
+    GNEPlanSelector* getPlanSelector() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -83,20 +92,20 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Container selectors
-    DemandElementSelector* myContainerSelector;
+    GNEDemandElementSelector* myContainerSelector;
 
     /// @brief containerPlan selector
-    GNETagSelector* myContainerPlanTagSelector;
+    GNEPlanSelector* myPlanSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myContainerPlanAttributes;
 
-    /// @brief Path Creator
-    GNEPathCreator* myPathCreator;
-
-    /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    /// @brief plan Creator
+    GNEPlanCreator* myPlanCreator;
 
     /// @brief Container Hierarchy
     GNEElementTree* myContainerHierarchy;
+
+    /// @brief path legend modul
+    GNEPathLegendModule* myPathLegend;
 };

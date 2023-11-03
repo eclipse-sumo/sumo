@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
@@ -47,7 +47,7 @@ netedit.typeEnter()
 netedit.containerPlanMode()
 
 # go to transhipEdgeEdge mode
-netedit.changeContainerPlanMode("tranship: edge")
+netedit.changeContainerPlanMode("tranship")
 
 # create transhipEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
@@ -59,7 +59,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transhipEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
+                  netedit.positions.demandElements.containerPlanEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

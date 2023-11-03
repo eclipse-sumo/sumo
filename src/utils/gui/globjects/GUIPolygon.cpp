@@ -250,7 +250,7 @@ GUIPolygon::getCenteringBoundary() const {
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
-    if (checkDraw(s, this, this)) {
+    if (myIsActive && checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         GLHelper::pushName(getGlID());

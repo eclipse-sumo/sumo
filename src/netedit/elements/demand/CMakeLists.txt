@@ -7,6 +7,8 @@ set(netedit_elements_demand_SRCS
    GNEDemandElementDistribution.cpp
    GNEDemandElementFlow.h
    GNEDemandElementFlow.cpp
+   GNEDemandElementPlan.h
+   GNEDemandElementPlan.cpp
    GNEDistribution.h
    GNEDistribution.cpp
    GNERoute.h
@@ -21,6 +23,8 @@ set(netedit_elements_demand_SRCS
    GNEVehicle.cpp
    GNEStop.h
    GNEStop.cpp
+   GNEStopPlan.h
+   GNEStopPlan.cpp
    GNEPerson.h
    GNEPerson.cpp
    GNEPersonTrip.h

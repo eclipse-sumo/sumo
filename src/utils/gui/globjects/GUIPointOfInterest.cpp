@@ -19,19 +19,15 @@
 ///
 // The GUI-version of a point of interest
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+
 #include "GUIPointOfInterest.h"
 
 
@@ -39,11 +35,11 @@
 // method definitions
 // ===========================================================================
 
-GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type,
-                                       const RGBColor& color, const Position& pos, bool geo, const std::string& lane,
-                                       double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
-                                       const std::string& imgFile, bool relativePath, double width, double height) :
-    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height),
+GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
+                                       bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
+                                       const std::string& icon, double layer, double angle, const std::string& imgFile,
+                                       bool relativePath, double width, double height) :
+    PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon, layer, angle, imgFile, relativePath, width, height),
     GUIGlObject_AbstractAdd(GLO_POI, id,
                             (lane.size() > 0) ? GUIIconSubSys::getIcon(GUIIcon::POILANE) : geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI)) {
 }
@@ -66,6 +62,7 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());
+    ret->mkItem("icon", false, getIconStr());
     ret->mkItem("layer", false, getShapeLayer());
     ret->closeBuilding(this);
     return ret;
@@ -139,7 +136,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
     const double exaggeration = o->getExaggeration(s);
     GLHelper::pushMatrix();
     setColor(s, POI, o, disableSelectionColor);
-    glTranslated(POI->x(), POI->y(), layer);
+    // add extra offset z provided by icon to avoid overlapping
+    glTranslated(POI->x(), POI->y(), layer + (double)POI->getIcon());
     glRotated(-POI->getShapeNaviDegree(), 0, 0, 1);
     // check if has to be drawn as a circle or with an image
     if (POI->getShapeImgFile() != DEFAULT_IMG_FILE) {
@@ -156,6 +154,15 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         } else {
             // draw filled circle saving vertices
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, s.poiDetail);
+        }
+        // check if draw polygon
+        if (POI->getIcon() != POIIcon::NONE) {
+            // translate
+            glTranslated(0, 0, 0.1);
+            // rotate
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getPOITexture(POI->getIcon()), exaggeration * 0.8);
         }
     }
     GLHelper::popMatrix();

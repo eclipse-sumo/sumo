@@ -99,7 +99,7 @@ public:
     GNETagSelector* getVehicleTagSelector() const;
 
     /// @brief getVehicle Type selectors
-    DemandElementSelector* getTypeSelector() const;
+    GNEDemandElementSelector* getTypeSelector() const;
 
     /// @brief get GNEPathCreator module
     GNEPathCreator* getPathCreator() const;
@@ -131,7 +131,7 @@ private:
     GNETagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    DemandElementSelector* myTypeSelector;
+    GNEDemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
     GNEAttributesCreator* myVehicleAttributes;

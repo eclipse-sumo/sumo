@@ -93,7 +93,7 @@ public:
     bool getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, const GNEAdditional* stoppingPlace);
 
     /// @brief get stop parent selector
-    DemandElementSelector* getStopParentSelector() const;
+    GNEDemandElementSelector* getStopParentSelector() const;
 
 protected:
     /// @brief Tag selected in GNETagSelector
@@ -110,7 +110,7 @@ private:
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
 
     /// @brief Stop parent selectors
-    DemandElementSelector* myStopParentSelector;
+    GNEDemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
     GNETagSelector* myStopTagSelector;

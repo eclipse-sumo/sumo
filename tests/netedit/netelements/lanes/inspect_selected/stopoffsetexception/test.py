@@ -38,39 +38,39 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 155)
+netedit.leftClick(referencePosition, 400, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 95)
+netedit.leftClick(referencePosition, 400, 95)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffset, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffset, "12.5", False)
 
 # Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "DummyAllowed", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "DummyAllowed", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", False)
 
 # Change parameter 1 with a valid value (different separators)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException,
-                        "authority  army, passenger; taxi. tram", True)
+                        "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspectSelection.stopOffsetExceptionButton, True)
+netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspectSelection.stopOffsetExceptionButton, False)
 
 # Change parameter 1 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.stopOffsetException,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+                        "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()

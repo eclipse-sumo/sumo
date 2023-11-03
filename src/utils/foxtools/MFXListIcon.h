@@ -1,19 +1,19 @@
 /****************************************************************************/
-// @brief Eclipse SUMO,  Simulation of Urban MObility; see https://eclipse.dev/sumo
-// @brief Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
-// @brief This program and the accompanying materials are made available under the
-// @brief terms of the Eclipse Public License 2.0 which is available at
-// @brief https://www.eclipse.org/legal/epl-2.0/
-// @brief This Source Code may also be made available under the following Secondary
-// @brief Licenses when the conditions for such availability set forth in the Eclipse
-// @brief Public License 2.0 are satisfied: GNU General Public License,  version 2
-// @brief or later which is available at
-// @brief https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-// @brief SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @brief @file MFXListIcon.h
-/// @brief @author Pablo Alvarez Lopez
-/// @brief @date Feb 2023
+/// @file MFXListIcon.h
+/// @author Pablo Alvarez Lopez
+/// @date Feb 2023
 ///
 //
 /****************************************************************************/
@@ -26,9 +26,9 @@
 
 #include "MFXListIconItem.h"
 
-/// @brief @brief A list item which allows for custom coloring
+/// @brief A list item which allows for custom coloring
 class MFXListIcon : public FXScrollArea {
-    /// @brief @brief FOX declaration
+    /// @brief FOX declaration
     FXDECLARE(MFXListIcon)
 
 public:
@@ -77,7 +77,7 @@ public:
     void killFocus();
 
     /// @brief Return the number of items in the list
-    FXint getNumItems() const { return items.no(); }
+    FXint getNumItems() const { return (int)items.size(); }
 
     /// @brief Return number of visible items
     FXint getNumVisible() const { return visible; }
@@ -106,11 +106,14 @@ public:
     /// @brief Append new item with given text and optional icon,  and user-data pointer
     FXint appendItem(const FXString &text, FXIcon *icon = NULL, void* ptr = NULL, FXbool notify = FALSE);
 
+    /// @brief Remove node from list
+    void removeItem(FXint index, FXbool notify = FALSE);
+
     /// @brief Remove all items from list
     void clearItems(FXbool notify = FALSE);
 
     /// @brief filter items in list
-    void setFilter(const FXString &value);
+    void setFilter(const FXString &value, FXLabel *label);
 
     /// @brief Return item width
     FXint getItemWidth(FXint index) const;
@@ -233,8 +236,11 @@ protected:
     MFXListIconItem *createItem(const FXString &text, FXIcon* icon, void* ptr);
 
     /// @brief Item list
-    FXObjectListOf <MFXListIconItem> items;
+    std::vector<MFXListIconItem*> items;
  
+    /// @brief Selected item list
+    std::vector<MFXListIconItem*> itemFiltered;
+
     /// @brief Anchor item
     FXint anchor = -1;
 
@@ -292,9 +298,6 @@ protected:
 private:
     /// @brief typedef used for comparing elements
     typedef FXint (*FXCompareFunc)(const FXString & , const FXString & , FXint);
-
-    /// @brief get filtered items
-    std::vector<MFXListIconItem*> getFilteredItems() const;
 
     /// @brief check if filter element
     bool showItem(const FXString &itemName) const;

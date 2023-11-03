@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("transport: edge", False)
+netedit.changeContainerPlan("transport", False)
 
 # change Container
 netedit.changeElement("containerFlow")
@@ -51,7 +51,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
+                  netedit.positions.demandElements.container.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.begin, "", False)

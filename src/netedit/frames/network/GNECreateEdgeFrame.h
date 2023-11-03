@@ -62,11 +62,14 @@ public:
         /// @brief update id in comboBox
         void updateIDinComboBox(const std::string& oldID, const std::string& newID);
 
-        /// @brief check if we have to use edge template
-        bool useEdgeTemplate() const;
-
         /// @brief check if we're using default edge type
         bool useDefaultEdgeType() const;
+
+        /// @brief check if we're using default edge type short
+        bool useDefaultEdgeTypeShort() const;
+
+        /// @brief check if we have to use edge template
+        bool useEdgeTemplate() const;
 
         /// @brief void enable checkbox for disable pedestrians
         void enableCheckBoxDisablePedestrians();
@@ -135,7 +138,10 @@ public:
         int myCurrentIndex;
 
         /// @brief create default edge
-        FXRadioButton* myUseDefaultEdgeType = nullptr;
+        FXRadioButton* myCreateDefaultEdgeType = nullptr;
+
+        /// @brief create default edge short
+        FXRadioButton* myCreateDefaultShortEdgeType = nullptr;
 
         /// @brief no pedestrian check button
         FXCheckButton* myNoPedestriansCheckButton = nullptr;
@@ -144,7 +150,7 @@ public:
         FXCheckButton* myAddSidewalkCheckButton = nullptr;
 
         /// @brief create custom edge
-        FXRadioButton* myUseCustomEdgeType = nullptr;
+        FXRadioButton* myCreateCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
         MFXComboBoxIcon* myEdgeTypesComboBox = nullptr;
@@ -307,5 +313,5 @@ private:
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
 
     /// @brief source junction for new edge
-    GNEJunction* myCreateEdgeSource;
+    GNEJunction* myJunctionSource;
 };

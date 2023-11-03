@@ -1,0 +1,25 @@
+/* XPM */
+static const char *routeprobreroute_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c #187E37",
+". c gray71",
+"X c None",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXX..XXXXXX  XXX",
+"XX....XXXX    XX",
+"X......XX      X",
+"XXX..XXXXXX  XXX",
+"XXX..XXXXXX  XXX",
+"XXX..XXXXXX  XXX",
+"XXX..XXXXXX  XXX",
+"XXXX..XXXX  XXXX",
+"XXXX..XXXX  XXXX",
+"XXXXX..XX  XXXXX",
+"XXXXX..XX  XXXXX",
+"XXXXXX..  XXXXXX",
+"XXXXXX..  XXXXXX",
+"XXXXXXXXXXXXXXXX"
+};

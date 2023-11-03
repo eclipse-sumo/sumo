@@ -1,0 +1,71 @@
+# Format matches Extraction version: V7 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <!-- generated on 2023-09-01 07:31:29 by Eclipse SUMO netconvert Version v1_18_0+1356-453c2451b02
+# This data file and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
+# This file may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+# -->
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <osm-files value="osm.xml"/>
+#     </input>
+# 
+#     <output>
+#         <write-license value="true"/>
+#         <output-file value="net.net.xml"/>
+#         <dlr-navteq-output value="elmar_output"/>
+#         <dlr-navteq.version value="7"/>
+#         <dlr-navteq.precision value="2"/>
+#         <output.street-names value="true"/>
+#         <output.original-names value="true"/>
+#     </output>
+# 
+#     <projection>
+#         <proj.utm value="true"/>
+#     </projection>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <reserved-ids value="edge_ids.txt"/>
+#         <geometry.remove value="true"/>
+#         <roundabouts.guess value="true"/>
+#     </processing>
+# 
+#     <tls_building>
+#         <tls.discard-simple value="true"/>
+#         <tls.join value="true"/>
+#         <tls.guess-signals value="true"/>
+#     </tls_building>
+# 
+#     <ramp_guessing>
+#         <ramps.guess value="true"/>
+#     </ramp_guessing>
+# 
+#     <junctions>
+#         <junctions.join value="true"/>
+#     </junctions>
+# 
+#     <report>
+#         <verbose value="true"/>
+#         <xml-validation value="never"/>
+#     </report>
+# 
+# </configuration>
+# 
+#
+#No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
+#RELATREC_ID	PERMANENT_ID_INFO	VALIDITY_PERIOD	THROUGH_TRAFFIC	VEHICLE_TYPE	NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
+415852992	1	-1	1	100000000000	415852974	415852970
+415852993	1	-1	1	100000000000	224769559	415852934
+415852994	1	-1	1	100000000000	180239847	16942869
+415852995	1	-1	1	100000000000	415852923	415852924

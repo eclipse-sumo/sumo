@@ -35,29 +35,29 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # change container plan
-netedit.changeContainerPlan("tranship: edge", False)
+netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, 180, 65)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to containerStopEdge mode
+# go to StopPlanEdge mode
 netedit.containerPlanMode()
 
-# go to containerStopEdge mode
-netedit.changeContainerPlanMode("stopContainer: edge")
+# go to StopPlanEdge mode
+netedit.changeContainerPlanMode("stop")
 
-# create containerStopEdge
-netedit.leftClick(referencePosition, 180, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # set invalid container number
-netedit.changeDefaultBoolValue(netedit.attrs.containerStopEdge.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.friendlyPos)
 
-# create containerStopEdge
-netedit.leftClick(referencePosition, 200, 65)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

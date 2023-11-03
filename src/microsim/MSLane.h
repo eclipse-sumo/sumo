@@ -563,10 +563,14 @@ public:
      * @return This lane's resulting max. speed
      */
     inline double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
-        if (myRestrictions != nullptr && !myControlledByVSS) {
+        if (myRestrictions != nullptr) {
             std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(veh->getVClass());
             if (r != myRestrictions->end()) {
-                return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
+                if (mySpeedByVSS || mySpeedByTraCI) {
+                    return MIN2(myMaxSpeed, MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor()));
+                } else {
+                    return MIN2(veh->getMaxSpeed(), r->second * veh->getChosenSpeedFactor());
+                }
             }
         }
         return MIN2(veh->getMaxSpeed(), myMaxSpeed * veh->getChosenSpeedFactor());
@@ -727,8 +731,9 @@ public:
     /** @brief Sets a new maximum speed for the lane (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      * @param[in] whether a variable speed sign (VSS) imposes the speed limit
+     * @param[in] whether TraCI imposes the speed limit
      */
-    void setMaxSpeed(double val, bool byVSS = false);
+    void setMaxSpeed(double val, bool byVSS = false, bool byTraCI = false);
 
     /** @brief Sets a new friction coefficient for the lane [*to be later (used by TraCI and MSCalibrator)*]
     * @param[in] val the new friction coefficient [0..1]
@@ -1480,7 +1485,10 @@ protected:
     double myFrictionCoefficient;
 
     /// @brief Whether the current speed limit is set by a variable speed sign (VSS)
-    bool myControlledByVSS;
+    bool mySpeedByVSS;
+
+    /// @brief Whether the current speed limit has been set through TraCI
+    bool mySpeedByTraCI;
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;

@@ -202,6 +202,42 @@ GNEDataSet::writeDataSet(OutputDevice& device) const {
 }
 
 
+bool
+GNEDataSet::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEDataSet::checkDrawSelectContour() const {
+    return false;
+}
+
+
 void
 GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
     // check that dataInterval wasn't previously inserted

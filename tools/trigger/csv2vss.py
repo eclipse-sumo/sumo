@@ -20,23 +20,17 @@ from __future__ import absolute_import
 import os
 import sys
 import collections
-from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.output  # noqa
+import sumolib  # noqa
 
 
 def parse_args():
-    USAGE = "Usage: " + sys.argv[0] + " <csv> [options]"
-    optParser = OptionParser()
+    optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-o", "--outfile", help="name of output file")
     optParser.add_option("-d", "--detectorfile", help="name of detector file")
-    optParser.add_option(
-        "-s", "--scale", default=60, help="scaling factor for time")
-    options, args = optParser.parse_args()
-    try:
-        options.csvfile = args[0]
-    except Exception:
-        sys.exit(USAGE)
+    optParser.add_option("-s", "--scale", type=float, default=60, help="scaling factor for time")
+    optParser.add_option("csvfile", help="name of input file")
+    options = optParser.parse_args()
     if options.outfile is None:
         options.outfile = options.csvfile + ".add.xml"
     return options
@@ -61,20 +55,17 @@ def main():
                 pass
     # maybe we should sort the timeline here
     with open(options.outfile, 'w') as outf:
-        outf.write("<additional>\n")
+        sumolib.xml.writeHeader(outf, root="additional", options=options)
         for det, times in timeline.items():
             if detectors:
                 if det in detectors:
-                    outf.write(
-                        '    <variableSpeedSign id="vss_%s" lanes="%s">\n' % (det, detectors[det]))
+                    outf.write('    <variableSpeedSign id="vss_%s" lanes="%s">\n' % (det, detectors[det]))
                 else:
                     continue
             else:
-                outf.write(
-                    '    <variableSpeedSign id="vss_%s" lanes="%s">\n' % (det, det))
+                outf.write('    <variableSpeedSign id="vss_%s" lanes="%s">\n' % (det, det))
             for entry in times:
-                outf.write(
-                    '        <step time="%.3f" speed="%.3f"/>\n' % entry)
+                outf.write('        <step time="%.3f" speed="%.3f"/>\n' % entry)
             outf.write('    </variableSpeedSign>\n')
         outf.write("</additional>\n")
 

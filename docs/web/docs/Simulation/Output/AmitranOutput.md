@@ -35,8 +35,9 @@ types while the vehicle elements refer directly to SUMO's vehicles. The
 actorConfig for each vehicle will be defined before the vehicle is
 written. The same is true for vehicles and their motionStates.
 
-All numbers and ids are integers, where all the times are in
-milliseconds. For details and further information on the types please
+!!! note
+    All numbers and ids are integers, where all the times are in
+milliseconds. Speeds are given in cm/s and acceleration values in mm/s^2. For details and further information on the types please
 see the schema <https://sumo.dlr.de/xsd/amitran/trajectories.xsd>.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">

@@ -17,7 +17,7 @@ For ubuntu this boils down to
 
 ```
  sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
- git clone --recursive https://github.com/eclipse/sumo
+ git clone --recursive https://github.com/eclipse-sumo/sumo
  export SUMO_HOME="$PWD/sumo"
  mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
  cmake ../..
@@ -84,7 +84,7 @@ of sumo.
 The following commands should be issued:
 
 ```
-git clone --recursive https://github.com/eclipse/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 cd sumo
 git fetch origin refs/replace/*:refs/replace/*
 pwd
@@ -149,7 +149,7 @@ pip install -r tools/requirements.txt
 
 The pip installation will ensure that all libraries are there, so it is safe to skip the first `apt-get` step.
 If you need information about the minimum required versions of the packages read them directly
-from the [requirements.txt](https://github.com/eclipse/sumo/blob/main/tools/requirements.txt). Be aware that
+from the [requirements.txt](https://github.com/eclipse-sumo/sumo/blob/main/tools/requirements.txt). Be aware that
 the minimum versions in the requirements file just reflect our current test server setup, so you might also get away with earlier versions.
 
 You might need to replace `pip` with `pip3` if you are using python3 on Linux.
@@ -318,6 +318,32 @@ If you find yourself building very often after minor changes, consider installin
 ccache and run cmake again. It will be picked up automatically and can dramatically
 improve build speed.
 
+## How to build JuPedSim and then build SUMO with JuPedSim
+
+In this section, you will learn how to build the latest version of the pedestrian simulator JuPedSim and how to compile SUMO with this latest version of JuPedSim. First of all, clone the JuPedSim repository:
+
+``` bash
+git clone https://github.com/PedestrianDynamics/jupedsim.git
+```
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v0.9.6, you would need to type:
+
+``` bash 
+git checkout tags/v0.9.6
+```
+
+Outside the repository directory, but at the same level, you will need two directories `jupedsim-build` and `jupedsim-install`, so type:
+
+``` bash
+mkdir jupedsim-build jupedsim-install
+cd jupedsim-build
+cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ../jupedsim
+cmake --build .
+cmake --install .
+```
+
+You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual with CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
+
+For further remarks on the use of JuPedSim inside SUMO, please consult [this page](../Simulation/Pedestrians.md#jupedsim).
 
 ## Troubleshooting
 

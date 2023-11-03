@@ -17,7 +17,6 @@
 ///
 // A class for visualizing routes in Netedit
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -25,15 +24,11 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEPersonFrame.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNERoute.h"
 #include "GNEVehicle.h"
@@ -220,7 +215,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         // write stops
         for (const auto& demandElement : getChildDemandElements()) {
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            if (demandElement->getTagProperty().isVehicleStop()) {
                 demandElement->writeDemandElement(device);
             }
         }
@@ -237,7 +232,7 @@ GNERoute::isDemandElementValid() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isStop()) {
+        if (routeChild->getTagProperty().isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -266,7 +261,7 @@ GNERoute::getDemandElementProblem() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
     for (const auto& routeChild : getChildDemandElements()) {
-        if (routeChild->getTagProperty().isStop()) {
+        if (routeChild->getTagProperty().isVehicleStop()) {
             stops.push_back(routeChild);
         }
     }
@@ -311,7 +306,7 @@ GNERoute::updateGeometry() {
     computePathElement();
     // update child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
-        if (!demandElement->getTagProperty().isStopPerson() && !demandElement->getTagProperty().isStop()) {
+        if (!demandElement->getTagProperty().isVehicleStop()) {
             demandElement->updateGeometry();
         }
     }
@@ -365,7 +360,7 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Routes are drawn in drawPartialGL
+    // Routes are drawn in drawJunctionPartialGL
 }
 
 
@@ -405,18 +400,11 @@ GNERoute::computePathElement() {
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // get inspected and front flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                               myNet->getViewNet()->drawDeleteContour(this, this) ||
-                               myNet->getViewNet()->drawSelectContour(this, this) ||
-                               (gPostDrawing.markedRoute == this);
+GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+    if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -429,19 +417,25 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         GUIGeometry routeGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                         geometryDepartPos, geometryEndPos,      // extrem positions
-                                         Position::INVALID, Position::INVALID);  // extra positions
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                         geometryDepartPos,
+                                         Position::INVALID, 
+                                         geometryEndPos,
+                                         Position::INVALID);
         } else if (segment->isFirstSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                         geometryDepartPos, -1,                  // extrem positions
-                                         Position::INVALID, Position::INVALID);  // extra positions
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                         geometryDepartPos,
+                                         Position::INVALID, 
+                                         -1,
+                                         Position::INVALID);
         } else if (segment->isLastSegment()) {
-            routeGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                         -1, geometryEndPos,                     // extrem positions
-                                         Position::INVALID, Position::INVALID);  // extra positions
+            routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                         -1,
+                                         Position::INVALID,
+                                         geometryEndPos,
+                                         Position::INVALID);
         } else {
-            routeGeometry = lane->getLaneGeometry();
+            routeGeometry = segment->getLane()->getLaneGeometry();
         }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
@@ -466,7 +460,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             // Pop name
             GLHelper::popName();
             // check if we have to draw a red line to the next segment
-            if (segment->getNextSegment()) {
+            if (segment->getNextLane()) {
                 // push draw matrix
                 GLHelper::pushMatrix();
                 // Start with the drawing of the area traslating matrix to origin
@@ -474,9 +468,9 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                 // Set red color
                 GLHelper::setColor(RGBColor::RED);
                 // get firstPosition (last position of current lane shape)
-                const Position firstPosition = lane->getLaneShape().back();
+                const Position firstPosition = segment->getLane()->getLaneShape().back();
                 // get lastPosition (first position of next lane shape)
-                const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
+                const Position arrivalPos = segment->getNextLane()->getLaneShape().front();
                 // draw box line
                 GLHelper::drawBoxLine(arrivalPos,
                                       RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
@@ -488,57 +482,43 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-            templateAC->getTagProperty().overRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+            templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : lane->getLaneShape());
+        const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : segment->getLane()->getLaneShape());
         // check if mouse is over element
         mouseWithinGeometry(shape, routeWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
-        // draw marked dotted contour
-        if (gPostDrawing.markedRoute == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::GREEN, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment());
-        }
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    // get inspected and front flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                               (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                               myNet->getViewNet()->drawDeleteContour(this, this) ||
-                               myNet->getViewNet()->drawSelectContour(this, this) ||
-                               (gPostDrawing.markedRoute == this);
+GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            fromLane->getLane2laneConnections().exist(toLane) &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-            myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, fromLane, toLane, myTagProperty.getTag())) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
         const double routeWidth = getExaggeration(s) * (embedded ? s.widthSettings.embeddedRouteWidth : s.widthSettings.routeWidth);
-        // obtain lane2lane geometry
-        const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        // calculate geometry geometry
+        GUIGeometry geometry;
+        if (segment->getPreviousLane() && segment->getNextLane()) {
+            if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
+                geometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
+            } else {
+                geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()});
+            }
+        } else if (segment->getPreviousLane()) {
+            geometry.updateGeometry({segment->getPreviousLane()->getLaneShape().back(), segment->getJunction()->getPositionInView()});
+        } else if (segment->getNextLane()) {
+            geometry.updateGeometry({segment->getJunction()->getPositionInView(), segment->getNextLane()->getLaneShape().back()});
+        }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
@@ -550,7 +530,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // Set color
         GLHelper::setColor(routeColor);
         // draw lane2lane
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), lane2laneGeometry, routeWidth);
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geometry, routeWidth);
         // Pop last matrix
         GLHelper::popMatrix();
         // Pop name
@@ -560,36 +540,14 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-                templateAC->getTagProperty().overRoute() && (lane2laneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // check if mouse is over element
-        mouseWithinGeometry(fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), routeWidth);
-        // inspect contour
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // front contour
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // delete contour
-        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // select contour
-        if (myNet->getViewNet()->drawSelectContour(this, this)) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
-        // green contour
-        if (gPostDrawing.markedRoute == this) {
-            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::GREEN, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                    routeWidth, 1, false, false);
-        }
+        mouseWithinGeometry(geometry.getShape(), routeWidth);
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, geometry.getShape(), routeWidth, 1, false, false,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 

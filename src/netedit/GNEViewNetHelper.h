@@ -110,7 +110,7 @@ enum class DemandEditMode {
     DEMAND_CONTAINERPLAN
 };
 
-/// @brie enum for data edit modes
+/// @brief enum for data edit modes
 enum class DataEditMode {
     /// @brief empty Data mode
     DATA_NONE,
@@ -562,9 +562,12 @@ struct GNEViewNetHelper {
     /// @brief struct used to group all variables related with Supermodes
     struct EditModes {
 
-        /// @brief default constructor
+        /// @brief constructor
         EditModes(GNEViewNet* viewNet);
-
+        
+        /// @brief destructor
+        ~EditModes();
+        
         /// @brief build checkable buttons
         void buildSuperModeButtons();
 
@@ -588,6 +591,15 @@ struct GNEViewNetHelper {
 
         /// @check if current supermode is Data
         bool isCurrentSupermodeData() const;
+
+        /// @brief set view
+        void setView(FXSelector sel);
+
+        /// @brief check if default view is enabled
+        bool isDefaultView() const;
+
+        /// @brief check if default view is enabled
+        bool isJuPedSimView() const;
 
         /// @brief the current supermode
         Supermode currentSupermode;
@@ -613,6 +625,18 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief The netedit views menu
+        FXPopup* myNeteditViewsPopup = nullptr;
+
+        /// @brief The netedit views button
+        MFXMenuButtonTooltip* myNeteditViewsButton = nullptr;
+
+        /// @brief The default view button
+        MFXButtonTooltip* myDefaultViewButton = nullptr;
+
+        /// @brief The jupedsim view button
+        MFXButtonTooltip* myJuPedSimViewButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         EditModes(const EditModes&) = delete;

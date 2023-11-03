@@ -24,6 +24,7 @@
 #include <netedit/GNEReferenceCounter.h>
 
 #include "GNETagProperties.h"
+#include "GNEContour.h"
 
 
 // ===========================================================================
@@ -93,6 +94,37 @@ public:
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
+
+    /// @}
+
+    /// @name Function related with contourdrawing (can be implemented in children)
+    /// @{
+    // check if draw contour
+    bool checkDrawContour() const;
+
+    /// @brief check if draw inspect contour (black/white)
+    bool checkDrawInspectContour() const;
+
+    /// @brief check if draw front contour (green/blue)
+    bool checkDrawFrontContour() const;
+
+    /// @brief check if draw from contour (green)
+    virtual bool checkDrawFromContour() const = 0;
+
+    /// @brief check if draw from contour (magenta)
+    virtual bool checkDrawToContour() const = 0;
+
+    /// @brief check if draw related contour (cyan)
+    virtual bool checkDrawRelatedContour() const = 0;
+
+    /// @brief check if draw over contour (orange)
+    virtual bool checkDrawOverContour() const = 0;
+
+    /// @brief check if draw delete contour (pink/white)
+    virtual bool checkDrawDeleteContour() const = 0;
+
+    /// @brief check if draw select contour (blue)
+    virtual bool checkDrawSelectContour() const = 0;
 
     /// @}
 
@@ -202,6 +234,9 @@ public:
     /// @brief check if this AC is template
     bool isTemplate() const;
 
+    /// @brief get contour
+    const GNEContour &getContour() const;
+
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;
 
@@ -291,6 +326,9 @@ protected:
     /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
 
+    /// @brief variable used for draw contours
+    GNEContour myContour;
+
     /// @brief pointer to net
     GNENet* myNet;
 
@@ -355,8 +393,8 @@ private:
     /// @brief fill person plan rides
     static void fillPersonPlanRides();
 
-    /// @brief fill stopPerson elements
-    static void fillStopPersonElements();
+    /// @brief fill person stop elements
+    static void fillPersonStopElements();
 
     /// @brief fill container elements
     static void fillContainerElements();
@@ -369,6 +407,9 @@ private:
 
     /// @brief fill container stop elements
     static void fillContainerStopElements();
+
+    /// @brief fill common POI attributes
+    static void fillPOIAttributes(SumoXMLTag currentTag);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
@@ -393,6 +434,27 @@ private:
 
     /// @brief fill stop person attributes
     static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool waypoint);
+
+    /// @brief fill plan from-to attribute
+    static void fillPlanParentAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill person trip common attributes
+    static void fillPersonTripCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill walk common attributes
+    static void fillWalkCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill ride common attributes
+    static void fillRideCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill transport common attributes
+    static void fillTransportCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill ride common attributes
+    static void fillTranshipCommonAttributes(SumoXMLTag currentTag);
+
+    /// @brief fill plan stop common attributes
+    static void fillPlanStopCommonAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Data elements
     static void fillDataElements();

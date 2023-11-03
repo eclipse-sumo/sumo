@@ -180,7 +180,7 @@ The optional keepRoute flag is a bitset that influences
 mapping as follows:
 
 - **bit0** (keepRoute = 1 when only this bit is set)
-  - **1**: The vehicle is mapped to the closest edge within it's existing route. 
+  - **1**: The vehicle is mapped to the closest edge within its existing route. 
            If no suitable position is found within 100m   mapping fails with an error.
   - **0**: The vehicle is mapped to the closest edge within the network.
            If that edge does not belong to the original route, the current route is replaced by a new 

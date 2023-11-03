@@ -48,16 +48,13 @@ class GNEJunction;
 // class definitions
 // ===========================================================================
 
-/**
- * @class GNEDemandElement
- * @brief An Element which don't belong to GNENet but has influence in the simulation
- */
 class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement, public GNEDemandElementDistribution {
 
 public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
     friend class GNEDemandElementFlow;
+    friend class GNEDemandElementPlan;
 
     /// @brief enum class for demandElement problems
     enum class Problem {
@@ -146,11 +143,13 @@ public:
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
+
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
 
     /// @brief get color
     virtual const RGBColor& getColor() const = 0;
+
     /// @}
 
     /// @name members and functions relative to write demand elements into XML
@@ -178,6 +177,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -186,6 +186,33 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+    
+    /// @brief get demand element geometry
+    const GUIGeometry &getDemandElementGeometry() const;
+
+    /// @}
+
+    /// @name Function related with contour drawing
+    /// @{
+
+    /// @brief check if draw from contour (green)
+    bool checkDrawFromContour() const;
+
+    /// @brief check if draw from contour (magenta)
+    bool checkDrawToContour() const;
+
+    /// @brief check if draw related contour (cyan)
+    bool checkDrawRelatedContour() const;
+
+    /// @brief check if draw over contour (orange)
+    bool checkDrawOverContour() const;
+
+    /// @brief check if draw delete contour (pink/white)
+    bool checkDrawDeleteContour() const;
+
+    /// @brief check if draw select contour (blue)
+    bool checkDrawSelectContour() const;
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -240,40 +267,25 @@ public:
     /// @brief check if path element is selected
     bool isPathElementSelected() const;
 
-    /**@brief Draws partial object (lane)
+    /**@brief Draws partial object over lane
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] lane GNELane in which draw partial
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment lane segment
+     * @param[in] offsetFront front offset
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
-    /**@brief Draws partial object (junction)
+    /**@brief Draws partial object over junction
      * @param[in] s The settings for the current view (may influence drawing)
-     * @param[in] fromLane from GNELane
-     * @param[in] toLane to GNELane
-     * @param[in] segment PathManager segment (used for segment options)
-     * @param[in] offsetFront extra front offset (used for drawing partial gl above other elements)
+     * @param[in] segment junction segment
+     * @param[in] offsetFront front offset
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
+    virtual void drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const = 0;
 
     /// @brief get first path lane
     virtual GNELane* getFirstPathLane() const = 0;
 
     /// @brief get last path lane
     virtual GNELane* getLastPathLane() const = 0;
-
-    /// @brief get path element depart lane pos
-    double getPathElementDepartValue() const;
-
-    /// @brief get path element depart position
-    Position getPathElementDepartPos() const;
-
-    /// @brief get path element arrival lane pos
-    double getPathElementArrivalValue() const;
-
-    /// @brief get path element arrival position
-    Position getPathElementArrivalPos() const;
 
     /// @}
 
@@ -319,10 +331,8 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
-    /// @}
 
-    /// @brief get personPlan start position
-    const Position getBeginPosition(const double pedestrianDepartPos) const;
+    /// @}
 
     /// @brief get invalid stops
     std::vector<GNEDemandElement*> getInvalidStops() const;
@@ -351,33 +361,6 @@ protected:
 
     /// @brief get route parent (always the second parent demand element)
     GNEDemandElement* getRouteParent() const;
-
-    /// @name Only for person plans
-    /// @{
-    /// @brief check if person plan can be drawn
-    bool drawPersonPlan() const;
-
-    /// @brief check if container plan can be drawn
-    bool drawContainerPlan() const;
-
-    /// @brief draw person plan partial lane
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront,
-                               const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief draw person plan partial junction
-    void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
-                               const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
-
-    /// @brief check if person plan is valid
-    Problem isPersonPlanValid() const;
-
-    /// @brief get person plan problem
-    std::string getPersonPlanProblem() const;
-
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
-
-    /// @}
 
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;

@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, n
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x, netedit.positions.demandElements.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
+                  netedit.positions.demandElements.stopEdge.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopLane.inspect.permitted, "permitA permitB", True)

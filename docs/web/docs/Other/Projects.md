@@ -122,7 +122,7 @@ title: Projects
 
 ### Past Projects
 
-- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://www.cl.cam.ac.uk/research/dtg/www/publications/public/jjd27/ciiHandout.pdf)
+- [Congestion-Aware Vehicular Traffic Routing Using WiFi Hotspots](https://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=F0B31C15E28195C3869E05D0B20B4D70?doi=10.1.1.134.8437&rep=rep1&type=pdf)
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
@@ -132,7 +132,7 @@ title: Projects
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
   publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
-- [Rapid Generation of Realistic Simulation for VANET](https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
+- [Rapid Generation of Realistic Simulation for VANET](http://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!

@@ -133,7 +133,7 @@ class Node:
         if possProhibitorIndex < 0 or possProhibitedIndex < 0:
             return False
         ps = self._prohibits[possProhibitedIndex]
-        return ps[-(possProhibitorIndex - 1)] == '1'
+        return ps[-(possProhibitorIndex + 1)] == '1'
 
     def getCoord(self):
         return tuple(self._coord[:2])

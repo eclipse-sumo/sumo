@@ -149,7 +149,7 @@ NIImporter_ArcView::load() {
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
 #if GDAL_VERSION_MAJOR > 2
-    if (myOptions.getBool("shapefile.traditional-axis-mapping")) {
+    if (myOptions.getBool("shapefile.traditional-axis-mapping") || origTransf != nullptr) {
         destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
     }
 #endif

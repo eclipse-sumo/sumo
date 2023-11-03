@@ -1,8 +1,0 @@
-<additionals>
-    <poly id="jps.source_0" type="jupedsim.source" shape="0.00,20.00 10.00,20.00 10.00,10.00 0.00,10.00 0.00,20.00"/>
-    <poly id="jps.source_1" type="jupedsim.source" shape="30.00,20.00 30.00,10.00 20.00,10.00 20.00,20.00 30.00,20.00"/>
-    <poly id="jps.source_2" type="jupedsim.source" shape="50.00,10.00 40.00,10.00 40.00,20.00 50.00,20.00 50.00,10.00"/>
-    <poly id="jps.source_3" type="jupedsim.source" shape="0.00,-20.00 0.00,-10.00 10.00,-10.00 10.00,-20.00 0.00,-20.00"/>
-    <poly id="jps.source_4" type="jupedsim.source" shape="20.00,-10.00 30.00,-10.00 30.00,-20.00 30.00,-20.00 20.00,-20.00"/>
-    <poly id="jps.source_5" type="jupedsim.source" shape="50.00,-10.00 50.00,-20.00 50.00,-20.00 40.00,-20.00 40.00,-10.00"/>
-</additionals>

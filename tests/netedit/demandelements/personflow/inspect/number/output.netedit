@@ -3,11 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 198
-0
-5
-5
-TestFunctions: Clicked over position 804 - 378
+TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 437 - 647
 dummyTerminate
 number
 dummyEnd

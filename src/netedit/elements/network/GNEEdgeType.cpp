@@ -169,6 +169,42 @@ GNEEdgeType::getPositionInView() const {
 }
 
 
+bool
+GNEEdgeType::checkDrawFromContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeType::checkDrawToContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeType::checkDrawRelatedContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeType::checkDrawOverContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeType::checkDrawDeleteContour() const {
+    return false;
+}
+
+
+bool
+GNEEdgeType::checkDrawSelectContour() const {
+    return false;
+}
+
+
 GNEMoveOperation*
 GNEEdgeType::getMoveOperation() {
     return nullptr;
