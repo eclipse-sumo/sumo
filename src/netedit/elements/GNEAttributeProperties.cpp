@@ -444,12 +444,6 @@ GNEAttributeProperties::isDiscrete() const {
 
 
 bool
-GNEAttributeProperties::isVClasses() const {
-    return (myAttributeProperty & VCLASSES) != 0;
-}
-
-
-bool
 GNEAttributeProperties::isExtended() const {
     return (myAttributeProperty & EXTENDED) != 0;
 }
