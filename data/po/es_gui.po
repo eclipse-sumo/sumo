@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-03 13:05+0000\n"
+"PO-Revision-Date: 2023-11-03 15:11+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7355,7 +7355,7 @@ msgstr "El valor positivo del margen de la parada en metros"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1234
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1329
 msgid "Specifies, for which vehicle classes the stopOffset does NOT apply."
-msgstr ""
+msgstr "Especifica para qué clases de vehículos NO aplica el stopOffset."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1245
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:67
