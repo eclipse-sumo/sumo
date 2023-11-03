@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-25 09:34:15 by Eclipse SUMO netedit Version v1_18_0+0511-d8469bdc8ac
+<!-- generated on 2023-11-03 10:17:43 by Eclipse SUMO netedit Version v1_18_0+2379-8b85c254a25
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="r_0" edges="Edge0 Edge1"/>
+    <route id="r_0" edges="Edge0"/>
 </routes>
