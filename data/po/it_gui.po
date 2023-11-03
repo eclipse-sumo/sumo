@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-01 14:17+0000\n"
+"PO-Revision-Date: 2023-11-03 09:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6132,19 +6132,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:52
 msgid "remove '%' key from % '%'"
-msgstr ""
+msgstr "rimuovi chiave '%' da % '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:63
 msgid "change '%' key value from % to %"
-msgstr ""
+msgstr "muta il valore associato alla chiave '%' da % a %"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:118
 msgid "Undo edit distribution in '%'"
-msgstr ""
+msgstr "Annulla modifica distribuzione in '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Distribution.cpp:124
 msgid "Redo edit distribution in '%'"
-msgstr ""
+msgstr "Reimposta modifica distribuzione in '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
@@ -6292,23 +6292,23 @@ msgstr "Reimposta i valori anteriori"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:66
 msgid "Edit allow vClasses"
-msgstr ""
+msgstr "Modifica permesso per classe di veicolo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:223
 msgid "Selection options"
-msgstr ""
+msgstr "Opzioni di selezione"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:227
 msgid "Allow all vehicles"
-msgstr ""
+msgstr "Permetti tutti gli veicoli"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:230
 msgid "Allow only road vehicles"
-msgstr ""
+msgstr "Permetti soltanto veicoli stradali"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:233
 msgid "Allow only rail vehicles"
-msgstr "Soltanto veicoli ferroviari"
+msgstr "Permetti soltanto veicoli ferroviari"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:236
 msgid "Disallow all vehicles"
@@ -7276,6 +7276,8 @@ msgstr "La velocità massima ammessa su questa corsia in m/s"
 msgid ""
 "Lane width for all lanes of this type in meters (used for visualization)"
 msgstr ""
+"Larghezza di corsia in metri per tutte le corsie di questo tipo (utilizzata "
+"per la visualizzazione)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1123
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2766
@@ -7560,7 +7562,7 @@ msgstr "direzione di svolta di questo collegamento (computata)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1543
 msgid "link state for this connection (computed)"
-msgstr ""
+msgstr "Stato di precedenza di questo collegamento (computato)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1553
 msgid "InternalLanes"
@@ -7779,6 +7781,8 @@ msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
 msgstr ""
+"Deve contebere i nomi delle linee di bus che fermano a questa fermata di "
+"contenitori. Questo è utilizzato soltanto nella visualizzazione"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1783
 msgid ""
@@ -7868,23 +7872,26 @@ msgstr "Nome del parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1921
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " Il numero di posti per parcheggiare lungo la strada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
+"Se impostato i veicoli stazioneranno sulla corsia riducendone la capacità"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1941
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1986
 msgid "The width of the road-side parking spaces"
-msgstr ""
+msgstr "La larghezza dei posti parcheggio lungo la strada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1947
 msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
 msgstr ""
+"La lunghezza dei posti parcheggio lungo la strada. Il valore standard viene "
+"determinato da (endPos - startPos) / roadsideCapacity"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1953
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1996
@@ -7892,14 +7899,16 @@ msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
 msgstr ""
+"L'angolo dei posti parcheggio relativo all'angolo della corsia (valori "
+"positivi in senso orario)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1959
 msgid "Enable or disable lefthand position"
-msgstr ""
+msgstr "(Dis)attiva posizione sul lato sinistro"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1971
 msgid "ParkingSpace"
-msgstr ""
+msgstr "Posto di parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1981
 msgid "Name of parking space"
@@ -7907,11 +7916,11 @@ msgstr "Il nome del parcheggio"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1991
 msgid "The length of the road-side parking spaces"
-msgstr ""
+msgstr "La lunghezza dei posti di parcheggio lungo la strada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2001
 msgid "The slope of the road-side parking spaces"
-msgstr ""
+msgstr "La pendenza dei posti di parcheggio lungo la strada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2013
 msgid "E1 InductionLoop"
