@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-01 14:24+0000\n"
+"PO-Revision-Date: 2023-11-03 13:05+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15482,7 +15482,7 @@ msgstr "esperando a que lo lleven"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1125
 msgid "by jammed state"
-msgstr ""
+msgstr "por estado de atasco"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
 msgid "given container/type color"
@@ -15526,11 +15526,11 @@ msgstr "por defecto"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1280
 msgid "by average relative speed"
-msgstr ""
+msgstr "por velocidad relativa promedio"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1307
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "por propósito (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1307
 msgid "normal"
@@ -15543,35 +15543,35 @@ msgstr "interno"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1311
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1393
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "por velocidad permitida (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1318
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1396
 msgid "by current occupancy (streetwise, brutto)"
-msgstr ""
+msgstr "por ocupación actual (por calle, bruto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1321
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1399
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "por velocidad actual (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1402
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "por flujo actual (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1331
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1405
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "por velocidad relativa (por calle)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1338
 msgid "by routing device assumed speed"
-msgstr ""
+msgstr "por velocidad asumida por dispositivo de enrutamiento"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "por segmentos (alternando)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
 msgid "odd"
@@ -15583,7 +15583,7 @@ msgstr "par"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1349
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "por estado de atasco (por segmento)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1349
 msgid "free"
@@ -15599,19 +15599,19 @@ msgstr "atascado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1353
 msgid "by current occupancy (segmentwise, brutto)"
-msgstr ""
+msgstr "por ocupación actual (por segmento, bruto)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1356
 msgid "by current speed (segmentwise)"
-msgstr ""
+msgstr "por velocidad actual (por segmento)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1363
 msgid "by current flow (segmentwise)"
-msgstr ""
+msgstr "por flujo actual (por segmento)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1366
 msgid "by relative speed (segmentwise)"
-msgstr ""
+msgstr "por velocidad relativa (por segmento)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1378
 msgid "no TAZ"
@@ -15624,15 +15624,15 @@ msgstr "modo de datos"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1535
 msgid "by permission code"
-msgstr ""
+msgstr "por código de permiso"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1583
 msgid "by height at segment start"
-msgstr ""
+msgstr "por altura al inicio del segmento"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1597
 msgid "by segment inclination"
-msgstr ""
+msgstr "por inclinación del segmento"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
 msgid "junction bubble"
@@ -15652,11 +15652,11 @@ msgstr "forma personalizada"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1683
 msgid "by origin taz"
-msgstr ""
+msgstr "por zona de análisis de tráfico origen"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1684
 msgid "by destination taz"
-msgstr ""
+msgstr "por zona de análisis de tráfico destino"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2378
 msgid "No color defined for LinkState '%'"
@@ -15961,16 +15961,17 @@ msgstr "Mostrar sub-carriles"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1823
 msgid "Show rails"
-msgstr "Mostrar railes"
+msgstr "Mostrar rieles"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1825
 msgid "Spread bidirectional railways/roads"
-msgstr ""
+msgstr "Dibujar rieles/vías bidireccionales explícitamente"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr ""
+"Hacer visibles ambas aristas direccionales para rieles o vías bidireccionales"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1829
 msgid "Secondary shape"
@@ -16116,11 +16117,11 @@ msgstr "Mostrar conexiones carril a carril"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2053
 msgid "Show link tls index"
-msgstr ""
+msgstr "Mostrar índices de enlaces de semáforo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2054
 msgid "Show link junction index"
-msgstr ""
+msgstr "Mostrar índices de conexiones"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2055
 msgid "Show junction id"
@@ -16272,15 +16273,15 @@ msgstr "Vista 3D"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2344
 msgid "Show TLS link markers"
-msgstr ""
+msgstr "Mostrar marcadores de enlace de semáforo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2347
 msgid "Show domes around TLS models from decals"
-msgstr ""
+msgstr "Mostrar cúpulas alrededor de modelos de semáforo personalizados"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2350
 msgid "Show auto-generated TLS models"
-msgstr ""
+msgstr "Mostrar modelos de semáforo generados automáticamente"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2352
 msgid "Show head-up display"
