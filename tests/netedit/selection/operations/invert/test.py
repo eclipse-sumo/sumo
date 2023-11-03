@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
+netedit.selectionRectangle(referencePosition, 30, 0, 370, 350)
 
 # invert selection to select only extern nodes and delete it
 netedit.selectionInvert()
