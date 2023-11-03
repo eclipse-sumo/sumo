@@ -4,7 +4,7 @@ Warning: 18 total messages of type: Ambiguous railway kilometrage direction for 
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 31 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 36 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
+Warning: 40 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
 Warning: 8 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
@@ -20,7 +20,7 @@ Warning: 3 total messages of type: Ignoring restriction relation '%' with unknow
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
-Warning: 1 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 2 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
 Warning: 10 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 112 total messages of type: No way found for reference '%' in relation '%'
@@ -34,8 +34,8 @@ Warning: 1 total messages of type: Removed % pt stops because they could not be 
 Warning: 8 total messages of type: Removed invalid stop '%' from line '%'.
 Warning: 4 total messages of type: Removing pt stop '%' on non existing edge '%'.
 Warning: 76 total messages of type: The rail crossing '%' does not have any roads.
-Warning: 2 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
-Warning: 11 total messages of type: The traffic light '%' has a high cycle time of %.
+Warning: 3 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
+Warning: 12 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 1 total messages of type: Value of key '%' is not numeric ('%') in edge '%'.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
 Warning: Unequal lengths of bidi lane ':9828800581_0_0' and lane ':9828800581_1_0' (1.93 != 1.91).

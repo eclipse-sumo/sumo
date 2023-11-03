@@ -4,7 +4,7 @@ Warning: 18 total messages of type: Ambiguous railway kilometrage direction for 
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 31 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 36 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
+Warning: 40 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
 Warning: 8 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
@@ -20,7 +20,7 @@ Warning: 3 total messages of type: Ignoring restriction relation '%' with unknow
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
-Warning: 1 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 2 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
 Warning: 10 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
 Warning: 112 total messages of type: No way found for reference '%' in relation '%'
@@ -34,8 +34,8 @@ Warning: 1 total messages of type: Removed % pt stops because they could not be 
 Warning: 8 total messages of type: Removed invalid stop '%' from line '%'.
 Warning: 4 total messages of type: Removing pt stop '%' on non existing edge '%'.
 Warning: 76 total messages of type: The rail crossing '%' does not have any roads.
-Warning: 2 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
-Warning: 11 total messages of type: The traffic light '%' has a high cycle time of %.
+Warning: 3 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
+Warning: 12 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 1 total messages of type: Value of key '%' is not numeric ('%') in edge '%'.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
 Warning: Unequal lengths of bidi lane ':9828800581_0_0' and lane ':9828800581_1_0' (1.93 != 1.91).
@@ -87,24 +87,24 @@ Warning: 54 total messages of type: Found sharp turn with radius % at the % of e
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 76 total messages of type: The rail crossing '%' does not have any roads.
 Warning: 93 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Found sharp turn with radius 8.80 at the start of edge '1218510556'.
+Warning: Found sharp turn with radius 8.80 at the start of edge '1219533557'.
 Warning: Shape for junction '29221595' has distance 26.28 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '11204159490'.
-Warning: Lane '1218514238_1' is not connected from any incoming edge at junction '11290806691'.
+Warning: Lane '1219537250_1' is not connected from any incoming edge at junction '11300052008'.
 Warning: Non-static traffic light '10567769017' does not define variable phase length.
 Warning: Unused state in tlLogic '10567769017', program '0' at tl-index 3
 Warning: 4 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 4 total messages of type: Found sharp turn with radius % at the % of edge '%'.
-Warning: 36 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 40 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 91 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Ambiguity in turnarounds computation at junction '11290806718'.
+Warning: Ambiguity in turnarounds computation at junction '11300052035'.
 Warning: Converting invalid rail_crossing to priority junction '10315385453'.
-Warning: Non-static traffic light '11290806685' does not define variable phase length.
-Warning: Unused state in tlLogic '11290806685', program '0' at tl-index 2
+Warning: Non-static traffic light '11300052002' does not define variable phase length.
+Warning: Unused state in tlLogic '11300052002', program '0' at tl-index 2
 Warning: 3 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 80 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 39 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 43 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 38 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
 Warning! No mapping library found, falling back to tracemapper.
 Warning! Disconnected route '144589' between '169717723#1' and '713576589#0', no path found. Keeping longer part.
@@ -177,7 +177,7 @@ Warning! Fixed connection 271977 29
 Warning! Disconnected route '271977' between '93628049#8' and '150478184#0', no path found. Keeping longer part.
 Warning! Disconnected route '272866' between '150478184#0' and '148811539#1', no path found. Keeping longer part.
 Warning! Disconnected route '272866' between '148811539#1' and '1053166652#0', no path found. Keeping longer part.
-Warning! Fixed connection 274287 60
+Warning! Fixed connection 274287 64
 Warning! Disconnected route '274287' between '150204300#3' and '150478184#0', no path found. Keeping longer part.
-Warning! Fixed connection 77861.trimmed 60
+Warning! Fixed connection 77861.trimmed 64
 Warning! Disconnected route '77861.trimmed' between '150204300#3' and '150478184#0', no path found. Keeping longer part.
