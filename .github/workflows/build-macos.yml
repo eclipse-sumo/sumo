@@ -16,12 +16,12 @@ on:
 
 jobs:
   build:
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        os: [macos-10.15, macos-11]
-#    runs-on: ${{ matrix.os }}
-    runs-on: macos-11
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+    runs-on: ${{ matrix.os }}
+#    runs-on: macos-11
     env:
       CCACHE_COMPILERTYPE: clang
 
