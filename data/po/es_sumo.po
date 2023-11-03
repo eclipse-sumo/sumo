@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-10-24 13:59+0000\n"
+"PO-Revision-Date: 2023-11-03 15:11+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/applications/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1259,11 +1260,11 @@ msgstr ""
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:137
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:603
 msgid "Clearing jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "Despejando atasco en el calibrador '%' en el tiempo=%."
 
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:145
 msgid "Could not clear jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "No se pudo despejar atasco en el calibrador '%' en el tiempo=%."
 
 #: C:\Repos\sumo/src\mesosim\METriggeredCalibrator.cpp:177
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:414
@@ -1278,12 +1279,15 @@ msgstr ""
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
+"Combinar paradas aún no está disponible en meso (vehículo '%', segmento '%')."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:247
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
 msgstr ""
+"El vehículo '%' tiene múltiples paradas en el segmento '%', tiempo=% (el "
+"stop-output se fusionará)."
 
 #: C:\Repos\sumo/src\mesosim\MEVehicle.cpp:370
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1657
@@ -2156,7 +2160,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "The update interval of the JuPedSim simulation (in seconds)"
-msgstr ""
+msgstr "El intervalo de actualización de la simulación JuPedSim (en segundos)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid ""
@@ -2991,7 +2995,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:5627
 msgid "Vehicle '%' skips stop on lane '%' time=%."
-msgstr ""
+msgstr "El vehículo '%' se salta la parada en el carril '%' tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7466
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
@@ -3532,12 +3536,12 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3916
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.geo'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3922
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.geo'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3927
 msgid ""
@@ -3549,11 +3553,14 @@ msgstr ""
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
 msgstr ""
+"Valor no válido '%' para el parámetro de vehículo 'ssm.write-positions'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3949
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.write-"
+"positions'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3954
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3981
@@ -3566,11 +3573,14 @@ msgstr ""
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
 msgstr ""
+"Valor no válido '%' para el parámetro de vehículo 'ssm.write-lane-positions'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3976
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.write-lane-"
+"positions'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3997
 #, c-format
@@ -3597,12 +3607,12 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4043
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.range'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4049
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.range'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4054
 msgid ""
@@ -3613,12 +3623,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4070
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.mdrac.prt'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4076
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.mdrac.prt'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4081
 msgid ""
@@ -3629,12 +3640,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4099
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.extratime'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4105
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.extratime'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4110
 msgid ""
@@ -3652,12 +3664,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4130
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.trajectories'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4136
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.trajectories'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4141
 msgid ""
@@ -3680,12 +3693,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4198
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.thresholds'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4204
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.thresholds'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4209
 msgid ""
@@ -3898,12 +3912,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:200
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.measures'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:206
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'"
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.measures'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:220
 msgid ""
@@ -4285,7 +4300,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:111
 msgid "Error while adding an agent: %"
-msgstr ""
+msgstr "Error al agregar un agente: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:124
 msgid "Error while adding waypoint for an agent: %"
@@ -4310,7 +4325,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:264
 msgid "Error during iteration %: %"
-msgstr ""
+msgstr "Error durante la iteración %: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:674
 #, c-format
@@ -7152,7 +7167,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
 msgid "Could not add add node '%'"
-msgstr ""
+msgstr "No se pudo agregar el nodo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:271
@@ -7204,7 +7219,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "No se pudo encontrar la arista de semáforo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
@@ -7216,30 +7231,34 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr ""
+msgstr "Ignorando maniobra prohibida temporalmente (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:756
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
-msgstr ""
+msgstr "Ignorando prohibición desde la arista inicial desconocida '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:761
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
-msgstr ""
+msgstr "Ignorando prohibición desde la arista final desconocida '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
 msgstr ""
+"Ignorando el índice de carril no válido '%' en conexión desde la arista '%' "
+"con % carriles."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
 msgstr ""
+"Ignorando el índice de carril no válido '%' en conexión hacia la arista '%' "
+"con % carriles"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
-msgstr ""
+msgstr "No se pudo configurar la conexión cargada desde '%' hacia '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
@@ -7490,7 +7509,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:241
 msgid "Discarding way '%' because it has only % node(s)"
-msgstr ""
+msgstr "Descartando el camino '%' porque solo tiene % nodo(s)"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:404
 msgid "Could not insert junction '%'."
@@ -7500,6 +7519,7 @@ msgstr ""
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
+"Descartando la arista '%' que conecta dos nodos idénticos sin geometría."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:578
 msgid "New value for oneway found: %"
@@ -7507,11 +7527,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:613
 msgid "Skipping edge '%' because it has zero lanes."
-msgstr ""
+msgstr "Saltando la arista '%' porque tiene cero carriles."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:633
 msgid "Skipping edge '%' because it has speed %."
-msgstr ""
+msgstr "Saltando la arista '%' porque tiene velocidad %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:753
 msgid ""
@@ -7540,16 +7560,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:948
 msgid "Value of key '%' is invalid ('%') in node '%'."
-msgstr ""
+msgstr "El valor de la clave '%' no es válido ('%') en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:953
 msgid "Value of key '%' is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "El valor de la clave '%' no es numérico ('%') en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1098
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
-msgstr ""
+msgstr "La información de geometría referenciada (ref='%') no es conocida"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1340
 #, c-format
@@ -7564,7 +7584,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1379
 msgid "Using minimum lane number from list (%) for edge '%'."
-msgstr ""
+msgstr "Usando el número mínimo de carriles de la lista (%) para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1381
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1385
@@ -7573,11 +7593,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1431
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1441
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
-msgstr ""
+msgstr "El valor de la clave '%' no es numérico ('%') en la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1438
 msgid "Ignoring track count % for edge '%'."
-msgstr ""
+msgstr "Ignorando el recuento de pistas % para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1609
 msgid "Unknown lane use specifier '%' ignored for way '%'"
@@ -7585,31 +7605,33 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1718
 msgid "No node found for reference '%' in relation '%'."
-msgstr ""
+msgstr "No se encontró ningún nodo para la referencia '%' en la relación '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1780
 msgid "Found unknown restriction type '%' in relation '%'"
-msgstr ""
+msgstr "Se encontró tipo de restricción desconocida '%' en relación '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1818
 msgid "Invalid color value '%' in relation %"
-msgstr ""
+msgstr "Valor de color no válido '%' en relación %"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1836
 msgid "No way found for reference '%' in relation '%'"
-msgstr ""
+msgstr "No se encontró camino para la referencia '%' en relación '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1848
 msgid "Ignoring restriction relation '%' with unknown type."
-msgstr ""
+msgstr "Ignorando la relación de restricción '%' con tipo desconocido."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1852
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr ""
+"Ignorando la relación de restricción '%' con camino de salida desconocido."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1856
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr ""
+"Ignorando la relación de restricción '%' con camino destino desconocido."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1860
 msgid "Ignoring restriction relation '%' with unknown via."
@@ -7738,7 +7760,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:294
 #, c-format
 msgid "Edge '%' in prohibition was not built."
-msgstr ""
+msgstr "No se construyó la arista '%' en prohibición."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:345
 #, c-format
@@ -7754,7 +7776,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:520
 #, c-format
 msgid "Edge '%' occurred at least twice in the input."
-msgstr ""
+msgstr "La arista '%' aparece al menos dos veces en el archivo de entrada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:542
 msgid "Unmatched closing tag for tl-logic."
@@ -7792,7 +7814,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:742
 #, c-format
 msgid "Junction '%' occurred at least twice in the input."
-msgstr ""
+msgstr "El cruce '%' aparece al menos dos veces en el archivo de entrada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:839
 msgid "Invalid lane index '%' for connection from '%'."
@@ -7970,7 +7992,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
-msgstr ""
+msgstr "Ignorando el lugar de parada '%' sin ID de arista"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1164
 msgid "Ignoring stopping place '%' without node information"
@@ -7985,19 +8007,24 @@ msgid ""
 "Could not find edge with from-node '%' and base id '%' for stopping place "
 "'%'"
 msgstr ""
+"No se pudo encontrar la arista con el nodo de origen '%' y el ID de base '%' "
+"para el lugar de parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1179
 msgid "Unexpected from-node '%' for edge '%' of stopping place '%'"
 msgstr ""
+"Nodo de origen inesperado '%' para la arista '%' del lugar de parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1185
 msgid ""
 "Could not find edge with to-node '%' and base id '%' for stopping place '%'"
 msgstr ""
+"No se pudo encontrar la arista con el nodo de destino '%' y el ID de base "
+"'%' para el lugar de parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1190
 msgid "Unexpected to-node '%' for edge '%' of stopping place '%'"
-msgstr ""
+msgstr "Nodo destino inesperado '%' para la arista '%' del lugar de parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1274
 #, c-format
@@ -8107,11 +8134,15 @@ msgstr ""
 msgid ""
 "Target edge '%' is not connected with '%'; the connection cannot be reset."
 msgstr ""
+"La arista objetivo '%' no está conectada con '%'; la conexión no se puede "
+"restablecer."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:99
 msgid ""
 "Edge '%' has no connection to lane '%'; the connection cannot be reset."
 msgstr ""
+"La arista '%' no está conectada al carril '%'; la conexión no se puede "
+"restablecer."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:267
 msgid "Unable to project shape for connection from edge '%' to edge '%'."
@@ -8119,7 +8150,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
-msgstr ""
+msgstr "No se pudo configurar la conexión cargada del carril '%' al carril '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:347
 #, c-format
@@ -8257,7 +8288,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:341
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr ""
+msgstr "Cambiando tipo de semáforo de '%' a '%' en '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:153
 #, c-format
@@ -9860,11 +9891,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr ""
+msgstr "Se recibió otra señal de interrupción, salida forzada."
 
 #: C:\Repos\sumo/src\sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
-msgstr ""
+msgstr "Se recibió una señal de interrupción, intentando salir suavemente."
 
 #: C:\Repos\sumo/src\sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
@@ -10565,6 +10596,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
+"No se pudo generar % con ID '%' en netedit; Número distinto de valores de "
+"distribución y probabilidades."
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:471
 msgid ""
