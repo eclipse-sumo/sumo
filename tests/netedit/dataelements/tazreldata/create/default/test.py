@@ -41,8 +41,8 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create TAZRelData
-netedit.leftClick(referencePosition, 180, 180)
-netedit.leftClick(referencePosition, 460, 180)
+netedit.leftClick(referencePosition, 300, 180)
+netedit.leftClick(referencePosition, 700, 180)
 netedit.typeEnter()
 
 # Check undo redo
