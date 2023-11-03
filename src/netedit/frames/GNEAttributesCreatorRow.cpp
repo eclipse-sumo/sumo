@@ -213,7 +213,7 @@ GNEAttributesCreatorRow::refreshRow() {
             myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeColorButton->killFocus();
             myAttributeColorButton->show();
-        } else if (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) {
+        } else if (myAttrProperties.isSVCPermission() && (myAttrProperties.getAttr() != SUMO_ATTR_DISALLOW)) {
             // show allow button
             myAttributeAllowButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeAllowButton->killFocus();

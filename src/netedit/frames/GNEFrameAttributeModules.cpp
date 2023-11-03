@@ -530,11 +530,11 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         if (disableRow) {
             myAttributeCheckButton->disable();
         }
-    } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
+    } else if (myACAttr.isSVCPermission() && (myACAttr.getAttr() != SUMO_ATTR_DISALLOW)) {
         myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_ALLOW, GUIDesignButtonAttribute);
         // set tip text
-        myAttributeButton->setTipText(TL("Open dialog for editing allowed vClasses"));
-        myAttributeButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
+        myAttributeButton->setTipText(TL("Open dialog for editing vClasses"));
+        myAttributeButton->setHelpText(TL("Open dialog for editing vClasses"));
         // check if disable
         if (disableRow) {
             myAttributeButton->disable();
