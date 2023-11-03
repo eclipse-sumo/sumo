@@ -61,7 +61,7 @@ netedit.inspectMode()
 # inspect person
 netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
                   netedit.positions.demandElements.person.y)
-                  
+
 # now inspect plan top
 netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
                   netedit.positions.demandElements.planTopEdge.y)

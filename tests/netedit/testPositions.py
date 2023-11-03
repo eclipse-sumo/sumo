@@ -123,7 +123,7 @@ class demandElements:
 
     class planTopBusStop:
         x = 750
-        y = 33        
+        y = 33
 
     class planTopRide:
         x = 750
@@ -131,7 +131,7 @@ class demandElements:
 
     class planTop:
         x = 720
-        y = 3        
+        y = 3
 
     # click over single trips, flows, etc... over edges
     class singleVehicleEdge:

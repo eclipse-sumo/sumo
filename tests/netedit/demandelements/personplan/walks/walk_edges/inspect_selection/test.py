@@ -42,7 +42,7 @@ netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
- 
+
 # now inspect plan top
 netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
                   netedit.positions.demandElements.planTopEdge.y)
