@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-08-07 08:23:36 by Eclipse SUMO netedit Version v1_18_0+0772-f71935faf04
+<!-- generated on 2023-11-03 10:51:45 by Eclipse SUMO netedit Version v1_18_0+2379-8b85c254a25
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- VTypes -->
     <vType id="bicycle" vClass="bicycle"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" fromTaz="taz_green" toTaz="taz_green" end="3600.00" vehsPerHour="1800"/>
+    <flow id="f_0" type="bicycle" begin="0.00" fromTaz="taz_green" toTaz="taz_green" end="3600.00" vehsPerHour="1800"/>
 </routes>
