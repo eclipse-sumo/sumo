@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-24 08:53:50 by Eclipse SUMO netedit Version v1_16_0+2323-f17b5f3d5ae
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-11-03 12:37:01 by Eclipse SUMO netedit Version v1_18_0+2392-6057551e482
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/net.net.xml"/>
     </output>
 
     <processing>
@@ -32,17 +32,21 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Apr085300.15436\netedit.gui\netelements\junctions\roundabouts\basic\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.03Nov123046.10256/netedit.gui/netelements/junctions/contextual_menu/roundabouts/basic/log.txt"/>
     </report>
 
 </configuration>
@@ -57,9 +61,6 @@
     </edge>
     <edge id=":J5_1" function="internal">
         <lane id=":J5_1_0" index="0" speed="6.12" length="5.50" shape="3.85,4.14 2.86,4.78 2.16,5.77 1.74,7.12 1.60,8.81"/>
-    </edge>
-    <edge id=":J5_2" function="internal">
-        <lane id=":J5_2_0" index="0" speed="6.38" length="8.65" shape="3.85,4.14 0.83,5.18 -1.49,5.50 -3.12,5.12 -4.06,4.03"/>
     </edge>
     <edge id=":J6_0" function="internal">
         <lane id=":J6_0_0" index="0" speed="13.89" length="5.50" shape="8.81,1.60 7.28,1.84 6.35,2.45 5.45,3.25 4.03,4.06"/>
@@ -130,10 +131,9 @@
     <junction id="J2" type="dead_end" x="-50.00" y="0.00" incLanes="E10_0" intLanes="" shape="-50.00,0.00 -50.00,3.20 -50.00,0.00"/>
     <junction id="J3" type="dead_end" x="0.00" y="-50.00" incLanes="E20_0" intLanes="" shape="0.00,-50.00 -3.20,-50.00 0.00,-50.00"/>
     <junction id="J4" type="dead_end" x="0.00" y="50.00" incLanes="E30_0" intLanes="" shape="0.00,50.00 3.20,50.00 0.00,50.00"/>
-    <junction id="J5" type="priority" x="0.00" y="4.00" incLanes="-E3_0 E0_0" intLanes=":J5_0_0 :J5_1_0 :J5_2_0" shape="-3.20,8.81 3.20,8.81 3.59,7.26 4.00,6.79 4.48,6.33 4.98,5.75 5.44,4.89 3.50,1.21 2.33,3.56 1.17,4.97 0.00,5.44 -1.17,4.97 -2.33,3.56 -3.50,1.21 -5.44,4.89 -4.48,6.33 -4.00,6.79 -3.59,7.26 -3.31,7.88">
-        <request index="0" response="100" foes="100" cont="0"/>
-        <request index="1" response="000" foes="000" cont="0"/>
-        <request index="2" response="000" foes="001" cont="0"/>
+    <junction id="J5" type="priority" x="0.00" y="4.00" incLanes="-E3_0 E0_0" intLanes=":J5_0_0 :J5_1_0" shape="-3.20,8.81 3.20,8.81 3.59,7.26 4.00,6.79 4.48,6.33 4.98,5.75 5.44,4.89 3.50,1.21 2.33,3.56 1.17,4.97 0.00,5.44 -1.17,4.97 -2.33,3.56 -3.50,1.21 -5.44,4.89 -4.48,6.33 -4.00,6.79 -3.59,7.26 -3.31,7.88">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="J6" type="priority" x="4.00" y="0.00" incLanes="-E0_0 E1_0" intLanes=":J6_0_0 :J6_1_0 :J6_2_0" shape="8.81,3.20 8.81,-3.20 7.26,-3.59 6.79,-4.00 6.33,-4.48 5.75,-4.98 4.89,-5.44 1.21,-3.50 3.56,-2.33 4.97,-1.17 5.44,0.00 4.97,1.17 3.56,2.33 1.21,3.50 4.89,5.44 6.33,4.48 6.79,4.00 7.26,3.59 7.88,3.31">
         <request index="0" response="100" foes="100" cont="0"/>
@@ -154,9 +154,8 @@
     <connection from="-E0" to="E0" fromLane="0" toLane="0" via=":J6_0_0" dir="r" state="m" visibility="9.00"/>
     <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":J8_2_0" dir="r" state="m" visibility="9.00"/>
     <connection from="-E2" to="E1" fromLane="0" toLane="0" via=":J7_0_0" dir="r" state="m" visibility="9.00"/>
-    <connection from="-E3" to="E3" fromLane="0" toLane="0" via=":J5_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="-E3" to="E3" fromLane="0" toLane="0" via=":J5_0_0" dir="r" state="M"/>
     <connection from="E0" to="E30" fromLane="0" toLane="0" via=":J5_1_0" dir="r" state="M"/>
-    <connection from="E0" to="E3" fromLane="0" toLane="0" via=":J5_2_0" dir="s" state="M"/>
     <connection from="E1" to="E00" fromLane="0" toLane="0" via=":J6_1_0" dir="r" state="M"/>
     <connection from="E1" to="E0" fromLane="0" toLane="0" via=":J6_2_0" dir="s" state="M"/>
     <connection from="E2" to="E20" fromLane="0" toLane="0" via=":J7_1_0" dir="r" state="M"/>
@@ -166,7 +165,6 @@
 
     <connection from=":J5_0" to="E3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":J5_1" to="E30" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":J5_2" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J6_0" to="E0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":J6_1" to="E00" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":J6_2" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
