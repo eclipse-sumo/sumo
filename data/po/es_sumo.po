@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-03 15:11+0000\n"
+"PO-Revision-Date: 2023-11-04 16:33+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3519,13 +3519,14 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4159
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.measures'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3888
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4165
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.measures'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3893
 msgid ""
@@ -3585,12 +3586,14 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3997
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo 'ssm.conflict-order'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4003
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
 msgstr ""
+"Valor no válido '%' para el parámetro de tipo de vehículo 'ssm.conflict-"
+"order'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4008
 msgid ""
@@ -4517,11 +4520,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:607
 msgid "Invalid value '%' for vehicle parameter '%'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de vehículo '%'"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:615
 msgid "Invalid value '%' for vType parameter '%'"
-msgstr ""
+msgstr "Valor no válido '%' para el parámetro de tipo de vehículo '%'"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:785
 #, c-format
