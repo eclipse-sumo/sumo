@@ -1278,7 +1278,7 @@ class poi:
         height = 14
         imgFile = 15
         relativePath = 16
-        angle = 18
+        angle = 17
 
     class inspect:
         id = 1
@@ -1294,7 +1294,7 @@ class poi:
         imgFile = 12
         relativePath = 13
         angle = 14
-        parameters = 18
+        parameters = 17
 
     class inspectSelection:
         colorButton = 1
