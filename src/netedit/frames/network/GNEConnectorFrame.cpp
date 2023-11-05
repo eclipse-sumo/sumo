@@ -92,10 +92,10 @@ GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnector
 
     // Create "Cancel" button
     myCancelButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Cancel"), "", TL("Discard connection modifications (Esc)"),
-                                  GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+                     GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
     mySaveButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("OK"), "", TL("Save connection modifications (Enter)"),
-                                GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
+                   GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
 
     // Create checkbox for protect routes
     myProtectRoutesCheckBox = new FXCheckButton(getCollapsableFrame(), TL("Protect routes"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -157,22 +157,22 @@ GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame*
 
     // Create "Select Dead Ends" button
     mySelectDeadEndsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Dead Ends"), "", TL("Selects all lanes that have no outgoing connection (clears previous selection)"),
-                                          0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
+                             0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
     // Create "Select Dead Starts" button
     mySelectDeadStartsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Dead Starts"), "", TL("Selects all lanes that have no incoming connection (clears previous selection)"),
-                                            0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
+                               0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
     // Create "Select Conflicts" button
     mySelectConflictsButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Conflicts"), "", TL("Selects all lanes with more than one incoming connection from the same edge (clears previous selection)"),
-                                           0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
+                              0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
     mySelectPassingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Select Passing"), "", TL("Selects all lanes with a connection that has the 'pass' attribute set"),
-                                         0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
+                            0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
     myClearSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear Selected"), "", TL("Clears all connections of all selected objects"),
-                                         0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
+                            0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Reset Selected" button
     myResetSelectedButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Reset Selected"), "", TL("Recomputes connections at all selected junctions"),
-                                         0, this, MID_CHOOSEN_RESET, GUIDesignButton);
+                            0, this, MID_CHOOSEN_RESET, GUIDesignButton);
 }
 
 

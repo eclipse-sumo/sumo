@@ -42,28 +42,28 @@
 
 // Map
 FXDEFMAP(MFXListIcon) MFXListIconMap[] = {
-    FXMAPFUNC(SEL_PAINT,                0,                              MFXListIcon::onPaint), 
-    FXMAPFUNC(SEL_ENTER,                0,                              MFXListIcon::onEnter), 
-    FXMAPFUNC(SEL_LEAVE,                0,                              MFXListIcon::onLeave), 
-    FXMAPFUNC(SEL_MOTION,               0,                              MFXListIcon::onMotion), 
-    FXMAPFUNC(SEL_TIMEOUT,              FXWindow::ID_AUTOSCROLL,        MFXListIcon::onAutoScroll), 
-    FXMAPFUNC(SEL_TIMEOUT,              MFXListIcon::ID_TIPTIMER,       MFXListIcon::onTipTimer), 
-    FXMAPFUNC(SEL_TIMEOUT,              MFXListIcon::ID_LOOKUPTIMER,    MFXListIcon::onLookupTimer), 
-    FXMAPFUNC(SEL_UNGRABBED,            0,                              MFXListIcon::onUngrabbed), 
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                              MFXListIcon::onLeftBtnPress), 
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                              MFXListIcon::onLeftBtnRelease), 
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                              MFXListIcon::onRightBtnPress), 
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                              MFXListIcon::onRightBtnRelease), 
-    FXMAPFUNC(SEL_KEYPRESS,             0,                              MFXListIcon::onKeyPress), 
-    FXMAPFUNC(SEL_KEYRELEASE,           0,                              MFXListIcon::onKeyRelease), 
-    FXMAPFUNC(SEL_FOCUSIN,              0,                              MFXListIcon::onFocusIn), 
-    FXMAPFUNC(SEL_FOCUSOUT,             0,                              MFXListIcon::onFocusOut), 
-    FXMAPFUNC(SEL_CLICKED,              0,                              MFXListIcon::onClicked), 
-    FXMAPFUNC(SEL_DOUBLECLICKED,        0,                              MFXListIcon::onDoubleClicked), 
-    FXMAPFUNC(SEL_TRIPLECLICKED,        0,                              MFXListIcon::onTripleClicked), 
-    FXMAPFUNC(SEL_COMMAND,              0,                              MFXListIcon::onCommand), 
-    FXMAPFUNC(SEL_QUERY_TIP,            0,                              MFXListIcon::onQueryTip), 
-    FXMAPFUNC(SEL_QUERY_HELP,           0,                              MFXListIcon::onQueryHelp), 
+    FXMAPFUNC(SEL_PAINT,                0,                              MFXListIcon::onPaint),
+    FXMAPFUNC(SEL_ENTER,                0,                              MFXListIcon::onEnter),
+    FXMAPFUNC(SEL_LEAVE,                0,                              MFXListIcon::onLeave),
+    FXMAPFUNC(SEL_MOTION,               0,                              MFXListIcon::onMotion),
+    FXMAPFUNC(SEL_TIMEOUT,              FXWindow::ID_AUTOSCROLL,        MFXListIcon::onAutoScroll),
+    FXMAPFUNC(SEL_TIMEOUT,              MFXListIcon::ID_TIPTIMER,       MFXListIcon::onTipTimer),
+    FXMAPFUNC(SEL_TIMEOUT,              MFXListIcon::ID_LOOKUPTIMER,    MFXListIcon::onLookupTimer),
+    FXMAPFUNC(SEL_UNGRABBED,            0,                              MFXListIcon::onUngrabbed),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,                              MFXListIcon::onLeftBtnPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,                              MFXListIcon::onLeftBtnRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,                              MFXListIcon::onRightBtnPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,                              MFXListIcon::onRightBtnRelease),
+    FXMAPFUNC(SEL_KEYPRESS,             0,                              MFXListIcon::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,                              MFXListIcon::onKeyRelease),
+    FXMAPFUNC(SEL_FOCUSIN,              0,                              MFXListIcon::onFocusIn),
+    FXMAPFUNC(SEL_FOCUSOUT,             0,                              MFXListIcon::onFocusOut),
+    FXMAPFUNC(SEL_CLICKED,              0,                              MFXListIcon::onClicked),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        0,                              MFXListIcon::onDoubleClicked),
+    FXMAPFUNC(SEL_TRIPLECLICKED,        0,                              MFXListIcon::onTripleClicked),
+    FXMAPFUNC(SEL_COMMAND,              0,                              MFXListIcon::onCommand),
+    FXMAPFUNC(SEL_QUERY_TIP,            0,                              MFXListIcon::onQueryTip),
+    FXMAPFUNC(SEL_QUERY_HELP,           0,                              MFXListIcon::onQueryHelp),
 };
 
 
@@ -74,7 +74,7 @@ FXIMPLEMENT(MFXListIcon, FXScrollArea, MFXListIconMap, ARRAYNUMBER(MFXListIconMa
 // member method definitions
 // ===========================================================================
 
-MFXListIcon::MFXListIcon(FXComposite *p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
+MFXListIcon::MFXListIcon(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h):
     FXScrollArea(p, opts, x, y, w, h) {
     flags |= FLAG_ENABLED;
     target = tgt;
@@ -90,14 +90,14 @@ MFXListIcon::~MFXListIcon() {
     getApp()->removeTimeout(this, ID_TIPTIMER);
     getApp()->removeTimeout(this, ID_LOOKUPTIMER);
     clearItems(FALSE);
-    font = (FXFont*)-1L;
+    font = (FXFont*) - 1L;
 }
 
 
 void
 MFXListIcon::create() {
     FXScrollArea::create();
-    for (const auto &item : items) {
+    for (const auto& item : items) {
         item->create();
     }
     font->create();
@@ -107,7 +107,7 @@ MFXListIcon::create() {
 void
 MFXListIcon::detach() {
     FXScrollArea::detach();
-    for (const auto &item : items) {
+    for (const auto& item : items) {
         item->detach();
     }
     font->detach();
@@ -195,7 +195,7 @@ MFXListIcon::layout() {
     // Determine line size for scroll bars
     if (0 < (int)itemFiltered.size()) {
         vertical->setLine(itemFiltered[0]->getHeight(this));
-        horizontal->setLine(itemFiltered[0]->getWidth(this)/10);
+        horizontal->setLine(itemFiltered[0]->getWidth(this) / 10);
     }
     update();
     // We were supposed to make this item viewable
@@ -511,7 +511,7 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
     if (target && target->tryHandle(this, FXSEL(SEL_KEYPRESS, message), ptr)) {
         return 1;
     }
-    switch(event->code) {
+    switch (event->code) {
         case KEY_Control_L:
         case KEY_Control_R:
         case KEY_Shift_L:
@@ -547,7 +547,8 @@ MFXListIcon::onKeyPress(FXObject*, FXSelector, void* ptr) {
         case KEY_End:
         case KEY_KP_End:
             index = (int)itemFiltered.size() - 1;
-            hop: lookup = FXString::null;
+hop:
+            lookup = FXString::null;
             // continue depending of filter
             if (filter.empty()) {
                 if (0 <= index && index < (int)items.size()) {
@@ -600,7 +601,7 @@ MFXListIcon::onKeyRelease(FXObject*, FXSelector, void* ptr) {
     if (target && target->tryHandle(this, FXSEL(SEL_KEYRELEASE, message), ptr)) {
         return 1;
     }
-    switch(event->code) {
+    switch (event->code) {
         case KEY_Shift_L:
         case KEY_Shift_R:
         case KEY_Control_L:
@@ -636,7 +637,7 @@ MFXListIcon::onMotion(FXObject*, FXSelector, void* ptr) {
 
     // Right mouse scrolling
     if (flags & FLAG_SCROLLING) {
-        setPosition(event->win_x-grabx, event->win_y-graby);
+        setPosition(event->win_x - grabx, event->win_y - graby);
         return 1;
     }
 
@@ -736,7 +737,7 @@ MFXListIcon::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
         ungrab();
         stopAutoScroll();
         flags |= FLAG_UPDATE;
-        flags &= ~(FLAG_PRESSED|FLAG_TRYDRAG|FLAG_DODRAG);
+        flags &= ~(FLAG_PRESSED | FLAG_TRYDRAG | FLAG_DODRAG);
         // First chance callback
         if (target && target->tryHandle(this, FXSEL(SEL_LEFTBUTTONRELEASE, message), ptr)) {
             return 1;
@@ -800,11 +801,13 @@ MFXListIcon::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
 long
 MFXListIcon::onRightBtnRelease(FXObject*, FXSelector, void* ptr) {
     if (isEnabled()) {
-    ungrab();
-    flags &= ~FLAG_SCROLLING;
-    flags |= FLAG_UPDATE;
-    if (target && target->tryHandle(this, FXSEL(SEL_RIGHTBUTTONRELEASE, message), ptr)) return 1;
-    return 1;
+        ungrab();
+        flags &= ~FLAG_SCROLLING;
+        flags |= FLAG_UPDATE;
+        if (target && target->tryHandle(this, FXSEL(SEL_RIGHTBUTTONRELEASE, message), ptr)) {
+            return 1;
+        }
+        return 1;
     }
     return 0;
 }
@@ -813,7 +816,7 @@ MFXListIcon::onRightBtnRelease(FXObject*, FXSelector, void* ptr) {
 long
 MFXListIcon::onUngrabbed(FXObject* sender, FXSelector sel, void* ptr) {
     FXScrollArea::onUngrabbed(sender, sel, ptr);
-    flags &= ~(FLAG_DODRAG|FLAG_TRYDRAG|FLAG_PRESSED|FLAG_CHANGED|FLAG_SCROLLING);
+    flags &= ~(FLAG_DODRAG | FLAG_TRYDRAG | FLAG_PRESSED | FLAG_CHANGED | FLAG_SCROLLING);
     flags |= FLAG_UPDATE;
     stopAutoScroll();
     return 1;
@@ -822,25 +825,25 @@ MFXListIcon::onUngrabbed(FXObject* sender, FXSelector sel, void* ptr) {
 
 long
 MFXListIcon::onCommand(FXObject*, FXSelector, void* ptr) {
-    return target? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
 }
 
 
 long
 MFXListIcon::onClicked(FXObject*, FXSelector, void* ptr) {
-    return target? target->tryHandle(this, FXSEL(SEL_CLICKED, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_CLICKED, message), ptr) : 0;
 }
 
 
 long
 MFXListIcon::onDoubleClicked(FXObject*, FXSelector, void* ptr) {
-    return target? target->tryHandle(this, FXSEL(SEL_DOUBLECLICKED, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_DOUBLECLICKED, message), ptr) : 0;
 }
 
 
 long
 MFXListIcon::onTripleClicked(FXObject*, FXSelector, void* ptr) {
-    return target? target->tryHandle(this, FXSEL(SEL_TRIPLECLICKED, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_TRIPLECLICKED, message), ptr) : 0;
 }
 
 
@@ -967,14 +970,14 @@ MFXListIcon::setItem(FXint index, MFXListIconItem* item, FXbool notify) {
 
 
 FXint
-MFXListIcon::editItem(FXint index, const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
+MFXListIcon::editItem(FXint index, const FXString& text, FXIcon* icon, void* ptr, FXbool notify) {
     return setItem(index, createItem(text, icon, ptr), notify);
 }
 
 
 FXint
 MFXListIcon::insertItem(FXint index, MFXListIconItem* item, FXbool notify) {
-    MFXListIconItem *old = currentItem;
+    MFXListIconItem* old = currentItem;
     // Must have item
     if (!item) {
         fxerror("%s::insertItem: item is NULL.\n", getClassName());
@@ -1024,7 +1027,7 @@ MFXListIcon::insertItem(FXint index, MFXListIconItem* item, FXbool notify) {
 
 
 FXint
-MFXListIcon::insertItem(FXint index, const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
+MFXListIcon::insertItem(FXint index, const FXString& text, FXIcon* icon, void* ptr, FXbool notify) {
     return insertItem(index, createItem(text, icon, ptr), notify);
 }
 
@@ -1036,21 +1039,21 @@ MFXListIcon::appendItem(MFXListIconItem* item, FXbool notify) {
 
 
 FXint
-MFXListIcon::appendItem(const FXString &text, FXIcon *icon, void* ptr, FXbool notify) {
+MFXListIcon::appendItem(const FXString& text, FXIcon* icon, void* ptr, FXbool notify) {
     return insertItem((int)items.size(), createItem(text, icon, ptr), notify);
 }
 
 
 void
 MFXListIcon::removeItem(FXint index, FXbool notify) {
-    MFXListIconItem *old = currentItem;
+    MFXListIconItem* old = currentItem;
     // Must be in range
     if ((index < 0) || ((int)items.size() <= index)) {
-        fxerror("%s::removeItem: index out of range.\n",getClassName());
+        fxerror("%s::removeItem: index out of range.\n", getClassName());
     }
     // Notify item will be deleted
-    if (notify && target){
-        target->tryHandle(this,FXSEL(SEL_DELETED,message),(void*)(FXival)index);
+    if (notify && target) {
+        target->tryHandle(this, FXSEL(SEL_DELETED, message), (void*)(FXival)index);
     }
     // Delete item
     delete items[index];
@@ -1096,7 +1099,7 @@ MFXListIcon::removeItem(FXint index, FXbool notify) {
 void
 MFXListIcon::clearItems(FXbool notify) {
     // Delete items
-    for (FXint index = (int)items.size()-1; 0 <= index; index--) {
+    for (FXint index = (int)items.size() - 1; 0 <= index; index--) {
         if (notify && target) {
             target->tryHandle(this, FXSEL(SEL_DELETED, message), (void*)(FXival)index);
         }
@@ -1110,7 +1113,7 @@ MFXListIcon::clearItems(FXbool notify) {
     // Current item has changed
     if (currentItem) {
         if (notify && target) {
-            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival)-1);
+            target->tryHandle(this, FXSEL(SEL_CHANGED, message), (void*)(FXival) - 1);
         }
         currentItem = nullptr;
     }
@@ -1121,7 +1124,7 @@ MFXListIcon::clearItems(FXbool notify) {
 
 
 void
-MFXListIcon::setFilter(const FXString &value, FXLabel *label) {
+MFXListIcon::setFilter(const FXString& value, FXLabel* label) {
     filter = value;
     // update item filtered
     itemFiltered.clear();
@@ -1155,13 +1158,13 @@ MFXListIcon::setTextColor(FXColor clr) {
 
 
 void
-MFXListIcon::setHelpText(const FXString &text) {
+MFXListIcon::setHelpText(const FXString& text) {
     help = text;
 }
 
 
 FXString
-MFXListIcon::tolowerString(const FXString &str) const {
+MFXListIcon::tolowerString(const FXString& str) const {
     FXString result;
     for (int i = 0; i < str.count(); i++) {
         result.append((char)::tolower(str[i]));
@@ -1172,7 +1175,7 @@ MFXListIcon::tolowerString(const FXString &str) const {
 
 MFXListIcon::MFXListIcon() {
     flags |= FLAG_ENABLED;
-    font = (FXFont*)-1L;
+    font = (FXFont*) - 1L;
 }
 
 
@@ -1183,7 +1186,7 @@ MFXListIcon::recompute() {
     y = 0;
     listWidth = 0;
     listHeight = 0;
-    for (auto &item : itemFiltered) {
+    for (auto& item : itemFiltered) {
         // set position and size
         item->x = x;
         item->y = y;
@@ -1200,13 +1203,13 @@ MFXListIcon::recompute() {
 
 
 MFXListIconItem*
-MFXListIcon::createItem(const FXString &text, FXIcon* icon, void* ptr) {
+MFXListIcon::createItem(const FXString& text, FXIcon* icon, void* ptr) {
     return new MFXListIconItem(text, icon, 0, ptr);
 }
 
 
 bool
-MFXListIcon::showItem(const FXString &itemName) const {
+MFXListIcon::showItem(const FXString& itemName) const {
     if (filter.empty()) {
         return true;
     } else {

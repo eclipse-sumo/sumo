@@ -118,10 +118,10 @@ private:
 
     /// @brief Button for open color editor
     FXButton* myAttributeColorButton = nullptr;
-    
+
     /// @brief Button for open allow editor
     FXButton* myAttributeAllowButton = nullptr;
-    
+
     /// @brief textField to modify the default value of string parameters
     FXTextField* myValueTextField = nullptr;
 

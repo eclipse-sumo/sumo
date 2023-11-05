@@ -104,7 +104,7 @@ public:
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
-    
+
     /// @brief get simulation begin time
     SUMOTime getSimBegin() {
         return mySimStartTime;

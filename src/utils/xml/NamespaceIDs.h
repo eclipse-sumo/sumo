@@ -33,7 +33,7 @@
 
 class NamespaceIDs {
 
-public: 
+public:
     /// @brief busStops namespace
     static const std::vector<SumoXMLTag> busStops;
 

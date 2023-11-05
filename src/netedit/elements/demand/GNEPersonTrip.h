@@ -38,7 +38,7 @@ class GNEVehicle;
 
 class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
-public:    
+public:
     /**@brief general constructor for personTrip
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
@@ -57,11 +57,11 @@ public:
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-        const std::vector<std::string>& lines);
+    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
+                                          GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                                          GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                                          double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                                          const std::vector<std::string>& lines);
 
     /// @brief default constructor
     GNEPersonTrip(SumoXMLTag tag, GNENet* net);
@@ -249,8 +249,8 @@ private:
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*> &junctions,
-                  const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition,
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*>& junctions,
+                  const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition,
                   const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.

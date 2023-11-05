@@ -266,9 +266,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
                                             WRITE_WARNING(TLF("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
-                                                            "  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit\n"
-                                                            "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.",
-                                                         getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex));
+                                                              "  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit\n"
+                                                              "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.",
+                                                              getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex));
                                             // only one warning per program
                                             foundProblem = true;
                                             break;

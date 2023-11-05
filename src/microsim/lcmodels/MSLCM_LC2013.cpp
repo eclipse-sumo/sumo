@@ -1516,21 +1516,21 @@ MSLCM_LC2013::_wantsChange(
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
                 std::cout << STEPS2TIME(currentTime)
-                    << " veh=" << myVehicle.getID()
-                    << " myLeftSpace=" << myLeftSpace
-                    << " remainingSeconds=" << remainingSeconds
-                    << " plannedSpeed=" << plannedSpeed
-                    << "\n";
+                          << " veh=" << myVehicle.getID()
+                          << " myLeftSpace=" << myLeftSpace
+                          << " remainingSeconds=" << remainingSeconds
+                          << " plannedSpeed=" << plannedSpeed
+                          << "\n";
             }
 #endif
         } else {
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
                 std::cout << STEPS2TIME(currentTime)
-                    << " veh=" << myVehicle.getID()
-                    << " myLeftSpace=" << myLeftSpace
-                    << " remainingSeconds=" << remainingSeconds
-                    << " hasBidiNeighLeader\n";
+                          << " veh=" << myVehicle.getID()
+                          << " myLeftSpace=" << myLeftSpace
+                          << " remainingSeconds=" << remainingSeconds
+                          << " hasBidiNeighLeader\n";
             }
 #endif
         }

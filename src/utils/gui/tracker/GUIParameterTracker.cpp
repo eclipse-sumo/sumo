@@ -114,7 +114,7 @@ GUIParameterTracker::buildToolBar() {
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
     GUIDesigns::buildFXButton(myToolBar, "", "", + TL("Save the data..."),
-                 GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
+                              GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
 
     // aggregation interval combo
     myAggregationInterval =

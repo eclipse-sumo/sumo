@@ -131,7 +131,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() &&
-        (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+            (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if ((myPlanSelector->markBusStops() || myPlanSelector->markTrainStops()) && objectsUnderCursor.getAdditionalFront() &&
                (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {

@@ -49,11 +49,11 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXM
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}),
-    myTagType(tagType),
-    mySelectingMultipleElements(false) {
+                    myTagType(tagType),
+mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                                   this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -75,7 +75,7 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
     }
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                                   this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -237,7 +237,7 @@ GNEDemandElementSelector::getPreviousPlanElement() const {
         return nullptr;
     }
     if (!myCurrentDemandElement->getTagProperty().isPerson() &&
-        !myCurrentDemandElement->getTagProperty().isContainer()) {
+            !myCurrentDemandElement->getTagProperty().isContainer()) {
         return nullptr;
     }
     if (myCurrentDemandElement->getChildDemandElements().empty()) {

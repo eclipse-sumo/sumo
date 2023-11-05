@@ -91,7 +91,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, GNELane* lane,
-           const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+           const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon,
            const double layer, const double angle, const std::string& imgFile, const bool relativePath,
            const double width, const double height, const std::string& name, const Parameterised::Map& parameters);
 

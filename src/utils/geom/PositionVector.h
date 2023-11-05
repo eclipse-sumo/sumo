@@ -264,7 +264,7 @@ public:
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
 
     /// @brief sort as polygon CW by angle
-    /// @remark this function works for non-convex polygons but won't possibly yield the desired polygon 
+    /// @remark this function works for non-convex polygons but won't possibly yield the desired polygon
     void sortAsPolyCWByAngle();
 
     /// @brief sort by increasing X-Y Positions
@@ -321,7 +321,7 @@ public:
 
         /// @brief comparing operation for sort
         int operator()(const Position& p1, const Position& p2) const;
-    
+
     private:
         /// @brief computes the angle of the given vector, in the range $[0,2*\pi[$
         double atAngle2D(const Position& p) const;

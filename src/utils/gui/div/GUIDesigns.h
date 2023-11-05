@@ -726,7 +726,7 @@ public:
 
     /// Construct label with given text and icon
     static FXLabel* buildFXLabel(FXComposite* p, const std::string& text,  const std::string& tip, const std::string& help,
-                                 FXIcon* ic, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
+                                 FXIcon* ic, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                                  FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief build button
@@ -736,6 +736,6 @@ public:
 
     /// @brief build radio button
     static FXRadioButton* buildFXRadioButton(FXComposite* p, const std::string& text, const std::string& tip, const std::string& help,
-                                             FXObject* tgt, FXSelector sel, FXuint opts = RADIOBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-                                             FXint pl = DEFAULT_PAD,FXint pr = DEFAULT_PAD,FXint pt = DEFAULT_PAD,FXint pb = DEFAULT_PAD);
+            FXObject* tgt, FXSelector sel, FXuint opts = RADIOBUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 };

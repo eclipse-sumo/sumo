@@ -1766,7 +1766,7 @@ GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
     } else {
         // check if set as markedElementDeleteContour
         if ((gPostDrawing.markedElementOverContour == nullptr) ||
-            (GLObject->getType() > gPostDrawing.markedElementOverContour->getType())) {
+                (GLObject->getType() > gPostDrawing.markedElementOverContour->getType())) {
             gPostDrawing.markedElementOverContour = GLObject;
         }
         // we wan't to draw select contour in this moment
@@ -1796,7 +1796,7 @@ GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSel
     } else {
         // check if set as markedElementDeleteContour
         if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
-            (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
+                (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
             gPostDrawing.markedElementDeleteContour = GLObject;
         }
         // we wan't to draw select contour in this moment
@@ -1826,7 +1826,7 @@ GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSel
     } else {
         // check if set as markedElementSelectContour
         if ((gPostDrawing.markedElementSelectContour == nullptr) ||
-            (GLObject->getType() > gPostDrawing.markedElementSelectContour->getType())) {
+                (GLObject->getType() > gPostDrawing.markedElementSelectContour->getType())) {
             gPostDrawing.markedElementSelectContour = GLObject;
         }
         // we wan't to draw select contour in this moment
@@ -1855,7 +1855,7 @@ GNEViewNet::getJunctionAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to junction element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto junction = dynamic_cast<GNEJunction*>(glObject);
             if (junction) {
                 return junction;
@@ -1874,7 +1874,7 @@ GNEViewNet::getConnectionAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to connection element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto connection = dynamic_cast<GNEConnection*>(glObject);
             if (connection) {
                 return connection;
@@ -1893,7 +1893,7 @@ GNEViewNet::getCrossingAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to crossing element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto crossing = dynamic_cast<GNECrossing*>(glObject);
             if (crossing) {
                 return crossing;
@@ -1912,7 +1912,7 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to walking area element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto walkingArea = dynamic_cast<GNEWalkingArea*>(glObject);
             if (walkingArea) {
                 return walkingArea;
@@ -1931,7 +1931,7 @@ GNEViewNet::getEdgeAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to edge element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto edge = dynamic_cast<GNEEdge*>(glObject);
             if (edge) {
                 return edge;
@@ -1955,7 +1955,7 @@ GNEViewNet::getLaneAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to lane element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto lane = dynamic_cast<GNELane*>(glObject);
             if (lane) {
                 return lane;
@@ -1974,7 +1974,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to additional element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto additionalElement = dynamic_cast<GNEAdditional*>(glObject);
             if (additionalElement) {
                 return additionalElement;
@@ -1993,7 +1993,7 @@ GNEViewNet::getDemandElementAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to demand element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto demandElement = dynamic_cast<GNEDemandElement*>(glObject);
             if (demandElement) {
                 return demandElement;
@@ -2012,7 +2012,7 @@ GNEViewNet::getPolygonAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to poly element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto poly = dynamic_cast<GNEPoly*>(glObject);
             if (poly) {
                 return poly;
@@ -2031,7 +2031,7 @@ GNEViewNet::getPOIAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to POI element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto POI = dynamic_cast<GNEPOI*>(glObject);
             if (POI) {
                 return POI;
@@ -2050,7 +2050,7 @@ GNEViewNet::getTAZAtPopupPosition() {
         // swap objects
         std::reverse(glObjects.begin(), glObjects.end());
         // get first object that can be parsed to TAZ element
-        for (const auto &glObject : glObjects) {
+        for (const auto& glObject : glObjects) {
             auto TAZ = dynamic_cast<GNETAZ*>(glObject);
             if (TAZ) {
                 return TAZ;
@@ -2545,8 +2545,8 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // simplify shape
                     dynamic_cast<GNEPoly*>(selectedShape)->simplifyShape();
                 }
@@ -2589,8 +2589,8 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // close polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->closePolygon();
                 }
@@ -2622,8 +2622,8 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
             for (const auto& selectedShape : selectedShapes) {
                 // check if shape is a poly
                 if ((selectedShape->getTagProperty().getTag() == SUMO_TAG_POLY) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
-                    (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_WALKABLEAREA) ||
+                        (selectedShape->getTagProperty().getTag() == GNE_TAG_JPS_OBSTACLE)) {
                     // open polygon
                     dynamic_cast<GNEPoly*>(selectedShape)->openPolygon();
                 }
@@ -4634,9 +4634,9 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetNeteditView(FXObject*, FXSelector sel, void*) {
-   myEditModes.setView(FXSELID(sel));
-   update();
-   return 1;
+    myEditModes.setView(FXSELID(sel));
+    update();
+    return 1;
 }
 
 // ===========================================================================
@@ -5618,8 +5618,8 @@ GNEViewNet::drawDeleteDottedContour() {
             gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
-            // compare objectUnderCursor and markedElementsDeleteContour types 
+        for (const auto& objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+            // compare objectUnderCursor and markedElementsDeleteContour types
             if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
                 // check if is a normalGLObject or a path element
                 pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);
@@ -5646,8 +5646,8 @@ GNEViewNet::drawSelectDottedContour() {
             gPostDrawing.markedElementSelectContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto &objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
-            // compare objectUnderCursor and markedElementsSelectContour types 
+        for (const auto& objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+            // compare objectUnderCursor and markedElementsSelectContour types
             if (objectUnderCursor->getType() == gPostDrawing.markedElementSelectContour->getType()) {
                 // check if is a normalGLObject or a path element
                 pathElement = myNet->getPathManager()->getPathElement(objectUnderCursor);

@@ -1122,7 +1122,7 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
         type = ENCOUNTER_TYPE_COLLISION;
         WRITE_WARNINGF(TL("SSM device of vehicle '%' detected collision with vehicle '%' at time=%."), e->egoID, e->foeID, time2string(SIMSTEP));
     } else if (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE && eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
-    	type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;    
+        type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
     } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime || eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE) {
         // ego is estimated first at conflict point
 #ifdef DEBUG_SSM
@@ -1141,7 +1141,7 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
             std::cout << "    -> foe is estimated leader at conflict entry."
                       << " foeConflictExitTime=" << (eInfo.foeEstimatedConflictExitTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictExitTime))
                       << " egoEstimatedConflictEntryTime=" << (eInfo.egoEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.egoEstimatedConflictEntryTime))
-                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))                      
+                      << " foeEstimatedConflictEntryTime=" << (eInfo.foeEstimatedConflictEntryTime == INVALID_DOUBLE ? "NA" : ::toString(eInfo.foeEstimatedConflictEntryTime))
                       << std::endl;
 #endif
         type = type == ENCOUNTER_TYPE_CROSSING ? ENCOUNTER_TYPE_CROSSING_FOLLOWER : ENCOUNTER_TYPE_MERGING_FOLLOWER;
@@ -2310,8 +2310,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
                         type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
                         eInfo.foeConflictEntryDist = e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane();
-                    }
-                    else {
+                    } else {
                         type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
                         eInfo.egoConflictEntryDist = e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane();
                     }
@@ -2320,13 +2319,11 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         std::cout << "-> Encounter type: Lead/follow-situation on non-internal lane '" << egoLane->getID() << "'\n";
                     }
 #endif
-                }
-                else if (egoOpposite && foeOpposite) {
+                } else if (egoOpposite && foeOpposite) {
                     if (e->ego->getPositionOnLane() < e->foe->getPositionOnLane()) {
                         type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
                         eInfo.foeConflictEntryDist = -(e->ego->getBackPositionOnLane() - e->foe->getPositionOnLane());
-                    }
-                    else {
+                    } else {
                         type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
                         eInfo.egoConflictEntryDist = -(e->foe->getBackPositionOnLane() - e->ego->getPositionOnLane());
                     }
@@ -2335,25 +2332,21 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         std::cout << "-> Encounter type: Lead/follow-situation  while both are driving in the opposite direction on non-internal lane '" << egoLane->getID() << "'\n";
                     }
 #endif
-                }
-                else {
+                } else {
                     type = ENCOUNTER_TYPE_ONCOMING;
                     const double gap = e->ego->getPositionOnLane() - e->foe->getPositionOnLane();
                     if (egoOpposite) {
                         if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
                             eInfo.egoConflictEntryDist = gap;
                             eInfo.foeConflictEntryDist = gap;
-                        }
-                        else {
+                        } else {
                             type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
                         }
-                    }
-                    else {
+                    } else {
                         if (e->ego->getPositionOnLane() < e->foe->getPositionOnLane()) {
                             eInfo.egoConflictEntryDist = -gap;
                             eInfo.foeConflictEntryDist = -gap;
-                        }
-                        else {
+                        } else {
                             type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
                         }
                     }
@@ -2364,14 +2357,12 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 #endif
 
                 }
-            }
-            else if (&(foeLane->getEdge()) == &(egoLane->getEdge())) {
+            } else if (&(foeLane->getEdge()) == &(egoLane->getEdge())) {
                 // Foe is on the same non-internal edge but not on the same lane. Treat this as no conflict for now
                 // XXX: this disregards conflicts for vehicles on adjacent lanes
                 if (foeOpposite != egoOpposite) {
                     type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
-                }
-                else {
+                } else {
                     type = ENCOUNTER_TYPE_ON_ADJACENT_LANES;
                 }
 #ifdef DEBUG_ENCOUNTER
@@ -2379,8 +2370,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     std::cout << "-> Encounter type: " << type << std::endl;
                 }
 #endif
-            }
-            else {
+            } else {
                 if (!egoOpposite && !foeOpposite) {
                     assert(&(egoLane->getEdge()) == &(foeConflictLane->getEdge()));
                     assert(egoDistToConflictLane <= 0);
@@ -2392,11 +2382,10 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 #ifdef DEBUG_ENCOUNTER
                         if (DEBUG_COND_ENCOUNTER(eInfo.encounter))
                             std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' leads foe '"
-                            << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                            << " (gap = " << eInfo.foeConflictEntryDist << ")\n";
+                                      << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
+                                      << " (gap = " << eInfo.foeConflictEntryDist << ")\n";
 #endif
-                    }
-                    else {
+                    } else {
                         // Foe's route leads to an adjacent lane of the current lane of the ego
                         type = ENCOUNTER_TYPE_ON_ADJACENT_LANES;
 #ifdef DEBUG_ENCOUNTER
@@ -2405,8 +2394,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         }
 #endif
                     }
-                }
-                else if (egoOpposite && foeOpposite) {
+                } else if (egoOpposite && foeOpposite) {
                     // XXX determine follower relationship by searching for the foe lane in the opposites of ego bestlanes
                     type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
                     /*
@@ -2423,8 +2411,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         std::cout << "-> Encounter type: Lead/follow-situation  while both are driving in the opposite direction on non-internal lane '" << egoLane->getID() << "'\n";
                     }
 #endif
-                }
-                else {
+                } else {
                     type = ENCOUNTER_TYPE_ONCOMING;
                     // XXX determine distance by searching for the foe lane in the opposites of ego bestlanes
                     /*

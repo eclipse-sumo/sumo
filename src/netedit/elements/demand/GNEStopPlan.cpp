@@ -35,9 +35,9 @@
 
 GNEStopPlan*
 GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
-        GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType,
-        bool friendlyPos, const int parameterSet) {
+                                 GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
+                                 const SUMOTime duration, const SUMOTime until, const std::string& actType,
+                                 bool friendlyPos, const int parameterSet) {
     // declare icon an tag
     const auto iconTag = getPersonStopTagIcon(edge, busStop, trainStop);
     // declare containers
@@ -58,9 +58,9 @@ GNEStopPlan::buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
 
 GNEStopPlan*
 GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
-        GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-        const SUMOTime duration, const SUMOTime until, const std::string &actType,
-        bool friendlyPos, const int parameterSet) {
+                                    GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
+                                    const SUMOTime duration, const SUMOTime until, const std::string& actType,
+                                    bool friendlyPos, const int parameterSet) {
     // declare icon an tag
     const auto iconTag = getContainerStopTagIcon(edge, containerStop);
     // declare containers
@@ -80,7 +80,7 @@ GNEStopPlan::buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
 GNEStopPlan::GNEStopPlan(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1, -1) {
+GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -121,7 +121,7 @@ GNEStopPlan::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStopPlan::isDemandElementValid() const {
-return isPlanPersonValid();
+    return isPlanPersonValid();
 }
 
 
@@ -598,17 +598,17 @@ GNEStopPlan::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 }
 
 
-GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
-                         const std::vector<GNEAdditional*> &additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string &actType, bool friendlyPos, const int parameterSet) :
+GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
+                         const std::vector<GNEAdditional*>& additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
+                         const std::string& actType, bool friendlyPos, const int parameterSet) :
     GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
-    GNEDemandElementPlan(this, -1, endPos),
-    myDuration(duration),
-    myUntil(until), 
-    myActType(actType),
-    myFriendlyPos(friendlyPos),
-    myParametersSet(parameterSet) {
+GNEDemandElementPlan(this, -1, endPos),
+myDuration(duration),
+myUntil(until),
+myActType(actType),
+myFriendlyPos(friendlyPos),
+myParametersSet(parameterSet) {
 }
 
 /****************************************************************************/

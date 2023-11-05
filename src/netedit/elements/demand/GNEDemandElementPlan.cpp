@@ -40,15 +40,15 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 // ===========================================================================
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getWalkTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
-        const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
+GNEDemandElementPlan::getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
+                                     const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+                                     const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+                                     const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+                                     const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
-        !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
-        consecutiveEdges.empty() && !route) {
+            !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
+            consecutiveEdges.empty() && !route) {
         return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
     } else if (consecutiveEdges.size() > 0) {
         return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
@@ -117,7 +117,7 @@ GNEDemandElementPlan::getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdg
         const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
-        !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
+            !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
         return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
     } else if (fromEdge && toEdge) {
         return std::make_pair(GNE_TAG_PERSONTRIP_EDGE_EDGE, GUIIcon::PERSONTRIP_EDGE);
@@ -177,8 +177,8 @@ GNEDemandElementPlan::getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdg
 
 std::pair<SumoXMLTag, GUIIcon>
 GNEDemandElementPlan::getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
+                                     const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+                                     const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
     // special case for elements with from-to edge
     if (fromEdge && !toEdge && fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
         return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
@@ -227,7 +227,7 @@ GNEDemandElementPlan::getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge
 
 
 std::pair<SumoXMLTag, GUIIcon>
-GNEDemandElementPlan::getTranshipTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
+GNEDemandElementPlan::getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
         const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
         const GNEAdditional* toContainerStop) {
     // special case for elements with from-to edge
@@ -715,8 +715,8 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                 // check if next plan is a stop over edge
                 const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
                 if (nextPlan && (nextPlan->getTagProperty().isPlanStopPerson() ||
-                    nextPlan->getTagProperty().isPlanStopContainer()) &&
-                    nextPlan->getTagProperty().planEdge()) {
+                                 nextPlan->getTagProperty().isPlanStopContainer()) &&
+                        nextPlan->getTagProperty().planEdge()) {
                     // if next plan is an stop over stoppingPlaces, use ends of stoppingPlace
                     return nextPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
                 } else {
@@ -776,7 +776,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                     lanePosition = myDepartPosition;
                 }
                 // get lane shape
-                const auto &laneShape = firstLane->getLaneShape();
+                const auto& laneShape = firstLane->getLaneShape();
                 // continue depending of lane position
                 if (lanePosition <= 0) {
                     return laneShape.front();
@@ -807,7 +807,7 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // get next plan
                 const auto nextPlan = planParent->getNextChildDemandElement(myPlanElement);
                 // if next plan exist, then use their first lane (needed to maintain connectivity with rides)
-                const auto lastLane = nextPlan? nextPlan->getFirstPathLane() : myPlanElement->getLastPathLane();
+                const auto lastLane = nextPlan ? nextPlan->getFirstPathLane() : myPlanElement->getLastPathLane();
                 // check if last lane exists
                 if (lastLane == nullptr) {
                     return Position::INVALID;
@@ -1012,8 +1012,8 @@ GNEDemandElementPlan::checkDrawPersonPlan() const {
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // check conditions
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-        viewNet->getNetworkViewOptions().showDemandElements() &&
-        viewNet->getDemandViewOptions().showAllPersonPlans()) {
+            viewNet->getNetworkViewOptions().showDemandElements() &&
+            viewNet->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans in network mode
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
@@ -1053,8 +1053,8 @@ GNEDemandElementPlan::checkDrawContainerPlan() const {
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // check conditions
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() &&
-        viewNet->getNetworkViewOptions().showDemandElements() &&
-        viewNet->getDemandViewOptions().showAllContainerPlans()) {
+            viewNet->getNetworkViewOptions().showDemandElements() &&
+            viewNet->getDemandViewOptions().showAllContainerPlans()) {
         // show all container plans in network mode
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
@@ -1095,7 +1095,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get tag property
     const auto tagProperty = myPlanElement->getTagProperty();
     // get plan geometry
-    auto &planGeometry = myPlanElement->myDemandElementGeometry;
+    auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
     if (drawPlan && (planGeometry.getShape().size() > 0)) {
         // get viewNet
@@ -1132,7 +1132,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         GLHelper::popName();
         // draw dotted geometry
         myPlanElement->getContour().drawDottedContourExtruded(s, planGeometry.getShape(), pathWidth, 1, true, true,
-                                                              s.dottedContourSettings.segmentWidth);
+                s.dottedContourSettings.segmentWidth);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -1143,7 +1143,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
 
 void
 GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment,
-                                         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
+        const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
@@ -1214,10 +1214,10 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         // draw dotted geometry
         if (duplicateWidth) {
             myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                  s.dottedContourSettings.segmentWidth);
+                    s.dottedContourSettings.segmentWidth);
         } else {
             myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                  s.dottedContourSettings.segmentWidthSmall);
+                    s.dottedContourSettings.segmentWidthSmall);
         }
     }
     // check if draw plan parent
@@ -1229,7 +1229,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
 
 void
 GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment,
-                                              const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
+        const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get plan parent
@@ -1282,24 +1282,24 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         if (segment->getPreviousLane() && segment->getNextLane()) {
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
-                const auto &shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
+                const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
                 // check if mouse is over element
                 myPlanElement->mouseWithinGeometry(shape, pathWidth);
                 // draw dotted geometry
                 if (duplicateWidth) {
                     myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                          s.dottedContourSettings.segmentWidth);
+                            s.dottedContourSettings.segmentWidth);
                 } else {
                     myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
-                                                                          s.dottedContourSettings.segmentWidthSmall);
+                            s.dottedContourSettings.segmentWidthSmall);
                 }
             }
         } else if (segment->getPreviousLane()) {
             myPlanElement->getContour().drawDottedContourExtruded(s, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
-                                                                  pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+                    pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         } else if (segment->getNextLane()) {
             myPlanElement->getContour().drawDottedContourExtruded(s, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                                                                  pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
+                    pathWidth, 1, true, true, s.dottedContourSettings.segmentWidth);
         }
     }
     // check if draw plan parent
@@ -1377,7 +1377,7 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 
 void
 GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-        const bool dottedElement) const {
+                                    const bool dottedElement) const {
     // draw ifcurrent amd next segment is placed over lanes
     if (segment->getNextLane()) {
         // get firstPosition (last position of current lane shape)
@@ -1398,7 +1398,7 @@ GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNE
 
 void
 GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
-        const bool dottedElement) const {
+                                  const bool dottedElement) const {
     // draw the line if previos segment and current segment is placed over lanes
     if (segment->getPreviousLane()) {
         // get firstPosition (last position of current lane shape)
@@ -1418,7 +1418,7 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s,const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
     // check if myPlanElement is the last segment
     if (segment->isLastSegment()) {
         // calculate circle width
@@ -1431,7 +1431,7 @@ GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s,const GN
         if (!s.drawForRectangleSelection || (myPlanElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
             // push draw matrix
             GLHelper::pushMatrix();
-            // translate to pos and move to 
+            // translate to pos and move to
             glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
             // resolution of drawn circle depending of the zoom (To improve smothness)
             GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());

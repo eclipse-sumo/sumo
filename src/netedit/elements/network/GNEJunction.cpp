@@ -148,7 +148,7 @@ GNEJunction::getPositionInView() const {
 bool
 GNEJunction::checkDrawFromContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (myAmCreateEdgeSource) {
         return true;
@@ -157,14 +157,14 @@ GNEJunction::checkDrawFromContour() const {
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if starts in junction
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) ||
-            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
-            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
+                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID());
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
         // get frames
-        const auto &TLSFrame = myNet->getViewNet()->getViewParent()->getTLSEditorFrame();
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& TLSFrame = myNet->getViewNet()->getViewParent()->getTLSEditorFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // continue depending of frames
         if (TLSFrame->shown()) {
             // get TLS junction (TLS Frame)
@@ -175,7 +175,7 @@ GNEJunction::checkDrawFromContour() const {
             }
         } else if (vehicleFrame->shown()) {
             // get selected junctions
-            const auto &selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
+            const auto& selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
             // check if this is the first selected TAZ
             if ((selectedJunctions.size() > 0) && (selectedJunctions.front() == this)) {
                 return true;
@@ -205,21 +205,21 @@ GNEJunction::checkDrawFromContour() const {
 bool
 GNEJunction::checkDrawToContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // check if ends in junction
         if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) ||
-            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
-            (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
+                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             return (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID());
         }
     } else if (modes.isCurrentSupermodeNetwork()) {
         // get frames
-        const auto &createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // continue depending of frames
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // get junction source
@@ -234,7 +234,7 @@ GNEJunction::checkDrawToContour() const {
             }
         } else if (vehicleFrame->shown()) {
             // get selected junctions
-            const auto &selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
+            const auto& selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
             // check if this is the first selected TAZ
             if ((selectedJunctions.size() > 1) && (selectedJunctions.back() == this)) {
                 return true;
@@ -270,13 +270,13 @@ GNEJunction::checkDrawRelatedContour() const {
 bool
 GNEJunction::checkDrawOverContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // get frames
-    const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
+    const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
         // get current vehicle template
@@ -291,9 +291,9 @@ GNEJunction::checkDrawOverContour() const {
     } else if (modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markJunctions()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markJunctions()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markJunctions()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markJunctions())) {
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markJunctions()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markJunctions()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markJunctions())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }
@@ -304,7 +304,7 @@ GNEJunction::checkDrawOverContour() const {
 bool
 GNEJunction::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -317,7 +317,7 @@ GNEJunction::checkDrawDeleteContour() const {
 bool
 GNEJunction::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);

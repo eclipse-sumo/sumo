@@ -51,7 +51,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, cons
     myXMLTag(XMLTag),
     myTooltipText(tooltip),
     myParentTags(parentTags),
-    myFieldString(fieldString.empty()? toString(tag) : fieldString),
+    myFieldString(fieldString.empty() ? toString(tag) : fieldString),
     myBackgroundColor(backgroundColor) {
 }
 

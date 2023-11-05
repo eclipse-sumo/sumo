@@ -195,7 +195,7 @@ public:
     /// @}
 
     /// @brief set network element id
-    void setNetworkElementID(const std::string &newID);
+    void setNetworkElementID(const std::string& newID);
 
     /// @brief get parameters map
     virtual const Parameterised::Map& getACParametersMap() const = 0;

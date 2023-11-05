@@ -68,7 +68,7 @@ public:
     GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
             double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath,
             const std::string& name, const Parameterised::Map& parameters);
-    
+
     /** @brief Constructor for JuPedSim elements
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon

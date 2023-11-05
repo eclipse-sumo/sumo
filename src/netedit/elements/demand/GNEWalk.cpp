@@ -34,10 +34,10 @@
 // ===========================================================================
 
 GNEWalk*
-GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition) {
+GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
+                   GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                   GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                   std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition) {
     // declare icon an tag
     const auto iconTag = getWalkTagIcon(edgeList, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
                                         fromBusStop, toBusStop, fromTrainStop, toTrainStop);
@@ -75,14 +75,14 @@ GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent,
             additionals.push_back(toTrainStop);
         }
     }
-    return new GNEWalk(net, iconTag.first, iconTag.second, demandElements, junctions, edges, additionals,arrivalPosition);
+    return new GNEWalk(net, iconTag.first, iconTag.second, demandElements, junctions, edges, additionals, arrivalPosition);
 }
 
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1, -1) {
+GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -299,11 +299,11 @@ GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 }
 
 
-GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*> &parents, const std::vector<GNEJunction*> &junctions,
-                             const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition) :
+GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*>& parents, const std::vector<GNEJunction*>& junctions,
+                 const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition) :
     GNEDemandElement(parents.front(), net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, parents, {}),
-    GNEDemandElementPlan(this, -1, arrivalPosition) {
+GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

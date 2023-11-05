@@ -141,7 +141,7 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 
 bool
 POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& color, const std::string& poiType,
-         int layer, const std::string& imgFile, double width, double height, double angle, const std::string &icon) {
+         int layer, const std::string& imgFile, double width, double height, double angle, const std::string& icon) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, poiType);

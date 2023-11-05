@@ -517,7 +517,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
 #ifdef DEBUG_PHASES
             if (DEBUGCOND) {
-                std::cout << " state after grouping by vClass " << state << " (groupTram=" << groupTram << " groupOther=" << groupOther<< ")\n";
+                std::cout << " state after grouping by vClass " << state << " (groupTram=" << groupTram << " groupOther=" << groupOther << ")\n";
             }
 #endif
             if (groupOpposites || chosen.first->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
@@ -886,9 +886,9 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
         }
     }
 #ifdef DEBUG_PHASES
-        if (DEBUGCOND) {
-            std::cout << " state after addPedestrianPhases " << state << "\n";
-        }
+    if (DEBUGCOND) {
+        std::cout << " state after addPedestrianPhases " << state << "\n";
+    }
 #endif
     return state;
 }
@@ -1217,7 +1217,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
 #ifdef DEBUG_CONTRELATION
                             if (DEBUGCOND) {
                                 std::cout << getID() << " p=" << getProgramID() << " contRel: " << fromEdges[i1]->getID() << "->" << toEdges[i1]->getID()
-                                    << " foe " << fromEdges[i2]->getID() << "->" << toEdges[i2]->getID() << "\n";
+                                          << " foe " << fromEdges[i2]->getID() << "->" << toEdges[i2]->getID() << "\n";
                             }
 #endif
                         }

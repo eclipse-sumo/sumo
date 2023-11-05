@@ -353,13 +353,13 @@ protected:
     bool isValidAdditionalID(const std::string& value) const;
 
     /// @brief check if a new additional ID is valid
-    bool isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
+    bool isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const std::string& value) const;
 
     /// @brief check if a new detector ID is valid
     bool isValidDetectorID(const std::string& value) const;
 
     /// @brief check if a new detector ID is valid
-    bool isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
+    bool isValidDetectorID(const std::vector<SumoXMLTag>& tags, const std::string& value) const;
 
     /// @brief set additional ID
     void setAdditionalID(const std::string& newID);
@@ -401,7 +401,7 @@ protected:
 
     /// @brief draw listed additional
     void drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
-                             const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
+                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
 
     /// @brief get moveOperation for an element over single lane

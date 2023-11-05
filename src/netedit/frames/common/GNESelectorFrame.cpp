@@ -108,8 +108,8 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel(TL("Polygons"), ACs->getNumberOfSelectedPolygons());
         updateInformationLabel(TL("POIs"), ACs->getNumberOfSelectedPOIs());
         updateInformationLabel(TL("JuPedSim elements"),
-            ACs->getNumberOfSelectedJpsWalkableAreas() + 
-            ACs->getNumberOfSelectedJpsObstacles());
+                               ACs->getNumberOfSelectedJpsWalkableAreas() +
+                               ACs->getNumberOfSelectedJpsObstacles());
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         updateInformationLabel(TL("Routes"), ACs->getNumberOfSelectedRoutes());
         updateInformationLabel(TL("Vehicles"), ACs->getNumberOfSelectedVehicles());
@@ -155,13 +155,13 @@ GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorF
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
     myAddRadioButton = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("add"), "", TL("Selected objects are added to the previous selection"),
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                       this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myRemoveRadioButton = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("remove"), "", TL("Selected objects are removed from the previous selection"),
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myKeepRadioButton = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("keep"), "", TL("Restrict previous selection by the current selection"),
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = GUIDesigns::buildFXRadioButton(getCollapsableFrame(), TL("replace"), "", TL("Replace previous selection by the current selection"),
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
 
@@ -990,8 +990,8 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                             // special case for embedded routes
                             for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
                                 if (stopEmbeddedRoute->getTagProperty().isVehicleStop() ||
-                                    stopEmbeddedRoute->getTagProperty().isPlanStopPerson() ||
-                                    stopEmbeddedRoute->getTagProperty().isPlanStopContainer()) {
+                                        stopEmbeddedRoute->getTagProperty().isPlanStopPerson() ||
+                                        stopEmbeddedRoute->getTagProperty().isPlanStopContainer()) {
                                     if (onlyCount) {
                                         return true;
                                     } else if (onlyUnselect || stopEmbeddedRoute->isAttributeCarrierSelected()) {
@@ -1090,7 +1090,7 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     new FXLabel(getCollapsableFrame(), TL("Select children"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create MFXComboBoxIcon for parent comboBox
     myChildrenComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                             this, MID_GNE_SELECT, GUIDesignComboBox);
+            this, MID_GNE_SELECT, GUIDesignComboBox);
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button

@@ -76,8 +76,7 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string&
     myNextEdges(nextEdges),
     myDetectPersons(detectPersons),
     myOpenEntry(openEntry),
-    myExpectArrival(expectArrival)
-{
+    myExpectArrival(expectArrival) {
 }
 
 

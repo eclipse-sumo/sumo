@@ -916,9 +916,9 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myJoinControlButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrameUniform);
     // create create tlDef button
     GUIDesigns::buildFXButton(myJoinControlButtons, TL("Accept"), "", TL("Finish join."),
-                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButton);
     GUIDesigns::buildFXButton(myJoinControlButtons, TL("Cancel"), "", TL("Cancel Join."),
-                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButton);
     myJoinControlButtons->hide();
     // update junction description after creation
     updateJunctionDescription();
@@ -1121,7 +1121,7 @@ GNETLSEditorFrame::TLSJunction::onCmdChangeType(FXObject*, FXSelector, void*) {
     if (newTLType.empty() || (newTLType == currentTLType)) {
         // same ID or empty, don't change
         myTLSTypeComboBox->setTextColor(FXRGB(0, 0, 0));
-         // set value
+        // set value
         const int index = myTLSTypeComboBox->findItem(currentTLType.c_str());
         if (index == -1) {
             myTLSTypeComboBox->disable();
@@ -1393,22 +1393,22 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myCreateButton = GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Create TLS"), "", TL("Create a new traffic light program."),
-                                  GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
+                     GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
     // create delete tlDef button
     GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Delete"), "", TL("Delete a traffic light program. If all programs are deleted the junction turns into a priority junction."),
-                 GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
     // create reset current tlDef button
     GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset single"), "", TL("Reset current TLS program."),
-                 GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
     // create reset all tlDefs button
     GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Reset all"), "", TL("Reset all TLS programs."),
-                 GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
     // create save modifications button
     GUIDesigns::buildFXButton(verticalFrameAuxA, TL("Save"), "", TL("Save program modifications. (Enter)"),
-                 GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
     // create discard modifications buttons
     GUIDesigns::buildFXButton(verticalFrameAuxB, TL("Cancel"), "", TL("Discard program modifications. (Esc)"),
-                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
+                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
     // show GroupBox
     show();
 }
@@ -2655,7 +2655,7 @@ GNETLSEditorFrame::TLSPhases::setState(const int col, const int row, const std::
 
 
 bool
-GNETLSEditorFrame::TLSPhases::setNext(const int row, const std::string &value) {
+GNETLSEditorFrame::TLSPhases::setNext(const int row, const std::string& value) {
     // check next
     if (GNEAttributeCarrier::canParse<std::vector<int> >(value)) {
         const auto nextEdited = GNEAttributeCarrier::parse<std::vector<int> >(value);

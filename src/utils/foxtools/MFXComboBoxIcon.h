@@ -93,13 +93,13 @@ public:
 
     /// @brief Set the current item
     long setCurrentItem(const FXString& text, FXbool notify = FALSE);
-    
+
     /// @brief Get the current item's index
     FXint getCurrentItem() const;
 
     /// @brief Replace the item at index
     FXint updateIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
-    
+
     /// @brief insert icon item in the given position
     FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
@@ -147,7 +147,7 @@ public:
     long onFwdToText(FXObject*, FXSelector, void*);
     long onUpdFmText(FXObject*, FXSelector, void*);
     long onCmdFilter(FXObject*, FXSelector, void*);
-    
+
     /// @}
 
 protected:

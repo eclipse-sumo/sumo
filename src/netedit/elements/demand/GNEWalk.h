@@ -56,10 +56,10 @@ public:
      * @param[in] route route
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
+    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent,
+                              GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                              GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                              std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
 
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
@@ -234,8 +234,8 @@ private:
      * @param[in] eges from-to edges
      * @param[in] additionals from-to additionals
      */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*> &parents, const std::vector<GNEJunction*> &junctions,
-            const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals, double arrivalPosition);
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*>& parents, const std::vector<GNEJunction*>& junctions,
+            const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

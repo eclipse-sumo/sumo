@@ -80,7 +80,7 @@ public:
 
     private:
         /// @brief add translated string
-        std::string addTLString(const std::string &str);
+        std::string addTLString(const std::string& str);
 
         /// @brief help label
         FXLabel* myHelpLabel = nullptr;

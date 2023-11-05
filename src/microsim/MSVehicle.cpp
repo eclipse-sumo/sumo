@@ -2790,10 +2790,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const SUMOTime arrivalTime = getArrivalTime(t, seen, v, arrivalSpeed);
         if (couldBrakeForMinor && determinedFoePresence && (*link)->getLane()->getEdge().isRoundabout()) {
             const bool wasOpened = (*link)->opened(arrivalTime, arrivalSpeed, arrivalSpeed,
-                                           getLength(), getImpatience(),
-                                           getCarFollowModel().getMaxDecel(),
-                                           getWaitingTime(), getLateralPositionOnLane(),
-                                           nullptr, false, this);
+                                                   getLength(), getImpatience(),
+                                                   getCarFollowModel().getMaxDecel(),
+                                                   getWaitingTime(), getLateralPositionOnLane(),
+                                                   nullptr, false, this);
             if (!wasOpened) {
                 slowedDownForMinor = true;
             }
@@ -5049,10 +5049,10 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 #ifdef DEBUG_CHECKREWINDLINKLANES
                         if (DEBUG_COND) {
                             std::cout << " oVeh=" << oncomingVeh->getID()
-                                << " oGap=" << oncomingGap
-                                << " bGap=" << oncomingBGap
-                                << " mGap=" << oncomingMove
-                                << " sto=" << spaceTillOncoming;
+                                      << " oGap=" << oncomingGap
+                                      << " bGap=" << oncomingBGap
+                                      << " mGap=" << oncomingMove
+                                      << " sto=" << spaceTillOncoming;
                         }
 #endif
                     }
@@ -5582,8 +5582,8 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         }
     }
     if ((reason == MSMoveReminder::NOTIFICATION_JUNCTION
-                || reason == MSMoveReminder::NOTIFICATION_TELEPORT
-                || reason == MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION)
+            || reason == MSMoveReminder::NOTIFICATION_TELEPORT
+            || reason == MSMoveReminder::NOTIFICATION_TELEPORT_CONTINUATION)
             && myLane != nullptr) {
         myOdometer += getLane()->getLength();
     }
@@ -5623,7 +5623,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
             if (myStops.front().getSpeed() <= 0) {
                 WRITE_WARNINGF(TL("Vehicle '%' skips stop on lane '%' time=%."), getID(), myStops.front().lane->getID(),
-                time2string(MSNet::getInstance()->getCurrentTimeStep()))
+                               time2string(MSNet::getInstance()->getCurrentTimeStep()))
                 myStops.pop_front();
             } else {
                 MSStop& stop = myStops.front();
@@ -5969,9 +5969,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                         if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
                                 && m.lane->isApproachedFrom(cE, j.lane)) {
                             if (bestConnectedNext == nullptr || ((bestConnectedNext->length < m.length
-                                            || (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset))
-                                            || (bestConnectedNext->lane->getBidiLane() != nullptr && m.lane->getBidiLane() == nullptr))
-                                        && (m.lane->getBidiLane() == nullptr || bestConnectedNext->lane->getBidiLane() != nullptr))) {
+                                                                  || (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset))
+                                                                  || (bestConnectedNext->lane->getBidiLane() != nullptr && m.lane->getBidiLane() == nullptr))
+                                                                 && (m.lane->getBidiLane() == nullptr || bestConnectedNext->lane->getBidiLane() != nullptr))) {
                                 bestConnectedNext = &m;
                             }
                         }
@@ -7312,7 +7312,7 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh, const double gap) 
                         // foe might be oncoming, don't drive unless foe can still brake safely
                         const double foeNextSpeed = veh->getSpeed() + ACCEL2SPEED(veh->getCarFollowModel().getMaxAccel());
                         const double foeBrakeGap = veh->getCarFollowModel().brakeGap(
-                                foeNextSpeed, veh->getCarFollowModel().getMaxDecel(), veh->getCarFollowModel().getHeadwayTime());
+                                                       foeNextSpeed, veh->getCarFollowModel().getMaxDecel(), veh->getCarFollowModel().getHeadwayTime());
                         // the minGap was subtracted from gap in MSLink::getLeaderInfo (enlarging the negative gap)
                         // so the -2* makes it point in the right direction
                         const double foeGap = -gap - veh->getLength() - 2 * getVehicleType().getMinGap();

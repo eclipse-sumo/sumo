@@ -76,12 +76,12 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -91,12 +91,12 @@ GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
                      GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
     // reset default values
     resetDefaultValues();
 }
@@ -105,11 +105,11 @@ GNERoute::GNERoute(GNENet* net) :
 GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* originalRoute) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, originalRoute->getParentEdges(), {}, {}, {}, {}),
-    Parameterised(originalRoute->getACParametersMap()),
-    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myVClass(originalRoute->getVClass()) {
+{}, originalRoute->getParentEdges(), {}, {}, {}, {}),
+Parameterised(originalRoute->getACParametersMap()),
+myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+myVClass(originalRoute->getVClass()) {
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
@@ -117,11 +117,11 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, const GNEDemandElement* o
 GNERoute::GNERoute(GNENet* net, GNEVehicle* vehicleParent, const GNEDemandElement* originalRoute) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
-    Parameterised(originalRoute->getACParametersMap()),
-    myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
-    myVClass(originalRoute->getVClass()) {
+{}, originalRoute->getParentEdges(), {}, {}, {vehicleParent}, {}),
+Parameterised(originalRoute->getACParametersMap()),
+myRepeat(parse<int>(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+myCycleTime(string2time(originalRoute->getAttribute(SUMO_ATTR_REPEAT))),
+myVClass(originalRoute->getVClass()) {
     setAttribute(SUMO_ATTR_COLOR, originalRoute->getAttribute(SUMO_ATTR_COLOR));
 }
 
@@ -130,12 +130,12 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, edges, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vClass) {
+{}, edges, {}, {}, {}, {}),
+Parameterised(parameters),
+myColor(color),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vClass) {
 }
 
 
@@ -143,12 +143,12 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
                    const RGBColor& color, const int repeat, const SUMOTime cycleTime, const Parameterised::Map& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-                     {}, edges, {}, {}, {vehicleParent}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vehicleParent->getVClass()) {
+{}, edges, {}, {}, {vehicleParent}, {}),
+Parameterised(parameters),
+myColor(color),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vehicleParent->getVClass()) {
 }
 
 
@@ -188,7 +188,7 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildMenuCommandRouteLength(ret);
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // add reverse
-        buildMenuAddReverse(ret);   
+        buildMenuAddReverse(ret);
     }
     return ret;
 }
@@ -403,8 +403,8 @@ void
 GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
     if (segment->getLane() && myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
+            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment->getLane(), myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -419,13 +419,13 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                          geometryDepartPos,
-                                         Position::INVALID, 
+                                         Position::INVALID,
                                          geometryEndPos,
                                          Position::INVALID);
         } else if (segment->isFirstSegment()) {
             routeGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                          geometryDepartPos,
-                                         Position::INVALID, 
+                                         Position::INVALID,
                                          -1,
                                          Position::INVALID);
         } else if (segment->isLastSegment()) {
@@ -482,7 +482,7 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
         if ((gPostDrawing.markedRoute == nullptr) && myNet->getViewNet()->getViewParent()->getVehicleFrame()->shown() && templateAC &&
-            templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
+                templateAC->getTagProperty().vehicleRoute() && (routeGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
         // declare trim geometry to draw
@@ -500,8 +500,8 @@ void
 GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // check conditions
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
-        myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
+            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this) &&
+            myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, checkDrawContour(), segment, myTagProperty.getTag())) {
         // get embedded route flag
         const bool embedded = (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED);
         // get route width
@@ -806,10 +806,10 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             // compute route
             computePathElement();
             // update all parent and child demand elements
-            for (const auto &element : getParentDemandElements()) {
+            for (const auto& element : getParentDemandElements()) {
                 element->updateGeometry();
             }
-            for (const auto &element : getChildDemandElements()) {
+            for (const auto& element : getChildDemandElements()) {
                 element->updateGeometry();
             }
             break;

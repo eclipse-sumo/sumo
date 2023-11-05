@@ -2092,7 +2092,7 @@ GNENet::saveAdditionals() {
 
 
 void
-GNENet::saveJuPedSimElements(const std::string &file) {
+GNENet::saveJuPedSimElements(const std::string& file) {
     OutputDevice& device = OutputDevice::getDevice(file);
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
@@ -2547,9 +2547,9 @@ GNENet::writeOtherAdditionalsComment(OutputDevice& device) const {
 bool
 GNENet::writeShapesComment(OutputDevice& device) const {
     for (const auto& additionals : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() && 
-            !GNEAttributeCarrier::getTagProperty(additionals.first).isJuPedSimElement() &&
-            (additionals.second.size() > 0)) {
+        if (GNEAttributeCarrier::getTagProperty(additionals.first).isShapeElement() &&
+                !GNEAttributeCarrier::getTagProperty(additionals.first).isJuPedSimElement() &&
+                (additionals.second.size() > 0)) {
             device << ("    <!-- Shapes -->\n");
             return true;
         }

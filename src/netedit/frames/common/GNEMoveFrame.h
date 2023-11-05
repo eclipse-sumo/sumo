@@ -93,7 +93,7 @@ public:
         long onCmdChangeOption(FXObject*, FXSelector, void*);
 
         /// @}
-    
+
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(NetworkModeOptions)

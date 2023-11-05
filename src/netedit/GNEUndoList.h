@@ -136,7 +136,7 @@ public:
      * matching end() after recording the sub-commands. The new sub-group
      * will be appended to its parent group's undo list when end() is called.
      */
-    void begin(const GNEAttributeCarrier *AC, const std::string& description);
+    void begin(const GNEAttributeCarrier* AC, const std::string& description);
 
     /**@brief Begin undo command sub-group specifying supermode.
      * This begins a new group of commands that

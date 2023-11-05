@@ -1950,7 +1950,7 @@ public:
 
     /// @brief train types
     static StringBijection<TrainType> TrainTypes;
-    
+
     /// @brief POI icon values
     static StringBijection<POIIcon> POIIcons;
     /// @}

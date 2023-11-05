@@ -235,7 +235,7 @@ public:
     bool isTemplate() const;
 
     /// @brief get contour
-    const GNEContour &getContour() const;
+    const GNEContour& getContour() const;
 
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;

@@ -33,9 +33,9 @@
 
 GNERide*
 GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
-        GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-        GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        double arrivalPosition, const std::vector<std::string>& lines) {
+                   GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                   GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                   double arrivalPosition, const std::vector<std::string>& lines) {
     // declare icon an tag
     const auto iconTag = getRideTagIcon(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop);
     // declare containers
@@ -57,14 +57,14 @@ GNERide::buildRide(GNENet* net, GNEDemandElement* personParent,
     } else if (toTrainStop) {
         additionals.push_back(toTrainStop);
     }
-    return new GNERide(net, iconTag.first, iconTag.second, personParent, edges, additionals,arrivalPosition, lines);
+    return new GNERide(net, iconTag.first, iconTag.second, personParent, edges, additionals, arrivalPosition, lines);
 }
 
 
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1, -1) {
+GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -331,12 +331,12 @@ GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 }
 
 
-GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
-                 const std::vector<GNEAdditional*> &additionals, double arrivalPosition, const std::vector<std::string>& lines) :
+GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
+                 const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {personParent}, {}),
-    GNEDemandElementPlan(this, -1, arrivalPosition),
-    myLines(lines) {
+GNEDemandElementPlan(this, -1, arrivalPosition),
+myLines(lines) {
 }
 
 /****************************************************************************/

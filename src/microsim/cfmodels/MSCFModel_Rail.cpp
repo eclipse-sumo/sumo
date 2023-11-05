@@ -46,9 +46,9 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         myTrainParams = initFreightParams();
     } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
-	} else if (trainType.compare("MireoPlusB") == 0) {
+    } else if (trainType.compare("MireoPlusB") == 0) {
         myTrainParams = initMireoPlusB2TParams();
-	} else if (trainType.compare("MireoPlusH") == 0) {
+    } else if (trainType.compare("MireoPlusH") == 0) {
         myTrainParams = initMireoPlusH2TParams();
     } else {
         WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);

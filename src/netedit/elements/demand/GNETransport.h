@@ -48,9 +48,9 @@ public:
      * @param[in] toContainerStop to containerStop
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-        GNEAdditional* toContainerStop, double arrivalPosition);
+    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent,
+                                        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
+                                        GNEAdditional* toContainerStop, double arrivalPosition);
 
     /// @brief default constructor
     GNETransport(SumoXMLTag tag, GNENet* net);
@@ -229,7 +229,7 @@ private:
      * @param[in] additionals from-to additionals
      */
     GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                 const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
+                 const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
                  double arrivalPosition);
 
     /// @brief Invalidated copy constructor.

@@ -69,7 +69,7 @@ FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXC
 // ===========================================================================
 
 MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearch, const int visibleItems,
-        FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
+                                 FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0) {
     flags |= FLAG_ENABLED;
     target = tgt;
@@ -182,7 +182,7 @@ MFXComboBoxIcon::layout() {
     const FXint textWidth = width - buttonWidth - (border << 1);
     myTextFieldIcon->position(border, border, textWidth, itemHeight);
     myButton->position(border + textWidth, border, buttonWidth, itemHeight);
-    if(myTextFieldSearch) {
+    if (myTextFieldSearch) {
         myTextFieldSearch->resize(width, height);
         myNoItemsLabel->resize(width, height);
     }
@@ -307,7 +307,7 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 
 
 void
-MFXComboBoxIcon::removeItem(FXint index){
+MFXComboBoxIcon::removeItem(FXint index) {
     const auto isCurrent = myList->isItemCurrent(index);
     myList->removeItem(index);
     if (isCurrent == TRUE) {
@@ -375,7 +375,7 @@ MFXComboBoxIcon::getTipText() const {
 
 long
 MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
-    return (target && !myPane->shown())? target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL) : 0;
+    return (target && !myPane->shown()) ? target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL) : 0;
 }
 
 
@@ -431,7 +431,7 @@ MFXComboBoxIcon::onTextButton(FXObject*, FXSelector, void*) {
 
 long
 MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
-    return target? target->tryHandle(this, FXSEL(SEL_CHANGED, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_CHANGED, message), ptr) : 0;
 }
 
 
@@ -449,7 +449,7 @@ MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     }
     // no item found, then reset icon label
     myTextFieldIcon->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-    return target? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
+    return target ? target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr) : 0;
 }
 
 

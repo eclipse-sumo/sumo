@@ -84,58 +84,76 @@ public:
     void setCursorPos(FXint pos);
 
     /// @brief Return cursor position
-    FXint getCursorPos() const { return cursor; }
+    FXint getCursorPos() const {
+        return cursor;
+    }
 
     /// @brief Change anchor position
     void setAnchorPos(FXint pos);
 
     /// @brief Return anchor position
-    FXint getAnchorPos() const { return anchor; }
+    FXint getAnchorPos() const {
+        return anchor;
+    }
 
     /// @brief Change the text and move cursor to end
     void setText(const FXString& text, FXbool notify = FALSE);
 
     /// @brief Change the icon
-    void setIcon(FXIcon *ic);
+    void setIcon(FXIcon* ic);
 
     /// @brief Get the text for this label
-    FXString getText() const { return contents; }
+    FXString getText() const {
+        return contents;
+    }
 
     /// @brief Set the text font
     void setFont(FXFont* fnt);
 
     /// @brief Get the text font
-    FXFont* getFont() const { return font; }
+    FXFont* getFont() const {
+        return font;
+    }
 
     /// @brief Change text color
     void setTextColor(FXColor clr);
 
     /// @brief Return text color
-    FXColor getTextColor() const { return textColor; }
+    FXColor getTextColor() const {
+        return textColor;
+    }
 
     /// @brief Change selected background color
     void setSelBackColor(FXColor clr);
 
     /// @brief Return selected background color
-    FXColor getSelBackColor() const { return selbackColor; }
+    FXColor getSelBackColor() const {
+        return selbackColor;
+    }
 
     /// @brief Change selected text color
     void setSelTextColor(FXColor clr);
 
     /// @brief Return selected text color
-    FXColor getSelTextColor() const { return seltextColor; }
+    FXColor getSelTextColor() const {
+        return seltextColor;
+    }
 
     /// @brief Changes the cursor color
     void setCursorColor(FXColor clr);
 
     /// @brief Return the cursor color
-    FXColor getCursorColor() const { return cursorColor; }
+    FXColor getCursorColor() const {
+        return cursorColor;
+    }
 
     /// @brief Change the default width of the text field
     void setNumColumns(FXint cols);
 
     /// @brief Return number of columns
-    FXint getNumColumns() const { return columns; }
+    FXint getNumColumns() const {
+        return columns;
+    }
 
     /// @brief Change text justification mode
     void setJustify(FXuint mode);
@@ -144,22 +162,34 @@ public:
     FXuint getJustify() const;
 
     /// @brief Change word delimiters
-    void setDelimiters(const FXchar* delims = FXTextField::textDelimiters){ delimiters = delims; }
+    void setDelimiters(const FXchar* delims = FXTextField::textDelimiters) {
+        delimiters = delims;
+    }
 
     /// @brief Return word delimiters
-    const FXchar* getDelimiters() const { return delimiters; }
+    const FXchar* getDelimiters() const {
+        return delimiters;
+    }
 
     /// @brief Set the status line help text for this label
-    void setHelpText(const FXString& text){ help = text; }
+    void setHelpText(const FXString& text) {
+        help = text;
+    }
 
     /// @brief Get the status line help text for this label
-    const FXString& getHelpText() const { return help; }
+    const FXString& getHelpText() const {
+        return help;
+    }
 
     /// @brief Set the tool tip message for this text field
-    void setTipText(const FXString& text){ tip = text; }
+    void setTipText(const FXString& text) {
+        tip = text;
+    }
 
     /// @brief Get the tool tip message for this text field
-    const FXString& getTipText() const { return tip; }
+    const FXString& getTipText() const {
+        return tip;
+    }
 
     /// @brief Change text style
     void setTextStyle(FXuint style);

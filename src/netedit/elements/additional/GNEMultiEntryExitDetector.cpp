@@ -43,14 +43,14 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
         double speedThreshold, const bool expectedArrival, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myPeriod(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myExpectedArrival(expectedArrival) {
+              Parameterised(parameters),
+              myPosition(pos),
+              myPeriod(freq),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+              myTimeThreshold(timeThreshold),
+              mySpeedThreshold(speedThreshold),
+myExpectedArrival(expectedArrival) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

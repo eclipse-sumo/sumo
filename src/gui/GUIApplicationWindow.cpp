@@ -515,8 +515,8 @@ GUIApplicationWindow::fillMenuBar() {
     myLoadDemandInNetedit = GUIDesigns::buildFXMenuCheckbox(myEditMenu, TL("Load demand in netedit"), TL("Load demand in netedit."), this, MID_TOOLBAREDIT_LOADDEMAND);
     myLoadDemandInNetedit->setCheck(FALSE);
     myOpenInNetedit = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                                                             TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
-                                                             GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
+                      TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
+                      GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Settings"), nullptr, mySettingsMenu);

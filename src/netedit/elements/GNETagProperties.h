@@ -232,7 +232,7 @@ public:
 
     /// @brief return true if tag correspond to a JuPedSim element
     bool isJuPedSimElement() const;
-    
+
     /// @}
 
     /// @brief demand elements
@@ -260,9 +260,9 @@ public:
 
     /// @brief return true if tag correspond to a container element
     bool isContainer() const;
-    
+
     /// @}
-    
+
     /// @brief plans
     /// @{
     /// @brief return true if tag correspond to a plan
@@ -297,9 +297,9 @@ public:
 
     /// @brief return true if tag correspond to a container stop plan
     bool isPlanStopContainer() const;
-    
+
     /// @}
-    
+
     /// @brief data elements
     /// @{
     /// @brief return true if tag correspond to a generic data element

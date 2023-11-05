@@ -216,11 +216,11 @@ void
 GUITextureSubSys::resetTextures() {
     // Reset all textures
     GUITexturesHelper::clearTextures();
-    for (auto &texture : myInstance->myTextures) {
+    for (auto& texture : myInstance->myTextures) {
         texture.second = 0;
     }
     myInstance->myTextures.clear();
-    for (auto &POITexture : myInstance->myPOITextures) {
+    for (auto& POITexture : myInstance->myPOITextures) {
         POITexture.second = 0;
     }
     myInstance->myPOITextures.clear();

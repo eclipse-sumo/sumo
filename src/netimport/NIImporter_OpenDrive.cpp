@@ -2747,9 +2747,11 @@ NIImporter_OpenDrive::myEndElement(int element) {
                 int intType = -1;
                 try {
                     intType = StringUtils::toInt(myCurrentEdge.signals.back().type);
+                } catch (NumberFormatException&) {
+                    break;
+                } catch (EmptyData&) {
+                    break;
                 }
-                catch (NumberFormatException&) { break; }
-                catch (EmptyData&) { break; }
                 if (intType < 1000001 || (intType > 1000013 && intType != 1000020) || intType == 1000008) {
                     // not a traffic_light (Section 6.11)
                     break;
@@ -2766,8 +2768,7 @@ NIImporter_OpenDrive::myEndElement(int element) {
                                     foundDrivingType = true;
                                 }
                             }
-                        }
-                        else if (myCurrentEdge.signals.back().orientation > 0) { // 0 = center is never used for driving
+                        } else if (myCurrentEdge.signals.back().orientation > 0) { // 0 = center is never used for driving
                             for (OpenDriveLane l : ls.lanesByDir[OPENDRIVE_TAG_RIGHT]) {
                                 if ((minLane > 0 && l.id >= minLane && l.id <= maxLane) && l.type == "driving") {
                                     foundDrivingType = true;

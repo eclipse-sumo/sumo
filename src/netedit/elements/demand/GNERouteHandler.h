@@ -100,7 +100,7 @@ public:
 
     /// @brief build trip over TAZs
     void buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                            const std::string& fromTAZID, const std::string& toTAZID);
+                       const std::string& fromTAZID, const std::string& toTAZID);
 
     /// @brief build flow
     void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -112,7 +112,7 @@ public:
 
     /// @brief build flow over junctions
     void buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                            const std::string& fromTAZID, const std::string& toTAZID);
+                       const std::string& fromTAZID, const std::string& toTAZID);
 
     /// @brief build person
     void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
@@ -155,12 +155,12 @@ public:
 
     /// @brief build person stop
     void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
-                         const std::string& trainStopID,const double endPos, const SUMOTime duration, const SUMOTime until,
-                         const std::string &actType, const bool friendlyPos, const int parameterSet);
+                         const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
+                         const std::string& actType, const bool friendlyPos, const int parameterSet);
 
     /// @brief build container stop
     void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
-                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string &actType, const bool friendlyPos,
+                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, const bool friendlyPos,
                             const int parameterSet);
     /// @}
 
@@ -245,14 +245,14 @@ public:
     static bool canReverse(const GNEDemandElement* element);
 
     /// @brief check if the given list of edges can be reversed
-    static bool canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges);
+    static bool canReverse(GNENet* net, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges);
 
     /// @brief reverse given demand element
     static void reverse(GNEDemandElement* element);
 
     /// @brief add reverse for given demand element
     static void addReverse(GNEDemandElement* element);
-    
+
     /// @}
 
 protected:
@@ -269,7 +269,7 @@ protected:
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
 
     /// @brief get type (Either type o typeDistribution)
-    GNEDemandElement* getType(const std::string &id) const;
+    GNEDemandElement* getType(const std::string& id) const;
 
     /// @brief get person parent
     GNEDemandElement* getPersonParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
@@ -301,7 +301,7 @@ protected:
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
                                  const std::vector<std::string>& distributionElementIDs, const std::vector<double>& probabilities,
-                                 std::vector<const GNEDemandElement*> &elements);
+                                 std::vector<const GNEDemandElement*>& elements);
 
     /// @brief check if given ID correspond to a duplicated demand element
     bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);

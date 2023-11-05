@@ -66,7 +66,7 @@ GNEDemandElementDistribution::getPossibleDistributionKeys(SumoXMLTag type) const
     // get list of possible keys
     auto allKeys = myDemandElement->getNet()->getAttributeCarriers()->getDemandElements().at(type);
     // fill possible keys with non used keys
-    for (const auto &key : allKeys) {
+    for (const auto& key : allKeys) {
         if (!keyExists(key)) {
             possibleKeys[key->getID()] = key;
         }
@@ -79,7 +79,7 @@ std::string
 GNEDemandElementDistribution::getAttributeDistributionKeys() const {
     // first sort all keys by ID
     std::set<std::string> sortedKeys;
-    for (const auto &values : myDistributionValues) {
+    for (const auto& values : myDistributionValues) {
         sortedKeys.insert(values.first->getID());
     }
     // return keySortd
@@ -91,12 +91,12 @@ std::string
 GNEDemandElementDistribution::getAttributeDistributionValues() const {
     // first sort all keys by ID
     std::map<std::string, const GNEDemandElement*> sortedKeys;
-    for (const auto &values : myDistributionValues) {
+    for (const auto& values : myDistributionValues) {
         sortedKeys[values.first->getID()] = values.first;
     }
     // now obtain values sorted by ID
     std::vector<double> values;
-    for (const auto &sortedKey : sortedKeys) {
+    for (const auto& sortedKey : sortedKeys) {
         values.push_back(myDistributionValues.at(sortedKey.second));
     }
     return toString(values);
@@ -127,7 +127,7 @@ GNEDemandElementDistribution::removeDistributionKey(const GNEDemandElement* key,
 
 void
 GNEDemandElementDistribution::editDistributionValue(const GNEDemandElement* key, const double newValue, GNEUndoList* undoList) {
-    GNEChange_Distribution::editValue(myDemandElement, key, newValue, undoList); 
+    GNEChange_Distribution::editValue(myDemandElement, key, newValue, undoList);
 }
 
 

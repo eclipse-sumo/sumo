@@ -555,7 +555,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
-    
+
     myIcons[GUIIcon::VIEWDEFAULT] = new FXXPMIcon(a, viewdefault_xpm);
     myIcons[GUIIcon::VIEWJUPEDSIM] = new FXXPMIcon(a, viewjupedsim_xpm);
 
@@ -691,7 +691,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::CURRENT] = new FXXPMIcon(a, current_xpm);
     myIcons[GUIIcon::SEARCH] = new FXXPMIcon(a, search_xpm);
     myIcons[GUIIcon::ALLOW] = new FXXPMIcon(a, allow_xpm);
-    
+
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEGRID] = new FXXPMIcon(a, checkbox_grid_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE] = new FXXPMIcon(a, checkbox_drawjunctionshapes_xpm);
     myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);

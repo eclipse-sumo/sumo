@@ -43,8 +43,8 @@
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-    GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+                  GNEAdditional("", net, GLO_POLYGON, tag, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -55,7 +55,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -80,10 +80,10 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net, const std::string& id, const PositionVector& shape, bool geo, const std::string& name,
                  const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1, 
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
                       getJuPedSimLayer(tag), 0, "", false, name, parameters),
     GNEAdditional(id, net, getJuPedSimGLO(tag), tag, getJuPedSimIcon(tag), "", {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+mySimplifiedShape(false) {
     // set GEO shape
     myGeoShape = myShape;
     if (geo) {
@@ -330,7 +330,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     }
                 } else {
                     // draw inner polygon
-                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement()? false : drawUsingSelectColor());
+                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
                 }
             } else {
                 // push matrix

@@ -91,7 +91,7 @@ private:
 
     /// @brief the new value
     const std::string myNewValue;
-    
+
     /**@brief constructor
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key

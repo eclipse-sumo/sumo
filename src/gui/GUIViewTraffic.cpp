@@ -766,26 +766,25 @@ GUIViewTraffic::retrieveBreakpoints() const {
 }
 
 
-void 
+void
 GUIViewTraffic::drawPedestrianNetwork(const GUIVisualizationSettings& s) const {
     GUIShapeContainer& shapeContainer = dynamic_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer());
     if (s.showPedestrianNetwork) {
-        shapeContainer.removeInactivePolygonTypes(std::set<std::string>{"jupedsim.pedestrian_network"});
-    }
-    else {
-        shapeContainer.addInactivePolygonTypes(std::set<std::string>{"jupedsim.pedestrian_network"});
+        shapeContainer.removeInactivePolygonTypes(std::set<std::string> {"jupedsim.pedestrian_network"});
+    } else {
+        shapeContainer.addInactivePolygonTypes(std::set<std::string> {"jupedsim.pedestrian_network"});
     }
     update();
 }
 
 
-void 
+void
 GUIViewTraffic::changePedestrianNetworkColor(const GUIVisualizationSettings& s) const {
     GUIShapeContainer& shapeContainer = dynamic_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer());
     for (auto polygonwithID : shapeContainer.getPolygons()) {
         if (polygonwithID.second->getShapeType() == "jupedsim.pedestrian_network") {
             polygonwithID.second->setShapeColor(s.pedestrianNetworkColor);
-        } 
+        }
     }
     update();
 }

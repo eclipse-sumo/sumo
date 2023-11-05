@@ -50,7 +50,7 @@ public:
      */
     GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                       const std::string &chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
+                       const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEChargingStation();

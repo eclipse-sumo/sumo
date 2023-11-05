@@ -135,9 +135,9 @@ void
 GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing lane reroute as listed attribute
     drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                        1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
-                        getAttribute(SUMO_ATTR_LANE));
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
+                         getAttribute(SUMO_ATTR_LANE));
 }
 
 

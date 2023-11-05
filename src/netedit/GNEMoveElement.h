@@ -251,7 +251,7 @@ protected:
 
     /// @brief calculate move shape operation
     GNEMoveOperation* calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition,
-                                                  const double snapRadius, const bool onlyContour, const bool maintainShapeClosed);
+            const double snapRadius, const bool onlyContour, const bool maintainShapeClosed);
 
 private:
     /// @brief set move shape

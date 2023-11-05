@@ -470,10 +470,10 @@ public:
 
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
-        
+
     /// @brief called when a new view is set
     long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
-    
+
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 
@@ -813,7 +813,7 @@ private:
 
     /// @brief draw circle in testing mode (neede for grid)
     void drawTestsCircle() const;
-        
+
     /// @}
 
     /// @brief mouse process functions

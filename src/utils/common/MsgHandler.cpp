@@ -366,7 +366,7 @@ MsgHandler::cleanupOnEnd() {
 }
 
 
-std::string 
+std::string
 MsgHandler::buildTimestampPrefix(void) const {
     std::stringstream prefix;
     const std::chrono::system_clock::time_point now_timestamp = std::chrono::system_clock::now();
@@ -380,7 +380,7 @@ MsgHandler::buildTimestampPrefix(void) const {
 }
 
 
-std::string 
+std::string
 MsgHandler::buildProcessIdPrefix(void) const {
     std::stringstream prefix;
     prefix << "[PID: ";
