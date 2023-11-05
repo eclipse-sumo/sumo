@@ -281,7 +281,7 @@ class lane:
         changeRight = 13
         type = 14
         stopOffset = 15
-        stopOffsetExceptionButton = 16        
+        stopOffsetExceptionButton = 16
         stopOffsetException = 17
         parameters = 20
 
@@ -299,7 +299,7 @@ class lane:
         changeRight = 11
         type = 12
         stopOffset = 13
-        stopOffsetExceptionButton = 14        
+        stopOffsetExceptionButton = 14
         stopOffsetException = 15
         parameters = 18
 
