@@ -112,7 +112,7 @@ jobs:
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
-        python3 -m pip install -r tools/requirements.txt
+        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python3 -m pip install -r tools/requirements.txt; fi
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
 
     - name: Running meta tests and cleaning up
