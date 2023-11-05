@@ -13,6 +13,7 @@ title: ChangeLog
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
   - Fixed collision during sublane-change. #13582, #13585
   - Fixed crash during emergency vehicle simulation. #13598
+  - Start and end edge in trips can also be used as vias. #13987
   - bidi edge
     - Fixed avoidable slowdown when approaching a bidi lane at low speed. #13558
     - Fixed deadlock on junction when approaching occupied bidiEdge at traffic light. #13541
@@ -39,6 +40,12 @@ title: ChangeLog
   - Fixed problem moving vehicles. #13824
   - Fixed crash in netedit due to netbuild / connections. #13731
   
+- sumo-gui
+  - Sidewalks are no longer connected to the ground in 3D view. Issue #13993
+  - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. Issue #14003
+  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. Issue #14005
+  - 3D models can be loaded as decals again. Issue #14009
+
 - netconvert
   - Fixed unequal length of bidi edge. #13569
   - OSM turn lanes for left hand networks are now in right order. #13549
@@ -52,6 +59,9 @@ title: ChangeLog
   - plotXMLAttributes.py: fixed crash when parsing heterogeneous content. #13556
   - traceExporter.py: kepler-JSON now generates correct timestamps. #13522, #13550
   
+- TraCI
+  - Lanearea detector now reports for last interval if output file is not set. Issue #13966
+
 ### Enhancements
 
 - sumo-gui
