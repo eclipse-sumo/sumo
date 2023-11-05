@@ -101,9 +101,9 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
-//#define DEBUG_COND (getID() == "")
+//#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
-//#define DEBUG_COND (isSelected())
+#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
 
@@ -1230,7 +1230,7 @@ MSVehicle::getPosition(const double offset) const {
             return Position::INVALID;
         }
     }
-    if (isParking() && (myType->getVehicleClass() & SVC_NON_ROAD) == 0) {
+    if (isParking()) {
         if (myStops.begin()->parkingarea != nullptr) {
             return myStops.begin()->parkingarea->getVehiclePosition(*this);
         } else {
