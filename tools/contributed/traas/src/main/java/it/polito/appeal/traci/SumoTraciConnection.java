@@ -258,6 +258,7 @@ public class SumoTraciConnection {
      */
     public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
         InterruptedException {
+        System.err.println("TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.");
 
         this.remote = true;
         socket = new Socket();
@@ -319,8 +320,7 @@ public class SumoTraciConnection {
      *             at it.
      */
     public void runServer(int _remotePort) throws IOException {
-
-
+        System.err.println("TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.");
 
         if (!this.remote) {
 
