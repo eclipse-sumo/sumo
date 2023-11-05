@@ -15,7 +15,7 @@ Warning: 15 total messages of type: Discarding unusable type '%' (first occurren
 Warning: 9 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 7 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 54 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 56 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
@@ -83,14 +83,14 @@ Warning: The rail crossing '10315385453' does not have any roads.
 Warning: Unused state in tlLogic '10567769017', program '0' at tl-index 6
 Warning: 11 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 54 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 56 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 76 total messages of type: The rail crossing '%' does not have any roads.
 Warning: 93 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Found sharp turn with radius 8.80 at the start of edge '1219533557'.
+Warning: Found sharp turn with radius 8.80 at the start of edge '1220548701'.
 Warning: Shape for junction '29221595' has distance 26.28 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '11204159490'.
-Warning: Lane '1219537250_1' is not connected from any incoming edge at junction '11300052008'.
+Warning: Lane '1220552394_1' is not connected from any incoming edge at junction '11309988946'.
 Warning: Non-static traffic light '10567769017' does not define variable phase length.
 Warning: Unused state in tlLogic '10567769017', program '0' at tl-index 3
 Warning: 4 total messages of type: Converting invalid rail_crossing to priority junction '%'.
@@ -98,10 +98,10 @@ Warning: 4 total messages of type: Found sharp turn with radius % at the % of ed
 Warning: 40 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 91 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Ambiguity in turnarounds computation at junction '11300052035'.
+Warning: Ambiguity in turnarounds computation at junction '11309988973'.
 Warning: Converting invalid rail_crossing to priority junction '10315385453'.
-Warning: Non-static traffic light '11300052002' does not define variable phase length.
-Warning: Unused state in tlLogic '11300052002', program '0' at tl-index 2
+Warning: Non-static traffic light '11309988940' does not define variable phase length.
+Warning: Unused state in tlLogic '11309988940', program '0' at tl-index 2
 Warning: 3 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 80 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 43 total messages of type: Non-static traffic light '%' does not define variable phase length.

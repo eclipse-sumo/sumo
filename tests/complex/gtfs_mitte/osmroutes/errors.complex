@@ -15,7 +15,7 @@ Warning: 15 total messages of type: Discarding unusable type '%' (first occurren
 Warning: 9 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 7 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 54 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 56 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
