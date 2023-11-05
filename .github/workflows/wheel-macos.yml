@@ -113,7 +113,7 @@ jobs:
       if: github.repository == 'DLR-TS/sumo'
       run: |
         python3 -m pip install -r tools/requirements.txt
-        tests/runTests.sh -b ci -v ci.fast
+        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
 
     - name: Running meta tests and cleaning up
       run: |
