@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-03 15:11+0000\n"
+"PO-Revision-Date: 2023-11-06 14:53+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11182,7 +11182,7 @@ msgstr "Una parada necesita solo un lugar de parada, arista o carril"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1922
 #, c-format
 msgid "Via edge '%' doesn't exist."
-msgstr ""
+msgstr "La arista intermedia (via) '%' no existe."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3014
 msgid "% with id '%' doesn't exist in % '%'"
@@ -11236,11 +11236,11 @@ msgstr "Vehículo (con ruta integrada)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:127
 msgid "RouteFlow"
-msgstr ""
+msgstr "Flujo de rutas"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:131
 msgid "RouteFlow (embedded route)"
-msgstr ""
+msgstr "Flujo de rutas (con ruta integrada)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:135
 msgid "Trip"
@@ -11298,11 +11298,11 @@ msgstr "Vehículos (con ruta integrada) (sólo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:271
 msgid "RouteFlows (only %)"
-msgstr ""
+msgstr "Flujo de rutas (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:274
 msgid "RouteFlows (embedded route) (only %)"
-msgstr ""
+msgstr "Flujo de rutas (con ruta integrada) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:277
 msgid "Trips (only %)"
@@ -11318,11 +11318,11 @@ msgstr "Vehículos (con ruta integrada)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:292
 msgid "RouteFlows"
-msgstr ""
+msgstr "Flujos de rutas"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:295
 msgid "RouteFlows (embedded route)"
-msgstr ""
+msgstr "Flujos de rutas (con ruta integrada)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:298
 msgid "Trips"
@@ -11358,7 +11358,7 @@ msgstr "No se pudo calcular una elevación suave para la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEInternalLane.cpp:281
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "estado de enlace no válido='%'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:443
 msgid "TLS operations"
@@ -11386,7 +11386,7 @@ msgstr "cambiar keepClear para todo el cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:571
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "Estado de enlace inesperado '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:778
 msgid "Copy parent edge name to clipboard"
@@ -11446,7 +11446,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1084
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "¡El carril opuesto '%' no conecta los mismos nodos que la arista '%'!"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1919
 #, c-format
@@ -11463,15 +11463,15 @@ msgstr "Dividir arista aquí"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1925
 msgid "Split edge in both directions here (no symmetric opposite edge)"
-msgstr ""
+msgstr "Dividir arista en ambas direcciones aquí (sin arista simétrica opuesta)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1930
 msgid "Split edge in both directions here (no opposite edge)"
-msgstr ""
+msgstr "Dividir arista en ambas direcciones aquí (sin arista opuesta)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1937
 msgid "Split edge in both directions here"
-msgstr ""
+msgstr "Dividir arista en ambas direcciones aquí"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
 msgid "Set geometry endpoint here (shift-click)"
@@ -12296,7 +12296,7 @@ msgstr "Sólo se permiten dos elementos from-to"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1051
 msgid "Double stoppingPlaces aren't allowed"
-msgstr ""
+msgstr "Lugares de parada dobles no son permitidos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:91
 msgid "Plan type"
@@ -12814,7 +12814,7 @@ msgstr "Opciones de movimiento de demanda"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:163
 msgid "Leave stopPersons connected"
-msgstr ""
+msgstr "Dejar la parada de persona conectada"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:199
 msgid "Shift selected edges geometry"
@@ -13181,7 +13181,7 @@ msgstr "Ya hay un % definido en la zona de análisis de tráfico (TAZ) '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:181
 msgid "There is already a % defined between TAZ'%' and '%'."
-msgstr ""
+msgstr "Ya existe un % definido entre la zona de análisis de tráfico '%' y '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:108
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:123
