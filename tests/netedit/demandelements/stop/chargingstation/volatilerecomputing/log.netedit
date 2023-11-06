@@ -1,6 +1,0 @@
-Warning: Speed of turning connection 'Edge1_0->E1_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03, angle=90.00).
-Warning: Speed of turning connection '-E0_0->Edge1_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03, angle=90.00).
-Warning: Speed of turning connection 'Edge1_0->E1_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
-Warning: Speed of turning connection '-E0_1->Edge1_0' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
-Warning: Speed of turning connection 'Edge1_0->E1_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
-Warning: 6 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
