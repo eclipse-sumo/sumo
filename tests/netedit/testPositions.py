@@ -148,7 +148,12 @@ class demandElements:
         x = 133
         y = 479
 
-    # click over stop edge
+    # click stop/waypoint over edge
+    class stopEdge:
+        x = 256
+        y = 35   
+
+    # click stop/
     class stopBusStop:
         x = 375
         y = 40
@@ -176,4 +181,4 @@ class demandElements:
     # click over plan in edge
     class planEdge:
         x = 197
-        y = 36
+        y = 36     
