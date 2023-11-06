@@ -54,8 +54,11 @@
 #include "textures/VariableSpeedSignSelected.cpp"
 #include "textures/VariableSpeedSign_Step.cpp"
 
+#include "textures/POITextures/Pin.cpp"
 #include "textures/POITextures/Nature.cpp"
 #include "textures/POITextures/Hotel.cpp"
+#include "textures/POITextures/Fuel.cpp"
+#include "textures/POITextures/Charging_station.cpp"
 
 // ===========================================================================
 // static member variable definitions
@@ -198,11 +201,20 @@ GUITextureSubSys::getPOITexture(POIIcon icon) {
     // first check if texture exist
     if (myInstance->myPOITextures.count(icon) == 0) {
         switch (icon) {
+            case POIIcon::PIN:
+                myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Pin, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
             case POIIcon::NATURE:
                 myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Nature, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             case POIIcon::HOTEL:
                 myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Hotel, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case POIIcon::FUEL:
+                myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Fuel, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
+                break;
+            case POIIcon::CHARGING_STATION:
+                myInstance->myPOITextures[icon] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, POITexture_Charging_station, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
                 throw ProcessError("Undefined POI texture");

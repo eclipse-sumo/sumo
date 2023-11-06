@@ -335,8 +335,11 @@
 #include "icons/poilane.xpm"
 #include "icons/poigeo.xpm"
 
+#include "icons/poiicons/poiicon_pin.xpm"
 #include "icons/poiicons/poiicon_hotel.xpm"
 #include "icons/poiicons/poiicon_nature.xpm"
+#include "icons/poiicons/poiicon_fuel.xpm"
+#include "icons/poiicons/poiicon_charging_station.xpm"
 
 #include "icons/jps.xpm"
 #include "icons/jps_walkablearea.xpm"
@@ -832,8 +835,11 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
     myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
 
+    myIcons[GUIIcon::POIICON_PIN] = new FXXPMIcon(a, poiicon_pin_xpm);
     myIcons[GUIIcon::POIICON_NATURE] = new FXXPMIcon(a, poiicon_nature_xpm);
     myIcons[GUIIcon::POIICON_HOTEL] = new FXXPMIcon(a, poiicon_hotel_xpm);
+    myIcons[GUIIcon::POIICON_FUEL] = new FXXPMIcon(a, poiicon_fuel_xpm);
+    myIcons[GUIIcon::POIICON_CHARGING_STATION] = new FXXPMIcon(a, poiicon_charging_station_xpm);
 
     myIcons[GUIIcon::JPS] = new FXXPMIcon(a, jps_xpm);
     myIcons[GUIIcon::JPS_WALKABLEAREA] = new FXXPMIcon(a, jps_walkablearea_xpm);
