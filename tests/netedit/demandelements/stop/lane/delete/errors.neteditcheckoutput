@@ -1,0 +1,3 @@
+Error: The lane Edge2_1 to use within the busStop 'busStopA' is not known.
+Error: Could not end a stopping place that is not opened.
+Quitting (on error).

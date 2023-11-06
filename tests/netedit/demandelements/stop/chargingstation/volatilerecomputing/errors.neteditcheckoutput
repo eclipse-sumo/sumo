@@ -1,0 +1,20 @@
+Error: Another lane with the id 'Edge0_0' exists.
+Error: An unknown lane ('Edge0_1') was tried to be set as incoming to junction 'gneJ3'.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown to-node 'gneJ3' for edge '-E0'.
+Quitting (on error).

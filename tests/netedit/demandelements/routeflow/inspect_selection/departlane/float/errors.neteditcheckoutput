@@ -1,1 +1,3 @@
-Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
+Warning: Vehicle 'flowA.0' will not be able to arrive at the given lane 'Edge2_0'!
+Error: Invalid departlane definition for vehicle 'flowA.0'.
+Quitting (on error).

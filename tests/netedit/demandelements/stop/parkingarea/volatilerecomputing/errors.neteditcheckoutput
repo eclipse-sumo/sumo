@@ -1,16 +1,20 @@
-Warning: Teleporting vehicle 'vehicle_0'; waited too long (wrong lane), lane='Edge0_0', time=305.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge0_0' time=305.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge0_1' time=305.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge0_2' time=305.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge0_3' time=305.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge0_4' time=305.00.
-Warning: Vehicle 'vehicle_0' ends teleporting on edge 'Edge1', time=305.00.
-Warning: Teleporting vehicle 'vehicle_1'; waited too long (wrong lane), lane='Edge0_0', time=306.00.
-Warning: Vehicle 'vehicle_1' skips stop on lane 'Edge0_0' time=306.00.
-Warning: Vehicle 'vehicle_1' ends teleporting on edge 'gneE1', time=306.00.
-Warning: Teleporting vehicle 'vehicle_0'; waited too long (jam), lane='Edge1_0', time=608.00.
-Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'Edge1', time=608.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge1_0' time=608.00.
-Warning: Teleporting vehicle 'vehicle_1'; waited too long (jam), lane='Edge2_0', time=612.00.
-Warning: Vehicle 'vehicle_1' teleports beyond arrival edge 'gneE1', time=612.00.
-Warning: Vehicle 'vehicle_1' skips stop on lane 'Edge2_0' time=612.00.
+Error: Another lane with the id 'Edge0_0' exists.
+Error: An unknown lane ('Edge0_1') was tried to be set as incoming to junction 'gneJ3'.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown to-edge 'Edge0' in connection.
+Error: Unknown from-edge 'Edge0' in connection.
+Error: Unknown to-node 'gneJ3' for edge '-E0'.
+Quitting (on error).
