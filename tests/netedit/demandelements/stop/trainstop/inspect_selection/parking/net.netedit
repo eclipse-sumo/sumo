@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-06 16:09:22 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
+<!-- generated on 2023-11-06 16:22:01 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\net.net.xml"/>
     </output>
 
     <processing>
@@ -37,16 +37,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_06Nov160430.9792\netedit.gui\demandelements\waypoint\trainstop\delete\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov162019.3480\netedit.gui\demandelements\stop\trainstop\inspect_selection\parking\log.txt"/>
     </report>
 
 </configuration>

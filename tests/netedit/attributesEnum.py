@@ -2495,6 +2495,7 @@ class stopBusStop:
         tripID = 11
         line = 12
         onDemand = 13
+        jump = 14
 
     class inspectSelection:
         durationEnable = 1
@@ -2506,11 +2507,12 @@ class stopBusStop:
         triggered = 7
         expected = 9
         permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
 
 # stop over train stop
 
@@ -2547,6 +2549,7 @@ class stopTrainStop:
         tripID = 11
         line = 12
         onDemand = 13
+        jump = 14
 
     class inspectSelection:
         durationEnable = 1
@@ -2558,11 +2561,12 @@ class stopTrainStop:
         triggered = 7
         expected = 9
         permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
 
 # stop over container stop
 
@@ -2599,6 +2603,7 @@ class stopContainerStop:
         tripID = 11
         line = 12
         onDemand = 13
+        jump = 14
 
     class inspectSelection:
         durationEnable = 1
@@ -2610,11 +2615,12 @@ class stopContainerStop:
         triggered = 7
         expected = 9
         permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
 
 # stop over charging station
 
@@ -2651,6 +2657,7 @@ class stopChargingStation:
         tripID = 11
         line = 12
         onDemand = 13
+        jump = 14
 
     class inspectSelection:
         durationEnable = 1
@@ -2662,11 +2669,12 @@ class stopChargingStation:
         triggered = 7
         expected = 9
         permitted = 10
-        parking = 11
-        actType = 13
-        tripID = 14
-        line = 15
-        onDemand = 16
+        parking = 10
+        actType = 12
+        tripID = 13
+        line = 14
+        onDemand = 15
+        jump = 16
 
 # stop over parkings
 
@@ -2701,6 +2709,7 @@ class stopParking:
         tripID = 9
         line = 10
         onDemand = 11
+        jump = 12        
 
     class inspectSelection:
         durationEnable = 1
@@ -2716,6 +2725,7 @@ class stopParking:
         tripID = 12
         line = 13
         onDemand = 14
+        jump = 15
 
 # stop over lane
 

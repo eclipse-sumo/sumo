@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-06 16:10:11 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
+<!-- generated on 2023-11-06 16:22:01 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -16,6 +16,16 @@
     <parkingArea id="parkingAreaA" lane="Edge3_1" startPos="29.80" endPos="39.80"/>
     <parkingArea id="parkingAreaB" lane="EdgeCenter0_1" startPos="14.30" endPos="19.30"/>
     <!-- TAZs -->
-    <taz id="taz_green" shape="18.00,20.00 18.00,16.00 0.00,16.00 0.00,20.00 18.00,20.00" fill="1" color="green"/>
-    <taz id="taz_red" shape="36.00,20.00 36.00,16.00 54.00,16.00 54.00,20.00 36.00,20.00" fill="1" color="red"/>
+    <taz id="taz_green" shape="18.00,20.00 18.00,16.00 0.00,16.00 0.00,20.00 18.00,20.00" fill="1" color="green">
+        <tazSource id="Edge2" weight="1.00"/>
+        <tazSink id="Edge2" weight="1.00"/>
+        <tazSource id="Edge3" weight="1.00"/>
+        <tazSink id="Edge3" weight="1.00"/>
+    </taz>
+    <taz id="taz_red" shape="36.00,20.00 36.00,16.00 54.00,16.00 54.00,20.00 36.00,20.00" fill="1" color="red">
+        <tazSource id="Edge0" weight="1.00"/>
+        <tazSink id="Edge0" weight="1.00"/>
+        <tazSource id="Edge5" weight="1.00"/>
+        <tazSink id="Edge5" weight="1.00"/>
+    </taz>
 </additional>
