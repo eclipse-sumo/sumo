@@ -1,56 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-20 12:08:59 by Eclipse SUMO netedit Version v1_13_0+1015-35da78b273c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-11-06 09:02:20 by Eclipse SUMO netedit Version v1_18_0+2429-1a41f4aa074
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/input_net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/datas.xml"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.20Jun093117.9259/netedit.daily.net.edges/netelements/edges/contextual_menu/set_geometry_point/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov085945.9644\netedit.gui\netelements\edges\contextual_menu\set_geometry_point\log.txt"/>
     </report>
 
 </configuration>
@@ -85,8 +81,8 @@
         <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="9.92" length="22.36" shape="1.60,9.60 2.88,12.05 6.70,13.80 13.07,14.85 22.00,15.20"/>
-        <lane id=":gneJ2_0_1" index="1" speed="10.32" length="24.29" shape="1.60,9.60 2.88,13.45 6.70,16.20 13.07,17.85 22.00,18.40"/>
+        <lane id=":gneJ2_0_0" index="0" speed="9.30" length="19.54" shape="1.60,9.60 2.69,12.05 5.95,13.80 11.39,14.85 19.00,15.20"/>
+        <lane id=":gneJ2_0_1" index="1" speed="9.75" length="21.58" shape="1.60,9.60 2.69,13.45 5.95,16.20 11.39,17.85 19.00,18.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" speed="6.51" length="9.03" shape="42.80,15.20 45.25,14.85 47.00,13.80 48.05,12.05 48.40,9.60"/>
@@ -98,9 +94,9 @@
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1" shape="22.00,20.00 50.00,20.00">
-        <lane id="gneE2_0" index="0" speed="13.89" length="20.80" shape="22.00,15.20 42.80,15.20"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="20.80" shape="22.00,18.40 42.80,18.40"/>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1" shape="19.00,20.00 50.00,20.00">
+        <lane id="gneE2_0" index="0" speed="13.89" length="23.80" shape="19.00,15.20 42.80,15.20"/>
+        <lane id="gneE2_1" index="1" speed="13.89" length="23.80" shape="19.00,18.40 42.80,18.40"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
         <lane id="gneE4_0" index="0" speed="13.89" length="6.40" shape="48.40,9.60 48.40,3.20"/>
@@ -125,7 +121,7 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_0_1" shape="22.00,20.00 22.00,13.60 16.26,13.49 11.56,13.16 7.90,12.60 5.29,11.82 3.72,10.82 3.20,9.60 -3.20,9.60 -2.50,12.78 -0.40,15.38 3.10,17.40 8.00,18.84 14.30,19.71">
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_0_1" shape="19.00,20.00 19.00,13.60 14.17,13.49 10.22,13.16 7.15,12.60 4.96,11.82 3.64,10.82 3.20,9.60 -3.20,9.60 -2.58,12.78 -0.73,15.38 2.35,17.40 6.67,18.84 12.22,19.71">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

@@ -35,16 +35,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 440, 160)
 
 # select second edge
-netedit.leftClick(referencePosition, 250, 110)
+netedit.leftClick(referencePosition, 440, 120)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 440, 160)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.edge.inspectSelection.parameters, False)

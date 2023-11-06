@@ -1,4 +1,5 @@
 <viewsettings>
+    <viewport zoom="120" x="20" y="10"/>
     <scheme name="testing">
         <background backgroundColor="white" showGrid="1" gridXSize="1.0" gridYSize="1.0"/>
     </scheme>

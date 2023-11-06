@@ -38,10 +38,10 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete edge
-netedit.leftClick(referencePosition, 220, 200)
+netedit.leftClick(referencePosition, 350, 200)
 
 # delete node
-netedit.leftClick(referencePosition, 526, 236)
+netedit.leftClick(referencePosition, 500, 235)
 
 # rebuild network
 netedit.rebuildNetwork()

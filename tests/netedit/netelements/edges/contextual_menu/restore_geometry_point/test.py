@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # restore geometry point
-netedit.contextualMenuOperation(referencePosition, 250, 260,
+netedit.contextualMenuOperation(referencePosition, 480, 147,
                                 netedit.attrs.edge.contextualMenuEdgeB,
                                 netedit.attrs.edge.contextualMenu.restoreGeometryPoint)
 
