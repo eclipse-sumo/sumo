@@ -55,15 +55,12 @@ netedit.changePersonPlanMode("stop")
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
-# press enter to create route
-netedit.typeEnter()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopBusStop.x,
-                  netedit.positions.stopBusStop.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planBusStop.x,
+                  netedit.positions.demandElements.planBusStop.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.actType, "singing", False)

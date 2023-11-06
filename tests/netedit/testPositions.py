@@ -153,11 +153,6 @@ class demandElements:
         x = 256
         y = 35   
 
-    # click stop/
-    class stopBusStop:
-        x = 375
-        y = 40
-
     # click over single trip or flow over junctions
     class singleVehicleJunction:
         x = 160
@@ -175,7 +170,7 @@ class demandElements:
 
     # click over plan in busStop
     class planBusStop:
-        x = 377
+        x = 318
         y = 14
 
     # click over plan in edge
