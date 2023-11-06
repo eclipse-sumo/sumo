@@ -240,9 +240,9 @@ class edge:
         parameters = 21
 
     class template:
-        create = 33
-        copy = 34
-        clear = 35
+        create = 32
+        copy = 33
+        clear = 34
 
     class contextualMenu:
         splitEdge = 1
