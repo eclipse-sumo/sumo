@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-10-30 17:33+0100\n"
-"PO-Revision-Date: 2023-11-04 16:33+0000\n"
+"PO-Revision-Date: 2023-11-06 14:53+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4937,7 +4937,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:921
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "¡El carril opuesto '%' no conecta los mismos nodos que la arista '%'!"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1421
 msgid "Replacing loaded roundabout '%' with '%'."
