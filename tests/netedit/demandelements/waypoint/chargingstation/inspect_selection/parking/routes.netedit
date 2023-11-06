@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-18 15:53:37 by Eclipse SUMO netedit Version v1_18_0+0375-b4934692cfe
+<!-- generated on 2023-11-06 14:26:51 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -8,7 +8,7 @@
     <vType id="bike" vClass="ignoring"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <flow id="flow" type="bike" begin="0.00" from="Edge0" to="EdgeCenter0" end="36.00" number="18">
-        <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" permitted="A B" tripId="tripA" line="lineA" speed="10.00" actType="walking"/>
-        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" permitted="C D" tripId="tripB" line="lineB" speed="22.50" actType="singing"/>
+        <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" parking="1" permitted="A B" tripId="tripA" line="lineA" speed="10.00" actType="walking"/>
+        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" parking="1" permitted="C D" tripId="tripB" line="lineB" speed="22.50" actType="singing"/>
     </flow>
 </routes>
