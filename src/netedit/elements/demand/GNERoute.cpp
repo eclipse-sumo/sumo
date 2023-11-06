@@ -675,6 +675,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
                 undoList->begin(this, "reset start and end edges");
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_DEPARTEDGE, "", undoList);
                 GNEChange_Attribute::changeAttribute(getParentDemandElements().front(), SUMO_ATTR_ARRIVALEDGE, "", undoList);
+                GNEChange_Attribute::changeAttribute(this, key, value, undoList);
                 undoList->end();
             } else {
                 // just change edges
