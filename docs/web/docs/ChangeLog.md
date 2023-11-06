@@ -9,6 +9,7 @@ title: ChangeLog
 - Simulation
   - Fixed major slowdown on windows due to translation. #13561 (regression in 1.16.0)
   - Fixed failure to join a leading train on subsequent edge. #13539
+  - PersonFlows now draw different vTypes from a distribution #13537
   - Fixed invalid route after trying to to join leading train on subsequent edge of diverging route. #13540
   - Edgedata-output now only counts vehicles that start their teleport on an edge in the teleport count of that edge. #13559
   - Fixed collision during sublane-change. #13582, #13585
@@ -23,6 +24,9 @@ title: ChangeLog
     - Fixed invalid bidi-leader identification during lane changing. #13572, #13576
     - Fixed invalid collision warning on bidi lane. #13573
     - Fixed failure to change lane on internal bidi lane. #13575
+  - Speeds imposed by variable speed signs (VSS) or TraCI limit the edge type speeds (vehicles will respect the edge type speed if lower than VSS one) #13665, #13652
+  - Corrected speed calculation for induction loop with length > 0. #13669
+  - another fix for leader distance in ACC model #13681
   - proper normalization when using distributions of vType distributions #13786
   - fixed rerouting problems with numerical instabilities at the current stop #13835
   - SSM output
@@ -48,6 +52,7 @@ title: ChangeLog
   - Fixed vehicle class selection ignoring user input. #13943
   
 - sumo-gui
+  - Context menu uses same screen as sumo-gui on Windows. #13674
   - Sidewalks are no longer connected to the ground in 3D view. Issue #13993
   - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. Issue #14003
   - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. Issue #14005, #13768
@@ -73,6 +78,7 @@ title: ChangeLog
   - mapDetectors.py: can now handles multiple lanes with the same distance. #13845
   - fixed index in sumolib.net.node.Node.forbids #13857
   - osmWebWizard.py: Fixed error when requesting an amount of 0 vehicles for a mode. #13947, #13787
+  - convert_detectors2SUMO.py: Syntax error fixed which made the script unusable. #13650
   
 - TraCI / Libsumo
   - traci.vehicletype.setScale is now applied to flows. #13707
@@ -84,8 +90,9 @@ title: ChangeLog
 ### Enhancements
 
 - Simulation
+  - The access position for a stop can now be "random". #13492
   - Can now use distributions for parameter values like "device.battery.capacity". #13759
-  - Renamed some battery parameters. #13838, #12297
+  - Renamed some battery parameters and made them available from type and vehicle. #13838, #12297, #13645
     - maximumBatteryCapacity -> device.battery.capacity
     - actualBatteryCapacity -> device.battery.chargeLevel
     - maximumPower -> device.battery.maxPower
@@ -95,6 +102,7 @@ title: ChangeLog
 - sumo-gui
   - Added tooltip in scale traffic label. #13545
   - Now current sumoconfig can be loaded directly in netedit (edit / open sumo config in netedit). #13588
+  - Charging state of a vehicle can be shown. #13595
   - Only showing the coordinates once if there is no projection defined #13781
 
 - netedit
@@ -126,22 +134,30 @@ title: ChangeLog
 
 - netconvert
   - Now issues a warning if unknown tls id are passed to option **--tls.join-exclude**.
+  - Edge type errors only trigger a warning in plain XML input if no type file is loaded. #13624
   - handling OpenDrive's include tag #13686
   - Exclude signals (traffic light) which are placed on lanes not allowed to drive on in OpenDrive 1.4. #13836
 
 - Tools
+  - several improvements to generateParkingAreas.py #13563
   - generateRailSignalConstraints.py: Now handles `depart="split"` for insertionOrderConstraints. #13565
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
+  - sumolib can now load selection files. #13589
   - meandata2vss.py: can now create variable speed signs from edge mean data. #13804
+  - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions #13346
 
 - TraCI
   - Rail signal constraints can now bew added via traci. #13853
 
 - Other
+  - od2trips now supports pedestrian types #13606
   - Now JuPedSim can be enabled in CMake GUI with a checkbox. #13646
   - Integration of JuPedSim in sumo. #13307, #13491, #13308
   - You can now add current time and PID to all log entries. #13757
   - The old C++ TraCIAPI.cpp and Java's TraaS give now a warning about being deprecated #14026. Please use [libtraci](Libtraci.md).
+  - The new SUMO homepage is now https://eclipse.dev/sumo.
+  - The repository moved to https://github.com/eclipse-sumo/sumo and the website repo to https://github.com/eclipse-sumo/sumo.website.
+  - Added wheels for Python 3.12 nad improved on wheel testing in CI
 
 ## Version 1.18.0 (29.06.2023)
 
