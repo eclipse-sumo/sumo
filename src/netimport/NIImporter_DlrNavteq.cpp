@@ -237,7 +237,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         if (!myNodeCont.insert(n)) {
             delete n;
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNINGF(TL("Could not add node '%'"), id);
+                WRITE_WARNINGF(TL("Could not add node '%'."), id);
             } else {
                 throw ProcessError(TLF("Could not add node '%'.", id));
             }
