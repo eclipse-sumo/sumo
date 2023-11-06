@@ -38,21 +38,21 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.line, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.line, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.line, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
                   1, netedit.positions.demandElements.busStop.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.line, "tripID")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.line, "tripID")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +

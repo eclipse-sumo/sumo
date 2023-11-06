@@ -49,13 +49,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.line, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.line, "customLine", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -49,13 +49,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.triggered, "container", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.triggered, "container", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.expected, "containerA containerB", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.expected, "containerA containerB", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

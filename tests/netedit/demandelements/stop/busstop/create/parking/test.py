@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.parking, "true")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.parking, "true")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +

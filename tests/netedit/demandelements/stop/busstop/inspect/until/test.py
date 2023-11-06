@@ -49,25 +49,25 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.busStop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopBusStop.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.busStop.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.until, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.until, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.until, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.until, "3.5", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

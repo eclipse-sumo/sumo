@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.actType, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
