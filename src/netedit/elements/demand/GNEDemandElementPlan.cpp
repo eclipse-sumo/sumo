@@ -1097,7 +1097,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get plan geometry
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
-    if (drawPlan && (planGeometry.getShape().size() > 0)) {
+    if (drawPlan && drawPlanZoom(s) && (planGeometry.getShape().size() > 0)) {
         // get viewNet
         auto viewNet = myPlanElement->getNet()->getViewNet();
         // get inspected attribute carriers
@@ -1151,7 +1151,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // check if this is a dotted element
     const bool dottedElement = myPlanElement->checkDrawContour();
     // check if draw plan element can be drawn
-    if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && drawPlanZoom(s) && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, dottedElement, segment->getLane(), myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1235,7 +1235,8 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && drawPlanZoom(s) && 
+        myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, myPlanElement->checkDrawContour(), segment, myPlanElement->getTagProperty().getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
@@ -1372,6 +1373,16 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
     }
     // undefined problem
     return "undefined problem";
+}
+
+
+bool
+GNEDemandElementPlan::drawPlanZoom(const GUIVisualizationSettings& s) const {
+    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+        return true;
+    } else {
+        return s.drawDetail(s.detailSettings.plans, 1);
+    }
 }
 
 

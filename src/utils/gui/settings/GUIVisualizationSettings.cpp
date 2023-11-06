@@ -204,6 +204,7 @@ const double GUIVisualizationDetailSettings::personTriangles(2);
 const double GUIVisualizationDetailSettings::personCircles(5);
 const double GUIVisualizationDetailSettings::personShapes(10);
 const double GUIVisualizationDetailSettings::personExaggeration(4);
+const double GUIVisualizationDetailSettings::plans(5);
 
 // -------------------------------------------------------------------------
 // scheme names

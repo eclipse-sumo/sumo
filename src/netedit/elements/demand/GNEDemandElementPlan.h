@@ -183,6 +183,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief check if draw plan depending of zoom
+    bool drawPlanZoom(const GUIVisualizationSettings& s) const;
+
     /// @brief draw from arrow
     void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                        const bool dottedElement) const;
