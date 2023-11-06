@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 12:00:50 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-11-06 10:17:50 by Eclipse SUMO netedit Version v1_18_0+2429-1a41f4aa074
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/input_net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/datas.xml"/>
+        <ignore-supermode-question value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.1_from_07Mär091222.129021/netedit.daily.net.edges/netElements/edges/move/selected_both_both_junctions/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101520.17416\netedit.gui\netelements\edges\move\selected_both_both_junctions\log.txt"/>
     </report>
 
 </configuration>
@@ -59,20 +54,20 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="0.00,15.00,50.00,15.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="25.00,0.00" convBoundary="0.00,-12.50,50.00,-12.50" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,16.60 -1.20,15.80 -1.60,15.00 -1.20,14.20 0.00,13.40"/>
+        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,-10.90 -1.20,-11.70 -1.60,-12.50 -1.20,-13.30 0.00,-14.10"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,13.40 51.20,14.20 51.60,15.00 51.20,15.80 50.00,16.60"/>
+        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,-14.10 51.20,-13.30 51.60,-12.50 51.20,-11.70 50.00,-10.90"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="50.00" shape="0.00,13.40 50.00,13.40"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="50.00" shape="0.00,-14.10 50.00,-14.10"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,16.60 0.00,16.60"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,-10.90 0.00,-10.90"/>
     </edge>
 
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
@@ -84,10 +79,10 @@
         <phase duration="3"  state="y"/>
     </tlLogic>
 
-    <junction id="gneJ0" type="traffic_light" x="0.00" y="15.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,15.00 0.00,18.20 0.00,15.00">
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="-12.50" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,-12.50 0.00,-9.30 0.00,-12.50">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="traffic_light" x="50.00" y="15.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,15.00 50.00,11.80 50.00,15.00">
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="-12.50" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,-12.50 50.00,-15.70 50.00,-12.50">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 

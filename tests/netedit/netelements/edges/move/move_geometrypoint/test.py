@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.moveMode()
 
 # move first edge
-netedit.moveElement(referencePosition, 325, 205, 325, 75)
+netedit.moveElement(referencePosition, 392, 245, 460, 413)
 
 # move second edge
-netedit.moveElement(referencePosition, 325, 235, 325, 365)
+netedit.moveElement(referencePosition, 602, 229, 602, 413)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
