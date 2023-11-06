@@ -7061,7 +7061,7 @@ msgid "Unable to project coordinates for node %."
 msgstr "无法投影节点 % 的坐标。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add add node '%'"
+msgid "Could not add node '%'"
 msgstr "无法增加节点'%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242

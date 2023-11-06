@@ -7879,7 +7879,7 @@ msgid "Unable to project coordinates for node %."
 msgstr "Düğüm % için koordinatlar yansıtılamıyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add add node '%'"
+msgid "Could not add node '%'"
 msgstr "'%' Düğümü Eklenemedi"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242

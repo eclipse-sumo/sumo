@@ -7089,7 +7089,7 @@ msgid "Unable to project coordinates for node %."
 msgstr "無法投影節點 % 的坐標。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add add node '%'"
+msgid "Could not add node '%'"
 msgstr "無法增加節點 '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242

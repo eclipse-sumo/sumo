@@ -7066,7 +7066,7 @@ msgid "Unable to project coordinates for node %."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add add node '%'"
+msgid "Could not add node '%'"
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242

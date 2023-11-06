@@ -8127,7 +8127,7 @@ msgid "Unable to project coordinates for node %."
 msgstr "Koordinaten für den Knoten % können nicht projiziert werden."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add add node '%'"
+msgid "Could not add node '%'"
 msgstr "Hinzufügen des Knotens '%' konnte nicht hinzugefügt werden"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
