@@ -2709,7 +2709,7 @@ class stopParking:
         tripID = 9
         line = 10
         onDemand = 11
-        jump = 12        
+        jump = 12
 
     class inspectSelection:
         durationEnable = 1
