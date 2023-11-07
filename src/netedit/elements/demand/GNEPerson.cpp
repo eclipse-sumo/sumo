@@ -515,6 +515,10 @@ Position
 GNEPerson::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS: {
+            // first check number of child demand elements
+            if (getChildDemandElements().empty()) {
+                return Position();
+            }
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
