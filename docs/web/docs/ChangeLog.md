@@ -2,6 +2,15 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
+### Enhancements
+
+### Miscellaneous
+
+
 ## Version 1.19.0 (07.11.2023)
 
 ### Bugfixes
