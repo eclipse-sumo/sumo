@@ -1,3 +1,2 @@
-Warning: VType with vClass == 'ignoring' is oriented to containers
-Warning: VType with vClass == 'ignoring' is oriented to containers
-Warning: VType with vClass == 'ignoring' is oriented to containers
+Warning: Double edges aren't allowed
+Warning: Only two from-to elements are allowed
