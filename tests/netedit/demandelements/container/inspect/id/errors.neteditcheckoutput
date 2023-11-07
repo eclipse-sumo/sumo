@@ -1,4 +1,1 @@
-Error: Another edge with the id ':Junction3_0' exists.
-Error: Another edge with the id ':Junction3_1' exists.
-Error: Another junction with the id 'Junction3' exists.
-Quitting (on error).
+Warning: Container 'customID' aborted waiting for ANY at edge 'Edge0'.
