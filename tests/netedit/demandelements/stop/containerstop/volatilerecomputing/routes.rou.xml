@@ -38,16 +38,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="id" vClass="ignoring"/>
-    <trip id="trip0" type="id" depart="0.00" from="Edge0" to="Edge2">
-        <stop containerStop="containerStopC" duration="60.00"/>
-        <stop containerStop="containerStopD" duration="60.00"/>
-        <stop containerStop="containerStopE" duration="60.00"/>
-        <stop containerStop="containerStopF" duration="60.00"/>
-        <stop containerStop="containerStopG" duration="60.00"/>
-        <stop containerStop="containerStopH" duration="60.00"/>
-    </trip>
-    <trip id="trip1" type="id" depart="0.00" from="Edge0" to="Edge2">
+    <trip id="trip1" type="id" depart="0.00" from="Edge2" to="Edge0">
         <stop containerStop="containerStopA" duration="60.00"/>
-        <stop containerStop="containerStopB" duration="60.00"/>
     </trip>
 </routes>

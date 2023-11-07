@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect StopPlanStoppingPlace
-netedit.leftClick(referencePosition, 119, 14)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.actType, "singing", False)

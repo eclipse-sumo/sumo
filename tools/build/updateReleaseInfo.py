@@ -64,6 +64,10 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "CITATION.cff"), inplace=True) 
             line = date.strftime('date-released: "%Y-%m-%d"\n')
         if line[:8] == "version:":
             line = 'version: %s\n' % version
+        if 'sumo/releases/tag/v' in line:
+            line = line[:line.find('sumo/releases/tag/v') + 19] + next_release + '"\n'
+        if 'sumo.dlr.de/releases/' in line:
+            line = line[:line.find('sumo.dlr.de/releases/') + 21] + version + '/"\n'
         if line[:8] == "message:":
             last = None
             for a in sorted(author_names):

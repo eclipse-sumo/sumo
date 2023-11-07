@@ -81,7 +81,7 @@ msgstr ""
 msgid "DRT - Demo"
 msgstr ""
 
-#: C:\Repos\sumo/tools/game\runner.py:79 D:\Repos\sumo/tools/game\runner.py:89
+#: C:\Repos\sumo/tools/game\runner.py:79 C:\Repos\sumo/tools/game\runner.py:89
 msgid "Highscore"
 msgstr ""
 

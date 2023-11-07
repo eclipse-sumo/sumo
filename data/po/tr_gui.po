@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-10-30 17:33+0100\n"
+"POT-Creation-Date: 2023-11-06 17:00+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -21,9 +21,9 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2198
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2199
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2200
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2201
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2203
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:523
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:527
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:531
@@ -48,78 +48,78 @@ msgstr "Ağ Koordinatı"
 msgid "Ready."
 msgstr "Hazır."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:448
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:450
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1341
 msgid "&File"
 msgstr "&Dosya"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:450
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:452
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:205
 msgid "New Window"
 msgstr "Yeni Pencere"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:450
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:452
 msgid "Open a new sumo-gui window."
 msgstr "Yeni bir sumo-gui penceresini aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:454
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 msgid "&Open Simulation..."
 msgstr "Simülasyon &Aç..."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:454
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 msgid "Open a simulation (Configuration file)."
 msgstr "Bir Simülasyon Aç (Yapılandırma Dosyası)."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:457
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:459
 msgid "Open &Network..."
 msgstr "&Ağ Aç..."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:457
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:459
 msgid "Open a network."
 msgstr "Bir Ağ Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:460
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:462
 msgid "Open Shapes "
 msgstr "Şekilleri Aç "
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:460
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:462
 msgid "Load POIs and Polygons for visualization."
 msgstr "Görselleştirme için POI'leri ve Poligonları yükleyin."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:463
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 msgid "Open EdgeData "
 msgstr "Kesim Verilerini Aç "
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:463
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 msgid "Load edge related data for visualization."
 msgstr "Görselleştirme için Kesim İlişkili Veri Yükle."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:466
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:468
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1028
 msgid "&Reload"
 msgstr "Tekrar &Yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:466
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:468
 msgid "Reloads the simulation / the network."
 msgstr "Simülasyonu/Ağı Yeniden Yükler."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:469
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:471
 msgid "Quick-Reload"
 msgstr "Hızlı Yeniden Yükleme"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:469
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:471
 msgid "Reloads the simulation (but not network)."
 msgstr "Simülasyonu Yeniden Yükler (Ağ Hariç)."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:473
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:475
 msgid "Save Configuration"
 msgstr "Yapılandırmayı Kaydet"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:473
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:475
 msgid "Save current options as a configuration file."
 msgstr "Mevcut Seçenekleri Bir Yapılandırma Dosyası Olarak Kaydet."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:476
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:478
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:305
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:95
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNERunNetgenerateDialog.cpp:94
@@ -127,227 +127,227 @@ msgstr "Mevcut Seçenekleri Bir Yapılandırma Dosyası Olarak Kaydet."
 msgid "Close"
 msgstr "Kapat"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:476
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:478
 msgid "Close the simulation."
 msgstr "Simülasyonu Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:484
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:486
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1362
 msgid "&Quit"
 msgstr "Çık"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:484
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:486
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1362
 msgid "Quit the Application."
 msgstr "Uygulamadan Çık."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:493
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1377
 msgid "&Edit"
 msgstr "Düzenle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:497
 msgid "Edit Selected..."
 msgstr "Seçileni Düzenle..."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:495
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:497
 msgid "Opens a dialog for editing the list of selected items."
 msgstr "Seçilen Öğelerin Listesini Düzenlemek İçin Bir İletişim Kutusu Açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:497
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Select lanes which allow..."
 msgstr "... İzin Veren Şeritleri Seç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:498
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr "Seçilen şeritlere göre bir araç sınıfı seçmek için bir menü açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:501
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid "Edit Breakpoints"
 msgstr "Kesme Noktalarını Düzenle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:501
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid "Opens a dialog for editing breakpoints."
 msgstr "Kesme Noktalarını Düzenlemek İçin Bir İletişim Kutusu Açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:504
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1283
 msgid "Edit Visualisation"
 msgstr "Görselleştirmeyi Düzenle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:504
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1283
 msgid "Opens a dialog for editing visualization settings."
 msgstr "Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:507
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:509
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
 msgid "Edit Viewport"
 msgstr "Görüntü Alanını Düzenle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:507
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:509
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
 "Görüntü Alanını, Yakınlaştırmayı ve Döndürmeyi Düzenlemek İçin Bir İletişim "
 "Penceresi Açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:511
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:513
 msgid "Load additionals in netedit"
 msgstr "Netedit'e ekleri yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:511
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:513
 msgid "Load additionals in netedit."
 msgstr "Netedit'e ekleri yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:513
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:515
 msgid "Load demand in netedit"
 msgstr "Netedit'e talebi yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:513
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:515
 msgid "Load demand in netedit."
 msgstr "Netedit'e talebi yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:516
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Open in netedit"
 msgstr "Netedit'te aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:516
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:518
 msgid "Opens current simulation in NETEDIT."
 msgstr "NETEDIT'te mevcut simülasyonu açar."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:520
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "&Settings"
 msgstr "Ayarlar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:524
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
 msgstr "Uygulama Ayarları"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:522
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:524
 msgid "Open a Dialog for Application Settings editing."
 msgstr "Uygulama Ayarlarının Düzenlenmesi İçin Bir İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:525
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:527
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
 msgstr "Oyun Modu\tCTRL+G\tOyun Modunu Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:528
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:530
 msgid "Full Screen Mode"
 msgstr "Tam Ekran Modu"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:528
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:530
 msgid "Toggle full screen mode on/off."
 msgstr "Tam Ekran Modunu Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:532
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1413
 msgid "&Locate"
 msgstr "Bul"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 msgid "&Junctions"
 msgstr "Kavşaklar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:534
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1994
 msgid "Open a dialog for locating a Junction."
 msgstr "Bir Kavşak Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:537
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:539
 msgid "&Edges"
 msgstr "Kesimler"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:537
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:539
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 msgid "Open a dialog for locating an Edge."
 msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:540
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:542
 msgid "&Vehicles"
 msgstr "Araçlar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:540
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:542
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 msgid "Open a dialog for locating a Vehicle."
 msgstr "Bir Araç Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:543
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:545
 msgid "&Persons"
 msgstr "Yolcular"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:543
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:545
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
 msgid "Open a dialog for locating a Person."
 msgstr "Bir Yolcu Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:546
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "&Container"
 msgstr "Konteyner"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:546
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2009
 msgid "Open a dialog for locating a Container."
 msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:549
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 msgid "&TLS"
 msgstr "TIS"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:549
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "Bir Trafik Işığı Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:552
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "&Additional"
 msgstr "Ek"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:552
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2021
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "Bir Ek Yapı Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:555
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "P&oI"
 msgstr "EN"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:555
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2024
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "Bir Etki Noktası Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:558
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:560
 msgid "Po&lygon"
 msgstr "Çokgen"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:558
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:560
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 msgid "Open a dialog for locating a Polygon."
 msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:561
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:563
 msgid "Show Internal Structures"
 msgstr "İç Yapıları Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:561
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:563
 msgid "Show internal junctions and streets in locator dialog."
 msgstr "Bulucu iletişim kutusunda dahili kavşakları ve caddeleri göster."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:562
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 msgid "Show Parking Vehicles"
 msgstr "Park Eden Araçları Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:562
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 msgid "Show parking vehicles in locator dialog."
 msgstr "Bulucu Penceresinde Park Eden Araçları Göster."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:564
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:566
 msgid "Show vehicles outside the road network"
 msgstr "Yol ağı dışındaki araçları göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:564
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:566
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
@@ -355,55 +355,55 @@ msgstr ""
 "Bulucu iletişim penceresinde yol ağı dışında ışınlanan veya uzak bağlantılı "
 "sürüş yapan araçları göster."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:569
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:571
 msgid "Simulation"
 msgstr "Simülasyon"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:571
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:573
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:372
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:90
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNEPythonToolDialog.cpp:93
 msgid "Run"
 msgstr "Başlat"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:571
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:573
 msgid "Start/ Resume the simulation."
 msgstr "Simülasyonu Başlat/Sürdür."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:574
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:576
 msgctxt "Simulation"
 msgid "Stop"
 msgstr "Dur"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:574
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:576
 msgid "Halt the simulation."
 msgstr "Simülasyonu Beklet."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:577
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:579
 msgid "Step"
 msgstr "Adım"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:577
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:579
 msgid "Perform one simulation step."
 msgstr "Bir Simülasyon Adımı Yürüt."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:580
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:582
 msgid "Delay+"
 msgstr "Gecikme+"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:580
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:582
 msgid "Increase simulation step delay."
 msgstr "Simülasyon Adım Gecikmesini Artır."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:582
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:584
 msgid "Delay-"
 msgstr "Gecikme-"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:582
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:584
 msgid "Decrease simulation step delay."
 msgstr "Simülasyon Adım Gecikmesini Düşür."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:584
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:586
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:289
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
@@ -414,11 +414,11 @@ msgstr "Simülasyon Adım Gecikmesini Düşür."
 msgid "Save"
 msgstr "Kaydet"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:584
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:586
 msgid "Save the current simulation state to a file."
 msgstr "Mevcut Simülasyon Durumunu Dosyaya Kaydet."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:587
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:589
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:288
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
@@ -428,199 +428,199 @@ msgstr "Mevcut Simülasyon Durumunu Dosyaya Kaydet."
 msgid "Load"
 msgstr "Yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:587
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:589
 msgid "Load simulation state for the current network from file."
 msgstr "Mevcut Ağ İçin Simülasyon Durumunu Dosyadan Yükle."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:591
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:593
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1478
 msgid "&Window"
 msgstr "Pencere"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:592
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:739
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:594
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:741
 msgid "Open new view"
 msgstr "Yeni görünüm aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:592
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:739
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:594
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:741
 msgid "Open a new microscopic view."
 msgstr "Yeni bir mikroskobik görünüm aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:594
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:742
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:596
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:744
 msgid "Open new 3D view"
 msgstr "Yeni 3B görünümü aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:594
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:742
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:596
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:744
 msgid "Open a new 3D view."
 msgstr "Yeni bir 3B görünüm aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:597
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:599
 msgid "Tile &Horizontally"
 msgstr "Yatay Döşeme"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:597
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:599
 msgid "Tile the views horizontally."
 msgstr "Görünümleri yatay olarak yerleştirin."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:600
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
 msgid "Tile &Vertically"
 msgstr "Dikey Döşeme"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:600
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
 msgid "Tile the views vertically."
 msgstr "Görünümleri dikey olarak yerleştirin."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:603
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Cascade"
 msgstr "Kademeli"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:603
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:605
 msgid "Cascade the views."
 msgstr "Görünümleri basamaklandırın."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:607
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:609
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:100
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:100
 msgid "&Close"
 msgstr "Kapat"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:607
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:609
 msgid "Close the selected view."
 msgstr "Seçilen görünümü kapatın."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:617
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:619
 msgid "&Others..."
 msgstr "&Diğerleri..."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:620
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:622
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2145
 msgid "Show Status Line"
 msgstr "Durum Satırını Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:620
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:622
 msgid "Toggle the Status Bar on/off."
 msgstr "Durum Çubuğunu Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:621
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2148
 msgid "Show Message Window"
 msgstr "Mesaj Penceresini Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:621
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2148
 msgid "Toggle the Message Window on/off."
 msgstr "Mesaj Penceresini Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:622
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:624
 msgid "Show Simulation Time"
 msgstr "Simülasyon Zamanını Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:622
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:624
 msgid "Toggle the Simulation Time on/off."
 msgstr "Simülasyon Zamanını Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:623
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "Show Simulation Delay"
 msgstr "Simülasyon Gecikmesini Göster"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:623
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "Simülasyon Gecikme Girişini Aç/Kapat."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:628
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:630
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2152
 msgid "Clear Message Window"
 msgstr "Mesaj Penceresini Temizle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:628
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "Clear the message window."
 msgstr "Mesaj Penceresini Temizle."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:635
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:637
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1484
 msgid "&Help"
 msgstr "Yardım"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:637
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:639
 msgid "&Online Documentation"
 msgstr "Çevrimiçi Belgeler"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:637
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:639
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2168
 msgid "Open Online documentation."
 msgstr "Çevrimiçi Belgeleri Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:640
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:642
 msgid "&Changelog"
 msgstr "Değişiklik Günlüğü"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:640
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:642
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2171
 msgid "Open Changelog."
 msgstr "Değişiklik Günlüğünü Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:642
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:644
 msgid "&Hotkeys"
 msgstr "Kısayollar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:642
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:644
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2173
 msgid "Open Hotkeys."
 msgstr "Kısayolları Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:644
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:646
 msgid "&Tutorial"
 msgstr "Öğretici"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:644
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:646
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2175
 msgid "Open Tutorial."
 msgstr "Öğreticiyi Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:646
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:648
 msgid "&Feedback"
 msgstr "Geri Bildirim"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:646
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:648
 msgid "Open feedback dialog."
 msgstr "Geri bildirim iletişim kutusunu aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:649
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:651
 msgid "&About"
 msgstr "Hakkında"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:649
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:651
 msgid "About sumo-gui."
 msgstr "SUMO-GUI Hakkında."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:664
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:666
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr "\tSimülasyon Aç\tBir Simülasyon Aç (Yapılandırma Dosyası)."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:666
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:668
 msgid "\tOpen network\tOpen a network."
 msgstr "\tAğ Aç\tBir Ağ Aç."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:668
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:670
 msgid "\tReload\tReloads the simulation / the network."
 msgstr "\tYeniden Yükle\tSimülasyonu/Ağı Yeniden Yükler."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:677
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:679
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr "\tÇalıştır\tYüklü Simülasyonu Başlat/Sürdür."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:679
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:681
 msgid "\tStop\tHalt the running simulation."
 msgstr "\tDur\tÇalışan Simülasyona Ara Ver."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:681
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:683
 msgid "\tStep\tPerform a single simulation step."
 msgstr "\tAdım\tBir Simülasyon Adımı Çalıştır."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:689
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:691
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
@@ -628,7 +628,7 @@ msgstr ""
 "Zaman:\tDüzenler Arasında Geçiş Yap\tSaniye ve Saat:Dakika:Saniye Düzenleri "
 "Arasında Geçiş Yap."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:703
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:705
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
@@ -636,11 +636,11 @@ msgstr ""
 "Gecikme (ms):\tSimülasyon Saniyesi Başına Gecikme\tSimülasyon Saniyesi "
 "Başına Gecikme. Son İki Gecikme Değeri Arasında Geçiş Yapmak İçin Tıkla."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:726
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:728
 msgid "Scale Traffic:"
 msgstr "Trafiği Ölçeklendir:"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:727
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:729
 msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
@@ -648,198 +648,198 @@ msgstr ""
 "Devam eden akışlardan ve rota dosyalarından artımlı olarak yüklenen "
 "araçlardan gelen trafik hacmini ölçeklendirin."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:752
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:754
 msgid "Waiting Time:"
 msgstr "Bekleme Süresi:"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:752
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:754
 msgid "Time spent waiting accumulated for all vehicles"
 msgstr "Tüm Araçlar İçin Birikmiş Bekleme Süresi"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:763
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:765
 msgid "Time Loss:"
 msgstr "Süre Kaybı:"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:763
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:765
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
 "Tüm Araçlar İçin Maksimum Hızda Sürüş Gerçekleşmediğinden Oluşan Süre Kaybı"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:774
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:776
 msgid "Distance (km):"
 msgstr "Mesafe (km):"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:774
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:776
 msgid "Total distance driven by DRT vehicles"
 msgstr "Talep Uyarmalı Ulaştırma Araçlarının Aldığı Toplam Mesafe"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:785
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:787
 msgid "Emergency Vehicle waiting time:"
 msgstr "Acil Durum Aracı bekleme süresi:"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:785
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:787
 msgid "Time spent waiting accumulated for emergency vehicles"
 msgstr "Acil durum araçları için birikmiş bekleme süresi"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:810
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:812
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:155
 msgid "Cl&ear Recent Networks"
 msgstr "Son Ağları Temizle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:811
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:813
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:156
 msgid "No Recent Networks"
 msgstr "Son Ağ Yok"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:815
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:817
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:160
 msgid "Recent Networks"
 msgstr "Son Ağlar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:833
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:835
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:178
 msgid "Cl&ear Recent Configs"
 msgstr "Son Yapılandırmaları Temizle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:834
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:836
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:179
 msgid "No Recent Configs"
 msgstr "Son Yapılandırma Yok"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:838
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:840
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:183
 msgid "Recent Configs"
 msgstr "Son Yapılandırmalar"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:992
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1018
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:994
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1020
 msgid "Running %."
 msgstr "Çalışıyor %."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1028
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1030
 msgid "Open Simulation Configuration"
 msgstr "Simülasyon Yapılandırması Aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1048
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1050
 msgid "Open Network"
 msgstr "Ağ Aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1068
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1070
 msgid "Open Shapes"
 msgstr "Şekilleri Aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1082
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1110
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4816
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4857
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4892
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4924
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1084
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1112
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4822
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4863
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4898
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4930
 #, c-format
 msgid "Loading of % failed."
 msgstr "% Yüklemesi Başarısız."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1099
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1101
 msgid "Open EdgeData"
 msgstr "Kesim Verisi (EdgeData) Aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1134
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1136
 msgid "Auto-Reloading."
 msgstr "Otomatik Yeniden Yükleme."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1134
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1136
 msgid "TraCI-Loading."
 msgstr "TraCI-Yükleniyor."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1136
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1138
 msgid "Reloading."
 msgstr "Tekrar Yükleniyor."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1147
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1149
 msgid "Quick-Reloading."
 msgstr "Hızlı Yeniden Yükleme."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1157
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1159
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1100
 msgid "Already loading!"
 msgstr "Zaten Yükleniyor!"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1169
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1171
 msgid "Save SUMO Configuration"
 msgstr "SUMO Yapılandırmasını Kaydet"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1184
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1186
 msgid "Configuration saved to %."
 msgstr "Yapılandırma konuma % kaydedildi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1186
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1188
 msgid "Could not save configuration to %."
 msgstr "Yapılandırma konuma % kaydedilemedi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1242
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1268
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2124
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1244
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1270
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2126
 msgid "No simulation loaded!"
 msgstr "Herhangi Bir Simülasyon Yüklenmedi!"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1284
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1286
 msgid "Save Simulation State"
 msgstr "Simülasyon Durumunu Kaydet"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1298
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1300
 msgid "Simulation state saved to '%'."
 msgstr "Simülasyon durumu '%' konumuna kaydedildi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1306
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1308
 msgid "Load Simulation State"
 msgstr "Simülasyon Durumu Yükle"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1318
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1320
 msgid "State loaded from '%'."
 msgstr "Durum '%' konumundan yüklendi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1320
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1322
 msgid "Failed to load state from '%' (%)."
 msgstr "Durum '%' (%) konumundan yüklenemedi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1447
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1449
 msgid "Scale number of vehicles in simulation"
 msgstr "Simülasyondaki araçların ölçek sayısı"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1464
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1466
 msgid "Open sumo config in netedit"
 msgstr "Sumo config'i netedit'te açın"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1468
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1470
 msgid "Open network in netedit"
 msgstr "Ağı Netedit'te aç"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1797
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1799
 #, c-format
 msgid "Loading of '%' failed!"
 msgstr "'%' Yüklemesi Başarısız!"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1811
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1813
 #, c-format
 msgid "'%' loaded."
 msgstr "'%' yüklendi."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2011
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2013
 msgid "Simulation ended at time: %. (%)"
 msgstr "Simülasyon şu saatte sona erdi: %. (%)"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2017
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2019
 msgid "Simulation ended"
 msgstr "Simülasyon Sona Erdi"
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2115
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2117
 msgid "Loading '%'."
 msgstr "'%' Yükleniyor."
 
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2268
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2270
-#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2271
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2272
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2273
+#: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2274
 msgid "seconds"
 msgstr "saniye"
 
@@ -2683,20 +2683,20 @@ msgstr "' SUMO-GUI'de"
 msgid "Loading sumo config '"
 msgstr "' sumo yapılandırması yükleniyor"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2367
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2373
 msgid "Netedit options"
 msgstr "Netedit ayarları"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2384
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2390
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1875
 msgid "Sumo options"
 msgstr "Sumo seçenekleri"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2401
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2407
 msgid "Netgenerate options"
 msgstr "Netgenerate ayarları"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2418
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2424
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1268
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:456
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:107
@@ -2704,7 +2704,7 @@ msgstr "Netgenerate ayarları"
 msgid "Undo"
 msgstr "Geri Al"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2450
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2456
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1271
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:503
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
@@ -2712,255 +2712,255 @@ msgstr "Geri Al"
 msgid "Redo"
 msgstr "İleri Al"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3184
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3190
 msgid "Saving Network failed!"
 msgstr "Ağ Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3190
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3196
 msgid "Network saved in '"
 msgstr "Ağ ' dosyasına kaydedildi"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3196
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3202
 msgid "Could not save network in '"
 msgstr "' içinde ağ kaydedilemedi"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3252
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3258
 msgid "Plain XML saved with prefix '"
 msgstr "' önekiyle kaydedilmiş yalın XML"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3257
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3263
 msgid "Saving plain xml failed!"
 msgstr "Yalın XML Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3281
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3287
 msgid "Joined junctions saved to '"
 msgstr "' dosyasına kaydedilen birleştirilmiş kavşaklar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3286
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3292
 msgid "Saving joined junctions failed!"
 msgstr "Birleştirilmiş Kavşakların Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3349
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3355
 msgid "Netedit configuration saved in '"
 msgstr "Netedit yapılandırması dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3355
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3361
 msgid "Could not save netedit configuration in '"
 msgstr "netedit yapılandırması dosyaya kaydedilemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3459
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3465
 msgid "SUMO configuration saved in '"
 msgstr "SUMO yapılandırması dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3467
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3473
 msgid "Could not save SUMO configuration in '"
 msgstr "SUMO yapılandırması dosyaya kaydedilemedi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3521
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3527
 msgid "TLS Programs saved in '"
 msgstr "TIS Programları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3526
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3532
 msgid "Saving TLS Programs failed!"
 msgstr "TIS Programlarının Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3569
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3575
 msgid "EdgeType saved in '"
 msgstr "Kesim Tipi (EdgeType) dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3574
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3580
 msgid "Saving edgeTypes failed!"
 msgstr "Kesim Tipleri (edgeTypes) Dosyası Kaydı Başarısız!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3678
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3684
 msgid "load additionals from '"
 msgstr "' dosyasından ekleri yükle"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3682
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3688
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1301
 msgid "Loading of additional file failed: "
 msgstr "Ek dosyası yüklenemedi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3688
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3694
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1303
 msgid "Loading of additional file successfully: "
 msgstr "Ek dosyası başarıyla yüklendi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3714
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3720
 msgid "reloading additionals from '"
 msgstr "ekler dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3719
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3725
 msgid "Reloading of additional file failed: "
 msgstr "Ek dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3762
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3768
 msgid "Additionals saved in '"
 msgstr "Ekler dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3771
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3777
 msgid "Saving additionals failed!"
 msgstr "İlaveleri kaydetme başarısız oldu!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3825
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3831
 msgid "JuPedSim elements saved in '"
 msgstr "JuPedSim öğeleri 'da kaydedildi"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3834
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3840
 msgid "Saving JuPedSim elements failed!"
 msgstr "JuPedSim elemanları kaydedilemedi!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3873
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4847
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4850
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3879
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4853
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4856
 msgid "loading demand elements from '"
 msgstr "Talep elemanları dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3877
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3883
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1312
 msgid "Loading of route file failed: "
 msgstr "Rota dosyası yüklenemedi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3883
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3889
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1314
 msgid "Loading of route file successfully: "
 msgstr "Rota dosyası başarıyla yüklendi: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3914
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3920
 msgid "Reloading of route file failed: "
 msgstr "Rota dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3955
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3961
 msgid "Demand elements saved in '"
 msgstr "Talep Elemanları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3964
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3970
 msgid "Saving demand elements failed!"
 msgstr "Talep unsurlarını kaydetme başarısız oldu!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4036
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4916
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4042
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4922
 msgid "loading data elements from '"
 msgstr "Veri Elemanları dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4040
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4046
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1323
 msgid "Loading of data file failed: "
 msgstr "Veri dosyasının yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4046
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4052
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1325
 msgid "Loading of data file successfully: "
 msgstr "Veri dosyası başarıyla yükleniyor: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4076
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4082
 msgid "reloading data elements from '"
 msgstr "Veri Elemanları dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4081
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4087
 msgid "Reloading of data file failed: "
 msgstr "Veri dosyasının yeniden yüklenmesi başarısız oldu: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4123
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4129
 msgid "Data elements saved in '"
 msgstr "Veri elemanları dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4128
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4134
 msgid "Saving data elements failed!"
 msgstr "Veri elemanları kaydedilemedi!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4200
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4206
 msgid "load meanDatas from '"
 msgstr "Ortalama Verileri (meanDatas) dosyadan yükle '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4210
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1334
 msgid "Loading of meandata file failed: "
 msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4210
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4241
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4216
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4247
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1336
 msgid "Loading of meandata file successfully: "
 msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4236
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4242
 msgid "reloading meanDatas from '"
 msgstr "Ortalama Veriler (meanDatas) dosyadan yeniden yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4280
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4286
 msgid "MeanDatas saved in '"
 msgstr "Ortalama Veriler (MeanDatas) dosyaya kaydedildi '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4285
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4291
 msgid "Saving meanData failed!"
 msgstr "MeanData kaydedilemedi!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4334
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4340
 msgid "Confirm close Network"
 msgstr "Ağı kapatmayı onayla"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4335
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4341
 msgid "You have unsaved changes in the network."
 msgstr "Ağda kaydedilmemiş değişiklikleriniz var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4336
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4402
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4446
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4490
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4534
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4342
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4408
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4452
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4496
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4540
 msgid "Do you wish to close and discard all changes?"
 msgstr "Tüm değişiklikleri kapatmak ve silmek istiyor musunuz?"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4400
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4406
 msgid "Save additional elements before close"
 msgstr "Kapatmadan önce ek elemanları kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4401
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4407
 msgid "You have unsaved additional elements."
 msgstr "Kaydedilmemiş ek elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4444
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4450
 msgid "Save demand elements before close"
 msgstr "Kapatmadan önce talep elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4445
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4451
 msgid "You have unsaved demand elements."
 msgstr "Kaydedilmemiş talep elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4488
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4494
 msgid "Save data elements before close"
 msgstr "Kapatmadan önce veri elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4489
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4495
 msgid "You have unsaved data elements."
 msgstr "Kaydedilmemiş veri elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4532
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4538
 msgid "Save meanData elements before close"
 msgstr "Kapatmadan önce Ortalama Veri (meanData) elemanlarını kaydet"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4533
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4539
 msgid "You have unsaved meanData elements."
 msgstr "Kaydedilmemiş Ortalama Veri (meanData) elemanlarınız var."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4806
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4812
 msgid "loading additional elements from '"
 msgstr "Ek elemanlar dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4809
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4815
 msgid "loading additionals from '"
 msgstr "Ekler dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4882
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4888
 msgid "loading meanDatas from '"
 msgstr "Ortalama Veriler (meanDatas) dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4885
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4891
 msgid "loading meandatas from '"
 msgstr "Ortalama Veriler (meandatas) dosyadan yükleniyor '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4919
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4925
 msgid "Loading data elements from '"
 msgstr "Veri Elemanları dosyadan yükleniyor '"
 
@@ -6807,13 +6807,13 @@ msgstr "Ağda hiç kesim yok"
 msgid "There are no parking areas in the network"
 msgstr "Ağda park alanı bulunmamaktadır"
 
-#: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:46
-msgid "Undo/Redo history"
-msgstr "Geri Al/Yinele geçmişi"
-
 #: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
 msgstr "Tamam\t\tİletişim Penceresini Kapat"
+
+#: C:\Repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:61
+msgid "Undo/Redo history"
+msgstr "Geri Al/Yinele geçmişi"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:459
 #, c-format
@@ -6823,12 +6823,10 @@ msgstr "'%' anahtarı zaten var"
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:457
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1232
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1241
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:455
 msgid "Edit parameters"
 msgstr "Parametreleri Düzenle"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:472
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:470
 msgid "Invalid row type"
 msgstr "Geçersiz satır türü"
 
@@ -6836,17 +6834,14 @@ msgstr "Geçersiz satır türü"
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:438
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:199
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1250
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:651
 msgid "Color Dialog"
 msgstr "Renk İletişim Kutusu"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:679
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:677
 msgid "Open Image"
 msgstr "Görsel Aç"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:706
-#: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:704
 msgid "Open OSG File"
 msgstr "OSG Dosyası Aç"
 
@@ -10399,7 +10394,7 @@ msgstr "otobüs durağı ekle '"
 msgid "add train stop '"
 msgstr "tren durağı ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:203
 msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
@@ -10407,25 +10402,25 @@ msgstr ""
 "Netedit'te erişim oluşturulamadı; busStop üst öğesi zaten kesimde bir "
 "erişime sahip '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:190
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:205
 #, c-format
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
 msgstr "Netedit'te erişim oluşturulamadı; '%' şeridi yayaları desteklemiyor"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:196
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:211
 msgid "add access in '"
 msgstr "erişim ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:237
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:252
 msgid "add container stop '"
 msgstr "konteyner durağı ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:281
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:296
 msgid "add charging station '"
 msgstr "şarj istasyonu ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:325
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:340
 #, c-format
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
@@ -10434,11 +10429,11 @@ msgstr ""
 "Netedit'te '%' ID'li park alanı oluşturulamadı; Şerit üzerinde geçersiz "
 "departPos."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:333
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:348
 msgid "add parking area '"
 msgstr "park alanı ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:355
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:370
 msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
@@ -10446,7 +10441,7 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik genişliği ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:357
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:372
 msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
@@ -10454,7 +10449,7 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik uzunluğu ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:359
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:374
 msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
@@ -10462,16 +10457,16 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik açısı ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:380
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:395
 msgid "add parking space in '"
 msgstr "' içine park yeri ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:424
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:439
 msgid "add induction loop '"
 msgstr "indüksiyon döngüsü ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:464
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:531
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:479
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:546
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
@@ -10480,12 +10475,12 @@ msgstr ""
 "Netedit'te '%' ID'li şerit alanı dedektörü oluşturulamadı; geçersiz trafik "
 "ışığı ID'si."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:489
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:550
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:504
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:565
 msgid "add lane area detector '"
 msgstr "şerit alanı dedektörü ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:522
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:537
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
@@ -10494,49 +10489,49 @@ msgstr ""
 "Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık "
 "değil."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:595
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:610
 msgid "add entry-exit detector '"
 msgstr "giriş-çıkış dedektörü ekle'"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:630
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:645
 msgid "add entry detector in '"
 msgstr "' içine giriş dedektörü ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:665
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:680
 msgid "add exit detector in '"
 msgstr "' içine çıkış dedektörü ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:702
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:717
 msgid "add instant induction loop '"
 msgstr "anlık indüksiyon döngüsü ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:752
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:767
 msgid "add lane calibrator '"
 msgstr "şerit kalibratörü ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:806
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:821
 msgid "add calibrator '"
 msgstr "kali̇bratör ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:847
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:862
 msgid "add calibrator flow in '"
 msgstr "' içine kalibratör akımı ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:903
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:918
 msgid "add rerouter '"
 msgstr "yeniden yönlendirici ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:942
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:957
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "Netedit'te '%' ID'li aralık oluşturulamadı; başlangıç bitişten büyük."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:950
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:965
 msgid "add rerouter interval in '"
 msgstr "' içine yeniden yönlendirici aralığı ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:959
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:974
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
@@ -10544,81 +10539,81 @@ msgstr ""
 "Çakışma nedeniyle '%' içinde '%' başlangıçlı ve '%' bitişli aralık "
 "oluşturulamadı."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:981
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:996
 msgid "add closing lane reroute in '"
 msgstr "' içine kapanış şeridi yeniden yönlendirmesi ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1009
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1024
 msgid "add closing reroute in '"
 msgstr "' içine kapanış yeniden yönlendirme ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1036
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1051
 msgid "add dest prob reroute in '"
 msgstr "' içine hedef inceleme yeniden yönlendirmesi ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1064
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1079
 msgid "add parking area reroute in '"
 msgstr "' içine park alanı yeniden yönlendirmesi ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1092
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1107
 msgid "add route prob reroute in '"
 msgstr "' içine rota inceleme yeniden yönlendirmesi ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1129
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1144
 msgid "add route probe '"
 msgstr "rota sorgulama ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1175
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1190
 msgid "add Variable Speed Sign '"
 msgstr "Değişken Hız İşareti ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1216
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1231
 msgid "add VSS Step in '"
 msgstr "' içine VSS Adımı ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1247
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1262
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 "Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten büyük."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1253
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1268
 msgid "add vaporizer in '"
 msgstr "' içine buharlaştırıcı ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1306
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1321
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr "Netedit'te '%' ID'li TAZ oluşturulamadı; Geçersiz Şekil."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1317
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1332
 msgid "add TAZ '"
 msgstr "TAB ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1378
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1472
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1393
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1487
 msgid "add TAZ Sink in '"
 msgstr "' içine TAB Alıcı ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1401
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1450
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1416
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1465
 msgid "add TAZ Source in '"
 msgstr "' içine TAB kaynağı ekle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1412
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1427
 msgid "update TAZ Source in '"
 msgstr "' içinde TAB kaynağını güncelle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1483
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1498
 msgid "update TAZ Sink in '"
 msgstr "' içinde TAB alıcısını güncelle"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1512
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1527
 msgid "add traction substation '"
 msgstr "cer trafo merkezi̇ ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1544
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1559
 #, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
@@ -10626,107 +10621,107 @@ msgid ""
 msgstr ""
 "Netedit'te '%' ID'li havai hat teli oluşturulamadı; Şeritler ardışık değil."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1556
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1571
 msgid "add overhead wire '"
 msgstr "havai hat ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1607
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1622
 msgid "add polygon '"
 msgstr "çokgen ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1641
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1686
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1726
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1656
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1701
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1741
 msgid "add POI '"
 msgstr "EN ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1718
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1733
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "Netedit'te '%' ID'li POI oluşturulamadı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1718
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1733
 msgid "Network requires a geo projection."
 msgstr "Ağ bir coğrafi projeksiyon gerektirir."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1756
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1771
 msgid "add jps walkable area '"
 msgstr "jps yürünebi̇li̇r alan ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1784
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1799
 msgid "add jps obstacle '"
 msgstr "jps engeli̇ ekle '"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1970
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1976
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1982
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2005
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2011
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2017
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2023
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1985
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1991
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1997
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2020
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2026
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2032
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2038
 msgid "Could not build % with ID '%' in netedit"
 msgstr "Netedit'te '%' ID'li % oluşturulamadı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1970
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1985
 msgid "ID contains invalid characters."
 msgstr "ID geçersiz karakterler içeriyor."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1976
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1991
 msgid "Invalid position over lane."
 msgstr "Şerit üzerindeki geçersiz konum."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1982
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1997
 msgid "Declared twice."
 msgstr "İki defa ilan edildi."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1990
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2005
 msgid "Could not build % '%' in netedit"
 msgstr "Netedit'te % '%' oluşturulamadı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1992
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2007
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2093
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2111
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2783
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2794
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2807
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "Netedit'te % oluşturulamadı"
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1995
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2010
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "% '%' doesn't exist."
 msgstr "% '%' mevcut değil."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1997
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2078
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2096
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2012
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2093
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2111
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2772
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2783
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2794
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2807
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
 #, c-format
 msgid "% doesn't exist."
 msgstr "% yok."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2005
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2020
 #, c-format
 msgid "Attribute % cannot be negative."
 msgstr "Özellik %'si negatif olamaz."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2011
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2026
 msgid "List of VTypes isn't valid."
 msgstr "VTürleri listesi geçerli değil."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2017
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2032
 msgid "Filename is invalid."
 msgstr "Dosya adı geçersiz."
 
-#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2023
+#: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2038
 msgid "List of lanes isn't valid."
 msgstr "Yolların listesi geçerli değil."
 
@@ -10974,14 +10969,13 @@ msgstr "ters akım %"
 msgid "Add reverse %"
 msgstr "Ters % ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1356
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1369
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1357
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1370
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "'%' kesimi '%' kesimi ile ardışık değil"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:786
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1852
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:775
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:787
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1856
 msgid "copy % '%'"
 msgstr "kopyala % '%'"
 
@@ -10989,9 +10983,9 @@ msgstr "kopyala % '%'"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:106
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:139
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1910
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1934
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1946
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1928
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1952
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1964
 msgid "There is another % with the same ID='%'."
 msgstr "Aynı ID='%' ile başka bir % daha vardır."
 
@@ -11012,8 +11006,8 @@ msgstr "Aynı ID='%' ile başka bir % daha vardır."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:594
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:890
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:917
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1256
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1271
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1257
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1272
 msgid "add "
 msgstr "ekle "
 
@@ -11082,7 +11076,7 @@ msgstr "kişiYolculuk için geçersiz kombinasyon"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:959
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1016
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1065
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1106
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1107
 msgid "add % in '%'"
 msgstr "'%' içine % ekleyin"
 
@@ -11092,7 +11086,7 @@ msgstr "sürüş için geçersiz kombinasyon"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:950
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1007
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1097
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1098
 msgid "invalid container parent"
 msgstr "geçersiz konteyner üst öğesi"
 
@@ -11100,68 +11094,68 @@ msgstr "geçersiz konteyner üst öğesi"
 msgid "invalid combination for person stop"
 msgstr "kişi durdurma için geçersiz kombinasyon"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1099
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1100
 msgid "invalid combination for containerStop"
 msgstr "konteyner için geçersiz kombinasyonDurdur"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1132
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1133
 msgid "Stops needs a parent"
 msgstr "Durağın bir üst ögesine ihtiyacı var"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1184
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1185
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
 "Konteynerler OtobüsDurakları veya Trenİstasyonlar'daki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1192
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1193
 msgid "Persons don't support stops at containerStops"
 msgstr "Yolcular konteyner duraklarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1200
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1201
 msgid "Persons don't support stops at chargingStations"
 msgstr "Yolcular şarj istasyonlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1203
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1204
 msgid "Containers don't support stops at chargingStations"
 msgstr "Konteynerler şarj istasyonlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1211
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1212
 msgid "Persons don't support stops at parkingAreas"
 msgstr "Yolcular park alanlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1214
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1215
 msgid "Containers don't support stops at parkingAreas"
 msgstr "Konteynerler park alanlarındaki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1224
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1225
 msgid "vehicles don't support stops at edges"
 msgstr "araçlar kesimlerdeki durakları desteklemez"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1237
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1238
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
 "Bir durak ya bir durak yeri (stoppingPlace), bir kesim ya da bir şerit "
 "üzerinde tanımlanmalıdır"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1239
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1240
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
 "Bir durak sadece bir durak yeri (stoppingPlace), kesim veya şerit gerektirir"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1922
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1940
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr "'%' kesim mevcut değildir."
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3014
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3032
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "'%' id'li % '%' içinde mevcut değil"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3022
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3040
 msgid "invalid probability % in % '%'"
 msgstr "'%' içinde geçersiz olasılık %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3028
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3046
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -11301,15 +11295,15 @@ msgstr "Yolculuklar"
 msgid "Flows"
 msgstr "Akışlar"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:831
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:835
 msgid "Invalid vehicle tag"
 msgstr "Geçersiz araç etiketi"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2360
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2364
 msgid "departPos of %"
 msgstr "kalkışPos %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2370
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:2374
 msgid "arrivalPos of %"
 msgstr "varışPos %"
 
@@ -11660,19 +11654,19 @@ msgstr "- Uzunluk: "
 msgid "Parent "
 msgstr "Ebeveyn "
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:64
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:65
 msgid "Parent element"
 msgstr "Kaynak Eleman"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:246
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:264
 msgid "Selected item '"
 msgstr "Seçilen öğe '"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:246
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:264
 msgid "' in DemandElementSelector"
 msgstr "' içinde Talep Eleman Seçici"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:258
+#: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:276
 msgid "Selected invalid item in DemandElementSelector"
 msgstr "Talep eleman seçicide geçersiz öğe seçildi"
 
@@ -11898,9 +11892,8 @@ msgstr "Kaynağın %'sini inceleyin"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
-msgid "Open dialog for editing allowed vClasses"
+msgid "Open dialog for editing vClasses"
 msgstr ""
-"İzin verilen araç sınıflarını (vClasses) düzenlemek için iletişim kutusunu aç"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
@@ -13159,17 +13152,7 @@ msgstr "Mevcut seçili konteyner tipi geçerli değil."
 msgid "Current selected container plan isn't valid."
 msgstr "Mevcut seçili konteyner planı geçerli değil."
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:243
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:243
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:299
-msgid "VType with vClass == 'ignoring' is oriented to containers"
-msgstr "vClass == 'ignoring' içeren araç tipi (VType) konteynerlere yöneliktir"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:245
-msgid "VType with vClass != 'pedestrian' is not oriented to containers"
-msgstr "vClass != 'yaya' ile VTürü konteynerlere yönelik değildir"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:268
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:262
 msgid "Invalid container parameters."
 msgstr "Geçersiz konteyner parametreleri."
 
@@ -13223,12 +13206,7 @@ msgstr "Mevcut seçili yolcu tipi geçerli değil."
 msgid "Current selected person plan isn't valid."
 msgstr "Geçerli seçili yolcu planı geçerli değil."
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:245
-msgid "VType with vClass != 'pedestrian' is not oriented to persons"
-msgstr ""
-"vClass != 'pedestrian' içiren araç tipi (VType) yolculara yönelik değildir"
-
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:268
+#: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:262
 msgid "Invalid person parameters."
 msgstr "Geçersiz yolcu parametreleri."
 
@@ -13402,10 +13380,6 @@ msgstr "Mevcut seçilen araç geçerli değil."
 msgid "Current selected vehicle type isn't valid."
 msgstr "Mevcut seçili araç türü geçerli değil."
 
-#: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:297
-msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-msgstr "vClass == 'pedestrian' araç türü (VType) yayalara yöneliktir"
-
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:41
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
 msgid "Legend"
@@ -13479,20 +13453,20 @@ msgstr "Kesim listesi boş olamaz"
 msgid "List of lanes cannot be empty"
 msgstr "Şerit listesi boş olamaz"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:551
+#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:555
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:232
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
 msgstr ""
 "Şu anda desteklenmiyor. Yeniden yönlendirici iletişim kutusunu kullanarak "
 "yeniden yönlendirici öğeleri oluşturun"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:556
+#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:560
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
 msgstr ""
 "Şu anda desteklenmiyor. VSS iletişim kutusunu kullanarak VSS adımları "
 "oluşturun"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:561
+#: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:565
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
 msgstr ""
 "Şu anda desteklenmiyor. Kalibratör iletişim kutusunu kullanarak "
@@ -14766,6 +14740,17 @@ msgstr "Kapat"
 msgid "Errors while loading Selection"
 msgstr "Seçim yüklenirken oluşan hatalar"
 
+#: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:171
+#: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:173
+#: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:243
+#: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:244
+msgid " time"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:184
+msgid "Set breakpoint at %"
+msgstr ""
+
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
 msgstr "Adı"
@@ -14927,11 +14912,11 @@ msgstr "EN '%' değiştiriliyor"
 msgid "Replacing polygon '%'"
 msgstr "'%' çokgeni değiştiriliyor"
 
-#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1028
+#: C:\Repos\sumo/src\utils\gui\images\GUIIconSubSys.cpp:1046
 msgid "Instance was previously created"
 msgstr "Örnek daha önce oluşturuldu"
 
-#: C:\Repos\sumo/src\utils\gui\images\GUITextureSubSys.cpp:188
+#: C:\Repos\sumo/src\utils\gui\images\GUITextureSubSys.cpp:191
 msgid "Undefined texture"
 msgstr "Tanımsız doku"
 
@@ -14945,116 +14930,97 @@ msgstr ""
 "'value' niteliği kesme noktaları için kullanımdan kaldırılmıştır. Lütfen "
 "'time' kullanın."
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
+#: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:385
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
 "'filename' niteliği çıkartmalar için kullanımdan kaldırılmıştır. Lütfen "
 "'file' kullanın."
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
+#: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:561
 msgid " Could not decode breakpoint '%'"
 msgstr " Kesme noktası '%' kodu çözülemedi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1101
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1136
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1164
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1200
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1207
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1212
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1303
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1389
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1425
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1623
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1662
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1669
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1674
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1679
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1690
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1102
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1137
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1165
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1201
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1208
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1213
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1390
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1426
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1663
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1670
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1675
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1680
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1691
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1692
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1693
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1694
 msgid "uniform"
 msgstr "tek tip"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:646
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1519
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
 msgid "road"
 msgstr "yol"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:647
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1520
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
 msgid "sidewalk"
 msgstr "kaldırım"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:648
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1521
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
 msgid "bike lane"
 msgstr "Bisiklet şeridi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:649
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1522
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
 msgid "green verge"
 msgstr "yeşil eşik"
-
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:650
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1165
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1523
-msgid "waterway"
-msgstr "su yolu"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:651
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1166
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1524
+msgid "waterway"
+msgstr "su yolu"
+
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1167
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
 msgid "railway"
 msgstr "Demiryolu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:652
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1525
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
 msgid "rails on road"
 msgstr "yoldaki raylar"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:653
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1526
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:654
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1527
 msgid "no passenger"
 msgstr "yolcu yok"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:654
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1527
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1528
 msgid "closed"
 msgstr "kapalı"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:655
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1528
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1309
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1529
 msgid "connector"
 msgstr "bağlantı"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:656
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1529
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:657
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1530
 msgid "forbidden"
 msgstr "yasak"
-
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:658
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1003
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1128
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1157
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1168
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1197
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1204
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1214
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1304
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1390
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1426
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1532
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1630
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1659
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1666
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1680
-msgid "unselected"
-msgstr "seçilmemiş"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:659
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1004
@@ -15072,547 +15038,566 @@ msgstr "seçilmemiş"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1660
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1667
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1681
+msgid "unselected"
+msgstr "seçilmemiş"
+
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:660
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1005
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1130
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1159
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1170
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1199
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1206
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1216
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1306
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1392
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1428
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1534
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1632
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1661
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1668
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1682
 msgid "selected"
 msgstr "seçilmiş"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:675
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1218
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:676
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1219
 msgid "by allowed speed (lanewise)"
 msgstr "izin verilen hıza göre (şerit bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:682
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1221
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:683
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1222
 msgid "by current occupancy (lanewise, brutto)"
 msgstr "mevcut doluluk durumuna göre (lanewise, brutto)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:688
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1224
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:689
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1225
 msgid "by current occupancy (lanewise, netto)"
 msgstr "mevcut doluluk durumuna göre (şerit bazında, netto)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:694
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1227
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:695
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1228
 msgid "by first vehicle waiting time (lanewise)"
 msgstr "ilk araç bekleme süresine göre (şerit bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:700
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1230
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:701
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1231
 msgid "by lane number (streetwise)"
 msgstr "şerit numarasına göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:704
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:943
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1234
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:705
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:944
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1235
 msgid "by CO2 emissions"
 msgstr "CO2 emisyonlarına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:712
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:951
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1237
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:713
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:952
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1238
 msgid "by CO emissions"
 msgstr "CO emisyonlarına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:720
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:959
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1240
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:721
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:960
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1241
 msgid "by PMx emissions"
 msgstr "PMx emisyonlarına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:728
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:967
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1243
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:729
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:968
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1244
 msgid "by NOx emissions"
 msgstr "NOx emisyonlarına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:736
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:975
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1246
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:737
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:976
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1247
 msgid "by HC emissions"
 msgstr "HC emisyonlarına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:744
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:983
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1249
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:745
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:984
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1250
 msgid "by fuel consumption"
 msgstr "yakıt tüketimine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:752
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1252
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:753
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1253
 msgid "by noise emissions (Harmonoise)"
 msgstr "gürültü emisyonlarına göre (Harmonoise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:761
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1256
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:762
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1257
 msgid "by global travel time"
 msgstr "küresel seyahat süresine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:765
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1260
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:766
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1261
 msgid "by global speed percentage"
 msgstr "küresel hız yüzdesine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:770
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1264
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:771
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1265
 msgid "by given length/geometrical length"
 msgstr "verilen uzunluk/geometrik uzunluğa göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:778
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1131
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1160
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1345
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1569
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:779
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1098
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1132
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1161
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1570
 msgid "by angle"
 msgstr "açı tarafından"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:779
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1267
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:780
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1268
 msgid "by loaded weight"
 msgstr "yüklü ağırlığa göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:783
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1272
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1571
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:784
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1273
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1572
 msgid "by priority"
 msgstr "öncelikli olarak"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:788
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1576
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:789
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1577
 msgid "by height at start"
 msgstr "başlangıçtaki yüksekliğe göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:796
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:797
 msgid "by height at geometry-segment start"
 msgstr "geometri segmenti başlangıcındaki yüksekliğe göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:804
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1590
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:805
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1591
 msgid "by inclination"
 msgstr "eğilime göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:811
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:812
 msgid "by geometry-segment inclination"
 msgstr "geometri segmenti eğimine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:818
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1277
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:819
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1278
 msgid "by average speed"
 msgstr "ortalama hıza göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:825
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:826
 msgid "by average relative speed "
 msgstr "ortalama bağıl hıza göre "
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:832
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:833
 msgid "by routing device assumed speed "
 msgstr "yönlendirme cihazı tarafından varsayılan hız "
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:839
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1035
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1285
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:840
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1036
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1286
 msgid "by electricity consumption"
 msgstr "elektrik tüketimine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:847
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1288
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1373
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1408
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:848
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1289
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1374
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1409
 msgid "by insertion-backlog (streetwise)"
 msgstr "ekleme - beklemeye göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:852
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1378
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:853
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1379
 msgid "by TAZ (streetwise)"
 msgstr "tarafından TAZ (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:860
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:887
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1293
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1383
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1413
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1619
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1685
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:861
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:888
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1294
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1384
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1414
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1620
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1686
 msgid "missing data"
 msgstr "eksik veri"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:863
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:864
 msgid "by distance (kilometrage)"
 msgstr "mesafeye göre (kilometre)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:870
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:871
 msgid "by abs distance (kilometrage)"
 msgstr "abs mesafesine göre (kilometre)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:874
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:875
 msgid "by reachability (traveltime)"
 msgstr "erişilebilirliğe göre (seyahat süresi)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:878
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:879
 msgid "by thread index"
 msgstr "sıra listesine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:881
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:882
 msgid "free parking spaces"
 msgstr "ücretsiz park yerleri"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:892
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:893
 msgid "given vehicle/type/route color"
 msgstr "verilen araç/tür/rota rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:894
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:895
 msgid "given/assigned vehicle color"
 msgstr "verilen/atanan araç rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:895
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1103
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1138
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:896
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1104
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1139
 msgid "given/assigned type color"
 msgstr "verilen/atanan tür rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:896
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:897
 msgid "given/assigned route color"
 msgstr "verilen/atanan rota rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:897
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:898
 msgid "depart position as HSV"
 msgstr "HSV olarak ayrılma pozisyonu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:898
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:899
 msgid "arrival position as HSV"
 msgstr "HSV olarak varış pozisyonu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:899
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:900
 msgid "direction/distance as HSV"
 msgstr "HSV olarak yön/mesafe"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:900
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1104
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1139
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1429
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:901
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1105
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1140
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1430
 msgid "by speed"
 msgstr "hız tarafından"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:910
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:911
 msgid "by action step"
 msgstr "eylem adımına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:910
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:911
 msgid "no action"
 msgstr "eylem yok"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:911
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:912
 msgid "action in next step"
 msgstr "sonraki adımdaki eylem"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:912
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:913
 msgid "had action step"
 msgstr "eylem adımı vardı"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:914
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1119
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1151
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1435
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:915
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1120
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1152
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1436
 msgid "by waiting time"
 msgstr "bekleme süresine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:920
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1441
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:921
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1442
 msgid "by accumulated waiting time"
 msgstr "birikmiş bekleme süresine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:926
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:927
 msgid "by time since lane change"
 msgstr "şerit değiştirmeden bu yana geçen süreye göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:935
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1444
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:936
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1445
 msgid "by max speed"
 msgstr "maksimum hıza göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:999
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1451
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1000
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1452
 msgid "by reroute number"
 msgstr "yeniden yönlendirme numarasına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1006
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1455
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1007
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1456
 msgid "by offset from best lane"
 msgstr "en iyi şeritten sıralamaya göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1007
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1456
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1008
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1457
 msgid "opposite lane"
 msgstr "karşı şerit"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1014
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1463
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1015
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1464
 msgid "by acceleration"
 msgstr "hızlanma ile"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1023
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1472
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1024
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1473
 msgid "by time gap on lane"
 msgstr "şeritteki zaman boşluğuna göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1029
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1478
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1030
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1479
 msgid "by depart delay"
 msgstr "kalkış gecikmesine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1043
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1044
 msgid "by relative battery charge"
 msgstr "göreceli pil şarjına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1052
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1053
 msgid "by charged energy"
 msgstr "yüklü enerjiye göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1061
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1484
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1062
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1485
 msgid "by time loss"
 msgstr "zaman kaybına göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1067
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1490
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1068
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1491
 msgid "by stop delay"
 msgstr "durma gecikmesine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1076
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1499
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1077
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1500
 msgid "by stop arrival delay"
 msgstr "durak varış gecikmesine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1086
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1087
 msgid "by lateral speed"
 msgstr "yanal hıza göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1096
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1132
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1161
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1208
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1670
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1097
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1133
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1162
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1209
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1671
 msgid "random"
 msgstr "rastgele"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1100
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1101
 msgid "given person/type color"
 msgstr "verilen kişi/renk türü"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1102
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1103
 msgid "given/assigned person color"
 msgstr "verilen/atanan kişi rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1144
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1113
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
 msgid "by mode"
 msgstr "moduna göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1112
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1144
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1113
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
 msgid "waiting for insertion"
 msgstr "yerleştirme için bekliyor"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1113
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1145
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1114
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
 msgid "stopped"
 msgstr "Durduruldu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1114
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1115
 msgid "walking"
 msgstr "yürüyor"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1115
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
 msgid "riding"
 msgstr "Binicilik"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1116
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1147
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 msgid "accessing trainStop"
 msgstr "trainStop erişim"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1118
 msgid "waiting for ride"
 msgstr "Araç bekliyor"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1125
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1126
 msgid "by jammed state"
 msgstr "sıkışma durumuna göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1135
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1136
 msgid "given container/type color"
 msgstr "verilen konteyner/tür rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1137
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1138
 msgid "given/assigned container color"
 msgstr "verilen/atanan konteyner rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1146
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1147
 msgid "transport"
 msgstr "taşıma"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1149
 msgid "waiting for transport"
 msgstr "ulaşım için bekliyor"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1149
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1150
 msgid "tranship"
 msgstr "aktarma"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1186
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1648
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1187
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1649
 msgid "by height"
 msgstr "yüksekliğe göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1196
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1658
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1197
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1659
 msgid "given POI color"
 msgstr "verilen POI rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1203
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1665
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1204
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1666
 msgid "given polygon color"
 msgstr "verilen poligon rengi"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1212
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1674
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1213
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1675
 msgid "default"
 msgstr "varsayılan"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1280
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1281
 msgid "by average relative speed"
 msgstr "ortalama bağıl hıza göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1307
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 msgid "by purpose (streetwise)"
 msgstr "amaca göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1307
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1308
 msgid "normal"
 msgstr "normal"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1309
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1310
 msgid "internal"
 msgstr "dahili"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1311
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1393
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1312
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1394
 msgid "by allowed speed (streetwise)"
 msgstr "izin verilen hıza göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1318
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1396
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1319
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1397
 msgid "by current occupancy (streetwise, brutto)"
 msgstr "mevcut doluluk durumuna göre (streetwise, brutto)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1321
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1399
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1322
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1400
 msgid "by current speed (streetwise)"
 msgstr "mevcut hıza göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1328
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1402
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1329
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1403
 msgid "by current flow (streetwise)"
 msgstr "akım akışına göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1331
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1405
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1332
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1406
 msgid "by relative speed (streetwise)"
 msgstr "göreceli hıza göre (streetwise)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1338
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1339
 msgid "by routing device assumed speed"
 msgstr "yönlendirme cihazı tarafından varsayılan hız"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
 msgid "by segments (alternating)"
 msgstr "segmentlere göre (dönüşümlü)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1346
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
 msgid "odd"
 msgstr "tek"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1347
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1348
 msgid "even"
 msgstr "bile"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1349
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
 msgid "by jammed state (segmentwise)"
 msgstr "sıkışıklık duruma göre (segment bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1349
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
 msgid "free"
 msgstr "ücretsiz"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1350
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1351
 msgid "limitedControl"
 msgstr "sınırlıKontrol"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1351
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1352
 msgid "jammed"
 msgstr "Sıkışmış"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1353
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1354
 msgid "by current occupancy (segmentwise, brutto)"
 msgstr "mevcut doluluk durumuna göre (segment bazında, brutto)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1356
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1357
 msgid "by current speed (segmentwise)"
 msgstr "mevcut hıza göre (segment bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1363
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1364
 msgid "by current flow (segmentwise)"
 msgstr "akım akışına göre (segment bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1366
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1367
 msgid "by relative speed (segmentwise)"
 msgstr "göreli hıza göre (segment bazında)"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1378
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1379
 msgid "no TAZ"
 msgstr "TAZ yok"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1530
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1628
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1531
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1629
 msgid "data mode"
 msgstr "veri modu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1535
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1536
 msgid "by permission code"
 msgstr "izin koduna göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1583
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1584
 msgid "by height at segment start"
 msgstr "segment başlangıcındaki yüksekliğe göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1597
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1598
 msgid "by segment inclination"
 msgstr "segment eğilimine göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1624
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1625
 msgid "junction bubble"
 msgstr "kavşak balonu"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1625
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1626
 msgid "geometry points"
 msgstr "geometri noktaları"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1626
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1627
 msgid "connections missing"
 msgstr "bağlantılar eksik"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1627
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1628
 msgid "custom shape"
 msgstr "özel şekil"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1683
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1684
 msgid "by origin taz"
 msgstr "origin taz göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1684
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1685
 msgid "by destination taz"
 msgstr "hedef taz'a göre"
 
-#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2378
+#: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2379
 msgid "No color defined for LinkState '%'"
 msgstr "LinkState '%' için renk tanımlanmadı"
 
@@ -16431,12 +16416,30 @@ msgstr "(Projeksiyon tanımlanmadı)"
 msgid "Could not convert coordinates in %."
 msgstr "Koordinatlar % cinsinden dönüştürülemedi."
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1108
-msgid ""
-"Lane width for all lanes of this lane in meters (used for visualization)"
-msgstr ""
-"Bu şeridin tüm şeritleri için metre cinsinden şerit genişliği "
-"(görselleştirme için kullanılır)"
+#~ msgid "Open dialog for editing allowed vClasses"
+#~ msgstr ""
+#~ "İzin verilen araç sınıflarını (vClasses) düzenlemek için iletişim "
+#~ "kutusunu aç"
+
+#~ msgid "VType with vClass == 'ignoring' is oriented to containers"
+#~ msgstr ""
+#~ "vClass == 'ignoring' içeren araç tipi (VType) konteynerlere yöneliktir"
+
+#~ msgid "VType with vClass != 'pedestrian' is not oriented to containers"
+#~ msgstr "vClass != 'yaya' ile VTürü konteynerlere yönelik değildir"
+
+#~ msgid "VType with vClass != 'pedestrian' is not oriented to persons"
+#~ msgstr ""
+#~ "vClass != 'pedestrian' içiren araç tipi (VType) yolculara yönelik değildir"
+
+#~ msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
+#~ msgstr "vClass == 'pedestrian' araç türü (VType) yayalara yöneliktir"
+
+#~ msgid ""
+#~ "Lane width for all lanes of this lane in meters (used for visualization)"
+#~ msgstr ""
+#~ "Bu şeridin tüm şeritleri için metre cinsinden şerit genişliği "
+#~ "(görselleştirme için kullanılır)"
 
 #~ msgid "StopContainer Edge"
 #~ msgstr "KonteynerDurdurma Kesimi"

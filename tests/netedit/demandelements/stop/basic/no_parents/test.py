@@ -34,6 +34,9 @@ netedit.supermodeDemand()
 # go to stop mode
 netedit.stopMode()
 
+# create stop
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 

@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # set invalid value
-netedit.changeDefaultBoolValue(netedit.attrs.busStop.create.onDemand)
+netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.onDemand)
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,

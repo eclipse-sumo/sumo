@@ -204,7 +204,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.18.0"
+    #define VERSION_STRING "1.19.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

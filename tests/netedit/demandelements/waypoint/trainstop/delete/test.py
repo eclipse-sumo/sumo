@@ -55,7 +55,8 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete route
-netedit.leftClick(referencePosition, 327, 225)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.routeB.x,
+                  netedit.positions.demandElements.routeB.y)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)

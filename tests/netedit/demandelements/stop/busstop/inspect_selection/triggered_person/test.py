@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
                   netedit.positions.demandElements.busStop.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.busStop.inspectSelection.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.expected, "personA personB", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

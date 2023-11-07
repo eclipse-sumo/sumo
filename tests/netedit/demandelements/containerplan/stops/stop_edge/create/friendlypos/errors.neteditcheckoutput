@@ -1,1 +1,4 @@
-Warning: Disconnected plan for container 'c_0' (stop range 34.13-34.33 does not cover previous arrival position 46.10).
+Error: Another edge with the id ':Junction3_0' exists.
+Error: Another edge with the id ':Junction3_1' exists.
+Error: Another junction with the id 'Junction3' exists.
+Quitting (on error).

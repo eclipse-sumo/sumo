@@ -1,0 +1,4 @@
+Warning: No connection between edge 'Junction3-source' and edge 'Junction3-sink' found.
+Warning: No route for vehicle 'trip_3' found.
+Error: Vehicle 'trip_3' has no valid route.
+Quitting (on error).

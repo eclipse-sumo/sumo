@@ -1,1 +1,4 @@
-Warning: Container 'c_0' aborted waiting for custom,line at busStop 'containerStopA'.
+Error: Another edge with the id ':Junction3_0' exists.
+Error: Another edge with the id ':Junction3_1' exists.
+Error: Another junction with the id 'Junction3' exists.
+Quitting (on error).

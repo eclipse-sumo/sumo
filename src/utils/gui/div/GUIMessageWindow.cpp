@@ -170,7 +170,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
             FXint timePos = candidate.find(TL(" time"));
             if (timePos > -1) {
-                timePos += 6;
+                timePos += std::string(TL(" time")).size() + 1;
                 SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
                     t = getTimeString(candidate, timePos, 0, candidate.length());
@@ -241,14 +241,15 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
         }
         // find time links
         pos = text.find(TL(" time"));
+        const int timeTerm = std::string(TL(" time")).size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
-            t = getTimeString(text, pos + 6, 0, text.length());
+            t = getTimeString(text, pos + timeTerm, 0, text.length());
         }
         if (t >= 0) {
-            FXString insText = text.left(pos + 6);
+            FXString insText = text.left(pos + timeTerm);
             FXText::appendStyledText(insText, style + 1);
-            text.erase(0, pos + 6);
+            text.erase(0, pos + timeTerm);
             pos = text.find(" ");
             if (pos < 0) {
                 pos = text.rfind(".");
