@@ -135,7 +135,7 @@ def add_transportation_requests_constraint(data, routing, manager, solver, dista
             # allows to reject the order but gives penalty
             if verbose:
                 print('allow to reject new reservation %s' % (request.id))
-            routing.AddDisjunction([pickup_index, delivery_index], 10000, 2)
+            routing.AddDisjunction([pickup_index, delivery_index], data['penalty'], 2)
 
 
 def add_direct_route_factor_constraint(data, routing, manager, solver, distance_dimension, verbose):
