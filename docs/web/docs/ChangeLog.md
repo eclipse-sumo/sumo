@@ -79,6 +79,7 @@ title: ChangeLog
   - fixed index in sumolib.net.node.Node.forbids #13857
   - osmWebWizard.py: Fixed error when requesting an amount of 0 vehicles for a mode. #13947, #13787
   - convert_detectors2SUMO.py: Syntax error fixed which made the script unusable. #13650
+  - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions #13346
   
 - TraCI / Libsumo
   - traci.vehicletype.setScale is now applied to flows. #13707
@@ -144,7 +145,6 @@ title: ChangeLog
   - Game from downloaded zip no longer requires SUMO_HOME. #13583
   - sumolib can now load selection files. #13589
   - meandata2vss.py: can now create variable speed signs from edge mean data. #13804
-  - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions #13346
 
 - TraCI
   - Rail signal constraints can now bew added via traci. #13853
@@ -157,7 +157,7 @@ title: ChangeLog
   - The old C++ TraCIAPI.cpp and Java's TraaS give now a warning about being deprecated #14026. Please use [libtraci](Libtraci.md).
   - The new SUMO homepage is now https://eclipse.dev/sumo.
   - The repository moved to https://github.com/eclipse-sumo/sumo and the website repo to https://github.com/eclipse-sumo/sumo.website.
-  - Added wheels for Python 3.12 nad improved on wheel testing in CI
+  - Added wheels for Python 3.12 and improved on wheel testing in CI
 
 ## Version 1.18.0 (29.06.2023)
 
