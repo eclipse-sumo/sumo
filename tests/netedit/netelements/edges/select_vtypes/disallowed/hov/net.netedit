@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-06 10:35:11 by Eclipse SUMO netedit Version v1_18_0+2431-500ea638ed5
+<!-- generated on 2023-11-07 09:39:28 by Eclipse SUMO netedit Version 1.19.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/net.net.xml"/>
     </output>
 
     <processing>
@@ -37,16 +37,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov102828.11864/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.07Nov093735.11411/netedit.gui/netelements/edges/select_vtypes/disallowed/hov/log.txt"/>
     </report>
 
 </configuration>
@@ -55,13 +55,6 @@
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
-
-    <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
-    </edge>
-    <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" disallow="all" speed="3.82" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
-    </edge>
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">
         <lane id="-gneE14_0" index="0" disallow="bus rail_fast" speed="13.89" length="20.00" shape="0.00,28.40 20.00,28.40"/>
@@ -99,9 +92,6 @@
     <edge id="-gneE25" from="gneJ28" to="gneJ27" priority="1">
         <lane id="-gneE25_0" index="0" disallow="rail_fast custom1" speed="13.89" length="20.00" shape="50.00,1.60 30.00,1.60"/>
     </edge>
-    <edge id="gneE12" from="gneJ3" to="gneJ2" priority="1">
-        <lane id="gneE12_0" index="0" disallow="all" speed="13.89" length="20.00" shape="20.00,41.60 0.00,41.60"/>
-    </edge>
     <edge id="gneE13" from="gneJ2" to="gneJ3" priority="1">
         <lane id="gneE13_0" index="0" disallow="passenger rail_fast" speed="13.89" length="20.00" shape="0.00,38.40 20.00,38.40"/>
     </edge>
@@ -135,9 +125,6 @@
     <edge id="gneE23" from="gneJ23" to="gneJ24" priority="1">
         <lane id="gneE23_0" index="0" disallow="rail rail_fast" speed="13.89" length="20.00" shape="30.00,8.40 50.00,8.40"/>
     </edge>
-    <edge id="gneE24" from="gneJ25" to="gneJ26" priority="1">
-        <lane id="gneE24_0" index="0" disallow="hov rail_fast" speed="13.89" length="20.00" shape="60.00,8.40 80.00,8.40"/>
-    </edge>
     <edge id="gneE25" from="gneJ27" to="gneJ28" priority="1">
         <lane id="gneE25_0" index="0" disallow="rail_fast custom2" speed="13.89" length="20.00" shape="30.00,-1.60 50.00,-1.60"/>
     </edge>
@@ -152,31 +139,21 @@
     <junction id="gneJ17" type="dead_end" x="30.00" y="30.00" incLanes="gneE17_0" intLanes="" shape="30.00,30.00 30.00,33.20 30.00,30.00"/>
     <junction id="gneJ18" type="dead_end" x="50.00" y="30.00" incLanes="-gneE17_0" intLanes="" shape="50.00,30.00 50.00,26.80 50.00,30.00"/>
     <junction id="gneJ19" type="dead_end" x="30.00" y="20.00" incLanes="-gneE16_0" intLanes="" shape="30.00,20.00 30.00,23.20 30.00,20.00"/>
-    <junction id="gneJ2" type="priority" x="0.00" y="40.00" incLanes="gneE12_0" intLanes=":gneJ2_0_0" shape="0.00,40.00 0.00,43.20 0.00,40.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="40.00" incLanes="" intLanes="" shape="0.00,40.00 0.00,36.80"/>
     <junction id="gneJ20" type="dead_end" x="50.00" y="20.00" incLanes="gneE16_0" intLanes="" shape="50.00,20.00 50.00,16.80 50.00,20.00"/>
     <junction id="gneJ21" type="dead_end" x="0.00" y="10.00" incLanes="-gneE22_0" intLanes="" shape="0.00,10.00 0.00,13.20 0.00,10.00"/>
     <junction id="gneJ22" type="dead_end" x="20.00" y="10.00" incLanes="gneE22_0" intLanes="" shape="20.00,10.00 20.00,6.80 20.00,10.00"/>
     <junction id="gneJ23" type="dead_end" x="30.00" y="10.00" incLanes="-gneE23_0" intLanes="" shape="30.00,10.00 30.00,13.20 30.00,10.00"/>
     <junction id="gneJ24" type="dead_end" x="50.00" y="10.00" incLanes="gneE23_0" intLanes="" shape="50.00,10.00 50.00,6.80 50.00,10.00"/>
-    <junction id="gneJ25" type="dead_end" x="60.00" y="10.00" incLanes="-gneE24_0" intLanes="" shape="60.00,10.00 60.00,13.20 60.00,10.00"/>
-    <junction id="gneJ26" type="dead_end" x="80.00" y="10.00" incLanes="gneE24_0" intLanes="" shape="80.00,10.00 80.00,6.80 80.00,10.00"/>
+    <junction id="gneJ25" type="dead_end" x="60.00" y="10.00" incLanes="-gneE24_0" intLanes="" shape="60.00,13.20 60.00,10.00"/>
+    <junction id="gneJ26" type="dead_end" x="80.00" y="10.00" incLanes="" intLanes="" shape="80.00,10.00 80.00,13.20"/>
     <junction id="gneJ27" type="dead_end" x="30.00" y="0.00" incLanes="-gneE25_0" intLanes="" shape="30.00,0.00 30.00,3.20 30.00,0.00"/>
     <junction id="gneJ28" type="dead_end" x="50.00" y="0.00" incLanes="gneE25_0" intLanes="" shape="50.00,0.00 50.00,-3.20 50.00,0.00"/>
-    <junction id="gneJ3" type="priority" x="20.00" y="40.00" incLanes="gneE13_0" intLanes=":gneJ3_0_0" shape="20.00,40.00 20.00,36.80 20.00,40.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
+    <junction id="gneJ3" type="dead_end" x="20.00" y="40.00" incLanes="gneE13_0" intLanes="" shape="20.00,36.80 20.00,40.00"/>
     <junction id="gneJ4" type="dead_end" x="0.00" y="30.00" incLanes="gneE14_0" intLanes="" shape="0.00,30.00 0.00,33.20 0.00,30.00"/>
     <junction id="gneJ5" type="dead_end" x="20.00" y="30.00" incLanes="-gneE14_0" intLanes="" shape="20.00,30.00 20.00,26.80 20.00,30.00"/>
     <junction id="gneJ7" type="dead_end" x="0.00" y="20.00" incLanes="-gneE15_0" intLanes="" shape="0.00,20.00 0.00,23.20 0.00,20.00"/>
     <junction id="gneJ8" type="dead_end" x="20.00" y="20.00" incLanes="gneE15_0" intLanes="" shape="20.00,20.00 20.00,16.80 20.00,20.00"/>
     <junction id="gneJ9" type="dead_end" x="30.00" y="40.00" incLanes="-gneE18_0" intLanes="" shape="30.00,40.00 30.00,43.20 30.00,40.00"/>
-
-    <connection from="gneE12" to="gneE13" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="t" state="M"/>
-    <connection from="gneE13" to="gneE12" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
-
-    <connection from=":gneJ2_0" to="gneE13" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":gneJ3_0" to="gneE12" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>
