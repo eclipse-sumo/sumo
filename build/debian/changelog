@@ -1,3 +1,15 @@
+sumo (1.19.0-1) jammy; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 07 Nov 2023 09:42:20 +0100
+
+sumo (1.18.0-1~kinetic) kinetic; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Thu, 29 Jun 2023 09:17:39 +0200
+
 sumo (1.17.0-1) focal; urgency=medium
 
   * new upstream version

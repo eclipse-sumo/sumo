@@ -1,8 +1,8 @@
 #
 # spec file for package sumo
 #
-# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2022 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2022 SUSE LLC
+# Copyright (c) 2001-2023 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -24,7 +24,7 @@ Release:        0
 # It should be removed for release builds.
 Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
-License:        EPL-2.0
+License:        EPL-2.0 OR GPL-2.0-or-later
 Group:          Productivity/Scientific/Other
 URL:            https://sumo.dlr.de/
 Source0:        https://sumo.dlr.de/daily/sumo_%{version}.orig.tar.gz
@@ -34,7 +34,6 @@ BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
 %endif
-BuildRequires:  python3
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  swig
@@ -115,7 +114,9 @@ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
-make %{?_smp_mflags}
+# build netedit first to reduce memory consumption
+make %{?_smp_mflags} netedit
+make
 make %{?_smp_mflags} man
 
 
