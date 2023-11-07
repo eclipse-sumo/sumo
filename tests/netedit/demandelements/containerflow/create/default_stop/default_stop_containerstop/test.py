@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("stopContainer", True)
+netedit.changeContainerPlan("stop", True)
 
 # create route clicking over containerStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,

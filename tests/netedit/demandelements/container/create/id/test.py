@@ -57,7 +57,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.containerS
 netedit.typeEnter()
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.id, "p_0")
+netedit.changeDefaultValue(netedit.attrs.container.create.id, "c_0")
 
 # press enter to create route
 netedit.typeEnter()
