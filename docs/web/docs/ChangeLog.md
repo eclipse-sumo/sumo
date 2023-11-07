@@ -96,6 +96,7 @@ title: ChangeLog
   - Fixed error message about unknown edge. #13890
   - Lanearea detector now reports for last interval if output file is not set. Issue #13966
   - Fixed memory leak in libsumo exception code. #13821
+  - TRACI_VERSION is now 21 to account for the unit changes in #7277
 
 ### Enhancements
 
