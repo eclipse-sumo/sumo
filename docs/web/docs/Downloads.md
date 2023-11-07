@@ -67,9 +67,9 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [Fedora 36 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
 - [Fedora 37 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
 - [Fedora 38 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_38/)
+- [Fedora 39 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_39/)
 - [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
-- [CentOS 8 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
 ### Examples
 
