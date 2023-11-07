@@ -105,7 +105,7 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
                                         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
                                         SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) {
     GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-                                                                 chargeInTransit, chargeDelay, chargeType, waitingTime);
+            chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

@@ -32,9 +32,9 @@
 // ===========================================================================
 
 GNETransport*
-GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-        GNEAdditional* toContainerStop, double arrivalPosition) {
+GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
+                             GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
+                             GNEAdditional* toContainerStop, double arrivalPosition) {
     // declare icon an tag
     const auto iconTag = getTransportTagIcon(fromEdge, toEdge, fromContainerStop, toContainerStop);
     // declare containers
@@ -51,14 +51,14 @@ GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
     } else if (toContainerStop) {
         additionals.push_back(toContainerStop);
     }
-    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, edges, additionals,arrivalPosition);
+    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, edges, additionals, arrivalPosition);
 }
 
 
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1, -1) {
+GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
 }
@@ -299,11 +299,11 @@ GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undo
 
 
 GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                           const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
+                           const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
                            double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-    GNEDemandElementPlan(this, -1, arrivalPosition) {
+GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

@@ -51,10 +51,10 @@ public:
      * @param[in] arrivalPosition arrival pos
      * @param[in] speed tranship speed
      */
-    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent, 
-        GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
-        GNEAdditional* toContainerStop, std::vector<GNEEdge*> edgeList, 
-        const double departPosition, const double arrivalPosition, const double speed);
+    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent,
+                                      GNEEdge* fromEdge, GNEAdditional* fromContainerStop, GNEEdge* toEdge,
+                                      GNEAdditional* toContainerStop, std::vector<GNEEdge*> edgeList,
+                                      const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief default constructor
     GNETranship(SumoXMLTag tag, GNENet* net);
@@ -236,8 +236,8 @@ private:
      * @param[in] speed tranship speed
      */
     GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-            const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
-            const double departPosition, const double arrivalPosition, const double speed);
+                const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
+                const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief Invalidated copy constructor.
     GNETranship(GNETranship*) = delete;

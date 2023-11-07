@@ -469,7 +469,7 @@ MSVehicleControl::getPedestrianTypes(void) const {
     for (auto const& e : myVTypeDict)
         if (e.second->getVehicleClass() == SUMOVehicleClass::SVC_PEDESTRIAN) {
             pedestrianTypes.push_back(e.second);
-        } 
+        }
     return pedestrianTypes;
 }
 

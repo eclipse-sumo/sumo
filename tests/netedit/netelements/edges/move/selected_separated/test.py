@@ -38,7 +38,7 @@ netedit.selectDefault()
 netedit.moveMode()
 
 # move all edges
-netedit.moveElement(referencePosition, 325, 220, 325, 90)
+netedit.moveElement(referencePosition, 460, 210, 460, 413)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -456,7 +456,7 @@ GNEOptionsDialogElements::InputFilename::InputFilename(GNEOptionsDialog* GUIDial
         const std::string& name, const std::string& description, const std::string& defaultValue) :
     InputOption(GUIDialogOptions, parent, topic, name, description, defaultValue) {
     myOpenFilenameButton = GUIDesigns::buildFXButton(myContentFrame, "", "", TL("Select filename"),
-                                        GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
+                           GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     updateOption();
 }

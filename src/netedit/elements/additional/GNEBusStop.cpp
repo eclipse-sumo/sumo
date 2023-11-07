@@ -190,7 +190,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw dotted geometry (don't exaggerate contour)
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), stopWidth, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);
-            
+
             // draw stoppingPlace children
             drawStoppingPlaceChildren(s);
         }

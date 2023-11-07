@@ -423,7 +423,7 @@ public:
     void saveAdditionals();
 
     /// @brief save JuPedSim elements
-    void saveJuPedSimElements(const std::string &file);
+    void saveJuPedSimElements(const std::string& file);
 
     /// @brief save demand element elements of the network
     void saveDemandElements();

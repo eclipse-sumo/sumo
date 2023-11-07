@@ -368,7 +368,7 @@ GNEOverheadWire::drawJunctionPartialGL(const GUIVisualizationSettings& s, const 
         // draw contours
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get shape
-            const auto &shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
+            const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
             // check if mouse is over element
             mouseWithinGeometry(shape, overheadWireWidth);
             // draw dotted geometry

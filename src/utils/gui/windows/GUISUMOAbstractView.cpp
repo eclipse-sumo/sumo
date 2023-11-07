@@ -1593,7 +1593,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myGUIDialogEditViewport == nullptr) {
-        myGUIDialogEditViewport = new GUIDialog_EditViewport(this, TLC("Labels","Edit Viewport"));
+        myGUIDialogEditViewport = new GUIDialog_EditViewport(this, TLC("Labels", "Edit Viewport"));
         myGUIDialogEditViewport->create();
     }
     updateViewportValues();

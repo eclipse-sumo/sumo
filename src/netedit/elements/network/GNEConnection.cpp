@@ -176,7 +176,7 @@ GNEConnection::checkDrawOverContour() const {
 bool
 GNEConnection::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -189,7 +189,7 @@ GNEConnection::checkDrawDeleteContour() const {
 bool
 GNEConnection::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);

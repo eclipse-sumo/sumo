@@ -45,7 +45,7 @@ GNEChargingStation::GNEChargingStation(GNENet* net) :
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay,
-                                       const std::string &chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
+                                       const std::string& chargeType, const SUMOTime waitingTime, bool friendlyPosition, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION),
                      lane, startPos, endPos, name, friendlyPosition, parameters),
     myChargingPower(chargingPower),

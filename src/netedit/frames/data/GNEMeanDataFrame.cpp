@@ -161,13 +161,13 @@ GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrame
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
     myCreateMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create MeanData"), "", "",
-                                          GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
+                             GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset meanData
     myDeleteMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Delete MeanData"), "", "",
-                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+                             GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy meanData
     myCopyMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Copy MeanData"), "", "",
-                                        GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
+                           GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 
 
@@ -250,7 +250,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
     if (meanData) {
         // create a new MeanData based on the current selected meanData
         GNEMeanData* meanDataCopy = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
-                                                myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
+                myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
         // begin undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->begin(meanDataCopy, "copy meanData");
         // add it using undoList (to allow undo-redo)
@@ -279,7 +279,7 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // Create MFXComboBoxIcon
     myMeanDataComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                             this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+            this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add meanDatas
     for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
         myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon());

@@ -1,0 +1,28 @@
+/* XPM */
+static const char *poiicon_charging_station_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1",
+"  c black",
+". c #DDDDDD",
+"X c #E6E6E6",
+"o c gray99",
+"O c #FDFDFD",
+"+ c None",
+/* pixels */
+"+o        ++++++",
+"+          +++++",
+"+          +++++",
+"+      +   +++++",
+"+     ++   ++ + ",
+"+    +++   ++ X ",
+"+   +++    ++   ",
+"+  ++++++  ++X X",
+"+    +++   +++ +",
+"+    ++    +++ +",
+"+   ++      ++ +",
+"+   +      O + +",
+"+          + + +",
+"+          +  ++",
+"+          +++++",
+"            .+++"
+};

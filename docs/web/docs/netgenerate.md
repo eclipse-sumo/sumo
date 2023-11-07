@@ -113,6 +113,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--matsim-output** {{DT_FILE}} | The generated net will be written to FILE using MATsim format |
 | **--opendrive-output** {{DT_FILE}} | The generated net will be written to FILE using OpenDRIVE format |
 | **--dlr-navteq-output** {{DT_FILE}} | The generated net will be written to dlr-navteq files with the given PREFIX |
+| **--dlr-navteq.version** {{DT_STR}} | The dlr-navteq output format version to write; *default:* **6.5** |
 | **--dlr-navteq.precision** {{DT_INT}} | The network coordinates are written with the specified level of output precision; *default:* **2** |
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
@@ -278,7 +279,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
 | **--junctions.join-turns** {{DT_BOOL}} | Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning; *default:* **false** |
-| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2); *default:* **5.5** |
+| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2); *default:* **5.5** |
 | **--junctions.limit-turn-speed.min-angle** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.; *default:* **15** |
 | **--junctions.limit-turn-speed.min-angle.railway** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.; *default:* **35** |
 | **--junctions.limit-turn-speed.warn.straight** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT; *default:* **5** |
@@ -334,6 +335,8 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 ### Random Number

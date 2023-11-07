@@ -116,11 +116,11 @@ public:
         void setDistribution(GNEDemandElement* distribution);
 
         /// @brief current distribution
-        GNEDemandElement *getCurrentDistribution() const;
-        
+        GNEDemandElement* getCurrentDistribution() const;
+
         /// @brief refresh distribution IDs (only call when user change ID in internal attributes)
         void refreshDistributionIDs();
-        
+
         /// @brief refresh modul
         void refreshDistributionSelector();
 
@@ -173,7 +173,7 @@ public:
     public:
         /// @brief constructor for key-probability attributes
         DistributionRow(DistributionValuesEditor* attributeEditorParent,
-            const GNEDemandElement* key, const double probability);
+                        const GNEDemandElement* key, const double probability);
 
         /// @brief destroy DistributionRow (but don't delete)
         void destroy();
@@ -285,10 +285,10 @@ public:
 
         /// @brief distribution editor
         DistributionEditor* myDistributionEditor;
-        
+
         /// @brief distribution selector
         DistributionSelector* myDistributionSelector;
-        
+
         /// @brief attributes editor
         GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
 

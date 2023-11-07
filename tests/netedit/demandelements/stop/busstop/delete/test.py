@@ -38,15 +38,15 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -55,8 +55,8 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -65,8 +65,8 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
+                  netedit.positions.demandElements.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

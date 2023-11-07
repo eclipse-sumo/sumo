@@ -911,7 +911,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         LinkDirection d1 = getDirection(fromE, toE);
         const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
         const bool rightTurnConflict = (thisRight &&
-                NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
+                                        NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
         if (thisRight && !rightTurnConflict) {
             return false;
         }

@@ -40,9 +40,9 @@
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
     GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
                       GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-                    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
-    myInnenContour(this) {
+                                myParentJunction(parentJunction),
+                                myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0),
+myInnenContour(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -91,7 +91,7 @@ GNEWalkingArea::checkDrawOverContour() const {
 bool
 GNEWalkingArea::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -104,7 +104,7 @@ GNEWalkingArea::checkDrawDeleteContour() const {
 bool
 GNEWalkingArea::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
@@ -172,7 +172,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if draw walking area tesselated or contour
             if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
+                    (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE)) {
                 drawTesselatedWalkingArea(s, walkingAreaExaggeration, walkingAreaColor);
             } else {
                 drawContourWalkingArea(s, walkingAreaShape, walkingAreaExaggeration, walkingAreaColor);
@@ -327,7 +327,7 @@ GNEWalkingArea::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &color) const {
+GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& color) const {
     // get mouse position
     const Position mousePosition = myNet->getViewNet()->getPositionInformation();
     // push junction name
@@ -382,7 +382,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
 
 
 void
-GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration, const RGBColor &color) const {
+GNEWalkingArea::drawContourWalkingArea(const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration, const RGBColor& color) const {
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front

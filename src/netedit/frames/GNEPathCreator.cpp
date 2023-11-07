@@ -55,8 +55,8 @@ FXIMPLEMENT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap
 
 GNEPathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
-    myConflictVClass(false),
-    myConflictDisconnected(false) {
+          myConflictVClass(false),
+myConflictDisconnected(false) {
     // check if we have to change vClass flag
     if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
         myConflictVClass = true;
@@ -165,7 +165,7 @@ GNEPathCreator::~GNEPathCreator() {}
 
 
 void
-GNEPathCreator::showPathCreatorModule(const GNETagProperties &tagProperty, const bool consecutives) {
+GNEPathCreator::showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation

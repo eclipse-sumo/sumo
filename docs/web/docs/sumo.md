@@ -234,7 +234,8 @@ configuration:
 | **--pedestrian.striping.reserve-oncoming.max** {{DT_FLOAT}} | Maximum width in m to reserve for oncoming pedestrians; *default:* **1.28** |
 | **--pedestrian.striping.legacy-departposlat** {{DT_BOOL}} | Interpret departPosLat for walks in legacy style; *default:* **false** |
 | **--pedestrian.striping.walkingarea-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the walkingarea; *default:* **4** |
-| **--pedestrian.remote.address** {{DT_STR}} | The address (host:port) of the external simulation; *default:* **localhost:9000** |
+| **--pedestrian.jupedsim.step-length** {{DT_TIME}} | The update interval of the JuPedSim simulation (in seconds); *default:* **0.01** |
+| **--pedestrian.jupedsim.exit-tolerance** {{DT_FLOAT}} | The distance to the destination point considered as arrival (in meters); *default:* **1** |
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
 | **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
 
@@ -294,6 +295,8 @@ configuration:
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--duration-log.disable** {{DT_BOOL}} | Disable performance reports for individual simulation steps; *default:* **false** |
 | **-t** {{DT_BOOL}}<br> **--duration-log.statistics** {{DT_BOOL}} | Enable statistics on vehicle trips; *default:* **false** |
@@ -435,6 +438,7 @@ configuration:
 | **--device.bluelight.explicit** {{DT_STR[]}} | Assign a 'bluelight' device to named vehicles |
 | **--device.bluelight.deterministic** {{DT_BOOL}} | The 'bluelight' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--device.bluelight.reactiondist** {{DT_FLOAT}} | Set the distance at which other drivers react to the blue light and siren sound; *default:* **25** |
+| **--device.bluelight.mingapfactor** {{DT_FLOAT}} | Reduce the minGap for reacting vehicles by the given factor; *default:* **1** |
 
 ### Fcd Device
 

@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 TestFunctions: Clicked over position 679 - 201
-TestFunctions: Clicked over position 564 - 203
+TestFunctions: Clicked over position 560 - 203
 dummy
 person
 personA personB

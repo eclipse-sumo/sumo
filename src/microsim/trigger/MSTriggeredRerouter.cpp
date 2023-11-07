@@ -83,8 +83,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myUserProbability(prob),
     myAmInUserMode(false),
     myTimeThreshold(timeThreshold),
-    myHaveParkProbs(false)
-{
+    myHaveParkProbs(false) {
     myInstances[id] = this;
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {

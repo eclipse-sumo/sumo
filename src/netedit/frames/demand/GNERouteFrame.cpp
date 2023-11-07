@@ -58,7 +58,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
     // Create MFXComboBoxIcon for Route mode
     myRouteModeMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                              this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
+            this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
         myRouteModeMatchBox->appendIconItem(routeMode.second.c_str());

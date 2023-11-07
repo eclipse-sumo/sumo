@@ -186,9 +186,9 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
-    
+
     /// @brief get demand element geometry
-    const GUIGeometry &getDemandElementGeometry() const;
+    const GUIGeometry& getDemandElementGeometry() const;
 
     /// @}
 
@@ -351,7 +351,7 @@ protected:
     bool isValidDemandElementID(const std::string& value) const;
 
     /// @brief check if a new demand element ID is valid
-    bool isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const;
+    bool isValidDemandElementID(const std::vector<SumoXMLTag>& tags, const std::string& value) const;
 
     /// @brief set demand element id
     void setDemandElementID(const std::string& newID);
@@ -433,7 +433,7 @@ protected:
 
     /// @brief build menu command route length
     void buildMenuCommandRouteLength(GUIGLObjectPopupMenu* ret) const;
-    
+
     /// @brief build menu command route length
     void buildMenuAddReverse(GUIGLObjectPopupMenu* ret) const;
 

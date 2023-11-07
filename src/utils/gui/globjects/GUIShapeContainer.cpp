@@ -43,11 +43,11 @@ GUIShapeContainer::~GUIShapeContainer() {}
 
 bool
 GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string &icon,
+                          const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon,
                           double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
                           bool /* ignorePruning */) {
     GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, icon,
-                                                   layer, angle, imgFile, relativePath, width, height);
+            layer, angle, imgFile, relativePath, width, height);
     FXMutexLock locker(myLock);
     if (!myPOIs.add(id, p)) {
         if (myAllowReplacement) {
@@ -87,8 +87,8 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
         }
     }
     bool state = myInactivePolygonTypes.empty() || (std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), type) == myInactivePolygonTypes.end());
-    p->activate(state);    
-    myVis.addAdditionalGLObject(p); 
+    p->activate(state);
+    myVis.addAdditionalGLObject(p);
     return true;
 }
 
@@ -206,21 +206,21 @@ GUIShapeContainer::allowReplacement() {
 }
 
 
-void 
+void
 GUIShapeContainer::setInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
     myInactivePolygonTypes = inactivePolygonTypes;
     computeActivePolygons();
 }
 
 
-void 
+void
 GUIShapeContainer::addInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
     myInactivePolygonTypes.insert(inactivePolygonTypes.begin(), inactivePolygonTypes.end());
     computeActivePolygons();
 }
 
 
-void 
+void
 GUIShapeContainer::removeInactivePolygonTypes(std::set<std::string> inactivePolygonTypes) {
     for (std::string type : inactivePolygonTypes) {
         myInactivePolygonTypes.erase(type);
@@ -229,9 +229,9 @@ GUIShapeContainer::removeInactivePolygonTypes(std::set<std::string> inactivePoly
 }
 
 
-void 
+void
 GUIShapeContainer::computeActivePolygons(void) {
-    for (auto polygonWithID: myPolygons) {
+    for (auto polygonWithID : myPolygons) {
         GUIPolygon* polygon = (GUIPolygon*)polygonWithID.second;
         bool state = std::find(myInactivePolygonTypes.begin(), myInactivePolygonTypes.end(), polygon->getShapeType()) == myInactivePolygonTypes.end();
         polygon->activate(state);

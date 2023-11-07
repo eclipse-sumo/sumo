@@ -505,10 +505,10 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
     const bool disableRow = !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of attribute
     if (myACParent) {
-		myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
-            myACParent->getACIcon(), this, MID_GNE_SET_ATTRIBUTE_INSPECTPARENT, GUIDesignButtonAttribute);
+        myAttributeButton = new MFXButtonTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(),
+                myACParent->getACIcon(), this, MID_GNE_SET_ATTRIBUTE_INSPECTPARENT, GUIDesignButtonAttribute);
         // set color text depending of computed
-        myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
         myAttributeButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
         myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
@@ -525,7 +525,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
             myAttributeCheckButton->setCheck(FALSE);
         }
         // set color text depending of computed
-        myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeCheckButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check if disable
         if (disableRow) {
             myAttributeCheckButton->disable();
@@ -544,7 +544,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         // set icon
         myAttributeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL));
         // set color text depending of computed
-        myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // set tip text
         myAttributeButton->setTipText(TL("Open dialog for editing color"));
         myAttributeButton->setHelpText(TL("Open dialog for editing color"));
@@ -552,7 +552,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         if (disableRow) {
             myAttributeButton->disable();
         }
-	} else {
+    } else {
         // Create label
         myAttributeLabel = new MFXLabelTooltip(this, tooltipMenu, myACAttr.getAttrStr().c_str(), nullptr, GUIDesignLabelThickedFixed(100));
         // set tip text
@@ -570,31 +570,31 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
             GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // set color text depending of computed
-    myValueTextField->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    myValueTextField->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // Create and hide ComboBox
     myValueComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
                                           this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();
     // set color text depending of computed
-    myValueComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    myValueComboBox->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
     // set color text depending of computed
-    myValueCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+    myValueCheckButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
     // check if create move up/down lanes
     if ((myACAttr.getAttr() == SUMO_ATTR_LANE) && !myACAttr.getTagPropertyParent().isNetworkElement()) {
         // get static tooltip menu
         const auto tooltipMenu = myAttributesEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
         // create move lane up
         myValueLaneUpButton = new MFXButtonTooltip(this, tooltipMenu, "",
-            GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_MOVEUP, GUIDesignButtonIcon);
+                GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_MOVEUP, GUIDesignButtonIcon);
         // set tip texts
         myValueLaneUpButton->setTipText(TL("Move element up one lane"));
         myValueLaneUpButton->setHelpText(TL("Move element up one lane"));
         // create move lane down
         myValueLaneDownButton = new MFXButtonTooltip(this, tooltipMenu, "",
-            GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_MOVEDOWN, GUIDesignButtonIcon);
+                GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_MOVEDOWN, GUIDesignButtonIcon);
         // set tip texts
         myValueLaneDownButton->setTipText(TL("Move element down one lane"));
         myValueLaneDownButton->setHelpText(TL("Move element down one lane"));
@@ -615,13 +615,13 @@ GNEFrameAttributeModules::AttributesEditorRow::buildValueElements(const bool att
 
 
 void
-GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const std::string &value, const bool attributeEnabled, const bool computed) {
+GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const std::string& value, const bool attributeEnabled, const bool computed) {
     // check if disable element
-    const bool disableElement =!isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
+    const bool disableElement = !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of attribute element
     if (myAttributeCheckButton) {
         // set color text depending of computed
-        myAttributeCheckButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myAttributeCheckButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check
         if (attributeEnabled) {
             myAttributeCheckButton->setCheck(TRUE);
@@ -645,14 +645,14 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
             myAttributeButton->setTipText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
             myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
             // set color text depending of computed
-            myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+            myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
             // check if disable
             if (disableElement) {
                 myAttributeButton->disable();
             }
         } else {
             // set color text depending of computed
-            myAttributeButton->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+            myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
             // check if disable
             if (disableElement) {
                 myAttributeButton->disable();
@@ -667,19 +667,19 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
 
 
 void
-GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::string &value, const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute) {
+GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::string& value, const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute) {
     // check if disable element
     const bool disableElement = !attributeEnabled || !isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr);
     // continue depending of shown element
     if (myValueTextField->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if (forceRefreshAttribute ||
-            (myValueTextField->getTextColor() == FXRGB(0, 0, 0)) ||
-            (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) {
+                (myValueTextField->getTextColor() == FXRGB(0, 0, 0)) ||
+                (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) {
             myValueTextField->setText(value.c_str());
         }
         // set color text depending of computed
-        myValueTextField->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myValueTextField->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check if disable
         if (disableElement) {
             myValueTextField->disable();
@@ -688,7 +688,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
         // fill comboBox
         fillComboBox(value);
         // set color text depending of computed
-        myValueComboBox->setTextColor(computed? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
+        myValueComboBox->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
         // check if disable
         if (disableElement) {
             myValueComboBox->disable();
@@ -708,7 +708,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
 
 
 void
-GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &value) {
+GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string& value) {
     const auto inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // clear and enable comboBox
     myValueComboBox->clearItems();
@@ -720,7 +720,7 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
         }
     } else if (myACAttr.isVType()) {
         // get ACs
-        const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+        const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
         // fill comboBox with all vTypes and vType distributions sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
         for (const auto& type : ACs->getDemandElements().at(SUMO_TAG_VTYPE)) {
@@ -775,7 +775,7 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string &v
 
 
 void
-GNEFrameAttributeModules::AttributesEditorRow::updateMoveLaneButtons(const std::string &value) {
+GNEFrameAttributeModules::AttributesEditorRow::updateMoveLaneButtons(const std::string& value) {
     // first extract lane
     const auto lane = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveLane(value, false);
     // check lane
@@ -999,7 +999,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 } else if ((attrProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
                 } else if (attrProperty.isVType() && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() ||
-                           attrProperty.getTagPropertyParent().isContainer())) {
+                                                      attrProperty.getTagPropertyParent().isContainer())) {
                     // get type/distribution parent
                     auto typeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
                     if (typeParent == nullptr) {

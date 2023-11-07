@@ -148,7 +148,7 @@ private:
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
-    void computeSameEnd(PositionVector& l1, PositionVector& l2); 
+    void computeSameEnd(PositionVector& l1, PositionVector& l2);
 
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);

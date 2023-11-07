@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 15:53:07 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2023-11-06 10:13:17 by Eclipse SUMO netedit Version v1_18_0+2429-1a41f4aa074
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\edges\move\move_geometrypoint/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\datas.dat.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\edges\move\move_geometrypoint\net.net.xml"/>
     </input>
-
-    <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\edges\move\move_geometrypoint/net"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -28,6 +27,23 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov101126.5676\netedit.gui\netelements\edges\move\move_geometrypoint\log.txt"/>
+    </report>
 
 </configuration>
 -->

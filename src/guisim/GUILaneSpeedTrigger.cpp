@@ -124,7 +124,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
             new MFXComboBoxIcon(gf2, 10, false, GUIDesignComboBoxVisibleItemsSmall, this, MID_PRE_DEF,
-                           ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
+                                ICON_BEFORE_TEXT | LAYOUT_SIDE_TOP | LAYOUT_CENTER_Y | COMBOBOX_STATIC);
         myPredefinedValues->appendIconItem("20 km/h");
         myPredefinedValues->appendIconItem("40 km/h");
         myPredefinedValues->appendIconItem("60 km/h");
@@ -153,7 +153,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myUserDefinedSpeed->setValue(myObject->getDefaultSpeed() * 3.6);
     }
     GUIDesigns::buildFXButton(f1, "Close", "", "", nullptr, this, MID_CLOSE,
-                 BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+                              BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     myObject->setOverriding(true);
 }
 

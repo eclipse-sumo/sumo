@@ -133,9 +133,9 @@ void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
     drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                        1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
-                        getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
+                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 
 

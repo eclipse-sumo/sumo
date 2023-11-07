@@ -153,6 +153,8 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue if a route could not be build; *default:* **false** |
 | **--stats-period** {{DT_INT}} | Defines how often statistics shall be printed; *default:* **-1** |

@@ -131,7 +131,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
     }
     // continue depending of marked elements
     if (myPlanSelector->markRoutes() && objectsUnderCursor.getDemandElementFront() &&
-        (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+            (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(objectsUnderCursor.getDemandElementFront());
     } else if (myPlanSelector->markContainerStops() && objectsUnderCursor.getAdditionalFront() &&
                (objectsUnderCursor.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
@@ -247,7 +247,7 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     } else {
         // check if container plan can be created
         if (myRouteHandler.buildContainerPlan(myPlanSelector->getCurrentPlanTemplate(), myContainerSelector->getCurrentDemandElement(),
-                                           myContainerPlanAttributes, myPlanCreator, false)) {
+                                              myContainerPlanAttributes, myPlanCreator, false)) {
             // refresh GNEElementTree
             myContainerHierarchy->refreshHierarchicalElementTree();
             // abort path creation

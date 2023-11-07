@@ -476,7 +476,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         // draw lane2lane
         if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
             // get geometry
-            const auto &connectionGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
+            const auto& connectionGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
             // check if draw only contour
             if (onlyContour) {
                 GUIGeometry::drawContourGeometry(connectionGeometry, E2DetectorWidth);

@@ -70,7 +70,7 @@ public:
     SUMOTime getChargeDelay() const;
 
     /// @brief Get charge type
-    const std::string &getChargeType() const;
+    const std::string& getChargeType() const;
 
     /// @brief Get waiting time
     SUMOTime getWaitingTime() const;
@@ -154,7 +154,7 @@ protected:
 
     /// @brief charge type
     const std::string myChargeType = "normal";
-    
+
     /// @brief waiting time
     SUMOTime myWaitingTime = 0;
 

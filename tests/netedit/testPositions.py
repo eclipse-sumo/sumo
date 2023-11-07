@@ -109,6 +109,10 @@ class demandElements:
         x = 470
         y = 440
 
+    class routeB:
+        x = 470
+        y = 400
+
     class container:
         x = 135
         y = 480
@@ -148,10 +152,10 @@ class demandElements:
         x = 133
         y = 479
 
-    # click over stop edge
-    class stopBusStop:
-        x = 375
-        y = 40
+    # click stop/waypoint over edge
+    class stopEdge:
+        x = 256
+        y = 35
 
     # click over single trip or flow over junctions
     class singleVehicleJunction:
@@ -170,7 +174,7 @@ class demandElements:
 
     # click over plan in busStop
     class planBusStop:
-        x = 377
+        x = 318
         y = 14
 
     # click over plan in edge

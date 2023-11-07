@@ -166,6 +166,7 @@ command line.
 | **--prefix** {{DT_STR}} | Sets STR as default prefix |
 | **--type** {{DT_STR}} | Sets STR as default type; *default:* **unknown** |
 | **--fill** {{DT_BOOL}} | Fills polygons by default; *default:* **true** |
+| **--icon** {{DT_STR}} | Sets STR as default icon |
 | **--layer** {{DT_FLOAT}} | Sets FLOAT as default layer; *default:* **-1** |
 | **--discard** {{DT_BOOL}} | Sets default action to discard; *default:* **false** |
 
@@ -189,6 +190,8 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--log.timestamps** {{DT_BOOL}} | Writes timestamps in front of all messages; *default:* **false** |
+| **--log.processid** {{DT_BOOL}} | Writes process ID in front of all messages; *default:* **false** |
 | **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 # See Also

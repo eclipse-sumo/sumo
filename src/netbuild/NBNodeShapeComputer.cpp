@@ -53,8 +53,7 @@ const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
 // ===========================================================================
 NBNodeShapeComputer::NBNodeShapeComputer(const NBNode& node) :
     myNode(node),
-    myRadius(node.getRadius()) 
-{
+    myRadius(node.getRadius()) {
     if (node.getEdges().size() > 4 && !NBNodeTypeComputer::isRailwayNode(&node)) {
         EXT = 50;
     } else {

@@ -106,10 +106,10 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu bar drag for save elements
         FXToolBarShell* myPythonToolBarShellSaveElements = nullptr;
-        
+
         /// @brief menu bar drag for time switch
         FXToolBarShell* myPythonToolBarShellTimeFormat = nullptr;
-        
+
         /// @brief menu bar drag for navigation (Zoom, coloring...)
         FXToolBarShell* myPythonToolBarShellNavigation = nullptr;
 
@@ -349,19 +349,19 @@ struct GNEApplicationWindowHelper {
 
             /// @brief menu command for route mode
             FXMenuCommand* routeMode = nullptr;
-            
+
             /// @brief menu command for route distribution mode
             FXMenuCommand* routeDistributionMode = nullptr;
-            
+
             /// @brief menu command for vehicle mode
             FXMenuCommand* vehicleMode = nullptr;
 
             /// @brief menu command for type mode
             FXMenuCommand* typeMode = nullptr;
-            
+
             /// @brief menu command for type distribution mode
             FXMenuCommand* typeDistributionMode = nullptr;
-            
+
             /// @brief menu command for stop mode
             FXMenuCommand* stopMode = nullptr;
 

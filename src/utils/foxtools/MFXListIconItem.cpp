@@ -44,11 +44,11 @@
 // Object implementation
 FXIMPLEMENT(MFXListIconItem, FXObject, nullptr, 0)
 
-// =========================================================================== 
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-MFXListIconItem::MFXListIconItem(const FXString &text, FXIcon* ic, FXColor backGroundColor, void* ptr):
+MFXListIconItem::MFXListIconItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
     label(text),
     icon(ic),
     data(ptr),
@@ -60,13 +60,17 @@ MFXListIconItem::~MFXListIconItem() {
     if (state & ICONOWNED) {
         delete icon;
     }
-    icon = (FXIcon*)-1L;
+    icon = (FXIcon*) - 1L;
 }
 
 
 void
 MFXListIconItem::setFocus(FXbool focus) {
-    if (focus) state |= FOCUS; else state &= ~FOCUS;
+    if (focus) {
+        state |= FOCUS;
+    } else {
+        state &= ~FOCUS;
+    }
 }
 
 
@@ -125,12 +129,12 @@ MFXListIconItem::isDraggable() const {
 
 
 void
-MFXListIconItem::setText(const FXString &txt) {
+MFXListIconItem::setText(const FXString& txt) {
     label = txt;
 }
 
 
-const FXString & 
+const FXString&
 MFXListIconItem::getText() const {
     return label;
 }
@@ -168,7 +172,7 @@ MFXListIconItem::detach() {
 
 FXint
 MFXListIconItem::getWidth(const MFXListIcon* list) const {
-    FXFont *font = list->getFont();
+    FXFont* font = list->getFont();
     FXint w = 0;
     if (icon) {
         w = icon->getWidth();
@@ -177,16 +181,16 @@ MFXListIconItem::getWidth(const MFXListIcon* list) const {
         if (w) {
             w += ICON_SPACING;
         }
-        w += font->getTextWidth(label.text(),label.length());
+        w += font->getTextWidth(label.text(), label.length());
     }
-    return SIDE_SPACING+w;
+    return SIDE_SPACING + w;
 }
 
 
 
 FXint
 MFXListIconItem::getHeight(const MFXListIcon* list) const {
-    FXFont *font = list->getFont();
+    FXFont* font = list->getFont();
     FXint th = 0, ih = 0;
     if (icon) {
         ih = icon->getHeight();
@@ -199,7 +203,7 @@ MFXListIconItem::getHeight(const MFXListIcon* list) const {
 
 
 
-const FXColor & 
+const FXColor&
 MFXListIconItem::getBackGroundColor() const {
     return myBackGroundColor;
 }
@@ -209,9 +213,9 @@ MFXListIconItem::MFXListIconItem() {}
 
 
 void
-MFXListIconItem::draw(const MFXListIcon* list,FXDC &  dc,FXint xx,FXint yy,FXint ww,FXint hh) {
+MFXListIconItem::draw(const MFXListIcon* list, FXDC&   dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     FXFont* font = list->getFont();
-    FXint ih = icon? ICON_SIZE : 0;
+    FXint ih = icon ? ICON_SIZE : 0;
     FXint th = 0;
     if (!label.empty()) {
         th = font->getFontHeight();
@@ -247,33 +251,33 @@ MFXListIconItem::draw(const MFXListIcon* list,FXDC &  dc,FXint xx,FXint yy,FXint
 
 
 FXint
-MFXListIconItem::hitItem(const MFXListIcon* list,FXint xx,FXint yy) const {
-    FXint iw = 0,ih = 0,tw = 0,th = 0,ix,iy,tx,ty,h;
-    FXFont *font = list->getFont();
+MFXListIconItem::hitItem(const MFXListIcon* list, FXint xx, FXint yy) const {
+    FXint iw = 0, ih = 0, tw = 0, th = 0, ix, iy, tx, ty, h;
+    FXFont* font = list->getFont();
     if (icon) {
         iw = icon->getWidth();
         ih = icon->getHeight();
     }
     if (!label.empty()) {
-        tw = 4 + font->getTextWidth(label.text(),label.length());
+        tw = 4 + font->getTextWidth(label.text(), label.length());
         th = 4 + font->getFontHeight();
     }
-    h = LINE_SPACING+FXMAX(th,ih);
+    h = LINE_SPACING + FXMAX(th, ih);
     ix = SIDE_SPACING / 2;
     tx = SIDE_SPACING / 2;
     if (iw) {
-        tx += iw+ICON_SPACING;
+        tx += iw + ICON_SPACING;
     }
-    iy = (h-ih) / 2;
-    ty = (h-th) / 2;
+    iy = (h - ih) / 2;
+    ty = (h - th) / 2;
 
     // In icon?
-    if (ix <= xx && iy <= yy && xx < ix+iw && yy < iy+ih) {
+    if (ix <= xx && iy <= yy && xx < ix + iw && yy < iy + ih) {
         return 1;
     }
 
     // In text?
-    if (tx <= xx && ty <= yy && xx < tx+tw && yy < ty+th) {
+    if (tx <= xx && ty <= yy && xx < tx + tw && yy < ty + th) {
         return 2;
     }
 

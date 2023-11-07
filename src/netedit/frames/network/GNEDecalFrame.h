@@ -28,7 +28,7 @@
 // ===========================================================================
 /**
 * @class GNEDecalFrame
-* The Widget for setting decals 
+* The Widget for setting decals
 */
 class GNEDecalFrame : public GNEFrame {
 

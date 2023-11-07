@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-13 12:30:19 by Eclipse SUMO netedit Version v1_18_0+1521-738884df5fe
+<!-- generated on 2023-11-06 11:00:34 by Eclipse SUMO netedit Version v1_18_0+2431-500ea638ed5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep122830.15952\netedit.gui\bugs\ticket2948\netedit.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov105843.18689/netedit.gui/bugs/ticket2948/netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep122830.15952\netedit.gui\bugs\ticket2948\netedit.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov105843.18689/netedit.gui/bugs/ticket2948/netedit.net.xml"/>
     </output>
 
     <netedit>
@@ -17,16 +17,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep122830.15952\netedit.gui\bugs\ticket2948\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov105843.18689/netedit.gui/bugs/ticket2948/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep122830.15952\netedit.gui\bugs\ticket2948\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov105843.18689/netedit.gui/bugs/ticket2948/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13Sep122830.15952\netedit.gui\bugs\ticket2948\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Nov105843.18689/netedit.gui/bugs/ticket2948/log.txt"/>
     </report>
 
 </configuration>
@@ -34,7 +34,7 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-8.00,30.00,32.00,70.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-6.00,32.00,32.00,70.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id=":J1_0" function="internal">
         <lane id=":J1_0_0" index="0" speed="6.08" length="7.74" shape="33.60,66.80 33.30,68.90 32.40,70.40 30.90,71.30 28.80,71.60"/>
@@ -43,13 +43,13 @@
         <lane id=":J2_0_0" index="0" speed="20.00" length="0.10" shape="33.60,50.00 33.60,50.00"/>
     </edge>
     <edge id=":J3_0" function="internal">
-        <lane id=":J3_0_0" index="0" speed="6.08" length="7.74" shape="28.80,28.40 30.90,28.70 32.40,29.60 33.30,31.10 33.60,33.20"/>
+        <lane id=":J3_0_0" index="0" speed="6.08" length="7.74" shape="28.80,30.40 30.90,30.70 32.40,31.60 33.30,33.10 33.60,35.20"/>
     </edge>
     <edge id=":J4_0" function="internal">
-        <lane id=":J4_0_0" index="0" speed="20.00" length="0.10" shape="12.00,28.40 12.00,28.40"/>
+        <lane id=":J4_0_0" index="0" speed="20.00" length="0.10" shape="12.00,30.40 12.00,30.40"/>
     </edge>
     <edge id=":J5_0" function="internal">
-        <lane id=":J5_0_0" index="0" speed="6.08" length="7.74" shape="-9.60,33.20 -9.30,31.10 -8.40,29.60 -6.90,28.70 -4.80,28.40"/>
+        <lane id=":J5_0_0" index="0" speed="6.08" length="7.74" shape="-7.60,35.20 -7.30,33.10 -6.40,31.60 -4.90,30.70 -2.80,30.40"/>
     </edge>
 
     <edge id="-E0" from="J1" to="J0" priority="-1">
@@ -59,16 +59,16 @@
         <lane id="-E1_0" index="0" speed="20.00" length="16.80" shape="33.60,50.00 33.60,66.80"/>
     </edge>
     <edge id="-E2" from="J3" to="J2" priority="-1">
-        <lane id="-E2_0" index="0" speed="20.00" length="16.80" shape="33.60,33.20 33.60,50.00"/>
+        <lane id="-E2_0" index="0" speed="20.00" length="14.80" shape="33.60,35.20 33.60,50.00"/>
     </edge>
     <edge id="-E3" from="J4" to="J3" priority="-1">
-        <lane id="-E3_0" index="0" speed="20.00" length="16.80" shape="12.00,28.40 28.80,28.40"/>
+        <lane id="-E3_0" index="0" speed="20.00" length="16.80" shape="12.00,30.40 28.80,30.40"/>
     </edge>
     <edge id="-E4" from="J5" to="J4" priority="-1">
-        <lane id="-E4_0" index="0" speed="20.00" length="16.80" shape="-4.80,28.40 12.00,28.40"/>
+        <lane id="-E4_0" index="0" speed="20.00" length="14.80" shape="-2.80,30.40 12.00,30.40"/>
     </edge>
     <edge id="-E5" from="J6" to="J5" priority="-1">
-        <lane id="-E5_0" index="0" speed="20.00" length="16.80" shape="-9.60,50.00 -9.60,33.20"/>
+        <lane id="-E5_0" index="0" speed="20.00" length="14.80" shape="-7.60,50.00 -7.60,35.20"/>
     </edge>
     <edge id="E0" from="J0" to="J1" priority="-1">
         <lane id="E0_0" index="0" speed="20.00" length="16.80" shape="12.00,68.40 28.80,68.40"/>
@@ -77,16 +77,16 @@
         <lane id="E1_0" index="0" speed="20.00" length="16.80" shape="30.40,66.80 30.40,50.00"/>
     </edge>
     <edge id="E2" from="J2" to="J3" priority="-1">
-        <lane id="E2_0" index="0" speed="20.00" length="16.80" shape="30.40,50.00 30.40,33.20"/>
+        <lane id="E2_0" index="0" speed="20.00" length="14.80" shape="30.40,50.00 30.40,35.20"/>
     </edge>
     <edge id="E3" from="J3" to="J4" priority="-1">
-        <lane id="E3_0" index="0" speed="20.00" length="16.80" shape="28.80,31.60 12.00,31.60"/>
+        <lane id="E3_0" index="0" speed="20.00" length="16.80" shape="28.80,33.60 12.00,33.60"/>
     </edge>
     <edge id="E4" from="J4" to="J5" priority="-1">
-        <lane id="E4_0" index="0" speed="20.00" length="16.80" shape="12.00,31.60 -4.80,31.60"/>
+        <lane id="E4_0" index="0" speed="20.00" length="14.80" shape="12.00,33.60 -2.80,33.60"/>
     </edge>
     <edge id="E5" from="J5" to="J6" priority="-1">
-        <lane id="E5_0" index="0" speed="20.00" length="16.80" shape="-6.40,33.20 -6.40,50.00"/>
+        <lane id="E5_0" index="0" speed="20.00" length="14.80" shape="-4.40,35.20 -4.40,50.00"/>
     </edge>
 
     <tlLogic id="J1" type="static" programID="0" offset="0">
@@ -122,16 +122,16 @@
     <junction id="J2" type="traffic_light" x="32.00" y="50.00" incLanes="E1_0 -E2_0" intLanes=":J2_0_0" shape="28.80,50.00 35.20,50.00 28.80,50.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="J3" type="traffic_light" x="32.00" y="30.00" incLanes="E2_0 -E3_0" intLanes=":J3_0_0" shape="28.80,33.20 35.20,33.20 34.49,29.64 33.60,28.40 32.36,27.51 30.76,26.98 28.80,26.80">
+    <junction id="J3" type="traffic_light" x="32.00" y="32.00" incLanes="E2_0 -E3_0" intLanes=":J3_0_0" shape="28.80,35.20 35.20,35.20 34.49,31.64 33.60,30.40 32.36,29.51 30.76,28.98 28.80,28.80">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="J4" type="traffic_light" x="12.00" y="30.00" incLanes="E3_0 -E4_0" intLanes=":J4_0_0" shape="12.00,33.20 12.00,26.80 12.00,33.20">
+    <junction id="J4" type="traffic_light" x="12.00" y="32.00" incLanes="E3_0 -E4_0" intLanes=":J4_0_0" shape="12.00,35.20 12.00,28.80 12.00,35.20">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="J5" type="traffic_light" x="-8.00" y="30.00" incLanes="-E5_0 E4_0" intLanes=":J5_0_0" shape="-11.20,33.20 -4.80,33.20 -4.80,26.80 -8.36,27.51 -9.60,28.40 -10.49,29.64 -11.02,31.24">
+    <junction id="J5" type="traffic_light" x="-6.00" y="32.00" incLanes="-E5_0 E4_0" intLanes=":J5_0_0" shape="-9.20,35.20 -2.80,35.20 -2.80,28.80 -6.36,29.51 -7.60,30.40 -8.49,31.64 -9.02,33.24">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="J6" type="dead_end" x="-8.00" y="50.00" incLanes="E5_0" intLanes="" shape="-8.00,50.00 -4.80,50.00 -8.00,50.00"/>
+    <junction id="J6" type="dead_end" x="-6.00" y="50.00" incLanes="E5_0" intLanes="" shape="-6.00,50.00 -2.80,50.00 -6.00,50.00"/>
 
     <connection from="-E1" to="-E0" fromLane="0" toLane="0" via=":J1_0_0" tl="J1" linkIndex="0" dir="l" state="O"/>
     <connection from="-E2" to="-E1" fromLane="0" toLane="0" via=":J2_0_0" tl="J2" linkIndex="0" dir="s" state="O"/>

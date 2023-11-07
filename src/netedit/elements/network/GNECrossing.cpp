@@ -124,7 +124,7 @@ GNECrossing::checkDrawOverContour() const {
 bool
 GNECrossing::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -137,7 +137,7 @@ GNECrossing::checkDrawDeleteContour() const {
 bool
 GNECrossing::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);

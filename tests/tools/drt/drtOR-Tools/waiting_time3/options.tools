@@ -1,1 +1,0 @@
---sumo-config sim.sumocfg --verbose --nogui --end 600 --waiting-time 100 --fix-allocation tools/drt/drtOrtools.py

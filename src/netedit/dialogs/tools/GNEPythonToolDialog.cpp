@@ -91,11 +91,11 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     blueLabel->setTextColor(FXRGB(0, 0, 255));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
     GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Run"), "", TL("run python tool"),
-                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+                              GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
     GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Close"), "", TL("close tool dialog"),
-                 GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+                              GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     GUIDesigns::buildFXButton(horizontalButtonsFrame, TL("Reset"), "", TL("reset to default values"),
-                 GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+                              GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXLabel(horizontalButtonsFrame, "", nullptr, GUIDesignLabelFixed(200));
     new FXHorizontalFrame(horizontalButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }

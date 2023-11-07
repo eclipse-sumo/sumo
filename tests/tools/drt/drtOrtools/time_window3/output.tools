@@ -1,0 +1,161 @@
+ Retrying in 1 seconds
+Simulation parameters:
+  end: 600.0
+  interval: 30
+  time_limit: 10
+  cost_type: CostType.DISTANCE
+  drf: 1.5
+  waiting_time: 900
+  fix_allocation: False
+timestep:  0.0
+Reservations waiting: ['0']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 0 ends at edge D1C1
+Reservation 0 has direct route costs 970
+Start solving the problem.
+ Register distance callback.
+ Create time dimension.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+pickup/dropoff nodes: 1/2
+allow to reject new reservation 0
+ Add direct route factor constraints...
+reservation 0: direct route cost 970 and (hard) max cost 1455
+ Add dropoff constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+hard time window for node 1: [10, 600]
+hard time window for node 2: [1, 190]
+hard time window for node 3: [1, 600]
+ Add waiting time constraints...
+reservation 0 has a maximum (hard) pickup time at 900
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective: 1558
+Route for vehicle 0:
+     3 (L: 0, C: 0, T: (1,11))
+ ->  1 (L: 1, C: 588, T: (43,53))
+ ->  2 (L: 0, C: 1558, T: (180,190))
+ ->  0 (L: 0, C: 1558, T: (180,600))
+Costs of the route: 1558
+
+Total cost of the routes: 1558
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['0', '0']
+Costs for v0: 1558
+timestep:  30.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  60.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  90.0
+Reservations waiting: ['1']
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['1']
+do reservations: ['0']
+Reservation 1 starts at edge C2C1
+Reservation 1 ends at edge D1D2
+Drop-off of reservation 0 at edge D1C1
+Reservation 1 has direct route costs 485
+Start solving the problem.
+ Register distance callback.
+ Create time dimension.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+pickup/dropoff nodes: 1/2
+allow to reject new reservation 1
+ Add direct route factor constraints...
+reservation 1: direct route cost 485 and (hard) max cost 728
+reservation 0: direct route cost 970.29 and (soft) max cost 1455, already used costs 292.95322651883464
+ Add dropoff constraints...
+reservation 0 in veh v0(0), droppoff node: 3
+ Add capacity constraints...
+ Add time windows constraints...
+hard time window for node 1: [90, 600]
+hard time window for node 2: [90, 600]
+soft time window for node 3: [90, 190]
+hard time window for node 4: [90, 600]
+ Add waiting time constraints...
+reservation 1 has a maximum (hard) pickup time at 980
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Initial solution:
+veh 0: [3]
+Objective: 3034
+Route for vehicle 0:
+     4 (L: 1, C: 0, T: (90,90))
+ ->  3 (L: 0, C: 679, T: (204,204))
+ ->  1 (L: 1, C: 1149, T: (243,243))
+ ->  2 (L: 0, C: 1634, T: (344,344))
+ ->  0 (L: 0, C: 1634, T: (344,344))
+Costs of the route: 1634
+
+Total cost of the routes: 1634
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['0', '1', '1']
+Costs for v0: 1634
+timestep:  120.0
+Reservations being picked up: ['1']
+Reservations en route: ['0']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  150.0
+Reservations being picked up: ['1']
+Reservations en route: ['0']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  180.0
+Reservations being picked up: ['1']
+Reservations en route: ['0']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  210.0
+Reservations being picked up: ['1']
+Reservations en route: ['0']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  240.0
+Reservations en route: ['1']
+Taxis occupied: ('v0',)
+timestep:  270.0
+Reservations en route: ['1']
+Taxis occupied: ('v0',)
+timestep:  300.0
+Reservations en route: ['1']
+Taxis occupied: ('v0',)
+timestep:  330.0
+Reservations en route: ['1']
+Taxis occupied: ('v0',)
+timestep:  360.0
+Taxis empty: ('v0',)
+timestep:  390.0
+Taxis empty: ('v0',)
+timestep:  420.0
+Taxis empty: ('v0',)
+timestep:  450.0
+Taxis empty: ('v0',)
+timestep:  480.0
+Taxis empty: ('v0',)
+timestep:  510.0
+Taxis empty: ('v0',)
+timestep:  540.0
+Taxis empty: ('v0',)
+timestep:  570.0
+Taxis empty: ('v0',)
+timestep:  600.0
+Taxis empty: ('v0',)

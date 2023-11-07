@@ -96,7 +96,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const std::string &pos,
+    void buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID, const std::string& pos,
                      const double length, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Builds a container stop
@@ -136,7 +136,7 @@ public:
      */
     void buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                               const double startPos, const double endPos, const std::string& name, const double chargingPower,
-                              const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+                              const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
                               const SUMOTime waitingTime, const bool friendlyPosition, const Parameterised::Map& parameters);
 
     /**@brief Builds a Parking Area
@@ -529,7 +529,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                  const RGBColor& color, const double x, const double y, const std::string &icon, const double layer,
+                  const RGBColor& color, const double x, const double y, const std::string& icon, const double layer,
                   const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
                   const std::string& name, const Parameterised::Map& parameters);
 
@@ -553,7 +553,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type, const RGBColor& color,
-                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const std::string &icon,
+                      const std::string& laneID, const double posOverLane, const bool friendlyPos, const double posLat, const std::string& icon,
                       const double layer, const double angle, const std::string& imgFile, const bool relativePath, const double width,
                       const double height, const std::string& name, const Parameterised::Map& parameters);
 
@@ -575,7 +575,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                     const RGBColor& color, const double lon, const double lat, const std::string &icon, const double layer,
+                     const RGBColor& color, const double lon, const double lat, const std::string& icon, const double layer,
                      const double angle, const std::string& imgFile, bool relativePath, const double width, const double height,
                      const std::string& name, const Parameterised::Map& parameters);
 
@@ -588,7 +588,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                   bool geo, const std::string& name, const Parameterised::Map& parameters);
+                              bool geo, const std::string& name, const Parameterised::Map& parameters);
 
     /**@brief Builds a JuPedSim obstacle using the given values
      * @param[in] sumoBaseObject sumo base object used for build
@@ -599,7 +599,7 @@ public:
      * @param[in] parameters generic parameters
      */
     void buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                               bool geo, const std::string& name, const Parameterised::Map& parameters);
+                          bool geo, const std::string& name, const Parameterised::Map& parameters);
 
     /// @}
 

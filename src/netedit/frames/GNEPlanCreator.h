@@ -90,10 +90,10 @@ public:
     ~GNEPlanCreator();
 
     /// @brief check if plan can be created
-    bool planCanBeCreated(const GNEDemandElement *planTemplate) const;
+    bool planCanBeCreated(const GNEDemandElement* planTemplate) const;
 
     /// @brief show plan creator for the given tag property
-    void showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement *previousPlan);
+    void showPlanCreatorModule(const GNEPlanSelector* planSelector, const GNEDemandElement* previousPlan);
 
     /// @brief show GNEPlanCreator
     void hidePathCreatorModule();
@@ -109,7 +109,7 @@ public:
 
     /// @brief add TAZ
     bool addTAZ(GNEAdditional* taz);
-    
+
     /// @brief add from to stoppingPlace
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
@@ -337,7 +337,7 @@ private:
 
     /// @brief add from to edge
     bool addFromToEdge(GNEEdge* edge);
-    
+
     /// @brief add from to stoppingPlace
     bool addFromToStoppingPlace(GNEAdditional* stoppingPlace);
 

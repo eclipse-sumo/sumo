@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 440, 160)
 
 # Change parameter 1 with a non valid value (dummy Junction)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "dummy_Junction", False)

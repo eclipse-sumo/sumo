@@ -60,8 +60,8 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myReferencePoints.push_back(std::make_pair(TL("Extended"), ReferencePoint::EXTENDED));
     // Create FXListBox for the reference points and fill it
     myReferencePointComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                                   this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    for (const auto &referencePoint : myReferencePoints) {
+            this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    for (const auto& referencePoint : myReferencePoints) {
         myReferencePointComboBox->appendIconItem(referencePoint.first.c_str());
     }
     myReferencePointComboBox->setCurrentItem(0);
@@ -198,7 +198,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
     const double elementLength = getElementLength();
     // check lane
     if (lane && shown() && myReferencePointComboBox->shown() && (myReferencePoint != ReferencePoint::INVALID) &&
-        (elementLength != INVALID_DOUBLE)) {
+            (elementLength != INVALID_DOUBLE)) {
         // Obtain position of the mouse over lane (limited over grid)
         const double mousePosOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
         // continue depending of mouse pos over lane
@@ -213,7 +213,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // set color
             RGBColor segmentColor;
             // check if force length
-            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && abs(lengthDifference) >= 0.1 ) {
+            if (myForceLengthFrame->shown() && (myForceLengthCheckButton->getCheck() == TRUE) && abs(lengthDifference) >= 0.1) {
                 segmentColor = RGBColor::RED;
             } else {
                 segmentColor = RGBColor::ORANGE;
@@ -221,7 +221,7 @@ GNENeteditAttributes::drawLaneReference(const GUIVisualizationSettings& s, const
             // declare geometries
             GUIGeometry geometry;
             // trim geomtry
-            geometry.updateGeometry(laneShape, 
+            geometry.updateGeometry(laneShape,
                                     (startPos == INVALID_DOUBLE) ? -1 : startPos,
                                     Position::INVALID,
                                     (endPos == INVALID_DOUBLE) ? -1 : endPos,
@@ -325,7 +325,7 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         update();
     } else if (obj == myReferencePointComboBox) {
         // iterate over all reference points
-        for (const auto &referencePoint : myReferencePoints) {
+        for (const auto& referencePoint : myReferencePoints) {
             if (myReferencePointComboBox->getText().text() == referencePoint.first) {
                 // update reference point
                 myReferencePoint = referencePoint.second;
@@ -337,8 +337,8 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
                 myLengthTextField->enable();
                 // check if show force length
                 if ((myReferencePoint == ReferencePoint::LEFT) ||
-                    (myReferencePoint == ReferencePoint::RIGHT) ||
-                    (myReferencePoint == ReferencePoint::CENTER)) {
+                        (myReferencePoint == ReferencePoint::RIGHT) ||
+                        (myReferencePoint == ReferencePoint::CENTER)) {
                     myForceLengthFrame->show();
                 } else {
                     myForceLengthFrame->hide();

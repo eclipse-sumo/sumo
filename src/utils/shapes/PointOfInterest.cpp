@@ -29,10 +29,10 @@
 // member method definitions
 // ===========================================================================
 
-PointOfInterest::PointOfInterest(const std::string &id, const std::string &type, const RGBColor &color, const Position &pos, 
-                                 bool geo, const std::string &lane, double posOverLane, bool friendlyPos, double posLat,
-                                 const std::string& icon, double layer, double angle, const std::string &imgFile, bool relativePath,
-                                 double width, double height, const std::string & name, const Parameterised::Map &parameters) :
+PointOfInterest::PointOfInterest(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos,
+                                 bool geo, const std::string& lane, double posOverLane, bool friendlyPos, double posLat,
+                                 const std::string& icon, double layer, double angle, const std::string& imgFile, bool relativePath,
+                                 double width, double height, const std::string& name, const Parameterised::Map& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name, relativePath),
     Position(pos),
     Parameterised(parameters),
@@ -87,7 +87,7 @@ PointOfInterest::getFriendlyPos() const {
 
 
 void
-PointOfInterest::setIcon(const std::string &icon) {
+PointOfInterest::setIcon(const std::string& icon) {
     myIcon = SUMOXMLDefinitions::POIIcons.get(icon);
 }
 
@@ -111,8 +111,8 @@ PointOfInterest::setFriendlyPos(const bool friendlyPos) {
 
 
 void
-PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffset, const std::string laneID,
-                                      const double pos, const bool friendlyPos, const double posLat) const {
+PointOfInterest::writeXML(OutputDevice& out, const bool geo, const double zOffset, const std::string laneID,
+                          const double pos, const bool friendlyPos, const double posLat) const {
     out.openTag(SUMO_TAG_POI);
     out.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID()));
     if (getShapeType().size() > 0) {
@@ -135,8 +135,7 @@ PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffse
         if (friendlyPos) {
             out.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
         }
-    }
-    else {
+    } else {
         if (geo) {
             Position POICartesianPos(*this);
             GeoConvHelper::getFinal().cartesian2geo(POICartesianPos);
@@ -144,8 +143,7 @@ PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffse
             out.writeAttr(SUMO_ATTR_LON, POICartesianPos.x());
             out.writeAttr(SUMO_ATTR_LAT, POICartesianPos.y());
             out.setPrecision();
-        }
-        else {
+        } else {
             out.writeAttr(SUMO_ATTR_X, x());
             out.writeAttr(SUMO_ATTR_Y, y());
         }
@@ -159,8 +157,7 @@ PointOfInterest::writeXML(OutputDevice &out, const bool geo, const double zOffse
             std::string file = getShapeImgFile();
             file.erase(0, FileHelpers::getFilePath(getShapeImgFile()).size());
             out.writeAttr(SUMO_ATTR_IMGFILE, file);
-        }
-        else {
+        } else {
             out.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
         }
     }

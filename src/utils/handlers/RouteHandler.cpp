@@ -147,8 +147,8 @@ RouteHandler::endParseAttributes() {
             case SUMO_TAG_ROUTE:
                 // only parse non-embedded and without distributionsroutes
                 if ((obj->getStringAttribute(SUMO_ATTR_ID).size() > 0) &&
-                    obj->getParentSumoBaseObject() &&
-                    (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION)) {
+                        obj->getParentSumoBaseObject() &&
+                        (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_ROUTE_DISTRIBUTION)) {
                     // parse route and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)
@@ -233,7 +233,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vehicles
         case SUMO_TAG_TRIP:
             if (obj->hasStringAttribute(SUMO_ATTR_FROM) &&
-                obj->hasStringAttribute(SUMO_ATTR_TO)) {
+                    obj->hasStringAttribute(SUMO_ATTR_TO)) {
                 // build trip with from-to edges
                 buildTrip(obj,
                           obj->getVehicleParameter(),
@@ -321,7 +321,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         case SUMO_TAG_RIDE:
             buildRide(obj,
-                     obj->getStringAttribute(SUMO_ATTR_FROM),
+                      obj->getStringAttribute(SUMO_ATTR_FROM),
                       obj->getStringAttribute(SUMO_ATTR_FROM_BUSSTOP),
                       obj->getStringAttribute(SUMO_ATTR_FROM_TRAINSTOP),
                       obj->getStringAttribute(SUMO_ATTR_TO),

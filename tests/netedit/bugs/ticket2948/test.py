@@ -63,7 +63,7 @@ netedit.leftClick(referencePosition, 405, 225)
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelection.type, "traffic_light", True)
 
 # inspect set of edges
-netedit.leftClick(referencePosition, 400, 285)
+netedit.leftClick(referencePosition, 403, 285)
 
 # change all speed of edges
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.speed, "20", False)

@@ -103,7 +103,7 @@ public:
      * @return whether the poi could be added
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string &icon, 
+                        const std::string& lane, double posOverLane, bool friendlyPos, double posLat, const std::string& icon,
                         double layer, double angle, const std::string& imgFile, bool relativePath, double width, double height,
                         bool ignorePruning = false) override;
 
@@ -139,7 +139,7 @@ public:
 
     /// @brief allow replacement
     void allowReplacement();
-    
+
     inline const std::set<std::string>& getInactiveTypes(void) const {
         return myInactivePolygonTypes;
     };

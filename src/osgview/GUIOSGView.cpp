@@ -307,49 +307,49 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     }
     // for junctions
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Junction", "Locate a junction within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
-                 GUIDesignButtonPopup);
+                              "Locate Junction", "Locate a junction within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
+                              GUIDesignButtonPopup);
     // for edges
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Street", "Locate a street within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
-                 GUIDesignButtonPopup);
+                              "Locate Street", "Locate a street within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
+                              GUIDesignButtonPopup);
     // for vehicles
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Vehicle", "Locate a vehicle within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
-                 GUIDesignButtonPopup);
+                              "Locate Vehicle", "Locate a vehicle within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
+                              GUIDesignButtonPopup);
     // for persons
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Person", "Locate a person within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
-                 GUIDesignButtonPopup);
+                              "Locate Person", "Locate a person within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
+                              GUIDesignButtonPopup);
     // for containers
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Container", "Locate a container within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
-                 GUIDesignButtonPopup);
+                              "Locate Container", "Locate a container within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
+                              GUIDesignButtonPopup);
     // for tls
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate TLS", "Locate a tls within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
-                 GUIDesignButtonPopup);
+                              "Locate TLS", "Locate a tls within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
+                              GUIDesignButtonPopup);
     // for additional stuff
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Additional", "Locate an additional structure within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
-                 GUIDesignButtonPopup);
+                              "Locate Additional", "Locate an additional structure within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
+                              GUIDesignButtonPopup);
     // for pois
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate POI", "Locate a POI within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
-                 GUIDesignButtonPopup);
+                              "Locate POI", "Locate a POI within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
+                              GUIDesignButtonPopup);
     // for polygons
     GUIDesigns::buildFXButton(v->getLocatorPopup(),
-                 "Locate Polygon", "Locate a Polygon within the network.", "",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
-                 GUIDesignButtonPopup);
+                              "Locate Polygon", "Locate a Polygon within the network.", "",
+                              GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
+                              GUIDesignButtonPopup);
 }
 
 

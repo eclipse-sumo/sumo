@@ -300,9 +300,9 @@ public:
 protected:
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
-    
+
     /// @brier get sumo vehicle parameter
-    const SUMOVehicleParameter &getSUMOVehicleParameter() const;
+    const SUMOVehicleParameter& getSUMOVehicleParameter() const;
 
 private:
     /// @brief vehicle arrival position radius

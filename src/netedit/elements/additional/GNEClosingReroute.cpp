@@ -135,9 +135,9 @@ void
 GNEClosingReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing reroute as listed attribute
     drawListedAdditional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
-                        1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
-                        getAttribute(SUMO_ATTR_EDGE));
+                         1, getParentAdditionals().front()->getDrawPositionIndex(),
+                         RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGREROUTE,
+                         getAttribute(SUMO_ATTR_EDGE));
 }
 
 

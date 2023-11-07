@@ -32,17 +32,11 @@ import ortools_pdp
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 
 # SUMO modules
 import sumolib  # noqa
 import traci  # noqa
-from sumolib.options import ArgumentParser  # noqa
-
-verbose = False
 
 
 class CostType(Enum):
@@ -463,15 +457,12 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, wai
             solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, waiting_time, int(end),
                                          fix_allocation, solution_requests, verbose)
             if solution_requests is not None:
-                for index_vehicle in solution_requests:  # for each vehicle
+                for index_vehicle, vehicle_requests in solution_requests.items():  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
-                    reservations_order = [res_id for res_id in solution_requests[index_vehicle][0]]  # [0] for route
+                    reservations_order = [res_id for res_id in vehicle_requests[0]]  # [0] for route
                     if verbose:
                         print("Dispatching %s with %s" % (id_vehicle, reservations_order))
-                        print("Costs for %s: %s" % (id_vehicle, solution_requests[index_vehicle][1]))
-                for index_vehicle in solution_requests:
-                    id_vehicle = fleet[index_vehicle]
-                    reservations_order = [res_id for res_id in solution_requests[index_vehicle][0]]
+                        print("Costs for %s: %s" % (id_vehicle, vehicle_requests[1]))
                     if fix_allocation and not reservations_order:  # ignore empty reservations if allocation is fixed
                         continue
                     traci.vehicle.dispatchTaxi(id_vehicle, reservations_order)  # overwrite existing dispatch
@@ -488,7 +479,7 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, wai
 
 def get_arguments():
     """Get command line arguments."""
-    ap = ArgumentParser()
+    ap = sumolib.options.ArgumentParser()
     ap.add_argument("-s", "--sumo-config", required=True, category="input", type=ap.file,
                     help="sumo config file to run")
     ap.add_argument("-e", "--end", type=ap.time,
@@ -511,6 +502,8 @@ def get_arguments():
                     "does not change anymore")
     ap.add_argument("-w", "--waiting-time", type=ap.time, default=900,
                     help="maximum waiting time to serve a request in s")
+    ap.add_argument("--trace-file", type=ap.file,
+                    help="log file for TraCI debugging")
     return ap.parse_args()
 
 
@@ -546,6 +539,6 @@ if __name__ == "__main__":
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-    traci.start([arguments.sumoBinary, "-c", arguments.sumo_config])
+    traci.start([arguments.sumoBinary, "-c", arguments.sumo_config], traceFile=arguments.trace_file)
     run(arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
         arguments.waiting_time, arguments.fix_allocation, arguments.verbose)

@@ -43,9 +43,9 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
     myChargingVehicle(false) {
     if (chargingPower < 0)
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_CHARGINGPOWER), getID(), toString(chargingPower)))
-    else {
-        myChargingPower = chargingPower;
-    }
+        else {
+            myChargingPower = chargingPower;
+        }
     if (efficency < 0 || efficency > 1) {
         WRITE_WARNING(TLF("Attribute % for chargingStation with ID='%' is invalid (%).", toString(SUMO_ATTR_EFFICIENCY), getID(), toString(efficency)))
     } else {

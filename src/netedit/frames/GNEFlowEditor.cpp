@@ -56,7 +56,7 @@ GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
     auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelThickedFixed(100));
     terminatelabel->setTipText("Terminate attribute");
     myTerminateComboBox = new MFXComboBoxIcon(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                              this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+            this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for spacing
     mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelThickedFixed(100));
@@ -523,8 +523,8 @@ GNEFlowEditor::refreshMultipleFlows() {
     if (end && number && terminateDifferent.empty() && spacingDifferent.empty()) {
         // set first comboBox
         myTerminateComboBox->setCurrentItem(2),
-        // hide second comboBox
-        mySpacingFrameComboBox->hide();
+                            // hide second comboBox
+                            mySpacingFrameComboBox->hide();
         // set label
         myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
         mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());

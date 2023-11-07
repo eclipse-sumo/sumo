@@ -1,3 +1,0 @@
---sumocfg sim.sumocfg --darp-solver simple_rerouting --max-wait 300 --verbose --end-time 1500
---tracefile tracefile_out.txt
-tools/drt/drtOnline.py

@@ -36,11 +36,6 @@ jobs:
         path: sumo
         fetch-depth: 0
  
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: 11
-
     - name: Fetching SUMO tags
       run: |
         cd sumo
@@ -99,7 +94,7 @@ jobs:
 
     - name: Setting up SonarQube
       if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: warchant/setup-sonar-scanner@v4
+      uses: warchant/setup-sonar-scanner@v7
 
     - name: Building SUMO with SonarQube wrapper
       if: matrix.build_type == 'full' && github.repository == 'eclipse-sumo/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'

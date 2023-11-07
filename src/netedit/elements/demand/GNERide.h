@@ -52,9 +52,9 @@ public:
      * @param[in] lines list of lines
      */
     static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
-        GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-        GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-        double arrivalPosition, const std::vector<std::string>& lines);
+                              GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
+                              GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+                              double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief default constructor
     GNERide(SumoXMLTag tag, GNENet* net);
@@ -233,8 +233,8 @@ private:
      * @param[in] additionals from-to additionals
      * @param[in] lines list of lines
      */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*> &edges,
-            const std::vector<GNEAdditional*> &additionals, double arrivalPosition, const std::vector<std::string>& lines);
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
+            const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

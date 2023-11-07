@@ -292,7 +292,7 @@ ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh)
 
 
 void
-ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const std::string &icon, const double layer, const bool fill) {
+ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, const std::string& icon, const double layer, const bool fill) {
     myPrefix = prefix;
     myDefaultColor = color;
     myDefaultIcon = icon;

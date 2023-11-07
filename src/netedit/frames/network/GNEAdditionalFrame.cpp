@@ -84,7 +84,7 @@ GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent
     // edge candidate
     myHelpLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
     // fill map
-    //addTLString(TL("-Requires EntryExitDetector\n")) + 
+    //addTLString(TL("-Requires EntryExitDetector\n")) +
     // E1
     myHelpMap[SUMO_TAG_INDUCTION_LOOP] = addTLString(TL("-Click over lane to create it"));
     // E1 Instant
@@ -93,13 +93,13 @@ GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent
     myHelpMap[SUMO_TAG_LANE_AREA_DETECTOR] = addTLString(TL("-Click over lane to create it"));
     // E3
     myHelpMap[SUMO_TAG_ENTRY_EXIT_DETECTOR] = addTLString(TL("-Click over view to create it")) +
-                                              addTLString(TL("-Requires at least one Entry\n and one Exit"));
+            addTLString(TL("-Requires at least one Entry\n and one Exit"));
     // E3 Entry
     myHelpMap[SUMO_TAG_DET_ENTRY] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
                                     addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
     // E3 Exit
     myHelpMap[SUMO_TAG_DET_EXIT] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
-                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
+                                   addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
 }
 
 
@@ -124,7 +124,7 @@ GNEAdditionalFrame::HelpCreationModule::hideHelpCreationModule() {
 
 
 std::string
-GNEAdditionalFrame::HelpCreationModule::addTLString(const std::string &str) {
+GNEAdditionalFrame::HelpCreationModule::addTLString(const std::string& str) {
     return std::string(str.c_str());
 }
 

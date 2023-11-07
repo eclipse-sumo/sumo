@@ -87,7 +87,7 @@ public:
     ~GNEPathCreator();
 
     /// @brief show GNEPathCreator for the given tag
-    void showPathCreatorModule(const GNETagProperties &tagProperty, const bool consecutives);
+    void showPathCreatorModule(const GNETagProperties& tagProperty, const bool consecutives);
 
     /// @brief show GNEPathCreator
     void hidePathCreatorModule();
@@ -112,10 +112,10 @@ public:
 
     /// @brief get current selected junctions
     const std::vector<GNEJunction*>& getSelectedJunctions() const;
-    
+
     /// @brief get current selected TAZs
     const std::vector<GNETAZ*>& getSelectedTAZs() const;
-    
+
     /// @brief add route
     bool addRoute(GNEDemandElement* route);
 

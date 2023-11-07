@@ -63,9 +63,9 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     // create frame for file icons
     FXHorizontalFrame* frameFiles = new FXHorizontalFrame(contentsFrame, GUIDesignHorizontalFrameIcons);
     myLoadButton = GUIDesigns::buildFXButton(frameFiles, TL("Load"), "", TL("Load viewport from file"),
-                                GUIIconSubSys::getIcon(GUIIcon::OPEN), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
+                   GUIIconSubSys::getIcon(GUIIcon::OPEN), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
     mySaveButton = GUIDesigns::buildFXButton(frameFiles, TL("Save"), "", TL("Save viewport to file"),
-                                GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
+                   GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
     // create horizontalframe for zoom elements and OSG
     FXHorizontalFrame* editElementsFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
 

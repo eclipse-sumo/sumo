@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-10-24 09:12:49 by Eclipse SUMO netedit Version v1_18_0+2218-6fd7de11f4c
+<!-- generated on 2023-11-06 09:32:08 by Eclipse SUMO netedit Version v1_18_0+2429-1a41f4aa074
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct090644.1288\netedit.gui\netelements\edges\create\lane\allow\netedit.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov092604.15656\netedit.gui\netelements\edges\create\lane\allow\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct090644.1288\netedit.gui\netelements\edges\create\lane\allow\netedit.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov092604.15656\netedit.gui\netelements\edges\create\lane\allow\netedit.net.xml"/>
     </output>
 
     <netedit>
@@ -17,16 +17,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct090644.1288\netedit.gui\netelements\edges\create\lane\allow\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov092604.15656\netedit.gui\netelements\edges\create\lane\allow\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct090644.1288\netedit.gui\netelements\edges\create\lane\allow\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov092604.15656\netedit.gui\netelements\edges\create\lane\allow\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.24Oct090644.1288\netedit.gui\netelements\edges\create\lane\allow\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Nov092604.15656\netedit.gui\netelements\edges\create\lane\allow\log.txt"/>
     </report>
 
 </configuration>
@@ -34,7 +34,7 @@
 
 <net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-30.00,30.00,50.00,60.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-30.00,35.00,50.00,60.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
         <lane id="E0_0" index="0" allow="pedestrian bus" speed="13.89" length="80.00" shape="-30.00,58.40 50.00,58.40"/>
@@ -43,14 +43,14 @@
         <lane id="E1_0" index="0" speed="13.89" length="80.00" shape="-30.00,43.40 50.00,43.40"/>
     </edge>
     <edge id="E2" from="J4" to="J5" priority="-1">
-        <lane id="E2_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric ship" speed="13.89" length="80.00" shape="-30.00,28.40 50.00,28.40"/>
+        <lane id="E2_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric ship" speed="13.89" length="80.00" shape="-30.00,33.40 50.00,33.40"/>
     </edge>
 
     <junction id="J0" type="dead_end" x="-30.00" y="60.00" incLanes="" intLanes="" shape="-30.00,60.00 -30.00,56.80"/>
     <junction id="J1" type="dead_end" x="50.00" y="60.00" incLanes="E0_0" intLanes="" shape="50.00,56.80 50.00,60.00"/>
     <junction id="J2" type="dead_end" x="-30.00" y="45.00" incLanes="" intLanes="" shape="-30.00,45.00 -30.00,41.80"/>
     <junction id="J3" type="dead_end" x="50.00" y="45.00" incLanes="E1_0" intLanes="" shape="50.00,41.80 50.00,45.00"/>
-    <junction id="J4" type="dead_end" x="-30.00" y="30.00" incLanes="" intLanes="" shape="-30.00,30.00 -30.00,26.80"/>
-    <junction id="J5" type="dead_end" x="50.00" y="30.00" incLanes="E2_0" intLanes="" shape="50.00,26.80 50.00,30.00"/>
+    <junction id="J4" type="dead_end" x="-30.00" y="35.00" incLanes="" intLanes="" shape="-30.00,35.00 -30.00,31.80"/>
+    <junction id="J5" type="dead_end" x="50.00" y="35.00" incLanes="E2_0" intLanes="" shape="50.00,31.80 50.00,35.00"/>
 
 </net>

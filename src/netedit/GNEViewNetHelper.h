@@ -564,10 +564,10 @@ struct GNEViewNetHelper {
 
         /// @brief constructor
         EditModes(GNEViewNet* viewNet);
-        
+
         /// @brief destructor
         ~EditModes();
-        
+
         /// @brief build checkable buttons
         void buildSuperModeButtons();
 

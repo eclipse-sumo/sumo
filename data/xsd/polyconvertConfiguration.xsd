@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-20 14:53:14 by Eclipse SUMO polyconvert Version v1_14_1+9280-3c4c32a8be8
+<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO polyconvert Version v1_18_0+2421-58d8177730f
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -97,6 +97,7 @@
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="fill" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="icon" type="strOptionType" minOccurs="0"/>
             <xsd:element name="layer" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="discard" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
@@ -115,6 +116,8 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="log.timestamps" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="log.processid" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="language" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>

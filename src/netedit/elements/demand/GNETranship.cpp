@@ -34,8 +34,8 @@
 
 GNETranship*
 GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge,
-        GNEAdditional* fromContainerStop, GNEEdge* toEdge, GNEAdditional* toContainerStop,
-        std::vector<GNEEdge*> edgeList, const double departPosition, const double arrivalPosition, const double speed) {
+                           GNEAdditional* fromContainerStop, GNEEdge* toEdge, GNEAdditional* toContainerStop,
+                           std::vector<GNEEdge*> edgeList, const double departPosition, const double arrivalPosition, const double speed) {
     // declare icon an tag
     const auto iconTag = getTranshipTagIcon(edgeList, fromEdge, toEdge, fromContainerStop, toContainerStop);
     // declare containers
@@ -63,8 +63,8 @@ GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, GNEEd
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementPlan(this, -1, -1),
-    mySpeed(0) {
+                                GNEDemandElementPlan(this, -1, -1),
+mySpeed(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -303,12 +303,12 @@ GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 
 
 GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                         const std::vector<GNEEdge*> &edges, const std::vector<GNEAdditional*> &additionals,
+                         const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
                          const double departPosition, const double arrivalPosition, const double speed) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, edges, {}, additionals, {containerParent}, {}),
-    GNEDemandElementPlan(this, departPosition, arrivalPosition),
-    mySpeed(speed) {
+GNEDemandElementPlan(this, departPosition, arrivalPosition),
+mySpeed(speed) {
 }
 
 /****************************************************************************/

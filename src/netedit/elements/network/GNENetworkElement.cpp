@@ -169,7 +169,7 @@ GNENetworkElement::getHierarchyName() const {
 
 
 void
-GNENetworkElement::setNetworkElementID(const std::string &newID) {
+GNENetworkElement::setNetworkElementID(const std::string& newID) {
     // set microsim ID
     setMicrosimID(newID);
     // enable save add elements if this network element has children

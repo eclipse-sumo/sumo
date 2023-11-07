@@ -72,7 +72,7 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new dataSet"), this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create MFXComboBoxIcon
     myDataSetsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                             this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+            this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
     myHorizontalFrameNewID = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelThickedFixed(100));
@@ -395,7 +395,7 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     myGenericDataTag(tag) {
     // Create MFXComboBoxIcon
     myAttributesComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                               this, MID_GNE_SELECT, GUIDesignComboBox);
+            this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
     myMinMaxLabel = buildRainbow(this);
     // refresh interval selector

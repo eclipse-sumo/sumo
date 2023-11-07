@@ -35,7 +35,7 @@
 // GNEPathManager::Segment - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*> &segments) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*>& segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(lane),
@@ -56,7 +56,7 @@ GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* eleme
 }
 
 
-GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*> &segments) :
+GNEPathManager::Segment::Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*>& segments) :
     myPathManager(pathManager),
     myPathElement(element),
     myLane(nullptr),
@@ -251,7 +251,7 @@ GNEPathManager::PathCalculator::updatePathCalculator() {
 
 
 std::vector<GNEEdge*>
-GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
+GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial myEdges
@@ -568,7 +568,7 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
 
 
 bool
-GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment *segment, SumoXMLTag tag) {
+GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment* segment, SumoXMLTag tag) {
     // check conditions
     if (dottedElement) {
         return true;
@@ -663,7 +663,7 @@ GNEPathManager::isPathValid(const PathElement* pathElement) const {
     // first check if path element exist
     if (myPaths.count(pathElement) > 0) {
         // iterate over all segments
-        for (const auto &segment : myPaths.at(pathElement)) {
+        for (const auto& segment : myPaths.at(pathElement)) {
             // if we have two consecutive lane segments, then path isn't valid
             if (segment->getLane() && segment->getNextLane()) {
                 return false;
@@ -738,7 +738,7 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
         // extract parent edges
         std::vector<GNEEdge*> edges;
         edges.reserve(lanes.size());
-        for (const auto &lane : lanes) {
+        for (const auto& lane : lanes) {
             edges.push_back(lane->getParentEdge());
         }
         buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), lanes.front(), nullptr, lanes.back(), nullptr);
@@ -1097,11 +1097,11 @@ GNEPathManager::buildPath(PathElement* pathElement, SUMOVehicleClass vClass, con
 
 
 void
-GNEPathManager::markLabelSegment(const std::vector<Segment*> &segments) const {
+GNEPathManager::markLabelSegment(const std::vector<Segment*>& segments) const {
     // separate junction segments and lane segments
     std::vector<Segment*> laneSegments;
     laneSegments.reserve(segments.size());
-    for (const auto &segment : segments) {
+    for (const auto& segment : segments) {
         if (segment->getLane()) {
             laneSegments.push_back(segment);
         }

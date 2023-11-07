@@ -29,10 +29,16 @@
 FXIcon*
 POIIcons::getPOIIcon(POIIcon iconType) {
     switch (iconType) {
+        case POIIcon::PIN:
+            return GUIIconSubSys::getIcon(GUIIcon::POIICON_PIN);
         case POIIcon::NATURE:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_NATURE);
         case POIIcon::HOTEL:
             return GUIIconSubSys::getIcon(GUIIcon::POIICON_HOTEL);
+        case POIIcon::FUEL:
+            return GUIIconSubSys::getIcon(GUIIcon::POIICON_FUEL);
+        case POIIcon::CHARGING_STATION:
+            return GUIIconSubSys::getIcon(GUIIcon::POIICON_CHARGING_STATION);
         case POIIcon::NONE:
             return GUIIconSubSys::getIcon(GUIIcon::EMPTY);
         default:

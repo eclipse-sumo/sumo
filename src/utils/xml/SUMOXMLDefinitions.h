@@ -1874,8 +1874,11 @@ enum class TrainType {
 
 /// @brief POI icons
 enum class POIIcon {
-    NATURE = 1,
-    HOTEL = 2,
+    PIN = 1,
+    NATURE = 2,
+    HOTEL = 3,
+    FUEL = 4,
+    CHARGING_STATION = 5,
     NONE = 0,
 };
 
@@ -1950,7 +1953,7 @@ public:
 
     /// @brief train types
     static StringBijection<TrainType> TrainTypes;
-    
+
     /// @brief POI icon values
     static StringBijection<POIIcon> POIIcons;
     /// @}

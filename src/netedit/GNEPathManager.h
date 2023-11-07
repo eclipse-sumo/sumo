@@ -50,10 +50,10 @@ public:
 
     public:
         /// @brief constructor for lanes
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*> &segments);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNELane* lane, std::vector<Segment*>& segments);
 
         /// @brief constructor for junctions
-        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*> &segments);
+        Segment(GNEPathManager* pathManager, PathElement* element, const GNEJunction* junction, std::vector<Segment*>& segments);
 
         /// @brief destructor
         ~Segment();
@@ -211,9 +211,9 @@ public:
         void updatePathCalculator();
 
         /// @brief calculate Dijkstra path between a list of edges (for example, from-via-to edges)
-        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+        std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const;
 
-        /// @brief calculate Dijkstra path between one edge 
+        /// @brief calculate Dijkstra path between one edge
         std::vector<GNEEdge*> calculateDijkstraPath(const SUMOVehicleClass vClass, GNEEdge* fromEdge, GNEEdge* toEdge) const;
 
         /// @brief calculate Dijkstra path between from edge and to junction
@@ -271,7 +271,7 @@ public:
         bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const GNELane* lane, SumoXMLTag tag);
 
         /// @brief check if path element geometry must be drawn in the given junction
-        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment *segment, SumoXMLTag tag);
+        bool checkDrawPathGeometry(const GUIVisualizationSettings& s, const bool dottedElement, const Segment* segment, SumoXMLTag tag);
 
     private:
         /// @brief map for saving tags drawn in lanes
@@ -325,7 +325,7 @@ public:
 
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
-    
+
     /// @brief calculate consecutive path lanes
     void calculateConsecutivePathLanes(PathElement* pathElement, const std::vector<GNELane*> lanes);
 
@@ -387,7 +387,7 @@ protected:
 
 private:
     /// @brief mark label segment
-    void markLabelSegment(const std::vector<Segment*> &segments) const;
+    void markLabelSegment(const std::vector<Segment*>& segments) const;
 
     /// @brief empty segments (used in getPathElementSegments)
     const std::vector<Segment*> myEmptySegments;

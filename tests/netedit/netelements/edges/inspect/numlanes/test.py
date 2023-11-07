@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 440, 160)
 
 # Change parameter 5 with a non valid value (empty lanes)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "", False)

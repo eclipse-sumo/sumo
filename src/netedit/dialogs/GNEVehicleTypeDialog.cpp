@@ -1278,7 +1278,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelThickedFixed(150));
     myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, true, GUIDesignComboBoxVisibleItemsMedium,
-                                                   this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+            this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
 
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();

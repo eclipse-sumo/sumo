@@ -165,7 +165,7 @@ GNEAdditionalHandler::buildTrainStop(const CommonXMLStructure::SumoBaseObject* s
 
 void
 GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& laneID,
-                                  const std::string &pos, const double length, const bool friendlyPos, const Parameterised::Map& parameters) {
+                                  const std::string& pos, const double length, const bool friendlyPos, const Parameterised::Map& parameters) {
     // get netedit parameters
     NeteditParameters neteditParameters(sumoBaseObject);
     // get lane
@@ -268,7 +268,7 @@ GNEAdditionalHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObjec
 void
 GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
         const std::string& laneID, const double startPos, const double endPos, const std::string& name, const double chargingPower,
-        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string &chargeType, 
+        const double efficiency, const bool chargeInTransit, const SUMOTime chargeDelay, const std::string& chargeType,
         const SUMOTime waitingTime, const bool friendlyPosition, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
@@ -1604,7 +1604,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
     // check conditions
     if (type == "jupedsim.walkable_area") {
         buildJpsWalkableArea(sumoBaseObject, id, shape, geo, name, parameters);
-    } else if (type == "jupedsim.obstacle") { 
+    } else if (type == "jupedsim.obstacle") {
         buildJpsObstacle(sumoBaseObject, id, shape, geo, name, parameters);
     } else if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_POLY, id);
@@ -1634,7 +1634,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
 
 void
 GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                               const RGBColor& color, const double x, const double y, const std::string &icon, double layer, double angle,
+                               const RGBColor& color, const double x, const double y, const std::string& icon, double layer, double angle,
                                const std::string& imgFile, bool relativePath, double width, double height, const std::string& name,
                                const Parameterised::Map& parameters) {
     // check conditions
@@ -1671,7 +1671,7 @@ GNEAdditionalHandler::buildPOI(const CommonXMLStructure::SumoBaseObject* sumoBas
 void
 GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                                    const RGBColor& color, const std::string& laneID, double posOverLane, const bool friendlyPos, double posLat,
-                                   const std::string &icon, double layer, double angle, const std::string& imgFile, bool relativePath, double width,
+                                   const std::string& icon, double layer, double angle, const std::string& imgFile, bool relativePath, double width,
                                    double height, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
@@ -1695,7 +1695,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
         } else {
             // create POI (use GNEAdditional instead GNEPOI for add child references)
             GNEAdditional* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, icon, layer,
-                                         angle, imgFile, relativePath, width, height, name, parameters);
+                                                angle, imgFile, relativePath, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(POILane, TL("add POI '") + id + "'");
@@ -1717,7 +1717,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
 
 void
 GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                                  const RGBColor& color, const double lon, const double lat, const std::string &icon, double layer,
+                                  const RGBColor& color, const double lon, const double lat, const std::string& icon, double layer,
                                   double angle, const std::string& imgFile, bool relativePath, double width, double height,
                                   const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
@@ -1755,7 +1755,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 
 void
 GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                                        bool geo, const std::string& name, const Parameterised::Map& parameters) {
+        bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_WALKABLEAREA, id);
@@ -1783,7 +1783,7 @@ GNEAdditionalHandler::buildJpsWalkableArea(const CommonXMLStructure::SumoBaseObj
 
 void
 GNEAdditionalHandler::buildJpsObstacle(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
-                    bool geo, const std::string& name, const Parameterised::Map& parameters) {
+                                       bool geo, const std::string& name, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(GNE_TAG_JPS_OBSTACLE, id);

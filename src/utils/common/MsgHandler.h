@@ -168,10 +168,10 @@ public:
     }
 
 protected:
-    
+
     std::string buildTimestampPrefix(void) const;
     std::string buildProcessIdPrefix(void) const;
-    
+
     /// @brief Builds the string which includes the mml-message type
     inline std::string build(const std::string& msg, bool addType) {
         std::string prefix;

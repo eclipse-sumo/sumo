@@ -47,7 +47,7 @@ public:
                       const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
                       RGBColor bgColor = RGBColor::WHITE,
                       GUIIcon icon = GUIIcon::EMPTY) :
-        myName(name), 
+        myName(name),
         myTranslatedName(translatedName),
         myIsInterpolated(!isFixed),
         myIsFixed(isFixed),
@@ -58,10 +58,10 @@ public:
     }
 
     GUIPropertyScheme(const std::string& name, const T& baseColor,
-        const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
-        RGBColor bgColor = RGBColor::WHITE,
-        GUIIcon icon = GUIIcon::EMPTY) :
-        myName(name), 
+                      const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
+                      RGBColor bgColor = RGBColor::WHITE,
+                      GUIIcon icon = GUIIcon::EMPTY) :
+        myName(name),
         myTranslatedName(name),
         myIsInterpolated(!isFixed),
         myIsFixed(isFixed),

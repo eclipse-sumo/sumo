@@ -1,15 +1,8 @@
-Error: Could not build busStop 'busStop' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build trainStop 'trainStop' in netedit; lane 'Edge3_1' doesn't exist.
-Error: Could not build containerStop 'containerStop' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build chargingStation 'chargingStation' in netedit; lane 'Edge2_1' doesn't exist.
-Error: Could not build parkingArea 'parkingArea' in netedit; lane 'Edge3_1' doesn't exist.
-Error: Could not build space in netedit; parkingArea 'parkingArea' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge2' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge2' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge3' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge3' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge0' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge0' doesn't exist.
-Error: Could not build source in netedit; edge 'Edge5' doesn't exist.
-Error: Could not build sink in netedit; edge 'Edge5' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.13Jul162612.28484/netedit.gui/demandelements/waypoint/lane/volatilerecomputing/additionals.add.xml failed.
+Error: Could not build route in netedit; edge doesn't exist.
+Error: A stop requires only a stoppingPlace, edge or lane
+Error: A stop requires only a stoppingPlace, edge or lane
+Error: A stop requires only a stoppingPlace, edge or lane
+Error: A stop requires only a stoppingPlace, edge or lane
+Error: A stop requires only a stoppingPlace, edge or lane
+Error: Invalid route 'routeB' used in flow 'routeFlowB'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Nov135906.38361/netedit.gui/demandelements/waypoint/lane/volatilerecomputing/routes.rou.xml failed.

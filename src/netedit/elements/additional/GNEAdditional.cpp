@@ -148,11 +148,11 @@ GNEAdditional::getCenteringBoundary() const {
 bool
 GNEAdditional::checkDrawFromContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get TAZRelDataFrame
-        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check conditions
         if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // get inspected element
@@ -172,7 +172,7 @@ GNEAdditional::checkDrawFromContour() const {
             }
         } else if (vehicleFrame->shown()) {
             // get selected TAZs
-            const auto &selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
+            const auto& selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
             // check if this is the second selected TAZ
             if ((selectedTAZs.size() > 0) && (selectedTAZs.front() == this)) {
                 return true;
@@ -194,7 +194,7 @@ GNEAdditional::checkDrawFromContour() const {
     if (planCreator) {
         // check if this is the from additional
         if ((planCreator->getFromBusStop() == this) || (planCreator->getFromTrainStop() == this) ||
-            (planCreator->getFromContainerStop() == this) || (planCreator->getFromTAZ() == this)) {
+                (planCreator->getFromContainerStop() == this) || (planCreator->getFromTAZ() == this)) {
             return true;
         }
     }
@@ -206,12 +206,12 @@ GNEAdditional::checkDrawFromContour() const {
 bool
 GNEAdditional::checkDrawToContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get frames
-        const auto &TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check conditions
         if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // get inspected element
@@ -222,7 +222,7 @@ GNEAdditional::checkDrawToContour() const {
             } else if ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (inspectedAC->getAttribute(SUMO_ATTR_TO) == getID())) {
                 return true;
             }
-        } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) { 
+        } else if (TAZRelDataFrame->shown() && (TAZRelDataFrame->getFirstTAZ() != nullptr)) {
             // check first TAZ
             if (TAZRelDataFrame->getSecondTAZ() == nullptr) {
                 return gPostDrawing.isElementUnderCursor(this);
@@ -231,7 +231,7 @@ GNEAdditional::checkDrawToContour() const {
             }
         } else if (vehicleFrame->shown()) {
             // get selected TAZs
-            const auto &selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
+            const auto& selectedTAZs = vehicleFrame->getPathCreator()->getSelectedTAZs();
             // check if this is the second selected TAZ
             if ((selectedTAZs.size() > 1) && (selectedTAZs.back() == this)) {
                 return true;
@@ -253,7 +253,7 @@ GNEAdditional::checkDrawToContour() const {
     if (planCreator) {
         // check if this is the from additional
         if ((planCreator->getToBusStop() == this) || (planCreator->getToTrainStop() == this) ||
-            (planCreator->getToContainerStop() == this) || (planCreator->getToTAZ() == this)) {
+                (planCreator->getToContainerStop() == this) || (planCreator->getToTAZ() == this)) {
             return true;
         }
     }
@@ -271,20 +271,20 @@ GNEAdditional::checkDrawRelatedContour() const {
 bool
 GNEAdditional::checkDrawOverContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // get frames
-    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
+    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // special case for TAZs
     if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
         // get vehicle frame
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check if we're in vehicle mode
         if (vehicleFrame->shown()) {
             // get current vehicle template
-            const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
+            const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over from-to TAZs
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleTAZs()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
@@ -292,26 +292,26 @@ GNEAdditional::checkDrawOverContour() const {
         } else if (modes.isCurrentSupermodeDemand()) {
             // check if we're in person or personPlan modes
             if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTAZs()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTAZs())) {
+                    ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTAZs())) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_BUS_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markBusStops()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTrainStops()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     } else if ((myTagProperty.getTag() == SUMO_TAG_CONTAINER_STOP) && modes.isCurrentSupermodeDemand()) {
         // check if we're in container or containerPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markContainerStops()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markContainerStops())) {
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markContainerStops())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }
@@ -322,7 +322,7 @@ GNEAdditional::checkDrawOverContour() const {
 bool
 GNEAdditional::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -335,7 +335,7 @@ GNEAdditional::checkDrawDeleteContour() const {
 bool
 GNEAdditional::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
@@ -497,7 +497,7 @@ GNEAdditional::isValidAdditionalID(const std::string& value) const {
 
 
 bool
-GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+GNEAdditional::isValidAdditionalID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
     if (value == getID()) {
         return true;
     } else if (SUMOXMLDefinitions::isValidAdditionalID(value)) {
@@ -521,7 +521,7 @@ GNEAdditional::isValidDetectorID(const std::string& value) const {
 
 
 bool
-GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
     if (value == getID()) {
         return true;
     } else if (SUMOXMLDefinitions::isValidDetectorID(value)) {
@@ -541,7 +541,7 @@ GNEAdditional::setAdditionalID(const std::string& newID) {
         // get tag
         const auto tag = additionalChild->getTagProperty().getTag();
         if ((tag == SUMO_TAG_ACCESS) || (tag == SUMO_TAG_PARKING_SPACE) ||
-            (tag == SUMO_TAG_DET_ENTRY) || (tag == SUMO_TAG_DET_EXIT)) {
+                (tag == SUMO_TAG_DET_ENTRY) || (tag == SUMO_TAG_DET_EXIT)) {
             additionalChild->setAdditionalID(getID());
         }
     }
@@ -726,7 +726,7 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 
 void
 GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
-                                   const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
+                                    const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare offsets
@@ -902,9 +902,9 @@ GNEAdditional::getJuPedSimColor(SumoXMLTag tag) {
     // continue depending of tag
     switch (tag) {
         case GNE_TAG_JPS_WALKABLEAREA:
-            return RGBColor(179,217,255);
+            return RGBColor(179, 217, 255);
         case GNE_TAG_JPS_OBSTACLE:
-            return RGBColor(255,204,204);
+            return RGBColor(255, 204, 204);
         default:
             throw InvalidArgument("Invalid JuPedSim tag");
     }

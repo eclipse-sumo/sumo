@@ -414,7 +414,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
 | **--junctions.join-turns** {{DT_BOOL}} | Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning; *default:* **false** |
-| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2); *default:* **5.5** |
+| **--junctions.limit-turn-speed** {{DT_FLOAT}} | Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2); *default:* **5.5** |
 | **--junctions.limit-turn-speed.min-angle** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.; *default:* **15** |
 | **--junctions.limit-turn-speed.min-angle.railway** {{DT_FLOAT}} | Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.; *default:* **35** |
 | **--junctions.limit-turn-speed.warn.straight** {{DT_FLOAT}} | Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT; *default:* **5** |

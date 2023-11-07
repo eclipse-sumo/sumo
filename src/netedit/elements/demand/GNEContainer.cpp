@@ -160,7 +160,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    GNEDemandElementFlow(this) {
+GNEDemandElementFlow(this) {
     // reset default values
     resetDefaultValues();
     // set end and container per hours as default flow values
@@ -173,7 +173,7 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType,
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
                      (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    GNEDemandElementFlow(this, containerparameters) {
+GNEDemandElementFlow(this, containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -518,22 +518,24 @@ Position
 GNEContainer::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS: {
-            // get container plan
-            const GNEDemandElement* containerPlan = getChildDemandElements().front();
-            // first check if first container plan is a stop
-            if (containerPlan->getTagProperty().isPlanStopContainer()) {
-                return containerPlan->getPositionInView();
+            // first check number of child demand elements
+            if (getChildDemandElements().empty()) {
+                return Position();
+            }
+            // get person plan
+            const GNEDemandElement* personPlan = getChildDemandElements().front();
+            // first check if first person plan is a stop
+            if (personPlan->getTagProperty().isPlanStopPerson()) {
+                // stop center
+                return personPlan->getPositionInView();
+            } else if (personPlan->getTagProperty().planFromTAZ()) {
+                // TAZ
+                return personPlan->getParentAdditionals().front()->getPositionInView();
+            } else if (personPlan->getTagProperty().planFromJunction()) {
+                // juncrtion
+                return personPlan->getParentJunctions().front()->getPositionInView();
             } else {
-                // declare lane lane
-                const GNELane* lane = containerPlan->getParentEdges().front()->getLaneByAllowedVClass(SVC_IGNORING);
-                // get position over lane shape
-                if (departPos <= 0) {
-                    return lane->getLaneShape().front();
-                } else if (departPos >= lane->getLaneShape().length2D()) {
-                    return lane->getLaneShape().back();
-                } else {
-                    return lane->getLaneShape().positionAtOffset2D(departPos);
-                }
+                return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
         }
         default:

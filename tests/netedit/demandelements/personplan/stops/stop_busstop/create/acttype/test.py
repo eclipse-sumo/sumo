@@ -72,9 +72,6 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
-# press enter to create route
-netedit.typeEnter()
-
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 

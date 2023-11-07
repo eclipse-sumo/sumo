@@ -1959,13 +1959,13 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     mySaveNeteditConfig->create();
     // create save sumo config button
     mySaveSumoConfig = new MFXButtonTooltip(gripSaveElements, tooltipMenu,
-            std::string("\t") + TL("Save Sumo Config") + std::string("\t") + TL("Save Sumo Config. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
+                                            std::string("\t") + TL("Save Sumo Config") + std::string("\t") + TL("Save Sumo Config. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     mySaveSumoConfig->create();
     // create save network button
     mySaveNetwork = new MFXButtonTooltip(gripSaveElements, tooltipMenu,
-            std::string("\t") + TL("Save network") + std::string("\t") + TL("Save network. (Ctrl+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+                                         std::string("\t") + TL("Save network") + std::string("\t") + TL("Save network. (Ctrl+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
+                                         myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
     mySaveNetwork->create();
     // create popup for save individual files
     mySaveIndividualFilesPopup = new FXPopup(gripSaveElements, POPUP_VERTICAL);
@@ -2024,9 +2024,9 @@ void
 GNEViewNetHelper::TimeFormat::buildTimeFormatButtons() {
     // create save sumo config button
     mySwitchButton = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().timeSwitch,
-            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            gHumanReadableTime?"H":"S" + std::string("\t") + TL("Switch between seconds and HH:MM:SS") + std::string("\t") + TL("Switch between seconds and HH:MM:SS"), nullptr,
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
+                                          myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                          gHumanReadableTime ? "H" : "S" + std::string("\t") + TL("Switch between seconds and HH:MM:SS") + std::string("\t") + TL("Switch between seconds and HH:MM:SS"), nullptr,
+                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_TOGGLE_TIMEFORMAT, GUIDesignButtonToolbar);
     mySwitchButton->create();
 }
 
@@ -2085,18 +2085,18 @@ GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     auto toolTipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // create network button
     networkButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
-            TL("Network") + std::string("\t") + TL("Edit network elements") + std::string("\t") + TL("Set mode for edit network elements. (F2)"),
-            GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
+                                           TL("Network") + std::string("\t") + TL("Edit network elements") + std::string("\t") + TL("Set mode for edit network elements. (F2)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
     networkButton->create();
     // create demand button
     demandButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
-            TL("Demand") + std::string("\t") + TL("Edit traffic demand elements") + std::string("\t") + TL("Set mode for edit traffic demand. (F3)"),
-            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
+                                          TL("Demand") + std::string("\t") + TL("Edit traffic demand elements") + std::string("\t") + TL("Set mode for edit traffic demand. (F3)"),
+                                          GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
     demandButton->create();
     // create data button
     dataButton = new MFXCheckableButton(false, gripSupermodes, toolTipMenu,
-            TL("Data") + std::string("\t") + TL("Edit data elements") + std::string("\t") + TL("Set mode for edit data demand. (F4)"),
-            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
+                                        TL("Data") + std::string("\t") + TL("Edit data elements") + std::string("\t") + TL("Set mode for edit data demand. (F4)"),
+                                        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
     dataButton->create();
     // build the views popup
     myNeteditViewsPopup = new FXPopup(gripSupermodes, POPUP_VERTICAL);
@@ -2354,7 +2354,7 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
     // grip supermodes
     auto gripSupermodes = myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes;
     // file menu commands
-    auto &fileMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getFileMenuCommands();
+    auto& fileMenuCommands = myViewNet->getViewParent()->getGNEAppWindows()->getFileMenuCommands();
     // continue depending of selector
     if (sel == MID_GNE_VIEW_DEFAULT) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWDEFAULT));
@@ -3140,8 +3140,8 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                                     GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium, myViewNet,
-                                                     MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
+            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium, myViewNet,
+            MID_GNE_INTERVALBAR_GENERICDATATYPE, GUIDesignComboBoxWidth180);
     myGenericDataTypesComboBox->create();
     // fill combo box
     myGenericDataTypesComboBox->appendIconItem("<all>");
@@ -3154,8 +3154,8 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                             GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                             myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
+            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+            myViewNet, MID_GNE_INTERVALBAR_DATASET, GUIDesignComboBoxWidth180);
     myDataSetsComboBox->create();
     // create checkbutton for myLimitByInterval
     myIntervalCheckBox = new FXCheckButton(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3175,8 +3175,8 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new MFXComboBoxIcon(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                               GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
-                                               myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
+            GUIDesignComboBoxNCol, false, GUIDesignComboBoxVisibleItemsMedium,
+            myViewNet, MID_GNE_INTERVALBAR_PARAMETER, GUIDesignComboBoxWidth180);
     myParametersComboBox->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar->recalc();
@@ -3486,18 +3486,18 @@ GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     auto tooltipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // inspect button
     inspectButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set inspect mode") + std::string("\t") + TL("Mode for inspect elements and change their attributes. (I)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODE_INSPECT, GUIDesignMFXCheckableButtonSquare);
+                                           std::string("\t") + TL("Set inspect mode") + std::string("\t") + TL("Mode for inspect elements and change their attributes. (I)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODE_INSPECT, GUIDesignMFXCheckableButtonSquare);
     inspectButton->create();
     // delete button
     deleteButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set delete mode") + std::string("\t") + TL("Mode for deleting elements. (D)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, GUIDesignMFXCheckableButtonSquare);
+                                          std::string("\t") + TL("Set delete mode") + std::string("\t") + TL("Mode for deleting elements. (D)"),
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, GUIDesignMFXCheckableButtonSquare);
     deleteButton->create();
     // select button
     selectButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set select mode") + std::string("\t") + TL("Mode for selecting elements. (S)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, GUIDesignMFXCheckableButtonSquare);
+                                          std::string("\t") + TL("Set select mode") + std::string("\t") + TL("Mode for selecting elements. (S)"),
+                                          GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, GUIDesignMFXCheckableButtonSquare);
     selectButton->create();
     // always recalc menu bar after creating new elements
     gripModes->recalc();
@@ -3577,8 +3577,8 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     prohibitionButton->create();
     // crossing mode
     crossingButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set crossing mode") + std::string("\t") + TL("Mode for creating crossings between edges. (R)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
+                                            std::string("\t") + TL("Set crossing mode") + std::string("\t") + TL("Mode for creating crossings between edges. (R)"),
+                                            GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
     crossingButton->create();
     // additional mode
     additionalButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
@@ -3587,23 +3587,23 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     additionalButton->create();
     // wire mode
     wireButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set wire mode") + std::string("\t") + TL("Mode for editing wires. (W)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myViewNet, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+                                        std::string("\t") + TL("Set wire mode") + std::string("\t") + TL("Mode for editing wires. (W)"),
+                                        GUIIconSubSys::getIcon(GUIIcon::MODEWIRE), myViewNet, MID_HOTKEY_W_MODE_WIRE_ROUTEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
     wireButton->create();
     // TAZ Mode
     TAZButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set TAZ mode") + std::string("\t") + TL("Mode for creating Traffic Assignment Zones. (Z)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myViewNet, MID_HOTKEY_Z_MODE_TAZ_TAZREL, GUIDesignMFXCheckableButtonSquare);
+                                       std::string("\t") + TL("Set TAZ mode") + std::string("\t") + TL("Mode for creating Traffic Assignment Zones. (Z)"),
+                                       GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myViewNet, MID_HOTKEY_Z_MODE_TAZ_TAZREL, GUIDesignMFXCheckableButtonSquare);
     TAZButton->create();
     // shape mode
     shapeButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set polygon mode") + std::string("\t") + TL("Mode for creating polygons and POIs. (P)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
+                                         std::string("\t") + TL("Set polygon mode") + std::string("\t") + TL("Mode for creating polygons and POIs. (P)"),
+                                         GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
     shapeButton->create();
     // decal mode
     decalButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Set decal mode") + std::string("\t") + TL("Mode for editing decals. (U)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEDECAL), myViewNet, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
+                                         std::string("\t") + TL("Set decal mode") + std::string("\t") + TL("Mode for editing decals. (U)"),
+                                         GUIIconSubSys::getIcon(GUIIcon::MODEDECAL), myViewNet, MID_HOTKEY_U_MODE_DECAL_TYPEDISTRIBUTION, GUIDesignMFXCheckableButtonSquare);
     decalButton->create();
     // always recalc after creating new elements
     gripModes->recalc();
@@ -3710,8 +3710,8 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     moveDemandElementsButton->create();
     // route mode
     routeButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create route mode") + std::string("\t") + TL("Mode for creating routes. (R)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
+                                         std::string("\t") + TL("Create route mode") + std::string("\t") + TL("Mode for creating routes. (R)"),
+                                         GUIIconSubSys::getIcon(GUIIcon::MODEROUTE), myViewNet, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA, GUIDesignMFXCheckableButtonSquare);
     routeButton->create();
     // rout distribution mode
     routeDistributionButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
@@ -3720,13 +3720,13 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     routeDistributionButton->create();
     // vehicle mode
     vehicleButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create vehicle mode") + std::string("\t") + TL("Mode for creating vehicles. (V)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myViewNet, MID_HOTKEY_V_MODE_VEHICLE, GUIDesignMFXCheckableButtonSquare);
+                                           std::string("\t") + TL("Create vehicle mode") + std::string("\t") + TL("Mode for creating vehicles. (V)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myViewNet, MID_HOTKEY_V_MODE_VEHICLE, GUIDesignMFXCheckableButtonSquare);
     vehicleButton->create();
     // type mode
     typeButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create type mode") + std::string("\t") + TL("Mode for creating types (vehicles, person and containers). (T)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myViewNet, MID_HOTKEY_T_MODE_TLS_TYPE, GUIDesignMFXCheckableButtonSquare);
+                                        std::string("\t") + TL("Create type mode") + std::string("\t") + TL("Mode for creating types (vehicles, person and containers). (T)"),
+                                        GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myViewNet, MID_HOTKEY_T_MODE_TLS_TYPE, GUIDesignMFXCheckableButtonSquare);
     typeButton->create();
     // type distribution mode
     typeDistributionButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
@@ -3735,13 +3735,13 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     typeDistributionButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create stop mode") + std::string("\t") + TL("Mode for creating stops. (A)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, GUIDesignMFXCheckableButtonSquare);
+                                        std::string("\t") + TL("Create stop mode") + std::string("\t") + TL("Mode for creating stops. (A)"),
+                                        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALS_STOPS, GUIDesignMFXCheckableButtonSquare);
     stopButton->create();
     // person mode
     personButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create person mode") + std::string("\t") + TL("Mode for creating persons. (P)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
+                                          std::string("\t") + TL("Create person mode") + std::string("\t") + TL("Mode for creating persons. (P)"),
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myViewNet, MID_HOTKEY_P_MODE_POLYGON_PERSON, GUIDesignMFXCheckableButtonSquare);
     personButton->create();
     // person plan mode
     personPlanButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
@@ -3857,8 +3857,8 @@ GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
     auto tooltipMenu = myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu();
     // edgeData mode
     edgeDataButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Create edge data mode") + std::string("\t") + TL("Mode for creating edge datas. (E)"),
-            GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, GUIDesignMFXCheckableButtonSquare);
+                                            std::string("\t") + TL("Create edge data mode") + std::string("\t") + TL("Mode for creating edge datas. (E)"),
+                                            GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODE_EDGE_EDGEDATA, GUIDesignMFXCheckableButtonSquare);
     edgeDataButton->create();
     // edgeRelData mode
     edgeRelDataButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
@@ -3872,8 +3872,8 @@ GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
     TAZRelDataButton->create();
     // meanData button
     meanDataButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-        std::string("\t") + TL("MeanData mode") + std::string("\t") + TL("Mode for MeanData elements. (M)"),
-        GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), myViewNet, MID_HOTKEY_M_MODE_MOVE_MEANDATA, GUIDesignMFXCheckableButtonSquare);
+                                            std::string("\t") + TL("MeanData mode") + std::string("\t") + TL("Mode for MeanData elements. (M)"),
+                                            GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), myViewNet, MID_HOTKEY_M_MODE_MOVE_MEANDATA, GUIDesignMFXCheckableButtonSquare);
     meanDataButton->create();
     // always recalc after creating new elements
     gripModes->recalc();

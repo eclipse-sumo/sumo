@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-22 15:48:23 by Eclipse SUMO netedit Version v1_17_0+0377-6a9238e9e1b
+<!-- generated on 2023-11-06 16:09:22 by Eclipse SUMO netedit Version v1_18_0+2440-94ba841a93d
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- VTypes -->
-    <vType id="vTypeRail" vClass="rail"/>
-    <!-- Routes -->
-    <route id="route_0" edges="Edge3 Edge4 Edge5" color="yellow"/>
-    <!-- Vehicles, persons and containers (sorted by depart) -->
-    <vehicle id="vehicle_0" type="vTypeRail" depart="0.00" route="route_0"/>
+    <vType id="vTypeRail" length="10.00" vClass="rail"/>
 </routes>

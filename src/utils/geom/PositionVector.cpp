@@ -657,8 +657,8 @@ operator<<(std::ostream& os, const PositionVector& geom) {
 void
 PositionVector::sortAsPolyCWByAngle() {
     // We take the centroid of the points as an origin for the angle computations
-    // that will follow but other points could be taken (the center of the bounding 
-    // box of the polygon for instance). Each of these can potentially lead 
+    // that will follow but other points could be taken (the center of the bounding
+    // box of the polygon for instance). Each of these can potentially lead
     // to a different result in the case of a non-convex polygon.
     const Position centroid = std::accumulate(begin(), end(), Position(0, 0)) / (double)size();
     sub(centroid);
@@ -729,7 +729,7 @@ PositionVector::as_poly_cw_sorter::operator()(const Position& p1, const Position
 double
 PositionVector::as_poly_cw_sorter::atAngle2D(const Position& p) const {
     double angle = atan2(p.y(), p.x());
-    return angle < 0.0 ? angle : angle + 2.0*M_PI;
+    return angle < 0.0 ? angle : angle + 2.0 * M_PI;
 }
 
 void
@@ -1899,12 +1899,14 @@ PositionVector::bezier(int numPoints) {
 
 bool PositionVector::isClockwiseOriented() {
     // The test is based on the computation of a signed area enclosed by the polygon.
-    // If the polygon is in the upper (resp. the lower) half-plane and the area is 
-    // negatively (resp. positively) signed, then the polygon is CW oriented. In case 
-    // the polygon has points with both positive and negative y-coordinates, we translate 
+    // If the polygon is in the upper (resp. the lower) half-plane and the area is
+    // negatively (resp. positively) signed, then the polygon is CW oriented. In case
+    // the polygon has points with both positive and negative y-coordinates, we translate
     // the polygon to apply the above simple area-based test.
     double area = 0.0;
-    const double y_min = std::min_element(begin(), end(), [](Position p1, Position p2) { return p1.y() < p2.y(); })->y();
+    const double y_min = std::min_element(begin(), end(), [](Position p1, Position p2) {
+        return p1.y() < p2.y();
+    })->y();
     const double gap = y_min > 0.0 ? 0.0 : y_min;
     add(0., gap, 0.);
     const int last = (int)size() - 1;

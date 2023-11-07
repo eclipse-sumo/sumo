@@ -42,38 +42,38 @@ class GNERoute;
 class GNEDemandElementPlan {
 
 public:
-    /// @brief get the walk tag and icon for the combination 
-    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
-        const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    /// @brief get the walk tag and icon for the combination
+    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
+            const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
+            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
 
-    /// @brief get the personTrip tag and icon for the combination 
+    /// @brief get the personTrip tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-        const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
 
-    /// @brief get the ride tag and icon for the combination 
+    /// @brief get the ride tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-        const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+            const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
+            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
 
-    /// @brief get the transport tag and icon for the combination 
+    /// @brief get the transport tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-        const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+            const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
 
-    /// @brief get the tranship tag and icon for the combination 
-    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const std::vector<GNEEdge*> &consecutiveEdges,
-        const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
-        const GNEAdditional* toContainerStop);
+    /// @brief get the tranship tag and icon for the combination
+    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
+            const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
+            const GNEAdditional* toContainerStop);
 
-    /// @brief get the person stop tag and icon for the combination 
+    /// @brief get the person stop tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop,
-        const GNEAdditional* trainStop);
+            const GNEAdditional* trainStop);
 
-    /// @brief get the container stop tag and icon for the combination 
+    /// @brief get the container stop tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop);
 
 protected:
@@ -145,7 +145,7 @@ protected:
 
     /// @brief get plan Hierarchy Name (Used in AC Hierarchy)
     std::string getPlanHierarchyName() const;
-    
+
     /// @}
 
     /// @name drawing functions
@@ -175,7 +175,7 @@ protected:
 
     /// @brief get plan problem
     std::string getPersonPlanProblem() const;
-    
+
     /// @brief depart position (used in tranships)
     double myDepartPosition;
 
@@ -183,6 +183,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief check if draw plan depending of zoom
+    bool drawPlanZoom(const GUIVisualizationSettings& s) const;
+
     /// @brief draw from arrow
     void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment,
                        const bool dottedElement) const;
@@ -192,7 +195,7 @@ private:
                      const bool dottedElement) const;
 
     /// @brief draw to arrow
-    void drawEndPosition(const GUIVisualizationSettings& s,const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+    void drawEndPosition(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
 
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;

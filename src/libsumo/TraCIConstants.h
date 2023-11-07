@@ -41,7 +41,7 @@ namespace libsumo {
 // ****************************************
 // VERSION
 // ****************************************
-TRACI_CONST int TRACI_VERSION = 20;
+TRACI_CONST int TRACI_VERSION = 21;
 
 // ****************************************
 // COMMANDS

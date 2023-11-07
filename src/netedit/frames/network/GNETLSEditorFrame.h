@@ -482,7 +482,7 @@ public:
         bool setState(const int col, const int row, const std::string& value);
 
         /// @brief set next
-        bool setNext(const int row, const std::string &value);
+        bool setNext(const int row, const std::string& value);
 
         /// @brief set name
         bool setName(const int row, const std::string& value);

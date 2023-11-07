@@ -415,7 +415,7 @@ GNEDemandElementFlow::adjustDecimalValue(const double value) const {
     // now clear all zeros
     while (valueStr.size() > 1) {
         if (valueStr.back() == '0') {
-            valueStr.pop_back(); 
+            valueStr.pop_back();
         } else if (valueStr.back() == '.') {
             valueStr.pop_back();
             return valueStr;

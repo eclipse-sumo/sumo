@@ -172,20 +172,20 @@ GNEDemandElement::checkDrawRelatedContour() const {
 bool
 GNEDemandElement::checkDrawOverContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // get frames
-    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
+    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // special case for Route
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         // get vehicle frame
-        const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
         // check if we're in vehicle mode
         if (vehicleFrame->shown()) {
             // get current vehicle template
-            const auto &vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
+            const auto& vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over route
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleRoute()) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
@@ -193,9 +193,9 @@ GNEDemandElement::checkDrawOverContour() const {
         } else if (modes.isCurrentSupermodeDemand()) {
             // check if we're in person or personPlan modes
             if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markRoutes()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markRoutes()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markRoutes()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markRoutes())) {
+                    ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markRoutes()) ||
+                    ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markRoutes()) ||
+                    ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markRoutes())) {
                 return myNet->getViewNet()->checkDrawOverContour(this);
             }
         }
@@ -207,7 +207,7 @@ GNEDemandElement::checkDrawOverContour() const {
 bool
 GNEDemandElement::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -220,7 +220,7 @@ GNEDemandElement::checkDrawDeleteContour() const {
 bool
 GNEDemandElement::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeDemand() && (editModes.demandEditMode == DemandEditMode::DEMAND_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
@@ -358,7 +358,7 @@ GNEDemandElement::isValidDemandElementID(const std::string& value) const {
 
 
 bool
-GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag> &tags, const std::string& value) const {
+GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag>& tags, const std::string& value) const {
     if (value == getID()) {
         return true;
     } else if (SUMOXMLDefinitions::isValidVehicleID(value)) {
@@ -396,7 +396,7 @@ GNEDemandElement::getTypeParent() const {
         const auto typeDistributionID = getParentDemandElements().at(0)->getID();
         // obtain all types with the given typeDistribution sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
-        for (const auto &type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+        for (const auto& type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
             if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == typeDistributionID) {
                 sortedTypes[type->getID()] = type;
             }
@@ -404,7 +404,7 @@ GNEDemandElement::getTypeParent() const {
         // return first type, or default vType
         if (sortedTypes.size() > 0) {
             return sortedTypes.begin()->second;
-        } else if (myNet->getAttributeCarriers()->getDemandElements().size() > 0){
+        } else if (myNet->getAttributeCarriers()->getDemandElements().size() > 0) {
             return *myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin();
         } else {
             throw InvalidArgument("no vTypes");
@@ -694,7 +694,7 @@ GNEDemandElement::getDistributionParents() const {
     }
     // check if the current element is in the distributions
     std::vector<std::string> distributionParents;
-    for (const auto &distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
+    for (const auto& distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
         if (distribution->keyExists(this)) {
             distributionParents.push_back(distribution->getID());
         }

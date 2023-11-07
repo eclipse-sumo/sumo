@@ -88,7 +88,7 @@ public:
 
     /// @brief build trip (from-to TAZs)
     virtual void buildTripTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                                    const std::string& fromTazID, const std::string& toTazID) = 0;
+                               const std::string& fromTazID, const std::string& toTazID) = 0;
 
     /// @brief build flow (from-to edges)
     virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
@@ -100,7 +100,7 @@ public:
 
     /// @brief build flow (from-to TAZs)
     virtual void buildFlowTAZs(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                                    const std::string& fromTAZID, const std::string& toTAZID) = 0;
+                               const std::string& fromTAZID, const std::string& toTAZID) = 0;
 
     /// @brief build person
     virtual void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) = 0;

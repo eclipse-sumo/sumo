@@ -95,7 +95,7 @@ MFXTextFieldSearch::onPaint(FXObject*, FXSelector, void* ptr) {
         dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
     }
     // draw icon
-    dc.drawIcon(icon, 3, border + padtop + (height - padbottom - padtop - (border<<1) - ICON_SIZE) / 2);
+    dc.drawIcon(icon, 3, border + padtop + (height - padbottom - padtop - (border << 1) - ICON_SIZE) / 2);
     return 1;
 }
 

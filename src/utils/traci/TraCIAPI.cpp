@@ -39,6 +39,7 @@ TraCIAPI::TraCIAPI() :
     simulation(*this), trafficlights(*this),
     vehicle(*this), vehicletype(*this),
     mySocket(nullptr) {
+    std::cerr << "TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.\n";
     myDomains[libsumo::RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;

@@ -83,11 +83,11 @@ public:
     /// @name Getter
     /// @{
 
-    /// @brief get icon 
+    /// @brief get icon
     POIIcon getIcon() const;
 
     /// @brief get icon(in string format)
-    const std::string &getIconStr() const;
+    const std::string& getIconStr() const;
 
     /// @brief Returns the image width of the POI
     double getWidth() const;
@@ -108,7 +108,7 @@ public:
     /// @{
 
     /// @brief set icon
-    void setIcon(const std::string &icon);
+    void setIcon(const std::string& icon);
 
     /// @brief set the image width of the POI
     void setWidth(double width);

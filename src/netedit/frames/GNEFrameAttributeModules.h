@@ -139,7 +139,7 @@ public:
         /// @brief Button for move lane up
         MFXButtonTooltip* myValueLaneUpButton = nullptr;
 
-		/// @brief Button for move lane down
+        /// @brief Button for move lane down
         MFXButtonTooltip* myValueLaneDownButton = nullptr;
 
         /// @brief pointer to AC Parent
@@ -152,16 +152,16 @@ public:
         void buildValueElements(const bool attributeEnabled, const bool computed);
 
         /// @brief refresh Attribute elements
-        void refreshAttributeElements(const std::string &value, const bool attributeEnabled, const bool computed);
+        void refreshAttributeElements(const std::string& value, const bool attributeEnabled, const bool computed);
 
         /// @brief build value elements();
-        void refreshValueElements(const std::string &value,  const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute);
+        void refreshValueElements(const std::string& value,  const bool attributeEnabled, const bool computed, const bool forceRefreshAttribute);
 
         /// @brief fill comboBox with discrete values
-        void fillComboBox(const std::string &value);
+        void fillComboBox(const std::string& value);
 
         /// @brief update move lane buttons
-        void updateMoveLaneButtons(const std::string &value);
+        void updateMoveLaneButtons(const std::string& value);
 
         /// @brief Invalidated copy constructor.
         AttributesEditorRow(AttributesEditorRow*) = delete;

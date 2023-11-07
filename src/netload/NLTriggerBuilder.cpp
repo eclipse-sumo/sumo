@@ -165,7 +165,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     const SUMOTime waitingTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, id.c_str(), ok, 900);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    
+
     // check charge type
     if ((chargeType != "normal") && (chargeType != "electric") && (chargeType != "fuel")) {
         throw InvalidArgument("The chargeType to use within MSLaneSpeedTrigger '" + id + "' is invalid.");
@@ -831,7 +831,7 @@ NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit,
                                        SUMOTime chargeDelay, std::string chargeType, SUMOTime waitingTime) {
     MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency,
-                                                               chargeInTransit, chargeDelay, chargeType, waitingTime);
+            chargeInTransit, chargeDelay, chargeType, waitingTime);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");

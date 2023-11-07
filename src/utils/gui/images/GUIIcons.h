@@ -465,8 +465,11 @@ enum class GUIIcon {
 
     /// @name poi icons
     /// @{
+    POIICON_PIN,
     POIICON_NATURE,
     POIICON_HOTEL,
+	POIICON_FUEL,
+	POIICON_CHARGING_STATION,
     /// @}
 
     /// @name juPedSim elements

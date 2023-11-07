@@ -402,7 +402,7 @@ struct GNENetHelper {
         /// @brief get number of selected walkable areas
         int getNumberOfSelectedJpsWalkableAreas() const;
 
-        /// @brief get number of selected obstacles 
+        /// @brief get number of selected obstacles
         int getNumberOfSelectedJpsObstacles() const;
 
         /// @brief get number of selected POIs

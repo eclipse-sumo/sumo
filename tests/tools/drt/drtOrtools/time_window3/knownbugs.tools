@@ -1,0 +1,6 @@
+
+[Reported by micha at 05Nov12:20:05]
+search_string:Warning: No connection
+search_file:errors
+full_description:no routes to internal edges
+brief_description:see #14033

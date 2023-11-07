@@ -1040,7 +1040,7 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 
 GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
-    for (const auto &type : types) {
+    for (const auto& type : types) {
         for (const auto& additional : myAdditionals.at(type)) {
             if (additional->getID() == id) {
                 return additional;
@@ -1385,7 +1385,7 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
 
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
-    for (const auto &type : types) {
+    for (const auto& type : types) {
         for (const auto& demandElement : myDemandElements.at(type)) {
             if (demandElement->getID() == id) {
                 return demandElement;

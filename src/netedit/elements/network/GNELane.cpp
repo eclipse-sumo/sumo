@@ -245,10 +245,10 @@ GNELane::getPositionInView() const {
 bool
 GNELane::checkDrawFromContour() const {
     // get inspected ACs
-    const auto &inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if we're inspecting a connection
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-        inspectedACs.front()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
+            inspectedACs.front()->getAttribute(GNE_ATTR_FROM_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -259,10 +259,10 @@ GNELane::checkDrawFromContour() const {
 bool
 GNELane::checkDrawToContour() const {
     // get inspected ACs
-    const auto &inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if we're inspecting a connection
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
-        inspectedACs.front()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
+            inspectedACs.front()->getAttribute(GNE_ATTR_TO_LANEID) == getID()) {
         return true;
     } else {
         return false;
@@ -279,13 +279,13 @@ GNELane::checkDrawRelatedContour() const {
 bool
 GNELane::checkDrawOverContour() const {
     // get modes
-    const auto &modes = myNet->getViewNet()->getEditModes();
+    const auto& modes = myNet->getViewNet()->getEditModes();
     // get vehicle frame
-    const auto &vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-    const auto &personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto &personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto &containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto &containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
+    const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
+    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
+    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
+    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
+    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
     // check if we're in vehicle mode
     if (vehicleFrame->shown()) {
         // get current vehicle template
@@ -300,9 +300,9 @@ GNELane::checkDrawOverContour() const {
     } else if (modes.isCurrentSupermodeDemand()) {
         // check if we're in person or personPlan modes
         if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markEdges()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markEdges()) ||
-            ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markEdges())) {
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markEdges()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markEdges())) {
             return myNet->getViewNet()->checkDrawOverContour(this);
         }
     }
@@ -313,7 +313,7 @@ GNELane::checkDrawOverContour() const {
 bool
 GNELane::checkDrawDeleteContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in delete mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_DELETE)) {
         return myNet->getViewNet()->checkDrawDeleteContour(this, mySelected);
@@ -326,7 +326,7 @@ GNELane::checkDrawDeleteContour() const {
 bool
 GNELane::checkDrawSelectContour() const {
     // get edit modes
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
     if (editModes.isCurrentSupermodeNetwork() && (editModes.networkEditMode == NetworkEditMode::NETWORK_SELECT)) {
         return myNet->getViewNet()->checkDrawSelectContour(this, mySelected);
@@ -1850,9 +1850,9 @@ GNELane::getGNEIncomingConnections() {
     GNEJunction* junctionSource =  myParentEdge->getFromJunction();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
-        for (const auto &incomingEdge : junctionSource->getGNEIncomingEdges()) {
+        for (const auto& incomingEdge : junctionSource->getGNEIncomingEdges()) {
             // Iterate over connection of incoming edges
-            for (const auto &connection : incomingEdge->getGNEConnections()) {
+            for (const auto& connection : incomingEdge->getGNEConnections()) {
                 if (connection->getLaneFrom()->getIndex() == getIndex()) {
                     incomingConnections.push_back(connection);
                 }
@@ -1869,7 +1869,7 @@ GNELane::getGNEOutcomingConnections() {
     const std::vector<GNEConnection*>& edgeConnections = myParentEdge->getGNEConnections();
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
-    for (const auto &connection : edgeConnections) {
+    for (const auto& connection : edgeConnections) {
         if (connection->getLaneTo()->getIndex() == getIndex()) {
             outcomingConnections.push_back(connection);
         }
@@ -1882,12 +1882,12 @@ void
 GNELane::updateConnectionIDs() {
     // update incoming connections of lane
     std::vector<GNEConnection*> incomingConnections = getGNEIncomingConnections();
-    for (const auto &incomingConnection : incomingConnections) {
+    for (const auto& incomingConnection : incomingConnections) {
         incomingConnection->updateConnectionID();
     }
     // update outcoming connections of lane
     std::vector<GNEConnection*> outcomingConnections = getGNEOutcomingConnections();
-    for (const auto &outcomingConnection : outcomingConnections) {
+    for (const auto& outcomingConnection : outcomingConnections) {
         outcomingConnection->updateConnectionID();
     }
 }

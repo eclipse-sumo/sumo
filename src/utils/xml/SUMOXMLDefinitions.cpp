@@ -345,7 +345,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "transport: edge->edge",                  GNE_TAG_TRANSPORT_EDGE_EDGE },
     { "transport: edge->containerStop",         GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP },
     { "transport: containerStop->edge",         GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE },
-    { "transport: containerStop->containerStop",GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP },
+    { "transport: containerStop->containerStop", GNE_TAG_TRANSPORT_CONTAINERSTOP_CONTAINERSTOP },
     // GNE Tranships
     { "tranship: edge->edge",                   GNE_TAG_TRANSHIP_EDGE_EDGE },
     { "tranship: edge->containerStop",          GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP },
@@ -1301,9 +1301,12 @@ StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
 };
 
 StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
-    {"tree",    POIIcon::NATURE},
-    {"hotel",   POIIcon::HOTEL},
-    {"",        POIIcon::NONE} //< must be the last one
+    {"pin",              POIIcon::PIN},
+    {"tree",             POIIcon::NATURE},
+    {"hotel",            POIIcon::HOTEL},
+    {"fuel",             POIIcon::FUEL},
+    {"charging_station", POIIcon::CHARGING_STATION},
+    {"",                 POIIcon::NONE} //< must be the last one
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(

@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 440, 160)
 
 # Change parameter 16 with a valid value (default)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffset, "4", False)

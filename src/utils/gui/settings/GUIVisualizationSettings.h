@@ -585,6 +585,9 @@ struct GUIVisualizationDetailSettings {
 
     /// @brief Exaggeration for persons (only used in netedit)
     static const double personExaggeration;
+    
+    /// @brief details for draw plans (only used in netedit)
+    static const double plans;
 };
 
 
