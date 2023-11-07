@@ -148,7 +148,7 @@ keywords:
   - traffic
 date-released: "2023-11-07"
 version: 1.19.0
-doi: 10.5281/zenodo.8346388
+doi: 10.5281/zenodo.10077626
 repository-code: "https://github.com/eclipse-sumo/sumo"
 type: software
 url: "https://www.eclipse.dev/sumo/"
