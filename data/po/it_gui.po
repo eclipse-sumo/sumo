@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-03 09:27+0000\n"
+"PO-Revision-Date: 2023-11-09 11:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1944,11 +1944,11 @@ msgstr "persone bloccate [#]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:513
 msgid "end time [s]"
-msgstr "tempo finale [s]"
+msgstr "ora finale [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:514
 msgid "begin time [s]"
-msgstr "tempo iniziale [s]"
+msgstr "ora iniziale [s]"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:517
 msgid "step duration [ms]"
