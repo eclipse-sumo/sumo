@@ -691,6 +691,8 @@ Each value is a bitset with the following meaning:
 - 2^13: overlapping
 - 2^14: insufficient space
 - 2^15: sublane
+- 2^28: insufficient speed
+- 2^30: undetermined
 
 ### neighboring vehicles (0xbf)
 
