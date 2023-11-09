@@ -683,6 +683,8 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
         // check if disable
         if (disableElement) {
             myValueTextField->disable();
+        } else {
+            myValueTextField->enable();
         }
     } else if (myValueComboBox->shown()) {
         // fill comboBox
@@ -692,6 +694,8 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
         // check if disable
         if (disableElement) {
             myValueComboBox->disable();
+        } else {
+            myValueComboBox->enable();
         }
     } else if (myValueCheckButton->shown()) {
         if (GNEAttributeCarrier::canParse<bool>(value)) {
@@ -702,6 +706,8 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshValueElements(const std::s
         // check if disable
         if (myValueCheckButton) {
             myValueComboBox->disable();
+        } else {
+            myValueComboBox->enable();
         }
     }
 }
