@@ -11,5 +11,5 @@ pyautogui==0.9.53
 pyperclip==1.8.2
 pyproj==3.3.0
 rtree==0.9.7
-scipy==1.8.0
+scipy==1.10.0
 texttest==4.3.0
