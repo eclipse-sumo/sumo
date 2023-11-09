@@ -3,7 +3,7 @@ title: Nightly Build
 ---
 
 There are two main scripts responsible for the nightly build process
-which are [{{SUMO}}/tools/build/dailyUpdateMakeGCC.sh]({{Source}}tools/build/dailyUpdateMakeGCC.sh) (for the linux part) and [{{SUMO}}/tools/build/dailyBuildMSVC.py]({{Source}}tools/build/dailyBuildMSVC.py) for Windows. Essentially they both
+which are [{{SUMO}}/tools/build_config/dailyUpdateMakeGCC.sh]({{Source}}tools/build_config/dailyUpdateMakeGCC.sh) (for the linux part) and [{{SUMO}}/tools/build_config/dailyBuildMSVC.py]({{Source}}tools/build_config/dailyBuildMSVC.py) for Windows. Essentially they both
 perform the following steps:
 
 1.  git pull

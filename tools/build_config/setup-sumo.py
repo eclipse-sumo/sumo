@@ -50,7 +50,7 @@ setup(
     packages=['sumo'],
     package_dir={'': 'tools/build'},
 
-    cmake_install_dir='tools/build/sumo',
+    cmake_install_dir='tools/build_config/sumo',
 
     entry_points={
         'console_scripts': [

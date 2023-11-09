@@ -19,9 +19,8 @@ For ubuntu this boils down to
  sudo apt-get install git cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev python3-dev swig default-jdk maven libeigen3-dev
  git clone --recursive https://github.com/eclipse-sumo/sumo
  export SUMO_HOME="$PWD/sumo"
- mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
- cmake ../..
- make -j$(nproc)
+ cmake -B build .
+ cmake --build build -j$(nproc)
 ```
 
 Each of these steps is described in more detail and with possible
@@ -162,21 +161,20 @@ To build with cmake version 3 or higher is required.
 Create a build folder for cmake (in the sumo root folder)
 
 ```
-mkdir build/cmake-build
-cd build/cmake-build
+cmake -B build .
 ```
 
 to build sumo with the full set of available options just like GDAL and
 OpenSceneGraph support (if the libraries are installed) just run:
 
 ```
-cmake ../..
+cmake --build build -j $(nproc)
 ```
 
 to build the debug version just use
 
 ```
-cmake -D CMAKE_BUILD_TYPE=Debug ../..
+cmake -D CMAKE_BUILD_TYPE=Debug -B build .
 ```
 
 !!! note
@@ -185,7 +183,7 @@ cmake -D CMAKE_BUILD_TYPE=Debug ../..
 after this is finished, run
 
 ```
-make -j $(nproc)
+cmake --build build -j $(nproc)
 ```
 
 The `nproc` command gives you the number of logical cores on your
@@ -194,7 +192,7 @@ build a lot faster. If `nproc` is not available on your system, insert a
 fixed number here or leave the option out. You may also try
 
 ```
-make -j $(grep -c ^processor /proc/cpuinfo)
+cmake --build build -j $(grep -c ^processor /proc/cpuinfo)
 ```
 
 Other useful cmake options:
@@ -220,7 +218,7 @@ Our current clang configuration for additional static code checking
 enables the following CXXFLAGS:
 
 ```
--stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build/clang_sanitize_blacklist.txt
+-stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build_config/clang_sanitize_blacklist.txt
 ```
 
 You may of course leave out all the sanitizer-checks you don't want but
@@ -232,7 +230,7 @@ build, so for building with CMake and clang just change to your build
 dir and use
 
 ```
-CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../..
+CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug --build build -j $(nproc)
 ```
 
 The clang-debug-build will detect memory leaks (among other things)
@@ -285,11 +283,11 @@ that nightly builds of those packages are also available on https://test.pypi.or
 ```
 pip install wheel build
 cd tools
-python build/version.py build/setup-sumolib.py ./setup.py
+python build_config/version.py build_config/setup-sumolib.py ./setup.py
 python -m build --wheel
-python build/version.py build/setup-traci.py ./setup.py
+python build_config/version.py build_config/setup-traci.py ./setup.py
 python -m build --wheel
-python build/version.py build/setup-libsumo.py ./setup.py
+python build_config/version.py build_config/setup-libsumo.py ./setup.py
 python -m build --wheel
 ```
 You will need a recent version of pip (>=22) for this to work. If for some reason
@@ -297,7 +295,7 @@ you cannot update your pip you can also use the (discouraged!) method of calling
 setup.py directly.
 ```
 cd tools
-python build/setup-sumolib.py bdist_wheel
+python build_config/setup-sumolib.py bdist_wheel
 ```
 Please note that you always need to be in the tools directory for this to work
 and your wheels will be placed in tools/dist. Furthermore the traci and the sumolib wheel

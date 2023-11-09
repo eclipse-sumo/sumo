@@ -27,7 +27,7 @@ export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
 # the following is only needed for the clang build but it does not hurt others
-export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build/clang_memleak_suppressions.txt
+export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppressions.txt
 if test $# -ge 4; then
   CONFIGURE_OPT=$4
 fi
@@ -41,9 +41,9 @@ git clean -f -x -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG
 basename $MAKELOG >> $STATUSLOG
 git pull >> $MAKELOG 2>&1 || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-GITREV=`tools/build/version.py -`
+GITREV=`tools/build_config/version.py -`
 date >> $MAKELOG
-mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
+mkdir -p build/$FILEPREFIX && cd build/$FILEPREFIX
 cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 if make -j32 >> $MAKELOG 2>&1; then
   date >> $MAKELOG
@@ -137,21 +137,21 @@ WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
 rm -rf dist dist_native
 # native macOS M1 wheels and Linux ARM
 if test ${FILEPREFIX: -2} == "M1"; then
-  cp build/pyproject.toml .
-  python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
+  cp build_config/pyproject.toml .
+  python3 tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
   python3 -m build --wheel > $WHEELLOG 2>&1
-  python3 tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
+  python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
   python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
   python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
   # the credentials are in ~/.pypirc
   twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build_config/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
   twine upload --skip-existing -r testpypi wheelhouse/*
 fi
 # Linux x64 wheels
 if test ${FILEPREFIX} == "gcc4_64"; then
   mv dist dist_native  # just as backup
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build/build_wheels.sh $HTTPS_PROXY v0.13.0 > $WHEELLOG 2>&1
-  cp build/$FILEPREFIX/*.whl wheelhouse
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v0.13.0 > $WHEELLOG 2>&1
+  cp build_config/$FILEPREFIX/*.whl wheelhouse
 fi

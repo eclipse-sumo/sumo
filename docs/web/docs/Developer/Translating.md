@@ -58,7 +58,7 @@ The translation strings are split into two files for each language residing in `
 one for GUI stuff and one for the command line applications.
 While it is possible to edit these files directly, it is discouraged to avoid merge conflicts with the
 Weblate translations. These files still need to be compiled to be usable. Currently this is done manually
-by calling `tools/build/i18n.py`. This script also does a full scan of the `src` dir and checks for new
+by calling `tools/build_config/i18n.py`. This script also does a full scan of the `src` dir and checks for new
 translatable strings. If it finds some, all existing po files will be updated accordingly.
 
 # Testing translations
@@ -72,7 +72,7 @@ suppresses all translations. If you want the binaries to respect the environment
 # New language
 
 If you want to add a new language either [open an issue](https://github.com/eclipse-sumo/sumo/issues) with your request
-or run `tools/build/i18n.py -l <lang>` and make a pull request with the resulting po files.
+or run `tools/build_config/i18n.py -l <lang>` and make a pull request with the resulting po files.
 
 # For developers
 
@@ -92,6 +92,6 @@ Then you should review the changes and `git push` afterwards.
 Changing the translatable string directly in the source code will invalidate the translation because the original string is used 
 as a key in the `.po` translation files. By default, the obsolete translations will remain in the `.po` file but won't appear in 
 the [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) anymore. If the original string does not change its meaning, it 
-is preferable to use the python script `tools/build/updateMessageIDs.py` instead (see [updateMessageIDs.py help](../Tools/Build.md#updatemessageidspy). 
-The script `tools/build/obsoleteTranslations.py` (see [obsoleteTranslations.py help](../Tools/Build.md#obsoletetranslationspy)) can be used to 
+is preferable to use the python script `tools/build_config/updateMessageIDs.py` instead (see [updateMessageIDs.py help](../Tools/Build.md#updatemessageidspy). 
+The script `tools/build_config/obsoleteTranslations.py` (see [obsoleteTranslations.py help](../Tools/Build.md#obsoletetranslationspy)) can be used to 
 print the obsolete translations and optionally remove them completely from the `.po` files.

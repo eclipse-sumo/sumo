@@ -5,7 +5,7 @@ title: XML Validation
 # Status Quo (2018-10-12)
 
 - The current build scripts for windows and linux execute
-[schemaCheck.py]({{Source}}tools/build/schemaCheck.py)
+[schemaCheck.py]({{Source}}tools/build_config/schemaCheck.py)
 as part of the regular tool tests with results visible on the [daily
 build page](https://sumo.dlr.de/daily/) (see for instance the schema
 check tests on the very end of the [64bit linux tool tests

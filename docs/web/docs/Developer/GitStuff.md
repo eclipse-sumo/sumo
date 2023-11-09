@@ -11,7 +11,7 @@ repository, a working copy may enter a state with changes that can not
 be reverted (by stash or checkout).
 
 ```
-warning: CRLF will be replaced by LF in build/wix/sumo.wxs.
+warning: CRLF will be replaced by LF in build_config/wix/sumo.wxs.
 The file will have its original line endings in your working directory.
 ```
 

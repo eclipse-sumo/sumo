@@ -75,7 +75,7 @@ if (CCACHE_SUPPORT)
 endif()
 
 set(CMAKE_COLOR_MAKEFILE ON)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build_config/cmake_modules/")
 
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION} ${CMAKE_BUILD_TYPE}")
 
@@ -235,11 +235,11 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if (CLANG_COMPILER)
     if (WIN32) 
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer,unsigned-integer-overflow -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
         # set iterator de bug level in 0
         add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)
     else ()
-        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
     endif ()
 endif ()
 
@@ -610,7 +610,7 @@ endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
-        PATTERN "build/sumo" EXCLUDE  # needed for the scikit build
+        PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
@@ -632,15 +632,15 @@ install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 if (NOT ${PYTHON_SETUPTOOLS_MISSING})
     set(TOOLS_DIR "${CMAKE_SOURCE_DIR}/tools")
     if (${PYTHON_BUILD_MISSING})
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build_config/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pysumolib)
-        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
+        install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build_config/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
         add_custom_target(pure_wheels ALL
-                          COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-sumolib.py ./setup.py
+                          COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
                           COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
-                          COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-traci.py ./setup.py
+                          COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py
                           COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
                           WORKING_DIRECTORY ${TOOLS_DIR})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
@@ -650,7 +650,7 @@ endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
     # filter release DLLs
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
                     OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
     # copy debug dlls
     foreach(DLL_PATH ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
@@ -701,7 +701,7 @@ find_package(Gettext)
 if (Gettext_FOUND)
     set(I18N_DATA ${CMAKE_SOURCE_DIR}/data/locale/tr/LC_MESSAGES/sumo.mo)
     add_custom_command(OUTPUT ${I18N_DATA}
-                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/i18n.py -m
+                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/i18n.py -m
                        DEPENDS ${CMAKE_SOURCE_DIR}/data/po/tr_gui.po)
 else ()
     message(WARNING "Gettext tools not found, translation files will not be generated.")
@@ -745,7 +745,7 @@ set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doxygen PROPERTY FOLDER "doc")
 
 add_custom_target(userdoc
-    COMMAND ../../tools/build/buildPyDoc.py -p ../pydoc -c
+    COMMAND ../../tools/build_config/buildPyDoc.py -p ../pydoc -c
     COMMAND mkdocs build -d ../userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs/web)
 set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -864,7 +864,7 @@ if (GIT_FOUND)
         COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
         COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND cp -a build/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
+        COMMAND cp -a build_config/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
         COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

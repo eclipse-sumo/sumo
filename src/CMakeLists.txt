@@ -107,7 +107,7 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
     set(VERSION_DEP "${CMAKE_CURRENT_SOURCE_DIR}/../.git/index")
 endif()
 add_custom_command(OUTPUT version.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build/version.py ${CMAKE_CURRENT_BINARY_DIR}
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build_config/version.py ${CMAKE_CURRENT_BINARY_DIR}
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h DEPENDS version.h)

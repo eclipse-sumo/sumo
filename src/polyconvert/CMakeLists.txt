@@ -28,7 +28,7 @@ target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY} ${TCMALLOC_LIBRA
 add_dependencies(polyconvert generate-version-h install_dll)
 
 add_custom_command(OUTPUT pc_typemap.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py ${CMAKE_BINARY_DIR}/src
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build_config/typemap.py ${CMAKE_BINARY_DIR}/src
                    )
 set_source_files_properties(${CMAKE_BINARY_DIR}/src/polyconvert/pc_typemap.h PROPERTIES GENERATED TRUE)
 

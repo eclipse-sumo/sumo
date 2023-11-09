@@ -49,7 +49,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation and xsd schemata for configuration files
-    using `tools/build/rebuildConfigDocsAndXsd.py`
+    using `tools/build_config/rebuildConfigDocsAndXsd.py`
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
 - GitHub
@@ -74,12 +74,12 @@ assigned to a later milestone.
 
 All scenarios should be fixed by now.
 
-- patch the version information using `tools/build/updateReleaseInfo.py 0.13.7` and double check changes
+- patch the version information using `tools/build_config/updateReleaseInfo.py 0.13.7` and double check changes
   - in src/config.h.cmake, also the HAVE_VERSION_H macro should be disabled
   - in CMakeLists.txt
   - [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md)
-  - [in sumo.metainfo.xml]({{Source}}build/package/sumo.metainfo.xml)
+  - [in sumo.metainfo.xml]({{Source}}build_config/package/sumo.metainfo.xml)
     for correct flatpak info
   - in CITATION.cff
   - commit the changes

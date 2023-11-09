@@ -43,9 +43,9 @@ fi
 mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 echo "base_dir = $PWD/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
-cp build/pyproject.toml .
+cp build_config/pyproject.toml .
 py=/opt/python/cp38-cp38
-$py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
+$py/bin/python tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
 $py/bin/python -m build --wheel
 mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
 auditwheel repair dist/eclipse_sumo*.whl
@@ -54,12 +54,12 @@ for py in /opt/python/cp3[1789]*; do
     rm dist/*.whl
     pminor=`echo $py | sed 's,/opt/python/cp3,,;s/-.*//'`
     echo "base_dir = $PWD/_skbuild/linux-x86_64-3.${pminor}" >> $HOME/.ccache/ccache.conf
-    $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
+    $py/bin/python tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
     $py/bin/python -m build --wheel
-    $py/bin/python tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
+    $py/bin/python tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
     $py/bin/python -m build --wheel tools -o dist
     auditwheel repair dist/libsumo*.whl
 done
-rm -rf tools/*.egg-info tools/build/bdist* tools/build/*.egg-info tools/build/lib* tools/libsumo/data pyproject.toml
+rm -rf tools/*.egg-info tools/build tools/libsumo/data pyproject.toml
 chmod 777 dist wheelhouse
 chmod -R a+w _skbuild

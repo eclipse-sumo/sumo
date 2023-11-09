@@ -73,42 +73,33 @@ export SUMO_HOME="$PWD/sumo"
 SUMO is usually build as an out-of-source build. You need to create a directory for your build and invoke CMake to trigger the configuration from there. 
 ```
 cd $SUMO_HOME
-mkdir build/cmake-build
-cd build/cmake-build
-cmake ../..
+cmake -B build .
 ```
 The output of the CMake configuration process will show you which libraries have been found on your system and which SUMO features have been enabled accordingly.
 The build process can now be triggered with the following command
 ```
-cd $SUMO_HOME/build/cmake-build
-cmake --build . --parallel $(sysctl -n hw.ncpu)
+cd $SUMO_HOME
+cmake --build build --parallel $(sysctl -n hw.ncpu)
 ```
 ## Optional Steps
 
 ### TraCI as a Service (TraaS) 
 TraaS is a java library for working with TraCI. Building TraaS can be triggered with the following commands.
 ```
-cd $SUMO_HOME/build/cmake-build
-cmake --build . --target traas --parallel
+cd $SUMO_HOME
+cmake --build build --target traas --parallel
 ```
 
 ### Examples and Unit Tests
 SUMO provides unit tests to be used with Google's Testing and Mocking Framework - Googletest. In order to execute these tests you need to install Googletest first.
 ```
-git clone https://github.com/google/googletest
-cd googletest
-git checkout release-1.10.0
-mkdir build
-cd build
-cmake ..
-make
-make install
+brew install googletest
 ```
 
 The creation of the examples and the execution of the tests can be triggered as follows
 ```
-cd $SUMO_HOME/build/cmake-build
-make CTEST_OUTPUT_ON_FAILURE=1 examples test
+cd $SUMO_HOME
+CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --target examples test
 ```
 
 More information is provided [here](../Developer/Unit_Tests.md).
