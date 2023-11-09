@@ -17,10 +17,7 @@
 /.vim
 # build dir
 /clang*
-/cmake-build*
-/cmake_build*
-/build/*cmake-build*
-/build/*cmake_build*
+/build*
 /out
 # bin dir
 /bin/TraCITestClient*
