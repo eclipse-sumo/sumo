@@ -1,1 +1,2 @@
-Warning: Vehicle 'vehicle_0' aborted waiting for a joining vehicle that will never come.
+Error: File 'net.netedit' is not accessible (No such file or directory).
+Quitting (on error).
