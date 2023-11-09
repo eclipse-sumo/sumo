@@ -13,6 +13,7 @@
 
 # @file    abstractRail.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2023-02-22
 
 """
@@ -113,7 +114,12 @@ def loadRegions(options, net):
                 and name not in options.filterRegions
                     and taz.id not in options.filterRegions):
                 continue
-            edgeIDs = taz.edges.split()
+            edgeIDs = set()
+            if taz.edges is not None:
+                edgeIDs.update(taz.edges.split())
+            else:
+                edgeIDs.update([tazSink.id for tazSink in taz.tazSink])
+                edgeIDs.update([tazSource.id for tazSource in taz.tazSource])
             regions[name] = [net.getEdge(e) for e in edgeIDs if net.hasEdge(e)]
     else:
         regions['ALL'] = list(net.getEdges())
