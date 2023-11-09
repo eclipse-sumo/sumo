@@ -43,4 +43,6 @@
 	<route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1">
         <stop busStop="trainStopB" duration="60.00" until="20.00" extension="20.00" parking="0" permitted="C D" actType="singing" tripId="tripB" line="lineB"/>
     </route>
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
 </routes>

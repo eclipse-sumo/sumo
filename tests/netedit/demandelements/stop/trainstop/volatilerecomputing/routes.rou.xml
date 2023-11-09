@@ -37,7 +37,8 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0">
         <stop busStop="trainStopA" duration="60.00"/>
     </route>
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 </routes>

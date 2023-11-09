@@ -43,4 +43,6 @@
 	<route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1">
         <stop lane="EdgeCenter1_0" startPos="2.00" friendlyPos="1" posLat="20.00" endPos="5.00" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" tripId="tripB" line="lineB" onDemand="false"/>
     </route>
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
 </routes>

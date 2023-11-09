@@ -49,5 +49,9 @@
     <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_2">
         <stop busStop="trainStopA" line="customLine"/>
     </route>
+	
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
+	<vehicle id="vehicle_2" depart="0.00" route="route_2"/>
 
 </routes>
