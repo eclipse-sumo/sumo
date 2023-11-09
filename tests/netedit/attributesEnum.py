@@ -2479,6 +2479,8 @@ class stopBusStop:
         tripID = 18
         line = 19
         onDemand = 20
+        jump = 21
+        split = 22
 
     class inspect:
         durationEnable = 1
@@ -2496,6 +2498,7 @@ class stopBusStop:
         line = 12
         onDemand = 13
         jump = 14
+        split = 15
 
     class inspectSelection:
         durationEnable = 1
@@ -2513,6 +2516,7 @@ class stopBusStop:
         line = 14
         onDemand = 15
         jump = 16
+        split = 17
 
 # stop over train stop
 
@@ -2533,6 +2537,8 @@ class stopTrainStop:
         tripID = 18
         line = 19
         onDemand = 20
+        jump = 21
+        split = 22
 
     class inspect:
         durationEnable = 1
@@ -2550,6 +2556,7 @@ class stopTrainStop:
         line = 12
         onDemand = 13
         jump = 14
+        split = 15
 
     class inspectSelection:
         durationEnable = 1
@@ -2567,6 +2574,7 @@ class stopTrainStop:
         line = 14
         onDemand = 15
         jump = 16
+        split = 17
 
 # stop over container stop
 
@@ -2587,6 +2595,8 @@ class stopContainerStop:
         tripID = 18
         line = 19
         onDemand = 20
+        jump = 21
+        split = 22
 
     class inspect:
         durationEnable = 1
@@ -2604,6 +2614,7 @@ class stopContainerStop:
         line = 12
         onDemand = 13
         jump = 14
+        split = 15
 
     class inspectSelection:
         durationEnable = 1
@@ -2621,6 +2632,7 @@ class stopContainerStop:
         line = 14
         onDemand = 15
         jump = 16
+        split = 17
 
 # stop over charging station
 
@@ -2641,6 +2653,8 @@ class stopChargingStation:
         tripID = 18
         line = 19
         onDemand = 20
+        jump = 21
+        split = 22
 
     class inspect:
         durationEnable = 1
@@ -2658,6 +2672,7 @@ class stopChargingStation:
         line = 12
         onDemand = 13
         jump = 14
+        split = 15
 
     class inspectSelection:
         durationEnable = 1
@@ -2675,6 +2690,7 @@ class stopChargingStation:
         line = 14
         onDemand = 15
         jump = 16
+        split = 17
 
 # stop over parkings
 
@@ -2694,6 +2710,8 @@ class stopParking:
         tripID = 16
         line = 17
         onDemand = 18
+        jump = 19
+        split = 20
 
     class inspect:
         durationEnable = 1
@@ -2710,6 +2728,7 @@ class stopParking:
         line = 10
         onDemand = 11
         jump = 12
+        split = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2726,6 +2745,7 @@ class stopParking:
         line = 13
         onDemand = 14
         jump = 15
+        split = 16
 
 # stop over lane
 
@@ -2748,7 +2768,9 @@ class stopLane:
         tripID = 20
         line = 21
         onDemand = 22
-
+        jump = 23
+        split = 24
+        
     class inspect:
         lane = 1
         moveLane = 2
@@ -2770,6 +2792,8 @@ class stopLane:
         tripID = 17
         line = 18
         onDemand = 19
+        jump = 20
+        split = 21
 
     class inspectSelection:
         friendlyPos = 1
@@ -2788,6 +2812,8 @@ class stopLane:
         tripID = 16
         line = 17
         onDemand = 18
+        jump = 19
+        split = 20        
 
 # waypoint over bus stops
 
@@ -2806,7 +2832,9 @@ class waypointBusStop:
         tripID = 16
         line = 17
         speed = 18
-
+        jump = 19
+        split = 20
+        
     class inspect:
         durationEnable = 1
         duration = 2
@@ -2820,6 +2848,8 @@ class waypointBusStop:
         tripID = 9
         line = 10
         speed = 11
+        jump = 12
+        split = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2834,6 +2864,8 @@ class waypointBusStop:
         tripID = 11
         line = 12
         speed = 13
+        jump = 14
+        split = 15
 
 # waypoint over train stops
 
@@ -2852,6 +2884,8 @@ class waypointTrainStop:
         tripID = 16
         line = 17
         speed = 18
+        jump = 19
+        split = 20
 
     class inspect:
         durationEnable = 1
@@ -2866,6 +2900,8 @@ class waypointTrainStop:
         tripID = 9
         line = 10
         speed = 11
+        jump = 12
+        split = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2880,6 +2916,8 @@ class waypointTrainStop:
         tripID = 11
         line = 12
         speed = 13
+        jump = 14
+        split = 15
 
 # waypoint over container stops
 
@@ -2898,7 +2936,9 @@ class waypointContainerStop:
         tripID = 16
         line = 17
         speed = 18
-
+        jump = 19
+        split = 20
+        
     class inspect:
         durationEnable = 1
         duration = 2
@@ -2912,6 +2952,8 @@ class waypointContainerStop:
         tripID = 9
         line = 10
         speed = 11
+        jump = 12
+        split = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2926,7 +2968,9 @@ class waypointContainerStop:
         tripID = 11
         line = 12
         speed = 13
-
+        jump = 14
+        split = 15
+        
 # waypoint over charging stations
 
 
@@ -2944,6 +2988,8 @@ class waypointChargingStation:
         tripID = 16
         line = 17
         speed = 18
+        jump = 19
+        split = 20
 
     class inspect:
         durationEnable = 1
@@ -2958,6 +3004,8 @@ class waypointChargingStation:
         tripID = 9
         line = 10
         speed = 11
+        jump = 12
+        split = 13
 
     class inspectSelection:
         durationEnable = 1
@@ -2972,6 +3020,8 @@ class waypointChargingStation:
         tripID = 11
         line = 12
         speed = 13
+        jump = 14
+        split = 15
 
 # waypoint over parkings
 
@@ -2989,7 +3039,9 @@ class waypointParking:
         tripID = 14
         line = 15
         speed = 16
-
+        jump = 17
+        split = 18
+        
     class inspect:
         durationEnable = 1
         duration = 2
@@ -3002,6 +3054,8 @@ class waypointParking:
         tripID = 7
         line = 8
         speed = 9
+        jump = 10
+        split = 11
 
     class inspectSelection:
         durationEnable = 1
@@ -3015,6 +3069,8 @@ class waypointParking:
         tripID = 9
         line = 10
         speed = 11
+        jump = 12
+        split = 13
 
 # waypoint (over lane)
 
@@ -3035,6 +3091,8 @@ class waypointLane:
         tripID = 18
         line = 19
         speed = 20
+        jump = 21
+        split = 22
 
     class inspect:
         lane = 1
@@ -3055,6 +3113,8 @@ class waypointLane:
         tripID = 15
         line = 16
         speed = 17
+        jump = 18
+        split = 19
 
     class inspectSelection:
         friendlyPos = 1
@@ -3071,6 +3131,8 @@ class waypointLane:
         tripID = 13
         line = 14
         speed = 15
+        jump = 16
+        split = 17
 
 # Person
 
