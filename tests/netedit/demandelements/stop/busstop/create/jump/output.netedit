@@ -3,7 +3,6 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopBusStop
 TestFunctions: Clicked over position 679 - 180
-TestFunctions: Clicked over position 680 - 180
 dummyValue
 TestFunctions: Clicked over position 681 - 180
 -20
