@@ -173,7 +173,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
                 timePos += std::string(TL(" time")).size() + 1;
                 SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
-                    t = getTimeString(candidate, timePos, 0, candidate.length());
+                    t = getTimeString(candidate, timePos, 0, (int)candidate.length());
                     if (t >= 0) {
                         t += myBreakPointOffset;
                         std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
@@ -241,7 +241,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
         }
         // find time links
         pos = text.find(TL(" time"));
-        const int timeTerm = std::string(TL(" time")).size() + 1;
+        const int timeTerm = (int)std::string(TL(" time")).size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
             t = getTimeString(text, pos + timeTerm, 0, text.length());
