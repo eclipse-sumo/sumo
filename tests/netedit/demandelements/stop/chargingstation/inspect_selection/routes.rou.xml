@@ -30,16 +30,17 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopChargingStation\inspect_selection\input_routes.rou.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
     </netedit>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="bike" vClass="bike"/>
-    <flow id="flow" type="bike" begin="0.00" end="36.00" number="18" from="Edge0" to="EdgeCenter0">
-        <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" tripId="tripA" line="lineA" onDemand="true"/>
-        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" tripId="tripB" line="lineB" onDemand="false"/>
-    </flow>
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0">
+        <stop chargingStation="chargingStationA" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" tripId="tripA" line="lineA" onDemand="false" jump="4" split="splitA"/>
+    </route>
+	<route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1">
+        <stop chargingStation="chargingStationB" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" tripId="tripB" line="lineB" onDemand="true" jump="8.4" split="splitB"/>
+    </route>
 </routes>
