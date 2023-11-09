@@ -19,6 +19,11 @@ their XML definitions:
 - Polygon
 - Route
 - TrafficLight
+- ChargingStation
+- ParkingArea
+- Calibrator
+- Rerouter
+- VariableSpeedSign
 
 Parameters support the following functionality
 
