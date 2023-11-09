@@ -218,7 +218,7 @@ Example call:
 python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml --output-prefix abstract
 ```
 
-It is also possible to to automatically segment the network:
+It is also possible to automatically segment the network:
 ```
 python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --split --output-prefix abstract
 ```
@@ -236,4 +236,4 @@ python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_addition
     If the network is large and not segmented or if the individual station segments are large, the conversion process can take a long time. The option **--skip-large INT** can be used to selective skip large regions (measured by the number of optimization constraints, reported via **--verbose** output).
 
 !!! caution
-    If option **--skip** is used the original network may be split (under an new name) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (under a new name) but any traffic demand (route files) have to be adapted for the split network.
+    If option **--skip** is used the original network may be split (under a new name) and the generated abstract network will have the same edges as the split net. The input stop-file will also be adapted for the split net (under a new name) but any traffic demand (route files) have to be adapted for the split network.
