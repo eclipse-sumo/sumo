@@ -6292,6 +6292,11 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("List of elements that must board the vehicle before it may continue"));
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_JOIN,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                              TL("Joins this train to another upn reaching the stop"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERMITTED,
