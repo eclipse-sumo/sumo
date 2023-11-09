@@ -56,12 +56,12 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install build
-        cp build/pyproject.toml .
-        python3 tools/build/version.py tools/build/setup-sumo.py ./setup.py
+        cp build_config/pyproject.toml .
+        python3 tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
         python3 -m build --wheel
-        python3 tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
+        python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
         python3 -m build --wheel tools -o dist
-        python3 tools/build/version.py tools/build/setup-libtraci.py tools/setup.py
+        python3 tools/build_config/version.py tools/build_config/setup-libtraci.py tools/setup.py
         python3 -m build --wheel tools -o dist
         if [[ "${{ matrix.python_version }}" != "3.8" ]]; then rm dist/eclipse_sumo-*; fi
         if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
@@ -126,9 +126,9 @@ jobs:
       run: |
         cd tools
         python3 -m pip install build
-        python3 build/version.py build/setup-sumolib.py ./setup.py
+        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
         python3 -m build --wheel
-        python3 build/version.py build/setup-traci.py ./setup.py
+        python3 build_config/version.py build_config/setup-traci.py ./setup.py
         python3 -m build --wheel
 
     - name: Running libsumo tests

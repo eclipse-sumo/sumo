@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: build/docker/Dockerfile.ubuntu.git
+          file: build_config/docker/Dockerfile.ubuntu.git
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

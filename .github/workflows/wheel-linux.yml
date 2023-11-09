@@ -36,23 +36,23 @@ jobs:
       run: |
         cd tools
         python -m pip install build
-        python build/version.py build/setup-sumolib.py ./setup.py
+        python build_config/version.py build_config/setup-sumolib.py ./setup.py
         python -m build -o ../wheelhouse
-        python build/version.py build/setup-traci.py ./setup.py
+        python build_config/version.py build_config/setup-traci.py ./setup.py
         python -m build -o ../wheelhouse
 
     - name: Building SUMO / libsumo Python wheels (latest manylinux docker)
       # if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
-        entrypoint: tools/build/build_wheels.sh
+        entrypoint: tools/build_config/build_wheels.sh
 
     # the next two steps are only needed when we debug the manylinux build
     # - name: Building Python wheels (fixed manylinux docker)
     #   if: github.repository == 'eclipse-sumo/sumo'
     #   uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
     #   with:
-    #     entrypoint: tools/build/build_wheels.sh
+    #     entrypoint: tools/build_config/build_wheels.sh
 
     # - name: Uploading raw wheels (without auditwheel being applied)
     #   uses: actions/upload-artifact@v3
