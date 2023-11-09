@@ -8,6 +8,9 @@ title: ChangeLog
 
 ### Enhancements
 
+- Other
+  - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
+
 ### Miscellaneous
 
 

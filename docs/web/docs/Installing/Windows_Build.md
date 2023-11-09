@@ -191,9 +191,9 @@ this, unless you are building from the [source code
 repository](../FAQ.md#how_do_i_access_the_code_repository). In
 this case you should probably install Python. Even if Python is
 installed the file associations may be broken which causes the
-generation of `src/version.h` via the `tools/build/version.py` script to fail. Either
+generation of `src/version.h` via the `tools/build_config/version.py` script to fail. Either
 repair your file associations or undefine **HAVE_VERSION_H** in
-`src/windows_config.h`.
+`src/config.h.cmake`.
 
 If you did install Python correctly, double check that it passes
 [command line
