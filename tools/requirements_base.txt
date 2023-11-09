@@ -1,7 +1,7 @@
 # these requirements reflect the test server setup
 ezdxf==0.14.2
 fmpy==0.3.13
-lxml==4.8.0
+lxml==4.9.1
 matplotlib==3.5.1
 ortools==9.5.2237
 pandas==1.3.5
