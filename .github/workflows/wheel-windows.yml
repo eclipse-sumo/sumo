@@ -82,20 +82,20 @@ jobs:
         cmake -Bbuild_msvc -GNinja -DCHECK_OPTIONAL_LIBS=false
         cmake --build build_msvc --config Release --target libsumo libtraci
         xcopy /s data .\tools\libsumo\data\
-        python tools\build\version.py tools\build\setup-libsumo.py tools\setup.py
+        python tools\build_config\version.py tools\build_config\setup-libsumo.py tools\setup.py
         python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
-        python tools\build\version.py tools\build\setup-libtraci.py tools\setup.py
+        python tools\build_config\version.py tools\build_config\setup-libtraci.py tools\setup.py
         python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
 
     - name: Building SUMO Wheels
       if: matrix.build_type == 'sumo'
       run: |
-        python tools\build\version.py tools\build\setup-sumolib.py tools\setup.py
+        python tools\build_config\version.py tools\build_config\setup-sumolib.py tools\setup.py
         python -m build --wheel tools -o dist
-        python tools\build\version.py tools\build\setup-traci.py tools\setup.py
+        python tools\build_config\version.py tools\build_config\setup-traci.py tools\setup.py
         python -m build --wheel tools -o dist
         copy build\pyproject.toml .
-        python tools\build\version.py tools\build\setup-sumo.py .\setup.py
+        python tools\build_config\version.py tools\build_config\setup-sumo.py .\setup.py
         python -m build --wheel --config-setting=--plat-name=win_amd64 --config-setting=-G=Ninja
         python -c "import glob, os; f = glob.glob(\`"dist/eclipse_sumo-*\`")[0]; os.rename(f, f.replace(\`"cp38-cp38\`", \`"py2.py3-none\`"))"
 
