@@ -101,7 +101,7 @@ Ubuntu, Debian and Arch users please see the community repositories above.
 You can read the Homebrew-based installation guide [here](Installing/index.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
 
 "Bottles" are available for installing with
-[Homebrew](https://brew.sh/). They are built the three most recent
+[Homebrew](https://brew.sh/). They are built for the three most recent
 macOS versions (currently Monterey, Ventura and Sonoma) and are built
 from source with minimal requirements (fox, proj, xerces-c). If you need
 optional libraries, you can specify these on the brew command line and
