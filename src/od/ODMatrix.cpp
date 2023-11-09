@@ -76,6 +76,9 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
               const std::string& origin, const std::string& destination,
               const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge,
               bool noScaling) {
+    if (vehicleNumber == 0) {
+        return false;
+    }
     myNumLoaded += vehicleNumber;
     if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
         WRITE_WARNINGF(TL("Missing origin '%' and destination '%' (% vehicles)."), origin, destination, toString(vehicleNumber));
@@ -83,12 +86,12 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
         myMissingDistricts.insert(origin);
         myMissingDistricts.insert(destination);
         return false;
-    } else if (!originIsEdge && myDistricts.get(origin) == 0 && vehicleNumber > 0) {
+    } else if (!originIsEdge && myDistricts.get(origin) == 0) {
         WRITE_ERRORF(TL("Missing origin '%' (% vehicles)."), origin, toString(vehicleNumber));
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         return false;
-    } else if (!destinationIsEdge && myDistricts.get(destination) == 0 && vehicleNumber > 0) {
+    } else if (!destinationIsEdge && myDistricts.get(destination) == 0) {
         WRITE_ERRORF(TL("Missing destination '%' (% vehicles)."), destination, toString(vehicleNumber));
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(destination);
