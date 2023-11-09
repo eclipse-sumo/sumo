@@ -48,7 +48,7 @@ setup(
     keywords='traffic simulation traci sumo',
 
     packages=['sumo'],
-    package_dir={'': 'tools/build'},
+    package_dir={'': 'tools/build_config'},
 
     cmake_install_dir='tools/build_config/sumo',
 
