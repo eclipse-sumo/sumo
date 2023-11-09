@@ -512,6 +512,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(posLat);
             }
+        case SUMO_ATTR_SPLIT:
+            return split;
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -651,6 +653,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_POSITION_LAT:
+        case SUMO_ATTR_SPLIT:
         // other
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
@@ -786,6 +789,12 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return canParse<double>(value);
+            }
+        case SUMO_ATTR_SPLIT:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidVehicleID(value);
             }
         //
         case GNE_ATTR_SELECTED:
@@ -1237,6 +1246,14 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 posLat = parse<double>(value);
                 parametersSet |= STOP_POSLAT_SET;
+            }
+            break;
+        case SUMO_ATTR_SPLIT:
+            split = value;
+            if (split.size() > 0) {
+                parametersSet |= STOP_SPLIT_SET;
+            } else {
+                parametersSet &= ~STOP_SPLIT_SET;
             }
             break;
         //

@@ -6345,6 +6345,11 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           TL("transfer time if there shall be a jump from this stop to the next route edge"),
                                           "-1");
     myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_SPLIT,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("Splits the train upon reaching the stop"));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
