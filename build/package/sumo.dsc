@@ -12,6 +12,7 @@ Build-Depends: cmake,
                dpkg-dev (>= 1.16.1~),
                freeglut3-dev,
                libgl1-mesa-dev,
+               libgl-dev,
                help2man,
                libbz2-dev,
                libcups2-dev,
@@ -24,9 +25,9 @@ Build-Depends: cmake,
                libxrandr-dev,
                swig,
                maven,
-               openjdk-8-jdk | openjdk-11-jdk,
+               default-jdk,
                python3-matplotlib,
                python3-setuptools
 Files: 
- d57283ebb8157ae919762c58419353c8 133282 sumo_5.6.orig.tar.gz
- d57283ebb8157ae919762c58419353c8 133282 sumo_5.6.debian.tar.xz
+ d57283ebb8157ae919762c58419353c8 133282 sumo_git.orig.tar.gz
+ d57283ebb8157ae919762c58419353c8 133282 sumo.debian.tar.xz

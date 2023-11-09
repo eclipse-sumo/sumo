@@ -15,11 +15,12 @@
 /.pydevproject
 /.vs
 /.vim
-# build dir 
+# build dir
 /clang*
 /cmake-build*
 /cmake_build*
-/build/*
+/build/*cmake-build*
+/build/*cmake_build*
 /out
 # bin dir
 /bin/TraCITestClient*
