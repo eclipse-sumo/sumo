@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-06 14:53+0000\n"
+"PO-Revision-Date: 2023-11-09 11:51+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9141,7 +9141,7 @@ msgstr "El instante de tiempo en el cual la persona deberá ingresar a la red"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4405
 msgid "PersonFlow"
-msgstr ""
+msgstr "Flujo de personas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4436
 msgid "The time step at which the container shall enter the network"
@@ -9150,7 +9150,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4447
 msgid "ContainerFlow"
-msgstr ""
+msgstr "Flujo de contenedores"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4471
 msgid "Transport: edge->edge"
@@ -10077,33 +10077,33 @@ msgstr "ID de la parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6412
 msgid "Edge start ID"
-msgstr ""
+msgstr "ID de la arista inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6418
 msgid "TAZ start ID"
-msgstr ""
+msgstr "ID de la zona de análisis de tráfico inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6424
 msgid "Junction start ID"
-msgstr ""
+msgstr "ID del cruce inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6430
 msgid "BuStop start ID"
-msgstr ""
+msgstr "ID de la parada de bus inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6436
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6487
 msgid "TrainStop start ID"
-msgstr ""
+msgstr "ID de la parada de tren inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6442
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6493
 msgid "ContainerStop start ID"
-msgstr ""
+msgstr "ID de la parada de contenedor inicial"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6449
 msgid "Edge end ID"
-msgstr ""
+msgstr "ID de la arista final"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6456
 msgid "The position at which the tranship shall enter the net"
@@ -10116,15 +10116,15 @@ msgstr "posición de llegada sobre la arista destino"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6469
 msgid "TAZ end ID"
-msgstr ""
+msgstr "ID de la zona de análisis de tráfico final"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6475
 msgid "Junction end ID"
-msgstr ""
+msgstr "ID del cruce final"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6481
 msgid "BuStop end ID"
-msgstr ""
+msgstr "ID de la parada de bus final"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6506
 msgid "List of possible vehicle types to take"
@@ -10135,14 +10135,16 @@ msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr ""
+"Lista de posibles modos de tráfico. Caminar siempre es posible "
+"independientemente de este valor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6516
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
+msgstr "lista de alternativas de vehículos a tomar para el viaje de la persona"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6536
 msgid "list of vehicle alternatives to take for the ride"
-msgstr ""
+msgstr "lista de alternativas de vehículos para tomar en este viaje"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6550
 msgid "list of vehicle alternatives to take for the transport"
@@ -10163,11 +10165,11 @@ msgstr "Set de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6624
 msgid "Data set ID"
-msgstr ""
+msgstr "ID del conjunto de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6636
 msgid "DataInterval"
-msgstr ""
+msgstr "Intervalo de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6642
 msgid "Interval ID"
@@ -10175,11 +10177,11 @@ msgstr "ID del intervalo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6648
 msgid "Data interval begin time"
-msgstr ""
+msgstr "Tiempo de inicio del intervalo de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6654
 msgid "Data interval end time"
-msgstr ""
+msgstr "Tiempo de finalización del intervalo de datos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6666
 msgid "EdgeRelationSingle"
@@ -10207,19 +10209,19 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6722
 msgid "MeanDataEdge"
-msgstr ""
+msgstr "MeanDataEdge"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6735
 msgid "MeanDataLane"
-msgstr ""
+msgstr "MeanDataLane"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6750
 msgid "The id of this set of measurements"
-msgstr ""
+msgstr "El ID de este conjunto de medidas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6755
 msgid "The path to the output file. The path may be relative"
-msgstr ""
+msgstr "La ruta al archivo de salida. Esta ruta puede ser relativa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6765
 msgid ""
@@ -10239,31 +10241,39 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6782
 msgid "If set, junction internal edges/lanes will be written as well"
 msgstr ""
+"Si se establece, las aristas y carriles internos del cruce también se "
+"escribirán"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6788
 msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr ""
+"El tiempo máximo de viaje en segundos a escribir si solo se producen "
+"movimientos muy pequeños"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6794
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr ""
+"Considerar una arista/carril no utilizada si tiene como máximo esta cantidad "
+"de segundos de muestreo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6800
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr ""
+msgstr "La velocidad máxima para considerar que un vehículo está detenido;"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6806
 msgid "space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "lista separada por espacios de IDs de tipos de vehículos a considerar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6811
 msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr ""
+"si la agregación debe realizarse sobre todos los vehículos que ingresaron a "
+"la arista/carril en el intervalo de agregación"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6817
 msgid ""
@@ -10277,17 +10287,19 @@ msgstr "Lista de nombres de atributo que deberán escribirse"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6827
 msgid "Restrict output to the given list of edge ids"
-msgstr ""
+msgstr "Restringir la salida a la lista dada de IDs de arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6832
 msgid "Restrict output to the given the list of edges given in file"
-msgstr ""
+msgstr "Restringir la salida a la lista de aristas dada en el archivo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6837
 msgid ""
 "Whether the traffic statistic of all edges shall be aggregated into a single "
 "value"
 msgstr ""
+"Si la estadística de tráfico de todas las aristas deberá ser agregarada en "
+"un solo valor"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
@@ -14476,7 +14488,7 @@ msgstr "Descartar modificaciones al programa. (Esc)"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1504
 msgid "TLSDefinition cannot be found"
-msgstr ""
+msgstr "La definición de semáforo no se pudo encontrar"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1546
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1559
@@ -14770,11 +14782,11 @@ msgstr "Error al cargar la selección"
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:243
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:244
 msgid " time"
-msgstr ""
+msgstr " tiempo"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:184
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "Establecer punto de interrupción en %"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
@@ -15438,7 +15450,7 @@ msgstr "montando"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1117
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1148
 msgid "accessing trainStop"
-msgstr ""
+msgstr "accediendo a una parada de tren"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1118
 msgid "waiting for ride"
@@ -15555,7 +15567,7 @@ msgstr "libre"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1351
 msgid "limitedControl"
-msgstr ""
+msgstr "limitado"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1352
 msgid "jammed"
@@ -15579,7 +15591,7 @@ msgstr "por velocidad relativa (por segmento)"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1379
 msgid "no TAZ"
-msgstr ""
+msgstr "sin zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1531
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1629
