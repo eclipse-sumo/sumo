@@ -72,11 +72,9 @@ jobs:
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
       run: |
         sudo apt-get install libgeos-dev
-        mkdir jupedsim-build jupedsim-install
-        cd jupedsim-build
-        cmake -DCMAKE_INSTALL_PREFIX=$PWD/../jupedsim-install ../jupedsim
-        cmake --build . -j4 --config Release
-        cmake --install . --config Release
+        cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
+        cmake --build jupedsim-build -j4 --config Release
+        cmake --install jupedsim-build --config Release
 
     - name: Configuring SUMO
       run: |
