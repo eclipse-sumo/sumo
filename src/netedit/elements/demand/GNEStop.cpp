@@ -179,11 +179,11 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
         if (getParentLanes().size() > 0) {
             device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
         }
-        if ((parametersSet & STOP_START_SET) != 0) {
+        if (startPos != INVALID_DOUBLE) {
             device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
         }
-        if ((parametersSet & STOP_END_SET) != 0) {
-            device.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+        if (endPos != INVALID_DOUBLE) {
+            device.writeAttr(SUMO_ATTR_ENDPOS, endPos); 
         }
     }
     // write rest of attributes
@@ -197,7 +197,7 @@ GNEStop::isDemandElementValid() const {
         return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
-        if (myTagProperty.getTag() != GNE_TAG_STOP_LANE) {
+        if (!myTagProperty.hasAttribute(SUMO_ATTR_FRIENDLY_POS)) {
             return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
@@ -501,9 +501,17 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_STARTPOS:
-            return toString(startPos);
+            if (startPos != INVALID_DOUBLE) {
+                return toString(startPos);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ENDPOS:
-            return toString(endPos);
+            if (endPos != INVALID_DOUBLE) {
+                return toString(endPos);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(friendlyPos);
         case SUMO_ATTR_POSITION_LAT:
@@ -552,15 +560,19 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
         case GNE_ATTR_PLAN_GEOMETRY_STARTPOS:
             if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-            } else {
+            } else if (startPos != INVALID_DOUBLE) {
                 return startPos;
+            } else {
+                return 0;
             }
         case SUMO_ATTR_ENDPOS:
         case GNE_ATTR_PLAN_GEOMETRY_ENDPOS:
             if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else {
+            } else if (endPos != INVALID_DOUBLE) {
                 return endPos;
+            } else {
+                return getParentLanes().front()->getLaneShapeLength();
             }
         case SUMO_ATTR_INDEX: // for writting sorted
             return (double)myCreationIndex;
@@ -771,13 +783,17 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (canParse<double>(value)) {
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(parse<double>(value), endPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
             }
         case SUMO_ATTR_ENDPOS:
-            if (canParse<double>(value)) {
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
                 return SUMORouteHandler::isStopPosValid(startPos, parse<double>(value), getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPos);
             } else {
                 return false;
@@ -1229,11 +1245,19 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             break;
         case SUMO_ATTR_STARTPOS:
-            startPos = parse<double>(value);
+            if (value.empty()) {
+                startPos = INVALID_DOUBLE;
+            } else {
+                startPos = parse<double>(value);
+            }
             updateGeometry();
             break;
         case SUMO_ATTR_ENDPOS:
-            endPos = parse<double>(value);
+            if (value.empty()) {
+                endPos = INVALID_DOUBLE;
+            } else {
+                endPos = parse<double>(value);
+            }
             updateGeometry();
             break;
         case SUMO_ATTR_FRIENDLY_POS:

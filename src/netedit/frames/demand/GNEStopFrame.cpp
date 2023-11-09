@@ -390,11 +390,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_STARTPOS)) {
             stop.startPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_STARTPOS);
             stop.parametersSet |= STOP_START_SET;
+        } else {
+            stop.startPos = INVALID_DOUBLE;
         }
         // check if end position can be parsed
         if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_ENDPOS)) {
             stop.endPos = stopBaseObject->getDoubleAttribute(SUMO_ATTR_ENDPOS);
             stop.parametersSet |= STOP_END_SET;
+        } else {
+            stop.endPos = INVALID_DOUBLE;
         }
     }
     // obtain friendly position
@@ -417,19 +421,21 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // fill rest of parameters depending if it was edited
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
         stop.duration = stopBaseObject->getTimeAttribute(SUMO_ATTR_DURATION);
-        stop.parametersSet |= STOP_DURATION_SET;
-    } else {
-        stop.duration = -1;
+        if (stop.duration >= 0) {
+            stop.parametersSet |= STOP_DURATION_SET;
+        }
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
         stop.until = stopBaseObject->getTimeAttribute(SUMO_ATTR_UNTIL);
-        stop.parametersSet |= STOP_UNTIL_SET;
-    } else {
-        stop.until = -1;
+        if (stop.until >= 0) {
+            stop.parametersSet |= STOP_UNTIL_SET;
+        }
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_EXTENSION)) {
         stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
-        stop.parametersSet |= STOP_EXTENSION_SET;
+        if (stop.extension >= 0) {
+            stop.parametersSet |= STOP_EXTENSION_SET;
+        }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
         if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true")) {
@@ -476,34 +482,46 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
         if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
+            // temporal, currently OPPORTUNISTIC don't supported
+            stop.parking = ParkingType::ONROAD;
             stop.parametersSet |= STOP_PARKING_SET;
         }
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_JUMP)) {
-        if (stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP) >= 0) {
+        stop.jump = stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP);
+        if (stop.jump >= 0) {
             stop.parametersSet |= STOP_JUMP_SET;
-            stop.jump = stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP);
         }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_SPLIT)) {
-        stop.parametersSet |= STOP_SPLIT_SET;
         stop.split = stopBaseObject->getStringAttribute(SUMO_ATTR_SPLIT);
+        if (stop.split.size() > 0) {
+            stop.parametersSet |= STOP_SPLIT_SET;
+        }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
-        stop.parametersSet |= STOP_TRIP_ID_SET;
+        if (stop.tripId.size() > 0) {
+            stop.parametersSet |= STOP_TRIP_ID_SET;
+        }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_LINE)) {
         stop.line = stopBaseObject->getStringAttribute(SUMO_ATTR_LINE);
-        stop.parametersSet |= STOP_LINE_SET;
+        if (stop.line.size() > 0) {
+            stop.parametersSet |= STOP_LINE_SET;
+        }
     }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_ONDEMAND)) {
         stop.onDemand = stopBaseObject->getBoolAttribute(SUMO_ATTR_ONDEMAND);
-        stop.parametersSet |= STOP_ONDEMAND_SET;
+        if (stop.onDemand) {
+            stop.parametersSet |= STOP_ONDEMAND_SET;
+        }
     }
     if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_SPEED) && (stopBaseObject->getDoubleAttribute(SUMO_ATTR_SPEED) > 0)) {
         stop.speed = stopBaseObject->getDoubleAttribute(SUMO_ATTR_SPEED);
-        stop.parametersSet |= STOP_SPEED_SET;
+        if (stop.speed > 0) {
+            stop.parametersSet |= STOP_SPEED_SET;
+        }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_INDEX)) {
         if (stopBaseObject->getStringAttribute(SUMO_ATTR_INDEX) == "fit") {
