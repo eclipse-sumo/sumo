@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-09 15:31+0000\n"
+"PO-Revision-Date: 2023-11-11 13:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -7922,11 +7922,11 @@ msgstr "La pendenza dei posti di parcheggio lungo la strada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2013
 msgid "E1 InductionLoop"
-msgstr ""
+msgstr "Circuito di induzione"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2018
 msgid "The id of E1"
-msgstr ""
+msgstr "Il codice identificativo del circuito di induzione"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2023
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2077
@@ -7937,6 +7937,8 @@ msgid ""
 "The id of the lane the detector shall be laid on. The lane must be a part of "
 "the network used"
 msgstr ""
+"Il codice identificativo della corsia dove il rivelatore deve essere "
+"posizionato. La corsia deve far parte della rete usata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2028
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2367
@@ -7944,6 +7946,8 @@ msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
 msgstr ""
+"La posizione in metri del rivelatore sulla corsia. La posizione deve "
+"assumere un valore tra -1*lunghezza della corsia e la lunghezza stessa"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2033
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2093
@@ -7953,6 +7957,7 @@ msgstr ""
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
 msgstr ""
+"Il periodo di aggregazione per aggregare i valori raccolti dal rivelatore"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2039
 msgid "Name of induction loop"
@@ -7987,20 +7992,20 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2304
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2333
 msgid "The position on the lane the detector shall be laid on in meters"
-msgstr ""
+msgstr "La posizione in metri del rivelatore sulla corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2087
 msgid "The length of the detector in meters"
-msgstr ""
+msgstr "La lunghezza del rivelatore in metri"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2099
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2181
 msgid "The traffic light that triggers aggregation when switching"
-msgstr ""
+msgstr "Il semaforo che fa scattare l'aggregazione cambiando signale"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2104
 msgid "Name of lane area detector"
-msgstr ""
+msgstr "Nome del rivelatore multi-corsie"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2119
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2201
