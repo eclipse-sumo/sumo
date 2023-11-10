@@ -1,3 +1,2 @@
-Error: Attribute 'expectedContainers' in definition of a stop is empty.
-Error: Invalid route 'route_4' used in vehicle 'vehicle_4'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Nov162548.68362/netedit.gui/demandelements/stop/busstop/load/expectedcontainers/routes.rou.xml failed.
+Error: Attribute 'join' in definition of a stop is empty.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.10Nov104604.38939/netedit.gui/demandelements/stop/busstop/load/join/routes.rou.xml failed.
