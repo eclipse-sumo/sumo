@@ -6,6 +6,8 @@ TestFunctions: Clicked over position 919 - 159
 TestFunctions: Clicked over position 919 - 159
 dummy
 join
+;;;
+customJoin
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

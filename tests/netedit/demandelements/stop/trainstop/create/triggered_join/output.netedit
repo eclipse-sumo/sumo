@@ -3,7 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopTrainStop
 join
-TestFunctions: Clicked over position 679 - 258
+TestFunctions: Clicked over position 680 - 258
+;;;
+TestFunctions: Clicked over position 681 - 258
+customJoin
+TestFunctions: Clicked over position 682 - 258
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

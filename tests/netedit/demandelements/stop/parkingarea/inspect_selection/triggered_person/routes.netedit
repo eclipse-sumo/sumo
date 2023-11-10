@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-09 15:59:24 by Eclipse SUMO netedit Version v1_19_0+0034-128786327d5
+<!-- generated on 2023-11-10 09:58:04 by Eclipse SUMO netedit Version v1_19_0+0034-128786327d5
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="Edge3 Edge4 Edge5" color="yellow"/>
-        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="personA personB" permitted="A B" tripId="tripA" line="lineA" onDemand="1" actType="walking"/>
+        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="personA personB" permitted="A B" tripId="tripA" line="lineA" split="splitA" onDemand="1" jump="4.00" actType="walking"/>
     </vehicle>
     <vehicle id="vehicle_1" depart="0.00">
         <route edges="EdgeCenter0 EdgeCenter1" color="yellow"/>
-        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="person" parking="1" expected="personA personB" permitted="C D" tripId="tripB" line="lineB" actType="singing"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="person" parking="1" expected="personA personB" permitted="C D" tripId="tripB" line="lineB" split="splitB" jump="8.40" actType="singing"/>
     </vehicle>
 </routes>
