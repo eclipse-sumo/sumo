@@ -2473,6 +2473,7 @@ class stopBusStop:
         extension = 11
         triggered = 12
         expected = 14
+        join = 14
         permitted = 14
         parking = 15
         actType = 17
@@ -2491,6 +2492,7 @@ class stopBusStop:
         extension = 4
         triggered = 5
         expected = 7
+        join = 7
         permitted = 7
         parking = 8
         actType = 10
@@ -2509,6 +2511,7 @@ class stopBusStop:
         extension = 6
         triggered = 7
         expected = 9
+        join = 9
         permitted = 10
         parking = 10
         actType = 12
@@ -2531,6 +2534,7 @@ class stopTrainStop:
         extension = 11
         triggered = 12
         expected = 14
+        join = 14
         permitted = 14
         parking = 15
         actType = 17
@@ -2549,6 +2553,7 @@ class stopTrainStop:
         extension = 4
         triggered = 5
         expected = 7
+        join = 7
         permitted = 7
         parking = 8
         actType = 10
@@ -2567,6 +2572,7 @@ class stopTrainStop:
         extension = 6
         triggered = 7
         expected = 9
+        join = 9
         permitted = 10
         parking = 10
         actType = 12
@@ -2589,6 +2595,7 @@ class stopContainerStop:
         extension = 11
         triggered = 12
         expected = 14
+        join = 14
         permitted = 14
         parking = 15
         actType = 17
@@ -2607,6 +2614,7 @@ class stopContainerStop:
         extension = 4
         triggered = 5
         expected = 7
+        join = 7
         permitted = 7
         parking = 8
         actType = 10
@@ -2625,6 +2633,7 @@ class stopContainerStop:
         extension = 6
         triggered = 7
         expected = 9
+        join = 9
         permitted = 10
         parking = 10
         actType = 12
@@ -2647,6 +2656,7 @@ class stopChargingStation:
         extension = 11
         triggered = 12
         expected = 14
+        join = 14
         permitted = 14
         parking = 15
         actType = 17
@@ -2665,6 +2675,7 @@ class stopChargingStation:
         extension = 4
         triggered = 5
         expected = 7
+        join = 7
         permitted = 7
         parking = 8
         actType = 10
@@ -2683,6 +2694,7 @@ class stopChargingStation:
         extension = 6
         triggered = 7
         expected = 9
+        join = 9
         permitted = 10
         parking = 10
         actType = 12
@@ -2705,6 +2717,7 @@ class stopParking:
         extension = 11
         triggered = 12
         expected = 14
+        join = 14
         permitted = 14
         actType = 15
         tripID = 16
@@ -2722,6 +2735,7 @@ class stopParking:
         extension = 4
         triggered = 5
         expected = 7
+        join = 7
         permitted = 7
         actType = 8
         tripID = 9
@@ -2739,6 +2753,7 @@ class stopParking:
         extension = 6
         triggered = 7
         expected = 9
+        join = 9
         permitted = 10
         actType = 11
         tripID = 12
@@ -2762,6 +2777,7 @@ class stopLane:
         extension = 13
         triggered = 14
         expected = 16
+        join = 16
         permitted = 16
         parking = 17
         actType = 19
@@ -2786,6 +2802,7 @@ class stopLane:
         extension = 10
         triggered = 11
         expected = 13
+        join = 13
         permitted = 13
         parking = 14
         actType = 16
@@ -2806,6 +2823,7 @@ class stopLane:
         extension = 8
         triggered = 9
         expected = 11
+        join = 11
         permitted = 12
         parking = 13
         actType = 15
