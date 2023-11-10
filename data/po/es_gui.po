@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 09:44+0000\n"
+"PO-Revision-Date: 2023-11-10 10:43+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7498,6 +7498,8 @@ msgid ""
 "if set to false, vehicles which pass this (lane-2-lane) connection) will not "
 "worry about blocking the intersection"
 msgstr ""
+"si se establece en falso, los vehículos que pasen por esta conexión no se "
+"preocuparán por bloquear la intersección"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1454
 msgid ""
@@ -7510,6 +7512,8 @@ msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
 msgstr ""
+"Si se establece en verdadero, esta conexión no estará controlada por "
+"semáforo a pesar de que su nodo si lo esté"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1466
 msgid "Vision distance between vehicles"
@@ -7560,7 +7564,7 @@ msgstr "Carriles internos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1572
 msgid "BusStop"
-msgstr ""
+msgstr "Parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1577
 msgid "The id of bus stop"
@@ -7683,7 +7687,7 @@ msgstr "El color RGBA con el que se mostrará la parada de autobús"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1638
 msgid "TrainStop"
-msgstr ""
+msgstr "Parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1643
 msgid "The id of train stop"
@@ -7844,7 +7848,7 @@ msgstr "Tiempo de espera antes de empezar a cargar"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1886
 msgid "ParkingArea"
-msgstr ""
+msgstr "Zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1891
 msgid "The id of ParkingArea"
@@ -8263,6 +8267,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2651
 msgid "The id of the vehicle type to use for this calibrator flow"
 msgstr ""
+"El ID del tipo de vehículo que se utilizará para este calibrador de flujo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2657
 msgid "Number of vehicles per hour, equally spaced"
@@ -9805,6 +9810,8 @@ msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
 "violating a red light."
 msgstr ""
+"Este valor hace que los vehículos afectados por jmDriveAfterRedTime reduzcan "
+"la velocidad al violar una luz roja."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6036
 msgid ""
@@ -10622,15 +10629,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1144
 msgid "add route probe '"
-msgstr ""
+msgstr "agregar sonda de ruta '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1190
 msgid "add Variable Speed Sign '"
-msgstr ""
+msgstr "agregar señal de velocidad variable '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1231
 msgid "add VSS Step in '"
-msgstr ""
+msgstr "agregar paso VSS en '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1262
 #, c-format
@@ -10927,7 +10934,7 @@ msgstr "agregar intervalo de datos"
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:130
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:175
 msgid "add edge rel"
-msgstr ""
+msgstr "agregar relación de arista"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:171
 msgid "There is already a edgeRel defined between '%' and '%'."
@@ -10963,20 +10970,20 @@ msgstr "No se pudo construir %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataInterval.cpp:209
 msgid "GenericData was already inserted"
-msgstr ""
+msgstr "GenericData ya fue insertado"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataInterval.cpp:235
 msgid "GenericData wasn't previously inserted"
-msgstr ""
+msgstr "GenericData no ha sido insertado previamente"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataSet.cpp:250
 msgid "DataInterval was already inserted"
-msgstr ""
+msgstr "DataInterval ya fue insertado"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataSet.cpp:267
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataSet.cpp:291
 msgid "DataInterval wasn't previously inserted"
-msgstr ""
+msgstr "DataInterval no ha sido insertado previamente"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:186
 msgid "Open % Dialog"
