@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 09:18+0000\n"
+"PO-Revision-Date: 2023-11-10 09:19+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7620,6 +7620,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
 msgstr ""
+"En su lugar, se colocará a 0.1 metros del final del carril o en la posición 0"
+".1"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1604
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1670
