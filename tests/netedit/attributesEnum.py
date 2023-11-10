@@ -2770,7 +2770,7 @@ class stopLane:
         onDemand = 22
         jump = 23
         split = 24
-        
+
     class inspect:
         lane = 1
         moveLane = 2
@@ -2813,7 +2813,7 @@ class stopLane:
         line = 17
         onDemand = 18
         jump = 19
-        split = 20        
+        split = 20
 
 # waypoint over bus stops
 
@@ -2834,7 +2834,7 @@ class waypointBusStop:
         speed = 18
         jump = 19
         split = 20
-        
+
     class inspect:
         durationEnable = 1
         duration = 2
@@ -2938,7 +2938,7 @@ class waypointContainerStop:
         speed = 18
         jump = 19
         split = 20
-        
+
     class inspect:
         durationEnable = 1
         duration = 2
@@ -2970,7 +2970,7 @@ class waypointContainerStop:
         speed = 13
         jump = 14
         split = 15
-        
+
 # waypoint over charging stations
 
 
@@ -3041,7 +3041,7 @@ class waypointParking:
         speed = 16
         jump = 17
         split = 18
-        
+
     class inspect:
         durationEnable = 1
         duration = 2
