@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 09:08+0000\n"
+"PO-Revision-Date: 2023-11-10 09:18+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7573,6 +7573,8 @@ msgstr "El nombre del carril en donde se ubicará la parada de bus"
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
 msgstr ""
+"La posición inicial en el carril (la posición más baja en el carril) en "
+"metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1592
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1658
@@ -7585,6 +7587,8 @@ msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
 msgstr ""
+"La posición final en el carril (la posición más alta en el carril) en "
+"metros, debe ser mayor que startPos por al menos 0.1m"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1597
 msgid "Name of busStop"
@@ -7609,6 +7613,8 @@ msgstr "Nombre de la parada de bus"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6597
 msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr ""
+"Si se establece, no se reportará ningún error si el elemento es ubicado "
+"detrás del carril."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1603
 msgid ""
