@@ -192,5 +192,3 @@ protected:
     double myS2Sspeed, maxDeltaGap;
 
 };
-
-

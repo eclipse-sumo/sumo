@@ -106,4 +106,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEGeometryPointDialog& operator=(const GNEGeometryPointDialog&) = delete;
 };
-

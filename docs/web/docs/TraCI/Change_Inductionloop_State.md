@@ -28,4 +28,3 @@ The message contents are as following:
 |         byte          |        integer         |        byte         | string  |        byte         |       double        |
 | :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
 | value type *compound* |  |  |  | |  |
-

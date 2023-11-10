@@ -85,7 +85,7 @@ thus simplifies trips created from mapping of geo-coordinates.
 
 ## gridDistricts.py
 
-Generates a grid of districts (TAZ) with a given width (in m) for a given network file. 
+Generates a grid of districts (TAZ) with a given width (in m) for a given network file.
 
 ```
 python tools/district/gridDistricts.py -n <net-file> -o <output-file> -w 300
@@ -105,11 +105,11 @@ The following edges are considered part of the public transport network:
 
 If there are multiple stops with different names (stations) on the same edge, the following behaviors are possible:
 
-- **default**: the edge belongs to multiple stations (`<taz>`) 
+- **default**: the edge belongs to multiple stations (`<taz>`)
 - option **--merge**: the stations are merged into a joint station with `name="<NAME1>|<NAME2>"`
 - option **--split-output**: a patch file with splits is written that allows further processing of the input network. After splitting the net and running **stationDistricts.py** again, each stop will have it's own edge
 
-Example call: 
+Example call:
 
 ```
 python tools/district/stationDistricts.py -n <net-file> -s <stop-file> -o <output-file>

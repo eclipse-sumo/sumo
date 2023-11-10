@@ -114,7 +114,7 @@ section is composed by the original lane section's
 
 ## Handling of geometry
 
-Geometry in OpenDRIVE takes the form of parametric curves (arcs, spirals and splines). These are all sampled with a configurable precision (**--opendrive.curve-resolution** {{DT_FLOAT}}) to produce polylines in the .net.xml. Junction shapes are not encoded in OpenDRIVE. They are generated based on points where the shapes of normal roads and connecting roads meet. 
+Geometry in OpenDRIVE takes the form of parametric curves (arcs, spirals and splines). These are all sampled with a configurable precision (**--opendrive.curve-resolution** {{DT_FLOAT}}) to produce polylines in the .net.xml. Junction shapes are not encoded in OpenDRIVE. They are generated based on points where the shapes of normal roads and connecting roads meet.
 
 ## Handling of traffic light signaling
 
@@ -155,4 +155,3 @@ You can check the feature support per version (and request new featuers) in our 
 - [OpenDrive 1.4 features](https://github.com/eclipse-sumo/sumo/issues/6694)
 - [OpenDrive 1.5 features](https://github.com/eclipse-sumo/sumo/issues/6695)
 - [OpenDrive 1.6 features](https://github.com/eclipse-sumo/sumo/issues/8901)
-

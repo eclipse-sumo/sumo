@@ -85,4 +85,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERunPythonTool& operator=(const GNERunPythonTool&) = delete;
 };
-

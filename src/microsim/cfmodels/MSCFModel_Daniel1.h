@@ -157,5 +157,3 @@ protected:
     double myTmp1, myTmp2, myTmp3, myTmp4, myTmp5;
 
 };
-
-

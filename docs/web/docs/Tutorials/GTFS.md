@@ -60,7 +60,7 @@ by itself, you need to find one yourself. It is usually advisable to check the c
 
 For this tutorial we choose 04.09.2019 (a Wednesday).
 
-Additionally, you can choose which public transport modes should be imported 
+Additionally, you can choose which public transport modes should be imported
 (bus, tram, train, subway and/or ferry). By default, all modes will be imported. For
 this tutorial we will only import buses.
 

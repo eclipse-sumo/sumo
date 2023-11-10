@@ -277,4 +277,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEVTypeDistributionsDialog& operator=(const GNEVTypeDistributionsDialog&) = delete;
 };
-

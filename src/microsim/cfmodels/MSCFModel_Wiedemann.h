@@ -177,4 +177,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);
 };
-

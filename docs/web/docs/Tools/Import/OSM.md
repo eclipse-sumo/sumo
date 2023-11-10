@@ -32,12 +32,12 @@ web-browser. Stop the script when you're done to free up the port again.
 
 # osmGet.py
 
-This script allows downloading a large area from OpenStreetMap. The area to import 
-can be defined with one of the following options: 
+This script allows downloading a large area from OpenStreetMap. The area to import
+can be defined with one of the following options:
 
 - **--bbox** defines the box to retrieve in geo coordinates (west,south,east,north),
 - **--area** allows to define the id of the area to retrieve and
-- **--polygon** calculates the bounding box from polygon data in the specified file. 
+- **--polygon** calculates the bounding box from polygon data in the specified file.
 
 Example:
 
@@ -62,7 +62,7 @@ More additional options can be defined to manage the import. Example:
 python tools/osmBuild.py --osm-file <osm-file> [--vehicle-classes (all|road|publicTransport|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
 ```
 
-The option **--vehicle-classes** allows to filter the roads to import by vehicles classes. 
+The option **--vehicle-classes** allows to filter the roads to import by vehicles classes.
 If "road" is given as parameter, only roads usable by road vehicles are
 extracted, if "passenger" is given, only those accessible by passenger
 vehicles are imported. When selecting "publicTransport" as parameter, only roads usable by road vehicles and

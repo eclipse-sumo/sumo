@@ -8,7 +8,7 @@ The following modes are available in all super modes (Network, Demand and Data).
 
 # Inspect
 
-Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops). 
+Inspect and modify attributes of edges, lanes, junctions, connections and additional network items (i.e. bus stops).
 When there are multiple objects in the same location, the inspection frame will indicate their number and allow switching between them.
 
 Repeatedly clicking on the same location will also cycle through all elements at the same location.
@@ -26,11 +26,11 @@ By default, clicking on an edge will inspect the edge object. To inspect individ
 - shift-click on the lane
 - deactivate the "click selects edges" toggle button in the top bar (shortcut Alt+4) and then left-click on lanes
 - inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
-  
+
 ## Inspecting Connections
 
 After opening the network, junctions must be recomputed at least once (F5). Computation happens automatically when switching to connection mode or traffic light mode. After network computation, either of the following can be used to inspect and edit connection attributes while in inspect mode:
-    
+
 - activate 'show connections' toggle button in the button bar (shortcut Alt + 5) and the left-click on a connection
 - inspect an edge and then right-click a connection in the hierarchy view (lane->outgoing->connections) and select 'inspect'
 
@@ -43,9 +43,9 @@ When inspecting an element that is [selected](#select) along with multiple eleme
 - All selected elements of the same type are modified at the same time when setting a new value
 
 ## Generic Parameters
-Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
+Most simulation objects support [Generic Parameters](../Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button.
 
-In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though permitted by SUMO). 
+In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though permitted by SUMO).
 The serialized form is useful in select mode when selecting objects with a particular parameter.
 
 ## Edge template
@@ -66,16 +66,16 @@ When copying attributes from one edge to another, lane-specific attributes will 
 
 ### Examples
 
-![](../images/InspectMode1.png)   
+![](../images/InspectMode1.png)
 Changing the number of lanes of an edge
 
-![](../images/InspectMode2.png)   
+![](../images/InspectMode2.png)
 Number of lanes of the edge changed
 
-![](../images/InspectMode3.png)   
+![](../images/InspectMode3.png)
 Changing the width of a lane. Note that option "select edges" is disabled
 
-![](../images/InspectMode4.png)   
+![](../images/InspectMode4.png)
 Width of lane changed (gaps will disappear upon triggering recomputation with **F5**)
 
 
@@ -93,19 +93,19 @@ The Delete mode is used to remove an element of your network. The following is p
 
 The delete frame own a list of elements that is filled automatically with the childs of the current element under the cursor. This list of child elements can be marked using Control + left-Click, and every child can be centered, inspected or removed individually with a right click over an element.
 
-![](../images/GNEDeleteFrame1.png)   
+![](../images/GNEDeleteFrame1.png)
 General view of the delete frame
 
 Additionally, the delete frame has a list of options to avoid undesirable deletes:
 
 - Force deletion of additionals: Used to avoid undesirable deletion of additionals.
 
-![](../images/GNEDeleteFrame5.png)   
+![](../images/GNEDeleteFrame5.png)
 If the user tries to remove an element with additional childs and 'Force deletion of additionals' is disabled, netedit shows a warning dialog and the element isn't deleted.
 
 - Delete only geometry points: Used to remove only geometry points
 
-![](../images/GNEDeleteFrame6.png)   
+![](../images/GNEDeleteFrame6.png)
 Only Geometry points can be deleted
 
 # Select
@@ -113,10 +113,10 @@ Only Geometry points can be deleted
 This mode selects objects according to various criteria. Selected objects can be moved or deleted together. It is also possible to set attributes for all selected objects (i.e. junctions or edges) at the same time by clicking one of the selected objects afters switching to **inspect mode**.
 This mode also allows to save and load selections to a file and to compute [joins and differences](#modification_mode) of saved selections.
 
-![](../images/ModeSelect1.png)   
+![](../images/ModeSelect1.png)
 The left frame shows information about the current selected elements
 
-![](../images/ModeSelect2.png)   
+![](../images/ModeSelect2.png)
 Selected elements are painted with a different color
 
 ## Methods for selecting
@@ -180,15 +180,15 @@ The 'Match Attribute' controls allow to specify a set of objects by matching the
 
 ![](../images/ModeSelect5.png)Only two lanes are selected because the rest of edges only have one lane.
 
-![](../images/ModeSelect5.png)We can select all lanes of our net using the previous selection and the operator "add". 
+![](../images/ModeSelect5.png)We can select all lanes of our net using the previous selection and the operator "add".
 
 ![](../images/ModeSelect6.png)All lanes of the net are selected using selection of lanes which contains _0 in their id with the "add" operator
 
-![](../images/ModeSelect6.png)With the previous element and the operator invert, we can select all junctions of the network. 
+![](../images/ModeSelect6.png)With the previous element and the operator invert, we can select all junctions of the network.
 
 ![](../images/ModeSelect7.png)Invert operation select all elements of the net and subtract the current selected elements
 
-![](../images/ModeSelect3.png)If we have a empty selection, we can select easy all elements of net . 
+![](../images/ModeSelect3.png)If we have a empty selection, we can select easy all elements of net .
 
 ![](../images/ModeSelect8.png)With the invert button, we select all elements of net.
 
@@ -200,7 +200,7 @@ The following operations can be performed on the whole selection
 - **Invert** : Invert selection status for all object types except "locked". Can be used to delete everything *except* the selected elements
 - **Save**: Save selection to a text file. This can be loaded in sumo-gui and also used by some [netconvert](../netconvert.md) options
 - **Load**: Load selection from text file. This is combined with the current selection according to the active [Modification Mode](#modification_mode).
-- **Delete**: Delete all selected objects including "locked". (shortcut `<DEL>`)   
+- **Delete**: Delete all selected objects including "locked". (shortcut `<DEL>`)
 
 # Move
 
@@ -234,4 +234,3 @@ For a selection edges and/or junctions the Move-mode sidebar allows to move all 
 
 - When clicking over an Polygon/TAZ edge or vertex, contour will be moved
 - If Polygon/TAZ is inspected an option "block shape" is enabled, then entire shape will be moved
-  

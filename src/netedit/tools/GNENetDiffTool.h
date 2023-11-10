@@ -58,4 +58,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNENetDiffTool& operator=(const GNENetDiffTool&) = delete;
 };
-

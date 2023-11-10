@@ -136,4 +136,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNENetgenerateDialog& operator=(const GNENetgenerateDialog&) = delete;
 };
-

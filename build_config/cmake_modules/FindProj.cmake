@@ -1,6 +1,6 @@
 # Source: https://github.com/qgis/QGIS/blob/3b3f6748f1e5e8f77fa87477add360ec0203fb26/cmake/FindProj.cmake
 # Changes: included BSD license text
- 
+
 # Find Proj
 # ~~~~~~~~~
 # Copyright (c) 2007, Martin Dobias <wonder.sk at gmail.com>
@@ -15,7 +15,7 @@
 #2. Redistributions in binary form must reproduce the copyright
 #   notice, this list of conditions and the following disclaimer in the
 #   documentation and/or other materials provided with the distribution.
-#3. The name of the author may not be used to endorse or promote products 
+#3. The name of the author may not be used to endorse or promote products
 #   derived from this software without specific prior written permission.
 #
 #THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -42,7 +42,7 @@
 # FIND_* is invoked first with specified paths and NO_DEFAULT_PATH
 # and then again with no specified paths to search the default
 # locations. When an earlier FIND_* succeeds, subsequent FIND_*s
-# searching for the same item do nothing. 
+# searching for the same item do nothing.
 
 # try to use framework on mac
 # want clean framework path, not unix compatibility path

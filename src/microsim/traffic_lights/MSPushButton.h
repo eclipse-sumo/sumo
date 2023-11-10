@@ -103,4 +103,3 @@ private:
 //		Load the crossingEdgeMap
     static void loadCrossingEdgeMap();
 };
-

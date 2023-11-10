@@ -4,7 +4,7 @@ title: Elevation
 
 # Including Elevation Data in a Network
 
-Elevation data can be imported from the following sources 
+Elevation data can be imported from the following sources
 
 - directly from network input
   - from [OSM (with some tricks)](../Networks/Import/OpenStreetMap.md#elevation_data)
@@ -36,7 +36,7 @@ each edge
 
 To calibrate the color range to the elevations found in the network, the *Recalibrate Rainbow* within the gui settings dialog button may be used.
 
-Furthermore, [sumo-gui](../sumo-gui.md) is [available with support for 3D-Visualization](https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) which can be used to visualize elevation profiles as well. 
+Furthermore, [sumo-gui](../sumo-gui.md) is [available with support for 3D-Visualization](https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) which can be used to visualize elevation profiles as well.
 
 ## Models that use Elevation Data
 

@@ -124,4 +124,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERunPythonToolDialog& operator=(const GNERunPythonToolDialog&) = delete;
 };
-

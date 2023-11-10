@@ -46,8 +46,8 @@ value is also shown in the table.
 | last step mean vehicle length (0x15) | double     | The mean length of vehicles which were on this lane in the last step \[m\]                                                                | [getLastStepLength](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getLastStepLength)                 |
 | waiting time (0x7a)                  | double     | Returns the waiting time for all vehicles on the lane \[s\]                                                                               | [getWaitingTime](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getWaitingTime)                       |
 | traveltime (0x5a)                    | double     | Returns the estimated travel time for the last time step on the given lane \[s\]                                                          | [getTraveltime](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getTraveltime)                         |
-| last step halting number (0x14)      | int        | Returns the total number of halting vehicles for the last time step on the given lane. A speed of less than 0.1 m/s is considered a halt. | [getLastStepHaltingNumber](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getLastStepHaltingNumber)   | 
-| angle (0x43) | double | Returns the heading of the straight line segment formed by the lane at the given position. | [getAngle](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getAngle)   | 
+| last step halting number (0x14)      | int        | Returns the total number of halting vehicles for the last time step on the given lane. A speed of less than 0.1 m/s is considered a halt. | [getLastStepHaltingNumber](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getLastStepHaltingNumber)   |
+| angle (0x43) | double | Returns the heading of the straight line segment formed by the lane at the given position. | [getAngle](https://sumo.dlr.de/pydoc/traci._lane.html#LaneDomain-getAngle)   |
 
 
 ## Response 0xb3: Lane Variable

@@ -75,7 +75,7 @@ again with a *.rou.xml* file.
 There are two ways for loading state via TraCI:
 
 - `traci.load(['-n', 'net.net.xml', '--load-state', FILENAME])`: releads the whole simulation (which includes reloading the network)
-- `traci.simulation.loadState(FILENAME)` : clears out all vehicles and persons from the network and then loads the state. (reloading the network is avoided) 
+- `traci.simulation.loadState(FILENAME)` : clears out all vehicles and persons from the network and then loads the state. (reloading the network is avoided)
 
 The second function faster (or much faster) than the first, depending on the size of the network.
 

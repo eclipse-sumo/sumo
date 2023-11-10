@@ -72,7 +72,7 @@ SUMO-package. Then, create a new network ("File" -\> "New Network...").
   on the canvas. Both will be connected automatically and you will get
   your first edge.
 
-![Second.png](../images/Second.png "Second.png") 
+![Second.png](../images/Second.png "Second.png")
 ![Third.png](../images/Third.png
 "Third.png")
 
@@ -83,7 +83,7 @@ SUMO-package. Then, create a new network ("File" -\> "New Network...").
   (**id**) of each link has to be defined first either with numbers,
   word strings, or both. To edit these values, click on the red circle representing the junction using the left mouse button.
 
-![Fourth.png](../images/Fourth.png "Fourth.png") 
+![Fourth.png](../images/Fourth.png "Fourth.png")
 ![Fifth.png](../images/Fifth.png "Fifth.png")
 
 If you press Enter, you will get the new positions.
@@ -100,7 +100,7 @@ referring to the network from your configuration.
   direction*** or select the option ***two-way*** during the creation
   process of an edge.
 
-![sixth.png](../images/Sixth.png "sixth.png") 
+![sixth.png](../images/Sixth.png "sixth.png")
 ![Seventh.png](../images/Seventh.png "Seventh.png")
 
 - Furthermore, one attribute must be changed to get a similar output
@@ -112,9 +112,9 @@ referring to the network from your configuration.
 
 Now you should be able to create the rest of the given nodes and edges
 in this example and change their names, the number of lanes, and reset their
-positions. Don't forget to save your work from time to time. 
+positions. Don't forget to save your work from time to time.
 
-The junctions 911-914 aren't really needed. 
+The junctions 911-914 aren't really needed.
 Splitting an length of road into multiple edges is necessary when an attribute such as speed or numLanes changes.
 Distinct edges may also be useful for [analyzing the traffic performance](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) in more detail.
 To model curved roads it is sufficient to modify the *shape* of an edge using 'move mode'.
@@ -192,7 +192,7 @@ For further information and a deeper insight on this, please go to
     lanes should have priority 3 and the northbound (L16) and southbound
     (L15) roads the (lower) priority 2.
 
-![prio1.png](../images/Prio1.png "prio1.png") 
+![prio1.png](../images/Prio1.png "prio1.png")
 ![prio2.png](../images/Prio2.png "prio2.png")
 
 ### Traffic demand

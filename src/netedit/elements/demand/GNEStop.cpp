@@ -183,7 +183,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
         }
         if (endPos != INVALID_DOUBLE) {
-            device.writeAttr(SUMO_ATTR_ENDPOS, endPos); 
+            device.writeAttr(SUMO_ATTR_ENDPOS, endPos);
         }
     }
     // write rest of attributes

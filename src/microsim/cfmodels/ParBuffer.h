@@ -158,4 +158,3 @@ private:
     bool was_empty;
 
 };
-

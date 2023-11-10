@@ -30,7 +30,7 @@ The following table shows which information is parsed from a given VISUM
 network.
 
 !!! caution
-    The keywords within a VISUM file are localized. By default netconvert assumes LANGUAGE **DEU**. You can use option **--visum.language-file** {{DT_FILE}} to read a language mapping from DEU into another language. Mapping files for can be found in the `SUMO_HOME/data/lang` folder. 
+    The keywords within a VISUM file are localized. By default netconvert assumes LANGUAGE **DEU**. You can use option **--visum.language-file** {{DT_FILE}} to read a language mapping from DEU into another language. Mapping files for can be found in the `SUMO_HOME/data/lang` folder.
 
 **Information [netconvert](../../netconvert.md) reads from VISUM
 networks**

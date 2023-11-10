@@ -11,8 +11,8 @@ three modes: (i) speed (or cruising) control, (ii) gap control
 and (iii) gap-closing control. A fourth mode (i.e. collision avoidance mode) has
 been introduced within the project [TransAID](https://www.transaid.eu), when the ACC model was first integrated to SUMO [\[3\]](#references).
 
-Note, that the additional modes (iii) and (iv) aim to enable stable and safe car-following behavior in SUMO, 
-whereas the original publication [\[1\]](#references) reveals string instabilities in experimental data and simulations 
+Note, that the additional modes (iii) and (iv) aim to enable stable and safe car-following behavior in SUMO,
+whereas the original publication [\[1\]](#references) reveals string instabilities in experimental data and simulations
 for vehicle platoons with ACC controllers (see [String Instabilities in ACC Platoons](#string_instabilities_in_acc_platoons)).
 
 see also [CACC model](CACC.md).
@@ -96,9 +96,9 @@ Given the parametrization from the table, you could replicate the platoon oscill
     Adaptive Cruise Control Vehicles. Transportation Research Record:
     Journal of the Transportation Research Board, 2623, pp. 1–9.
     <https://doi.org/10.3141/2623-01>
-3.	Porfyri, K. N., Mintsis, E., & Mitsakis, E. (2018). Assessment of ACC and CACC systems using SUMO. 
-	EPiC Series in Engineering, 2, 82-93. 
+3.	Porfyri, K. N., Mintsis, E., & Mitsakis, E. (2018). Assessment of ACC and CACC systems using SUMO.
+	EPiC Series in Engineering, 2, 82-93.
 	<https://doi.org/10.29007/r343>
-4.  G. Gunter et al., "Are Commercially Implemented Adaptive Cruise Control Systems String Stable?," 
-	in IEEE Transactions on Intelligent Transportation Systems, vol. 22, no. 11, pp. 6992-7003, Nov. 2021. 
+4.  G. Gunter et al., "Are Commercially Implemented Adaptive Cruise Control Systems String Stable?,"
+	in IEEE Transactions on Intelligent Transportation Systems, vol. 22, no. 11, pp. 6992-7003, Nov. 2021.
 	<https://doi.org/10.1109/TITS.2020.3000682>

@@ -106,7 +106,7 @@ preferred side may be assigned a higher priority value. This value will be taken
 into account when setting option **--weights.priority-factor FLOAT** which applies to
 [sumo](../sumo.md) and [duarouter](../duarouter.md).
 
-At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where 
+At the default option value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT (where FLOAT is the option argument) whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penalty of 1 + x * FLOAT where
 
 ```
   x = (edgePriority - minPriority) / (maxPriority - minPriority)
@@ -199,7 +199,7 @@ start of the edge relative to some point of reference for a [linear
 referencing scheme](https://en.wikipedia.org/wiki/Linear_referencing).
 When the distance metric decreases along the forward direction of the edge, this is indicated by using a negative sign for the distance value.
 
-The distance value along an edge is computed as: 
+The distance value along an edge is computed as:
 ```
   |edgeDistance + vehiclePos|
 ```
@@ -289,7 +289,7 @@ When defined this way, The rear part of the train will be created as a new simul
 To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop>`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
 
 The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue it's route after another train has joined with it and wait indefinitely for this condition.
-However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition). 
+However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition).
 The joining train requires a stop with attribute `join="VEH_ID"` where `VEH_ID` denotes the id of the continuing train.
 
 The joining operating consists of having the joining train arrive and disappear from the simulation and the continuinig train to be made longer according to the length of the joining train.
@@ -299,7 +299,7 @@ The following conditions must be met for the joining operationg to take place:
 - the trains are in close proximity in either of the two ways:
   - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
   - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
- 
+
 The following is an example definition for joining two trains:
 
 ```xml
@@ -345,7 +345,7 @@ To make use of this, the following elements can be loaded from an additional fil
 ```xml
    <railSignalConstraints id="A">
         <predecessor tripId="t0" tl="D" foes="t1" limit="2"/>
-        <predecessor tripId="t0" tl="C" foes="t2"/>        
+        <predecessor tripId="t0" tl="C" foes="t2"/>
         <insertionPredecessor tripId="t3" tl="E" foes="t4"/>
     </railSignalConstraints>
 ```
@@ -366,7 +366,7 @@ This constrain defines that a given vehicle id (or tripId) can only be inserted 
 | **tl**          | id (string)            | The id of a railSignal   |
 | **foes**        | ids (string list)      | The ids of one or more vehicles that must have passed **tl** before the parent rail signal permits **tripID** to pass   |
 | limit           | int                    | The number of intermediate vehicles that may pass **tl** after the **foes** before the consraint is evaluated for **tripId**.  default: number of given **foes**. (setting a high number has now downside besides memory use but setting a low number may cause the constraint to block **tripId** indefinitely because the ids of the passed foes were *overwritten* by later trains)     |
-| active         | bool                    |  Whether this constraint is active (inactive constraints may still be retrieved via TraCI) |         
+| active         | bool                    |  Whether this constraint is active (inactive constraints may still be retrieved via TraCI) |
 
 
 ### constraints generation
@@ -376,7 +376,7 @@ Constraints can be generated using the tool [generateRailSignalConstraints.py](.
 
 Rail signals and rail crossings can be controlled with function *traci.trafficlight.setRedYellowGreenState*. They can also be switched off with *traci.trafficlight.setProgram(tlsID, "off")*. In either case, normal operations can be resumed by reactivating the default program "0": *traci.trafficlight.setProgram(tlsID, "0")*.
 
-Trains can be controlled just like cars by using the *traci.vehicle* functions. 
+Trains can be controlled just like cars by using the *traci.vehicle* functions.
 Furthermore the following functions are available for rail signals:
 
 - traci.trafficlight.getBlockingVehicles(tlsID, linkIndex): Returns the list of vehicles that are blocking the subsequent block for the given tls-linkIndex from the perspective of the closest vehicle upstream of the signal
@@ -439,10 +439,10 @@ Such abstract networks can make it easiert so see all tracks and switches on a s
   - The user may switch between the visualization of either geometry via the hotkey **CTRL+K** or by setting Street visualization setting *secondary shape*.
   - All outputs that include geometry information (i.e. [fcd-output](Output/FCDOutput.md)) will be according the the network loaded with option **-n**
  - the tool [abstractRail.py](../Tools/Net.md#abstractrailpy) can be used to convert geographic rail networks in abstract rail networks
- 
+
 
 # Miscellaneous
-- Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy) 
+- Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
 
 # Limitations
 

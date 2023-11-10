@@ -59,14 +59,14 @@ inline GUI_RTREE_QUAL::Rect GUI_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_r
 // ===========================================================================
 /** @class SUMORTree
  * @brief A RT-tree for efficient storing of SUMO's GL-objects
- * 
+ *
  * This class specialises the used RT-tree implementation from "rttree.h" and
  *  extends it by a mutex for avoiding parallel change and traversal of the tree.
  */
 class SUMORTree : private GUI_RTREE_QUAL, public Boundary {
 public:
     /// @brief Constructor
-    SUMORTree() : 
+    SUMORTree() :
         GUI_RTREE_QUAL(&GUIGlObject::drawGL),
         myLock(true) {
     }
@@ -198,13 +198,13 @@ public:
         // declare vector with glObjects to update
         std::vector<GUIGlObject*> glObjects;
         glObjects.reserve(myTreeSize);
-        // declare iterator 
+        // declare iterator
         GUI_RTREE_QUAL::Iterator it;
         GetFirst(it);
         // iterate over entire tree and keep glObject in glObjects
         while (!IsNull(it)) {
             const auto glType = (*it)->getType();
-            if ((glType == type) || 
+            if ((glType == type) ||
                 ((glType > GLO_ADDITIONALELEMENT) && (glType < GLO_SHAPE)) ||   // Additionals
                 ((glType >= GLO_TAZ) && (glType < GLO_LOCKICON))) {             // TAZ Elements
                 glObjects.push_back(*it);

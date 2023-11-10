@@ -83,5 +83,3 @@ private:
     double myTmp2;
 
 };
-
-

@@ -26,7 +26,7 @@ title: FAQ
 
   To allow for the efficient simulation of very large scenarios, it is
   also possible to run SUMO as a [**mesoscopic** simulation](Simulation/Meso.md).
-  
+
   SUMO also supports **macroscopic** traffic assignment using the
   [marouter](marouter.md) application.
 
@@ -40,7 +40,7 @@ title: FAQ
 
 ### Are there any tutorials or ready to use scenarios?
 
-  The main page for [tutorials](Tutorials/index.md) lists several for beginners and advanced topics, there 
+  The main page for [tutorials](Tutorials/index.md) lists several for beginners and advanced topics, there
   are also some [videos on YouTube](https://www.youtube.com/results?search_query=sumo+simulation+tutorial).
   For scenarios have a look at our [scenario page](Data/Scenarios.md).
 
@@ -118,7 +118,7 @@ git push
 
 ### How do I contribute to the documentation?
 
-The documentation is part of the code repository so the same rules as in the previous question apply. 
+The documentation is part of the code repository so the same rules as in the previous question apply.
 If you just want to have a simple typo fixed you can always drop us a line at sumo@dlr.de or at sumo-dev@eclipse.org.
 
 ### How do I cite SUMO
@@ -258,11 +258,11 @@ according to the above suggestions.
 ### My [TraCI](TraCI.md)-program is to slow. What can I do?
 
   TraCI communicates over sockets and this communication is slow. You can often reduce the number of TraCI commands via the following strategies.
-  
+
   - store results that do not change (i.e. vehicle length) rather than retrieving them again repeatedly
   - use [subscriptions](TraCI/Object_Variable_Subscription.md) or [context subscriptions](TraCI/Object_Context_Subscription.md) to reduce the number of 'get' commands for things that you need in every step
 
-   Even larger gains can be hand by switching to [libsumo](Libsumo.md). This can be done with a single line of code and completely eliminates the slow socket communication. 
+   Even larger gains can be hand by switching to [libsumo](Libsumo.md). This can be done with a single line of code and completely eliminates the slow socket communication.
 
 ### My [TraCI](TraCI.md)-program is not working as intended. Can you help me debug it?
 
@@ -313,7 +313,7 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
 
   Yes. It is supported since version 0.24.0. To create a new network for
   lefthand traffic, the option **--lefthand** must be set.
-  
+
   To convert an existing network to lefthand driving, there are two options. Abstract networks (no geo-reference, coordinates do not matter much) can be processed with netconvert:
 ```
     netconvert -s righthand.net.xml --flip-y-axis -o lefthand.net.xml
@@ -354,18 +354,18 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
   in [sumo](sumo.md) or [duarouter](duarouter.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
   When these options are used, multiple cores on the machine are used.
-  
+
   There is no support for multi-node parallelization.
-  
+
   When running [sumo-gui](sumo-gui.md), an additional thread is used for visualization.
-  
+
   The python TraCI library allows controlling multiple simulations
   from a single script either by calling *traci.connect* and storing
   the returned connection object or by calling
   *traci.start(label=...)* and retrieving the connection object with
   *traci.getConnection(label)*.
-  
-  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767). 
+
+  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767).
   Some parts of the simulation can already be run in parallel when setting option **--threads** but this does not lead to meaningful speedup yet.
 
 ## Building / Installation
@@ -525,7 +525,7 @@ At line/column 10/46
   Files\\foo.xml* even when adding quotation marks. Since 1.0.0 the ',' (comma) is used so these paths should work.
   Additionally, SUMO may fail to load files if the name contains characters outside
   the basic [ASCII set](https://en.wikipedia.org/wiki/Ascii).
-  
+
 ### Windows 10 is blocking the execution of sumo-gui and netedit. How come?
   Executable files downloaded from the internet may trigger the windows 10 security warning. You can work around this by clicking on the 'More Info' Text and then selecting 'Run Anyway' in the subsequent dialog.
 
@@ -641,13 +641,13 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 ### How can I edit lane attributes?
 
 see [inspecting lanes](Netedit/editModesCommon.md#inspecting_lanes)
-  
+
 ### How can I edit connection attributes?
 
 see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
 
 !!! note
-    Connection mode is only used for adding and removing connections but not for editing connection attributes     
+    Connection mode is only used for adding and removing connections but not for editing connection attributes
 
 ## Traffic Demand Generation
 
@@ -694,7 +694,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   whole simulation is much larger the specified value because some
   vehicles leave the simulation and new vehicles with distinct IDs are
   inserted to replace them.
-  
+
 - You can use [rerouters](Simulation/Rerouter.md) in the
   simulation. Rerouters, assign a new route for vehicles driving
   across them and thus prevent them from leaving the network. For an
@@ -739,7 +739,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   street. This mapping can be done using the python sumolib coming
   with sumo, see
   [Tools/Sumolib\#locate_nearby_edges_based_on_the_geo-coordinate](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
-  
+
   Duarouter supports mapping of x,y and lon,lat coordinates
   using the attributes [fromXY, fromLonLat and their relatives](Demand/Shortest_or_Optimal_Path_Routing.md).
   For high-quality GPS data it is sufficient to define
@@ -751,8 +751,8 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   hit by a data point or if you have a mismatch (for instance matching
   an edge which goes in the "wrong" direction). In the former case you
   can easily repair the route using [duarouter](duarouter.md)
-  with **--repair** (happens automatically when using via-coordinates). 
-  
+  with **--repair** (happens automatically when using via-coordinates).
+
   Another small script which helps here is
   [Tools/Routes\#tracemapper.py](Tools/Routes.md#tracemapperpy).
   You can also use the map matching plugin from
@@ -996,8 +996,8 @@ density:
 
 ### How fast can SUMO run?
 
-This really depends on how many vehicles you have in your simulation at any given time (and to some extent on how strongly vehicles interact at intersections and how many lanes each vehicle has to chose during lane-changing). 
-When running in verbose mode, SUMO will tell you the UPS metric. This is vehicle **up**dates **p**er **s**econd. A number of x tells you that you could run x vehicles in real-time at a step length of 1 second. 
+This really depends on how many vehicles you have in your simulation at any given time (and to some extent on how strongly vehicles interact at intersections and how many lanes each vehicle has to chose during lane-changing).
+When running in verbose mode, SUMO will tell you the UPS metric. This is vehicle **up**dates **p**er **s**econd. A number of x tells you that you could run x vehicles in real-time at a step length of 1 second.
 Running time is inversely proportional to step-length (**--step-length 0.1** computes 10 times as many steps compared to the default of 1s and thus takes 10 times as long).
 
 Some examples on an average desktop PC:
@@ -1028,7 +1028,7 @@ The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this, p
 `tools/runSeeds.py -a sumo -k run.sumocfg --seeds 1:4 --threads 4 --statistic-output stats.xml`
 
 The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to generated statistics for multiple runs:
-i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command 
+i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command
 `tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
 
 ## Visualization
@@ -1125,9 +1125,9 @@ to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding 
 
 ### sumo-gui and netedit flickering
 
-There is a know problem in Windows 10 with scaling and flickering in certain applications. 
+There is a know problem in Windows 10 with scaling and flickering in certain applications.
 If scaling is greater than 100%, a flickering may appear in sumo-gui and netedit during mouse movement.
-The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card. 
+The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card.
 If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
 
 ### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
@@ -1144,7 +1144,7 @@ Install the [Noto Fonts](https://en.wikipedia.org/wiki/Noto_fonts) package for y
   ensure that the correct version of the application is called from
   the command line (see
   [Basics/Basic_Computer_Skills\#Configuring_Path_Settings](Basics/Basic_Computer_Skills.md#configuring_path_settings)).
-  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`) 
+  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`)
   from a command line that you wish to use for calling applications and traci scripts.
 
 ### [sumo](sumo.md) warns about deprecated networks or fails to load them
@@ -1212,7 +1212,7 @@ python script.py <argument>
 This can happen with an outdated version of python 2.7. Updating to
 2.7.15 (64bit) has been reported as fixing this problem.
 
-Also have a look at the output in the shell window that opens. If it reports missing or outdated 
+Also have a look at the output in the shell window that opens. If it reports missing or outdated
 SSL certificates try: `pip install certifi`.
 
 ### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to load the browser page on Linux
@@ -1229,14 +1229,14 @@ As a work-around you can [install a .deb package](https://askubuntu.com/question
 ### How do I combine SUMO with a network simulator?
 
   Check out [veins](https://veins.car2x.org/).
-  
+
 ### Can SUMO simulate V2V / V2X messages?
 
   Sumo generally does not model messaging. The best way to do so is by managing the messages with connected code.
   If you want to simulate the application layer and can work with the assumption that messages "just work", you can often handle the messages with your own (simple) TraCI code. If you need to simulate the physical process, using a network simulator is recommended (see above).
   Sumo supports a [vehicle device](Simulation/Bluetooth.md) to log connectivity events but this is not designed to integrate with an application layer and aims only at logging.
-  
-  
+
+
 ## Validity
 ### What are publications on SUMO's validity?
 - https://elib.dlr.de/120856/

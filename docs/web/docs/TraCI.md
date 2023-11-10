@@ -44,7 +44,7 @@ the highest value within each simulation step.
 The clients are automatically synchronized after every simulation step. This means, the simulation does not advance to the next step until all clients have called the 'simulationStep'' command. Also, the simulationStep command only returns control to the client after the simulation has advanced.
 
 !!! caution
-    The simulation will only start once all clients have connected. 
+    The simulation will only start once all clients have connected.
 
 ### Protocol specification
 
@@ -72,7 +72,7 @@ arguments by using the
 
 - [Control-related commands](TraCI/Control-related_commands.md): perform a
   simulation step, close the connection, reload the simulation.
-- [Generic Parameters](TraCI/GenericParameters.md)  
+- [Generic Parameters](TraCI/GenericParameters.md)
 
 For the following APIs, the ID is equal to the ID defined in
 [sumo](sumo.md)'s input files. Here, you find their [general
@@ -115,7 +115,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about edges
   - [Lane Value Retrieval](TraCI/Lane_Value_Retrieval.md)
     retrieve information about lanes
-- Infrastructure    
+- Infrastructure
   - [Traffic Lights Value
     Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
@@ -133,7 +133,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about overhead wires
    - [Rerouter](TraCI/Rerouter.md)
     retrieve information about the rerouter
- - Misc     
+ - Misc
   - [Simulation Value
     Retrieval](TraCI/Simulation_Value_Retrieval.md) retrieve
     information about the simulation
@@ -143,8 +143,8 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     retrieve information about points-of-interest
   - [Polygon Value
     Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve information about polygons
- 
-   
+
+
 ###  State Changing
 
 - Traffic Objects
@@ -159,7 +159,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     a route's state
 - Detectors and Outputs
   - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change a
-    calibrator state 
+    calibrator state
   - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change a
     inductionloop state
   - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
@@ -183,7 +183,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     point-of-interest's state (or add/remove one)
   - [Change Polygon State](TraCI/Change_Polygon_State.md)
     change a polygon's state (or add/remove one)
-    
+
 ### Subscriptions
 
 - [TraCI/Object Variable
@@ -224,7 +224,7 @@ bindings are included when downloading a sumo-build.
   is part of the sumo source code and all releases, is tested daily and supports all TraCI commands).
   It is also [available on PyPI](https://pypi.org/project/traci/) and can thus be installed
   using `pip install traci`.
-- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md). 
+- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md).
 - C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is a client
   library that is part of the [sumo](sumo.md)-source tree. (API
   coverage is good but this client is no longer updated. Please use libtraci instead.)
@@ -242,7 +242,7 @@ bindings are included when downloading a sumo-build.
   [TraCI4Matlab](https://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab).
   The client is included as part of each SUMO release in
   {{SUMO}}*/tools/contributed/traci4matlab*
-  Not all TraCI commands have been implemented. It is recommended to 
+  Not all TraCI commands have been implemented. It is recommended to
   [use the python client](https://mathworks.com/help/matlab/call-python-libraries.html) from inside Matlab instead.
 - Java: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree.
   It is fully API-compatible with [libsumo](Libsumo.md) and a SUMO release provides pro-compiled Java bindings (via SWIG).
@@ -334,14 +334,14 @@ of the byte denotes the command (get, set, subscribe, ...) and the
 lesser significant the domain itself. To allow more than the 16 domains
 resulting from this split, the most significant bit (which was unused
 until version 1.7.0 because there were only 7 commands) is now used for the domain
-as well (and only three for the command). This allows for 28 domains 
+as well (and only three for the command). This allows for 28 domains
 because four general commands (like SIMSTEP) block some available combinations.
 Currently there are only four possible domains left.
 
 Furthermore after the invention of libsumo
 some parts of the TraCI interface are so generic that it may be not so
 hard to invent a wrapper with Apache Kafka or Google protocol buffers
-which could in the long run replace the need for all the byte fiddling 
+which could in the long run replace the need for all the byte fiddling
 and the different hand crafted clients.
 
 ## Troubleshooting

@@ -233,4 +233,3 @@ private:
     std::stringstream answerLog;
 
 };
-

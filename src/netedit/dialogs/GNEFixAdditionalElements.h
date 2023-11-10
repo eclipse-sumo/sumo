@@ -166,4 +166,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEFixAdditionalElements& operator=(const GNEFixAdditionalElements&) = delete;
 };
-

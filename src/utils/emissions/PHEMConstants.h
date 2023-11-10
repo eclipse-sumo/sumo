@@ -38,4 +38,3 @@ const double POWER_POLLUTANT_INCREMENT = 0.3;
 const double NNORM_INCREMENT = 0.05;
 
 const std::string PHEM_DATA_VERSION = "V5";
-

@@ -1430,4 +1430,3 @@ TRACI_CONST int VAR_HAS_VIEW = 0xa7;
 } // namespace libsumo
 
 #undef TRACI_CONST
-

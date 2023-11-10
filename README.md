@@ -1,6 +1,6 @@
 <a href="https://sumo.dlr.de/docs"><p align="center"><img width=50% src="https://raw.githubusercontent.com/eclipse/sumo/main/docs/web/docs/images/sumo-logo.svg"></p></a>
 
-Eclipse SUMO - Simulation of Urban MObility 
+Eclipse SUMO - Simulation of Urban MObility
 ===========================================
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10077626.svg)](https://doi.org/10.5281/zenodo.10077626)
 [![Windows](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse-sumo/sumo/actions/workflows/build-windows.yml)
@@ -39,7 +39,7 @@ git clone --recursive https://github.com/eclipse-sumo/sumo
 Contact
 -------
 
-To stay informed, we have a mailing list for SUMO, which 
+To stay informed, we have a mailing list for SUMO, which
 [you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-user) to.
 Messages to the list can be sent to sumo-user@eclipse.org.
 SUMO announcements will be made through the sumo-announce@eclipse.org list;
@@ -91,7 +91,7 @@ Documentation
 Improving SUMO
 --------------
 
-Please use the [GitHub bug tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests, 
+Please use the [GitHub bug tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests,
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.

@@ -79,25 +79,25 @@ A depart time value of -3 is interpreted as immediate departure
 ### move to XY (0xb4)
 
 The Person is moved to the network
-position that best matches the given x,y network coordinates. 
+position that best matches the given x,y network coordinates.
 
 The argument edgeID is optional and can be set to "" if not known.
-It's use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap). 
+It's use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap).
 
 The optional keepRoute flag is a bitset that influences
 mapping as follows:
 
 - **bit0** (keepRoute = 1 when only this bit is set)
-  - **1**: The person is mapped to the closest edge within it's existing route. 
+  - **1**: The person is mapped to the closest edge within it's existing route.
            If no suitable position is found within 100m   mapping fails with an error.
   - **0**: The person is mapped to the closest edge within the network.
-           If that edge does not belong to the original route, the current route is replaced by a new 
-           route which consists of that edge only. 
+           If that edge does not belong to the original route, the current route is replaced by a new
+           route which consists of that edge only.
            In the special case where the new edge is connected to the junction that the person was already walking towards
            (i.e. when crossing to the other side of the road),
-           the current route edge is replaced with the new edge and the rest of the route remains unchanged. 
-           If no suitable position is found within 100m mapping fails with an error.           
-- **bit1** (keepRoute = 2 when only this bit is set)           
+           the current route edge is replaced with the new edge and the rest of the route remains unchanged.
+           If no suitable position is found within 100m mapping fails with an error.
+- **bit1** (keepRoute = 2 when only this bit is set)
   - **1**: The person is mapped to the exact position in
   the network If that position lies outside the road network, the person stops moving on it's own
   accord until it is placed back into the network with another TraCI
@@ -119,7 +119,7 @@ previous and the new position instead.
 
 !!! note
     This function can also be used to force a person into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but did not yet depart (i.e. immediately after calling person.add).
-    
+
 !!! caution
     In between calls of moveToXY, the person may still perform regular movement. The person position is reset afterwards but this can affect other pedestrians. To avoid this, person.setSpeed(personID, 0) can be used.
 
@@ -129,4 +129,3 @@ previous and the new position instead.
 |         byte          |       integer        |        byte         |                       string                       |       byte       |                        double                        | byte | double | byte | double | byte | integer ||
 | :-------------------: | :------------------: | :------------------------------------------------: | :--------------: | :---------------------------------------------------: | :-: |:-: |:-: |:-: |:-: |:-: |:-: |:-: |
 | value type *compound* | item number 5 | value type *string* | edge ID (to resolve ambiguities, may be arbitrary) | value type double | x Position (network coordinates) | value type double | y Position (network coordinates) | value type double | angle | value type byte | keepRoute (0 - 7) |
-

@@ -751,5 +751,3 @@ private:
     /// @brief invalidate assignment operator
     GNEAdditionalHandler& operator=(const GNEAdditionalHandler& s) = delete;
 };
-
-

@@ -146,7 +146,7 @@ The normal behavior is to replace the type of the passing vehicles with the type
 
 If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
 
-- modify only some of the observed types 
+- modify only some of the observed types
 - perform a dependent mapping: carType -> carType2, truckType -> truckType2
 
 Both can be accomplished by using the `vTypes` attribute of the calibrator to make it apply to a subset of types only.
@@ -154,7 +154,7 @@ For a dependent mapping, multiple calibrators (each with a different `vTypes` at
 
 ```xml
 <additional>
-  ... 
+  ...
   <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
     <flow begin="0" end="1800" type="myCarType2"/>
   </calibrator>
@@ -185,7 +185,7 @@ Example route-file input:
   <vType id="truck" maxSpeed="10" probability="30" vClass="truck"/>
 </vTypeDistribution>
 ```
-Example additional-file input: 
+Example additional-file input:
 ```xml
 <vTypeDistribution id="bad_weather">
   <vType id="car2" speedFactor="0.8" decel="3"/>

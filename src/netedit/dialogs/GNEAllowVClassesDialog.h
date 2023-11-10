@@ -122,4 +122,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEAllowVClassesDialog& operator=(const GNEAllowVClassesDialog&) = delete;
 };
-

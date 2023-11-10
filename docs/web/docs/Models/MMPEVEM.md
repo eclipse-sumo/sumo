@@ -172,4 +172,3 @@ torque and power are clipped to the motor's limits during recuperation.
 consumption in the SUMO traffic microsimulator," 2021 IEEE International
 Intelligent Transportation Systems Conference (ITSC), 2021, pp. 1650-1657, doi:
 10.1109/ITSC48978.2021.9564463](https://doi.org/10.1109/ITSC48978.2021.9564463)
-

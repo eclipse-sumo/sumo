@@ -21,7 +21,7 @@ Only the edge attribute 'id' and another attribute for the traffic count are nee
     <interval id="arbitrary" begin="0.0" end="300">
         <edge id="-58" entered="4"/>
         <edge id="45" entered="3"/>
-        <edge id="-31" entered="15"/>       
+        <edge id="-31" entered="15"/>
         ...
      </interval>
      ...
@@ -81,10 +81,10 @@ Traffic data related to turning traffic can also be provided as ratios in the fo
 <data>
   <interval id="generated" begin="0.0" end="99.0">
     <edgeRelation from="-58.121.42" to="64" probability="0.3"/>
-    <edgeRelation from="-58.121.42" to="-31" probability="0.7"/>    
+    <edgeRelation from="-58.121.42" to="-31" probability="0.7"/>
     <edgeRelation from="-31.80.00" to="31" probability="0.1"/>
     <edgeRelation from="-31.80.00" to="37" probability="0.1"/>
-    <edgeRelation from="-31.80.00" to="-23" probability="0.8"/>    
+    <edgeRelation from="-31.80.00" to="-23" probability="0.8"/>
   </interval>
 </data>
 ```
@@ -117,7 +117,7 @@ python tools/routeSampler.py -r sampleRoutes.rou.xml --edgedata-files <edgedat
     departure times in route files are ignored and only the `<route>`-elements are used. Route with named routes but without vehicles may also be used.
 
 ## Generalized route restrictions
-By default, the input options --edgedata-files and --turn-files allow restricting counts for single edges and pairs of consecutive edges. 
+By default, the input options --edgedata-files and --turn-files allow restricting counts for single edges and pairs of consecutive edges.
 
 To define count restrictions for longer consecutive edge sequences the optional 'via' attribute can be used for `<edgeRelation>` elements:
 
@@ -127,66 +127,66 @@ To define count restrictions for longer consecutive edge sequences the optional 
 
 To define count restrictions on non-consecutive edges the option **--turn-max-gap <INT>** can be used. Example:
 When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="A" to="D" .../>` would apply to routes containing "A B", "A X D" or "A X Y D" but not "A X Y Z D".
-        
+
 ## Origin-Destination restrictions
 
 The following section describes counts that refer to the origin and destination of a route rather than to some intermediate route edges.
 Using such counts with routeSampler.py permits to combine thenm with other forms of counts or ratios. (Unlike [od2trips](../od2trips.md) which only imports OD-counts and nothing else).
-    
+
 If origin destination counts are loaded, it is assumed that they give complete coverage of the scenario. This means, if no count is given for a particular Origin-Destination-pair, it is assumed that the count is 0 and no traffic is generated between the respective edges or TAZ.  To change this, the option **--extra-od** may be set. In this case, traffic between any relations can be generated as long as it does not exceed the loaded counts.
-    
+
 ### Edge Based
-  
+
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
-This can be used to combine (edge-based) OD-relations with other counting data. 
-    
+This can be used to combine (edge-based) OD-relations with other counting data.
+
 ```xml
 <edgeRelation from="A" to="D" count="42"/>
-```    
+```
 
-The above counting data example will match routes which start on edge `A` and end on edge `D`.   
-  
+The above counting data example will match routes which start on edge `A` and end on edge `D`.
+
 The tool [route2OD.py](Routes.md#route2odpy) supports option **--edge-relations** to transform any kind of route file into a suitable file of edge-based origin-destination edgeRelations.
-    
+
 ### TAZ (district) Based
-    
+
 When loading an [TAZ-file](../Demand/Importing_O/D_Matrices.md#describing_the_taz) with option **--taz-files**, it is possible to define counts between Traffic Assignment Zones (TAZ, also called districts).
 The counting data itself must be given in the following from and loaded with option **--od-files**:
-    
-``` 
+
+```
 <data>
     <interval id="generated" begin="0.0" end="99.0">
         <tazRelation from="1_2" to="2_0" count="5"/>
     </interval>
-</data>    
-```  
+</data>
+```
 
 The TAZ ids which are referenced by the `tazRelation` attributes `from` and `to` must be defined within the loaded **--taz-files**.
-The above counting data example will match routes which start on any edge of TAZ `1_2` and end on any edge of taz `2_0`.    
+The above counting data example will match routes which start on any edge of TAZ `1_2` and end on any edge of taz `2_0`.
 
 ## Depart / Arrival restrictions
 
 Additional attributes can be read from edgeData files to set the total number of departures or arrivals for each edge. This can be used to create traffic where there would be no traffic otherwise but also to restrict the sampled routes by action as additional constraints together with other counting data (i.e. turn-counts). The following options are available:
-    
+
 - **--arrival-attribute**: set the attribute to read the number of arrivals on an edge
 - **--depart-attribute**: set the attribute to read the number of departures on an edge
-    
+
 !!! note
     When loading an edgedata-file that only contains the arrival or depart-attributes, the value of **--edgedata-attribute** may be set to 'None' to supress the warning about missing attributes that would otherwise be issued.
 
 ## Total count restrictions
-    
+
 The option **--total-count INT[,INT,..]** can be used to specify the total number of generated vehicles. The following two cases are generally possible:
 
 - total-count is **higher** than the traffic that would be generated by matching counts with all other given locations: In this case any routes that do not pass a counting location are used to generated additional traffic (thus avoiding to exceed the count at any specific location). The user must ensure that such routes are available.
 - total-count is **lower** than the traffic that would be generated by matching counts with all other given locations: In this case sampling is aborted upon reaching the total count. Option [**--optimize**](##optimization) may be used to improve matching all counting locations subject to the total count constraint.
-    
+
 The following rules apply depending on the argument value of **--total-count**:
-    
+
 - if total-count is a list of integer values that matches the number of data intervals, each data interval will use the respective count value from the input list
 - if total-count is a single integer value and there are multiple data intervals, the given count is split in proportion to the sum of all counting locations per interval
 - if total-count is set to the special value `input` (**--total-count input**) then the number of vehicles passed in the input route files is used as total-count. If there are multiple data intervals, the input vehicles are assigned to each interval based on their departure time.  If option **--pedestrians** is set, the departures of persons will be counted instead (regardless of whether their plan includes walks or rides).
-    
+
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):
 
@@ -213,32 +213,32 @@ starting edges and inserted with high speed on a reasonable lane.
     Quoting of trip attributes on Linux may also use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ## Multiple vehicle types
-  
+
 To distinguish vehicles of different types, routeSampler may be run multiple times with different attributes. Note, that it is also necessary to set the option **--prefix** to prevent duplicate ids. The example below creates traffic consisting of cars and trucks using two edgedata files with distinct count values (stored in the default attribute 'entered').
 
 ```
 python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files carcounts.xml --prefix c -o cars.rou.xml -r candidate.rou.xml
 python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files truckcounts.xml --prefix t -o trucks.rou.xml -r candidate.rou.xml
 ```
-  
+
 Alternatively, the count values might also be stored in different attributes of the same file (i.e. 'count1', 'count2'):
-  
+
 ```
 python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files counts.xml --edgedata-attribute count1 --prefix c -o cars.rou.xml -r candidate.rou.xml
 python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files counts.xml --edgedata-attribute count2 --prefix t -o trucks.rou.xml  -r  candidate.rou.xml
 ```
-   
+
 When running the simulation, the types 'car' and 'heavy' (previously set as vehicle attributes), must be defined in an additional file which could look like the following example (types.add.xml):
-  
+
 ```xml
 <additional>
   <vType id="car"/>
   <vType id="heavy" vClass="truck"/>
 </additional>
 ```
-  
+
 The simulation could then be called like this:
-  
+
 ```
   sumo -n net.net.xml -a types.add.xml -r cars.rou.xml,trucks.rou.xml
 ```
@@ -246,39 +246,39 @@ The simulation could then be called like this:
 ## Sampling
 In this stage, routes are selected randomly within the limits imposed by the input counts.
 Only routes that pass a minimum number of counting locations (option **--min-count**, default *1*) are eligible for sampling.
-    
+
 ### Default Sampling
-    
+
 By default, sampling will be performed iteratively by:
-    
+
 1. selecting a random counting location that has not yet reached it's count (and which still has viable routes)
 2. selecting a random route that passes this counting location
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
-    
-### Weighted Sampling    
-    
+
+### Weighted Sampling
+
 By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by:
-    
-1. selecting a random viable route sampled by probability 
-    
-until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)    
-   
+
+1. selecting a random viable route sampled by probability
+
+until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
+
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values.
 
 The problem of selecting a multi-set of route so that all count values are matched can be formulated as an [Integer linear programming problem (ILP)](https://en.wikipedia.org/wiki/Integer_programming).
 
 RouteSampler computes an approximate solution to this ILP by relaxing it to a linear programming problem (LP) and passing it to an LP-solver library (scipy).
-  The resulting non-integral solution is then rounded to an integer solution.  
+  The resulting non-integral solution is then rounded to an integer solution.
 It is often desirable to find an optimized solution that is close to the initial sampling-solution. This way, route probabilities that were part of the input can be maintained to some degree.
 
 By setting option **--optimize `<INT>`**. The number of times that a route is used can be changed by up to **`<INT>`** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
 When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
-        
+
 The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simultaneously minimizing the total number of used routes (vehicles).
   A higher value, favours solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**.
-  
+
 !!! note
     Optimization requires [scipy](https://www.scipy.org/).
 
@@ -286,33 +286,33 @@ The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting 
 It is possible to load the resulting output into routeSampler.py for another round of optimization. By setting the option **--optimize-input** the sampling step is skipped and the optimizer is run directly on the input route set.
 
 By removing specific routes or adding new ones, the user can thus tailor the generating traffic in an iterative manner.
-    
+
 ## Quality Control
 
 There is a range of reasons that could lead to a deviation between the routeSampler results and the user expectation. This section lists common reasons and documents which outputs can be used to judge the quality of the results.
-    
+
 ### Problem areas
 
 - Selecting a set of routes to match a given set of counts is generally an underdetermined problem which means there is of not a unique solution. If there are insufficient constraints on the solution space (not enough counts), the chosen solution may appear implausible
 - Input routes are not representative of the real routes
-     - not covering the counting locations 
+     - not covering the counting locations
      - containing unlikely routes
 - Temporal patterns are not captured by the given internval data (i.e. by only having counts for the whole day)
 - Traffic counts are not stationary within an interval (i.e. a single vehicle passing a long a list of widely spaced counting locations and each interval registers a different location). In this case the route that covers all counting locations will not be sampled. (Longer intervals must be chosen in this case).
 - Inconsistency in the counting data
 - Many short routes (can be prevented by setting option **--min-count**)
-    
+
 ### Textual quality metrics
-    
+
 - underflow locations: Statistics on all counting locations with less traffic than defined in the input
 - overflow locations: Statistics on all counting locations with more traffic than defined in the input (only happens due to rounding of fractional counts after optimization)
 - [GEH](https://en.wikipedia.org/wiki/GEH_statistic) statistics: Statistics on locations that reach a defined GEH threshold (configurable with option **--geh-ok**, default *5*)
-- total number and percentage of matched counts (note that this is distinct from the number of vehicles since each vehicle may be counted multiple times) 
-    
+- total number and percentage of matched counts (note that this is distinct from the number of vehicles since each vehicle may be counted multiple times)
+
 ### Spatial quality data
-    
+
 By setting option **--mismatch-output FILE** an [edgeData] file will be created that holds the mismatch between input and output count (`deficit`) as well as the input count (`measuredCount`) for each time interval:
-    
+
 Example:
 ```
 <data>
@@ -322,11 +322,11 @@ Example:
         <edgeRelation from="45" to="-68" measuredCount="3" deficit="1"/>
         ...
     </interval>
-</data>  
+</data>
 ```
 
-Such a data file can be visualized in [sumo-gui](../sumo-gui.md#visualizing_edge-related_data) and also plotted with [plot_net_dump.py](Visualization.md#plot_net_dumppy).    
- 
+Such a data file can be visualized in [sumo-gui](../sumo-gui.md#visualizing_edge-related_data) and also plotted with [plot_net_dump.py](Visualization.md#plot_net_dumppy).
+
 # generateTurnRatios.py
 
 This script is used to calculate the turn ratios from a
@@ -390,7 +390,7 @@ python tools/turn-defs/turnFile2EdgeRelations.py -t <turn-file> -o <output-fil
 The **J**unction**T**urn**C**ountRouter generates vehicle routes from turn-count data.
 It does so by converting the turn counts into into flows and turn-ratio files that are suitable as [jtrrouter](../jtrrouter.md) input.
 Then it calls jtrrouter in the background.
-    
+
 Example call:
 
 ```
@@ -402,8 +402,8 @@ There are three basic styles of converting turn-counts to routes:
 - Flows start at all turn-count locations in the network and are discounted when reaching the next count location (**--discount-sources**)
 - Flows only start on the fringe of the network (**--fringe-flows**)
 
-## Turn count data format  
-  
+## Turn count data format
+
 The turn-count data must be provided in the format which is the same as for [routeSampler](#routesamplerpy):
 
 ```xml
@@ -419,4 +419,3 @@ The turn-count data must be provided in the format which is the same as for [rou
   </interval>
 </data>
 ```
-  

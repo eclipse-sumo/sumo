@@ -78,7 +78,7 @@ the following attributes:
 - **allow/disallow**
 
   [Map features](https://wiki.openstreetmap.org/wiki/Map_Features), [OSM tags for routing/Access restrictions](https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions).
-  
+
 - **numLanes**
 
   [Map features](https://wiki.openstreetmap.org/wiki/Map_Features), [Editing standards and
@@ -87,15 +87,15 @@ the following attributes:
   [Key:highway](https://wiki.openstreetmap.org/wiki/Key:highway) and
   [Tagging scheme by
   country](https://wiki.openstreetmap.org/wiki/Tagging).
-  
+
 - **priority**
 
   [Map features](https://wiki.openstreetmap.org/wiki/Map_Features).
-  
+
 - **oneway**
 
   [Key:oneway](https://wiki.openstreetmap.org/wiki/Key:oneway).
-  
+
 - **speed**
 
   [Key:maxspeed](https://wiki.openstreetmap.org/wiki/Key:maxspeed),

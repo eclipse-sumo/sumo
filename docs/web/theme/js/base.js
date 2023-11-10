@@ -217,7 +217,7 @@ const keyCodes = {
 
 const copyButtonLabel = "Copy";
 
-// you can use a class selector instead if you, or the syntax highlighting library adds one to the 'pre'. 
+// you can use a class selector instead if you, or the syntax highlighting library adds one to the 'pre'.
 let blocks = document.querySelectorAll("pre");
 
 blocks.forEach((block) => {
@@ -237,10 +237,10 @@ async function copyCode(event) {
   let code = pre.querySelector("code");
   let text = code.innerText;
   await navigator.clipboard.writeText(text);
-  
+
   button.innerText = "Copied!";
   button.style.color = "#338033";
-  
+
   setTimeout(()=> {
     button.innerText = copyButtonLabel;
     button.style.color = "#1e1e1e";
@@ -257,7 +257,7 @@ let videos = document.querySelectorAll('[data-youtube]');
 for (let video of videos) {
 	// Get the video ID
 	let id = new URL(video.href).searchParams.get('v');
-	
+
     // Add the ID to the data-youtube attribute
 	video.setAttribute('data-youtube', id);
 

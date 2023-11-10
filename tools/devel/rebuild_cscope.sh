@@ -14,7 +14,7 @@
 # @file    rebuild_cscope.sh
 # @author  Jakob Erdmann
 # @date    2015
-# script for building ctags/cscope index files 
+# script for building ctags/cscope index files
 # to be run from the root directory
 
 #export FOXDIR=~/programs/fox-1.6.43

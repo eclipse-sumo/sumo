@@ -39,7 +39,7 @@ The defined file can either be loaded with sumo option **--additional-files FILE
 
 !!! note
     attribute 'id' is only used to distinguish outputs if there are multiple edgeData definitions. The value is otherwise arbitrary and does not influence written outputs.
-    
+
 
 For additional attributes see the table below.
 
@@ -140,7 +140,7 @@ values are reported in one line.
 Both the edge-dump and the lane-dump are computing the values the same
 way: every vehicle move - even those with v=0 - is recorded and saved
 during the interval. After the interval has passed, these values are
-written into the file after being normalized. 
+written into the file after being normalized.
 
 With regard to edgeData `density`, the values are normalized by the number of the
 collected vehicle movements and the length of the lane. For `laneDensity` they are also normalized by the

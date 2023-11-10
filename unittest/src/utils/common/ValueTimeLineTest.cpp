@@ -211,5 +211,3 @@ TEST(ValueTimeLine, test_fill_gaps_nobounds) {
     EXPECT_EQ(4, vtl.getValue(299)) << "The stored number should be returned when asking within the interval.";
     EXPECT_EQ(4, vtl.getValue(250)) << "The stored number should be returned when asking within the interval.";
 }
-
-

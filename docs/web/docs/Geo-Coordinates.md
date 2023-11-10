@@ -22,7 +22,7 @@ origin shifted to so that the lower left corner of the network is at
   projection option such as **--proj.utm**
 - When importing a network from Shapefile, the availability of
   geo-referencing depends on the format of the source data.
-  
+
 ## osmWebWizard with aerial/satellite imagery
 
 The de-facto standard for projecting background image layers on the internet is the [Web Mercator Projection](https://en.wikipedia.org/wiki/Web_Mercator_projection). When activating the *Satellite background* setting in [osmWebWizard.py](Tutorials/OSMWebWizard.md), the default projection is changed from UTM to Web-Mercator (proj string `+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs`) to avoid a projection mismatch between the network and the downloaded image layer. Note, that the coordinate origin (0,0) will still be shifted to the lower left network corner.
@@ -30,12 +30,12 @@ The de-facto standard for projecting background image layers on the internet is 
 # Checking Geo-Coordinates
 
 In [sumo-gui](sumo-gui.md) and [netedit](Netedit/index.md) when right-clicking anywhere in a
-geo-referenced network, the option *Show cursor geo-position in* permits to open a sub-menu for launching a webbrowser that shows the location directly in [maps.google.com](https://www.google.com/maps), [openstreetmap.org](https://www.openstreetmap.org) or [geohack](https://geohack.toolforge.org/geohack.php?params=52.520580;13.400177_scale:1000). 
+geo-referenced network, the option *Show cursor geo-position in* permits to open a sub-menu for launching a webbrowser that shows the location directly in [maps.google.com](https://www.google.com/maps), [openstreetmap.org](https://www.openstreetmap.org) or [geohack](https://geohack.toolforge.org/geohack.php?params=52.520580;13.400177_scale:1000).
 
 Furthermore, the option *Copy cursor geo-position to
 clipboard* is available. The resulting *lat,lon* coordinates are
 suitable for pasting into any map engine such as [maps.google.com](http://www.google.com/maps) or
-[maps.bing.com](https://www.bing.com/maps). 
+[maps.bing.com](https://www.bing.com/maps).
 
 Also, the network coordinates as well as the
 geo-coordinates at the cursor position are shown in the bottom
@@ -66,16 +66,15 @@ netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj
 
 - [FCD-output](Simulation/Output/FCDOutput.md) can be obtained
   in geo-coordinates by adding the option **--fcd-output.geo**
-  
+
 - [duarouter](duarouter.md) supports option **--write-trips.geo** to create trip definitions with geo-coordinates (see above)
-  
+
 # Mapping geo-coordinates
 
-It is often desirable to convert between geo-coordinates (lon,lat) and road coordinates (laneID, offset). 
+It is often desirable to convert between geo-coordinates (lon,lat) and road coordinates (laneID, offset).
 This is typically accomplished in a 2-step process of first converting lon,lat to x,y-network coordinates (in m) and the matching those coordinates to the closest lane. The following resources can be useful for this task:
 
 - [how to match trajectories](FAQ.md#how_do_i_generate_sumo_routes_from_gps_traces)
 - [traci.moveToXY](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4) moves a vehicle to an appropriate network position
 - [convert geo-coordinates to edge with sumolib](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
 - [TraCI](TraCI/Simulation_Value_Retrieval.md#command_0x82_position_conversion) converts between coordinates (x,y or lon,lat) and edges
-

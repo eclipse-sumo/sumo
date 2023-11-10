@@ -115,6 +115,3 @@ TEST_F(MSCFModel_IDMTest, test_method_getSecureGap) {
         }
     }
 }
-
-
-

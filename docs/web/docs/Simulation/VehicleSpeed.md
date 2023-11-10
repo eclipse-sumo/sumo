@@ -22,7 +22,7 @@ The individual desired max speed serves as another upper bound on speed next to 
 The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
 
 - `pedestrian`: 1.39 (5km/h)
-- `bicycle`: 5.56 (20km/h) 
+- `bicycle`: 5.56 (20km/h)
 - all other classes: 2778 (10000km/h)
 
 !!! caution
@@ -44,7 +44,7 @@ have a random speedFactor with a deviation of 0.1 and mean of 1.0 which
 means there will be different desired speeds in the vehicle population
 by default.
 
-When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed 
+When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed
 ```
 min(maxSpeed, speedFactor * desiredMaxSpeed,  speedFactor * speedLimit)
 ```

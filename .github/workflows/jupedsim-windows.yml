@@ -50,7 +50,7 @@ jobs:
       with:
         path: sumo
         fetch-depth: 0
- 
+
     - name: Fetching SUMO tags
       run: |
         cd sumo
@@ -59,7 +59,7 @@ jobs:
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v3
       with:
-        repository: DLR-TS/SUMOLibraries 
+        repository: DLR-TS/SUMOLibraries
         path: sumolibraries
 
     - name: Configuring and building SUMO

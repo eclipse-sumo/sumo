@@ -1,15 +1,15 @@
 name: macos
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
     - cron:  '5 2 * * *'
@@ -49,19 +49,19 @@ jobs:
 
     - name: Building SUMO
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build 
+        mkdir -p sumo/cmake-build
+        cd sumo/cmake-build
         cmake ..
         make -j4
 
     - name: Building Traas
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
         make traas
 
     - name: Installing SUMO
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
         sudo make install
 
     - name: Building Examples and Tests

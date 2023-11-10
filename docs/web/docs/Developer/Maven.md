@@ -4,8 +4,8 @@ title: Maven
 
 # Maven
 
-The Eclipse SUMO project provides the jar files for `libsumo` and `libtraci` in a public Eclipse Nexus instance. 
-The Nexus instance is available [here](https://repo.eclipse.org). They can be used in `maven` builds. 
+The Eclipse SUMO project provides the jar files for `libsumo` and `libtraci` in a public Eclipse Nexus instance.
+The Nexus instance is available [here](https://repo.eclipse.org). They can be used in `maven` builds.
 More information on the repository hosted by the Eclipse Foundation can be found [here](https://wiki.eclipse.org/Services/Nexus).
 
 ## Pulling Artifacts
@@ -54,7 +54,3 @@ You are then able to reference `libsumo` or `libtraci` as a dependency in our `p
    ...
 </dependencies>
 ```
-
-
-
-

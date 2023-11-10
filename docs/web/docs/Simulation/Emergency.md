@@ -36,24 +36,24 @@ The following behaviors are activated for surrounding traffic ahead of the devic
 - vehicles on all other lanes move towards the right side (latAlignment="right").
 - vehicles do not perform any lane changes (in particular, they do not move into the rescue lane).
 - after the emergency vehicle has passed, the vehicles resume normal driving (with their previous lateral alignment).
-  
+
 Vehicles that are forming a rescue lane will have [generic parameter](GenericParameters.md) key `rescueLane` set to a space-separated list of emergency vehicle ids that are influencing them.
-  
+
 Surrounding traffic reacts while within 25m of the device-equipped vehicle. This distance is configurable by:
 
 - the SUMO option [**--device.bluelight.reactiondist**](https://sumo.dlr.de/docs/sumo.html#bluelight_device), or
 - the TraCI command [`traci.vehicle.setParameter(vehID, "device.bluelight.reactiondist", str(value))`](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)
 
 ## Further Features for driving with special rights
-  
-- Disregarding right-of-way and traffic lights: 
+
+- Disregarding right-of-way and traffic lights:
   - supported by using the [TraCI 'speed mode'
   command](../TraCI/Change_Vehicle_State.md#speed_mode_0xb3) to disable intersection related safety checks.
   - supported by [junction model parameters](Safety.md#junction_model).
 - Exceeding the speed limit: This is supported by setting the
   vType-attribute [*speedFactor*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
   (a value of 1.5 allows driving with 150% of the road speed limit).
- 
+
 
 # Example Configuration
 
@@ -75,7 +75,7 @@ The following [generic parameters](GenericParameters.md) can be used to configur
 - "device.bluelight.reaction-prob-near": probably for a vehicle to react (per second) and start forming a rescue lane while near (default *0.577*)
 - "device.bluelight.reaction-prob-far": probably for a vehicle to react (pers second) and start forming a rescue lane while far away (default *0.189*)
 - "device.bluelight.near-dist": distance threshold to distinguish between near and far (for the above probabilities)
- 
+
 # Visualization
 
 The visualization of emergency vehicles is supported in

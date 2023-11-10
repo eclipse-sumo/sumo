@@ -131,4 +131,3 @@ We currently consider all modifications to [src](src/README_Contributing.md) and
 - network import modules (excluding [changes to the existing classes](src/netimport/README_Contributing.md))
 - network export modules (excluding [changes to the existing classes](src/netwrite/README_Contributing.md))
 - software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_Contributing.md))
-

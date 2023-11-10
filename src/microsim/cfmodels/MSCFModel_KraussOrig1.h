@@ -150,5 +150,3 @@ protected:
     /// @brief The precomputed value for myDecel*myTau
     double myTauDecel;
 };
-
-

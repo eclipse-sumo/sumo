@@ -212,4 +212,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_IDM& operator=(const MSCFModel_IDM& s);
 };
-

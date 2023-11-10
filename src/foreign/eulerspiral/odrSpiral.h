@@ -2,12 +2,12 @@
  *  file:       odrSpiral.c
  * ---------------------------------------------------
  *  purpose:	free sample for computing spirals
- *              in OpenDRIVE applications 
+ *              in OpenDRIVE applications
  * ---------------------------------------------------
  *  first edit:	09.03.2010 by M. Dupuis @ VIRES GmbH
  *  last mod.:  09.03.2010 by M. Dupuis @ VIRES GmbH
  * ===================================================
- 
+
     Copyright 2010 VIRES Simulationstechnologie GmbH
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
  */
- 
+
 /**
 * compute the actual "standard" spiral, starting with curvature 0
 * @param s      run-length along spiral

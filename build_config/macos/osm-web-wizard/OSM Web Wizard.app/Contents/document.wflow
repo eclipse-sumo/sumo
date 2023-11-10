@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>#!/bin/zsh 
+					<string>#!/bin/zsh
 
 # ****************************************************************************
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
@@ -87,7 +87,7 @@ FILE_LIST=("$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile"
 for FILE in ${FILE_LIST[*]}; do
     if [ -z "$SUMO_HOME" ]; then
         echo "Loading $FILE" 2&gt; /dev/null
-        source $FILE 
+        source $FILE
     else
         echo "Found \$SUMO_HOME"
         break

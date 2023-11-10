@@ -70,7 +70,7 @@ The source code of SUMO can be cloned with the following command to the director
 git clone --recursive https://github.com/eclipse-sumo/sumo
 export SUMO_HOME="$PWD/sumo"
 ```
-SUMO is usually build as an out-of-source build. You need to create a directory for your build and invoke CMake to trigger the configuration from there. 
+SUMO is usually build as an out-of-source build. You need to create a directory for your build and invoke CMake to trigger the configuration from there.
 ```
 cd $SUMO_HOME
 cmake -B build .
@@ -83,7 +83,7 @@ cmake --build build --parallel $(sysctl -n hw.ncpu)
 ```
 ## Optional Steps
 
-### TraCI as a Service (TraaS) 
+### TraCI as a Service (TraaS)
 TraaS is a java library for working with TraCI. Building TraaS can be triggered with the following commands.
 ```
 cd $SUMO_HOME
@@ -105,7 +105,7 @@ CTEST_OUTPUT_ON_FAILURE=1 cmake --build build --target examples test
 More information is provided [here](../Developer/Unit_Tests.md).
 
 ### Integration Tests with TextTest
-SUMO uses an application called TextTest to manage and execute and extensive set of integration tests. If you plan to extend SUMO with new features, we would like to encourage you to also add tests for your code to the SUMO testsuite and to make sure that existing functionality is not affected. 
+SUMO uses an application called TextTest to manage and execute and extensive set of integration tests. If you plan to extend SUMO with new features, we would like to encourage you to also add tests for your code to the SUMO testsuite and to make sure that existing functionality is not affected.
 
 The installation of TextTest on macOS is documented [here](../Developer/Tests.md).
 
@@ -120,14 +120,14 @@ There are usually three Python versions available on a mac with brew.
 
 If you do not configure anything "special" during `cmake`, it will find the Python 2.7 installation and use that version of the Python framework for building libsumo. In your cmake output, you will find something like this:
 ```
--- Found PythonInterp: /usr/bin/python (found version "2.7.16") 
+-- Found PythonInterp: /usr/bin/python (found version "2.7.16")
 -- Found Python: /usr/bin/python
 ...
--- Found PythonLibs: /usr/lib/libpython2.7.dylib (found version "2.7.16") 
+-- Found PythonLibs: /usr/lib/libpython2.7.dylib (found version "2.7.16")
 ```
 You should be able to just use python 2.7 and import libsumo.
 ```
-Python 2.7.16 (default, Jun  5 2020, 22:59:21) 
+Python 2.7.16 (default, Jun  5 2020, 22:59:21)
 [GCC 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.29.20) (-macos10.15-objc- on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import libsumo
@@ -144,17 +144,17 @@ cmake -DPYTHON_EXECUTABLE=/usr/local/bin/python3.8 ../..
 In the CMake configuration output, you should see lines like the following:
 ```
 -- Found PythonInterp: /usr/local/bin/python3.8 (found version "3.8.6")
-... 
--- Found PythonLibs: /usr/local/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib (found version "3.8.6") 
+...
+-- Found PythonLibs: /usr/local/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib (found version "3.8.6")
 ```
 After building, you should be able to load `libsumo`
 ```
-$ python3.8                                                                                                           
-Python 3.8.6 (default, Oct 27 2020, 08:57:44) 
+$ python3.8
+Python 3.8.6 (default, Oct 27 2020, 08:57:44)
 [Clang 12.0.0 (clang-1200.0.32.21)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import libsumo
->>> 
+>>>
 ```
 
 If you do not want to use Python 2.7 (from macOS) or Python 3 (from Brew), but instead want to use Python 3.x from Xcode, you will need to tell `cmake` where to find the Python installation of the command line tools of Xcode. The following path settings work on macOS Catalina with the command line tools of Xcode 12.1.
@@ -168,11 +168,11 @@ cmake \
 After the build, you should be able to load libsumo.
 ```
 /usr/bin/python3
-Python 3.8.2 (default, Sep 24 2020, 19:37:08) 
+Python 3.8.2 (default, Sep 24 2020, 19:37:08)
 [Clang 12.0.0 (clang-1200.0.32.21)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import libsumo
->>> 
+>>>
 ```
 
 !!! note

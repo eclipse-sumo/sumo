@@ -204,4 +204,3 @@ public:
     /// @brief automatic whole platoon lane change
     bool autoLaneChange;
 };
-

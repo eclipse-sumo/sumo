@@ -162,7 +162,7 @@ default may be changed using the option **--tls.default-type** {{DT_STR}}.
 
 !!! note
     You can load multiple node files at the same time by giving a comma-separated list of file names on the command line. In a configuration file you can use a space separated list as well.
-    
+
 ### tlLayout
 If you leave out the tlLayout of the node, it is set to *opposites*. This
 default may be changed using the option **--tls.layout** {{DT_STR}}
@@ -281,7 +281,7 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 
 !!! caution
     Never attempt to modify the junction logic within a ***.net.xml*** file manually as there are subtle inter-dependencies with other data structures in the network. Nevertheless, it may be useful to [look into the .net.xml to understand right-of-way](../Networks/SUMO_Road_Networks.md#requests)
-    
+
 ### Modifying Right-of-Way
 
 The right-of-way can be customized by specifying [additional prohibitions](#setting_connection_priorities) and by
@@ -290,7 +290,7 @@ specifying the [connection attribute](#explicitly_setting_which_edge_lane_is_con
 
 Since version 1.1.0, the algorithm for computing right-of-way from the
 edge priorities can be switched between two modes using `<node>`-attribute
-*rightOfWay*.    
+*rightOfWay*.
 
 ## Fringe
 
@@ -315,7 +315,7 @@ The new junction will get the id *cluster_id0_id1*. If there are more nodes in t
 the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
 ### Reasons for joining node clusters
-Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
+Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied.
 - To prevent jamming cross-traffic, vehicles should only enter an intersection space if they are not prevented from leaving by a downstream jam
 - Vehicles that turn left from opposite directions may turn ahead of each other (without intersecting trajectories). In an unjoined cluster long vehicles easily block each other when turning left from opposite directions.
 
@@ -362,7 +362,7 @@ excluded from joining can also be specified via the option **--junctions.join-ex
 
 !!! caution
     After merging nodes, the lane-to-lane connections are recalculated. You can override them by resorting to a 2-step process:
-    
+
         # 1. Merging the junctions.
         netconvert --sumo-net-file berlin-separated-junctions.net.xml \
           --output-file berlin-joined-junctions.net.xml \
@@ -371,7 +371,7 @@ excluded from joining can also be specified via the option **--junctions.join-ex
         netconvert --sumo-net-file berlin-joined-junctions.net.xml \
           --output-file berlin-with-fixed-connections.net.xml \
           --connection-files berlin-new-connections.con.xml
-    
+
     See [#Connection Descriptions](#connection_descriptions) on how to define connections in **\*.con.xml** format.
 
 When loading networks with defined connections, the results of joining
@@ -579,7 +579,7 @@ The definition of a lane contains the following optional attributes:
 | speed          | float                                                                                                               | speed in meters per second                                                                                                                 |
 | width          | float                                                                                                               | width in meters (used for visualization)                                                                                                   |
 | endOffset      | float \>= 0                                                                                                         | Move the stop line back from the intersection by the given amount (effectively shortening the lane and locally enlarging the intersection) |
-| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.    
+| shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | A custom shape for this lane.<br><br>**Note:** The lane lengths will be averaged in the generated network. Lane-changing will ignore gaps between lanes.
 | type          | string | a custom type description for this lane (only informational) |
 | acceleration  | bool | whether this lane is a motorway acceleration lane (default *false*) |
 
@@ -587,14 +587,14 @@ See "Vehicle Classes" for further information about [allowed vehicle classes](..
 and their usage.
 
 ### lane change restrictions
-When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases. 
+When defining lane change restrictions with `changeLeft` and `changeRight`, the vehicle class "emergency" should typically be allowed since emergency vehicles can ignore non-physical restrictions in most cases.
 
 To strongest restriction is the value "ignoring". Note, that vehicles of class "ignoring" cannot be restricted from lane changing with `changeLeft` and `changeRight`. (only creating separate parallel edges will work).
 
 ## Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
-stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line). 
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
 
 ```xml
 <edge id="<ID>">

@@ -39,7 +39,7 @@ to an equilibrium state (DUE).
 
 # Usage Description
 
-Duarouter has two main purposes: [Computing fastest/optimal routes](Demand/Shortest_or_Optimal_Path_Routing.md) directly as well as iteratively in the context of 
+Duarouter has two main purposes: [Computing fastest/optimal routes](Demand/Shortest_or_Optimal_Path_Routing.md) directly as well as iteratively in the context of
 [Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md).
 
 ## Outputs

@@ -142,4 +142,3 @@ private:
     SUMORTree* myVis;
 
 };
-

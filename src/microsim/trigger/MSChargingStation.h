@@ -176,4 +176,3 @@ private:
     /// @brief Invalidated assignment operator.
     MSChargingStation& operator=(const MSChargingStation&) = delete;
 };
-

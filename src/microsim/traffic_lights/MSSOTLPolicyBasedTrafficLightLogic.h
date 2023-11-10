@@ -102,4 +102,3 @@ protected:
 private:
     MSSOTLPolicy* myPolicy;
 };
-

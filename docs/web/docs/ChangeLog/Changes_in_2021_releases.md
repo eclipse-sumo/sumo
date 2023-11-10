@@ -210,7 +210,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left turns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
-  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
+  - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199
   - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
   - Delays for opening a rail crossing can now be [customized](../Simulation/Railways.md#rail_crossing_parameters) and their values were increased to be more realistic. Issue #9301
   - Loading parkingReroute elements that can potentially cause blockage in parking search now results in a warning. Issue #9363
@@ -308,7 +308,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
   - Added functions to retrieve aggregated traffic measures from E3-detector. Issue #9501
   - Libtraci now supports 'Simulation::start'. Issue #6466
-  - Added functions 'trafficlight.setNemaSplits', 'setNemaMaxGreens', 'setNemaCycleLength' and 'setNemaOffset' to control the split and offset of NEMA-type controllers. Issue #9520  
+  - Added functions 'trafficlight.setNemaSplits', 'setNemaMaxGreens', 'setNemaCycleLength' and 'setNemaOffset' to control the split and offset of NEMA-type controllers. Issue #9520
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -442,7 +442,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - Miscellaneous
   - Fixed problems with unicode paths on windows. Issue #3973
-   
+
 ### Enhancements
 
 - simulation
@@ -517,18 +517,18 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - sumo-gui
   - Coloring *by waitingTime* now uses value 0 for stopped persons, consistent with stopped vehicles. Issue #8585
-  
+
 - netedit
   - When adding stops to a trip, the route now changes as necessary to pass the stop location. Issue #7364
   - Person stages that end at a busStop can now be defined. Issue #6903
   - Flows and vehicles are now drawn on their configured departLane. Issue #7888
   - Fixed missing 'modes' menu entries in Demand- and Data-supermode. Issue #8486
-  
+
 - netconvert
   - Added automated check to prevent disconnected routes due to invalid lane-change permissions in OSM input. Issue #8603
   - Fixed invalid network output when setting **--ignore-change-restrictions ignoring**. Issue #8616
   - Fixed failure of **--tls.guess-signals** in lefthand network. Issue #8635
-  
+
 - marouter
   - Input attributes fromJunction and toJunction are now working. Issue #8631
 
@@ -576,7 +576,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Option **--weights.priority-factor** is no longer ignored in rail networks with bidirectional tracks. Issue #8561
 
 - netedit
-  - Restored polygon exaggeration so that it increases line width rather than growing the whole shape. Issue #8568 (regression in 1.7.0) 
+  - Restored polygon exaggeration so that it increases line width rather than growing the whole shape. Issue #8568 (regression in 1.7.0)
   - Polygon ids can be shown again. Issue #8575 (regression in 1.7.0)
   - Setting size of additional ids is now working. Issue #8574 (regression in 1.8.0)
   - Ids of additional objects are now shown when zoomed out. Issue #8571
@@ -687,7 +687,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Person drawing style "as circles" is now drawing circles as intended. Issue #8130
   - Fixed crash when opening person parameter dialog for a person with depart="triggered". Issue #8164
   - Default coloring now indicates lanes that allow rails and busses. #8315
-  
+
 - netedit
   - Fixed invalid E2 detector shape Issue #7895 (Regression in 1.7.0)
   - Fixed invalid rendering layer of polygons below roads. Issue #8316 (Regression in 1.7.0)
@@ -695,7 +695,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed issues when adding stops in person plan. #7829
   - Fixed issue where written network (with only invalid crossings) is modified upon reloading. Issue #7765
   - In Traffic Light mode, cycle time is now updated, when new phase is inserted. Issue #7961
-  - Fixed problem with invisible data elements. Issue #7643 
+  - Fixed problem with invisible data elements. Issue #7643
   - Fixed problem with invisible vehicles when activating 'spread vehicles'. Issue #7931
   - Polygon and poi now have a visual indication when 'marked as front'. Issue #8331
   - Fixed bug when deleting or changing geometry-points (via dialog) in 3d-networks. Issue #8345
@@ -742,7 +742,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Function 'trafficlight.setProgramLogic' new resets phase duration. Issue #2238
   - Function 'trafficlight.setPhaseDuration' now works for actuated traffic lights. Issue #1959
   - Route replacement with internal edge at the start of the edges list no longer causes an error. Issue #8231
-  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285, #8398 
+  - Fixed failure to add stop when close to the stop position (but not quite too close). Also affected taxi re-dispatch. Issue #8285, #8398
   - Looped taxi-dispatch now picks up persons in the intended order. Issue #8295
   - Fixed bug where traci.vehicle.dispatchTaxi could generate non-continuous routes. Issue #8424
   - Fixed crash after calling 'person.removeStage' on a riding stage. Issue #8305
@@ -752,7 +752,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Fixed invalid error related to subscriptions after calling simulation.loadState. Issue #8426
   - Fixed memory leak when calling simulation.loadState. Issue #8450
   - Fixed invalid build dependencies for libsumo. Issue #8472
-  
+
 - Tools
   - Fixed error in xml2csv.py when loading files names consists only of numbers. Issue #7910
   - Fixed invalid routes when [importing MATSim plans](../Tools/Import/MATSim.md) #7948

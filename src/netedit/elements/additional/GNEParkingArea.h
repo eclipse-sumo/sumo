@@ -173,5 +173,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEParkingArea& operator=(const GNEParkingArea&) = delete;
 };
-
-

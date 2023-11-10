@@ -76,7 +76,7 @@ insertion delay:
   vehicles* for the whole network.
 - The parameter Dialog for individual vehicles lists *desired depart*
   and *depart delay*
-  
+
 ## Effect of simulation step-length
 Insertion attempts can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
 By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
@@ -98,11 +98,11 @@ The following remedies are generally recommended to improve insertion flow:
 For specialized use cases the following tips may help to achieve even more insertions:
 
 - alternatively: Use `departPos="last"` in combination with `departSpeed="desired"` : vehicle position will be adjusted to the maximum
-  position behind the leader vehicle that allows driving with the desired speed  
+  position behind the leader vehicle that allows driving with the desired speed
 - insert with a fixed departSpeed (numerical value) and set option **--ignore-route-errors**.
   Vehicles will be inserted with unsafe speeds at the specified time
   if emergency-braking would still allow collision-free dynamics
-- disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes) 
+- disable some or all insertion checks using [attribute `insertionChecks`](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vehicle_attributes)
 - use [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c) or [traci.vehicle.moveToXY](../TraCI/Change_Vehicle_State.md#move_to_xy_0xb4)
   to force the vehicle into the network at the specified time and  place.
 

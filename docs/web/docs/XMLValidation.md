@@ -31,7 +31,7 @@ are pre-parsed from the local [schema file](#schema_files). For all other file t
 
 The validation option *auto* (which was the default before SUMO 1.15.0) in contrast only validates the file
 if the schema declaration is present. It tries to parse the schema first from the local path,
-see [the section schema files](#schema_files) and falls back to the web version if *SUMO_HOME* is not set or 
+see [the section schema files](#schema_files) and falls back to the web version if *SUMO_HOME* is not set or
 the file could not be found.  The current default *local* has no fallback, so validation will fail
 if the local file is not accessible (or SUMO_HOME is not set). This is to prevent unintended network access and [XXE attacks](https://en.wikipedia.org/wiki/XML_external_entity_attack).
 

@@ -1,4 +1,4 @@
-#!/bin/zsh 
+#!/bin/zsh
 
 # ****************************************************************************
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
@@ -26,7 +26,7 @@ FILE_LIST=("$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile"
 for FILE in ${FILE_LIST[*]}; do
     if [ -z "$SUMO_HOME" ]; then
         echo "Loading $FILE" 2> /dev/null
-        source $FILE 
+        source $FILE
     else
         echo "Found \$SUMO_HOME"
         break
@@ -41,4 +41,3 @@ else
     echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
     python $SUMO_HOME/tools/osmWebWizard.py "$@" &> /dev/null || python3 $SUMO_HOME/tools/osmWebWizard.py "$@" &> /dev/null &
 fi
-

@@ -327,7 +327,7 @@ on("ready", function(){
     };
 
     // listen if a roadType checkbox is selected/unselected
-    var roadTypeCheckboxes = document.getElementsByClassName("checkAll"); 
+    var roadTypeCheckboxes = document.getElementsByClassName("checkAll");
 
     Array.from(roadTypeCheckboxes).forEach(function(element) {
         element.addEventListener("click", checkOrUncheckAll);
@@ -337,7 +337,7 @@ on("ready", function(){
     // avoid cross domain resource sharing issues (#3991)
     // (https://gis.stackexchange.com/questions/83953/openlayers-maps-issue-with-ssl)
     var map = new OpenLayers.Map("map");
-    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap", 
+    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap",
     // Official OSM tileset as protocol-independent URLs
     [
         'https://tile.openstreetmap.org/${z}/${x}/${y}.png'
@@ -414,7 +414,7 @@ on("ready", function(){
         };
         xhr.send();
     };
-    
+
 
     // set default position to center Berlin
     setPosition(13.4, 52.52);
@@ -482,7 +482,7 @@ on("ready", function(){
 		presentedErrorLog = true;
 	    }
 	};
-	
+
         // whenever the socket closes (e.g. restart) try to reconnect
         socket.addEventListener("close", connectSocket);
         socket.addEventListener("message", function(evt){

@@ -71,7 +71,7 @@ In many cases, the solutions for a given input is not unique. It is often the ca
 
 By setting the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations. This can increase running time but causes
 flows to be distributed more evenly so that all routes are used in
-proportion to the incoming and outgoing flows (similar to the behavir of 
+proportion to the incoming and outgoing flows (similar to the behavir of
 [dfrouter](../dfrouter.md)).
 
 
@@ -118,7 +118,7 @@ It requires the use of an input flow file and then performs a comparison between
 This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to into [edgeData format](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) (i.e. to be used by [routeSampler.py](Turns.md#edge_counts) or for [visualization in sumo-gui](../sumo-gui.md#visualizing_edge-related_data))
 Example:
 ```
-<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml 
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
 ```
 
 # filterFlows.py

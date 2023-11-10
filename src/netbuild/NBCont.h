@@ -60,4 +60,3 @@ enum KeepClear {
     KEEPCLEAR_TRUE = 1,
     KEEPCLEAR_UNSPECIFIED = -1
 };
-

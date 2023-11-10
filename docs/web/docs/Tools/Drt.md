@@ -6,7 +6,7 @@ title: DRT
 
 The drtOnline.py tool allows you to simulate shared demand responsive transport (DRT).
 The tool uses [TraCI](../TraCI.md) and the [taxi device](../Simulation/Taxi.md) to control
-the requests and the drt vehicles. Requests arrive dynamically and are handled by 
+the requests and the drt vehicles. Requests arrive dynamically and are handled by
 a dispatcher that seeks to combine multiple requests in order to maximize the number
 of requests served while minimizing the mileage of the entire fleet of vehicles.
 
@@ -49,20 +49,20 @@ device. The file should looks like:
     </trip>
 </routes>
 ```
-You can change the capacity as well as other attributes of the vehicles just like 
+You can change the capacity as well as other attributes of the vehicles just like
 in sumo. See [vehicle attributes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#available_vtype_attributes).
 
 As output a tripinfo.xml file is generated with information about each request or person
 and vehicle. Persons who have as result the attribute ```<vehicle="NULL">```, represent orders
 that could not be served and therefore were rejected.
 
-The tool has different options to adapt the drt service. The most 
-relevant are: the **--max-wait** option which defines the maximum waiting time for 
+The tool has different options to adapt the drt service. The most
+relevant are: the **--max-wait** option which defines the maximum waiting time for
 pick-up the requests (default 900 s). With **--sim-step** the step time to collect
-new reservations is defined (default 30 seconds). The **--drf** option defines the 
-direct route factor that is used as an auxiliary to set the maximum travel time with 
+new reservations is defined (default 30 seconds). The **--drf** option defines the
+direct route factor that is used as an auxiliary to set the maximum travel time with
 the drt service that a person can accept. The maximum travel time with the drt service
-cannot be greater than the direct travel time multiplied by this factor, which by 
+cannot be greater than the direct travel time multiplied by this factor, which by
 default has a value equal to 2.
 
 ## darpSolvers.py
@@ -72,12 +72,12 @@ available for the routing of the drt vehicles.
 
 # drtOrtools.py
 
-The tool drtOrtools.py models demand responsive transport (DRT) in SUMO via 
-[TraCI](../TraCI.md) and uses 
+The tool drtOrtools.py models demand responsive transport (DRT) in SUMO via
+[TraCI](../TraCI.md) and uses
 [ortools](https://github.com/google/or-tools) to solve the vehicle routing problems.
 
-As with drtOnline.py, requests arrive dynamically and multiple requests are 
-combined in order to maximize the number of requests served while minimizing 
+As with drtOnline.py, requests arrive dynamically and multiple requests are
+combined in order to maximize the number of requests served while minimizing
 the mileage (or duration) of the entire vehicle fleet.
 
 The tool requires Python and the packages numpy and ortools. The minimum call is:
@@ -86,7 +86,7 @@ The tool requires Python and the packages numpy and ortools. The minimum call is
 python drtOrtools.py -s example.sumocfg
 ```
 
-with `example.sumocfg` being a valid SUMO configuration file which refers to 
+with `example.sumocfg` being a valid SUMO configuration file which refers to
 a network file, routes etc.
 
 For further help on the command line arguments run:
@@ -99,6 +99,6 @@ The solver requires a matrix with costs to travel
 between drop-off locations, pick-up locations and current vehicle positions.
 Costs can be distances or travel times depending on the option `--cost-type`.
 The costs are obtained during simulation by calls to `traci.simulation.findRoute()`.
-In a regular interval (option `--interval`), open requests are assigned to 
-vehicles of the DRT fleet and the cost matrixed is passed to the auxiliary file 
+In a regular interval (option `--interval`), open requests are assigned to
+vehicles of the DRT fleet and the cost matrixed is passed to the auxiliary file
 ortools_pdp.py, where the vehicle routing problem is solved using ortools.

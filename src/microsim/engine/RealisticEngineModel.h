@@ -362,4 +362,3 @@ public:
      */
     void getEngineData(double speed_mps, int& gear, double& rpm);
 };
-

@@ -135,7 +135,7 @@ State](Driver_State.md)).
 
 # References
 
-1. Lücken, L., Mintsis, E., Kallirroi, N. P., Alms, R., Flötteröd, Y. P., & Koutras, D. (2019). 
-	From Automated to Manual - Modeling Control Transitions with SUMO. 
-	EasyChair. SUMO User Conference 2019, 13.-15. May 2019, Berlin, Germany. 
-    <https://doi.org/10.29007/sfgk> 
+1. Lücken, L., Mintsis, E., Kallirroi, N. P., Alms, R., Flötteröd, Y. P., & Koutras, D. (2019).
+	From Automated to Manual - Modeling Control Transitions with SUMO.
+	EasyChair. SUMO User Conference 2019, 13.-15. May 2019, Berlin, Germany.
+    <https://doi.org/10.29007/sfgk>

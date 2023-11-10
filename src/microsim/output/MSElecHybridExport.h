@@ -65,6 +65,3 @@ private:
     MSElecHybridExport& operator=(const MSElecHybridExport&);
 
 };
-
-
-

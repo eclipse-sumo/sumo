@@ -200,4 +200,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEHierarchicalElement& operator=(const GNEHierarchicalElement&) = delete;
 };
-

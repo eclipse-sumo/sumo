@@ -89,4 +89,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEOverwriteElementsDialog& operator=(const GNEOverwriteElementsDialog&) = delete;
 };
-

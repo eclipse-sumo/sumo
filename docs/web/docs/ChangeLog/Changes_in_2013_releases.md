@@ -173,7 +173,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
   - modified naming conventions for internal lanes: previously every
     internal lane had its own internal edge. The id of this internal
     edge was ":<junction_id\>_<link_index\>" and the id of the
-    internal lane was ":<junction_id\>_<link_index\>_0". 
+    internal lane was ":<junction_id\>_<link_index\>_0".
     Now Internal lanes with the same start and end edge have a common
     internal edge (except for lanes following an internal junction).
     The id of this internal edge is

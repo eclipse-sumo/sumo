@@ -142,4 +142,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNECalibratorFlowDialog& operator=(const GNECalibratorFlowDialog&) = delete;
 };
-

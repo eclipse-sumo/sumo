@@ -59,9 +59,9 @@ Since version 1.2 duarouter supports mapping positions to roads using attributes
 
 !!! caution
     SUMO does not yet support these mapping attributes.
-    
+
 By setting the option **--mapmatch.junctions**, positions are mapped to junctions instead of edges. The routes are then [computed between junctions](#routing_between_junctions).
-    
+
 ## Vehicle Types
 
 If any trips use the `type` attribute, the
@@ -71,7 +71,7 @@ into an {{AdditionalFile}}.
 
 !!! note
     By default, [duarouter](../duarouter.md) will write `vType` definitions into the output route file ahead of the first vehicle using that type. By using the option **--vtype-output** these definitions can be put into another file.
-    
+
 # Flow Definitions
 
 Flow amounts share most of the parameter with trip definitions. The
@@ -105,7 +105,7 @@ and
 
 !!! note
     The input file always needs a root level element to enclose the trip/flow elements and this should be named `<routes>`.
-     
+
 
 Let's review flow parameter:
 

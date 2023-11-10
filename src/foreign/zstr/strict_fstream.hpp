@@ -234,4 +234,3 @@ public:
 }; // class fstream
 
 } // namespace strict_fstream
-

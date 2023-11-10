@@ -116,7 +116,7 @@
                         <xsd:restriction base="xsd:string">
                             <xsd:enumeration value="off"/>
                         </xsd:restriction>
-                    </xsd:simpleType> 
+                    </xsd:simpleType>
                 </xsd:union>
             </xsd:simpleType>
         </xsd:attribute>
@@ -173,7 +173,7 @@
                     <xsd:enumeration value="LC2013"/>
                     <xsd:enumeration value="SL2015"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="imgFile" type="xsd:string"/>
         <xsd:attribute name="osgFile" type="xsd:string"/>
@@ -373,7 +373,7 @@
         <xsd:attribute name="cc8" type="floatType"/>
         <xsd:attribute name="cc9" type="floatType"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="cfACCType">
         <xsd:attribute name="accel" type="positiveFloatType"/>
         <xsd:attribute name="decel" type="positiveFloatType"/>
@@ -430,7 +430,7 @@
         <xsd:attribute name="flatbedD" type="floatType"/>
         <xsd:attribute name="flatbedH" type="floatType"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="vehicleType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
@@ -600,7 +600,7 @@
                     <xsd:enumeration value="split"/>
                     <xsd:enumeration value="begin"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -610,7 +610,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="triggered"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -624,7 +624,7 @@
                     <xsd:enumeration value="first"/>
                     <xsd:enumeration value="best"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -640,7 +640,7 @@
                     <xsd:enumeration value="last"/>
                     <xsd:enumeration value="stop"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -655,7 +655,7 @@
                     <xsd:enumeration value="last"/>
                     <xsd:enumeration value="avg"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -670,7 +670,7 @@
                     <xsd:enumeration value="compact"/>
                     <xsd:enumeration value="left"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -681,7 +681,7 @@
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="free"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -694,7 +694,7 @@
                     <xsd:enumeration value="first"/>
                     <xsd:enumeration value="random"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -705,7 +705,7 @@
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="max"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -720,7 +720,7 @@
                     <xsd:enumeration value="center"/>
                     <xsd:enumeration value="left"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -732,7 +732,7 @@
                     <xsd:enumeration value="center"/>
                     <xsd:enumeration value="left"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -742,7 +742,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="current"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -809,7 +809,7 @@
                         <xsd:restriction base="xsd:string">
                             <xsd:enumeration value="opportunistic"/>
                         </xsd:restriction>
-                    </xsd:simpleType> 
+                    </xsd:simpleType>
                 </xsd:union>
             </xsd:simpleType>
         </xsd:attribute>

@@ -54,7 +54,7 @@ alternatives below.
  - see also further dependencies [for GUI testing](../Developer/GUI_Testing.md)
 
 The package names above are for openSUSE, for ubuntu the call to get the most important optional libraries and tools is:
-  
+
 ```
 sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-setuptools
 sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8
@@ -238,7 +238,7 @@ If the errors are reported with cryptic hexadecimal numbers as
 
 ```
 Indirect leak of 72 byte(s) in 1 object(s) allocated from:
-    #0 0xa4ee2d  (.../sumo/bin/netconvertD+0xa4ee2d) 
+    #0 0xa4ee2d  (.../sumo/bin/netconvertD+0xa4ee2d)
 ```
 
 set the following environment variable to point to the llvm-symbolizer executable:
@@ -325,7 +325,7 @@ git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
 Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v0.9.6, you would need to type:
 
-``` bash 
+``` bash
 git checkout tags/v0.9.6
 ```
 

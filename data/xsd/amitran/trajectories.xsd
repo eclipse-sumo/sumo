@@ -11,7 +11,7 @@
             <xsd:attribute name="timeStepSize" use="required" type="xsd:unsignedInt"/> <!-- unit: 0.001s -->
         </xsd:complexType>
     </xsd:element>
- 
+
     <xsd:complexType name="actorConfigType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="vehicleClass" type="vehicleClassType" use="optional"/>
@@ -24,14 +24,14 @@
         <xsd:attribute name="model" type="xsd:string" use="optional"/>
         <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent type in the original model -->
     </xsd:complexType>
-    
+
     <xsd:complexType name="vehicleType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/> <!-- unique ID -->
         <xsd:attribute name="actorConfig" type="xsd:unsignedInt" use="required"/> <!-- reference to actorConfig id -->
         <xsd:attribute name="startTime" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.001s -->
         <xsd:attribute name="ref" type="xsd:string" use="optional"/> <!-- this may be used to refer to the equivalent vehicle in the original model -->
     </xsd:complexType>
-        
+
     <xsd:complexType name="motionStateType">
         <xsd:attribute name="vehicle" type="xsd:unsignedInt" use="required"/> <!-- reference to vehicle id -->
         <xsd:attribute name="speed" type="xsd:unsignedInt" use="required"/> <!-- unit: 0.01m/s -->
@@ -56,7 +56,7 @@
         <xsd:attribute name="timeToCollision" type="xsd:unsignedInt"/> <!-- unit: 0.001s -->
         <xsd:attribute name="vehicleInFrontId" type="xsd:int"/> <!-- reference to vehicle id -->
     </xsd:complexType>
-    
+
     <xsd:simpleType name="emissionClassType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Euro0" />
@@ -68,7 +68,7 @@
             <xsd:enumeration value="Euro6" />
         </xsd:restriction>
     </xsd:simpleType>
-    
+
     <xsd:simpleType name="fuelType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Gasoline" />
@@ -83,7 +83,7 @@
             <xsd:enumeration value="HybridDiesel" />
         </xsd:restriction>
     </xsd:simpleType>
-    
+
     <xsd:simpleType name="vehicleClassType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="Passenger" />
@@ -96,12 +96,12 @@
             <xsd:enumeration value="Trailer" />
         </xsd:restriction>
     </xsd:simpleType>
-    
+
     <xsd:simpleType name="roadTypeType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="urban" />
             <xsd:enumeration value="motorway" />
         </xsd:restriction>
     </xsd:simpleType>
-    
+
 </xsd:schema>

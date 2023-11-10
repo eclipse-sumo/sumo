@@ -65,6 +65,3 @@ private:
     MSBatteryExport& operator=(const MSBatteryExport&);
 
 };
-
-
-

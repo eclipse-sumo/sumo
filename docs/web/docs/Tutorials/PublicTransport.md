@@ -26,8 +26,8 @@ Main topics are:
   - [traci._busstop](https://sumo.dlr.de/pydoc/traci._busstop.html)
 
 # Public Transport Tutorial
-At the beginning of the simulation, buses and trams are being dispatched to cater to their designated routes.   
-Simultaneously, people are created. Each person hurries to their favourite bus stop and waits for their bus or tram.   
+At the beginning of the simulation, buses and trams are being dispatched to cater to their designated routes.
+Simultaneously, people are created. Each person hurries to their favourite bus stop and waits for their bus or tram.
 They then are picked up and brought to their target bus stops.
 
 Running the simulation:
@@ -42,7 +42,7 @@ Running the simulation:
 First, the net has to be created and bus stops must be built. There are several ways to accomplish this - one can, for example, write them by hand into the xml file or use netedit for this.
 
 #### Using netedit
-Bus stops can be easily created with the bus stop tool at the top of the window.   
+Bus stops can be easily created with the bus stop tool at the top of the window.
 The following gifs will describe the basic creation of the net used in this tutorial.
 ![](../images/PublicTransport02.gif)
 *Creating an edge with reverse line and side walks.*
@@ -59,7 +59,7 @@ If you are not sure about how to create a net in netedit, take a look at this tu
 It explains the use of edges, connections, demands, routes etc., in depth.
 
 When saving the net you should save your additionals as well.
-Bus stops should be written in the `additional.add.xml` file to provide the stops for the people and vehicles.   
+Bus stops should be written in the `additional.add.xml` file to provide the stops for the people and vehicles.
 An example xml code for the bus stop may look like this:
 
 ```xml
@@ -74,9 +74,9 @@ If a busStop is on an edge that does not permit pedestrians (i.e. tram track) it
 
 
 ## Public Transport
-The created bus stops can be used as the stopping points within the route declaration.   
+The created bus stops can be used as the stopping points within the route declaration.
 Those routes can later be assigned to vehicles, in this case, trams and buses.
-The routes are written into the `routes.rou.xml` file.   
+The routes are written into the `routes.rou.xml` file.
 Below you can see examples from the code for the routes of the trams and buses.
 
 
@@ -105,14 +105,14 @@ To obtain a repeating schedule multiple approaches are feasible:
 
 ### Schedules
 
-Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.   
+Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.
 Such schedules are defined with the attribute `until`. The until attribute is set for the stops.
 A vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
 
 
 ## Demand
 
-The travel demand consists of persons that can choose their mode of transport freely 
+The travel demand consists of persons that can choose their mode of transport freely
 
 ```xml
    <personFlow id="AB" begin="0" end="3600" probability="0.1">
@@ -126,7 +126,7 @@ Use the sumo option **--vehroute** output to learn how a `<personFlow>` is expan
 ```xml
 <person id="HeadingBusstop20" depart="1.00" color="green">
      <walk from="gneE1" busStop="busStop_-gneE10_1_6"/>
-     <ride busStop="busStop_-gneE10_1_5" lines="tram"/>    
+     <ride busStop="busStop_-gneE10_1_5" lines="tram"/>
 </person>
 
 <vehicle id="0" type="Tram" depart="0" color="1,1,0" line="tram">
@@ -144,7 +144,7 @@ Use the sumo option **--vehroute** output to learn how a `<personFlow>` is expan
 
 ## sumocfg
 As you have probably seen from other tutorials, you bind everything together
-with a sumocfg. Within this, you set the net, route and additional files.   
+with a sumocfg. Within this, you set the net, route and additional files.
 Afterwards, you can start your simulation by clicking on it or starting it over on the
 command line.
 
@@ -156,7 +156,7 @@ command line.
         <route-files value="pt.rou.xml,persons.rou.xml"/>
         <additional-files value="stops.add.xml"/>
     </input>
-    
+
 </configuration>
 ```
 

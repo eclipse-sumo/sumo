@@ -304,4 +304,3 @@ extern FXAPI const FXuchar fxexversion[3];
 } // namespace FXEX
 
 #endif // FXEXDEFS_H
-

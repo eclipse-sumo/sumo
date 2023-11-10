@@ -11,8 +11,8 @@ This tutorial shows how to create a simple port simulation with the help of the 
    - Passenger / Bus
    - Container
    - Trucks, RoRo
-   - Vessels	
-* Examples 
+   - Vessels
+* Examples
 
 ## Useful links
 
@@ -36,16 +36,16 @@ python <SUMO_HOME>/tools/osmWebWizard.py
 !!! note
 	All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can use the script `build.bat` to rebuild the random demand.
 
-A browser window will open. On the left side, you see the map and on the right side, you can find your position and some options. First, navigate through the map to find the right port.  
+A browser window will open. On the left side, you see the map and on the right side, you can find your position and some options. First, navigate through the map to find the right port.
 <img src="../images/tutorialport1.png" width="100%">
 
-In our case it is the Skandinavienkai of the Port Lübeck, Germany. Here, there are ferries (passenger transport) and cargo vessels (container transport). 	
+In our case it is the Skandinavienkai of the Port Lübeck, Germany. Here, there are ferries (passenger transport) and cargo vessels (container transport).
 
 <img src="../images/tutorialport2.png" width="100%">
 
 ### Network Generation
-Now take a look at the right side. You can choose the whole area visible on the screen or select an area by choosing the option `Select Area`. 
-Also select the `Add Polygons` and `Import Public Transport` options to put this information directly from OSM to our network. 
+Now take a look at the right side. You can choose the whole area visible on the screen or select an area by choosing the option `Select Area`.
+Also select the `Add Polygons` and `Import Public Transport` options to put this information directly from OSM to our network.
 
 ### Demand Generation
 The demand is defined by the demand generation panel. You can activate this panel by clicking on the car pictogram. Here you can choose every agent you need at your port area. If you have any special port vehicles like crane or stapler, you can not create them here. Ideas for possible implementations are described a little further below.
@@ -55,7 +55,7 @@ For our scenario we choose `cars`, `trucks`, `pedestrians`, `trains`, and of cou
 
 <img src="../images/tutorialport3.png" width="100%">
 
-After you chose all the agents you need press the `Generate Scenario` button.  
+After you chose all the agents you need press the `Generate Scenario` button.
 
 The complete scenario is generated automatically. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario). Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the Play button.
 
@@ -63,18 +63,18 @@ Here is our scenario! But it looks a little strange because the waterways are ve
 
 <img src="../images/tutorialport4.png" width="100%">
 
-This is our port: (With additional polygons to get a better overview of the port.) 	
+This is our port: (With additional polygons to get a better overview of the port.)
 
 <img src="../images/tutorialport5.png" width="100%">
 
-But as you can see, not all piers are connected to the waterways and if you take a closer look you will find more things to fix. So let´s open netedit to correct the network.  	
+But as you can see, not all piers are connected to the waterways and if you take a closer look you will find more things to fix. So let´s open netedit to correct the network.
 
 <img src="../images/tutorialport6.png" width="100%">
 
 ## Network editing
 Now we open [netedit](../Netedit/index.md) to correct these parts. You can open it from sumo-gui with the shortcut `Ctrl + T`.
 
-### Netedit:	
+### Netedit:
 <img src="../images/tutorialport8.png" width="100%">
 
 ### 1) Shorten the waterways, so that only the originally selected area remains.
@@ -127,7 +127,7 @@ Use the inspect mode (`I`): Open the allow option on the left side and change th
 <img src="../images/tutorialport18.png" width="1000">
 
 ### 5) Train Tracks
-The train tracks imported by the osmWebWizard from OSM just have one direction. 
+The train tracks imported by the osmWebWizard from OSM just have one direction.
 Use netedit or netconvert to add bidirectional tracks.
 
 #### Netconvert:
@@ -151,24 +151,24 @@ Select `busStop` or `containerStop` and define a name. Then place the stop at an
 After adding all needed stops save them as an additional file (e.g. stops.add.xml).
 
 !!! note
-	If an agent shall go to a stop with an edge with no permission, you can use access lanes for the stop. 
+	If an agent shall go to a stop with an edge with no permission, you can use access lanes for the stop.
 	For more information see [public transport](../Simulation/Public_Transport.md#access_lanes).
 
 These are the stops for our scenario: (H=busStop, C=containerStop)
 
 <img src="../images/tutorialport20.png" width="100%">
 
-If the network is now correct, save the network. Run the file `build.bat` at the scenario folder (for us: <SUMO_HOME>/tools/2021-02-22-10-00-00/ ) to create a new demand suitable for the customized network. You can run the file `run.bat` to restart the simulation. 
+If the network is now correct, save the network. Run the file `build.bat` at the scenario folder (for us: <SUMO_HOME>/tools/2021-02-22-10-00-00/ ) to create a new demand suitable for the customized network. You can run the file `run.bat` to restart the simulation.
 
 <img src="../images/tutorialport21.png" width="100%">
 
-Here you can see that in our scenario there are far too many ships. So it is time to have a deeper look into the demand. 
+Here you can see that in our scenario there are far too many ships. So it is time to have a deeper look into the demand.
 
-## Demand 
+## Demand
 
-Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about passenger transport can be retrieved from OpenStreetMap and local public transport and ferry companies. 
+Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about passenger transport can be retrieved from OpenStreetMap and local public transport and ferry companies.
 
-### Demand editing 
+### Demand editing
 If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` within the file `build.bat` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
 
 If you want a more complex scenario delete the generated demand, first. :-)
@@ -190,7 +190,7 @@ Here is the list of all Agents we want to insert:
 1 train with:
 	15 containers: from train to ship
 	15 containers: from ship to train
-	
+
 1 bus: for the passenger transport between passenger terminal and the ship
 
 5 trailer/stapler: for the container transport between the train and the ship
@@ -201,10 +201,10 @@ First, we need some adaptions to the vTypes to add the necessary capacities to l
 ```xml
 <vType id="type_ship" vClass="ship" containerCapacity="25" personCapacity="20"/>
 <vType id="type_train" vClass="rail" containerCapacity="15"/>
-<vType id="type_truck_taxi" vClass="truck" containerCapacity="1" personCapacity="1" loadingDuration="30.0"/> 
-<vType id="type_truck" vClass="truck" containerCapacity="1" loadingDuration="30.0"/> 
+<vType id="type_truck_taxi" vClass="truck" containerCapacity="1" personCapacity="1" loadingDuration="30.0"/>
+<vType id="type_truck" vClass="truck" containerCapacity="1" loadingDuration="30.0"/>
 <vType id="type_car" vClass="passenger"/>
-<vType id="type_bus_taxi" vClass="bus" personCapacity="20"/>          
+<vType id="type_bus_taxi" vClass="bus" personCapacity="20"/>
 <vType id="type_passenger" vClass="pedestrian"/>
 ```
 
@@ -216,7 +216,7 @@ Add the trip for the train to the port and back.
 </trip>
 ```
 
-#### Ships 
+#### Ships
 There are two possible ways to define a ship. Either by defining the complete route or by using the trip definition:
 ```xml
 <vehicle id="ferry" depart="0.00" departPos="0" line="ferry" type="type_ship" color="0,255,0">
@@ -260,7 +260,7 @@ For the containers we use containerFlow definitions:
    <transport to="-149084838#0" lines="train"/>
 </containerFlow>
 
-<containerFlow id="containertoship" begin="triggered" number="15" color="255,0,255"> 
+<containerFlow id="containertoship" begin="triggered" number="15" color="255,0,255">
 	<transport from="149084838#0" containerStop="containerStop_trainstation" lines="train"/>
 	<tranship containerStop="containerStop_truck_trainstation"/>
 	<transport containerStop="containerStop_pier" lines="taxi"/>
@@ -286,9 +286,9 @@ For the trucks and cars we use flow definitions:
 Consider the `line` attribute for the bus.
 ```xml
 <trip id="bus" type="type_bus_taxi" depart="0" departLane="best" from="-197841302" via="-128042010" to="-197841302" line="bus">
-	<stop busStop="busStop_busstation_terminal" until="300.00"/> 
-	<stop busStop="busStop_pier" until="750.00"/> 
-	<stop busStop="busStop_busstation_terminal" until="900.00"/> 
+	<stop busStop="busStop_busstation_terminal" until="300.00"/>
+	<stop busStop="busStop_pier" until="750.00"/>
+	<stop busStop="busStop_busstation_terminal" until="900.00"/>
 </trip>
 ```
 
@@ -309,7 +309,7 @@ For the persons we use flow definitions:
    <ride busStop="busStop_pier" lines="bus"/>
    <walk busStop="busStop_waterway"/>
    <ride to="127071510" lines="ferry"/>
-</personFlow> 
+</personFlow>
 ```
 
 # Examples

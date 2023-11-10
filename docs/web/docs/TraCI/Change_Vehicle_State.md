@@ -116,8 +116,8 @@ The stop flags are a bitset with the following additive components
 | :-------------------: | :------------------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------------: |
 | value type *compound* | item number (2 or 3) | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *byte* (optional) | bool for relative lane change |
 
-Please note: 
-The duration for the lane change is the time the vehicle tries to perform the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration. 
+Please note:
+The duration for the lane change is the time the vehicle tries to perform the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration.
 After the vehicle has successfully performed the lane change(s) it will remain on that lane for the remainder of the duration.
 
 ### slow down (0x14)
@@ -162,7 +162,7 @@ creation but the specified vehicle.
 | :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
 | value type *compound* | item number (always 2) | value type *string* | Lane ID | value type *double* | Position along lane |
 
-The vehicle will be removed from its lane and moved to the given position on the given lane. No collision checks are done, this means that moving the vehicle may cause a collisions or a situations leading to collision. The vehicle keeps its speed - in the next time step it is at given position + speed. Note that the lane must be a part of the route, this means it must be either a part of any of the edges within the vehicles route or an internal lane that connects route edges. To overcome this limitation, the route can be modified prior to calling moveTo. 
+The vehicle will be removed from its lane and moved to the given position on the given lane. No collision checks are done, this means that moving the vehicle may cause a collisions or a situations leading to collision. The vehicle keeps its speed - in the next time step it is at given position + speed. Note that the lane must be a part of the route, this means it must be either a part of any of the edges within the vehicles route or an internal lane that connects route edges. To overcome this limitation, the route can be modified prior to calling moveTo.
 
 !!! note
     This can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having it's departure lane blocked.
@@ -170,25 +170,25 @@ The vehicle will be removed from its lane and moved to the given position on the
 ### move to XY (0xb4)
 
 The vehicle (the center of it's front bumper) is moved to the network
-position that best matches the given x,y network coordinates. 
+position that best matches the given x,y network coordinates.
 
 The arguments edgeID and lane are optional and can be set to "" and -1 respectively if not known.
-Their use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap). 
+Their use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap).
 If the edgeID and lane are given, they are compared against the 'origID'-attribute of the road lanes (which may be set to provide a mapping to some other network such as OpenDRIVE) and if the attribute isn't set against the actual lane id.
 
 The optional keepRoute flag is a bitset that influences
 mapping as follows:
 
 - **bit0** (keepRoute = 1 when only this bit is set)
-  - **1**: The vehicle is mapped to the closest edge within its existing route. 
+  - **1**: The vehicle is mapped to the closest edge within its existing route.
            If no suitable position is found within 100m   mapping fails with an error.
   - **0**: The vehicle is mapped to the closest edge within the network.
-           If that edge does not belong to the original route, the current route is replaced by a new 
+           If that edge does not belong to the original route, the current route is replaced by a new
            route which consists of that edge only.
            If no suitable position is found within 100m mapping fails with an error.
            When using the [sublane model](../Simulation/SublaneModel.md) the best lateral position
            that is fully within the lane will be used. Otherwise, the vehicle  will drive in the center of the closest lane.
-- **bit1** (keepRoute = 2 when only this bit is set)           
+- **bit1** (keepRoute = 2 when only this bit is set)
   - **1**: The vehicle is mapped to the exact position in
   the network (including the exact lateral position). If that position
   lies outside the road network, the vehicle stops moving on it's own
@@ -197,7 +197,7 @@ mapping as follows:
   - **0**: The vehicle is always on a road
 - **bit2** (keepRoute = 4 when only this bit is set)
   - **1**: lane permissions are ignored when mapping
-  - **0**: The vehicle is mapped only to lanes that allow it's vehicle class       
+  - **0**: The vehicle is mapped only to lanes that allow it's vehicle class
 
 The angle value is assumed to be in navigational degrees (between 0 and
 360 with 0 at the top, going clockwise). The angle is used when scoring
@@ -221,7 +221,7 @@ previous and the new position instead.
 
 ### replaceStop (0x17)
 
-|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte |
 | :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
 | value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
@@ -230,14 +230,14 @@ Replaces stop at the given index with a new stop. Automatically modifies the rou
 - For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
 - If edgeID is "", the stop at the given index will be removed without replacement and the route will not be modified.
    - if teleport is set to 2, the vehicle will rerouting in the section of the removed stop (i.e. from the previous to the successive stop).
-- If teleport is set to 1, the route to the replacement stop will be disconnected (forcing a teleport). 
+- If teleport is set to 1, the route to the replacement stop will be disconnected (forcing a teleport).
   - If stopIndex is 0 the gap will be between the current edge and the new stop.
   - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
   - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
 
 ### insertStop (0x18)
 
-|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte | 
+|         byte          |       integer        |        byte         | string  |        byte         |    double    |       byte        |    byte    |        byte         |       double        |             byte             |           int           |              byte              |     double     |              byte              |      double      | byte | int | byte | byte |
 | :-------------------: | :------------------: | :-----------------: | :-----: | :-----------------: | :----------: | :---------------: | :--------: | :-----------------: | :-----------------: | :--------------------------: | :---------------------: | :----------------------------: | :------------: | :----------------------------: | :--------------: | :---: | :---: | :---: | :---: |
 | value type *compound* | item number (8 or 9) | value type *string* | Edge ID | value type *double* | end position | value type *byte* | Lane Index | value type *double* | Duration in seconds | value type *int* | stop flags (see [stop](#stop_0x12)) | value type *double* | start position | value type *double* | Until in seconds | value type *int* | nextStopIndex | value type *byte* (optional) | teleport |
 
@@ -245,7 +245,7 @@ Inserts stop at the given index. Automatically modifies the route to accommodate
 
 - For edgeID a stopping place id may be given if the flag marks this stop as stopping on busStop, parkingArea, containerStop etc.
 - if nextStopIndex is equal to the number of upcoming stops, the new stop will be added after all other stops
-- If teleport is set to 1, the route to the new stop will be disconnected (forcing a teleport). 
+- If teleport is set to 1, the route to the new stop will be disconnected (forcing a teleport).
   - If stopIndex is 0 the gap will be between the current edge and the new stop.
   - Otherwise the gap will be between the stop edge for nextStopIndex - 1 and the new stop.
   - It is recommended to also set sumo option **--time-to-teleport.disconnected** when using this
@@ -360,7 +360,7 @@ bit) with the following fields:
 - bit2: Regard maximum deceleration
 - bit3: Regard right of way at intersections (only applies to approaching foe vehicles outside the intersection)
 - bit4: Brake hard to avoid passing a red light
-- bit5: **Disregard** right of way within intersections (only applies to foe vehicles that have entered the intersection). 
+- bit5: **Disregard** right of way within intersections (only applies to foe vehicles that have entered the intersection).
 
 Setting the bit enables the check (the according value is regarded),
 keeping the bit==zero disables the check.
@@ -373,7 +373,7 @@ Examples:
 - disable right of way check -\> \[1 1 0 1 1 1\] -\> Speed Mode = 55
 - run a red light \[0 0 0 1 1 1\] = 7 (also requires setSpeed or slowDown)
 - run a red light even if the intersection is occupied \[1 0 0 1 1 1\] = 39 (also requires setSpeed or slowDown)
-  
+
 !!! caution
     bit5 has inverted semantics and must be set to '1' in order to disable the safety function. This achieves backward compatibility with earlier versions of SUMO where this bit was not defined and right of way within intersection could not be ignored explicitly.
 
@@ -497,7 +497,7 @@ controlled vehicle (moveToXY).
 #### special cases
 
 - if routeID is "", the vehicle will be inserted on a random network edge. This may be useful when intending the vehicle with moveToXY (and now route information is available)
-- if the route consists of 2 disconnected edges, the vehicle will be treated like a `<trip>` and use the fastest route between the two edges 
+- if the route consists of 2 disconnected edges, the vehicle will be treated like a `<trip>` and use the fastest route between the two edges
 
 !!! note
     Please note that the values are not checked in a very elaborated way. Make sure they are correct before sending.

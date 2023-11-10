@@ -31,5 +31,5 @@
     <type id="mwyExit"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric rail_fast tram ship"/>
 
     <!-- not fully implemented -->
-    <type id="bidirectional" priority="1"  speed="1.39"  width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/> 
+    <type id="bidirectional" priority="1"  speed="1.39"  width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
 </types>

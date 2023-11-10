@@ -664,4 +664,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEVehicleTypeDialog& operator=(const GNEVehicleTypeDialog&) = delete;
 };
-

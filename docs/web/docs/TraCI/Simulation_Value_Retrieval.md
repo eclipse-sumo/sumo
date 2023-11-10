@@ -320,7 +320,7 @@ The request needs the following parameter:
 | value type *compound* | item number (always 3) | start position | end position | Distance Type |
 
 where
-  
+
 - Distance Type==0: air distance
 - Distance Type==1: driving distance
 
@@ -378,7 +378,7 @@ the [generic parameter retrieval call](../TraCI/GenericParameters.md#get_paramet
 ### Stoppping Place Information
 
 The *object id* of `getParameter` refers to the object (i.e. chargingStation) id. The following parameters
-are supported: 
+are supported:
 
 - chargingStation.totalEnergyCharged
 - chargingStation.name
@@ -392,8 +392,8 @@ are supported:
 
 !!! note
     Since version 1.7.0 these and other values can be retrieved via new domains (i.e. `traci.busstop`)
-    
-    
+
+
 ### Device Parameter Retrieval
 
 The following parameters can be retrieved. They are not for a specific device holder but are instead global measures. The *object id* must be the empty string "".

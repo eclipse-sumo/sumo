@@ -81,7 +81,7 @@
         <xsd:attribute name="linkIndex" type="xsd:integer" use="optional"/>
         <xsd:attribute name="linkIndex2" type="xsd:integer" use="optional"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="walkingAreaType">
         <xsd:attribute name="node" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>

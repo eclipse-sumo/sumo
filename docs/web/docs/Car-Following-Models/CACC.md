@@ -55,7 +55,7 @@ Also, If the `followSpeed` computed by the CACC model grows higher than the safe
 - The model is primarily intended for use in specific traffic
   situations.
 - When there is no leader vehicle, the model uses the same speed as the Krauss model to approach junctions and speed limits
-  
+
 !!! caution
     The model is known to produce collisions at the default step-length of 1s. Better results can be achieved by setting a lower step length.
 
@@ -75,6 +75,6 @@ Also, If the `followSpeed` computed by the CACC model grows higher than the safe
     effects of cooperative adaptive cruise control deactivation on
     traffic flow characteristics at merging bottlenecks. Transportation
     Research Part C: Emerging Technologies, 96, 380–397.
-4.	Porfyri, K. N., Mintsis, E., & Mitsakis, E. (2018). Assessment of ACC and CACC systems using SUMO. 
-	EPiC Series in Engineering, 2, 82-93. 
+4.	Porfyri, K. N., Mintsis, E., & Mitsakis, E. (2018). Assessment of ACC and CACC systems using SUMO.
+	EPiC Series in Engineering, 2, 82-93.
 	<https://doi.org/10.29007/r343>

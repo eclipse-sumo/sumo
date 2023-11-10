@@ -65,14 +65,14 @@ error dynamics.
 | minAwareness                             | float | 0.1                         | The minimal value for the driver awareness (a technical parameter to avoid a blow up of the term `1/minAwareness`).   |
 | maximalReactionTime                      | float (s) | original action step length | The value for the driver's actionStepLength attained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
 
-## Supported carFollowModels    
+## Supported carFollowModels
 
 The following models support the driverstate device:
-    
+
 - Krauss
 - IDM
 - CACC
-    
+
 # Modeling of Perception Errors
 
 An underlying

@@ -12,8 +12,8 @@ There are three different types of shape elements: Polygons, POI's (Points-of-in
 
 To create a polygon, select `poly` in the *Shape elements* drop-down list. Before drawing the polygon, you may change some of its attributes such as the **id**, **color**, select whether you want a **filled** polygon or just the contour, among many other options. Note that some attributes can be modified later, in *Inspect mode* ![](../images/icon_modeinspect.png).
 
-![](../images/GNEdrawpolygon.gif)    
-To start drawing the polygon, click on `Start drawing` or press **<ENTER\>**. To finish the shape creation, either click on `Stop drawing` or press **<ENTER\>**. 
+![](../images/GNEdrawpolygon.gif)
+To start drawing the polygon, click on `Start drawing` or press **<ENTER\>**. To finish the shape creation, either click on `Stop drawing` or press **<ENTER\>**.
 
 **<SHIFT\> + click** (anywhere) removes the last inserted point, and selecting `Abort drawing` or simply pressing **<ESC\>** aborts the shape creation.
 

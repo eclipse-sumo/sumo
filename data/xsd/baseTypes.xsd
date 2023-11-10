@@ -31,7 +31,7 @@
                     <xsd:minInclusive value="-1"/>
                     <xsd:maxInclusive value="-1"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -41,7 +41,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern value="(norm|normc)\(&FloatPattern;,&FloatPattern;(,&FloatPattern;(,&FloatPattern;)?)?\)"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -82,7 +82,7 @@
             <xsd:enumeration value="x"/>
             <xsd:enumeration value="-"/>
         </xsd:restriction>
-    </xsd:simpleType> 
+    </xsd:simpleType>
 
     <xsd:simpleType name="colorType">
         <xsd:union>
@@ -361,7 +361,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -371,7 +371,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
                 </xsd:restriction>
-            </xsd:simpleType> 
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 

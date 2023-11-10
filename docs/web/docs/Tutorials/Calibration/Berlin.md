@@ -24,10 +24,10 @@ of the induction loops is given in Fig. 1.
 ## Modelling within the SUMO-Package
 
 Preparing a traffic simulation includes modelling the road network as
-well as modelling the traffic demand within the traffic network.  
+well as modelling the traffic demand within the traffic network.
 
-### Traffic Net Modelling  
-  
+### Traffic Net Modelling
+
 The simulation net includes the section between
 “Wegedornstraße” and “Adlergestell”. It represents the exact number of
 lanes, turn lanes and links to all side roads. Within the considered
@@ -40,10 +40,10 @@ available to model the bottleneck itself, Variable Speed Signs (VSS)
 \[3\] were placed in the model at the outbound of the junction
 “Altglienicker Brücke” towards Adlergestell. The VSS supplies all
 vehicles crossing with a new maximum speed, derived from the single
-value data from the detectors.  
-  
-### Traffic Demand Modelling  
-  
+value data from the detectors.
+
+### Traffic Demand Modelling
+
 While looking for a work day, outside of the holiday seasons, where considerable congestion occurred, Tuesday the 11 of January 2011 was chosen. The traffic data from this day
 was aggregated to intervals of one minute. This minor simplification
 enabled the use of the module dfrouter \[4\]. After defining the

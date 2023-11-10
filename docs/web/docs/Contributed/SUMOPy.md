@@ -101,7 +101,7 @@ following documents describe the basic functioning of the GUI.
 - [Getting started\!](../Contributed/SUMOPy/GUI/Getting_Started.md)
 - [Demand modelling with GUI](../Contributed/SUMOPy/GUI/Demand_Modelling.md)
   - [Zone to zone demand flows](../Contributed/SUMOPy/Demand/Zone_To_Zone.md)
-  - [Turn flows](../Contributed/SUMOPy/Demand/Turn_Flows.md) 
+  - [Turn flows](../Contributed/SUMOPy/Demand/Turn_Flows.md)
 
 # Simulation processes
 

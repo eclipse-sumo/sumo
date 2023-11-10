@@ -44,27 +44,27 @@ sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
     The route input must contain `<vehicle>`s with `<route>`-child-elements. Flows and trips are not supported. Vehicles with departure time = 'triggered' are not considered.
 
 !!! note
-    The begin time is not mandatory. However, the begin time will be the earliest departure time in the given route file, if it is not given. The flows within 1 hour from the begin time on are considered. If the whole period in the given route file is less than 1 hour, the flows will be proportionally scaled up to 1-hour flows. If the period is longer than 1 hour and no begin time is given, the 1-hour 
-  peak-flows will be used. 
+    The begin time is not mandatory. However, the begin time will be the earliest departure time in the given route file, if it is not given. The flows within 1 hour from the begin time on are considered. If the whole period in the given route file is less than 1 hour, the flows will be proportionally scaled up to 1-hour flows. If the period is longer than 1 hour and no begin time is given, the 1-hour
+  peak-flows will be used.
 
 ## Remarks
 
 The calcuation in this script are based on static hourly traffic flows. Therefore, the flow pattern (e.g. vehicles arriving only in the first 10 minutes) within a hourly flow cannot be reflected in the Webster's equation. Accordingly, the suggested signal timing plans may not correspond to the traffic situation in the microscopic simulation. Several parameters in the options may need to be adjusted according to the given use case. Some remarks for helping to get proper results are listed below.
 
-- Hourly flow: 
+- Hourly flow:
     Currently, this script only considers flows for one hour corresponding to the basic Webster's equation. So, the begin time needs to be given for getting the correct flows from the route file. Otherwise, the begin time = 0 is used as default, and the end time is then 3600 s. If the given period is longer than 1 hour, it is recommended to firstly find out the peak-hour begin time and use it in the script. If the given period is less than 1 hour, this script will still treat the respective flow as hourly flow. It is planned to scale/extract hourly flow from a given route file.
 
-- Allocation of the movements at intersections: 
-    In the basic Webster's equation, critical flows are calculated according to the given signal groups. So, generally speaking, flows with the same direction and in the same green time phase are summed up. The capacity is then calculated according to the number of lanes, which the respective flows are allowed to use. Accordingly, the critical flow group for each signal phase can be identified. This script does the same thing. If through and right-turn movements share the same green time phase at an intersection and they can only respectively use one lane in the microscopic simulation, i.e. there is no shared lane for both through and right-turn movements, the respective capacity will be over-estimated for through-movement. To avoid such situation, the rightmost lane needs to be set as shared lane for both right-turn and through movements. 
-   
-- Lane capacity: 
+- Allocation of the movements at intersections:
+    In the basic Webster's equation, critical flows are calculated according to the given signal groups. So, generally speaking, flows with the same direction and in the same green time phase are summed up. The capacity is then calculated according to the number of lanes, which the respective flows are allowed to use. Accordingly, the critical flow group for each signal phase can be identified. This script does the same thing. If through and right-turn movements share the same green time phase at an intersection and they can only respectively use one lane in the microscopic simulation, i.e. there is no shared lane for both through and right-turn movements, the respective capacity will be over-estimated for through-movement. To avoid such situation, the rightmost lane needs to be set as shared lane for both right-turn and through movements.
+
+- Lane capacity:
     In this script, the capacity is controlled by the option saturation-headway. As default, saturation-headway is set to 2 s. So, the default capacity is 1800 veh/lane/hour, which is for a longer road section normally. If the distance between any two intersections is quite short, e.g. 500 m in a city area, it is expected that the capacity is lower than the default capacity. It is needed to consider increasing the saturation-headway for adjusting the lane capacity.
 
-- Currently, the considered road users (veh.type) include car, truck, trailer, bus, coach, moped, motorcycle, bicycle. PCE (Passenger Car Equivalents) is used as flow unit. 
+- Currently, the considered road users (veh.type) include car, truck, trailer, bus, coach, moped, motorcycle, bicycle. PCE (Passenger Car Equivalents) is used as flow unit.
 
-- Synchronizaton of traffic signals: 
+- Synchronizaton of traffic signals:
     This script only deals with the signal timing optimization at one intersection at a time, and does not synchronize the traffic signals across all intersections. So, poor results could happen if there is any conflict between signal plans. The script [tlsCoordinator.py](#tlscoordinatorpy) can be used to coordinate traffic signals.
-    
+
 # tls_csv2SUMO.py
 
 This tool requires the program definition and the SUMO-network it shall
@@ -267,20 +267,20 @@ and completed by hand:
 ```
 python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
-It also provides a mechanism to convert an additional file *tls.add.xml* or the TL logic contained in a 
-net file *net.net.xml* directly into a csv-tls-representation. Example call to convert an additional file *tls.add.xml* 
+It also provides a mechanism to convert an additional file *tls.add.xml* or the TL logic contained in a
+net file *net.net.xml* directly into a csv-tls-representation. Example call to convert an additional file *tls.add.xml*
 into csv-tls-representation(s):
 
 ```
 python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r --group
 ```
-The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. An additional file 
-prefix can be prepended using the **--output** parameter. When adding the parameter **--group**, signal groups with identical signal states across all 
+The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. An additional file
+prefix can be prepended using the **--output** parameter. When adding the parameter **--group**, signal groups with identical signal states across all
 examined TL logics are joined.
 
 !!! caution
-    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, as only a limited subset of actuated 
-    traffic lights is supported. If `minDur` attribute is set, then the time between the respective cycle second and the phase end after 
+    The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, as only a limited subset of actuated
+    traffic lights is supported. If `minDur` attribute is set, then the time between the respective cycle second and the phase end after
     `duration` seconds is recorded in the csv output.
 
 The input csv file contains input blocks divided by titles in brackets.
@@ -397,4 +397,3 @@ will be set to the appropriate transition phase.
 ```
 python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
 ```
-

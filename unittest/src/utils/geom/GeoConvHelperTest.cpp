@@ -54,4 +54,3 @@ TEST(GeoConvHelper, test_method_cartesian2geo) {
     EXPECT_NEAR(13.5326994, cartesian.x(), 1e-5);
     EXPECT_NEAR(52.428098100000007, cartesian.y(), 1e-5);
 }
-

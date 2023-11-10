@@ -38,4 +38,3 @@ void libsumo_vehicle_getPosition(ModelInstance*, const char**);
 #ifdef __cplusplus
 }
 #endif
-

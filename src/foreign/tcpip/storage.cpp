@@ -394,7 +394,7 @@ namespace tcpip
 
 
 	// ----------------------------------------------------------------------
-	void Storage::checkReadSafe(unsigned int num) const 
+	void Storage::checkReadSafe(unsigned int num) const
 	{
 		if (std::distance(iter_, store.end()) < static_cast<int>(num))
 		{

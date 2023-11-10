@@ -205,4 +205,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEFixNetworkElements& operator=(const GNEFixNetworkElements&) = delete;
 };
-

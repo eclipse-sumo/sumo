@@ -83,7 +83,7 @@ given network. The following connections are added:
 - vehicles can stay inside of the roundabout on every lane.
 - vehicles can leave a roundabout even if they are driving on an inner
   lane if there are enough outgoing lanes.
-  
+
 Usage:
 
 ```

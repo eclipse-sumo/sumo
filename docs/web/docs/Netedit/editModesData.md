@@ -16,7 +16,7 @@ Edge datas are defined within a general set (DataSet), and within a certain time
 
 ![](../images/DataMode3.png)Defining a data interval
 
-![](../images/DataMode4.png)Defining parameters 
+![](../images/DataMode4.png)Defining parameters
 
 ## Edge data mode ![](../images/icon_modeedgedata.png)
 
@@ -57,7 +57,7 @@ The basic data format is as following:
         <tazRelation from="22" to="20" count="4575"/> \
         <tazRelation from="22" to="24" count="3576"/> \
         <tazRelation from="23" to="35" count="3267"/> \
-      
+
     ... information about further TAZs ...
 </data>
 ```
@@ -69,7 +69,7 @@ Before loading the data related to TAZ-relations the respective network should b
 <additional>
     <taz id="1" shape="23356.47,20662.79 22463.50,20524.87 22401.18,21140.95 23162.64,21353.48 23356.47,20662.79" color="51,128,255"> \
         <param key="Id" value="59"/> \
-      
+
     ... information about further TAZs ...
     </taz>
 
@@ -94,7 +94,7 @@ The way to draw the relation line can be either from centroid to centroid or fro
 
 ![](../images/centroid.png)
 
-### Display the relation lines by color according to the amount of TAZ demands 
+### Display the relation lines by color according to the amount of TAZ demands
 It is also possible to display the relation lines with different colors according to the respective amount of TAZ demands. The way to set it is shown below.
 
 ![](../images/coloredDemand.png)
@@ -132,7 +132,7 @@ To only see the selected TAZ relations you need to further press the button "Red
 
 ![](../images/select_2.png)
 
-!!! caution 
+!!! caution
     The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action (not save as) is made after the action "Reduce", the respective file will be overwritten and the data of other unselected TAZ will be lost. You can of course save the selected data with the "save as" action if it is your intention (see the next section).
 
 
@@ -141,4 +141,3 @@ To only see the selected TAZ relations you need to further press the button "Red
 The selected TAZ relations after the "Reduce" action and the respective attributes can be easily saved in XML format (see the illustration below).
 
 ![](../images/saveSelected.png)
-

@@ -86,4 +86,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERunNetgenerate& operator=(const GNERunNetgenerate&) = delete;
 };
-

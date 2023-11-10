@@ -59,7 +59,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>#!/bin/zsh 
+					<string>#!/bin/zsh
 
 # ****************************************************************************
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo

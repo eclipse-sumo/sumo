@@ -163,4 +163,3 @@ namespace PHEMlightdllV5 {
         void InitializeInstanceFields();
     };
 }
-

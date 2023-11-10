@@ -40,12 +40,12 @@ namespace PHEMlightdll
         //double                    |  [-]    |   pNormDrive   | Engine power normalised with "P_drive" and limited with the power range (fullload and drag) as specified in the characteristic curve for emissions
         //double                    |  [m/s^2]|   acc          | Caclulated/given acceleration
         //Dictionary<string, double>|  [*]    |   Emissiondata | Calculated emissions for all components which are defined in the emission curves. Unit dependent of emission component
-        
+
 
         #region calculate
         //Calculate data from array
-        public bool CALC_Array(List<string> DataFiles, 
-                               List<double> Time, 
+        public bool CALC_Array(List<string> DataFiles,
+                               List<double> Time,
                                List<double> Velocity,
                                List<double> Gradient,
                                out List<VehicleResult> VehicleResultsOrg,
@@ -130,7 +130,7 @@ namespace PHEMlightdll
             {
                 //Calculate the acceleration
                 acc = (Velocity[i] - Velocity[i - 1]) / (Time[i] - Time[i - 1]);
-                
+
                 //Calculate and save the data in the List
                 _VehicleResult.Add(PHEMLight.CreateVehicleStateData(Helper,
                                                                     DataInput.CEPS[Helper.gClass],
@@ -142,7 +142,7 @@ namespace PHEMlightdll
                 {
                     VehicleResultsOrg = null;
                     return false;
-                }   
+                }
             }
             VehicleResultsOrg = _VehicleResult;
             return true;
@@ -560,9 +560,9 @@ namespace PHEMlightdll
             double Pwheel = 0;
             if (Helper.uClass == Constants.strHybrid) Pwheel = currCep.CalcWheelPower(speed, acc, Gradient);
             //Power limitation
-            if (P_eng >= 0) 
+            if (P_eng >= 0)
                 P_pos = power;
-            else 
+            else
                 P_pos = 0;
 
             //Calculate the result values (BEV)

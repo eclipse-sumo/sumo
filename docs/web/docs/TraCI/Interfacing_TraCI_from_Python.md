@@ -242,7 +242,7 @@ traci.start(["sumo", "-c", "sim2.sumocfg"], label="sim2")
 traci.switch("sim1")
 traci.simulationStep() # run 1 step for sim1
 traci.switch("sim2")
-traci.simulationStep() # run 1 step for sim2 
+traci.simulationStep() # run 1 step for sim2
 traci.switch("sim1")
 traci.close()
 traci.switch("sim2")
@@ -335,17 +335,17 @@ For this functionality it is recommended to use
   subprocess.Popen, be sure to call wait() on the resulting process
   object before quitting your script. You might loose output
   otherwise.
-  
+
 ### Determine the traci library being loaded
 When working with different sumo versions it may happen that the call `import traci` loads the wrong library.
 The easiest way to debug this is to add the following lines after the import
 ```python
 import traci
-print("LOADPATH:", '\n'.join(sys.path))                                                                                                                                      
-print("TRACIPATH:", traci.__file__) 
+print("LOADPATH:", '\n'.join(sys.path))
+print("TRACIPATH:", traci.__file__)
 sys.exit()
 ```
-Make sure that the TRACIPATH corresponds to the sumo version that you wish to use. 
+Make sure that the TRACIPATH corresponds to the sumo version that you wish to use.
 If it does not, then the order of directories in LOADPATH (sys.path) must be changed
 or the SUMO installation must be removed from any directories that come before the wanted directory.
 
@@ -445,9 +445,9 @@ junctionID = traci.junction.getIDList()[0]
 # subscribe around that junction with a sufficiently large
 # radius to retrieve the speeds of all vehicles in every step
 traci.junction.subscribeContext(
-    junctionID, tc.CMD_GET_VEHICLE_VARIABLE, 1000000, 
+    junctionID, tc.CMD_GET_VEHICLE_VARIABLE, 1000000,
     [tc.VAR_SPEED, tc.VAR_ALLOWED_SPEED]
-) 
+)
 stepLength = traci.simulation.getDeltaT()
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
@@ -474,7 +474,7 @@ try:
     pos = traci.vehicle.getPosition(vehID)
 except traci.TraCIException:
     pass # or do something smarter
-```    
+```
 
 ## Further Resources
 

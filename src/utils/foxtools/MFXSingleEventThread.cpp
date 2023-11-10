@@ -142,6 +142,3 @@ void
 MFXSingleEventThread::sleep(long ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
-
-
-

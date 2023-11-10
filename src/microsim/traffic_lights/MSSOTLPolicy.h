@@ -124,4 +124,3 @@ public:
 
     double computeDesirability(double vehInMeasure, double vehOutMeasure);
 };
-

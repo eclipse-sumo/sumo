@@ -55,9 +55,9 @@ The {{AdditionalFile}} looks like this:
 The {{AdditionalFile}} looks like this:
 
 ```xml
-<additional>   
+<additional>
    <rerouter id="<REROUTER_ID>" edges="<EDGE_ID>[;<EDGE_ID>]*" [probability="<PROBABILITY>"]>
-     <include href="definitions.xml"/>      
+     <include href="definitions.xml"/>
    </rerouter>
 
    ... further rerouters ...
@@ -80,7 +80,7 @@ Note, that the definition file has no root-level element
 All the following examples use the [everything-in-one-file](#everything_in_one_file)-syntax.
 
 !!! caution
-    Support for rerouter attribute `file` to include additional definitions was removed in version 1.13.0 
+    Support for rerouter attribute `file` to include additional definitions was removed in version 1.13.0
 
 ## Closing a Street
 
@@ -160,7 +160,7 @@ The attributes used within such definitions are:
 Two `closingLaneReroute` definitions may be used to simulate a reversible lane in the following way:
 
 - Define two edges in reverse directions with at least 2 lanes each
-- [prohibit driving on one of the central lanes](../Netedit/editModesCommon.md#inspecting_lanes) (disallow="all") 
+- [prohibit driving on one of the central lanes](../Netedit/editModesCommon.md#inspecting_lanes) (disallow="all")
 -  and modify the edge geometry so that the central lanes occupy the same space.
   - by shifting geometry of [both edges sideways (-1.6 for default lane width)](../Netedit/editModesCommon.md#frame_operation)
   - or by [setting the geometry directly](../Netedit/neteditUsageExamples.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
@@ -329,7 +329,7 @@ position to the new parking area is considered. The following table
 describes the weighting factors that can be customized using [generic
 parameters of the vehicle or its
 vType](../Simulation/GenericParameters.md):
- 
+
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
@@ -346,10 +346,10 @@ When 'parking.probability.weight' is set to a positive value, a random number be
 
 ### Further parameters to affect parking behavior
 
-Parameter Name         | Default value | Description                                                              | 
+Parameter Name         | Default value | Description                                                              |
 | -------------------- | ------------- | ------------------------------------------------------------------------ |
 | parking.anywhere     | -1            | permit using any free parkingArea along the way after doing unsuccessful parkingAreaReroute x times (-1 disables this behavior) |
-| parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessful parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 | 
+| parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessful parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 |
 | parking.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible parkingAreas with probability x                   |
 
 ### Destination after rerouting
@@ -405,43 +405,43 @@ To following effects occur:
 
 ## Hard closing
 
-- 1a-2a-3a-4a-5a: **D** 
-- 1a-2a-3a-4a-5b: **R** 
-- 1a-2a-3a-4b-5a: **R** 
-- 1a-2a-3a-4b-5b: **R** 
-                       
+- 1a-2a-3a-4a-5a: **D**
+- 1a-2a-3a-4a-5b: **R**
+- 1a-2a-3a-4b-5a: **R**
+- 1a-2a-3a-4b-5b: **R**
+
 - 1a-2a-3b-4a-5a: **D**
 - 1a-2a-3b-4a-5b: **W**
 - 1a-2a-3b-4b-5a: **W**
 - 1a-2a-3b-4b-5b: **W**
-                       
+
 - 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
 - 1a-2b-3a-4a-5b: **W**
 - 1a-2b-3a-4b-5a: **W**
 - 1a-2b-3a-4b-5b: **W**
-                       
+
 - 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
 - 1a-2b-3b-4a-5b: **W**
 - 1a-2b-3b-4b-5a: **W**
 - 1a-2b-3b-4b-5b: **W**
-                       
-## Soft closing        
-                       
+
+## Soft closing
+
 - 1b-2a-3a-4a-5a: **R**
 - 1b-2a-3a-4a-5b: **R**
 - 1b-2a-3a-4b-5a: **R**
 - 1b-2a-3a-4b-5b: **R**
-                       
+
 - 1b-2a-3b-4a-5a: **I**
 - 1b-2a-3b-4a-5b: **I**
 - 1b-2a-3b-4b-5a: **I**
 - 1b-2a-3b-4b-5b: **I**
-                       
+
 - 1b-2b-3a-4a-5a: **I**
 - 1b-2b-3a-4a-5b: **I**
 - 1b-2b-3a-4b-5a: **I**
 - 1b-2b-3a-4b-5b: **I**
-                       
+
 - 1b-2b-3b-4a-5a: **I**
 - 1b-2b-3b-4a-5b: **I**
 - 1b-2b-3b-4b-5a: **I**

@@ -440,7 +440,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 
     !!! note
         This does not apply to the python tools.
-    
+
   - Added option **--human-readable-time** (short **-H**) that causes all time values to be written
     in h:m:s (or d:h:m:s) format.
 

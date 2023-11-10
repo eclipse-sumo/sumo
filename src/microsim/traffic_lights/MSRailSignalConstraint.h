@@ -208,5 +208,3 @@ private:
     /// invalidated assignment operator
     MSRailSignalConstraint_Predecessor& operator=(const MSRailSignalConstraint_Predecessor& s) = delete;
 };
-
-

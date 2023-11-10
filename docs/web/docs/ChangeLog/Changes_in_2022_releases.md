@@ -62,7 +62,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
     - Fixed invalid error when trying to insert train before red signal with high speed. Issue #11440
     - Fixed emergency braking due to unsuitable rail signal choice between rivaling trains. Issue #11442
     - Fixed railway routing failure. Issue #11835
-  
+
 - netedit
   - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
   - Loading an additional file and saving modifications no longer prompts for a file name. Issue #11030
@@ -85,7 +85,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Walks over routes can now be created. Issue #11845
   - Subsequent stops can now be created for personPlans and containerPlans. Issue #11848
   - Fixed invalid geometry when splitting edge and there is a parallel edge connection the same junctions. Issue #11837
-  
+
 - sumo-gui
   - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
   - Lane menu functions *select reachable*, *close lane*, *add rerouter* are now working again. Issue #11448 (regression in 1.14.0)
@@ -350,11 +350,11 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 - netconvert
   - Fixed invalid right of way rules when using custom contPos from side road at straight connection. Issue #11160
   - Fixed generation of rail crossing at junctions that require a traffic light. Issue #10777
-  
+
 - TraCI
   - Fixed railSignalConstraints-deadlock after calling `traci.trafficlight.swapConstraints`. Issue #11007
   - Simpla now handles missing vType settings. Issue #11219
-  
+
 - tools
   - Restored support for Python version 2 (regression in 1.14.0). Issue #11159
   - generateParkingAreaRerouters.py: fixed distance computation. Issue #11170
@@ -475,7 +475,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
     - Coloring vehicles by type attribute or randomly is now working. Issue #2120
     - Avoid duplicated background objects after loading/reloading. Issue #11047
     - Fixed rendering of walkingareas (they are now raised above the road level). Issue #10773
-   
+
 - netconvert
   - Fixed invalid reduction in edge shape detail at very dense geometry. Issue #10727 (regression in 1.12.0)
   - Fixed crash when importing plain-xml with self-looped edge and re-occurring edge ids. Issue #10700
@@ -504,7 +504,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Fixed invalid choice of lane after calling `traci.vehicletype.setVehicleClass`. Issue #11117
   - Fixed some corner case of non-existing dll search paths for libsumo on Windows. Issue #10995
   - Fixed invalid active person count after removing waiting-for-depart stage. Issue #11127
-  - Function `traci.person.moveTo` is now working (for pedestrians). Issue #11081 
+  - Function `traci.person.moveTo` is now working (for pedestrians). Issue #11081
 
 - tools
   - game/racing.py now uses the intended vehicle scaling and simulation delay. Issues #10783 (regression in 1.0.0)
@@ -538,7 +538,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - VType attribute 'lcOvertakeRight' is now supported by the sublane mode. Issue #11097
   - CarFollowModel *EIDM* now supports attribute `startupDelay`. Issue #10736
   - There is no warning about a missing green phase any longer for traffic light links which show "off" or "stop". Issue #10835
-  
+
 - netedit
   - Persons and personFlows can now be transformed into each other via context menu (similar to vehicles and flows). Issue #10607
   - Containers and containerFlows can now be transformed into each other via context menu. Issue #10685
@@ -721,7 +721,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Cancelling a change in viewsettings now takes effect immediately. Issue #10495
   - Fixed x-axis annotation of moused-over value in plot window.
   - Fixed slow simulation when there are many vehicles at a parkingArea. Issue #10570
-    
+
 - netconvert
   - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
   - Fixed platform dependency in OpenDRIVE export. Issue #10030
@@ -1050,7 +1050,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Fixed inconsistent railway routing results for stops on consecutive bidi-edges. Issue #9949
   - Fixed inconsistent handling of personTrips and explicit trip items. Issue #5821
   - Setting **--vtype-output NUL** now discards vtypes. Issue #9991
-  
+
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
   - Fixed inconsistent vType defaults for speedFactor. Issue #9864
@@ -1081,7 +1081,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Specifying NUL output on the command line finally works. Issue #3400
   - Fixed unhelpful error message when defining invalid color in XML input. Issue #9623
   - Time output beyond 25 days now works correctly with all compilers. Issue #8912
-  
+
 ### Enhancements
 
 - simulation
@@ -1102,7 +1102,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - parking search:
     - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
-    - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
+    - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545
     - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645
 
 - sumo-gui
@@ -1148,7 +1148,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
   - OpenDRIVE export and import now supports writing and reading the `<offset>` element for handling shifted geo references. Issue #4417, #10006
-   
+
 - duarouter
   - can now write route costs in regular route output. Issue #9667
 

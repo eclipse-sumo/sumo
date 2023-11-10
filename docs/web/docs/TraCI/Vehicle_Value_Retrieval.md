@@ -427,7 +427,7 @@ value is also shown in the table.
 <td><p>double</p></td>
 <td><p>Returns the current [dynamic impatience](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#impatience) of this vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getImpatience">getImpatience</a></p></td>
-</tr>  
+</tr>
 <tr class="odd">
 <td><p>lateral gap (0xbb)</p></td>
 <td><p>double</p></td>
@@ -749,7 +749,7 @@ from the given speed.
 
 |         byte          | int   | int | string | byte
 | :-------------------: | :---: | :----: | :----: |:----: |
-| value type *compound* | 3     | stopIndex  | param    | customParam 
+| value type *compound* | 3     | stopIndex  | param    | customParam
 
 The stopIndex must be in range [-numberOfPassedStops, numberORemaingStops - 1]
 The customParam is interpreted as a boolean and deterines whether an attribute values or a user defined parama is returned.
@@ -798,7 +798,7 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.taxi.occupiedDistance
 - device.taxi.currentCustomers
 - device.tripinfo.waitingTime (total waiting time)
-- device.tripinfo.waitingCount 
+- device.tripinfo.waitingCount
 - device.tripinfo.stopTime (total stopping time)
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
@@ -830,6 +830,3 @@ Some carFollowModels permit access to further vehicle-specific parameters.
 - parking.memory.score:  latest scores for the list of considered parkingAreas (smaller is better)
 - parking.memory.blockedAtTime: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (possibly via remote information)
 - parking.memory.blockedAtTimeLocal: times for the list of considered parkingAreas indicating the last time the area was found to be blocked (upon physically visiting that area)
-
-
-

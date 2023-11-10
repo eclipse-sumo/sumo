@@ -35,7 +35,7 @@ supported.
     traffic light controllers and execute real-world traffic control software within SUMO.
 
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)
-    
+
     a scriptable and user-defined activity-based mobility scenario generator for SUMO. [Generate intermodal traffic demand from OSM input](https://github.com/eclipse-sumo/sumo/tree/main/tools/contributed) [howto](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/HOWTO.md)
 
 - ~~[SUMO Traffic Modeler](SUMO_Traffic_Modeler.md)~~
@@ -88,15 +88,15 @@ The following extensions are managed and supported by other parties.
 ## Other
 
 - [TraCI4Matlab](https://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
-  
+
     A Matlab interface for connecting and extending information via [TraCI](../TraCI.md)
 
-- [TraaS](../TraCI/TraaS.md) 
-  
+- [TraaS](../TraCI/TraaS.md)
+
     A SOAP(webservice) interface for connecting and extending information via [TraCI](../TraCI.md). Also a Java TraCI client library
 
 - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit)
-    
+
     Generate traffic light signal plans from OCIT® data
 
 - [FLOW](https://flow-project.github.io/)
@@ -111,11 +111,11 @@ The following extensions are managed and supported by other parties.
 - [TETCOS NetSim](https://www.tetcos.com/vanets.html)
 
     supports VANET simulations by interfacing with SUMO
-    
+
 - [SumoNetVis](https://pypi.org/project/SumoNetVis/)
 
     A python library to render Sumo network files and trajectories with matplotlib or as an OBJ file.
-    
+
 - [SESAM](https://sesam.co4e.com)
 
     SUMO as a cloud service to build, run and analyze simulation scenarios, developed by the DLR spin-off company co4e GmbH

@@ -14,7 +14,7 @@ if(FOX_CONFIG)
         string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_LIBRARY "${FOX_LIBRARY}")
     endif()
 endif(FOX_CONFIG)
-    
+
 # Declare ab boolean flag to note if Fox library was found
 set(FOX_FOUND FALSE)
 
@@ -40,4 +40,3 @@ endif()
 IF (NOT FOX_FIND_QUIETLY)
     message(STATUS "Found Fox: ${FOX_CXX_FLAGS} ${FOX_LIBRARY}")
 endif()
-

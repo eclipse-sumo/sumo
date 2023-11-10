@@ -168,4 +168,3 @@ private:
     ROMAAssignments& operator=(const ROMAAssignments& src) = delete;
 
 };
-

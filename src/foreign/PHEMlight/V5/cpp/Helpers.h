@@ -94,4 +94,3 @@ namespace PHEMlightdllV5 {
         bool setclass(const std::string& VEH);
     };
 }
-

@@ -214,4 +214,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&) = delete;
 };
-

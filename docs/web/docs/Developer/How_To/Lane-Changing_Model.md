@@ -73,7 +73,7 @@ MSAbstractLaneChangeModel(v, LaneChangeModel::LCXYZ),
 ## Using Custom Parameters via TraCI
 
 A LaneChangeModel can override the functions getParameter and setParameter
-inherited from MSAbstractLaneChangeModel. 
+inherited from MSAbstractLaneChangeModel.
 Any calls to 'traci.vehicle.setParameter' and 'traci.vehicle.getParameter' where
 the key starts with "laneChangeModel." will then be forwarded to these methods (without the prefix).
 The call

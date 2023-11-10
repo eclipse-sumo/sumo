@@ -18,5 +18,4 @@ or git bisect to compare performance of different sumo versions.
 
 # rebuild_cscope.sh
 
-Script for building ctags/cscope index files 
-
+Script for building ctags/cscope index files

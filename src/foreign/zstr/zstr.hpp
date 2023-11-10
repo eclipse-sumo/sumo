@@ -499,4 +499,3 @@ public:
 }; // class ofstream
 
 } // namespace zstr
-

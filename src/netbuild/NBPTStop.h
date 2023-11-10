@@ -196,4 +196,3 @@ private:
     NBPTStop& operator=(const NBPTStop&);
 
 };
-

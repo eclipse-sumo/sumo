@@ -28,11 +28,11 @@ values to indicate a distance from the lane's end).
 
 ```xml
 <additional>
-   <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>" 
-   pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>" 
-   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
+   <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>"
+   pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>"
+   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>"
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>"
-   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
+   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>
 </additional>
 ```
 
@@ -46,11 +46,11 @@ plus two of the attributes `pos`, `endPos`, and `length` like this:
 
 ```xml
 <additional>
-   <laneAreaDetector id="<ID>" lane="<LANE_ID>" 
+   <laneAreaDetector id="<ID>" lane="<LANE_ID>"
    pos="<START_POSITION_ON_LANE>" endPos="<END_POSITION_ON_LANE>" length="<DETECTOR_LENGTH>"  // <- only two of those
-   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>" 
-   timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>" 
-   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>  
+   friendlyPos="<BOOL>" period="<AGGREGATION_TIME>" file="<OUTPUT_FILE>"
+   timeThreshold="<FLOAT>" speedThreshold="<FLOAT>" jamThreshold="<FLOAT>"
+   tl="<TRAFFIC_LIGHT_ID>"  to="<LANE_ID>"/>
 </additional>
 ```
 

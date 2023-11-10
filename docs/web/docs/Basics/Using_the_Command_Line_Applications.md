@@ -85,7 +85,7 @@ Please note that an abbreviation is indicated using a single '-'.
 !!! note
     Not all abbreviations have the same meaning across the applications from the SUMO-suite.
 
-If you want to append options to a list of values given in a 
+If you want to append options to a list of values given in a
 [configuration file](#configuration_files_vs_command_line_parameter) you will use the following syntax:
 
 ```
@@ -216,7 +216,7 @@ can also pass the option **--save-commented**. Then, some further comments on ea
 are generated.
 
 !!! note
-    SUMO applications will quit after saving a configuration. The application has to be called a second time to run the configuration.  
+    SUMO applications will quit after saving a configuration. The application has to be called a second time to run the configuration.
 
 ## Environment variables in Configuration Files
 

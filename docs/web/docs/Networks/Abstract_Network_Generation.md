@@ -109,7 +109,7 @@ This call will generate the following network:
 
 ## Random Grids
 
-By setting the option **--rand.grid**, additional grid structure is enforce during random network generation. 
+By setting the option **--rand.grid**, additional grid structure is enforce during random network generation.
 Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
 
 ![](../images/Netgen_random_grid1.png){: style="height:380px"}
@@ -117,11 +117,11 @@ Newly generated grid nodes, will branch of in cardinal directions from existing 
 
 # Further Options
 
-All abstract network types share some command line options. 
+All abstract network types share some command line options.
 
 - **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.md#node_types). (i.e. 'priority', 'traffic_light' ,,,)
 - **--turn-lanes**: set number of turn lanes to generate at each junction
-- **--turn-lanes.length**: set length of generated turn lanes. More specifically: 
+- **--turn-lanes.length**: set length of generated turn lanes. More specifically:
   - 0: No separate turning only lanes;
   - 1: Add a left-turn & turn-around-only lane as the new left-most lane;
   - 2: Add a left-turn & turn-around-only lane as the new left-most lane, and a right-turn-only lane as the new right-most lane;
@@ -133,5 +133,5 @@ All abstract network types share some command line options.
 - **--perturb.z**: disturb node positions in z direction by a random amount between 0 and FLOAT
 
 Further, you can set default values for [streets](../netconvert.md#building_defaults) and [traffic lights](../netconvert.md#tls_building) by using the same
-options as in the [netconvert](../netconvert.md)-application. 
+options as in the [netconvert](../netconvert.md)-application.
 Many other netconvert options such as **--lefthand** are also supported by netgenerate.

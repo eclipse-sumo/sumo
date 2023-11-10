@@ -3,7 +3,7 @@ title: CityMobil
 ---
 
 The *city_mobil* subdirectory in {{SUMO}}/docs/tutorial contains the setup for
-a simulation of a parking lot using sumo with its taxi device to build a demand 
+a simulation of a parking lot using sumo with its taxi device to build a demand
 responsive transport service. Most of the files in the directory are for the
 [old CityMobil tutorial](CityMobil_old.md),
 for the new version only `createNetTaxi.py` is relevant.
@@ -17,7 +17,7 @@ Most parameters for the application (including the paths to the
 executables) are in `constants.py` and can be easily adapted there to modify the scenario.
 These parameters are written in ALL_CAPS below.
 
-At the start of our script we will import those constants as well as modifying the 
+At the start of our script we will import those constants as well as modifying the
 system path to be able to use the sumolib (this is optional if you installed sumolib via
 pip).
 ```python
@@ -43,15 +43,15 @@ so it will only stop when passengers want to enter or leave.
 
 ## Network building
 
-The main parameters of the network are the number of (double) rows the parking lot has 
-(DOUBLE_ROWS), the number of slots per row (SLOTS_PER_ROW) and the distance of the rows 
+The main parameters of the network are the number of (double) rows the parking lot has
+(DOUBLE_ROWS), the number of slots per row (SLOTS_PER_ROW) and the distance of the rows
 (ROW_DIST). They define the layout assuming a fixed width of each slot.
 
 We generate a node file defining the positions of the junctions and an edge file
-specifying the connections between the nodes together with parameters such as the 
+specifying the connections between the nodes together with parameters such as the
 number of lanes and the allowed vehicle classes.
 
-We open the files as standard text files and use a helper function from the sumolib to 
+We open the files as standard text files and use a helper function from the sumolib to
 write the XML header:
 ```python
 nodes = open("%s.nod.xml" % PREFIX, "w")
@@ -61,17 +61,17 @@ This results in a header like this in our node file:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on 2020-09-01 11:03:05.263997 by createNetTaxi.py v1_6_0+1864-1ecf301a37
-  options: 
+  options:
 -->
 <nodes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/nodes_file.xsd">
 ```
 This gives complete information on how and when this file has been generated as well
-as a schema reference which allows for validating the input. This makes it easier to find mistakes 
+as a schema reference which allows for validating the input. This makes it easier to find mistakes
 such as typing errors in attribute names which could otherwise go unnoticed.
 
 After opening the edges file in the same way we can start writing the node and edge definitions.
 We first define a starting point for the insertion edge which is located 100m to the
-left of the first parking row and then one junction at the start of 
+left of the first parking row and then one junction at the start of
 each double row:
 ```python
 print('<node id="in" x="-100" y="0"/>', file=nodes)
@@ -99,7 +99,7 @@ edge less than nodes. The edge has almost no additional parameters except for th
 number of lanes, which is 2 to allow for overtaking vehicles which slowly turn
 into the lot.
 
-The code for the (cyber)bus edges follows the same pattern but is a little bit 
+The code for the (cyber)bus edges follows the same pattern but is a little bit
 more involved because it needs also a street in the opposite direction since the busses
 need to turn around. Furthermore it needs a sidewalk (modelled as a lane for pedestrians).
 The code for generating a forward and back connection between two parking streets is:
@@ -114,7 +114,7 @@ print("""<edge id="-%s" from="cyber%s" to="cyber%s" numLanes="2" spreadType="cen
     <lane index="1" allow="taxi bus"/>
 </edge>""" % (edgeID, row, row - 1), file=edges)
 ```
-Note that the back leading streets do not have a side walk because the passengers are 
+Note that the back leading streets do not have a side walk because the passengers are
 only allowed to enter and leave on the side of the parking lot.
 
 Now we only need the vertical running streets and we are done with the basic network.
@@ -144,23 +144,23 @@ bus stops which we add next.
 
 ## Additional infrastructure and vehicle types
 
-For the bus stops and the parking areas we use a so called additional file 
+For the bus stops and the parking areas we use a so called additional file
 which we open and write a header like above. The definition of the parking areas
 looks like this:
 ```python
 for row in range(DOUBLE_ROWS):
     print("""
-    <parkingArea id="ParkArea%s" lane="road%s_1" 
+    <parkingArea id="ParkArea%s" lane="road%s_1"
 	             roadsideCapacity="%s" angle="270" length="8"/>
-    <parkingArea id="ParkArea-%s" lane="-road%s_1" 
+    <parkingArea id="ParkArea-%s" lane="-road%s_1"
 	             roadsideCapacity="%s" angle="270" length="8"/>""" %
           (row, row, SLOTS_PER_ROW, row, row, SLOTS_PER_ROW), file=stops)
 ```
-Here we use a small trick. Since sumo attaches the parking lot to the vehicle lane (which is not the rightmost) it 
-would block (only visually but still) the sidewalk, so we enlarge the slots a little to 8m and define an 
+Here we use a small trick. Since sumo attaches the parking lot to the vehicle lane (which is not the rightmost) it
+would block (only visually but still) the sidewalk, so we enlarge the slots a little to 8m and define an
 angle which lets all vehicles park forward leaving some space for the pedestrians.
 
-For the bus stops the only small surprise is that we need one less than parking lots because they are only 
+For the bus stops the only small surprise is that we need one less than parking lots because they are only
 in between the parking roads.
 ```python
 for row in range(DOUBLE_ROWS-1):
@@ -195,12 +195,12 @@ print("""    <flow id="c" type="cybercar" begin="50" period="100" number="%s" li
         <route edges="cyberin cyber0to1"/>
     </flow>""" % (TOTAL_CAPACITY // CYBER_CAPACITY), file=routes)
 ```
-The only special thing here is the line which uses the reserved string "taxi" to denote that this will be a demand driven 
-transport system answering to special transportation requests. This specialty will also take care of the fact that 
+The only special thing here is the line which uses the reserved string "taxi" to denote that this will be a demand driven
+transport system answering to special transportation requests. This specialty will also take care of the fact that
 the vehicle should not leave the scenario after it reached the end of its initial route but wait for new requests.
 
 The persons are slightly more complex as they arrive in their own car, drive to the parking lot, leave the car, walk to
-the bus stop and then enter the cybercar to got to their final destination. We do everything here in two nested loops 
+the bus stop and then enter the cybercar to got to their final destination. We do everything here in two nested loops
 because we want to fill all slots of all rows.
 ```python
 for v in range(SLOTS_PER_ROW):
@@ -220,8 +220,8 @@ print("""    <person id="%sp%s" type="ped_pedestrian" depart="triggered">
         <ride to="cyberout" lines="taxi"/>
     </person>""" % (vehId, p, infix, idx, vehId, busStop), file=routes)
 ```
-The first ride uses the private vehicle to the parking lot, then we walk to the 
-bus stop and ride with the cybercar. The "triggered" depart is needed to let the 
+The first ride uses the private vehicle to the parking lot, then we walk to the
+bus stop and ride with the cybercar. The "triggered" depart is needed to let the
 person start in the car.
 
 That's already it! We sum up everything in writing a nice configuration file which binds together the network,
@@ -239,7 +239,7 @@ print("""<configuration>
     </input>
 </configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
 ```
-One thing to note here is the usage of the dispatch algorithm which will determine how the cybercars choose 
+One thing to note here is the usage of the dispatch algorithm which will determine how the cybercars choose
 which request to serve next.
 
 ## Running the scenario generation and the scenario

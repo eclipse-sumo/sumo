@@ -1,15 +1,15 @@
 name: linux
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
     - cron:  '5 0 * * *'
@@ -35,7 +35,7 @@ jobs:
       with:
         path: sumo
         fetch-depth: 0
- 
+
     - name: Fetching SUMO tags
       run: |
         cd sumo
@@ -78,16 +78,16 @@ jobs:
 
     - name: Configuring SUMO
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build 
+        mkdir -p sumo/cmake-build
+        cd sumo/cmake-build
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
         if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
-        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi 
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF ..; fi
 
     - name: Building Traas
       run: |
-        cd sumo/cmake-build 
+        cd sumo/cmake-build
         make traas
 
     - name: Setting up SonarQube

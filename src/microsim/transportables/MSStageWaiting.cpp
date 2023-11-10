@@ -212,4 +212,3 @@ MSStageWaiting::loadState(MSTransportable* transportable, std::istringstream& st
         }
     }
 }
-

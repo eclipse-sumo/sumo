@@ -399,4 +399,3 @@ private:
     /// @brief Invalidated assignment operator.
     MSCFModel_CC& operator=(const MSCFModel_CC&) = delete;
 };
-

@@ -62,5 +62,3 @@ TEST_F(NBHeightMapperTest, test_method_getZ) {
     EXPECT_DOUBLE_EQ(2., hm.getZ(Position(1.5, 0.5)));
     //EXPECT_DOUBLE_EQ(0.5, hm.getZ(Position(0.5, 0.5, 100)));
 }
-
-

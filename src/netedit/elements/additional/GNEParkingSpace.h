@@ -192,5 +192,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEParkingSpace& operator=(const GNEParkingSpace&) = delete;
 };
-
-

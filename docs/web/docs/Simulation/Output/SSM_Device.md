@@ -20,10 +20,10 @@ For instance, a single vehicle can be equipped (with a device parametrized by de
 ## Output File
 
 The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file).
-To set a custom file name, define `<param key="device.ssm.file" value="FILE"/>` either for the `<vehicle>` or its `<vType>` element. 
+To set a custom file name, define `<param key="device.ssm.file" value="FILE"/>` either for the `<vehicle>` or its `<vType>` element.
 Alternatively, set option **--device.ssm.file** to let all vehicles write into the same file.
 
-The top level elements of the generated file are 
+The top level elements of the generated file are
 
 `<conflict begin="<log-begin-time>" end="<log-end-time>" ego="<equipped-vehicleID>" foe="<opponent-vehicleID>"> ... </conflict>`.
 
@@ -37,7 +37,7 @@ The detail of information given for each conflict and the criteria to qualify an
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.ssm.device" value="true"/>
         <param key="device.ssm.measures" value="TTC DRAC PET MDRAC"/>
-        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/> 
+        <param key="device.ssm.thresholds" value="3.0 3.0 2.0 3.4"/>
         <param key="device.ssm.range" value="50.0" />
         <param key="device.ssm.mdrac.prt" value="1.0" />
         <param key="device.ssm.extratime" value="5.0" />
@@ -74,7 +74,7 @@ The possible parameters are summarized in the following table
 ## Encounter types
 Different types of encounters, e.g. crossing, merging, or lead/follow situations, may imply different calculation procedures for the safety measures. Therefore the SSM-device keeps track of these classifications and provides them in the output to allow the correct interpretation of the corresponding values.
 
-The following table lists the different encounter types along with their codes, which will appear in the output file. 
+The following table lists the different encounter types along with their codes, which will appear in the output file.
 
 | Code | Name                       | Description           | [Space Gap](#space_gap_definitions) | Speed Difference | [Conflict Entry Point](#conflict_definitions) |
 |------|----------------------------|-----------------------|-------------------------------------|--------------------|-----------------------------------------------|
@@ -109,13 +109,13 @@ The following table lists the different encounter types along with their codes, 
 !!! note
     When ego and foe vehicles are on subsequent lanes, the gaps are computed by adding the distances of the intermediate lanes
 
-## Conflict Types   
+## Conflict Types
 Basically, we distinguish between three types of encounters for two vehicles:
 
 - **Lead/follow situation:** vehicles are passing the same sequence of lanes before and after the conflict point
 - **Crossing situation:** vehicles are passing different sequences of lanes before and after the conflict point
-- **Merging Situation:** vehicles are passing different lanes before the conflict point but the same lane after the conflict point    
-    
+- **Merging Situation:** vehicles are passing different lanes before the conflict point but the same lane after the conflict point
+
 ## Conflict Definitions
 For each conflict there is an entry point. For merging and crossing conflicts there is also an exit point.
 The points may be slightly different for both ego and foe vehicle because the point is computed in reference to the vehicle front or rear bumper whereas a collision could happen with another part of the vehicle.
@@ -134,7 +134,7 @@ Currently, the following safety surrogate measures are implemented:
 - [TTC](#ttc) (time to collision)
 - [DRAC](#drac) (deceleration rate to avoid a crash)
 - [PET](#pet) (post encroachment time)
-- [MDRAC](#mdrac) (modified DRAC) 
+- [MDRAC](#mdrac) (modified DRAC)
 
 Further, the following additional safety-relevant output can be generated, which will not be linked to a specific encounter:
 
@@ -146,8 +146,8 @@ Further, the following additional safety-relevant output can be generated, which
     For the selection in the device's output, the abbreviations have to be used.
 
 Please note that some SSMs only apply to a specific encounter or are computed differently for different encounters.
-For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone. 
-For the calculation of those times for the approaching vehicles, we take into account the current deceleration of the 
+For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone.
+For the calculation of those times for the approaching vehicles, we take into account the current deceleration of the
 vehicles, if the vehicle is not decelerating, the current speed is extrapolated as a constant (i.e., acceleration is only considered if it is negative).
 
 For some reference to definitions of SSMs see for instance [Guido et al. (2011) "Safety performance measures: a comparison between microsimulation and observational data"] or [Mahmud et al. (2016) "Application of proximal surrogate indicators for safety evaluation: A review of recent developments and research needs"]
@@ -186,7 +186,7 @@ For a merging situation, both variants for the DRAC calculation must be tested a
     This has still to be implemented, currently only one variant is used.
 
 ### MDRAC
-A modified indicator of the DRAC called MDRAC considering a perception-reaction-time (PRT) is defined as 
+A modified indicator of the DRAC called MDRAC considering a perception-reaction-time (PRT) is defined as
 
 ```
 MDRAC = 0.5*speed_difference/(TTC - PRT).
@@ -197,7 +197,7 @@ The `PRT` is configured with param key `device.ssm.mdrac.prt` or via option **--
 
 !!! note
 	This metric is not fully implemented for all conflict types yet! (only type 0 - 8 are partly tested so far)
-	
+
 ### PET
 For merging and crossing situations, the PET (post encroachment time) is defined as the difference of the leading vehicle's conflict area exit time tA and the following vehicle's conflict area entry time tB:
 
@@ -215,7 +215,7 @@ For lead/follow situations, no PET is calculated.
     2) The merging area is not treated (the "conflict area" for merging conflicts is actually considered as the cross section at the beginning of the common target lane.
 
     3) DRAC calculation for merging conflicts is still incomplete
-    
+
     4) Lateral conflicts for opposite or neighboring lane's traffic are ignored
 
 
@@ -251,7 +251,7 @@ An example for the contents of an output file:
          <TTCSpan values="1.78 1.74 1.70 1.67 1.63 1.60 1.56 ..."/>
          <minTTC time="7.40" position="99.23,49.46" type="10" value="1.48" speed="13.50"/>
          <DRACSpan values="3.66 3.61 3.56 3.50 3.44 3.37 3.30 ..."/>
-         <maxDRAC time="6.50" position="99.23,49.46" type="10" 
+         <maxDRAC time="6.50" position="99.23,49.46" type="10"
 value="3.66" speed="12.95"/>
          <PET time="9.42" position="99.23,49.46" type="17" value="0.72" speed="5.12"/>
      </conflict>
@@ -281,12 +281,12 @@ Elements of type `<conflict>` hold the following information in their child elem
 | timeSpan     | values  | list of floats      | All simulation time points within the duration of the encounter. All other entries of elements with list-type are given with respect to the corresponding time points. | --device.ssm.trajectories |
 | typeSpan     | values  | list of integers (Encounter type codes)  | Timeseries of classifications for the tracked encounter.  | --device.ssm.trajectories |
 | egoPosition  | values  | list of 2D-coordinates  | Timeseries of the ego vehicle's positions (coordinates).  | --device.ssm.trajectories |
-| egoLane      | values  | list of strings     | Timeseries of the ego vehicle's lane IDs.                     | --device.ssm.trajectories --device.ssm.write-lane-positions | 
-| egoLanePosition  | values  | list of floats  | Timeseries of the ego vehicle's positions on the lane.        | --device.ssm.trajectories --device.ssm.write-lane-positions | 
+| egoLane      | values  | list of strings     | Timeseries of the ego vehicle's lane IDs.                     | --device.ssm.trajectories --device.ssm.write-lane-positions |
+| egoLanePosition  | values  | list of floats  | Timeseries of the ego vehicle's positions on the lane.        | --device.ssm.trajectories --device.ssm.write-lane-positions |
 | egoVelocity  | values  | list of 2D-vectors  | Timeseries of the ego vehicle's velocity vectors.             | --device.ssm.trajectories |
 | foePosition  | values  | list of 2D-coordinates  | Timeseries of the foe vehicle positions (coordinates).    | --device.ssm.trajectories |
-| foeLane      | values  | list of strings     | Timeseries of the foe vehicle's lane IDs.                     | --device.ssm.trajectories --device.ssm.write-lane-positions | 
-| foeLanePosition  | values  | list of floats  | Timeseries of the foe vehicle's positions on the lane.        | --device.ssm.trajectories --device.ssm.write-lane-positions | 
+| foeLane      | values  | list of strings     | Timeseries of the foe vehicle's lane IDs.                     | --device.ssm.trajectories --device.ssm.write-lane-positions |
+| foeLanePosition  | values  | list of floats  | Timeseries of the foe vehicle's positions on the lane.        | --device.ssm.trajectories --device.ssm.write-lane-positions |
 | foeVelocity  | values  | list of 2D-vectors  | Timeseries of the foe vehicle's velocity vectors.             | --device.ssm.trajectories |
 | conflictPoint  | values  | list of 2D-coordinates  | Timeseries of the (eventually extrapolated) coordinates of the conflict point. The *conflict* point is taken as the respective *entry point to the conflict area*.   | --device.ssm.trajectories |
 | TTCSpan      | values  | list of floats      | Timeseries of the calculated TTC values. May contain entries 'NA' corresponding to times, where TTC is not defined. |  --device.ssm.trajectories --device.ssm.measures "TTC" |

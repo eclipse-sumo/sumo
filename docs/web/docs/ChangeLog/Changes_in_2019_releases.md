@@ -141,7 +141,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 - netconvert
   - By default repeated warnings of the same type are aggregated (only their number is given beyond the initial 5). To see all warnings, the option **--aggregate-warnings -1** can be used. Issue #6335
   - The default number of lanes when importing 'highway.secondary' from OSM was changed from 2 to 1. Issue #5690
-- Documentation 
+- Documentation
   - moved from MediaWiki to MkDocs
   - Added ['Hello World' tutorial](../Tutorials/Hello_World.md) that shows how to create a simulation by only using netedit and sumo-gui (no command line or text editor necessary).
   - Added new example simulation in 'docs/examples/sumo/model_railroad'. The speed of the train as well as the railroad switches can be controlled while the simulation is running. Merry Christmas!

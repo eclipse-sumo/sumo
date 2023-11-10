@@ -154,4 +154,3 @@ long MFXBaseObject::onUpdate(FXObject* sender, FXSelector, void*) {
 }
 
 }
-

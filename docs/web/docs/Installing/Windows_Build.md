@@ -40,7 +40,7 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 CMake settings can easily be modified, loaded and saved using *Project -> CMake Settings* in Visual Studio.
 
-![](../images/vs_cmake_settings.png)   
+![](../images/vs_cmake_settings.png)
 Editing the CMake settings using Visual Studio
 
 ### Optional but still recommended steps
@@ -90,7 +90,7 @@ this repository and define an environment variable `SUMO_LIBRARIES`
 pointing to the resulting directory. They are build using Visual Studio
 2019, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2019 Runtime Distributable for running
-SUMO (tested with Visual Studio 2019). 
+SUMO (tested with Visual Studio 2019).
 
 For details on building your
 own and also on how to use different versions and additional libraries
@@ -128,13 +128,13 @@ pip install -r tools\requirements.txt
 
 Visual guide:
 
-![](../images/CMakeConfiguration1.png)   
+![](../images/CMakeConfiguration1.png)
 Selecting Solution (Visual Studio, Eclipse, etc.) in the CMake gui
 
-![](../images/CMakeConfiguration4.png)   
+![](../images/CMakeConfiguration4.png)
 Libraries successfully configured
 
-![](../images/CMakeConfiguration5.png)   
+![](../images/CMakeConfiguration5.png)
 Generated solution
 
 ### Method 2: Via CMake command line
@@ -170,10 +170,10 @@ If you want to compile using CLang in Windows, just add "ClangCL" in CMake's "Op
   - Python libraries can be specified manually (e.g.
     <PythonFolder\>\\libs\\python<version\>.lib)
 
-![](../images/CMakeConfiguration6.png)   
+![](../images/CMakeConfiguration6.png)
 Python library fields in the CMake Cache
 
-![](../images/CMakePython1.png)   
+![](../images/CMakePython1.png)
 Two different Python versions at the same time
 
 ### Linker reports something similar to "LINK : fatal error LNK1104: cannot open file 'C:\\Program.obj'"

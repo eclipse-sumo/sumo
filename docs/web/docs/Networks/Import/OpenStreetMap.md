@@ -9,7 +9,7 @@ page describes the conversion of files containing data from OpenStreetMap to
 SUMO network files.
 
 There are several ways to download the data from OpenStreetMap to a
-file. Please read 
+file. Please read
 [Networks/Import/OpenStreetMapDownload](../../Networks/Import/OpenStreetMapDownload.md)
 to learn about them. For more information about the file format,
 see [OpenStreetMap file](../../OpenStreetMap_file.md).
@@ -620,7 +620,7 @@ When **--osm.sidewalks** is set, by setting option **--osm.crossings** the "high
 
 This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
 
-[osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0. 
+[osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0.
 
 # Importing OSM Data via Python/ Overpass API
 

@@ -1,8 +1,8 @@
 name: windows-wheels
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
       - 'src/gui*/**'
       - 'src/netedit/**'
@@ -12,7 +12,7 @@ on:
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   workflow_dispatch:
   schedule:
@@ -47,7 +47,7 @@ jobs:
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v3
       with:
-        repository: DLR-TS/SUMOLibraries 
+        repository: DLR-TS/SUMOLibraries
         path: sumolibraries
 
     - name: Configuring Python

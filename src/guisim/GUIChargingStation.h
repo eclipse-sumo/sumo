@@ -141,5 +141,3 @@ private:
     /// @brief The rotation of the sign
     double myFGSignRot;
 };
-
-

@@ -17,7 +17,7 @@ python tools\route\routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
 python tools\route\routecheck.py <net> <vehicletypes+routes>
 ```
 
-If a route is broken (or disconnected), the tool gives a warning, e.g.: "Warning: 
+If a route is broken (or disconnected), the tool gives a warning, e.g.: "Warning:
 Route for vehicle 0 disconnected between startEdge and endEdge"
 
 If **--fix** (**-f**) is given, routes are tried to be repaired
@@ -117,7 +117,7 @@ Filtering stopping places is also supported by setting the options **--additiona
 # splitRouteFiles.py
 
 This script splits a list of route files (e.g. coming from [duarouter](../duarouter.md))
-by start time. If a detector file is given, the routes will be also split by 
+by start time. If a detector file is given, the routes will be also split by
 the edges with detectors. Example:
 
 ```
@@ -125,7 +125,7 @@ python tools/route/splitRouteFiles.py <route-files>
 ```
 
 As default, the routes will be split in steps of 900 seconds. This can be changed
-with the option **-s**. 
+with the option **-s**.
 The detector file can be loaded with the option **-f**. Example:
 
 ```
@@ -288,7 +288,7 @@ Note, that the lane of that parking area must belong to one of the edges
 
 # addParkingAreaStops2Trips.py
 
-Add a stop over parking in all trips given in input file 
+Add a stop over parking in all trips given in input file
 
 ```
 python tools/route/addParkingAreaStops2Trips.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
@@ -417,11 +417,11 @@ The output is a standard sumo route file
 ```
 
 The option **--geo** enables the conversion of the input coordinates with
-the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using 
-the option **--vehicle-class**, the mapping algorithm will consider only edges where 
-this vehicle class is allowed. If the network contains many multi-lane edges, it 
-may be beneficial to increase the accepted **--delta** distance between trace points and 
-the edge reference line. The mapping algorithm is also available in the 
+the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using
+the option **--vehicle-class**, the mapping algorithm will consider only edges where
+this vehicle class is allowed. If the network contains many multi-lane edges, it
+may be beneficial to increase the accepted **--delta** distance between trace points and
+the edge reference line. The mapping algorithm is also available in the
 python library function sumolib.route.mapTrace.
 
 # tlsCycleAdaptation.py
@@ -465,7 +465,7 @@ It can also be used to generated restrictions for [flowrouter](Detector.md#flowr
 
 !!! caution
     When using a route file with named routes (i.e. flowrouter **--routes-output**), the option **--standalone** must be set.
-    
+
 
 # addStopDelay.py
 
@@ -534,7 +534,6 @@ This tool generates a [tazRelation-file (OD-Matrix)](../Demand/Importing_O/D_Mat
 python tools/route/route2OD.py -r <route-file> -a <taz-file> -o <output-file>
 ```
 
-Not only route file but also trip file can be used as input. The tool will firstly try to find the start edge and the end edge of each trip or flows and match them to the respective origin and destination TAZ according to the input taz-file. The counts of the TAZ-relations will be calculated and saved. If only TAZ-information in the given trip or route file is available, this tool will directly calculate TAZ-based OD relation counts without using the information in the given taz-file, which connection edges locate in each TAZ. If the option **--edge-relations** is set, edge-based relation counts will be calculated and saved, only when start/end edge information is available. 
+Not only route file but also trip file can be used as input. The tool will firstly try to find the start edge and the end edge of each trip or flows and match them to the respective origin and destination TAZ according to the input taz-file. The counts of the TAZ-relations will be calculated and saved. If only TAZ-information in the given trip or route file is available, this tool will directly calculate TAZ-based OD relation counts without using the information in the given taz-file, which connection edges locate in each TAZ. If the option **--edge-relations** is set, edge-based relation counts will be calculated and saved, only when start/end edge information is available.
 
 When option **--interval TIME** (short **-i**) is set, the OD-Matrix will be split into time slices of the given duration.
-

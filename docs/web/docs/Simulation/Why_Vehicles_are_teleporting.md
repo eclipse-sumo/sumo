@@ -49,7 +49,7 @@ using the option **--time-to-teleport** {{DT_INT}} which sets the time in second
 
 !!! note
     Setting **--time-to-teleport** to a negative value, disables teleporting due to gridlock.
-    
+
 There are different reasons why a vehicle cannot continue with its
 route. Every time a vehicle teleports due to grid-lock one of the
 following reasons is given:
@@ -60,7 +60,7 @@ following reasons is given:
   find a gap in the prioritized traffic
 - **jam** The vehicle is stuck on a priority road and there is no
   space on the next edge.
-  
+
 Related options are
 
 - **--max-num-teleport**
@@ -95,7 +95,7 @@ this:
 
 By default, SUMO uses a collision-free model. However, due to bugs,
 network problems or deliberate configuration,
-[collisions may occur](../Simulation/Safety.md#collisions). The default behavior of SUMO is to immediately teleport the rear vehicle onto the next edge of it's route (or remove it, when already on it's final edge). This behavior can be [configured to avoid or delay teleporting](../Simulation/Safety.md#collisions). 
+[collisions may occur](../Simulation/Safety.md#collisions). The default behavior of SUMO is to immediately teleport the rear vehicle onto the next edge of it's route (or remove it, when already on it's final edge). This behavior can be [configured to avoid or delay teleporting](../Simulation/Safety.md#collisions).
 
 To avoid collisions, observe the simulation
 [sumo-gui](../sumo-gui.md) at the location and time of the

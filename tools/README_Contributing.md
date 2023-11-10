@@ -4,7 +4,7 @@ If the extension is a separate module and is not published under the EPL
 it will not be adopted in the SUMO mainline repository.
 
 Modifications to the files and directories listed here are considered _derivative work_:
- 
+
 - assign
 - build
 - detector

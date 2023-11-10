@@ -58,5 +58,5 @@ Usage examples:
   Symposium, 2002, SCS European Publishing House, 2002, pp. 318-322,
   Simulation in Industry, 14th European Simulation Symposium, Oct.
   2002, Dresden / Germany
-  
+
   Available as: [.pdf, \~320KB](https://sumo.dlr.de/pdf/dkrajzew_ESS2002_LOG14_Validation.pdf).

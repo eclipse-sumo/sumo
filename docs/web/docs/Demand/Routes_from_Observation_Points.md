@@ -5,7 +5,7 @@ title: Routes from Observation Points
 # Introduction
 Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles.
 
-SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions. 
+SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions.
 
 The generated traffic should obviously match the counting data but this requirement alone does not define a unique solution. The provided SUMO tools differ in their algorithm to resolve the ambiguity and arrive at a specific set of routes and vehicles. The tools can also be distinguished by the type of counting data they consume:
 
@@ -25,7 +25,7 @@ The algorithms listed above where developed to solve different problems and may 
   - uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is often easier than listing all implausible routes.
   - can use edge-count data together with turn-count data
   - can distinguish between passing counts, departure counts and arrival counts on edges
-  - supports building pedestrian scenarios from counts 
+  - supports building pedestrian scenarios from counts
 
 # dfrouter
 Since version 0.9.5, the SUMO-package contains a routing module named
@@ -150,7 +150,7 @@ The following columns may optionally be included:
 
 !!! caution
     [dfrouter](../dfrouter.md) assumes that counts are given once per minute. To handle data with a different granularity, option **--time-step SECONDS** must be used.
-    
+
 Because in some cases one reads detector flow definitions starting at a
 certain time but wants the simulation to begin at another, it is
 possible to add a time offset using **--time-offset** {{DT_INT}} which is the number of seconds to
@@ -266,7 +266,7 @@ The [flowrouter](../Tools/Detector.md#flowrouterpy) tool [improves on dfrouter](
 
 # jtcrouter.py
 
-The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [jtrrouter](../jtrrouter.md). 
+The [jtcrouter.py](../Tools/Turns.md#jtcrouterpy) tool (available since version 1.5.0) can build a traffic demand from turn-count data. It does so by transforming the counts into flows and turn-ratios and then passing these files to [jtrrouter](../jtrrouter.md).
 
 # routeSampler.py
 The [routeSampler.py](../Tools/Turns.md#routesamplerpy) tool (available since version 1.5.0) builds traffic demand from turn-count data as well as edge-count data. It uses a route file as input and then repeatedly selects from this set of routes to fulfill the given count data.

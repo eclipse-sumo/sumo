@@ -90,4 +90,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERerouterDialog& operator=(const GNERerouterDialog&) = delete;
 };
-

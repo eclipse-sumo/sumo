@@ -207,4 +207,3 @@ MSCFModel*
 MSCFModel_W99::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_W99(vtype);
 }
-

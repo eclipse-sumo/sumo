@@ -128,10 +128,10 @@ In most cases, public transport runs according to a fixed schedule. Such a sched
 
 !!! note
     Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
-    
+
 !!! caution
     A public transport schedule for [intermodal routing](../IntermodalRouting.md) must be fully defined when loading the simulation. Stops that are defined during the simulation via rerouters or TraCI will not be considered when routing a [`<personTrip>`](../Specification/Persons.md#persontrips).
-  
+
 
 ## Single vehicles and trips
 When defining `until` values for a vehicle and trip, the values denote absolute simulation times.
@@ -206,7 +206,7 @@ In contrast to a period flow (which also repeats a given stop sequence), this si
 
 !!! caution
     When using attribute `repeat`, the last edge of the route must be connected to the first edge of the route in order to have a valid route definition.
-    
+
 ## Further Schedule Attributes
 The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) are relevant for public transport schedules:
 
@@ -259,10 +259,8 @@ transport lines. The usage of this line data is explained at
 
 ## GTFS
 
-The tool [gtfs2pt.py](../Tools/Import/GTFS.md) can be used to import public transport data for a geo-referenced network. 
+The tool [gtfs2pt.py](../Tools/Import/GTFS.md) can be used to import public transport data for a geo-referenced network.
 
 ## Automatic Schedule Generation
 
 The tool [ptlines2flows.py](../Tools/Misc.md#ptlines2flowspy) can be used to generated a public transport schedule with 'until' and 'duration' values for a given sequence of stops. The schedule times are derived by running a simulation in the background.
-
-

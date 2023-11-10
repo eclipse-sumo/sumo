@@ -1,15 +1,15 @@
 name: windows
 
-on: 
+on:
   push:            # run on push events
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
     branches:
       - '**'
     tags:
       - '*'
   pull_request:    # run on pull requests
-    paths-ignore:  # but ignore everything in the docs subfolder 
+    paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   schedule:
     - cron:  '25 1 * * *'
@@ -40,7 +40,7 @@ jobs:
     - name: Cloning SUMO Libraries
       uses: actions/checkout@v3
       with:
-        repository: DLR-TS/SUMOLibraries 
+        repository: DLR-TS/SUMOLibraries
         path: sumolibraries
 
     - name: "Set up compiler cache"

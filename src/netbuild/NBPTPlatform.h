@@ -34,5 +34,3 @@ private:
     Position myPos;
     double myLength;
 };
-
-

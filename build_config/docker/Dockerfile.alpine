@@ -7,7 +7,7 @@
 
 FROM alpine:latest
 
-RUN apk upgrade --no-cache 
+RUN apk upgrade --no-cache
 
 # Enable edge installations on apk ref: https://wiki.alpinelinux.org/wiki/Repositories#Using_the_testing_repository_on_stable_branches
 RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories

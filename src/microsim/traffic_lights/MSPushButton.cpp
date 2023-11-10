@@ -209,4 +209,3 @@ void MSPedestrianPushButton::loadCrossingEdgeMap() {
         }
     }
 }
-

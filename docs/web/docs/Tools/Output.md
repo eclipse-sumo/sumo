@@ -332,8 +332,8 @@ where -t: name of output files containing vehicle information, generate
 
 ## computeStoppingPlaceUsage.py
 This tool reads stop-output and tracks the number of stopped vehicles over time at stopping places (i.e. parkingArea).
-A distinct output file will be created for each stopping place. 
-If option **--only-changes** is set, only time steps in which the number of stopped vehicles changes, are recorded. 
+A distinct output file will be created for each stopping place.
+If option **--only-changes** is set, only time steps in which the number of stopped vehicles changes, are recorded.
 
 Example:
 ```
@@ -378,7 +378,7 @@ Data points in the files are matched by time and by id (no time shifting is done
 Statistical outputs are printed on the console. It is also possible to write all error values to an xml file.
 
 ```
-python tools/output/fcdDiff fcd.xml fcd2.xml 
+python tools/output/fcdDiff fcd.xml fcd2.xml
 ```
 
 - If option **--grouped** is set, separate statistics for each vehicle will be printed

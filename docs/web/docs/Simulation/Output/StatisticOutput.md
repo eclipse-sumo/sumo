@@ -156,7 +156,7 @@ To simplify comparison between simulations that have the same number of vehicles
 An alternative way to compute the sum of travel time and delays is to multiply the averages:
 
 ```
-totalTravelTimeAndDelay = 
+totalTravelTimeAndDelay =
      vehicles.inserted * (vehicleTripStatistics.duration + vehicleTripStatistics.departDelay)
    + vehicles.waiting * vehicleTripStatistics.departDelayWaiting
 ```

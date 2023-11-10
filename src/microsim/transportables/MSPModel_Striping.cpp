@@ -2686,4 +2686,3 @@ MSPModel_Striping::MovePedestrians::execute(SUMOTime currentTime) {
 #endif
     return DELTA_T;
 }
-

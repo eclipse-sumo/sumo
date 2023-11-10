@@ -1,5 +1,5 @@
 
-  
+
   cpp_h_extension "h" cpp_src_extension "cpp" java_extension "java" php_extension "php" python_extension "py" idl_extension "idl"
 
   type_forms 15 // uml cpp java idl cpp_in cpp_out cpp_inout cpp_return
@@ -18,14 +18,14 @@
     "float" "float" "float" "float" "${type}" "${type} &" "${type} &" "${type}"
     "double" "double" "double" "double" "${type}" "${type} &" "${type} &" "${type}"
     "string" "string" "String" "string" "${type}" "${type} &" "${type} &" "${type}"
-  
+
   relations_stereotypes 5 // uml cpp java pythonidl
     "sequence" "vector" "Vector" "list" "sequence"
     "vector" "vector" "Vector" "list" "sequence"
     "list" "list" "List" "list" "sequence"
     "set" "set" "Set" "set" "sequence"
     "map" "map" "Map" "dict" "sequence"
-  
+
   classes_stereotypes 13 // uml cpp java php python idl
     "class" "class" "class" "class" "class" "valuetype"
     "interface" "class" "interface" "interface" "class" "interface"
@@ -40,7 +40,7 @@
     "entity" "class" "class" "class" "class" "valuetype"
     "actor" "ignored" "ignored" "ignored" "ignored" "ignored"
     "@interface" "ignored" "@interface" "ignored" "ignored" "ignored"
-  
+
   cpp_enum_default_type_forms "${type}" "${type} &" "${type} &" "${type}" // in out inout return
   other_cpp_types_default_type_forms "const ${type} &" "${type} &" "${type} &" "${type}" // in out inout return
 

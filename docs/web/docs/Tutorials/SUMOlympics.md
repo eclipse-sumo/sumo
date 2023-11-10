@@ -46,8 +46,8 @@ dialog with check boxes for all possible vehicle classes. Uncheck all
 but "rail_urban" and click on "accept". Now edit the allowances for the
 remaining lane (it is currently allowed for all vehicle classes) and
 reserve it to the class "passenger" (i.e. passenger
-cars). Also for the bicycle lane, we need to modify its width in order to 
-allow overtaking in what follows. To do so, select the bicycle lane as above, then in the 
+cars). Also for the bicycle lane, we need to modify its width in order to
+allow overtaking in what follows. To do so, select the bicycle lane as above, then in the
 inspect mode, change its width to 2.1 meters in the left panel.
 
 <img src="../images/sumolympics_netedit_3.png" width="1000"/>
@@ -94,7 +94,7 @@ vType definitions (within the `<routes>` element\!):
     <flow id="bus" type="bus" from="beg" to="end" begin="0" end="0" number="5" departPos="last"/>
     <flow id="tram" type="tram" from="beg" to="end" begin="0" end="0" number="2" departPos="last"/>
     <flow id="bike" type="bike" from="beg" to="end" begin="0" end="0" number="100" departPos="last"/>
-	
+
 	<personFlow id="pedestrian" type="pedestrian" begin="0" end="0" number="100" departPos="-30">
        <walk from="beg" to="end" arrivalPos="-0.1"/>
     </personFlow>
@@ -110,7 +110,7 @@ We created the vehicle types and the vehicle flows "by hand", by writing the def
 
 <img src="../images/sumolympics_netedit_5.png" width="1000"/>
 
-Now concerning the creation of motorized flows, you need to use the "Create vehicle mode". Then at the top of the left panel, you can create an individual vehicle or a flow, with different options. There select "flow (from-to edges)". You can then use a particular vehicle type, change the `departPos` attribute and the number of vehicles you want. Then select the start and end edges directly on the network and when everything has been set, click on "Finish route creation" on the left panel to create the route and the flow. 
+Now concerning the creation of motorized flows, you need to use the "Create vehicle mode". Then at the top of the left panel, you can create an individual vehicle or a flow, with different options. There select "flow (from-to edges)". You can then use a particular vehicle type, change the `departPos` attribute and the number of vehicles you want. Then select the start and end edges directly on the network and when everything has been set, click on "Finish route creation" on the left panel to create the route and the flow.
 
 <img src="../images/sumolympics_netedit_6.png" width="1000"/>
 
@@ -148,7 +148,7 @@ Adjust the step delay to 100 ms and press the run button
 
 # Defining a start signal by using a traffic light
 
-There is one thing left to do for a fair and complete competition: all 
+There is one thing left to do for a fair and complete competition: all
 competitors should be allowed to position themselves freely in front of the
 scratch line (the bicyclists are inserted in a row, though they could
 achieve a much better result by grouping more densely using the whole

@@ -101,4 +101,3 @@ protected:
     MSSOTLPolicy* myCurrentPolicy;
 
 };
-

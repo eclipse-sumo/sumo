@@ -27,7 +27,7 @@ title: Name of the Article
 ---
 ```
 
-<font color="red">If you want to create an fresh new article, please consider first seeing the source code of any existing article, to learn and get some basic notions.</font> 
+<font color="red">If you want to create an fresh new article, please consider first seeing the source code of any existing article, to learn and get some basic notions.</font>
 
 
 
@@ -121,7 +121,7 @@ Here are some expressions that need an escape character:
 # **Images**
 
 All images must be saved in the [images directory]({{Source}}docs/web/docs/images).
-To insert an image, just use the usual Markdown syntax: 
+To insert an image, just use the usual Markdown syntax:
 
 ```
 ![<alt>](images/Wikicommons_rail_fast.jpg "<title>")
@@ -229,13 +229,13 @@ In order to make writing this Documentation easier, we implemented some Macros. 
 # **Links**
 
 When linking to a page within this Documentation, please consider the absolute path to the Markdown file.
-<font color="red">Do not forget to add the `.md` extension to every internal link.</font> 
+<font color="red">Do not forget to add the `.md` extension to every internal link.</font>
 
 Links to external pages will display an arrow at the end (e.g. [DLR](https://www.dlr.de)).
 
 ## **Links to files in the SUMO GitHub repo**
 
-Using the \{\{Source\}\} Macro, linking to files in the official SUMO repository on GitHub is as easy as: 
+Using the \{\{Source\}\} Macro, linking to files in the official SUMO repository on GitHub is as easy as:
 
 - \[Read the gitignore file\](\{\{Source\}\}.gitignore) [Read the gitignore file]({{Source}}.gitignore)
 
@@ -285,7 +285,7 @@ Go to [sumo-gui](sumo-gui.md), [netconvert options](netconvert.md#options) or [N
 
 <https://www.dlr.de> or [DLR](https://www.dlr.de)
 ```
-- \[Read the gitignore file\](\{\{Source\}\}.gitignore) 
+- \[Read the gitignore file\](\{\{Source\}\}.gitignore)
 - \[\{\{SUMO\}\}/src/sumo_main.cpp\](\{\{Source\}\}src/sumo_main.cpp)
 
 ***will display:***
@@ -332,10 +332,10 @@ Inside a **Note** element you can use Markdown syntax to insert links, stylize t
 ## Example
 ```
 !!! note
-    When citing SUMO in general please use our current reference 
-    publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/124092/); 
-    Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, 
-    Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. 
+    When citing SUMO in general please use our current reference
+    publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/124092/);
+    Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd,
+    Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner.
     IEEE Intelligent Transportation Systems Conference (ITSC) 2018.
 
 !!! caution

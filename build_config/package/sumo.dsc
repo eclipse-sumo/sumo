@@ -28,6 +28,6 @@ Build-Depends: cmake,
                default-jdk,
                python3-matplotlib,
                python3-setuptools
-Files: 
+Files:
  d57283ebb8157ae919762c58419353c8 133282 sumo_git.orig.tar.gz
  d57283ebb8157ae919762c58419353c8 133282 sumo.debian.tar.xz

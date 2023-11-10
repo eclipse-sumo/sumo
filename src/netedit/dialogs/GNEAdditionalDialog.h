@@ -124,4 +124,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEAdditionalDialog& operator=(const GNEAdditionalDialog&) = delete;
 };
-

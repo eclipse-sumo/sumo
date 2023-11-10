@@ -71,12 +71,12 @@ checkAuthors.py
 
 ## updateMessageIDs.py
 
-SUMO uses the original string from the source code as message ID in gettext. 
-All translations are bound to a message ID. The script offers help in changing 
-the message ID / the original string in cases where it is profitable to keep 
-existing translations. As recurrent uses of the same original string are 
-grouped in gettext into the same message ID (except for different context), 
-strings shall not be edited directly in the source code. The work flow of the 
+SUMO uses the original string from the source code as message ID in gettext.
+All translations are bound to a message ID. The script offers help in changing
+the message ID / the original string in cases where it is profitable to keep
+existing translations. As recurrent uses of the same original string are
+grouped in gettext into the same message ID (except for different context),
+strings shall not be edited directly in the source code. The work flow of the
 script is the following:
 
 - The script `i18n.py` is called to ensure the `.po` files correspond to the current source code.
@@ -119,8 +119,8 @@ python updateMessageIDs.py --apply
 
 ## obsoleteTranslations.py
 
-The script processes translations which have been lost due to changes of the original string in 
-the source code but are still present in the `.po` translation files. It can be restricted to languages given by their language codes 
+The script processes translations which have been lost due to changes of the original string in
+the source code but are still present in the `.po` translation files. It can be restricted to languages given by their language codes
 using the option **--lang <langCode1> [<langCode2>]**. If the said option is not given, all existing language files will be processed.
 
 In order to write a protocol of the obsolete translations (those which are not referenced in the source code),
@@ -128,12 +128,12 @@ the script has to be called with a file path to write the protocol to as follows
 ```
 python obsoleteTranslations.py --output obsolete.txt
 ```
-Adding the option **--clear** will remove the obsolete translations permanently from the `.po` files. 
+Adding the option **--clear** will remove the obsolete translations permanently from the `.po` files.
 
 There is an option called **--patch** to link obsolete translations again if the updated message ID / the current source string is known .
 The script is provided with a sequence of arguments which form pairs of first the outdated message ID and then new updated one.
 ```
 python obsoleteTranslations.py --patch "Add Sidewalk" "Add sidewalk" "Overrids default shape of pedestrian sidewalk" "Overrides default shape of pedestrian sidewalk"
 ```
-The script looks into the translation files and moves the actual translations from the obsolete to the current entry (only if the current one is still empty). The obsolete entry 
+The script looks into the translation files and moves the actual translations from the obsolete to the current entry (only if the current one is still empty). The obsolete entry
 is removed in case its content has been transferred to the current entry.

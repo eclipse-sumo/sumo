@@ -81,4 +81,3 @@ public:
     virtual void setParameter(const std::string parameter, int value);
 
 };
-

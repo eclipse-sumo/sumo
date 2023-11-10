@@ -41,4 +41,3 @@ private:
     /// @brief invalidated assignment operator
     MSDynamicShapeUpdater& operator=(const MSDynamicShapeUpdater& s) = delete;
 };
-

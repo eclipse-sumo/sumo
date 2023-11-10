@@ -45,50 +45,50 @@ and the emission standard, all connected with underscores.
   1305kg; size class II 1305kg < RM <= 1760kg; size class III 1760kg
   < RM <= 3500kg; "RM": reference mass (approx. Vehicle curb
   weight)
-  
+
 - **RT**  heavy duty vehicles - rigid trucks; size class I 2 axle
   trucks; size class II 3+ axle trucks
-  
+
 - **TT**  heavy duty vehicles - truck + trailer (incl. articulated
   trucks = tractor + semitrailer)
-  
+
 - **CB**  city bus; midi: <= 15t, heavy: mix of > 15t, no suffix: mix of midi and heavy
-  
+
 - **CO**  coach
-  
+
 - **MC_2S**  motorcycles - 2 stroke
-  
+
 - **MC_4S**  motorcycles - 4 stroke; s250cc: < 250ccm, g250cc: > 250ccm
-  
+
 ### Technology
 
 - **G**  gasoline engine (no HEV suffix: conventional powertrain)
-  
+
 - **D**  diesel engine (no HEV suffix: conventional powertrain)
-  
+
 - **D_DPF**  diesel engine with particle filter
-  
+
 - **D_MW**  average between diesel engine with and without particle filter
-  
+
 - **D_SU**  diesel engine with software update
-  
+
 - **HEV**  hybrid powertrain (additional suffix)
-  
+
 - **BEV_GEN1**  battery electric vehicles
 
 ### Examples
 
 - **PC_EU6_G**  passenger car, gasoline engine, EURO 6
-  
+
 - **PC_BEV_GEN1**  passenger car, battery electric
-  
+
 - **LCV_EU6ab_G_III_HEV**  light commercial vehicle, size class III, hybrid gasoline powertrain, Euro 6ab
-  
+
 - **RT_EUIV_D_I**  rigid truck, size class I, diesel engine, EURO IV
 
 - **CB_EUV_D**  city bus, diesel engine, Euro V
 
-## PHEMlight5 Emission Classes 
+## PHEMlight5 Emission Classes
 
 The following tables show the available classes. Except for the two highlighted Euro 4
 passenger cars the classes need to be licensed from TU Graz.

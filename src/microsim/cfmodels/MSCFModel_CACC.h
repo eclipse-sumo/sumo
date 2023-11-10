@@ -254,4 +254,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_CACC& operator=(const MSCFModel_CACC& s);
 };
-

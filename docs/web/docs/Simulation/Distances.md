@@ -15,7 +15,7 @@ whereas the other systems are for visualization and output.
 # Length-Geometry-mismatch
 
 By default, the length of a straight edge corresponds to the euclidean distance
-between its start and end positions (x,y). 
+between its start and end positions (x,y).
 
 However, lengths of edges and lanes can be different from the euclidean
 distance (referred to as a **length-geometry-mismtach**) and there are several reasons why this occurs.

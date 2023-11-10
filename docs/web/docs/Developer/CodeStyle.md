@@ -215,5 +215,5 @@ core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.co
 - CRLF for Windows only files (".bat", ".props", ".vcxproj",
   ".filters", ...)
 
-Git has no equivalent to the svn:keywords property, so we do not use 
+Git has no equivalent to the svn:keywords property, so we do not use
 the $Id$ keyword any longer.

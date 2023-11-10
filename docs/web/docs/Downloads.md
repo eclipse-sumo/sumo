@@ -28,7 +28,7 @@ SUMO is also available via winget so `winget install --name sumo` should give yo
 
 ## Linux
 
-The community maintains several repositories notably at the 
+The community maintains several repositories notably at the
 [open build service](https://build.opensuse.org/project/show/science:dlr).
 For a detailed list of repositories see below.
 

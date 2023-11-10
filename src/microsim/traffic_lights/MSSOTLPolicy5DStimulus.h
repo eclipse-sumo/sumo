@@ -156,4 +156,3 @@ public:
 
     virtual double computeDesirability(double vehInMeasure, double vehOutMeasure, double vehInDispersionMeasure, double vehOutDispersionMeasure);
 };
-

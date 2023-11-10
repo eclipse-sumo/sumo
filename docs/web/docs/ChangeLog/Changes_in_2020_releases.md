@@ -369,7 +369,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 - TraCI
   - Added new function *simulation.loadState* for quick-loading a saved simulation state. Issue #6201
-  - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
+  - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318.
   - Added new function *vehicle.getStops*. This can be used to retrieve the next or last n stops. The method returns a list of stop objects with extended attributes. Issue #7015, #7249, #7117, #7452
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
   - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). The optional boolean argument 'traceGetters' can be used to switch off tracing of data retrieval functions. Issue#6604, #7481
@@ -452,7 +452,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
     - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860, #6906, #6908
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
     - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741
-    - Invalid train speed after insertion on short edge. Issue #6801 
+    - Invalid train speed after insertion on short edge. Issue #6801
     - CarFollowModel 'rail' now correctly uses minGap. Issue #6796
     - Invalid stop position after splitting train. Issue #6788
     - Rail signal allows entering occupied block for joining trains. Issue #6794
@@ -632,7 +632,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 ### Enhancements
 - Simulation
-  - Added new [model for electric hybrid vehicles and overhead lines and power substations](../Models/ElectricHybrid.md). 
+  - Added new [model for electric hybrid vehicles and overhead lines and power substations](../Models/ElectricHybrid.md).
   - Railway simulation now supports [splitting and joining trains, also known as portion working](../Simulation/Railways.md#portion_working). Issue #6398
   - Added option **--device.fcd.radius** which allows fcd output for persons and vehicles that are within the given range around equipped vehicles. Issue #6410
   - Added new ['taxi' device](../Simulation/Taxi.md) to allow simulation of demand-responsive transport. Issue #6418
@@ -705,7 +705,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
 
 ### Other
 - Build
-  - removed autotools build 
+  - removed autotools build
 
 - sumo-gui
   - the settings file no longer accepts the element breakpoints-file (command line option is still there)

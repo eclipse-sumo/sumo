@@ -162,4 +162,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEUndoListDialog& operator=(const GNEUndoListDialog&) = delete;
 };
-

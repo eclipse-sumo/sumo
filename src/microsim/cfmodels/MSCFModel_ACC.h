@@ -168,4 +168,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_ACC& operator=(const MSCFModel_ACC& s);
 };
-

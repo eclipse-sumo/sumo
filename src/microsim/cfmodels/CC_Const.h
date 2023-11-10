@@ -183,4 +183,3 @@ struct VEHICLE_DATA {
 #define PAR_ENABLE_AUTO_LANE_CHANGE      "ccalc"
 
 }
-

@@ -189,5 +189,3 @@ private:
     /// @brief The shape
     PositionVector myFGShape;
 };
-
-

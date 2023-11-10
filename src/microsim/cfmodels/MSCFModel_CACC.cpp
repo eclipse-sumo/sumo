@@ -478,4 +478,3 @@ MSCFModel*
 MSCFModel_CACC::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_CACC(vtype);
 }
-

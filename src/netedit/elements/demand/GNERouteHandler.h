@@ -325,5 +325,3 @@ private:
     /// @brief demand to overwrite (using undo-redo
     GNEDemandElement* myDemandToOverwrite = nullptr;
 };
-
-

@@ -270,4 +270,3 @@ namespace PHEMlightdllV5 {
         std::string ReadLine(std::ifstream& s);
     };
 }
-

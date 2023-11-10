@@ -129,7 +129,7 @@ virtual int getModelID() const {
 
 ## Using Custom Parameters via TraCI
 
-A carFollowModel can override the functions getParameter and setParameter inherited from MSCFModel. 
+A carFollowModel can override the functions getParameter and setParameter inherited from MSCFModel.
 Any calls to 'traci.vehicle.setParameter' and 'traci.vehicle.getParameter' where the key starts with "carFollowModel." will then be forwarded to these methods (without the prefix).
 The call
 `traci.vehicle.setParameter(vehID, "carFollowModel.XYZ", "42")`

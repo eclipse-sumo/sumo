@@ -255,7 +255,7 @@ It is possible to start the person simulation simultaneously with the start of a
 
 !!! note
     The starting vehicle must already be loaded in the input file
-    
+
 ## Starting a person in a vehicle
 To start the simulation of a person while riding in a vehicle, the `depart` attribute of the person must be set to `triggered`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
@@ -323,7 +323,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 
 !!! note
     If no itinerary for performing the trip is found and the option **--ignore-route-errors** is set, the trip will be transformed into a walk which consists of the start and arrival edge. The person will teleport to complete the walk.
-    
+
 !!! note
     when attribute vTypes is used, the person may start with any of the given vehicle types at the from-edge. Including 'car' in modes is equivalent to vTypes="DEFAULT_VEHTYPE". Including 'bicycle' in modes is equivalent to vTypes="DEFAULT_BIKETYPE". The vehicles will be automatically generated when used.
 

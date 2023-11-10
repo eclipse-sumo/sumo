@@ -293,7 +293,7 @@ both. The algorithm for selecting the preferred stripe is based on the
 direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
 walk in that stripe without a collision. The model assumes that the pedestrian
-can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}} 
+can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}}
 is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occur.
 The warning to change the stripe-width will then be shown during simulation.
 
@@ -465,7 +465,7 @@ To activate JuPedSim, please add the following line to your SUMO configuration f
 <pedestrian.model value="jupedsim"/>
 ```
 
-As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file). JuPedSim offers several pedestrian models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't exposed. 
+As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file). JuPedSim offers several pedestrian models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't exposed.
 
 When the SUMO network is loaded, all pedestrian lanes are collected and a geometric algorithm creates large polygons that correspond to the connected components of the pedestrian network. For the moment SUMO only supports one connected component; the one with the largest area will be the one retained for the simulation in case your SUMO pedestrian network had several connected components.
 

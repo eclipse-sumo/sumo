@@ -150,7 +150,7 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
   - **vehicle**: add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
   - **odometer**: write odometer value for each vehicle (distance driven since departure)
   - **posLat**: write lateral position on lane for each vehicle
-  
+
 ## NOTES
 
 In combination with the given geometry of the vehicles (shapes) you can
@@ -192,4 +192,3 @@ Generated with [plot_trajectories.py](../../Tools/Visualization.md#selected_traj
 <img src="../../images/timeSpeed_output.png" width="500px"/>
 
 Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speeds_over_time).
-

@@ -20,7 +20,7 @@ following properties:
   [SWIG](https://www.swig.org/))
 - Support for other programming languages via
   [SWIG](https://www.swig.org/)
-  
+
 # Limitations
 
 The following things currently do not work (or work differently than with the TraCI Python client):

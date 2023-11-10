@@ -458,5 +458,3 @@ private:
     TraCIServer& operator=(const TraCIServer& s) = delete;
 
 };
-
-

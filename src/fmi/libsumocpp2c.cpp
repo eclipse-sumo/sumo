@@ -163,4 +163,3 @@ libsumo_vehicle_getPosition(ModelInstance* comp, const char** result) {
         abort();
     }
 }
-

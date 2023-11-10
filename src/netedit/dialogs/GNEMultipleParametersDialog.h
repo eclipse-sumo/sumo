@@ -305,4 +305,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEMultipleParametersDialog& operator=(const GNEMultipleParametersDialog&) = delete;
 };
-

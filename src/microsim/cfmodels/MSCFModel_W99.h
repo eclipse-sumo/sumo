@@ -147,4 +147,3 @@ private:
     /// @brief Invalidated assignment operator
     MSCFModel_W99& operator=(const MSCFModel_W99& s);
 };
-

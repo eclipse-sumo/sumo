@@ -86,5 +86,3 @@ private:
     /// @brief The map of edge ids to lines that use this edge in their route
     std::map<std::string, std::set<NBPTLine*> > myPTLineLookup;
 };
-
-

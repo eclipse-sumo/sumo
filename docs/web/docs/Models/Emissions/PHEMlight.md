@@ -57,45 +57,45 @@ and the emission standard, all connected with underscores.
   1305kg; size class II 1305kg < RM <= 1760kg; size class III 1760kg
   < RM <= 3500kg; "RM": reference mass (approx. Vehicle curb
   weight)
-  
+
 - **HDV_RT**  heavy duty vehicles - rigid trucks; size class I 2 axle
   trucks; size class II 3+ axle trucks
-  
+
 - **HDV_TT**  heavy duty vehicles - truck + trailer (incl. articulated
   trucks = tractor + semitrailer)
-  
+
 - **HDV_CB**  heavy duty vehicles - city bus
-  
+
 - **HDV_CO**  heavy duty vehicles - coach
-  
+
 - **MC_2S**  motorcycles - 2 stroke (not included)
-  
+
 - **MC_4S**  motorcycles - 4 stroke (not included)
-  
+
 - **MOP**  moped (not included)
 
 ### Technology
 
 - **G**  gasoline engine (conventional powertrain)
-  
+
 - **D**  diesel engine (conventional powertrain)
-  
+
 - **G_HEV**  gasoline engine (parallel hybrid powertrain)
-  
+
 - **D_HEV**  diesel engine (parallel hybrid powertrain)
-  
+
 - **CNG**  Compressed Natural Gas engine
-  
+
 - **BEV**  battery electric vehicles
 
 ### Examples
 
 - **PC_G_EU6**  passenger car, gasoline engine, EURO 6
-  
+
 - **PC_BEV**  passenger car, battery electric
-  
+
 - **LCV_III_CNG_EU6**  light commercial vehicle, size class III, CNG engine, Euro 6
-  
+
 - **HDV_RT_I_D_EU4**  rigid truck, size class I, diesel engine, EURO IV
 
 - **HDV_CB_D_EU5**  city bus, diesel engine, Euro V
@@ -231,5 +231,5 @@ The special class `zero` may be used to specify a vehicle without emissions.
  <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

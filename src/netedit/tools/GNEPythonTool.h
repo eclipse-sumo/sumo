@@ -99,4 +99,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPythonTool& operator=(const GNEPythonTool&) = delete;
 };
-

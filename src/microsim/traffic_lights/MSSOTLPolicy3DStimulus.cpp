@@ -27,4 +27,3 @@ MSSOTLPolicy3DStimulus::MSSOTLPolicy3DStimulus(std::string keyPrefix,
     setStimCoxExpDispersionInDefVal(0);
     setStimCoxExpDispersionOutDefVal(0);
 }
-

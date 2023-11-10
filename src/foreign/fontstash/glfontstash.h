@@ -122,7 +122,7 @@ FONScontext* glfonsCreate(int width, int height, int flags)
 	params.renderCreate = glfons__renderCreate;
 	params.renderResize = glfons__renderResize;
 	params.renderUpdate = glfons__renderUpdate;
-	params.renderDraw = glfons__renderDraw; 
+	params.renderDraw = glfons__renderDraw;
 	params.renderDelete = glfons__renderDelete;
 	params.userPtr = gl;
 

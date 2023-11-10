@@ -178,4 +178,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEPythonToolDialog& operator=(const GNEPythonToolDialog&) = delete;
 };
-

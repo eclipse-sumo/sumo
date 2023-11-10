@@ -72,5 +72,3 @@ TEST(FileHelpers, test_method_fixRelative) {
     EXPECT_EQ("../../test.net.xml", FileHelpers::fixRelative("../../test.net.xml", "test.sumocfg", true, "/home/user")) << "file in parent dir with straight cfg should stay unchanged.";
     EXPECT_EQ("stdout", FileHelpers::fixRelative("stdout", "/home/sampledir", true, "/home")) << "check for reserved filenames.";
 }
-
-

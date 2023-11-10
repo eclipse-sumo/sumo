@@ -62,7 +62,7 @@ title: ChangeLog
   - Fixed crash in netedit due to netbuild / connections. #13731
   - "Press F5" message now updates earlier. #13912
   - Fixed vehicle class selection ignoring user input. #13943
-  
+
 - sumo-gui
   - Context menu uses same screen as sumo-gui on Windows. #13674
   - Sidewalks are no longer connected to the ground in 3D view. Issue #13993
@@ -92,7 +92,7 @@ title: ChangeLog
   - osmWebWizard.py: Fixed error when requesting an amount of 0 vehicles for a mode. #13947, #13787
   - convert_detectors2SUMO.py: Syntax error fixed which made the script unusable. #13650
   - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions #13346
-  
+
 - TraCI / Libsumo
   - traci.vehicletype.setScale is now applied to flows. #13707
   - Vehicles now do opposite lane overtaking for vehicles stopped via TraCI. #13710
@@ -297,7 +297,7 @@ title: ChangeLog
   - Function `sumolib.net.getBoxXY` now returns correct results for large networks. Issue #13320
   - When loading a tool configuration, unknown options now raise an error. Issue #13091
   - generateRailSignalConstraints.py: fixed invalid bidi constraint for trains with multiple diversionary tracks between stops. Issue #13519
-  
+
 
 ### Enhancements
 
@@ -349,7 +349,7 @@ title: ChangeLog
   - Vehicles with SSM device now permit retrieval of the minimum PPET using param `device.ssm.minPPET`. Issue #13293
   - Function `traci.vehicle.setStopParameter` and `getStopParameter` now supports optional argument `customParam=True` to work with user defined stop parameters. Issue #13365
   - vehicle and vehicletype domain now support the functions set/getBoardingDuration and set/getImpatience. When impatience is set on a vehicle it affects the dynamic impatience which gets reset on starting to drive. Calling vehicle.getImpatience now returns the dynamic impatience instead of the base value defined in the vType. Issue #10430, #13403
-  
+
 - tools
   - randomTrips.py: added options **--from-stops** and **--to-stops** to define pedestrians, personTrips and person rides from and to stops (i.e. busStop). Issue #13375
   - randomTrips.py: now issues a warning if option **--binomial** is too low for the given period. Issue #13404
@@ -391,7 +391,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
- 
+
   - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)
   - Fixed collision at parallel lanes with different lengths. Issue #12590
   - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
@@ -749,14 +749,14 @@ title: ChangeLog
   - A `<split>` at pos=0 no longer ignores speed. Issue #12526
   - Distance (kilometrage) is now preserved when adding `<split>` element. Issue #12527
   - Custom edge length is now preserved when adding `<split>` element. Issue #12529
-  
+
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
-    
+
 - duarouter
   - Fixed crash on unknown landmark edge. Issue #12438
   - Fixed invalid routing result by routing algorithm A* / "astar" (minor difference caused by internal edge lengths). Issue #12463
-    
+
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
   - Foe lanes for crossings can now be retrieved. Issue #12059
@@ -785,7 +785,7 @@ title: ChangeLog
   - gtfs2pt.py: Fixed mapping of bus and tram stops in multimodal networks. Issue #11802, #11849
   - gtfs2pt.py: Output is now usable with duarouter. Issue #12333
 
-- All Applications: 
+- All Applications:
   - Fixed XML-validation error when SUMO_HOME is not set. Issue #12138 (regression in 1.15.0)
   - Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -869,7 +869,7 @@ title: ChangeLog
   - Added functions `vehicle.getLoadedIDList` and `vehicle.getTeleportingIDList` to retrieve the corresponding vehicles (some of which could not be retrieved with getIDList). Issue #2338
   - Simpla: The maximum length of a platoon can now be configured. Issue #11426
   - The JAVA bindings now facilitate casting of subscription results. Issue #8930
-  
+
 - Tools
   - osmWebWizard.py: Add checkboxes to select/deselect groups of elements in the road types tab. Issue #10692
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312

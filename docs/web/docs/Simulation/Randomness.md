@@ -75,15 +75,15 @@ to its departure time, equidistributed on \[0, {{DT_TIME}}\].
 The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md)
 
 ## Binomial distribution
-By definining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`), 
-a vehicle will be emitted randomly with the given probability each second until the end time is reached. 
+By definining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`),
+a vehicle will be emitted randomly with the given probability each second until the end time is reached.
 The number of vehicles inserted this way will be [binomially distributed](https://en.wikipedia.org/wiki/Binomial_distribution).
 When modeling such a flow on a multi-lane road it is recommended to define a `<flow>` for each individual lane because the insertion rate is limited to at most 1 vehicle per second.
 
-When simulating with subsecond time resolution, the random decision for insertion is taken in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
+When simulating with subsecond time resolution, the random decision for insertion is taken in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length.
 !!! note
     The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in [every other second does not achieve maximum flow](VehicleInsertion.md#effect_of_simulation_step-length)).
-    
+
 For low probability the distribution of inserted vehicles approximates a [Poisson
 Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
 
@@ -94,7 +94,7 @@ The number of vehicles inserted this way will follow the [Poisson distribution](
 
 !!! note
     The effective [insertion rate](VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) is limited by network capacity and other flow attributes such as `departSpeed` and `departLane`
-    
+
 # Flows with a fixed number of vehicles
 
 The following 2 sections describe attributes for random flows that apply to [duarouter](../duarouter.md) and [sumo](../sumo.md). They are quite similar to [flows with a random number of vehicles](#flows_with_a_random_number_of_vehicles) but substitute the `number` attribute for the `end` attribute.
@@ -122,7 +122,7 @@ in time). The departure times computed this way also achieve a [Poisson process]
 The `<flow>`, `<trip>` and `<vehicle>` elements support the value "random" for their attributes `departLane`, `departPos`,
 `departSpeed` and `arrivalPos`. The value will be chosen randomly on every insertion try (for the
 departure attributes) or whenever there is a need to revalidate the
-arrival value (i.e. after rerouting). The attribute `departPosLat` also supports the value "random". 
+arrival value (i.e. after rerouting). The attribute `departPosLat` also supports the value "random".
 The lateral offset at departure will only affect simulation behavior when using the [sublane model](SublaneModel.md) though it will be visible without this model too.
 
 # Lateral Variation
@@ -139,7 +139,7 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 
 # Reproducibility
 
-Generally, all SUMO applicaitons and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac). 
+Generally, all SUMO applicaitons and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac).
 
 There are some situations that are know to violate this rule (either by design or due to technical reasons) and they are listed in the following.
 
@@ -156,4 +156,3 @@ The following differences are either due to bugs or hard-to-solve problems in li
 - **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and differnt platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
 - **Non-deterministic vehicle routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
 - **Different Simulation behavior due to using the `log` function**. Observed differences for the EIDM-Model (Issue #8921) and also for Simulations with the DriverState-device. Could in principe also affect the Wiedemann-Model and the ToC-device.
-

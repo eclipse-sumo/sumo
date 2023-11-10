@@ -270,7 +270,7 @@ sumo (0.18~dfsg-1) unstable; urgency=low
   * [23e6778] Imported Upstream version 0.18~dfsg
   * [5b43e89] Refresh patches.
   * [b27582b] Minor fix in debian/rules.
-  * [6b5053e] Change section for sumo-tools package from "doc" to "science". 
+  * [6b5053e] Change section for sumo-tools package from "doc" to "science".
               (Closes: #717393)
 
  -- Anton Gladky <gladk@debian.org>  Fri, 30 Aug 2013 21:58:58 +0200
@@ -339,7 +339,7 @@ sumo (0.16.0~dfsg-1~exp1) experimental; urgency=low
 sumo (0.15.0~dfsg-3) unstable; urgency=low
 
   * [6ae8190] Use compat level 9. Apply hardening of buildflags.
-  * [daa56b5] Remove from compilation embedded copy of gl2ps, 
+  * [daa56b5] Remove from compilation embedded copy of gl2ps,
               use packaged version instead.
   * [8c08de0] Add upstream file
 
@@ -348,55 +348,55 @@ sumo (0.15.0~dfsg-3) unstable; urgency=low
 sumo (0.15.0~dfsg-2) unstable; urgency=low
 
   * [5813a09] Update fix_headers_of_scripts.patch.
-  * [956cf12] Replace /usr/bin/netgen binary on /usr/bin/netgensumo. 
+  * [956cf12] Replace /usr/bin/netgen binary on /usr/bin/netgensumo.
               (Closes: #673931)
 
  -- Anton Gladky <gladky.anton@gmail.com>  Sun, 27 May 2012 16:28:54 +0200
 
-sumo (0.15.0~dfsg-1) unstable; urgency=low  
-  
+sumo (0.15.0~dfsg-1) unstable; urgency=low
+
   * Initial packaging in Debian. (Closes: #669160)
-   
+
  -- Anton Gladky <gladky.anton@gmail.com>  Mon, 23 Apr 2012 19:17:01 +0200
 
-sumo (0.14.0-1) unstable; urgency=low  
-  
-  * New upstream release.  
-   
+sumo (0.14.0-1) unstable; urgency=low
+
+  * New upstream release.
+
  -- Michael Behrisch <behrisch@users.sourceforge.net>  Thu, 12 Jan 2012 23:46:43 +0100
 
-sumo (0.13.1-1) unstable; urgency=low  
-  
-  * New upstream release.  
-   
+sumo (0.13.1-1) unstable; urgency=low
+
+  * New upstream release.
+
  -- Michael Behrisch <behrisch@users.sourceforge.net>  Tue, 01 Nov 2011 10:24:24 +0100
 
-sumo (0.13.0-1) unstable; urgency=low  
-  
-  * New upstream release.  
-   
+sumo (0.13.0-1) unstable; urgency=low
+
+  * New upstream release.
+
  -- Michael Behrisch <behrisch@users.sourceforge.net>  Wed, 13 Jul 2011 16:58:57 +0200
 
-sumo (0.12.3-1) unstable; urgency=low  
-  
-  * New upstream release.  
-   
+sumo (0.12.3-1) unstable; urgency=low
+
+  * New upstream release.
+
  -- Michael Behrisch <behrisch@users.sourceforge.net>  Wed, 13 Apr 2011 19:28:57 +0200
 
-sumo (0.10.2-1) unstable; urgency=low  
-  
-  * New upstream release.  
-   
+sumo (0.10.2-1) unstable; urgency=low
+
+  * New upstream release.
+
  -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Mon, 16 Mar 2009 22:00:47 +0100
 
-sumo (0.10.1-1) unstable; urgency=low  
- 
+sumo (0.10.1-1) unstable; urgency=low
+
   * Update
 
  -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Sun, 15 Feb 2009 22:34:33 +0200
 
-sumo (0.9.10-1) unstable; urgency=low  
- 
+sumo (0.9.10-1) unstable; urgency=low
+
   * Initial Release
 
  -- Michael Behrisch <behrisch@informatik.hu-berlin.de>  Thu, 23 Oct 2008 23:04:33 +0200

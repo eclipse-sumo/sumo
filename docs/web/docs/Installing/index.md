@@ -101,11 +101,11 @@ brew install sumo
     It is possible to install older vesions of SUMO using Homebrew. Running `brew search sumo` will list all available versions (v1.0.1 or newer). To install a specific version (e.g. version 1.9.0), just run `brew install sumo@1.9.0`.
 
 If you need to compile SUMO with support for other libraries, such as GDAL, you need to provide further command line options [as described here](https://github.com/DLR-TS/homebrew-sumo#usage).
-To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
+To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands.
 ```
 touch ~/.bashrc; open ~/.bashrc
 ```
-Just insert the following new line at the end of the file: 
+Just insert the following new line at the end of the file:
 ```
 export SUMO_HOME=/your/path/to/sumo
 ```

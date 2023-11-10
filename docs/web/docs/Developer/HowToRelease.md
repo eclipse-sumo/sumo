@@ -112,7 +112,7 @@ following things need to be there:
   - windows binary distribution (zip, unzip the x64 file and run at least sumo-gui)
   - windows installer (msi, Win32 and x64, includes docs)
 - check the wheels on PyPI
-  - https://pypi.org/project/eclipse-sumo/ 
+  - https://pypi.org/project/eclipse-sumo/
   - https://pypi.org/project/libsumo/
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/

@@ -2128,4 +2128,3 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
 }
 
 /****************************************************************************/
-

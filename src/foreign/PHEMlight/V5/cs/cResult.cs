@@ -34,7 +34,7 @@ namespace PHEMlightdll
             _emissionData = new EmissionData(Emi);
         }
         #endregion
-        
+
         #region Vehicle
         private string _vehicle;
         public string Vehicle => _vehicle;

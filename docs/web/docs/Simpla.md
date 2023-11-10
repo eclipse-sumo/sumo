@@ -5,8 +5,8 @@ title: Simpla
 !!! note
     simpla is written for SUMO versions > 0.30.0. We strongly recommend regularly updating to the newest SUMO version if possible. [Nightly snapshots can be found here](Downloads.md#nightly_snapshots).
     <br><br>
-    As simpla uses TraCI's [StepListener](TraCI/Interfacing_TraCI_from_Python.md#adding_a_steplistener) interface, it cannot be combined with controlling several sumo instances from the same client. 
-    
+    As simpla uses TraCI's [StepListener](TraCI/Interfacing_TraCI_from_Python.md#adding_a_steplistener) interface, it cannot be combined with controlling several sumo instances from the same client.
+
 # Intro
 
 simpla is a configurable, platooning plugin for the [TraCI
@@ -126,7 +126,7 @@ and the platoon management is executed at the end of each call to
 !!! caution
     (1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles. If your application does so as well, this might have unintended consequences.
 
-    (2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep() is called with argument when simpla is running this may yield undesired behavior). 
+    (2) Currently, steps of lengths other than DeltaT are not supported (i.e. if traci.simulationStep() is called with argument when simpla is running this may yield undesired behavior).
 
     (3) simpla adds subscriptions to VAR_SPEED, VAR_ROAD_ID, VAR_LANE_ID, and VAR_LANE_INDEX and removes them when stopped (per `simpla.stop()`).
 
@@ -165,7 +165,7 @@ as a
 
 # Statistic Helper Functions
 
-There are some statistical helper functions to get information about the existing platoons listed below. 
+There are some statistical helper functions to get information about the existing platoons listed below.
 They are available after starting simpla like [explained above](#integrating_simpla_into_your_traci_script).
 
 ## getAveragePlatoonLength()
@@ -188,7 +188,7 @@ currentLeaderIDs = simpla.getPlatoonLeaderIDList()
 
 ## getPlatoonIDList() and getPlatoonInfo()
 Platoons can be found by their position on the road network using the edge ID in question.
-The function returns IDs of platoons which currently have at least one member vehicle on the edge given by its **edgeID**. 
+The function returns IDs of platoons which currently have at least one member vehicle on the edge given by its **edgeID**.
 The platoon ID can be used to receive updates using getPlatoonInfo even when the platoon has left the edge:
 ```python
 platoonIDs = simpla.getPlatoonIDList(edgeID)
@@ -204,8 +204,8 @@ The function getPlatoonInfo returns a dictionary of values regarding the platoon
 | **members**       | list(string)   | The IDs of the vehicles in the platoon.                                             |
 
 ## getPlatoonID()
-This utility function allows to check if a given vehicle is part of a platoon in simpla. If the vehicle given by its ID is controlled by 
-simpla, the function returns the numerical platoon ID (-1 otherwise). The platoon ID can be used as an input to getPlatoonInfo to 
+This utility function allows to check if a given vehicle is part of a platoon in simpla. If the vehicle given by its ID is controlled by
+simpla, the function returns the numerical platoon ID (-1 otherwise). The platoon ID can be used as an input to getPlatoonInfo to
 get information about the platoon structure.
 ```python
 vehID = "myExampleVehicle"

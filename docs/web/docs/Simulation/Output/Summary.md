@@ -62,4 +62,3 @@ is given in the table below.
 ![plot-running](../../images/plot-running.png)
 
 Generated with [plotXMLAttributes.py](../../Tools/Visualization.md##multiple_timelines_from_summary-output).
-

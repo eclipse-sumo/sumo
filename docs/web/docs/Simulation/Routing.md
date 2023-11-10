@@ -56,7 +56,7 @@ argument to *traci.simulation.findRoute*.
 
 ## Routing Mode *traci.constants.ROUTING_MODE_DEFAULT*
 
-The following order of steps is taken to retrieve the travel time for each edge. If a step provides data, this is used, otherwise the next step is attempted: 
+The following order of steps is taken to retrieve the travel time for each edge. If a step provides data, this is used, otherwise the next step is attempted:
 
 1.  The vehicle retrieves it's individual data storage. This can be set
     and retrieved using the TraCI vehicle methods [*change edge travel time information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
@@ -77,7 +77,7 @@ the *rerouting device* are used. Note, that these can also be modified via TraCI
 
 ## Randomimzed travel times
 
-[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. travel times) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
+[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. travel times) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2).
 
 Randomized edge weights can be useful in grid networks where there are many paths have the same (or almost the same) travel cost and the default routing algorithm would send all vehicles on the same path. It can also be used to model imperfection in travel time estimation.
 
@@ -93,7 +93,7 @@ Randomized edge weights can be useful in grid networks where there are many path
 - When using the TraCI method rerouteTraveltime from the [python TraCI library](../TraCI/Interfacing_TraCI_from_Python.md), the
   command supports an additional boolean parameter *currentTravelTime*
   (default *True*). When this parameter is set to *True*, the vehicle will temporarily use ROUTING_MODE_AGGREGATED
-  
+
 # Routing by Travel time and Edge Priority
 Sometimes it is useful to guide route search with additional information while still taking travel times into account.
 For this use case the option **--weights.priority-factor FLOAT** can be used with [sumo](../sumo.md) and [duarouter](../duarouter.md).
@@ -110,7 +110,7 @@ When this option is set, the priority value of each edge is factored into the ro
 As a consequence:
 
 - the highest priority edge will get no penalty
-- the travel time of the lowest priority edge is multiplied with 1+PriorityFactor, 
+- the travel time of the lowest priority edge is multiplied with 1+PriorityFactor,
 - edges with in-between priorities will get a scaled penalty
 
 # Routing by *effort*
@@ -142,7 +142,7 @@ also be set using *traci.edge.setEffort*.
 
 !!! caution
     The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
-    
+
 The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, they will still work as expected when the user loads custom effort values for these attributes.
 
 
@@ -194,7 +194,7 @@ algorithm uses a metric for bounding travel time to direct the
 search and is often faster than dijkstra. Here, the metric *euclidean distance / maximumVehicleSpeed*) is used.
 
 ## ALT
-  
+
 By using *astar* together with the option **--astar.landmark-distance** {{DT_FILE}} the ALT-Algorithm is activated.
 The name ALT stands for: **A**\*, **L**andmarks, **t**riangle inequality.
 It uses a precomputed distance table to selected network edges (so-called landmarks) to speed up the search, often by a significant factor.
@@ -204,7 +204,7 @@ and then setting the options **-astar.landmark-distances landmarks.txt --astar.s
 - As a rule of thumb using 8-16 edges distributed around the main roads that border the network achieve good ALT-performance. Using more edges is not recommended because each landmark adds a fixed overhead).
 - by using *astar* together with the option **--astar.all-distances** {{DT_FILE}} the A\* algorithm is
   used together with a complete (and often huge) distance table to allow for blazing fast search. This is only recommended for medium sized networks with a high number of routing queries
-  
+
 
 ## CH (Contraction Hierarchies)
 
@@ -212,7 +212,7 @@ and then setting the options **-astar.landmark-distances landmarks.txt --astar.s
 is preprocessing-based routing algorithm. This is very efficient
 when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
-performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. 
+performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
 
 - When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
 - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.

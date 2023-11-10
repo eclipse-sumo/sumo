@@ -99,4 +99,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEVariableSpeedSignDialog& operator=(const GNEVariableSpeedSignDialog&) = delete;
 };
-

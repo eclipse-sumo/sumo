@@ -221,5 +221,3 @@ private:
     /// @brief Invalidated assignment operator.
     MSDevice_Battery& operator=(const MSDevice_Battery&);
 };
-
-

@@ -19,11 +19,11 @@ The aim of the model is to correctly replicate submicroscopic acceleration profi
     - a reaction time added to the action point time
     - acceleration thresholds depending on vehicle dynamics and resistance
     - situation dependent driving
-  
+
 !!! caution
     When simulating with estimated variables, the function randNorm() is used.
     Due to the calculation and rounding of the log()-function, results differ depending on the compiler/processor/operating system. For more information and a workaround, see [2].
-    
+
 !!! caution
     The model was not tested with option **--step-method.ballistic**. The author recommends to lower the step length to increase the realism of positional updates instead.
 

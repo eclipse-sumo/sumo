@@ -1,4 +1,4 @@
-#!/bin/zsh 
+#!/bin/zsh
 
 # ****************************************************************************
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
@@ -43,4 +43,3 @@ else
     echo "Starting: $SUMO_HOME/bin/sumo-gui"
     $SUMO_HOME/bin/sumo-gui "$@" &> /dev/null &
 fi
-

@@ -55,4 +55,3 @@ TEST(MFXWorkerThread, test_get_all) {
     g.add(task4);
     g.waitAll();
 }
-

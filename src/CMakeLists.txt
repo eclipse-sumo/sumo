@@ -111,4 +111,4 @@ add_custom_command(OUTPUT version.h
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h DEPENDS version.h)
-set_property(TARGET generate-version-h PROPERTY FOLDER "CMake") 
+set_property(TARGET generate-version-h PROPERTY FOLDER "CMake")

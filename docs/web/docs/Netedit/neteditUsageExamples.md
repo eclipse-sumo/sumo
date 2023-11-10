@@ -103,7 +103,7 @@ The reverse operation to *Setting a custom geometry endpoint* as explained above
     intersection (this will be the radius of the roundabout)
 2.  Delete the central intersection
 3.  Connect the new intersections with one-way roads going in a circle
-4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](editModesCommon.md#move) to make it more rounded. 
+4.  Tweak the geometry of the roundabout by creating additional geometry points in [move mode](editModesCommon.md#move) to make it more rounded.
     You can also use the function 'smooth edge' from the edge context menu.
 5.  Check for correct right of way (the inside edge should have priority over the entering edges). This should work by default but may fail if the shape of the roundabout is not 'round' enough. Either correct the geometry or assign a higher priority value to the roundabout roads (compared to the adjoining roads)
 

@@ -4,7 +4,7 @@ title: Railways
 
 # generateRailSignalConstraints.py
 
-Generate [constraints that enforce a given railway schedule](../Simulation/Railways.md#schedule_constraints). 
+Generate [constraints that enforce a given railway schedule](../Simulation/Railways.md#schedule_constraints).
 Example:
 
 ```
@@ -121,7 +121,7 @@ as an updated schedule (replacing arrival and until). However, if an order
 reversal was detected for a train, no constraints based on the old schedule
 should be generated anymore (stops are ignored after started,ended information ends)
 
-## Further Options 
+## Further Options
 If constraints shall be modified during the simulation (traci.trafficlight.swapConstraints)
 it may be useful to add additional constraints which would otherwise be
 redundant. This can be accomplished by setting option --redundant with a time
@@ -153,7 +153,7 @@ Options:
   - 'as' : stop arrivalt delay comppared to recorded 'started' in input
   - 't'  : traveltime according to schedule versus traveltime in simulation (between stops)
   - 'T'  : traveltime according to recording versus traveltime in simulation (between stops)
-  
+
 - **--group-by** (**-g**): group results by one or more attributes (vehID,tripId,stopID,priorStop)
 - **--group-statistic-type** (**-T**): select among statistics over the group values (i.e. to compare the groups by their mean depart delay). permitted values are mean, median, min, max
 - **--histogram FLOAT** (**-i**): add a histogram with the given bin width

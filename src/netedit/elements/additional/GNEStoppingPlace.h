@@ -195,5 +195,3 @@ private:
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;
 };
-
-

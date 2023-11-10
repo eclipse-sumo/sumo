@@ -1,6 +1,6 @@
 <configuration>
     <vTypeMapFile value="myPlatoonVTypes.map"/>
-    <controlRate value="1.0"/> 
+    <controlRate value="1.0"/>
     <vehicleSelectors value="connected"/>
     <maxVehicles value="10"/>
     <maxPlatoonGap value="15.0"/>

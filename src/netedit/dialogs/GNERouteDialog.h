@@ -94,4 +94,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERouteDialog& operator=(const GNERouteDialog&) = delete;
 };
-

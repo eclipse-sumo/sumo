@@ -128,5 +128,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEBusStop& operator=(const GNEBusStop&) = delete;
 };
-
-

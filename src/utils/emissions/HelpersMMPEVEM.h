@@ -72,4 +72,3 @@ public:
                    const double a, const double slope,
                    const EnergyParams* ptr_energyParams) const;
 };
-

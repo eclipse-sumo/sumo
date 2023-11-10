@@ -171,7 +171,7 @@ further information on this process in
 [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md)
 and [SUMO Road Networks](../Networks/SUMO_Road_Networks.md).
 
-![eichstaett.net.png](../images/Eichstaett.net.png "eichstaett.net.png") 
+![eichstaett.net.png](../images/Eichstaett.net.png "eichstaett.net.png")
 
 The map stored in the file eichstaett.net.xml. In this map, SUMO runs its simulation. Compare it with its source, the OpenStreetMap file shown in the image above.
 
@@ -196,9 +196,9 @@ Further options of netconvert can be very useful for the OpenStreetMap import:
   components of the network (Usually only *1* is desired). Warning:
   This could remove railroads or other edges you would like to keep.
   So check the messages of netconvert.
-  
+
 -  **--verbose**
-  
+
   Prints additional output.
 
 Now read the messages netconvert printed out very carefully. Try to
@@ -222,6 +222,6 @@ Above on the right, you see an image that visualises the file. I opened
 
 When you look back at the work you have done so far, most of it was
 necessary to polish the OpenStreetMap data for traffic simulation and to
-add missing information.  
+add missing information.
 A good map is hard to obtain but very important
 for traffic simulation.

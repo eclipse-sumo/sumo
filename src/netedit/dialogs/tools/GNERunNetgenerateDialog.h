@@ -131,4 +131,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNERunNetgenerateDialog& operator=(const GNERunNetgenerateDialog&) = delete;
 };
-

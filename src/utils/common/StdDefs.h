@@ -151,4 +151,3 @@ double roundDecimal(double x, int precision);
  * @return the number of objects to create (something between 0 and ceil(frac))
  */
 int getScalingQuota(double frac, int loaded);
-

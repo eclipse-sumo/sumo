@@ -8,9 +8,9 @@ Since version 1.5.0 SUMO extends the original [electric](Electric.md) vehicle mo
 also internal electric parameters of an battery-assisted trolleybus, i.e. a vehicle that is being powered by overhead wires and
 has also a battery pack installed. The battery pack is charged from the overhead wires rather than from a standalone charging station.
 
-The model allows not only for vehicle 
+The model allows not only for vehicle
 simulation, but the simulation may also include detailed electrical simulation of the overhead wire circuit behavior.
-It was implemented by Jakub Ševčík and Jan Přikryl from the [RICE FEE UWB Pilsen](https://rice.zcu.cz/en). 
+It was implemented by Jakub Ševčík and Jan Přikryl from the [RICE FEE UWB Pilsen](https://rice.zcu.cz/en).
 The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elechybrid*.
 The model is defined as a set of [*additional features*](../index.md#additional_features).
 The features provided and used by the model are traction substations that provide power to the overhead wire
@@ -48,7 +48,7 @@ the following meanings:
 | recuperationEfficiencyByDecel | float      | 0.0             | Recuperation efficiency (by deceleration)                        |
 
 !!! note
-    In contrast with the battery device, the `maximumPower` parameter defines the maximum power of vehicle electric 
+    In contrast with the battery device, the `maximumPower` parameter defines the maximum power of vehicle electric
     motor. The rest of the parameters in the table are common for model of electric energy consumption and have the same meaning.
 
 An example of a vehicle with hybrid electric attribute is almost identical with that of an electric vehicle:
@@ -89,9 +89,9 @@ The initial energy content of the battery (by default 0.0 Wh) can be set in the 
 
 A traction substation represents a transformer station that is responsible for powering a certain
 set of overhead wire circuits. The current implementation of this element is quite simple: the
-substation provides information about the nominal voltage of the overhead wire at the point where 
+substation provides information about the nominal voltage of the overhead wire at the point where
 the substation feeder line is connected to the circuit, and it also specifies the maximum current
-that can be drawn from the feeder (this imposes a maximum power limit on that substation). 
+that can be drawn from the feeder (this imposes a maximum power limit on that substation).
 
 | key                 | Value Type | Value range       | Default | Description                                                          |
 | ------------------- | ---------- | ----------------- | ------- | -------------------------------------------------------------------- |
@@ -106,22 +106,22 @@ that can be drawn from the feeder (this imposes a maximum power limit on that su
 ```
 
 !!! note
-    The `currentLimit` parameter of the substation is silently ignored and does not trigger 
+    The `currentLimit` parameter of the substation is silently ignored and does not trigger
     a power limit of the feeder in SUMO 1.10.0
 
 ## Overhead Wires
 
 An overhead wire circuit is a set of overhead wires that are connected to a certain traction substation.
 The circuit may contain clamps/links that interconnect different parts of the circuit and that improve its
-electric parameters of the circuit when it is under higher load (a pair of clamps/links typically 
-interconnects two positive and two negative overhead wires for both travel directions at some 
+electric parameters of the circuit when it is under higher load (a pair of clamps/links typically
+interconnects two positive and two negative overhead wires for both travel directions at some
 point on the same street).
 
-We also allow the substation feeder line to be connected to more than a single place in the circuit, which 
+We also allow the substation feeder line to be connected to more than a single place in the circuit, which
 is another measure to ensure more uniform distribution of power in the circuit.
 
 The overhead wire network is part of [*additional features*](../index.md#additional_features)
-provided by SUMO. It is constructed by specifying one or more `<overheadWire>` elements, representing 
+provided by SUMO. It is constructed by specifying one or more `<overheadWire>` elements, representing
 a continuous section of traction wire. Each of this sections consists of `<overheadWireSegment>` elements
 that are defined on lanes of the SUMO network.
 Each segment may be shorter than the lane length, and a beginning or ending offset may be specified &ndash; this
@@ -160,7 +160,7 @@ Overhead wire segments are defined in an additional file using the following for
 </additionals>
 ```
 
-We can also try to improve electric parameters of the circuit by specifying *overhead wire clamps* that interconnect 
+We can also try to improve electric parameters of the circuit by specifying *overhead wire clamps* that interconnect
 selected overhead wire segments (these are typically overhead wire segments in the opposite directions on the same street):
 
 | key                     | Value Type | Value range         | Default | Description                                                                                 |
@@ -168,19 +168,19 @@ selected overhead wire segments (these are typically overhead wire segments in t
 | **id**                  | string     | ID                  |         | Overhead wire clamp ID (must be unique)                                                     |
 | **substationId**        | string     | valid substation ID |         | Substation which can employ the overhead wire clamp                                         |
 | **idSegmentStartClamp** | string     | valid segment ID    |         | ID of the overhead wire segment, to the start of which the overhead wire clamp is connected |
-| **idSegmentEndClamp**   | string     | valid segment ID    |         | ID of the overhead wire segment, to the end of which the overhead wire clamp is connected   |   
+| **idSegmentEndClamp**   | string     | valid segment ID    |         | ID of the overhead wire segment, to the end of which the overhead wire clamp is connected   |
 
 An example of using the `<overheadWireClamp>` element connecting the contact line segments on
 lanes `-gneE0_0` and `gneE0_0` is given below:
 ```xml
 <additionals>
-    <overheadWireClamp id="clamp1" substationId="Sub1" 
+    <overheadWireClamp id="clamp1" substationId="Sub1"
         idSegmentStartClamp="ovrhdSgmnt_-gneE0_0" idSegmentEndClamp="ovrhdSgmnt_gneE0_0" />
 </additionals>
-```    
+```
 
 Once the overhead wire segments (and overhead wire clamps) have been specified, an electric circuit can be defined
-using the `<overheadWire>` element with the following attributes:  
+using the `<overheadWire>` element with the following attributes:
 
 | key                     | Value Type | Value range                       | Default | Description                                                    |
 | ----------------------- | ---------- | --------------------------------- | ------- | -------------------------------------------------------------- |
@@ -203,14 +203,14 @@ Representation of the overhead wire in GUI
 
 If a vehicle equipped with *device.elechybrid* drives under the wire, the overhead wire segment colors
 display a *(currently hardcoded)* color map indicating actual traction wire voltage, and also the number
-of connected ElecHybrid vehicles on that segment -- see image below. 
+of connected ElecHybrid vehicles on that segment -- see image below.
 
 ![](../images/overheadWire_withElecHybrid_gui_labeled.png "Color change of an overhead wire")
 Color of overhead wire in case that some power is supplied to a vehicle
 
 ## Simulation setting
 
-It is possible to activate or deactivate overhead wire solver, enable or disable the recuperation of energy from vehicles to overhead wire, and apply or ignore substation's electric current limits in the overhead wire solver. The above mentioned properties are set in configuration file using the following format. 
+It is possible to activate or deactivate overhead wire solver, enable or disable the recuperation of energy from vehicles to overhead wire, and apply or ignore substation's electric current limits in the overhead wire solver. The above mentioned properties are set in configuration file using the following format.
 
 ```xml
 <configuration>
@@ -358,7 +358,7 @@ Every time step in which the substation is active is represented by the `<step>`
 
 ## ElectricHybrid output
 
-There are three output parameters to be set in the SUMO configuration file to collect the statistics from the *device.elechybrid*. 
+There are three output parameters to be set in the SUMO configuration file to collect the statistics from the *device.elechybrid*.
 The typical usage will be
 ```xml
 <configuration>
@@ -388,7 +388,7 @@ with floats being represented up to 4 decimal places:
         <vehicle id="test2" maximumBatteryCapacity="46000.0000" actualBatteryCapacity="23011.1111" energyConsumed="5.0570" energyCharged="11.1111" power="58205.3716" overheadWireId="ovrhdSgmnt_-gneE10_0_6" tractionSubstationId="trSubstation2" current="97.0738" circuitVoltage="599.5992" alphaCircuitSolver="1.0000" speed="0.8000" acceleration="0.8000" distance="0.8000" x="36.1308" y="32.9604" z="0.0000" slope="0.0000" lane="-gneE10_0" posOnLane="0.8000"/>
     </timestep>
     ...
-</elecHybrid-export-aggregated>    
+</elecHybrid-export-aggregated>
 ```
 
 Time step parameters:
@@ -422,9 +422,9 @@ Vehicle parameters:
 | **lane**                   | string |       | ID of the lane that the vehicle is currently on                                                                           |
 | **posOnLane**              | float  | m     | Position of vehicle on its current lane                                                                                   |                                             |
 
-If a detailed output of the vehicles has been requested using `<elecHybrid-output.aggregated value="false"/>`, 
-the ElectricHybrid output generates the number of files, corresponding to the number of vehicles equipped with 
-*device.elechybrid*. The file names follow the rule: 
+If a detailed output of the vehicles has been requested using `<elecHybrid-output.aggregated value="false"/>`,
+the ElectricHybrid output generates the number of files, corresponding to the number of vehicles equipped with
+*device.elechybrid*. The file names follow the rule:
 ```
 filename = `elechybrid-output` value + "_" + `id` of vehicle + ".xml".
 ```
@@ -513,11 +513,11 @@ As of SUMO 1.11.0 we are aware of the following:
 
 ### Publications
 
-[1] [Ševčík, J., Přikryl, J. A Vehicle Device Tailored for Hybrid Trolleybuses 
+[1] [Ševčík, J., Přikryl, J. A Vehicle Device Tailored for Hybrid Trolleybuses
    and Overhead Wires Implementation in SUMO. In: Weber, M., Bieker-Walz, L.,
-   Hilbrich, R., Behrisch, M. (eds.), SUMO2019. EPiC Series in Computing, vol. 62, 
+   Hilbrich, R., Behrisch, M. (eds.), SUMO2019. EPiC Series in Computing, vol. 62,
    pp. 145--157. EasyChair (2019)](https://www.easychair.org/publications/download/bhmq)
 
-[2] [Ševčík, J., Adam, L., Přikryl, J., Šmídl V. Solvability of the power flow problem 
+[2] [Ševčík, J., Adam, L., Přikryl, J., Šmídl V. Solvability of the power flow problem
    in DC overhead wire circuit modeling. *Applications of Mathematics* (2021),
    doi: 10.21136/AM.2021.0280-20](https://doi.org/10.21136/AM.2021.0280-20)

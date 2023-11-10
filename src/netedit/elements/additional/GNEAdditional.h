@@ -461,4 +461,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEAdditional& operator=(const GNEAdditional&) = delete;
 };
-

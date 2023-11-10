@@ -169,6 +169,3 @@ private:
     int myNumActivePedestrians;
 
 };
-
-
-

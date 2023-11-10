@@ -358,5 +358,3 @@ template<class E, class V>
 double RailwayRouter<E, V>::myReversalPenalty(60);
 template<class E, class V>
 double RailwayRouter<E, V>::myReversalPenaltyFactor(0.2); // 1/v
-
-

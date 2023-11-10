@@ -306,32 +306,32 @@ the third case.
 | Action                                                                  | affects   |           |                 |
 | ----------------------------------------------------------------------- | --------- | --------- | --------------- |
 |                                                                         | **nodes** | **edges** | **connections** |
-| **Adapting the input**                                                  |    x      |   x       |      x          | 
-| '`Building node clusters`'                                              |    x      |   x       |      x          | 
-| '`Removing self-loops`'                                                 |    x      |           |      x          | 
-| '`Joining similar edges`'                                               |           |           |                 | 
-| '`Finding isolated roads`'                                              |           |           |                 | 
-| '`Removing unwished edges`'                                             |           |           |                 | 
-| '`Removing empty nodes and geometry nodes`' or '`Removing empty nodes`' |           |           |                 | 
-| '`Splitting geometry edges`'                                            |           |           |                 | 
-| '`Guessing and setting on-/off-ramps`'                                  |           |           |                 | 
-| **Moving network to origin**                                            |           |           |                 | 
-| **TLS position computation**                                            |           |           |                 | 
-| Assigning nodes to traffic lights                                       |           |           |                 | 
-| Joining traffic light nodes                                             |           |           |                 | 
-| **Computing connections between lanes**                                 |           |           |                 | 
-| Computing turning directions                                            |           |           |                 | 
-| Sorting nodes' edges                                                    |           |           |                 | 
-| Computing Approached Edges                                              |           |           |                 | 
-| Computing Approaching Lanes                                             |           |           |                 | 
-| Dividing of Lanes on Approached Lanes                                   |           |           |                 | 
-| Appending Turnarounds (optional)                                        |           |           |                 | 
-| Rechecking of lane endings                                              |           |           |                 | 
-| **Geometry computation**                                                |           |           |                 | 
-| Computing node shapes                                                   |           |           |                 | 
-| Computing edge shapes                                                   |           |           |                 | 
-| **Computing right-of-way and traffic light programs**                   |           |           |                 | 
-| Computing tls logics                                                    |           |           |                 | 
-| Computing node logics                                                   |           |           |                 | 
-| Computing traffic light logics                                          |           |           |                 | 
-| **Finishing inner edges (optional)**                                    |           |           |                 | 
+| **Adapting the input**                                                  |    x      |   x       |      x          |
+| '`Building node clusters`'                                              |    x      |   x       |      x          |
+| '`Removing self-loops`'                                                 |    x      |           |      x          |
+| '`Joining similar edges`'                                               |           |           |                 |
+| '`Finding isolated roads`'                                              |           |           |                 |
+| '`Removing unwished edges`'                                             |           |           |                 |
+| '`Removing empty nodes and geometry nodes`' or '`Removing empty nodes`' |           |           |                 |
+| '`Splitting geometry edges`'                                            |           |           |                 |
+| '`Guessing and setting on-/off-ramps`'                                  |           |           |                 |
+| **Moving network to origin**                                            |           |           |                 |
+| **TLS position computation**                                            |           |           |                 |
+| Assigning nodes to traffic lights                                       |           |           |                 |
+| Joining traffic light nodes                                             |           |           |                 |
+| **Computing connections between lanes**                                 |           |           |                 |
+| Computing turning directions                                            |           |           |                 |
+| Sorting nodes' edges                                                    |           |           |                 |
+| Computing Approached Edges                                              |           |           |                 |
+| Computing Approaching Lanes                                             |           |           |                 |
+| Dividing of Lanes on Approached Lanes                                   |           |           |                 |
+| Appending Turnarounds (optional)                                        |           |           |                 |
+| Rechecking of lane endings                                              |           |           |                 |
+| **Geometry computation**                                                |           |           |                 |
+| Computing node shapes                                                   |           |           |                 |
+| Computing edge shapes                                                   |           |           |                 |
+| **Computing right-of-way and traffic light programs**                   |           |           |                 |
+| Computing tls logics                                                    |           |           |                 |
+| Computing node logics                                                   |           |           |                 |
+| Computing traffic light logics                                          |           |           |                 |
+| **Finishing inner edges (optional)**                                    |           |           |                 |

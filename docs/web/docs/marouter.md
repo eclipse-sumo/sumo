@@ -16,7 +16,7 @@ assignment](Demand/Dynamic_User_Assignment.md#introduction)
       [netconvert](netconvert.md) or
       [netgenerate](netgenerate.md), see [Building
       Networks](index.md#network_building)
-  - B) [O/D matrix](Demand/Importing_O/D_Matrices.md#describing_the_matrix_cells) or [trips](Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions)  
+  - B) [O/D matrix](Demand/Importing_O/D_Matrices.md#describing_the_matrix_cells) or [trips](Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions)
 - **Output:** [Definition of Vehicles, Vehicle Types, and
   Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
   usable by [sumo](sumo.md)
@@ -226,5 +226,3 @@ configuration:
 |--------|-------------|
 | **--random** {{DT_BOOL}} | Initialises the random number generator with the current system time; *default:* **false** |
 | **--seed** {{DT_INT}} | Initialises the random number generator with the given value; *default:* **23423** |
-
-

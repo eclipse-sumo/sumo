@@ -303,4 +303,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNESingleParametersDialog& operator=(const GNESingleParametersDialog&) = delete;
 };
-

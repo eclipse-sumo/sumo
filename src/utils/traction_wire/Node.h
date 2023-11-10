@@ -78,4 +78,3 @@ public:
     std::vector<Element*>* getElements();
     void setRemovability(bool isremovable);
 };
-

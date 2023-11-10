@@ -173,7 +173,7 @@ python tools/generateRerouters.py -n <net-file> -o <output-file> -x CLOSED_EDG
 This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end). Example:
 
 ```
-python tools/generateContinuousRerouters.py -n <net-file> -o <output-file> 
+python tools/generateContinuousRerouters.py -n <net-file> -o <output-file>
 ```
 
 # generateParkingAreaRerouters.py
@@ -181,7 +181,7 @@ python tools/generateContinuousRerouters.py -n <net-file> -o <output-file>
 This script generates parking area rerouters from a parking area definition. Example:
 
 ```
-python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file> 
+python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file>
 ```
 
 # averageTripStatistics.py
@@ -195,14 +195,14 @@ Example:
 python tools/averageTripStatistics.py <sumocfg-file>
 ```
 
-As default, the simulation will be run 10 times with an initial seed for 
+As default, the simulation will be run 10 times with an initial seed for
 random seed generation of 42. These values can be changed with the options
 **-n** and **-s** respectively.
 
 # ptlines2flows.py
 
 This script determines feasible stop-to-stop travel times and creates a public
-transport schedule (regular interval timetable) for all lines. The stop-to-stop 
+transport schedule (regular interval timetable) for all lines. The stop-to-stop
 travel times are determined by running a background simulation on an empty network using either a given route or shortest paths between stops. Example:
 
 ```
@@ -210,7 +210,7 @@ python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-
 ```
 
 As output, the public transport lines are written as [flows](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
-By default a period of 600 seconds is adopted as regular interval, which can be 
+By default a period of 600 seconds is adopted as regular interval, which can be
 changed with the **-p** option.
 
 With the option **--use-osm-routes**, public transport routes from the given osm
@@ -242,11 +242,11 @@ The resulting bus definition may look like this:
 <routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
     <route id="bus_123:0"" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
-        <stop busStop="stopA" duration="20" until="35.0"/> 
-        <stop busStop="stopB" duration="20" until="101.0"/> 
+        <stop busStop="stopA" duration="20" until="35.0"/>
+        <stop busStop="stopB" duration="20" until="101.0"/>
         <stop busStop="stopC" duration="20" until="221.0"/>
     </route>
-    <flow id="bus_123:0" type="bus" route="bus_123:0" begin="0.0" end="3600.0" period="600" line="123:0" /> 
+    <flow id="bus_123:0" type="bus" route="bus_123:0" begin="0.0" end="3600.0" period="600" line="123:0" />
 </routes>
 ```
 
@@ -351,7 +351,7 @@ Example:
 python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
 ```
 
-- option **--seeds** can either be given as a list or as a range (`0:100`).  
+- option **--seeds** can either be given as a list or as a range (`0:100`).
 - the application path can be set with option **--application** (**-a**). Default is *sumo*.
    - by passing a comma-separated list of applications, each one will be run with all seeds and results will be put into a subfolder
 - the application config path must be set with with option **--configuration** (**-k**)
@@ -359,4 +359,3 @@ python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
 - option **--output-prefix** (**-p**) can be used to define a prefix for all written output files. The string "SEED" is replaced by the current seed. (default prefix is "SEED.")
 - option **--threads INT** can be used to perform application runs in parallel
 - any additional options are forwarded to the application
-

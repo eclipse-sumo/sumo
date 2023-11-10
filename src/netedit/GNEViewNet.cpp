@@ -6339,4 +6339,3 @@ GNEViewNet::processMoveMouseData(const bool mouseLeftButtonPressed) {
 
 
 /****************************************************************************/
-

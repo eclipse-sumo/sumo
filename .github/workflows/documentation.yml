@@ -14,7 +14,7 @@ jobs:
   ############################
   build-and-internal-link-check:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Cloning repository
       uses: actions/checkout@v3
@@ -46,7 +46,7 @@ jobs:
   ############################
   external-link-check:
     runs-on: ubuntu-latest
-     
+
     steps:
     - name: Cloning repository
       uses: actions/checkout@v3

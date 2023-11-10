@@ -48,4 +48,3 @@ public:
                     const MSPhaseDefinition* stage, int vehicleCount);
 
 };
-

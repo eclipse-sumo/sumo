@@ -28,7 +28,7 @@
 
 namespace PHEMlightdll {
     class Constants {
-        
+
     public:
         // Calculation constant
         static const double GRAVITY_CONST;

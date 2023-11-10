@@ -174,4 +174,3 @@ int MSSOTLPolicy::decideNextPhase(SUMOTime elapsed,
 
  }
  */
-

@@ -251,7 +251,7 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
       {% include "search_modal.html" %}
       <script>
         window.onscroll = function() {scrollFunction()};
-        
+
         function scrollFunction() {
           if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             document.getElementById("goToTop").style.display = "block";
@@ -259,7 +259,7 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
             document.getElementById("goToTop").style.display = "none";
           }
         }
-    
+
         function goTopFunction() {
           document.body.scrollTop = 0;
           document.documentElement.scrollTop = 0;
@@ -275,7 +275,7 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
 
         <script>
           const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
-  
+
           function switchTheme(e) {
               if (e.target.checked) {
                   localStorage.setItem('sumo-docs-theme', 'dark');
@@ -285,11 +285,11 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
                   localStorage.setItem('sumo-docs-theme', 'light');
                   document.documentElement.setAttribute('data-theme', 'light');
                   toggleSwitch.checked = false;
-              }    
+              }
           }
-  
+
           toggleSwitch.addEventListener('change', switchTheme, false);
-  
+
           if (document.documentElement.getAttribute("data-theme") == "dark"){
               toggleSwitch.checked = true;
           }

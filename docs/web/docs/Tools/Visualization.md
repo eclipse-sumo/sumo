@@ -121,7 +121,7 @@ Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed det
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
 Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
-                                                                                                  
+
 <img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 
 ### Fundamental Diagram from edgeData
@@ -160,7 +160,7 @@ Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departD
 The plot is created from the output file of a SUMO simulation for which a global [SSM device](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html) has been added. For this example, starting from the [Bologna "acosta" scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), the SUMO configuration file had been modified in order to compute time to collision:
 ```xml
 <configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
-	
+
 	<device.ssm.deterministic value="true"/>
 	<device.ssm.file value="ssm.xml"/>
     <device.ssm.measures value="TTC"/>
@@ -863,7 +863,7 @@ Either shows the plot (when **--show** is set) or saves it into a file (when **-
 
 You can additionally plot the normed sums of the value using (**--join**). In the other case, you can try to use **--time-coloring** to assign different colors to the read intervals.
 
-You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**.
 
 ## mpl_tripinfos_twoAgainst.py
 
@@ -871,7 +871,7 @@ Reads two tripinfos files (mandatory options **--tripinfos1** {{DT_FILE}} and **
 
 Either shows the plot (when **--show** is set) or saves it into a file (when **--output** {{DT_FILE}} is set).
 
-You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**.
 
 ## mpl_dump_timeline.py
 
@@ -879,7 +879,7 @@ Reads a value (given as **--value** **<VALUE\>**, default speed) for edges defin
 
 Either shows the plot (when **--show** is set) or saves it into a file (when **--output** **<FILENAME\>** is set).
 
-You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**. 
+You can format the axes by using **--xticks** **<XMIN,XMAX,XSTEP,FONTSIZE\>** and **--yticks** **<YMIN,YMAX,YSTEP,FONTSIZE\>** and set theit limits using **--xlim** **<XMIN,XMAX\>** and **--ylim** **<YMIN,YMAX\>**. The output size of the image may be set using **--size** **<WIDTH,HEIGHT\>**.
 
 ## mpl_dump_onNet.py
 

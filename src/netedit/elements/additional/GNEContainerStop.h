@@ -127,5 +127,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEContainerStop& operator=(const GNEContainerStop&) = delete;
 };
-
-

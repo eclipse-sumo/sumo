@@ -120,9 +120,9 @@ your `PATH` variable and the `SUMO_HOME` variable.
 !!! note
     If you have installed SUMO via the windows *.msi* installer file, this is done automatically.
 
-1.  On the Windows search box (on the Taskbar) search for *environment*. The best match result should be the "Edit the system environment variables" option. Open it.   
+1.  On the Windows search box (on the Taskbar) search for *environment*. The best match result should be the "Edit the system environment variables" option. Open it.
 ![](../images/win_environment_variables.png)
-2.  A small window should appear. Under *user variables* select **PATH** (or **Path** - Windows environment variables are case insensitive) and click *Edit*. If no such variable exists you must create it with the *New*-Button   
+2.  A small window should appear. Under *user variables* select **PATH** (or **Path** - Windows environment variables are case insensitive) and click *Edit*. If no such variable exists you must create it with the *New*-Button
 ![](../images/win_user_variables.png)
 3.  Append `;C:\Program Files\sumo-{{Version}}\bin` to the end of the **PATH** value
     (don't delete the existing values\!)
@@ -197,7 +197,7 @@ This will open the *.zshrc* file in TextEdit. Add the following line to that doc
 ```
 export SUMO_HOME="/your/path/to/sumo"
 ```
-Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.
 Save that document in TextEdit. Now you need to apply the changes by entering:
 ```
 source ~/.zshrc
@@ -218,7 +218,7 @@ This will open the *.bash_profile* file in TextEdit. Add the following line to t
 ```
 export SUMO_HOME="/your/path/to/sumo"
 ```
-Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.
 Save that document in TextEdit. Now you need to apply the changes by entering:
 ```
 source ~/.bash_profile

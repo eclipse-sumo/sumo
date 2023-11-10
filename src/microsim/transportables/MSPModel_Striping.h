@@ -559,6 +559,3 @@ private:
     static Pedestrians noPedestrians;
 
 };
-
-
-

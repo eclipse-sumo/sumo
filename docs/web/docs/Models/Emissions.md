@@ -38,11 +38,11 @@ DLR electronic library
 
 All models implement different vehicle emission classes. These classes
 can be assigned to vehicles by using the vehicle type attribute
-`emissionClass`. If the model has different classes, the definition 
+`emissionClass`. If the model has different classes, the definition
 has the form `emissionClass="<model>/<class>"` e.g. `HBEFA3/PC_G_EU4`.
 If the model has only one class (for instance the Electric Vehicle Model),
-the `<class>` can be omitted in the input and will show up as `default` 
-in the output. There is one special model `Zero` which does not 
+the `<class>` can be omitted in the input and will show up as `default`
+in the output. There is one special model `Zero` which does not
 generate emissions or energy consumption at all.
 
 Available emission classes
@@ -214,11 +214,11 @@ available.
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://amitran.eu/"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
-<span style="">This part of SUMO was developed, reworked, or extended within the project 
+<span style="">This part of SUMO was developed, reworked, or extended within the project
 <a href="https://amitran.eu/">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

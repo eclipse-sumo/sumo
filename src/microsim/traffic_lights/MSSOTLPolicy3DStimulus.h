@@ -40,4 +40,3 @@ public:
     MSSOTLPolicy3DStimulus(std::string keyPrefix, const Parameterised::Map& parameters);
 
 };
-

@@ -61,9 +61,9 @@ namespace tcpip
 	{
 		friend class Response;
 	public:
-		/// Constructor that prepare to connect to host:port 
+		/// Constructor that prepare to connect to host:port
 		Socket(std::string host, int port);
-		
+
 		/// Constructor that prepare for accepting a connection on given port
 		Socket(int port);
 

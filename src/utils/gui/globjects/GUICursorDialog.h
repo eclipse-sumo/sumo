@@ -114,4 +114,3 @@ private:
     /// @brief Invalidated assignment operator.
     GUICursorDialog& operator=(const GUICursorDialog&) = delete;
 };
-

@@ -8,16 +8,16 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
- 
+
     <xsd:complexType name="routeType">
         <xsd:sequence>
             <xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="linkType">
         <xsd:attribute name="id" type="xsd:unsignedInt" use="required"/>
     </xsd:complexType>
-    
+
 </xsd:schema>

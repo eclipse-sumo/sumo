@@ -22,7 +22,7 @@ set(netedit_elements_additional_SRCS
    GNEParkingSpace.h
    GNEParkingSpace.cpp
    GNETAZ.h
-   GNETAZ.cpp 
+   GNETAZ.cpp
    GNETAZSourceSink.h
    GNETAZSourceSink.cpp
    GNEDetector.h

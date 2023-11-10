@@ -130,4 +130,3 @@ private:
     /// @brief Invalidated assignment operator
     GNEDemandElementDialog& operator=(const GNEDemandElementDialog&) = delete;
 };
-

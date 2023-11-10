@@ -130,7 +130,7 @@ Flow can define their route explicitly (like vehicles) or with from,to,via (like
     <stop busStop="station1" duration="30"/>
 </flow>
 
-<flow id="type3" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" from="beg" to="end">    
+<flow id="type3" color="1,1,0"  begin="0" end= "7200" period="900" type="BUS" from="beg" to="end">
     <stop busStop="station1" duration="30"/>
 </flow>
 ```
@@ -176,9 +176,9 @@ using [{{SUMO}}/tools/route/sort_routes.py]({{Source}}tools/route/sort_routes.py
 
 !!! caution
     sumo may enter an infinite loop when given an unsorted route file with person definitions.
-    
+
 ### Repeated Routes
-When using attribute 'repeat' to repeat a route. The number of edges will be repeated the given number of times *after* driving them for the first time. 
+When using attribute 'repeat' to repeat a route. The number of edges will be repeated the given number of times *after* driving them for the first time.
 If route is defined as stand-alone route (defined with it's own id outside a vehicle definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'cycleTime' in each iteration.
 
 !!! caution
@@ -245,7 +245,7 @@ traffic assignment zone.
 
 !!! caution
     When using TAZ with [sumo](sumo.md) and [duarouter](duarouter.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [od2trips](od2trips.md) where edges are selected according to a probability distribution.
-    
+
 ### Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
@@ -341,7 +341,7 @@ Determines the edge along the vehicles route where the vehicle enters the networ
 
 !!! note
     The attribute `departEdge` is ignored for `<trip>`s and for `<flow>` that do not use attribute `route` and do not define the child element `<route>`.
-    
+
 ### departPosLat
 
 The lateral position on the departure lane at which the vehicle enters the network. Defaults to 0
@@ -388,7 +388,7 @@ Determines the speed at which the vehicle should end its route;
   possible. *(default behavior)*
 - `≥0`: the vehicle approaches it's arrival
   position to end with the specified speed
-  
+
 ### arrivalEdge
 
 Determines the edge along the vehicles route where the vehicle leaves the network (By default this is final edge).
@@ -465,7 +465,7 @@ These values have the following meanings:
 | decel             | float                             | 4.5                                                                 | The deceleration ability of vehicles of this type (in m/s^2)                                                                                                                                                           |
 | apparentDecel     | float                             | `==decel`                                                           | The apparent deceleration of the vehicle as used by the standard model (in m/s^2). The follower uses this value as expected maximal deceleration of the leader.                                                        |
 | emergencyDecel    | float                             | 9.0                                                                 | The maximal physically possible deceleration for the vehicle (in m/s^2).                                                                                                                                               |
-startupDelay        | float >= 0        | 0                | The extra delay time before starting to drive after having had to stop. This is not applied after a scheduled `<stop>` except for `carFollowModel="Rail"`      
+startupDelay        | float >= 0        | 0                | The extra delay time before starting to drive after having had to stop. This is not applied after a scheduled `<stop>` except for `carFollowModel="Rail"`
 | sigma             | float                             | 0.5                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | tau               | float                             | 1.0                                                                 | [Car-following model](#car-following_models) parameter, see below                                                                                          |
 | length            | float                             | 5.0                                                                 | The vehicle's **netto**-length (length) (in m)                                                                                                                                                                         |
@@ -523,7 +523,7 @@ The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Si
 
 ### Defining a normal distribution for vehicle speeds
 
-Two types of distributions can be defined for sampling the individual speedFactor of each vehicle by giving one of the following attributes in the `<vType>` element 
+Two types of distributions can be defined for sampling the individual speedFactor of each vehicle by giving one of the following attributes in the `<vType>` element
 (without space characters between the distribution attributes):
 
 - normal distribution:  `speedFactor="norm(mean,deviation)"`
@@ -598,7 +598,7 @@ Define a flow of vehicles that desire to drive at 120% of the speed limit withou
 Define a vehicle type with high speed deviation and no cut-off
 
 ```xml
-  <vType id="example2" speedFactor="norm(1.0,0.5)"/>  
+  <vType id="example2" speedFactor="norm(1.0,0.5)"/>
 ```
 
 ## Vehicle Length
@@ -749,13 +749,13 @@ length look quite odd, buses with 2m length, too.
 
 !!! caution
     Not all of these named shapes have a distinct visualization.
-    
+
 Further parameters can be used to achieve visualization of individual rail carriages
 ```xml
 <vType id="rail">
     <param key="carriageLength" value="20"/>
     <param key="carriageGap" value="1"/>
-    <param key="locomotiveLength" value="25"/>   
+    <param key="locomotiveLength" value="25"/>
 </vType>
 ```
 
@@ -802,7 +802,7 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | phi                          |                                                       |          |                                                                                                           | Kerner    |
 | delta                        | 4                                                     |          | acceleration exponent                                                                                     | IDM, EIDM |
 | stepping                     | 0.25                                                  | >= 0     | the internal step length (in s) when computing follow speed                                          | IDM, EIDM |
-| adaptFactor                  | 1.8                                                   | >= 0     | the factor for taking into account past level of service                                               | IDMM      | 
+| adaptFactor                  | 1.8                                                   | >= 0     | the factor for taking into account past level of service                                               | IDMM      |
 | adaptTime                    | 600                                                   | >= 0     | the time interval (in s) for relaxing past level of service                                               | IDMM      |
 | security                     |                                                       |          | desire for security                                                                                       | Wiedemann |
 | estimation                   |                                                       |          | accuracy of situation estimation                                                                          | Wiedemann |
@@ -893,7 +893,7 @@ Example:
 
 !!! note
     These parameters take no effect in [meso](Simulation/Meso.md)
-    
+
 See also [transient junctionModel parameters](#transient_parameters).
 
 ## Lane-Changing Models
@@ -1078,12 +1078,12 @@ Multiple distributions can make use of the same types and optionally override th
         <route id="route0" color="1,1,0" edges="beg middle end rend" probability="0.9"/>
         <route id="route1" color="1,2,0" edges="beg middle end" probability="0.1"/>
     </routeDistribution>
-    
+
     <route id="route2" edges="beg middle end rend"/>
     <route id="route3" edges="beg middle end"/>
     <routeDistribution id="routedist2">
         <route refId="route2" probability="2"/>
-        <route refId="route3" probability="3"/>        
+        <route refId="route3" probability="3"/>
     </routeDistribution>
 </routes>
 ```
@@ -1110,7 +1110,7 @@ A distribution can be used just as using individual types and routes:
 
 Vehicles may be forced to stop for a defined time span or wait for
 persons by using the stop element either as part of a route or a vehicle
-definition. The stop element can also be used to guide vehicles along a route to 
+definition. The stop element can also be used to guide vehicles along a route to
 a waypoint. The examples below show all three cases:
 
 ```xml
@@ -1133,7 +1133,7 @@ defined in the vehicle itself. The first stop will last 20 seconds the
 second one until simulation second 50. For a detailed list of attributes
 to stops see below. For a description on how to use them to simulate
 public transport see [Simulation/Public Transport](Simulation/Public_Transport.md).
-The second vehicle `v1` will stop once at lane middle_0 as defined in the route, then 
+The second vehicle `v1` will stop once at lane middle_0 as defined in the route, then
 head to lane end_1 and pass that point at 13.89 m/s before terminating at route at rend edge.
 
 Stops can be childs of vehicles, routes, persons or containers.
@@ -1185,7 +1185,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 
 !!! note
     Bus stops must have a length of at least 10
-    
+
 ## startPos and endPos
 - by default vehicles will try to stop at the given endPos
 - if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
@@ -1206,7 +1206,7 @@ However, it is also possible to set other requirements that must be met for the 
 - `"false"`: alias for not defining any trigger conditions
 
 ## Waypoints
-By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. 
+By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos.
 
 Special handling of other attributes:
 
@@ -1215,7 +1215,7 @@ Special handling of other attributes:
 - when the 'until' value is set, vehicles may stop when reaching a waypoint too early
 
 ## Jumps
-When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration and re-enter it on the edge of it's next stop (or on it's arrival edge). Any intervening edges are skipped and it is permitted to have a disconnected route between the start and end of the jump.  
+When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration and re-enter it on the edge of it's next stop (or on it's arrival edge). Any intervening edges are skipped and it is permitted to have a disconnected route between the start and end of the jump.
 
 A typical use case for jumps would be a public transport vehicle that has some of it's stops outside the simulated area and is expected to re-enter it at a later time after leaving the simulation  (while preserving it's ID and delay).
 
@@ -1323,7 +1323,7 @@ defining them for the vehicle or the vehicle type in the following way:
     </vType>
 
     <vehicle id="v1" route="route0" depart="0" type="t1"/>
-    
+
     <vType id="t2">
         <param key="device.<DEVICENAME>.probability" value="0.5"/>
     </vType>

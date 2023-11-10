@@ -290,7 +290,7 @@ title: Changes in versions 0.9.0 up to 0.9.10
 - consolidated XML-definitions
   - vehicle type is now called "type" in all cases
   - removed unneeded elements and attributes
-- (almost complete) rework of the microsimulation loop   
+- (almost complete) rework of the microsimulation loop
 What was done, basically is to change the way vehicles move over
 junctions and how other vehicles get informed about vehicles
 approaching on incoming lanes. Quite heavy changes, in fact, I hope

@@ -87,7 +87,7 @@ The entire list of shortcuts can be found [here](shortcuts.md):
 | Grid- | Ctrl + PageDown | Reduce grid spacing               |
 
 
-**Toolbar shortcuts**   
+**Toolbar shortcuts**
 The mode-depended option checkboxes (such as *Toggle grid* and others) located in the toolbar, can easily be checked an unchecked using the `Alt + NUMBER` shortcut, where NUMBER corresponds to its position within the options (e.g. *Toggle grid* is 1, and so on).
 
 ---
@@ -162,7 +162,7 @@ This modes are present in all supermodes and have custom cursors:
 - [Delete](editModesCommon.md#delete)
 - [Select](editModesCommon.md#select)
 - [Move](editModesCommon.md#move) (absent in *Data Supermode*)
- 
+
 ## [Network specific modes](editModesNetwork.md)
 
 Modes available in the *Network Supermode*:
@@ -175,7 +175,7 @@ Modes available in the *Network Supermode*:
 - [Crossings](editModesNetwork.md#crossings)
 - [TAZ](editModesNetwork.md#taz_traffic_analysis_zones)
 - [Shapes (POI, Poly)](editModesNetwork.md#shapes)
- 
+
 ## [Demand specific modes](editModesDemand.md)
 
 Modes available in the *Demand Supermode*:
@@ -233,11 +233,11 @@ Right clicking over an element will open a popup-menu with functions and operati
 
 - Support for editing features already supported by [netconvert](../netconvert.md)
   - Editing `<neigh>` information for [Simulation/OppositeDirectionDriving](../Simulation/OppositeDirectionDriving.md)
-    
+
 
 !!! note
         Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
-    
+
 - Editing [walkingarea shapes](../Networks/PlainXML.md#walking_areas)
 - Integration of [netgenerate](../netgenerate.md)
 - Integration of [netdiff](../Tools/Net.md#netdiffpy)

@@ -133,5 +133,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEChargingStation& operator=(const GNEChargingStation&) = delete;
 };
-
-

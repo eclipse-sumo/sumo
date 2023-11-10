@@ -227,7 +227,7 @@
                         <xsd:restriction base="xsd:string">
                             <xsd:enumeration value="defaults"/>
                         </xsd:restriction>
-                    </xsd:simpleType> 
+                    </xsd:simpleType>
                 </xsd:union>
             </xsd:simpleType>
         </xsd:attribute>
@@ -400,7 +400,7 @@
         <xsd:attribute name="personCapacity" type="nonNegativeIntType" use="optional"/>
         <xsd:attribute name="parkingLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="containerStopType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
@@ -416,7 +416,7 @@
         <xsd:attribute name="containerCapacity" type="nonNegativeIntType" use="optional"/>
         <xsd:attribute name="parkingLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
-    
+
     <xsd:complexType name="chargingStationType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>

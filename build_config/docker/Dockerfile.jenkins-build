@@ -1,4 +1,4 @@
-# This is a docker container image to build SUMO 
+# This is a docker container image to build SUMO
 # on the Jenkins CI infrastructure at Eclipse
 # (see https://ci.eclipse.org)
 #
@@ -19,10 +19,9 @@
 FROM ubuntu:20.04
 
 # Install a compiler, then all requirements and remove the compiler afterwards
-ENV DEBIAN_FRONTEND=noninteractive 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y git cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig openjdk-8-jdk maven && \
     apt-get autoremove -y && \
     apt-get clean -y && \
     rm -r /var/cache/apt /var/lib/apt/lists/*
-

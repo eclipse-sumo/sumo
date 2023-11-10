@@ -281,4 +281,3 @@ private:
     /// @brief Invalidated assignment operator.
     GNEFixDemandElements& operator=(const GNEFixDemandElements&) = delete;
 };
-

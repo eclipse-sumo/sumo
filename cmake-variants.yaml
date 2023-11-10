@@ -69,6 +69,6 @@ javaBindings:
         ENABLE_JAVA_BINDINGS: 0
     'default':
       short: Java (def.)
-      long: Java default installation 
+      long: Java default installation
       settings:
         ENABLE_JAVA_BINDINGS: 'yes'

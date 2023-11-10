@@ -73,7 +73,7 @@ netconvert configuration file is as follows (`circular.netccfg`):
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" 
+<configuration xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/netconvertConfiguration.xsd">
 
    <input>
@@ -115,7 +115,7 @@ Next, we define routes and traffic flows. Open a new file called `circular.rou.x
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" 
+<routes xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd">
     <vType accel="1.5" decel="4.5" id="car" length="5" maxSpeed="36.1"/>
     <vType accel="0.4" decel="4.5" id="truck" length="12" maxSpeed="22.2"/>

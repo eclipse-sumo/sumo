@@ -3,12 +3,12 @@ title: Driving in Circles
 ---
 
 In this tutorial we will build a simple circular net with netedit and
-use [rerouters](../Simulation/Rerouter.md) to make vehicles drive in circles. 
-All definition files can be found in the {{SUMO}}/docs/tutorial/circles 
+use [rerouters](../Simulation/Rerouter.md) to make vehicles drive in circles.
+All definition files can be found in the {{SUMO}}/docs/tutorial/circles
 directory.
 
-This tutorial can be done using only netedit or you can generate the 
-demand data by writing the XML-files yourself. Both methods are explained 
+This tutorial can be done using only netedit or you can generate the
+demand data by writing the XML-files yourself. Both methods are explained
 below.
 
 # Steps to follow using XML-Files
@@ -17,7 +17,7 @@ below.
 
 Building a network with XML-Files is not recommended, so we will use
 netedit for this step. First open [netedit](../Netedit/index.md) and create
-edges to form a closed loop. To do that press `Ctrl-N` to create a new network 
+edges to form a closed loop. To do that press `Ctrl-N` to create a new network
 and then press `e` to enter the edge editing mode. Now create a closed loop of
 edges (you might consider to check 'chain' just right from the edit-mode
 selection, see figure).
@@ -70,7 +70,7 @@ To do so either double-click on the configuration-file `circles.sumocfg`
 change to the `baseDir` in a terminal and start sumo (with graphical
 user interface) there by typing `sumo -c circles.sumocfg`. (If this does
 not start sumo, you might have to add the SUMO/bin directory to your
-PATH or set the environment variable `SUMO_HOME` 
+PATH or set the environment variable `SUMO_HOME`
 ([how to](../Basics/Basic_Computer_Skills.md#sumo_home)).
 
 <img src="../images/StartAttempt1.PNG" alt="First attempt to run the simulation" width="500">
@@ -79,8 +79,8 @@ First attempt to run the simulation
 
 Does it work? No.
 
-Let us have a look at the Message Window at the bottom of the GUI (see figure 
-above) to endeavor what went wrong (by the way: the Message Window is often a 
+Let us have a look at the Message Window at the bottom of the GUI (see figure
+above) to endeavor what went wrong (by the way: the Message Window is often a
 very useful resource for information for setting up a simulation take a look
 at it first, if you run into problems).
 
@@ -92,7 +92,7 @@ flow.
 
 The edge-ids can be inspected and modified in netedit: open your
 network-file `circles.net.xml` and press `i` to enter the inspect-mode.
-Left-click on an arbitrary edge and rename it to `edge1` (see figure below). 
+Left-click on an arbitrary edge and rename it to `edge1` (see figure below).
 Left-click on a different edge and rename it to `edge2`. Then save your network
 (`Ctrl-S`).
 
@@ -110,14 +110,14 @@ Now we add the from-edge and the to-edge to the flow in
 ```
 
 Let's try to run SUMO again. The window should now show the network you
-have created before in netedit (see figure below) and you can start the 
-simulation by clicking on the play button 
-(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")) or the step button 
-(![Image:icon_step.png](../images/icon_step.png "Image:icon_step.png")). If you use 
-![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png"), be sure to adjust the 
-value for the animation delay time between consecutive simulation steps (the 
-field labeled "Delay (ms):", see figure). Otherwise SUMO will run the simulation 
-as fast as possible and you will probably see nothing happening at all. (Note 
+have created before in netedit (see figure below) and you can start the
+simulation by clicking on the play button
+(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")) or the step button
+(![Image:icon_step.png](../images/icon_step.png "Image:icon_step.png")). If you use
+![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png"), be sure to adjust the
+value for the animation delay time between consecutive simulation steps (the
+field labeled "Delay (ms):", see figure). Otherwise SUMO will run the simulation
+as fast as possible and you will probably see nothing happening at all. (Note
 that the figure uses the style "real world" from the
 representation-dropdown-menu in the toolbar.)
 
@@ -184,51 +184,51 @@ Circular rerouting
 
 ## Build a network
 
-The steps to build the network in netedit were already explained 
-[above](Driving_in_Circles.md#build_a_network). Please come back when you have 
+The steps to build the network in netedit were already explained
+[above](Driving_in_Circles.md#build_a_network). Please come back when you have
 the network created to continue with the tutorial.
 
 ## Create vehicles and run SUMO
 
-First we have to change the mode to "demand" by pressing `F3` and then press 
-`r` for switch to "create route" mode. We can either choose to create a route by 
-clicking over "consecutive edges" or "non consecutive edges", which will find 
-the shortest path between the non consecutive edges given. For this test, we 
-will choose the last option. We can change the route "id" by clicking on the 
+First we have to change the mode to "demand" by pressing `F3` and then press
+`r` for switch to "create route" mode. We can either choose to create a route by
+clicking over "consecutive edges" or "non consecutive edges", which will find
+the shortest path between the non consecutive edges given. For this test, we
+will choose the last option. We can change the route "id" by clicking on the
 id box. In this case, we will leave the default "id" `route_0`.
 
-First we have to click on the first edge of our route (let's take one of the 
-upper edges) and then click on the last edge of the route (let's choose one 
-of the lower edges). An orange path connecting both edges has been created. To 
-create the route we have to press the "create route" button or the `Enter` key. 
-Route creation can be aborted using the "abort creation" button or pressing the 
+First we have to click on the first edge of our route (let's take one of the
+upper edges) and then click on the last edge of the route (let's choose one
+of the lower edges). An orange path connecting both edges has been created. To
+create the route we have to press the "create route" button or the `Enter` key.
+Route creation can be aborted using the "abort creation" button or pressing the
 `ESC` key.
 
 <img src="../images/tutorialCirclesCreateRoute.gif" alt="CreateRoute" width="600">
 
 Create a route with netedit.
 
-Now we have to create a flow of vehicles that will drive along this route. For 
-this, we press `v` to go to the vehicles mode and then select over the vehicles 
-list "flow (over route)". We leave the default values for "id" (`flow_0`) and 
-"begin" (`0`). If we scroll through the list we will find more flow attributes. In 
-this case, we want to simulate 5 vehicles after each other, so we set `0` as 
-"end" and `5` as "number". To create the flow we just have to click over the 
-route we have created and a vehicle will appear at the beginning of the route. 
+Now we have to create a flow of vehicles that will drive along this route. For
+this, we press `v` to go to the vehicles mode and then select over the vehicles
+list "flow (over route)". We leave the default values for "id" (`flow_0`) and
+"begin" (`0`). If we scroll through the list we will find more flow attributes. In
+this case, we want to simulate 5 vehicles after each other, so we set `0` as
+"end" and `5` as "number". To create the flow we just have to click over the
+route we have created and a vehicle will appear at the beginning of the route.
 
-As a last step, we have to save all demand elements created (route and flow) by 
+As a last step, we have to save all demand elements created (route and flow) by
 pressing `Ctrl-Shift-D` and enter the file name, in this case `circles.rou.xml`.
 
 <img src="../images/tutorialCirclesCreateFlow.gif" alt="CreateFlow" width="600">
 
 Create a flow with netedit.
 
-After saving the route, we can run the simulation with sumo-gui by pressing 
-`Ctrl-T`. Change the delay (e.g. to 100) to be able to see the vehicles driving 
-and click the play button 
-(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). As we can see, the 
-five vehicles drive from the first edge to the last one given and then 
-disappear. In the next step we will see how to make them drive in circles with 
+After saving the route, we can run the simulation with sumo-gui by pressing
+`Ctrl-T`. Change the delay (e.g. to 100) to be able to see the vehicles driving
+and click the play button
+(![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). As we can see, the
+five vehicles drive from the first edge to the last one given and then
+disappear. In the next step we will see how to make them drive in circles with
 a rerouter.
 
 <img src="../images/tutorialCirclesOpenSumogui.gif" alt="OpenSumogui" width="600">
@@ -237,48 +237,48 @@ Open sumo-gui.
 
 ## Circular rerouting
 
-Let's go back to netedit to add a rerouter. First we change to the network mode 
-(`F2`) and then press `a` to enter the additional edit-mode. From the 
-"Additional element" drop-down menu on the left select `rerouter`. We need to 
+Let's go back to netedit to add a rerouter. First we change to the network mode
+(`F2`) and then press `a` to enter the additional edit-mode. From the
+"Additional element" drop-down menu on the left select `rerouter`. We need to
 add two rerouters:
 
-- The first rerouter will be placed on the **last edge** of our route and have 
-a `destProbReroute`-element to the **first edge** of our route. So when the 
-vehicles arrive to the last edge, they won't disappear, but will continue 
+- The first rerouter will be placed on the **last edge** of our route and have
+a `destProbReroute`-element to the **first edge** of our route. So when the
+vehicles arrive to the last edge, they won't disappear, but will continue
 driving to the first edge and completing the circle.
 
-- The second rerouter will be located on the **first edge** of our route and 
-have a `destProbReroute`-element to the **last edge**. So when vehicles arrive 
-at the first edge, they will be redirected to the last edge of the route where 
-the first rerouter ist located and so the vehicles will be driving in circles 
+- The second rerouter will be located on the **first edge** of our route and
+have a `destProbReroute`-element to the **last edge**. So when vehicles arrive
+at the first edge, they will be redirected to the last edge of the route where
+the first rerouter ist located and so the vehicles will be driving in circles
 again and again.
 
-To add the first rerouter we have to check the "id" of the last edge of our 
-route by clicking over the edge with the right button. In this example the edge 
-id is `edge2`. Select the id over the list and click again, this time with the 
-left button, over the edge. The rerouter has been created. Now we have to add 
-a `destProbReroute`-element. Select the rerouter and click over it with the 
+To add the first rerouter we have to check the "id" of the last edge of our
+route by clicking over the edge with the right button. In this example the edge
+id is `edge2`. Select the id over the list and click again, this time with the
+left button, over the edge. The rerouter has been created. Now we have to add
+a `destProbReroute`-element. Select the rerouter and click over it with the
 right-button. Select "Open rerouter Dialog" over the list.
 
-We click over the add button 
-(![Image:add.gif](../images/icon_add.png "Image:icon_add.png")) to add a new Interval. We 
-will leave the default interval (0 to 3600 seconds), but you can change it if 
-you want. Now we add a new `destProbReroute` by clicking over the add button on 
-the upper-right window. The first rerouter has to send the vehicles to the 
-`edge1`, so we have to change the default edge by double-clicking over it. Now 
+We click over the add button
+(![Image:add.gif](../images/icon_add.png "Image:icon_add.png")) to add a new Interval. We
+will leave the default interval (0 to 3600 seconds), but you can change it if
+you want. Now we add a new `destProbReroute` by clicking over the add button on
+the upper-right window. The first rerouter has to send the vehicles to the
+`edge1`, so we have to change the default edge by double-clicking over it. Now
 we just have to click accept twice and our rerouter is added.
 
 <img src="../images/tutorialCirclesCreateRerouter.gif" alt="CreateRerouter" width="600">
 
 Create the first rerouter.
 
-Now don´t forget to add the second rerouter. For this we will follow the same 
+Now don´t forget to add the second rerouter. For this we will follow the same
 steps but remember to replace the edges.
 
-Once we have created both rerouters, we save them in an additional file by 
-pressing `Ctrl-Shift-A` and enter the file name, in this case `circles.add.xml`. 
-Now we can run the simulation again by pressing `Ctrl-T` to open sumo-gui and 
-click the play button (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). 
+Once we have created both rerouters, we save them in an additional file by
+pressing `Ctrl-Shift-A` and enter the file name, in this case `circles.add.xml`.
+Now we can run the simulation again by pressing `Ctrl-T` to open sumo-gui and
+click the play button (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")).
 Now the vehicles are driving in circles until the end time given (3600 seconds).
 
 <img src="../images/tutorialCirclesRunSimulation.gif" alt="RunSimulation" width="600">

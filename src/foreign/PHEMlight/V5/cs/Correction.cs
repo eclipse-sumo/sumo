@@ -130,7 +130,7 @@ namespace PHEMlightdll
                         {
                             string EUclassShort = EUclass.Substring(0, 6);
 
-                            if (!DETdata.Vehicle[Helper.vClass].PropulsionClass[Helper.pClass].Emission[Key].EUClass.ContainsKey(EUclass) & 
+                            if (!DETdata.Vehicle[Helper.vClass].PropulsionClass[Helper.pClass].Emission[Key].EUClass.ContainsKey(EUclass) &
                                 DETdata.Vehicle[Helper.vClass].PropulsionClass[Helper.pClass].Emission[Key].EUClass.ContainsKey(EUclassShort))
                                 EUclass = EUclassShort;
                         }

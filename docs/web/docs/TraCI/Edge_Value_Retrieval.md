@@ -38,7 +38,7 @@ value is also shown in the table.
 | waiting time (0x7a)                  | double     | Returns the sum of the waiting times for all vehicles on the edge \[s\]                                                                                                             | [getWaitingTime](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getWaitingTime)                       |
 | last step person ids (0x1a)          | stringList | Returns the list of ids of persons that were on the named edge in the last simulation step                                                                              | [getLastStepPersonIDs](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getLastStepPersonIDs)           |
 | last step halting number (0x14)      | int        | Returns the total number of halting vehicles for the last time step on the given edge. A speed of less than 0.1 m/s is considered a halt.                               | [getLastStepHaltingNumber](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getLastStepHaltingNumber)   |
-| angle (0x43) | double | Returns the heading of the straight line segment formed by the edge at the given position. | [getAngle](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getAngle)   | 
+| angle (0x43) | double | Returns the heading of the straight line segment formed by the edge at the given position. | [getAngle](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getAngle)   |
 
 ### Response 0xba: Edge Variable
 

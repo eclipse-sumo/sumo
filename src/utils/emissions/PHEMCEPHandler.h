@@ -137,4 +137,3 @@ private:
     void operator=(PHEMCEPHandler const&);
 
 };
-
