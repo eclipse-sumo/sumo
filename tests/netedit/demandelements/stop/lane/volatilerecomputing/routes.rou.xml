@@ -39,21 +39,21 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
 
-    <route id="routeB" edges="gneE1" color="orange"/>
+    <route id="routeB" edges="Edge3 Edge4 Edge5" color="orange"/>
 
     <flow id="routeFlowA" begin="0.00" route="routeA" end="3600.00" number="18">
-        <stop lane="gneE1_1" startPos="7.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="8.00" endPos="17.00"/>
+        <stop lane="gneE0_1" startPos="7.00" endPos="17.00"/>
+        <stop lane="gneE0_1" startPos="8.00" endPos="17.00"/>
         <stop lane="gneE1_1" startPos="9.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="10.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="11.00" endPos="17.00"/>
+        <stop lane="gneE2_1" startPos="10.00" endPos="17.00"/>
+        <stop lane="gneE2_1" startPos="11.00" endPos="17.00"/>
     </flow>
 
     <flow id="routeFlowB" begin="0.00" route="routeB" end="3600.00" number="18">
-        <stop lane="gneE1_1" startPos="7.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="8.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="9.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="10.00" endPos="17.00"/>
-        <stop lane="gneE1_1" startPos="11.00" endPos="17.00"/>
+        <stop lane="gneE3_1" startPos="7.00" endPos="17.00"/>
+        <stop lane="gneE3_1" startPos="8.00" endPos="17.00"/>
+        <stop lane="gneE4_1" startPos="9.00" endPos="17.00"/>
+        <stop lane="gneE5_1" startPos="10.00" endPos="17.00"/>
+        <stop lane="gneE5_1" startPos="11.00" endPos="17.00"/>
     </flow>
 </routes>
