@@ -12,6 +12,8 @@ triggered_join
 
 permitted
 
+parking
+
 acttype
 
 line
@@ -19,3 +21,7 @@ line
 tripid
 
 ondemand
+
+jump
+
+split

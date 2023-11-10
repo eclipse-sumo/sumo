@@ -50,6 +50,12 @@ netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.trigg
 # change value
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspectSelection.triggered, "join", False)
 
+# change value
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, ";;;;", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.stopBusStop.inspectSelection.join, "customJoin", False)
+
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
