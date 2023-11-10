@@ -49,25 +49,25 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
                   netedit.positions.demandElements.parkingArea.y)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.until, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.until, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.until, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.until, "3.5", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

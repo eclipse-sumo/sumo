@@ -38,21 +38,21 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.permitted, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.permitted, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
                   netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.permitted, "")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.permitted, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   1, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.permitted, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.permitted, "ID1 ID2 ID3")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +

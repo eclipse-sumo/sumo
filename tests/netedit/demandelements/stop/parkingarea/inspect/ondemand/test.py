@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
                   netedit.positions.demandElements.parkingArea.y)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stopParking.inspect.onDemand, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopParkingArea.inspect.onDemand, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

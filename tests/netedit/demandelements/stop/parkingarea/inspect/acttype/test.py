@@ -49,13 +49,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
                   netedit.positions.demandElements.parkingArea.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.actType, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.actType, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.actType, "singing", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

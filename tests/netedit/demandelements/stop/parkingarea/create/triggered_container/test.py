@@ -38,28 +38,28 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.triggered, "container")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.triggered, "container")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
                   netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   1, netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   2, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +

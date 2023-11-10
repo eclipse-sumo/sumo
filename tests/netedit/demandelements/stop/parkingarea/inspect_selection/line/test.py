@@ -45,13 +45,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingAre
                   netedit.positions.demandElements.parkingArea.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.line, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspectSelection.line, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.line, "", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspectSelection.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopParking.inspectSelection.line, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspectSelection.line, "custom line", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

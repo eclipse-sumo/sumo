@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # set invalid value
-netedit.changeDefaultBoolValue(netedit.attrs.stopParking.create.onDemand)
+netedit.changeDefaultBoolValue(netedit.attrs.stopParkingArea.create.onDemand)
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,

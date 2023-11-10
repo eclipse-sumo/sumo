@@ -38,28 +38,28 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
                   netedit.positions.demandElements.parkingArea.y)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   1, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "dummy Act")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, "dummy Act")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   2, netedit.positions.demandElements.parkingArea.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stopParking.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, "singing")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
