@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/home/palcraft/.texttest/tmp/netedit.gui.09Nov163825.86717/netedit.gui/demandelements/stop/parkingarea/create/split/test.py", line 41, in <module>
-    netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.split, ";;;;;;;;;;")
-AttributeError: module 'attributesEnum' has no attribute 'stopParkingArea'. Did you mean: 'parkingArea'?
-X Fatal error.

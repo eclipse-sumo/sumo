@@ -1,5 +1,0 @@
-Traceback (most recent call last):
-  File "/home/palcraft/.texttest/tmp/netedit.gui.09Nov163825.86717/netedit.gui/demandelements/stop/parkingarea/inspect/jump/test.py", line 52, in <module>
-    netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.jump, "dummyValue", False)
-AttributeError: module 'attributesEnum' has no attribute 'stopParkingArea'. Did you mean: 'parkingArea'?
-X Fatal error.
