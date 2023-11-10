@@ -36,7 +36,7 @@ district
 
 # tests for visualization tools
 visualization
-build
+build_config
 
 # test functions that aren't yet used by a tested tool
 sumolib
