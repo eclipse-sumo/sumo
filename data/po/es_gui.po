@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-09 11:51+0000\n"
+"PO-Revision-Date: 2023-11-10 08:35+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2146,7 +2146,7 @@ msgstr "duración máxima"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:248
 msgid "running duration"
-msgstr ""
+msgstr "duración en curso"
 
 #: C:\Repos\sumo/src\guisim\GUITrafficLightLogicWrapper.cpp:249
 msgid "earliestEnd"
@@ -2182,7 +2182,7 @@ msgstr "carril [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:106
 msgid "shadow lane [id]"
-msgstr ""
+msgstr "carril sombra [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:109
 msgid "target lane [id]"
@@ -2307,15 +2307,15 @@ msgstr "contenedores"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:180
 msgid "lcState right"
-msgstr ""
+msgstr "estado de cambio de carril derecha"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:181
 msgid "lcState left"
-msgstr ""
+msgstr "estado de cambio de carril izquierda"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:184
 msgid "lcState center"
-msgstr ""
+msgstr "estado de cambio de carril centro"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:185
 msgid "right side on edge [m]"
@@ -2415,7 +2415,7 @@ msgstr "imperfección (sigma)"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "tiempo de avance deseado (tau) [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "speedfactor"
@@ -2423,7 +2423,7 @@ msgstr "factor de velocidad"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "action step length [s]"
-msgstr ""
+msgstr "duración del paso de acción [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "person capacity"
@@ -2443,7 +2443,7 @@ msgstr "tiempo de carga [s]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "minGapLat [m]"
-msgstr ""
+msgstr "brecha lateral mínima [m]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
@@ -3593,7 +3593,7 @@ msgstr "Crear planes de contenedores."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 msgid "EdgeData"
-msgstr ""
+msgstr "Dato de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:759
 msgid "Create edgeData elements."
@@ -3602,7 +3602,7 @@ msgstr "Crear elementos edgeData."
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6681
 msgid "EdgeRelation"
-msgstr ""
+msgstr "Relación de arista"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
 msgid "Create edgeRelation elements."
@@ -3926,7 +3926,7 @@ msgstr "Personas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1409
 msgid "PersonTrips"
-msgstr ""
+msgstr "Viajes de persona"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1414
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:189
@@ -3950,7 +3950,7 @@ msgstr "Contenedores"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1429
 msgid "Transports"
-msgstr ""
+msgstr "Envíos"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1434
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
@@ -3968,12 +3968,12 @@ msgstr "Paradas"
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1444
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:125
 msgid "EdgeDatas"
-msgstr ""
+msgstr "Datos de aristas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1449
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:126
 msgid "EdgeRelDatas"
-msgstr ""
+msgstr "Datos de relación de aristas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1454
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:127
@@ -4745,6 +4745,12 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Longitud del intervalo predeterminado entre puntos de acción para los "
+"modelos de seguimiento vehicular y de cambio de carril (en segundos). Si no "
+"se especifica, la longitud del paso de simulación se usará de forma "
+"predeterminada. Las configuraciones específicas del vehículo o del tipo de "
+"vehículo sobrescriben las predeterminadas. Debe ser un múltiplo de la "
+"longitud del paso de simulación."
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:496
 msgid ""
@@ -5229,7 +5235,7 @@ msgstr "desanclar punto de interés del carril"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2769
 msgid "reverse % '%'"
-msgstr ""
+msgstr "invertir % '%'"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2783
 msgid "add reverse '%'"
