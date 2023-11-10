@@ -2513,13 +2513,13 @@ class stopBusStop:
         expected = 9
         join = 9
         permitted = 10
-        parking = 10
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemand = 15
-        jump = 16
-        split = 17
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemand = 16
+        jump = 17
+        split = 18
 
 # stop over train stop
 
@@ -2574,13 +2574,13 @@ class stopTrainStop:
         expected = 9
         join = 9
         permitted = 10
-        parking = 10
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemand = 15
-        jump = 16
-        split = 17
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemand = 16
+        jump = 17
+        split = 18
 
 # stop over container stop
 
@@ -2635,13 +2635,13 @@ class stopContainerStop:
         expected = 9
         join = 9
         permitted = 10
-        parking = 10
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemand = 15
-        jump = 16
-        split = 17
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemand = 16
+        jump = 17
+        split = 18
 
 # stop over charging station
 
@@ -2696,13 +2696,13 @@ class stopChargingStation:
         expected = 9
         join = 9
         permitted = 10
-        parking = 10
-        actType = 12
-        tripID = 13
-        line = 14
-        onDemand = 15
-        jump = 16
-        split = 17
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemand = 16
+        jump = 17
+        split = 18
 
 # stop over parkings
 
