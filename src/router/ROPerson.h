@@ -365,26 +365,9 @@ public:
             return myTripItems.empty();
         }
 
-        double getCost() const {
-            double result = 0;
-            for (TripItem* const it : myTripItems) {
-                result += it->getCost();
-            }
-            return result;
-        }
-
-        void clearItems() {
-            for (TripItem* const it : myTripItems) {
-                delete it;
-            }
-            myTripItems.clear();
-        }
-
-        void copyItems(PersonTrip* trip, ROVehicle* veh) {
-            for (TripItem* const it : myTripItems) {
-                delete it;
-            }
-            myTripItems = trip->myTripItems;
+        void setItems(std::vector<TripItem*>& newItems, const ROVehicle* const veh) {
+            assert(myTripItems.empty());
+            myTripItems.swap(newItems);
             for (auto it = myVehicles.begin(); it != myVehicles.end();) {
                 if (*it != veh) {
                     delete (*it)->getRouteDefinition();
@@ -460,7 +443,8 @@ public:
 
 private:
     bool computeIntermodal(SUMOTime time, const RORouterProvider& provider,
-                           PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
+                           const PersonTrip* const trip, const ROVehicle* const veh,
+                           std::vector<TripItem*>& resultItems, MsgHandler* const errorHandler);
 
 private:
     /**
