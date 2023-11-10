@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 10:43+0000\n"
+"PO-Revision-Date: 2023-11-10 11:23+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11172,7 +11172,7 @@ msgstr "combinación no válida para parada de contenedor"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1133
 msgid "Stops needs a parent"
-msgstr ""
+msgstr "Las paradas requieren un elemento padre"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1185
 msgid "Containers don't support stops at busStops or trainStops"
@@ -11474,7 +11474,7 @@ msgstr "Ángulo: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:918
 msgid "Lane Parametric Length cannot be never 0"
-msgstr ""
+msgstr "El parámetro longitud de un carril nunca puede ser 0"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1084
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
@@ -13339,15 +13339,15 @@ msgstr "El tipo de parada seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:197
 msgid "Selected % '%' as stop parent."
-msgstr ""
+msgstr "Se seleccionó % '%' como elemento padre de la parada."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:200
 msgid "Selected Stop parent isn't valid."
-msgstr ""
+msgstr "Elemento padre de parada seleccionado no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:206
 msgid "Current selected Stop parent isn't valid."
-msgstr ""
+msgstr "Elemento padre de parada seleccionado actualmente no es válido."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
@@ -13474,6 +13474,8 @@ msgid ""
 "-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
+"-Requiere de al menos un Entry\n"
+" y un Exit"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
@@ -13502,7 +13504,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:394
 msgid " must be selected before insertion of "
-msgstr ""
+msgstr " deberá ser seleccionado antes de la inserción de "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:424
 msgid "Attribute '"
