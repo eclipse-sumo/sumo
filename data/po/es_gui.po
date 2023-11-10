@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 08:35+0000\n"
+"PO-Revision-Date: 2023-11-10 08:49+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5252,6 +5252,7 @@ msgstr "cambiar posición del punto geométrico del polígono"
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2864
 msgid "change TAZ Geometry Point position"
 msgstr ""
+"cambiar la posición del punto geométrico de la zona de análisis de tráfico"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2888
 msgid "reset end points of selected edges"
@@ -7171,7 +7172,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:971
 msgid ""
 "Whether the junction-blocking-heuristic should be activated at this node"
-msgstr ""
+msgstr "Si la heurística de bloqueo de cruce debe activarse en este nodo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:977
 msgid "How to compute right of way rules at this node"
@@ -7369,6 +7370,8 @@ msgid ""
 "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
 "is the leftmost one)"
 msgstr ""
+"El índice de enumeración del carril (0 es el carril más a la derecha, "
+"<NUMBER_LANES>-1 es el de más a la izquierda)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
 msgid "Speed in meters per second"
