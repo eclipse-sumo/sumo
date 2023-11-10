@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 08:49+0000\n"
+"PO-Revision-Date: 2023-11-10 09:08+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7154,7 +7154,7 @@ msgstr "El ID del cruce"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:949
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1976
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr "las posiciones x-y-z del cruce en el plano, en metros"
+msgstr "Las posiciones x-y-z del cruce en el plano, en metros"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:954
 msgid "An optional type for the node"
@@ -7320,13 +7320,14 @@ msgstr "La longitud de la arista en metros"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1189
 msgid "street name (does not need to be unique, used for visualization)"
 msgstr ""
-"nombre de la calle (no tiene que ser único, se usa solo para la "
+"Nombre de la calle (no tiene que ser único, se usa solo para la "
 "visualización)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1200
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1282
 msgid "Move the stop line back from the intersection by the given amount"
-msgstr "Mueve la linea de stop hacia atrás de la intersección la cantidad dada"
+msgstr ""
+"Mover la línea de stop hacia atrás de la intersección la cantidad indicada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1206
 msgid ""
@@ -7388,6 +7389,8 @@ msgstr "Activa o desactiva el uso del carril como carril de aceleración"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1294
 msgid "If the shape is given it overrides the computation based on edge shape"
 msgstr ""
+"Si se proporciona la forma, sobrescribe a la calculada basada en la forma de "
+"arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1299
 msgid "If given, this defines the opposite direction lane"
@@ -7415,7 +7418,7 @@ msgstr "ID del paso peatonal (crossing)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1349
 msgid "The (road) edges which are crossed"
-msgstr ""
+msgstr "Las (vías) aristas que se cruzan"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1354
 msgid ""
@@ -7431,11 +7434,13 @@ msgstr "El ancho del paso peatonal (crossings)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1366
 msgid "sets the tls-index for this crossing"
-msgstr ""
+msgstr "Establece el índice semafórico para este paso peatonal"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1372
 msgid "sets the opposite-direction tls-index for this crossing"
 msgstr ""
+"Establece el índice semafórico de la dirección opuesta para este paso "
+"peatonal"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1378
 msgid "Overrides default shape of pedestrian crossing"
@@ -11934,7 +11939,7 @@ msgstr "Inspeccionar elemento padre de %"
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:537
 msgid "Open dialog for editing vClasses"
-msgstr ""
+msgstr "Abrir una ventana para editar las clases de vehículo"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:549
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:550
