@@ -17,85 +17,85 @@
 # @date    2011
 
 from __future__ import absolute_import
-import optparse
-import zipfile
 import os
+import sys
 import tempfile
 import glob
 import shutil
+import zipfile
+from os.path import abspath, basename, dirname, join
 
 import version
 import status
 
+sys.path.append(dirname(dirname(abspath(__file__))))
+import sumolib  # noqa
+
+SUMO_ROOT = abspath(join(dirname(__file__), '..', '..'))
 SUMO_VERSION = version.get_pep440_version().replace("post", "")
 INPUT_DEFAULT = r"S:\daily\sumo-win64-git.zip"
 OUTPUT_DEFAULT = "sumo.msi"
-WIX_DEFAULT = os.path.join(os.environ.get("WIX", r"C:\Program Files (x86)\WiX Toolset v3.11"), "bin")
-WXS_DEFAULT = os.path.join(os.path.dirname(__file__), "..", "..", "build", "wix", "*.wxs")
-LICENSE = os.path.join(os.path.dirname(__file__), "..", "..", "build", "wix", "License.rtf")
+WIX_DEFAULT = join(os.environ.get("WIX", r"C:\Program Files (x86)\WiX Toolset v3.11"), "bin")
+WXS_DEFAULT = join(SUMO_ROOT, "build_config", "wix", "*.wxs")
+LICENSE = join(SUMO_ROOT, "build_config", "wix", "License.rtf")
 
 SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe",
               "netedit.exe", "start-command-line.bat"]
 
 
-def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
-    base = os.path.basename(sourceDir)
-    status.log_subprocess([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
-                           "-cg", base, "-gg", "-dr", targetLabel, "-sreg",
-                           "-out", os.path.join(tmpDir, base + "RawFragment.wxs")])
-    fragIn = open(os.path.join(tmpDir, base + "RawFragment.wxs"))
-    fragOut = open(os.path.join(tmpDir, base + "Fragment.wxs"), "w")
-    skip = 0
-    for fl in fragIn:
-        for s in SKIP_FILES:
-            if s in fl:
-                skip = 3
-        if skip == 0:
-            fragOut.write(fl.replace("SourceDir", sourceDir))
-        else:
-            skip -= 1
-    fragOut.close()
-    fragIn.close()
-    return fragOut.name
+def buildFragment(wix_bin, source_dir, target_label, tmp_dir):
+    base = basename(source_dir)
+    status.log_subprocess([join(wix_bin, "heat.exe"), "dir", source_dir,
+                           "-cg", base, "-gg", "-dr", target_label, "-sreg",
+                           "-out", join(tmp_dir, base + "RawFragment.wxs")])
+    with (open(join(tmp_dir, base + "RawFragment.wxs")) as frag_in,
+          open(join(tmp_dir, base + "Fragment.wxs"), "w") as frag_out):
+        skip = 0
+        for fl in frag_in:
+            for s in SKIP_FILES:
+                if s in fl:
+                    skip = 3
+            if skip == 0:
+                frag_out.write(fl.replace("SourceDir", source_dir))
+            else:
+                skip -= 1
+    return frag_out.name
 
 
-def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
-             wixBin=WIX_DEFAULT, wxsPattern=WXS_DEFAULT,
-             license=LICENSE):
-    tmpDir = tempfile.mkdtemp()
-    zipfile.ZipFile(sourceZip).extractall(tmpDir)
-    sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
-    fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir)
+def buildMSI(source_zip=INPUT_DEFAULT, out_file=OUTPUT_DEFAULT,
+             wix_bin=WIX_DEFAULT, wxs_pattern=WXS_DEFAULT,
+             license_path=LICENSE):
+    tmp_dir = tempfile.mkdtemp()
+    zipfile.ZipFile(source_zip).extractall(tmp_dir)
+    extracted_sumo = glob.glob(join(tmp_dir, "sumo-*"))[0]
+    fragments = [buildFragment(wix_bin, join(extracted_sumo, d), "INSTALLDIR", tmp_dir)
                  for d in ["bin", "data", "share", "include", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
-        docDir = os.path.join(sumoRoot, "docs", d)
-        if os.path.exists(docDir):
-            fragments.append(buildFragment(wixBin, docDir, "DOCDIR", tmpDir))
-    for wxs in glob.glob(wxsPattern):
-        with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
-            dataDir = os.path.dirname(license)
-            wxsOut.write(open(wxs).read().format(version=SUMO_VERSION, license=license,
-                                                 bindir=os.path.join(sumoRoot, "bin"),
-                                                 banner=os.path.join(dataDir, "bannrbmp.bmp"),
-                                                 dialogbg=os.path.join(dataDir, "dlgbmp.bmp"),
-                                                 webwizico=os.path.join(dataDir, "webWizard.ico")))
-        fragments.append(wxsOut.name)
-    status.log_subprocess([os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments)
-    wixObj = [f.replace(".wxs", ".wixobj") for f in fragments]
-    status.log_subprocess([os.path.join(wixBin, "light.exe"), "-sw1076",
-                           "-ext", "WixUIExtension", "-o", outFile] + wixObj)
-    shutil.rmtree(tmpDir, True)  # comment this out when debugging
+        doc_dir = join(extracted_sumo, "docs", d)
+        if os.path.exists(doc_dir):
+            fragments.append(buildFragment(wix_bin, doc_dir, "DOCDIR", tmp_dir))
+    for wxs in glob.glob(wxs_pattern):
+        with open(wxs) as wxs_in, open(join(tmp_dir, basename(wxs)), "w") as wxs_out:
+            data_dir = dirname(license_path)
+            wxs_out.write(wxs_in.read().format(version=SUMO_VERSION, license=license_path,
+                                               bindir=join(extracted_sumo, "bin"),
+                                               banner=join(data_dir, "bannrbmp.bmp"),
+                                               dialogbg=join(data_dir, "dlgbmp.bmp"),
+                                               webwizico=join(data_dir, "webWizard.ico")))
+        fragments.append(wxs_out.name)
+    status.log_subprocess([join(wix_bin, "candle.exe"), "-o", tmp_dir + "\\"] + fragments)
+    wix_obj = [f.replace(".wxs", ".wixobj") for f in fragments]
+    status.log_subprocess([join(wix_bin, "light.exe"), "-sw1076",
+                           "-ext", "WixUIExtension", "-o", out_file] + wix_obj)
+    shutil.rmtree(tmp_dir, True)  # comment this out when debugging
 
 
 if __name__ == "__main__":
-    optParser = optparse.OptionParser()
-    optParser.add_option("-n", "--nightly-zip", dest="nightlyZip",
-                         default=INPUT_DEFAULT, help="full path to nightly zip")
-    optParser.add_option("-o", "--output", default=OUTPUT_DEFAULT,
-                         help="full path to output file")
-    optParser.add_option("-w", "--wix", default=WIX_DEFAULT, help="path to the wix binaries")
-    optParser.add_option("-x", "--wxs", default=WXS_DEFAULT, help="pattern for wxs templates")
-    optParser.add_option("-l", "--license", default=LICENSE, help="path to the license")
-    (options, args) = optParser.parse_args()
-    buildMSI(options.nightlyZip, options.output,
-             options.wix, options.wxs, options.license)
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-n", "--nightly-zip", default=INPUT_DEFAULT, help="full path to nightly zip")
+    ap.add_argument("-o", "--output", default=OUTPUT_DEFAULT, help="full path to output file")
+    ap.add_argument("-w", "--wix", default=WIX_DEFAULT, help="path to the wix binaries")
+    ap.add_argument("-x", "--wxs", default=WXS_DEFAULT, help="pattern for wxs templates")
+    ap.add_argument("-l", "--license", default=LICENSE, help="path to the license")
+    options = ap.parse_args()
+    buildMSI(options.nightly_zip, options.output, options.wix, options.wxs, options.license)
