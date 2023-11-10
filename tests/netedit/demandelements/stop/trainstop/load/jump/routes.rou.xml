@@ -38,19 +38,19 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0">
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0">
         <stop trainStop="trainStopA" jump=""/>
     </route>
 
-    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_1">
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
         <stop trainStop="trainStopA" jump="-3"/>
     </route>
 
-    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_2">
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_2">
         <stop trainStop="trainStopA" jump="12"/>
     </route>
 
-    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_3">
+    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_3">
         <stop trainStop="trainStopA" jump="7.5"/>
     </route>
 	
