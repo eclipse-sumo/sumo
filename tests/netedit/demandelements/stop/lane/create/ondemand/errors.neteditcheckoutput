@@ -1,0 +1,15 @@
+Warning: Vehicle 'routeFlow.0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.06, offset=10.28), time=18.00.
+Warning: Vehicle 'routeFlow.1' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.18, offset=8.68), time=219.00.
+Warning: Vehicle 'routeFlow.2' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.18, offset=8.38), time=418.00.
+Warning: Vehicle 'routeFlow.3' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.65, offset=1.88), time=617.00.
+Warning: Vehicle 'routeFlow.4' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.85, offset=10.84), time=822.00.
+Warning: Vehicle 'routeFlow.5' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-9.15, offset=0.08), time=1020.00.
+Warning: Vehicle 'routeFlow.6' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.51, offset=10.25), time=1218.00.
+Warning: Vehicle 'routeFlow.7' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-8.97, offset=1.87), time=1420.00.
+Warning: Vehicle 'routeFlow.9' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-7.36, offset=1.30), time=1820.00.
+Warning: Vehicle 'routeFlow.10' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.40, offset=8.74), time=2017.00.
+Warning: Vehicle 'routeFlow.11' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.70, offset=9.67), time=2218.00.
+Warning: Vehicle 'routeFlow.12' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.00, offset=11.68), time=2418.00.
+Warning: Vehicle 'routeFlow.13' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.37, offset=6.44), time=2617.00.
+Warning: Vehicle 'routeFlow.14' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.84, offset=9.45), time=2818.00.
+Warning: Vehicle 'routeFlow.15' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.82, offset=8.78), time=3019.00.

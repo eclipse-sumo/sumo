@@ -1,2 +1,104 @@
-Error: File 'net.netedit' is not accessible (No such file or directory).
-Quitting (on error).
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.0' is not known. time=1.00.
+Warning: Vehicle 'flow_1.0' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.1' is not known. time=5.00.
+Warning: Vehicle 'flow_1.1' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.2' is not known. time=10.00.
+Warning: Vehicle 'flow_1.2' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.3' is not known. time=15.00.
+Warning: Vehicle 'flow_1.3' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.4' is not known. time=20.00.
+Warning: Vehicle 'flow_1.4' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.5' is not known. time=24.00.
+Warning: Vehicle 'flow_1.5' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.6' is not known. time=29.00.
+Warning: Vehicle 'flow_1.6' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.7' is not known. time=34.00.
+Warning: Vehicle 'flow_1.7' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.8' is not known. time=38.00.
+Warning: Vehicle 'flow_1.8' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.9' is not known. time=42.00.
+Warning: Vehicle 'flow_1.9' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.10' is not known. time=46.00.
+Warning: Vehicle 'flow_1.10' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.11' is not known. time=49.00.
+Warning: Vehicle 'flow_1.11' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.12' is not known. time=54.00.
+Warning: Vehicle 'flow_1.12' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.13' is not known. time=58.00.
+Warning: Vehicle 'flow_1.13' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.14' is not known. time=62.00.
+Warning: Vehicle 'flow_1.14' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.15' is not known. time=68.00.
+Warning: Vehicle 'flow_1.15' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.16' is not known. time=72.00.
+Warning: Vehicle 'flow_1.16' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.17' is not known. time=76.00.
+Warning: Vehicle 'flow_1.17' ignores container triggered stop on lane 'EdgeCenter0_1' due to capacity constraints.
+Warning: Teleporting vehicle 'flow_0.0'; waited too long (wrong lane), lane='Edge0_1', time=312.00.
+Warning: Vehicle 'flow_0.0' ends teleporting on edge 'Edge2', time=312.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.0' is not known. time=317.00.
+Warning: Vehicle 'flow_0.0' teleports beyond arrival edge 'Edge2', time=392.00.
+Warning: Teleporting vehicle 'flow_0.1'; waited too long (wrong lane), lane='Edge0_1', time=618.00.
+Warning: Vehicle 'flow_0.1' ends teleporting on edge 'Edge2', time=618.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.1' is not known. time=623.00.
+Warning: Vehicle 'flow_0.1' teleports beyond arrival edge 'Edge2', time=698.00.
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (wrong lane), lane='Edge0_1', time=922.00.
+Warning: Vehicle 'flow_0.2' ends teleporting on edge 'Edge2', time=922.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.2' is not known. time=928.00.
+Warning: Vehicle 'flow_0.2' teleports beyond arrival edge 'Edge2', time=1003.00.
+Warning: Teleporting vehicle 'flow_0.3'; waited too long (wrong lane), lane='Edge0_1', time=1227.00.
+Warning: Vehicle 'flow_0.3' ends teleporting on edge 'Edge2', time=1227.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.3' is not known. time=1233.00.
+Warning: Vehicle 'flow_0.3' teleports beyond arrival edge 'Edge2', time=1308.00.
+Warning: Teleporting vehicle 'flow_0.4'; waited too long (wrong lane), lane='Edge0_1', time=1532.00.
+Warning: Vehicle 'flow_0.4' ends teleporting on edge 'Edge2', time=1532.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.4' is not known. time=1538.00.
+Warning: Vehicle 'flow_0.4' teleports beyond arrival edge 'Edge2', time=1613.00.
+Warning: Teleporting vehicle 'flow_0.5'; waited too long (wrong lane), lane='Edge0_1', time=1838.00.
+Warning: Vehicle 'flow_0.5' ends teleporting on edge 'Edge2', time=1838.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.5' is not known. time=1843.00.
+Warning: Vehicle 'flow_0.5' teleports beyond arrival edge 'Edge2', time=1918.00.
+Warning: Teleporting vehicle 'flow_0.6'; waited too long (wrong lane), lane='Edge0_1', time=2143.00.
+Warning: Vehicle 'flow_0.6' ends teleporting on edge 'Edge2', time=2143.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.6' is not known. time=2149.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.7' is not known. time=2156.00.
+Warning: Vehicle 'flow_0.6' teleports beyond arrival edge 'Edge2', time=2224.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.8' is not known. time=2231.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.9' is not known. time=2232.00.
+Warning: Vehicle 'flow_0.7' teleports beyond arrival edge 'Edge2', time=2234.00.
+Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2306.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=2313.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.11' is not known. time=2314.00.
+Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=2317.00.
+Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=2388.00.
+Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=2389.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.12' is not known. time=2396.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.13' is not known. time=2398.00.
+Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=2471.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.14' is not known. time=2478.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.15' is not known. time=2479.00.
+Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=2481.00.
+Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=2553.00.
+Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=2554.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.16' is not known. time=2560.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=2563.00.
+Warning: Vehicle 'flow_0.16' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_0.17' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.0' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.1' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.10' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.11' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.12' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.13' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.14' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.15' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.16' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.17' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.2' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.3' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.4' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.5' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.6' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.7' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.8' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_1.9' aborted waiting for a person that will never come.
