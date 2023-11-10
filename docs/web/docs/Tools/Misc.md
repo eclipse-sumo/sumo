@@ -63,6 +63,23 @@ the data set. The following is recommenced:
   speed/speedLimit for each vehicle
 
 
+# createScreenshotSequence.py
+
+This script helps in the process of creating a movie by taking screenshots repeatedly and moving the viewport during the simulation. There are other ways to capture videos from sumo-gui such as using 
+external screen capture software or using the internal screenshot feature. The screenshot sequence obtained from this script can be joined into a video using appropiate video software.
+
+Example:
+```
+python tools/createScreenshotSequence.py --sumocfg test.sumocfg -o outDir --begin 600 --end 900 -p filePrefix --zoom 600:500;900:1000 --include-time
+```
+This will run the configuration file named by **--sumocfg** in sumo-gui and register a TraCI step listener for the screenshot process. The time interval when to take a screenshot of each time step 
+can be limited to start only at **--begin** (s) or to end at **--end** (s). If the end time is not defined explicitly, the script runs the simulation either up to the end value from the configuration (if defined)
+or further to the technical system limits. The screenshots are written to the directory given by **-o** / **--output-dir**. Their file names can optionally start with the **-p** / **--prefix** value or contain the 
+date/time when the simulation was started (**--include-time**). The standard file type is set to _png_ but can be set via **--image-format**. The file name contains a zero-padded counter number such that it can be sorted easily in 
+post-production.
+
+Currently only the zoom can be animated in a linear manner using the **--zoom** option. The option value consists of pairs of time and zoom values (separator: colon) joined by semicolon.
+
 # extractTest.py
 
 This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so, you can either:
