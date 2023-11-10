@@ -3418,7 +3418,7 @@ GNEAttributeCarrier::fillDemandElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
+                                      GNETagProperties::TagType::DEMANDELEMENT,
                                       GNETagProperties::TagProperty::NOTDRAWABLE | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::NOPARAMETERS,
                                       0,
                                       GUIIcon::ROUTEDISTRIBUTION, currentTag, TL("RouteDistribution"));

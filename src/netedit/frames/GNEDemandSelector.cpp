@@ -200,9 +200,14 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
                 }
             }
         } else {
-            // insert all Ids
+            // insert all elements sorted by ID
+            std::map<std::string, GNEDemandElement*> sortedElements;
             for (const auto& demandElement : ACs->getDemandElements().at(demandElementTag)) {
-                myDemandElementsComboBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
+                sortedElements[demandElement->getID()] = demandElement;
+            }
+            for (const auto& demandElement : sortedElements) {
+                myDemandElementsComboBox->appendIconItem(demandElement.first.c_str(), demandElement.second->getACIcon(),
+                                                         demandElement.second->getTagProperty().getBackGroundColor());
             }
         }
     }
