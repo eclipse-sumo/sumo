@@ -2707,7 +2707,7 @@ class stopChargingStation:
 # stop over parkings
 
 
-class stopParking:
+class stopParkingArea:
     class create:
         durationEnable = 8
         duration = 9
