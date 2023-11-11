@@ -45,11 +45,11 @@ SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe",
 
 def buildFragment(wix_bin, source_dir, target_label, tmp_dir):
     base = basename(source_dir)
+    tmp_base = join(tmp_dir, base)
     status.log_subprocess([join(wix_bin, "heat.exe"), "dir", source_dir,
                            "-cg", base, "-gg", "-dr", target_label, "-sreg",
-                           "-out", join(tmp_dir, base + "RawFragment.wxs")])
-    with (open(join(tmp_dir, base + "RawFragment.wxs")) as frag_in,
-          open(join(tmp_dir, base + "Fragment.wxs"), "w") as frag_out):
+                           "-out", tmp_base + "RawFragment.wxs"])
+    with open(tmp_base + "RawFragment.wxs") as frag_in, open(tmp_base + "Fragment.wxs", "w") as frag_out:
         skip = 0
         for fl in frag_in:
             for s in SKIP_FILES:
