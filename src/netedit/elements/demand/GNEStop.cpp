@@ -1159,6 +1159,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                     parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
                 }
             }
+            break;
         case SUMO_ATTR_JOIN:
             if (joinTriggered) {
                 join = value;
