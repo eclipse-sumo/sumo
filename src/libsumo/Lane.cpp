@@ -49,6 +49,7 @@ ContextSubscriptionResults Lane::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Lane::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     MSLane::insertIDs(ids);
     return ids;

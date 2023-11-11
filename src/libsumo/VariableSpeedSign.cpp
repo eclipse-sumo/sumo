@@ -40,11 +40,11 @@ ContextSubscriptionResults VariableSpeedSign::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 VariableSpeedSign::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     for (auto& item : MSLaneSpeedTrigger::getInstances()) {
         ids.push_back(item.first);
     }
-    std::sort(ids.begin(), ids.end());
     return ids;
 }
 

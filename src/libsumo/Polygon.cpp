@@ -47,8 +47,7 @@ NamedRTree* Polygon::myTree(nullptr);
 std::vector<std::string>
 Polygon::getIDList() {
     std::vector<std::string> ids;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.getPolygons().insertIDs(ids);
+    MSNet::getInstance()->getShapeContainer().getPolygons().insertIDs(ids);
     return ids;
 }
 

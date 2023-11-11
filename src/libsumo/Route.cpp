@@ -44,6 +44,7 @@ ContextSubscriptionResults Route::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Route::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     MSRoute::insertIDs(ids);
     return ids;

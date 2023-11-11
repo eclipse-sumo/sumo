@@ -40,6 +40,7 @@ ContextSubscriptionResults Rerouter::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Rerouter::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     for (const auto& item : MSTriggeredRerouter::getInstances()) {
         ids.push_back(item.first);

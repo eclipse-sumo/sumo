@@ -48,8 +48,7 @@ NamedRTree* POI::myTree(nullptr);
 std::vector<std::string>
 POI::getIDList() {
     std::vector<std::string> ids;
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.getPOIs().insertIDs(ids);
+    MSNet::getInstance()->getShapeContainer().getPOIs().insertIDs(ids);
     return ids;
 }
 

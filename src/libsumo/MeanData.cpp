@@ -42,7 +42,7 @@ ContextSubscriptionResults MeanData::myContextSubscriptionResults;
 std::vector<std::string>
 MeanData::getIDList() {
     std::vector<std::string> ids;
-    for (auto item : MSNet::getInstance()->getDetectorControl().getMeanData()) {
+    for (const auto& item : MSNet::getInstance()->getDetectorControl().getMeanData()) {
         ids.push_back(item.first);
     }
     std::sort(ids.begin(), ids.end());

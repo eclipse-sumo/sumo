@@ -47,6 +47,7 @@ ContextSubscriptionResults Edge::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Edge::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
     MSEdge::insertIDs(ids);
     return ids;

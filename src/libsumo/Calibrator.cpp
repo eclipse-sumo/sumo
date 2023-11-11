@@ -43,11 +43,11 @@ ContextSubscriptionResults Calibrator::myContextSubscriptionResults;
 // ===========================================================================
 std::vector<std::string>
 Calibrator::getIDList() {
+    MSNet::getInstance(); // just to check that we actually have a network
     std::vector<std::string> ids;
-    for (auto& item : MSCalibrator::getInstances()) {
+    for (const auto& item : MSCalibrator::getInstances()) {
         ids.push_back(item.first);
     }
-    std::sort(ids.begin(), ids.end());
     return ids;
 }
 
