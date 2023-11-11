@@ -37,21 +37,14 @@ for dom in traci.DOMAINS:
         if d not in ('gui', 'simulation'):
             print(d)
             dom.getIDList()
-    except traci.TraCIException as e:
-        pass
     except traci.FatalTraCIError as e:
         print("Error as expected.")
 traci.start([sumoBinary, "-c", "sumo.sumocfg"])
 for dom in traci.DOMAINS:
-    try:
-        d = str(dom).replace("<traci._", "")
-        d = d.replace("<class 'libsumo.libsumo.", "").replace("<class 'libtraci.libtraci.", "")
-        d = d[:d.find(".")].replace("'", "")
-        if d not in ('gui', 'simulation'):
-            print(d)
-            dom.getIDList()
-    except traci.TraCIException as e:
-        print(e)
-    except traci.FatalTraCIError as e:
-        print(e)
+    d = str(dom).replace("<traci._", "")
+    d = d.replace("<class 'libsumo.libsumo.", "").replace("<class 'libtraci.libtraci.", "")
+    d = d[:d.find(".")].replace("'", "")
+    if d not in ('gui', 'simulation'):
+        print(d)
+        dom.getIDList()
 traci.close()
