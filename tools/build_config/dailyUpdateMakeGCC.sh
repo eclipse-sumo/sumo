@@ -37,8 +37,8 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-git clean -f -x -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 basename $MAKELOG >> $STATUSLOG
+git clean -f -x -q . &> $MAKELOG || (echo "git clean failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git pull >> $MAKELOG 2>&1 || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build_config/version.py -`
