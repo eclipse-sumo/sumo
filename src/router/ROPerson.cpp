@@ -416,13 +416,13 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                     }
                     if (cost < bestCost) {
                         bestCost = cost;
-                        while (!best.empty()) {
-                            delete best.back();
-                            best.pop_back();
-                        }
-                        best.swap(resultItems);
                         bestVeh = carUsed ? v : nullptr;
+                        best.swap(resultItems);
                     }
+                    for (TripItem* const it : resultItems) {
+                        delete it;
+                    }
+                    resultItems.clear();
                 }
             }
             trip->setItems(best, bestVeh);
