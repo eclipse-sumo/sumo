@@ -60,6 +60,6 @@ for py in /opt/python/cp3[1789]*; do
     $py/bin/python -m build --wheel tools -o dist
     auditwheel repair dist/libsumo*.whl
 done
-rm -rf tools/*.egg-info tools/build tools/libsumo/data pyproject.toml
+rm -rf tools/*.egg-info tools/build_config/*.egg-info tools/build tools/libsumo/data pyproject.toml setup.py tools/setup.py
 chmod 777 dist wheelhouse
 chmod -R a+w _skbuild
