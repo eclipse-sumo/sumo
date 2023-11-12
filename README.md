@@ -67,7 +67,7 @@ sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev
 cd <SUMO_DIR> # please insert the correct directory name here
 export SUMO_HOME="$PWD"
 cmake -B build .
-cmake --build build -j$(nproc)
+cmake --build build -j$(nproc)
 ```
 
 For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).

@@ -114,11 +114,8 @@ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
-# build netedit first to reduce memory consumption
-make %{?_smp_mflags} netedit
-make
+make %{?_smp_mflags}
 make %{?_smp_mflags} man
-
 
 %install
 cd cmake-build
@@ -132,14 +129,14 @@ ln -s %{_datadir}/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExport
 install -d -m 755 %{buildroot}%{_mandir}/man1
 install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
+install -p -m 644 build_config/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 install -d -m 755 %{buildroot}%{_datadir}/applications
-install -p -m 644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build_config/package/%{name}.desktop %{buildroot}%{_datadir}/applications
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build_config/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
-install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
+install -p -m 644 build_config/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
 %fdupes %{buildroot}%{_datadir}
 

@@ -1,8 +1,8 @@
-build/package/sumo.*sh etc/profile.d
+build_config/package/sumo.*sh etc/profile.d
 data/ usr/share/sumo
-build/package/sumo.png usr/share/pixmaps
-build/package/sumo.desktop usr/share/applications
-build/package/sumo.xml usr/share/mime/application
+build_config/package/sumo.png usr/share/pixmaps
+build_config/package/sumo.desktop usr/share/applications
+build_config/package/sumo.xml usr/share/mime/application
 usr/bin/activitygen
 usr/bin/dfrouter
 usr/bin/duarouter

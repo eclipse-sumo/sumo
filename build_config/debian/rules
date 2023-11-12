@@ -38,7 +38,7 @@ override_dh_auto_build-indep:
 	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,^#!/usr/bin/env python,#!/usr/bin/python3,'
 	find ./docs -name '*.py' -print0 | xargs -0 sed -i 's,"python","python3",'
 #	build pydoc
-	./tools/build/buildPyDoc.py -p docs/pydoc -c
+	./tools/build_config/buildPyDoc.py -p docs/pydoc -c
 
 override_dh_auto_build-arch:
 	dh_auto_build -a
