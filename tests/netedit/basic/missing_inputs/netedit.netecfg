@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="dummy.add.xml"/>
+        <route-files value="dummy.rou.xml"/>
+        <data-files value="dummy.dat.xml"/>
+		<ignore-missing-inputs value="true"/>
+    </input>
+
+    <visualisation>
+        <gui-settings-file value="gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="guisettingsoutput.xml"/>
+    </visualisation>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="log.txt"/>
+    </report>
+
+</configuration>
