@@ -926,6 +926,10 @@ GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string &bikelaneWidth)
     // only add if previously there is no bikelanes
     if (!bikelaneFound) {
         edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_BICYCLE, false);
+        // set width
+        if (bikelaneWidth != "default") {
+            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, bikelaneWidth, myViewNet->getUndoList());
+        }
     }
 }
 
@@ -943,6 +947,10 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string &sidewalkWidth)
     // only add if previously there is no Sidewalk
     if (!sidewalkFound) {
         edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_PEDESTRIAN, false);
+        // set width
+        if (sidewalkWidth != "default") {
+            edge->getLanes().at(0)->setAttribute(SUMO_ATTR_WIDTH, sidewalkWidth, myViewNet->getUndoList());
+        }
     }
 }
 
