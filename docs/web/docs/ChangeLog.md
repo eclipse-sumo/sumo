@@ -9,6 +9,7 @@ title: ChangeLog
 ### Enhancements
 - netedit
   - Now sidewalk and bikelane width can be edited in in GNECreateEdgeFrame. #9725
+  - Added new netedit option --ignore-missing-inputs. #12395
     
 - Other
   - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
