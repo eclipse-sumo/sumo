@@ -52,7 +52,7 @@ elements of plan definitions.
 | from      | string | valid edge ids                | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
 | to        | string | valid edge ids                | \-      | id of the destination edge                             |
 | lines     | list   | valid line or vehicle ids or *ANY* | ANY   | list of vehicle alternatives to take for the transport |
-| containerStop | string | valid container stop ids  | \-      | id of the destination stop (allows to ommit *to*)       |
+| containerStop | string | valid container stop ids  | \-      | id of the destination stop (allows to omit *to*)       |
 | arrivalPos    |float(m)|                           | \-1     | arrival position on the destination edge               |
 
 The vehicle to use has to exist already and the route to take is defined by the vehicle. The container is loaded into the vehicle if it stops on the 'from' edge and any of the following conditions are met

@@ -75,7 +75,7 @@ to its departure time, equidistributed on \[0, {{DT_TIME}}\].
 The following features for random flows apply to [duarouter](../duarouter.md) and [sumo](../sumo.md)
 
 ## Binomial distribution
-By definining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`),
+By defining a `<flow>` with attributes `end` and `probability` (instead of `vehsPerHour,number`, or `period`),
 a vehicle will be emitted randomly with the given probability each second until the end time is reached.
 The number of vehicles inserted this way will be [binomially distributed](https://en.wikipedia.org/wiki/Binomial_distribution).
 When modeling such a flow on a multi-lane road it is recommended to define a `<flow>` for each individual lane because the insertion rate is limited to at most 1 vehicle per second.
@@ -139,7 +139,7 @@ When setting the lane change mode attribute `lcSigma` to a positive value, Vehic
 
 # Reproducibility
 
-Generally, all SUMO applicaitons and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac).
+Generally, all SUMO applications and tools are expected to produce the same results when running the same version repeatedly with the same arguments and inputs. This also includes running on different platforms (Windows/Linux/Mac).
 
 There are some situations that are know to violate this rule (either by design or due to technical reasons) and they are listed in the following.
 
@@ -153,6 +153,6 @@ The following differences are either due to bugs or hard-to-solve problems in li
 
 ### Platform differences
 
-- **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and differnt platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
+- **Differences in generated networks by platform**: When importing network data with geo-coordinates, the transformation to x,y (Cartesian) coordinates are performed by the [Proj](https://proj.org/). This library has differences from one version to the next and different platforms usually provide different library versions. The same problem may also manifest when using TraCI-functions for coordinate transformations.
 - **Non-deterministic vehicle routing with options --device.rerouting.threads --weights.random-factor** (Issue #10292)
 - **Different Simulation behavior due to using the `log` function**. Observed differences for the EIDM-Model (Issue #8921) and also for Simulations with the DriverState-device. Could in principe also affect the Wiedemann-Model and the ToC-device.

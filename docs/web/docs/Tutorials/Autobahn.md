@@ -36,7 +36,7 @@ types:
 - many normal passenger cars
 - some trucks
 - a few coaches
-- a few sporty passenger cars (higher desired travelling speed, less
+- a few sporty passenger cars (higher desired traveling speed, less
   dawdling)
 
 All of these should in themselves have a certain heterogeneity that can

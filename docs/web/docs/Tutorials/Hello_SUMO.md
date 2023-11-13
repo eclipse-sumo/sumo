@@ -41,7 +41,7 @@ Sumo node files.
 
 Now we are connecting the nodes with edges. This is as easy as it
 sounds. We have a source node id, a target node id, and an edge id for
-future reference. Edges are directed, thus every vehicle travelling this
+future reference. Edges are directed, thus every vehicle traveling this
 edge will start at the node given in `from`
 and end at the node given in `to`.
 

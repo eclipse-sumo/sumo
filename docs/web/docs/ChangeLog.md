@@ -44,7 +44,7 @@ title: ChangeLog
   - proper normalization when using distributions of vType distributions #13786
   - fixed rerouting problems with numerical instabilities at the current stop #13835
   - SSM output
-    - fixed wrongly classified collissions #13918
+    - fixed wrongly classified collisions #13918
     - fixed problems with the device after state loading #13924
 
 - netedit

@@ -89,10 +89,10 @@ arrival and until times:
 
 Given two vehicles A and B which stop at the same location, if A arrives at the
 stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
-All subsquent stops of B are marked as invalid and will not
+All subsequent stops of B are marked as invalid and will not
 participate in constraint generation. If the stop where overtaking took place
 doesn't have a 'started' value (which implies that the original schedule is
-inconsistent), then this stop is also mared as invalid.
+inconsistent), then this stop is also marked as invalid.
 
 If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
@@ -100,7 +100,7 @@ enforce an order in this case (and local desired order is ambiguous).
 
 Another kind of inconsistency is indicated by 'ended' times that lie ahead of
 the 'until' time of the respective stop by a significant margin (--.
-This situation may corrrespond to the actions of
+This situation may correspond to the actions of
 a real-life dispatcher. In such a case, the must not be constraint any further
 since it is no longer running according to the schedule.
 
@@ -149,8 +149,8 @@ Options:
   - 'd' : stop depart delay
   - 'a' : stop arrival delay
   - 's' : stop duration difference
-  - 'de' : stop depart delay comppared to 'ended' in input
-  - 'as' : stop arrivalt delay comppared to recorded 'started' in input
+  - 'de' : stop depart delay compared to 'ended' in input
+  - 'as' : stop arrival delay compared to recorded 'started' in input
   - 't'  : traveltime according to schedule versus traveltime in simulation (between stops)
   - 'T'  : traveltime according to recording versus traveltime in simulation (between stops)
 

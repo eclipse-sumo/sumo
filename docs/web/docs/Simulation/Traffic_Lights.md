@@ -661,7 +661,7 @@ They are defined with the `<function>` element within a `<tlLogic>` as shown bel
 - **nArgs** is the number of arguments required by the function
 - **$0** is the value returned by the function
 - **$1 ... $n** are the values of the functions arguments in the order they are supplied after the **:**
-- when a function is evaluted, all its assignments are evaluted in definition order
+- when a function is evaluated, all its assignments are evaluated in definition order
 - functions may not assign to any defined `<condition>` id
 - assignments are local to the function
 - a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas (except within parentheses)

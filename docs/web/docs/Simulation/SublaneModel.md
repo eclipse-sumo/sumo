@@ -67,7 +67,7 @@ attributes are used:
   front-bumper is referred to as its *lane*. If the vehicle
   front-bumper also reaches into another lane, this is called the
   *shadow lane*
-- target lane: if the vehicle has started a lane changing manoeuvre to
+- target lane: if the vehicle has started a lane changing manoeuver to
   another lane, this is the target lane
 - lateral speed: the lateral velocity in the current simulation step
 - lane change maneuver distance: the absolute lateral distance to be

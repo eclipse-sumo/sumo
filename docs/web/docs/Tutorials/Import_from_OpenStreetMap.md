@@ -217,7 +217,7 @@ map suitable for traffic simulation with SUMO.* It is in the [SUMO
 network format](../Networks/SUMO_Road_Networks.md). The map of the
 tutorial's example is in the file
 [Tutorials/OSMActivityGen/eichstaett.net.xml](../Tutorials/OSMActivityGen/eichstaett.net.xml.md).
-Above on the right, you see an image that visualises the file. I opened
+Above on the right, you see an image that visualizes the file. I opened
 `eichstaett.net.xml` with the program sumo-gui and took a screenshot.
 
 When you look back at the work you have done so far, most of it was

@@ -65,13 +65,13 @@ name of a typeDistribution).
 
 ## Ambiguity
 
-In many cases, the solutions for a given input is not unique. It is often the case, that a large proportion of the solution space contains "implausible" (i.e. looped / detour) routes. Some strategies for mitigation are described below. In some cases it may be better to use the [routeSampler tool instead](../Demand/Routes_from_Observation_Points.md#chosing_the_right_tool).
+In many cases, the solutions for a given input is not unique. It is often the case, that a large proportion of the solution space contains "implausible" (i.e. looped / detour) routes. Some strategies for mitigation are described below. In some cases it may be better to use the [routeSampler tool instead](../Demand/Routes_from_Observation_Points.md#choosing_the_right_tool).
 
 ### Distribution among candidate successors
 
 By setting the option **--limit** {{DT_INT}}, the flow is assigned in multiple iterations. This can increase running time but causes
 flows to be distributed more evenly so that all routes are used in
-proportion to the incoming and outgoing flows (similar to the behavir of
+proportion to the incoming and outgoing flows (similar to the behavior of
 [dfrouter](../dfrouter.md)).
 
 
@@ -96,7 +96,7 @@ The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to ge
 
 This script does the reverse of flowrouter.py and
 [dfrouter](../dfrouter.md) in generating a traffic counts for
-detectors from a route or flow file. It's main purpse  It can also be used to compare the
+detectors from a route or flow file. It's main purpose  It can also be used to compare the
 input counts with the outputs of flowrouter.py and
 [dfrouter](../dfrouter.md). Example:
 

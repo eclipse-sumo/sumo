@@ -73,7 +73,7 @@ The following [generic parameters](GenericParameters.md) can be used to configur
 The following [generic parameters](GenericParameters.md) can be used to configure surrounding traffic w.r.t their reaction to a bluelight device:
 
 - "device.bluelight.reaction-prob-near": probably for a vehicle to react (per second) and start forming a rescue lane while near (default *0.577*)
-- "device.bluelight.reaction-prob-far": probably for a vehicle to react (pers second) and start forming a rescue lane while far away (default *0.189*)
+- "device.bluelight.reaction-prob-far": probably for a vehicle to react (per second) and start forming a rescue lane while far away (default *0.189*)
 - "device.bluelight.near-dist": distance threshold to distinguish between near and far (for the above probabilities)
 
 # Visualization

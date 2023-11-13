@@ -153,4 +153,4 @@ To simulate misconfigured controllers, both errors may be ignored by setting `<p
 
 # Publication
 
-The implemenation and validation of the controller was described in [Schrader, M.; Wang, Q.; Bittle, J. Extension and Validation of NEMA-Style Dual-Ring Controller in SUMO. SUMO Conf Proc 2022, 3, 1-13.](https://www.tib-op.org/ojs/index.php/scp/article/view/115)
+The implementation and validation of the controller was described in [Schrader, M.; Wang, Q.; Bittle, J. Extension and Validation of NEMA-Style Dual-Ring Controller in SUMO. SUMO Conf Proc 2022, 3, 1-13.](https://www.tib-op.org/ojs/index.php/scp/article/view/115)

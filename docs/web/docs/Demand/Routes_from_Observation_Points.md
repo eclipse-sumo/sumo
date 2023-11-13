@@ -15,7 +15,7 @@ The generated traffic should obviously match the counting data but this requirem
 - [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
 
-## Chosing the right tool
+## Choosing the right tool
 The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
 
 - [dfrouter](../dfrouter.md) requires that all edges which are used as sources and sinks of traffic are provided with traffic count data. In contrast, flowrouter can infer traffic on those edges from measurements at intermediate locations.

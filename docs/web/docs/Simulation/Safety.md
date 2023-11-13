@@ -146,7 +146,7 @@ decisions during different simulation steps. During simulation steps
 without decision-making, vehicle positions are updated according to the
 previously computed acceleration. Lateral dynamics (when using the
 sublane model) use a dynamic acceleration curve that to complete the
-current lateral driving manoeuvre.
+current lateral driving manoeuver.
 
 The action step length can be defined in any of the following ways:
 

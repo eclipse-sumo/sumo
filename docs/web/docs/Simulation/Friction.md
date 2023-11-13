@@ -21,7 +21,7 @@ For instance, a single vehicle can be equipped as in the following minimal examp
 ```
 
 # Network modification
-The friction device will work with the lanes friction attribute, which defaults to 1 and can be modfied
+The friction device will work with the lanes friction attribute, which defaults to 1 and can be modified
 either directly in the network or dynamically using traci/libsumo.
 
 # Vehicle Behavior

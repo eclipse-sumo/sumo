@@ -29,7 +29,7 @@ Now, let's assume you want to compare the number of running vehicles
 from different runs. The example below uses
 [summary-outputs](../Simulation/Output/Summary.md) from runs that
 cover different types of days of a week (mo\\summary.xml: Monday,
-dido\\summary.xml: Tuesday-Tursday, etc.). As we want to show only a
+dido\\summary.xml: Tuesday-Thursday, etc.). As we want to show only a
 single day, we limit the x-axis to \[0,86400\] (86400: seconds in a day)
 using **--xlim 0,86400** and we also save the figure into the file
 "summary_running_all.png" using **-o summary_running_all.png**. To know what is shown, we replace

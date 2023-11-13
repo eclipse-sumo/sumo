@@ -63,7 +63,7 @@ could switch to 2) using the option **--sloppy-insert** Since version 0.18.0, va
 the default and one may switch to 1) using the option **--eager-insert**.
 
 !!! caution
-    If there are many edges with delayed insertion, the additional insertion attemps in every simulation step can slow down a simulation
+    If there are many edges with delayed insertion, the additional insertion attempts in every simulation step can slow down a simulation
 
 ## Investigating insertion delay
 
