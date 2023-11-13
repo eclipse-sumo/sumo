@@ -86,6 +86,9 @@ public:
         /// @brief check if add sidewalk check button is enabled
         bool isAddSidewalkEnabled() const;
 
+        /// @brief check if add bikelane check button is enabled
+        bool isAddBikelaneEnabled() const;
+
         /// @brief clear edgeType selected
         void clearEdgeTypeSelected();
 
@@ -148,6 +151,9 @@ public:
 
         /// @brief add sidewalk check button
         FXCheckButton* myAddSidewalkCheckButton = nullptr;
+
+        /// @brief add bike check button
+        FXCheckButton* myAddBikelaneCheckButton = nullptr;
 
         /// @brief create custom edge
         FXRadioButton* myCreateCustomEdgeType = nullptr;

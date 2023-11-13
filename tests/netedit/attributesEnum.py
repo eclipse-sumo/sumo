@@ -20,6 +20,9 @@
 # --------------------------------
 
 
+from re import U
+
+
 class editElements:
     overlapped = 5
 
@@ -174,25 +177,30 @@ class junction:
 
 class edge:
     class create:
-        numLanes = 8
-        speed = 9
-        allowButton = 10
-        allow = 11
-        disallow = 12
-        spreadType = 13
-        priority = 15
-        width = 16
-        sidewalkWidth = 17
-        bikelaneWidth = 18
+        defaultShort = 3
+        disallowPedestrians = 4
+        addSidewalk = 5
+        addBikelane = 6
+        useTemplate = 7                                   
+        numLanes = 9
+        speed = 10
+        allowButton = 11
+        allow = 12
+        disallow = 13
+        spreadType = 14
+        priority = 16
+        width = 17
+        sidewalkWidth = 18
+        bikelaneWidth = 19
 
     class createLane:
-        add = 24
-        remove = 25
-        speed = 26
-        allowButton = 27
-        allow = 28
-        disallow = 29
-        width = 30
+        add = 25
+        remove = 26
+        speed = 27
+        allowButton = 28
+        allow = 29
+        disallow = 30
+        width = 31
 
     class inspect:
         id = 1
