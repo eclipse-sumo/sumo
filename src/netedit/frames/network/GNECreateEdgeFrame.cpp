@@ -725,8 +725,13 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                 if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
                     disablePedestrians(newEdge);
                 }
+                // check if add bikelane
+                if (myEdgeTypeSelector->isAddBikelaneEnabled()) {
+                    addBikelane(newEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_BIKELANEWIDTH));
+                }
+                // check if add sidewalk
                 if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
-                    addSidewalk(newEdge);
+                    addSidewalk(newEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_SIDEWALKWIDTH));
                 }
                 // end undo list
                 if (myViewNet->getUndoList()->hasCommandGroup()) {
@@ -755,8 +760,13 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                         if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
                             disablePedestrians(newEdge);
                         }
+                        // check if add bikelane
+                        if (myEdgeTypeSelector->isAddBikelaneEnabled()) {
+                            addBikelane(newEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_BIKELANEWIDTH));
+                        }
+                        // check if add sidewalk
                         if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
-                            addSidewalk(newEdge);
+                            addSidewalk(newEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_SIDEWALKWIDTH));
                         }
                     } else {
                         newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
@@ -774,8 +784,13 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                             if (myEdgeTypeSelector->isNoPedestriansEnabled()) {
                                 disablePedestrians(newOppositeEdge);
                             }
+                            // check if add bikelane
+                            if (myEdgeTypeSelector->isAddBikelaneEnabled()) {
+                                addBikelane(newOppositeEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_BIKELANEWIDTH));
+                            }
+                            // check if add sidewalk
                             if (myEdgeTypeSelector->isAddSidewalkEnabled()) {
-                                addSidewalk(newOppositeEdge);
+                                addSidewalk(newOppositeEdge, myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(SUMO_ATTR_SIDEWALKWIDTH));
                             }
                         } else {
                             newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
@@ -899,7 +914,24 @@ GNECreateEdgeFrame::disablePedestrians(GNEEdge* edge) const {
 
 
 void
-GNECreateEdgeFrame::addSidewalk(GNEEdge* edge) const {
+GNECreateEdgeFrame::addBikelane(GNEEdge* edge, const std::string &bikelaneWidth) const {
+    bool bikelaneFound = false;
+    // iterate over lanes
+    for (const auto& lane : edge->getLanes()) {
+        // check if there is already a SideWalk
+        if (lane->getAttribute(SUMO_ATTR_ALLOW) == "bicycle") {
+            bikelaneFound = true;
+        }
+    }
+    // only add if previously there is no bikelanes
+    if (!bikelaneFound) {
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_BICYCLE, false);
+    }
+}
+
+
+void
+GNECreateEdgeFrame::addSidewalk(GNEEdge* edge, const std::string &sidewalkWidth) const {
     bool sidewalkFound = false;
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
@@ -910,12 +942,7 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge) const {
     }
     // only add if previously there is no Sidewalk
     if (!sidewalkFound) {
-        // update num lanes
-        edge->setAttribute(SUMO_ATTR_NUMLANES, toString(edge->getLanes().size() + 1), myViewNet->getUndoList());
-        // set last lane allow attribute
-        edge->getLanes().front()->setAttribute(SUMO_ATTR_ALLOW, "pedestrian", myViewNet->getUndoList());
-        // set width
-        edge->getLanes().front()->setAttribute(SUMO_ATTR_WIDTH, toString(OptionsCont::getOptions().getFloat("default.sidewalk-width")), myViewNet->getUndoList());
+        edge->getNet()->getViewNet()->addRestrictedLane(edge->getLanes().at(0), SVC_PEDESTRIAN, false);
     }
 }
 

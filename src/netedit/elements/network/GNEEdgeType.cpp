@@ -380,13 +380,13 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
     const auto edgeTypeSelector = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector();
     switch (key) {
         case SUMO_ATTR_SIDEWALKWIDTH:
-            if ((edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) && edgeTypeSelector->useDefaultEdgeType()) {
+            if (edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) {
                 return edgeTypeSelector->isAddSidewalkEnabled();
             } else {
                 return false;
             }
         case SUMO_ATTR_BIKELANEWIDTH:
-            if ((edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) && edgeTypeSelector->useDefaultEdgeType()) {
+            if (edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) {
                 return edgeTypeSelector->isAddBikelaneEnabled();
             } else {
                 return false;

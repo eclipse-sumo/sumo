@@ -311,8 +311,11 @@ protected:
     /// @brief disable pedestrians in the given edge (within undoRedo)
     void disablePedestrians(GNEEdge* edge) const;
 
-    /// @brief disable pedestrians in the given edge (within undoRedo)
-    void addSidewalk(GNEEdge* edge) const;
+    /// @brief add sidewalk in the given edge
+    void addSidewalk(GNEEdge* edge, const std::string &sidewalkWidth) const;
+
+    /// @brief add bikelane in the given edge
+    void addBikelane(GNEEdge* edge, const std::string &bikelaneWidth) const;
 
 private:
     /// @brief objects under snapped cursor

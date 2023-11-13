@@ -949,6 +949,253 @@ GNEViewNet::getTimeFormat() {
 }
 
 
+bool
+GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
+    // Get selected lanes
+    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+    // Declare map of edges and lanes
+    std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
+    // Iterate over selected lanes
+    for (const auto& lane : selectedLanes) {
+        mapOfEdgesAndLanes[myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID())] = lane;
+    }
+    // Throw warning dialog if there hare multiple lanes selected in the same edge
+    if (mapOfEdgesAndLanes.size() != selectedLanes.size()) {
+        const std::string header = TL("Multiple lane in the same edge selected");
+        const std::string bodyA = TL("There are selected lanes that belong to the same edge.");
+        const std::string bodyB = TL("Only one lane per edge will be restricted for ");
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB + toString(vclass) + ".").c_str());
+    }
+    // If we handeln a set of lanes
+    if (mapOfEdgesAndLanes.size() > 0) {
+        // declare counter for number of Sidewalks
+        int counter = 0;
+        // iterate over selected lanes
+        for (const auto& edgeLane : mapOfEdgesAndLanes) {
+            if (edgeLane.first->hasRestrictedLane(vclass)) {
+                counter++;
+            }
+        }
+        // if all edges parent own a Sidewalk, stop function
+        if (counter == (int)mapOfEdgesAndLanes.size()) {
+            const std::string headerA = TL("Set vclass for ");
+            const std::string headerB = TL(" to selected lanes");
+            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
+            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            return 0;
+        } else {
+            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
+            // Ask confirmation to user
+            const std::string headerA = TL("Set vclass for ");
+            const std::string headerB = TL(" to selected lanes");
+            const std::string bodyA = TL(" lanes will be restricted for ");
+            const std::string bodyB = TL(". Continue?");
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
+                                                    (toString(mapOfEdgesAndLanes.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
+                }
+                return 0;
+            } else {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
+            }
+        }
+        // begin undo operation
+        myUndoList->begin(lane, "restrict lanes to " + toString(vclass));
+        // iterate over selected lanes
+        for (const auto& edgeLane : mapOfEdgesAndLanes) {
+            // Transform lane to Sidewalk
+            myNet->restrictLane(vclass, edgeLane.second, myUndoList);
+        }
+        // end undo operation
+        myUndoList->end();
+    } else {
+        // If only have a single lane, start undo/redo operation
+        myUndoList->begin(lane, TL("restrict lane to ") + toString(vclass));
+        // Transform lane to Sidewalk
+        myNet->restrictLane(vclass, lane, myUndoList);
+        // end undo operation
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+bool
+GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool insertAtFront) {
+    // Get selected edges
+    const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+    // get selected lanes
+    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+    // Declare set of edges
+    std::set<GNEEdge*> setOfEdges;
+    // Fill set of edges with vector of edges
+    for (const auto& edge : selectedEdges) {
+        setOfEdges.insert(edge);
+    }
+    // iterate over selected lanes
+    for (const auto& lane : selectedLanes) {
+        // Insert pointer to edge into set of edges (To avoid duplicates)
+        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
+    }
+    // If we handeln a set of edges
+    if (lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) {
+        // declare counter for number of restrictions
+        int counter = 0;
+        // iterate over set of edges
+        for (const auto& edge : setOfEdges) {
+            // update counter if edge has already a restricted lane of type "vclass"
+            if (edge->hasRestrictedLane(vclass)) {
+                counter++;
+            }
+        }
+        // if all lanes own a Sidewalk, stop function
+        if (counter == (int)setOfEdges.size()) {
+            const std::string headerA = TL("Add vclass for ");
+            const std::string headerB = TL(" to selected lanes");
+            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
+            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            return 0;
+        } else {
+            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
+            // Ask confirmation to user
+            const std::string headerA = TL("Add vclass for ");
+            const std::string headerB = TL(" to selected lanes");
+            const std::string bodyA = TL(" restrictions for ");
+            const std::string bodyB = TL(" will be added. Continue?");
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
+                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
+                }
+                return 0;
+            } else {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
+            }
+        }
+        // begin undo operation
+        myUndoList->begin(lane, TL("add restrictions for ") + toString(vclass));
+        // iterate over set of edges
+        for (const auto& edge : setOfEdges) {
+            // add restricted lane (guess target)
+            myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
+        }
+        // end undo operation
+        myUndoList->end();
+    } else {
+        // If only have a single lane, start undo/redo operation
+        myUndoList->begin(lane, TL("add vclass for ") + toString(vclass));
+        // Add restricted lane
+        if (vclass == SVC_PEDESTRIAN) {
+            // always add pedestrian lanes on the right
+            myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
+        } else if (vclass == SVC_IGNORING) {
+            if (insertAtFront) {
+                myNet->addGreenVergeLane(lane->getParentEdge(), lane->getIndex() + 1, myUndoList);
+            } else {
+                myNet->addGreenVergeLane(lane->getParentEdge(), lane->getIndex(), myUndoList);
+            }
+        } else if (lane->getParentEdge()->getLanes().size() == 1) {
+            // guess insertion position if there is only 1 lane
+            myNet->addRestrictedLane(vclass, lane->getParentEdge(), -1, myUndoList);
+        } else {
+            myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
+        }
+        // end undo/redo operation
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
+bool
+GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
+    // Get selected edges
+    const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
+    // get selected lanes
+    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
+    // Declare set of edges
+    std::set<GNEEdge*> setOfEdges;
+    // Fill set of edges with vector of edges
+    for (const auto& edge : selectedEdges) {
+        setOfEdges.insert(edge);
+    }
+    // iterate over selected lanes
+    for (const auto& lane : selectedLanes) {
+        // Insert pointer to edge into set of edges (To avoid duplicates)
+        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
+    }
+    // If we handeln a set of edges
+    if (setOfEdges.size() > 0) {
+        // declare counter for number of restrictions
+        int counter = 0;
+        // iterate over set of edges
+        for (const auto& edge : setOfEdges) {
+            // update counter if edge has already a restricted lane of type "vclass"
+            if (edge->hasRestrictedLane(vclass)) {
+                counter++;
+            }
+        }
+        // if all lanes don't own a Sidewalk, stop function
+        if (counter == 0) {
+            const std::string headerA = TL("Remove vclass for ");
+            const std::string headerB = TL(" from selected lanes");
+            const std::string body = TL("Selected lanes and edges haven't a restriction for ");
+            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            return 0;
+        } else {
+            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
+            // Ask confirmation to user
+            const std::string headerA = TL("Remove vclass for ");
+            const std::string headerB = TL(" in selected lanes");
+            const std::string bodyA = TL(" restrictions for ");
+            const std::string bodyB = TL(" will be removed. Continue?");
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
+                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
+                }
+                return 0;
+            } else {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
+            }
+        }
+        // begin undo operation
+        myUndoList->begin(lane, "Remove restrictions for " + toString(vclass));
+        // iterate over set of edges
+        for (const auto& edge : setOfEdges) {
+            // add Sidewalk
+            myNet->removeRestrictedLane(vclass, edge, myUndoList);
+        }
+        // end undo operation
+        myUndoList->end();
+    } else {
+        // If only have a single lane, start undo/redo operation
+        myUndoList->begin(lane, TL("Remove vclass for ") + toString(vclass));
+        // Remove Sidewalk
+        myNet->removeRestrictedLane(vclass, lane->getParentEdge(), myUndoList);
+        // end undo/redo operation
+        myUndoList->end();
+    }
+    return 1;
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
@@ -3064,253 +3311,6 @@ GNEViewNet::onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*) {
     // check if additional can open dialog
     if (addtional && addtional->getTagProperty().hasDialog()) {
         addtional->openAdditionalDialog();
-    }
-    return 1;
-}
-
-
-bool
-GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
-    // Get selected lanes
-    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
-    // Declare map of edges and lanes
-    std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
-    // Iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
-        mapOfEdgesAndLanes[myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID())] = lane;
-    }
-    // Throw warning dialog if there hare multiple lanes selected in the same edge
-    if (mapOfEdgesAndLanes.size() != selectedLanes.size()) {
-        const std::string header = TL("Multiple lane in the same edge selected");
-        const std::string bodyA = TL("There are selected lanes that belong to the same edge.");
-        const std::string bodyB = TL("Only one lane per edge will be restricted for ");
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB + toString(vclass) + ".").c_str());
-    }
-    // If we handeln a set of lanes
-    if (mapOfEdgesAndLanes.size() > 0) {
-        // declare counter for number of Sidewalks
-        int counter = 0;
-        // iterate over selected lanes
-        for (const auto& edgeLane : mapOfEdgesAndLanes) {
-            if (edgeLane.first->hasRestrictedLane(vclass)) {
-                counter++;
-            }
-        }
-        // if all edges parent own a Sidewalk, stop function
-        if (counter == (int)mapOfEdgesAndLanes.size()) {
-            const std::string headerA = TL("Set vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
-            return 0;
-        } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
-            // Ask confirmation to user
-            const std::string headerA = TL("Set vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string bodyA = TL(" lanes will be restricted for ");
-            const std::string bodyB = TL(". Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(mapOfEdgesAndLanes.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
-                return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
-            }
-        }
-        // begin undo operation
-        myUndoList->begin(lane, "restrict lanes to " + toString(vclass));
-        // iterate over selected lanes
-        for (const auto& edgeLane : mapOfEdgesAndLanes) {
-            // Transform lane to Sidewalk
-            myNet->restrictLane(vclass, edgeLane.second, myUndoList);
-        }
-        // end undo operation
-        myUndoList->end();
-    } else {
-        // If only have a single lane, start undo/redo operation
-        myUndoList->begin(lane, TL("restrict lane to ") + toString(vclass));
-        // Transform lane to Sidewalk
-        myNet->restrictLane(vclass, lane, myUndoList);
-        // end undo operation
-        myUndoList->end();
-    }
-    return 1;
-}
-
-
-bool
-GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool insertAtFront) {
-    // Get selected edges
-    const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
-    // get selected lanes
-    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
-    // Declare set of edges
-    std::set<GNEEdge*> setOfEdges;
-    // Fill set of edges with vector of edges
-    for (const auto& edge : selectedEdges) {
-        setOfEdges.insert(edge);
-    }
-    // iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
-        // Insert pointer to edge into set of edges (To avoid duplicates)
-        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
-    }
-    // If we handeln a set of edges
-    if (lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) {
-        // declare counter for number of restrictions
-        int counter = 0;
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // update counter if edge has already a restricted lane of type "vclass"
-            if (edge->hasRestrictedLane(vclass)) {
-                counter++;
-            }
-        }
-        // if all lanes own a Sidewalk, stop function
-        if (counter == (int)setOfEdges.size()) {
-            const std::string headerA = TL("Add vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
-            return 0;
-        } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
-            // Ask confirmation to user
-            const std::string headerA = TL("Add vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string bodyA = TL(" restrictions for ");
-            const std::string bodyB = TL(" will be added. Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
-                return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
-            }
-        }
-        // begin undo operation
-        myUndoList->begin(lane, TL("add restrictions for ") + toString(vclass));
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // add restricted lane (guess target)
-            myNet->addRestrictedLane(vclass, edge, -1, myUndoList);
-        }
-        // end undo operation
-        myUndoList->end();
-    } else {
-        // If only have a single lane, start undo/redo operation
-        myUndoList->begin(lane, TL("add vclass for ") + toString(vclass));
-        // Add restricted lane
-        if (vclass == SVC_PEDESTRIAN) {
-            // always add pedestrian lanes on the right
-            myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
-        } else if (vclass == SVC_IGNORING) {
-            if (insertAtFront) {
-                myNet->addGreenVergeLane(lane->getParentEdge(), lane->getIndex() + 1, myUndoList);
-            } else {
-                myNet->addGreenVergeLane(lane->getParentEdge(), lane->getIndex(), myUndoList);
-            }
-        } else if (lane->getParentEdge()->getLanes().size() == 1) {
-            // guess insertion position if there is only 1 lane
-            myNet->addRestrictedLane(vclass, lane->getParentEdge(), -1, myUndoList);
-        } else {
-            myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
-        }
-        // end undo/redo operation
-        myUndoList->end();
-    }
-    return 1;
-}
-
-
-bool
-GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
-    // Get selected edges
-    const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
-    // get selected lanes
-    const auto selectedLanes = myNet->getAttributeCarriers()->getSelectedLanes();
-    // Declare set of edges
-    std::set<GNEEdge*> setOfEdges;
-    // Fill set of edges with vector of edges
-    for (const auto& edge : selectedEdges) {
-        setOfEdges.insert(edge);
-    }
-    // iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
-        // Insert pointer to edge into set of edges (To avoid duplicates)
-        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
-    }
-    // If we handeln a set of edges
-    if (setOfEdges.size() > 0) {
-        // declare counter for number of restrictions
-        int counter = 0;
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // update counter if edge has already a restricted lane of type "vclass"
-            if (edge->hasRestrictedLane(vclass)) {
-                counter++;
-            }
-        }
-        // if all lanes don't own a Sidewalk, stop function
-        if (counter == 0) {
-            const std::string headerA = TL("Remove vclass for ");
-            const std::string headerB = TL(" from selected lanes");
-            const std::string body = TL("Selected lanes and edges haven't a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
-            return 0;
-        } else {
-            WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
-            // Ask confirmation to user
-            const std::string headerA = TL("Remove vclass for ");
-            const std::string headerB = TL(" in selected lanes");
-            const std::string bodyA = TL(" restrictions for ");
-            const std::string bodyB = TL(" will be removed. Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                    (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'ESC'");
-                }
-                return 0;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'restrict lanes' with 'Yes'");
-            }
-        }
-        // begin undo operation
-        myUndoList->begin(lane, "Remove restrictions for " + toString(vclass));
-        // iterate over set of edges
-        for (const auto& edge : setOfEdges) {
-            // add Sidewalk
-            myNet->removeRestrictedLane(vclass, edge, myUndoList);
-        }
-        // end undo operation
-        myUndoList->end();
-    } else {
-        // If only have a single lane, start undo/redo operation
-        myUndoList->begin(lane, TL("Remove vclass for ") + toString(vclass));
-        // Remove Sidewalk
-        myNet->removeRestrictedLane(vclass, lane->getParentEdge(), myUndoList);
-        // end undo/redo operation
-        myUndoList->end();
     }
     return 1;
 }
