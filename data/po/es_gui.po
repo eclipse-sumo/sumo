@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 11:23+0000\n"
+"PO-Revision-Date: 2023-11-13 07:38+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9837,12 +9837,16 @@ msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr ""
+"Este valor configura la imperfección de conducción (perder el tiempo) al "
+"pasar por una conexión menor."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6055
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr ""
+"Este valor define el intervalo de tiempo mínimo al adelantar a un vehículo "
+"priorizado. "
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6061
 msgid "Willingess of drivers to impede vehicles with higher priority"
@@ -9854,29 +9858,38 @@ msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr ""
+"El afán por realizar cambios de carril estratégicos. Los valores más altos "
+"provocan un cambio de carril más temprano."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6080
 msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
 msgstr ""
+"La voluntad de realizar cambios de carril cooperativos. Los valores más "
+"bajos dan como resultado una cooperación reducida."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6086
 msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr ""
+"El afán por realizar cambios de carril para ganar velocidad. Los valores más "
+"altos dan como resultado más cambios de carril."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6092
 msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
+"El afán de seguir la obligación de mantener la derecha. Los valores más "
+"altos provocan un cambio de carril más temprano."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6098
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
 msgstr ""
+"El afán por utilizar la alineación lateral configurada dentro del carril."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6099
 msgid ""
@@ -9891,6 +9904,8 @@ msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
+"El afán de adelantar por el carril contrario. Los valores más altos dan como "
+"resultado más cambios de carril."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6111
 msgid "Willingness to encroach laterally on other drivers."
@@ -9901,10 +9916,14 @@ msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
+"Espacio lateral mínimo al invadir lateralmente otros actores (forma "
+"alternativa de definir lcPushy)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6123
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr ""
+"Voluntad de aceptar menores espacios delanteros y traseros en el carril "
+"objetivo."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6129
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
@@ -10028,6 +10047,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6286
 msgid "Whether a person or container or both may end the stop"
 msgstr ""
+"Si una persona, un contenedor o ambos pueden finalizar por sí mismos la "
+"parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6293
 msgid "List of elements that must board the vehicle before it may continue"
@@ -10083,6 +10104,8 @@ msgstr ""
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
 msgstr ""
+"tiempo de transferencia si hubiera un salto desde esta parada hasta la "
+"siguiente arista de la ruta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6357
 msgid "list of consecutive edges"
@@ -10194,6 +10217,8 @@ msgstr "velocidad del contenedor para este transbordo (en m/s)"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6590
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr ""
+"Actividad mostrada para la persona detenida, en la GUI y los archivos de "
+"salida "
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6619
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
@@ -10264,16 +10289,22 @@ msgstr "La ruta al archivo de salida. Esta ruta puede ser relativa"
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr ""
+"El tiempo en el que se empieza a escribir. Si no se especifica, se usará el "
+"inicio de la simulación."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6770
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr ""
+"El tiempo en el que se termina de escribir. Si no se especifica, se usará el "
+"fin de la simulación."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6775
 msgid ""
 "If set to true, edges/lanes which were not use by a vehicle during this "
 "period will not be written"
 msgstr ""
+"Si se establece en 'true', las aristas/carriles que no fueron utilizados por "
+"ningún vehículo durante este período no se escribirán"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6782
 msgid "If set, junction internal edges/lanes will be written as well"
@@ -10500,6 +10531,8 @@ msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
 msgstr ""
+"No se pudo construir la zona de estacionamiento con ID '%' en netedit; la "
+"departPos no es válida sobre el carril."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:348
 msgid "add parking area '"
