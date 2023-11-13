@@ -255,7 +255,7 @@ title: Changes in the 2017 releases (versions 0.29.0, 0.30.0, 0.31.0 and 0.32.0)
 have a look at
 [Windows CMake](../Installing/Windows_Build.md#manual_cmake_configuration) for
 information on how to build SUMO on Windows with CMake. There are
-also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/build) for instance `tools/build/buildMSVS15Project.py`.
+also helper scripts in preparation at [{{SUMO}}/tools/build_config]({{Source}}tools/build_config) for instance `tools/build_config/buildMSVS15Project.py`.
 
 - Simulation
   - **chargingstations-output** now writes times as seconds rather
