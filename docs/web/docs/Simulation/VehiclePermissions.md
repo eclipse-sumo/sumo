@@ -53,9 +53,10 @@ classes. This definition is either
   [OpenStreetMap](../Networks/Import/OpenStreetMap.md) according
   to a [customizable
   heuristic](../Networks/Import/OpenStreetMap.md#recommended_typemaps).
-- or set via [netedit](../Netedit/index.md#inspect). Convenience
+- set via [netedit](../Netedit/index.md#inspect). Convenience
   features exist [for adding bicycle lanes, bus lanes and
   sidewalks](../Netedit/index.md#restricted_lanes).
+- changed during the simulation using [TraCI](../TraCI/Change_Lane_State.md).
 
 For visualizing access permissions, either
 [sumo-gui](../sumo-gui.md#road_access_permissions) or
