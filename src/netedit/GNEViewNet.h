@@ -764,13 +764,13 @@ private:
     GNETAZ* getTAZAtPopupPosition();
 
     /// @brief restrict lane
-    bool restrictLane(SUMOVehicleClass vclass);
+    bool restrictLane(GNELane* lane, SUMOVehicleClass vclass);
 
     /// @brief add restricted lane
-    bool addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront);
+    bool addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool insertAtFront);
 
     /// @brief remove restricted lane
-    bool removeRestrictedLane(SUMOVehicleClass vclass);
+    bool removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass);
 
     /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);
