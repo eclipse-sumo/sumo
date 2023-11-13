@@ -23,7 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-
+#include <utils/options/OptionsCont.h>
 
 #include "GNELaneType.h"
 #include "GNEEdgeType.h"
@@ -166,7 +166,7 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
             return "lane: " + toString(myEdgeTypeParent->getLaneTypeIndex(this));
         case SUMO_ATTR_SPEED:
             if (attrs.count(key) == 0) {
-                return "";
+                return toString(OptionsCont::getOptions().getFloat("default.speed"));
             } else {
                 return toString(speed);
             }
@@ -188,7 +188,7 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_WIDTH:
             if (attrs.count(key) == 0) {
-                return "";
+                return "default";
             } else {
                 return toString(width);
             }
@@ -218,12 +218,20 @@ GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            if (value.empty() || (value == "default")) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) > 0);
+            }
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            if (value.empty() || (value == "-1") || (value == "default")) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -247,7 +255,7 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
-            if (value.empty()) {
+            if (value.empty() || (value == "default")) {
                 attrs.erase(key);
             } else {
                 attrs.insert(key);
@@ -285,7 +293,7 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_WIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "-1") || (value == "default")) {
                 attrs.erase(key);
             } else {
                 attrs.insert(key);

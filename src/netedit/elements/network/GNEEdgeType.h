@@ -171,6 +171,11 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /// @}
 
     /// @brief get parameters map

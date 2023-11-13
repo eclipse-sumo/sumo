@@ -96,22 +96,21 @@ GNEEdgeType::copyTemplate(const GNEEdgeTemplate* edgeTemplate) {
     setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getAttribute(SUMO_ATTR_ALLOW));
     setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getAttribute(SUMO_ATTR_DISALLOW));
     setAttribute(SUMO_ATTR_SPREADTYPE, edgeTemplate->getAttribute(SUMO_ATTR_SPREADTYPE));
-    if (canParse<double>(edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
-        setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH));
-    }
+    setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH));
     setAttribute(SUMO_ATTR_PRIORITY, edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY));
     setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS));
+    setAttribute(SUMO_ATTR_SIDEWALKWIDTH, edgeTemplate->getAttribute(SUMO_ATTR_SIDEWALKWIDTH));
+    setAttribute(SUMO_ATTR_BIKELANEWIDTH, edgeTemplate->getAttribute(SUMO_ATTR_BIKELANEWIDTH));
     // copy lane attributes
     for (int i = 0; i < (int)edgeTemplate->getLaneTemplates().size(); i++) {
-        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED))) {
-            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED));
-        }
-        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW));
-        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_DISALLOW));
-        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH))) {
-            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH));
-        }
-        myLaneTypes.at(i)->setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_PARAMETERS));
+        // get lane types
+        auto originalLaneType = edgeTemplate->getLaneTemplates().at(i);
+        auto laneType = myLaneTypes.at(i);
+        laneType->setAttribute(SUMO_ATTR_SPEED, originalLaneType->getAttribute(SUMO_ATTR_SPEED));
+        laneType->setAttribute(SUMO_ATTR_ALLOW, originalLaneType->getAttribute(SUMO_ATTR_ALLOW));
+        laneType->setAttribute(SUMO_ATTR_DISALLOW, originalLaneType->getAttribute(SUMO_ATTR_DISALLOW));
+        laneType->setAttribute(SUMO_ATTR_WIDTH, originalLaneType->getAttribute(SUMO_ATTR_WIDTH));
+        laneType->setAttribute(GNE_ATTR_PARAMETERS, originalLaneType->getAttribute(GNE_ATTR_PARAMETERS));
     }
 }
 
@@ -287,13 +286,13 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.getString(spreadType);
         case SUMO_ATTR_WIDTH:
-            if (attrs.count(key) == 0) {
-                return toString(NBEdge::UNSPECIFIED_WIDTH);
-            } else {
+            if (attrs.count(key) != 0) {
                 return toString(width);
+            } else {
+                return "default";
             }
         case SUMO_ATTR_PRIORITY:
-            if (attrs.count(key) == 0) {
+            if (attrs.count(key) != 0) {
                 return toString(-1);
             } else {
                 return toString(priority);
@@ -310,9 +309,17 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_MINWIDTH:
             return toString(minWidth);
         case SUMO_ATTR_SIDEWALKWIDTH:
-            return toString(sidewalkWidth);
+            if (attrs.count(key) != 0) {
+                return toString(sidewalkWidth);
+            } else {
+                return "default";
+            }
         case SUMO_ATTR_BIKELANEWIDTH:
-            return toString(bikeLaneWidth);
+            if (attrs.count(key) != 0) {
+                return toString(bikeLaneWidth);
+            } else {
+                return "default";
+            }
         // parameters
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
@@ -353,7 +360,7 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_SIDEWALKWIDTH:
         case SUMO_ATTR_BIKELANEWIDTH:
-            if (value.empty() || (value == "-1")) {
+            if (value.empty() || (value == "-1") || (value == "default")) {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -364,6 +371,28 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             return Parameterised::areParametersValid(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
+    const auto edgeTypeSelector = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector();
+    switch (key) {
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            if ((edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) && edgeTypeSelector->useDefaultEdgeType()) {
+                return edgeTypeSelector->isAddSidewalkEnabled();
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_BIKELANEWIDTH:
+            if ((edgeTypeSelector->useDefaultEdgeTypeShort() || edgeTypeSelector->useDefaultEdgeType()) && edgeTypeSelector->useDefaultEdgeType()) {
+                return edgeTypeSelector->isAddBikelaneEnabled();
+            } else {
+                return false;
+            }
+        default:
+            return true;
     }
 }
 
@@ -466,7 +495,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_WIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "-1")  || (value == "default")) {
                 attrs.erase(key);
             } else {
                 attrs.insert(key);
@@ -474,7 +503,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_SIDEWALKWIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "-1")  || (value == "default")) {
                 attrs.erase(key);
             } else {
                 attrs.insert(key);
@@ -482,7 +511,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_BIKELANEWIDTH:
-            if (value.empty()) {
+            if (value.empty() || (value == "-1")  || (value == "default")) {
                 attrs.erase(key);
             } else {
                 attrs.insert(key);
