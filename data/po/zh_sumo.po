@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-11-06 17:00+0100\n"
+"POT-Creation-Date: 2023-11-13 08:57+0100\n"
 "PO-Revision-Date: 2023-08-24 13:47+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -7195,9 +7195,6 @@ msgid "Unable to project coordinates for node %."
 msgstr "无法投影节点 % 的坐标。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add node '%'"
-msgstr "无法增加节点'%'"
-
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:271
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:390
@@ -9197,100 +9194,100 @@ msgstr "无法存取路网文件 '%' 以进行载入。"
 msgid "'probability' must be positive (in definition of % '%')."
 msgstr "'probability必须为正值 （在 % '%' 的定义中）。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:81
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:84
 msgid "Missing origin '%' and destination '%' (% vehicles)."
 msgstr "缺少出发地 '%' 和目的地 '%' （% 车辆）。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:87
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:90
 msgid "Missing origin '%' (% vehicles)."
 msgstr "缺少出发地 '%' （% 车辆）。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:92
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:95
 msgid "Missing destination '%' (% vehicles)."
 msgstr "缺少目的地 '%' （% 车辆）。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:98
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no source."
 msgstr "分区 '%' 没有起点。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:102
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:105
 #, c-format
 msgid "District '%' has no sink."
 msgstr "分区 '%' 没有起点。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:194
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:197
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
 msgstr "无法为出发地 '%' 和目的地 '%' 找到不同的起始及结束路段。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:369 C:\Repos\sumo/src\od\ODMatrix.cpp:389
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:415
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:372 C:\Repos\sumo/src\od\ODMatrix.cpp:392
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:418
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
 "每秒 % 车辆的流量密度不能用简单的机率表示。 设定回到均勻间距(even spacing)。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:439
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:442
 msgid "End of file while reading %."
 msgstr "读取 % 时,到了文件结尾。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:466
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:469
 msgid "Broken period definition '%'."
 msgstr "损坏的期间定义 '%'。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:480
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:483
 msgid "Broken factor: '%'."
 msgstr "损坏的系数(factor)： '%'。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:514
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:517
 #, c-format
 msgid "Missing line with % district names."
 msgstr "缺少带有 % 分区名称的列(line)。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:524
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:527
 msgid "Missing line for district %."
 msgstr "缺少分区 % 的列(line)。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:538
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:541
 msgid "More entries than districts found."
 msgstr "找到比分区更多的输入项目(entries)。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:543 C:\Repos\sumo/src\od\ODMatrix.cpp:591
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:546 C:\Repos\sumo/src\od\ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
 msgstr "在 '%' 列中有不是数字的车辆编号。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:589
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:592
 msgid "Missing at least one information in line '%'."
 msgstr "在列 '%' 中至少缺少一项信息。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:652
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:655
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
 msgid "Could not open '%'."
 msgstr "无法打开'%'。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:663 C:\Repos\sumo/src\od\ODMatrix.cpp:669
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:666 C:\Repos\sumo/src\od\ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr "'%' 不包含有关所描述时间的必要信息。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:679 C:\Repos\sumo/src\od\ODMatrix.cpp:692
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:682 C:\Repos\sumo/src\od\ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
 msgstr "无法读取要载入的矩阵(matrix)文件 '%' 。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:719
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:722
 #, c-format
 msgid "Could not access route file '%' to load."
 msgstr "无法读取要载入的路径文件 '%'。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:736
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:739
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr "假设一天时间线有 24 个登录项目，但得到 %。"
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:746
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:749
 msgid "Broken time line definition: missing a value in '%'."
 msgstr "损坏的时间线定义: '%' 中缺少一个值。"
 
@@ -11365,6 +11362,9 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "当解析'%'时,发生未指定的错误"
+
+#~ msgid "Could not add node '%'"
+#~ msgstr "无法增加节点'%'"
 
 #~ msgid ""
 #~ "A stop must be placed on a busStop, a chargingStation, an "

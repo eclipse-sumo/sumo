@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-11-06 17:00+0100\n"
+"POT-Creation-Date: 2023-11-13 08:57+0100\n"
 "PO-Revision-Date: 2023-09-28 14:35+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -7794,9 +7794,6 @@ msgid "Unable to project coordinates for node %."
 msgstr "Düğüm % için koordinatlar yansıtılamıyor."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
-msgid "Could not add node '%'"
-msgstr "'%' Düğümü Eklenemedi"
-
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:271
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:390
@@ -9896,37 +9893,37 @@ msgstr "Yüklenecek '%' ağ dosyasına erişilemedi."
 msgid "'probability' must be positive (in definition of % '%')."
 msgstr "'olasılık' pozitif olmalıdır (% '%' tanımında)."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:81
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:84
 msgid "Missing origin '%' and destination '%' (% vehicles)."
 msgstr "Eksik başlangıç '%' ve varış '%' (% araç)."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:87
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:90
 msgid "Missing origin '%' (% vehicles)."
 msgstr "Eksik başlangıç '%' (% araç)."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:92
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:95
 msgid "Missing destination '%' (% vehicles)."
 msgstr "Eksik varış noktası '%' (% araç)."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:98
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no source."
 msgstr "'%' bölgesinin kaynağı yok."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:102
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:105
 #, c-format
 msgid "District '%' has no sink."
 msgstr "Bölge '%'sinin çukuru yoktur."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:194
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:197
 msgid ""
 "Cannot find different source and sink edge for origin '%' and destination "
 "'%'."
 msgstr ""
 "Kaynak '%' ve hedef '%' için farklı kaynak ve çukur kenarı bulunamıyor."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:369 C:\Repos\sumo/src\od\ODMatrix.cpp:389
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:415
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:372 C:\Repos\sumo/src\od\ODMatrix.cpp:392
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:418
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
@@ -9934,65 +9931,65 @@ msgstr ""
 "Saniyede % araçlık akış yoğunluğu, basit bir olasılıkla temsil edilemez. "
 "Eşit aralıklara geri dönülüyor."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:439
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:442
 msgid "End of file while reading %."
 msgstr "Okurken dosya sonu %."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:466
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:469
 msgid "Broken period definition '%'."
 msgstr "Bozuk dönem tanımı '%'."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:480
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:483
 msgid "Broken factor: '%'."
 msgstr "Bozuk faktör: '%'."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:514
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:517
 #, c-format
 msgid "Missing line with % district names."
 msgstr "Bölge isimlerinin olduğu satır eksik."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:524
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:527
 msgid "Missing line for district %."
 msgstr "Bölge %'si için eksik satır."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:538
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:541
 msgid "More entries than districts found."
 msgstr "Bölgelerden daha fazla kayıt bulundu."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:543 C:\Repos\sumo/src\od\ODMatrix.cpp:591
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:546 C:\Repos\sumo/src\od\ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
 msgstr "'%' satırındaki araç numarası sayısal değil."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:589
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:592
 msgid "Missing at least one information in line '%'."
 msgstr "'%' satırında en az bir bilgi eksik."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:652
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:655
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:154
 msgid "Could not open '%'."
 msgstr "'%' açılamadı."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:663 C:\Repos\sumo/src\od\ODMatrix.cpp:669
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:666 C:\Repos\sumo/src\od\ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr "'%' tanımlanan zaman hakkında gerekli bilgileri içermemektedir."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:679 C:\Repos\sumo/src\od\ODMatrix.cpp:692
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:682 C:\Repos\sumo/src\od\ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
 msgstr "Yüklenecek '%' matris dosyasına erişilemedi."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:719
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:722
 #, c-format
 msgid "Could not access route file '%' to load."
 msgstr "Yüklenecek '%' rota dosyasına erişilemedi."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:736
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:739
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
 "Bir günlük zaman çizelgesi için 24 giriş olduğunu varsayıyorum, ancak % var."
 
-#: C:\Repos\sumo/src\od\ODMatrix.cpp:746
+#: C:\Repos\sumo/src\od\ODMatrix.cpp:749
 msgid "Broken time line definition: missing a value in '%'."
 msgstr "Bozuk zaman çizgisi tanımı: '%' içinde bir değer eksik."
 
@@ -12181,6 +12178,9 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "'%' ayrıştırılırken belirtilmemiş bir hata oluştu"
+
+#~ msgid "Could not add node '%'"
+#~ msgstr "'%' Düğümü Eklenemedi"
 
 #~ msgid ""
 #~ "A stop must be placed on a busStop, a chargingStation, an "
