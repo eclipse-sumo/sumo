@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-13 07:38+0000\n"
+"PO-Revision-Date: 2023-11-13 08:19+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10559,6 +10559,8 @@ msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr ""
+"No se pudo construir el espacio de estacionamiento en netedit; el atributo "
+"ángulo no se pudo analizar como un número de coma flotante (float)."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:395
 msgid "add parking space in '"
@@ -10575,6 +10577,8 @@ msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
 msgstr ""
+"No se pudo crear el detector de área de carril con ID '%' en netedit; ID de "
+"semáforo no válido."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:504
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:565
@@ -10639,6 +10643,8 @@ msgstr "agregar intervalo de rerouter en '"
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
+"No se pudo crear el intervalo con inicio '%' y final '%' en '%' debido a una "
+"superposición."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:996
 msgid "add closing lane reroute in '"
@@ -10845,6 +10851,8 @@ msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
 msgstr ""
+"calibratorFlow del calibrador '%' no se puede escribir. Se debe habilitar el "
+"tipo, vehsPerHour o la velocidad"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:180
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
@@ -11029,7 +11037,7 @@ msgstr "Índice no válido"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 msgid "Could not build meanDataEdge; "
-msgstr ""
+msgstr "No se pudo construir la meanDataEdge; "
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
@@ -11166,14 +11174,14 @@ msgstr "La ruta '%' usada en % '%' no es válida."
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:841
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1056
 msgid "invalid person parent"
-msgstr ""
+msgstr "elemento padre de persona no válido"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:652
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:752
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:952
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1009
 msgid "invalid combination for personTrip"
-msgstr ""
+msgstr "combinación no válida para viaje de persona"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:661
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:761
@@ -11193,7 +11201,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1007
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1098
 msgid "invalid container parent"
-msgstr ""
+msgstr "elemento padre de contenedor no válido"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1058
 msgid "invalid combination for person stop"
@@ -11487,11 +11495,11 @@ msgstr "Opciones adicionales disponibles en el 'Modo Inspeccionar'"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:864
 msgid "Shape pos: "
-msgstr ""
+msgstr "Posición en forma: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:865
 msgid "Length pos: "
-msgstr ""
+msgstr "Posición en longitud: "
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:867
 msgid "Distance: "
@@ -13684,7 +13692,7 @@ msgstr "Vuelve a calcular las conexiones en todos los cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:266
 msgid "clear connections from selected lanes, edges and junctions"
-msgstr ""
+msgstr "eliminar conexiones de los carriles, aristas y cruces seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:293
 msgid "reset connections from selected lanes"
@@ -14233,7 +14241,7 @@ msgstr "Remover "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid " edges from to selection"
-msgstr ""
+msgstr " aristas de la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid "Add "
@@ -14241,7 +14249,7 @@ msgstr "Agregar "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid " edges to selection"
-msgstr ""
+msgstr " aristas a la selección"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:639
 msgid "toggle"
@@ -14704,7 +14712,7 @@ msgstr "Guardar programa semafórico en el archivo adicional"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2969
 msgid " new programs for tlLogic '"
-msgstr ""
+msgstr " nuevos programas para la lógica de semáforo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2974
 msgid "Updated program '"
@@ -16297,11 +16305,11 @@ msgstr "Dibujar límites"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2321
 msgid "Force draw for position selection"
-msgstr ""
+msgstr "Forzar dibujado para la selección de posición"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2324
 msgid "Force draw for rectangle selection"
-msgstr ""
+msgstr "Forzar dibujado para la selección rectangular"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2327
 msgid "Disable dotted contours during selection/deletion"
@@ -16333,7 +16341,7 @@ msgstr "Mostrar modelos de semáforo generados automáticamente"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2352
 msgid "Show head-up display"
-msgstr ""
+msgstr "Mostrar modo actual de la cámara"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2358
 msgid "Sun brightness"
