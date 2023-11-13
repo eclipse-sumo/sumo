@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-10 08:35+0000\n"
+"PO-Revision-Date: 2023-11-13 13:04+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -330,7 +330,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Factor de escala para flujos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:209
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:123
@@ -425,7 +425,7 @@ msgstr ""
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:146
 #, c-format
 msgid " % invalid detectors"
-msgstr ""
+msgstr " % detectores no válidos"
 
 #: C:\Repos\sumo/src\dfrouter\RODFNet.cpp:281
 msgid "Could not close route for '%'"
@@ -571,7 +571,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "Escribir viajes con coordenadas geográficas"
 
 #: C:\Repos\sumo/src\duarouter\RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
@@ -2778,7 +2778,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1182
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "Definición de parada no válida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1230
 msgid "The edge '%' for a stop is not known%."
@@ -2989,7 +2989,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:5619
 #, c-format
 msgid "Vehicle '%' aborts stop."
-msgstr ""
+msgstr "El vehículo '%' cancela la parada."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:5625
 msgid "Vehicle '%' skips stop on lane '%' time=%."
@@ -3292,7 +3292,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:70
 #: C:\Repos\sumo/src\microsim\devices\MSTransportableDevice_FCD.cpp:49
 msgid "Recording period for FCD-data"
-msgstr ""
+msgstr "Periodo de registro de datos FCD"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
@@ -3759,6 +3759,8 @@ msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
+"El algoritmo de despacho "
+"[greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:87
 msgid "Write information from the dispatch algorithm to FILE"
@@ -3983,7 +3985,7 @@ msgstr "Reservas de grupo inconsistentes."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:204
 msgid "Inconsistent group reservations (2)."
-msgstr ""
+msgstr "Reservas de grupo inconsistentes (2)."
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:65
 msgid "Idle taxi '%' has no next segment to stop. time=%."
@@ -4009,7 +4011,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:148
 msgid "weights.priority-factor cannot be negative."
-msgstr ""
+msgstr "weights.priority-factor no puede ser negativo."
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:152
 msgid ""
@@ -4877,7 +4879,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
-msgstr ""
+msgstr "Límite no válido: coordenada mal formada"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:259
 msgid ""
@@ -5010,7 +5012,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "El tipo de arista predeterminado"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:77
 msgid "The default width of added sidewalks"
@@ -5385,7 +5387,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:625
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "Remover aristas en STR[]"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:629
 msgid ""
@@ -5480,7 +5482,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:703
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "Usar FLOAT como longitud de rampa"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:707
 msgid "Use FLOAT as minimum ramp-length"
@@ -5534,7 +5536,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:760
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "junctions.internal-link-detail debe ser >= 2"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:765
 msgid ""
@@ -5603,7 +5605,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "Fallo en la lectura de %."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
@@ -5900,7 +5902,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:691
 msgid "Moving network to origin"
-msgstr ""
+msgstr "Moviendo la red al origen"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:299
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:321
@@ -6361,7 +6363,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "Generar INT carriles de giro a la izquerda"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
@@ -6609,7 +6611,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "Leer red de SUMO desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
@@ -6658,27 +6660,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr ""
+msgstr "Leer red de OpenDRIVE desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr ""
+msgstr "Leer red de VISUM desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr ""
+msgstr "Leer red de VISSIM desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
-msgstr ""
+msgstr "Leer red de RoboCup de DIR"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr ""
+msgstr "Leer red de MATsim desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr ""
+msgstr "Leer red de ITSUMO desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
@@ -6686,7 +6688,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
-msgstr ""
+msgstr "Leer mapa de altura de GeoTIFF"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:145
 #: C:\Repos\sumo/src\od2trips_main.cpp:159
@@ -7656,7 +7658,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1988
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:222
 msgid "Ignoring duplicate PT line '%'."
-msgstr ""
+msgstr "Ignorando la línea de transporte público duplicada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2003
 msgid "Via-node '%' was not instantiated"
@@ -7818,7 +7820,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:955
 msgid "found phase without tl-logic"
-msgstr ""
+msgstr "se encontró una fase sin lógica semafórica"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:963
 msgid "Phase duration for tl-logic '%/%' must be positive."
@@ -7831,7 +7833,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1026
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1030
 msgid "Unknown edge prohibition '%'"
-msgstr ""
+msgstr "Prohibición de arista desconocida '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:205
 msgid "Can not open visum-file '%'."
@@ -7852,7 +7854,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
-msgstr ""
+msgstr "Se produjo un nodo duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
@@ -7860,7 +7862,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
-msgstr ""
+msgstr "Se produjo un distrito duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
@@ -7869,7 +7871,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:458
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:475
 msgid "Duplicate edge occurred ('%')."
-msgstr ""
+msgstr "Se produjo una arista duplicada ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:580
 msgid ""
@@ -7937,7 +7939,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:987
 msgid "Unknown edge in TEILFLAECHENELEMENT"
-msgstr ""
+msgstr "Arista desconocida en TEILFLAECHENELEMENT"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1007
 msgid "Unknown are for area part '%'."
@@ -8552,7 +8554,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:258
 msgid "Loading weights from '%'..."
-msgstr ""
+msgstr "Cargando pesos desde '%'..."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:287
 msgid "Loading done."
@@ -9176,7 +9178,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:480
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "Factor roto: '%'."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:514
 #, c-format
@@ -9230,7 +9232,7 @@ msgstr ""
 #: C:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:471
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:168
 msgid "Could not load '%'."
-msgstr ""
+msgstr "No se pudo cargar '%'."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGBuilder.cpp:491
 msgid "Loaded decal '%' with bounding box % %."
@@ -9784,7 +9786,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\RONetHandler.cpp:280
 msgid "Skipping isolated junction '%'."
-msgstr ""
+msgstr "Saltando el cruce aislado '%'."
 
 #: C:\Repos\sumo/src\router\RONetHandler.cpp:299
 #, c-format
@@ -9995,7 +9997,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
-msgstr ""
+msgstr "No escribir nada."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:169
 msgid "Either a timeline or a netstate / amitran file must be given."
@@ -10116,7 +10118,7 @@ msgstr ""
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:323
 #, c-format
 msgid "  waiting for % clients..."
-msgstr ""
+msgstr "  esperando a % clientes..."
 
 #: C:\Repos\sumo/src\traci-server\TraCIServer.cpp:347
 msgid "  client connected"
@@ -10249,7 +10251,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:71
 msgid "Switches to verbose output"
-msgstr ""
+msgstr "Cambia a la salida detallada"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:74
 msgid "Prints option values before processing"
@@ -10330,15 +10332,15 @@ msgstr "Datos vacíos"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:99
 msgid "Invalid Number Format %"
-msgstr ""
+msgstr "Formato de número no válido %"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:112
 msgid "Invalid Time Format %"
-msgstr ""
+msgstr "Formato de tiempo no válido %"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:125
 msgid "Invalid Bool Format %"
-msgstr ""
+msgstr "Formato de booleano no válido %"
 
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:137
 msgid "Out Of Bounds"
@@ -10464,7 +10466,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:434
 msgid "Could not transform (%,%)"
-msgstr ""
+msgstr "No se pudo transformar (%,%)"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:578
 #, c-format
@@ -10651,7 +10653,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\iodevices\OutputDevice.cpp:86
 msgid "No port number given."
-msgstr ""
+msgstr "No se proporcionó un número de puerto."
 
 #: C:\Repos\sumo/src\utils\iodevices\OutputDevice.cpp:161
 msgid "Error on closing output devices."
@@ -10742,7 +10744,7 @@ msgstr "No se pudo guardar la configuración en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:678
 msgid "Written configuration to '%'"
-msgstr ""
+msgstr "Configuración guardada en '%'"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:691
 msgid "Could not save template to '%'"
@@ -10825,7 +10827,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:187
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "Calculando una nueva tabla de búsqueda."
 
 #: C:\Repos\sumo/src\utils\router\AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
@@ -11190,7 +11192,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:110
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
-msgstr ""
+msgstr "¡No se puede leer el archivo '%'!"
 
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:113
 #: C:\Repos\sumo/src\utils\xml\SUMOSAXReader.cpp:139
