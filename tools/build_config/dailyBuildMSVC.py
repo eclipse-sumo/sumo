@@ -58,7 +58,7 @@ def repositoryUpdate(options):
     cwd = os.getcwd()
     for d in options.repositories.split(","):
         os.chdir(os.path.join(options.rootDir, d))
-        status.log_subprocess(["git", "clean", "-f", "-x", "-q"])
+        status.log_subprocess(["git", "clean", "-f", "-x", "-d", "-q"])
         status.log_subprocess(["git", "pull"])
         status.log_subprocess(["git", "submodule", "update"])
         if gitrev == "":
