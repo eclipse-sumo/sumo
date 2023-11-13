@@ -236,23 +236,29 @@ GNERoute::isDemandElementValid() const {
             stops.push_back(routeChild);
         }
     }
+    // check stops
     if (getInvalidStops().size() > 0) {
         return Problem::STOP_DOWNSTREAM;
     }
-    // check parent edges
-    if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
-        // from and to are the same edges, then return true
-        return Problem::OK;
-    } else if (getParentEdges().size() > 0) {
-        // check that exist a connection between every edge
-        if (isRouteValid(getParentEdges()).size() > 0) {
-            return Problem::INVALID_PATH;
-        } else {
-            return Problem::OK;
+    // check repeating
+    if (myRepeat > 0) {
+        // avoid repeat in routes with only one edge
+        if (getParentEdges().size() == 1) {
+            return Problem::REPEATEDROUTE_DISCONNECTED;
         }
-    } else {
-        return Problem::INVALID_ELEMENT;
+        // check if front and last routes is connected
+        if ((getParentEdges().front() != getParentEdges().back()) &&
+            (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0)) {
+            return Problem::REPEATEDROUTE_DISCONNECTED;
+        }
     }
+    // check that exist a connection between every edge
+    if (isRouteValid(getParentEdges()).size() > 0) {
+        return Problem::INVALID_PATH;
+    } else {
+        return Problem::OK;
+    }
+    return Problem::INVALID_ELEMENT;
 }
 
 
@@ -268,6 +274,18 @@ GNERoute::getDemandElementProblem() const {
     const auto invalidStops = getInvalidStops();
     if (invalidStops.size() > 0) {
         return toString(invalidStops.size()) + " stops are outside of route (downstream)";
+    }
+    // check repeating
+    if (myRepeat > 0) {
+        // avoid repeat in routes with only one edge
+        if (getParentEdges().size() == 1) {
+            return TL("Cannot repeat in routes with only one edge");
+        }
+        // check if front and last routes is connected
+        if ((getParentEdges().front() != getParentEdges().back()) &&
+            (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0)) {
+            return TL("Cannot repeat route; front and last edge isn't connected");
+        }
     }
     // return string with the problem obtained from isRouteValid
     return isRouteValid(getParentEdges());
