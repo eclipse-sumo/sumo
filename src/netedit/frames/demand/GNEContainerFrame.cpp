@@ -62,8 +62,8 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create GNEPlanCreator Module
     myPlanCreator = new GNEPlanCreator(this);
 
-    // create legend label
-    myPathLegend = new GNEPathLegendModule(this);
+    // create plan creator legend
+    myPlanCreatorLegend = new GNEPlanCreatorLegend(this);
 }
 
 
@@ -187,13 +187,13 @@ GNEContainerFrame::tagSelected() {
                 // show edge path creator module
                 myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
                 // show path legend
-                myPathLegend->showPathLegendModule();
+                myPlanCreatorLegend->showPlanCreatorLegend();
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
                 myNeteditAttributes->hideNeteditAttributesModule();
                 myPlanCreator->hidePathCreatorModule();
-                myPathLegend->hidePathLegendModule();
+                myPlanCreatorLegend->hidePlanCreatorLegend();
             }
         } else {
             // hide modules
@@ -202,7 +202,7 @@ GNEContainerFrame::tagSelected() {
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
             myPlanCreator->hidePathCreatorModule();
-            myPathLegend->hidePathLegendModule();
+            myPlanCreatorLegend->hidePlanCreatorLegend();
         }
     } else {
         // hide all modules if container isn't valid
@@ -212,7 +212,7 @@ GNEContainerFrame::tagSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myPlanCreator->hidePathCreatorModule();
-        myPathLegend->hidePathLegendModule();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
 }
 
@@ -237,7 +237,7 @@ GNEContainerFrame::demandElementSelected() {
             // show edge path creator module
             myPlanCreator->showPlanCreatorModule(myPlanSelector, nullptr);
             // show legend
-            myPathLegend->showPathLegendModule();
+            myPlanCreatorLegend->showPlanCreatorLegend();
         } else {
             // hide modules
             myContainerPlanAttributes->hideAttributesCreatorModule();

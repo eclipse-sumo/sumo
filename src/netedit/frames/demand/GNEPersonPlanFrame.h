@@ -25,7 +25,7 @@
 #include <netedit/frames/GNEDemandSelector.h>
 #include <netedit/frames/GNEElementTree.h>
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPathLegendModule.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEPlanSelector.h>
 #include <netedit/frames/GNEPlanCreator.h>
@@ -106,6 +106,6 @@ private:
     /// @brief Person Hierarchy
     GNEElementTree* myPersonHierarchy;
 
-    /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    /// @brief plan creator legend
+    GNEPlanCreatorLegend* myPlanCreatorLegend;
 };

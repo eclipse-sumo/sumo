@@ -55,8 +55,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
     // Create GNEElementTree module
     myPersonHierarchy = new GNEElementTree(this);
 
-    // create legend label
-    myPathLegend = new GNEPathLegendModule(this);
+    // create plan creator legend
+    myPlanCreatorLegend = new GNEPlanCreatorLegend(this);
 }
 
 
@@ -81,7 +81,7 @@ GNEPersonPlanFrame::show() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
-        myPathLegend->hidePathLegendModule();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
     // show frame
     GNEFrame::show();
@@ -192,21 +192,21 @@ GNEPersonPlanFrame::tagSelected() {
             // show path creator mode
             myPlanCreator->showPlanCreatorModule(myPlanSelector, myPersonSelector->getPreviousPlanElement());
             // show legend
-            myPathLegend->showPathLegendModule();
+            myPlanCreatorLegend->showPlanCreatorLegend();
             // show person hierarchy
             myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
         } else {
             // hide modules
             myPlanCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
-            myPathLegend->hidePathLegendModule();
+            myPlanCreatorLegend->hidePlanCreatorLegend();
         }
     } else {
         // hide modules if tag selected isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
-        myPathLegend->hidePathLegendModule();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
 }
 
@@ -225,7 +225,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             myPersonPlanAttributes->hideAttributesCreatorModule();
             myPlanCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
-            myPathLegend->hidePathLegendModule();
+            myPlanCreatorLegend->hidePlanCreatorLegend();
         }
     } else {
         // hide modules if person selected isn't valid
@@ -233,7 +233,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPlanCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
-        myPathLegend->hidePathLegendModule();
+        myPlanCreatorLegend->hidePlanCreatorLegend();
     }
 }
 

@@ -26,7 +26,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
 #include <netedit/frames/GNEPlanCreator.h>
-#include <netedit/frames/GNEPathLegendModule.h>
+#include <netedit/frames/GNEPlanCreatorLegend.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEPlanSelector.h>
 
@@ -108,11 +108,11 @@ private:
     /// @brief Netedit parameter
     GNENeteditAttributes* myNeteditAttributes;
 
-    /// @brief edge path creator (used for Walks, rides and trips)
+    /// @brief plan creator
     GNEPlanCreator* myPlanCreator;
 
-    /// @brief path legend modul
-    GNEPathLegendModule* myPathLegend;
+    /// @brief plan creator legend
+    GNEPlanCreatorLegend* myPlanCreatorLegend;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();
