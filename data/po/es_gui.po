@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-06 17:00+0100\n"
-"PO-Revision-Date: 2023-11-13 08:19+0000\n"
+"PO-Revision-Date: 2023-11-13 13:04+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2190,7 +2190,7 @@ msgstr "carril destino [ID]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:112
 msgid "back lanes [id,..]"
-msgstr ""
+msgstr "carriles traseros [ID,...]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:116
 msgid "lateral offset [m]"
@@ -7479,14 +7479,15 @@ msgstr "El ID de la arista desde la que parten los vehículos"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1427
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
 msgstr ""
+"El ID de la arista a la que pueden llegar los vehículos al salir desde 'from'"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1432
 msgid "the lane index of the incoming lane (numbers starting with 0)"
-msgstr ""
+msgstr "el índice del carril entrante (números comienzan con 0)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1437
 msgid "the lane index of the outgoing lane (numbers starting with 0)"
-msgstr ""
+msgstr "el índice del carril saliente (números comienzan con 0)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1442
 msgid ""
@@ -7521,13 +7522,15 @@ msgstr "Distancia de visión entre vehículos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1472
 msgid "sets index of this connection within the controlling traffic light"
-msgstr ""
+msgstr "establece el índice de esta conexión dentro del semáforo que controla"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1478
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light"
 msgstr ""
+"establece el índice para el cruce interno de esta conexión dentro del "
+"semáforo que controla"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1495
 msgid "sets custom speed limit for the connection"
@@ -7549,14 +7552,16 @@ msgstr "si se coloca en verdadero, los vehículos harán un giro en 2 pasos"
 msgid ""
 "set a custom edge type (for applying vClass-specific speed restrictions)"
 msgstr ""
+"establecer un tipo de arista personalizado (para aplicar restricciones de "
+"velocidad específicas a una clase de vehículo)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1538
 msgid "turning direction for this connection (computed)"
-msgstr ""
+msgstr "dirección de giro para esta conexión (calculada)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1543
 msgid "link state for this connection (computed)"
-msgstr ""
+msgstr "estado del enlace para esta conexión (calculada)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1553
 msgid "InternalLanes"
@@ -7861,6 +7866,8 @@ msgstr "El nombre del carril en el que se ubicará la zona de estacionamiento"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1911
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr ""
+"La posición de carril en la que el vehículo deba salir cuando sale de la "
+"zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1916
 msgid "Name of parkingArea"
@@ -14316,7 +14323,7 @@ msgstr "Sumidero"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:916
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "TAZEdgeColor ya seleccionado"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:948
 msgid "edge wasn't found"
