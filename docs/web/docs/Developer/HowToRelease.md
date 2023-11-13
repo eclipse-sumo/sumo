@@ -117,7 +117,7 @@ following things need to be there:
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/
   - https://pypi.org/project/libtraci/
-- check the Maven build https://ci.eclipse.org/sumo/job/SUMO%20Build%20-%20Maven%20Release/view/tags/ and ensure that the artifacts have been uploaded to:
+- check the Maven build https://ci.eclipse.org/sumo/job/sumo-build/job/main/ and ensure that the artifacts have been uploaded to:
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
   - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
 
