@@ -300,6 +300,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addSynonyme("meandata-files", "meandata");
     neteditOptions.addDescription("meandata-files", "Input", TL("Load meanData descriptions from FILE(s)"));
 
+    neteditOptions.doRegister("ignore-missing-inputs", new Option_Bool(false));
+    neteditOptions.addDescription("ignore-missing-inputs", "Input", TL("Reset path values (additional, route, data...) after loading netedit config"));
+
     // TOPIC: Output
 
     neteditOptions.doRegister("tls-file", new Option_String());

@@ -4812,19 +4812,22 @@ GNEApplicationWindow::loadAdditionalElements() {
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '") + toString(additionalFiles) + "'");
         // iterate over every additional file
         for (const auto& file : additionalFiles) {
-            WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
-            // declare general handler
-            GNEGeneralHandler handler(myNet, file, true, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Run parser
-            if (!handler.parse()) {
-                WRITE_ERRORF(TL("Loading of % failed."), file);
+            // check if ignore missing imputs
+            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
+                WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
+                // declare general handler
+                GNEGeneralHandler handler(myNet, file, true, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("never", "auto", "auto");
+                // Run parser
+                if (!handler.parse()) {
+                    WRITE_ERRORF(TL("Loading of % failed."), file);
+                }
+                // set additionals in SumoConfig
+                setInputInSumoOptions(false, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("auto", "auto", "auto");
             }
-            // set additionals in SumoConfig
-            setInputInSumoOptions(false, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list
         myUndoList->end();
@@ -4853,19 +4856,22 @@ GNEApplicationWindow::loadDemandElements() {
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + toString(demandFiles) + "'");
         // iterate over every additional file
         for (const auto& file : demandFiles) {
-            WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
-            // declare general handler
-            GNEGeneralHandler handler(myNet, file, true, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Run parser
-            if (!handler.parse()) {
-                WRITE_ERRORF(TL("Loading of % failed."), file);
+            // check if ignore missing imputs
+            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
+                WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
+                // declare general handler
+                GNEGeneralHandler handler(myNet, file, true, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("never", "auto", "auto");
+                // Run parser
+                if (!handler.parse()) {
+                    WRITE_ERRORF(TL("Loading of % failed."), file);
+                }
+                // set additionals in SumoConfig
+                setInputInSumoOptions(false, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("auto", "auto", "auto");
             }
-            // set additionals in SumoConfig
-            setInputInSumoOptions(false, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list
         myUndoList->end();
@@ -4888,19 +4894,22 @@ GNEApplicationWindow::loadMeanDataElements() {
         myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TL("loading meanDatas from '") + toString(meanDataFiles) + "'");
         // iterate over every additional file
         for (const auto& file : meanDataFiles) {
-            WRITE_MESSAGE(TL("loading meandatas from '") + file + "'");
-            // declare general handler
-            GNEGeneralHandler handler(myNet, file, true, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Run parser
-            if (!handler.parse()) {
-                WRITE_ERRORF(TL("Loading of % failed."), file);
+            // check if ignore missing imputs
+            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
+                WRITE_MESSAGE(TL("loading meandatas from '") + file + "'");
+                // declare general handler
+                GNEGeneralHandler handler(myNet, file, true, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("never", "auto", "auto");
+                // Run parser
+                if (!handler.parse()) {
+                    WRITE_ERRORF(TL("Loading of % failed."), file);
+                }
+                // set additionals in sumo options
+                setInputInSumoOptions(false, false);
+                // disable validation for additionals
+                XMLSubSys::setValidation("auto", "auto", "auto");
             }
-            // set additionals in sumo options
-            setInputInSumoOptions(false, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list
         myUndoList->end();
@@ -4921,19 +4930,22 @@ GNEApplicationWindow::loadDataElements() {
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + toString(dataFiles) + "'");
         // iterate over every data file
-        for (const auto& dataFile : dataFiles) {
-            WRITE_MESSAGE(TL("Loading data elements from '") + dataFile + "'");
-            GNEDataHandler dataHandler(myNet, dataFile, true, false);
-            // disable validation for data elements
-            XMLSubSys::setValidation("never", "auto", "auto");
-            if (!dataHandler.parse()) {
-                WRITE_ERRORF(TL("Loading of % failed."), dataFile);
+        for (const auto& file : dataFiles) {
+            // check if ignore missing imputs
+            if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
+                WRITE_MESSAGE(TL("Loading data elements from '") + file + "'");
+                GNEDataHandler dataHandler(myNet, file, true, false);
+                // disable validation for data elements
+                XMLSubSys::setValidation("never", "auto", "auto");
+                if (!dataHandler.parse()) {
+                    WRITE_ERRORF(TL("Loading of % failed."), file);
+                }
+                // set first dataElementsFiles as default file
+                neteditOptions.resetWritable();
+                neteditOptions.set("data-files", file);
+                // disable validation for data elements
+                XMLSubSys::setValidation("auto", "auto", "auto");
             }
-            // set first dataElementsFiles as default file
-            neteditOptions.resetWritable();
-            neteditOptions.set("data-files", dataFile);
-            // disable validation for data elements
-            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undolist
         myUndoList->end();
