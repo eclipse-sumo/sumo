@@ -74,7 +74,7 @@ Straighten edge restore the original shape of an edge
 
 Sets the edge length to it's computed value (based on geometry) instead of a custom length.
 
-### Straigthen edge
+### Straighten edge
 
 Removes all geometry points of the edge, thereby making it straight
 
