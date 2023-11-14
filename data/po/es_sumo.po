@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-13 08:57+0100\n"
-"PO-Revision-Date: 2023-11-13 13:04+0000\n"
+"PO-Revision-Date: 2023-11-14 11:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1678,51 +1678,58 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:269
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "Incluir aristas internas en la salida"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:273
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "Guardar las rutas de personas y contenedores en un FILE separado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:276
 msgid "Save links states into FILE"
-msgstr ""
+msgstr "Guardar estados de enlaces en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:279
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "Guardar los bloques de señales de ferrocarril en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:282
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
+"Guardar las visibilidades de bluetooth en FILE (junto con device.btreceiver "
+"y device.btsender)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:285
 msgid "Record lane changes and their motivations for all vehicles into FILE"
 msgstr ""
+"Registrar los cambios de carril y sus motivaciones para todos los vehículos "
+"en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:288
 msgid "Record start of lane change manoeuvres"
-msgstr ""
+msgstr "Registrar inicio de maniobras de cambio de carril"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:291
 msgid "Record end of lane change manoeuvres"
-msgstr ""
+msgstr "Registrar final de maniobras de cambio de carril"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:294
 msgid "Record coordinates of lane change manoeuvres"
-msgstr ""
+msgstr "Registrar coordenadas de maniobras de cambio de carril"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:297
 msgid ""
 "Record stops and loading/unloading of passenger and containers for all "
 "vehicles into FILE"
 msgstr ""
+"Registrar paradas y carga/descarga de pasajeros y contenedores para todos "
+"los vehículos en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:299
 msgid "Write stop output for stops which have not ended at simulation end"
 msgstr ""
+"Escribir salida para paradas que no han finalizado al final de la simulación"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:302
 msgid "Write collision information into FILE"
@@ -1731,10 +1738,12 @@ msgstr "Escribir información de colisión en FILE"
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:305
 msgid "Write aggregated traffic statistics for all edges into FILE"
 msgstr ""
+"Escribir estadísticas de tráfico agregadas para todas las aristas en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:307
 msgid "Write aggregated traffic statistics for all lanes into FILE"
 msgstr ""
+"Escribir estadísticas de tráfico agregadas para todos los carriles en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:311
 msgid "Write overall statistics into FILE"
@@ -1762,15 +1771,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:327
 msgid "Prefix for network states"
-msgstr ""
+msgstr "Prefijo para estados de red"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:329
 msgid "Suffix for network states (.xml.gz or .xml)"
-msgstr ""
+msgstr "Sufijo para estados de red (.xml.gz o .xml)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:331
 msgid "Files for network states"
-msgstr ""
+msgstr "Archivos para estados de red"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:333
 msgid "Save random number generator states"
@@ -1778,15 +1787,16 @@ msgstr "Guardar estados del generador de números aleatorios"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:335
 msgid "Save person and container states (experimental)"
-msgstr ""
+msgstr "Guardar estados de persona y contenedor (experimental)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:337
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "Guardar restricciones de señales ferroviarias"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:339
 msgid "Write internal state values with the given precision (default 2)"
 msgstr ""
+"Escribir valores de estado internos con la precisión dada (por defecto 2)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:343
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -1802,7 +1812,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
-msgstr ""
+msgstr "Define la duración del paso en segundos"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:352
 msgid ""
@@ -1815,26 +1825,30 @@ msgid ""
 "Whether vehicles that depart between simulation steps should extrapolate the "
 "depart position"
 msgstr ""
+"Si los vehículos que salen entre pasos de simulación deben extrapolar la "
+"posición de salida"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:358
 msgid "Defines the number of threads for parallel simulation"
-msgstr ""
+msgstr "Define el número de subprocesos para la simulación paralela"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:361
 msgid ""
 "Defines the resolution in m when handling lateral positioning within a lane "
 "(with -1 all vehicles drive at the center of their lane"
 msgstr ""
+"Define la resolución en metros al manejar el posicionamiento lateral dentro "
+"de un carril (con -1 todos los vehículos circulan por el centro de su carril"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:365
 #: C:\Repos\sumo/src\router\ROFrame.cpp:142
 msgid "Load routes for the next number of seconds ahead"
-msgstr ""
+msgstr "Cargar rutas para el siguiente número de segundos por delante"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:368
 #: C:\Repos\sumo/src\router\ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "Deshabilitar enlaces internos (cruce)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:371
 msgid ""
@@ -1844,21 +1858,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:374
 msgid "Do not check whether routes are connected"
-msgstr ""
+msgstr "No comprobar si las rutas están conectadas"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:377
 msgid "Do not check whether accidents occur"
-msgstr ""
+msgstr "No comprobar si se producen accidentes"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:380
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr ""
+msgstr "Cómo lidiar con colisiones: [none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:383
 msgid ""
 "How to deal with collisions between vehicle and pedestrian: [none,warn,"
 "teleport,remove]"
 msgstr ""
+"Cómo lidiar con colisiones entre vehículos y peatones: "
+"[none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:386
 msgid ""
@@ -1889,26 +1905,32 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:401
 msgid "Delay vehicle insertion to stay within the given maximum number"
 msgstr ""
+"Retrasar la inserción del vehículo para permanecer dentro del número máximo "
+"dado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:404
 msgid ""
 "Abort the simulation if the given maximum number of teleports is exceeded"
-msgstr ""
+msgstr "Detener la simulación si se excede el número máximo de teleports dado"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:407
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
 msgstr ""
+"Escalar la demanda según el factor dado (descartando o duplicando vehículos)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:410
 msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
+msgstr "Sufijo a usar al crear IDs para vehículos clonados"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:413
 msgid ""
 "Specify how long a vehicle may wait until being teleported, defaults to 300, "
 "non-positive values disable teleporting"
 msgstr ""
+"Especificar cuánto tiempo puede esperar un vehículo hasta ser tele-"
+"transportado, el valor predeterminado es 300, los valores no positivos "
+"desactivan el teletransporte"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:416
 msgid ""
@@ -1933,6 +1955,8 @@ msgid ""
 "Whether vehicles shall be removed after waiting too long instead of being "
 "teleported"
 msgstr ""
+"Si los vehículos deben ser retirados después de esperar demasiado tiempo en "
+"lugar de teletransportarse"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:428
 msgid ""
@@ -2680,12 +2704,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:351
 msgid "Invalid cost for route '%'."
-msgstr ""
+msgstr "Costo no válido para la ruta '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:408
 #, c-format
 msgid "Route '%' has no edges."
-msgstr ""
+msgstr "La ruta '%' no tiene aristas."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:426
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:456
@@ -2702,18 +2726,18 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:458
 #, c-format
 msgid "A vehicle with id '%' already exists."
-msgstr ""
+msgstr "Ya existe un vehículo con ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:461
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:537
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "Ya existe otra ruta (o distribución) con ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:541
 #, c-format
 msgid "Route distribution '%' is empty."
-msgstr ""
+msgstr "La distribución de ruta '%' está vacía."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:581
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:569
@@ -2721,6 +2745,8 @@ msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
 msgstr ""
+"El tipo de vehículo '%' con la clase=pedestrian solo debe usarse para "
+"personas y no para el vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:590
 msgid ""
@@ -2731,7 +2757,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:599
 #, c-format
 msgid "Vehicle '%' has no route."
-msgstr ""
+msgstr "El vehículo '%' no tiene ruta."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:741
 msgid ""
@@ -2754,27 +2780,27 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1011
 #, c-format
 msgid "Another flow with the id '%' exists."
-msgstr ""
+msgstr "Ya existe otro flujo con el ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1152
 msgid "The busStop '%' is not known%."
-msgstr ""
+msgstr "La parada de bus '%' no es conocida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1158
 msgid "The containerStop '%' is not known%."
-msgstr ""
+msgstr "La parada de contenedor '%' no es conocida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1164
 msgid "The parkingArea '%' is not known%."
-msgstr ""
+msgstr "La zona de estacionamiento '%' no es conocida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1171
 msgid "The chargingStation '%' is not known%."
-msgstr ""
+msgstr "La estación de carga '%' no es conocida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1178
 msgid "The overhead wire segment '%' is not known%."
-msgstr ""
+msgstr "El segmento de catenaria '%' no es conocido%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1182
 msgid "Invalid stop definition%."
@@ -2782,11 +2808,11 @@ msgstr "Definición de parada no válida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1230
 msgid "The edge '%' for a stop is not known%."
-msgstr ""
+msgstr "La arista '%' para una parada no es conocida%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1244
 msgid "The lane '%' for a stop is not known%."
-msgstr ""
+msgstr "El carril '%' para una parada no es conocido%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1261
 msgid ""
@@ -2796,21 +2822,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1272
 msgid "Deprecated attribute 'pos' in description of stop%."
-msgstr ""
+msgstr "Atributo obsoleto 'pos' en la descripción de parada%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1280
 msgid "Invalid start or end position for stop on %'%."
-msgstr ""
+msgstr "Posición inicial o final no válida para la parada en %'%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1294
 msgid "Disconnected plan for % '%' (%!=%)."
-msgstr ""
+msgstr "Plan desconectado para % '%' (%!=%)."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1304
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr ""
+"Plan desconectado para % '%' (el rango de parada %-% no cubre la posición de "
+"llegada anterior %)."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1339
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
@@ -2831,29 +2859,29 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1392
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1229
 msgid "No destination edge for %."
-msgstr ""
+msgstr "Sin arista destino para %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1421
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1249
 msgid "Start edge not defined for person '%'."
-msgstr ""
+msgstr "Arista inicial no definida para la persona '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1431
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1496
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1260
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1317
 msgid "Non-positive walking duration for '%'."
-msgstr ""
+msgstr "Duración de caminata no positiva para '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1458
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1502
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1321
 msgid "Non-positive walking speed for '%'."
-msgstr ""
+msgstr "Velocidad de caminata no positiva para '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1527
 msgid "No edges to walk for person '%'."
-msgstr ""
+msgstr "No hay aristas para caminar para la persona '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1564
 msgid ""
@@ -2863,26 +2891,28 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1598
 msgid "The type '%' for % '%' is not known."
-msgstr ""
+msgstr "El tipo '%' para % '%' no es conocido."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1621
 msgid "Could not read tranship speed for container '%'."
-msgstr ""
+msgstr "No se pudo leer la velocidad de transbordo del contenedor '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1629
 msgid "Non-positive tranship speed for container '%'."
-msgstr ""
+msgstr "Velocidad de transbordo no positiva para el contenedor '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1655
 #, c-format
 msgid "The start edge for container '%' is not known."
-msgstr ""
+msgstr "La arista inicial para el contenedor '%' no es conocida."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1674
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
+"Transbordo inconsistente para el contenedor '%', solo se permite una opción: "
+"'edges', 'to', 'containerStop'"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1680
 msgid "No edges to tranship container '%'."
@@ -2893,7 +2923,7 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\options\OptionsIO.cpp:164
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
-msgstr ""
+msgstr "No se puede leer el archivo XML '%'."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
@@ -2908,34 +2938,36 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:144
 #, c-format
 msgid "Unknown lane '%' in loaded state."
-msgstr ""
+msgstr "Carril desconocido '%' en el estado cargado."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:390
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
-msgstr ""
+msgstr "Ignorando el programa '%' para el semáforo '%' en el estado cargado"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:425
 msgid "Could not load vehicle control state"
-msgstr ""
+msgstr "No se pudo cargar el estado de control del vehículo"
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:434
 msgid "Removed % vehicles while loading state."
-msgstr ""
+msgstr "Se eliminaron % vehículos al cargar el estado."
 
 #: C:\Repos\sumo/src\microsim\MSStateHandler.cpp:460
 #, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr ""
+msgstr "No se pudo cargar el vehículo '%' del estado"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:320
 msgid "No gap control available for meso."
-msgstr ""
+msgstr "No hay control de brecha disponible para la simulación mesoscópica."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:715
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
+"El modelo de cambio de carril no proporcionó una razón para cambiar (estado "
+"=%, tiempo =%\n"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:756
 #: C:\Repos\sumo/src\utils\common\UtilExceptions.h:171
@@ -2947,6 +2979,8 @@ msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
 msgstr ""
+"Vehículo '%' movido por TraCI de % a % (distancia %) con una velocidad "
+"implícita de % (superando la velocidad máxima %). tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:1689
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
@@ -4125,7 +4159,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1063
 msgid "Unmatched parentheses in condition %'"
-msgstr ""
+msgstr "Paréntesis no coincidentes en la condición %'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1078
 msgid "Invalid empty condition '%'"
@@ -4137,12 +4171,12 @@ msgstr "Condición no soportada '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1156
 msgid "Division by 0 in condition '%'"
-msgstr ""
+msgstr "División por 0 en la condición '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1207
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
-msgstr ""
+msgstr "Está prohibido modificar la condición global '%'"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1219
 msgid "Invalid empty expression"
@@ -4217,7 +4251,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
-msgstr ""
+msgstr "*** La intersección % se ejecutará usando MSSwarmTrafficLightLogic ***"
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:202
 msgid "TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."
@@ -5644,15 +5678,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "Durante el cálculo del semáforo '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:514
 msgid "Could not set signal on connection (signal: %, group: %)"
-msgstr ""
+msgstr "No se pudo establecer la señal en la conexión (señal: %, grupo: %)"
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not propperly initialized\n"
-msgstr ""
+msgstr "myNeedsContRelation no se inicializó correctamente\n"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:94
 msgid "Removing self-loops"
