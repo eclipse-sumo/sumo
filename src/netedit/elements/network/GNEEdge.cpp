@@ -1287,7 +1287,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BIDIR:
             return canParse<bool>(value) && (!parse<bool>(value) || myNBEdge->isBidiEdge(true));
         case GNE_ATTR_STOPOFFSET:
-            return canParse<int>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:
@@ -1305,6 +1305,8 @@ GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case GNE_ATTR_BIDIR:
             return myNBEdge->isBidiEdge(true);
+        case GNE_ATTR_STOPOEXCEPTION:
+            return myNBEdge->myEdgeStopOffset.getOffset() > 0;
         default:
             return true;
     }

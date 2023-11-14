@@ -536,7 +536,7 @@ GNEFrameAttributeModules::AttributesEditorRow::buildAttributeElements(const bool
         myAttributeButton->setTipText(TL("Open dialog for editing vClasses"));
         myAttributeButton->setHelpText(TL("Open dialog for editing vClasses"));
         // check if disable
-        if (disableRow) {
+        if (!attributeEnabled ||disableRow) {
             myAttributeButton->disable();
         }
     } else if (myACAttr.isColor()) {
@@ -631,6 +631,8 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
         // check if disable
         if (disableElement) {
             myAttributeCheckButton->disable();
+        } else {
+            myAttributeCheckButton->enable();
         }
     } else if (myAttributeButton) {
         if (myAttributeButton->getSelector() == MID_GNE_SET_ATTRIBUTE_INSPECTPARENT) {
@@ -646,17 +648,15 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributeElements(const st
             myAttributeButton->setHelpText(TLF("Inspect % parent", myACAttr.getAttrStr()).c_str());
             // set color text depending of computed
             myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-            // check if disable
-            if (disableElement) {
-                myAttributeButton->disable();
-            }
         } else {
             // set color text depending of computed
             myAttributeButton->setTextColor(computed ? FXRGB(0, 0, 255) : FXRGB(0, 0, 0));
-            // check if disable
-            if (disableElement) {
-                myAttributeButton->disable();
-            }
+        }
+        // check if disable
+        if (!attributeEnabled || disableElement) {
+            myAttributeButton->disable();
+        } else {
+            myAttributeButton->enable();
         }
     }
     // check if update lane buttons
@@ -798,6 +798,10 @@ GNEFrameAttributeModules::AttributesEditorRow::updateMoveLaneButtons(const std::
         } else {
             myValueLaneDownButton->enable();
         }
+    }
+    if (!isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
+        myValueLaneUpButton->disable();
+        myValueLaneDownButton->disable();
     }
 }
 

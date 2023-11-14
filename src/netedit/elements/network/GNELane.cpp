@@ -1109,6 +1109,8 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_INDEX:
             return false;
+        case GNE_ATTR_STOPOFFSET:
+            return myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset.getOffset() > 0;
         default:
             return true;
     }
