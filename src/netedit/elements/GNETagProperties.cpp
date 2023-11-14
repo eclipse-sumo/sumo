@@ -89,17 +89,29 @@ void
 GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
+    if (myTagType == -1) {
+        throw ProcessError(TL("no tag type defined"));
+    }
+    if (myTagProperty == -1) {
+        throw ProcessError(TL("no tag property defined"));
+    }
+    if (myTagParents == -1) {
+        throw ProcessError(TL("no tag parent defined"));
+    }
+    if (myConflicts == -1) {
+        throw ProcessError(TL("no conflict defined"));
+    }
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane()) {
-        throw ProcessError(TL("element must be at least networkElement, additional, TAZ, demandElement, dataElement or meanData"));
+        throw ProcessError(TL("no basic type property defined"));
     }
     // check that element only is networkElement, Additional, or shape at the same time
     if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData()) > 1) {
-        throw ProcessError(TL("element can be only a networkElement, additional, demandElement, dataElement or meanData at the same time"));
+        throw ProcessError(TL("multiple basic type properties defined"));
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
-        throw ProcessError(TL("element can be only a shape, TAZ or wire element at the same time"));
+        throw ProcessError(TL("element can be either shape or TAZ or wire element at the same time"));
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
@@ -107,11 +119,11 @@ GNETagProperties::checkTagIntegrity() const {
     }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
-        throw FormatException("Master tags cannot be empty");
+        throw FormatException("Parent tags cannot be empty");
     }
     // check that master was defined
     if (!isChild() && !myParentTags.empty()) {
-        throw FormatException("Tag doesn't support master elements");
+        throw FormatException("Element doesn't support parent elements");
     }
     // check reparent
     if (!isChild() && canBeReparent()) {
@@ -119,7 +131,7 @@ GNETagProperties::checkTagIntegrity() const {
     }
     // check vClass icons
     if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
-        throw FormatException("Tag require attribute SUMO_ATTR_VCLASS");
+        throw FormatException("Element require attribute SUMO_ATTR_VCLASS");
     }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
@@ -631,7 +643,7 @@ GNETagProperties::isChild() const {
 
 bool
 GNETagProperties::isSymbol() const {
-    return (myTagType & SYMBOL) != 0;
+    return (myTagProperty & SYMBOL) != 0;
 }
 
 
