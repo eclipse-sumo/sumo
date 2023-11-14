@@ -53,7 +53,7 @@ NWWriter_DlrNavteq::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("dlr-navteq-output")) {
         return;
     }
-    std::map<NBEdge*, std::string> internalNodes;
+    std::map<const NBEdge*, std::string> internalNodes;
     writeNodesUnsplitted(oc, nb.getNodeCont(), nb.getEdgeCont(), internalNodes);
     writeLinksUnsplitted(oc, nb.getEdgeCont(), internalNodes);
     writeTrafficSignals(oc, nb.getNodeCont());
@@ -75,8 +75,9 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
     device << "#\n";
 }
 
+
 void
-NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
     // For "real" nodes we simply use the node id.
     // For internal nodes (geometry vectors describing edge geometry in the parlance of this format)
     // we use the id of the edge and do not bother with
@@ -139,8 +140,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
         avoid.insert(avoid.end(), reservedNodeIDs.begin(), reservedNodeIDs.end());
     }
     IDSupplier idSupplier("", avoid);
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto& edgeIt: ec) {
+        const NBEdge* const e = edgeIt.second;
         PositionVector geom = e->getGeometry();
         if (geom.size() > 2) {
             // the import NIImporter_DlrNavteq checks for the presence of a
@@ -191,7 +192,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
 
 void
-NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
     std::map<const std::string, std::string> nameIDs;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
@@ -205,8 +206,8 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
     }
     device << "\n";
     // write edges
-    for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        NBEdge* e = (*i).second;
+    for (const auto& edgeIt : ec) {
+        const NBEdge* const e = edgeIt.second;
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
         std::string nameID = UNDEFINED;
@@ -303,7 +304,7 @@ NWWriter_DlrNavteq::getAllowedTypes(SVCPermissions permissions) {
 
 
 int
-NWWriter_DlrNavteq::getRoadClass(NBEdge* edge) {
+NWWriter_DlrNavteq::getRoadClass(const NBEdge* const edge) {
     // quoting the navteq manual:
     // As a general rule, Functional Road Class assignments have no direct
     // correlation with other road attributes like speed, controlled access, route type, etc.
@@ -409,7 +410,7 @@ NWWriter_DlrNavteq::getNavteqLaneCode(const int numLanes) {
 
 
 int
-NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
+NWWriter_DlrNavteq::getBrunnelType(const NBEdge* const edge) {
     if (edge->knowsParameter("bridge")) {
         return 1;
     } else if (edge->knowsParameter("tunnel")) {
@@ -422,7 +423,7 @@ NWWriter_DlrNavteq::getBrunnelType(NBEdge* edge) {
 
 
 int
-NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
+NWWriter_DlrNavteq::getFormOfWay(const NBEdge* const edge) {
     if (edge->getPermissions() == SVC_PEDESTRIAN) {
         return 15;
     } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
@@ -437,7 +438,7 @@ NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
 
 
 double
-NWWriter_DlrNavteq::getGraphLength(NBEdge* edge) {
+NWWriter_DlrNavteq::getGraphLength(const NBEdge* const edge) {
     PositionVector geom = edge->getGeometry();
     geom.push_back_noDoublePos(edge->getToNode()->getPosition());
     geom.push_front_noDoublePos(edge->getFromNode()->getPosition());
