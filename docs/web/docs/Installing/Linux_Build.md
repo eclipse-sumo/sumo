@@ -247,7 +247,7 @@ SUMO from the bin subfolder (bin/sumo-gui and bin/sumo).
 
 If you want to install the SUMO binaries into your system, run
 ```
-cmake --install build
+sudo cmake --install build
 ```
 
 You have to adjust your SUMO_HOME variable to the install dir (usually
