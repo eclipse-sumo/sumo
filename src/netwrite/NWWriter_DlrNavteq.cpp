@@ -164,27 +164,29 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
                 }
             }
 
-            std::string internalNodeID = e->getID();
-            if (internalNodeID == UNDEFINED
+            if (geom.size() > 2) { // move2side might have changed the number of nodes
+                std::string internalNodeID = e->getID();
+                if (internalNodeID == UNDEFINED
                     || (nc.retrieve(internalNodeID) != nullptr)
                     || reservedNodeIDs.count(internalNodeID) > 0
-               ) {
-                // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
-                if (numericalIDs) {
-                    internalNodeID = idSupplier.getNext();
-                } else {
-                    internalNodeID += "_geometry";
+                    ) {
+                    // need to invent a new name to avoid clashing with the id of a 'real' node or a reserved name
+                    if (numericalIDs) {
+                        internalNodeID = idSupplier.getNext();
+                    } else {
+                        internalNodeID += "_geometry";
+                    }
                 }
+                internalNodes[e] = internalNodeID;
+                device << internalNodeID << "\t1\t" << geom.size() - 2;
+                for (int ii = 1; ii < (int)geom.size() - 1; ++ii) {
+                    Position pos = geom[(int)ii];
+                    gch.cartesian2geo(pos);
+                    pos.mul(geoScale);
+                    device << "\t" << pos.x() << "\t" << pos.y();
+                }
+                device << "\n";
             }
-            internalNodes[e] = internalNodeID;
-            device << internalNodeID << "\t1\t" << geom.size() - 2;
-            for (int ii = 1; ii < (int)geom.size() - 1; ++ii) {
-                Position pos = geom[(int)ii];
-                gch.cartesian2geo(pos);
-                pos.mul(geoScale);
-                device << "\t" << pos.x() << "\t" << pos.y();
-            }
-            device << "\n";
         }
     }
     device.close();
