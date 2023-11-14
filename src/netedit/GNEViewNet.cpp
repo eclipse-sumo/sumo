@@ -956,8 +956,8 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
     // Declare map of edges and lanes
     std::map<GNEEdge*, GNELane*> mapOfEdgesAndLanes;
     // Iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
-        mapOfEdgesAndLanes[myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID())] = lane;
+    for (const auto& selectedLane : selectedLanes) {
+        mapOfEdgesAndLanes[myNet->getAttributeCarriers()->retrieveEdge(selectedLane->getParentEdge()->getID())] = selectedLane;
     }
     // Throw warning dialog if there hare multiple lanes selected in the same edge
     if (mapOfEdgesAndLanes.size() != selectedLanes.size()) {
@@ -1039,9 +1039,9 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         setOfEdges.insert(edge);
     }
     // iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
+    for (const auto& selectedLane : selectedLanes) {
         // Insert pointer to edge into set of edges (To avoid duplicates)
-        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
+        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(selectedLane->getParentEdge()->getID()));
     }
     // If we handeln a set of edges
     if (lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) {
@@ -1131,9 +1131,9 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
         setOfEdges.insert(edge);
     }
     // iterate over selected lanes
-    for (const auto& lane : selectedLanes) {
+    for (const auto& selectedLane : selectedLanes) {
         // Insert pointer to edge into set of edges (To avoid duplicates)
-        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
+        setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(selectedLane->getParentEdge()->getID()));
     }
     // If we handeln a set of edges
     if (setOfEdges.size() > 0) {
