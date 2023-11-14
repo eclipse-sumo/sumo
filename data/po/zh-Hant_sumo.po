@@ -6870,7 +6870,7 @@ msgstr "根據圖層資料重建（相對）高程。 每層以 FLOAT 公尺的�
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:187
 #, c-format
 msgid ""
-"Maximum grade threshold in % at 50km/h when reconstrucing elevation based on "
+"Maximum grade threshold in % at 50km/h when reconstructing elevation based on "
 "layer data. The value is scaled according to road speed."
 msgstr ""
 "當基於圖層資料重建高程時，在50 公里/小時的速度的最大坡度閾值 %。 該值根據道路"

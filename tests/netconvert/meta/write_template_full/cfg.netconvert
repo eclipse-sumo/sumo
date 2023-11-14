@@ -309,7 +309,7 @@
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
-        <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed."/>
+        <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed."/>
         <osm.oneway-spread-right value="false" type="BOOL" help="Whether one-way roads should be spread to the side instead of centered"/>
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
         <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL" help="Import bike lanes and fix directions and permissions on bike paths"/>

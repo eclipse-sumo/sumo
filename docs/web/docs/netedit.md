@@ -348,7 +348,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
-| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
+| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
 | **--osm.bike-access** {{DT_BOOL}} | Import bike lanes and fix directions and permissions on bike paths; *default:* **false** |

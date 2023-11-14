@@ -562,7 +562,7 @@ Formats Options:
                                         on layer data. Each layer is raised by
                                         FLOAT m
   --osm.layer-elevation.max-grade FLOAT  Maximum grade threshold in % at 50km/h
-                                        when reconstrucing elevation based on
+                                        when reconstructing elevation based on
                                         layer data. The value is scaled
                                         according to road speed.
   --osm.oneway-spread-right            Whether one-way roads should be spread
