@@ -83,20 +83,21 @@ public:
 
     /// @brief general tag properties
     enum TagProperty {
-        NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
-        CLOSESHAPE =            1 << 1,     // Element can close their shape
-        GEOSHAPE =              1 << 2,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                 1 << 4,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
-        REPARENT =              1 << 5,     // Element can be reparent
-        NOTSELECTABLE =         1 << 6,     // Element cannot be selected
-        MASKSTARTENDPOS =       1 << 7,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        NOPARAMETERS =          1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                 1 << 9,     // Element is placed in RTREE
-        CENTERAFTERCREATION =   1 << 10,    // Camera is moved after element creation
-        REQUIRE_PROJ =          1 << 11,    // Element require a geo-projection defined in network
-        VCLASS_ICON =           1 << 12,    // Element returns icon depending of their vClass
-        SYMBOL =                1 << 13,    // Symbol elements (VSSSymbols, RerouterSymbols...)
+        NO_PROPERTY =           1 << 0,     // Element doesn't have properties
+        NOTDRAWABLE =           1 << 1,     // Element cannot be drawn in view
+        CLOSESHAPE =            1 << 2,     // Element can close their shape
+        GEOSHAPE =              1 << 3,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                1 << 4,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        CHILD =                 1 << 5,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
+        REPARENT =              1 << 6,     // Element can be reparent
+        NOTSELECTABLE =         1 << 7,     // Element cannot be selected
+        MASKSTARTENDPOS =       1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        NOPARAMETERS =          1 << 9,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                 1 << 10,     // Element is placed in RTREE
+        CENTERAFTERCREATION =   1 << 11,    // Camera is moved after element creation
+        REQUIRE_PROJ =          1 << 12,    // Element require a geo-projection defined in network
+        VCLASS_ICON =           1 << 13,    // Element returns icon depending of their vClass
+        SYMBOL =                1 << 14,    // Symbol elements (VSSSymbols, RerouterSymbols...)
     };
 
     /// @brief tag parents

@@ -1246,7 +1246,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::LANE, currentTag, TL("Lane"));
@@ -1342,7 +1342,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::CROSSING, currentTag, TL("Crossing"));
@@ -1422,7 +1422,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::NETWORKELEMENT,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::CONNECTION, currentTag, TL("Connection"));
@@ -1558,7 +1558,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::INTERNALLANE,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::JUNCTION, currentTag, TL("InternalLanes"));
@@ -2081,7 +2081,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::E2, currentTag, TL("E2 LaneAreaDetector"),
@@ -2165,7 +2165,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::DETECTOR,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::E2, SUMO_TAG_LANE_AREA_DETECTOR, TL("E2 MultiLaneAreaDetector"),
@@ -3272,7 +3272,7 @@ GNEAttributeCarrier::fillWireElements() {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::WIRE,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::OVERHEADWIRE, currentTag, TL("WireSection"));
@@ -3322,7 +3322,7 @@ GNEAttributeCarrier::fillWireElements() {
         // set tag properties
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::WIRE,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::OVERHEADWIRE_CLAMP, currentTag, TL("OverheadWireClamp"));
@@ -3429,7 +3429,7 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::ROUTE,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::ROUTE, currentTag, TL("Route"));
@@ -4460,7 +4460,7 @@ GNEAttributeCarrier::fillPersonElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSON,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSON, currentTag, TL("Person"));
@@ -4481,7 +4481,7 @@ GNEAttributeCarrier::fillPersonElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSON | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONFLOW, currentTag, TL("PersonFlow"));
@@ -4506,7 +4506,7 @@ GNEAttributeCarrier::fillContainerElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINER,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::CONTAINER, currentTag, TL("Container"));
@@ -4525,7 +4525,7 @@ GNEAttributeCarrier::fillContainerElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINER | GNETagProperties::TagType::FLOW,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::CONTAINERFLOW, currentTag, TL("ContainerFlow"));
@@ -6353,13 +6353,6 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
     attrProperty.setRange(-1, 1);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    /*
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_EXPERIMENTAL1,
-        GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-        "XXXXX"),
-        "0.00"));
-    myTagProperties[currentTag].addAttribute(attrProperty);
-    */
 }
 
 
@@ -6834,7 +6827,7 @@ GNEAttributeCarrier::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT | GNETagProperties::TagType::GENERICDATA,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::EDGEDATA, SUMO_TAG_EDGE, TL("EdgeRelationSingle"));
@@ -6850,7 +6843,7 @@ GNEAttributeCarrier::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DATAELEMENT | GNETagProperties::TagType::GENERICDATA,
-                                      0,
+                                      GNETagProperties::TagProperty::NO_PROPERTY,
                                       0,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::EDGERELDATA, currentTag, TL("EdgeRelation"));
