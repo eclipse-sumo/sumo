@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFixElementsDialog.h
+/// @file    GNEFixElementsDialogRow.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2023
 ///
-// Dialog used to fix elements during saving
+// Row used in GNEFixElementsDialog
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -33,16 +33,20 @@ class GNEViewNet;
 // class definitions
 // ===========================================================================
 
-class GNEFixElementsDialog : public FXDialogBox {
+/**
+ * @class GNEFixElementsDialogRow
+ * @brief Dialog for edit rerouters
+ */
+class GNEFixElementsDialogRow : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEFixElementsDialog)
+    FXDECLARE(GNEFixElementsDialogRow)
 
 public:
     /// @brief Constructor
-    GNEFixElementsDialog(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+    GNEFixElementsDialogRow(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
     /// @brief destructor
-    ~GNEFixElementsDialog();
+    ~GNEFixElementsDialogRow();
 
     /// @name FOX-callbacks
     /// @{
@@ -62,7 +66,7 @@ protected:
 
     public:
         /// @brief constructor
-        AdditionalList(GNEFixElementsDialog* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+        AdditionalList(GNEFixElementsDialogRow* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
         /// @brief vector with the invalid single-lane additionals
         std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
@@ -79,7 +83,7 @@ protected:
 
     public:
         /// @brief build Position Options
-        PositionOptions(GNEFixElementsDialog* fixAdditionalPositions);
+        PositionOptions(GNEFixElementsDialogRow* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -108,7 +112,7 @@ protected:
 
     public:
         /// @brief build consecutive lane Options
-        ConsecutiveLaneOptions(GNEFixElementsDialog* fixAdditionalPositions);
+        ConsecutiveLaneOptions(GNEFixElementsDialogRow* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -132,7 +136,7 @@ protected:
         FXRadioButton* fixPositionsAndSave;
     };
 
-    FOX_CONSTRUCTOR(GNEFixElementsDialog)
+    FOX_CONSTRUCTOR(GNEFixElementsDialogRow)
 
     /// @brief view net
     GNEViewNet* myViewNet;
@@ -157,8 +161,8 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEFixElementsDialog(const GNEFixElementsDialog&) = delete;
+    GNEFixElementsDialogRow(const GNEFixElementsDialogRow&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEFixElementsDialog& operator=(const GNEFixElementsDialog&) = delete;
+    GNEFixElementsDialogRow& operator=(const GNEFixElementsDialogRow&) = delete;
 };

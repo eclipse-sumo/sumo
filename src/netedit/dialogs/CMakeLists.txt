@@ -18,6 +18,8 @@ set(netedit_dialogs_SRCS
    GNEFixAdditionalElements.cpp
    GNEFixDemandElements.h
    GNEFixDemandElements.cpp
+   GNEFixElementsDialogRow.h
+   GNEFixElementsDialogRow.cpp
    GNEFixElementsDialog.h
    GNEFixElementsDialog.cpp
    GNEAdditionalDialog.h
