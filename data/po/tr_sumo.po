@@ -6212,7 +6212,7 @@ msgid "Could not set signal on connection (signal: %, group: %)"
 msgstr "Bağlantıda sinyal ayarlanamadı (sinyal: %, grup: %)"
 
 #: C:\Repos\sumo/src\netbuild\NBLoadedTLDef.cpp:612
-msgid "myNeedsContRelation was not propperly initialized\n"
+msgid "myNeedsContRelation was not properly initialized\n"
 msgstr "benimİhtiyaçlarımİlişkisi uygun şekilde başlatılmadı\n"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:94

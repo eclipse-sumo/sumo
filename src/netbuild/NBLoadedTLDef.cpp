@@ -609,7 +609,7 @@ NBLoadedTLDef::replaceRemoved(NBEdge* removed, int removedLane,
 void
 NBLoadedTLDef::initNeedsContRelation() const {
     if (!myNeedsContRelationReady) {
-        throw ProcessError(TL("myNeedsContRelation was not propperly initialized\n"));
+        throw ProcessError(TL("myNeedsContRelation was not properly initialized\n"));
     }
 }
 
