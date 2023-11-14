@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-13 08:57+0100\n"
-"PO-Revision-Date: 2023-11-14 11:09+0000\n"
+"PO-Revision-Date: 2023-11-14 14:51+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6905,24 +6905,24 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:281
 msgid "Insert edges in both directions"
-msgstr ""
+msgstr "Insertar aristas en ambas direcciones"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:285
 msgid "Guess the proper projection"
-msgstr ""
+msgstr "Adivinar la proyección adecuada"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:288
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
-msgstr ""
+msgstr "Usar el orden de ejes tradicional (lon, lat)"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:293
 msgid "Allow more vehicle classes by default"
-msgstr ""
+msgstr "Permitir más clases de vehículos de forma predeterminada"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:296
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
-msgstr ""
+msgstr "Conservar las longitudes de arista indicadas en el archivo DLR Navteq"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:302
 msgid "Structure join offset"
@@ -6930,11 +6930,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:305
 msgid "Use FLOAT as default speed"
-msgstr ""
+msgstr "Usar FLOAT como velocidad predeterminada"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:308
 msgid "Factor for edge velocity"
-msgstr ""
+msgstr "Factor para velocidad de arista"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:311
 msgid "Writes lanes without an explicit speed set"
@@ -6943,11 +6943,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:316
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
-msgstr ""
+msgstr "Cargar asignaciones de idiomas desde FILE"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:319
 msgid "Uses priorities from types"
-msgstr ""
+msgstr "Usar prioridades de los tipos"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:322
 msgid "Uses lane numbers from types"
@@ -6972,28 +6972,33 @@ msgstr "Excluye conectores"
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:339
 msgid "Computes the number of lanes from the edges' capacities"
 msgstr ""
+"Calcular el número de carriles a partir de las capacidades de las aristas"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:342
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
+"Imprimir todas las advertencias, algunas de las cuales podrán ser debido a "
+"un mal comportamiento de VISUM"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:347
 msgid "The factor for flow to no. lanes conversion"
-msgstr ""
+msgstr "El factor para la conversión de flujo a número de carriles"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:352
 msgid "Imports all lane types"
-msgstr ""
+msgstr "Importar todos los tipos de carril"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:354
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "Si se deberán ignorar los anchos de los carriles."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:356
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
 msgstr ""
+"La resolución de la geometría, en metros, al importar geometrías curvas como "
+"segmentos de línea."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:358
 msgid ""
@@ -7038,20 +7043,24 @@ msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
 msgstr ""
+"No se pueden importar datos de red sin la librería PROJ. Instale el paquete "
+"proj antes de compilar sumo"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:427
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:317
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
+"La variable de entorno SUMO_HOME no está configurada, usando los mapas de "
+"tipo integrados."
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:460
 msgid "It is recommend to use option osm.crossings with osm.sidewalks"
-msgstr ""
+msgstr "Se recomienda utilizar la opción osm.crossings con osm.sidewalks"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:138
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
-msgstr ""
+msgstr "No se pudo abrir la descripción de forma '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
@@ -7067,7 +7076,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
-msgstr ""
+msgstr "Tipo desconocido '%' para la arista '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:233
 #, c-format
@@ -7089,7 +7098,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:264
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:93
 msgid "Could not find geo coordinate system, assuming WGS84."
-msgstr ""
+msgstr "No se encontró un sistema de coordenadas geográficas, asumiendo WGS84."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:277
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1566
@@ -7097,40 +7106,40 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp:44
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:171
 msgid "Unable to project coordinates for edge '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:290
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:304
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "No se pudo agregar el nodo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:312
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
-msgstr ""
+msgstr "La arista '%' conecta nodos idénticos, saltando."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr ""
+msgstr "La arista '%' no es única."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
-msgstr ""
+msgstr "La arista '%' no es única. Renombrando arista a '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
 msgid "Could not create edge '%'. An edge with the same id already exists."
-msgstr ""
+msgstr "No se pudo crear la arista '%'. Ya existe una arista con el mismo ID."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
 msgid "Could not create edge '-%'. An edge with the same id already exists."
-msgstr ""
+msgstr "No se pudo crear la arista '-%'. Ya existe una arista con el mismo ID."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO se compiló sin soporte de GDAL."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
@@ -7140,7 +7149,7 @@ msgstr "Cargando nodos"
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:105
 #, c-format
 msgid "The file '%' could not be opened."
-msgstr ""
+msgstr "No se pudo abrir el archivo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
@@ -7198,7 +7207,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:485
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1428
 msgid "Could not add node '%'."
-msgstr ""
+msgstr "No se pudo agregar el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
@@ -7229,7 +7238,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:607
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:766
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "No se pudo agregar la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
@@ -7246,11 +7255,11 @@ msgstr "No se pudo encontrar la arista de semáforo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "No se pudo asignar semáforo para '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "No se pudo leer la fecha YYYY-MM-DD '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
@@ -7285,32 +7294,33 @@ msgstr "No se pudo configurar la conexión cargada desde '%' hacia '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo itsumo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:217
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:180
 msgid "Could not add edge '%'. Probably declared twice."
 msgstr ""
+"No se pudo agregar la arista '%'. Probablemente fue declarado dos veces."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:232
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:142
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:703
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:148
 msgid "Unable to project coordinates for node '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:237
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:147
 msgid "Could not add node '%'. Probably declared twice."
-msgstr ""
+msgstr "No se pudo agregar el nodo '%'. Probablemente fue declarado dos veces."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "Información de posición no numérica para el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "Faltan datos en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
@@ -7330,15 +7340,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "Valor no numérico en el carril '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
-msgstr ""
+msgstr "Faltan datos en el carril '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:202
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
-msgstr ""
+msgstr "Formato erróneo para el período de capacidad; se requiere 'hh:mm:ss'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_MATSim.cpp:234
 msgid "Could not find from-node for edge '%'."
@@ -7363,7 +7373,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:422
 msgid "Ignoring road '%' without geometry."
-msgstr ""
+msgstr "Ignorando la calle '%' sin geometría."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:446
 msgid "Could not apply laneOffsets for edge '%'"
@@ -9288,7 +9298,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:438
 msgid "Unknown traffic light in '%'."
-msgstr ""
+msgstr "Semáforo desconocido en '%'."
 
 #: C:\Repos\sumo/src\osgview\GUIOSGView.cpp:974
 msgid "(No projection defined)"
@@ -9351,7 +9361,7 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:220
 #, c-format
 msgid "The polygon '%' is empty."
-msgstr ""
+msgstr "El polígono '%' está vacío."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
@@ -9375,11 +9385,11 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:254
 #, c-format
 msgid "Polygon '%' has no shape."
-msgstr ""
+msgstr "El polígono '%' no tiene forma."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:114
 msgid "Could not open visum-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo visum '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:149
 msgid "Unable to project coordinates for point '%'."
@@ -9387,7 +9397,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderXML.cpp:63
 msgid "Could not open xml-file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo XML '%'."
 
 #: C:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:55
 msgid "Could not open net-file '%'."
