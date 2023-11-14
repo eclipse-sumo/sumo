@@ -45,7 +45,7 @@ A lane-based emissions output is defined way within an {{AdditionalFile}} as fol
 | withInternal   | bool                     | If set, junction internal edges/lanes will be written as well; *default: false*.  |
 | maxTraveltime  | float (time)                   | The maximum traveltime in seconds to write if only very small movements occur; *default 100000*.   |
 | minSamples     | float (time)                   | The minimum total number of seconds vehicles have to be on the edge / lane to consider it non-empty; *default: \>0*.    |
-| excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
+| excludeEmpty   | string (true, false, defaults) | If set to true, edges/lanes which were not used by a vehicle during this period will not be written; *default: false*. If set to "defaults" default values for travel time and emissions depending on edge length and maximum speed get printed. |
 | vTypes         | string                   | space separated list of vehicle type ids to consider, "" means all; *default ""*. |
 | writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
 | edges  | string list                  | restrict output to the given list of edge ids        |

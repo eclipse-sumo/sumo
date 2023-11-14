@@ -6297,7 +6297,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_JOIN,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Joins this train to another upn reaching the stop"));
+                                              TL("Joins this train to another upon reaching the stop"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 
@@ -6784,7 +6784,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXCLUDE_EMPTY,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("If set to true, edges/lanes which were not use by a vehicle during this period will not be written"),
+                                          TL("If set to true, edges/lanes which were not used by a vehicle during this period will not be written"),
                                           "default");
     attrProperty.setDiscreteValues({"1", "0", "default"});
     myTagProperties[currentTag].addAttribute(attrProperty);
@@ -6841,7 +6841,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGESFILE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("Restrict output to the given the list of edges given in file"));
+                                          TL("Restrict output to the given list of edges given in file"));
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_AGGREGATE,

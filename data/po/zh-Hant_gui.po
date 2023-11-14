@@ -9778,7 +9778,7 @@ msgid "List of elements that must board the vehicle before it may continue"
 msgstr "在車輛繼續之前，必須登上車輛的元素清單"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6300
-msgid "Joins this train to another upn reaching the stop"
+msgid "Joins this train to another upon reaching the stop"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6306
@@ -10007,7 +10007,7 @@ msgstr "結束寫出的時間。如果沒有給定，將使用模擬結束的時
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6787
 msgid ""
-"If set to true, edges/lanes which were not use by a vehicle during this "
+"If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr "如果設定為真值(true)，則在此區間未被車輛使用的路段及車道將不會被寫出"
 
@@ -10055,7 +10055,7 @@ msgid "Restrict output to the given list of edge ids"
 msgstr "僅對給定清單內的路段識別名(ID)輸出結果"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6844
-msgid "Restrict output to the given the list of edges given in file"
+msgid "Restrict output to the given list of edges given in file"
 msgstr "僅對給定檔案內的路段識別名(ID)輸出結果"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6849

@@ -263,7 +263,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |period|string|The aggregation period the values the detector collects shall be summed up|
 |begin|string|The time to start writing. If not given, the simulation's begin is used.|
 |end|string|The time to end writing. If not given the simulation's end is used.|
-|excludeEmpty|discrete string|If set to true, edges/lanes which were not use by a vehicle during this period will not be written *default:* **default**|
+|excludeEmpty|discrete string|If set to true, edges/lanes which were not used by a vehicle during this period will not be written *default:* **default**|
 |withInternal|boolean|If set, junction internal edges/lanes will be written as well *default:* **0**|
 |maxTraveltime|SUMOTime|The maximum travel time in seconds to write if only very small movements occur *default:* **100000**|
 |minSamples|SUMOTime|Consider an edge/lane unused if it has at most this many sampled seconds *default:* **0**|
@@ -273,7 +273,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |detectPersons|list of strings|Whether pedestrians shall be recorded instead of vehicles. Allowed value is walk|
 |writeAttributes|list of strings|List of attribute names that shall be written|
 |edges|list of strings|Restrict output to the given list of edge ids|
-|edgesFile|filename|Restrict output to the given the list of edges given in file|
+|edgesFile|filename|Restrict output to the given list of edges given in file|
 |aggregate|boolean|Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **0**|
 
 ## laneData
@@ -284,7 +284,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |period|string|The aggregation period the values the detector collects shall be summed up|
 |begin|string|The time to start writing. If not given, the simulation's begin is used.|
 |end|string|The time to end writing. If not given the simulation's end is used.|
-|excludeEmpty|discrete string|If set to true, edges/lanes which were not use by a vehicle during this period will not be written *default:* **default**|
+|excludeEmpty|discrete string|If set to true, edges/lanes which were not used by a vehicle during this period will not be written *default:* **default**|
 |withInternal|boolean|If set, junction internal edges/lanes will be written as well *default:* **0**|
 |maxTraveltime|SUMOTime|The maximum travel time in seconds to write if only very small movements occur *default:* **100000**|
 |minSamples|SUMOTime|Consider an edge/lane unused if it has at most this many sampled seconds *default:* **0**|
@@ -294,7 +294,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |detectPersons|list of strings|Whether pedestrians shall be recorded instead of vehicles. Allowed value is walk|
 |writeAttributes|list of strings|List of attribute names that shall be written|
 |edges|list of strings|Restrict output to the given list of edge ids|
-|edgesFile|filename|Restrict output to the given the list of edges given in file|
+|edgesFile|filename|Restrict output to the given list of edges given in file|
 |aggregate|boolean|Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **0**|
 
 ## instantInductionLoop

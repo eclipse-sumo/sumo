@@ -44,7 +44,7 @@ file as following:
 | period (alias freq) | int (time)  | The aggregation period the values the detector collects shall be summed up. If not given, the whole time range between begin and end is aggregated |
 | begin          | int (time)  | The time to start writing (intervals starting before this time are discarded). If not given, the simulation's begin is used.  |
 | end            | int (time)  | The time to end writing (intervals starting at or after this time are discarded). If not given the simulation's end is used.   |
-| excludeEmpty   | bool        | If set, edges/lanes which were not use by a vehicle during this period will not be written; *default: false*.   |
+| excludeEmpty   | bool        | If set, edges/lanes which were not used by a vehicle during this period will not be written; *default: false*.   |
 
 ## Generated Output
 
