@@ -12,6 +12,7 @@ title: ChangeLog
   - Added new netedit option --ignore-missing-inputs. #12395
   - Add color legend in person and container modes. #13139
   - Now netedit checks if repeated routed are valid before saving. #13503
+  - Disable stopOffsetException row if stopOffset is 0. #14065
     
 - Other
   - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
