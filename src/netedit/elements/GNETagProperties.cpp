@@ -39,14 +39,16 @@ GNETagProperties::GNETagProperties() {
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
-                                   const SumoXMLTag XMLTag, const std::string tooltip, const std::vector<SumoXMLTag> parentTags,
-                                   const unsigned int backgroundColor, const std::string fieldString) :
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents,
+                                   const int conflicts, const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip,
+                                   const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor,
+                                   const std::string fieldString) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myTagParents(tagParents),
+    myConflicts(conflicts),
     myIcon(icon),
     myXMLTag(XMLTag),
     myTooltipText(tooltip),

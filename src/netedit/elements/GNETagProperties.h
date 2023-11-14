@@ -38,7 +38,8 @@
 class GNETagProperties {
 
 public:
-
+    
+    /// @brief tag types
     enum TagType {
         // basic types
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
@@ -81,22 +82,24 @@ public:
         INTERNALLANE =      1 << 31, // Internal Lane
     };
 
+    /// @brief general tag properties
     enum TagProperty {
-        NOTDRAWABLE =               1 << 0,     // Element cannot be drawn in view
-        CLOSESHAPE =                1 << 1,     // Element can close their shape
-        GEOSHAPE =                  1 << 2,     // Element's shape acn be defined using a GEO Shape
-        DIALOG =                    1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        CHILD =                     1 << 4,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
-        REPARENT =                  1 << 5,     // Element can be reparent
-        NOTSELECTABLE =             1 << 6,     // Element cannot be selected
-        MASKSTARTENDPOS =           1 << 7,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        NOPARAMETERS =              1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                     1 << 9,     // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 10,    // Camera is moved after element creation
-        REQUIRE_PROJ =              1 << 11,    // Element require a geo-projection defined in network
-        VCLASS_ICON =               1 << 12,    // Element returns icon depending of their vClass
+        NOTDRAWABLE =           1 << 0,     // Element cannot be drawn in view
+        CLOSESHAPE =            1 << 1,     // Element can close their shape
+        GEOSHAPE =              1 << 2,     // Element's shape acn be defined using a GEO Shape
+        DIALOG =                1 << 3,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        CHILD =                 1 << 4,     // Element is child of another element and will be written in XML without id (Example: E3Entry -> E3Detector...)
+        REPARENT =              1 << 5,     // Element can be reparent
+        NOTSELECTABLE =         1 << 6,     // Element cannot be selected
+        MASKSTARTENDPOS =       1 << 7,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
+        NOPARAMETERS =          1 << 8,     // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                 1 << 9,     // Element is placed in RTREE
+        CENTERAFTERCREATION =   1 << 10,    // Camera is moved after element creation
+        REQUIRE_PROJ =          1 << 11,    // Element require a geo-projection defined in network
+        VCLASS_ICON =           1 << 12,    // Element returns icon depending of their vClass
     };
 
+    /// @brief tag parents
     enum TagParents {
         // exclusive of vehicles
         VEHICLE_ROUTE =             1 << 0,     // Vehicle is placed over route
@@ -125,12 +128,20 @@ public:
         PLAN_TO_CONTAINERSTOP =     1 << 22,    // Plan ends in containerStop
     };
 
+    // @brief conflicts
+    enum Conflicts {
+        POS_LANE =                  1 << 0,     // Position over lane isn't valid
+        POS_LANE_START =            1 << 1,     // Start position over lane isn't valid
+        POS_LANE_END =              1 << 2,     // End position over lane isn't valid
+        NO_ADDITIONAL_CHILDREN =    1 << 3,     // Element doesn't have additional children
+    };
+
     /// @brief default constructor
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const GUIIcon icon,
-                     const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
+    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const int tagParents, const int conflicts,
+                     const GUIIcon icon, const SumoXMLTag XMLTag, const std::string tooltip, std::vector<SumoXMLTag> parentTags = {},
                      const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255), const std::string fieldString = "");
 
     /// @brief destructor
@@ -460,6 +471,9 @@ private:
 
     /// @brief tag parents
     int myTagParents = 0;
+
+    /// @brief conflicts
+    int myConflicts = 0;
 
     /// @brief vector with the attribute values vinculated with this Tag
     std::vector<GNEAttributeProperties> myAttributeProperties;
