@@ -158,17 +158,12 @@ You might need to replace `pip` with `pip3` if you are using python3 on Linux.
 
 To build with cmake version 3 or higher is required.
 
-Create a build folder for cmake (in the sumo root folder)
+Create a build folder for cmake (in the SUMO root folder)
+and configure SUMO with the full set of available options like GDAL and
+OpenSceneGraph support (if the libraries are installed):
 
 ```
 cmake -B build .
-```
-
-to build sumo with the full set of available options just like GDAL and
-OpenSceneGraph support (if the libraries are installed) just run:
-
-```
-cmake --build build -j $(nproc)
 ```
 
 to build the debug version just use
@@ -180,22 +175,7 @@ cmake -D CMAKE_BUILD_TYPE=Debug -B build .
 !!! note
     On some platforms the required cmake executable is called *cmake3*.
 
-after this is finished, run
-
-```
-cmake --build build -j $(nproc)
-```
-
-The `nproc` command gives you the number of logical cores on your
-computer, so that make will start parallel build jobs which makes the
-build a lot faster. If `nproc` is not available on your system, insert a
-fixed number here or leave the option out. You may also try
-
-```
-cmake --build build -j $(grep -c ^processor /proc/cpuinfo)
-```
-
-Other useful cmake options:
+Other useful cmake configuration options:
 
 - `-D PROFILING=ON` enable profiling instrumentation for gprof (gcc build only)
 - `-D COVERAGE=ON` enable coverage instrumentation for lcov (gcc build only)
@@ -209,6 +189,20 @@ Other useful cmake options:
 - `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
 - `-D ENABLE_CS_BINDINGS=ON` enable C# bindings when compiling libsumo / libtraci
 
+After this is finished, run
+
+```
+cmake --build build -j $(nproc)
+```
+
+The `nproc` command gives you the number of logical cores on your
+computer, so that make will start parallel build jobs which makes the
+build a lot faster. If `nproc` is not available on your system, insert a
+fixed number here or leave the option out. You may also try
+
+```
+cmake --build build -j $(grep -c ^processor /proc/cpuinfo)
+```
 
 ## Building with clang
 
@@ -253,7 +247,7 @@ SUMO from the bin subfolder (bin/sumo-gui and bin/sumo).
 
 If you want to install the SUMO binaries into your system, run
 ```
-sudo make install
+cmake --install build
 ```
 
 You have to adjust your SUMO_HOME variable to the install dir (usually
@@ -323,20 +317,20 @@ In this section, you will learn how to build the latest version of the pedestria
 ``` bash
 git clone https://github.com/PedestrianDynamics/jupedsim.git
 ```
-Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v0.9.6, you would need to type:
+Note that this will clone the full repository, including the latest version of JuPedSim. **We strongly recommend to build the latest release of JuPedSim (not the latest version), which is officially supported by SUMO.** You can consult the [JuPedSim build procedure](https://github.com/PedestrianDynamics/jupedsim#readme); hereafter we propose a similar procedure. First check which is the [latest release](https://github.com/PedestrianDynamics/jupedsim/releases) then in the cloned directory checkout to the latest release. For example, for JuPedSim release v1.0.3, you would need to type:
 
 ``` bash
-git checkout tags/v0.9.6
+cd jupedsim
+git checkout tags/v1.0.3
+cd ..
 ```
 
 Outside the repository directory, but at the same level, you will need two directories `jupedsim-build` and `jupedsim-install`, so type:
 
 ``` bash
-mkdir jupedsim-build jupedsim-install
-cd jupedsim-build
-cmake -DCMAKE_INSTALL_PREFIX=../jupedsim-install ../jupedsim
-cmake --build .
-cmake --install .
+cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=../jupedsim-install jupedsim
+cmake --build jupedsim-build
+cmake --install jupedsim-build
 ```
 
 You can also change the configuration to Debug (with `-DCMAKE_BUILD_TYPE=Debug`) and also enable multithreading (with `-j4`) as usual with CMake. Now to integrate the latest version of JuPedSim into SUMO, you need to have GEOS on your computer, for instance by typing `sudo apt-get install libgeos-dev` in a console. Then, please follow the standard build procedure for MacOS: since the JuPedSim install folder is at the same level of SUMO, it will be found automatically. Alternatively, you can notify CMake where is JuPedSim installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
