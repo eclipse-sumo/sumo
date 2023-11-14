@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-13 15:02+0100\n"
-"PO-Revision-Date: 2023-11-13 13:04+0000\n"
+"PO-Revision-Date: 2023-11-14 11:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10070,7 +10070,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6300
 msgid "Joins this train to another upon reaching the stop"
-msgstr ""
+msgstr "Une este tren con otro al llegar a la parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6306
 msgid "List of elements that can board the vehicle before it may continue"
@@ -10125,7 +10125,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6353
 msgid "Splits the train upon reaching the stop"
-msgstr ""
+msgstr "Divide el tren al llegar a la parada"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6369
 msgid "list of consecutive edges"
@@ -13799,7 +13799,7 @@ msgstr "Añadir acera"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:89
 msgid "Add bikelane"
-msgstr ""
+msgstr "Agregar carril de bicicleta"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 msgid "Use edgeType/template"
