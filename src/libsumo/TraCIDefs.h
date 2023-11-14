@@ -116,9 +116,9 @@ CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string&
 #define LIBSUMO_ID_PARAMETER_API \
 static std::vector<std::string> getIDList(); \
 static int getIDCount(); \
-static std::string getParameter(const std::string& objectID, const std::string& param); \
+static std::string getParameter(const std::string& objectID, const std::string& key); \
 static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key); \
-static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
+static void setParameter(const std::string& objectID, const std::string& key, const std::string& value);
 
 #define LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(CLASS) \
 const std::pair<std::string, std::string> \

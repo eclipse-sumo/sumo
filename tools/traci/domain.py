@@ -88,13 +88,13 @@ class SubscriptionResults:
             return self._results
         return self._results.get(refID, {})
 
-    def addContext(self, refID, objID=None, varID=None, data=None):
+    def addContext(self, refID, objectID=None, varID=None, data=None):
         if refID not in self._contextResults:
             self._contextResults[refID] = {}
-        if objID is not None and objID not in self._contextResults[refID]:
-            self._contextResults[refID][objID] = {}
+        if objectID is not None and objectID not in self._contextResults[refID]:
+            self._contextResults[refID][objectID] = {}
         if varID is not None and data is not None:
-            self._contextResults[refID][objID][varID] = _parse(self._valueFunc, varID, data)
+            self._contextResults[refID][objectID][varID] = _parse(self._valueFunc, varID, data)
 
     def getContext(self, refID=None):
         if refID is None:
@@ -236,30 +236,30 @@ class Domain:
     def getAllContextSubscriptionResults(self):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(None)
 
-    def getParameter(self, objID, param):
+    def getParameter(self, objectID, key):
         """getParameter(string, string) -> string
 
-        Returns the value of the given parameter for the given objID
+        Returns the value of the given parameter for the given objectID
         """
-        return self._getUniversal(tc.VAR_PARAMETER, objID, "s", param)
+        return self._getUniversal(tc.VAR_PARAMETER, objectID, "s", key)
 
-    def getParameterWithKey(self, objID, param):
+    def getParameterWithKey(self, objectID, key):
         """getParameterWithKey(string, string) -> (string, string)
 
-        Returns the (key, value) tuple of the given parameter for the given objID
+        Returns the (key, value) tuple of the given parameter for the given objectID
         """
-        return self._getUniversal(tc.VAR_PARAMETER_WITH_KEY, objID, "s", param)
+        return self._getUniversal(tc.VAR_PARAMETER_WITH_KEY, objectID, "s", key)
 
-    def subscribeParameterWithKey(self, objID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+    def subscribeParameterWithKey(self, objectID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeParameterWithKey(string, string) -> None
 
         Subscribe for a generic parameter with the given key.
         """
-        self.subscribe(objID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
+        self.subscribe(objectID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
 
-    def setParameter(self, objID, param, value):
+    def setParameter(self, objectID, key, value):
         """setParameter(string, string, string) -> None
 
-        Sets the value of the given parameter to value for the given objID
+        Sets the value of the given parameter to value for the given objectID
         """
-        self._setCmd(tc.VAR_PARAMETER, objID, "tss", 2, param, value)
+        self._setCmd(tc.VAR_PARAMETER, objectID, "tss", 2, key, value)
