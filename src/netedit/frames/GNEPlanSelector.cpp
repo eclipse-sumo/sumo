@@ -300,6 +300,7 @@ GNEPlanSelector::fillPersonPlanTemplates(GNENet* net) {
                                    GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION |
                                    GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
                                    GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "PersonTrip");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEPersonTrip(GNE_TAG_PERSONTRIP_EDGE_EDGE, net)));
     // ride
@@ -307,6 +308,7 @@ GNEPlanSelector::fillPersonPlanTemplates(GNENet* net) {
                                    GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
                                    GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
                                    GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_RIDE, "Ride");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNERide(GNE_TAG_RIDE_EDGE_EDGE, net)));
     // walk
@@ -316,22 +318,26 @@ GNEPlanSelector::fillPersonPlanTemplates(GNENet* net) {
                                    GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION |
                                    GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP |
                                    GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_WALK, "Walk");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGE_EDGE, net)));
     // walk (edges)
     tagProperty = GNETagProperties(SUMO_TAG_WALK, 0, 0,
                                    GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_WALK, "Walk (edges)");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_EDGES, net)));
     // walk (route)
     tagProperty = GNETagProperties(SUMO_TAG_WALK, 0, 0,
                                    GNETagProperties::TagParents::PLAN_ROUTE,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_WALK, "Walk (route)");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEWalk(GNE_TAG_WALK_ROUTE, net)));
     // stop
     tagProperty = GNETagProperties(SUMO_TAG_STOP, 0, 0,
                                    GNETagProperties::TagParents::PLAN_EDGE | GNETagProperties::TagParents::PLAN_BUSSTOP |
                                    GNETagProperties::TagParents::PLAN_TRAINSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_STOP, "Stop");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEStopPlan(GNE_TAG_STOPPERSON_EDGE, net)));
 }
@@ -344,22 +350,26 @@ GNEPlanSelector::fillContainerPlanTemplates(GNENet* net) {
     tagProperty = GNETagProperties(SUMO_TAG_TRANSPORT, 0, 0,
                                    GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
                                    GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Transport");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETransport(GNE_TAG_TRANSPORT_EDGE_EDGE, net)));
     // walk
     tagProperty = GNETagProperties(SUMO_TAG_TRANSHIP, 0, 0,
                                    GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE |
                                    GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Tranship");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGE_EDGE, net)));
     // walk (edges)
     tagProperty = GNETagProperties(SUMO_TAG_TRANSHIP, 0, 0,
                                    GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_PERSONTRIP, "Tranship (edges)");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNETranship(GNE_TAG_TRANSHIP_EDGES, net)));
     // stop
     tagProperty = GNETagProperties(SUMO_TAG_STOP, 0, 0,
                                    GNETagProperties::TagParents::PLAN_EDGE | GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
+                                   0,
                                    GUIIcon::EMPTY, SUMO_TAG_STOP, "Stop");
     myPlanTemplates.push_back(std::make_pair(tagProperty, new GNEStopPlan(GNE_TAG_STOPCONTAINER_EDGE, net)));
 }
