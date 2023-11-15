@@ -293,9 +293,9 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_PRIORITY:
             if (attrs.count(key) != 0) {
-                return toString(-1);
-            } else {
                 return toString(priority);
+            } else {
+                return toString(-1);
             }
         // non editable attributes
         case SUMO_ATTR_ONEWAY:
