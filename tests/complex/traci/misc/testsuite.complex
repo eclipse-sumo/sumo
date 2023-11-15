@@ -38,3 +38,6 @@ concurrent
 
 # test setting and getting encoded strings
 encoding
+
+# matching function signatures between traci and libsumo
+signature
