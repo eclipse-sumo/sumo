@@ -215,9 +215,9 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
             (getTagProperty().isPlanStopContainer() && checkDrawContainerPlan())) {
         // check if draw stopPerson over busStop oder over lane
         if (getParentAdditionals().size() > 0) {
-            drawStopPersonOverStoppingPlace(s, exaggeration);
+            drawStopOverStoppingPlace(s, exaggeration);
         } else {
-            drawStopPersonOverEdge(s, exaggeration);
+            drawStopOverEdge(s, exaggeration);
         }
         // check if draw plan parent
         if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
@@ -392,7 +392,7 @@ GNEStopPlan::getACParametersMap() const {
 // ===========================================================================
 
 void
-GNEStopPlan::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements
@@ -460,7 +460,7 @@ GNEStopPlan::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const dou
 
 
 void
-GNEStopPlan::drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEStopPlan::drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const {
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // avoid draw invisible elements

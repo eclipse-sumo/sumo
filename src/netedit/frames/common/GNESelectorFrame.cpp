@@ -802,29 +802,18 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert person trip
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
-        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto& personPlan : person->getChildDemandElements()) {
-                if (onlyCount) {
-                    return true;
-                } else if (personPlan->getTagProperty().isPersonTrip()) {
-                    if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-        }
-        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto& personPlan : personFlow->getChildDemandElements()) {
-                if (onlyCount) {
-                    return true;
-                } else if (personPlan->getTagProperty().isPersonTrip()) {
-                    if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON, false)) {
+        for (const auto& personTag : NamespaceIDs::persons) {
+            for (const auto& person : demandElements.at(personTag)) {
+                for (const auto& personPlan : person->getChildDemandElements()) {
+                    if (personPlan->getTagProperty().isPersonTrip()) {
+                        if (onlyCount) {
+                            return true;
+                        } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
                     }
                 }
             }
@@ -834,29 +823,18 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert ride
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
-        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto& personPlan : person->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPlanRide()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-        }
-        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto& personPlan : personFlow->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPlanRide()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON, false)) {
+        for (const auto& personTag : NamespaceIDs::persons) {
+            for (const auto& person : demandElements.at(personTag)) {
+                for (const auto& personPlan : person->getChildDemandElements()) {
+                    if (personPlan->getTagProperty().isPlanRide()) {
+                        if (onlyCount) {
+                            return true;
+                        } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
                     }
                 }
             }
@@ -866,29 +844,18 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         return true;
     }
     // invert walks
-    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
-        for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto& personPlan : person->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPlanWalk()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-        }
-        for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto& personPlan : personFlow->getChildDemandElements()) {
-                if (personPlan->getTagProperty().isPlanWalk()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+    if (ignoreLocking || !locks.isObjectLocked(GLO_PERSON, false)) {
+        for (const auto& personTag : NamespaceIDs::persons) {
+            for (const auto& person : demandElements.at(personTag)) {
+                for (const auto& personPlan : person->getChildDemandElements()) {
+                    if (personPlan->getTagProperty().isPlanWalk()) {
+                        if (onlyCount) {
+                            return true;
+                        } else if (onlyUnselect || personPlan->isAttributeCarrierSelected()) {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            personPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
                     }
                 }
             }
@@ -899,30 +866,6 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     }
     // invert containers
     if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER, false)) {
-        for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || container->isAttributeCarrierSelected()) {
-                container->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                container->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-        for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || containerFlow->isAttributeCarrierSelected()) {
-                containerFlow->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                containerFlow->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    // invert container
-    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT, false)) {
         for (const auto& containerTag : NamespaceIDs::containers) {
             for (const auto& container : demandElements.at(containerTag)) {
                 if (onlyCount) {
@@ -938,30 +881,19 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         ignoreLocking = askContinueIfLock();
         return true;
     }
-    // invert ride
-    if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP, false)) {
-        for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-            for (const auto& containerPlan : container->getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isPlanTranship()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
-                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                    }
-                }
-            }
-        }
-        for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-            for (const auto& containerPlan : containerFlow->getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isPlanTranship()) {
-                    if (onlyCount) {
-                        return true;
-                    } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
-                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                    } else {
-                        containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+    // invert transport
+    if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER, false)) {
+        for (const auto& containerTag : NamespaceIDs::containers) {
+            for (const auto& container : demandElements.at(containerTag)) {
+                for (const auto& containerPlan : container->getChildDemandElements()) {
+                    if (containerPlan->getTagProperty().isPlanTransport()) {
+                        if (onlyCount) {
+                            return true;
+                        } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
+                            containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
                     }
                 }
             }
@@ -970,38 +902,40 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
         ignoreLocking = askContinueIfLock();
         return true;
     }
-    // invert stops
+    // invert tranships
+    if (ignoreLocking || !locks.isObjectLocked(GLO_CONTAINER, false)) {
+        for (const auto& containerTag : NamespaceIDs::containers) {
+            for (const auto& container : demandElements.at(containerTag)) {
+                for (const auto& containerPlan : container->getChildDemandElements()) {
+                    if (containerPlan->getTagProperty().isPlanTranship()) {
+                        if (onlyCount) {
+                            return true;
+                        } else if (onlyUnselect || containerPlan->isAttributeCarrierSelected()) {
+                            containerPlan->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                        } else {
+                            containerPlan->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                        }
+                    }
+                }
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    // invert stops and waypoints
     if (ignoreLocking || !locks.isObjectLocked(GLO_STOP, false)) {
         for (const auto& demandElementTag : demandElements) {
             for (const auto& demandElement : demandElementTag.second) {
-                // avoid vTypes
-                if (!demandElement->getTagProperty().isType()) {
-                    // iterate over every child
-                    for (const auto& stop : demandElement->getChildDemandElements()) {
-                        if (stop->getTagProperty().isVehicleStop() || stop->getTagProperty().isPlanStopPerson() || stop->getTagProperty().isPlanStopContainer()) {
-                            if (onlyCount) {
-                                return true;
-                            } else if (onlyUnselect || stop->isAttributeCarrierSelected()) {
-                                stop->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                            } else {
-                                stop->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                            }
-                        } else {
-                            // special case for embedded routes
-                            for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
-                                if (stopEmbeddedRoute->getTagProperty().isVehicleStop() ||
-                                        stopEmbeddedRoute->getTagProperty().isPlanStopPerson() ||
-                                        stopEmbeddedRoute->getTagProperty().isPlanStopContainer()) {
-                                    if (onlyCount) {
-                                        return true;
-                                    } else if (onlyUnselect || stopEmbeddedRoute->isAttributeCarrierSelected()) {
-                                        stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                    } else {
-                                        stopEmbeddedRoute->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-                                    }
-                                }
-                            }
-                        }
+                if (demandElement->getTagProperty().isVehicleStop() ||
+                    demandElement->getTagProperty().isVehicleWaypoint() ||
+                    demandElement->getTagProperty().isPlanStop()) {
+                    if (onlyCount) {
+                        return true;
+                    } else if (onlyUnselect || demandElement->isAttributeCarrierSelected()) {
+                        demandElement->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        demandElement->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     }
                 }
             }

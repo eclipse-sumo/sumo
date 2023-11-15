@@ -242,11 +242,11 @@ protected:
     /// @brief parameter set
     int myParametersSet = 0;
 
-    /// @brief draw stopPerson over lane
-    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
+    /// @brief draw stop plan over lane
+    void drawStopOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
 
-    /// @brief draw stopPerson over stoppingPlace
-    void drawStopPersonOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
+    /// @brief draw stop plan over stoppingPlace
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
