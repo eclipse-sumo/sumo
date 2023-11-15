@@ -20,8 +20,8 @@ Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
--    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.15 498.66,311.83 498.65,311.60">
-+    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.13 498.66,311.82 498.65,311.57">
+-    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="492.27,312.15 498.66,311.83 498.65,311.60">
++    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="-7727483#0_0 27441289_0" intLanes="" shape="492.27,312.13 498.66,311.82 498.65,311.57">
          <request index="0" response="00" foes="00"/>
          <request index="1" response="00" foes="00"/>
      </junction>

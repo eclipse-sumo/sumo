@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-04 13:17:15.848018 by osmWebWizard.py v1_18_0+0061-a2f1ffe04c7
+<!-- generated on 2023-11-15 14:12:57.361643 by osmWebWizard.py v1_19_0+0169-f5c100d81a0
 <configuration>
-    <net-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/osm.net.xml.gz"/>
-    <ptlines-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
-    <ptstops-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
-    <output-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
-    <stopinfos-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/stopinfos.xml"/>
-    <routes-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/vehroutes.xml"/>
-    <trips-file value="/home/kobo/.texttest/tmp/tools.04Jul131646.3584904/tools/import/OSM/webWizard/test/trips.trips.xml"/>
+    <net-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/osm.net.xml.gz"/>
+    <ptlines-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
+    <ptstops-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
+    <output-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
+    <stopinfos-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/stopinfos.xml"/>
+    <routes-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/vehroutes.xml"/>
+    <trips-file value="/home/behr_mi/.texttest/tmp/tools.15Nov141037.27143/tools/import/OSM/webWizard/test/trips.trips.xml"/>
     <end value="900.0"/>
     <min-stops value="0"/>
     <extend-to-fringe value="True"/>
@@ -266,7 +266,7 @@
         <stop busStop="3918673888" duration="20" until="80.0"/> <!-- U Oranienburger Tor -->
         <stop busStop="-3869306765" duration="20" until="200.0"/> <!-- S+U Friedrichstraße -->
         <stop busStop="-3869306770" duration="20" until="323.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="2959830774" duration="20" until="444.0"/> <!-- U Stadtmitte -->
+        <stop busStop="2959830774" duration="20" until="443.0"/> <!-- U Stadtmitte -->
     </route>
     <route id="pt_light_rail_S3:1" color="5,90,153" edges="4471823#0 4471823#1 4471818#1 25946681 4471817#1 72984377#1 32590438 32590434#1" >
         <stop busStop="27412232" duration="20" until="65.0"/> <!-- S Friedrichstraße -->
@@ -342,7 +342,7 @@
     <route id="pt_bus_N8:1" edges="156364559#0 156364559#2 156364559#3 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#2 4612964#0 4612964#1 24992428 606078065 156364553#0 156364553#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#1 -156364570#3 -156364570#1 -156364570#0 -77348147 -387892378 -478396988 -370359204#1 -370359204#0 -316746323#2 -316746323#0 46140376#0 46140376#1 -84960597#1 -84960597#0 -36892597#3 -36892597#2 -36892597#1 -36892597#0 -371927739" >
         <stop busStop="271430924" duration="20" until="95.0"/> <!-- Berliner Rathaus -->
         <stop busStop="3867910438" duration="20" until="251.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-2915579613" duration="20" until="321.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="-2915579613" duration="20" until="322.0"/> <!-- S Hackescher Markt -->
         <stop busStop="-2915545317" duration="20" until="400.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_tram_M5:3" color="204,153,51" edges="23960874#0 23960874#2 144014234#1 144014234#2 167523653#1 167523653#2 22962554#1 22962554#2 150394036#1 93628049#0 93628049#1 93628049#2 93628049#3 93628049#4 301733774#1" >
@@ -366,8 +366,8 @@
         <stop busStop="3867910436" duration="20" until="42.0"/> <!-- S+U Jannowitzbrücke -->
         <stop busStop="271430924" duration="20" until="136.0"/> <!-- Berliner Rathaus -->
         <stop busStop="3867910438" duration="20" until="285.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-2915579613" duration="20" until="356.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="-2915545317" duration="20" until="434.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="-2915579613" duration="20" until="357.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="-2915545317" duration="20" until="435.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_train_RB14:0" color="153,0,255" edges="442921387#0 442921387#1 25946656#1 25946673#1 25946674#1 25946676 32590898#1 32590890#1 32590636#1 32572618#1 32572624#1" >
         <stop busStop="29805120" duration="20" until="85.0"/> <!-- Berlin Friedrichstraße -->
@@ -414,23 +414,23 @@
         <stop busStop="-3869306773" duration="20" until="222.0"/> <!-- Werderscher Markt -->
         <stop busStop="-3869306766" duration="20" until="302.0"/> <!-- U Französische Straße -->
         <stop busStop="3869306772" duration="20" until="376.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3869306764" duration="20" until="477.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3869306762" duration="20" until="592.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="3869306759" duration="20" until="655.0"/> <!-- Deutsches Theater -->
+        <stop busStop="3869306764" duration="20" until="478.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3869306762" duration="20" until="594.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="3869306759" duration="20" until="656.0"/> <!-- Deutsches Theater -->
     </route>
     <route id="pt_bus_N2:0" color="89,91,98" edges="369223458#0 369223458#1 24993933#0 24993933#1 24993933#2 19002357#1 19002363#1 19002363#2 19002363#3 19002363#4 19002363#6 24241790#1 36892597#0 36892597#1 36892597#2 36892597#3 84960597#0 84960597#1 83517332#1 83517332#2 84960595 316746323#0 316746323#1 370359204#0 370359204#1 370359204#2 275177453 77348147 156364570#0 156364570#1 156364570#2 156364556#1 202157002#0 202157002#1 202157002#2 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#1 339201219 541763974 61584187#0 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 155186522 24913267#0 24913267#3 326116286#0 4402014#0 4402014#3 326116285#0 326116285#2" >
         <stop busStop="3867910441" duration="20" until="153.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
         <stop busStop="3867910428" duration="20" until="228.0"/> <!-- S Hackescher Markt -->
         <stop busStop="2915590925" duration="20" until="321.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910420" duration="20" until="414.0"/> <!-- Lustgarten -->
+        <stop busStop="3867910420" duration="20" until="413.0"/> <!-- Lustgarten -->
         <stop busStop="271296293" duration="20" until="487.0"/> <!-- Staatsoper -->
-        <stop busStop="272408975" duration="20" until="590.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="272408975" duration="20" until="589.0"/> <!-- Unter den Linden/Friedrichstraße -->
     </route>
     <route id="pt_bus_N6:1" edges="-196850606#4 196850607#1 196850607#2 -42102542#1 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#2 465376239 190447767#1 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 42103020 388702041#2 388702041#3 388702041#4 388702041#5 388702041#6 388702041#7 388702041#8 388702041#9 388702041#10 388702041#11 388702041#12 544327500" >
         <stop busStop="-4015961303" duration="20" until="38.0"/> <!-- U Stadtmitte -->
         <stop busStop="3869306772" duration="20" until="164.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3869306764" duration="20" until="278.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3928759794" duration="20" until="441.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="3869306764" duration="20" until="277.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3928759794" duration="20" until="440.0"/> <!-- U Oranienburger Tor -->
     </route>
     <route id="pt_light_rail_S9:0" color="154,48,82" edges="32590425 32590433#1 32590433#2 72984388#1 25946685#1 25946685#2 29384521#1 29384522#1" >
         <stop busStop="574265352" duration="20" until="96.0"/> <!-- S Alexanderplatz -->
@@ -444,7 +444,7 @@
         <stop busStop="-3869306770" duration="20" until="430.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3869306767" duration="20" until="493.0"/> <!-- U Französische Straße -->
         <stop busStop="3869306774" duration="20" until="599.0"/> <!-- Werderscher Markt -->
-        <stop busStop="-3867910422" duration="20" until="711.0"/> <!-- Neumannsgasse -->
+        <stop busStop="-3867910422" duration="20" until="712.0"/> <!-- Neumannsgasse -->
     </route>
     <route id="pt_train_RE7:1" color="38,153,0" edges="442921387#0 442921387#1 25946656#1 25946673#1 25946674#1 25946676 32590898#1 32590890#1 32590636#1 32572618#1 32572624#1" >
         <stop busStop="29805120" duration="20" until="85.0"/> <!-- Berlin Friedrichstraße -->
@@ -476,10 +476,10 @@
     </route>
     <route id="pt_bus_N42:0" color="89,91,98" edges="112128419#2 -24990040 -24241797#3 -24241797#2 19002357#1 19002363#1 19002363#2 19002363#3 19002363#4 19002363#6 24241790#1 36892597#0 36892597#1 36892597#2 36892597#3 84960597#0 84960597#1 83517332#1 83517332#2 84960595 316746323#0 316746323#1 370359204#0 370359204#1 370359204#2 275177453 77348147 156364570#0 156364570#1 156364570#2 156364556#1 202157002#0 202157002#1 202157002#2 -534588621#1 -534588621#0 606078071#0 606078071#3 61583423#0 -156364553#1 -156364553#0 -606078065 81112790#1 23851927#0 23851927#1 23851927#2 233835641#0 4773463#0 4773463#2" >
         <stop busStop="4163212867" duration="20" until="45.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-        <stop busStop="3867910441" duration="20" until="239.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-        <stop busStop="3867910427" duration="20" until="322.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="2915590925" duration="20" until="395.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910424" duration="20" until="506.0"/> <!-- Nikolaiviertel -->
+        <stop busStop="3867910441" duration="20" until="237.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910427" duration="20" until="314.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="2915590925" duration="20" until="394.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910424" duration="20" until="507.0"/> <!-- Nikolaiviertel -->
         <stop busStop="3352479219" duration="20" until="602.0"/> <!-- Fischerinsel -->
     </route>
     <route id="pt_bus_N2:1" color="89,91,98" edges="-326116285#2 -326116285#1 -4402014#3 -4402014#2 -326116286#2 -24913267#3 -24913267#2 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#1 202156994#0 4773465#1 4773465#2 4773465#3 490365295#1 -156364570#3 -156364570#1 -156364570#0 -77348147 -387892378 -478396988 -370359204#1 -370359204#0 -316746323#2 -316746323#0 46140376#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 4613292#0 -24993933#4 -24993933#1 -24993933#0 -369223458#1 -369223458#0" >
@@ -487,35 +487,35 @@
         <stop busStop="3869306771" duration="20" until="163.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3870475228" duration="20" until="247.0"/> <!-- Staatsoper -->
         <stop busStop="3867910421" duration="20" until="341.0"/> <!-- Lustgarten -->
-        <stop busStop="3867910438" duration="20" until="412.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910438" duration="20" until="411.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="-3867910429" duration="20" until="500.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="3867910439" duration="20" until="594.0"/> <!-- U Weinmeisterstraße -->
+        <stop busStop="3867910439" duration="20" until="595.0"/> <!-- U Weinmeisterstraße -->
     </route>
     <route id="pt_bus_N42:1" color="89,91,98" edges="328426208#0 23851917#0 23851917#2 23851922#1 60333313 82654055#0 82654055#1 24992428 606078065 156364553#0 156364553#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#1 -156364570#3 -156364570#1 -156364570#0 -77348147 -387892378 -478396988 -370359204#1 -370359204#0 -316746323#2 -316746323#0 46140376#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 4613292#0 4613308#1 4613308#2 310357284#0 112128419#1 112128419#2" >
         <stop busStop="3352479220" duration="20" until="64.0"/> <!-- Fischerinsel -->
         <stop busStop="271430924" duration="20" until="172.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3867910438" duration="20" until="364.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-3867910426" duration="20" until="439.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="3867910439" duration="20" until="573.0"/> <!-- U Weinmeisterstraße -->
+        <stop busStop="3867910438" duration="20" until="363.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="-3867910426" duration="20" until="438.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="3867910439" duration="20" until="574.0"/> <!-- U Weinmeisterstraße -->
         <stop busStop="270727260" duration="20" until="746.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
     <route id="pt_bus_147:2" edges="-176043807#3 -176043807#0 -176043806#1 -176043806#0 -437325051#1 -437325051#0 -111251382#2 541295978 389705415#1 -541295974 6228081 -222328410 -465376254 -4402228 190447768#1 195411602#1 465376240 195411604 11483007 -169999355 -461526153 -194069450#1 -194069450#0 171423001#0 171423001#1 171423001#2 35557143#0 35557143#1 389101365#0 389101365#1 66071366#0 66071366#1 66071366#2 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0 -52328295#1 -328426193#1" >
         <stop busStop="-3869306760" duration="20" until="62.0"/> <!-- Deutsches Theater -->
         <stop busStop="-3869306761" duration="20" until="118.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="-3869306765" duration="20" until="271.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="-3869306770" duration="20" until="418.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="-3869306765" duration="20" until="273.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="-3869306770" duration="20" until="417.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3869306767" duration="20" until="485.0"/> <!-- U Französische Straße -->
-        <stop busStop="3869306774" duration="20" until="583.0"/> <!-- Werderscher Markt -->
+        <stop busStop="3869306774" duration="20" until="584.0"/> <!-- Werderscher Markt -->
         <stop busStop="-3867910422" duration="20" until="700.0"/> <!-- Neumannsgasse -->
     </route>
     <route id="pt_bus_147:3" edges="328426193#0 52328295#0 43156728#0 43156728#1 43156728#2 43156728#4 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4 -4611696#3 -23755950#3 -23755950#0 -66071366#3 -66071366#1 -66071366#0 -389101365#2 -389101365#0 -35557143#1 -35557143#0 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#2 465376239 190447767#1 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 42103020 111251382#2 437325051#0 437325051#1 176043806#0 176043806#1 176043807#0 176043807#1" >
         <stop busStop="3867910423" duration="20" until="99.0"/> <!-- Neumannsgasse -->
-        <stop busStop="-3869306773" duration="20" until="249.0"/> <!-- Werderscher Markt -->
+        <stop busStop="-3869306773" duration="20" until="248.0"/> <!-- Werderscher Markt -->
         <stop busStop="-3869306766" duration="20" until="339.0"/> <!-- U Französische Straße -->
         <stop busStop="3869306772" duration="20" until="424.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3869306764" duration="20" until="557.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3869306762" duration="20" until="705.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="3869306759" duration="20" until="768.0"/> <!-- Deutsches Theater -->
+        <stop busStop="3869306762" duration="20" until="704.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="3869306759" duration="20" until="766.0"/> <!-- Deutsches Theater -->
     </route>
     <flow id="pt_light_rail_S1:0" type="pt_light_rail" route="pt_light_rail_S1:0" begin="52.0" end="952.0" period="600" line="S1:0" >
         <param key="name" value="S-Bahnlinie S1: S Oranienburg =&gt; S Wannsee"/>
