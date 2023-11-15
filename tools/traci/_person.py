@@ -152,13 +152,6 @@ class PersonDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_LANEPOSITION, personID)
 
-    def getSpeedFactor(self, personID):
-        """getSpeedFactor(string) -> double
-
-        Returns the quotient of this persons maximum speed and the maximum speed of its type
-        """
-        return self._getUniversal(tc.VAR_SPEED_FACTOR, personID)
-
     def getWaitingTime(self, personID):
         """getWaitingTime(string) -> double
         The waiting time of a person is defined as the time (in seconds) spent with a

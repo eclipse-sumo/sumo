@@ -309,14 +309,14 @@ class VTypeDomain(Domain):
         """
         self._setCmd(tc.VAR_EMISSIONCLASS, typeID, "s", clazz)
 
-    def setShapeClass(self, typeID, clazz):
+    def setShapeClass(self, typeID, shapeClass):
         """setShapeClass(string, string) -> None
 
         Sets the shape class of this type.
         If called in the context of a person or vehicle, it will change the value just for the single instance.
         Use the respective object ID as typeID value in said context.
         """
-        self._setCmd(tc.VAR_SHAPECLASS, typeID, "s", clazz)
+        self._setCmd(tc.VAR_SHAPECLASS, typeID, "s", shapeClass)
 
     def setWidth(self, typeID, width):
         """setWidth(string, double) -> None

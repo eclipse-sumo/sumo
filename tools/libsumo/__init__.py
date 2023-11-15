@@ -156,9 +156,9 @@ executeMove = simulation.executeMove
 _libsumo_step = simulation.step
 
 
-def simulationStep(step=0):
-    _libsumo_step(step)
-    _stepManager.manageStepListeners(step)
+def simulationStep(time=0.):
+    _libsumo_step(time)
+    _stepManager.manageStepListeners(time)
 
 
 simulation.step = simulationStep

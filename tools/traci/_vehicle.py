@@ -758,13 +758,13 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
-    def getJunctionFoes(self, vehID, distance):
+    def getJunctionFoes(self, vehID, dist=0.):
         """getJunctionFoes(string, double) -> complex
 
         Return list of junction foes [(foeId, egoDist, foeDist, egoExitDist, foeExitDist,
         egoLane, foeLane, egoResponse, foeResponse), ...] within the given distance to the given vehicle.
         """
-        return self._getUniversal(tc.VAR_FOES, vehID, "d", distance)
+        return self._getUniversal(tc.VAR_FOES, vehID, "d", dist)
 
     @deprecated()
     def getNextStops(self, vehID):
@@ -972,14 +972,14 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_ROUTING_MODE, vehID)
 
-    def getTaxiFleet(self, flag):
+    def getTaxiFleet(self, taxiState=0):
         """getTaxiFleet(int) -> list(string)
-        Return the list of all taxis with the given mode:
+        Return the list of all taxis with the given taxiState:
         0 : empty
         1 : pickup
         2 : occupied
         """
-        return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
+        return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", taxiState)
 
     def getLoadedIDList(self):
         """getLoadedIDList() -> list(string)
@@ -1403,19 +1403,19 @@ class VehicleDomain(VTypeDomain):
         else:
             self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
 
-    def setLaneChangeMode(self, vehID, lcm):
+    def setLaneChangeMode(self, vehID, laneChangeMode):
         """setLaneChangeMode(string, integer) -> None
 
         Sets the vehicle's lane change mode as a bitset.
         """
-        self._setCmd(tc.VAR_LANECHANGE_MODE, vehID, "i", lcm)
+        self._setCmd(tc.VAR_LANECHANGE_MODE, vehID, "i", laneChangeMode)
 
-    def setSpeedMode(self, vehID, sm):
+    def setSpeedMode(self, vehID, speedMode):
         """setSpeedMode(string, integer) -> None
 
         Sets the vehicle's speed mode as a bitset.
         """
-        self._setCmd(tc.VAR_SPEEDSETMODE, vehID, "i", sm)
+        self._setCmd(tc.VAR_SPEEDSETMODE, vehID, "i", speedMode)
 
     def addLegacy(self, vehID, routeID, depart=tc.DEPARTFLAG_NOW, pos=0, speed=0,
                   lane=tc.DEPARTFLAG_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):

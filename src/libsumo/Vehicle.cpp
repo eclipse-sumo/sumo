@@ -675,12 +675,12 @@ Vehicle::getDistance(const std::string& vehID) {
 
 
 double
-Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int /* laneIndex */) {
+Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos, int /* laneIndex */) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
     if (veh->isOnRoad()) {
         const MSEdge* edge = microVeh != nullptr ? &veh->getLane()->getEdge() : veh->getEdge();
-        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), position,
+        double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), pos,
                           edge, Helper::getEdge(edgeID), true, veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
@@ -1857,7 +1857,7 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setAcceleration(const std::string& vehID, double accel, double duration) {
+Vehicle::setAcceleration(const std::string& vehID, double acceleration, double duration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1865,7 +1865,7 @@ Vehicle::setAcceleration(const std::string& vehID, double accel, double duration
         return;
     }
 
-    double targetSpeed = std::max(veh->getSpeed() + accel * duration, 0.0);
+    double targetSpeed = std::max(veh->getSpeed() + acceleration * duration, 0.0);
     std::vector<std::pair<SUMOTime, double>> speedTimeLine;
     speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh->getSpeed()));
     speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
@@ -2287,16 +2287,16 @@ Vehicle::setLine(const std::string& vehID, const std::string& line) {
 
 
 void
-Vehicle::setVia(const std::string& vehID, const std::vector<std::string>& via) {
+Vehicle::setVia(const std::string& vehID, const std::vector<std::string>& edgeList) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     try {
         // ensure edges exist
         ConstMSEdgeVector edges;
-        MSEdge::parseEdgesList(via, edges, "<via-edges>");
+        MSEdge::parseEdgesList(edgeList, edges, "<via-edges>");
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
-    veh->getParameter().via = via;
+    veh->getParameter().via = edgeList;
 }
 
 

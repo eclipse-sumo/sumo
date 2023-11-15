@@ -98,9 +98,8 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Polygon)
 
 
 void
-Polygon::setType(const std::string& polygonID, const std::string& setType) {
-    SUMOPolygon* p = getPolygon(polygonID);
-    p->setShapeType(setType);
+Polygon::setType(const std::string& polygonID, const std::string& polygonType) {
+    getPolygon(polygonID)->setShapeType(polygonType);
 }
 
 

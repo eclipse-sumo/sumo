@@ -78,8 +78,8 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Polygon, POLYGON)
 
 
 void
-Polygon::setType(const std::string& polygonID, const std::string& setType) {
-    Dom::setString(libsumo::VAR_TYPE, polygonID, setType);
+Polygon::setType(const std::string& polygonID, const std::string& polygonType) {
+    Dom::setString(libsumo::VAR_TYPE, polygonID, polygonType);
 }
 
 

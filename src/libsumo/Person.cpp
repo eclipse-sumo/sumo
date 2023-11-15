@@ -132,7 +132,7 @@ Person::getLanePosition(const std::string& personID) {
 }
 
 std::vector<TraCIReservation>
-Person::getTaxiReservations(int stateFilter) {
+Person::getTaxiReservations(int onlyNew) {
     std::vector<TraCIReservation> result;
     MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
     if (dispatcher != nullptr) {
@@ -141,16 +141,16 @@ Person::getTaxiReservations(int stateFilter) {
             throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
         }
         for (Reservation* res : dispatcher->getReservations()) {
-            if (filterReservation(stateFilter, res, result)) {
+            if (filterReservation(onlyNew, res, result)) {
                 if (res->state == Reservation::NEW) {
                     res->state = Reservation::RETRIEVED;
                 }
             }
         }
-        const bool includeRunning = stateFilter == 0 || (stateFilter & (Reservation::ASSIGNED | Reservation::ONBOARD)) != 0;
+        const bool includeRunning = onlyNew == 0 || (onlyNew & (Reservation::ASSIGNED | Reservation::ONBOARD)) != 0;
         if (includeRunning) {
             for (const Reservation* res : dispatcher->getRunningReservations()) {
-                filterReservation(stateFilter, res, result);
+                filterReservation(onlyNew, res, result);
             }
         }
     }
@@ -177,8 +177,8 @@ Person::splitTaxiReservation(std::string reservationID, const std::vector<std::s
 }
 
 bool
-Person::filterReservation(int stateFilter, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
-    if (stateFilter != 0 && (stateFilter & res->state) == 0) {
+Person::filterReservation(int onlyNew, const Reservation* res, std::vector<libsumo::TraCIReservation>& reservations) {
+    if (onlyNew != 0 && (onlyNew & res->state) == 0) {
         return false;
     }
     std::vector<std::string> personIDs;

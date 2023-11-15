@@ -157,7 +157,7 @@ public:
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
     static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
-    static void setParameter(const std::string& objectID, const std::string& param, const std::string& value);
+    static void setParameter(const std::string& objectID, const std::string& key, const std::string& value);
 
     static void setScale(double value);
     static void clearPending(const std::string& routeID = "");

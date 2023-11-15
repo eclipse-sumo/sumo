@@ -1,1 +1,4 @@
- Retrying in 1 seconds
+lane.getLinks traci: (laneID, extended=True) libsumo: (laneID)
+person.getPosition traci: (personID) libsumo: (personID, includeZ=False)
+poi.getPosition traci: (poiID) libsumo: (poiID, includeZ=False)
+vehicle.getPosition traci: (vehID) libsumo: (vehID, includeZ=False)

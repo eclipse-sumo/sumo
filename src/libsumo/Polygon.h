@@ -50,7 +50,7 @@ public:
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
-    static void setType(const std::string& polygonID, const std::string& setType);
+    static void setType(const std::string& polygonID, const std::string& polygonType);
     static void setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape);
     static void setColor(const std::string& polygonID, const libsumo::TraCIColor& color);
     static void add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);

@@ -94,7 +94,7 @@ public:
     static std::string getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param, bool customParam = false);
 
     static double getDistance(const std::string& vehID);
-    static double getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex = 0);
+    static double getDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos, int laneIndex = 0);
     static double getDrivingDistance2D(const std::string& vehID, double x, double y);
     static double getAllowedSpeed(const std::string& vehID);
     static int getSpeedMode(const std::string& vehID);
@@ -189,7 +189,7 @@ public:
     static void deactivateGapControl(const std::string& vehID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehID, double speed);
-    static void setAcceleration(const std::string& vehID, double accel, double duration);
+    static void setAcceleration(const std::string& vehID, double acceleration, double duration);
     static void setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration = libsumo::INVALID_DOUBLE_VALUE);
     static void setSpeedMode(const std::string& vehID, int speedMode);
     static void setLaneChangeMode(const std::string& vehID, int laneChangeMode);
@@ -211,7 +211,7 @@ public:
     static void moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1, double matchThreshold = 100);
     static void remove(const std::string& vehID, char reason = libsumo::REMOVE_VAPORIZED);
     static void setLine(const std::string& vehID, const std::string& line);
-    static void setVia(const std::string& vehID, const std::vector<std::string>& via);
+    static void setVia(const std::string& vehID, const std::vector<std::string>& edgeList);
     static void highlight(const std::string& vehID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
     static void dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations);
     /// @}

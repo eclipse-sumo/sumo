@@ -94,8 +94,8 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(POI, POI)
 
 
 void
-POI::setType(const std::string& poiID, const std::string& type) {
-    Dom::setString(libsumo::VAR_TYPE, poiID, type);
+POI::setType(const std::string& poiID, const std::string& poiType) {
+    Dom::setString(libsumo::VAR_TYPE, poiID, poiType);
 }
 
 

@@ -56,7 +56,7 @@ public:
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
-    static void setType(const std::string& poiID, const std::string& setType);
+    static void setType(const std::string& poiID, const std::string& poiType);
     static void setColor(const std::string& poiID, const libsumo::TraCIColor& color);
     static void setPosition(const std::string& poiID, double x, double y);
     static void setWidth(const std::string& poiID, double width);

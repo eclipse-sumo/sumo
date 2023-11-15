@@ -481,12 +481,12 @@ Vehicle::getDistance(const std::string& vehID) {
 
 
 double
-Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double position, int laneIndex) {
+Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos, int laneIndex) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
     content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
     content.writeString(edgeID);
-    content.writeDouble(position);
+    content.writeDouble(pos);
     content.writeUnsignedByte(laneIndex);
     content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, vehID, &content);
@@ -997,10 +997,10 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setAcceleration(const std::string& vehID, double accel, double duration) {
+Vehicle::setAcceleration(const std::string& vehID, double acceleration, double duration) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    StoHelp::writeTypedDouble(content, accel);
+    StoHelp::writeTypedDouble(content, acceleration);
     StoHelp::writeTypedDouble(content, duration);
     Dom::set(libsumo::VAR_ACCELERATION, vehID, &content);
 }
@@ -1183,8 +1183,8 @@ Vehicle::setLine(const std::string& vehID, const std::string& line) {
 
 
 void
-Vehicle::setVia(const std::string& vehID, const std::vector<std::string>& via) {
-    Dom::setStringVector(libsumo::VAR_VIA, vehID, via);
+Vehicle::setVia(const std::string& vehID, const std::vector<std::string>& edgeList) {
+    Dom::setStringVector(libsumo::VAR_VIA, vehID, edgeList);
 }
 
 

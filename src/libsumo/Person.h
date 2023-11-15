@@ -60,7 +60,7 @@ public:
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
-    static std::vector<libsumo::TraCIReservation> getTaxiReservations(int stateFilter = 0);
+    static std::vector<libsumo::TraCIReservation> getTaxiReservations(int onlyNew = 0);
     static std::string splitTaxiReservation(std::string reservationID, const std::vector<std::string>& personIDs);
 
     LIBSUMO_ID_PARAMETER_API
