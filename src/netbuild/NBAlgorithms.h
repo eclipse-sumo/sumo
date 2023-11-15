@@ -170,28 +170,9 @@ public:
     public:
         explicit edge_by_junction_angle_sorter(NBNode* n) : myNode(n) {}
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            return getConvAngle(e1) < getConvAngle(e2);
-        }
-
-    protected:
-        /// @brief Converts the angle of the edge if it is an incoming edge
-        double getConvAngle(NBEdge* e) const {
-            double angle = e->getAngleAtNode(myNode);
-            if (angle < 0.) {
-                angle = 360. + angle;
-            }
-            // convert angle if the edge is an outgoing edge
-            if (e->getFromNode() == myNode) {
-                angle += (double) 180.;
-                if (angle >= (double) 360.) {
-                    angle -= (double) 360.;
-                }
-            }
-            if (angle < 0.1 || angle > 359.9) {
-                angle = (double) 0.;
-            }
-            assert(angle >= 0 && angle < (double)360);
-            return angle;
+            const double a1 = e1->getAngleAtNodeNormalized(myNode);
+            const double a2 = e2->getAngleAtNodeNormalized(myNode);
+            return a1 < a2 || (a1 == a2 && e1->getNumericalID() < e2->getNumericalID());
         }
 
     private:
