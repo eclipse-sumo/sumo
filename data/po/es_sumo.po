@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-13 08:57+0100\n"
-"PO-Revision-Date: 2023-11-14 14:51+0000\n"
+"PO-Revision-Date: 2023-11-15 10:23+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4551,6 +4551,8 @@ msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr ""
+"No se puede mantener la arista destino '%' para el vehículo '%' debido a "
+"aristas cerradas. Terminando la ruta."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:606
 msgid "Invalid value '%' for vehicle parameter '%'"
@@ -4566,16 +4568,22 @@ msgid ""
 "Parkingarea '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
 msgstr ""
+"Zona de estacionamiento '%' a lo largo del camino no puede ser utilizada por "
+"el vehículo '%' por razones desconocidas"
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1105
 msgid ""
 "Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."
 msgstr ""
+"Cálculo de distancia no válido para el vehículo '%' hacia la zona de "
+"estacionamiento '%' en el tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1160
 msgid ""
 "Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."
 msgstr ""
+"Cálculo de distancia no válido para el vehículo '%' desde la zona de "
+"estacionamiento '%' en el tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:1236
 msgid ""
@@ -4682,6 +4690,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1039
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
+"No se encontró conexión entre las paradas en la arista '%' y la arista '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1149
 msgid ""
@@ -4714,16 +4723,21 @@ msgstr ""
 #, c-format
 msgid "Can not build ramp on edge '%' - the edge is unsuitable."
 msgstr ""
+"No se pudo construir una rampa en la arista '%' - la arista no es adecuada."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:120
 #, c-format
 msgid "Can not build on ramp on edge '%' - the edge is not known."
 msgstr ""
+"No se pudo construir una rampa de entrada en la arista '%' - la arista no es "
+"conocida."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:131
 #, c-format
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
+"No se pudo construir una rampa de salida en la arista '%' - la arista no es "
+"conocida."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:249
 msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
@@ -5078,15 +5092,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "Si los cruces deben mantenerse libres de forma predeterminada"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "El radio de giro predeterminado en las intersecciones"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
-msgstr ""
+msgstr "La longitud predeterminada al sobrescribir las longitudes de conexión"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:107
 msgid ""
@@ -5175,19 +5189,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:168
 msgid "Ensure that the given list of edges is not modified"
-msgstr ""
+msgstr "Garantizar que la lista de aristas dada no se modifique"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:176
 msgid "Ensure that edges with public transport stops are not modified"
 msgstr ""
+"Garantizar que las aristas con paradas de transporte público no se modifiquen"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:192
 msgid "splits geometry to restrict segment length"
-msgstr ""
+msgstr "dividir geometría para restringir la longitud del segmento"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:196
 msgid "reduces too similar geometry points"
-msgstr ""
+msgstr "reducir puntos geométricos demasiado similares"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:199
 msgid ""
@@ -5544,29 +5559,34 @@ msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
 msgstr ""
+"sólo se puede dar una de las opciones 'keep-edges.in-boundary' o 'keep-edges."
+"in-geo-boundary'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:736
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
 msgstr ""
+"sólo se puede dar una de las opciones 'no-internal-links' o 'crossings.guess'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:740
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
-msgstr ""
+msgstr "sólo se puede dar una de las opciones 'no-internal-links' o 'walkareas'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:744
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
+"sólo se puede dar una de las opciones 'tls.green.time' o 'tls.cycle.time'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:748
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber debe ser al menos 1"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:756
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
+"sólo se puede dar una de las opciones 'default.disallow' o 'default.allow'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:760
 msgid "junctions.internal-link-detail must >= 2"
@@ -5583,39 +5603,44 @@ msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr ""
+"la opción 'default.junctions.radius' es menor que la opción 'junctions.small-"
+"radius'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:780
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
-msgstr ""
+msgstr "tls.layout debe ser 'opposites', 'incoming' o 'alternateOneWay'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:785
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "default.right-of-way debe ser uno de '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:789
 msgid "roundabouts.visibility-distance must be positive or -1"
-msgstr ""
+msgstr "roundabouts.visibility-distance debe ser positivo o -1"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:805
 msgid "Unknown value for default.spreadtype '%'."
-msgstr ""
+msgstr "Valor desconocido para default.spreadtype '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
 msgstr ""
+"No se puede proporcionar la altura porque no se cargaron datos de altura"
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "No se pudieron obtener datos de altura para la coordenada %"
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:190
 msgid "Could not open shape file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo de forma '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:204
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
 msgstr ""
+"No se pudo crear el convertidor de geocoordenadas; compruebe si proj.4 está "
+"instalado."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
@@ -5624,6 +5649,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
 msgstr ""
+"No se puede cargar el archivo de forma porque SUMO se compiló sin soporte "
+"GDAL."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
@@ -5644,6 +5671,8 @@ msgstr "Fallo en la lectura de %."
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
+"No se puede cargar el archivo GeoTIFF porque SUMO se compiló sin soporte "
+"GDAL."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:89
 msgid "Could not load names of edges too keep from '%'."
@@ -5651,7 +5680,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "No se pudieron cargar IDs desde '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
@@ -6360,7 +6389,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightLogicCont.cpp:243
 msgid "Could not build program '%' for traffic light '%'"
-msgstr ""
+msgstr "No se pudo crear el programa '%' para el semáforo '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBTrafficLightLogicCont.cpp:384
 msgid "Guessing signalID for link index % at traffic light '%'."
@@ -6378,6 +6407,8 @@ msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Importador / constructor de redes para la simulación de tráfico microscópica "
+"y multimodal de SUMO."
 
 #: C:\Repos\sumo/src\netconvert_main.cpp:124
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:276
