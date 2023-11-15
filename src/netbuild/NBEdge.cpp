@@ -2075,18 +2075,16 @@ NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
 
 double
 NBEdge::getAngleAtNode(const NBNode* const atNode) const {
-    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
     if (atNode == myFrom) {
         return GeomHelper::legacyDegree(myGeom.angleAt2D(0));
-    } else {
-        assert(atNode == myTo);
-        return GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
     }
+    assert(atNode == myTo);
+    return GeomHelper::legacyDegree(myGeom.angleAt2D(-2));
 }
+
 
 double
 NBEdge::getAngleAtNodeNormalized(const NBNode* const atNode) const {
-    // myStartAngle, myEndAngle are in [0,360] and this returns results in [-180,180]
     double res;
     if (atNode == myFrom) {
         res = GeomHelper::legacyDegree(myGeom.angleAt2D(0)) - 180;

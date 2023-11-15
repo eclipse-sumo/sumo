@@ -1284,8 +1284,7 @@ public:
 
     /** @brief Returns the angle of the edge's geometry at the given node
      *
-     * The angle is signed, regards direction, and starts at 12 o'clock
-     *  (north->south), proceeds positive clockwise.
+     * The angle is in degrees between -180 and 180.
      * @param[in] node The node for which the edge's angle shall be returned
      * @return This edge's angle at the given node
      */

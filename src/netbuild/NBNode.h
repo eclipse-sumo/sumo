@@ -255,7 +255,7 @@ public:
     /// @name Atomar getter methods
     /// @{
     /// @brief Returns the position of this node
-    const Position& getPosition() const {
+    inline const Position& getPosition() const {
         return myPosition;
     }
 
@@ -263,49 +263,49 @@ public:
     Position getCenter() const;
 
     /// @brief Returns this node's incoming edges (The edges which yield in this node)
-    const EdgeVector& getIncomingEdges() const {
+    inline const EdgeVector& getIncomingEdges() const {
         return myIncomingEdges;
     }
 
     /// @brief Returns this node's outgoing edges (The edges which start at this node)
-    const EdgeVector& getOutgoingEdges() const {
+    inline const EdgeVector& getOutgoingEdges() const {
         return myOutgoingEdges;
     }
 
     /// @brief Returns all edges which participate in this node (Edges that start or end at this node)
-    const EdgeVector& getEdges() const {
+    inline const EdgeVector& getEdges() const {
         return myAllEdges;
     }
 
     /**@brief Returns the type of this node
      * @see SumoXMLNodeType
      */
-    SumoXMLNodeType getType() const {
+    inline SumoXMLNodeType getType() const {
         return myType;
     }
 
     /// @brief Returns the turning radius of this node
-    double getRadius() const {
+    inline double getRadius() const {
         return myRadius;
     }
 
     /// @brief Returns the keepClear flag
-    bool getKeepClear() const {
+    inline bool getKeepClear() const {
         return myKeepClear;
     }
 
     /// @brief Returns hint on how to compute right of way
-    RightOfWay getRightOfWay() const {
+    inline RightOfWay getRightOfWay() const {
         return myRightOfWay;
     }
 
     /// @brief Returns fringe type
-    FringeType getFringeType() const {
+    inline FringeType getFringeType() const {
         return myFringeType;
     }
 
     /// @brief Returns intersection name
-    const std::string& getName() const {
+    inline const std::string& getName() const {
         return myName;
     }
     /// @}
