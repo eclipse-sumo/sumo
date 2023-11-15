@@ -20,9 +20,6 @@
 # --------------------------------
 
 
-from re import U
-
-
 class editElements:
     overlapped = 5
 
@@ -181,7 +178,7 @@ class edge:
         disallowPedestrians = 4
         addSidewalk = 5
         addBikelane = 6
-        useTemplate = 7                                   
+        useTemplate = 7
         numLanes = 9
         speed = 10
         allowButton = 11

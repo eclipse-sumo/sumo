@@ -43,14 +43,14 @@ netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.triggered, "
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
                   1, netedit.positions.demandElements.chargingStation.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.join, ";;;")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
                   2, netedit.positions.demandElements.chargingStation.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.join, "customJoin")
 

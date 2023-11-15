@@ -43,14 +43,14 @@ netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.triggered, "join
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   1, netedit.positions.demandElements.parkingArea.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.join, ";;;")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
                   2, netedit.positions.demandElements.parkingArea.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.join, "customJoin")
 

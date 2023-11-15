@@ -43,14 +43,14 @@ netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.triggered, "join")
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
                   1, netedit.positions.demandElements.busStop.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.join, ";;;")
 
 # create stop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
                   2, netedit.positions.demandElements.busStop.y)
-                  
+
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.join, "customJoin")
 

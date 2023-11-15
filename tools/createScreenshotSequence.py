@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@
 # @author  Mirko Barthauer
 # @date    2023-05-25
 
-
 from __future__ import print_function
 import os
 import sys
@@ -25,6 +24,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 import traci  # noqa
+
 
 def getOptions(args=None):
     argParser = sumolib.options.ArgumentParser(
@@ -41,7 +41,8 @@ def getOptions(args=None):
                            help="View ID to use for the screenshots")
     argParser.add_argument("-p", "--prefix", category="input", dest="prefix",
                            default="", help="define a prefix of the screenshot filename")
-    argParser.add_argument("--zoom", help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
+    argParser.add_argument("--zoom",
+                           help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
     argParser.add_argument("--include-time", dest="includeTime", category="processing", action="store_true",
                            default=False,
                            help="whether to include the system time at simulation begin in the file name")
@@ -54,6 +55,7 @@ def getOptions(args=None):
         sys.exit(1)
     return options
 
+
 def main(options):
     # create directory if it does not exist
     outputPath = os.path.abspath(options.outdir)
@@ -65,11 +67,13 @@ def main(options):
     formattedTime = datetime.now().strftime("%Y%m%d-%H_%M_%S")
     traci.start(["sumo-gui", "-c", options.sumocfg])
     recordAll = options.begin is None and options.end is None
-    listener = ScreenshotHelper(outputPath, "%s%s" % (options.prefix, formattedTime if options.includeTime else ""), options.imageFormat, 1, view=options.view, recordAll=recordAll)
+    listener = ScreenshotHelper(outputPath, "%s%s" % (options.prefix, formattedTime if options.includeTime else ""),
+                                options.imageFormat, 1, view=options.view, recordAll=recordAll)
     if not recordAll:
         listener.addTimeInterval(begin=options.begin, end=options.end)
     if options.zoom is not None:
-        zoomTargets = [(float(pair[:pair.index(":")]), float(pair[pair.index(":")+1:])) for pair in options.zoom.split(";")]
+        zoomTargets = [(float(pair[:pair.index(":")]), float(pair[pair.index(":")+1:]))
+                       for pair in options.zoom.split(";")]
         for t, value in zoomTargets:
             listener.addZoomTarget(t, value)
     traci.addStepListener(listener)
@@ -80,6 +84,7 @@ def main(options):
         traci.simulationStep()
         t += simStep
     traci.close()
+
 
 class ScreenshotHelper(traci.StepListener):
 
@@ -101,12 +106,13 @@ class ScreenshotHelper(traci.StepListener):
         self._initialZoom = traci.gui.getZoom(viewID=view)
         if recordAll:
             self.addTimeInterval()
-        self._imageCount = int((self._endTime - self._startTime)/(float(traci.simulation.getOption("step-length"))*frequency))
+        self._imageCount = int((self._endTime - self._startTime) /
+                               (float(traci.simulation.getOption("step-length")) * frequency))
         self._fileNameTemplate = "%s%0" + str(len(str(self._imageCount))) + "d.%s"
 
     def addZoomTarget(self, timeKey, zoomValue):
         self._zoomTargets.append((timeKey, zoomValue))
-        self._zoomTargets.sort(key=lambda x:x[0])
+        self._zoomTargets.sort(key=lambda x: x[0])
 
     def addTimeInterval(self, begin=None, end=None):
         if begin is None:
@@ -121,7 +127,7 @@ class ScreenshotHelper(traci.StepListener):
         else:
             end = max(begin + self._simStep, min(end, sys.maxsize))
         self._recordIntervals.append((begin, end))
-        self._recordIntervals.sort(key=lambda x:x[0])
+        self._recordIntervals.sort(key=lambda x: x[0])
 
     def getBeginTime(self):
         return self._recordIntervals[0][0]
@@ -141,13 +147,17 @@ class ScreenshotHelper(traci.StepListener):
             return False
         if len(self._zoomTargets) > 0:
             currentZoom = traci.gui.getZoom(viewID=self._view)
-            newZoom = currentZoom + (self._zoomTargets[0][1] - currentZoom) * self._simStep / (self._zoomTargets[0][0] - self._simTime)
+            newZoom = currentZoom + (self._zoomTargets[0][1] - currentZoom) * \
+                self._simStep / (self._zoomTargets[0][0] - self._simTime)
             traci.gui.setZoom(self._view, newZoom)
-        if self._simTime > self._recordIntervals[0][0] and self._simTime <= self._recordIntervals[0][1] and self.__counter % self._frequency == 0:
-            traci.gui.screenshot(self._view, os.path.join(self._outputDir, self._fileNameTemplate % (self._prefix, self.__counter, self._imageFormat)))
+        if (self._simTime > self._recordIntervals[0][0] and self._simTime <= self._recordIntervals[0][1]
+                and self.__counter % self._frequency == 0):
+            traci.gui.screenshot(self._view, os.path.join(self._outputDir, self._fileNameTemplate %
+                                 (self._prefix, self.__counter, self._imageFormat)))
             self.__counter += 1
         self._simTime += self._simStep
         return True
+
 
 if __name__ == "__main__":
     if not main(getOptions()):
