@@ -840,12 +840,8 @@ bool
 NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
     bool ret = false;
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
-    for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
-        NBEdge* from = *i;
-        const std::vector<NBEdge::Connection>& connections = from->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator j = connections.begin(); j != connections.end(); ++j) {
-            const NBEdge::Connection& c = *j;
+    for (const NBEdge* const from : n.getIncomingEdges()) {
+        for (const NBEdge::Connection& c : from->getConnections()) {
             LinkDirection dir = n.getDirection(from, c.toEdge, lefthand);
             assert(c.toEdge != 0);
             if (c.haveVia) {
