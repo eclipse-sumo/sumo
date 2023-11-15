@@ -112,7 +112,7 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state) {
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
     if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding an agent: %"), JPS_ErrorMessage_GetMessage(message));
+        WRITE_WARNINGF(TL("Error while adding person '%' as JuPedSim agent: %"), state->getPerson()->getID(), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
     } else {
         state->setAgentId(agentId);
@@ -201,13 +201,11 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime /
             break;
         }
         const MSStage* const prev = person->getNextStage(stageOffset - 1);
+        double prevArrivalPos = prev->getArrivalPos();
         if (prev->getDestinationStop() != nullptr) {
-            const MSStoppingPlace* const stop = prev->getDestinationStop();
-            const Position& stopPos = stop->getLane().getShape().positionAtOffset(stop->getLane().interpolateLanePosToGeometryPos(stop->getEndLanePosition()));
-            waypoints.push_back(stopPos);
-        } else {
-            waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prev->getArrivalPos()));
+            prevArrivalPos = prev->getDestinationStop()->getAccessPos(prev->getDestination());
         }
+        waypoints.push_back(getSidewalk<MSEdge, MSLane>(prev->getDestination())->getShape().positionAtOffset(prevArrivalPos));
         if (!addWaypoint(journey, predecessor, waypoints.back())) {
             return nullptr;
         }
