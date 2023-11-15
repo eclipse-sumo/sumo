@@ -194,13 +194,13 @@ class edge:
         bikelaneWidth = 19
 
     class createLane:
-        add = 25
-        remove = 26
-        speed = 27
-        allowButton = 28
-        allow = 29
-        disallow = 30
-        width = 31
+        add = 24
+        remove = 25
+        speed = 26
+        allowButton = 27
+        allow = 28
+        disallow = 29
+        width = 30
 
     class inspect:
         id = 1
@@ -225,7 +225,7 @@ class edge:
         stopOffset = 21
         stopExceptionButton = 22
         stopException = 23
-        parameters = 26
+        parameters = 24
 
     class inspectSelection:
         speed = 1
@@ -245,12 +245,12 @@ class edge:
         stopOffset = 16
         stopExceptionButton = 17
         stopException = 18
-        parameters = 21
+        parameters = 19
 
     class template:
-        create = 32
-        copy = 33
-        clear = 34
+        create = 30
+        copy = 31
+        clear = 32
 
     class contextualMenu:
         splitEdge = 1
