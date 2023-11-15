@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-15 11:48+0100\n"
-"PO-Revision-Date: 2023-11-14 11:09+0000\n"
+"PO-Revision-Date: 2023-11-15 11:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4515,6 +4515,8 @@ msgstr "Abrir meanDatas desde archivos (s)"
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr ""
+"Restablecer valores de trayectoria (adicionales, ruta, datos...) después de "
+"cargar la configuración de netedit"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:309
 msgid "File in which TLS Programs must be saved"
@@ -11109,11 +11111,13 @@ msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:281
 msgid "Cannot repeat in routes with only one edge"
-msgstr ""
+msgstr "No se pueden repetir rutas con una sola arista"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:285
 msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr ""
+"No se puede repetir la ruta; la arista deltantera y la última no están "
+"conectadas"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:803
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1856
@@ -12400,15 +12404,15 @@ msgstr "Lugares de parada dobles no son permitidos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:38
 msgid " Valid element"
-msgstr ""
+msgstr " Elemento válido"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:41
 msgid " From element"
-msgstr ""
+msgstr " Elemento inicial"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:44
 msgid " To element"
-msgstr ""
+msgstr " Elemento destino"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:91
 msgid "Plan type"
