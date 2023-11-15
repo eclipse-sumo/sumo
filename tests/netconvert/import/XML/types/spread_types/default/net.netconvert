@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 17:53:12 by Eclipse SUMO netconvert Version v1_17_0+1311-68c84bc
+<!-- generated on 2023-11-15 15:11:52 by Eclipse SUMO netconvert Version v1_19_0+0170-2560452700f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -224,7 +224,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="gneE9_0" index="0" speed="13.89" length="1.09" shape="4.17,28.10 3.39,28.87"/>
     </edge>
 
-    <junction id="gneJ0" type="priority" x="10.00" y="20.00" incLanes="B1_0 B1_1 gneE11_0 gneE8_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_2_0 :gneJ0_3_0 :gneJ0_4_0 :gneJ0_5_0 :gneJ0_6_0 :gneJ0_7_0 :gneJ0_8_0" shape="12.13,26.40 12.13,13.60 9.29,13.45 8.31,13.17 7.41,12.67 6.45,11.89 5.30,10.77 0.77,15.30 2.08,16.86 2.86,18.43 3.12,20.00 2.86,21.57 2.08,23.14 0.77,24.70 5.30,29.23 7.41,27.33 8.31,26.83 9.29,26.55 10.52,26.43">
+    <junction id="gneJ0" type="priority" x="10.00" y="20.00" incLanes="B1_0 B1_1 gneE11_0 gneE8_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_2_0 :gneJ0_3_0 :gneJ0_4_0 :gneJ0_5_0 :gneJ0_6_0 :gneJ0_7_0 :gneJ0_8_0" shape="12.13,26.40 12.13,13.60 9.59,13.29 8.42,12.89 7.31,12.34 6.27,11.64 5.30,10.77 0.77,15.30 2.08,16.86 2.86,18.43 3.12,20.00 2.86,21.57 2.08,23.14 0.77,24.70 5.30,29.23 7.41,27.33 8.31,26.83 9.29,26.55 10.52,26.43">
         <request index="0" response="000000000" foes="100010000" cont="0"/>
         <request index="1" response="000000000" foes="011110000" cont="0"/>
         <request index="2" response="010000000" foes="010000000" cont="0"/>
@@ -235,7 +235,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000010010" foes="000010110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="60.00" y="20.00" incLanes="gneE16_0 gneE21_0 B2_0 B2_1" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_5_0 :gneJ1_6_0 :gneJ1_7_0 :gneJ1_8_0" shape="64.70,29.23 69.23,24.70 67.92,23.14 67.14,21.57 66.88,20.00 67.14,18.43 67.92,16.86 69.23,15.30 64.70,10.77 62.59,12.67 61.69,13.17 60.71,13.45 59.48,13.57 57.87,13.60 57.87,26.40 60.41,26.71 61.58,27.11 62.69,27.66 63.73,28.36">
+    <junction id="gneJ1" type="priority" x="60.00" y="20.00" incLanes="gneE16_0 gneE21_0 B2_0 B2_1" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_5_0 :gneJ1_6_0 :gneJ1_7_0 :gneJ1_8_0" shape="64.70,29.23 69.23,24.70 67.92,23.14 67.14,21.57 66.88,20.00 67.14,18.43 67.92,16.86 69.23,15.30 64.70,10.77 62.69,12.34 61.58,12.89 60.41,13.29 59.18,13.52 57.87,13.60 57.87,26.40 60.41,26.71 61.58,27.11 62.69,27.66 63.73,28.36">
         <request index="0" response="000000000" foes="000000000" cont="0"/>
         <request index="1" response="011000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="0"/>
