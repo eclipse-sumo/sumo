@@ -45,9 +45,17 @@ class demandElements:
         x = 450
         y = 390
 
+    class edgeRepeat0:
+        x = 110
+        y = 250
+
+    class edgeRepeat1:
+        x = 150
+        y = 250
+
     class edgeBus1:
-        x = 115
-        y = 150
+        x = 150
+        y = 220
 
     class edgeBus2:
         x = 150

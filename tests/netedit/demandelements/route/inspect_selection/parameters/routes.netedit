@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-17 10:45:32 by Eclipse SUMO netedit Version v1_18_0+0332-272a1e44cea
+<!-- generated on 2023-11-15 10:24:40 by Eclipse SUMO netedit Version v1_19_0+0149-ecd9c79c4fd
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="r_0" edges="Edge0 Edge1">
+    <route id="r_0" edges="Edge0 Edge1 Edge2 EdgeRepeat0" color="red" cycleTime="10.12">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
     </route>
-    <route id="r_1" edges="Edge2">
+    <route id="r_1" edges="Edge3 Edge4 Edge5 EdgeRepeat1" color="blue" cycleTime="8.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
