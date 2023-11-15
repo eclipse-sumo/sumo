@@ -88,6 +88,7 @@ extra:
     DT_PROJ_DEF: '[*&lt;PROJ_DEFINITION&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_Routes: '[*&lt;ROUTES_FILE&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_STR: '[*&lt;STRING&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
+    DT_STR_LIST: '[*&lt;STRING&lbrack; &rbrack;&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_TIME: '[*&lt;TIME&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
     Source: 'https://github.com/eclipse-sumo/sumo/blob/main/'

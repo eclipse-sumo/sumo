@@ -133,7 +133,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
-| **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
+| **--restriction-params** {{DT_STR_LIST}} | Comma separated list of param keys to compare for additional restrictions |
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.expand** {{DT_BOOL}} | Expand the end of the last loaded weight interval to infinity; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
@@ -156,9 +156,9 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--logit.theta** {{DT_FLOAT}} | Use FLOAT as logit's theta (negative values mean auto-estimation); *default:* **-1** |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
 | **--persontrip.walk-opposite-factor** {{DT_FLOAT}} | Use FLOAT as a factor on walking speed against vehicle traffic direction; *default:* **1** |
-| **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
-| **--persontrip.transfer.taxi-walk** {{DT_STR[]}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
-| **--persontrip.transfer.walk-taxi** {{DT_STR[]}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
+| **--persontrip.transfer.car-walk** {{DT_STR_LIST}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
+| **--persontrip.transfer.taxi-walk** {{DT_STR_LIST}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
+| **--persontrip.transfer.walk-taxi** {{DT_STR_LIST}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
 | **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **1000** |
 

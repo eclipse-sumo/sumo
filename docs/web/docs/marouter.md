@@ -116,7 +116,7 @@ configuration:
 | **-z** {{DT_FILE}}<br> **--tazrelation-files** {{DT_FILE}} | Loads O/D-matrix in tazRelation format from FILE(s) |
 | **--tazrelation-attribute** {{DT_STR}} | Define data attribute for loading counts (default 'count'); *default:* **count** |
 | **--weight-adaption** {{DT_FLOAT}} | The travel time influence of prior intervals; *default:* **0** |
-| **--taz-param** {{DT_STR[]}} | Parameter key(s) defining source (and sink) taz |
+| **--taz-param** {{DT_STR_LIST}} | Parameter key(s) defining source (and sink) taz |
 | **--ignore-taz** {{DT_BOOL}} | Ignore attributes 'fromTaz' and 'toTaz'; *default:* **false** |
 
 ### Output
@@ -146,7 +146,7 @@ configuration:
 | **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
-| **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
+| **--restriction-params** {{DT_STR_LIST}} | Comma separated list of param keys to compare for additional restrictions |
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.expand** {{DT_BOOL}} | Expand the end of the last loaded weight interval to infinity; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
@@ -158,7 +158,7 @@ configuration:
 | **-s** {{DT_FLOAT}}<br> **--scale** {{DT_FLOAT}} | Scales the loaded flows by FLOAT; *default:* **1** |
 | **--vtype** {{DT_STR}} | Defines the name of the vehicle type to use |
 | **--prefix** {{DT_STR}} | Defines the prefix for vehicle flow names |
-| **--timeline** {{DT_STR[]}} | Uses STR[] as a timeline definition |
+| **--timeline** {{DT_STR_LIST}} | Uses STR[] as a timeline definition |
 | **--timeline.day-in-hours** {{DT_BOOL}} | Uses STR as a 24h-timeline definition; *default:* **false** |
 | **--additive-traffic** {{DT_BOOL}} | Keep traffic flows of all time slots in the net; *default:* **false** |
 | **--assignment-method** {{DT_STR}} | Choose a assignment method: incremental, UE or SUE; *default:* **incremental** |

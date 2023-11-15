@@ -86,7 +86,7 @@ distinct shape file.
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guesses the shapefile's projection; *default:* **false** |
 | **--shapefile.traditional-axis-mapping** {{DT_BOOL}} | Use traditional axis order (lon, lat); *default:* **false** |
 | **--shapefile.id-column** {{DT_STR}} | Defines in which column the id can be found |
-| **--shapefile.type-columns** {{DT_STR[]}} | Defines which columns form the type id (comma separated list) |
+| **--shapefile.type-columns** {{DT_STR_LIST}} | Defines which columns form the type id (comma separated list) |
 | **--shapefile.use-running-id** {{DT_BOOL}} | A running number will be used as id; *default:* **false** |
 | **--shapefile.add-param** {{DT_BOOL}} | Extract all additional columns as params; *default:* **false** |
 | **--shapefile.fill** {{DT_STR}} | [auto,true,false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type |
@@ -141,7 +141,7 @@ this boundary are discarded in these cases.
 | **--prune.in-net.offsets** {{DT_STR}} | Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. Positive values grow the boundary on all sides while negative values shrink it.; *default:* **0,0,0,0** |
 | **--prune.boundary** {{DT_STR}} | Uses STR as pruning boundary |
 | **--prune.keep-list** {{DT_STR}} | Items in STR will be kept though out of boundary |
-| **--prune.explicit** {{DT_STR[]}} | Items with names in STR[] will be removed |
+| **--prune.explicit** {{DT_STR_LIST}} | Items with names in STR[] will be removed |
 
 ### Processing
 

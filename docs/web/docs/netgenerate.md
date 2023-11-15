@@ -148,7 +148,7 @@ the offsets given).
 | **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
-| **--geometry.remove.keep-edges.explicit** {{DT_STR[]}} | Ensure that the given list of edges is not modified |
+| **--geometry.remove.keep-edges.explicit** {{DT_STR_LIST}} | Ensure that the given list of edges is not modified |
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
 | **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
@@ -200,14 +200,14 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 
 | Option | Description |
 |--------|-------------|
-| **--tls.set** {{DT_STR[]}} | Interprets STR[] as list of junctions to be controlled by TLS |
-| **--tls.unset** {{DT_STR[]}} | Interprets STR[] as list of junctions to be not controlled by TLS |
+| **--tls.set** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be controlled by TLS |
+| **--tls.unset** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
 | **--tls.guess.threshold** {{DT_FLOAT}} | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default:* **69.4444** |
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |
 | **--tls.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining traffic lights (defaults to 20); *default:* **20** |
-| **--tls.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of tls ids to exclude from joining |
+| **--tls.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of tls ids to exclude from joining |
 | **--tls.uncontrolled-within** {{DT_BOOL}} | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default:* **false** |
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.cycle.time** {{DT_INT}} | Use INT as cycle duration; *default:* **90** |
@@ -225,8 +225,8 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
 | **--tls.scramble.time** {{DT_INT}} | Use INT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |
-| **--tls.half-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by half-phase |
-| **--tls.quarter-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by quarter-phase |
+| **--tls.half-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by half-phase |
+| **--tls.quarter-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by quarter-phase |
 | **--tls.default-type** {{DT_STR}} | TLSs with unspecified type will use STR as their algorithm; *default:* **static** |
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
 | **--tls.no-mixed** {{DT_BOOL}} | Avoid phases with green and red signals for different connections from the same lane; *default:* **false** |
@@ -242,19 +242,19 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | Option | Description |
 |--------|-------------|
 | **--keep-edges.min-speed** {{DT_FLOAT}} | Only keep edges with speed in meters/second > FLOAT; *default:* **-1** |
-| **--remove-edges.explicit** {{DT_STR[]}} | Remove edges in STR[] |
-| **--keep-edges.explicit** {{DT_STR[]}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.explicit** {{DT_STR_LIST}} | Remove edges in STR[] |
+| **--keep-edges.explicit** {{DT_STR_LIST}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
 | **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
-| **--keep-edges.in-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
-| **--keep-edges.in-geo-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
+| **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
 
 ### Unregulated Nodes
 
 | Option | Description |
 |--------|-------------|
 | **--keep-nodes-unregulated** {{DT_BOOL}} | All nodes will be unregulated; *default:* **false** |
-| **--keep-nodes-unregulated.explicit** {{DT_STR[]}} | Do not regulate nodes in STR[] |
+| **--keep-nodes-unregulated.explicit** {{DT_STR_LIST}} | Do not regulate nodes in STR[] |
 | **--keep-nodes-unregulated.district-nodes** {{DT_BOOL}} | Do not regulate district nodes; *default:* **false** |
 
 ### Junctions
@@ -300,7 +300,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--sidewalks.guess.max-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed equal or below the given limit; *default:* **13.89** |
 | **--sidewalks.guess.min-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed above the given limit; *default:* **5.8** |
 | **--sidewalks.guess.from-permissions** {{DT_BOOL}} | Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed; *default:* **false** |
-| **--sidewalks.guess.exclude** {{DT_STR[]}} | Do not guess sidewalks for the given list of edges |
+| **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
@@ -314,7 +314,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--bikelanes.guess.max-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed equal or below the given limit; *default:* **22.22** |
 | **--bikelanes.guess.min-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed above the given limit; *default:* **5.8** |
 | **--bikelanes.guess.from-permissions** {{DT_BOOL}} | Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed; *default:* **false** |
-| **--bikelanes.guess.exclude** {{DT_STR[]}} | Do not guess bikelanes for the given list of edges |
+| **--bikelanes.guess.exclude** {{DT_STR_LIST}} | Do not guess bikelanes for the given list of edges |
 
 ### Report
 

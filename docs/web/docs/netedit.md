@@ -121,7 +121,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--dismiss-vclasses** {{DT_BOOL}} | Removes vehicle class restrictions from imported edges; *default:* **false** |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
-| **--geometry.remove.keep-edges.explicit** {{DT_STR[]}} | Ensure that the given list of edges is not modified |
+| **--geometry.remove.keep-edges.explicit** {{DT_STR_LIST}} | Ensure that the given list of edges is not modified |
 | **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.keep-ptstops** {{DT_BOOL}} | Ensure that edges with public transport stops are not modified; *default:* **false** |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
@@ -187,15 +187,15 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 |--------|-------------|
 | **--tls.discard-loaded** {{DT_BOOL}} | Does not instantiate traffic lights loaded from other formats than plain-XML; *default:* **false** |
 | **--tls.discard-simple** {{DT_BOOL}} | Does not instantiate traffic lights at geometry-like nodes loaded from other formats than plain-XML; *default:* **false** |
-| **--tls.set** {{DT_STR[]}} | Interprets STR[] as list of junctions to be controlled by TLS |
-| **--tls.unset** {{DT_STR[]}} | Interprets STR[] as list of junctions to be not controlled by TLS |
+| **--tls.set** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be controlled by TLS |
+| **--tls.unset** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to be not controlled by TLS |
 | **--tls.guess** {{DT_BOOL}} | Turns on TLS guessing; *default:* **false** |
 | **--tls.guess.threshold** {{DT_FLOAT}} | Sets minimum value for the sum of all incoming lane speeds when guessing TLS; *default:* **69.4444** |
 | **--tls.taz-nodes** {{DT_BOOL}} | Sets district nodes as tls-controlled; *default:* **false** |
 | **--tls.guess.joining** {{DT_BOOL}} | Includes node clusters into guess; *default:* **false** |
 | **--tls.join** {{DT_BOOL}} | Tries to cluster tls-controlled nodes; *default:* **false** |
 | **--tls.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining traffic lights (defaults to 20); *default:* **20** |
-| **--tls.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of tls ids to exclude from joining |
+| **--tls.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of tls ids to exclude from joining |
 | **--tls.uncontrolled-within** {{DT_BOOL}} | Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used; *default:* **false** |
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.guess-signals** {{DT_BOOL}} | Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks; *default:* **false** |
@@ -216,8 +216,8 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--tls.crossing-min.time** {{DT_INT}} | Use INT as minimum green duration for pedestrian crossings (s).; *default:* **4** |
 | **--tls.crossing-clearance.time** {{DT_INT}} | Use INT as clearance time for pedestrian crossings (s).; *default:* **5** |
 | **--tls.scramble.time** {{DT_INT}} | Use INT as green phase duration for pedestrian scramble phase (s).; *default:* **5** |
-| **--tls.half-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by half-phase |
-| **--tls.quarter-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by quarter-phase |
+| **--tls.half-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by half-phase |
+| **--tls.quarter-offset** {{DT_STR_LIST}} | TLSs in STR[] will be shifted by quarter-phase |
 | **--tls.default-type** {{DT_STR}} | TLSs with unspecified type will use STR as their algorithm; *default:* **static** |
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
 | **--tls.no-mixed** {{DT_BOOL}} | Avoid phases with green and red signals for different connections from the same lane; *default:* **false** |
@@ -236,33 +236,33 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--ramps.min-highway-speed** {{DT_FLOAT}} | Treat edges with speed < FLOAT as no highways; *default:* **21.9444** |
 | **--ramps.ramp-length** {{DT_FLOAT}} | Use FLOAT as ramp-length; *default:* **100** |
 | **--ramps.min-weave-length** {{DT_FLOAT}} | Use FLOAT as minimum ramp-length; *default:* **50** |
-| **--ramps.set** {{DT_STR[]}} | Tries to handle the given edges as ramps |
-| **--ramps.unset** {{DT_STR[]}} | Do not consider the given edges as ramps |
+| **--ramps.set** {{DT_STR_LIST}} | Tries to handle the given edges as ramps |
+| **--ramps.unset** {{DT_STR_LIST}} | Do not consider the given edges as ramps |
 | **--ramps.no-split** {{DT_BOOL}} | Avoids edge splitting; *default:* **false** |
 
 ### Edge Removal
 | Option | Description |
 |--------|-------------|
 | **--keep-edges.min-speed** {{DT_FLOAT}} | Only keep edges with speed in meters/second > FLOAT; *default:* **-1** |
-| **--remove-edges.explicit** {{DT_STR[]}} | Remove edges in STR[] |
-| **--keep-edges.explicit** {{DT_STR[]}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.explicit** {{DT_STR_LIST}} | Remove edges in STR[] |
+| **--keep-edges.explicit** {{DT_STR_LIST}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
 | **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.postload** {{DT_BOOL}} | Remove edges after joining; *default:* **false** |
-| **--keep-edges.in-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
-| **--keep-edges.in-geo-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
-| **--keep-edges.by-vclass** {{DT_STR[]}} | Only keep edges which allow one of the vclasses in STR[] |
-| **--remove-edges.by-vclass** {{DT_STR[]}} | Remove edges which allow only vclasses from STR[] |
-| **--keep-edges.by-type** {{DT_STR[]}} | Only keep edges where type is in STR[] |
+| **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
+| **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
+| **--keep-edges.by-vclass** {{DT_STR_LIST}} | Only keep edges which allow one of the vclasses in STR[] |
+| **--remove-edges.by-vclass** {{DT_STR_LIST}} | Remove edges which allow only vclasses from STR[] |
+| **--keep-edges.by-type** {{DT_STR_LIST}} | Only keep edges where type is in STR[] |
 | **--keep-edges.components** {{DT_INT}} | Only keep the INT largest weakly connected components; *default:* **0** |
-| **--remove-edges.by-type** {{DT_STR[]}} | Remove edges where type is in STR[] |
+| **--remove-edges.by-type** {{DT_STR_LIST}} | Remove edges where type is in STR[] |
 | **--remove-edges.isolated** {{DT_BOOL}} | Removes isolated edges; *default:* **false** |
 
 ### Unregulated Nodes
 | Option | Description |
 |--------|-------------|
 | **--keep-nodes-unregulated** {{DT_BOOL}} | All nodes will be unregulated; *default:* **false** |
-| **--keep-nodes-unregulated.explicit** {{DT_STR[]}} | Do not regulate nodes in STR[] |
+| **--keep-nodes-unregulated.explicit** {{DT_STR_LIST}} | Do not regulate nodes in STR[] |
 | **--keep-nodes-unregulated.district-nodes** {{DT_BOOL}} | Do not regulate district nodes; *default:* **false** |
 
 ### Junctions
@@ -280,7 +280,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--no-left-connections** {{DT_BOOL}} | Disables building connections to left; *default:* **false** |
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
-| **--junctions.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of junctions to exclude from joining |
+| **--junctions.join-exclude** {{DT_STR_LIST}} | Interprets STR[] as list of junctions to exclude from joining |
 | **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
 | **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
@@ -307,7 +307,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--sidewalks.guess.max-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed equal or below the given limit; *default:* **13.89** |
 | **--sidewalks.guess.min-speed** {{DT_FLOAT}} | Add sidewalks for edges with a speed above the given limit; *default:* **5.8** |
 | **--sidewalks.guess.from-permissions** {{DT_BOOL}} | Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed; *default:* **false** |
-| **--sidewalks.guess.exclude** {{DT_STR[]}} | Do not guess sidewalks for the given list of edges |
+| **--sidewalks.guess.exclude** {{DT_STR_LIST}} | Do not guess sidewalks for the given list of edges |
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
@@ -320,7 +320,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--bikelanes.guess.max-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed equal or below the given limit; *default:* **22.22** |
 | **--bikelanes.guess.min-speed** {{DT_FLOAT}} | Add bike lanes for edges with a speed above the given limit; *default:* **5.8** |
 | **--bikelanes.guess.from-permissions** {{DT_BOOL}} | Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed; *default:* **false** |
-| **--bikelanes.guess.exclude** {{DT_STR[]}} | Do not guess bikelanes for the given list of edges |
+| **--bikelanes.guess.exclude** {{DT_STR_LIST}} | Do not guess bikelanes for the given list of edges |
 
 ### Railway
 | Option | Description |
@@ -343,8 +343,8 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 ### Formats
 | Option | Description |
 |--------|-------------|
-| **--discard-params** {{DT_STR[]}} | Remove the list of keys from all params |
-| **--ignore-change-restrictions** {{DT_STR[]}} | List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions); *default:* **authority** |
+| **--discard-params** {{DT_STR_LIST}} | Remove the list of keys from all params |
+| **--ignore-change-restrictions** {{DT_STR_LIST}} | List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions); *default:* **authority** |
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
@@ -360,7 +360,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--osm.stop-output.length.tram** {{DT_FLOAT}} | The default length of a tram stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.train** {{DT_FLOAT}} | The default length of a train stop in FLOAT m; *default:* **200** |
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
-| **--osm.extra-attributes** {{DT_STR[]}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
+| **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
 | **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSIM-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
@@ -374,7 +374,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--shapefile.width** {{DT_STR}} | Read total edge width from column STR |
 | **--shapefile.name** {{DT_STR}} | Read (non-unique) name from column STR |
 | **--shapefile.node-join-dist** {{DT_FLOAT}} | Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available); *default:* **0** |
-| **--shapefile.add-params** {{DT_STR[]}} | Add the list of field names as edge params |
+| **--shapefile.add-params** {{DT_STR_LIST}} | Add the list of field names as edge params |
 | **--shapefile.use-defaults-on-failure** {{DT_BOOL}} | Uses edge type defaults on problems; *default:* **false** |
 | **--shapefile.all-bidirectional** {{DT_BOOL}} | Insert edges in both directions; *default:* **false** |
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guess the proper projection; *default:* **false** |
@@ -457,8 +457,8 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **-T** {{DT_BOOL}}<br> **--disable-textures** {{DT_BOOL}} | Disable textures; *default:* **false** |
 | **-g** {{DT_FILE}}<br> **--gui-settings-file** {{DT_FILE}} | Load visualisation settings from FILE |
 | **--registry-viewport** {{DT_BOOL}} | Load current viewport from registry; *default:* **false** |
-| **--window-size** {{DT_STR[]}} | Create initial window with the given x,y size |
-| **--window-pos** {{DT_STR[]}} | Create initial window at the given x,y position |
+| **--window-size** {{DT_STR_LIST}} | Create initial window with the given x,y size |
+| **--window-pos** {{DT_STR_LIST}} | Create initial window at the given x,y position |
 | **--gui-testing** {{DT_BOOL}} | Enable overlay for screen recognition; *default:* **false** |
 | **--gui-testing-debug** {{DT_BOOL}} | Enable output messages during GUI-Testing; *default:* **false** |
 | **--gui-testing-debug-gl** {{DT_BOOL}} | Enable output messages during GUI-Testing specific of gl functions; *default:* **false** |

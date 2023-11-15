@@ -67,7 +67,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--flow-output.probability** {{DT_BOOL}} | Writes probabilistic flow instead of evenly spaced flow; *default:* **false** |
 | **--pedestrians** {{DT_BOOL}} | Writes pedestrians instead of vehicles; *default:* **false** |
 | **--persontrips** {{DT_BOOL}} | Writes persontrips instead of vehicles; *default:* **false** |
-| **--persontrips.modes** {{DT_STR[]}} | Add modes attribute to personTrips |
+| **--persontrips.modes** {{DT_STR_LIST}} | Add modes attribute to personTrips |
 | **--ignore-vehicle-type** {{DT_BOOL}} | Does not save vtype information; *default:* **false** |
 | **--junctions** {{DT_BOOL}} | Writes trips between junctions; *default:* **false** |
 
@@ -87,7 +87,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--different-source-sink** {{DT_BOOL}} | Always choose source and sink edge which are not identical; *default:* **false** |
 | **--vtype** {{DT_STR}} | Defines the name of the vehicle type to use |
 | **--prefix** {{DT_STR}} | Defines the prefix for vehicle names |
-| **--timeline** {{DT_STR[]}} | Uses STR[] as a timeline definition |
+| **--timeline** {{DT_STR_LIST}} | Uses STR[] as a timeline definition |
 | **--timeline.day-in-hours** {{DT_BOOL}} | Uses STR as a 24h-timeline definition; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of current time step; *default:* **false** |
 
