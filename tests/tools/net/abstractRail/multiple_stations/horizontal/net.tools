@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-10 01:29:11 by Eclipse SUMO netconvert Version v1_17_0+0210-cfdd103a36f
+<!-- generated on 2023-11-15 17:32:55 by Eclipse SUMO netconvert Version v1_19_0+0179-536b2712ff8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -1741,7 +1741,7 @@
     <junction id="3542016694" type="priority" x="117.23" y="140.00" incLanes="26926993#2_0" intLanes="" shape="119.39,141.60 119.39,138.40 118.19,138.03 117.44,137.57 116.58,136.92 115.63,136.09 114.57,135.08 112.31,137.34 112.73,137.93 112.73,138.13 112.58,138.28 112.30,138.37 111.87,138.40 111.87,141.60">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="3542016697" type="priority" x="1048.57" y="60.00" incLanes="36867921#0_0" intLanes="" shape="1050.73,61.60 1050.73,58.40 1043.21,58.40 1043.21,61.60 1043.92,61.72 1044.07,61.87 1044.07,62.07 1043.93,62.34 1043.65,62.66 1045.91,64.92 1047.92,63.08 1048.78,62.43 1049.53,61.97 1050.18,61.69">
+    <junction id="3542016697" type="priority" x="1048.57" y="60.00" incLanes="36867921#0_0" intLanes="" shape="1050.73,61.60 1050.73,58.40 1043.21,58.40 1043.21,61.60 1043.92,61.72 1044.07,61.87 1044.07,62.07 1043.93,62.34 1043.65,62.66 1045.91,64.92 1047.43,63.14 1048.00,62.49 1048.64,62.00 1049.50,61.70">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
