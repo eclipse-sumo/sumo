@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.stopLane.inspect.endPos, "-500", True)
 netedit.modifyAttribute(netedit.attrs.stopLane.inspect.endPos, "600", True)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stopLane.inspect.endPos, "20", True)
+netedit.modifyAttribute(netedit.attrs.stopLane.inspect.endPos, "40", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
