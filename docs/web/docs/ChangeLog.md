@@ -13,7 +13,7 @@ title: ChangeLog
   - Add color legend in person and container modes. #13139
   - Now netedit checks if repeated routed are valid before saving. #13503
   - Disable stopOffsetException row if stopOffset is 0. #14065
-    
+
 - Other
   - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
 
@@ -42,14 +42,14 @@ title: ChangeLog
     - Fixed invalid bidi-leader identification during lane changing. #13572, #13576
     - Fixed invalid collision warning on bidi lane. #13573
     - Fixed failure to change lane on internal bidi lane. #13575
-  - Speeds imposed by variable speed signs (VSS) or TraCI limit the edge type speeds (vehicles will respect the edge type speed if lower than VSS one) #13665, #13652
+  - Speeds imposed by variable speed signs (VSS) or TraCI limit the edge type speeds (vehicles will respect the edge type speed if lower than VSS one). #13665, #13652
   - Corrected speed calculation for induction loop with length > 0. #13669
-  - another fix for leader distance in ACC model #13681
-  - proper normalization when using distributions of vType distributions #13786
-  - fixed rerouting problems with numerical instabilities at the current stop #13835
+  - another fix for leader distance in ACC model. #13681
+  - proper normalization when using distributions of vType distributions. #13786
+  - fixed rerouting problems with numerical instabilities at the current stop. #13835
   - SSM output
-    - fixed wrongly classified collisions #13918
-    - fixed problems with the device after state loading #13924
+    - fixed wrongly classified collisions. #13918
+    - fixed problems with the device after state loading. #13924
 
 - netedit
   - Fixed problem saving person flow attributes. #11022
@@ -71,10 +71,10 @@ title: ChangeLog
 
 - sumo-gui
   - Context menu uses same screen as sumo-gui on Windows. #13674
-  - Sidewalks are no longer connected to the ground in 3D view. Issue #13993
-  - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. Issue #14003
-  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. Issue #14005, #13768
-  - 3D models can be loaded as decals again. Issue #14009
+  - Sidewalks are no longer connected to the ground in 3D view. #13993
+  - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. #14003
+  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. #14005, #13768
+  - 3D models can be loaded as decals again. #14009
 
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -94,16 +94,16 @@ title: ChangeLog
   - traceExporter.py: kepler-JSON now generates correct timestamps. #13522, #13550
   - duaIterate.py: fixed corner case with empty output file after first iteration. #13840
   - mapDetectors.py: can now handles multiple lanes with the same distance. #13845
-  - fixed index in sumolib.net.node.Node.forbids #13857
+  - fixed index in sumolib.net.node.Node.forbids. #13857
   - osmWebWizard.py: Fixed error when requesting an amount of 0 vehicles for a mode. #13947, #13787
   - convert_detectors2SUMO.py: Syntax error fixed which made the script unusable. #13650
-  - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions #13346
+  - gtfs2pt.py: Now writes correct route and vehicle ids with recent pandas versions. #13346
 
 - TraCI / Libsumo
   - traci.vehicletype.setScale is now applied to flows. #13707
   - Vehicles now do opposite lane overtaking for vehicles stopped via TraCI. #13710
   - Fixed error message about unknown edge. #13890
-  - Lanearea detector now reports for last interval if output file is not set. Issue #13966
+  - Lanearea detector now reports for last interval if output file is not set. #13966
   - Fixed memory leak in libsumo exception code. #13821
   - TRACI_VERSION is now 21 to account for the unit changes in #7277
 
