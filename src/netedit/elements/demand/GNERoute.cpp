@@ -246,9 +246,8 @@ GNERoute::isDemandElementValid() const {
         if (getParentEdges().size() == 1) {
             return Problem::REPEATEDROUTE_DISCONNECTED;
         }
-        // check if front and last routes is connected
-        if ((getParentEdges().front() != getParentEdges().back()) &&
-            (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0)) {
+        // check if front and last routes are connected
+        if (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0) {
             return Problem::REPEATEDROUTE_DISCONNECTED;
         }
     }
@@ -282,9 +281,8 @@ GNERoute::getDemandElementProblem() const {
             return TL("Cannot repeat in routes with only one edge");
         }
         // check if front and last routes is connected
-        if ((getParentEdges().front() != getParentEdges().back()) &&
-            (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0)) {
-            return TL("Cannot repeat route; front and last edge isn't connected");
+        if (isRouteValid({getParentEdges().back(), getParentEdges().front()}).size() > 0) {
+            return TL("Cannot repeat route; front and last edge aren't connected");
         }
     }
     // return string with the problem obtained from isRouteValid
