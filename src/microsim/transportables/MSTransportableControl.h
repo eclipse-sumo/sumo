@@ -317,7 +317,7 @@ protected:
     std::map<SUMOTime, TransportableVector> myWaitingUntil;
 
     /// the lists of waiting transportables
-    std::map<const MSEdge*, TransportableVector> myWaiting4Vehicle;
+    std::map<const MSEdge*, TransportableVector, ComparatorNumericalIdLess> myWaiting4Vehicle;
 
     /// @brief The number of build transportables
     int myLoadedNumber;
