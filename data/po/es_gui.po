@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-11-13 15:02+0100\n"
+"POT-Creation-Date: 2023-11-15 11:48+0100\n"
 "PO-Revision-Date: 2023-11-14 11:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1806,7 +1806,7 @@ msgid "Add rerouter"
 msgstr "Agregar rerouter"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:996
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2120
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2122
 msgid "Select reachable"
 msgstr "Seleccionar accesibilidad"
 
@@ -6704,7 +6704,7 @@ msgstr "Despejar"
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:287
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:60
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:819
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:823
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:332
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:109
@@ -6860,8 +6860,8 @@ msgid "Key '%' already exists"
 msgstr "La clave '%' ya existe"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:457
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1238
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1247
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1242
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1251
 msgid "Edit parameters"
 msgstr "Editar parámetros"
 
@@ -11107,7 +11107,15 @@ msgstr "Agregar % inverso"
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "La arista '%' no es consecutiva a la arista '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:787
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:281
+msgid "Cannot repeat in routes with only one edge"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:285
+msgid "Cannot repeat route; front and last edge aren't connected"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:803
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1856
 msgid "copy % '%'"
 msgstr "copiar % '%'"
@@ -11441,11 +11449,11 @@ msgstr "posición de llegada de %"
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "No se pudo establecer el atributo '%' (el semáforo no es válido)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2246
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2248
 msgid "Could not compute smooth shape for edge '%'"
 msgstr "No se pudo calcular una forma suave para la arista '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2264
+#: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2266
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr "No se pudo calcular una elevación suave para la arista '%'"
 
@@ -11541,173 +11549,173 @@ msgstr "El parámetro longitud de un carril nunca puede ser 0"
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr "¡El carril opuesto '%' no conecta los mismos nodos que la arista '%'!"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1919
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1921
 #, c-format
 msgid "Edge operations (% selected)"
 msgstr "Operaciones de arista (% seleccionado)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1921
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1923
 msgid "Edge operations"
 msgstr "Operaciones de arista"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1924
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1926
 msgid "Split edge here"
 msgstr "Dividir arista aquí"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1925
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1927
 msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr ""
 "Dividir arista en ambas direcciones aquí (sin arista simétrica opuesta)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1930
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1932
 msgid "Split edge in both directions here (no opposite edge)"
 msgstr "Dividir arista en ambas direcciones aquí (sin arista opuesta)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1937
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1939
 msgid "Split edge in both directions here"
 msgstr "Dividir arista en ambas direcciones aquí"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1941
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1943
 msgid "Set geometry endpoint here (shift-click)"
 msgstr "Establecer punto final de geometría aquí (shift+clic)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1945
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
 msgid "Restore both geometry endpoints"
 msgstr "Restaurar ambos puntos finales de geometría"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1947
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1949
 msgid "Restore geometry endpoints of all selected edges"
 msgstr ""
 "Restaurar puntos finales de geometría de todas las aristas seleccionadas"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1950
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
 msgid "Restore geometry endpoint (shift-click)"
 msgstr "Restaurar punto final de geometría (shift+clic)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1952
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1954
 msgid "Reverse %"
 msgstr "Invertir %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1953
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1955
 msgid "Add reverse direction for %"
 msgstr "Agregar dirección opuesta para %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1957
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
 msgid "Add reverse disconnected direction for %"
 msgstr "Agregar dirección opuesta desconectada para %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1958
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
 msgid "Reset lengths for %"
 msgstr "Restablecer longitudes para %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1959
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
 msgid "Straighten %"
 msgstr "Enderezar %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1960
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1962
 msgid "Smooth %"
 msgstr "Alisar %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1961
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1963
 msgid "Straighten elevation of %"
 msgstr "Enderezar elevación de %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1962
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:1964
 msgid "Smooth elevation of %"
 msgstr "Alisar elevación de %"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2009
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2011
 #, c-format
 msgid "Lane operations (% selected)"
 msgstr "Operaciones de carril (% seleccionado)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2011
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2013
 msgid "Lane operations"
 msgstr "Operaciones de carril"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2013
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2015
 msgid "Duplicate lane"
 msgstr "Duplicar carril"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2014
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2016
 msgid "Set custom lane shape"
 msgstr "Establecer forma de carril personalizada"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2015
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2017
 msgid "Reset custom shape"
 msgstr "Restablecer forma personalizada"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2019
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2021
 msgid "Reset opposite lane"
 msgstr "Restablecer carril opuesto"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2031
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2042
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2051
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2044
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2053
 msgid "Sidewalk"
 msgstr "Acera"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2032
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2044
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2052
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2034
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2046
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
 msgid "Bike lane"
 msgstr "Carril de bicicleta"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2033
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2046
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2053
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2035
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2055
 msgid "Bus lane"
 msgstr "Carril de bus"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2036
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2048
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2054
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2050
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2056
 msgid "Green verge"
 msgstr "Borde verde"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2038
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2040
 msgid "Green verge (front)"
 msgstr "Borde verde (a la izquierda)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2039
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2041
 msgid "Green verge (back)"
 msgstr "Borde verde (a la derecha)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2056
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2058
 msgid "Add restricted %"
 msgstr "Agregar % restringido"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2057
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2059
 msgid "Remove restricted %"
 msgstr "Remover % restringido"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2058
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2060
 msgid "Transform to restricted %"
 msgstr "Transformar en % restringido"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2099
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2101
 #, c-format
 msgid "Template operations (% selected)"
 msgstr "Operaciones de plantilla (% seleccionado)"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2101
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2103
 msgid "Template operations"
 msgstr "Operaciones de plantilla"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2104
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2106
 msgid "Use edge as template"
 msgstr "Usar arista como plantilla"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2105
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2107
 msgid "Apply template"
 msgstr "Aplicar plantilla"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2125
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2127
 msgid "Select reachable (compute junctions)"
 msgstr "Seleccionar accesibilidad (computar cruces)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:809
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:813
 msgid "Internal attributes"
 msgstr "Atributos internos"
 
@@ -12014,8 +12022,8 @@ msgstr "desactivar atributo '"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:513
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:514
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:645
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:646
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:647
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:648
 #, c-format
 msgid "Inspect % parent"
 msgstr "Inspeccionar elemento padre de %"
@@ -12040,24 +12048,24 @@ msgstr "Mover elemento un carril hacia arriba"
 msgid "Move element down one lane"
 msgstr "Mover elemento un carril hacia abajo"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1050
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1054
 msgid "Extended attributes"
 msgstr "Atributos avanzados"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1053
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1057
 msgid "Open attributes editor"
 msgstr "Abrir editor de atributos"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1084
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1088
 msgid "Attributes"
 msgstr "Atributos"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1088
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1092
 msgid "Edit attributes"
 msgstr "Editar atributos"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1234
-#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1243
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1238
+#: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1247
 msgid "Parameters"
 msgstr "Parámetros"
 
@@ -12336,6 +12344,7 @@ msgid "- Average speed: "
 msgstr "- Velocidad media: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:641
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1356
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:101
@@ -12388,6 +12397,18 @@ msgstr "Sólo se permiten dos elementos from-to"
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:1051
 msgid "Double stoppingPlaces aren't allowed"
 msgstr "Lugares de parada dobles no son permitidos"
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:38
+msgid " Valid element"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:41
+msgid " From element"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:44
+msgid " To element"
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanSelector.cpp:91
 msgid "Plan type"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-11-13 08:57+0100\n"
+"POT-Creation-Date: 2023-11-15 11:48+0100\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -4193,7 +4193,7 @@ msgid "moveToXY is ignored by the current movement model"
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:115
-msgid "Error while adding an agent: %"
+msgid "Error while adding person '%' as JuPedSim agent: %"
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:128
@@ -4213,29 +4213,29 @@ msgstr ""
 msgid "FromTaz '%' for person '%' has no shape information."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:234
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:232
 msgid "Error while adding a journey for an agent: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:267
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:265
 msgid "Error during iteration %: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:689
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:687
 #, c-format
 msgid ""
 "When generating geometry for JuPedSim % connected components were detected."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:726
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:724
 msgid "Error creating the geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:733
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:731
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:739
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:737
 msgid "Error creating the simulation: %"
 msgstr ""
 
@@ -6607,8 +6607,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:187
 #, c-format
 msgid ""
-"Maximum grade threshold in % at 50km/h when reconstructing elevation based on "
-"layer data. The value is scaled according to road speed."
+"Maximum grade threshold in % at 50km/h when reconstructing elevation based "
+"on layer data. The value is scaled according to road speed."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:190
@@ -8814,13 +8814,13 @@ msgstr ""
 msgid "Writing network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:91
+#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:92
 msgid ""
 "DlrNavteq node data will be written in (floating point) cartesian coordinates"
 msgstr ""
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:155
-#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:162
+#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:156
+#: C:\Repos\sumo/src\netwrite\NWWriter_DlrNavteq.cpp:163
 msgid "Could not reconstruct shape for edge:'%' (%)."
 msgstr ""
 
@@ -9107,7 +9107,7 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\PCLoaderDlrNavteq.cpp:208
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:263
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:343
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:247
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:251
 msgid "Unable to project coordinates for polygon '%'."
 msgstr ""
 
@@ -10365,7 +10365,7 @@ msgid "lon and lat must be be defined together in POIs"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1753
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:127
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
 msgstr ""
 
@@ -10731,47 +10731,47 @@ msgid ""
 "characters"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:145
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:146
 msgid "Invalid characters for PoI ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:176
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:177
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:179
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:180
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:191
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for PoI '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:198
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
 #, c-format
 msgid "PoI '%' already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:216
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:220
 msgid "Invalid characters for Poly ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:259
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:263
 msgid "Polygon's shape cannot be empty."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:264
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:268
 msgid "Polygon's lineWidth must be greater than 0."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:269
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:273
 #, c-format
 msgid "Polygon '%' already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:286
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:290
 #, c-format
 msgid "Loading of shapes from % failed."
 msgstr ""
