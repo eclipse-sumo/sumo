@@ -147,6 +147,9 @@ PointOfInterest::writeXML(OutputDevice& out, const bool geo, const double zOffse
             out.writeAttr(SUMO_ATTR_X, x());
             out.writeAttr(SUMO_ATTR_Y, y());
         }
+        if (z() != 0.) {
+            out.writeAttr(SUMO_ATTR_Z, z());
+        }
     }
     if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
         out.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
