@@ -149,8 +149,8 @@ LaneArea::getLastIntervalVehicleNumber(const std::string& detID) {
 
 
 void
-LaneArea::overrideVehicleNumber(const std::string& detID, int num) {
-    Dom::setInt(libsumo::VAR_VIRTUAL_DETECTION, detID, num);
+LaneArea::overrideVehicleNumber(const std::string& detID, int vehNum) {
+    Dom::setInt(libsumo::VAR_VIRTUAL_DETECTION, detID, vehNum);
 }
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(LaneArea, LANEAREA)

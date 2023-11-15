@@ -354,9 +354,9 @@ Edge::setMaxSpeed(const std::string& edgeID, double speed) {
 }
 
 void
-Edge::setFriction(const std::string& edgeID, double value) {
+Edge::setFriction(const std::string& edgeID, double friction) {
     for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        lane->setFrictionCoefficient(value);
+        lane->setFrictionCoefficient(friction);
     }
 }
 

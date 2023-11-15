@@ -226,8 +226,8 @@ LaneArea::makeWrapper() {
 
 
 void
-LaneArea::overrideVehicleNumber(const std::string& detID, int num) {
-    getDetector(detID)->overrideVehicleNumber(num);
+LaneArea::overrideVehicleNumber(const std::string& detID, int vehNum) {
+    getDetector(detID)->overrideVehicleNumber(vehNum);
 }
 
 

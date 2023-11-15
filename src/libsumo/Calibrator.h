@@ -50,7 +50,7 @@ public:
     static double getEnd(const std::string& calibratorID);
     static std::string getRouteID(const std::string& calibratorID);
     static std::string getRouteProbeID(const std::string& calibratorID);
-    static std::vector<std::string> getVTypes(const std::string& routeID);
+    static std::vector<std::string> getVTypes(const std::string& calibratorID);
     static int getPassed(const std::string& calibratorID);
     static int getInserted(const std::string& calibratorID);
     static int getRemoved(const std::string& calibratorID);

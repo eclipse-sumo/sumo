@@ -48,58 +48,58 @@ InductionLoop::getIDCount() {
 
 
 double
-InductionLoop::getPosition(const std::string& detID) {
-    return Dom::getDouble(libsumo::VAR_POSITION, detID);
+InductionLoop::getPosition(const std::string& loopID) {
+    return Dom::getDouble(libsumo::VAR_POSITION, loopID);
 }
 
 
 std::string
-InductionLoop::getLaneID(const std::string& detID) {
-    return Dom::getString(libsumo::VAR_LANE_ID, detID);
+InductionLoop::getLaneID(const std::string& loopID) {
+    return Dom::getString(libsumo::VAR_LANE_ID, loopID);
 }
 
 
 int
-InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, detID);
+InductionLoop::getLastStepVehicleNumber(const std::string& loopID) {
+    return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, loopID);
 }
 
 
 double
-InductionLoop::getLastStepMeanSpeed(const std::string& detID) {
-    return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, detID);
+InductionLoop::getLastStepMeanSpeed(const std::string& loopID) {
+    return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, loopID);
 }
 
 
 std::vector<std::string>
-InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
-    return Dom::getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, detID);
+InductionLoop::getLastStepVehicleIDs(const std::string& loopID) {
+    return Dom::getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, loopID);
 }
 
 
 double
-InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, detID);
+InductionLoop::getLastStepOccupancy(const std::string& loopID) {
+    return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, loopID);
 }
 
 
 double
-InductionLoop::getLastStepMeanLength(const std::string& detID) {
-    return Dom::getDouble(libsumo::LAST_STEP_LENGTH, detID);
+InductionLoop::getLastStepMeanLength(const std::string& loopID) {
+    return Dom::getDouble(libsumo::LAST_STEP_LENGTH, loopID);
 }
 
 
 double
-InductionLoop::getTimeSinceDetection(const std::string& detID) {
-    return Dom::getDouble(libsumo::LAST_STEP_TIME_SINCE_DETECTION, detID);
+InductionLoop::getTimeSinceDetection(const std::string& loopID) {
+    return Dom::getDouble(libsumo::LAST_STEP_TIME_SINCE_DETECTION, loopID);
 }
 
 
 std::vector<libsumo::TraCIVehicleData>
-InductionLoop::getVehicleData(const std::string& detID) {
+InductionLoop::getVehicleData(const std::string& loopID) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     std::vector<libsumo::TraCIVehicleData> result;
-    tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, detID);
+    tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, loopID);
     ret.readInt();  // components
     // number of items
     ret.readUnsignedByte();
@@ -129,56 +129,56 @@ InductionLoop::getVehicleData(const std::string& detID) {
 
 
 double
-InductionLoop::getIntervalOccupancy(const std::string& detID) {
-    return Dom::getDouble(libsumo::VAR_INTERVAL_OCCUPANCY, detID);
+InductionLoop::getIntervalOccupancy(const std::string& loopID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_OCCUPANCY, loopID);
 }
 
 
 double
-InductionLoop::getIntervalMeanSpeed(const std::string& detID) {
-    return Dom::getDouble(libsumo::VAR_INTERVAL_SPEED, detID);
+InductionLoop::getIntervalMeanSpeed(const std::string& loopID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_SPEED, loopID);
 }
 
 
 int
-InductionLoop::getIntervalVehicleNumber(const std::string& detID) {
-    return Dom::getInt(libsumo::VAR_INTERVAL_NUMBER, detID);
+InductionLoop::getIntervalVehicleNumber(const std::string& loopID) {
+    return Dom::getInt(libsumo::VAR_INTERVAL_NUMBER, loopID);
 }
 
 
 std::vector<std::string>
-InductionLoop::getIntervalVehicleIDs(const std::string& detID) {
-    return Dom::getStringVector(libsumo::VAR_INTERVAL_IDS, detID);
+InductionLoop::getIntervalVehicleIDs(const std::string& loopID) {
+    return Dom::getStringVector(libsumo::VAR_INTERVAL_IDS, loopID);
 }
 
 
 double
-InductionLoop::getLastIntervalOccupancy(const std::string& detID) {
-    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_OCCUPANCY, detID);
+InductionLoop::getLastIntervalOccupancy(const std::string& loopID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_OCCUPANCY, loopID);
 }
 
 
 double
-InductionLoop::getLastIntervalMeanSpeed(const std::string& detID) {
-    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, detID);
+InductionLoop::getLastIntervalMeanSpeed(const std::string& loopID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, loopID);
 }
 
 
 int
-InductionLoop::getLastIntervalVehicleNumber(const std::string& detID) {
-    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, detID);
+InductionLoop::getLastIntervalVehicleNumber(const std::string& loopID) {
+    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, loopID);
 }
 
 
 std::vector<std::string>
-InductionLoop::getLastIntervalVehicleIDs(const std::string& detID) {
-    return Dom::getStringVector(libsumo::VAR_LAST_INTERVAL_IDS, detID);
+InductionLoop::getLastIntervalVehicleIDs(const std::string& loopID) {
+    return Dom::getStringVector(libsumo::VAR_LAST_INTERVAL_IDS, loopID);
 }
 
 
 void
-InductionLoop::overrideTimeSinceDetection(const std::string& detID, double time) {
-    Dom::setDouble(libsumo::VAR_VIRTUAL_DETECTION, detID, time);
+InductionLoop::overrideTimeSinceDetection(const std::string& loopID, double time) {
+    Dom::setDouble(libsumo::VAR_VIRTUAL_DETECTION, loopID, time);
 }
 
 

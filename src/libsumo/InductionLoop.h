@@ -43,27 +43,27 @@ class PositionVector;
 namespace LIBSUMO_NAMESPACE {
 class InductionLoop {
 public:
-    static double getPosition(const std::string& detID);
-    static std::string getLaneID(const std::string& detID);
-    static int getLastStepVehicleNumber(const std::string& detID);
-    static double getLastStepMeanSpeed(const std::string& detID);
-    static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
-    static double getLastStepOccupancy(const std::string& detID);
-    static double getLastStepMeanLength(const std::string& detID);
-    static double getTimeSinceDetection(const std::string& detID);
-    static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
+    static double getPosition(const std::string& loopID);
+    static std::string getLaneID(const std::string& loopID);
+    static int getLastStepVehicleNumber(const std::string& loopID);
+    static double getLastStepMeanSpeed(const std::string& loopID);
+    static std::vector<std::string> getLastStepVehicleIDs(const std::string& loopID);
+    static double getLastStepOccupancy(const std::string& loopID);
+    static double getLastStepMeanLength(const std::string& loopID);
+    static double getTimeSinceDetection(const std::string& loopID);
+    static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& loopID);
 
-    static double getIntervalOccupancy(const std::string& detID);
-    static double getIntervalMeanSpeed(const std::string& detID);
-    static int getIntervalVehicleNumber(const std::string& detID);
-    static std::vector<std::string> getIntervalVehicleIDs(const std::string& detID);
+    static double getIntervalOccupancy(const std::string& loopID);
+    static double getIntervalMeanSpeed(const std::string& loopID);
+    static int getIntervalVehicleNumber(const std::string& loopID);
+    static std::vector<std::string> getIntervalVehicleIDs(const std::string& loopID);
 
-    static double getLastIntervalOccupancy(const std::string& detID);
-    static double getLastIntervalMeanSpeed(const std::string& detID);
-    static int getLastIntervalVehicleNumber(const std::string& detID);
-    static std::vector<std::string> getLastIntervalVehicleIDs(const std::string& detID);
+    static double getLastIntervalOccupancy(const std::string& loopID);
+    static double getLastIntervalMeanSpeed(const std::string& loopID);
+    static int getLastIntervalVehicleNumber(const std::string& loopID);
+    static std::vector<std::string> getLastIntervalVehicleIDs(const std::string& loopID);
 
-    static void overrideTimeSinceDetection(const std::string& detID, double time);
+    static void overrideTimeSinceDetection(const std::string& loopID, double time);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -87,7 +87,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static MSInductLoop* getDetector(const std::string& detID);
+    static MSInductLoop* getDetector(const std::string& loopID);
 
 private:
     static SubscriptionResults mySubscriptionResults;

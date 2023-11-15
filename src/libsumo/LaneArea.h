@@ -64,7 +64,7 @@ public:
     static double getLastIntervalMaxJamLengthInMeters(const std::string& detID);
     static int getLastIntervalVehicleNumber(const std::string& detID);
 
-    static void overrideVehicleNumber(const std::string& detID, int num);
+    static void overrideVehicleNumber(const std::string& detID, int vehNum);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API

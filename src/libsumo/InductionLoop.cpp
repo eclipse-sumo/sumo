@@ -59,55 +59,55 @@ InductionLoop::getIDCount() {
 
 
 double
-InductionLoop::getPosition(const std::string& detID) {
-    return getDetector(detID)->getPosition();
+InductionLoop::getPosition(const std::string& loopID) {
+    return getDetector(loopID)->getPosition();
 }
 
 
 std::string
-InductionLoop::getLaneID(const std::string& detID) {
-    return getDetector(detID)->getLane()->getID();
+InductionLoop::getLaneID(const std::string& loopID) {
+    return getDetector(loopID)->getLane()->getID();
 }
 
 
 int
-InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return (int)getDetector(detID)->getEnteredNumber((int)DELTA_T);
+InductionLoop::getLastStepVehicleNumber(const std::string& loopID) {
+    return (int)getDetector(loopID)->getEnteredNumber((int)DELTA_T);
 }
 
 
 double
-InductionLoop::getLastStepMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getSpeed((int)DELTA_T);
+InductionLoop::getLastStepMeanSpeed(const std::string& loopID) {
+    return getDetector(loopID)->getSpeed((int)DELTA_T);
 }
 
 
 std::vector<std::string>
-InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getVehicleIDs((int)DELTA_T);
+InductionLoop::getLastStepVehicleIDs(const std::string& loopID) {
+    return getDetector(loopID)->getVehicleIDs((int)DELTA_T);
 }
 
 
 double
-InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return getDetector(detID)->getOccupancy();
+InductionLoop::getLastStepOccupancy(const std::string& loopID) {
+    return getDetector(loopID)->getOccupancy();
 }
 
 
 double
-InductionLoop::getLastStepMeanLength(const std::string& detID) {
-    return getDetector(detID)->getVehicleLength((int)DELTA_T);
+InductionLoop::getLastStepMeanLength(const std::string& loopID) {
+    return getDetector(loopID)->getVehicleLength((int)DELTA_T);
 }
 
 
 double
-InductionLoop::getTimeSinceDetection(const std::string& detID) {
-    return getDetector(detID)->getTimeSinceLastDetection();
+InductionLoop::getTimeSinceDetection(const std::string& loopID) {
+    return getDetector(loopID)->getTimeSinceLastDetection();
 }
 
 std::vector<libsumo::TraCIVehicleData>
-InductionLoop::getVehicleData(const std::string& detID) {
-    const std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true, true);
+InductionLoop::getVehicleData(const std::string& loopID) {
+    const std::vector<MSInductLoop::VehicleData> vd = getDetector(loopID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true, true);
     std::vector<libsumo::TraCIVehicleData> tvd;
     for (const MSInductLoop::VehicleData& vdi : vd) {
         tvd.push_back(libsumo::TraCIVehicleData());
@@ -122,56 +122,56 @@ InductionLoop::getVehicleData(const std::string& detID) {
 
 
 double
-InductionLoop::getIntervalOccupancy(const std::string& detID) {
-    return getDetector(detID)->getIntervalOccupancy();
+InductionLoop::getIntervalOccupancy(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalOccupancy();
 }
 
 
 double
-InductionLoop::getIntervalMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getIntervalMeanSpeed();
+InductionLoop::getIntervalMeanSpeed(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalMeanSpeed();
 }
 
 
 int
-InductionLoop::getIntervalVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getIntervalVehicleNumber();
+InductionLoop::getIntervalVehicleNumber(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalVehicleNumber();
 }
 
 
 std::vector<std::string>
-InductionLoop::getIntervalVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getIntervalVehicleIDs();
+InductionLoop::getIntervalVehicleIDs(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalVehicleIDs();
 }
 
 
 double
-InductionLoop::getLastIntervalOccupancy(const std::string& detID) {
-    return getDetector(detID)->getIntervalOccupancy(true);
+InductionLoop::getLastIntervalOccupancy(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalOccupancy(true);
 }
 
 
 double
-InductionLoop::getLastIntervalMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getIntervalMeanSpeed(true);
+InductionLoop::getLastIntervalMeanSpeed(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalMeanSpeed(true);
 }
 
 
 int
-InductionLoop::getLastIntervalVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getIntervalVehicleNumber(true);
+InductionLoop::getLastIntervalVehicleNumber(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalVehicleNumber(true);
 }
 
 
 std::vector<std::string>
-InductionLoop::getLastIntervalVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getIntervalVehicleIDs(true);
+InductionLoop::getLastIntervalVehicleIDs(const std::string& loopID) {
+    return getDetector(loopID)->getIntervalVehicleIDs(true);
 }
 
 
 void
-InductionLoop::overrideTimeSinceDetection(const std::string& detID, double time) {
-    getDetector(detID)->overrideTimeSinceDetection(time);
+InductionLoop::overrideTimeSinceDetection(const std::string& loopID, double time) {
+    getDetector(loopID)->overrideTimeSinceDetection(time);
 }
 
 
@@ -186,8 +186,8 @@ InductionLoop::getDetector(const std::string& id) {
 
 
 std::string
-InductionLoop::getParameter(const std::string& detID, const std::string& param) {
-    return getDetector(detID)->getParameter(param, "");
+InductionLoop::getParameter(const std::string& loopID, const std::string& param) {
+    return getDetector(loopID)->getParameter(param, "");
 }
 
 
@@ -195,8 +195,8 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(InductionLoop)
 
 
 void
-InductionLoop::setParameter(const std::string& detID, const std::string& name, const std::string& value) {
-    getDetector(detID)->setParameter(name, value);
+InductionLoop::setParameter(const std::string& loopID, const std::string& name, const std::string& value) {
+    getDetector(loopID)->setParameter(name, value);
 }
 
 

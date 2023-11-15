@@ -80,7 +80,7 @@ public:
     static void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& edgeID, double speed);
-    static void setFriction(const std::string& edgeID, double value);
+    static void setFriction(const std::string& edgeID, double friction);
 
 #ifndef LIBTRACI
 #ifndef SWIG
