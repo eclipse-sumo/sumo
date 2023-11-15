@@ -45,13 +45,14 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingSt
                   netedit.positions.demandElements.chargingStation.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.parking, "true", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.parking, "opportunistic", False)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.parking, "false", False)
 
+
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.parking, "opportunistic", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.parking, "true", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

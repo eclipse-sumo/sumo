@@ -4,9 +4,9 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointChargingStation
 TestFunctions: Clicked over position 804 - 198
 TestFunctions: Clicked over position 804 - 198
-true
-false
 opportunistic
+false
+true
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

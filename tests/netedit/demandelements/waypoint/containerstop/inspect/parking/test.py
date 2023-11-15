@@ -49,13 +49,13 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.containerS
                   netedit.positions.demandElements.containerStop.y)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.parking, "true", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.parking, "opportunistic", False)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.parking, "false", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.parking, "opportunistic", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.parking, "true", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

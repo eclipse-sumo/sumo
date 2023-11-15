@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x 
                   1, netedit.positions.demandElements.busStop.y)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.tripID, "customLine")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.tripID, "customID")
 
 # create waypoint
 netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
