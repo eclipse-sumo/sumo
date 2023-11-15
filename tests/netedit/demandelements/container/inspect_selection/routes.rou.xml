@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <container id="f_0" color="red" depart="10.00">
+    <container id="f_0" color="red" depart="0.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
