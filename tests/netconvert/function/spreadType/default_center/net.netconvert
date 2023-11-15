@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-25 14:10:49 by Eclipse SUMO netconvert Version v1_17_0+0018-5075987
+<!-- generated on 2023-11-15 13:50:47 by Eclipse SUMO netconvert Version v1_19_0+0153-31580b44f9e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -123,11 +123,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":W_0_0" index="0" speed="3.65" length="4.67" shape="-0.03,101.60 -1.22,100.79 -1.61,99.99 -1.20,99.19 -0.00,98.41"/>
     </edge>
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="8.00" shape="98.40,66.99 98.40,58.99"/>
+        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="8.40" shape="101.60,58.99 102.10,61.45 103.19,62.99 104.29,64.53 104.79,66.99"/>
+        <lane id=":gneJ0_0_1" index="1" speed="13.89" length="8.40" shape="101.60,58.99 101.59,66.99"/>
     </edge>
-    <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" speed="13.89" length="8.40" shape="101.60,58.99 102.10,61.45 103.19,62.99 104.29,64.53 104.79,66.99"/>
-        <lane id=":gneJ0_1_1" index="1" speed="13.89" length="8.40" shape="101.60,58.99 101.59,66.99"/>
+    <edge id=":gneJ0_2" function="internal">
+        <lane id=":gneJ0_2_0" index="0" speed="13.89" length="8.00" shape="98.40,66.99 98.40,58.99"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2" spreadType="center" shape="100.00,96.80 200.10,96.80">
@@ -210,7 +210,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0" intLanes=":W_0_0" shape="0.00,100.01 -0.00,103.20 0.00,100.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ0" type="priority" x="100.00" y="63.11" incLanes="CS_0 SC_0" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_1_1" shape="96.80,66.99 106.39,66.99 105.56,63.96 104.03,62.02 103.44,60.78 103.20,58.99 96.80,58.99">
+    <junction id="gneJ0" type="priority" x="100.00" y="63.11" incLanes="SC_0 CS_0" intLanes=":gneJ0_0_0 :gneJ0_0_1 :gneJ0_2_0" shape="96.80,66.99 106.39,66.99 105.56,63.96 104.03,62.02 103.44,60.78 103.20,58.99 96.80,58.99">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -227,7 +227,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="CE" to="EC" fromLane="1" toLane="2" via=":E_0_0" dir="t" state="M"/>
     <connection from="CN" to="NC" fromLane="0" toLane="1" via=":N_0_0" dir="t" state="M"/>
-    <connection from="CS" to="CS.36" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
+    <connection from="CS" to="CS.36" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="s" state="M"/>
     <connection from="CS.36" to="SC" fromLane="0" toLane="0" via=":S_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="0" toLane="2" via=":W_0_0" dir="t" state="M"/>
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="O"/>
@@ -238,8 +238,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_2_0" tl="C" linkIndex="2" dir="l" state="o"/>
     <connection from="NC" to="CN" fromLane="1" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="t" state="o"/>
-    <connection from="SC" to="SC.63" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="s" state="M"/>
-    <connection from="SC" to="SC.63" fromLane="0" toLane="1" via=":gneJ0_1_1" dir="s" state="M"/>
+    <connection from="SC" to="SC.63" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
+    <connection from="SC" to="SC.63" fromLane="0" toLane="1" via=":gneJ0_0_1" dir="s" state="M"/>
     <connection from="SC.63" to="CE" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="o"/>
     <connection from="SC.63" to="CN" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
     <connection from="SC.63" to="CW" fromLane="1" toLane="0" via=":C_10_0" tl="C" linkIndex="10" dir="l" state="o"/>
@@ -279,8 +279,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":N_0" to="NC" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":S_0" to="SC" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":W_0" to="WC" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":gneJ0_0" to="CS.36" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ0_1" to="SC.63" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":gneJ0_1" to="SC.63" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="SC.63" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="SC.63" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ0_2" to="CS.36" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

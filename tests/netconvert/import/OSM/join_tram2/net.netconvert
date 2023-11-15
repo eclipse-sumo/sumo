@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 19:13:16 by Eclipse SUMO netconvert Version v1_17_0+1314-3b4163efbeb
+<!-- generated on 2023-11-15 13:50:21 by Eclipse SUMO netconvert Version v1_19_0+0153-31580b44f9e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -5958,15 +5958,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="5424571286" type="priority" x="1929.22" y="1204.85" incLanes="140024918#1_0 220326214#1_0 -32939601#0_0" intLanes="" shape="1927.62,1210.81 1930.82,1210.81 1932.96,1209.16 1934.61,1202.98 1928.62,1200.71 1925.23,1206.14">
-        <request index="0" response="000100" foes="100100"/>
-        <request index="1" response="010100" foes="011100"/>
-        <request index="2" response="000000" foes="100011"/>
-        <request index="3" response="010010" foes="010010"/>
-        <request index="4" response="000000" foes="001010"/>
-        <request index="5" response="000101" foes="000101"/>
+    <junction id="5424571286" type="priority" x="1929.22" y="1204.85" incLanes="220326214#1_0 -32939601#0_0 140024918#1_0" intLanes="" shape="1932.96,1209.16 1934.61,1202.98 1928.62,1200.71 1925.23,1206.14 1927.62,1210.81 1930.82,1210.81">
+        <request index="0" response="000000" foes="111000"/>
+        <request index="1" response="100100" foes="100100"/>
+        <request index="2" response="000000" foes="100010"/>
+        <request index="3" response="010001" foes="010001"/>
+        <request index="4" response="000001" foes="001001"/>
+        <request index="5" response="000101" foes="000111"/>
     </junction>
-    <junction id="5424571287" type="priority" x="1929.22" y="1211.33" incLanes="140024918#0_0" intLanes="" shape="1927.62,1211.48 1930.82,1211.48 1930.82,1211.18 1927.62,1211.18">
+    <junction id="5424571287" type="priority" x="1929.22" y="1211.33" incLanes="140024918#0_0" intLanes="" shape="1930.82,1211.18 1927.62,1211.18 1927.62,1211.48 1930.82,1211.48">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="5424571292" type="priority" x="1906.64" y="1098.05" incLanes="562741711#0_0" intLanes="" shape="1905.08,1098.41 1908.25,1097.98 1908.21,1097.69 1905.04,1098.11">
