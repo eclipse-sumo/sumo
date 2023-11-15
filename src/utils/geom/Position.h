@@ -277,12 +277,12 @@ public:
         return (myX - p2.myX) * (myX - p2.myX) + (myY - p2.myY) * (myY - p2.myY);
     }
 
-    /// @brief returns the angle in the plane of the vector pointing from here to the other position
+    /// @brief returns the angle in the plane of the vector pointing from here to the other position (in radians between -M_PI and M_PI)
     inline double angleTo2D(const Position& other) const {
         return atan2(other.myY - myY, other.myX - myX);
     }
 
-    /// @brief returns the slope of the vector pointing from here to the other position
+    /// @brief returns the slope of the vector pointing from here to the other position (in radians between -M_PI and M_PI)
     inline double slopeTo2D(const Position& other) const {
         return atan2(other.myZ - myZ, distanceTo2D(other));
     }

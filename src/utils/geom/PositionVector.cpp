@@ -1349,9 +1349,8 @@ double
 PositionVector::angleAt2D(int pos) const {
     if ((pos + 1) < (int)size()) {
         return (*this)[pos].angleTo2D((*this)[pos + 1]);
-    } else {
-        return INVALID_DOUBLE;
     }
+    return INVALID_DOUBLE;
 }
 
 
