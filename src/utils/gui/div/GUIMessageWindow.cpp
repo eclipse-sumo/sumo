@@ -170,7 +170,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
             FXint timePos = candidate.find(TL(" time"));
             if (timePos > -1) {
-                timePos += std::string(TL(" time")).size() + 1;
+                timePos += (int)std::string(TL(" time")).size() + 1;
                 SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
                     t = getTimeString(candidate, timePos, 0, (int)candidate.length());

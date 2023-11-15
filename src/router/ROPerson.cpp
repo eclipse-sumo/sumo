@@ -411,16 +411,16 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                 for (const ROVehicle* const v : vehicles) {
                     const bool carUsed = computeIntermodal(time, provider, trip, v, resultItems, errorHandler);
                     double cost = 0.;
-                    for (TripItem* const it : resultItems) {
-                        cost += it->getCost();
+                    for (const TripItem* const tripIt : resultItems) {
+                        cost += tripIt->getCost();
                     }
                     if (cost < bestCost) {
                         bestCost = cost;
                         bestVeh = carUsed ? v : nullptr;
                         best.swap(resultItems);
                     }
-                    for (TripItem* const it : resultItems) {
-                        delete it;
+                    for (const TripItem* const tripIt : resultItems) {
+                        delete tripIt;
                     }
                     resultItems.clear();
                 }
