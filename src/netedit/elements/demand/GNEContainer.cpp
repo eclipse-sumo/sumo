@@ -525,7 +525,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isPlanStopPerson()) {
+            if (personPlan->getTagProperty().isPlanStopContainer()) {
                 // stop center
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {
