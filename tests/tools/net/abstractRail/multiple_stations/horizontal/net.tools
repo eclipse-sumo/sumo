@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-15 17:32:55 by Eclipse SUMO netconvert Version v1_19_0+0179-536b2712ff8
+<!-- generated on 2023-11-16 16:36:30 by Eclipse SUMO netconvert Version v1_19_0+0204-1ff4a483c67
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -1344,7 +1344,7 @@
     <junction id="10707518644" type="rail_signal" x="91.66" y="160.00" incLanes="121902860#1_0" intLanes="" shape="91.66,161.60 91.66,158.40 91.66,161.60">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="10707518645" type="rail_signal" x="0.00" y="300.00" incLanes="742458418#1_0 -334912225#1_0" intLanes="" shape="-0.00,301.60 -0.00,298.40 0.00,301.60">
+    <junction id="10707518645" type="rail_signal" x="0.00" y="300.00" incLanes="742458418#1_0 -334912225#1_0" intLanes="" shape="0.00,301.60 0.00,298.40 0.00,301.60">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
@@ -1645,7 +1645,7 @@
         <request index="2" response="010" foes="010"/>
     </junction>
     <junction id="294077605" type="dead_end" x="-22.97" y="40.00" incLanes="" intLanes="" shape="-22.97,38.40 -22.97,41.60"/>
-    <junction id="294077608" type="priority" x="-63.20" y="40.00" incLanes="26807695#0_0" intLanes="" shape="-57.84,41.60 -57.84,38.40 -58.55,38.28 -58.70,38.13 -58.70,37.93 -58.56,37.66 -58.28,37.34 -60.54,35.08 -65.86,40.40 -63.60,42.66 -62.49,42.07 -61.63,41.87 -60.57,41.72 -59.30,41.63">
+    <junction id="294077608" type="priority" x="-63.20" y="40.00" incLanes="26807695#0_0" intLanes="" shape="-57.84,41.60 -57.84,38.40 -58.55,38.28 -58.70,38.13 -58.70,37.93 -58.56,37.66 -58.28,37.34 -60.54,35.08 -65.86,40.40 -63.60,42.66 -61.83,41.47 -61.04,41.35 -60.17,41.41 -59.14,41.53">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="294077609" type="priority" x="-123.20" y="100.00" incLanes="26926983_0 26807695#3_0" intLanes="" shape="-117.84,101.60 -117.84,98.40 -118.55,98.28 -118.70,98.13 -118.70,97.93 -118.56,97.66 -118.28,97.34 -120.54,95.08 -122.55,96.92 -123.41,97.57 -124.16,98.03 -124.81,98.31 -125.36,98.40 -125.36,101.60">
@@ -1726,7 +1726,7 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="3542016394" type="priority" x="-43.20" y="20.00" incLanes="347977094_0 121902855#0_0" intLanes="" shape="-37.84,21.60 -37.84,18.40 -38.55,18.28 -38.70,18.13 -38.70,17.93 -38.56,17.66 -38.28,17.34 -40.54,15.08 -45.86,20.40 -43.60,22.66 -41.83,21.47 -41.04,21.35 -40.17,21.41 -39.14,21.53">
+    <junction id="3542016394" type="priority" x="-43.20" y="20.00" incLanes="347977094_0 121902855#0_0" intLanes="" shape="-37.84,21.60 -37.84,18.40 -38.55,18.28 -38.70,18.13 -38.70,17.93 -38.56,17.66 -38.28,17.34 -40.54,15.08 -45.86,20.40 -43.60,22.66 -42.49,22.07 -41.63,21.87 -40.57,21.72 -39.30,21.63">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="3542016399" type="dead_end" x="-23.16" y="20.00" incLanes="" intLanes="" shape="-23.16,18.40 -23.16,21.60"/>
@@ -1786,7 +1786,7 @@
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="428647207" type="priority" x="891.85" y="20.00" incLanes="36867853_0 26633642#0_0" intLanes="" shape="895.99,21.60 895.99,18.40 895.24,18.25 895.04,18.07 894.97,17.81 895.02,17.48 895.19,17.07 892.35,15.59 891.39,17.52 891.03,18.19 890.62,18.81 890.04,19.51 889.19,20.40 891.45,22.66 892.84,21.65 893.47,21.51 894.14,21.51 894.96,21.56">
+    <junction id="428647207" type="priority" x="891.85" y="20.00" incLanes="36867853_0 26633642#0_0" intLanes="" shape="895.99,21.60 895.99,18.40 895.24,18.25 895.04,18.07 894.97,17.81 895.02,17.48 895.19,17.07 892.35,15.59 891.39,17.52 891.03,18.19 890.62,18.81 890.04,19.51 889.19,20.40 891.45,22.66 892.43,22.07 893.12,21.87 893.94,21.72 894.90,21.63">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

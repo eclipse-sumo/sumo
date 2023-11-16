@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-10 01:26:10 by Eclipse SUMO netconvert Version v1_17_0+0210-cfdd103a36f
+<!-- generated on 2023-11-16 16:34:56 by Eclipse SUMO netconvert Version v1_19_0+0204-1ff4a483c67
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -248,7 +248,7 @@
         <lane id=":3692318838_0_0" index="0" allow="rail" speed="44.44" length="7.52" shape="18353.73,42047.97 18346.88,42051.10"/>
     </edge>
     <edge id=":3692318838_1" function="internal">
-        <lane id=":3692318838_1_0" index="0" allow="rail" speed="15.20" length="7.19" shape="18353.73,42047.97 18352.55,42048.25 18351.00,42048.18 18349.06,42047.76 18346.74,42047.00"/>
+        <lane id=":3692318838_1_0" index="0" allow="rail" speed="15.42" length="7.40" shape="18353.73,42047.97 18351.75,42048.61 18350.27,42048.50 18348.77,42047.88 18346.74,42047.00"/>
     </edge>
     <edge id=":3692318843_0" function="internal">
         <lane id=":3692318843_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="18280.57,42037.43 18280.57,42037.43"/>

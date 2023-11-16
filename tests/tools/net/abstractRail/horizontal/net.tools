@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-10 01:26:11 by Eclipse SUMO netconvert Version v1_17_0+0210-cfdd103a36f
+<!-- generated on 2023-11-16 16:34:57 by Eclipse SUMO netconvert Version v1_19_0+0204-1ff4a483c67
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -191,7 +191,7 @@
         <lane id=":1383487393_1_0" index="0" allow="rail rail_fast" speed="63.89" length="7.53" shape="317.96,160.00 325.48,160.00"/>
     </edge>
     <edge id=":1383499632_0" function="internal">
-        <lane id=":1383499632_0_0" index="0" allow="rail rail_electric rail_fast" speed="15.42" length="7.40" shape="248.07,120.00 250.14,119.76 251.43,119.04 252.53,117.85 254.02,116.21"/>
+        <lane id=":1383499632_0_0" index="0" allow="rail rail_electric rail_fast" speed="15.20" length="7.19" shape="248.07,120.00 249.25,119.76 250.64,119.05 252.23,117.87 254.02,116.21"/>
     </edge>
     <edge id=":1383499632_1" function="internal">
         <lane id=":1383499632_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="7.53" shape="248.07,120.00 255.59,120.00"/>
@@ -203,7 +203,7 @@
         <lane id=":1383506146_1_0" index="0" allow="rail" speed="44.44" length="7.13" shape="-108.10,240.00 -115.23,240.00"/>
     </edge>
     <edge id=":1383506147_0" function="internal">
-        <lane id=":1383506147_0_0" index="0" allow="rail" speed="15.42" length="7.40" shape="-76.58,263.79 -78.07,262.15 -79.17,260.96 -80.46,260.24 -82.53,260.00"/>
+        <lane id=":1383506147_0_0" index="0" allow="rail" speed="15.20" length="7.19" shape="-76.58,263.79 -78.37,262.13 -79.96,260.95 -81.35,260.24 -82.53,260.00"/>
     </edge>
     <edge id=":1383506147_1" function="internal">
         <lane id=":1383506147_1_0" index="0" allow="rail" speed="44.44" length="7.53" shape="-75.01,260.00 -82.53,260.00"/>
