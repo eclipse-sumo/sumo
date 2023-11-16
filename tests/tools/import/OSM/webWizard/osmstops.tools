@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 19:13:05 by Eclipse SUMO netconvert Version v1_17_0+1314-3b4163efbeb
+<!-- generated on 2023-11-16 14:39:40 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.27Jun191248.2632703/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/behr_mi/.texttest/tmp/tools.16Nov143935.334293/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -280,7 +280,7 @@
         <access lane="463829474#0_0" pos="0.20" length="4.03" friendlyPos="1"/>
         <access lane="463829474#1_0" pos="0.20" length="1.30" friendlyPos="1"/>
     </busStop>
-    <busStop id="1686199552" name="Berliner Rathaus" lane="156364566#1_2" startPos="15.95" endPos="30.95" friendlyPos="true" lines="N65 N8 N40"/>
+    <busStop id="1686199552" name="Berliner Rathaus" lane="156364566#1_2" startPos="15.56" endPos="30.56" friendlyPos="true" lines="N65 N8 N40"/>
     <busStop id="1745157971" name="S Hackescher Markt" lane="72984388#1_0" startPos="524.58" endPos="724.58" friendlyPos="true" lines="S5 S7 S3 S9">
         <access lane="275008387#1_0" pos="26.06" length="8.48" friendlyPos="1"/>
         <access lane="377110615_0" pos="4.85" length="9.96" friendlyPos="1"/>
@@ -453,7 +453,7 @@
     </busStop>
     <busStop id="270718978" name="S+U Alexanderplatz/Memhardstraße" lane="195401017#3_1" startPos="70.75" endPos="85.75" friendlyPos="true" lines="TXL 100 200 M48"/>
     <busStop id="270719334" name="S+U Alexanderplatz/Memhardstraße" lane="112128419#2_1" startPos="0.00" endPos="15.00" friendlyPos="true" lines="TXL 100 200"/>
-    <busStop id="270720402" name="Mollstraße/Prenzlauer Allee" lane="24914141#2_0" startPos="5.41" endPos="20.41" friendlyPos="true" lines="200">
+    <busStop id="270720402" name="Mollstraße/Prenzlauer Allee" lane="24914141#2_0" startPos="5.38" endPos="20.38" friendlyPos="true" lines="200">
         <access lane="-173197451#0_0" pos="63.28" length="90.17" friendlyPos="1"/>
         <access lane="-369224774_0" pos="127.59" length="21.45" friendlyPos="1"/>
         <access lane="173197451#0_0" pos="0.00" length="101.28" friendlyPos="1"/>
@@ -659,13 +659,13 @@
         <access lane="72463266#1_0" pos="0.20" length="15.39" friendlyPos="1"/>
         <access lane="72463267#3_0" pos="6.93" length="5.41" friendlyPos="1"/>
     </busStop>
-    <busStop id="3867910441" name="U Weinmeisterstraße/Gipsstraße" lane="36892597#2_1" startPos="2.73" endPos="17.73" friendlyPos="true" lines="N65 N2 N8 N40 N42"/>
+    <busStop id="3867910441" name="U Weinmeisterstraße/Gipsstraße" lane="36892597#2_1" startPos="2.71" endPos="17.71" friendlyPos="true" lines="N65 N2 N8 N40 N42"/>
     <busStop id="3867922470" name="Spandauer Straße/Marienkirche" lane="473149643_0" startPos="0.00" endPos="13.50" friendlyPos="true"/>
     <busStop id="3867922477" name="S+U Alexanderplatz/Memhardstraße" lane="473149640_0" startPos="0.00" endPos="20.93" friendlyPos="true"/>
     <busStop id="3869306759" name="Deutsches Theater" lane="176043807#1_1" startPos="34.52" endPos="49.52" friendlyPos="true" lines="147"/>
     <busStop id="3869306762" name="Friedrichstraße/Reinhardtstraße" lane="111251382#2_1" startPos="7.22" endPos="22.22" friendlyPos="true" lines="147"/>
     <busStop id="3869306764" name="S+U Friedrichstraße" lane="4402228_1" startPos="3.33" endPos="18.33" friendlyPos="true" lines="147 N6"/>
-    <busStop id="3869306767" name="U Französische Straße" lane="35557143#1_1" startPos="27.78" endPos="42.78" friendlyPos="true" lines="147"/>
+    <busStop id="3869306767" name="U Französische Straße" lane="35557143#1_1" startPos="27.74" endPos="42.74" friendlyPos="true" lines="147"/>
     <busStop id="3869306769" name="S+U Friedrichstraße" lane="295376548_0" startPos="91.23" endPos="291.23" friendlyPos="true" lines="U6">
         <access lane="-4402228_0" pos="57.82" length="17.83" friendlyPos="1"/>
         <access lane="-516398559_0" pos="105.29" length="12.76" friendlyPos="1"/>
@@ -675,7 +675,7 @@
     </busStop>
     <busStop id="3869306771" name="Unter den Linden/Friedrichstraße" lane="461526152_1" startPos="53.30" endPos="68.30" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3869306772" name="Unter den Linden/Friedrichstraße" lane="169999355_1" startPos="12.57" endPos="27.57" friendlyPos="true" lines="147 N6"/>
-    <busStop id="3869306774" name="Werderscher Markt" lane="23755950#0_1" startPos="10.04" endPos="25.04" friendlyPos="true" lines="147"/>
+    <busStop id="3869306774" name="Werderscher Markt" lane="23755950#0_1" startPos="10.17" endPos="25.17" friendlyPos="true" lines="147"/>
     <busStop id="3869306792" name="Unter den Linden/Friedrichstraße" lane="437140526_0" startPos="56.87" endPos="81.87" friendlyPos="true"/>
     <busStop id="3870475228" name="Staatsoper" lane="340498982#3_1" startPos="20.90" endPos="35.90" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3907105048" name="Littenstraße" lane="289966845_2" startPos="4.61" endPos="19.61" friendlyPos="true" lines="248"/>

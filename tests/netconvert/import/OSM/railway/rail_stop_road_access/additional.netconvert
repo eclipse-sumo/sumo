@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-06 09:48:07 by Eclipse SUMO netconvert Version v1_15_0+1381-4e6efec5faf
+<!-- generated on 2023-11-16 14:22:38 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,16 +93,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="93704176#0_0" pos="1401.28" length="9.35" friendlyPos="1"/>
     </busStop>
     <busStop id="1907517438" name="Pablo-Neruda-Straße" lane="44956230#1_1" startPos="21.25" endPos="37.48" friendlyPos="true" lines="N65 N69 N67"/>
-    <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="12.52" endPos="24.97" friendlyPos="true" lines="169 N65 N67"/>
+    <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="12.58" endPos="25.04" friendlyPos="true" lines="169 N65 N67"/>
     <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="6.26" endPos="25.50" friendlyPos="true" lines="N65 N67 N69"/>
-    <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.69" endPos="62.69" friendlyPos="true" lines="169 165 269 N67"/>
+    <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.66" endPos="62.66" friendlyPos="true" lines="169 165 269 N67"/>
     <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_0" startPos="12.15" endPos="38.08" friendlyPos="true" lines="169 N69">
         <access lane="151260831#1_0" pos="15.17" length="46.00" friendlyPos="1"/>
         <access lane="317683533#3_0" pos="0.20" length="49.46" friendlyPos="1"/>
         <access lane="317683533#4_0" pos="0.00" length="42.30" friendlyPos="1"/>
         <access lane="512137881#1_0" pos="286.08" length="45.23" friendlyPos="1"/>
     </busStop>
-    <busStop id="3239724408" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204601#3_1" startPos="44.58" endPos="56.27" friendlyPos="true" lines="N65 N67 N69"/>
+    <busStop id="3239724408" name="Müggelheimer Straße/Wendenschloßstraße" lane="32204601#3_1" startPos="44.60" endPos="56.29" friendlyPos="true" lines="N65 N67 N69"/>
     <busStop id="3257062964" name="Dregerhoffstraße" lane="319292807_0" startPos="1147.84" endPos="1172.84" friendlyPos="true" lines="62">
         <access lane="-151020315#0_0" pos="1000.33" length="190.19" friendlyPos="1"/>
         <access lane="-93704176#0_0" pos="1059.81" length="11.02" friendlyPos="1"/>

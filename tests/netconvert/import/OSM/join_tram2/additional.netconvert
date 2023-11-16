@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-27 19:13:16 by Eclipse SUMO netconvert Version v1_17_0+1314-3b4163efbeb
+<!-- generated on 2023-11-16 14:22:39 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="559570922_0" pos="23.78" length="272.20" friendlyPos="1"/>
     </busStop>
     <busStop id="272856305" name="Europaplatz" lane="122119622#1_0" startPos="25.98" endPos="40.98" friendlyPos="true"/>
-    <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)" lane="316791983_0" startPos="3.36" endPos="18.36" friendlyPos="true">
+    <busStop id="272856887" name="Am Wassertor (Volkswagenhalle)" lane="316791983_0" startPos="3.42" endPos="18.42" friendlyPos="true">
         <access lane="122119608_0" pos="0.00" length="77.45" friendlyPos="1"/>
         <access lane="25290626#0_0" pos="0.00" length="90.29" friendlyPos="1"/>
         <access lane="25290626#1_0" pos="0.00" length="154.79" friendlyPos="1"/>

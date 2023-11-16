@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 23:37:00 by Eclipse SUMO netconvert Version v1_14_1+1703-0d7ac1ff3e6
+<!-- generated on 2023-11-16 14:22:38 by Eclipse SUMO netconvert Version v1_19_0+0199-174aad6ec8d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
+        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -65,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="-133902558#1_0" pos="140.95" length="47.00" friendlyPos="1"/>
         <access lane="133902558#1_0" pos="861.84" length="42.20" friendlyPos="1"/>
     </busStop>
-    <busStop id="-698362008" name="Löwer" lane="-307459757#1_0" startPos="378.11" endPos="393.11" friendlyPos="true" lines="600 611"/>
+    <busStop id="-698362008" name="Löwer" lane="-307459757#1_0" startPos="378.16" endPos="393.16" friendlyPos="true" lines="600 611"/>
     <busStop id="1609100922" name="Westende" lane="326203720_0" startPos="1455.95" endPos="1655.95" friendlyPos="true" lines="60">
         <access lane="252506601_0" pos="6.77" length="12.29" friendlyPos="1"/>
         <access lane="252506604_0" pos="7.15" length="13.33" friendlyPos="1"/>
@@ -73,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="369465575#2_0" pos="3.98" length="11.62" friendlyPos="1"/>
         <access lane="369465575#3_0" pos="0.00" length="15.57" friendlyPos="1"/>
     </busStop>
-    <busStop id="2511338319" name="Westende" lane="307459757#1_0" startPos="396.73" endPos="411.73" friendlyPos="true" lines="NE1 600 611"/>
+    <busStop id="2511338319" name="Westende" lane="307459757#1_0" startPos="396.70" endPos="411.70" friendlyPos="true" lines="NE1 600 611"/>
     <busStop id="271135646" name="Pestalozzistraße" lane="326203720_0" startPos="1980.41" endPos="2180.41" friendlyPos="true" lines="60">
         <access lane="253940345_0" pos="7.68" length="11.81" friendlyPos="1"/>
         <access lane="253940348_0" pos="8.25" length="12.15" friendlyPos="1"/>
