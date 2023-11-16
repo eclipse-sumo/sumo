@@ -762,6 +762,8 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             from.setz(hm.getZ(orig));
         }
     }
+    const double eps = 1e-6;
+    from.set(std::round(from.x() / eps) * eps, std::round(from.y() / eps) * eps, std::round(from.z() / eps) * eps);
     return ok;
 }
 
@@ -783,6 +785,7 @@ NBNetBuilder::transformCoordinates(PositionVector& from, bool includeInBoundary,
     }
     return ok;
 }
+
 
 int
 NBNetBuilder::addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength) {
