@@ -132,6 +132,13 @@ struct GNENetHelper {
          */
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
+        /**@brief get junction by id
+         * @param[in] id The id of the desired junction
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting junction should result in an exception
+         * @throws UnknownElement
+         */
+        GNEJunction* retrieveJunctionGL(const GUIGlObject* glObject, bool hardFail = true) const;
+
         /// @brief get junctions
         const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >& getJunctions() const;
 
@@ -164,6 +171,13 @@ struct GNENetHelper {
          */
         GNECrossing* retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
+        /**@brief get Crossing by AC
+         * @param[in] glObject The GUIGlObject related with the crossing
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting Crossing should result in an exception
+         * @throws UnknownElement
+         */
+        GNECrossing* retrieveCrossingGL(const GUIGlObject* glObject, bool hardFail = true) const;
+
         /// @brief get crossings
         const std::map<const GUIGlObject*, GNECrossing*>& getCrossings() const;
 
@@ -184,11 +198,18 @@ struct GNENetHelper {
         /// @name function for walkingAreas
         /// @{
         /**@brief get WalkingArea by AC
-        * @param[in] AC The attribute carrier related with the walkingArea
-        * @param[in] hardFail Whether attempts to retrieve a nonexisting WalkingArea should result in an exception
-        * @throws UnknownElement
-        */
+         * @param[in] AC The attribute carrier related with the walkingArea
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting WalkingArea should result in an exception
+         * @throws UnknownElement
+         */
         GNEWalkingArea* retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /**@brief get WalkingArea by GlObject
+         * @param[in] glObject The GUIGlObject related with the walkingArea
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting WalkingArea should result in an exception
+         * @throws UnknownElement
+         */
+        GNEWalkingArea* retrieveWalkingAreaGL(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get walkingAreas
         const std::map<const GUIGlObject*, GNEWalkingArea*>& getWalkingAreas() const;
@@ -242,6 +263,13 @@ struct GNENetHelper {
          */
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
+        /**@brief get edge by glObject
+         * @param[in] glObject The glObject of the desired edge
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
+         * @throws UnknownElement
+         */
+        GNEEdge* retrieveEdgeGL(const GUIGlObject* glObject, bool hardFail = true) const;
+
         /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
@@ -284,6 +312,13 @@ struct GNENetHelper {
          */
         GNELane* retrieveLane(const std::string& id, bool hardFail = true, bool checkVolatileChange = false) const;
 
+        /**@brief get Lane by GlObject
+         * @param[in] glObject The GUIGlObject related with the lane
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting Lane should result in an exception
+         * @throws UnknownElement
+         */
+        GNELane* retrieveLaneGL(const GUIGlObject* glObject, bool hardFail = true) const;
+
         /**@brief get lane by Attribute Carrier
          * @param[in] AC The attribute carrier related with the lane
          * @param[in] hardFail Whether attempts to retrieve a nonexisting lane should result in an exception
@@ -316,6 +351,13 @@ struct GNENetHelper {
          * @throws UnknownElement
          */
         GNEConnection* retrieveConnection(const std::string& id, bool hardFail = true) const;
+
+        /**@brief get Connection by GUIGlObject
+         * @param[in] glObject The GLObject related with the connection element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting Connection should result in an exception
+         * @throws UnknownElement
+         */
+        GNEConnection* retrieveConnectionGL(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /**@brief get connection by Attribute Carrier
          * @param[in] AC The attribute carrier related with the connection
@@ -365,8 +407,8 @@ struct GNENetHelper {
          */
         GNEAdditional* retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
-         /**@brief Returns the named additional
-         * @param[in] id The GLObject related with the additional element
+        /**@brief Returns the named additional
+         * @param[in] glObject The GLObject related with the additional element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
         GNEAdditional* retrieveAdditionalGL(const GUIGlObject* glObject, bool hardFail = true) const;

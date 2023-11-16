@@ -2096,17 +2096,11 @@ GNEViewNet::setLastCreatedRoute(GNEDemandElement* lastCreatedRoute) {
 
 GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to junction element
-        for (const auto& glObject : glObjects) {
-            auto junction = dynamic_cast<GNEJunction*>(glObject);
-            if (junction) {
-                return junction;
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto junction = myNet->getAttributeCarriers()->retrieveJunctionGL(glObject, false);
+        if (junction) {
+            return junction;
         }
     }
     return nullptr;
@@ -2115,17 +2109,11 @@ GNEViewNet::getJunctionAtPopupPosition() {
 
 GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to connection element
-        for (const auto& glObject : glObjects) {
-            auto connection = dynamic_cast<GNEConnection*>(glObject);
-            if (connection) {
-                return connection;
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto connection = myNet->getAttributeCarriers()->retrieveConnectionGL(glObject, false);
+        if (connection) {
+            return connection;
         }
     }
     return nullptr;
@@ -2134,17 +2122,11 @@ GNEViewNet::getConnectionAtPopupPosition() {
 
 GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to crossing element
-        for (const auto& glObject : glObjects) {
-            auto crossing = dynamic_cast<GNECrossing*>(glObject);
-            if (crossing) {
-                return crossing;
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto crossing = myNet->getAttributeCarriers()->retrieveCrossingGL(glObject, false);
+        if (crossing) {
+            return crossing;
         }
     }
     return nullptr;
@@ -2153,17 +2135,11 @@ GNEViewNet::getCrossingAtPopupPosition() {
 
 GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to walking area element
-        for (const auto& glObject : glObjects) {
-            auto walkingArea = dynamic_cast<GNEWalkingArea*>(glObject);
-            if (walkingArea) {
-                return walkingArea;
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingAreaGL(glObject, false);
+        if (walkingArea) {
+            return walkingArea;
         }
     }
     return nullptr;
@@ -2172,22 +2148,11 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to edge element
-        for (const auto& glObject : glObjects) {
-            auto edge = dynamic_cast<GNEEdge*>(glObject);
-            if (edge) {
-                return edge;
-            } else {
-                auto lane = dynamic_cast<GNELane*>(glObject);
-                if (lane) {
-                    return lane->getParentEdge();
-                }
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto edge = myNet->getAttributeCarriers()->retrieveEdgeGL(glObject, false);
+        if (edge) {
+            return edge;
         }
     }
     return nullptr;
@@ -2196,17 +2161,11 @@ GNEViewNet::getEdgeAtPopupPosition() {
 
 GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to lane element
-        for (const auto& glObject : glObjects) {
-            auto lane = dynamic_cast<GNELane*>(glObject);
-            if (lane) {
-                return lane;
-            }
+    // get first object that can be found in their container
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto lane = myNet->getAttributeCarriers()->retrieveLaneGL(glObject, false);
+        if (lane) {
+            return lane;
         }
     }
     return nullptr;
@@ -2215,7 +2174,7 @@ GNEViewNet::getLaneAtPopupPosition() {
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
-    // get first object that can be found in additional elements container
+    // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false);
         if (additionalElement) {
@@ -2228,7 +2187,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
-    // get first object that can be found in demand elements container
+    // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(glObject, false);
         if (demandElement) {

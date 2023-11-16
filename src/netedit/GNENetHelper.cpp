@@ -413,6 +413,22 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 }
 
 
+GNEJunction*
+GNENetHelper::AttributeCarriers::retrieveJunctionGL(const GUIGlObject* glObject, bool hardFail) const {
+    for (const auto &junctionPair : myJunctions) {
+        if (junctionPair.second.first == glObject) {
+            return junctionPair.second.second;
+        }
+    }
+    if (hardFail) {
+        // If junction wasn't found, throw exception
+        throw UnknownElement("Junction " + glObject->getMicrosimID());
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >&
 GNENetHelper::AttributeCarriers::getJunctions() const {
     return myJunctions;
@@ -525,6 +541,19 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool 
 }
 
 
+GNECrossing*
+GNENetHelper::AttributeCarriers::retrieveCrossingGL(const GUIGlObject* glObject, bool hardFail) const {
+    if (myCrossings.count(glObject)) {
+        return myCrossings.at(glObject);
+    } else if (hardFail) {
+        // If junction wasn't found, throw exception
+        throw UnknownElement("crossing " + glObject->getMicrosimID());
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::map<const GUIGlObject*, GNECrossing*>&
 GNENetHelper::AttributeCarriers::getCrossings() const {
     return myCrossings;
@@ -589,6 +618,19 @@ GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bo
         } else {
             throw UnknownElement("WalkingArea");
         }
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEWalkingArea*
+GNENetHelper::AttributeCarriers::retrieveWalkingAreaGL(const GUIGlObject* glObject, bool hardFail) const {
+    if (myWalkingAreas.count(glObject)) {
+        return myWalkingAreas.at(glObject);
+    } else if (hardFail) {
+        // If junction wasn't found, throw exception
+        throw UnknownElement("WalkingArea " + glObject->getMicrosimID());
     } else {
         return nullptr;
     }
@@ -719,6 +761,22 @@ GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFa
     } else if (hardFail) {
         // If edge wasn't found, throw exception
         throw UnknownElement("Edge " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEEdge*
+GNENetHelper::AttributeCarriers::retrieveEdgeGL(const GUIGlObject* glObject, bool hardFail) const {
+    for (const auto &edgePair : myEdges) {
+        if (edgePair.second.first == glObject) {
+            return edgePair.second.second;
+        }
+    }
+    if (hardFail) {
+        // If edge wasn't found, throw exception
+        throw UnknownElement("Edge " + glObject->getMicrosimID());
     } else {
         return nullptr;
     }
@@ -892,6 +950,19 @@ GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hard
 }
 
 
+GNELane*
+GNENetHelper::AttributeCarriers::retrieveLaneGL(const GUIGlObject* glObject, bool hardFail) const {
+    if (myLanes.count(glObject)) {
+        return myLanes.at(glObject);
+    } else if (hardFail) {
+        // If junction wasn't found, throw exception
+        throw UnknownElement("Lane " + glObject->getMicrosimID());
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::map<const GUIGlObject*, GNELane*>&
 GNENetHelper::AttributeCarriers::getLanes() const {
     return myLanes;
@@ -955,6 +1026,23 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool 
     if (hardFail) {
         // If POI wasn't found, throw exception
         throw UnknownElement("Connection " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEConnection*
+GNENetHelper::AttributeCarriers::retrieveConnectionGL(const GUIGlObject* glObject, bool hardFail) const {
+    // iterate over connections
+    for (const auto& connection : myConnections) {
+        if (connection.second == glObject) {
+            return connection.second;
+        }
+    }
+    if (hardFail) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Connection " + glObject->getMicrosimID());
     } else {
         return nullptr;
     }

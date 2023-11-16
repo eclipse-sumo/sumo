@@ -1700,10 +1700,10 @@ GNETAZFrame::dropTAZMembers() {
         // enable save changes button
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // remove Source and Sinks using GNEChange_TAZElement
-        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source, false)) {
+        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditionalGL(TAZEdgeColor.source, false)) {
             myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.source, false), true);
         }
-        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink, false)) {
+        if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditionalGL(TAZEdgeColor.sink, false)) {
             myViewNet->getUndoList()->add(new GNEChange_Additional(TAZEdgeColor.sink, false), true);
         }
     }
