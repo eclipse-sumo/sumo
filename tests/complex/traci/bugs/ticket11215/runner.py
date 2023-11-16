@@ -37,7 +37,7 @@ for dom in traci.DOMAINS:
         if d not in ('gui', 'simulation'):
             print(d)
             dom.getIDList()
-    except traci.FatalTraCIError as e:
+    except traci.FatalTraCIError:
         print("Error as expected.")
 traci.start([sumoBinary, "-c", "sumo.sumocfg"])
 for dom in traci.DOMAINS:

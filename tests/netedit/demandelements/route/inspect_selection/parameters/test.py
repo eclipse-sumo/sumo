@@ -35,7 +35,8 @@ netedit.selectMode()
 
 # select both routes
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat1.x, netedit.positions.demandElements.edgeRepeat1.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat1.x,
+                  netedit.positions.demandElements.edgeRepeat1.y)
 
 # go to inspect mode
 netedit.inspectMode()
