@@ -48,7 +48,7 @@ python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml
 python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
 ```
 
-The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectoriespy](#plot_trajectoriespy))
+The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectories.py](#plot_trajectoriespy))
 
 When option **--show** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console).
 
