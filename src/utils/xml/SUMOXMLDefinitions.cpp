@@ -72,6 +72,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "calibratorLane",                         GNE_TAG_CALIBRATOR_LANE },
     { "calibratorFlow",                         GNE_TAG_CALIBRATOR_FLOW },
     { "rerouter",                               SUMO_TAG_REROUTER },
+    { "rerouterSymbol",                         GNE_TAG_REROUTER_SYMBOL },
     { "interval",                               SUMO_TAG_INTERVAL },
     { "destProbReroute",                        SUMO_TAG_DEST_PROB_REROUTE },
     { "closingReroute",                         SUMO_TAG_CLOSING_REROUTE },
@@ -80,6 +81,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parkingAreaReroute",                     SUMO_TAG_PARKING_AREA_REROUTE },
     { "step",                                   SUMO_TAG_STEP },
     { "variableSpeedSign",                      SUMO_TAG_VSS },
+    { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },
     { "vaporizer",                              SUMO_TAG_VAPORIZER },
     { "tractionSubstation",                     SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireSegment",                    SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate
@@ -261,8 +263,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "poiGeo",                                 GNE_TAG_POIGEO },
     { "jps.walkableArea",                       GNE_TAG_JPS_WALKABLEAREA },
     { "jps.obstacle",                           GNE_TAG_JPS_OBSTACLE },
-    { "rerouterSymbol",                         GNE_TAG_REROUTER_SYMBOL },
-    { "variableSpeedSignSymbol",                GNE_TAG_VSS_SYMBOL },
     { "flowRoute",                              GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                          GNE_TAG_FLOW_WITHROUTE },
     // GNE waypoints

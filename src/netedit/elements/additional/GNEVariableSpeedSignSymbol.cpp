@@ -30,6 +30,14 @@
 // member method definitions
 // ===========================================================================
 
+GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNENet* net) :
+    GNEAdditional("", net, GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "",
+{}, {}, {}, {}, {}, {}) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
     GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), "",
 {}, {}, {lane}, {VSSParent}, {}, {}) {

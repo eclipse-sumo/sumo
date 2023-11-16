@@ -681,16 +681,7 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     if (tagPropertyCategory & GNETagProperties::TagType::ADDITIONALELEMENT) {
         // fill additional tags (only with pure additionals)
         for (const auto& tagProperty : myTagProperties) {
-            // avoid symbols (It will be implemented in #7355)
-            if (tagProperty.second.isAdditionalPureElement() && !tagProperty.second.isSymbol()) {
-                allowedTags.push_back(tagProperty.second);
-            }
-        }
-    }
-    if (tagPropertyCategory & GNETagProperties::TagProperty::SYMBOL) {
-        // fill symbol tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isSymbol()) {
+            if (tagProperty.second.isAdditionalPureElement()) {
                 allowedTags.push_back(tagProperty.second);
             }
         }
@@ -2503,8 +2494,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::SYMBOL,
                                       GNETagProperties::TagParents::NO_PARENTS,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::LANE, currentTag, TL("VariableSpeedSign Symbol"),
-        {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
+                                      GUIIcon::LANE, currentTag, TL("VariableSpeedSign (lane)"),
+                                      {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
     }
     currentTag = SUMO_TAG_STEP;
     {
@@ -2760,8 +2751,8 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS | GNETagProperties::TagProperty::NOTSELECTABLE | GNETagProperties::TagProperty::SYMBOL,
                                       GNETagProperties::TagParents::NO_PARENTS,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::EDGE, currentTag, TL("Rerouter Symbol"),
-        {GNE_TAG_REROUTER_SYMBOL}, FXRGBA(255, 213, 213, 255));
+                                      GUIIcon::EDGE, currentTag, TL("Rerouter (Edge)"),
+                                      {GNE_TAG_REROUTER_SYMBOL}, FXRGBA(255, 213, 213, 255));
     }
     currentTag = SUMO_TAG_INTERVAL;
     {

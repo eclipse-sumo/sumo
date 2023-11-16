@@ -41,6 +41,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNERerouterSymbol.h>
 #include <netedit/elements/additional/GNERouteProbReroute.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
 #include <netedit/elements/additional/GNETAZ.h>
@@ -48,6 +49,7 @@
 #include <netedit/elements/additional/GNEVaporizer.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
+#include <netedit/elements/additional/GNEVariableSpeedSignSymbol.h>
 #include <netedit/elements/additional/GNETractionSubstation.h>
 #include <netedit/elements/additional/GNEOverheadWire.h>
 #include <netedit/elements/demand/GNEContainer.h>
@@ -369,6 +371,13 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             break;
         case SUMO_TAG_VAPORIZER:
             myAC = new GNEVaporizer(net);
+            break;
+        // symbols
+        case GNE_TAG_REROUTER_SYMBOL:
+            myAC = new GNERerouterSymbol(net);
+            break;
+        case GNE_TAG_VSS_SYMBOL:
+            myAC = new GNEVariableSpeedSignSymbol(net);
             break;
         // shapes
         case SUMO_TAG_POLY:

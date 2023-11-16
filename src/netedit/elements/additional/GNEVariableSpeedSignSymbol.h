@@ -36,6 +36,9 @@ class GNEBusStop;
 class GNEVariableSpeedSignSymbol : public GNEAdditional {
 
 public:
+    /// @brief default Constructor
+    GNEVariableSpeedSignSymbol(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] VSSParent VariableSpeedSign of this Variable Speed Sign Symbol belongs

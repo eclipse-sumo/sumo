@@ -111,6 +111,8 @@ enum SumoXMLTag {
     GNE_TAG_CALIBRATOR_FLOW,
     /// @brief  A rerouter
     SUMO_TAG_REROUTER,
+    /// @brief Rerouter Symbol
+    GNE_TAG_REROUTER_SYMBOL,
     /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
     /// @brief probability of destination of a reroute
@@ -125,6 +127,8 @@ enum SumoXMLTag {
     SUMO_TAG_PARKING_AREA_REROUTE,
     /// @brief A variable speed sign
     SUMO_TAG_VSS,
+    /// @brief VSS Symbol
+    GNE_TAG_VSS_SYMBOL,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
     /// @brief vaporizer of vehicles
@@ -423,10 +427,6 @@ enum SumoXMLTag {
     GNE_TAG_JPS_WALKABLEAREA,
     /// @brief polygon used for draw juPedSim obstacles
     GNE_TAG_JPS_OBSTACLE,
-    /// @brief Rerouter Symbol
-    GNE_TAG_REROUTER_SYMBOL,
-    /// @brief VSS Symbol
-    GNE_TAG_VSS_SYMBOL,
     /// @brief COF Symbol
     GNE_TAG_COF_SYMBOL,
     /// @brief a flow definition using a route instead of a from-to edges route

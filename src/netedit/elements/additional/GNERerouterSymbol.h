@@ -36,6 +36,9 @@ class GNEBusStop;
 class GNERerouterSymbol : public GNEAdditional {
 
 public:
+    /// @brief default Constructor
+    GNERerouterSymbol(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] rerouterParent Rerouter of this rerouter Symbol belongs
