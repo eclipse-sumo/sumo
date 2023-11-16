@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-15 11:48+0100\n"
-"PO-Revision-Date: 2023-11-15 10:23+0000\n"
+"PO-Revision-Date: 2023-11-16 14:20+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.2\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7971,27 +7971,27 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:671
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:720
 msgid "There is no edge from node '%' to node '%'."
-msgstr ""
+msgstr "No hay arista desde el nodo '%' al nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:698
 msgid "Error in geometry description from node '%' to node '%'."
-msgstr ""
+msgstr "Error en la descripción de la geometría del nodo '%' al nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un número de carril en la arista '%' no es numérico (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:762
 msgid "A lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un número de carril en la arista '%' no es positivo (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Una longitud de carril en la arista '%' no es numérica (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:785
 msgid "A lane length for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Una longitud de carril en la arista '%' no es positiva (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:846
 msgid "Could not find split position for edge '%'."
@@ -8005,10 +8005,11 @@ msgstr ""
 #, c-format
 msgid "Could not find TLS '%' for setting the signal group."
 msgstr ""
+"No se pudo encontrar el semáforo '%' para configurar el grupo de señales."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:930
 msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
-msgstr ""
+msgstr "Ignorando SIGNALGRUPPEZUFSABBIEGER porque no se conoce LsaNr"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:987
 msgid "Unknown edge in TEILFLAECHENELEMENT"
@@ -8088,11 +8089,11 @@ msgstr "Nodo destino inesperado '%' para la arista '%' del lugar de parada '%'"
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1274
 #, c-format
 msgid "The node '%' is not known."
-msgstr ""
+msgstr "Se desconoce el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1511
 msgid "Could not build connector node '%'."
-msgstr ""
+msgstr "No se pudo crear el nodo conector '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1521
 msgid " The from-node was not found within the net"
@@ -8109,12 +8110,12 @@ msgstr " Ambos nodos son iguales"
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1542
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:435
 msgid "Could not load VISUM language map from '%'."
-msgstr ""
+msgstr "No se pudo cargar el mapa de idiomas de VISUM desde '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1554
 #, c-format
 msgid "Unknown entry '%' in VISUM language map"
-msgstr ""
+msgstr "Entrada desconocida '%' en el mapa de idiomas de VISUM"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
@@ -8585,7 +8586,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "los semáforos definidos externamente no son soportados (semáforo=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Simdauer.cpp:49
 msgid "Simulation duration could not be parsed"
@@ -8601,13 +8602,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:129
 msgid "Invalid network, no network version declared."
-msgstr ""
+msgstr "Red no válida, no se ha declarado ninguna versión de red."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:133
 msgid ""
 "Network contains internal links which are ignored. Vehicles will 'jump' "
 "across junctions and thus underestimate route lengths and travel times."
 msgstr ""
+"La red contiene enlaces internos que se ignoran. Los vehículos 'saltarán' a "
+"través de los cruces y, por tanto, se subestimará la longitud de las rutas y "
+"los tiempos de viaje."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:163
 msgid "State was written at a different time=% than the begin time %!"
@@ -8644,7 +8648,7 @@ msgstr "Cargando % desde '%'"
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:447
 #, c-format
 msgid "The route file '%' is not accessible."
-msgstr ""
+msgstr "No se puede acceder al archivo de ruta '%'."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:463
 msgid ""
@@ -8668,6 +8672,8 @@ msgid ""
 "Internal edge '%' is not properly connected (probably a manually modified "
 "net.xml)."
 msgstr ""
+"La arista interna '%' no está conectada correctamente (el archivo net.xml "
+"fue probablemente modificado manualmente)."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:391
 msgid "Unknown from-node '%' for edge '%'."
@@ -8687,7 +8693,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:557
 #, c-format
 msgid "Another lane with the id '%' exists."
-msgstr ""
+msgstr "Existe otro carril con el ID '%'."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:627
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
@@ -8695,7 +8701,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:781
 msgid "Traffic light '%' has unknown type '%'."
-msgstr ""
+msgstr "El semáforo '%' tiene un tipo desconocido '%'."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:785
 #, c-format
@@ -8710,7 +8716,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:889
 msgid "Duplicate condition '%' in tlLogic '%'"
-msgstr ""
+msgstr "Condición duplicada '%' en la lógica semafórica '%'"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:942
 msgid "Invalid person mode '%' in E1 detector definition '%'"
@@ -8724,7 +8730,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1061
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr ""
+msgstr "Ignorando el argumento obsoleto 'cont' para el detector E2 '%'"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1077
 msgid "Invalid person mode '%' in E2 detector definition '%'"
@@ -8764,7 +8770,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1366
 msgid "Unknown edge '%' in edgeData definition '%'"
-msgstr ""
+msgstr "Arista desconocida '%' en la definición de edgeData '%'"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1373
 msgid ""
@@ -8804,6 +8810,8 @@ msgstr ""
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr ""
+"no se ha cargado una proyección geográfica válida de la red. fcd-output.geo "
+"no funcionará"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1602
 msgid "Replacing junction-taz '%' with loaded TAZ."
@@ -8819,16 +8827,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
-msgstr ""
+msgstr "Faltaba la información sobre la cantidad de nodos."
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:126
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:143
 msgid "Ignoring junction logic for junction '%'."
-msgstr ""
+msgstr "Ignorando lógica de cruce para el cruce '%'."
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:333
 msgid "Invalid traffic light type '%'"
-msgstr ""
+msgstr "Tipo de semáforo no válido '%'"
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:348
 #, c-format
@@ -8837,7 +8845,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:474
 msgid "Traffic lights could not be built."
-msgstr ""
+msgstr "No se pudieron construir semáforos."
 
 #: C:\Repos\sumo/src\netload\NLNetShapeHandler.cpp:163
 #, c-format
@@ -8847,7 +8855,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
-msgstr ""
+msgstr "Los vaporizers son obsoletos. Use rerouters en su lugar."
 
 #: C:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:84
 msgid "Unknown edge ('%') referenced in a vaporizer."
@@ -8930,11 +8938,13 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
-msgstr ""
+msgstr "La red generada se escribirá en FILE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:59
 msgid "Prefix of files to write plain xml nodes, edges and connections to"
 msgstr ""
+"Prefijo de archivos, en los cuales se escribirán nodos XML planos, aristas y "
+"conexiones"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
@@ -8942,28 +8952,28 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction names"
-msgstr ""
+msgstr "Define un prefijo para los nombres de aristas y cruces"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:74
 msgid "Write geo coordinates in plain-xml"
-msgstr ""
+msgstr "Escribir coordenadas geográficas en XML plano"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:79
 msgid "The generated net will be written to FILE using Amitran format"
-msgstr ""
+msgstr "La red generada se escribirá en FILE usando el formato Amitran"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATsim format"
-msgstr ""
+msgstr "La red generada se escribirá en FILE usando el formato MATsim"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
-msgstr ""
+msgstr "La red generada se escribirá en FILE usando el formato OpenDRIVE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:88
 msgid ""
 "The generated net will be written to dlr-navteq files with the given PREFIX"
-msgstr ""
+msgstr "La red generada se escribirá en archivos dlr-navteq con el prefijo dado"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:91
 msgid "The dlr-navteq output format version to write"
@@ -8974,14 +8984,17 @@ msgid ""
 "The network coordinates are written with the specified level of output "
 "precision"
 msgstr ""
+"Las coordenadas de la red se escriben con el nivel especificado de precisión "
+"de salida"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:97
 msgid "Street names will be included in the output (if available)"
 msgstr ""
+"Los nombres de las calles se incluirán en la salida (si están disponibles)"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:100
 msgid "Writes original names, if given, as parameter"
-msgstr ""
+msgstr "Escribir los nombres originales, si se proporcionan, como parámetro"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:103
 msgid "Writes street signs as POIs to FILE"
@@ -8989,11 +9002,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:107
 msgid "Writes public transport stops to FILE"
-msgstr ""
+msgstr "Escribir paradas de transporte público en FILE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:109
 msgid "Writes public transport lines to FILE"
-msgstr ""
+msgstr "Escribir líneas de transporte público en FILE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:111
 msgid "Clean-up pt stops that are not served by any line"
