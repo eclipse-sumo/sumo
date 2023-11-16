@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-01 15:05:55 by Eclipse SUMO netedit Version v1_18_0+2330-771ae636b15
+<!-- generated on 2023-11-16 08:54:47 by Eclipse SUMO netedit Version v1_19_0+0186-4470c33a83d
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -10,6 +10,6 @@
     </container>
     <container id="c_1" depart="0.00">
         <tranship from="Edge0" to="Edge2"/>
-        <stop until="50.20"/>
+        <stop edge="Edge2" endPos="40.32" until="50.20"/>
     </container>
 </routes>
