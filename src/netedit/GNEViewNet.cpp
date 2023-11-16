@@ -2215,17 +2215,11 @@ GNEViewNet::getLaneAtPopupPosition() {
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to additional element
-        for (const auto& glObject : glObjects) {
-            auto additionalElement = dynamic_cast<GNEAdditional*>(glObject);
-            if (additionalElement) {
-                return additionalElement;
-            }
+    // get first object that can be parsed to additional element
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false);
+        if (additionalElement) {
+            return additionalElement;
         }
     }
     return nullptr;
@@ -2234,17 +2228,11 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to demand element
-        for (const auto& glObject : glObjects) {
-            auto demandElement = dynamic_cast<GNEDemandElement*>(glObject);
-            if (demandElement) {
-                return demandElement;
-            }
+    // get first object that can be parsed to demand element
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(glObject, false);
+        if (demandElement) {
+            return demandElement;
         }
     }
     return nullptr;
@@ -5614,7 +5602,7 @@ GNEViewNet::drawDeleteDottedContour() {
             gPostDrawing.markedElementDeleteContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto& objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+        for (const auto& objectUnderCursor : gPostDrawing.getElementsUnderCursor()) {
             // compare objectUnderCursor and markedElementsDeleteContour types
             if (objectUnderCursor->getType() == gPostDrawing.markedElementDeleteContour->getType()) {
                 // check if is a normalGLObject or a path element
@@ -5642,7 +5630,7 @@ GNEViewNet::drawSelectDottedContour() {
             gPostDrawing.markedElementSelectContour->drawGL(*myVisualizationSettings);
         }
         // iterate over all objects under cursor
-        for (const auto& objectUnderCursor : gPostDrawing.getElementUnderCursor()) {
+        for (const auto& objectUnderCursor : gPostDrawing.getElementsUnderCursor()) {
             // compare objectUnderCursor and markedElementsSelectContour types
             if (objectUnderCursor->getType() == gPostDrawing.markedElementSelectContour->getType()) {
                 // check if is a normalGLObject or a path element

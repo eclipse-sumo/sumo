@@ -1070,6 +1070,24 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, boo
 
 
 GNEAdditional*
+GNENetHelper::AttributeCarriers::retrieveAdditionalGL(const GUIGlObject* glObject, bool hardFail) const {
+    // iterate over all additionals
+    for (const auto &additionalTag : myAdditionals){
+        for (const auto &additionalPair : additionalTag.second) {
+            if (additionalPair.first == glObject) {
+                return additionalPair.second;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant additional (glObject)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const {
     // first retrieve rerouter
     const GNEAdditional* rerouter = retrieveAdditional(SUMO_TAG_REROUTER, rerouterID);
@@ -1408,6 +1426,24 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
         return demandElement;
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement*
+GNENetHelper::AttributeCarriers::retrieveDemandElementGL(const GUIGlObject* glObject, bool hardFail) const {
+    // iterate over all demand elements
+    for (const auto &demandElementTag : myDemandElements){
+        for (const auto &demandElementPair : demandElementTag.second) {
+            if (demandElementPair.first == glObject) {
+                return demandElementPair.second;
+            }
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demandElement (glObject)");
     } else {
         return nullptr;
     }

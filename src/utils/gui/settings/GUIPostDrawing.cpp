@@ -76,7 +76,7 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
 
 
 const std::vector<const GUIGlObject*>&
-GUIPostDrawing::getElementUnderCursor() const {
+GUIPostDrawing::getElementsUnderCursor() const {
     return myElementsUnderCursor;
 }
 

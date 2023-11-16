@@ -55,7 +55,7 @@ public:
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
     /// @brief get all elements under cursor
-    const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
+    const std::vector<const GUIGlObject*>& getElementsUnderCursor() const;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;

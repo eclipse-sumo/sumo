@@ -365,6 +365,12 @@ struct GNENetHelper {
          */
         GNEAdditional* retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
+         /**@brief Returns the named additional
+         * @param[in] id The GLObject related with the additional element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
+         */
+        GNEAdditional* retrieveAdditionalGL(const GUIGlObject* glObject, bool hardFail = true) const;
+
         /**@brief Returns the rerouter interval defined by given begin and end
          * @param[in] rerouter ID
          * @param[in] begin SUMOTime begin
@@ -443,6 +449,12 @@ struct GNENetHelper {
          * @param[in] hardFail Whether attempts to retrieve a nonexisting demand element should result in an exception
          */
         GNEDemandElement* retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /**@brief Returns the named demand
+         * @param[in] id The GLObject related with the demand element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting demand should result in an exception
+         */
+        GNEDemandElement* retrieveDemandElementGL(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
