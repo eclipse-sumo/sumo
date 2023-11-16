@@ -2215,7 +2215,7 @@ GNEViewNet::getLaneAtPopupPosition() {
 
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
-    // get first object that can be parsed to additional element
+    // get first object that can be found in additional elements container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false);
         if (additionalElement) {
@@ -2228,7 +2228,7 @@ GNEViewNet::getAdditionalAtPopupPosition() {
 
 GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
-    // get first object that can be parsed to demand element
+    // get first object that can be found in demand elements container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(glObject, false);
         if (demandElement) {
@@ -2241,17 +2241,11 @@ GNEViewNet::getDemandElementAtPopupPosition() {
 
 GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to poly element
-        for (const auto& glObject : glObjects) {
-            auto poly = dynamic_cast<GNEPoly*>(glObject);
-            if (poly) {
-                return poly;
-            }
+    // get first object that can be parsed to poly element
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        if (polygon) {
+            return polygon;
         }
     }
     return nullptr;
@@ -2260,17 +2254,11 @@ GNEViewNet::getPolygonAtPopupPosition() {
 
 GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to POI element
-        for (const auto& glObject : glObjects) {
-            auto POI = dynamic_cast<GNEPOI*>(glObject);
-            if (POI) {
-                return POI;
-            }
+    // get first object that can be parsed to POI element
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        if (POI) {
+            return POI;
         }
     }
     return nullptr;
@@ -2279,17 +2267,11 @@ GNEViewNet::getPOIAtPopupPosition() {
 
 GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
-    if (makeCurrent()) {
-        // get all gl objects in position
-        auto glObjects = getGUIGlObjectsAtPosition(getPopupPosition(), 0.1);
-        // swap objects
-        std::reverse(glObjects.begin(), glObjects.end());
-        // get first object that can be parsed to TAZ element
-        for (const auto& glObject : glObjects) {
-            auto TAZ = dynamic_cast<GNETAZ*>(glObject);
-            if (TAZ) {
-                return TAZ;
-            }
+    // get first object that can be parsed to TAZ element
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        if (TAZ) {
+            return TAZ;
         }
     }
     return nullptr;
