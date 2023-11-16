@@ -397,7 +397,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
     const EdgeVector incidentEdges = junction->getNBNode()->getEdges();
     for (const auto& edge : incidentEdges) {
-        deleteEdge(myAttributeCarriers->getEdges().at(edge->getID()), undoList, true);
+        deleteEdge(myAttributeCarriers->getEdges().at(edge->getID()).second, undoList, true);
     }
     // remove any traffic lights from the traffic light container (avoids lots of warnings)
     junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
@@ -1044,7 +1044,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     const EdgeVector incomingNBEdges = moved->getNBNode()->getIncomingEdges();
     for (const auto& incomingNBEdge : incomingNBEdges) {
         // delete edges between the merged junctions
-        GNEEdge* edge = myAttributeCarriers->getEdges().at(incomingNBEdge->getID());
+        GNEEdge* edge = myAttributeCarriers->getEdges().at(incomingNBEdge->getID()).second;
         if (edge->getFromJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
@@ -1055,7 +1055,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     const EdgeVector outgoingNBEdges = moved->getNBNode()->getOutgoingEdges();
     for (const auto& outgoingNBEdge : outgoingNBEdges) {
         // delete edges between the merged junctions
-        GNEEdge* edge = myAttributeCarriers->getEdges().at(outgoingNBEdge->getID());
+        GNEEdge* edge = myAttributeCarriers->getEdges().at(outgoingNBEdge->getID()).second;
         if (edge->getToJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
@@ -1163,8 +1163,8 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 bool
 GNENet::checkJunctionPosition(const Position& pos) {
     // Check that there isn't another junction in the same position as Pos
-    for (auto i : myAttributeCarriers->getJunctions()) {
-        if (i.second->getPositionInView() == pos) {
+    for (auto &junction : myAttributeCarriers->getJunctions()) {
+        if (junction.second.second->getPositionInView() == pos) {
             return false;
         }
     }
@@ -1231,7 +1231,7 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     myAttributeCarriers->addDefaultVTypes();
     // update geometry of all lanes (needed  for dotted geometry)
     for (const auto& edge : myAttributeCarriers->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second.second->getLanes()) {
             lane->updateGeometry();
         }
     }
@@ -1286,7 +1286,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
-            myEdgesAndNumberOfLanes[edge.second->getID()] = (int)edge.second->getLanes().size();
+            myEdgesAndNumberOfLanes[edge.second.second->getID()] = (int)edge.second.second->getLanes().size();
         }
     }
     // compute and update
@@ -1448,8 +1448,8 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     oldPos = pos;
 
     // Check that there isn't another junction in the same position as Pos but doesn't belong to cluster
-    for (auto i : myAttributeCarriers->getJunctions()) {
-        if ((i.second->getPositionInView() == pos) && (cluster.find(i.second->getNBNode()) == cluster.end())) {
+    for (auto &junction : myAttributeCarriers->getJunctions()) {
+        if ((junction.second.second->getPositionInView() == pos) && (cluster.find(junction.second.second->getNBNode()) == cluster.end())) {
             // show warning in gui testing debug mode
             WRITE_DEBUG("Opening FXMessageBox 'Join non-selected junction'");
             // Ask confirmation to user
@@ -1469,7 +1469,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox 'Join non-selected junction' with 'Yes'");
                 // select conflicted junction an join all again
-                i.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                junction.second.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 return joinSelectedJunctions(undoList);
             }
         }
@@ -1508,19 +1508,19 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         it->setLogicValid(false, undoList);
     }
     // remap edges
-    for (auto it : allIncoming) {
-        GNEChange_Attribute::changeAttribute(myAttributeCarriers->getEdges().at(it->getID()), SUMO_ATTR_TO, joined->getID(), undoList);
+    for (auto &incomingEdge : allIncoming) {
+        GNEChange_Attribute::changeAttribute(myAttributeCarriers->getEdges().at(incomingEdge->getID()).second, SUMO_ATTR_TO, joined->getID(), undoList);
     }
 
     EdgeSet edgesWithin;
-    for (auto it : allOutgoing) {
+    for (auto &outgoingEdge : allOutgoing) {
         // delete edges within the cluster
-        GNEEdge* edge = myAttributeCarriers->getEdges().at(it->getID());
+        GNEEdge* edge = myAttributeCarriers->getEdges().at(outgoingEdge->getID()).second;
         if (edge->getToJunction() == joined) {
-            edgesWithin.insert(it);
+            edgesWithin.insert(outgoingEdge);
             deleteEdge(edge, undoList, false);
         } else {
-            GNEChange_Attribute::changeAttribute(myAttributeCarriers->getEdges().at(it->getID()), SUMO_ATTR_FROM, joined->getID(), undoList);
+            GNEChange_Attribute::changeAttribute(myAttributeCarriers->getEdges().at(outgoingEdge->getID()).second, SUMO_ATTR_FROM, joined->getID(), undoList);
         }
     }
 
@@ -1560,9 +1560,9 @@ bool
 GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // obtain current net's crossings
     std::vector<GNECrossing*> myNetCrossings;
-    for (auto it : myAttributeCarriers->getJunctions()) {
-        myNetCrossings.reserve(myNetCrossings.size() + it.second->getGNECrossings().size());
-        myNetCrossings.insert(myNetCrossings.end(), it.second->getGNECrossings().begin(), it.second->getGNECrossings().end());
+    for (const auto &junction : myAttributeCarriers->getJunctions()) {
+        myNetCrossings.reserve(myNetCrossings.size() + junction.second.second->getGNECrossings().size());
+        myNetCrossings.insert(myNetCrossings.end(), junction.second.second->getGNECrossings().begin(), junction.second.second->getGNECrossings().end());
     }
     // obtain invalid crossings
     std::vector<GNECrossing*> myInvalidCrossings;
@@ -1613,14 +1613,13 @@ void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("clear junctions"));
     std::vector<GNEJunction*> toRemove;
-    for (auto it : myAttributeCarriers->getJunctions()) {
-        GNEJunction* junction = it.second;
-        if (junction->getNBNode()->getEdges().size() == 0) {
-            toRemove.push_back(junction);
+    for (auto &junction : myAttributeCarriers->getJunctions()) {
+        if (junction.second.second->getNBNode()->getEdges().size() == 0) {
+            toRemove.push_back(junction.second.second);
         }
     }
-    for (auto it : toRemove) {
-        deleteJunction(it, undoList);
+    for (auto junction : toRemove) {
+        deleteJunction(junction, undoList);
     }
     undoList->end();
 }
@@ -1812,8 +1811,8 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         // iterate over NBEdges to join
         for (auto j : toJoin) {
             // obtain GNEEdges
-            GNEEdge* begin = myAttributeCarriers->getEdges().at(j.first->getID());
-            GNEEdge* continuation = myAttributeCarriers->getEdges().at(j.second->getID());
+            GNEEdge* begin = myAttributeCarriers->getEdges().at(j.first->getID()).second;
+            GNEEdge* continuation = myAttributeCarriers->getEdges().at(j.second->getID()).second;
             // remove connections between the edges
             std::vector<NBEdge::Connection> connections = begin->getNBEdge()->getConnections();
             for (auto con : connections) {
@@ -2735,7 +2734,7 @@ GNENet::initJunctionsAndEdges() {
     }
     // recalculate all lane2lane connections
     for (const auto& edge : myAttributeCarriers->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second.second->getLanes()) {
             lane->updateGeometry();
         }
     }
@@ -2748,9 +2747,9 @@ void
 GNENet::initGNEConnections() {
     for (const auto& edge : myAttributeCarriers->getEdges()) {
         // remake connections
-        edge.second->remakeGNEConnections();
+        edge.second.second->remakeGNEConnections();
         // update geometry of connections
-        for (const auto& connection : edge.second->getGNEConnections()) {
+        for (const auto& connection : edge.second.second->getGNEConnections()) {
             connection->updateGeometry();
         }
     }
@@ -2768,13 +2767,13 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     }
     // removes all junctions of grid
     WRITE_GLDEBUG("Removing junctions during recomputing");
-    for (const auto& it : myAttributeCarriers->getJunctions()) {
-        myGrid.removeAdditionalGLObject(it.second);
+    for (const auto& junction : myAttributeCarriers->getJunctions()) {
+        myGrid.removeAdditionalGLObject(junction.second.second);
     }
     // remove all edges from grid
     WRITE_GLDEBUG("Removing edges during recomputing");
-    for (const auto& it : myAttributeCarriers->getEdges()) {
-        myGrid.removeAdditionalGLObject(it.second);
+    for (const auto& edge : myAttributeCarriers->getEdges()) {
+        myGrid.removeAdditionalGLObject(edge.second.second);
     }
     // compute using NetBuilder
     myNetBuilder->compute(neteditOptions, liveExplicitTurnarounds, volatileOptions);
@@ -2786,7 +2785,7 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     if (!neteditOptions.getBool("offset.disable-normalization")) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // refresh edge geometry
-            edge.second->updateGeometry();
+            edge.second.second->updateGeometry();
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
@@ -2826,35 +2825,35 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         WRITE_GLDEBUG("Add junctions during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
             // update centering boundary
-            junction.second->updateCenteringBoundary(false);
+            junction.second.second->updateCenteringBoundary(false);
             // add junction in grid again
-            myGrid.addAdditionalGLObject(junction.second);
+            myGrid.addAdditionalGLObject(junction.second.second);
         }
         // insert all edges from grid again
         WRITE_GLDEBUG("Add edges during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // update centeting boundary
-            edge.second->updateCenteringBoundary(false);
+            edge.second.second->updateCenteringBoundary(false);
             // add edge in grid again
-            myGrid.addAdditionalGLObject(edge.second);
+            myGrid.addAdditionalGLObject(edge.second.second);
         }
         // remake connections
-        for (const auto& connection : myAttributeCarriers->getEdges()) {
-            connection.second->remakeGNEConnections(true);
+        for (const auto& edge : myAttributeCarriers->getEdges()) {
+            edge.second.second->remakeGNEConnections(true);
         }
         // iterate over junctions of net
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
             // undolist may not yet exist but is also not needed when just marking junctions as valid
-            junction.second->setLogicValid(true, nullptr);
+            junction.second.second->setLogicValid(true, nullptr);
             // updated geometry
-            junction.second->updateGeometryAfterNetbuild();
+            junction.second.second->updateGeometryAfterNetbuild();
             // rebuild walking areas
-            junction.second->rebuildGNEWalkingAreas();
+            junction.second.second->rebuildGNEWalkingAreas();
         }
         // iterate over all edges of net
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // update geometry
-            edge.second->updateGeometry();
+            edge.second.second->updateGeometry();
         }
     }
     // net recomputed, then return false;

@@ -456,17 +456,17 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         if (ignoreLocking || !locks.isObjectLocked(GLO_JUNCTION, false)) {
             if (onlyCount) {
                 return true;
-            } else if (onlyUnselect || junction.second->isAttributeCarrierSelected()) {
-                junction.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else if (onlyUnselect || junction.second.second->isAttributeCarrierSelected()) {
+                junction.second.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
             } else {
-                junction.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                junction.second.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
             }
         } else if (onlyCount) {
             ignoreLocking = askContinueIfLock();
             return true;
         }
         // due we iterate over all junctions, only it's necessary iterate over incoming edges
-        for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
+        for (const auto& incomingEdge : junction.second.second->getGNEIncomingEdges()) {
             // special case for clear
             if (onlyUnselect) {
                 // check if edge selection is locked
@@ -542,7 +542,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         }
         // check if crossing selection is locked
         if (ignoreLocking || !locks.isObjectLocked(GLO_CROSSING, false)) {
-            for (const auto& crossing : junction.second->getGNECrossings()) {
+            for (const auto& crossing : junction.second.second->getGNECrossings()) {
                 if (onlyCount) {
                     return true;
                 } else if (onlyUnselect || crossing->isAttributeCarrierSelected()) {
@@ -557,7 +557,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
         }
         // check if walkingArea selection is locked
         if (ignoreLocking || !locks.isObjectLocked(GLO_WALKINGAREA, false)) {
-            for (const auto& walkingArea : junction.second->getGNEWalkingAreas()) {
+            for (const auto& walkingArea : junction.second.second->getGNEWalkingAreas()) {
                 if (onlyCount) {
                     return true;
                 } else if (onlyUnselect || walkingArea->isAttributeCarrierSelected()) {

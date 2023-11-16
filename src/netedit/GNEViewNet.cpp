@@ -734,7 +734,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             active = 10; // segment incline, fall back to total incline
         }
         for (const auto& lane : myNet->getAttributeCarriers()->getLanes()) {
-            const double val = lane->getColorValue(s, active);
+            const double val = lane.second->getColorValue(s, active);
             if (val == s.MISSING_DATA) {
                 hasMissingData = true;
                 continue;
@@ -745,8 +745,8 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
             for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {
-                minValue = MIN2(minValue, junction.second->getPositionInView().z());
-                maxValue = MAX2(maxValue, junction.second->getPositionInView().z());
+                minValue = MIN2(minValue, junction.second.second->getPositionInView().z());
+                maxValue = MAX2(maxValue, junction.second.second->getPositionInView().z());
             }
         }
     } else if (objectType == GLO_TAZRELDATA) {
@@ -766,7 +766,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         // add threshold for every distinct value
         std::set<SVCPermissions> codes;
         for (const auto& lane : myNet->getAttributeCarriers()->getLanes()) {
-            codes.insert(lane->getParentEdge()->getNBEdge()->getPermissions(lane->getIndex()));
+            codes.insert(lane.second->getParentEdge()->getNBEdge()->getPermissions(lane.second->getIndex()));
         }
         int step = MAX2(1, 360 / (int)codes.size());
         int hue = 0;
@@ -3260,7 +3260,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
-            for (const auto& lane : edge.second->getLanes()) {
+            for (const auto& lane : edge.second.second->getLanes()) {
                 if (lane->getReachability() >= 0) {
                     lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
                 }

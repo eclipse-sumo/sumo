@@ -489,11 +489,11 @@ GNEDeleteFrame::selectedACsToDelete() const {
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
         for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-            if (junction.second->isAttributeCarrierSelected()) {
+            if (junction.second.second->isAttributeCarrierSelected()) {
                 return true;
             }
             // since we iterate over all junctions, it's only necessary to iterate over incoming edges
-            for (const auto& edge : junction.second->getGNEIncomingEdges()) {
+            for (const auto& edge : junction.second.second->getGNEIncomingEdges()) {
                 if (edge->isAttributeCarrierSelected()) {
                     return true;
                 }
@@ -511,7 +511,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
                 }
             }
             // check crossings
-            for (const auto& crossing : junction.second->getGNECrossings()) {
+            for (const auto& crossing : junction.second.second->getGNECrossings()) {
                 if (crossing->isAttributeCarrierSelected()) {
                     return true;
                 }

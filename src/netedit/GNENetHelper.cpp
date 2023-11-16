@@ -93,17 +93,17 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     }
     // Drop Edges
     for (const auto& edge : myEdges) {
-        edge.second->decRef("GNENetHelper::~GNENet");
+        edge.second.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
-        delete edge.second;
+        WRITE_DEBUG("Deleting unreferenced " + edge.second.second->getTagStr() + " '" + edge.second.second->getID() + "' in AttributeCarriers destructor");
+        delete edge.second.second;
     }
     // Drop myJunctions
     for (const auto& junction : myJunctions) {
-        junction.second->decRef("GNENetHelper::~GNENet");
+        junction.second.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
-        delete junction.second;
+        WRITE_DEBUG("Deleting unreferenced " + junction.second.second->getTagStr() + " '" + junction.second.second->getID() + "' in AttributeCarriers destructor");
+        delete junction.second.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (const auto& additionalTag : myAdditionals) {
@@ -155,16 +155,16 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
 
 void
 GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
-    std::map<std::string, GNEEdge*> newEdgeMap;
-    std::map<std::string, GNEJunction*> newJunctionMap;
+    std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > newEdgeMap;
+    std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> > newJunctionMap;
     // fill newEdgeMap
     for (const auto& edge : myEdges) {
-        edge.second->setEdgeID(edge.second->getNBEdge()->getID());
-        newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
+        edge.second.second->setEdgeID(edge.second.second->getNBEdge()->getID());
+        newEdgeMap[edge.second.second->getNBEdge()->getID()] = edge.second;
     }
     for (const auto& junction : myJunctions) {
-        newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
-        junction.second->setNetworkElementID(junction.second->getNBNode()->getID());
+        newJunctionMap[junction.second.second->getNBNode()->getID()] = junction.second;
+        junction.second.second->setNetworkElementID(junction.second.second->getNBNode()->getID());
     }
     myEdges = newEdgeMap;
     myJunctions = newJunctionMap;
@@ -176,7 +176,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
     // check what type of AC
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // Junction
-        const GNEJunction* junction = myJunctions.at(AC->getID());
+        const GNEJunction* junction = myJunctions.at(AC->getID()).second;
         if (junction->getNBNode()->getShape().size() == 0) {
             return shape.around(junction->getNBNode()->getCenter());
         } else {
@@ -184,7 +184,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // Edge
-        for (const auto& lane : myEdges.at(AC->getID())->getLanes()) {
+        for (const auto& lane : myEdges.at(AC->getID()).second->getLanes()) {
             if (shape.overlapsWith(lane->getLaneShape())) {
                 return true;
             }
@@ -241,27 +241,27 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
     std::vector<GNEAttributeCarrier*> result;
     if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_JUNCTION)) {
         for (const auto& junction : myJunctions) {
-            result.push_back(junction.second);
+            result.push_back(junction.second.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_EDGE)) {
         for (const auto& edge : myEdges) {
-            result.push_back(edge.second);
+            result.push_back(edge.second.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_LANE)) {
         for (const auto& lane : myLanes) {
-            result.push_back(lane);
+            result.push_back(lane.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CONNECTION)) {
         for (const auto& connection : myConnections) {
-            result.push_back(connection);
+            result.push_back(connection.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_CROSSING)) {
         for (const auto& crossing : myCrossings) {
-            result.push_back(crossing);
+            result.push_back(crossing.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_WALKINGAREA)) {
         for (const auto& walkingArea : myWalkingAreas) {
-            result.push_back(walkingArea);
+            result.push_back(walkingArea.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isAdditionalElement())) {
         for (const auto& additional : myAdditionals.at(tag)) {
@@ -299,28 +299,28 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
     if (supermode == Supermode::NETWORK) {
         // network
         for (const auto& junction : myJunctions) {
-            if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
-                result.push_back(junction.second);
+            if (!onlySelected || junction.second.second->isAttributeCarrierSelected()) {
+                result.push_back(junction.second.second);
             }
         }
         for (const auto& crossing : myCrossings) {
-            if (!onlySelected || crossing->isAttributeCarrierSelected()) {
-                result.push_back(crossing);
+            if (!onlySelected || crossing.second->isAttributeCarrierSelected()) {
+                result.push_back(crossing.second);
             }
         }
         for (const auto& edge : myEdges) {
-            if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
-                result.push_back(edge.second);
+            if (!onlySelected || edge.second.second->isAttributeCarrierSelected()) {
+                result.push_back(edge.second.second);
             }
         }
         for (const auto& lane : myLanes) {
-            if (!onlySelected || lane->isAttributeCarrierSelected()) {
-                result.push_back(lane);
+            if (!onlySelected || lane.second->isAttributeCarrierSelected()) {
+                result.push_back(lane.second);
             }
         }
         for (const auto& connection : myConnections) {
-            if (!onlySelected || connection->isAttributeCarrierSelected()) {
-                result.push_back(connection);
+            if (!onlySelected || connection.second->isAttributeCarrierSelected()) {
+                result.push_back(connection.second);
             }
         }
         for (const auto& additionalSet : myAdditionals) {
@@ -403,7 +403,7 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
 GNEJunction*
 GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool hardFail) const {
     if (myJunctions.count(id)) {
-        return myJunctions.at(id);
+        return myJunctions.at(id).second;
     } else if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Junction " + id);
@@ -413,7 +413,7 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 }
 
 
-const std::map<std::string, GNEJunction*>&
+const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >&
 GNENetHelper::AttributeCarriers::getJunctions() const {
     return myJunctions;
 }
@@ -424,8 +424,8 @@ GNENetHelper::AttributeCarriers::getSelectedJunctions() const {
     std::vector<GNEJunction*> result;
     // returns junctions depending of selection
     for (const auto& junction : myJunctions) {
-        if (junction.second->isAttributeCarrierSelected()) {
-            result.push_back(junction.second);
+        if (junction.second.second->isAttributeCarrierSelected()) {
+            result.push_back(junction.second.second);
         }
     }
     return result;
@@ -437,7 +437,7 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     // increase reference
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
-    myJunctions[junction->getMicrosimID()] = junction;
+    myJunctions[junction->getMicrosimID()] = std::make_pair(junction->getGUIGlObject(), junction);
     // expand net boundary
     myNet->expandBoundary(junction->getCenteringBoundary());
     // add edge into grid
@@ -459,13 +459,13 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 void
 GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix) {
     // make a copy of junctions
-    std::map<std::string, GNEJunction*> junctionCopy = myJunctions;
+    auto junctionCopy = myJunctions;
     // clear junctions
     myJunctions.clear();
     // fill junctions again
     for (const auto& junction : junctionCopy) {
         // update microsim ID
-        junction.second->setNetworkElementID(prefix + junction.first);
+        junction.second.second->setNetworkElementID(prefix + junction.first);
         // insert in myJunctions again
         myJunctions[prefix + junction.first] = junction.second;
     }
@@ -486,7 +486,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // update microsim ID
         junction->setNetworkElementID(newID);
         // add it into myJunctions again
-        myJunctions[junction->getID()] = junction;
+        myJunctions[junction->getID()] = std::make_pair(junction->getGUIGlObject(), junction);
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
@@ -499,7 +499,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
     int counter = 0;
     for (const auto& junction : myJunctions) {
-        if (junction.second->isAttributeCarrierSelected()) {
+        if (junction.second.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -525,7 +525,7 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool 
 }
 
 
-const std::set<GNECrossing*>&
+const std::map<const GUIGlObject*, GNECrossing*>&
 GNENetHelper::AttributeCarriers::getCrossings() const {
     return myCrossings;
 }
@@ -536,8 +536,8 @@ GNENetHelper::AttributeCarriers::getSelectedCrossings() const {
     std::vector<GNECrossing*> result;
     // iterate over crossings
     for (const auto& crossing : myCrossings) {
-        if (crossing->isAttributeCarrierSelected()) {
-            result.push_back(crossing);
+        if (crossing.second->isAttributeCarrierSelected()) {
+            result.push_back(crossing.second);
         }
     }
     return result;
@@ -546,15 +546,17 @@ GNENetHelper::AttributeCarriers::getSelectedCrossings() const {
 
 void
 GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
-    if (myCrossings.insert(crossing).second == false) {
+    if (myCrossings.count(crossing->getGUIGlObject()) > 0) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
+    } else {
+        myCrossings[crossing->getGUIGlObject()] = crossing;
     }
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
-    const auto finder = myCrossings.find(crossing);
+    const auto finder = myCrossings.find(crossing->getGUIGlObject());
     if (finder == myCrossings.end()) {
         throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' wasn't previously inserted");
     } else {
@@ -567,7 +569,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
     for (const auto& crossing : myCrossings) {
-        if (crossing->isAttributeCarrierSelected()) {
+        if (crossing.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -593,7 +595,7 @@ GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bo
 }
 
 
-const std::set<GNEWalkingArea*>&
+const std::map<const GUIGlObject*, GNEWalkingArea*>&
 GNENetHelper::AttributeCarriers::getWalkingAreas() const {
     return myWalkingAreas;
 }
@@ -604,8 +606,8 @@ GNENetHelper::AttributeCarriers::getSelectedWalkingAreas() const {
     std::vector<GNEWalkingArea*> result;
     // iterate over walkingAreas
     for (const auto& walkingArea : myWalkingAreas) {
-        if (walkingArea->isAttributeCarrierSelected()) {
-            result.push_back(walkingArea);
+        if (walkingArea.second->isAttributeCarrierSelected()) {
+            result.push_back(walkingArea.second);
         }
     }
     return result;
@@ -614,15 +616,17 @@ GNENetHelper::AttributeCarriers::getSelectedWalkingAreas() const {
 
 void
 GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) {
-    if (myWalkingAreas.insert(walkingArea).second == false) {
+    if (myWalkingAreas.count(walkingArea->getGUIGlObject()) > 0) {
         throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
+    } else {
+        myWalkingAreas[walkingArea->getGUIGlObject()] = walkingArea;
     }
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) {
-    const auto finder = myWalkingAreas.find(walkingArea);
+    const auto finder = myWalkingAreas.find(walkingArea->getGUIGlObject());
     if (finder == myWalkingAreas.end()) {
         throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
     } else {
@@ -635,7 +639,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedWalkingAreas() const {
     int counter = 0;
     for (const auto& walkingArea : myWalkingAreas) {
-        if (walkingArea->isAttributeCarrierSelected()) {
+        if (walkingArea.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -711,7 +715,7 @@ GNENetHelper::AttributeCarriers::generateEdgeTypeID() const {
 GNEEdge*
 GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFail) const {
     if (myEdges.count(id) > 0) {
-        return myEdges.at(id);
+        return myEdges.at(id).second;
     } else if (hardFail) {
         // If edge wasn't found, throw exception
         throw UnknownElement("Edge " + id);
@@ -729,15 +733,15 @@ GNENetHelper::AttributeCarriers::retrieveEdges(GNEJunction* from, GNEJunction* t
     std::vector<GNEEdge*> edges;
     // iterate over Junctions
     for (const auto& edge : myEdges) {
-        if ((edge.second->getFromJunction() == from) && (edge.second->getToJunction() == to)) {
-            edges.push_back(edge.second);
+        if ((edge.second.second->getFromJunction() == from) && (edge.second.second->getToJunction() == to)) {
+            edges.push_back(edge.second.second);
         }
     }
     return edges;
 }
 
 
-const std::map<std::string, GNEEdge*>&
+const std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> >&
 GNENetHelper::AttributeCarriers::getEdges() const {
     return myEdges;
 }
@@ -748,8 +752,8 @@ GNENetHelper::AttributeCarriers::getSelectedEdges() const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
     for (const auto& edge : myEdges) {
-        if (edge.second->isAttributeCarrierSelected()) {
-            result.push_back(edge.second);
+        if (edge.second.second->isAttributeCarrierSelected()) {
+            result.push_back(edge.second.second);
         }
     }
     return result;
@@ -761,7 +765,7 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->incRef("GNENet::registerEdge");
     edge->setResponsible(false);
     // add edge to internal container of GNENet
-    myEdges[edge->getMicrosimID()] = edge;
+    myEdges[edge->getMicrosimID()] = std::make_pair(edge->getGUIGlObject(), edge);
     // expand edge boundary
     myNet->expandBoundary(edge->getCenteringBoundary());
     // add edge into grid
@@ -786,13 +790,13 @@ GNENetHelper::AttributeCarriers::clearEdges() {
 void
 GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // make a copy of edges
-    std::map<std::string, GNEEdge*> edgeCopy = myEdges;
+    auto edgeCopy = myEdges;
     // clear edges
     myEdges.clear();
     // fill edges again
     for (const auto& edge : edgeCopy) {
         // update microsim ID
-        edge.second->setNetworkElementID(prefix + edge.first);
+        edge.second.second->setNetworkElementID(prefix + edge.first);
         // insert in myEdges again
         myEdges[prefix + edge.first] = edge.second;
     }
@@ -813,7 +817,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
         // update microsim ID
         edge->setEdgeID(newID);
         // add it into myEdges again
-        myEdges[edge->getID()] = edge;
+        myEdges[edge->getID()] = std::make_pair(edge->getGUIGlObject(), edge);
         // rename all connections related to this edge
         for (const auto& lane : edge->getLanes()) {
             lane->updateConnectionIDs();
@@ -828,7 +832,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
     int counter = 0;
     for (const auto& edge : myEdges) {
-        if (edge.second->isAttributeCarrierSelected()) {
+        if (edge.second.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -888,7 +892,7 @@ GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hard
 }
 
 
-const std::set<GNELane*>&
+const std::map<const GUIGlObject*, GNELane*>&
 GNENetHelper::AttributeCarriers::getLanes() const {
     return myLanes;
 }
@@ -899,8 +903,8 @@ GNENetHelper::AttributeCarriers::getSelectedLanes() const {
     std::vector<GNELane*> result;
     // returns lanes depending of selection
     for (const auto& lane : myLanes) {
-        if (lane->isAttributeCarrierSelected()) {
-            result.push_back(lane);
+        if (lane.second->isAttributeCarrierSelected()) {
+            result.push_back(lane.second);
         }
     }
     return result;
@@ -909,15 +913,17 @@ GNENetHelper::AttributeCarriers::getSelectedLanes() const {
 
 void
 GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
-    if (myLanes.insert(lane).second == false) {
+    if (myLanes.count(lane->getGUIGlObject()) > 0) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
+    } else {
+        myLanes[lane->getGUIGlObject()] = lane;
     }
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
-    const auto finder = myLanes.find(lane);
+    const auto finder = myLanes.find(lane->getGUIGlObject());
     if (finder == myLanes.end()) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' wasn't previously inserted");
     } else {
@@ -930,7 +936,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
     int counter = 0;
     for (const auto& lane : myLanes) {
-        if (lane->isAttributeCarrierSelected()) {
+        if (lane.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -942,8 +948,8 @@ GNEConnection*
 GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool hardFail) const {
     // iterate over connections
     for (const auto& connection : myConnections) {
-        if (connection->getID() == id) {
-            return connection;
+        if (connection.second->getID() == id) {
+            return connection.second;
         }
     }
     if (hardFail) {
@@ -973,7 +979,7 @@ GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, boo
 }
 
 
-const std::set<GNEConnection*>&
+const std::map<const GUIGlObject*, GNEConnection*>&
 GNENetHelper::AttributeCarriers::getConnections() const {
     return myConnections;
 }
@@ -984,8 +990,8 @@ GNENetHelper::AttributeCarriers::getSelectedConnections() const {
     std::vector<GNEConnection*> result;
     // returns connections depending of selection
     for (const auto& connection : myConnections) {
-        if (connection->isAttributeCarrierSelected()) {
-            result.push_back(connection);
+        if (connection.second->isAttributeCarrierSelected()) {
+            result.push_back(connection.second);
         }
     }
     return result;
@@ -994,15 +1000,17 @@ GNENetHelper::AttributeCarriers::getSelectedConnections() const {
 
 void
 GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
-    if (myConnections.insert(connection).second == false) {
+    if (myConnections.count(connection->getGUIGlObject()) > 0) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
+    } else {
+        myConnections[connection->getGUIGlObject()] = connection;
     }
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
-    const auto finder = myConnections.find(connection);
+    const auto finder = myConnections.find(connection->getGUIGlObject());
     if (finder == myConnections.end()) {
         throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' wasn't previously inserted");
     } else {
@@ -1015,7 +1023,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
     int counter = 0;
     for (const auto& connection : myConnections) {
-        if (connection->isAttributeCarrierSelected()) {
+        if (connection.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -2451,7 +2459,7 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     // find demanElement in additionalTag
-    auto itFind = myAdditionals.at(additional->getTagProperty().getTag()).find(additional);
+    auto itFind = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getGUIGlObject());
     // check if additional was previously inserted
     if (itFind == myAdditionals.at(additional->getTagProperty().getTag()).end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
@@ -2516,7 +2524,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames) {
     // find demanElement in demandElementTag
-    auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement);
+    auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getGUIGlObject());
     // check if demandElement was previously inserted
     if (itFind == myDemandElements.at(demandElement->getTagProperty().getTag()).end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");

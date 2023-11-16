@@ -529,21 +529,21 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = TL("Junction Chooser");
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    ACsToLocate.push_back(junction.second);
+                    ACsToLocate.push_back(junction.second.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = TL("Edge Chooser");
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    ACsToLocate.push_back(edge.second);
+                    ACsToLocate.push_back(edge.second.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
                 locateTitle = TL("WalkingArea Chooser");
                 for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
-                    ACsToLocate.push_back(walkingArea);
+                    ACsToLocate.push_back(walkingArea.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
@@ -600,8 +600,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("TLS Chooser");
                 // fill ACsToLocate with junctions that haven TLS
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
-                        ACsToLocate.push_back(junction.second);
+                    if (junction.second.second->getNBNode()->getControllingTLS().size() > 0) {
+                        ACsToLocate.push_back(junction.second.second);
                     }
                 }
                 break;

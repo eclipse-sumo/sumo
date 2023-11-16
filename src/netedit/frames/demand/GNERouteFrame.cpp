@@ -121,7 +121,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            edge.second->resetCandidateFlags();
+            edge.second.second->resetCandidateFlags();
         }
         // update view net
         myRouteFrameParent->myViewNet->update();
@@ -221,7 +221,7 @@ void
 GNERouteFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->resetCandidateFlags();
+        edge.second.second->resetCandidateFlags();
     }
     GNEFrame::hide();
 }

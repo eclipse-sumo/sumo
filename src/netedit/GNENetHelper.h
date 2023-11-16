@@ -133,7 +133,7 @@ struct GNENetHelper {
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
         /// @brief get junctions
-        const std::map<std::string, GNEJunction*>& getJunctions() const;
+        const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >& getJunctions() const;
 
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
@@ -165,7 +165,7 @@ struct GNENetHelper {
         GNECrossing* retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get crossings
-        const std::set<GNECrossing*>& getCrossings() const;
+        const std::map<const GUIGlObject*, GNECrossing*>& getCrossings() const;
 
         /// @brief return all selected crossings
         std::vector<GNECrossing*> getSelectedCrossings() const;
@@ -191,7 +191,7 @@ struct GNENetHelper {
         GNEWalkingArea* retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get walkingAreas
-        const std::set<GNEWalkingArea*>& getWalkingAreas() const;
+        const std::map<const GUIGlObject*, GNEWalkingArea*>& getWalkingAreas() const;
 
         /// @brief return all selected walkingAreas
         std::vector<GNEWalkingArea*> getSelectedWalkingAreas() const;
@@ -250,7 +250,7 @@ struct GNENetHelper {
         std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
-        const std::map<std::string, GNEEdge*>& getEdges() const;
+        const std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> >& getEdges() const;
 
         /**@brief return all edges
          * @param[in] onlySelected Whether to return only selected edges
@@ -292,7 +292,7 @@ struct GNENetHelper {
         GNELane* retrieveLane(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get lanes
-        const std::set<GNELane*>& getLanes() const;
+        const std::map<const GUIGlObject*, GNELane*>& getLanes() const;
 
         /// @brief get selected lanes
         std::vector<GNELane*> getSelectedLanes() const;
@@ -325,7 +325,7 @@ struct GNENetHelper {
         GNEConnection* retrieveConnection(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get connections
-        const std::set<GNEConnection*>& getConnections() const;
+        const std::map<const GUIGlObject*, GNEConnection*>& getConnections() const;
 
         /// @brief get selected connections
         std::vector<GNEConnection*> getSelectedConnections() const;
@@ -748,25 +748,25 @@ struct GNENetHelper {
         int myStopIndex;
 
         /// @brief map with the ID and pointer to junctions of net
-        std::map<std::string, GNEJunction*> myJunctions;
+        std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> > myJunctions;
 
         /// @brief set with crossings
-        std::set<GNECrossing*> myCrossings;
+        std::map<const GUIGlObject*, GNECrossing*> myCrossings;
 
         /// @brief set with walkingAreas
-        std::set<GNEWalkingArea*> myWalkingAreas;
+        std::map<const GUIGlObject*, GNEWalkingArea*> myWalkingAreas;
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
 
         /// @brief map with the ID and pointer to edges of net
-        std::map<std::string, GNEEdge*> myEdges;
+        std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > myEdges;
 
         /// @brief set with lanes
-        std::set<GNELane*> myLanes;
+        std::map<const GUIGlObject*, GNELane*> myLanes;
 
         /// @brief set with connetions
-        std::set<GNEConnection*> myConnections;
+        std::map<const GUIGlObject*, GNEConnection*> myConnections;
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
