@@ -2379,10 +2379,13 @@ bool
 GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional) const {
     // first check that additional pointer is valid
     if (additional) {
-        // get vector with this additional element type
-        const auto& additionalElementTag = myAdditionals.at(additional->getTagProperty().getTag());
-        // find demanElement in additionalElementTag
-        return std::find(additionalElementTag.begin(), additionalElementTag.end(), additional) != additionalElementTag.end();
+        // search in additional elements
+        for (auto additionalPair : myAdditionals.at(additional->getTagProperty().getTag())) {
+            if (additionalPair.second == additional) {
+                return true;
+            }
+        }
+        return false;
     } else {
         throw ProcessError("Invalid additional pointer");
     }
@@ -2437,10 +2440,13 @@ bool
 GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElement) const {
     // first check that demandElement pointer is valid
     if (demandElement) {
-        // get vector with this demand element type
-        const auto& demandElementTag = myDemandElements.at(demandElement->getTagProperty().getTag());
-        // find demanElement in demandElementTag
-        return std::find(demandElementTag.begin(), demandElementTag.end(), demandElement) != demandElementTag.end();
+        // search in demand elements
+        for (auto demandElementPair : myDemandElements.at(demandElement->getTagProperty().getTag())) {
+            if (demandElementPair.second == demandElement) {
+                return true;
+            }
+        }
+        return false;
     } else {
         throw ProcessError("Invalid demandElement pointer");
     }
