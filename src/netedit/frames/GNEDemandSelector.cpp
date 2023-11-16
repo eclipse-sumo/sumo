@@ -195,15 +195,15 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             // add rest of vTypes
             for (const auto& vType : ACs->getDemandElements().at(demandElementTag)) {
                 // avoid insert duplicated default vType
-                if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-                    myDemandElementsComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+                if (DEFAULT_VTYPES.count(vType.second->getID()) == 0) {
+                    myDemandElementsComboBox->appendIconItem(vType.second->getID().c_str(), vType.second->getACIcon());
                 }
             }
         } else {
             // insert all elements sorted by ID
             std::map<std::string, GNEDemandElement*> sortedElements;
             for (const auto& demandElement : ACs->getDemandElements().at(demandElementTag)) {
-                sortedElements[demandElement->getID()] = demandElement;
+                sortedElements[demandElement.second->getID()] = demandElement.second;
             }
             for (const auto& demandElement : sortedElements) {
                 myDemandElementsComboBox->appendIconItem(demandElement.first.c_str(), demandElement.second->getACIcon(),
@@ -228,7 +228,7 @@ GNEDemandElementSelector::refreshDemandElementSelector() {
             // update myCurrentDemandElement with the first allowed element
             for (auto i = myDemandElementTags.begin(); (i != myDemandElementTags.end()) && (myCurrentDemandElement == nullptr); i++) {
                 if (ACs->getDemandElements().at(*i).size() > 0) {
-                    myCurrentDemandElement = *ACs->getDemandElements().at(*i).begin();
+                    myCurrentDemandElement = ACs->getDemandElements().at(*i).begin()->second;
                 }
             }
         }
@@ -257,12 +257,12 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     // Check if value of myTypeMatchBox correspond to a demand element
     for (const auto& demandElementTag : myDemandElementTags) {
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
-            if (demandElement->getID() == myDemandElementsComboBox->getText().text()) {
+            if (demandElement.second->getID() == myDemandElementsComboBox->getText().text()) {
                 // set color of myTypeMatchBox to black (valid)
                 myDemandElementsComboBox->setTextColor(FXRGB(0, 0, 0));
                 myDemandElementsComboBox->killFocus();
                 // Set new current demand element
-                myCurrentDemandElement = demandElement;
+                myCurrentDemandElement = demandElement.second;
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode

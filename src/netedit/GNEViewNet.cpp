@@ -4038,27 +4038,27 @@ GNEViewNet::onCmdToggleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     std::set<GNEEdge*> edgesToUpdate;
     // compute vehicle geometry
     for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-        if (vehicle->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(vehicle->getParentEdges().front());
-        } else if (vehicle->getChildDemandElements().size() > 0 && (vehicle->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-            edgesToUpdate.insert(vehicle->getChildDemandElements().front()->getParentEdges().front());
+        if (vehicle.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(vehicle.second->getParentEdges().front());
+        } else if (vehicle.second->getChildDemandElements().size() > 0 && (vehicle.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+            edgesToUpdate.insert(vehicle.second->getChildDemandElements().front()->getParentEdges().front());
         }
     }
     for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
-        if (routeFlow->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(routeFlow->getParentEdges().front());
-        } else if (routeFlow->getChildDemandElements().size() > 0 && (routeFlow->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-            edgesToUpdate.insert(routeFlow->getChildDemandElements().front()->getParentEdges().front());
+        if (routeFlow.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(routeFlow.second->getParentEdges().front());
+        } else if (routeFlow.second->getChildDemandElements().size() > 0 && (routeFlow.second->getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+            edgesToUpdate.insert(routeFlow.second->getChildDemandElements().front()->getParentEdges().front());
         }
     }
     for (const auto& trip : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (trip->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(trip->getParentEdges().front());
+        if (trip.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(trip.second->getParentEdges().front());
         }
     }
     for (const auto& flow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (flow->getParentEdges().size() > 0) {
-            edgesToUpdate.insert(flow->getParentEdges().front());
+        if (flow.second->getParentEdges().size() > 0) {
+            edgesToUpdate.insert(flow.second->getParentEdges().front());
         }
     }
     // update spread geometries of all edges

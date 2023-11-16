@@ -397,15 +397,15 @@ GNEDemandElement::getTypeParent() const {
         // obtain all types with the given typeDistribution sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
         for (const auto& type : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            if (type->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == typeDistributionID) {
-                sortedTypes[type->getID()] = type;
+            if (type.second->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION) == typeDistributionID) {
+                sortedTypes[type.second->getID()] = type.second;
             }
         }
         // return first type, or default vType
         if (sortedTypes.size() > 0) {
             return sortedTypes.begin()->second;
         } else if (myNet->getAttributeCarriers()->getDemandElements().size() > 0) {
-            return *myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin();
+            return myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin()->second;
         } else {
             throw InvalidArgument("no vTypes");
         }
@@ -695,8 +695,8 @@ GNEDemandElement::getDistributionParents() const {
     // check if the current element is in the distributions
     std::vector<std::string> distributionParents;
     for (const auto& distribution : myNet->getAttributeCarriers()->getDemandElements().at(tagDistribution)) {
-        if (distribution->keyExists(this)) {
-            distributionParents.push_back(distribution->getID());
+        if (distribution.second->keyExists(this)) {
+            distributionParents.push_back(distribution.second->getID());
         }
     }
     return toString(distributionParents);

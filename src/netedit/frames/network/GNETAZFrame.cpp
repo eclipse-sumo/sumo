@@ -819,20 +819,20 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         // iterate over all TAZs
         for (const auto& TAZ : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             // iterate over source/sinks
-            for (const auto& TAZSourceSink : TAZ->getChildAdditionals()) {
+            for (const auto& TAZSourceSink : TAZ.second->getChildAdditionals()) {
                 if (TAZSourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                     // set sink probability to 0 for all edges that have no predecessor
                     if (!TAZSourceSink->getParentEdges().front()->hasSuccessors() &&
                             (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                         sources.push_back(TAZSourceSink);
-                        TAZs.insert(TAZ);
+                        TAZs.insert(TAZ.second);
                     }
                 } else {
                     // set source probability to 0 for all edges that have no successor
                     if (!TAZSourceSink->getParentEdges().front()->hasPredecessors() &&
                             (TAZSourceSink->getAttributeDouble(SUMO_ATTR_WEIGHT) != 0)) {
                         sinks.push_back(TAZSourceSink);
-                        TAZs.insert(TAZ);
+                        TAZs.insert(TAZ.second);
                     }
                 }
             }

@@ -67,8 +67,8 @@ GNEDemandElementDistribution::getPossibleDistributionKeys(SumoXMLTag type) const
     auto allKeys = myDemandElement->getNet()->getAttributeCarriers()->getDemandElements().at(type);
     // fill possible keys with non used keys
     for (const auto& key : allKeys) {
-        if (!keyExists(key)) {
-            possibleKeys[key->getID()] = key;
+        if (!keyExists(key.second)) {
+            possibleKeys[key.second->getID()] = key.second;
         }
     }
     return possibleKeys;

@@ -520,7 +520,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // check additionals
         for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
             for (const auto& additional : additionalTag.second) {
-                if (additional->isAttributeCarrierSelected()) {
+                if (additional.second->isAttributeCarrierSelected()) {
                     return true;
                 }
             }
@@ -529,7 +529,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // check demand elements
         for (const auto& demandElementTag : myViewNet->getNet()->getAttributeCarriers()->getDemandElements()) {
             for (const auto& demandElement : demandElementTag.second) {
-                if (demandElement->isAttributeCarrierSelected()) {
+                if (demandElement.second->isAttributeCarrierSelected()) {
                     return true;
                 }
             }

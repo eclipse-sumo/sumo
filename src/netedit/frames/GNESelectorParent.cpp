@@ -116,7 +116,7 @@ GNESelectorParent::refreshSelectorParentModule() {
             // additionals
             if (tagProperty.isAdditionalElement()) {
                 for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
-                    IDs.insert(additional->getID().c_str());
+                    IDs.insert(additional.second->getID().c_str());
                 }
             }
         }

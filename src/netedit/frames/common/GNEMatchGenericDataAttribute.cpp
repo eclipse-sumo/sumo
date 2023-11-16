@@ -258,7 +258,7 @@ GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
         return 1;
     } else {
         for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-            if (TAZ->getID().c_str() == myFromTAZComboBox->getText()) {
+            if (TAZ.second->getID().c_str() == myFromTAZComboBox->getText()) {
                 myFromTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
             }
@@ -276,7 +276,7 @@ GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
         return 1;
     } else {
         for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-            if (TAZ->getID().c_str() == myToTAZComboBox->getText()) {
+            if (TAZ.second->getID().c_str() == myToTAZComboBox->getText()) {
                 myToTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
             }
@@ -506,8 +506,8 @@ GNEMatchGenericDataAttribute::updateTAZComboBox() {
     myToTAZComboBox->appendIconItem("<to TAZ>");
     // add all TAZs
     for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-        myFromTAZComboBox->appendIconItem(TAZ->getID().c_str());
-        myToTAZComboBox->appendIconItem(TAZ->getID().c_str());
+        myFromTAZComboBox->appendIconItem(TAZ.second->getID().c_str());
+        myToTAZComboBox->appendIconItem(TAZ.second->getID().c_str());
     }
     // set first items
     myFromTAZComboBox->setCurrentItem(0, TRUE);

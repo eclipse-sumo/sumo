@@ -552,7 +552,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all vehicles
                 for (const auto& vehicleTag : NamespaceIDs::vehicles) {
                     for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(vehicleTag)) {
-                        ACsToLocate.push_back(vehicle);
+                        ACsToLocate.push_back(vehicle.second);
                     }
                 }
                 break;
@@ -563,7 +563,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all persons
                 for (const auto& personTag : NamespaceIDs::persons) {
                     for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(personTag)) {
-                        ACsToLocate.push_back(person);
+                        ACsToLocate.push_back(person.second);
                     }
                 }
                 break;
@@ -573,7 +573,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all containers
                 for (const auto& containerTag : NamespaceIDs::containers) {
                     for (const auto& container : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(containerTag)) {
-                        ACsToLocate.push_back(container);
+                        ACsToLocate.push_back(container.second);
                     }
                 }
                 break;
@@ -581,7 +581,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserRoutes;
                 locateTitle = TL("Route Chooser");
                 for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                    ACsToLocate.push_back(route);
+                    ACsToLocate.push_back(route.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
@@ -590,7 +590,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all vehicles
                 for (const auto& stopTag : NamespaceIDs::stops) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(stopTag)) {
-                        ACsToLocate.push_back(flowTAZ);
+                        ACsToLocate.push_back(flowTAZ.second);
                     }
                 }
                 break;
@@ -613,7 +613,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     if (!GNEAttributeCarrier::getTagProperty(additionalTag.first).isShapeElement() &&
                             !GNEAttributeCarrier::getTagProperty(additionalTag.first).isTAZElement()) {
                         for (const auto& additional : additionalTag.second) {
-                            ACsToLocate.push_back(additional);
+                            ACsToLocate.push_back(additional.second);
                         }
                     }
                 }
@@ -624,7 +624,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all POIs
                 for (const auto& POITag : NamespaceIDs::POIs) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(POITag)) {
-                        ACsToLocate.push_back(flowTAZ);
+                        ACsToLocate.push_back(flowTAZ.second);
                     }
                 }
                 break;
@@ -634,7 +634,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 // fill ACsToLocate with all polygons
                 for (const auto& polygonTag : NamespaceIDs::polygons) {
                     for (const auto& flowTAZ : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(polygonTag)) {
-                        ACsToLocate.push_back(flowTAZ);
+                        ACsToLocate.push_back(flowTAZ.second);
                     }
                 }
                 break;

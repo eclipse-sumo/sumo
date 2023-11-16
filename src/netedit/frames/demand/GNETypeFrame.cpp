@@ -67,14 +67,14 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
                                          this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Types (always first)
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+        if (DEFAULT_VTYPES.count(vType.second->getID()) != 0) {
+            myTypeComboBox->appendIconItem(vType.second->getID().c_str(), vType.second->getACIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+        if (DEFAULT_VTYPES.count(vType.second->getID()) == 0) {
+            myTypeComboBox->appendIconItem(vType.second->getID().c_str(), vType.second->getACIcon());
         }
     }
     // set DEFAULT_VEHTYPE as default VType
@@ -108,15 +108,15 @@ GNETypeFrame::TypeSelector::refreshTypeSelector(const bool updateModuls) {
     myTypeComboBox->clearItems();
     // add default Vehicle an Bike types in the first and second positions
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (DEFAULT_VTYPES.count(vType->getID()) != 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
+        if (DEFAULT_VTYPES.count(vType.second->getID()) != 0) {
+            myTypeComboBox->appendIconItem(vType.second->getID().c_str(), vType.second->getACIcon(), FXRGB(255, 255, 200));
         }
     }
     // fill myTypeMatchBox with list of VTypes IDs sorted by ID
     std::map<std::string, GNEDemandElement*> types;
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            types[vType->getID()] = vType;
+        if (DEFAULT_VTYPES.count(vType.second->getID()) == 0) {
+            types[vType.second->getID()] = vType.second;
         }
     }
     for (const auto& vType : types) {
@@ -160,9 +160,9 @@ long
 GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if (vType->getID() == myTypeComboBox->getText().text()) {
+        if (vType.second->getID() == myTypeComboBox->getText().text()) {
             // set pointer
-            myCurrentType = vType;
+            myCurrentType = vType.second;
             // set color of myTypeMatchBox to black (valid)
             myTypeComboBox->setTextColor(FXRGB(0, 0, 0));
             // refresh vehicle type editor module

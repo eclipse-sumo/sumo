@@ -373,7 +373,7 @@ struct GNENetHelper {
         GNEAdditional* retrieveRerouterInterval(const std::string& rerouterID, const SUMOTime begin, const SUMOTime end) const;
 
         /// @brief get additionals
-        const std::map<SumoXMLTag, std::set<GNEAdditional*> >& getAdditionals() const;
+        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> >& getAdditionals() const;
 
         /// @brief get selected additionals
         std::vector<GNEAdditional*> getSelectedAdditionals() const;
@@ -448,7 +448,7 @@ struct GNENetHelper {
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;
 
         /// @brief get demand elements
-        const std::map<SumoXMLTag, std::set<GNEDemandElement*> >& getDemandElements() const;
+        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> >& getDemandElements() const;
 
         /// @brief Return the number of demand elements
         int getNumberOfDemandElements() const;
@@ -757,10 +757,10 @@ struct GNENetHelper {
         std::set<GNEConnection*> myConnections;
 
         /// @brief map with the tag and pointer to additional elements of net
-        std::map<SumoXMLTag, std::set<GNEAdditional*> > myAdditionals;
+        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 
         /// @brief map with the tag and pointer to demand elements of net
-        std::map<SumoXMLTag, std::set<GNEDemandElement*> > myDemandElements;
+        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief set with the ID and pointer to all datasets of net
         std::set<GNEDataSet*> myDataSets;

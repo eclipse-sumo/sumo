@@ -730,14 +730,14 @@ GNEFrameAttributeModules::AttributesEditorRow::fillComboBox(const std::string& v
         // fill comboBox with all vTypes and vType distributions sorted by ID
         std::map<std::string, GNEDemandElement*> sortedTypes;
         for (const auto& type : ACs->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            sortedTypes[type->getID()] = type;
+            sortedTypes[type.second->getID()] = type.second;
         }
         for (const auto& sortedType : sortedTypes) {
             myValueComboBox->appendIconItem(sortedType.first.c_str(), sortedType.second->getACIcon());
         }
         sortedTypes.clear();
         for (const auto& typeDistribution : ACs->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
-            sortedTypes[typeDistribution->getID()] = typeDistribution;
+            sortedTypes[typeDistribution.second->getID()] = typeDistribution.second;
         }
         for (const auto& sortedType : sortedTypes) {
             myValueComboBox->appendIconItem(sortedType.first.c_str(), sortedType.second->getACIcon());
