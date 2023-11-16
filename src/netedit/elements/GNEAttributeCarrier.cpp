@@ -4609,7 +4609,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      0,
+                                      GNETagProperties::TagParents::PLAN_EDGE,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: edge"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
 
@@ -4623,7 +4623,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
                                       GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
-                                      0,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP,
                                       GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: containerStop"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
 
