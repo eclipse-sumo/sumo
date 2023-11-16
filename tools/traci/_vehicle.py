@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import warnings
 from ._vehicletype import VTypeDomain
 from . import constants as tc
-from .exceptions import TraCIException, deprecated
+from .exceptions import TraCIException, deprecated, alias_param
 
 
 _legacyGetLeader = True
@@ -758,6 +758,7 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
+    @alias_param("dist", "distance")
     def getJunctionFoes(self, vehID, dist=0.):
         """getJunctionFoes(string, double) -> complex
 
@@ -972,6 +973,7 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_ROUTING_MODE, vehID)
 
+    @alias_param("taxiState", "flag")
     def getTaxiFleet(self, taxiState=0):
         """getTaxiFleet(int) -> list(string)
         Return the list of all taxis with the given taxiState:
@@ -1403,6 +1405,7 @@ class VehicleDomain(VTypeDomain):
         else:
             self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
 
+    @alias_param("laneChangeMode", "lcm")
     def setLaneChangeMode(self, vehID, laneChangeMode):
         """setLaneChangeMode(string, integer) -> None
 
@@ -1410,6 +1413,7 @@ class VehicleDomain(VTypeDomain):
         """
         self._setCmd(tc.VAR_LANECHANGE_MODE, vehID, "i", laneChangeMode)
 
+    @alias_param("speedMode", "sm")
     def setSpeedMode(self, vehID, speedMode):
         """setSpeedMode(string, integer) -> None
 

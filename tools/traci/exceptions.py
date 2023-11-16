@@ -42,6 +42,29 @@ def deprecated(old_name=None):
     return Inner
 
 
+def alias_param(param, alias, deprecate=True):
+    """
+    Decorator for aliasing a param in a function
+    """
+    if isinstance(param, str):
+        subst = [(param, alias)]
+    else:
+        subst = list(zip(param, alias))
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for par, ali in subst:
+                if ali in kwargs:
+                    kwargs[par] = kwargs[ali]
+                    del kwargs[ali]
+                    if deprecate:
+                        warnings.warn("Use of deprecated parameter %s in function %s, use %s instead." %
+                                      (ali, func.__name__, par), stacklevel=2)
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+
 class TraCIException(Exception):
 
     """Exception class for all TraCI errors which keep the connection intact"""

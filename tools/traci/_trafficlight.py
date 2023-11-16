@@ -19,7 +19,7 @@ from __future__ import absolute_import
 from sumolib.net import Phase
 from .domain import Domain
 from . import constants as tc
-from .exceptions import TraCIException, deprecated
+from .exceptions import TraCIException, deprecated, alias_param
 
 
 class Logic:
@@ -395,6 +395,7 @@ class TrafficLightDomain(Domain):
         """
         self._setCmd(tc.TL_PHASE_DURATION, tlsID, "d", phaseDuration)
 
+    @alias_param("logic", "tls")
     def setProgramLogic(self, tlsID, logic):
         """setProgramLogic(string, Logic) -> None
 

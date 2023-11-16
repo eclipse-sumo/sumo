@@ -25,7 +25,7 @@ import copy
 import warnings
 
 from . import constants as tc
-from .exceptions import FatalTraCIError
+from .exceptions import FatalTraCIError, alias_param
 
 DOMAINS = []
 
@@ -236,6 +236,7 @@ class Domain:
     def getAllContextSubscriptionResults(self):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(None)
 
+    @alias_param(("objectID", "key"), ("objID", "param"))
     def getParameter(self, objectID, key):
         """getParameter(string, string) -> string
 
@@ -243,6 +244,7 @@ class Domain:
         """
         return self._getUniversal(tc.VAR_PARAMETER, objectID, "s", key)
 
+    @alias_param(("objectID", "key"), ("objID", "param"))
     def getParameterWithKey(self, objectID, key):
         """getParameterWithKey(string, string) -> (string, string)
 
@@ -250,6 +252,7 @@ class Domain:
         """
         return self._getUniversal(tc.VAR_PARAMETER_WITH_KEY, objectID, "s", key)
 
+    @alias_param("objectID", "objID")
     def subscribeParameterWithKey(self, objectID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeParameterWithKey(string, string) -> None
 
@@ -257,6 +260,7 @@ class Domain:
         """
         self.subscribe(objectID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
 
+    @alias_param(("objectID", "key"), ("objID", "param"))
     def setParameter(self, objectID, key, value):
         """setParameter(string, string, string) -> None
 

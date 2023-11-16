@@ -21,6 +21,7 @@ import sys
 import inspect
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib
 import traci
 import libsumo
 
@@ -41,3 +42,16 @@ for dt in traci.DOMAINS:
                                 params = list(sigl.parameters.values())
                                 if not params or params[0].kind != inspect.Parameter.VAR_POSITIONAL:
                                     print(".".join([dt._name, ft[0]]), "traci:", sigt, "libsumo:", sigl)
+if not traci.isLibsumo():
+    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
+    traci.simulationStep()
+    traci.vehicle.setLaneChangeMode("horiz", lcm=0)
+    traci.vehicle.setParameter(objectID="horiz", key="blub", value="blubber")
+    traci.vehicle.setParameter(objID="horiz", key="blub", value="blubber")
+    traci.vehicle.setParameter(objectID="horiz", param="blub", value="blubber")
+    traci.vehicle.setParameter(objID="horiz", param="blub", value="blubber")
+    try:
+        traci.vehicle.setParameter(oID="horiz", param="blub", value="blubber")
+    except TypeError as e:
+        print(e)
+    traci.close()
