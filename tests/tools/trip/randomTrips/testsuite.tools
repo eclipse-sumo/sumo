@@ -57,6 +57,9 @@ validate_intermediate
 
 # setting non-positive period should fail
 period_positive
+
+# setting non-positive period should fail even with binomial
+period_positive_with_binomial
 all_fringe_network
 flows
 
