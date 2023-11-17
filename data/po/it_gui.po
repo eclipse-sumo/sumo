@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-15 11:48+0100\n"
-"PO-Revision-Date: 2023-11-11 13:35+0000\n"
+"PO-Revision-Date: 2023-11-17 11:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.2\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -4512,6 +4512,8 @@ msgstr "Carica meanData da FILE(s)"
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr ""
+"Resetta i percorsi (degli elementi addizionali, itinerari, dei dati, ...) "
+"dopo aver caricato una configurazione netedit"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:309
 msgid "File in which TLS Programs must be saved"
@@ -5094,15 +5096,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:900
 msgid " requires switch to network mode. Continue?"
-msgstr ""
+msgstr " richiede scegliere il modo rete. Confermi di cambiare modo?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:902
 msgid " requires switch to demand mode. Continue?"
-msgstr ""
+msgstr " richiede scegliere il modo di domanda. Confermi di cambiare modo?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:904
 msgid " requires switch to data mode. Continue?"
-msgstr ""
+msgstr " richiede secgliere il modo di dati. Confermi di cambiare modo?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:909
 msgid "Confirm switch mode"
@@ -8226,11 +8228,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2579
 msgid "The id of lane in the simulation network"
-msgstr ""
+msgstr "Il codice identificativo della corsia nella rete della simulazione"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2596
 msgid "Name of calibrator lane"
-msgstr ""
+msgstr "Il nome della corsia utilizzata dal Calibrator"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2627
 msgid "CalibratorFlow"
@@ -8239,7 +8241,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2632
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3828
 msgid "The id of the route the vehicle shall drive along"
-msgstr ""
+msgstr "Il codice identificativo dell'itinerario che il veicolo deve percorrere"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2637
 msgid "First calibrator flow departure time"
@@ -8253,55 +8255,65 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2653
 msgid "The id of the vehicle type to use for this calibrator flow"
 msgstr ""
+"Il codice identificativo del tipo di veicolo da usare per questo flusso di "
+"Calibrator"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2659
 msgid "Number of vehicles per hour, equally spaced"
-msgstr ""
+msgstr "Numero di veicoli per ora, a distanze eque"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2665
 msgid "Vehicle's speed"
-msgstr ""
+msgstr "Velocità del veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2676
 msgid "Rerouter"
-msgstr ""
+msgstr "Rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2682
 msgid "The id of Rerouter"
-msgstr ""
+msgstr "Il codice identificativo del Rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2687
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
 msgstr ""
+"Un codice identificativo di un arco o un elenco di codici identificativi "
+"dove i veicoli dovranno cambiare itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2692
 msgid "X,Y position in editor (Only used in netedit)"
-msgstr ""
+msgstr "Posizione X,Y in netedit"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2698
 msgid "Name of Rerouter"
-msgstr ""
+msgstr "Il nome del Rerouter"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2703
 msgid "The probability for vehicle rerouting (0-1)"
-msgstr ""
+msgstr "La probabilità di cambiare percorso autonomamente (0-1)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2709
 msgid ""
 "The waiting time threshold (in s) that must be reached to activate rerouting "
 "(default -1 which disables the threshold)"
 msgstr ""
+"La soglia (in s) del tempo d'attesa da raggiungere per attivare il cambio di "
+"percorso (valore standard -1 disattiva la soglia)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2715
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
 msgstr ""
+"L'elenco di tipi di veicoli che dovranno essere influenzati da questo "
+"Rerouter (lascia libero per influenzare tutti i tipi)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2720
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
 msgstr ""
+"Se il Rerouter deve essere disattivato all'inizio (e può essere attivato "
+"attraverso l'interfaccia grafica)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2731
 msgid "Rerouter Symbol"
