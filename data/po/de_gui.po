@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-15 11:48+0100\n"
-"PO-Revision-Date: 2023-11-01 14:17+0000\n"
+"PO-Revision-Date: 2023-11-17 11:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.2\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -4514,6 +4514,8 @@ msgstr "MeanData-Definitionen aus FILE(s) laden"
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr ""
+"Pfadwerte (von weiteren Daten, Routen) nach dem Laden einer netedit-"
+"Konfiguration zurücksetzen"
 
 #: C:\Repos\sumo/src\netedit\GNELoadThread.cpp:309
 msgid "File in which TLS Programs must be saved"
@@ -8193,7 +8195,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2480
 msgid "VariableSpeedSign Symbol"
-msgstr ""
+msgstr "Anzeige für dynamische Geschwindigkeitsbeschränkungen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2490
 msgid "VariableSpeedSign Step"
@@ -8358,11 +8360,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2731
 msgid "Rerouter Symbol"
-msgstr ""
+msgstr "Reroutersymbol"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2741
 msgid "Rerouter Interval"
-msgstr ""
+msgstr "Rerouterintervall"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2746
 msgid "Begin"
@@ -8600,7 +8602,7 @@ msgstr "Strombegrenzung der Zuleitung"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3230
 msgid "WireSection"
-msgstr ""
+msgstr "Oberleitungsabschnitt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3234
 msgid "Overhead wire segment ID"
@@ -8630,7 +8632,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3279
 msgid "OverheadWireClamp"
-msgstr ""
+msgstr "Oberleitungsklemme"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3283
 msgid "Overhead wire clamp ID"
@@ -9143,7 +9145,7 @@ msgstr "Parkplatz, der diesem Haltepunkt zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4247
 msgid "WaypointLane"
-msgstr ""
+msgstr "Wegpunkt auf Fahrstreifen"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4252
 msgid "The name of the lane the waypoint shall be located at"
@@ -9157,7 +9159,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
 msgid "WaypointBusStop"
-msgstr ""
+msgstr "Wegpunkt über Bushaltestelle"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4293
 msgid "BusWaypoint associated with this waypoint"
@@ -9165,7 +9167,7 @@ msgstr "Buswegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4306
 msgid "WaypointTrainStop"
-msgstr ""
+msgstr "Wegpunkt über Zughaltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4311
 msgid "TrainWaypoint associated with this waypoint"
@@ -9173,7 +9175,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4324
 msgid "WaypointContainerStop"
-msgstr ""
+msgstr "Wegpunkt über Container-Haltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4329
 msgid "ContainerWaypoint associated with this waypoint"
@@ -9181,7 +9183,7 @@ msgstr "Containerwegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4342
 msgid "WaypointChargingStation"
-msgstr ""
+msgstr "Wegpunkt über Ladestation"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4347
 msgid "ChargingStation associated with this waypoint"
@@ -9189,7 +9191,7 @@ msgstr "Mit diesem Wegpunkt verknüpfte Ladestation (chargingStation)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4360
 msgid "WaypointParkingArea"
-msgstr ""
+msgstr "Wegpunkt über Parkplatz"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4365
 msgid "ParkingArea associated with this waypoint"
@@ -10088,7 +10090,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6300
 msgid "Joins this train to another upon reaching the stop"
-msgstr ""
+msgstr "Kuppelt diesen Zug mit einem anderen nach der Ankunft am Haltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6306
 msgid "List of elements that can board the vehicle before it may continue"
@@ -10143,7 +10145,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6353
 msgid "Splits the train upon reaching the stop"
-msgstr ""
+msgstr "Trennt die Zugteile nach der Ankunft am Haltepunkt"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6369
 msgid "list of consecutive edges"
