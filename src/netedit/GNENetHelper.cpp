@@ -1874,17 +1874,6 @@ GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier 
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::dataIntervalExist(GNEDataInterval* dataInterval) const {
-    // first check that interval pointer is valid
-    if (dataInterval) {
-        return (myDataIntervals.count(dataInterval) > 0);
-    } else {
-        throw ProcessError("Invalid data interval pointer");
-    }
-}
-
-
 const std::map<const GNEAttributeCarrier*, GNEDataInterval*>&
 GNENetHelper::AttributeCarriers::getDataIntervals() const {
     return myDataIntervals;
@@ -2233,17 +2222,6 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::edgeTypeExist(const GNEEdgeType* edgeType) const {
-    // first check that edgeType pointer is valid
-    if (edgeType) {
-        return (myEdgeTypes.count(edgeType->getID()) > 0);
-    } else {
-        throw ProcessError("Invalid edgeType pointer");
-    }
-}
-
-
 void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     // get pointer to create edge frame
@@ -2413,23 +2391,6 @@ GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional) const {
-    // first check that additional pointer is valid
-    if (additional) {
-        // search in additional elements
-        for (auto additionalPair : myAdditionals.at(additional->getTagProperty().getTag())) {
-            if (additionalPair.second == additional) {
-                return true;
-            }
-        }
-        return false;
-    } else {
-        throw ProcessError("Invalid additional pointer");
-    }
-}
-
-
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
     if (myAdditionals.at(additional->getTagProperty().getTag()).count(additional) > 0) {
@@ -2471,23 +2432,6 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     myNet->getPathManager()->removePath(additional);
     // additionals has to be saved
     myNet->getSavingStatus()->requireSaveAdditionals();
-}
-
-
-bool
-GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElement) const {
-    // first check that demandElement pointer is valid
-    if (demandElement) {
-        // search in demand elements
-        for (auto demandElementPair : myDemandElements.at(demandElement->getTagProperty().getTag())) {
-            if (demandElementPair.second == demandElement) {
-                return true;
-            }
-        }
-        return false;
-    } else {
-        throw ProcessError("Invalid demandElement pointer");
-    }
 }
 
 
@@ -2547,17 +2491,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
 }
 
 
-bool
-GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
-    // first check that dataSet pointer is valid
-    if (dataSet) {
-        return (myDataSets.count(dataSet->getID()) > 0);
-    } else {
-        throw ProcessError("Invalid dataSet pointer");
-    }
-}
-
-
 void
 GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
     if (myDataSets.count(dataSet->getID()) > 0) {
@@ -2587,23 +2520,6 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     myNet->getSavingStatus()->requireSaveDataElements();
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
-}
-
-
-bool
-GNENetHelper::AttributeCarriers::meanDataExist(const GNEMeanData* meanData) const {
-    // first check that meanData pointer is valid
-    if (meanData) {
-        // search in meanData elements
-        for (auto meanDataPair : myMeanDatas.at(meanData->getTagProperty().getTag())) {
-            if (meanDataPair.second == meanData) {
-                return true;
-            }
-        }
-        return false;
-    } else {
-        throw ProcessError("Invalid meanData pointer");
-    }
 }
 
 

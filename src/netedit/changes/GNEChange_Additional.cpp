@@ -45,7 +45,7 @@ GNEChange_Additional::~GNEChange_Additional() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr());
         // make sure that additional isn't in net before removing
-        if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
+        if (myAdditional->getNet()->getAttributeCarriers()->retrieveAdditional(myAdditional, false)) {
             // delete additional from net
             myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         }

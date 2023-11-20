@@ -50,7 +50,7 @@ GNEChange_GenericData::~GNEChange_GenericData() {
     assert(myGenericData);
     myGenericData->decRef("GNEChange_GenericData");
     if (myGenericData->unreferenced() &&
-            myGenericData->getNet()->getAttributeCarriers()->dataIntervalExist(myDataIntervalParent) &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
             myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());

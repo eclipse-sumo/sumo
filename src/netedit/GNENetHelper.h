@@ -152,7 +152,7 @@ struct GNENetHelper {
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
 
-        /// @brief registers a junction in GNENet containers
+        /// @brief registers a junction in containers
         GNEJunction* registerJunction(GNEJunction* junction);
 
         /// @brief clear junctions
@@ -218,7 +218,7 @@ struct GNENetHelper {
          */
         GNEEdgeType* retrieveEdgeType(const std::string& id, bool hardFail = true) const;
 
-        /// @brief registers a edge in GNENet containers
+        /// @brief registers a edge in containers
         GNEEdgeType* registerEdgeType(GNEEdgeType* edgeType);
 
         /// @brief map with the ID and pointer to edgeTypes of net
@@ -266,7 +266,7 @@ struct GNENetHelper {
          */
         std::vector<GNEEdge*> getSelectedEdges() const;
 
-        /// @brief registers an edge with GNENet containers
+        /// @brief registers an edge with containers
         GNEEdge* registerEdge(GNEEdge* edge);
 
         /// @brief clear edges
@@ -524,9 +524,6 @@ struct GNENetHelper {
          */
         GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier *AC, bool hardFail = true) const;
 
-        /// @brief return true if given data interval exist
-        bool dataIntervalExist(GNEDataInterval* dataInterval) const;
-
         /// @brief get all data intervals of network
         const std::map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
 
@@ -597,33 +594,32 @@ struct GNENetHelper {
     protected:
         /// @name Junctions protected functions
         /// @{
-        /// @brief inserts a single junction into the net and into the underlying netbuild-container
+
+        /// @brief insert junction in container
         void insertJunction(GNEJunction* junction);
 
-        /// @brief deletes a single junction
+        /// @brief delete junction from container
         void deleteSingleJunction(GNEJunction* junction);
 
         /// @}
 
         /// @name edge types protected functions
         /// @{
-        /// @brief return true if given edgeType exist
-        bool edgeTypeExist(const GNEEdgeType* edgeType) const;
 
-        /// @brief inserts a single edgeType into the net and into the underlying netbuild-container
+        /// @brief insert edge type in container
         void insertEdgeType(GNEEdgeType* edgeType);
 
-        /// @brief deletes edgeType
+        /// @brief delete edge type from container
         void deleteEdgeType(GNEEdgeType* edgeType);
 
         /// @}
 
         /// @name edges protected functions
         /// @{
-        /// @brief inserts a single edge into the net and into the underlying netbuild-container
+        /// @brief insert edge in container
         void insertEdge(GNEEdge* edge);
 
-        /// @brief deletes a single edge
+        /// @brief delete edge from container
         void deleteSingleEdge(GNEEdge* edge);
 
         /// @}
@@ -631,10 +627,10 @@ struct GNENetHelper {
         /// @name lane protected functions
         /// @{
 
-        /// @brief insert lane
+        /// @brief insert lane in container
         void insertLane(GNELane* lane);
 
-        /// @brief delete lane
+        /// @brief delete lane from container
         void deleteLane(GNELane* lane);
 
         /// @}
@@ -642,10 +638,10 @@ struct GNENetHelper {
         /// @name crossing protected functions
         /// @{
 
-        /// @brief insert crossing
+        /// @brief insert crossing in container
         void insertCrossing(GNECrossing* crossing);
 
-        /// @brief delete crossing
+        /// @brief delete crossing from container
         void deleteCrossing(GNECrossing* crossing);
 
         /// @}
@@ -653,10 +649,10 @@ struct GNENetHelper {
         /// @name walking areas protected functions
         /// @{
 
-        /// @brief insert walkingArea
+        /// @brief insert walkingArea in container
         void insertWalkingArea(GNEWalkingArea* walkingArea);
 
-        /// @brief delete walkingArea
+        /// @brief delete walkingArea from container
         void deleteWalkingArea(GNEWalkingArea* walkingArea);
 
         /// @}
@@ -664,10 +660,10 @@ struct GNENetHelper {
         /// @name walking areas protected functions
         /// @{
 
-        /// @brief insert connection
+        /// @brief insert connection in container
         void insertConnection(GNEConnection* connection);
 
-        /// @brief delete connection
+        /// @brief delete connection from container
         void deleteConnection(GNEConnection* connection);
 
         /// @}
@@ -675,17 +671,10 @@ struct GNENetHelper {
         /// @name additionals protected functions
         /// @{
 
-        /// @brief return true if given additional exist
-        bool additionalExist(const GNEAdditional* additional) const;
-
-        /**@brief Insert a additional element int GNENet container.
-         * @throw processError if route was already inserted
-         */
+        /// @brief Insert a additional element in container.
         void insertAdditional(GNEAdditional* additional);
 
-        /**@brief delete additional element of GNENet container
-         * @throw processError if additional wasn't previously inserted
-         */
+        /// @brief delete additional element of container
         void deleteAdditional(GNEAdditional* additional);
 
         /// @}
@@ -693,17 +682,10 @@ struct GNENetHelper {
         /// @name demand elements protected functions
         /// @{
 
-        /// @brief return true if given demand element exist
-        bool demandElementExist(GNEDemandElement* demandElement) const;
-
-        /**@brief Insert a demand element element int GNENet container.
-         * @throw processError if route was already inserted
-         */
+        /// @brief Insert a demand element in container.
         void insertDemandElement(GNEDemandElement* demandElement);
 
-        /**@brief delete demand element element of GNENet container
-         * @throw processError if demand element wasn't previously inserted
-         */
+        /// @brief delete demand element of container
         void deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames);
 
         /// @}
@@ -711,17 +693,10 @@ struct GNENetHelper {
         /// @name datas protected functions
         /// @{
 
-        /// @brief return true if given demand element exist
-        bool dataSetExist(GNEDataSet* dataSet) const;
-
-        /**@brief Insert a demand element element int GNENet container.
-         * @throw processError if route was already inserted
-         */
+        /// @brief Insert a data set in container.
         void insertDataSet(GNEDataSet* dataSet);
 
-        /**@brief delete demand element element of GNENet container
-         * @throw processError if demand element wasn't previously inserted
-         */
+        /// @brief delete data set of container
         void deleteDataSet(GNEDataSet* dataSet);
 
         /// @}
@@ -729,10 +704,10 @@ struct GNENetHelper {
         /// @name data intervals protected functions
         /// @{
 
-        /// @brief insert data interval
+        /// @brief insert data interval in container
         void insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval);
 
-        /// @brief delete data interval
+        /// @brief delete data interval of container
         void deleteDataInterval(GNEDataInterval* dataInterval);
 
         /// @}
@@ -740,10 +715,10 @@ struct GNENetHelper {
         /// @name generic datas protected functions
         /// @{
 
-        /// @brief insert generic data
+        /// @brief insert generic data in container
         void insertGenericData(GNEGenericData* genericData);
 
-        /// @brief delete generic data
+        /// @brief delete generic data of container
         void deleteGenericData(GNEGenericData* genericData);
 
         /// @}
@@ -751,17 +726,10 @@ struct GNENetHelper {
         /// @name Insertion and erasing of GNEMeanDatas items
         /// @{
 
-        /// @brief return true if given meanData exist
-        bool meanDataExist(const GNEMeanData* meanData) const;
-
-        /**@brief Insert a meanData element int GNENet container.
-         * @throw processError if route was already inserted
-         */
+        /// @brief Insert a meanData element in container.
         void insertMeanData(GNEMeanData* meanData);
 
-        /**@brief delete meanData element of GNENet container
-         * @throw processError if meanData wasn't previously inserted
-         */
+        /// @brief delete meanData element of container
         void deleteMeanData(GNEMeanData* meanData);
 
         /// @}

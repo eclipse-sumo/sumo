@@ -50,7 +50,7 @@ GNEChange_MeanData::~GNEChange_MeanData() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myMeanData->getTagStr());
         // make sure that MeanData isn't in net before removing
-        if (myMeanData->getNet()->getAttributeCarriers()->meanDataExist(myMeanData)) {
+        if (myMeanData->getNet()->getAttributeCarriers()->retrieveMeanData(myMeanData->getTagProperty().getTag(), myMeanData->getID(), false)) {
             // delete MeanData from net
             myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
         }
