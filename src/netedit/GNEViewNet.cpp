@@ -5136,7 +5136,7 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
             // get crossing (note: could be already removed if is a child, then hardfail=false)
-            GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossing(AC, false);
+            GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossingGL(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (crossing) {
                 myNet->deleteCrossing(crossing, myUndoList);
@@ -5150,21 +5150,21 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
             // get lane (note: could be already removed if is a child, then hardfail=false)
-            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(AC, false);
+            GNELane* lane = myNet->getAttributeCarriers()->retrieveLaneGL(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (lane) {
                 myNet->deleteLane(lane, myUndoList, false);
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
             // get connection (note: could be already removed if is a child, then hardfail=false)
-            GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnection(AC, false);
+            GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnectionGL(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (connection) {
                 myNet->deleteConnection(connection, myUndoList);
             }
         } else if (AC->getTagProperty().isAdditionalElement()) {
             // get additional Element (note: could be already removed if is a child, then hardfail=false)
-            GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC, false);
+            GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (additionalElement) {
                 myNet->deleteAdditional(additionalElement, myUndoList);
@@ -5179,7 +5179,7 @@ GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*
     // iterate over ACs and delete it
     for (const auto& AC : ACs) {
         // get demand Element (note: could be already removed if is a child, then hardfail=false)
-        GNEDemandElement* demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(AC, false);
+        GNEDemandElement* demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(AC->getGUIGlObject(), false);
         // if exist, remove it
         if (demandElement) {
             myNet->deleteDemandElement(demandElement, myUndoList);
@@ -5194,7 +5194,7 @@ GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> 
     for (const auto& AC : ACs) {
         if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
             // get data set (note: could be already removed if is a child, then hardfail=false)
-            GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(AC, false);
+            GNEDataSet* dataSet = myNet->getAttributeCarriers()->retrieveDataSet(AC->getID(), false);
             // if exist, remove it
             if (dataSet) {
                 myNet->deleteDataSet(dataSet, myUndoList);

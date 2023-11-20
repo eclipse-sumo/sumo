@@ -44,7 +44,7 @@ GNEChange_DataSet::~GNEChange_DataSet() {
     assert(myDataSet);
     myDataSet->decRef("GNEChange_DataSet");
     if (myDataSet->unreferenced() &&
-            myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet, false)) {
+            myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet->getID(), false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing

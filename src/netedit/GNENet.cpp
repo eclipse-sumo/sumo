@@ -332,7 +332,7 @@ GNENet::deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* und
         }
     } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
         // get crossing (note: could be already removed if is a child, then hardfail=false)
-        GNECrossing* crossing = myAttributeCarriers->retrieveCrossing(networkElement, false);
+        GNECrossing* crossing = myAttributeCarriers->retrieveCrossingGL(networkElement->getGUIGlObject(), false);
         // if exist, remove it
         if (crossing) {
             deleteCrossing(crossing, undoList);
@@ -346,14 +346,14 @@ GNENet::deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* und
         }
     } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_LANE) {
         // get lane (note: could be already removed if is a child, then hardfail=false)
-        GNELane* lane = myAttributeCarriers->retrieveLane(networkElement, false);
+        GNELane* lane = myAttributeCarriers->retrieveLaneGL(networkElement->getGUIGlObject(), false);
         // if exist, remove it
         if (lane) {
             deleteLane(lane, undoList, false);
         }
     } else if (networkElement->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
         // get connection (note: could be already removed if is a child, then hardfail=false)
-        GNEConnection* connection = myAttributeCarriers->retrieveConnection(networkElement, false);
+        GNEConnection* connection = myAttributeCarriers->retrieveConnectionGL(networkElement->getGUIGlObject(), false);
         // if exist, remove it
         if (connection) {
             deleteConnection(connection, undoList);

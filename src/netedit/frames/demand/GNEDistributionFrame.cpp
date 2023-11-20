@@ -203,7 +203,7 @@ GNEDistributionFrame::DistributionSelector::refreshDistributionSelector() {
     // fill distributions
     const auto distributions = fillDistributionComboBox();
     // update current distribution (used if myCurrentDistribution was deleted during undo-redo)
-    myCurrentDistribution = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(myCurrentDistribution, false);
+    myCurrentDistribution = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElementGL(myCurrentDistribution, false);
     // update comboBox
     if (myCurrentDistribution) {
         for (int i = 0; i < (int)myDistributionsComboBox->getNumItems(); i++) {

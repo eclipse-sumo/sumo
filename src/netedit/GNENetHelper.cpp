@@ -201,7 +201,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         return shape.overlapsWith(dynamic_cast<GNECrossing*>(AC)->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional (including shapes and TAZs
-        const GNEAdditional* additional = retrieveAdditional(AC);
+        const GNEAdditional* additional = retrieveAdditionalGL(AC->getGUIGlObject());
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
             return shape.around(additional->getPositionInView());
         } else {
@@ -524,24 +524,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 
 GNECrossing*
-GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast crossing
-    GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
-    if (crossing && (myCrossings.count(crossing) > 0)) {
-        return crossing;
-    } else if (hardFail) {
-        if (AC) {
-            throw UnknownElement("Crossing " + AC->getID());
-        } else {
-            throw UnknownElement("Crossing");
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNECrossing*
 GNENetHelper::AttributeCarriers::retrieveCrossingGL(const GUIGlObject* glObject, bool hardFail) const {
     if (myCrossings.count(glObject)) {
         return myCrossings.at(glObject);
@@ -603,24 +585,6 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
         }
     }
     return counter;
-}
-
-
-GNEWalkingArea*
-GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast walkingArea
-    GNEWalkingArea* walkingArea = dynamic_cast<GNEWalkingArea*>(AC);
-    if (walkingArea && (myWalkingAreas.count(walkingArea) > 0)) {
-        return walkingArea;
-    } else if (hardFail) {
-        if (AC) {
-            throw UnknownElement("WalkingArea " + AC->getID());
-        } else {
-            throw UnknownElement("WalkingArea");
-        }
-    } else {
-        return nullptr;
-    }
 }
 
 
@@ -933,24 +897,6 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
 
 
 GNELane*
-GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast lane
-    GNELane* lane = dynamic_cast<GNELane*>(AC);
-    if (lane && (myLanes.count(lane) > 0)) {
-        return lane;
-    } else if (hardFail) {
-        if (AC) {
-            throw UnknownElement("Lane " + AC->getID());
-        } else {
-            throw UnknownElement("Lane");
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNELane*
 GNENetHelper::AttributeCarriers::retrieveLaneGL(const GUIGlObject* glObject, bool hardFail) const {
     if (myLanes.count(glObject)) {
         return myLanes.at(glObject);
@@ -1049,24 +995,6 @@ GNENetHelper::AttributeCarriers::retrieveConnectionGL(const GUIGlObject* glObjec
 }
 
 
-GNEConnection*
-GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast connection
-    GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
-    if (connection && (myConnections.count(connection) > 0)) {
-        return connection;
-    } else if (hardFail) {
-        if (AC) {
-            throw UnknownElement("Connection " + AC->getID());
-        } else {
-            throw UnknownElement("Connection");
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
 const std::map<const GUIGlObject*, GNEConnection*>&
 GNENetHelper::AttributeCarriers::getConnections() const {
     return myConnections;
@@ -1145,20 +1073,6 @@ GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTa
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (string)");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEAdditional*
-GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast additional
-    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(AC);
-    if (additional && (myAdditionals.at(AC->getTagProperty().getTag()).count(additional) > 0)) {
-        return additional;
-    } else if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -1508,20 +1422,6 @@ GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> 
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (string)");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEDemandElement*
-GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast demandElement
-    GNEDemandElement* demandElement = dynamic_cast<GNEDemandElement*>(AC);
-    if (demandElement && (myDemandElements.at(AC->getTagProperty().getTag()).count(demandElement) > 0)) {
-        return demandElement;
-    } else if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -2029,20 +1929,6 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool har
 }
 
 
-GNEDataSet*
-GNENetHelper::AttributeCarriers::retrieveDataSet(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast dataSet
-    GNEDataSet* dataSet = dynamic_cast<GNEDataSet*>(AC);
-    if (dataSet && (myDataSets.count(dataSet) > 0)) {
-        return dataSet;
-    } else if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant data set");
-    } else {
-        return nullptr;
-    }
-}
-
-
 const std::set<GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
@@ -2337,20 +2223,6 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant meanData (string)");
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEMeanData*
-GNENetHelper::AttributeCarriers::retrieveMeanData(GNEAttributeCarrier* AC, bool hardFail) const {
-    // cast meanData
-    GNEMeanData* meanData = dynamic_cast<GNEMeanData*>(AC);
-    if (meanData && (myMeanDatas.at(AC->getTagProperty().getTag()).count(meanData) > 0)) {
-        return meanData;
-    } else if (hardFail) {
-        throw ProcessError("Attempted to retrieve non-existant meanData (AttributeCarrier)");
     } else {
         return nullptr;
     }
