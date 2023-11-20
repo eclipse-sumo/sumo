@@ -555,30 +555,6 @@ GNENetHelper::AttributeCarriers::getSelectedCrossings() const {
 }
 
 
-void
-GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
-    if (myCrossings.count(crossing->getGUIGlObject()) > 0) {
-        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
-    } else {
-        myCrossings[crossing->getGUIGlObject()] = crossing;
-    }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
-    const auto finder = myCrossings.find(crossing->getGUIGlObject());
-    if (finder == myCrossings.end()) {
-        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' wasn't previously inserted");
-    } else {
-        myCrossings.erase(finder);
-    }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(crossing);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
-}
-
-
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
     int counter = 0;
@@ -620,30 +596,6 @@ GNENetHelper::AttributeCarriers::getSelectedWalkingAreas() const {
         }
     }
     return result;
-}
-
-
-void
-GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) {
-    if (myWalkingAreas.count(walkingArea->getGUIGlObject()) > 0) {
-        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
-    } else {
-        myWalkingAreas[walkingArea->getGUIGlObject()] = walkingArea;
-    }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) {
-    const auto finder = myWalkingAreas.find(walkingArea->getGUIGlObject());
-    if (finder == myWalkingAreas.end()) {
-        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
-    } else {
-        myWalkingAreas.erase(finder);
-    }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
 }
 
 
@@ -934,30 +886,6 @@ GNENetHelper::AttributeCarriers::getSelectedLanes() const {
 }
 
 
-void
-GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
-    if (myLanes.count(lane->getGUIGlObject()) > 0) {
-        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
-    } else {
-        myLanes[lane->getGUIGlObject()] = lane;
-    }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
-    const auto finder = myLanes.find(lane->getGUIGlObject());
-    if (finder == myLanes.end()) {
-        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' wasn't previously inserted");
-    } else {
-        myLanes.erase(finder);
-    }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(lane);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
-}
-
-
 int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedLanes() const {
     int counter = 0;
@@ -1020,30 +948,6 @@ GNENetHelper::AttributeCarriers::getSelectedConnections() const {
         }
     }
     return result;
-}
-
-
-void
-GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
-    if (myConnections.count(connection->getGUIGlObject()) > 0) {
-        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
-    } else {
-        myConnections[connection->getGUIGlObject()] = connection;
-    }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
-    const auto finder = myConnections.find(connection->getGUIGlObject());
-    if (finder == myConnections.end()) {
-        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' wasn't previously inserted");
-    } else {
-        myConnections.erase(finder);
-    }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(connection);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
 }
 
 
@@ -2410,6 +2314,102 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == edge->getID())) {
         templateEditor->setEdgeTemplate(nullptr);
     }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertLane(GNELane* lane) {
+    if (myLanes.count(lane->getGUIGlObject()) > 0) {
+        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' already exist");
+    } else {
+        myLanes[lane->getGUIGlObject()] = lane;
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteLane(GNELane* lane) {
+    const auto finder = myLanes.find(lane->getGUIGlObject());
+    if (finder == myLanes.end()) {
+        throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' wasn't previously inserted");
+    } else {
+        myLanes.erase(finder);
+    }
+    // remove it from inspected elements and GNEElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(lane);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertCrossing(GNECrossing* crossing) {
+    if (myCrossings.count(crossing->getGUIGlObject()) > 0) {
+        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' already exist");
+    } else {
+        myCrossings[crossing->getGUIGlObject()] = crossing;
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteCrossing(GNECrossing* crossing) {
+    const auto finder = myCrossings.find(crossing->getGUIGlObject());
+    if (finder == myCrossings.end()) {
+        throw ProcessError(crossing->getTagStr() + " with ID='" + crossing->getID() + "' wasn't previously inserted");
+    } else {
+        myCrossings.erase(finder);
+    }
+    // remove it from inspected elements and GNEElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(crossing);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(crossing);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertWalkingArea(GNEWalkingArea* walkingArea) {
+    if (myWalkingAreas.count(walkingArea->getGUIGlObject()) > 0) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' already exist");
+    } else {
+        myWalkingAreas[walkingArea->getGUIGlObject()] = walkingArea;
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteWalkingArea(GNEWalkingArea* walkingArea) {
+    const auto finder = myWalkingAreas.find(walkingArea->getGUIGlObject());
+    if (finder == myWalkingAreas.end()) {
+        throw ProcessError(walkingArea->getTagStr() + " with ID='" + walkingArea->getID() + "' wasn't previously inserted");
+    } else {
+        myWalkingAreas.erase(finder);
+    }
+    // remove it from inspected elements and GNEElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(walkingArea);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(walkingArea);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertConnection(GNEConnection* connection) {
+    if (myConnections.count(connection->getGUIGlObject()) > 0) {
+        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' already exist");
+    } else {
+        myConnections[connection->getGUIGlObject()] = connection;
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
+    const auto finder = myConnections.find(connection->getGUIGlObject());
+    if (finder == myConnections.end()) {
+        throw ProcessError(connection->getTagStr() + " with ID='" + connection->getID() + "' wasn't previously inserted");
+    } else {
+        myConnections.erase(finder);
+    }
+    // remove it from inspected elements and GNEElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(connection);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
 }
 
 

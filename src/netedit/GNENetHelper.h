@@ -42,25 +42,28 @@
 // class declarations
 // ===========================================================================
 
-class NBNetBuilder;
 class GNEAdditional;
-class GNEDataSet;
-class GNEDemandElement;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEConnection;
 class GNECrossing;
-class GNEJunction;
+class GNEDataInterval;
+class GNEDataSet;
+class GNEDemandElement;
+class GNEEdge;
 class GNEEdgeType;
+class GNEJunction;
+class GNELane;
 class GNELaneType;
 class GNEMeanData;
-class GNEEdge;
-class GNELane;
+class GNENet;
 class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
 class GNEUndoList;
 class GNEViewNet;
+class GNEWalkingArea;
+class NBNetBuilder;
 
 // ===========================================================================
 // class definitions
@@ -75,6 +78,10 @@ struct GNENetHelper {
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEDataHandler;
+        friend class GNEJunction;
+        friend class GNEEdge;
+        friend class GNEDataSet;
+        friend class GNEDataInterval;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
         friend class GNEChange_Edge;
@@ -177,12 +184,6 @@ struct GNENetHelper {
         /// @brief return all selected crossings
         std::vector<GNECrossing*> getSelectedCrossings() const;
 
-        /// @brief insert crossing
-        void insertCrossing(GNECrossing* crossing);
-
-        /// @brief delete crossing
-        void deleteCrossing(GNECrossing* crossing);
-
         /// @brief get number of selected crossings
         int getNumberOfSelectedCrossings() const;
 
@@ -202,12 +203,6 @@ struct GNENetHelper {
 
         /// @brief return all selected walkingAreas
         std::vector<GNEWalkingArea*> getSelectedWalkingAreas() const;
-
-        /// @brief insert walkingArea
-        void insertWalkingArea(GNEWalkingArea* walkingArea);
-
-        /// @brief delete walkingArea
-        void deleteWalkingArea(GNEWalkingArea* walkingArea);
 
         /// @brief get number of selected walkingAreas
         int getNumberOfSelectedWalkingAreas() const;
@@ -311,12 +306,6 @@ struct GNENetHelper {
         /// @brief get selected lanes
         std::vector<GNELane*> getSelectedLanes() const;
 
-        /// @brief insert lane
-        void insertLane(GNELane* lane);
-
-        /// @brief delete lane
-        void deleteLane(GNELane* lane);
-
         /// @brief get number of selected lanes
         int getNumberOfSelectedLanes() const;
 
@@ -343,12 +332,6 @@ struct GNENetHelper {
 
         /// @brief get selected connections
         std::vector<GNEConnection*> getSelectedConnections() const;
-
-        /// @brief insert connection
-        void insertConnection(GNEConnection* connection);
-
-        /// @brief delete connection
-        void deleteConnection(GNEConnection* connection);
 
         /// @brief get number of selected connections
         int getNumberOfSelectedConnections() const;
@@ -547,12 +530,6 @@ struct GNENetHelper {
         /// @brief get all data intervals of network
         const std::map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
 
-        /// @brief insert data interval
-        void insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval);
-
-        /// @brief delete data interval
-        void deleteDataInterval(GNEDataInterval* dataInterval);
-
         /// @}
 
         /// @name function for generic datas
@@ -583,12 +560,6 @@ struct GNENetHelper {
 
         /// @brief get number of selected edge TAZ Rels
         int getNumberOfSelectedEdgeTAZRel() const;
-
-        /// @brief insert generic data
-        void insertGenericData(GNEGenericData* genericData);
-
-        /// @brief delete generic data
-        void deleteGenericData(GNEGenericData* genericData);
 
         /// @brief return a set of parameters for the given data Interval
         std::set<std::string> retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const;
@@ -624,7 +595,7 @@ struct GNENetHelper {
         /// @}
 
     protected:
-        /// @name Insertion and erasing of GNEJunctions
+        /// @name Junctions protected functions
         /// @{
         /// @brief inserts a single junction into the net and into the underlying netbuild-container
         void insertJunction(GNEJunction* junction);
@@ -634,7 +605,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEEdgeTypes
+        /// @name edge types protected functions
         /// @{
         /// @brief return true if given edgeType exist
         bool edgeTypeExist(const GNEEdgeType* edgeType) const;
@@ -647,7 +618,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEEdges
+        /// @name edges protected functions
         /// @{
         /// @brief inserts a single edge into the net and into the underlying netbuild-container
         void insertEdge(GNEEdge* edge);
@@ -657,7 +628,51 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEAdditionals items
+        /// @name lane protected functions
+        /// @{
+
+        /// @brief insert lane
+        void insertLane(GNELane* lane);
+
+        /// @brief delete lane
+        void deleteLane(GNELane* lane);
+
+        /// @}
+
+        /// @name crossing protected functions
+        /// @{
+
+        /// @brief insert crossing
+        void insertCrossing(GNECrossing* crossing);
+
+        /// @brief delete crossing
+        void deleteCrossing(GNECrossing* crossing);
+
+        /// @}
+
+        /// @name walking areas protected functions
+        /// @{
+
+        /// @brief insert walkingArea
+        void insertWalkingArea(GNEWalkingArea* walkingArea);
+
+        /// @brief delete walkingArea
+        void deleteWalkingArea(GNEWalkingArea* walkingArea);
+
+        /// @}
+
+        /// @name walking areas protected functions
+        /// @{
+
+        /// @brief insert connection
+        void insertConnection(GNEConnection* connection);
+
+        /// @brief delete connection
+        void deleteConnection(GNEConnection* connection);
+
+        /// @}
+
+        /// @name additionals protected functions
         /// @{
 
         /// @brief return true if given additional exist
@@ -675,7 +690,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNEDemandElements items
+        /// @name demand elements protected functions
         /// @{
 
         /// @brief return true if given demand element exist
@@ -693,7 +708,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of data items
+        /// @name datas protected functions
         /// @{
 
         /// @brief return true if given demand element exist
@@ -708,6 +723,28 @@ struct GNENetHelper {
          * @throw processError if demand element wasn't previously inserted
          */
         void deleteDataSet(GNEDataSet* dataSet);
+
+        /// @}
+
+        /// @name data intervals protected functions
+        /// @{
+
+        /// @brief insert data interval
+        void insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval);
+
+        /// @brief delete data interval
+        void deleteDataInterval(GNEDataInterval* dataInterval);
+
+        /// @}
+
+        /// @name generic datas protected functions
+        /// @{
+
+        /// @brief insert generic data
+        void insertGenericData(GNEGenericData* genericData);
+
+        /// @brief delete generic data
+        void deleteGenericData(GNEGenericData* genericData);
 
         /// @}
 
