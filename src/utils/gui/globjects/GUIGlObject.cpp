@@ -198,7 +198,7 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 
 
 bool
-GUIGlObject::isGLObjectLocked() {
+GUIGlObject::isGLObjectLocked() const {
     // by default unlocked
     return false;
 }

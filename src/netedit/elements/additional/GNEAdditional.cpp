@@ -419,7 +419,7 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 
 bool
-GNEAdditional::isGLObjectLocked() {
+GNEAdditional::isGLObjectLocked() const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
     } else {

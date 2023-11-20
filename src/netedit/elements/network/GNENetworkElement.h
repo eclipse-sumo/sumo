@@ -150,7 +150,7 @@ public:
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief check if element is locked
-    bool isGLObjectLocked();
+    bool isGLObjectLocked() const;
 
     /// @brief mark element as front element
     void markAsFrontElement();

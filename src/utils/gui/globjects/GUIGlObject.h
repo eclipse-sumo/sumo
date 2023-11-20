@@ -185,7 +185,7 @@ public:
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief check if element is locked (Currently used only in netedit)
-    virtual bool isGLObjectLocked();
+    virtual bool isGLObjectLocked() const;
 
     /// @brief mark element as front element (Currently used only in netedit)
     virtual void markAsFrontElement();
