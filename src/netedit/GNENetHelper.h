@@ -132,12 +132,12 @@ struct GNENetHelper {
          */
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get junction by id
-         * @param[in] id The id of the desired junction
+        /**@brief get junction by glObject
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting junction should result in an exception
          * @throws UnknownElement
          */
-        GNEJunction* retrieveJunctionGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEJunction* retrieveJunction(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get junctions
         const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >& getJunctions() const;
@@ -165,11 +165,11 @@ struct GNENetHelper {
         /// @name function for crossings
         /// @{
         /**@brief get Crossing by AC
-         * @param[in] glObject The GUIGlObject related with the crossing
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting Crossing should result in an exception
          * @throws UnknownElement
          */
-        GNECrossing* retrieveCrossingGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNECrossing* retrieveCrossing(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get crossings
         const std::map<const GUIGlObject*, GNECrossing*>& getCrossings() const;
@@ -191,11 +191,11 @@ struct GNENetHelper {
         /// @name function for walkingAreas
         /// @{
         /**@brief get WalkingArea by GlObject
-         * @param[in] glObject The GUIGlObject related with the walkingArea
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting WalkingArea should result in an exception
          * @throws UnknownElement
          */
-        GNEWalkingArea* retrieveWalkingAreaGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEWalkingArea* retrieveWalkingArea(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get walkingAreas
         const std::map<const GUIGlObject*, GNEWalkingArea*>& getWalkingAreas() const;
@@ -250,11 +250,11 @@ struct GNENetHelper {
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
         /**@brief get edge by glObject
-         * @param[in] glObject The glObject of the desired edge
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
          * @throws UnknownElement
          */
-        GNEEdge* retrieveEdgeGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEEdge* retrieveEdge(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
@@ -299,11 +299,11 @@ struct GNENetHelper {
         GNELane* retrieveLane(const std::string& id, bool hardFail = true, bool checkVolatileChange = false) const;
 
         /**@brief get Lane by GlObject
-         * @param[in] glObject The GUIGlObject related with the lane
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting Lane should result in an exception
          * @throws UnknownElement
          */
-        GNELane* retrieveLaneGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNELane* retrieveLane(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get lanes
         const std::map<const GUIGlObject*, GNELane*>& getLanes() const;
@@ -332,11 +332,11 @@ struct GNENetHelper {
         GNEConnection* retrieveConnection(const std::string& id, bool hardFail = true) const;
 
         /**@brief get Connection by GUIGlObject
-         * @param[in] glObject The GLObject related with the connection element
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting Connection should result in an exception
          * @throws UnknownElement
          */
-        GNEConnection* retrieveConnectionGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEConnection* retrieveConnection(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get connections
         const std::map<const GUIGlObject*, GNEConnection*>& getConnections() const;
@@ -374,10 +374,10 @@ struct GNENetHelper {
         GNEAdditional* retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named additional
-         * @param[in] glObject The GLObject related with the additional element
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting additional should result in an exception
          */
-        GNEAdditional* retrieveAdditionalGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEAdditional* retrieveAdditional(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /**@brief Returns the rerouter interval defined by given begin and end
          * @param[in] rerouter ID
@@ -453,10 +453,10 @@ struct GNENetHelper {
         GNEDemandElement* retrieveDemandElements(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail = true) const;
 
         /**@brief Returns the named demand
-         * @param[in] id The GLObject related with the demand element
+         * @param[in] glObject The GUIGlObject associated with the element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting demand should result in an exception
          */
-        GNEDemandElement* retrieveDemandElementGL(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEDemandElement* retrieveDemandElement(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get selected demand elements
         std::vector<GNEDemandElement*> getSelectedDemandElements() const;

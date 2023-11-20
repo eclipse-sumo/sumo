@@ -2098,7 +2098,7 @@ GNEJunction*
 GNEViewNet::getJunctionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto junction = myNet->getAttributeCarriers()->retrieveJunctionGL(glObject, false);
+        auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject, false);
         if (junction) {
             return junction;
         }
@@ -2111,7 +2111,7 @@ GNEConnection*
 GNEViewNet::getConnectionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto connection = myNet->getAttributeCarriers()->retrieveConnectionGL(glObject, false);
+        auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject, false);
         if (connection) {
             return connection;
         }
@@ -2124,7 +2124,7 @@ GNECrossing*
 GNEViewNet::getCrossingAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto crossing = myNet->getAttributeCarriers()->retrieveCrossingGL(glObject, false);
+        auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject, false);
         if (crossing) {
             return crossing;
         }
@@ -2137,7 +2137,7 @@ GNEWalkingArea*
 GNEViewNet::getWalkingAreaAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingAreaGL(glObject, false);
+        auto walkingArea = myNet->getAttributeCarriers()->retrieveWalkingArea(glObject, false);
         if (walkingArea) {
             return walkingArea;
         }
@@ -2150,7 +2150,7 @@ GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto edge = myNet->getAttributeCarriers()->retrieveEdgeGL(glObject, false);
+        auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject, false);
         if (edge) {
             return edge;
         }
@@ -2163,7 +2163,7 @@ GNELane*
 GNEViewNet::getLaneAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto lane = myNet->getAttributeCarriers()->retrieveLaneGL(glObject, false);
+        auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject, false);
         if (lane) {
             return lane;
         }
@@ -2176,7 +2176,7 @@ GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false);
+        auto additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(glObject, false);
         if (additionalElement) {
             return additionalElement;
         }
@@ -2189,7 +2189,7 @@ GNEDemandElement*
 GNEViewNet::getDemandElementAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(glObject, false);
+        auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(glObject, false);
         if (demandElement) {
             return demandElement;
         }
@@ -2202,7 +2202,7 @@ GNEPoly*
 GNEViewNet::getPolygonAtPopupPosition() {
     // get first object that can be parsed to poly element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        auto polygon = dynamic_cast<GNEPoly*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
         if (polygon) {
             return polygon;
         }
@@ -2215,7 +2215,7 @@ GNEPOI*
 GNEViewNet::getPOIAtPopupPosition() {
     // get first object that can be parsed to POI element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        auto POI = dynamic_cast<GNEPOI*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
         if (POI) {
             return POI;
         }
@@ -2228,7 +2228,7 @@ GNETAZ*
 GNEViewNet::getTAZAtPopupPosition() {
     // get first object that can be parsed to TAZ element
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
-        auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditionalGL(glObject, false));
+        auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject, false));
         if (TAZ) {
             return TAZ;
         }
@@ -5136,7 +5136,7 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
             // get crossing (note: could be already removed if is a child, then hardfail=false)
-            GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossingGL(AC->getGUIGlObject(), false);
+            GNECrossing* crossing = myNet->getAttributeCarriers()->retrieveCrossing(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (crossing) {
                 myNet->deleteCrossing(crossing, myUndoList);
@@ -5150,21 +5150,21 @@ GNEViewNet::deleteNetworkAttributeCarriers(const std::vector<GNEAttributeCarrier
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
             // get lane (note: could be already removed if is a child, then hardfail=false)
-            GNELane* lane = myNet->getAttributeCarriers()->retrieveLaneGL(AC->getGUIGlObject(), false);
+            GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (lane) {
                 myNet->deleteLane(lane, myUndoList, false);
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
             // get connection (note: could be already removed if is a child, then hardfail=false)
-            GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnectionGL(AC->getGUIGlObject(), false);
+            GNEConnection* connection = myNet->getAttributeCarriers()->retrieveConnection(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (connection) {
                 myNet->deleteConnection(connection, myUndoList);
             }
         } else if (AC->getTagProperty().isAdditionalElement()) {
             // get additional Element (note: could be already removed if is a child, then hardfail=false)
-            GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditionalGL(AC->getGUIGlObject(), false);
+            GNEAdditional* additionalElement = myNet->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (additionalElement) {
                 myNet->deleteAdditional(additionalElement, myUndoList);
@@ -5179,7 +5179,7 @@ GNEViewNet::deleteDemandAttributeCarriers(const std::vector<GNEAttributeCarrier*
     // iterate over ACs and delete it
     for (const auto& AC : ACs) {
         // get demand Element (note: could be already removed if is a child, then hardfail=false)
-        GNEDemandElement* demandElement = myNet->getAttributeCarriers()->retrieveDemandElementGL(AC->getGUIGlObject(), false);
+        GNEDemandElement* demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(AC->getGUIGlObject(), false);
         // if exist, remove it
         if (demandElement) {
             myNet->deleteDemandElement(demandElement, myUndoList);

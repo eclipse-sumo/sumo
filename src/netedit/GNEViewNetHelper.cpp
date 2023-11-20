@@ -916,7 +916,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get additional element
-    GNEAdditional* additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditionalGL(AC->getGUIGlObject());
+    GNEAdditional* additionalElement = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(AC->getGUIGlObject());
     // insert depending if is the front attribute carrier
     if (additionalElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front
@@ -986,7 +986,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get demandElement
-    GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElementGL(AC->getGUIGlObject());
+    GNEDemandElement* demandElement = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(AC->getGUIGlObject());
     // insert depending if is the front attribute carrier
     if (demandElement == myViewNet->getFrontAttributeCarrier()) {
         // insert at front

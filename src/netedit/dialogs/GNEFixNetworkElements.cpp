@@ -344,7 +344,7 @@ GNEFixNetworkElements::FixCrossingOptions::fixElements(bool& abortSaving) {
             myViewNet->getUndoList()->begin(GUIIcon::CROSSING, TL("delete invalid crossings"));
             // iterate over invalid crossings to delete it
             for (const auto& invalidCrossing : myInvalidElements) {
-                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossingGL(invalidCrossing), myViewNet->getUndoList());
+                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->getAttributeCarriers()->retrieveCrossing(invalidCrossing), myViewNet->getUndoList());
             }
             // end undo list
             myViewNet->getUndoList()->end();

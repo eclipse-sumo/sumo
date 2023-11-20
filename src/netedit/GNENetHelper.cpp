@@ -201,7 +201,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         return shape.overlapsWith(myCrossings.at(AC->getGUIGlObject())->getCrossingShape());
     } else if (AC->getTagProperty().isAdditionalElement()) {
         // Additional (including shapes and TAZs
-        const GNEAdditional* additional = retrieveAdditionalGL(AC->getGUIGlObject());
+        const GNEAdditional* additional = retrieveAdditional(AC->getGUIGlObject());
         if (additional->getAdditionalGeometry().getShape().size() <= 1) {
             return shape.around(additional->getPositionInView());
         } else {
@@ -414,7 +414,7 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 
 
 GNEJunction*
-GNENetHelper::AttributeCarriers::retrieveJunctionGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveJunction(const GUIGlObject* glObject, bool hardFail) const {
     for (const auto &junctionPair : myJunctions) {
         if (junctionPair.second.first == glObject) {
             return junctionPair.second.second;
@@ -524,7 +524,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 
 GNECrossing*
-GNENetHelper::AttributeCarriers::retrieveCrossingGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveCrossing(const GUIGlObject* glObject, bool hardFail) const {
     if (myCrossings.count(glObject)) {
         return myCrossings.at(glObject);
     } else if (hardFail) {
@@ -592,7 +592,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
 
 
 GNEWalkingArea*
-GNENetHelper::AttributeCarriers::retrieveWalkingAreaGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveWalkingArea(const GUIGlObject* glObject, bool hardFail) const {
     if (myWalkingAreas.count(glObject)) {
         return myWalkingAreas.at(glObject);
     } else if (hardFail) {
@@ -738,7 +738,7 @@ GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFa
 
 
 GNEEdge*
-GNENetHelper::AttributeCarriers::retrieveEdgeGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveEdge(const GUIGlObject* glObject, bool hardFail) const {
     for (const auto &edgePair : myEdges) {
         if (edgePair.second.first == glObject) {
             return edgePair.second.second;
@@ -903,7 +903,7 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
 
 
 GNELane*
-GNENetHelper::AttributeCarriers::retrieveLaneGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveLane(const GUIGlObject* glObject, bool hardFail) const {
     if (myLanes.count(glObject)) {
         return myLanes.at(glObject);
     } else if (hardFail) {
@@ -988,7 +988,7 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool 
 
 
 GNEConnection*
-GNENetHelper::AttributeCarriers::retrieveConnectionGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveConnection(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over connections
     for (const auto& connection : myConnections) {
         if (connection.second == glObject) {
@@ -1092,7 +1092,7 @@ GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTa
 
 
 GNEAdditional*
-GNENetHelper::AttributeCarriers::retrieveAdditionalGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveAdditional(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all additionals
     for (const auto &additionalTag : myAdditionals){
         for (const auto &additionalPair : additionalTag.second) {
@@ -1441,7 +1441,7 @@ GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> 
 
 
 GNEDemandElement*
-GNENetHelper::AttributeCarriers::retrieveDemandElementGL(const GUIGlObject* glObject, bool hardFail) const {
+GNENetHelper::AttributeCarriers::retrieveDemandElement(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all demand elements
     for (const auto &demandElementTag : myDemandElements){
         for (const auto &demandElementPair : demandElementTag.second) {
