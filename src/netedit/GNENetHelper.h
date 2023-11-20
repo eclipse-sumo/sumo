@@ -526,7 +526,7 @@ struct GNENetHelper {
         GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
 
         /// @brief get demand elements
-        const std::map<const GUIGlObject*, GNEDataSet*>& getDataSets() const;
+        const std::map<const std::string, GNEDataSet*>& getDataSets() const;
 
         /// @brief generate data set id
         std::string generateDataSetID(const std::string& prefix) const;
@@ -539,13 +539,16 @@ struct GNENetHelper {
          * @param[in] id The attribute carrier related with the dataInterval element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEDataInterval* retrieveDataInterval(const GUIGlObject* glObject, bool hardFail = true) const;
+        GNEDataInterval* retrieveDataInterval(const GNEAttributeCarrier *AC, bool hardFail = true) const;
+
+        /// @brief return true if given data interval exist
+        bool dataIntervalExist(GNEDataInterval* dataInterval) const;
 
         /// @brief get all data intervals of network
-        const std::map<const GUIGlObject*, GNEDataInterval*>& getDataIntervals() const;
+        const std::map<const GNEAttributeCarrier*, GNEDataInterval*>& getDataIntervals() const;
 
         /// @brief insert data interval
-        void insertDataInterval(GNEDataInterval* dataInterval);
+        void insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval);
 
         /// @brief delete data interval
         void deleteDataInterval(GNEDataInterval* dataInterval);
@@ -607,7 +610,7 @@ struct GNENetHelper {
         GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /// @brief get meanDatas
-        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEMeanData*> >& getMeanDatas() const;
+        const std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >& getMeanDatas() const;
 
         /// @brief get number of meanDatas
         int getNumberOfMeanDatas() const;
@@ -763,17 +766,17 @@ struct GNENetHelper {
         /// @brief map with the tag and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
-        /// @brief set with the ID and pointer to all datasets of net
-        std::map<const GUIGlObject*, GNEDataSet*> myDataSets;
+        /// @brief map with the ID and pointer to all datasets of net
+        std::map<const std::string, GNEDataSet*> myDataSets;
 
         /// @brief map with all data intervals of network
-        std::map<const GUIGlObject*, GNEDataInterval*> myDataIntervals;
+        std::map<const GNEAttributeCarrier*, GNEDataInterval*> myDataIntervals;
 
         /// @brief map with the tag and pointer to all generic datas
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> > myGenericDatas;
 
         /// @brief map with the tag and pointer to meanData elements of net
-        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEMeanData*> > myMeanDatas;
+        std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> > myMeanDatas;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

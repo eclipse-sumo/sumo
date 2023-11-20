@@ -78,7 +78,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     // fill meanDatas with tags
     auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
     for (const auto& meanDataTag : meanDataTags) {
-        myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::map<const GUIGlObject*, GNEMeanData*>()));
+        myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::map<const std::string, GNEMeanData*>()));
     }
 }
 
@@ -1941,7 +1941,7 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool har
 }
 
 
-const std::map<const GUIGlObject*, GNEDataSet*>&
+const std::map<const std::string, GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
 }
@@ -1959,9 +1959,9 @@ GNENetHelper::AttributeCarriers::generateDataSetID(const std::string& prefix) co
 
 
 GNEDataInterval*
-GNENetHelper::AttributeCarriers::retrieveDataInterval(const GUIGlObject* glObject, bool hardFail) const {
-    if (myDataIntervals.count(glObject)) {
-        return myDataIntervals.at(glObject);
+GNENetHelper::AttributeCarriers::retrieveDataInterval(const GNEAttributeCarrier *AC, bool hardFail) const {
+    if (myDataIntervals.count(AC)) {
+        return myDataIntervals.at(AC);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data interval");
     } else {
@@ -1970,18 +1970,29 @@ GNENetHelper::AttributeCarriers::retrieveDataInterval(const GUIGlObject* glObjec
 }
 
 
-const std::map<const GUIGlObject*, GNEDataInterval*>&
+bool
+GNENetHelper::AttributeCarriers::dataIntervalExist(GNEDataInterval* dataInterval) const {
+    // first check that interval pointer is valid
+    if (dataInterval) {
+        return (myDataIntervals.count(dataInterval) > 0);
+    } else {
+        throw ProcessError("Invalid data interval pointer");
+    }
+}
+
+
+const std::map<const GNEAttributeCarrier*, GNEDataInterval*>&
 GNENetHelper::AttributeCarriers::getDataIntervals() const {
     return myDataIntervals;
 }
 
 
 void
-GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterval) {
-    if (myDataIntervals.count(dataInterval->getGUIGlObject()) > 0) {
+GNENetHelper::AttributeCarriers::insertDataInterval(const GNEAttributeCarrier *AC, GNEDataInterval* dataInterval) {
+    if (myDataIntervals.count(AC) > 0) {
         throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' already exist");
     } else {
-        myDataIntervals[dataInterval->getGUIGlObject()] = dataInterval;
+        myDataIntervals[AC] = dataInterval;
     }
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
@@ -1990,7 +2001,7 @@ GNENetHelper::AttributeCarriers::insertDataInterval(GNEDataInterval* dataInterva
 
 void
 GNENetHelper::AttributeCarriers::deleteDataInterval(GNEDataInterval* dataInterval) {
-    const auto finder = myDataIntervals.find(dataInterval->getGUIGlObject());
+    const auto finder = myDataIntervals.find(dataInterval);
     if (finder == myDataIntervals.end()) {
         throw ProcessError(dataInterval->getTagStr() + " with ID='" + dataInterval->getID() + "' wasn't previously inserted");
     } else {
@@ -2253,7 +2264,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
 }
 
 
-const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEMeanData*> >&
+const std::map<SumoXMLTag, std::map<const std::string, GNEMeanData*> >&
 GNENetHelper::AttributeCarriers::getMeanDatas() const {
     return myMeanDatas;
 }
@@ -2421,10 +2432,10 @@ GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    // insert additional
-    auto pair = std::make_pair(additional->getGUIGlObject(), additional);
-    if (myAdditionals.at(additional->getTagProperty().getTag()).insert(pair).second == false) {
+    if (myAdditionals.at(additional->getTagProperty().getTag()).count(additional) > 0) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
+    } else {
+        myAdditionals.at(additional->getTagProperty().getTag())[additional->getGUIGlObject()] = additional;
     }
     // add element in grid
     if (additional->getTagProperty().isPlacedInRTree()) {
@@ -2482,10 +2493,10 @@ GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElem
 
 void
 GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandElement) {
-    // insert in demandElements container
-    auto pair = std::make_pair(demandElement->getGUIGlObject(), demandElement);
-    if (myDemandElements.at(demandElement->getTagProperty().getTag()).insert(pair).second == false) {
+    if (myDemandElements.at(demandElement->getTagProperty().getTag()).count(demandElement) > 0) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
+    } else {
+        myDemandElements.at(demandElement->getTagProperty().getTag())[demandElement->getGUIGlObject()] = demandElement;
     }
     // add element in grid
     myNet->addGLObjectIntoGrid(demandElement);
@@ -2540,7 +2551,7 @@ bool
 GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
     // first check that dataSet pointer is valid
     if (dataSet) {
-        return (myDataSets.count(dataSet->getGUIGlObject()) > 0);
+        return (myDataSets.count(dataSet->getID()) > 0);
     } else {
         throw ProcessError("Invalid dataSet pointer");
     }
@@ -2549,10 +2560,10 @@ GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
 
 void
 GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
-    if (myDataSets.count(dataSet->getGUIGlObject()) > 0) {
+    if (myDataSets.count(dataSet->getID()) > 0) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     } else {
-        myDataSets[dataSet->getGUIGlObject()] = dataSet;
+        myDataSets[dataSet->getID()] = dataSet;
     }
     // dataSets has to be saved
     myNet->getSavingStatus()->requireSaveDataElements();
@@ -2563,7 +2574,7 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
 
 void
 GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
-    const auto finder = myDataSets.find(dataSet->getGUIGlObject());
+    const auto finder = myDataSets.find(dataSet->getID());
     if (finder == myDataSets.end()) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' wasn't previously inserted");
     } else {
@@ -2598,10 +2609,10 @@ GNENetHelper::AttributeCarriers::meanDataExist(const GNEMeanData* meanData) cons
 
 void
 GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
-    if (myMeanDatas.at(meanData->getTagProperty().getTag()).count(meanData->getGUIGlObject()) > 0) {
+    if (myMeanDatas.at(meanData->getTagProperty().getTag()).count(meanData->getID()) > 0) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' already exist");
     } else {
-        myMeanDatas.at(meanData->getTagProperty().getTag()).insert(std::make_pair(meanData->getGUIGlObject(), meanData));
+        myMeanDatas.at(meanData->getTagProperty().getTag()).insert(std::make_pair(meanData->getID(), meanData));
     }
     // meanDatas has to be saved
     myNet->getSavingStatus()->requireSaveMeanDatas();
@@ -2611,7 +2622,7 @@ GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
 void
 GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
     // find demanElement in meanDataTag
-    auto itFind = myMeanDatas.at(meanData->getTagProperty().getTag()).find(meanData->getGUIGlObject());
+    auto itFind = myMeanDatas.at(meanData->getTagProperty().getTag()).find(meanData->getID());
     // check if meanData was previously inserted
     if (itFind == myMeanDatas.at(meanData->getTagProperty().getTag()).end()) {
         throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' wasn't previously inserted");

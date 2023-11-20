@@ -245,7 +245,7 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
         // add data interval child
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
         // add reference in attributeCarriers
-        myNet->getAttributeCarriers()->insertDataInterval(dataInterval);
+        myNet->getAttributeCarriers()->insertDataInterval(dataInterval, dataInterval);
     } else {
         throw ProcessError(TL("DataInterval was already inserted"));
     }

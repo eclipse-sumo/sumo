@@ -5201,7 +5201,7 @@ GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> 
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
             // get data interval (note: could be already removed if is a child, then hardfail=false)
-            GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC->getGUIGlObject(), false);
+            GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC, false);
             // if exist, remove it
             if (dataInterval) {
                 myNet->deleteDataInterval(dataInterval, myUndoList);
