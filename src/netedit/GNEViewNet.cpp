@@ -497,7 +497,7 @@ GNEViewNet::getObjectsUnderCursor() const {
 
 void
 GNEViewNet::updateObjectsUnderCursor(const Position& pos) {
-    myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsAtPosition(pos, 0.1));
+    myObjectsUnderCursor.updateObjectUnderCursor(/*getGUIGlObjectsAtPosition(pos, 0.1)*/);
 }
 
 
@@ -539,9 +539,9 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
     // reimplemented from GUISUMOAbstractView due GNEOverlappedInspection
     ungrab();
     // make network current
-    if (isEnabled() && myAmInitialised && makeCurrent()) {
+    if (isEnabled() && myAmInitialised) {
         // get GLObjects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
+        myObjectsUnderCursor.updateObjectUnderCursor();
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
             // set clicked popup position
@@ -612,7 +612,6 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             // open object dialog
             openObjectDialog(filteredGLObjects);
         }
-        makeNonCurrent();
     }
 }
 
@@ -1282,6 +1281,8 @@ GNEViewNet::getRelDataAttrs() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
+    // execute post drawing tasks
+    gPostDrawing.executePostDrawingTasks();
     // init view settings
     if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
         myVisualizationSettings->drawForPositionSelection = true;
@@ -1436,8 +1437,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myNet->getGrid().updateBoundaries(gPostDrawing.recomputeBoundaries);
         }
     */
-    // execute post drawing tasks
-    gPostDrawing.executePostDrawingTasks();
     // end post drawing
     myPostDrawing = false;
     return hits2;
@@ -1450,21 +1449,17 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     setFocus();
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
-    // interpret object under cursor
-    if (makeCurrent()) {
-        // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // process left button press function depending of supermode
-        if (myEditModes.isCurrentSupermodeNetwork()) {
-            processLeftButtonPressNetwork(eventData);
-        } else if (myEditModes.isCurrentSupermodeDemand()) {
-            processLeftButtonPressDemand(eventData);
-        } else if (myEditModes.isCurrentSupermodeData()) {
-            // short data elements by begin
-            myObjectsUnderCursor.shortDataElements();
-            processLeftButtonPressData(eventData);
-        }
-        makeNonCurrent();
+    // fill objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
+    // process left button press function depending of supermode
+    if (myEditModes.isCurrentSupermodeNetwork()) {
+        processLeftButtonPressNetwork(eventData);
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
+        processLeftButtonPressDemand(eventData);
+    } else if (myEditModes.isCurrentSupermodeData()) {
+        // short data elements by begin
+        myObjectsUnderCursor.shortDataElements();
+        processLeftButtonPressData(eventData);
     }
     // update cursor
     updateCursor();
@@ -1485,19 +1480,15 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
-    // interpret object under cursor
-    if (makeCurrent()) {
-        // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // process left button release function depending of supermode
-        if (myEditModes.isCurrentSupermodeNetwork()) {
-            processLeftButtonReleaseNetwork();
-        } else if (myEditModes.isCurrentSupermodeDemand()) {
-            processLeftButtonReleaseDemand();
-        } else if (myEditModes.isCurrentSupermodeData()) {
-            processLeftButtonReleaseData();
-        }
-        makeNonCurrent();
+    // fill objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
+    // process left button release function depending of supermode
+    if (myEditModes.isCurrentSupermodeNetwork()) {
+        processLeftButtonReleaseNetwork();
+    } else if (myEditModes.isCurrentSupermodeDemand()) {
+        processLeftButtonReleaseDemand();
+    } else if (myEditModes.isCurrentSupermodeData()) {
+        processLeftButtonReleaseData();
     }
     // update cursor
     updateCursor();
@@ -1976,6 +1967,16 @@ GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
 const GNEAttributeCarrier*
 GNEViewNet::getFrontAttributeCarrier() const {
     return myFrontAttributeCarrier;
+}
+
+
+const GUIGlObject*
+GNEViewNet::getFrontGLObject() const {
+    if (myFrontAttributeCarrier) {
+        return myFrontAttributeCarrier->getGUIGlObject();
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -5914,12 +5915,8 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
                 myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
             }
         } else if (myMouseButtonKeyPressed.shiftKeyPressed()) {
-            // obtain objects under cursor
-            if (makeCurrent()) {
-                // update objects under cursor again
-                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-                makeNonCurrent();
-            }
+            // update objects under cursor again
+            myObjectsUnderCursor.updateObjectUnderCursor();
             // check if there is a lane in objects under cursor
             if (myObjectsUnderCursor.getLaneFront()) {
                 // if we clicked over an lane with shift key pressed, select or unselect it

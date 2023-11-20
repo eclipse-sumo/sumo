@@ -223,8 +223,8 @@ struct GNEViewNetHelper {
         /// @brief constructor
         ObjectsUnderCursor(GNEViewNet* viewNet);
 
-        /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
+        /// @brief update objects under cursor (using gPostDrawing)
+        void updateObjectUnderCursor();
 
         /// @brief swap lane to edge
         void swapLane2Edge();
@@ -242,7 +242,7 @@ struct GNEViewNetHelper {
         GUIGlObjectType getGlTypeFront() const;
 
         /// @brief get front attribute carrier or a pointer to nullptr
-        GUIGlObject* getGUIGlObjectFront() const;
+        const GUIGlObject* getGUIGlObjectFront() const;
 
         /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
@@ -389,6 +389,12 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         const GNEViewNet* myViewNet;
 
+        /// @brief filtered edge GLObjects
+        std::vector<const GUIGlObject*> filteredEdgeGLObjects;
+
+        /// @brief filtered lane GLObjects
+        std::vector<const GUIGlObject*> filteredLaneGLObjects;
+
         /// @brief objectContainer for objects selecting edges
         ObjectsContainer myEdgeObjects;
 
@@ -400,34 +406,28 @@ struct GNEViewNetHelper {
 
     private:
         /// @brief filter duplicated objects
-        std::vector<GUIGlObject*> filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const;
+        std::vector<const GUIGlObject*> filterDuplicatedObjects() const;
 
         /// @brief sort by altitude and update GUIGlObjects
-        void sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
-
-        /// @brief update attribute carrier elements
-        void updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void sortGUIGlObjects(const std::vector<const GUIGlObject*>& GUIGlObjects);
 
         /// @brief update network elements
-        void updateNetworkElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update additional elements
-        void updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void updateAdditionalElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update shape elements
-        void updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void updateShapeElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update TAZ elements
-        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void updateTAZElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update demand elements
-        void updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+        void updateDemandElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update generic data elements
-        void updateGenericDataElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
-
-        /// @brief updateGUIGlObjects
-        void updateGUIGlObjects(ObjectsContainer& container);
+        void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
         void processGUIGlObjects();

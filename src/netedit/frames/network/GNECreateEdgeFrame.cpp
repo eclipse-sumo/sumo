@@ -843,7 +843,7 @@ GNECreateEdgeFrame::getJunctionSource() const {
 
 void
 GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
-    myObjectsUnderSnappedCursor.updateObjectUnderCursor(GUIGlObjects);
+    myObjectsUnderSnappedCursor.updateObjectUnderCursor(/*GUIGlObjects*/);
 }
 
 
