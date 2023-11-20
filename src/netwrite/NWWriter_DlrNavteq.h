@@ -73,14 +73,14 @@ private:
      * @param[in] ec The edge-container from which to read data
      * @param[out] internalNodes The internal node ids, generated for edges with complex geometry
      */
-    static void writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes);
+    static void writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes);
 
     /** @brief Writes the links_unsplitted file
      * @param[in] oc The options to use
      * @param[in] ec The edge-container from which to read data
      * @param[int] internalNodes The internal node ids, generated for edges with complex geometry
      */
-    static void writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes);
+    static void writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont& ec, const std::map<const NBEdge*, std::string>& internalNodes);
 
     /** @brief Writes the traffic_signals file
      * @param[in] oc The options to use

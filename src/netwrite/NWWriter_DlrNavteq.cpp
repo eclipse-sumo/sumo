@@ -77,7 +77,7 @@ void NWWriter_DlrNavteq::writeHeader(OutputDevice& device, const OptionsCont& oc
 
 
 void
-NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont& nc, const NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
     // For "real" nodes we simply use the node id.
     // For internal nodes (geometry vectors describing edge geometry in the parlance of this format)
     // we use the id of the edge and do not bother with
@@ -194,7 +194,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
 
 
 void
-NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, std::map<const NBEdge*, std::string>& internalNodes) {
+NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont& ec, const std::map<const NBEdge*, std::string>& internalNodes) {
     std::map<const std::string, std::string> nameIDs;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
@@ -211,7 +211,8 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
     for (const auto& edgeIt : ec) {
         const NBEdge* const e = edgeIt.second;
         const int kph = speedInKph(e->getSpeed());
-        const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
+        const auto& internalIt = internalNodes.find(e);
+        const std::string& betweenNodeID = internalIt != internalNodes.end() ? internalIt->second : UNDEFINED;
         std::string nameID = UNDEFINED;
         std::string nameIDRegional = UNDEFINED;
         if (oc.getBool("output.street-names")) {
