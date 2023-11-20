@@ -538,7 +538,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
         // iterate over all generic datas
         for (const auto& genericDataTag : myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
             for (const auto& genericData : genericDataTag.second) {
-                if (genericData->isAttributeCarrierSelected()) {
+                if (genericData.second->isAttributeCarrierSelected()) {
                     return true;
                 }
             }

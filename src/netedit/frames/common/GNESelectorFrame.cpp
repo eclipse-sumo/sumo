@@ -959,18 +959,18 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
     // invert generic datas
     for (const auto& genericDataTag : ACs->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
-            if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
+            if (onlyCount && locks.isObjectLocked(genericData.second->getType(), false)) {
                 ignoreLocking = askContinueIfLock();
                 return true;
-            } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA, false) && genericData->getType() == GLO_EDGEDATA)) ||
-                       (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA, false) && genericData->getType() == GLO_EDGERELDATA)) ||
-                       (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA, false) && genericData->getType() == GLO_TAZRELDATA))) {
+            } else if ((ignoreLocking || (!locks.isObjectLocked(GLO_EDGEDATA, false) && genericData.second->getType() == GLO_EDGEDATA)) ||
+                       (ignoreLocking || (!locks.isObjectLocked(GLO_EDGERELDATA, false) && genericData.second->getType() == GLO_EDGERELDATA)) ||
+                       (ignoreLocking || (!locks.isObjectLocked(GLO_TAZRELDATA, false) && genericData.second->getType() == GLO_TAZRELDATA))) {
                 if (onlyCount) {
                     return true;
-                } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                } else if (onlyUnselect || genericData.second->isAttributeCarrierSelected()) {
+                    genericData.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 } else {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    genericData.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
         }

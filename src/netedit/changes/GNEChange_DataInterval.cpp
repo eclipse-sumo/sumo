@@ -45,7 +45,7 @@ GNEChange_DataInterval::~GNEChange_DataInterval() {
     myDataInterval->decRef("GNEChange_DataInterval");
     if (myDataInterval->unreferenced() &&
             myDataInterval->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSetParent->getID(), false) &&
-            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval, false)) {
+            myDataInterval->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataInterval->getGUIGlObject(), false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
                     myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +

@@ -752,7 +752,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     } else if (objectType == GLO_TAZRELDATA) {
         if (active == 4) {
             for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
-                const double value = genericData->getColorValue(s, active);
+                const double value = genericData.second->getColorValue(s, active);
                 if (value == s.MISSING_DATA) {
                     continue;
                 }
@@ -1256,7 +1256,7 @@ std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(GNE_TAG_EDGEREL_SINGLE)) {
-        for (const auto& parameter : genericData->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
@@ -1268,12 +1268,12 @@ std::vector<std::string>
 GNEViewNet::getRelDataAttrs() const {
     std::set<std::string> keys;
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_TAZREL)) {
-        for (const auto& parameter : genericData->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
     for (const auto& genericData : myNet->getAttributeCarriers()->getGenericDatas().at(SUMO_TAG_EDGEREL)) {
-        for (const auto& parameter : genericData->getACParametersMap()) {
+        for (const auto& parameter : genericData.second->getACParametersMap()) {
             keys.insert(parameter.first);
         }
     }
@@ -5201,14 +5201,14 @@ GNEViewNet::deleteDataAttributeCarriers(const std::vector<GNEAttributeCarrier*> 
             }
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
             // get data interval (note: could be already removed if is a child, then hardfail=false)
-            GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC, false);
+            GNEDataInterval* dataInterval = myNet->getAttributeCarriers()->retrieveDataInterval(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (dataInterval) {
                 myNet->deleteDataInterval(dataInterval, myUndoList);
             }
         } else {
             // get generic data (note: could be already removed if is a child, then hardfail=false)
-            GNEGenericData* genericData = myNet->getAttributeCarriers()->retrieveGenericData(AC, false);
+            GNEGenericData* genericData = myNet->getAttributeCarriers()->retrieveGenericData(AC->getGUIGlObject(), false);
             // if exist, remove it
             if (genericData) {
                 myNet->deleteGenericData(genericData, myUndoList);

@@ -307,8 +307,8 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         myClickedAdditional = attributeCarriers->retrieveAdditionalGL(clickedAC->getGUIGlObject(), false);
         myClickedDemandElement = attributeCarriers->retrieveDemandElementGL(clickedAC->getGUIGlObject(), false);
         myClickedDataSet = attributeCarriers->retrieveDataSet(clickedAC->getID(), false);
-        myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC, false);
-        myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC, false);
+        myClickedDataInterval = attributeCarriers->retrieveDataInterval(clickedAC->getGUIGlObject(), false);
+        myClickedGenericData = attributeCarriers->retrieveGenericData(clickedAC->getGUIGlObject(), false);
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreeListDynamic->getFXWindow());
         // set item name and icon

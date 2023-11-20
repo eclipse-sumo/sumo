@@ -1371,7 +1371,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
     // iterate over all demand elements and compute
     for (const auto& genericDataTag : myAttributeCarriers->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
-            genericData->computePathElement();
+            genericData.second->computePathElement();
         }
     }
     window->setStatusBarText(TL("Finished computing data elements."));
@@ -1991,7 +1991,7 @@ GNENet::clearDataElements(GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, TL("clear data elements"));
     // clear data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        deleteDataSet(dataSet, undoList);
+        deleteDataSet(dataSet.second, undoList);
     }
     undoList->end();
 }
@@ -2003,7 +2003,7 @@ GNENet::clearMeanDataElements(GNEUndoList* undoList) {
     // clear meanDatas
     for (const auto& meanDataMap : myAttributeCarriers->getMeanDatas()) {
         while (meanDataMap.second.size() > 0) {
-            deleteMeanData(*meanDataMap.second.begin(), undoList);
+            deleteMeanData(meanDataMap.second.begin()->second, undoList);
         }
     }
     undoList->end();
@@ -2162,12 +2162,12 @@ GNENet::getDataSetIntervalMinimumBegin() const {
     double minimumBegin = 0;
     // update with first minimum (if exist)
     if (myAttributeCarriers->getDataIntervals().size() > 0) {
-        minimumBegin = (*myAttributeCarriers->getDataIntervals().begin())->getAttributeDouble(SUMO_ATTR_BEGIN);
+        minimumBegin = myAttributeCarriers->getDataIntervals().begin()->second->getAttributeDouble(SUMO_ATTR_BEGIN);
     }
     // iterate over interval
     for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
-        if (interval->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
-            minimumBegin = interval->getAttributeDouble(SUMO_ATTR_BEGIN);
+        if (interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
+            minimumBegin = interval.second->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
     }
     return minimumBegin;
@@ -2179,12 +2179,12 @@ GNENet::getDataSetIntervalMaximumEnd() const {
     double maximumEnd = 0;
     // update with first maximum (if exist)
     if (myAttributeCarriers->getDataIntervals().size() > 0) {
-        maximumEnd = (*myAttributeCarriers->getDataIntervals().begin())->getAttributeDouble(SUMO_ATTR_END);
+        maximumEnd = myAttributeCarriers->getDataIntervals().begin()->second->getAttributeDouble(SUMO_ATTR_END);
     }
     // iterate over intervals
     for (const auto& interval : myAttributeCarriers->getDataIntervals()) {
-        if (interval->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
-            maximumEnd = interval->getAttributeDouble(SUMO_ATTR_END);
+        if (interval.second->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
+            maximumEnd = interval.second->getAttributeDouble(SUMO_ATTR_END);
         }
     }
     return maximumEnd;
@@ -2303,7 +2303,7 @@ GNENet::saveDataElementsConfirmed() {
     device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
-        dataSet->writeDataSet(device);
+        dataSet.second->writeDataSet(device);
     }
     // close device
     device.close();
@@ -2432,8 +2432,8 @@ void
 GNENet::writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const {
     std::map<std::string, GNEMeanData*> sortedMeanDatas;
     for (const auto& meanData : myAttributeCarriers->getMeanDatas().at(tag)) {
-        if (sortedMeanDatas.count(meanData->getID()) == 0) {
-            sortedMeanDatas[meanData->getID()] = meanData;
+        if (sortedMeanDatas.count(meanData.second->getID()) == 0) {
+            sortedMeanDatas[meanData.second->getID()] = meanData.second;
         } else {
             throw ProcessError(TL("Duplicated ID"));
         }
@@ -2681,8 +2681,8 @@ GNENet::enableUpdateData() {
     myUpdateDataEnabled = true;
     // update data elements
     for (const auto& dataInterval : myAttributeCarriers->getDataIntervals()) {
-        dataInterval->updateGenericDataIDs();
-        dataInterval->updateAttributeColors();
+        dataInterval.second->updateGenericDataIDs();
+        dataInterval.second->updateAttributeColors();
     }
 }
 

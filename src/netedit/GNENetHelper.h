@@ -526,7 +526,7 @@ struct GNENetHelper {
         GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
 
         /// @brief get demand elements
-        const std::set<GNEDataSet*>& getDataSets() const;
+        const std::map<const GUIGlObject*, GNEDataSet*>& getDataSets() const;
 
         /// @brief generate data set id
         std::string generateDataSetID(const std::string& prefix) const;
@@ -539,10 +539,10 @@ struct GNENetHelper {
          * @param[in] id The attribute carrier related with the dataInterval element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEDataInterval* retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEDataInterval* retrieveDataInterval(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
-        const std::set<GNEDataInterval*>& getDataIntervals() const;
+        const std::map<const GUIGlObject*, GNEDataInterval*>& getDataIntervals() const;
 
         /// @brief insert data interval
         void insertDataInterval(GNEDataInterval* dataInterval);
@@ -558,13 +558,13 @@ struct GNENetHelper {
          * @param[in] id The attribute carrier related with the genericData element
          * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
          */
-        GNEGenericData* retrieveGenericData(GNEAttributeCarrier* AC, bool hardFail = true) const;
+        GNEGenericData* retrieveGenericData(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @brief get selected generic datas
         std::vector<GNEGenericData*> getSelectedGenericDatas() const;
 
         /// @brief get all generic datas
-        const std::map<SumoXMLTag, std::set<GNEGenericData*> >& getGenericDatas() const;
+        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> >& getGenericDatas() const;
 
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
@@ -607,7 +607,7 @@ struct GNENetHelper {
         GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
         /// @brief get meanDatas
-        const std::map<SumoXMLTag, std::set<GNEMeanData*> >& getMeanDatas() const;
+        const std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEMeanData*> >& getMeanDatas() const;
 
         /// @brief get number of meanDatas
         int getNumberOfMeanDatas() const;
@@ -764,16 +764,16 @@ struct GNENetHelper {
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief set with the ID and pointer to all datasets of net
-        std::set<GNEDataSet*> myDataSets;
+        std::map<const GUIGlObject*, GNEDataSet*> myDataSets;
 
-        /// @brief set with all data intervals of network
-        std::set<GNEDataInterval*> myDataIntervals;
+        /// @brief map with all data intervals of network
+        std::map<const GUIGlObject*, GNEDataInterval*> myDataIntervals;
 
         /// @brief map with the tag and pointer to all generic datas
-        std::map<SumoXMLTag, std::set<GNEGenericData*> > myGenericDatas;
+        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEGenericData*> > myGenericDatas;
 
         /// @brief map with the tag and pointer to meanData elements of net
-        std::map<SumoXMLTag, std::set<GNEMeanData*> > myMeanDatas;
+        std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEMeanData*> > myMeanDatas;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

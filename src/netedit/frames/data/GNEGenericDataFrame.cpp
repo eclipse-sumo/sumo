@@ -102,10 +102,10 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* c
     // fill myDataSetsComboBox with all DataSets
     for (const auto& dataSet : myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDataSets()) {
         // check if we have to set currentItemIndex
-        if ((currentItemIndex == -1) && (dataSet == currentDataSet)) {
+        if ((currentItemIndex == -1) && (dataSet.second == currentDataSet)) {
             currentItemIndex = myDataSetsComboBox->getNumItems();
         }
-        myDataSetsComboBox->appendIconItem(dataSet->getID().c_str(), dataSet->getACIcon());
+        myDataSetsComboBox->appendIconItem(dataSet.second->getID().c_str(), dataSet.second->getACIcon());
     }
     // check if we have to set current element
     if (currentItemIndex != -1) {

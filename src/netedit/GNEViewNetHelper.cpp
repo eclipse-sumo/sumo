@@ -2321,7 +2321,7 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         }
         // update all datasets
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
-            dataSet->updateAttributeColors();
+            dataSet.second->updateAttributeColors();
         }
         // update cursors
         myViewNet->updateCursor();
@@ -3213,9 +3213,9 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
         // iterate over all data elements
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             // add data set ID
-            myDataSets.push_back(dataSet->getID());
+            myDataSets.push_back(dataSet.second->getID());
             // iterate over all intervals
-            for (const auto& interval : dataSet->getDataIntervalChildren()) {
+            for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
                 // set intervals
                 if ((begin == INVALID_DOUBLE) || (interval.first < begin)) {
                     begin = interval.first;
