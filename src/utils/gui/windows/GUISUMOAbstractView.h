@@ -492,6 +492,9 @@ protected:
     /// @brief returns the GUILane at cursor position (implementation depends on view)
     virtual GUILane* getLaneUnderCursor();
 
+    /// @brief returns the id of object under cursor to show their tooltip
+    virtual GUIGlID getToolTipID();
+
     /// @brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
 

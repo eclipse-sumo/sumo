@@ -306,8 +306,6 @@ GUISUMOAbstractView::paintGL() {
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
         centerTo(getTrackedID(), false);
     }
-    // get id tooltip
-    const GUIGlID idToolTip = getObjectUnderCursor();
     // draw
     glClearColor(
         myVisualizationSettings->backgroundColor.red() / 255.f,
@@ -337,7 +335,7 @@ GUISUMOAbstractView::paintGL() {
     }
     // check if show tooltip
     if (myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
-        showToolTipFor(idToolTip);
+        showToolTipFor(getToolTipID());
     } else {
         myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->hideStaticToolTip();
     }
@@ -378,6 +376,12 @@ GUISUMOAbstractView::onVisualizationChange(FXObject*, FXSelector, void*) {
 GUILane*
 GUISUMOAbstractView::getLaneUnderCursor() {
     return nullptr;
+}
+
+
+GUIGlID
+GUISUMOAbstractView::getToolTipID() {
+    return getObjectUnderCursor();
 }
 
 
