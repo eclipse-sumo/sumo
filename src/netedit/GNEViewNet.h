@@ -601,6 +601,9 @@ protected:
     /// @brief called after some features are already initialized
     void doInit();
 
+    /// @brief returns the id of object under cursor to show their tooltip
+    GUIGlID getToolTipID();
+
 private:
     /// @name structs related with modes and testing mode
     /// @{

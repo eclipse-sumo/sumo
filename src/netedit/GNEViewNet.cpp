@@ -327,6 +327,16 @@ void
 GNEViewNet::doInit() {}
 
 
+GUIGlID
+GNEViewNet::getToolTipID() {
+    if (myObjectsUnderCursor.getGUIGlObjectFront()) {
+        return myObjectsUnderCursor.getGUIGlObjectFront()->getGlID();
+    } else {
+        return 0;
+    }
+}
+
+
 void
 GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     // build coloring tools
@@ -497,7 +507,7 @@ GNEViewNet::getObjectsUnderCursor() const {
 
 void
 GNEViewNet::updateObjectsUnderCursor(const Position& pos) {
-    myObjectsUnderCursor.updateObjectUnderCursor(/*getGUIGlObjectsAtPosition(pos, 0.1)*/);
+    //myObjectsUnderCursor.updateObjectUnderCursor(/*getGUIGlObjectsAtPosition(pos, 0.1)*/);
 }
 
 
@@ -540,8 +550,6 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
     ungrab();
     // make network current
     if (isEnabled() && myAmInitialised) {
-        // get GLObjects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor();
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
             // set clicked popup position
@@ -1281,8 +1289,6 @@ GNEViewNet::getRelDataAttrs() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
-    // execute post drawing tasks
-    gPostDrawing.executePostDrawingTasks();
     // init view settings
     if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
         myVisualizationSettings->drawForPositionSelection = true;
@@ -1386,10 +1392,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
+    // clear post drawing elements
+    gPostDrawing.clearElements();
     // set current mouse position in gPostDrawing
     gPostDrawing.mousePos = getPositionInformation();
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
+    // fill objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
     // begin post drawing
     myPostDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
@@ -1437,6 +1447,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myNet->getGrid().updateBoundaries(gPostDrawing.recomputeBoundaries);
         }
     */
+    // execute post drawing tasks
+    gPostDrawing.executePostDrawingTasks();
     // end post drawing
     myPostDrawing = false;
     return hits2;
@@ -1449,8 +1461,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     setFocus();
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
-    // fill objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
     // process left button press function depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
         processLeftButtonPressNetwork(eventData);
@@ -1480,8 +1490,6 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
-    // fill objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
     // process left button release function depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
         processLeftButtonReleaseNetwork();
@@ -5915,8 +5923,6 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
                 myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
             }
         } else if (myMouseButtonKeyPressed.shiftKeyPressed()) {
-            // update objects under cursor again
-            myObjectsUnderCursor.updateObjectUnderCursor();
             // check if there is a lane in objects under cursor
             if (myObjectsUnderCursor.getLaneFront()) {
                 // if we clicked over an lane with shift key pressed, select or unselect it
