@@ -231,13 +231,14 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filter(const bool lanes) {
-    // enable flag
-    if (lanes) {
-        myFilter = 2;
-    } else {
-        myFilter = 1;
-    }
+GNEViewNetHelper::ObjectsUnderCursor::removeEdges() {
+    myObjects = myLaneObjects;
+}
+
+
+void
+GNEViewNetHelper::ObjectsUnderCursor::removeLanes() {
+    myObjects = myEdgeObjects;
 }
 
 
@@ -298,9 +299,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
 
 const GUIGlObject*
 GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.attributeCarriers.size() > 0) {
-        return container.GUIGlObjects.front();
+    if (myObjects.attributeCarriers.size() > 0) {
+        return myObjects.GUIGlObjects.front();
     } else {
         return nullptr;
     }
@@ -309,9 +309,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
 
 GNEAttributeCarrier*
 GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.attributeCarriers.size() > 0) {
-        return container.attributeCarriers.front();
+    if (myObjects.attributeCarriers.size() > 0) {
+        return myObjects.attributeCarriers.front();
     } else {
         return nullptr;
     }
@@ -320,9 +319,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 
 GNENetworkElement*
 GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.networkElements.size() > 0) {
-        return container.networkElements.front();
+    if (myObjects.networkElements.size() > 0) {
+        return myObjects.networkElements.front();
     } else {
         return nullptr;
     }
@@ -331,9 +329,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
 
 GNEAdditional*
 GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.additionals.size() > 0) {
-        return container.additionals.front();
+    if (myObjects.additionals.size() > 0) {
+        return myObjects.additionals.front();
     } else {
         return nullptr;
     }
@@ -342,9 +339,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
 
 GNEDemandElement*
 GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.demandElements.size() > 0) {
-        return container.demandElements.front();
+    if (myObjects.demandElements.size() > 0) {
+        return myObjects.demandElements.front();
     } else {
         return nullptr;
     }
@@ -353,9 +349,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
 
 GNEGenericData*
 GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.genericDatas.size() > 0) {
-        return container.genericDatas.front();
+    if (myObjects.genericDatas.size() > 0) {
+        return myObjects.genericDatas.front();
     } else {
         return nullptr;
     }
@@ -364,9 +359,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
 
 GNEJunction*
 GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.junctions.size() > 0) {
-        return container.junctions.front();
+    if (myObjects.junctions.size() > 0) {
+        return myObjects.junctions.front();
     } else {
         return nullptr;
     }
@@ -375,9 +369,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
 
 GNEEdge*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.edges.size() > 0) {
-        return container.edges.front();
+    if (myObjects.edges.size() > 0) {
+        return myObjects.edges.front();
     } else {
         return nullptr;
     }
@@ -386,9 +379,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
 
 GNELane*
 GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.lanes.size() > 0) {
-        return container.lanes.front();
+    if (myObjects.lanes.size() > 0) {
+        return myObjects.lanes.front();
     } else {
         return nullptr;
     }
@@ -397,9 +389,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
 
 GNELane*
 GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
-    const auto &container = getFilteredContainer();
-    if (container.lanes.size() > 0) {
-        for (auto& lane : container.lanes) {
+    if (myObjects.lanes.size() > 0) {
+        for (auto& lane : myObjects.lanes) {
             if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) ||
                     !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
                 return lane;
@@ -415,15 +406,14 @@ GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
 
 const std::vector<GNELane*>&
 GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
-    return getFilteredContainer().lanes;
+    return myObjects.lanes;
 }
 
 
 GNECrossing*
 GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.crossings.size() > 0) {
-        return container.crossings.front();
+    if (myObjects.crossings.size() > 0) {
+        return myObjects.crossings.front();
     } else {
         return nullptr;
     }
@@ -432,9 +422,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
 
 GNEWalkingArea*
 GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.walkingAreas.size() > 0) {
-        return container.walkingAreas.front();
+    if (myObjects.walkingAreas.size() > 0) {
+        return myObjects.walkingAreas.front();
     } else {
         return nullptr;
     }
@@ -443,9 +432,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
 
 GNEConnection*
 GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.connections.size() > 0) {
-        return container.connections.front();
+    if (myObjects.connections.size() > 0) {
+        return myObjects.connections.front();
     } else {
         return nullptr;
     }
@@ -454,9 +442,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
 
 GNEInternalLane*
 GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.internalLanes.size() > 0) {
-        return container.internalLanes.front();
+    if (myObjects.internalLanes.size() > 0) {
+        return myObjects.internalLanes.front();
     } else {
         return nullptr;
     }
@@ -465,9 +452,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
 
 GNEPOI*
 GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.POIs.size() > 0) {
-        return container.POIs.front();
+    if (myObjects.POIs.size() > 0) {
+        return myObjects.POIs.front();
     } else {
         return nullptr;
     }
@@ -476,9 +462,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
 
 GNEPoly*
 GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.polys.size() > 0) {
-        return container.polys.front();
+    if (myObjects.polys.size() > 0) {
+        return myObjects.polys.front();
     } else {
         return nullptr;
     }
@@ -487,9 +472,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
 
 GNETAZ*
 GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.TAZs.size() > 0) {
-        return container.TAZs.front();
+    if (myObjects.TAZs.size() > 0) {
+        return myObjects.TAZs.front();
     } else {
         return nullptr;
     }
@@ -498,9 +482,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
 
 GNEEdgeData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.edgeDatas.size() > 0) {
-        return container.edgeDatas.front();
+    if (myObjects.edgeDatas.size() > 0) {
+        return myObjects.edgeDatas.front();
     } else {
         return nullptr;
     }
@@ -509,9 +492,8 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
 
 GNEEdgeRelData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
-    const auto &container = getFilteredContainer();
-    if (container.edgeRelDatas.size() > 0) {
-        return container.edgeRelDatas.front();
+    if (myObjects.edgeRelDatas.size() > 0) {
+        return myObjects.edgeRelDatas.front();
     } else {
         return nullptr;
     }
@@ -519,25 +501,25 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
 
 const std::vector<GUIGlObject*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedGLObjects() const {
-    return getFilteredContainer().GUIGlObjects;
+    return myObjects.GUIGlObjects;
 }
 
 
 const std::vector<GNEAttributeCarrier*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
-    return getFilteredContainer().attributeCarriers;
+    return myObjects.attributeCarriers;
 }
 
 
 const std::vector<GNEJunction*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedJunctions() const {
-    return getFilteredContainer().junctions;
+    return myObjects.junctions;
 }
 
 
 const std::vector<GNEDemandElement*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedDemandElements() const {
-    return getFilteredContainer().demandElements;
+    return myObjects.demandElements;
 }
 
 
@@ -946,18 +928,6 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const std::vector<cons
     // filter lanes
     myLaneObjects = myObjects;
     myLaneObjects.removeEdges();
-}
-
-
-const GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer&
-GNEViewNetHelper::ObjectsUnderCursor::getFilteredContainer() const {
-    if (myFilter == 1) {
-        return myEdgeObjects;
-    } else if (myFilter == 2) {
-        return myLaneObjects;
-    } else {
-        return myObjects;
-    }
 }
 
 

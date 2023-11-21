@@ -226,8 +226,11 @@ struct GNEViewNetHelper {
         /// @brief update objects under cursor (using gPostDrawing)
         void updateObjectUnderCursor();
 
-        /// @brief swap lane to edge
-        void filter(const bool lanes);
+        /// @brief remove edges
+        void removeEdges();
+
+        /// @brief remove lanes
+        void removeLanes();
 
         /// @brief filter locked elements
         void filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes = {});
@@ -431,9 +434,6 @@ struct GNEViewNetHelper {
 
         /// @brief process GL objects
         void processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects);
-
-        /// @brief get container by filter
-        const ObjectsContainer &getFilteredContainer() const;
 
         /// @brief default constructor
         ObjectsUnderCursor();
