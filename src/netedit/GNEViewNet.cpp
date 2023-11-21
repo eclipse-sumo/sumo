@@ -5627,14 +5627,14 @@ void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // reset moving selected edge
     myMoveMultipleElementValues.resetMovingSelectedEdge();
-    // get front AC
-    auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.swapLane2Edge();
+                myObjectsUnderCursor.filter(false);
+            } else {
+                myObjectsUnderCursor.filter(true);
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements();
@@ -5652,21 +5652,21 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_DELETE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.swapLane2Edge();
-                // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront();
+                myObjectsUnderCursor.filter(false);
+            } else {
+                myObjectsUnderCursor.filter(true);
             }
-            // check that we have clicked over network element element
-            if (AC) {
-                // now filter locked elements forcing excluding walkingAreas
-                myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
+            // now filter locked elements forcing excluding walkingAreas
+            myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
+            // continue depending of AC
+            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
                     myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
-                } else if (AC->isAttributeCarrierSelected()) {
+                } else if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // remove all selected attribute carriers
-                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                    if (!myObjectsUnderCursor.getAttributeCarrierFront()->getGUIGlObject()->isGLObjectLocked()) {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     }
                 } else {
@@ -5682,7 +5682,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_SELECT:
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.swapLane2Edge();
+                myObjectsUnderCursor.filter(false);
+            } else {
+                myObjectsUnderCursor.filter(true);
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements();
@@ -5740,10 +5742,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 // swap lane to edge (except if we're editing a shape lane)
                 if (!(myObjectsUnderCursor.getLaneFront() && myObjectsUnderCursor.getLaneFront()->isShapeEdited())) {
-                    myObjectsUnderCursor.swapLane2Edge();
+                    myObjectsUnderCursor.filter(false);
                 }
-                // update AC under cursor
-                AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
@@ -5761,9 +5761,12 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // now filter locked elements forcing excluding walkingAreas
                 myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
                 // allways swap lane to edges in movement mode
-                myObjectsUnderCursor.swapLane2Edge();
+                myObjectsUnderCursor.filter(false);
+                // update AC under cursor
+                auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
                 // check that AC under cursor isn't a demand element
-                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) && !AC->getTagProperty().isDemandElement()) {
+                if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
+                    !AC->getTagProperty().isDemandElement()) {
                     // check if we're moving a set of selected items
                     if (AC->isAttributeCarrierSelected()) {
                         // move selected ACs
@@ -5819,8 +5822,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CROSSING: {
-            // swap lanes to edges in crossingsMode
-            myObjectsUnderCursor.swapLane2Edge();
             // call function addCrossing from crossing frame
             myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
             // process click
@@ -5828,8 +5829,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_TAZ: {
-            // swap lanes to edges in TAZ Mode
-            myObjectsUnderCursor.swapLane2Edge();
             // avoid create TAZs if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if we want to create a rect for selecting edges
