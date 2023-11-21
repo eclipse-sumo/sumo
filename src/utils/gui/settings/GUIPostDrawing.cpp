@@ -27,13 +27,9 @@ GUIPostDrawing::GUIPostDrawing() {}
 
 
 void
-GUIPostDrawing::executePostDrawingTasks() {
+GUIPostDrawing::clearElements() {
     // reset recompute boundaries
     recomputeBoundaries = GLO_NETWORK;
-    // udate AC geometries
-    for (const auto& GLObject : myGLObjectsToUpdate) {
-        GLObject->updateGLObject();
-    }
     myGLObjectsToUpdate.clear();
     // reset mouse Pos
     mousePos = Position::INVALID;
@@ -49,6 +45,15 @@ GUIPostDrawing::executePostDrawingTasks() {
     markedRoute = nullptr;
     markedFirstGeometryPoint = nullptr;
     markedSecondGeometryPoint = nullptr;
+}
+
+
+void
+GUIPostDrawing::executePostDrawingTasks() {
+    // udate AC geometries
+    for (const auto& GLObject : myGLObjectsToUpdate) {
+        GLObject->updateGLObject();
+    }
 }
 
 

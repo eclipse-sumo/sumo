@@ -42,6 +42,9 @@ public:
     /// @brief constructor
     GUIPostDrawing();
 
+    /// @brief clear elements
+    void clearElements();
+
     /// @brief execute post drawing tasks
     void executePostDrawingTasks();
 
