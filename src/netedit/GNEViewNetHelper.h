@@ -405,14 +405,8 @@ struct GNEViewNetHelper {
         bool mySwapLane2edge;
 
     private:
-        /// @brief filter duplicated objects
-        std::vector<const GUIGlObject*> filterDuplicatedObjects() const;
-
-        /// @brief sort by altitude and update GUIGlObjects
-        void sortGUIGlObjects(const std::vector<const GUIGlObject*>& GUIGlObjects);
-
         /// @brief update network elements
-        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject);
+        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject, const bool edges);
 
         /// @brief update additional elements
         void updateAdditionalElements(ObjectsContainer& container, const GUIGlObject* glObject);

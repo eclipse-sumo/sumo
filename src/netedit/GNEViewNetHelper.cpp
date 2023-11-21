@@ -227,8 +227,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
-    // sort GUIGLObjects
-    sortGUIGlObjects(filterDuplicatedObjects());
     // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
     processGUIGlObjects();
 }
@@ -740,59 +738,8 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 }
 
 
-std::vector<const GUIGlObject*>
-GNEViewNetHelper::ObjectsUnderCursor::filterDuplicatedObjects() const {
-    // declare vector for filter objects
-    std::vector<const GUIGlObject*> filteredGUIGlObjects;
-    // iterate over GUIGlObjects
-    for (const auto& GLObject : gPostDrawing.getElementsUnderCursor()) {
-        // find GLObject in filteredGUIGlObjects
-        const auto it = std::find(filteredGUIGlObjects.begin(), filteredGUIGlObjects.end(), GLObject);
-        if (it == filteredGUIGlObjects.end()) {
-            filteredGUIGlObjects.push_back(GLObject);
-        }
-    }
-    return filteredGUIGlObjects;
-}
-
-
 void
-GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<const GUIGlObject*>& GUIGlObjects) {
-    // clear containers
-    filteredEdgeGLObjects.clear();
-    filteredLaneGLObjects.clear();
-    // declare a map to save GUIGlObjects sorted by GLO_TYPE
-    std::map<double, std::vector<const GUIGlObject*> > mySortedGUIGlObjects;
-    // iterate over set
-    for (const auto& GLObject : GUIGlObjects) {
-        // try to parse shape
-        auto shape = dynamic_cast<const Shape*>(GLObject);
-        if (shape) {
-            mySortedGUIGlObjects[shape->getShapeLayer()].push_back(GLObject);
-        } else {
-            mySortedGUIGlObjects[GLObject->getType()].push_back(GLObject);
-        }
-    }
-    // move sorted GUIGlObjects into myGUIGlObjectLanes using a reverse iterator
-    for (std::map<double, std::vector<const GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
-        for (const auto& GlObject : i->second) {
-            // avoid GLO_NETWORKELEMENT
-            if (GlObject->getType() != GLO_NETWORKELEMENT) {
-                // add it in GUIGlObject splitting by edge/lanes
-                if (GlObject->getType() == GLO_LANE) {
-                    filteredLaneGLObjects.push_back(GlObject);
-                } else {
-                    filteredEdgeGLObjects.push_back(GlObject);
-                    filteredLaneGLObjects.push_back(GlObject);
-                }
-            }
-        }
-    }
-}
-
-
-void
-GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject) {
+GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject, const bool edges) {
     // get front AC
     const auto frontGLObject = myViewNet->getFrontGLObject();
     // cast specific network element
@@ -819,39 +766,44 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
         case GLO_EDGE: {
             // get edge
             auto edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(glObject);
-            // check front element
-            if (glObject == frontGLObject) {
-                // insert at front
-                container.edges.insert(container.edges.begin(), edge);
-                container.networkElements.insert(container.networkElements.begin(), edge);
-                container.attributeCarriers.insert(container.attributeCarriers.begin(), edge);
-                container.GUIGlObjects.insert(container.GUIGlObjects.begin(), edge);
-            } else {
-                // insert at back
-                container.edges.push_back(edge);
-                container.networkElements.push_back(edge);
-                container.attributeCarriers.push_back(edge);
-                container.GUIGlObjects.push_back(edge);
+            // check if we're keeping edges or lanes
+            if (edges && (std::find(container.edges.begin(), container.edges.end(), edge) == container.edges.end())) {
+                // check front element
+                if (glObject == frontGLObject) {
+                    // insert at front
+                    container.edges.insert(container.edges.begin(), edge);
+                    container.networkElements.insert(container.networkElements.begin(), edge);
+                    container.attributeCarriers.insert(container.attributeCarriers.begin(), edge);
+                    container.GUIGlObjects.insert(container.GUIGlObjects.begin(), edge);
+                } else {
+                    // insert at back
+                    container.edges.push_back(edge);
+                    container.networkElements.push_back(edge);
+                    container.attributeCarriers.push_back(edge);
+                    container.GUIGlObjects.push_back(edge);
+                }
             }
             break;
         }
         case GLO_LANE: {
             // get lane
             auto lane = myViewNet->getNet()->getAttributeCarriers()->retrieveLane(glObject);
-            // check front element
-            if (glObject == frontGLObject) {
-                // insert at front
-                container.lanes.insert(container.lanes.begin(), lane);
-                container.networkElements.insert(container.networkElements.begin(), lane);
-                container.attributeCarriers.insert(container.attributeCarriers.begin(), lane);
-                container.GUIGlObjects.insert(container.GUIGlObjects.begin(), lane);
-            } else {
-                // insert at back
-                container.lanes.push_back(lane);
-                container.networkElements.push_back(lane);
-                container.attributeCarriers.push_back(lane);
-                container.GUIGlObjects.push_back(lane);
-
+            // check if we're keeping edges or lanes
+            if (!edges && (std::find(container.lanes.begin(), container.lanes.end(), lane) == container.lanes.end())) {
+                // check front element
+                if (glObject == frontGLObject) {
+                    // insert at front
+                    container.lanes.insert(container.lanes.begin(), lane);
+                    container.networkElements.insert(container.networkElements.begin(), lane);
+                    container.attributeCarriers.insert(container.attributeCarriers.begin(), lane);
+                    container.GUIGlObjects.insert(container.GUIGlObjects.begin(), lane);
+                } else {
+                    // insert at back
+                    container.lanes.push_back(lane);
+                    container.networkElements.push_back(lane);
+                    container.attributeCarriers.push_back(lane);
+                    container.GUIGlObjects.push_back(lane);
+                }
             }
         /*
             // special case for lanes
@@ -1100,9 +1052,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 void
 GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects() {
     // iterate over filtered edge objects
-    for (const auto& glObject : filteredEdgeGLObjects) {
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         // update all elements by categories
-        updateNetworkElements(myEdgeObjects, glObject);
+        updateNetworkElements(myEdgeObjects, glObject, true);
         updateAdditionalElements(myEdgeObjects, glObject);
         updateShapeElements(myEdgeObjects, glObject);
         updateTAZElements(myEdgeObjects, glObject);
@@ -1110,9 +1062,9 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects() {
         updateGenericDataElements(myEdgeObjects, glObject);
     }
     // iterate over filtered lane objects
-    for (const auto& glObject : filteredLaneGLObjects) {
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         // update all elements by categories
-        updateNetworkElements(myLaneObjects, glObject);
+        updateNetworkElements(myLaneObjects, glObject, false);
         updateAdditionalElements(myLaneObjects, glObject);
         updateShapeElements(myLaneObjects, glObject);
         updateTAZElements(myLaneObjects, glObject);
