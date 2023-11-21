@@ -324,6 +324,12 @@ struct GNEViewNetHelper {
             /// @brief clear elements
             void clearElements();
 
+            /// @brief remove edges
+            void removeEdges();
+
+            /// @brief remove lanes
+            void removeLanes();
+
             /// @brief vector with the clicked GUIGlObjects
             std::vector<GUIGlObject*> GUIGlObjects;
 
@@ -381,9 +387,6 @@ struct GNEViewNetHelper {
         private:
             /// @brief Invalidated copy constructor.
             ObjectsContainer(const ObjectsContainer&) = delete;
-
-            /// @brief Invalidated assignment operator.
-            ObjectsContainer& operator=(const ObjectsContainer&) = delete;
         };
 
         /// @brief pointer to viewNet
@@ -396,6 +399,9 @@ struct GNEViewNetHelper {
         std::vector<const GUIGlObject*> filteredLaneGLObjects;
 
         /// @brief objectContainer for objects selecting edges
+        ObjectsContainer myObjects;
+
+        /// @brief objectContainer for objects selecting edges
         ObjectsContainer myEdgeObjects;
 
         /// @brief objectContainer for objects selecting lanes
@@ -406,7 +412,7 @@ struct GNEViewNetHelper {
 
     private:
         /// @brief update network elements
-        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject, const bool edges);
+        void updateNetworkElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief update additional elements
         void updateAdditionalElements(ObjectsContainer& container, const GUIGlObject* glObject);
