@@ -195,6 +195,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, const NBNodeCont
 
 void
 NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont& ec, const std::map<const NBEdge*, std::string>& internalNodes) {
+    const int majorVersion = StringUtils::toInt(StringTokenizer(oc.getString("dlr-navteq.version"), ".").next());
     std::map<const std::string, std::string> nameIDs;
     OutputDevice& device = OutputDevice::getDevice(oc.getString("dlr-navteq-output") + "_links_unsplitted.txt");
     writeHeader(device, oc);
@@ -203,7 +204,7 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont
            << "FUNCTIONAL_ROAD_CLASS\tSPEED_CATEGORY\tNUMBER_OF_LANES\tSPEED_LIMIT\tSPEED_RESTRICTION\t"
            << "NAME_ID1_REGIONAL\tNAME_ID2_LOCAL\tHOUSENUMBERS_RIGHT\tHOUSENUMBERS_LEFT\tZIP_CODE\t"
            << "AREA_ID\tSUBAREA_ID\tTHROUGH_TRAFFIC\tSPECIAL_RESTRICTIONS\tEXTENDED_NUMBER_OF_LANES\tISRAMP\tCONNECTION";
-    if (oc.getString("dlr-navteq.version") != "6.5") {
+    if (majorVersion > 6) {
         device << "\tMAXHEIGHT\tMAXWIDTH\tMAXWEIGHT\tSURFACE";
     }
     device << "\n";
@@ -257,12 +258,12 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, const NBEdgeCont
                << UNDEFINED << "\t" // special_restrictions
                << UNDEFINED << "\t" // extended_number_of_lanes
                << UNDEFINED << "\t" // isRamp
-               << "0" << "\t"; // connection (between nodes always in order)
-        if (oc.getString("dlr-navteq.version") != "6.5") {
-            device << e->getParameter("maxheight", UNDEFINED) << "\t"
-                   << e->getParameter("maxwidth", UNDEFINED) << "\t"
-                   << e->getParameter("maxweight", UNDEFINED) << "\t"
-                   << e->getParameter("surface", UNDEFINED);
+               << "0"; // connection (between nodes always in order)
+        if (majorVersion > 6) {
+            device << "\t" << e->getParameter("maxheight", UNDEFINED)
+                   << "\t" << e->getParameter("maxwidth", UNDEFINED)
+                   << "\t" << e->getParameter("maxweight", UNDEFINED)
+                   << "\t" << e->getParameter("surface", UNDEFINED);
         }
         device << "\n";
     }
