@@ -227,7 +227,7 @@ struct GNEViewNetHelper {
         void updateObjectUnderCursor();
 
         /// @brief swap lane to edge
-        void swapLane2Edge();
+        void filter(const bool lanes);
 
         /// @brief filter locked elements
         void filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes = {});
@@ -407,8 +407,8 @@ struct GNEViewNetHelper {
         /// @brief objectContainer for objects selecting lanes
         ObjectsContainer myLaneObjects;
 
-        /// @brief flag to enable/disable swap lane to edge
-        bool mySwapLane2edge;
+        /// @brief flag to enable/disable filters: 0=nothing, 1=edges 2=lane
+        int myFilter = 0;
 
     private:
         /// @brief update network elements
@@ -431,6 +431,9 @@ struct GNEViewNetHelper {
 
         /// @brief process GL objects
         void processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects);
+
+        /// @brief get container by filter
+        const ObjectsContainer &getFilteredContainer() const;
 
         /// @brief default constructor
         ObjectsUnderCursor();

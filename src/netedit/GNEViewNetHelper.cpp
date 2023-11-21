@@ -215,15 +215,14 @@ GNEViewNetHelper::LockManager::OperationLocked::getSupermode() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    mySwapLane2edge(false) {
+    myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
-    // reset flag
-    mySwapLane2edge = false;
+    // reset filter
+    myFilter = 0;
     // clear elements
     myObjects.clearElements();
     // process GUIGLObjects using elements under cursor
@@ -232,9 +231,13 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
+GNEViewNetHelper::ObjectsUnderCursor::filter(const bool lanes) {
     // enable flag
-    mySwapLane2edge = true;
+    if (lanes) {
+        myFilter = 2;
+    } else {
+        myFilter = 1;
+    }
 }
 
 
@@ -295,406 +298,246 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
 
 const GUIGlObject*
 GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.attributeCarriers.size() > 0) {
-            return myEdgeObjects.GUIGlObjects.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.attributeCarriers.size() > 0) {
+        return container.GUIGlObjects.front();
     } else {
-        if (myLaneObjects.attributeCarriers.size() > 0) {
-            return myLaneObjects.GUIGlObjects.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEAttributeCarrier*
 GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.attributeCarriers.size() > 0) {
-            return myEdgeObjects.attributeCarriers.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.attributeCarriers.size() > 0) {
+        return container.attributeCarriers.front();
     } else {
-        if (myLaneObjects.attributeCarriers.size() > 0) {
-            return myLaneObjects.attributeCarriers.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNENetworkElement*
 GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.networkElements.size() > 0) {
-            return myEdgeObjects.networkElements.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.networkElements.size() > 0) {
+        return container.networkElements.front();
     } else {
-        if (myLaneObjects.networkElements.size() > 0) {
-            return myLaneObjects.networkElements.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEAdditional*
 GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.additionals.size() > 0) {
-            return myEdgeObjects.additionals.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.additionals.size() > 0) {
+        return container.additionals.front();
     } else {
-        if (myLaneObjects.additionals.size() > 0) {
-            return myLaneObjects.additionals.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEDemandElement*
 GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.demandElements.size() > 0) {
-            return myEdgeObjects.demandElements.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.demandElements.size() > 0) {
+        return container.demandElements.front();
     } else {
-        if (myLaneObjects.demandElements.size() > 0) {
-            return myLaneObjects.demandElements.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEGenericData*
 GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.genericDatas.size() > 0) {
-            return myEdgeObjects.genericDatas.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.genericDatas.size() > 0) {
+        return container.genericDatas.front();
     } else {
-        if (myLaneObjects.genericDatas.size() > 0) {
-            return myLaneObjects.genericDatas.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEJunction*
 GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.junctions.size() > 0) {
-            return myEdgeObjects.junctions.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.junctions.size() > 0) {
+        return container.junctions.front();
     } else {
-        if (myLaneObjects.junctions.size() > 0) {
-            return myLaneObjects.junctions.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEEdge*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.edges.size() > 0) {
-            return myEdgeObjects.edges.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.edges.size() > 0) {
+        return container.edges.front();
     } else {
-        if (myLaneObjects.edges.size() > 0) {
-            return myLaneObjects.edges.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNELane*
 GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.lanes.size() > 0) {
-            return myEdgeObjects.lanes.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.lanes.size() > 0) {
+        return container.lanes.front();
     } else {
-        if (myLaneObjects.lanes.size() > 0) {
-            return myLaneObjects.lanes.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNELane*
 GNEViewNetHelper::ObjectsUnderCursor::getLaneFrontNonLocked() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.lanes.size() > 0) {
-            for (auto& lane : myEdgeObjects.lanes) {
-                if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) ||
-                        !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
-                    return lane;
-                }
+    const auto &container = getFilteredContainer();
+    if (container.lanes.size() > 0) {
+        for (auto& lane : container.lanes) {
+            if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) ||
+                    !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
+                return lane;
             }
-            // all locked, then return nullptr
-            return nullptr;
-        } else {
-            return nullptr;
         }
+        // all locked, then return nullptr
+        return nullptr;
     } else {
-        if (myLaneObjects.lanes.size() > 0) {
-            for (auto& lane : myLaneObjects.lanes) {
-                if (!(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected()) ||
-                        !myViewNet->getViewParent()->getGNEAppWindows()->getLockMenuCommands().menuCheckLockSelectedElements->getCheck()) {
-                    return lane;
-                }
-            }
-            // all locked, then return nullptr
-            return nullptr;
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 const std::vector<GNELane*>&
 GNEViewNetHelper::ObjectsUnderCursor::getLanes() const {
-    if (mySwapLane2edge) {
-        return myEdgeObjects.lanes;
-    } else {
-        return myLaneObjects.lanes;
-    }
+    return getFilteredContainer().lanes;
 }
 
 
 GNECrossing*
 GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.crossings.size() > 0) {
-            return myEdgeObjects.crossings.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.crossings.size() > 0) {
+        return container.crossings.front();
     } else {
-        if (myLaneObjects.crossings.size() > 0) {
-            return myLaneObjects.crossings.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEWalkingArea*
 GNEViewNetHelper::ObjectsUnderCursor::getWalkingAreaFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.walkingAreas.size() > 0) {
-            return myEdgeObjects.walkingAreas.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.walkingAreas.size() > 0) {
+        return container.walkingAreas.front();
     } else {
-        if (myLaneObjects.walkingAreas.size() > 0) {
-            return myLaneObjects.walkingAreas.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEConnection*
 GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.connections.size() > 0) {
-            return myEdgeObjects.connections.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.connections.size() > 0) {
+        return container.connections.front();
     } else {
-        if (myLaneObjects.connections.size() > 0) {
-            return myLaneObjects.connections.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEInternalLane*
 GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.internalLanes.size() > 0) {
-            return myEdgeObjects.internalLanes.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.internalLanes.size() > 0) {
+        return container.internalLanes.front();
     } else {
-        if (myLaneObjects.internalLanes.size() > 0) {
-            return myLaneObjects.internalLanes.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEPOI*
 GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.POIs.size() > 0) {
-            return myEdgeObjects.POIs.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.POIs.size() > 0) {
+        return container.POIs.front();
     } else {
-        if (myLaneObjects.POIs.size() > 0) {
-            return myLaneObjects.POIs.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEPoly*
 GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.polys.size() > 0) {
-            return myEdgeObjects.polys.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.polys.size() > 0) {
+        return container.polys.front();
     } else {
-        if (myLaneObjects.polys.size() > 0) {
-            return myLaneObjects.polys.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNETAZ*
 GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.TAZs.size() > 0) {
-            return myEdgeObjects.TAZs.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.TAZs.size() > 0) {
+        return container.TAZs.front();
     } else {
-        if (myLaneObjects.TAZs.size() > 0) {
-            return myLaneObjects.TAZs.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEEdgeData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.edgeDatas.size() > 0) {
-            return myEdgeObjects.edgeDatas.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.edgeDatas.size() > 0) {
+        return container.edgeDatas.front();
     } else {
-        if (myLaneObjects.edgeDatas.size() > 0) {
-            return myLaneObjects.edgeDatas.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 
 GNEEdgeRelData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.edgeRelDatas.size() > 0) {
-            return myEdgeObjects.edgeRelDatas.front();
-        } else {
-            return nullptr;
-        }
+    const auto &container = getFilteredContainer();
+    if (container.edgeRelDatas.size() > 0) {
+        return container.edgeRelDatas.front();
     } else {
-        if (myLaneObjects.edgeRelDatas.size() > 0) {
-            return myLaneObjects.edgeRelDatas.front();
-        } else {
-            return nullptr;
-        }
+        return nullptr;
     }
 }
 
 const std::vector<GUIGlObject*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedGLObjects() const {
-    if (mySwapLane2edge) {
-        return myEdgeObjects.GUIGlObjects;
-    } else {
-        return myLaneObjects.GUIGlObjects;
-    }
+    return getFilteredContainer().GUIGlObjects;
 }
 
 
 const std::vector<GNEAttributeCarrier*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
-    if (mySwapLane2edge) {
-        return myEdgeObjects.attributeCarriers;
-    } else {
-        return myLaneObjects.attributeCarriers;
-    }
+    return getFilteredContainer().attributeCarriers;
 }
 
 
 const std::vector<GNEJunction*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedJunctions() const {
-    if (mySwapLane2edge) {
-        return myEdgeObjects.junctions;
-    } else {
-        return myLaneObjects.junctions;
-    }
+    return getFilteredContainer().junctions;
 }
 
 
 const std::vector<GNEDemandElement*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedDemandElements() const {
-    if (mySwapLane2edge) {
-        return myEdgeObjects.demandElements;
-    } else {
-        return myLaneObjects.demandElements;
-    }
+    return getFilteredContainer().demandElements;
 }
 
 
@@ -1106,9 +949,20 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const std::vector<cons
 }
 
 
+const GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer&
+GNEViewNetHelper::ObjectsUnderCursor::getFilteredContainer() const {
+    if (myFilter == 1) {
+        return myEdgeObjects;
+    } else if (myFilter == 2) {
+        return myLaneObjects;
+    } else {
+        return myObjects;
+    }
+}
+
+
 GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
-    myViewNet(nullptr),
-    mySwapLane2edge(false) {
+    myViewNet(nullptr) {
 }
 
 // ---------------------------------------------------------------------------
