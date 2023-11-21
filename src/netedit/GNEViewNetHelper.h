@@ -230,7 +230,7 @@ struct GNEViewNetHelper {
         void swapLane2Edge();
 
         /// @brief filter locked elements
-        void filterLockedElements(const GNEViewNetHelper::LockManager& lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
+        void filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes = {});
 
         /// @brief short data elements by begin
         void shortDataElements();
@@ -424,7 +424,7 @@ struct GNEViewNetHelper {
         void updateGenericDataElements(ObjectsContainer& container, const GUIGlObject* glObject);
 
         /// @brief process GL objects
-        void processGUIGlObjects();
+        void processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects);
 
         /// @brief default constructor
         ObjectsUnderCursor();

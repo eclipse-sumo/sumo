@@ -5637,7 +5637,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // check if we're selecting a new parent for the current inspected element
             if (myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->isSelectingParent()) {
                 myViewParent->getInspectorFrame()->getNeteditAttributesEditor()->setNewParent(myObjectsUnderCursor.getAttributeCarrierFront());
@@ -5659,7 +5659,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // check that we have clicked over network element element
             if (AC) {
                 // now filter locked elements forcing excluding walkingAreas
-                myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
+                myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
@@ -5685,7 +5685,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // now filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -5759,7 +5759,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 }
             } else {
                 // now filter locked elements forcing excluding walkingAreas
-                myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
+                myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
                 // allways swap lane to edges in movement mode
                 myObjectsUnderCursor.swapLane2Edge();
                 // check that AC under cursor isn't a demand element
@@ -5972,7 +5972,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
@@ -5998,7 +5998,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_SELECT:
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -6140,7 +6140,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
     switch (myEditModes.dataEditMode) {
         case DataEditMode::DATA_INSPECT: {
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // process left click in Inspector Frame
             if (AC && AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
                 myViewParent->getInspectorFrame()->inspectSingleElement(AC);
@@ -6170,7 +6170,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         }
         case DataEditMode::DATA_SELECT:
             // filter locked elements
-            myObjectsUnderCursor.filterLockedElements(myLockManager);
+            myObjectsUnderCursor.filterLockedElements();
             // avoid to select if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created

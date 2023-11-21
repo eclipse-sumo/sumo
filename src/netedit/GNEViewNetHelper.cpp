@@ -227,8 +227,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
-    // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
-    processGUIGlObjects();
+    // process GUIGLObjects using elements under cursor
+    processGUIGlObjects(gPostDrawing.getElementsUnderCursor());
 }
 
 
@@ -240,30 +240,19 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelper::LockManager& lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped) {
-    // make a copy of edge and lane Attribute carriers
-    auto edgeACs = myEdgeObjects.attributeCarriers;
-    auto laneACs = myLaneObjects.attributeCarriers;
+GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes) {
+    std::vector<const GUIGlObject*> filteredObjects;
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
     // filter GUIGLObjects
-    for (const auto& edgeAC : edgeACs) {
-        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), edgeAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
-            continue;
-        } else if (!lockManager.isObjectLocked(edgeAC->getGUIGlObject()->getType(), edgeAC->isAttributeCarrierSelected())) {
-            myEdgeObjects.GUIGlObjects.push_back(edgeAC->getGUIGlObject());
-        }
-    }
-    for (const auto& laneAC : laneACs) {
-        if (std::find(forcedIgnoredTiped.begin(), forcedIgnoredTiped.end(), laneAC->getGUIGlObject()->getType()) != forcedIgnoredTiped.end()) {
-            continue;
-        } else if (!lockManager.isObjectLocked(laneAC->getGUIGlObject()->getType(), laneAC->isAttributeCarrierSelected())) {
-            myLaneObjects.GUIGlObjects.push_back(laneAC->getGUIGlObject());
+    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+        if (!glObject->isGLObjectLocked() && (std::find(forcedTypes.begin(), forcedTypes.end(), glObject->getType()) == forcedTypes.end())) {
+            filteredObjects.push_back(glObject);
         }
     }
     // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
-    processGUIGlObjects();
+    processGUIGlObjects(filteredObjects);
 }
 
 
@@ -1050,9 +1039,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects() {
+GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const std::vector<const GUIGlObject*>& glObjects) {
     // iterate over filtered edge objects
-    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObject : glObjects) {
         // update all elements by categories
         updateNetworkElements(myEdgeObjects, glObject, true);
         updateAdditionalElements(myEdgeObjects, glObject);
@@ -1062,7 +1051,7 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects() {
         updateGenericDataElements(myEdgeObjects, glObject);
     }
     // iterate over filtered lane objects
-    for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
+    for (const auto& glObject : glObjects) {
         // update all elements by categories
         updateNetworkElements(myLaneObjects, glObject, false);
         updateAdditionalElements(myLaneObjects, glObject);
