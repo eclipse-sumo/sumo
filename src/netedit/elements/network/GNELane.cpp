@@ -684,13 +684,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         drawLinkNo(s);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
-                                            s.dottedContourSettings.segmentWidth);
         // draw children
         drawChildren(s);
         // draw path additional elements
         myNet->getPathManager()->drawLanePathElements(s, this);
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
+                                            s.dottedContourSettings.segmentWidth);
     }
 }
 
