@@ -460,32 +460,6 @@ GUIGlObject::positionWithinGeometry(const Position &pos, const PositionVector sh
 }
 
 
-bool
-GUIGlObject::positionWithinGeometry(const Position &pos, const Position& center, const double width, const double height,
-                                 const double offsetX, const double offsetY, const double rot) const {
-    // create shape
-    PositionVector shape;
-    // make rectangle
-    shape.push_back(Position(0 + width, 0 + height));
-    shape.push_back(Position(0 + width, 0 - height));
-    shape.push_back(Position(0 - width, 0 - height));
-    shape.push_back(Position(0 - width, 0 + height));
-    // move shape
-    shape.add(offsetX, offsetY, 0);
-    // rotate shape
-    shape.rotate2D(DEG2RAD((rot * -1) + 90));
-    // move to center
-    shape.add(center);
-    // check if mouse is within new geometry
-    if (shape.around(pos)) {
-        gPostDrawing.addElementUnderCursor(this);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GUIGlObject::createFullName() const {
     return TypeNames.getString(myGLObjectType) + ":" + getMicrosimID();
