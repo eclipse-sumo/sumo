@@ -104,31 +104,31 @@ private:
     /// @brief width, height, rot, scale
     std::vector<double>* myCachedDoubles;
 
-    /// @brief draw dotted contour shape
-    void buildAndDrawDottedContourClosed(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type,
-                                         const PositionVector& shape, const double scale, const bool addOffset, const double lineWidth) const;
+    /// @brief build dotted contour shape
+    void buildDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector& shape, const double scale) const;
 
     /// @brief build and draw dotted contour extruded
-    void buildAndDrawDottedContourExtruded(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                           const PositionVector& shape, const double extrusionWidth, const double scale,
-                                           const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+    void buildDottedContourExtruded(const GUIVisualizationSettings& s, const PositionVector& shape, const double extrusionWidth, const double scale,
+                                    const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
-    /// @brief draw dotted contour rectangle
-    void buildAndDrawDottedContourRectangle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                            const Position& pos, const double width, const double height, const double offsetX,
-                                            const double offsetY, const double rot, const double scale, const double lineWidth) const;
+    /// @brief build dotted contour rectangle
+    void buildDottedContourRectangle(const GUIVisualizationSettings& s, const Position& pos, const double width, const double height, const double offsetX,
+                                     const double offsetY, const double rot, const double scale) const;
 
-    /// @brief draw dotted contour circle
-    void buildAndDrawDottedContourCircle(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                         const Position& pos, double radius, const double scale, const double lineWidth) const;
+    /// @brief build dotted contour circle
+    void buildDottedContourCircle(const GUIVisualizationSettings& s, const Position& pos, double radius, const double scale) const;
 
-    /// @brief draw dotted contour edge
-    void buildAndDrawDottedContourEdge(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                       const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem, const double lineWidth) const;
+    /// @brief build dotted contour edge
+    void buildDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFirstExtrem, const bool drawLastExtrem) const;
 
-    /// @brief draw dotted contour edges
-    void buildAndDrawDottedContourEdges(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
-                                        const GNEEdge* fromEdge, const GNEEdge* toEdge, const double lineWidth) const;
+    /// @brief build dotted contour edges
+    void buildDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge) const;
+
+    /// @brief draw dotted contours
+    void drawDottedContours(const GUIVisualizationSettings& s, const double scale, const bool addOffset, const double lineWidth) const;
+
+    /// @brief draw dotted contour
+    void drawDottedContour(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, const bool addOffset, const double lineWidth) const;
 
     /// @brief invalidate default constructor
     GNEContour() = delete;
