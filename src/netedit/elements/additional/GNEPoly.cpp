@@ -370,12 +370,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // check if mouse is over element
-        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-            mouseWithinGeometry(myPolygonGeometry.getShape());
-        } else {
-            mouseWithinGeometry(myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
-        }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), polyExaggeration);
         // pop layer matrix

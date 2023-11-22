@@ -483,9 +483,6 @@ private:
     /// @brief draw edge shape (only one line)
     void drawEdgeShape(const GUIVisualizationSettings& s) const;
 
-    /// @brief set geometry point color
-    void setGeometryPointColor(const Position& geometryPointPos, const double circleWidth, const RGBColor& geometryPointColor) const;
-
     /// @brief check if draw big geometry points
     bool drawBigGeometryPoints() const;
 

@@ -330,8 +330,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
-        // check if mouse is over element
-        mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myCrossingGeometry.getShape(), halfWidth, selectionScale, true, true,
                                             s.dottedContourSettings.segmentWidth);

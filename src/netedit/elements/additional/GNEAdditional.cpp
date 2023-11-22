@@ -711,8 +711,6 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
         GLHelper::popName();
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), pos, exaggeration, 0.4, 0.5, 0.5);
-        // check if mouse is over element
-        mouseWithinGeometry(pos, size, size, 0, 0, 0);
         // draw squared shape
         myContour.drawDottedContourRectangle(s, pos, size, size, 0, 0, 0, exaggeration,
                                              s.dottedContourSettings.segmentWidth);

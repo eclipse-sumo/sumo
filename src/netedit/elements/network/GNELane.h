@@ -322,9 +322,6 @@ private:
     /// @brief draw shape edited
     void drawShapeEdited(const GUIVisualizationSettings& s) const;
 
-    /// @brief check if mouse is over lane
-    void checkMouseOverLane(const double laneWidth) const;
-
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
 

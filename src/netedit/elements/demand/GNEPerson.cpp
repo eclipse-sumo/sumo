@@ -419,8 +419,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
-            // check if mouse is over element
-            mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
             // draw dotted contour
             myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
                                                  s.dottedContourSettings.segmentWidth);

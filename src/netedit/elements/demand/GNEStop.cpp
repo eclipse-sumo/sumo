@@ -1060,8 +1060,6 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if mouse is over element
-    mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
     // draw dotted geometry
     myContour.drawDottedContourExtruded(s, myDemandElementGeometry.getShape(), width, exaggeration, true, true,
                                         s.dottedContourSettings.segmentWidth);

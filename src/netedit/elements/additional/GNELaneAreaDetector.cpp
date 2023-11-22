@@ -327,8 +327,6 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             }
-            // check if mouse is over element
-            mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration, true, true,
                                                 s.dottedContourSettings.segmentWidth);
@@ -442,8 +440,6 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? E2Geometry.getShape() : segment->getLane()->getLaneShape();
-        // check if mouse is over element
-        mouseWithinGeometry(shape, s.detectorSettings.E2Width);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, E2Geometry.getShape(), E2DetectorWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                             s.dottedContourSettings.segmentWidth);
@@ -483,8 +479,6 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
             } else {
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), connectionGeometry, E2DetectorWidth);
             }
-            // check if mouse is over element
-            mouseWithinGeometry(connectionGeometry.getShape(), s.detectorSettings.E2Width);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, connectionGeometry.getShape(), E2DetectorWidth, 1, false, false,
                                                 s.dottedContourSettings.segmentWidth);

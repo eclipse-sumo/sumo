@@ -1209,8 +1209,6 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         GLHelper::popName();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
-        // check if mouse is over element
-        myPlanElement->mouseWithinGeometry(shape, pathWidth);
         // draw dotted geometry
         if (duplicateWidth) {
             myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,
@@ -1284,8 +1282,6 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
-                // check if mouse is over element
-                myPlanElement->mouseWithinGeometry(shape, pathWidth);
                 // draw dotted geometry
                 if (duplicateWidth) {
                     myPlanElement->getContour().drawDottedContourExtruded(s, shape, pathWidth, 1, true, true,

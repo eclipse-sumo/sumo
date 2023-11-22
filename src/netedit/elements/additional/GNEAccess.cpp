@@ -245,8 +245,6 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // pop gl identificator
             GLHelper::popName();
-            // check if mouse is over access
-            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
             // draw dotted contour

@@ -250,8 +250,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         }
-        // check if mouse is over element
-        mouseWithinGeometry(myShapeLength, width);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myShapeLength, width, parkingAreaExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);

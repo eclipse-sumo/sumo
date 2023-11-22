@@ -300,12 +300,10 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
         }
         if (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()) {
-            mouseWithinGeometry(myTAZRelGeometryCenter.getShape(), 0.5);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myTAZRelGeometryCenter.getShape(), 0.5, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);
         } else {
-            mouseWithinGeometry(myTAZRelGeometry.getShape(), 0.5);
             // draw dotted geometry
             myContour.drawDottedContourExtruded(s, myTAZRelGeometry.getShape(), 0.5, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);

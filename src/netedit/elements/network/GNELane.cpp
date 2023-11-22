@@ -684,13 +684,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         drawLinkNo(s);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // check if mouse is over element
-        checkMouseOverLane(laneDrawingConstants.halfWidth);
         // draw dotted geometry
-        if (!drawRailway) {
-            myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
-                                                s.dottedContourSettings.segmentWidth);
-        }
+        myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
+                                            s.dottedContourSettings.segmentWidth);
         // draw children
         drawChildren(s);
         // draw path additional elements
@@ -1306,27 +1302,6 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // Pop shape edited matrix
         GLHelper::popMatrix();
-    }
-}
-
-
-void
-GNELane::checkMouseOverLane(const double laneWidth) const {
-    bool withinGeometry = false;
-    if (myParentEdge->getLanes().size() == 1) {
-        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
-    } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
-    } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
-    } else {
-        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
-    }
-    // check if mark lane (and their parent edge)
-    if (withinGeometry && (gPostDrawing.markedLane == nullptr)) {
-        // mark lane and their parent edge
-        gPostDrawing.markedLane = this;
-        gPostDrawing.markedEdge = myParentEdge;
     }
 }
 

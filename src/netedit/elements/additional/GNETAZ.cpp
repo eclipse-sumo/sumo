@@ -397,8 +397,6 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
-        // check if mouse is over element
-        mouseWithinGeometry(myAdditionalGeometry.getShape());
         // get contour width
         const double contourWidth = (checkDrawFromContour() || checkDrawToContour()) ? s.dottedContourSettings.segmentWidthLarge : s.dottedContourSettings.segmentWidth;
         // draw dotted contours

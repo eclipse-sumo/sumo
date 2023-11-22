@@ -378,12 +378,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), POIExaggeration);
-            // check if mouse is over element
-            if (getShapeImgFile().empty()) {
-                mouseWithinGeometry(*this, 1.3);
-            } else {
-                mouseWithinGeometry(*this, getHeight() * 0.5, getWidth() * 0.5, 0, 0, getShapeNaviDegree());
-            }
             // draw contour
             if (getShapeImgFile().empty()) {
                 myContour.drawDottedContourCircle(s, *this, 1.3, POIExaggeration,

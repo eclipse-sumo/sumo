@@ -503,8 +503,6 @@ GNERoute::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMana
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment() ? routeGeometry.getShape() : segment->getLane()->getLaneShape());
-        // check if mouse is over element
-        mouseWithinGeometry(shape, routeWidth);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, shape, routeWidth, 1, segment->isFirstSegment(), segment->isLastSegment(),
                                             s.dottedContourSettings.segmentWidth);
@@ -559,8 +557,6 @@ GNERoute::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPath
                 templateAC->getTagProperty().vehicleRoute() && (geometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= routeWidth)) {
             gPostDrawing.markedRoute = this;
         }
-        // check if mouse is over element
-        mouseWithinGeometry(geometry.getShape(), routeWidth);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, geometry.getShape(), routeWidth, 1, false, false,
                                             s.dottedContourSettings.segmentWidth);

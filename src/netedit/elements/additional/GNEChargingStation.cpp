@@ -178,9 +178,6 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             }
-            // check if mouse is over element
-            mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * MIN2(1.0, chargingStationExaggeration));
-            mouseWithinGeometry(mySignPos, myCircleWidth);
             // draw dotted geometry (don't exaggerate contour)
             myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 1, true, true,
                                                 s.dottedContourSettings.segmentWidth);

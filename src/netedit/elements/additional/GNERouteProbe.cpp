@@ -211,8 +211,6 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw additional name
         drawAdditionalName(s);
-        // check if mouse is over element
-        mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
         // draw dotted geometry
         myContour.drawDottedContourExtruded(s, myAdditionalGeometry.getShape(), 0.5, routeProbeExaggeration, true, true,
                                             s.dottedContourSettings.segmentWidth);

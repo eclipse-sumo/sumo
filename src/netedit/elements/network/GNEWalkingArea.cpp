@@ -182,8 +182,6 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         if (s.cwaEdgeName.show(this)) {
             drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
         }
-        // check if mouse is over element
-        mouseWithinGeometry(walkingAreaShape);
         // draw dotted contour
         myContour.drawDottedContourClosed(s, walkingAreaShape, walkingAreaExaggeration, true, s.dottedContourSettings.segmentWidth);
     }
