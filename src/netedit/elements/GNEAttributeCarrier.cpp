@@ -2139,7 +2139,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m"),
+                                              TL("The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m"),
                                               "10.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2222,7 +2222,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_JAM_DIST_THRESHOLD,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam) in m"),
+                                              TL("The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam in m"),
                                               "10.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-11-15 11:48+0100\n"
+"POT-Creation-Date: 2023-11-22 18:12+0100\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -616,8 +616,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:691
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
-"seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and "
+"hour:minute:seconds display."
 msgstr ""
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:705
@@ -1013,8 +1013,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation "
-"SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation"
+" SUMO."
 msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
@@ -1072,6 +1072,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:64
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:72
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:639
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:72
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:390
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:134
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1013
@@ -1096,7 +1097,7 @@ msgid "Clea&r"
 msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:129
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2495
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2513
 msgid "Time"
 msgstr ""
 
@@ -1223,7 +1224,7 @@ msgid "Remove"
 msgstr ""
 
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:877
-#: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:678
+#: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:679
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr ""
 
@@ -2566,8 +2567,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1446
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2012
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2870
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3383
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2899
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
 msgid "Route"
 msgstr ""
 
@@ -3165,7 +3166,8 @@ msgid "Save TLS Programs As..."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:401
-msgid "Save all traffic light programs of the current network to another file."
+msgid ""
+"Save all traffic light programs of the current network to another file."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:407
@@ -3370,8 +3372,8 @@ msgid "Delete elements."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:554
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1086
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1097
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1020
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1031
 msgid "Select"
 msgstr ""
 
@@ -3391,7 +3393,7 @@ msgid "Move elements."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:607
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1121
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1116
 msgid "Edge"
 msgstr ""
 
@@ -3408,7 +3410,7 @@ msgid "Modes traffic lights over junctions."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:615
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1420
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1419
 msgid "Connection"
 msgstr ""
 
@@ -3425,7 +3427,7 @@ msgid "Modes connection prohibitions."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:623
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1342
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1339
 msgid "Crossing"
 msgstr ""
 
@@ -3484,7 +3486,7 @@ msgid "Create Routes."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:699
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3393
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3436
 msgid "Route distribution"
 msgstr ""
 
@@ -3522,7 +3524,7 @@ msgid "Create stops."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:715
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4387
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4457
 msgid "Person"
 msgstr ""
 
@@ -3539,8 +3541,8 @@ msgid "Create person plans."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:721
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4431
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:180
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4503
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:182
 msgid "Container"
 msgstr ""
 
@@ -3565,7 +3567,7 @@ msgid "Create edgeData elements."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:762
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6693
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6838
 msgid "EdgeRelation"
 msgstr ""
 
@@ -3574,7 +3576,7 @@ msgid "Create edgeRelation elements."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:765
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6713
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6859
 msgid "TAZRelation"
 msgstr ""
 
@@ -3871,7 +3873,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1399
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2003
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:286
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:168
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:115
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:123
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1855
@@ -3880,7 +3882,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1404
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2006
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:174
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:176
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:116
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:40
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1940
@@ -3892,13 +3894,13 @@ msgid "PersonTrips"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1414
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:189
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:118
 msgid "Walks"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1419
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:192
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:194
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:119
 msgid "Rides"
 msgstr ""
@@ -3922,7 +3924,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1439
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:171
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:119
 msgid "Stops"
@@ -4078,7 +4080,7 @@ msgid "PoI"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2928
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2959
 msgid "Polygon"
 msgstr ""
 
@@ -4818,7 +4820,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1457
 msgid ""
-"There is another unselected junction in the same position of joined junction."
+"There is another unselected junction in the same position of joined "
+"junction."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNENet.cpp:1458
@@ -5608,7 +5611,8 @@ msgid "Edge chain mode"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2499
-msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid ""
+"Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2506
@@ -6169,7 +6173,8 @@ msgid "Graphical editor for road networks and infrastructure."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
-msgid "This application is based on code provided by the Eclipse SUMO project."
+msgid ""
+"This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:67
@@ -6394,6 +6399,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:63
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:71
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:638
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:71
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:389
 msgid "&Accept"
 msgstr ""
@@ -6429,11 +6435,15 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:257
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:333
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:457
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:257
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:333
 msgid "Activate friendlyPos and save"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:257
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:333
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:257
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:333
 msgid ""
 "Friendly pos parameter will be activated in all stopping places and E2 "
 "detectors"
@@ -6441,47 +6451,59 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:259
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:460
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:259
 msgid "Save invalid positions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:259
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:259
 msgid "Save stopping places and E2 detectors with invalid positions"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:263
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:335
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:466
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:263
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:335
 msgid "Fix positions and save"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:263
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:335
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:263
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:335
 msgid "Position of stopping places and E2 detectors will be fixed"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:265
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:265
 msgid "Select invalid additionals"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:265
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:265
 msgid ""
 "Cancel saving of additionals and select invalid stopping places and E2 "
 "detectors"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:325
 msgid "Build connections between lanes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:325
 msgid "New connections will be created between non-connected lanes"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:327
 msgid "Remove invalid E2 detectors"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
+#: C:\Repos\sumo/src\netedit\dialogs\GNEFixElementsDialog.cpp:327
 msgid "Remove Multilane E2 Detectors with non-connected lanes"
 msgstr ""
 
@@ -6658,8 +6680,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format key1=parameter1|"
-"key2=parameter2|...\n"
+"- In Netedit can be defined using format "
+"key1=parameter1|key2=parameter2|...\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
@@ -7040,384 +7062,384 @@ msgstr ""
 msgid "TagProperty for tag '%' not defined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:877
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:868
 msgid "Nothing to toggle, implement in Children"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:940
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:932
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:70
 msgid "Junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:944
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:936
 msgid "The id of the node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:949
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1978
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:941
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1985
 msgid "The x-y-z position of the node on the plane in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:954
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:946
 msgid "An optional type for the node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:960
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:952
 msgid "A custom shape for that node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:965
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:957
 msgid "Optional turning radius (for all corners) for that node in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:971
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:963
 msgid ""
 "Whether the junction-blocking-heuristic should be activated at this node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:977
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:969
 msgid "How to compute right of way rules at this node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:984
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:976
 msgid "Whether this junction is at the fringe of the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:991
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:983
 msgid "Optional name of junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:996
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:988
 msgid "An optional type for the traffic light algorithm"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1002
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:994
 msgid "An optional layout for the traffic light plan"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1011
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1003
 msgid "An optional id for the traffic light program"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1021
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1014
 msgid "EdgeType"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1025
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1018
 msgid "The id of the edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1030
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1152
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1023
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1147
 msgid "The number of lanes of the edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1036
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1140
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1029
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1135
 msgid "The maximum speed allowed on the edge in m/s"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1042
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1099
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1163
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1267
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1486
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1035
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1093
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1158
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1263
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1485
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1048
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1105
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1169
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1273
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1492
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1041
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1099
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1164
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1269
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1491
 msgid ""
 "Explicitly disallows the given vehicle classes (not given will be allowed)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1053
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1184
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1046
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1179
 msgid ""
 "The spreadType defines how to compute the lane geometry from the edge "
 "geometry (used for visualization)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1060
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1146
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1053
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1141
 msgid "The priority of the edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1066
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1196
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1059
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1191
 msgid ""
 "Lane width for all lanes of this edge in meters (used for visualization)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1072
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1065
 msgid "The width of the sidewalk that should be added as an additional lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1078
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1071
 msgid "The width of the bike lane that should be added as an additional lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1089
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1083
 msgid "LaneType"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1093
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1087
 msgid "The maximum speed allowed on the lane in m/s"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1110
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1104
 msgid ""
 "Lane width for all lanes of this type in meters (used for visualization)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1125
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2768
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2820
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6394
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1120
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2793
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2847
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6535
 msgid "Edge ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1130
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1125
 msgid "The name of a node within the nodes-file the edge shall start at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1135
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1130
 msgid "The name of a node within the nodes-file the edge shall end at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1158
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1153
 msgid "The name of a type within the SUMO edge type file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1174
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1169
 msgid ""
-"If the shape is given it should start and end with the positions of the from-"
-"node and to-node"
+"If the shape is given it should start and end with the positions of the "
+"from-node and to-node"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1179
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1174
 msgid "The length of the edge in meter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1191
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1186
 msgid "street name (does not need to be unique, used for visualization)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1202
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1284
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1197
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1280
 msgid "Move the stop line back from the intersection by the given amount"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1208
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1203
 msgid ""
 "Custom position in which shape start (by default position of junction from)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1213
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1208
 msgid ""
 "Custom position in which shape end (by default position of junction from)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1218
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1213
 msgid "Show if edge is bidirectional"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1224
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1219
 msgid "Distance"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1230
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1325
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1225
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1321
 msgid "The stop offset as positive value in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1236
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1331
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1231
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1327
 msgid "Specifies, for which vehicle classes the stopOffset does NOT apply."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1247
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1243
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:67
 msgid "Lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1251
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1247
 msgid "Lane ID (Automatic, non editable)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1256
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1252
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
-"is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
+" is the leftmost one)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1261
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1257
 msgid "Speed in meters per second"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1278
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1274
 msgid "Width in meters (used for visualization)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1290
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1286
 msgid "Enable or disable lane as acceleration lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1296
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1292
 msgid "If the shape is given it overrides the computation based on edge shape"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1301
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1297
 msgid "If given, this defines the opposite direction lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1306
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1514
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1302
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1513
 msgid "Permit changing left only for to the given vehicle classes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1313
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1521
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1309
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1520
 msgid "Permit changing right only for to the given vehicle classes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1320
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1316
 msgid "Lane type description (optional)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1346
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1343
 msgid "Crossing ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1351
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1348
 msgid "The (road) edges which are crossed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1356
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1353
 msgid ""
 "Whether the pedestrians have priority over the vehicles (automatically set "
 "to true at tls-controlled intersections)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1362
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1359
 msgid "The width of the crossings"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1368
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1365
 msgid "sets the tls-index for this crossing"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1374
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1371
 msgid "sets the opposite-direction tls-index for this crossing"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1380
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1377
 msgid "Overrides default shape of pedestrian crossing"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1390
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1388
 msgid "WalkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1394
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1392
 msgid "Walking Area ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1399
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1397
 msgid "The width of the WalkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1405
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1403
 msgid "The length of the WalkingArea in meter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1410
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1408
 msgid "Overrides default shape of pedestrian sidewalk"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1424
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1423
 msgid "The ID of the edge the vehicles leave"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1429
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1428
 msgid "The ID of the edge the vehicles may reach when leaving 'from'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1434
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1433
 msgid "the lane index of the incoming lane (numbers starting with 0)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1439
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1438
 msgid "the lane index of the outgoing lane (numbers starting with 0)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1444
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1443
 msgid ""
 "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1450
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1449
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
-"worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
+" worry about blocking the intersection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1456
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1455
 msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1462
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1461
 msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1468
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1467
 msgid "Vision distance between vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1474
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1473
 msgid "sets index of this connection within the controlling traffic light"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1480
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1479
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1497
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1496
 msgid "sets custom speed limit for the connection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1503
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1502
 msgid "sets custom length for the connection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1509
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1508
 msgid "sets custom shape for the connection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1528
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1527
 msgid "if set to true, vehicles will make a turn in 2 steps"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1534
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1533
 msgid ""
 "set a custom edge type (for applying vClass-specific speed restrictions)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1540
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1539
 msgid "turning direction for this connection (computed)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1545
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1544
 msgid "link state for this connection (computed)"
 msgstr ""
 
@@ -7425,2657 +7447,2674 @@ msgstr ""
 msgid "InternalLanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1574
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1575
 msgid "BusStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1579
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1580
 msgid "The id of bus stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1584
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1585
 msgid "The name of the lane the bus stop shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1589
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1655
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1757
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1903
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4117
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4257
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1590
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1657
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1761
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1909
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4175
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4321
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1594
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1660
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1762
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1908
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4122
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4262
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6399
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1595
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1662
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1766
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1914
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4180
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4326
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6540
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1599
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1600
 msgid "Name of busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1604
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1670
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1728
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1772
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1837
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1935
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2056
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2139
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2221
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2311
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2340
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2389
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3044
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3261
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4127
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4267
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6609
-msgid "If set, no error will be reported if element is placed behind the lane."
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1605
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1672
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1731
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1776
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1842
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1941
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2064
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2148
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2231
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2323
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2353
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2403
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3077
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3300
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4185
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4331
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6750
+msgid ""
+"If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1605
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1606
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1606
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1672
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1730
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1774
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1839
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1937
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2058
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2141
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2223
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2313
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2342
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2391
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3046
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3263
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4129
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6611
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1607
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1674
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1733
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1778
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1844
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1943
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2066
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2150
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2233
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2325
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2355
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2405
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3079
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3302
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4187
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4333
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6752
 msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1612
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1613
 msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1617
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1683
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1618
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1685
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the "
-"sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the"
+" sidewalk"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1623
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1689
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1791
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1624
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1691
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1795
 msgid "Optional space definition for vehicles that park at this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1629
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1630
 msgid "The RGBA color with which the busStop shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1640
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1642
 msgid "TrainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1645
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1647
 msgid "The id of train stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1650
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1652
 msgid "The name of the lane the train stop shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1665
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1667
 msgid "Name of trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1671
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1729
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1773
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1838
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1936
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2057
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2140
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2222
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2312
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2341
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2390
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3045
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3262
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4128
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4268
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6610
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1673
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1732
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1777
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1843
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1942
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2065
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2149
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2232
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2324
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2354
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2404
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3078
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3301
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4186
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4332
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6751
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1678
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1680
 msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1695
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
 msgid "The RGBA color with which the trainStop shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1706
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1709
 msgid "Access"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1711
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1714
 msgid "The name of the lane the stop access shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1716
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1719
 msgid "The position on the lane (the lower position on the lane) in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1722
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1725
 msgid "The walking length of the access in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1742
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1746
 msgid "ContainerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1747
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1751
 msgid "The id of container stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1752
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1756
 msgid "The name of the lane the container stop shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1767
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1771
 msgid "Name of containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1780
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1784
 msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1785
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1789
 msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1797
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1801
 msgid "The RGBA color with which the containerStop shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1807
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1812
 msgid "ChargingStation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1812
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1817
 msgid "The id of charging station"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1817
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1822
 msgid "Lane of the charging station location"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1822
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1827
 msgid "Begin position in the specified lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1827
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1832
 msgid "End position in the specified lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1832
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1837
 msgid "Name of chargingStation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1845
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1850
 msgid "Charging power in W"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1851
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1856
 msgid "Charging efficiency [0,1]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1858
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1863
 msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1864
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1869
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station, "
-"before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station,"
+" before the energy transfer (charging) begins"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1870
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1875
 msgid "Battery charging type"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1877
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1882
 msgid "Waiting time before start charging"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1888
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1894
 msgid "ParkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1893
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1899
 msgid "The id of ParkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1898
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1904
 msgid "The name of the lane the Parking Area shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1913
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1919
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1918
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1924
 msgid "Name of parkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1923
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1929
 msgid " The number of parking spaces for road-side parking"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1929
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1935
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1943
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1988
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1949
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1995
 msgid "The width of the road-side parking spaces"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1949
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1955
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) / "
-"roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) /"
+" roadsideCapacity"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1955
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1998
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1961
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2005
 msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1961
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1967
 msgid "Enable or disable lefthand position"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1973
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1980
 msgid "ParkingSpace"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1983
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1990
 msgid "Name of parking space"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1993
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2000
 msgid "The length of the road-side parking spaces"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2003
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2010
 msgid "The slope of the road-side parking spaces"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2015
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2023
 msgid "E1 InductionLoop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2020
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2028
 msgid "The id of E1"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2025
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2079
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2301
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2330
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2364
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2033
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2088
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2313
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2343
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2378
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of "
-"the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of"
+" the network used"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2030
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2369
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2038
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2383
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2035
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2095
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2177
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2251
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6772
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2043
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2104
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2187
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2262
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6920
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2041
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2049
 msgid "Name of induction loop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2046
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2111
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2193
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2262
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2379
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2054
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2120
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2203
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2273
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2393
 msgid "The path to the output file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2051
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2116
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2198
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2267
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2384
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2059
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2125
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2208
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2278
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2398
 msgid "Space separated list of vehicle type ids to consider"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2069
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2078
 msgid "E2 LaneAreaDetector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2074
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2083
 msgid "The id of E2"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2084
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2306
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2335
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2093
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2177
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2318
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2348
 msgid "The position on the lane the detector shall be laid on in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2089
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2098
 msgid "The length of the detector in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2101
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2183
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2110
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2193
 msgid "The traffic light that triggers aggregation when switching"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2106
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2115
 msgid "Name of lane area detector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2121
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2203
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2130
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2213
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2127
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2209
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2278
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2136
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2219
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2289
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2133
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2215
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2142
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2225
 msgid ""
-"The minimum distance to the next standing vehicle in order to make this "
-"vehicle count as a participant to the jam) in m"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2152
-msgid "E2 MultiLaneAreaDetector"
-msgstr ""
-
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2157
-msgid "The id of Multilane E2"
+"The maximum distance to the next standing vehicle in order to make this "
+"vehicle count as a participant to the jam in m"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
-msgid "The sequence of lane ids in which the detector shall be laid on"
+msgid "E2 MultiLaneAreaDetector"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
+msgid "The id of Multilane E2"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2172
+msgid "The sequence of lane ids in which the detector shall be laid on"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2182
 msgid "The end position on the lane the detector shall be laid on in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2188
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2198
 msgid "Name of Multilane E2 detector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2235
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2246
 msgid "E3 EntryExitDetector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2240
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2251
 msgid "The id of E3"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2245
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2454
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3207
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2256
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2470
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3245
 msgid "X-Y position of detector in editor (Only used in netedit)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2257
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2268
 msgid "Name of Entry Exit detector"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2272
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2283
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting) in s"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2284
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2295
 msgid ""
 "Whether no warning should be issued when a vehicle arrives within the "
 "detector area."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2296
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2308
 msgid "E3 DetEntry"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2325
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2354
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2338
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2368
 msgid "E3 DetExit"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2359
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2373
 msgid "The id of Instant Induction Loop (E1Instant)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2374
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2388
 msgid "Name of instant induction loop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2402
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2417
 msgid "RouteProbe"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2407
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2422
 msgid "The id of RouteProbe"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2412
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2427
 msgid "The id of an edge in the simulation network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2417
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2432
 msgid "The frequency in which to report the distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2423
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2438
 msgid "Name of route probe"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2428
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2443
 msgid "The file for generated output"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2433
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2448
 msgid "The time at which to start generating output"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2444
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2460
 msgid "VariableSpeedSign"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2449
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2465
 msgid "The id of Variable Speed Signal"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2460
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2476
 msgid "List of Variable Speed Sign lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2465
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2481
 msgid "Name of Variable Speed Signal"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2470
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2486
 msgid ""
 "Space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2480
-msgid "VariableSpeedSign Symbol"
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2497
+msgid "VariableSpeedSign (lane)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2490
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2508
 msgid "VariableSpeedSign Step"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2500
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2518
 msgid "Speed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2511
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2530
 msgid "Calibrator"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2516
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2574
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2535
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2594
 msgid "The id of Calibrator"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2521
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3150
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3172
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2540
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3186
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3209
 msgid "The id of edge in the simulation network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2526
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2584
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2545
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2604
 msgid "The position of the calibrator on the specified lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2532
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2590
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2551
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2610
 msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2538
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2557
 msgid "Name of Calibrator"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2543
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2601
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2562
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2621
 msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2548
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2606
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2567
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2626
 msgid "The output file for writing calibrator information or NULL"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2553
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2611
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2572
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2631
 msgid "A threshold value to detect and clear unexpected jamming"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2559
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2617
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2578
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2637
 msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2569
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2589
 msgid "CalibratorLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2579
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2599
 msgid "The id of lane in the simulation network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2596
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2616
 msgid "Name of calibrator lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2627
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2648
 msgid "CalibratorFlow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2632
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3828
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2653
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3879
 msgid "The id of the route the vehicle shall drive along"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2637
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2658
 msgid "First calibrator flow departure time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2643
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5680
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2664
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5828
 msgid "End of departure interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2653
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2674
 msgid "The id of the vehicle type to use for this calibrator flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2659
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2680
 msgid "Number of vehicles per hour, equally spaced"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2665
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2686
 msgid "Vehicle's speed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2676
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2698
 msgid "Rerouter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2682
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2704
 msgid "The id of Rerouter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2687
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2709
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2692
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2714
 msgid "X,Y position in editor (Only used in netedit)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2698
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2720
 msgid "Name of Rerouter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2703
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2725
 msgid "The probability for vehicle rerouting (0-1)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2709
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2731
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting "
-"(default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting"
+" (default -1 which disables the threshold)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2715
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2737
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2720
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2742
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2731
-msgid "Rerouter Symbol"
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2754
+msgid "Rerouter (Edge)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2741
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2765
 msgid "Rerouter Interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2746
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2770
 msgid "Begin"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2752
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2776
 msgid "End"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2763
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2788
 msgid "ClosingReroute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2774
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2800
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2799
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2826
 msgid "allowed vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2779
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2805
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2804
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2831
 msgid "disallowed vehicles"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2789
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2815
 msgid "ClosingLaneReroute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2794
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2820
 msgid "Lane ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2815
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2842
 msgid "DestinyProbabilityReroute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2826
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2848
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2853
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2876
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2905
 msgid "SUMO Probability"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2837
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2865
 msgid "ParkingAreaReroute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2842
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2870
 msgid "ParkingArea ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2854
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2882
 msgid "Enable or disable visibility for parking area reroutes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2865
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2894
 msgid "RouteProbabilityReroute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2887
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2917
 msgid "Vaporizer"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2892
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2922
 msgid "Edge in which vaporizer is placed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2897
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2927
 msgid "Start Time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2903
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2933
 msgid "End Time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2909
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2939
 msgid "Name of vaporizer"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2933
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2964
 msgid "The id of the polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2938
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2969
 msgid "The shape of the polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2943
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2974
 msgid "The RGBA color with which the polygon shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2949
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2980
 msgid "An information whether the polygon shall be filled"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2955
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2986
 msgid "The default line width for drawing an unfilled polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2961
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2992
 msgid "The layer in which the polygon lies"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2967
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2998
 msgid "A typename for the polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2973
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3004
 msgid "Polygon's name"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2978
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3009
 msgid "A bitmap to use for rendering this polygon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2984
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5571
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3015
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5719
 msgid "Enable or disable use image file as a relative path"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2990
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5577
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3021
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5725
 msgid "Angle of rendered image in degree"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3001
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3033
 msgid "PointOfInterest"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3006
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3029
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3071
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3038
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3062
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3105
 msgid "The id of the POI"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3011
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3043
 msgid "The position in view"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3024
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3057
 msgid "PointOfInterestLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3034
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3067
 msgid "The name of the lane at which the POI is located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3039
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3072
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3052
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3085
 msgid "The lateral offset on the named lane at which the POI is located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3066
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3100
 msgid "PointOfInterestGeo"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3077
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3111
 msgid "The longitude position of the parking vehicle on the view"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3082
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3116
 msgid "The latitude position of the parking vehicle on the view"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3104
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3139
 msgid "TrafficAssignmentZones"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3108
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3143
 msgid "The id of the TAZ"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3113
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3148
 msgid "The shape of the TAZ"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3118
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3153
 msgid "TAZ center"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3123
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3158
 msgid "An information whether the TAZ shall be filled"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3129
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3164
 msgid "The RGBA color with which the TAZ shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3135
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5542
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3170
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5690
 msgid "Name of POI"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3145
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3181
 msgid "TAZ Source"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3156
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3192
 msgid "Depart weight associated to this Edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3167
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3204
 msgid "TAZ Sink"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3178
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3215
 msgid "Arrival weight associated to this Edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3198
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3236
 msgid "TractionSubstation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3202
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3240
 msgid "Traction substation ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3213
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3251
 msgid "Voltage of at connection point for the overhead wire"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3219
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3257
 msgid "Current limit of the feeder line"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3230
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3269
 msgid "WireSection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3234
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3273
 msgid "Overhead wire segment ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3239
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3278
 msgid "Substation to which the circuit is connected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3244
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3283
 msgid "List of consecutive lanes of the circuit"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3249
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3288
 msgid "Starting position in the specified lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3255
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3294
 msgid "Ending position in the specified lane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3269
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3308
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3279
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3319
 msgid "OverheadWireClamp"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3283
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3323
 msgid "Overhead wire clamp ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3288
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3328
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3293
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3333
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3298
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3338
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp "
-"is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp"
+" is connected"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3303
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3343
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3322
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3363
 msgid "JuPedSim WalkableArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3327
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3368
 msgid "The id of the walkable area"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3332
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3373
 msgid "The shape of the walkable area"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3338
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3379
 msgid "Walkable area's name"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3348
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3390
 msgid "JuPedSim Obstacle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3353
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3395
 msgid "The id of the obstacle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3358
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3400
 msgid "The shape of the obstacle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3364
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3406
 msgid "Obstacle's name"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3388
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
 msgid "The id of Route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3398
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3447
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3441
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3492
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using "
-"spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using"
+" spaces"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3403
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3452
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3446
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3497
 msgid "This route's color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3408
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3457
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3451
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3502
 msgid "The number of times that the edges of this route shall be repeated"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3414
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3463
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3457
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3508
 msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3415
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3464
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3458
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3509
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3470
 msgid "RouteDistribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
 msgid "The id of route distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3441
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3486
 msgid "RouteEmbedded"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3521
 msgid "VehicleType"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3480
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3526
 msgid "type ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3485
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3531
 msgid "Type distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3490
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3536
 msgid "An abstract vehicle class"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3497
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3543
 msgid "This type's color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3502
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3548
 msgid "The vehicle's netto-length (length) [m]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3507
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3553
 msgid "Empty space after leader [m]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3512
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3558
 msgid "The vehicle's maximum velocity [m/s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3517
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3563
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3522
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3568
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3523
-msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3569
+msgid ""
+"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3574
 msgid "An abstract emission class"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3534
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3580
 msgid "How this vehicle is rendered"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3540
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3586
 msgid "The vehicle's width [m] (only used for drawing)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3546
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3592
 msgid "The vehicle's height [m] (only used for drawing)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3552
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3598
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow "
-"functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow"
+" functional coloring)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3557
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3603
 msgid "The model used for changing lanes"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3564
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3610
 msgid "The model used for car-following"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3571
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3617
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3576
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3622
 msgid "The number of containers the vehicle can transport"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3581
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3627
 msgid "The time required by a person to board the vehicle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3587
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3633
 msgid "The time required to load a container onto the vehicle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3593
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3639
 msgid "The preferred lateral alignment when using the sublane-model"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3600
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3646
 msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3606
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3652
 msgid "The maximum lateral speed when using the sublane-model"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3612
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3658
 msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3618
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3664
 msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3670
 msgid "3D model file for this class"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3629
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3675
 msgid "Carriage lengths"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3634
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3680
 msgid "Locomotive lengths"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3639
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3685
 msgid "Gap between carriages"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3659
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3706
 msgid "VehicleTypeDistribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3664
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3711
 msgid "The id of VehicleType distribution"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3683
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3731
 msgid "TripEdges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3689
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3737
 msgid "The ID of trip"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3694
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3740
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3781
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3742
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3789
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3831
 msgid "The id of the vehicle type to use for this trip"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3700
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
 msgid "The ID of the edge the trip starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3705
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3753
 msgid "The ID of the edge the trip ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3710
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3758
 msgid "List of intermediate edge ids which shall be part of the trip"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3718
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3759
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3800
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3766
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3808
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3850
 msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3729
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3778
 msgid "TripJunctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3735
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3776
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3784
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3826
 msgid "The id of trip"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3746
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3795
 msgid "The name of the junction the trip starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3751
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3800
 msgid "The name of the junction the trip ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3770
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3820
 msgid "TripTAZs"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3787
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3837
 msgid "The name of the TAZ the trip starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3792
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3842
 msgid "The name of the TAZ the trip ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3811
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
 msgid "VehicleRoute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3817
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3863
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3868
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
 msgid "The ID of the vehicle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3822
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3868
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3873
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3920
 msgid "The id of the vehicle type to use for this vehicle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3833
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3874
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3884
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3926
 msgid "The index of the edge within route the vehicle starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3838
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3879
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3889
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3931
 msgid "The index of the edge within route the vehicle ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3846
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3887
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3897
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3939
 msgid "The time step at which the vehicle shall enter the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3857
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
 msgid "VehicleEmbeddedRoute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3898
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3951
 msgid "FlowEdges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3904
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 msgid "The ID of the flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3952
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3990
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4028
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4071
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3962
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4006
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4045
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4084
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4128
 msgid "The id of the flow type to use for this flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3968
 msgid "The ID of the edge the flow starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3920
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3973
 msgid "The ID of the edge the flow ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3925
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3978
 msgid "List of intermediate edge ids which shall be part of the flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3941
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3995
 msgid "FlowJunctions"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3947
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3985
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4023
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4001
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4040
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4079
 msgid "The id of the flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3958
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4012
 msgid "The name of the junction the flow starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3963
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4017
 msgid "The name of the junction the flow ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3979
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
 msgid "FlowTAZs"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3996
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4051
 msgid "The name of the TAZ the flow starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4001
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4056
 msgid "The name of the TAZ the flow ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4017
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4073
 msgid "FlowRoute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4090
 msgid "The id of the route the flow shall drive along"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4039
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4077
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4095
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4134
 msgid "The index of the edge within route the flow starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4044
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4082
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4100
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4139
 msgid "The index of the edge within route the flow ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4060
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4117
 msgid "FlowEmbeddedRoute"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4066
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4123
 msgid "The name of the flow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4107
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 msgid "StopLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4112
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4170
 msgid "The name of the lane the stop shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4135
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4193
 msgid "The lateral offset on the named lane at which the vehicle must stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4148
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4207
 msgid "StopBusStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4153
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4212
 msgid "BusStop associated with this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4166
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4226
 msgid "StopTrainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4171
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4231
 msgid "TrainStop associated with this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4184
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4245
 msgid "StopContainerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4189
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4250
 msgid "ContainerStop associated with this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4202
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4264
 msgid "StopChargingStation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4207
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
 msgid "ChargingStation associated with this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4220
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4283
 msgid "StopParkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4225
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
 msgid "ParkingArea associated with this stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4247
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4311
 msgid "WaypointLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4252
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4316
 msgid "The name of the lane the waypoint shall be located at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4275
-msgid "The lateral offset on the named lane at which the vehicle must waypoint"
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4339
+msgid ""
+"The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4288
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4353
 msgid "WaypointBusStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4293
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4358
 msgid "BusWaypoint associated with this waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4306
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4372
 msgid "WaypointTrainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4311
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4377
 msgid "TrainWaypoint associated with this waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4324
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4391
 msgid "WaypointContainerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4329
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4396
 msgid "ContainerWaypoint associated with this waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4342
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4410
 msgid "WaypointChargingStation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4347
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4415
 msgid "ChargingStation associated with this waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4360
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4429
 msgid "WaypointParkingArea"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4365
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4434
 msgid "ParkingArea associated with this waypoint"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4395
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4465
 msgid "The time step at which the person shall enter the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4407
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4478
 msgid "PersonFlow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4438
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4510
 msgid "The time step at which the container shall enter the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4449
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4522
 msgid "ContainerFlow"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4473
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4547
 msgid "Transport: edge->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4486
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4561
 msgid "Transport: edge->containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4499
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4575
 msgid "Transport: containerStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4512
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4589
 msgid "Transport: containerStop->containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4534
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4612
 msgid "Tranship: edge->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4548
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
 msgid "Tranship: edge->containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4562
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4642
 msgid "Tranship: containerStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4576
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4657
 msgid "Tranship: containerStop->containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4590
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4672
 msgid "Tranship: edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4613
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5480
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4696
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5626
 msgid "Stop: edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4711
 msgid "Stop: containerStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4650
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4735
 msgid "PersonTrip: edge->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4663
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4749
 msgid "PersonTrip: edge->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4676
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4763
 msgid "PersonTrip: edge->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4689
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4777
 msgid "PersonTrip: edge->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4702
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4791
 msgid "PersonTrip: edge->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4716
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4806
 msgid "PersonTrip: taz->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4729
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4820
 msgid "PersonTrip: taz->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4742
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4834
 msgid "PersonTrip: taz->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4756
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4849
 msgid "PersonTrip: taz->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4769
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4863
 msgid "PersonTrip: taz->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4783
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4878
 msgid "PersonTrip: junction->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4796
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4892
 msgid "PersonTrip: junction->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4809
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4906
 msgid "PersonTrip: junction->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4822
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4920
 msgid "PersonTrip: junction->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4835
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4934
 msgid "PersonTrip: junction->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4849
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4949
 msgid "PersonTrip: busStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4862
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4875
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4963
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4977
 msgid "PersonTrip: busStop->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4888
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4991
 msgid "PersonTrip: busStop->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4901
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5005
 msgid "PersonTrip: busStop->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4915
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5020
 msgid "PersonTrip: trainStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4928
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4941
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5034
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5048
 msgid "PersonTrip: trainStop->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4954
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5062
 msgid "PersonTrip: trainStop->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4967
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5076
 msgid "PersonTrip: trainStop->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4988
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5098
 msgid "walk: edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5001
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5112
 msgid "walk: route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5015
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5127
 msgid "Walk: edge->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5028
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5141
 msgid "Walk: edge->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5041
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5155
 msgid "Walk: edge->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5054
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5169
 msgid "Walk: edge->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5067
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5183
 msgid "Walk: edge->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5081
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5198
 msgid "Walk: taz->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5094
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5212
 msgid "Walk: taz->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5107
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5226
 msgid "Walk: taz->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5121
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5241
 msgid "Walk: taz->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5134
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5255
 msgid "Walk: taz->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5148
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5270
 msgid "Walk: junction->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5161
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5284
 msgid "Walk: junction->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5174
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5298
 msgid "Walk: junction->junction"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5187
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5312
 msgid "Walk: junction->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5200
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5326
 msgid "Walk: junction->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5214
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5341
 msgid "Walk: busStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5227
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5240
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5355
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5369
 msgid "Walk: busStop->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5253
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5383
 msgid "Walk: busStop->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5266
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5397
 msgid "Walk: busStop->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5280
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5412
 msgid "Walk: trainStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5293
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5306
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5426
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5440
 msgid "Walk: trainStop->taz"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5319
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5454
 msgid "Walk: trainStop->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5332
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5468
 msgid "Walk: trainStop->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5353
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5490
 msgid "Ride: edge->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5366
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5504
 msgid "Ride: edge->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5379
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5518
 msgid "Ride: edge->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5393
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5533
 msgid "Ride: busStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5406
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5547
 msgid "Ride: busStop->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5419
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5561
 msgid "Ride: busStop->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5433
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5576
 msgid "Ride: trainStop->edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5446
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5590
 msgid "Ride: train->busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5459
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5604
 msgid "Ride: train->trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5494
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5641
 msgid "Stop: busStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5508
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5656
 msgid "Stop: trainStop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5523
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5671
 msgid "The color with which the POI shall be displayed"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5529
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5677
 msgid "A typename for the POI"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5535
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5683
 msgid "POI Icon"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5547
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5695
 msgid "The layer of the POI for drawing and selecting"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5553
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5701
 msgid "Width of rendered image in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5559
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5707
 msgid "Height of rendered image in meters"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5565
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5713
 msgid "A bitmap to use for rendering this POI"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5590
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5738
 msgid "This vehicle's color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5596
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5744
 msgid "The lane on which the vehicle shall be inserted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5602
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5750
 msgid "The position at which the vehicle shall enter the net"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5608
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5756
 msgid "The speed with which the vehicle shall enter the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5614
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5762
 msgid "The lane at which the vehicle shall leave the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5620
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5768
 msgid "The position at which the vehicle shall leave the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5626
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5774
 msgid "The speed with which the vehicle shall leave the network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5632
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5780
 msgid ""
-"A string specifying the id of a public transport line which can be used when "
-"specifying person rides"
+"A string specifying the id of a public transport line which can be used when"
+" specifying person rides"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5637
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5785
 msgid "The number of occupied seats when the vehicle is inserted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5643
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5791
 msgid "The number of occupied container places when the vehicle is inserted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5649
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5797
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5655
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5803
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5661
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5809
 msgid "Insertion checks"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5674
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5822
 msgid "First flow departure time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5686
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5707
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5834
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5855
 msgid "probability for emitting a flow each second"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5687
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5835
 msgid "(not together with vehsPerHour or period)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5693
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5841
 msgid "Number of flows per hour, equally spaced"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5694
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5842
 msgid "(not together with period or probability or poisson)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5700
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5848
 msgid "Insert equally spaced flows at that period"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5701
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5849
 msgid "(not together with vehsPerHour or probability or poisson)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5708
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5856
 msgid "(not together with vehsPerHour or period or poisson)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5714
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5862
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5715
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5863
 msgid "(not together with period or vehsPerHour or probability)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5728
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5876
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5734
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5882
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5740
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5888
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model [m/"
-"s^2]"
+"The apparent deceleration of the vehicle as used by the standard model "
+"[m/s^2]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5746
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5894
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5752
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5759
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5900
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5907
 msgid "Car-following model parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5765
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5913
 msgid "SKRAUSSX parameter 1"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5770
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5918
 msgid "SKRAUSSX parameter 2"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5775
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5923
 msgid "SKRAUSSX parameter 3"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5780
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5928
 msgid "SKRAUSSX parameter 4"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5785
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5933
 msgid "SKRAUSSX parameter 5"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5790
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5938
 msgid "EIDM Look ahead / preview parameter [s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5796
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5944
 msgid "EIDM AP Reaction Time parameter [s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5802
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5950
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5808
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5956
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5814
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5962
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5821
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5969
 msgid "EIDM leader speed estimation error parameter [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5827
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5975
 msgid "EIDM gap estimation error parameter [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5833
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5981
 msgid "EIDM driving error parameter [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5839
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5987
 msgid "EIDM maximal jerk parameter [m/s^3]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5845
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5993
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
-"s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) "
+"[m/s^2]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5851
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5999
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5857
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6005
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5863
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6011
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5869
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6017
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration "
-"calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration"
+" calculation [0/1]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5875
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6023
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5881
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5887
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6029
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6035
 msgid "Peter Wagner 2009 parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5893
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5899
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6041
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6047
 msgid "IDMM parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5905
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5911
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5917
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5923
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5929
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5935
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5941
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5947
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5953
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6053
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6059
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6065
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6071
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6077
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6083
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6089
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6095
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6101
 msgid "W99 parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5959
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5964
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6107
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6112
 msgid "Wiedemann parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5969
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6117
 msgid "MinGap factor parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5974
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6122
 msgid "K parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5979
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6127
 msgid "Kerner Phi parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5984
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6132
 msgid "IDM Delta parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5989
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6137
 msgid "IDM Stepping parameter"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5994
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6142
 msgid "Train Types"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6008
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6156
 msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6014
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6162
 msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6020
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6168
 msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6026
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6174
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red "
-"phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red"
+" phase is lower than the given threshold."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6032
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6180
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
-"violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
+" violating a red light."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6038
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6186
 msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6044
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6192
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6045
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6193
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6051
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6199
 msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6057
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6205
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6063
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6211
 msgid "Willingess of drivers to impede vehicles with higher priority"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6076
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6224
 msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6082
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6230
 msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6088
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6236
 msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6094
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6242
 msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6100
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6248
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6101
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6249
 msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6107
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6255
 msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6113
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6261
 msgid "Willingness to encroach laterally on other drivers."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6119
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6267
 msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6125
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6273
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6131
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6279
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6137
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6285
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6143
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6291
 msgid "Maximum lateral acceleration per second."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6149
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6297
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the "
-"left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the"
+" left is necessary (relative to right lookahead)."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6155
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6303
 msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6161
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6309
 msgid "Upper bound on lateral speed when standing."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6167
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6315
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6173
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6321
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the alignment"
+"Distance to an upcoming turn on the vehicles route, below which the "
+"alignment"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6174
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6322
 msgid "should be dynamically adapted to match the turn direction."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6180
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6328
 msgid "The probability for violating rules gainst overtaking on the right."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6186
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6334
 msgid "Time threshold for the willingness to change right."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6192
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6340
 msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6214
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6355
 msgid "The name of the person"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6219
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6360
 msgid "The id of the person type to use for this person"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6225
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6366
 msgid "This person's color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6231
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6372
 msgid "The position at which the person shall enter the net"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6244
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6385
 msgid "The name of the container"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6249
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6390
 msgid "The id of the container type to use for this container"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6255
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6396
 msgid "This container's color"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6268
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6589
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6409
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6730
 msgid "Minimum duration for stopping"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6275
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6596
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6416
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6737
 msgid "The time step at which the route continues"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6281
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6422
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6288
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6429
 msgid "Whether a person or container or both may end the stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6295
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6436
 msgid "List of elements that must board the vehicle before it may continue"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6300
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6441
 msgid "Joins this train to another upon reaching the stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6306
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6447
 msgid "List of elements that can board the vehicle before it may continue"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6311
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6452
 msgid "Whether the vehicle stops on the road or beside"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6318
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6459
 msgid "Activity displayed for stopped person in GUI and output files"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6323
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6464
 msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6328
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6469
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6334
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6475
 msgid "Speed to be kept while driving between startPos and endPos"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6340
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6481
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or disembark"
+"Whether the stop may be skipped if no passengers wants to embark or "
+"disembark"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6347
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6488
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6353
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6494
 msgid "Splits the train upon reaching the stop"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6369
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6510
 msgid "list of consecutive edges"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6374
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6515
 msgid "Arrival position on the last edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6381
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6522
 msgid "Route ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6386
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6527
 msgid "Arrival position on the destination edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6405
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6546
 msgid "Bus stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6411
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6552
 msgid "Train stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6417
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6558
 msgid "Container stop ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6424
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6565
 msgid "Edge start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6430
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6571
 msgid "TAZ start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6436
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6577
 msgid "Junction start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6442
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6583
 msgid "BuStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6448
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6499
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6589
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6640
 msgid "TrainStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6454
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6505
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6595
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6646
 msgid "ContainerStop start ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6461
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6602
 msgid "Edge end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6468
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6609
 msgid "The position at which the tranship shall enter the net"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6474
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6615
 msgid "arrival position on the destination edge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6481
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6622
 msgid "TAZ end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6487
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6628
 msgid "Junction end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6493
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6634
 msgid "BuStop end ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6518
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6659
 msgid "List of possible vehicle types to take"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6523
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6664
 msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6528
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6669
 msgid "list of vehicle alternatives to take for the person trip"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6548
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6689
 msgid "list of vehicle alternatives to take for the ride"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6562
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6703
 msgid "list of vehicle alternatives to take for the transport"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6576
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6717
 msgid "speed of the container for this tranship in m/s"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6602
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6743
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6631
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6773
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 msgid "DataSet"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6636
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6778
 msgid "Data set ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6648
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6791
 msgid "DataInterval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6654
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6797
 msgid "Interval ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6660
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6803
 msgid "Data interval begin time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6666
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6809
 msgid "Data interval end time"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6678
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6822
 msgid "EdgeRelationSingle"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6683
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6827
 msgid "edge ID"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6698
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6843
 msgid "The ID of the edge the edgeRel starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6703
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6848
 msgid "The ID of the edge the edgeRel ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6719
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6865
 msgid "The name of the TAZ the TAZRel starts at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6724
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6870
 msgid "The name of the TAZ the TAZRel ends at"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6734
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6881
 msgid "MeanDataEdge"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6747
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6895
 msgid "MeanDataLane"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6762
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6910
 msgid "The id of this set of measurements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6767
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6915
 msgid "The path to the output file. The path may be relative"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6777
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6925
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6782
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6930
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6787
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6935
 msgid ""
 "If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6794
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6942
 msgid "If set, junction internal edges/lanes will be written as well"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6800
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6948
 msgid ""
 "The maximum travel time in seconds to write if only very small movements "
 "occur"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6806
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6954
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6812
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6960
 msgid "The maximum speed to consider a vehicle halting;"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6818
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6966
 msgid "space separated list of vehicle type ids to consider"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6823
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6971
 msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6829
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6977
 msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6834
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6982
 msgid "List of attribute names that shall be written"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6839
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6987
 msgid "Restrict output to the given list of edge ids"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6844
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6992
 msgid "Restrict output to the given list of edges given in file"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6849
+#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6997
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single "
-"value"
+"Whether the traffic statistic of all edges shall be aggregated into a single"
+" value"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:92
-msgid ""
-"element must be at least networkElement, additional, TAZ, demandElement, "
-"dataElement or meanData"
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:93
+msgid "no tag type defined"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:96
-msgid ""
-"element can be only a networkElement, additional, demandElement, dataElement "
-"or meanData at the same time"
+msgid "no tag property defined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:100
-msgid "element can be only a shape, TAZ or wire element at the same time"
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:99
+msgid "no tag parent defined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:104
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:102
+msgid "no conflict defined"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:106
+msgid "no basic type property defined"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:110
+msgid "multiple basic type properties defined"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:114
+msgid "element can be either shape or TAZ or wire element at the same time"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:118
 msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:130
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:144
 msgid "Attributes aren't combinables"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:132
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:146
 msgid "allow need a disallow attribute in the same tag"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:134
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:148
 msgid "disallow need an allow attribute in the same tag"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:148
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:162
 #, c-format
 msgid "attribute '%' doesn't have a default value"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:154
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:168
 #, c-format
 msgid "Attribute '%' not defined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:161
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:175
 #, c-format
 msgid "Maximum number of attributes for tag % exceeded"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:166
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:180
 #, c-format
 msgid "Attribute '%' already inserted"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:203
+#: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:217
 #, c-format
 msgid "Attribute '%' doesn't exist"
 msgstr ""
@@ -10183,8 +10222,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:370
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute width cannot be parse to"
+" float."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:372
@@ -10195,8 +10234,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute angle cannot be parse to"
+" float."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:395
@@ -11717,7 +11756,8 @@ msgid "Netedit Parameters Help"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
-msgid "- Reference point: Mark the initial position of the additional element."
+msgid ""
+"- Reference point: Mark the initial position of the additional element."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:381
@@ -11763,7 +11803,8 @@ msgid "  the mouse. This option can be modified inspecting element."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:393
-msgid "- Center view: if is enabled, view will be center over created element."
+msgid ""
+"- Center view: if is enabled, view will be center over created element."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
@@ -11920,7 +11961,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:641
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1356
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1290
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:101
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:644
@@ -12106,44 +12147,44 @@ msgstr ""
 msgid "Move this phase down."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:89
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:91
 msgid "Element"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:153
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:155
 msgid "network elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:156
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:158
 msgid "Additional elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:159
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:161
 msgid "Shape elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:162
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:164
 msgid "TAZ elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:165
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
 msgid "Wire elements"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:177
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
 msgid "Person plans"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:183
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
 msgid "Container plans"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:186
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:117
 msgid "Person trips"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:195
+#: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:197
 msgid "Person stops"
 msgstr ""
 
@@ -12226,8 +12267,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
-"- Close shape: Add or remove the last vertex with the same position of first "
-"edge'."
+"- Close shape: Add or remove the last vertex with the same position of first"
+" edge'."
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
@@ -12326,8 +12367,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are "
-"then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are"
+" then applied to the current selection\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
@@ -12360,8 +12401,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison "
-"operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison"
+" operator ('<', '>', '=') and a number.\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
@@ -12408,7 +12449,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
+"id\n"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
@@ -12681,47 +12723,47 @@ msgstr ""
 msgid "simplify network"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1074
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1008
 msgid "Hierarchy operations"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1079
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1013
 msgid "Select parents"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1088
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1099
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1022
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1033
 msgid "Unselect"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1090
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1024
 msgid "Select children"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1206
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1140
 msgid "select parents"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1330
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1264
 msgid "select children"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1358
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1292
 msgid "Hold <SHIFT> for rectangle selection."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1358
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1292
 msgid "Press <DEL> to delete selected objects."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1369
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1303
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:312
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2207
 msgid "Selection"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1550
+#: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1484
 msgid "selection"
 msgstr ""
 
@@ -13266,8 +13308,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
+" nodes or with incompatible permissions)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
@@ -13436,7 +13478,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:693
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or template"
+"Select either default edgeType or short edge or a custom edgeType or "
+"template"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:695
@@ -14181,7 +14224,8 @@ msgid "Clean unused states from all phase"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
-msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid ""
+"Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
@@ -14348,23 +14392,23 @@ msgstr ""
 msgid "Saved % configuration."
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:95
-#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:61
+#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:96
+#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:62
 msgid "cancelled by user\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:139
-#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:105
+#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:140
+#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:106
 msgid "starting process...\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:157
-#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:123
+#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:158
+#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:124
 msgid "error processing command\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:172
-#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:138
+#: C:\Repos\sumo/src\netedit\tools\GNERunNetgenerate.cpp:173
+#: C:\Repos\sumo/src\netedit\tools\GNERunPythonTool.cpp:139
 msgid "process finished\n"
 msgstr ""
 
@@ -14577,7 +14621,8 @@ msgid "Invalid vClass"
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
-msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid ""
+"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:385
@@ -16039,7 +16084,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:418
 msgid ""
-"For the Debug build you might also need to set the LANG environment variable."
+"For the Debug build you might also need to set the LANG environment "
+"variable."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:421
