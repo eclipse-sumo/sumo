@@ -70,6 +70,12 @@ public:
         return mySignals;
     }
 
+    void addGreenFlankSwitch(MSLink* link, int dwID) {
+        mySwitchedGreenFlanks.emplace_back(link, dwID);
+    }
+
+    /// @brief final check for driveway compatibility of signals that switched green in this step
+    void recheckGreen();
 
 private:
     /** @brief Constructor */
@@ -86,6 +92,10 @@ private:
 
     /// @brief list of all rail signals
     std::vector<MSRailSignal*> mySignals;
+
+    /// @brief list of signals that switched green along with driveway index
+    std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
+    std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
 
     static MSRailSignalControl* myInstance;
 

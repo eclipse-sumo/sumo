@@ -251,15 +251,6 @@ public:
 
     static void initDriveWays(const SUMOVehicle* ego, bool update);
 
-    /// @brief final check for driveway compatibility of signals that switched green in this step
-    static void recheckGreen();
-
-protected:
-    /// @brief whether the given vehicle is free to drive
-    bool constraintsAllow(const SUMOVehicle* veh) const;
-
-protected:
-
     typedef std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation> Approaching;
     typedef std::set<const MSLane*, ComparatorNumericalIdLess> LaneSet;
     typedef std::map<const MSLane*, int, ComparatorNumericalIdLess> LaneVisitedMap;
@@ -401,6 +392,19 @@ protected:
         void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink, std::vector<const MSLane*>& flank);
     };
 
+    /* @brief retrieve driveway with the given numerical id
+     * @note: throws exception if the driveway does not exist at this rail signal */
+    const DriveWay& retrieveDriveWay(int numericalID) const;
+
+    /// @brief get the closest vehicle approaching the given link
+    static Approaching getClosest(MSLink* link);
+
+protected:
+    /// @brief whether the given vehicle is free to drive
+    bool constraintsAllow(const SUMOVehicle* veh) const;
+
+protected:
+
     /* The driveways for each link
      */
     struct LinkInfo {
@@ -433,13 +437,6 @@ protected:
 
     /// @brief data storage for every link at this node (more than one when directly guarding a switch)
     std::vector<LinkInfo> myLinkInfos;
-
-    /* @brief retrieve driveway with the given numerical id
-     * @note: throws exception if the driveway does not exist at this rail signal */
-    const DriveWay& retrieveDriveWay(int numericalID) const;
-
-    /// @brief get the closest vehicle approaching the given link
-    static Approaching getClosest(MSLink* link);
 
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(MSLink* link);
@@ -481,9 +478,6 @@ protected:
 
     static int myNumWarnings;
 
-    /// @brief list of signals that switched green along with driveway index
-    static std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
-    static std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
     static int myDriveWayIndex;
 
 protected:

@@ -762,7 +762,9 @@ MSNet::simulationStep(const bool onlyMove) {
         }
     }
     myBeginOfTimestepEvents->execute(myStep);
-    MSRailSignal::recheckGreen();
+    if (MSRailSignalControl::hasInstance()) {
+        MSRailSignalControl::getInstance().recheckGreen();
+    }
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
 #endif
