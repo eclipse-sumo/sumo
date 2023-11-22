@@ -135,6 +135,13 @@ Flow can define their route explicitly (like vehicles) or with from,to,via (like
 </flow>
 ```
 
+!!! caution
+    While flow and vehicle definitions can be mixed arbitrarily, the route file always has to be sorted by departure / begin time.
+
+If you want to load unsorted vehicles / flows then load the file as an additional file.
+This will load the whole file at once and thus increase memory consumption. You can also use
+[tools/route/sort_routes.py](Tools/Routes.md#sort_routespy) to sort the route file.
+
 ## Routes
 
 One may notice, that the route itself also got a
