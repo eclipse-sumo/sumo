@@ -5,7 +5,7 @@ title: Developer
 # Developer Documentation
 
 - [Libraries Licenses](../Libraries_Licenses.md) - which libraries are used and under which licenses
-- [CodeStyle](CodeStyle.md) - information about how the sourcecode should look like
+- [CodeStyle](CodeStyle.md) - information about how the source code should look like
 - [Tests](Tests.md) - information about performed software tests
 - [Unit Tests](Unit_Tests.md) - information about how to set up Unit Tests
 - [GUI Testing](GUI_Testing.md) - information about how to set up "interactive" GUI Tests with PyAutoGUI
@@ -18,6 +18,7 @@ title: Developer
 - [Maven](Maven.md) - information about using libsumo/libtraci in maven builds
 - [How to Update Homebrew Formula](HowToUpdateHomebrewFormula.md) - how to update the macOS Homebrew Formula for a new SUMO release
 - [Translating](Translating.md) - how to add translations for GUI and messaging
+- [Issue Workflow](Workflow.md) - how tickets are being processed
 
 ## Build instructions
 
@@ -64,7 +65,7 @@ title: Developer
 - [GitHub project](https://github.com/eclipse-sumo/sumo)
 - [SourceForge project](https://sourceforge.net/projects/sumo/)
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
-- [Nightly builds on the open build service](https://build.opensuse.org/package/show/home:behrisch/sumo_nightly)
+- [Nightly builds on the open build service](https://build.opensuse.org/package/show/science:dlr/sumo_nightly)
 - [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on the Helmholtz RSD](https://helmholtz.software/software/sumo)
