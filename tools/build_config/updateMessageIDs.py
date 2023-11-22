@@ -88,7 +88,7 @@ def main(args=None):
         for i in range(0, len(options.replace), 2):
             if options.strict:
                 replaceRules.append((options.replace[i], options.replace[i+1],
-                                     re.compile(options.replace[i]), True, True))
+                                     re.compile(re.escape(options.replace[i])), True, True))
             else:
                 prefixes = list(options.searchPrefix)
                 if len(prefixes) == 0:
