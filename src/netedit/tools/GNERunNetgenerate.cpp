@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 
 #include "GNERunNetgenerate.h"
@@ -119,7 +120,7 @@ GNERunNetgenerate::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
+    myPipe = _popen(StringUtils::transcodeToLocal(myNetgenerateCommand + " 2>&1").c_str(), "r");
 #else
     myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #endif

@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 
 #include "GNEPythonTool.h"
@@ -85,7 +86,7 @@ GNERunPythonTool::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = _popen(StringUtils::transcodeToLocal(myPythonTool->getCommand() + " 2>&1").c_str(), "r");
 #else
     myPipe = popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
 #endif
