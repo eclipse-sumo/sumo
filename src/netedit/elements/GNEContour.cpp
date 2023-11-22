@@ -86,7 +86,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const P
     // first build dotted contour
     buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
     // check if mouse is within geometry
-    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), *myCachedShape, myCachedDoubles->at(0));
+    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), shape, extrusionWidth * scale);
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
