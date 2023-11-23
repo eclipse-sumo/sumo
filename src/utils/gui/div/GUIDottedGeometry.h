@@ -114,9 +114,15 @@ public:
     /// @brief get back position
     Position getBackPosition() const;
 
+    /// @brief get simple shape (the shape without resampling)
+    const PositionVector &getUnresampledShape();
+
 private:
     /// @brief calculate shape rotations and lengths
     void calculateShapeRotationsAndLengths();
+
+    /// @brief shape without resampling
+    PositionVector myUnresampledShape;
 
     /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
     std::vector<GUIDottedGeometry::Segment> myDottedGeometrySegments;
