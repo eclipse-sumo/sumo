@@ -40,7 +40,7 @@ def getOptions():
     ap.add_argument("-t", "--taz-file", dest="tazfile", category="input", type=ArgumentParser.file,
                     required=True, help="the district file to be filtered")
     ap.add_argument("-o", "--output", default="taz_filtered.add.xml", category="output", type=ArgumentParser.file,
-                    help="write filtered districts to FILE (default: %default)", metavar="FILE")
+                    help="write filtered districts to FILE (default: %(default)s)", metavar="FILE")
     ap.add_argument("--vclass", type=str, required=True, help="filter taz edges that allow the given vehicle class")
     options = ap.parse_args()
     if not options.netfile or not options.tazfile or not options.vclass:

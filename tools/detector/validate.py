@@ -36,7 +36,7 @@ parser.add_argument(
 parser.add_argument(
     "-v", "--validation", type=parser.file, help="read validation data from file")
 parser.add_argument("-i", "--interval", default=15, type=parser.time,
-                    help="aggregation interval in minutes (default: %default)")
+                    help="aggregation interval in minutes (default: %(default)s)")
 parser.add_argument("-l", "--legacy", action="store_true", default=False,
                     help="legacy style, input file is whitespace separated, detector_definition")
 parser.add_argument("inputFlows", category="input", nargs=1, type=parser.file,

@@ -140,7 +140,7 @@ if __name__ == "__main__":
     ap.add_argument("-2", "--net-file2", dest="netfile2", category="input", type=ap.net_file, required=True,
                     help="read second SUMO network from FILE (mandatory)", metavar="FILE")
     ap.add_argument("-o", "--output", default="districts.add.xml", category="output", type=ap.file,
-                    help="write resulting districts to FILE (default: %default)", metavar="FILE")
+                    help="write resulting districts to FILE (default: %(default)s)", metavar="FILE")
     ap.add_argument("-p", "--polyoutput", category="output", type=ap.file,
                     help="write districts as polygons to FILE", metavar="FILE")
     ap.add_argument("-a", "--junctions1", type=str, required=True,
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     ap.add_argument("-b", "--junctions2", type=str, required=True,
                     help="list of junction ids to use from second network (mandatory)")
     ap.add_argument("--color", default="1,0,0", type=str,
-                    help="Assign this color to districts (default: %default)")
+                    help="Assign this color to districts (default: %(default)s)")
     options = ap.parse_args()
     parser = make_parser()
     if options.verbose:

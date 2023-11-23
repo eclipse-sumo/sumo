@@ -141,7 +141,7 @@ parser.add_argument("-F", "--weight-files", dest="weightfiles", type=parser.file
                     help="Load edge/lane weights from FILE", metavar="FILE")
 parser.add_argument("-A", "--routing-algorithm", dest="routingalgorithm", type=str,
                     choices=('dijkstra', 'astar'),
-                    default="astar", help="type of routing algorithm [default: %default]")
+                    default="astar", help="type of routing algorithm [default: %(default)s]")
 parser.add_argument("-r", "--rerouting-explicit", dest="reroutingexplicit", type=str,
                     default="", help="define the ids of the vehicles that should be re-routed.")
 parser.add_argument("-x", "--with-exittime", action="store_true", dest="withexittime",
