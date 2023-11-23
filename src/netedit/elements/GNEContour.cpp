@@ -83,7 +83,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const P
     // first build dotted contour
     buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
     // check if mouse is within two lines
-    gPostDrawing.positionWithinShapeLine(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), shape, extrusionWidth * scale);
+    gPostDrawing.positionWithinClosedShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(1));
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -209,7 +209,9 @@ GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const 
         // reset caches
         reset();
         // create caches
-        myCachedShapes->push_back(PositionVector());
+        for (int i = 0; i < 2; i++) {
+            myCachedShapes->push_back(PositionVector());
+        }
         myCachedDoubles->push_back(double(0));
         for (int i = 0; i < 4; i++) {
             myDottedGeometries->push_back(GUIDottedGeometry());
@@ -236,10 +238,19 @@ GNEContour::buildDottedContourExtruded(const GUIVisualizationSettings& s, const 
                 myDottedGeometries->at(2).getFrontPosition()
             }, false, true);
         }
-        // finally update cached shape
+        // update cached shape
         myCachedShapes->at(0) = shape;
         // update scale
         myCachedDoubles->at(0) = scale;
+        // finally create shape used in positionWithinClosedShape
+        myCachedShapes->at(1).clear();
+        for (const auto &position : myDottedGeometries->at(0).getUnresampledShape()) {
+            myCachedShapes->at(1).push_back(position);
+        }
+        for (const auto &position : myDottedGeometries->at(2).getUnresampledShape()) {
+            myCachedShapes->at(1).push_back(position);
+        }
+        myCachedShapes->at(1).closePolygon();
     }
 }
 
