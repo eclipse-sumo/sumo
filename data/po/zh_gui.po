@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 08:17+0000\n"
+"PO-Revision-Date: 2023-11-23 09:58+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -10909,11 +10909,11 @@ msgstr "容器不支持在充电站停车"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1212
 msgid "Persons don't support stops at parkingAreas"
-msgstr "不支持在停车区域停车的人"
+msgstr "人员(Persons)不支援停靠站位于停车区域"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1215
 msgid "Containers don't support stops at parkingAreas"
-msgstr "容器不支持在停车区停车"
+msgstr "货柜(Containers)不支援停靠站位于停车区域"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1225
 msgid "vehicles don't support stops at edges"
@@ -10934,7 +10934,7 @@ msgstr "通过道路 '%' 不存在。"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3032
 msgid "% with id '%' doesn't exist in % '%'"
-msgstr "编号 (id) 为 '%' 的 % 在 % '%' 中不存在"
+msgstr "% (编号为'%' ) 不存在于% '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3040
 msgid "invalid probability % in % '%'"
@@ -10944,7 +10944,7 @@ msgstr "在% '%' 的概率 % 无效"
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
-msgstr "% '%' 中的类型分布概率无效。必须具有相同数量的元素"
+msgstr "在 % 内的类型分布概率 '%'无效。必须具有相同数量的元素"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEStop.cpp:323
 msgid "Invalid Stop parent"
@@ -11369,7 +11369,7 @@ msgstr "无效的输入参数 "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:74
 msgid "Disabled"
-msgstr "残障人士"
+msgstr "停用"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:496
 msgid "Unsupported additional ID"
