@@ -14,6 +14,7 @@
 # @file    generateParkingAreaRerouters.py
 # @author  Lara CODECA
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    11-3-2019
 
 """ Generate parking area rerouters from the parking area definition. """
@@ -53,6 +54,12 @@ def get_options(cmd_args=None):
     parser.add_argument(
         '-n', '--sumo-net', type=parser.net_file, category="input", dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
+    parser.add_argument(
+        '-b', '--begin', type=float, dest='begin', default=0.0,
+        help='Rerouter interval begin')
+    parser.add_argument(
+        '-e', '--end', type=float, dest='end', default=86400.0,
+        help='Rerouter interval end')
     parser.add_argument(
         '--max-number-alternatives', type=int, category="processing", dest='num_alternatives', default=10,
         help='Rerouter: max number of alternatives.')
@@ -216,7 +223,7 @@ class ReroutersGeneration(object):
 
     _REROUTER = """
     <rerouter id="{rid}" edges="{edges}">
-        <interval begin="0.0" end="86400">
+        <interval begin="{begin}" end="{end}">
             <!-- in order of distance --> {parkings}
         </interval>
     </rerouter>
@@ -265,7 +272,8 @@ class ReroutersGeneration(object):
                     edges.append(opposite.getID())
 
                 outfile.write(self._REROUTER.format(
-                    rid=rerouter['rid'], edges=' '.join(edges), parkings=alternatives))
+                    rid=rerouter['rid'], edges=' '.join(edges), begin=self._opt.begin, end=self._opt.end,
+                    parkings=alternatives))
             outfile.write("</additional>\n")
         print("{} created.".format(self._opt.output))
 
