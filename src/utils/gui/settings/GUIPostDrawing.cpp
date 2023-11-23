@@ -70,7 +70,7 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
 
 
 bool
-GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position center, const double radius) {
+GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius) {
     if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
         addElementUnderCursor(GLObject);
         return true;
@@ -81,19 +81,8 @@ GUIPostDrawing::positionWithinCircle(const GUIGlObject* GLObject, const Position
 
 
 bool
-GUIPostDrawing::positionWithinClosedShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape) {
+GUIPostDrawing::positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape) {
     if (shape.around(pos)) {
-        addElementUnderCursor(GLObject);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GUIPostDrawing::positionWithinShapeLine(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape, const double width) {
-    if (shape.distance2D(pos) <= width) {
         addElementUnderCursor(GLObject);
         return true;
     } else {

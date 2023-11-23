@@ -55,13 +55,10 @@ public:
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
     /// @brief check if mouse is within elements geometry (for circles)
-    bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position center, const double radius);
+    bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position &center, const double radius);
 
-    /// @brief check if mouse is within closed geometry (for filled shapes)
-    bool positionWithinClosedShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape);
-
-    /// @brief check if mouse is within elements geometry (for shapes)
-    bool positionWithinShapeLine(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape, const double width);
+    /// @brief check if mouse is within closed shapes (for filled shapes)
+    bool positionWithinShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector &shape);
 
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*>& getElementsUnderCursor() const;
