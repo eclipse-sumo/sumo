@@ -17,6 +17,7 @@
 # @author  Yun-Pang Floetteroed
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2010-09-15
 
 """
@@ -54,11 +55,11 @@ def initOptions():
     argParser.add_argument("-d", "--detector-values", dest="detvals", type=argParser.file,
                            help="adapt to the flow on the given edges", metavar="FILE")
     argParser.add_argument("--classpath", dest="classpath", default=os.pathsep.join(jars), type=str,
-                           help="classpath for the calibrator [default: %default]")
+                           help="classpath for the calibrator [default: %(default)s]")
     argParser.add_argument("-l", "--last-calibration-step", dest="calibStep",
-                           type=int, default=100, help="last step of the calibration [default: %default]")
+                           type=int, default=100, help="last step of the calibration [default: %(default)s]")
     argParser.add_argument("-S", "--demandscale", dest="demandscale",
-                           type=float, default=2., help="scaled demand [default: %default]")
+                           type=float, default=2., help="scaled demand [default: %(default)s]")
     argParser.add_argument("-F", "--freezeit",  dest="freezeit",
                            type=int, default=85, help="define the number of iterations for stablizing the results " +
                                                       "in the DTA-calibration")
