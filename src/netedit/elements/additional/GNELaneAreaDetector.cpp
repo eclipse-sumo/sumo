@@ -318,8 +318,8 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                     drawE2DetectorLogo(s, E2Exaggeration, "E2", textColor);
                 }
                 // draw geometry points
-                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+                drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+                drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
                 // pop layer matrix
                 GLHelper::popMatrix();
                 // Pop name
@@ -395,12 +395,12 @@ GNELaneAreaDetector::drawLanePartialGL(const GUIVisualizationSettings& s, const 
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), E2Geometry, E2DetectorWidth);
         // draw geometry points
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+            drawLeftGeometryPoint(s, E2Geometry.getShape().front(),  E2Geometry.getShapeRotations().front(), E2Color, true);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
         } else if (segment->isFirstSegment()) {
-            drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
+            drawLeftGeometryPoint(s, E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
         } else if (segment->isLastSegment()) {
-            drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+            drawRightGeometryPoint(s, E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
             // draw arrow
             if (E2Geometry.getShape().size() > 1) {
                 glTranslated(0, 0, 0.1);

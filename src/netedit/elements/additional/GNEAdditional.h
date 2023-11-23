@@ -313,16 +313,20 @@ public:
     void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols = false) const;
 
     /// @brief draw up geometry point
-    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
+    void drawUpGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
+                             const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw down geometry point
-    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
+    void drawDownGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
+                               const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw left geometry point
-    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
+    void drawLeftGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
+                               const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief draw right geometry point
-    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor, const bool ignoreShift = false);
+    void drawRightGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
+                                const RGBColor& baseColor, const bool ignoreShift = false) const;
 
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
@@ -449,8 +453,9 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief draw geometry point
-    static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
-                                            const double fromAngle, const double toAngle, const bool ignoreShift);
+    void drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, const Position& pos, const double rot,
+                                     const RGBColor& baseColor,const double fromAngle, const double toAngle,
+                                     const bool ignoreShift) const;
 
     /// @brief adjust listed additional text
     std::string adjustListedAdditionalText(const std::string& text) const;

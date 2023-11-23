@@ -240,9 +240,9 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
             }
             // draw geometry points
-            drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
-            drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
-            drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
+            drawUpGeometryPoint(s, myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(s, myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(s, myShapeWidth.front(), angle - 90, contourColor);
             // pop layer matrix
             GLHelper::popMatrix();
             // pop name

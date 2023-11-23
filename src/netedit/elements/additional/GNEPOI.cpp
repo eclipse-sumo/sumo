@@ -367,12 +367,12 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw geometry points
             if (myShapeHeight.size() > 0) {
-                GNEAdditional::drawUpGeometryPoint(myNet->getViewNet(), myShapeHeight.front(), 180, RGBColor::ORANGE);
-                GNEAdditional::drawDownGeometryPoint(myNet->getViewNet(), myShapeHeight.back(), 180, RGBColor::ORANGE);
+                drawUpGeometryPoint(s, myShapeHeight.front(), 180, RGBColor::ORANGE);
+                drawDownGeometryPoint(s, myShapeHeight.back(), 180, RGBColor::ORANGE);
             }
             if (myShapeWidth.size() > 0) {
-                GNEAdditional::drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), -90, RGBColor::ORANGE);
-                GNEAdditional::drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), -90, RGBColor::ORANGE);
+                drawLeftGeometryPoint(s, myShapeWidth.back(), -90, RGBColor::ORANGE);
+                drawRightGeometryPoint(s, myShapeWidth.front(), -90, RGBColor::ORANGE);
             }
             // pop name
             GLHelper::popName();

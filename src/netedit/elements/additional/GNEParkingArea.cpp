@@ -197,10 +197,10 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw geometry points
                 if (myStartPosition != INVALID_DOUBLE) {
-                    drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                    drawLeftGeometryPoint(s, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
                 }
                 if (myEndPosition != INVALID_DOUBLE) {
-                    drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                    drawRightGeometryPoint(s, myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
                 }
                 // pop layer matrix
                 GLHelper::popMatrix();

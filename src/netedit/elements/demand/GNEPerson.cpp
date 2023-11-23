@@ -347,8 +347,6 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // obtain width and length
         const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
-        // obtain diameter around person (used to calculate distance bewteen cursor and person)
-        const double distanceSquared = pow(exaggeration * std::max(length, width), 2);
         // obtain img file
         const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
         // obtain position
