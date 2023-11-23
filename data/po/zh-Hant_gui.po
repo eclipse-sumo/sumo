@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 09:58+0000\n"
+"PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -8665,7 +8665,7 @@ msgstr "車輛類型(VehicleType)分布的識別名(id)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3731
 msgid "TripEdges"
-msgstr "旅次路段路段"
+msgstr "路段之間的旅次"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3737
 msgid "The ID of trip"
@@ -8699,7 +8699,7 @@ msgstr "使用旅次定義所產生的(第一個)旅次出發時間"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3778
 msgid "TripJunctions"
-msgstr "旅次路口"
+msgstr "路口之間的旅次"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3784
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3826
@@ -8716,7 +8716,7 @@ msgstr "旅次結束的路口的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3820
 msgid "TripTAZs"
-msgstr "旅次交通分區"
+msgstr "交通分區之間的旅次"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3837
 msgid "The name of the TAZ the trip starts at"
@@ -8728,7 +8728,7 @@ msgstr "旅次結束的交通分區(TAZ)的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
 msgid "VehicleRoute"
-msgstr ""
+msgstr "車輛路徑"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3868
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
@@ -8757,11 +8757,11 @@ msgstr "車輛應進入路網時的時間步長(time step)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
 msgid "VehicleEmbeddedRoute"
-msgstr ""
+msgstr "車輛內部路徑"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3951
 msgid "FlowEdges"
-msgstr ""
+msgstr "路段之間的流量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 msgid "The ID of the flow"
@@ -8789,7 +8789,7 @@ msgstr "流量使用的中間路段的識別名(id)清單"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3995
 msgid "FlowJunctions"
-msgstr ""
+msgstr "路口之間的流量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4001
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4040
@@ -8807,7 +8807,7 @@ msgstr "流量結束的路口的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
 msgid "FlowTAZs"
-msgstr ""
+msgstr "交通分區之間的流量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4051
 msgid "The name of the TAZ the flow starts at"
@@ -8819,7 +8819,7 @@ msgstr "旅次流量(flow)結束的交通分區(TAZ)的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4073
 msgid "FlowRoute"
-msgstr ""
+msgstr "路徑流量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4090
 msgid "The id of the route the flow shall drive along"
@@ -8837,7 +8837,7 @@ msgstr "流量在其路徑上結束的路段的索引(index)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4117
 msgid "FlowEmbeddedRoute"
-msgstr ""
+msgstr "內部路徑流量"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4123
 msgid "The name of the flow"
@@ -8845,7 +8845,7 @@ msgstr "流量的名稱"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 msgid "StopLane"
-msgstr ""
+msgstr "車道上停靠"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4170
 msgid "The name of the lane the stop shall be located at"
