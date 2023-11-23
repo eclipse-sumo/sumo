@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-16 14:20+0000\n"
+"PO-Revision-Date: 2023-11-23 14:48+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/applications/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -189,7 +190,7 @@ msgstr "Forzar a dfrouter a calcular rutas para detectores intermedios"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Guardar detectores tipificados en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
@@ -197,29 +198,33 @@ msgstr "Guardar posiciones de los detectores como puntos de interés en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Guardar definiciones de emisor para detectores fuente en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Agregar tipos de vehículos al archivo de emisores (PKW, LKW)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Incluir los tipos de vehículos generados en un FILE separado, en vez de "
+"incluirlos en la salida de emisores"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Guardar las posiciones de los emisores como puntos de interés en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
+"Guardar definiciones de señal de velocidad variable para detectores sumidero "
+"en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr ""
+msgstr "Guardar definiciones de rerouter para detectores sumidero en FILE"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:114
 msgid ""
@@ -8192,11 +8197,11 @@ msgstr "   % aristas cargadas."
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:136
 #, c-format
 msgid "The split of edges was performed % times."
-msgstr ""
+msgstr "La división de aristas se realizó % veces."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:144
 msgid "Proj projection parameters used: '%'."
-msgstr ""
+msgstr "Parámetros de proyección Proj utilizados: '%'."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:165
 #, c-format
@@ -8210,6 +8215,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:64
 msgid "Non-numerical value for an edge's speed type occurred (edge '%')."
 msgstr ""
+"Se produjo un valor no numérico para el tipo de velocidad de una arista ("
+"arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
