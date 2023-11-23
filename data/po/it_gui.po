@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 08:17+0000\n"
+"PO-Revision-Date: 2023-11-24 17:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8261,7 +8261,7 @@ msgstr "Il nome del circuito di induzione"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2262
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2379
 msgid "The path to the output file"
-msgstr ""
+msgstr "Il percorso del file in uscita"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2059
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2125
@@ -8274,17 +8274,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2267
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2384
 msgid "Space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "Elenco di tipi di veicoli da considerare separati da spazi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2078
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2069
 msgid "E2 LaneAreaDetector"
-msgstr ""
+msgstr "Rivelatore corsia (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2083
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2074
 msgid "The id of E2"
-msgstr ""
+msgstr "Il codice identificativo del rivelatore corsia (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2093
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2177
@@ -8344,27 +8344,31 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2152
 msgid "E2 MultiLaneAreaDetector"
-msgstr ""
+msgstr "Rivelatore multi-corsie (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2167
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2157
 msgid "The id of Multilane E2"
-msgstr ""
+msgstr "Il codice identificativo del rivelatore multi-corsie (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2172
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
 msgid "The sequence of lane ids in which the detector shall be laid on"
 msgstr ""
+"La sequenza di codici identificativi di corsie lungo le quali il rivelatore "
+"deve essere posizionato"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2182
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2172
 msgid "The end position on the lane the detector shall be laid on in meters"
 msgstr ""
+"La posizione finale in metri sulla corsia dove il rivelatore deve essere "
+"piazzato"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2198
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2188
 msgid "Name of Multilane E2 detector"
-msgstr ""
+msgstr "Nome del rivelatore multi-corsie (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2246
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2235
@@ -8922,27 +8926,29 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3143
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3108
 msgid "The id of the TAZ"
-msgstr ""
+msgstr "Il codice identificativo della zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3148
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3113
 msgid "The shape of the TAZ"
-msgstr ""
+msgstr "La forma della zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3153
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3118
 msgid "TAZ center"
-msgstr ""
+msgstr "Il centro della zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3158
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3123
 msgid "An information whether the TAZ shall be filled"
-msgstr ""
+msgstr "Se la zona di assegnazione del traffico deve essere riempita di colore"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3164
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3129
 msgid "The RGBA color with which the TAZ shall be displayed"
 msgstr ""
+"Il colore RGBA col quale la zona di assegnazione del traffico deve essere "
+"disegnata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3170
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5690
@@ -9093,17 +9099,17 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3400
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3358
 msgid "The shape of the obstacle"
-msgstr ""
+msgstr "La forma dell'ostacolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3406
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3364
 msgid "Obstacle's name"
-msgstr ""
+msgstr "Il nome dell'ostacolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3388
 msgid "The id of Route"
-msgstr ""
+msgstr "Il codice identificativo dell'itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3441
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3492
@@ -9113,13 +9119,15 @@ msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
 msgstr ""
+"Elenco di codici identificativi separati di spazi degli archi il veicolo "
+"deve percorrere"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3446
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3497
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3403
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3452
 msgid "This route's color"
-msgstr ""
+msgstr "Il colore di questo itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3451
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3502
@@ -9127,6 +9135,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3457
 msgid "The number of times that the edges of this route shall be repeated"
 msgstr ""
+"Il numero di volte gli archi di questo itinerario devono essere percorsi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3457
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3508
@@ -9147,42 +9156,42 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3470
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
 msgid "RouteDistribution"
-msgstr ""
+msgstr "Distribuzione di itinerari"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
 msgid "The id of route distribution"
-msgstr ""
+msgstr "Il codice identificativo della distribuzione di itinerari"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3486
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3441
 msgid "RouteEmbedded"
-msgstr ""
+msgstr "Itinerario interno"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3521
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
 msgid "VehicleType"
-msgstr ""
+msgstr "Tipo di veicolo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3526
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3480
 msgid "type ID"
-msgstr ""
+msgstr "il codice identificativo del tipo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3531
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3485
 msgid "Type distribution"
-msgstr ""
+msgstr "Distribuzione di tipi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3536
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3490
 msgid "An abstract vehicle class"
-msgstr ""
+msgstr "Una classe di veicoli astratta"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3543
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3497
 msgid "This type's color"
-msgstr ""
+msgstr "Il colore di questo tipo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3548
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3502
