@@ -44,7 +44,7 @@ public:
     ~GNEContour();
 
     /// @brief reset dotted contour
-    void reset();
+    void reset() const;
 
     /// @brief dotted contours
     /// @{
@@ -89,11 +89,8 @@ private:
     /// @brief pointer to AC
     GNEAttributeCarrier* myAC;
 
-    /// @brief pointer to cached position
-    Position* myCachedPosition;
-
     /// @brief pointer to cached shape
-    std::vector<PositionVector>* myCachedShape;
+    std::vector<PositionVector>* myCachedShapes;
 
     /// @brief width, height, rot, scale
     std::vector<double>* myCachedDoubles;
