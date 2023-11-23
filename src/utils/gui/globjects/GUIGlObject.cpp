@@ -416,50 +416,6 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 }
 
 
-bool
-GUIGlObject::positionWithinGeometry(const Position &pos, const Position center, const double radius) const {
-    if (pos.distanceSquaredTo2D(center) <= (radius * radius)) {
-        gPostDrawing.addElementUnderCursor(this);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GUIGlObject::positionWithinGeometry(const Position &pos, const PositionVector shape) const {
-    if (shape.around(pos)) {
-        gPostDrawing.addElementUnderCursor(this);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GUIGlObject::positionWithinGeometry(const Position &pos, const PositionVector shape, const double width) const {
-    if (shape.distance2D(pos) <= width) {
-        gPostDrawing.addElementUnderCursor(this);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GUIGlObject::positionWithinGeometry(const Position &pos, const PositionVector shape, const double width, GUIGlObject* parent) const {
-    if (shape.distance2D(pos) <= width) {
-        gPostDrawing.addElementUnderCursor(parent);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 std::string
 GUIGlObject::createFullName() const {
     return TypeNames.getString(myGLObjectType) + ":" + getMicrosimID();

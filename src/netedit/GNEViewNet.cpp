@@ -1394,8 +1394,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     // clear post drawing elements
     gPostDrawing.clearElements();
-    // set current mouse position in gPostDrawing
-    gPostDrawing.mousePos = getPositionInformation();
     // obtain objects included in minB and maxB
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
     // fill objects under cursor

@@ -51,20 +51,23 @@ public:
     /// @brief mark GLObject to update (usually the geometry)
     void markGLObjectToUpdate(GUIGlObject* GLObject);
 
-    /// @brief add element into list of elements under cursor
-    void addElementUnderCursor(const GUIGlObject* GLObject);
-
     /// @brief check if element is under cursor
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
+
+    /// @brief check if mouse is within elements geometry (for circles)
+    bool positionWithinCircle(const GUIGlObject* GLObject, const Position &pos, const Position center, const double radius);
+
+    /// @brief check if mouse is within closed geometry (for filled shapes)
+    bool positionWithinClosedShape(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape);
+
+    /// @brief check if mouse is within elements geometry (for shapes)
+    bool positionWithinShapeLine(const GUIGlObject* GLObject, const Position &pos, const PositionVector shape, const double width);
 
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*>& getElementsUnderCursor() const;
 
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
-
-    /// @brief mouse position before rendering elements
-    Position mousePos = Position::INVALID;
 
     /// @brief elements marked for drawing over contour (used in netedit)
     const GUIGlObject* markedElementOverContour;
@@ -99,6 +102,9 @@ protected:
 
     /// @brief elements under cursor
     std::vector<const GUIGlObject*> myElementsUnderCursor;
+
+    /// @brief add element into list of elements under cursor
+    void addElementUnderCursor(const GUIGlObject* GLObject);
 
 private:
     /// @brief set copy constructor private

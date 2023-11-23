@@ -73,7 +73,7 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const Pos
     // first build dotted contour
     buildDottedContourClosed(s, shape, scale);
     // check if mouse is within geometry
-    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), *myCachedShape);
+    gPostDrawing.positionWithinClosedShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), *myCachedShape);
     // draw dotted contours
     drawDottedContours(s, s.drawDottedContour(scale), addOffset, lineWidth);
 }
@@ -86,7 +86,7 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const P
     // first build dotted contour
     buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
     // check if mouse is within geometry
-    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), shape, extrusionWidth * scale);
+    gPostDrawing.positionWithinShapeLine(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), shape, extrusionWidth * scale);
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -99,7 +99,7 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
     // first build dotted contour
     buildDottedContourRectangle(s, pos, width, height, offsetX, offsetY, rot, scale);
     // check if mouse is within geometry
-    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), *myCachedShape);
+    gPostDrawing.positionWithinClosedShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), *myCachedShape);
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -111,7 +111,7 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const Pos
     // first build dotted contour
     buildDottedContourCircle(s, pos, radius, scale);
     // check if mouse is within geometry
-    myAC->getGUIGlObject()->positionWithinGeometry(myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
+    gPostDrawing.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
