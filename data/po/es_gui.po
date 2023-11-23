@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-23 08:17+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-11-23 14:48+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -10431,31 +10431,33 @@ msgstr "Algunos descendientes se perdieron durante la ordenación"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:93
 msgid "no tag type defined"
-msgstr ""
+msgstr "sin etiqueta de tipo definida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:96
 msgid "no tag property defined"
-msgstr ""
+msgstr "sin etiqueta de propiedad definida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:99
 msgid "no tag parent defined"
-msgstr ""
+msgstr "sin etiqueta padre definida"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:102
 msgid "no conflict defined"
-msgstr ""
+msgstr "ningún conflicto definido"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:106
 msgid "no basic type property defined"
-msgstr ""
+msgstr "no se han definido propiedades de tipo básico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:110
 msgid "multiple basic type properties defined"
-msgstr ""
+msgstr "múltiples propiedades de tipo básico definidas"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:114
 msgid "element can be either shape or TAZ or wire element at the same time"
 msgstr ""
+"el elemento solo puede ser o una forma, zona de análisis de tráfico o "
+"elemento de catenaria al mismo tiempo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:118
 msgid ""
