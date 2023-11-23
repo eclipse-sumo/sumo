@@ -101,6 +101,9 @@ private:
     /// @brief dotted geometry color
     static GUIDottedGeometry::DottedGeometryColor myDottedGeometryColor;
 
+    /// @brief check dotted caches
+    void checkDottedCaches(size_t shapes, size_t doubles, size_t dottedGeometries) const;
+
     /// @brief build dotted contour shape
     void buildDottedContourClosed(const GUIVisualizationSettings& s, const PositionVector& shape, const double scale) const;
 
