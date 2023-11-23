@@ -232,8 +232,8 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) lanes
         void filterLanes();
 
-        /// @brief filter locked elements
-        void filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes = {});
+        /// @brief filter locked elements (except the ignoreFilter)
+        void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
 
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
@@ -325,7 +325,7 @@ struct GNEViewNetHelper {
             void clearElements();
 
             /// @brief filter elements
-            void filterElements(const std::vector<GUIGlObjectType> &types);
+            void filterElements(const std::vector<const GUIGlObject*> &objects);
 
             /// @brief vector with the clicked GUIGlObjects
             std::vector<GUIGlObject*> GUIGlObjects;
