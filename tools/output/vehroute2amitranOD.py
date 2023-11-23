@@ -14,16 +14,16 @@
 
 # @file    vehroute2amitranOD.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2014-04-08
 
 from __future__ import absolute_import
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 import sumolib  # noqa
-
+from sumolib.options import ArgumentParser  # noqa
 
 def convert(vehRoutes, routeOut, odOut, interval):
     routeDict = {}
@@ -85,12 +85,12 @@ def convert(vehRoutes, routeOut, odOut, interval):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-r", "--routes", default='routes.xml',
-                         help="name of the amitran route file output [default: %default]")
-    optParser.add_option("-o", "--od-file", default='od.xml',
-                         help="name of the amitran O/D file output [default: %default]")
-    optParser.add_option("-i", "--interval", default=3600, type=int,
-                         help="aggregation interval in seconds [default: %default]")
-    (options, args) = optParser.parse_args()
+    argParser = ArgumentParser()
+    argParser.add_argument("-r", "--routes", default='routes.xml', category="input",
+                         help="name of the amitran route file output [default: %(default)s]")
+    argParser.add_argument("-o", "--od-file", default='od.xml', category="output",
+                         help="name of the amitran O/D file output [default: %(default)s]")
+    argParser.add_argument("-i", "--interval", default=3600, type=int,
+                         help="aggregation interval in seconds [default: %(default)s]")
+    (options, args) = argParser.parse_args()
     convert(args[0], options.routes, options.od_file, options.interval)
