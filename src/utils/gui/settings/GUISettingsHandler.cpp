@@ -127,7 +127,6 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
             mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
             mySettings.disableDottedContours = StringUtils::toBool(attrs.getStringSecure("disableDottedContours", toString(mySettings.disableDottedContours)));
-            mySettings.forceDrawForPositionSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawPositionSelection", toString(mySettings.forceDrawForPositionSelection)));
             mySettings.geometryIndices = parseTextSettings("geometryIndices", attrs, mySettings.geometryIndices);
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND:

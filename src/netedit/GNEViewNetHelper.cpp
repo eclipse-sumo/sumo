@@ -3927,7 +3927,7 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, GUIGlObj
         return false;
     }
     // check visualizationSettings
-    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+    if (s.drawForRectangleSelection) {
         return false;
     }
     // check detail

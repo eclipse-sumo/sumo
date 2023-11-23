@@ -353,76 +353,73 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
         // obtain position
         const Position personPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
-        // check if person can be drawn
-        if (!(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
-            // push GL ID
-            GLHelper::pushName(getGlID());
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // translate and rotate
-            glTranslated(personPosition.x(), personPosition.y(), 0);
-            glRotated(90, 0, 0, 1);
-            // set person color
-            GLHelper::setColor(personColor);
-            // set scale
-            glScaled(exaggeration, exaggeration, 1);
-            // draw person depending of detail level
-            if (s.personQuality >= 2) {
-                GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
-            } else if (s.personQuality == 1) {
-                GUIBasePersonHelper::drawAction_drawAsCenteredCircle(length / 2, width / 2, s.scale * exaggeration);
-            } else if (s.personQuality == 0) {
-                GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
-            }
-            // pop matrix
-            GLHelper::popMatrix();
-            // draw stack label
-            if (myStackedLabelNumber > 0) {
-                drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
-            } else if ((getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
-                       (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
-                // declare counter for stacked persons over stops
-                int stackedCounter = 0;
-                // get stoppingPlace
-                const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
-                // get stacked persons
-                for (const auto& stopPerson : stoppingPlace->getChildDemandElements()) {
-                    if ((stopPerson->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
-                            (stopPerson->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
-                        // get person parent
-                        const auto personParent = stopPerson->getParentDemandElements().front();
-                        // check if the stop if the first person plan parent
-                        if (stopPerson->getPreviousChildDemandElement(personParent) == nullptr) {
-                            stackedCounter++;
-                        }
+        // push GL ID
+        GLHelper::pushName(getGlID());
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // translate and rotate
+        glTranslated(personPosition.x(), personPosition.y(), 0);
+        glRotated(90, 0, 0, 1);
+        // set person color
+        GLHelper::setColor(personColor);
+        // set scale
+        glScaled(exaggeration, exaggeration, 1);
+        // draw person depending of detail level
+        if (s.personQuality >= 2) {
+            GUIBasePersonHelper::drawAction_drawAsImage(0, length, width, file, SUMOVehicleShape::PEDESTRIAN, exaggeration);
+        } else if (s.personQuality == 1) {
+            GUIBasePersonHelper::drawAction_drawAsCenteredCircle(length / 2, width / 2, s.scale * exaggeration);
+        } else if (s.personQuality == 0) {
+            GUIBasePersonHelper::drawAction_drawAsTriangle(0, length, width);
+        }
+        // pop matrix
+        GLHelper::popMatrix();
+        // draw stack label
+        if (myStackedLabelNumber > 0) {
+            drawStackLabel(myStackedLabelNumber, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
+        } else if ((getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
+                    (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
+            // declare counter for stacked persons over stops
+            int stackedCounter = 0;
+            // get stoppingPlace
+            const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
+            // get stacked persons
+            for (const auto& stopPerson : stoppingPlace->getChildDemandElements()) {
+                if ((stopPerson->getTagProperty().getTag() == GNE_TAG_STOPPERSON_BUSSTOP) ||
+                        (stopPerson->getTagProperty().getTag() == GNE_TAG_STOPPERSON_TRAINSTOP)) {
+                    // get person parent
+                    const auto personParent = stopPerson->getParentDemandElements().front();
+                    // check if the stop if the first person plan parent
+                    if (stopPerson->getPreviousChildDemandElement(personParent) == nullptr) {
+                        stackedCounter++;
                     }
                 }
-                // if we have more than two stacked elements, draw label
-                if (stackedCounter > 1) {
-                    drawStackLabel(stackedCounter, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
-                }
             }
-            // draw flow label
-            if (myTagProperty.isFlow()) {
-                drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
+            // if we have more than two stacked elements, draw label
+            if (stackedCounter > 1) {
+                drawStackLabel(stackedCounter, "person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
             }
-            // pop name
-            GLHelper::popName();
-            // draw name
-            drawName(personPosition, s.scale, s.personName, s.angle);
-            if (s.personValue.show(this)) {
-                Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
-                const double value = getColorValue(s, s.personColorer.getActive());
-                GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
-            }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
-            // draw dotted contour
-            myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
         }
+        // draw flow label
+        if (myTagProperty.isFlow()) {
+            drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
+        }
+        // pop name
+        GLHelper::popName();
+        // draw name
+        drawName(personPosition, s.scale, s.personName, s.angle);
+        if (s.personValue.show(this)) {
+            Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
+            const double value = getColorValue(s, s.personColorer.getActive());
+            GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
+        }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration, s.dottedContourSettings.segmentWidth);
+        // draw dotted contour
+        myContour.drawDottedContourRectangle(s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration,
+                                                s.dottedContourSettings.segmentWidth);
     }
 }
 

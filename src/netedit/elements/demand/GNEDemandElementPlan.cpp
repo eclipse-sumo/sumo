@@ -1374,7 +1374,7 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 
 bool
 GNEDemandElementPlan::drawPlanZoom(const GUIVisualizationSettings& s) const {
-    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+    if (s.drawForRectangleSelection) {
         return true;
     } else {
         return s.drawDetail(s.detailSettings.plans, 1);

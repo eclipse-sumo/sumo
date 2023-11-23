@@ -294,7 +294,7 @@ GNEStoppingPlace::getHierarchyName() const {
 
 void
 GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const {
-    if (!s.drawForPositionSelection) {
+    if (!s.drawForRectangleSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
@@ -327,51 +327,31 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
     const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
     // calculate rotation
     const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
-    if (s.drawForPositionSelection) {
-        // only draw circle depending of distance between sign and mouse cursor
-        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-            // push matrix
-            GLHelper::pushMatrix();
-            // Start drawing sign traslating matrix to signal position
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // rotate over lane
-            GUIGeometry::rotateOverLane(rot);
-            // scale matrix depending of the exaggeration
-            glScaled(exaggeration, exaggeration, 1);
-            // set color
-            GLHelper::setColor(baseColor);
-            // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
-    } else {
-        // push matrix
-        GLHelper::pushMatrix();
-        // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // rotate over lane
-        GUIGeometry::rotateOverLane(rot);
-        // scale matrix depending of the exaggeration
-        glScaled(exaggeration, exaggeration, 1);
+    // push matrix
+    GLHelper::pushMatrix();
+    // Start drawing sign traslating matrix to signal position
+    glTranslated(mySignPos.x(), mySignPos.y(), 0);
+    // rotate over lane
+    GUIGeometry::rotateOverLane(rot);
+    // scale matrix depending of the exaggeration
+    glScaled(exaggeration, exaggeration, 1);
+    // set color
+    GLHelper::setColor(baseColor);
+    // Draw circle
+    GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+    // continue depending of rectangle selection
+    if (!s.drawForRectangleSelection) {
+        // Traslate to front
+        glTranslated(0, 0, .1);
         // set color
-        GLHelper::setColor(baseColor);
-        // Draw circle
-        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-        // continue depending of rectangle selection
-        if (!s.drawForRectangleSelection) {
-            // Traslate to front
-            glTranslated(0, 0, .1);
-            // set color
-            GLHelper::setColor(signColor);
-            // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-            // draw H depending of detailSettings
-            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
-        }
-        // pop draw matrix
-        GLHelper::popMatrix();
+        GLHelper::setColor(signColor);
+        // draw another circle in the same position, but a little bit more small
+        GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+        // draw H depending of detailSettings
+        GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
     }
+    // pop draw matrix
+    GLHelper::popMatrix();
 }
 
 

@@ -431,7 +431,6 @@ protected:
     FXCheckButton* myDither = nullptr;
     FXCheckButton* myFPS = nullptr;
     FXCheckButton* myDrawBoundaries = nullptr;
-    FXCheckButton* myForceDrawForPositionSelection = nullptr;
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
     FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;

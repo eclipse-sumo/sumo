@@ -183,7 +183,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 glVertex2d(0 + 1.4, 6);
                 glEnd();
                 // draw "U"
-                if (!s.drawForPositionSelection) {
+                if (!s.drawForRectangleSelection) {
                     // set text color
                     RGBColor textColor;
                     if (getParentAdditionals().front()->isAttributeCarrierSelected()) {

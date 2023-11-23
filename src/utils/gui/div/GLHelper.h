@@ -358,7 +358,7 @@ public:
     static void drawCrossTies(const PositionVector& geom,
                               const std::vector<double>& rots,
                               const std::vector<double>& lengths,
-                              double length, double spacing, double halfWidth, bool drawForSelection);
+                              double length, double spacing, double halfWidth, bool lessDetail);
 
     /// @bried draw the space between markings (in road color)
     static void drawInverseMarkings(const PositionVector& geom,

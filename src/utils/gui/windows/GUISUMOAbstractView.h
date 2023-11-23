@@ -517,7 +517,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsAtPosition(Position pos, double radius);
 
     /// @brief returns the ids of all objects in the given boundary
-    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
+    std::vector<GUIGlID> getObjectsInBoundary(Boundary bound);
 
     /// @brief filter internal lanes in Objects under cursor
     std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*>& objects) const;

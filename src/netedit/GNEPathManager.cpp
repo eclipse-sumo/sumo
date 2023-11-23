@@ -545,7 +545,7 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+    } else if (s.drawForRectangleSelection) {
         return true;
     } else if (myLaneDrawedElements.count(lane) > 0) {
         // check tag
@@ -572,7 +572,7 @@ GNEPathManager::PathDraw::checkDrawPathGeometry(const GUIVisualizationSettings& 
     // check conditions
     if (dottedElement) {
         return true;
-    } else if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+    } else if (s.drawForRectangleSelection) {
         return true;
     } else {
         // declare lane2lane

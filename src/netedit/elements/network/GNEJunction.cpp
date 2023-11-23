@@ -1576,21 +1576,16 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s,
     const RGBColor bubbleColor = setColor(s, true);
     // recognize full transparency and simply don't draw
     if (bubbleColor.alpha() != 0) {
-        // check if mouse is in bubble
-        const bool mouseInBubble = (mousePosition.distanceSquaredTo2D(myNBNode->getPosition()) <= (bubbleRadius * bubbleRadius));
-        // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
-        if (!s.drawForPositionSelection || mouseInBubble) {
-            // push matrix
-            GLHelper::pushMatrix();
-            // set color
-            GLHelper::setColor(bubbleColor);
-            // move matrix junction center
-            glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
-            // draw filled circle
-            GLHelper::drawFilledCircle(bubbleRadius, s.getCircleResolution());
-            // pop matrix
-            GLHelper::popMatrix();
-        }
+        // push matrix
+        GLHelper::pushMatrix();
+        // set color
+        GLHelper::setColor(bubbleColor);
+        // move matrix junction center
+        glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
+        // draw filled circle
+        GLHelper::drawFilledCircle(bubbleRadius, s.getCircleResolution());
+        // pop matrix
+        GLHelper::popMatrix();
     }
 }
 
@@ -1615,20 +1610,8 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s,
             myTesselation.getShapeRef().scaleRelative(junctionExaggeration);
             myTesselation.myTesselation.clear();
         }
-        // first check if inner junction polygon can be drawn
-        if (s.drawForPositionSelection) {
-            // only draw a point if mouse is around shape
-            if (myTesselation.getShape().around(mousePosition)) {
-                // push matrix
-                GLHelper::pushMatrix();
-                // move to mouse position
-                glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
-                // draw a simple circle
-                GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                // pop matrix
-                GLHelper::popMatrix();
-            }
-        } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) >= 40) {
+        // check if draw tesselation or or polygon
+        if ((s.scale * junctionExaggeration * myMaxDrawingSize) >= 40) {
             // draw shape with high detail
             myTesselation.drawTesselation(myTesselation.getShape());
         } else {

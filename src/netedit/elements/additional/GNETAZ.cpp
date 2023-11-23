@@ -314,25 +314,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
             // check if we're drawing a polygon or a polyline
             if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
-                if (s.drawForPositionSelection) {
-                    // check if mouse is within geometry
-                    if (myAdditionalGeometry.getShape().around(mousePosition)) {
-                        // push matrix
-                        GLHelper::pushMatrix();
-                        // move to mouse position
-                        glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                        // set color
-                        GLHelper::setColor(color);
-                        // draw circle
-                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                        // pop matrix
-                        GLHelper::popMatrix();
-                    }
-                } else {
-                    // draw inner polygon
-                    const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
-                    GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride, true);
-                }
+                // draw inner polygon
+                const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
+                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride, true);
             } else {
                 // push matrix
                 GLHelper::pushMatrix();

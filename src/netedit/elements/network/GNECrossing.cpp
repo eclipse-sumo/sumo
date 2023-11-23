@@ -271,7 +271,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(crossingColor);
                 // draw depending of selection
-                if (s.drawForRectangleSelection || s.drawForPositionSelection) {
+                if (s.drawForRectangleSelection) {
                     // just drawn a box line
                     GLHelper::drawBoxLines(myCrossingGeometry.getShape(), halfWidth);
                 } else {

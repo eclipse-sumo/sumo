@@ -997,14 +997,8 @@ public:
     /// @brief the current selection scaling in netedit (set in SelectorFrame)
     double selectorFrameScale;
 
-    /// @brief whether drawing is performed for the purpose of selecting objects with a single click
-    bool drawForPositionSelection;
-
     /// @brief whether drawing is performed for the purpose of selecting objects using a rectangle
     bool drawForRectangleSelection;
-
-    /// @brief flag to force draw for position selection (see drawForPositionSelection)
-    bool forceDrawForPositionSelection;
 
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;

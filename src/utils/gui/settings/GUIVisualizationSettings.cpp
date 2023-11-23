@@ -616,9 +616,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     gaming(false),
     drawBoundaries(false),
     selectorFrameScale(1.),
-    drawForPositionSelection(false),
     drawForRectangleSelection(false),
-    forceDrawForPositionSelection(false),
     forceDrawForRectangleSelection(false),
     disableDottedContours(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
@@ -1739,7 +1737,6 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
     dev.writeAttr("drawBoundaries", drawBoundaries);
-    dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
     dev.writeAttr("disableDottedContours", disableDottedContours);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
     geometryIndices.print(dev, "geometryIndices");
@@ -2002,9 +1999,6 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (drawBoundaries != v2.drawBoundaries) {
-        return false;
-    }
-    if (forceDrawForPositionSelection != v2.forceDrawForPositionSelection) {
         return false;
     }
     if (disableDottedContours != v2.disableDottedContours) {
@@ -2432,7 +2426,7 @@ GUIVisualizationSettings::drawDetail(const double detail, const double exaggerat
 
 int
 GUIVisualizationSettings::getCircleResolution() const {
-    if (drawForPositionSelection || drawForRectangleSelection) {
+    if (drawForRectangleSelection) {
         return 8;
     } else if (scale >= 10) {
         return 32;
@@ -2446,9 +2440,7 @@ GUIVisualizationSettings::getCircleResolution() const {
 
 bool
 GUIVisualizationSettings::drawDottedContour(const double exaggeration) const {
-    if (disableDottedContours) {
-        return false;
-    } else if (drawForPositionSelection || drawForRectangleSelection) {
+    if (disableDottedContours || drawForRectangleSelection) {
         return false;
     } else {
         return (scale * exaggeration) > 3.;

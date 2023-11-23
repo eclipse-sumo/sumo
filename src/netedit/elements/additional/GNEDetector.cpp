@@ -233,7 +233,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
 void
 GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
                                 const std::string& logo, const RGBColor& textColor) const {
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if (!s.drawForRectangleSelection) {
         // calculate position
         const Position pos = myAdditionalGeometry.getShape().front();
         // calculate rotation
@@ -255,7 +255,7 @@ GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double 
 void
 GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
                                 const std::string& logo, const RGBColor& textColor) const {
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if (!s.drawForRectangleSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position

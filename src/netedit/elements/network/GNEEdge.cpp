@@ -2598,7 +2598,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
 void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
     // check  if we can draw it
-    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
+    if (!s.drawForRectangleSelection) {
         // draw the name and/or the street name
         const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
         const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;

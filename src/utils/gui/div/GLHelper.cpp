@@ -786,7 +786,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
                         const std::vector<double>& rots,
                         const std::vector<double>& lengths,
                         double length, double spacing,
-                        double halfWidth, bool drawForSelection) {
+                        double halfWidth, bool lessDetail) {
     GLHelper::pushMatrix();
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
@@ -795,8 +795,8 @@ GLHelper::drawCrossTies(const PositionVector& geom,
         GLHelper::pushMatrix();
         glTranslated(geom[i].x(), geom[i].y(), 0.0);
         glRotated(rots[i], 0, 0, 1);
-        // draw crossing depending if isn't being drawn for selecting
-        if (!drawForSelection) {
+        // draw crossing depending of detail
+        if (!lessDetail) {
             for (double t = 0; t < lengths[i]; t += spacing) {
                 glBegin(GL_QUADS);
                 glVertex2d(-halfWidth, -t);

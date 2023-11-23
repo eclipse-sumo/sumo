@@ -202,7 +202,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // scale
                 glScaled(entryExitExaggeration, entryExitExaggeration, 1);
                 // draw Entry or Exit logo if isn't being drawn for selecting
-                if (s.drawForRectangleSelection || s.drawForPositionSelection) {
+                if (s.drawForRectangleSelection) {
                     GLHelper::setColor(s.detectorSettings.E3EntryColor);
                     GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 }
@@ -211,7 +211,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // rotate 90 degrees lane
                 glRotated(90, 0, 0, 1);
                 // draw Entry or Exit text if isn't being drawn for selecting
-                if (s.drawForRectangleSelection || s.drawForPositionSelection) {
+                if (s.drawForRectangleSelection) {
                     GLHelper::setColor(s.detectorSettings.E3EntryColor);
                     GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 } else if (drawUsingSelectColor()) {
@@ -230,7 +230,7 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // pop matrix
                 GLHelper::popMatrix();
                 // check if draw E3
-                if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+                if (!s.drawForRectangleSelection) {
                     // Push matrix
                     GLHelper::pushMatrix();
                     // Traslate to center of detector

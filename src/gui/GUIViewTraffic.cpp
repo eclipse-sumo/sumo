@@ -348,9 +348,6 @@ GUIViewTraffic::getPOIParamKeys() const {
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
-    if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
-        myVisualizationSettings->drawForPositionSelection = true;
-    }
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -363,12 +360,10 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
 
     // draw decals (if not in grabbing mode)
     drawDecals();
-    myVisualizationSettings->scale = myVisualizationSettings->drawForPositionSelection ? myVisualizationSettings->scale : m2p(SUMO_const_laneWidth);
+    myVisualizationSettings->scale = m2p(SUMO_const_laneWidth);
     if (myVisualizationSettings->showGrid) {
         paintGLGrid();
     }
-
-
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };

@@ -352,84 +352,81 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
-        // check if container can be drawn
-        if (!(s.drawForPositionSelection && (containerPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
-            // push GL ID
-            GLHelper::pushName(getGlID());
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // translate and rotate
-            glTranslated(containerPosition.x(), containerPosition.y(), 0);
-            glRotated(90, 0, 0, 1);
-            // set container color
-            GLHelper::setColor(color);
-            // set scale
-            glScaled(exaggeration, exaggeration, 1);
-            // draw container depending of detail level
-            switch (s.containerQuality) {
-                case 0:
-                case 1:
-                case 2:
-                    drawAction_drawAsPoly();
-                    break;
-                case 3:
-                default:
-                    drawAction_drawAsImage(s);
-                    break;
+        // push GL ID
+        GLHelper::pushName(getGlID());
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // translate and rotate
+        glTranslated(containerPosition.x(), containerPosition.y(), 0);
+        glRotated(90, 0, 0, 1);
+        // set container color
+        GLHelper::setColor(color);
+        // set scale
+        glScaled(exaggeration, exaggeration, 1);
+        // draw container depending of detail level
+        switch (s.containerQuality) {
+            case 0:
+            case 1:
+            case 2:
+                drawAction_drawAsPoly();
+                break;
+            case 3:
+            default:
+                drawAction_drawAsImage(s);
+                break;
+        }
+        // pop matrix
+        GLHelper::popMatrix();
+        // draw line between junctions if container plan isn't valid
+        for (const auto& containerPlan : getChildDemandElements()) {
+            if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                drawJunctionLine(containerPlan);
             }
-            // pop matrix
-            GLHelper::popMatrix();
-            // draw line between junctions if container plan isn't valid
-            for (const auto& containerPlan : getChildDemandElements()) {
-                if (containerPlan->getTagProperty().isPlanContainer() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
-                    drawJunctionLine(containerPlan);
-                }
-            }
-            // pop name
-            GLHelper::popName();
-            // draw stack label
-            if (myStackedLabelNumber > 0) {
-                drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
-            } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
-                // declare counter for stacked containers over stops
-                int stackedCounter = 0;
-                // get stoppingPlace
-                const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
-                // get stacked containers
-                for (const auto& stopContainer : stoppingPlace->getChildDemandElements()) {
-                    if (stopContainer->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
-                        // get container parent
-                        const auto containerParent = stopContainer->getParentDemandElements().front();
-                        // check if the stop if the first container plan parent
-                        if (stopContainer->getPreviousChildDemandElement(containerParent) == nullptr) {
-                            stackedCounter++;
-                        }
+        }
+        // pop name
+        GLHelper::popName();
+        // draw stack label
+        if (myStackedLabelNumber > 0) {
+            drawStackLabel(myStackedLabelNumber, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+        } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
+            // declare counter for stacked containers over stops
+            int stackedCounter = 0;
+            // get stoppingPlace
+            const auto stoppingPlace = getChildDemandElements().front()->getParentAdditionals().front();
+            // get stacked containers
+            for (const auto& stopContainer : stoppingPlace->getChildDemandElements()) {
+                if (stopContainer->getTagProperty().getTag() == GNE_TAG_STOPCONTAINER_CONTAINERSTOP) {
+                    // get container parent
+                    const auto containerParent = stopContainer->getParentDemandElements().front();
+                    // check if the stop if the first container plan parent
+                    if (stopContainer->getPreviousChildDemandElement(containerParent) == nullptr) {
+                        stackedCounter++;
                     }
                 }
-                // if we have more than two stacked elements, draw label
-                if (stackedCounter > 1) {
-                    drawStackLabel(stackedCounter, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
-                }
             }
-            // draw flow label
-            if (myTagProperty.isFlow()) {
-                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+            // if we have more than two stacked elements, draw label
+            if (stackedCounter > 1) {
+                drawStackLabel(stackedCounter, "container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
             }
-            // draw name
-            drawName(containerPosition, s.scale, s.containerName, s.angle);
-            if (s.personValue.show(this)) {
-                Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
-                const double value = getColorValue(s, s.containerColorer.getActive());
-                GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
-            }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-            // draw dotted contour
-            myContour.drawDottedContourRectangle(s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
-                                                 s.dottedContourSettings.segmentWidth);
         }
+        // draw flow label
+        if (myTagProperty.isFlow()) {
+            drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+        }
+        // draw name
+        drawName(containerPosition, s.scale, s.containerName, s.angle);
+        if (s.personValue.show(this)) {
+            Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
+            const double value = getColorValue(s, s.containerColorer.getActive());
+            GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
+        }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+        // draw dotted contour
+        myContour.drawDottedContourRectangle(s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration,
+                                                s.dottedContourSettings.segmentWidth);
     }
 }
 

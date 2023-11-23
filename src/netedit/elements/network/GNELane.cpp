@@ -379,7 +379,7 @@ GNELane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // only draw links number depending of the scale and if isn't being drawn for selecting
-    if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if ((s.scale >= 10) && !s.drawForRectangleSelection) {
         // first check that drawLinkJunctionIndex must be drawn
         if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
             // get connections
@@ -618,17 +618,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // continue depending of scale
         if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
-            if (!s.drawForPositionSelection) {
-                // draw lane as line, depending of myShapeColors
-                if (myShapeColors.size() > 0) {
-                    GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
-                } else {
-                    GLHelper::drawLine(myLaneGeometry.getShape());
-                }
+            // draw lane as line, depending of myShapeColors
+            if (myShapeColors.size() > 0) {
+                GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
+            } else {
+                GLHelper::drawLine(myLaneGeometry.getShape());
             }
         } else {
             // Check if lane has to be draw as railway and if isn't being drawn for selecting
-            if (drawRailway && (!(s.drawForRectangleSelection || s.drawForPositionSelection) || spreadSuperposed)) {
+            if (drawRailway && (!s.drawForRectangleSelection || spreadSuperposed)) {
                 // draw as railway
                 drawLaneAsRailway(s, laneDrawingConstants);
             } else {
@@ -654,7 +652,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
             }
             // only draw details depending of the scale and if isn't being drawn for selecting
-            if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+            if ((s.scale >= 10) && !s.drawForRectangleSelection) {
                 // draw markings
                 drawMarkings(s, laneDrawingConstants.exaggeration, drawRailway);
                 // Draw direction indicators
@@ -1264,7 +1262,7 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
 void
 GNELane::drawLaneArrows(const GUIVisualizationSettings& s, const double exaggeration, const bool spreadSuperposed) const {
     // only draw details depending of the scale and if isn't being drawn for selecting
-    if (((s.scale * exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if (((s.scale * exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection) {
         // Push layer matrix
         GLHelper::pushMatrix();
         // translate to front (note: Special case)
@@ -1696,7 +1694,7 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
 void
 GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const {
     // check all conditions for drawing textures
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons &&
+    if (!s.drawForRectangleSelection && !s.disableLaneIcons &&
             (myLaneRestrictedTexturePositions.size() > 0) &&
             s.drawDetail(s.detailSettings.laneTextures, laneDrawingConstants.exaggeration)) {
         // Declare default width of icon (3)
@@ -1754,13 +1752,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
             glTranslated(customShape.front().x(), customShape.front().y(), 0.1);
             // draw circle
             GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-            // check if we can draw "S"
-            if (!s.drawForPositionSelection) {
-                // move top
-                glTranslated(0, 0, 0.1);
-                // draw "S"
-                GLHelper::drawText("S", Position(), 0.1, circleWidth, RGBColor::WHITE);
-            }
+            // move top
+            glTranslated(0, 0, 0.1);
+            // draw "S"
+            GLHelper::drawText("S", Position(), 0.1, circleWidth, RGBColor::WHITE);
             // pop start matrix
             GLHelper::popMatrix();
         }
@@ -1782,13 +1777,10 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
             glTranslated(customShape.back().x(), customShape.back().y(), 0.1);
             // draw filled circle
             GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-            // check if we can draw "E"
-            if (!s.drawForPositionSelection) {
-                // move top
-                glTranslated(0, 0, 0.1);
-                // draw "E"
-                GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-            }
+            // move top
+            glTranslated(0, 0, 0.1);
+            // draw "E"
+            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
             // pop start matrix
             GLHelper::popMatrix();
         }

@@ -300,7 +300,7 @@ GNEViewNet::recalculateBoundaries() {
         // declare boundary
         const Boundary maxBoundary(1000000000.0, 1000000000.0, -1000000000.0, -1000000000.0);
         // get all objects in boundary
-        const std::vector<GUIGlID> GLIDs = getObjectsInBoundary(maxBoundary, false);
+        const std::vector<GUIGlID> GLIDs = getObjectsInBoundary(maxBoundary);
         //  finish make OpenGL context current
         makeNonCurrent();
         // declare set
@@ -472,7 +472,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     // first make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
         // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
-        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary, false);
+        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary);
         //  finish make OpenGL context current
         makeNonCurrent();
         // iterate over GUIGlIDs
@@ -1289,10 +1289,6 @@ GNEViewNet::getRelDataAttrs() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
-    // init view settings
-    if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
-        myVisualizationSettings->drawForPositionSelection = true;
-    }
     if (!myVisualizationSettings->drawForRectangleSelection && myVisualizationSettings->forceDrawForRectangleSelection) {
         myVisualizationSettings->drawForRectangleSelection = true;
     }
@@ -1401,8 +1397,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // begin post drawing
     myPostDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
-    if (!myVisualizationSettings->drawForPositionSelection &&
-            !myVisualizationSettings->drawForRectangleSelection) {
+    if (!myVisualizationSettings->drawForRectangleSelection) {
         // iterate over all inspected ACs
         for (const auto& inspectedAC : myInspectedAttributeCarriers) {
             // check that inspected AC has an associated GUIGLObject
@@ -1416,7 +1411,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
     }
     // re-draw marked route
-    if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForPositionSelection && !myVisualizationSettings->drawForRectangleSelection) {
+    if (gPostDrawing.markedRoute && !myVisualizationSettings->drawForRectangleSelection) {
         myNet->getPathManager()->forceDrawPath(*myVisualizationSettings, gPostDrawing.markedRoute);
     }
     // draw temporal split junction
@@ -2003,8 +1998,8 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 bool
 GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
-    // avoid draw in position/rectangle selection
-    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
+    // avoid draw in rectangle selection
+    if (myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
     // check if element is under cursor
@@ -2029,8 +2024,8 @@ GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
 
 bool
 GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
-    // avoid draw in position/rectangle selection
-    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
+    // avoid draw in rectangle selection
+    if (myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
     // check if elemet is blocked
@@ -2060,7 +2055,7 @@ GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSel
 bool
 GNEViewNet::checkDrawSelectContour(const GUIGlObject* GLObject, const bool isSelected) const {
     // avoid draw in position/rectangle selection
-    if (myVisualizationSettings->drawForPositionSelection || myVisualizationSettings->drawForRectangleSelection) {
+    if (myVisualizationSettings->drawForRectangleSelection) {
         return false;
     }
     // check if elemet is blocked
@@ -2883,7 +2878,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
         // check what type of POI will be transformed
         if (POI->getTagProperty().getTag() == SUMO_TAG_POI) {
             // obtain lanes around POI boundary
-            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary(), false);
+            std::vector<GUIGlID> GLIDs = getObjectsInBoundary(POI->getCenteringBoundary());
             std::vector<GNELane*> lanes;
             for (const auto& GLID : GLIDs) {
                 GNELane* lane = dynamic_cast<GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(GLID));

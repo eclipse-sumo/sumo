@@ -314,24 +314,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
             // check if we're drawing a polygon or a polyline
             if (getFill()) {
-                if (s.drawForPositionSelection) {
-                    // check if mouse is within geometry
-                    if (myPolygonGeometry.getShape().around(mousePosition)) {
-                        // push matrix
-                        GLHelper::pushMatrix();
-                        // move to mouse position
-                        glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                        // set color
-                        GLHelper::setColor(color);
-                        // draw circle
-                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                        // pop matrix
-                        GLHelper::popMatrix();
-                    }
-                } else {
-                    // draw inner polygon
-                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
-                }
+                // draw inner polygon
+                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), myTagProperty.isJuPedSimElement() ? false : drawUsingSelectColor());
             } else {
                 // push matrix
                 GLHelper::pushMatrix();
