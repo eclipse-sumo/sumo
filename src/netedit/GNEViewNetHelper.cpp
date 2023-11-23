@@ -221,8 +221,6 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
-    // reset filter
-    myFilter = 0;
     // clear elements
     myObjects.clearElements();
     // process GUIGLObjects using elements under cursor
@@ -231,14 +229,14 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::removeEdges() {
-    myObjects = myLaneObjects;
+GNEViewNetHelper::ObjectsUnderCursor::filterEdges() {
+    myObjects.filterElements({GLO_EDGE});
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::removeLanes() {
-    myObjects = myEdgeObjects;
+GNEViewNetHelper::ObjectsUnderCursor::filterLanes() {
+    myObjects.filterElements({GLO_LANE});
 }
 
 
@@ -247,6 +245,7 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUI
     std::vector<const GUIGlObject*> filteredObjects;
     // clear elements
     myObjects.clearElements();
+
     // filter GUIGLObjects
     for (const auto& glObject : gPostDrawing.getElementsUnderCursor()) {
         if (!glObject->isGLObjectLocked() && (std::find(forcedTypes.begin(), forcedTypes.end(), glObject->getType()) == forcedTypes.end())) {
@@ -255,25 +254,6 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUI
     }
     // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
     processGUIGlObjects(filteredObjects);
-}
-
-
-void
-GNEViewNetHelper::ObjectsUnderCursor::shortDataElements() {
-    // declare set for sort generic datas by begin->end->AC
-    std::set<std::pair<double, std::pair<double, GNEAttributeCarrier*> > > sortedDataElements;
-    // short only lane objects (because shortData elements is used only in data mode)
-    for (const auto& AC : myLaneObjects.attributeCarriers) {
-        if (AC->getTagProperty().isGenericData()) {
-            const double begin = GNEAttributeCarrier::parse<double>(AC->getAttribute(SUMO_ATTR_BEGIN));
-            const double end = GNEAttributeCarrier::parse<double>(AC->getAttribute(SUMO_ATTR_END));
-            sortedDataElements.insert(std::make_pair(begin, std::make_pair(end, AC)));
-        }
-    }
-    myLaneObjects.attributeCarriers.clear();
-    for (const auto& sortedDataElement : sortedDataElements) {
-        myLaneObjects.attributeCarriers.push_back(sortedDataElement.second.second);
-    }
 }
 
 
@@ -551,12 +531,12 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::removeEdges() {
-    for (auto itEdges = edges.begin(); itEdges != edges.end(); itEdges++) {
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::filterElements(const std::vector<GUIGlObjectType> &types) {
+    for (const auto &type : types) {
         // remove from GUIGlObjects
         auto itGlObjects = GUIGlObjects.begin();
         while (itGlObjects != GUIGlObjects.end()) {
-            if (*itEdges == *itGlObjects) {
+            if ((*itGlObjects)->getType() == type) {
                 itGlObjects = GUIGlObjects.erase(itGlObjects);
             } else {
                 itGlObjects++;
@@ -565,7 +545,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::removeEdges() {
         // remove from attributeCarriers
         auto itACs = attributeCarriers.begin();
         while (itACs != attributeCarriers.end()) {
-            if (*itEdges == *itACs) {
+            if ((*itACs)->getGUIGlObject()->getType() == type) {
                 itACs = attributeCarriers.erase(itACs);
             } else {
                 itACs++;
@@ -574,49 +554,148 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::removeEdges() {
         // remove from networkElements
         auto itNetworkElements = networkElements.begin();
         while (itNetworkElements != networkElements.end()) {
-            if (*itEdges == *itNetworkElements) {
+            if ((*itNetworkElements)->getGUIGlObject()->getType() == type) {
                 itNetworkElements = networkElements.erase(itNetworkElements);
             } else {
                 itNetworkElements++;
             }
         }
+        // remove from additionals
+        auto itAdditionals = additionals.begin();
+        while (itAdditionals != additionals.end()) {
+            if ((*itAdditionals)->getGUIGlObject()->getType() == type) {
+                itAdditionals = additionals.erase(itAdditionals);
+            } else {
+                itAdditionals++;
+            }
+        }
+        // remove from demandElements
+        auto itDemandElements = demandElements.begin();
+        while (itDemandElements != demandElements.end()) {
+            if ((*itDemandElements)->getGUIGlObject()->getType() == type) {
+                itDemandElements = demandElements.erase(itDemandElements);
+            } else {
+                itDemandElements++;
+            }
+        }
+        // remove from genericDatas
+        auto itGenericDatas = genericDatas.begin();
+        while (itGenericDatas != genericDatas.end()) {
+            if ((*itGenericDatas)->getGUIGlObject()->getType() == type) {
+                itGenericDatas = genericDatas.erase(itGenericDatas);
+            } else {
+                itGenericDatas++;
+            }
+        }
+        // remove from junctions
+        auto itJunctions = junctions.begin();
+        while (itJunctions != junctions.end()) {
+            if ((*itJunctions)->getGUIGlObject()->getType() == type) {
+                itJunctions = junctions.erase(itJunctions);
+            } else {
+                itJunctions++;
+            }
+        }
+        // remove from edges
+        auto itEdges = edges.begin();
+        while (itEdges != edges.end()) {
+            if ((*itEdges)->getGUIGlObject()->getType() == type) {
+                itEdges = edges.erase(itEdges);
+            } else {
+                itEdges++;
+            }
+        }
+        // remove from lanes
+        auto itLanes = lanes.begin();
+        while (itLanes != lanes.end()) {
+            if ((*itLanes)->getGUIGlObject()->getType() == type) {
+                itLanes = lanes.erase(itLanes);
+            } else {
+                itLanes++;
+            }
+        }
+        // remove from crossings
+        auto itCrossings = crossings.begin();
+        while (itCrossings != crossings.end()) {
+            if ((*itCrossings)->getGUIGlObject()->getType() == type) {
+                itCrossings = crossings.erase(itCrossings);
+            } else {
+                itCrossings++;
+            }
+        }
+        // remove from walkingAreas
+        auto itWalkingAreas = walkingAreas.begin();
+        while (itWalkingAreas != walkingAreas.end()) {
+            if ((*itWalkingAreas)->getGUIGlObject()->getType() == type) {
+                itWalkingAreas = walkingAreas.erase(itWalkingAreas);
+            } else {
+                itWalkingAreas++;
+            }
+        }
+        // remove from connections
+        auto itConnections = connections.begin();
+        while (itConnections != connections.end()) {
+            if ((*itConnections)->getGUIGlObject()->getType() == type) {
+                itConnections = connections.erase(itConnections);
+            } else {
+                itConnections++;
+            }
+        }
+        // remove from internalLanes
+        auto itInternalLanes = internalLanes.begin();
+        while (itInternalLanes != internalLanes.end()) {
+            if ((*itInternalLanes)->getGUIGlObject()->getType() == type) {
+                itInternalLanes = internalLanes.erase(itInternalLanes);
+            } else {
+                itInternalLanes++;
+            }
+        }
+        // remove from TAZs
+        auto itTAZs = TAZs.begin();
+        while (itTAZs != TAZs.end()) {
+            if ((*itTAZs)->getGUIGlObject()->getType() == type) {
+                itTAZs = TAZs.erase(itTAZs);
+            } else {
+                itTAZs++;
+            }
+        }
+        // remove from POIs
+        auto itPOIs = POIs.begin();
+        while (itPOIs != POIs.end()) {
+            if ((*itPOIs)->getGUIGlObject()->getType() == type) {
+                itPOIs = POIs.erase(itPOIs);
+            } else {
+                itPOIs++;
+            }
+        }
+        // remove from polys
+        auto itPolys = polys.begin();
+        while (itPolys != polys.end()) {
+            if ((*itPolys)->getGUIGlObject()->getType() == type) {
+                itPolys = polys.erase(itPolys);
+            } else {
+                itPolys++;
+            }
+        }
+        // remove from edgeDatas
+        auto itEdgeDatas = edgeDatas.begin();
+        while (itEdgeDatas != edgeDatas.end()) {
+            if ((*itEdgeDatas)->getGUIGlObject()->getType() == type) {
+                itEdgeDatas = edgeDatas.erase(itEdgeDatas);
+            } else {
+                itEdgeDatas++;
+            }
+        }
+        // remove from edgeRelDatas
+        auto itEdgeRelDatas = edgeRelDatas.begin();
+        while (itEdgeRelDatas != edgeRelDatas.end()) {
+            if ((*itEdgeRelDatas)->getGUIGlObject()->getType() == type) {
+                itEdgeRelDatas = edgeRelDatas.erase(itEdgeRelDatas);
+            } else {
+                itEdgeRelDatas++;
+            }
+        }
     }
-    edges.clear();
-}
-
-
-void
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::removeLanes() {
-    for (auto itLanes = lanes.begin(); itLanes != lanes.end(); itLanes++) {
-        // remove from GUIGlObjects
-        auto itGlObjects = GUIGlObjects.begin();
-        while (itGlObjects != GUIGlObjects.end()) {
-            if (*itLanes == *itGlObjects) {
-                itGlObjects = GUIGlObjects.erase(itGlObjects);
-            } else {
-                itGlObjects++;
-            }
-        }
-        // remove from attributeCarriers
-        auto itACs = attributeCarriers.begin();
-        while (itACs != attributeCarriers.end()) {
-            if (*itLanes == *itACs) {
-                itACs = attributeCarriers.erase(itACs);
-            } else {
-                itACs++;
-            }
-        }
-        // remove from networkElements
-        auto itNetworkElements = networkElements.begin();
-        while (itNetworkElements != networkElements.end()) {
-            if (*itLanes == *itNetworkElements) {
-                itNetworkElements = networkElements.erase(itNetworkElements);
-            } else {
-                itNetworkElements++;
-            }
-        }
-    }
-    lanes.clear();
 }
 
 
@@ -922,12 +1001,6 @@ GNEViewNetHelper::ObjectsUnderCursor::processGUIGlObjects(const std::vector<cons
         updateDemandElements(myObjects, glObject);
         updateGenericDataElements(myObjects, glObject);
     }
-    // filter edges
-    myEdgeObjects = myObjects;
-    myEdgeObjects.removeLanes();
-    // filter lanes
-    myLaneObjects = myObjects;
-    myLaneObjects.removeEdges();
 }
 
 

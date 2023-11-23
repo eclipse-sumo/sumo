@@ -226,17 +226,14 @@ struct GNEViewNetHelper {
         /// @brief update objects under cursor (using gPostDrawing)
         void updateObjectUnderCursor();
 
-        /// @brief remove edges
-        void removeEdges();
+        /// @brief filter (remove) edges
+        void filterEdges();
 
-        /// @brief remove lanes
-        void removeLanes();
+        /// @brief filter (remove) lanes
+        void filterLanes();
 
         /// @brief filter locked elements
         void filterLockedElements(const std::vector<GUIGlObjectType> forcedTypes = {});
-
-        /// @brief short data elements by begin
-        void shortDataElements();
 
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
@@ -327,11 +324,8 @@ struct GNEViewNetHelper {
             /// @brief clear elements
             void clearElements();
 
-            /// @brief remove edges
-            void removeEdges();
-
-            /// @brief remove lanes
-            void removeLanes();
+            /// @brief filter elements
+            void filterElements(const std::vector<GUIGlObjectType> &types);
 
             /// @brief vector with the clicked GUIGlObjects
             std::vector<GUIGlObject*> GUIGlObjects;
@@ -395,23 +389,8 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         const GNEViewNet* myViewNet;
 
-        /// @brief filtered edge GLObjects
-        std::vector<const GUIGlObject*> filteredEdgeGLObjects;
-
-        /// @brief filtered lane GLObjects
-        std::vector<const GUIGlObject*> filteredLaneGLObjects;
-
-        /// @brief objectContainer for objects selecting edges
+        /// @brief objects container with selected objects
         ObjectsContainer myObjects;
-
-        /// @brief objectContainer for objects selecting edges
-        ObjectsContainer myEdgeObjects;
-
-        /// @brief objectContainer for objects selecting lanes
-        ObjectsContainer myLaneObjects;
-
-        /// @brief flag to enable/disable filters: 0=nothing, 1=edges 2=lane
-        int myFilter = 0;
 
     private:
         /// @brief update network elements

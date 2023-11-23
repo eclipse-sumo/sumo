@@ -1465,8 +1465,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         processLeftButtonPressDemand(eventData);
     } else if (myEditModes.isCurrentSupermodeData()) {
-        // short data elements by begin
-        myObjectsUnderCursor.shortDataElements();
         processLeftButtonPressData(eventData);
     }
     // update cursor
@@ -5630,9 +5628,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_INSPECT: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.removeLanes();
+                myObjectsUnderCursor.filterLanes();
             } else {
-                myObjectsUnderCursor.removeEdges();
+                myObjectsUnderCursor.filterEdges();
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements();
@@ -5650,9 +5648,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_DELETE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.removeLanes();
+                myObjectsUnderCursor.filterLanes();
             } else {
-                myObjectsUnderCursor.removeEdges();
+                myObjectsUnderCursor.filterEdges();
             }
             // now filter locked elements forcing excluding walkingAreas
             myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
@@ -5680,9 +5678,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_SELECT:
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.removeLanes();
+                myObjectsUnderCursor.filterLanes();
             } else {
-                myObjectsUnderCursor.removeEdges();
+                myObjectsUnderCursor.filterEdges();
             }
             // now filter locked elements
             myObjectsUnderCursor.filterLockedElements();
@@ -5740,9 +5738,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 // swap lane to edge (except if we're editing a shape lane)
                 if (!(myObjectsUnderCursor.getLaneFront() && myObjectsUnderCursor.getLaneFront()->isShapeEdited())) {
-                    myObjectsUnderCursor.removeEdges();
+                    myObjectsUnderCursor.filterEdges();
                 } else {
-                    myObjectsUnderCursor.removeLanes();
+                    myObjectsUnderCursor.filterLanes();
                 }
             }
             // check if we're editing a shape
@@ -5761,7 +5759,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // now filter locked elements forcing excluding walkingAreas
                 myObjectsUnderCursor.filterLockedElements({GLO_WALKINGAREA});
                 // allways swap lane to edges in movement mode
-                myObjectsUnderCursor.removeLanes();
+                myObjectsUnderCursor.filterLanes();
                 // update AC under cursor
                 auto AC = myObjectsUnderCursor.getAttributeCarrierFront();
                 // check that AC under cursor isn't a demand element

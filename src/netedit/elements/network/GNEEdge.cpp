@@ -551,22 +551,22 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawBoundaries) {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
-    // draw edge geometry points (always before lanes)
-    drawEdgeGeometryPoints(s);
-    // draw edge shape (a red line only visible if lane shape is strange)
-    drawEdgeShape(s);
-    // draw lanes
+    // first draw draw lanes
     for (const auto& lane : myLanes) {
         lane->drawGL(s);
     }
+    // draw geometry points
+    drawEdgeGeometryPoints(s);
+    // draw edge shape (a red line only visible if lane shape is strange)
+    drawEdgeShape(s);
     // draw edge stopOffset
     drawLaneStopOffset(s);
     // draw childrens
     drawChildrens(s);
-    // draw lock icon
-    GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     // draw edge name
     drawEdgeName(s);
+    // draw lock icon
+    GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
     // draw dotted geometry
     myContour.drawDottedContourEdge(s, this, true, true, s.dottedContourSettings.segmentWidth);
 }
