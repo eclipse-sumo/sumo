@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-08-20 12:53+0000\n"
+"PO-Revision-Date: 2023-11-23 08:17+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
@@ -7877,7 +7878,8 @@ msgstr "以速度为基础的閾值，用来定义车辆必须行驶多慢才会
 msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
-msgstr "车辆到下一个停等的车辆的最短距离(米)，此距离用于计算该车辆是否被视为堵塞的参与者"
+msgstr "车辆到下一个停等的车辆的最大距离(米)，此距离用于计算该车辆是否被视为堵塞的参"
+"与者"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
 msgid "E2 MultiLaneAreaDetector"
@@ -10742,7 +10744,7 @@ msgstr "反向"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:741
 msgid "reverse current %"
-msgstr "反向流量 %"
+msgstr "将目前 % 反向"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:742
 msgid "Add reverse %"
@@ -10812,7 +10814,7 @@ msgstr "添加 "
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:885
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:912
 msgid "Invalid vehicle type '%' used in % '%'."
-msgstr "在 % '%' 中使用了无效的车辆类型 '%'。"
+msgstr "无效的车辆类型 '%' 被使用于 % '%'."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:187
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:261
