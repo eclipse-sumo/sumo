@@ -31,7 +31,7 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 
 
-def main(args):
+def main(args=None):
 
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("file", dest="file", category="input", type=ap.file, required=True, help="An XML input file")
