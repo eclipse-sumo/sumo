@@ -92,7 +92,7 @@ def addGenericOptions(argParser):
                            help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
-    argParser.add_argument("-MSA", "--method-of-successive-average", action="store_true", dest="MSA",
+    argParser.add_argument("-s", "--method-of-successive-average", action="store_true", dest="MSA",
                            default=False, help="apply the method of successive average as the swapping algorithm")
 
 
