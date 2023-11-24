@@ -197,6 +197,15 @@ protected:
     NBNode::Crossing* myTemplateNBCrossing;
 
 private:
+    /// @brief check if draw crossing
+    bool checkDrawCrossing(const GUIVisualizationSettings& s, bool &drawLowDetail, bool &drawExtremeSymbols) const;
+
+    /// @brief get crossing color
+    RGBColor getCrossingColor(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const;
+
+    /// @brief draw crossing with hight detail
+    void drawCrossingDetailed(const double selectionScale, const double width) const;
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

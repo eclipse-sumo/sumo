@@ -349,12 +349,12 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
         // color
         const RGBColor darkerColor = color.changedBrightness(-32);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+        GUIGeometry::drawGeometryPoints(s, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
         // draw moving hint
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
+            GUIGeometry::drawMovingHint(s, this, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1);
         }
     }

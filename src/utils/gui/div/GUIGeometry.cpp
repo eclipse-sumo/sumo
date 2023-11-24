@@ -21,6 +21,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GUIGeometry.h"
 
@@ -305,7 +306,7 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos, const PositionVector& shape,
                                 const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration,
                                 const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
@@ -318,8 +319,12 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
         GLHelper::pushMatrix();
         // move to vertex
         glTranslated(vertex.x(), vertex.y(), 0.2);
-        // set color
-        GLHelper::setColor(geometryPointColor);
+        // set color depending if cursor is over geometry point
+        if (glObject && gPostDrawing.positionWithinCircle(glObject, mousePos, vertex, exaggeratedRadio)) {
+            GLHelper::setColor(RGBColor::ORANGE);
+        } else {
+            GLHelper::setColor(geometryPointColor);
+        }
         // draw circle
         GLHelper::drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
         // pop geometry point matrix
@@ -357,14 +362,14 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
 
 
 void
-GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GUIGlObject* glObject, const Position& mousePos, const PositionVector& shape,
                             const RGBColor& hintColor, const double radius, const double exaggeration) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // obtain distance to shape
     const double distanceToShape = shape.distance2D(mousePos);
     // obtain squared radius
-    const double squaredRadius = (radius * radius * exaggeration);
+    const double squaredRadius = (exaggeratedRadio * exaggeratedRadio);
     // declare index
     int index = -1;
     // iterate over shape
@@ -384,8 +389,12 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position& m
         GLHelper::pushMatrix();
         // translate to hintPos
         glTranslated(hintPos.x(), hintPos.y(), 0.2);
-        // set color
-        GLHelper::setColor(hintColor);
+        // set color depending if cursor is over geometry point
+        if (glObject && gPostDrawing.positionWithinCircle(glObject, mousePos, hintPos, exaggeratedRadio)) {
+            GLHelper::setColor(RGBColor::ORANGE);
+        } else {
+            GLHelper::setColor(hintColor);
+        }
         // draw filled circle
         GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
         // pop hintPos matrix
