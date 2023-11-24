@@ -151,7 +151,8 @@ private:
         //@}
 
     private:
-        void insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length);
+        void insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length, SVCPermissions perm = SVCAll);
+        SVCPermissions computePermission(std::string modes);
 
     private:
         /// @brief The previously parsed nodes

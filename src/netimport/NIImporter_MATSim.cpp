@@ -36,6 +36,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include "NIImporter_MATSim.h"
@@ -169,9 +170,10 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 
 
 void
-NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length) {
+NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromNode, NBNode* toNode, double freeSpeed, int numLanes, double capacity, double length, SVCPermissions perm) {
     NBEdge* edge = new NBEdge(id, fromNode, toNode, "", freeSpeed, NBEdge::UNSPECIFIED_FRICTION, numLanes, -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
     edge->setParameter("capacity", toString(capacity));
+    edge->setPermissions(perm, -1);
     if (myKeepEdgeLengths) {
         edge->setLoadedLength(length);
     }
@@ -179,6 +181,39 @@ NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromN
         delete edge;
         WRITE_ERRORF(TL("Could not add edge '%'. Probably declared twice."), id);
     }
+}
+
+
+SVCPermissions
+NIImporter_MATSim::EdgesHandler::computePermission(std::string modes) {
+    // using the MATSim modes from org.matsim.api.core.v01.TransportMode
+    if (modes.size() == 0) {
+        return SVCAll;
+    }
+    SVCPermissions result(SVC_IGNORING);
+    for (StringTokenizer st(modes); st.hasNext();) {
+        std::string mode = st.next();
+        if (mode == "car") {
+            result |= SVC_PASSENGER;
+        } else if (mode == "bike") {
+            result |= SVC_BICYCLE;
+        } else if (mode == "motorcycle") {
+            result |= SVC_MOTORCYCLE | SVC_MOPED;
+        } else if (mode == "truck") {
+            result |= SVC_TRUCK | SVC_TRAILER;
+        } else if (mode == "pt") {
+            result |= SVC_BUS | SVC_TRAM;
+        } else if (mode == "drt" || mode == "taxi") {
+            result |= SVC_TAXI;
+        } else if (mode == "walk" || mode == "transit_walk") {
+            result |= SVC_PEDESTRIAN;
+        } else if (mode == "train") {
+            result |= SVC_RAIL_CLASSES;
+        } else if (mode == "ship") {
+            result |= SVC_SHIP;
+        }
+    }
+    return result;
 }
 
 
@@ -226,7 +261,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     double capacity = attrs.get<double>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
     double permLanes = attrs.get<double>(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
     //bool oneWay = attrs.getOpt<bool>(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
-    std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, ""); // which values?
+    std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, "");
     std::string origid = attrs.getOpt<std::string>(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode* toNode = myNodeCont.retrieve(toNodeID);
@@ -246,14 +281,14 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         // adding node and edge with a different naming scheme to keep the original edge id for easier route repair
         NBNode* intermediate = new NBNode(id + ".0", toNode->getPosition() + Position(POSITION_EPS, POSITION_EPS));
         if (myNodeCont.insert(intermediate)) {
-            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
+            insertEdge(id + ".0", intermediate, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length, computePermission(modes));
             toNode = intermediate;
         } else {
             delete intermediate;
             WRITE_ERRORF(TL("Could not add intermediate node to split loop edge '%'."), id);
         }
     }
-    insertEdge(id, fromNode, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);
+    insertEdge(id, fromNode, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length, computePermission(modes));
 }
 
 
