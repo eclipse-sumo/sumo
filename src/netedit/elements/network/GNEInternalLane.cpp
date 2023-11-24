@@ -121,7 +121,7 @@ GNEInternalLane::checkDrawRelatedContour() const {
 
 bool
 GNEInternalLane::checkDrawOverContour() const {
-    return false;
+     return myNet->getViewNet()->checkDrawOverContour(this);
 }
 
 
@@ -176,33 +176,31 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // get link state color
         const auto linkStateColor = colorForLinksState(myState);
-        // avoid draw invisible elements
-        if (linkStateColor.alpha() != 0) {
-            // push name
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-            // move front again
-            glTranslated(0, 0, 0.5);
-            // set color
-            GLHelper::setColor(linkStateColor);
-            // draw lane checking whether it is not too small
-            if (s.scale < 1.) {
-                GLHelper::drawLine(myInternalLaneGeometry.getShape());
-            } else {
-                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
-            }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
-            // draw edge name
-            if (s.internalEdgeName.show(this)) {
-                GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(), s.scale, s.angle);
-            }
+        // push name
+        GLHelper::pushName(getGlID());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+        // move front again
+        glTranslated(0, 0, 0.5);
+        // set color
+        GLHelper::setColor(linkStateColor);
+        // draw geometry
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry,
+                                  s.connectionSettings.connectionWidth);
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
+        // draw edge name
+        if (s.internalEdgeName.show(this)) {
+            GLHelper::drawTextSettings(s.internalEdgeName, getMicrosimID(), myInternalLaneGeometry.getShape().getLineCenter(),
+                                       s.scale, s.angle);
         }
+        // draw dotted geometry
+        myContour.drawDottedContourExtruded(s, myInternalLaneGeometry.getShape(), s.connectionSettings.connectionWidth,
+                                            1, true, true, s.dottedContourSettings.segmentWidthSmall);
     }
 }
 

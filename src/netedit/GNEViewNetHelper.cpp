@@ -837,10 +837,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             }
             break;
         }
-/*
         case GLO_TLLOGIC: {
             // get internal lane
-            auto internalLane = dynamic_cast<GNEInternalLane*>(glObject);
+            auto internalLane = myViewNet->getNet()->getAttributeCarriers()->retrieveInternalLane(glObject);
             // check front element
             if (glObject == frontGLObject) {
                 // insert at front
@@ -851,7 +850,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             }
             break;
         }
-*/
         default:
             break;
     }

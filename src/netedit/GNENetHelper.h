@@ -93,6 +93,7 @@ struct GNENetHelper {
         friend class GNEChange_DataInterval;
         friend class GNEChange_GenericData;
         friend class GNEChange_MeanData;
+        friend class GNETLSEditorFrame;
 
     public:
         /// @brief constructor
@@ -335,6 +336,18 @@ struct GNENetHelper {
 
         /// @brief get number of selected connections
         int getNumberOfSelectedConnections() const;
+
+        /// @}
+
+        /// @name function for internalLanes
+        /// @{
+
+        /**@brief get InternalLane by GUIGlObject
+         * @param[in] glObject The GUIGlObject associated with the element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting InternalLane should result in an exception
+         * @throws UnknownElement
+         */
+        GNEInternalLane* retrieveInternalLane(const GUIGlObject* glObject, bool hardFail = true) const;
 
         /// @}
 
@@ -657,7 +670,7 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name walking areas protected functions
+        /// @name connection protected functions
         /// @{
 
         /// @brief insert connection in container
@@ -665,6 +678,17 @@ struct GNENetHelper {
 
         /// @brief delete connection from container
         void deleteConnection(GNEConnection* connection);
+
+        /// @}
+
+        /// @name internalLane protected functions
+        /// @{
+
+        /// @brief insert internalLane in container
+        void insertInternalLane(GNEInternalLane* internalLane);
+
+        /// @brief delete internalLane from container
+        void deleteInternalLane(GNEInternalLane* internalLane);
 
         /// @}
 
@@ -759,11 +783,14 @@ struct GNENetHelper {
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > myEdges;
 
-        /// @brief set with lanes
+        /// @brief map with lanes
         std::map<const GUIGlObject*, GNELane*> myLanes;
 
-        /// @brief set with connetions
+        /// @brief map with connetions
         std::map<const GUIGlObject*, GNEConnection*> myConnections;
+
+        /// @brief map with internal lanes
+        std::map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
 
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;

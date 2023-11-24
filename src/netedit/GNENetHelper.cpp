@@ -30,6 +30,7 @@
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
+#include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
@@ -960,6 +961,23 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
         }
     }
     return counter;
+}
+
+
+GNEInternalLane*
+GNENetHelper::AttributeCarriers::retrieveInternalLane(const GUIGlObject* glObject, bool hardFail) const {
+    // iterate over internalLanes
+    for (const auto& internalLane : myInternalLanes) {
+        if (internalLane.second == glObject) {
+            return internalLane.second;
+        }
+    }
+    if (hardFail) {
+        // If POI wasn't found, throw exception
+        throw UnknownElement("Attempted to retrieve non-existant internalLane " + glObject->getMicrosimID());
+    } else {
+        return nullptr;
+    }
 }
 
 
@@ -2385,9 +2403,29 @@ GNENetHelper::AttributeCarriers::deleteConnection(GNEConnection* connection) {
     } else {
         myConnections.erase(finder);
     }
-    // remove it from inspected elements and GNEElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(connection);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(connection);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertInternalLane(GNEInternalLane* internalLane) {
+    if (myInternalLanes.count(internalLane->getGUIGlObject()) > 0) {
+        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' already exist");
+    } else {
+        myInternalLanes[internalLane->getGUIGlObject()] = internalLane;
+    }
+    myNet->addGLObjectIntoGrid(internalLane);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteInternalLane(GNEInternalLane* internalLane) {
+    const auto finder = myInternalLanes.find(internalLane->getGUIGlObject());
+    if (finder == myInternalLanes.end()) {
+        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' wasn't previously inserted");
+    } else {
+        myInternalLanes.erase(finder);
+    }
+    myNet->removeGLObjectFromGrid(internalLane);
 }
 
 
