@@ -2413,7 +2413,6 @@ GNENetHelper::AttributeCarriers::insertInternalLane(GNEInternalLane* internalLan
     } else {
         myInternalLanes[internalLane->getGUIGlObject()] = internalLane;
     }
-    myNet->addGLObjectIntoGrid(internalLane);
 }
 
 
@@ -2425,7 +2424,6 @@ GNENetHelper::AttributeCarriers::deleteInternalLane(GNEInternalLane* internalLan
     } else {
         myInternalLanes.erase(finder);
     }
-    myNet->removeGLObjectFromGrid(internalLane);
 }
 
 

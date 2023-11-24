@@ -48,11 +48,11 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 
-
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"
 #include "GNEWalkingArea.h"
+#include "GNEInternalLane.h"
 
 
 // ===========================================================================
@@ -1221,6 +1221,28 @@ GNEJunction::rebuildGNEWalkingAreas() {
 }
 
 
+
+void
+GNEJunction::addInternalLane(const GNEInternalLane* internalLane) {
+    if (std::find(myInternalLanes.begin(), myInternalLanes.end(), internalLane) != myInternalLanes.end()) {
+        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' already exist");
+    } else {
+        myInternalLanes.push_back(internalLane);
+    }
+}
+
+
+void
+GNEJunction::removeInternalLane(const GNEInternalLane* internalLane) {
+    const auto finder = std::find(myInternalLanes.begin(), myInternalLanes.end(), internalLane);
+    if (finder == myInternalLanes.end()) {
+        throw ProcessError(internalLane->getTagStr() + " with ID='" + internalLane->getID() + "' wasn't previously inserted");
+    } else {
+        myInternalLanes.erase(finder);
+    }
+}
+
+
 std::string
 GNEJunction::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -1676,6 +1698,10 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     // draw walkingAreas
     for (const auto& walkingArea : myGNEWalkingAreas) {
         walkingArea->drawGL(s);
+    }
+    // draw internalLanes
+    for (const auto& internalLanes : myInternalLanes) {
+        internalLanes->drawGL(s);
     }
     // draw connections and route elements connections (Only for incoming edges)
     for (const auto& incomingEdge : myGNEIncomingEdges) {

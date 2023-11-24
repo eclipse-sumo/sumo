@@ -35,6 +35,7 @@ class GNEEdge;
 class GNECrossing;
 class NBTrafficLightDefinition;
 class GNEConnection;
+class GNEInternalLane;
 
 // ===========================================================================
 // class definitions
@@ -285,6 +286,12 @@ public:
     /// @brief rebuilds WalkingAreas objects for this junction
     void rebuildGNEWalkingAreas();
 
+    /// @brief add internal lane
+    void addInternalLane(const GNEInternalLane* internalLane);
+
+    /// @brief remove internal lane
+    void removeInternalLane(const GNEInternalLane* internalLane);
+
 protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
@@ -300,6 +307,9 @@ protected:
 
     /// @brief the built walkingArea objects
     std::vector<GNEWalkingArea*> myGNEWalkingAreas;
+
+    /// @brief internal lanes related placed in this junction
+    std::vector<const GNEInternalLane*> myInternalLanes;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxDrawingSize;

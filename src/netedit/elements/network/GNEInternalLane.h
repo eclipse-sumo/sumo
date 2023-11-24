@@ -50,7 +50,8 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
+    GNEInternalLane(GNETLSEditorFrame* editor, GNEJunction* junctionParent, const std::string& id,
+                    const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
     ~GNEInternalLane();
@@ -191,7 +192,7 @@ protected:
 
 private:
     /// @brief pointer to junction parent
-    const GNEJunction* myJunctionParent;
+    GNEJunction* myJunctionParent;
 
     /// @brief internal lane geometry
     GUIGeometry myInternalLaneGeometry;

@@ -844,9 +844,13 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             if (glObject == frontGLObject) {
                 // insert at front
                 container.internalLanes.insert(container.internalLanes.begin(), internalLane);
+                container.attributeCarriers.insert(container.attributeCarriers.begin(), internalLane);
+                container.GUIGlObjects.insert(container.GUIGlObjects.begin(), internalLane);
             } else {
                 // insert at back
                 container.internalLanes.push_back(internalLane);
+                container.attributeCarriers.push_back(internalLane);
+                container.GUIGlObjects.push_back(internalLane);
             }
             break;
         }
