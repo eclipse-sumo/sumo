@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-08-24 13:47+0000\n"
+"PO-Revision-Date: 2023-11-27 13:25+0000\n"
 "Last-Translator: YY C <3070832194@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -970,7 +971,8 @@ msgid ""
 "Internal routes receive an ID starting with '!' and must not be referenced "
 "in other vehicle or flow definitions. Please remove all references to route "
 "'%' in case it is internal."
-msgstr ""
+msgstr "内部路由接收到以“!”开头的ID，并且不得在其他车辆或车流定义中引用。如果路由“%”"
+"是内部的，请删除对它的所有引用。"
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1579
 #, c-format
@@ -2112,12 +2114,12 @@ msgstr "生成INT中间点，使行走区域内的车道变得平滑"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "The update interval of the JuPedSim simulation (in seconds)"
-msgstr ""
+msgstr "JuPedSim行人仿真的更新间隔（秒）"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:557
 msgid ""
 "The distance to the destination point considered as arrival (in meters)"
-msgstr ""
+msgstr "到达目的地点的距离（米）"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid ""
@@ -2738,29 +2740,30 @@ msgstr "无效的停靠定义%。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1230
 msgid "The edge '%' for a stop is not known%."
-msgstr ""
+msgstr "停靠点%所在道路“%”未知。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1244
 msgid "The lane '%' for a stop is not known%."
-msgstr ""
+msgstr "停靠点%所在车道“%”未知。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1261
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
-msgstr ""
+msgstr "停靠点必须设置在公共汽车站、充电站、高架线路段、集装箱站、停车区、道路或车道%"
+"上。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1272
 msgid "Deprecated attribute 'pos' in description of stop%."
-msgstr ""
+msgstr "停靠点%的描述中已弃用属性“pos”。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1280
 msgid "Invalid start or end position for stop on %'%."
-msgstr ""
+msgstr "停靠点%'%上的起始或终止位置无效。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1294
 msgid "Disconnected plan for % '%' (%!=%)."
-msgstr ""
+msgstr "%'%'的计划已断开（%!=%）。"
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1304
 msgid ""
