@@ -228,7 +228,7 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCascade for data
         FXMenuCascade* myDataMenuCascade = nullptr;
 
-        /// @brief FXMenuCascade for mean datadata
+        /// @brief FXMenuCascade for mean data
         FXMenuCascade* myMeanDataMenuCascade = nullptr;
 
         /// @brief Invalidated copy constructor.

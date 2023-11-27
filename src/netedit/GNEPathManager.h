@@ -160,7 +160,7 @@ public:
         /// @brief compute pathElement
         virtual void computePathElement() = 0;
 
-        /// @brief check if path element is selectd
+        /// @brief check if path element is selected
         virtual bool isPathElementSelected() const = 0;
 
         /**@brief Draws partial object over lane

@@ -576,7 +576,7 @@ public:
     /// @brief get variable used to save elements
     GNEViewNetHelper::SaveElements& getSaveElements();
 
-    /// @brief get variable used to swith between time formats
+    /// @brief get variable used to switch between time formats
     GNEViewNetHelper::TimeFormat& getTimeFormat();
 
     /// @brief restrict lane
@@ -808,10 +808,10 @@ private:
     /// @brief draw select dotted contours
     void drawSelectDottedContour();
 
-    /// @brief draw circle in testing mode (neede for grid)
+    /// @brief draw circle in testing mode (needed for grid)
     void drawNeteditAttributesReferences();
 
-    /// @brief draw circle in testing mode (neede for grid)
+    /// @brief draw circle in testing mode (needed for grid)
     void drawTestsCircle() const;
 
     /// @}

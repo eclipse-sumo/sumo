@@ -1188,7 +1188,7 @@ struct GNEViewNetHelper {
         /// @brief Process boundary Selection
         void processBoundarySelection(const Boundary& boundary);
 
-        /// @brief firstcorner of the rectangle-selection
+        /// @brief first corner of the rectangle-selection
         Position selectionCorner1;
 
         /// @brief second corner of the rectangle-selection
