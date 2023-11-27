@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-11-22 18:12+0100\n"
-"PO-Revision-Date: 2023-11-27 15:22+0000\n"
+"PO-Revision-Date: 2023-11-28 15:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9514,7 +9514,7 @@ msgstr "Elenco di archi intermedi che fanno parte del flusso"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3995
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3941
 msgid "FlowJunctions"
-msgstr ""
+msgstr "Flusso tra incroci"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4001
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4040
@@ -9538,7 +9538,7 @@ msgstr "Il nome dell'incrocio dove il flusso termina"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3979
 msgid "FlowTAZs"
-msgstr ""
+msgstr "Flusso tra zone di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4051
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3996
@@ -9553,7 +9553,7 @@ msgstr "Il nome della zona di assegnazione del traffico dove termina il flusso"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4073
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4017
 msgid "FlowRoute"
-msgstr ""
+msgstr "Flusso via itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4090
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4034
@@ -9591,7 +9591,7 @@ msgstr "Il nome del flusso"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4165
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4107
 msgid "StopLane"
-msgstr ""
+msgstr "Fermata sulla corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4170
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4112
@@ -9607,22 +9607,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4207
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4148
 msgid "StopBusStop"
-msgstr ""
+msgstr "Fermata alla fermata di autobus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4212
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4153
 msgid "BusStop associated with this stop"
-msgstr ""
+msgstr "Fermata di autobus associata a questa fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4226
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4166
 msgid "StopTrainStop"
-msgstr ""
+msgstr "Fermata alla fermata ferroviaria"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4231
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4171
 msgid "TrainStop associated with this stop"
-msgstr ""
+msgstr "Fermata ferroviaria associata a questa fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4245
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4184
@@ -9729,7 +9729,7 @@ msgstr "L'ora quando la persona deve entrare nella rete"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4478
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4407
 msgid "PersonFlow"
-msgstr ""
+msgstr "Flusso di persone"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4510
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4438
@@ -9739,64 +9739,64 @@ msgstr "L'ora quando il contenitore deve entrare nella rete"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4522
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4449
 msgid "ContainerFlow"
-msgstr ""
+msgstr "Flusso di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4547
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4473
 msgid "Transport: edge->edge"
-msgstr ""
+msgstr "Spedizione: arco->arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4561
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4486
 msgid "Transport: edge->containerStop"
-msgstr ""
+msgstr "Spedizione: arco->fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4575
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4499
 msgid "Transport: containerStop->edge"
-msgstr ""
+msgstr "Spedizione: fermata di contenitori->arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4589
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4512
 msgid "Transport: containerStop->containerStop"
-msgstr ""
+msgstr "Spedizione: fermata di contenitori->fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4612
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4534
 msgid "Tranship: edge->edge"
-msgstr ""
+msgstr "Trasbordo: arco->arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4548
 msgid "Tranship: edge->containerStop"
-msgstr ""
+msgstr "Trasbordo: arco->fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4642
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4562
 msgid "Tranship: containerStop->edge"
-msgstr ""
+msgstr "Trasbordo: fermata di contenitori->arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4657
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4576
 msgid "Tranship: containerStop->containerStop"
-msgstr ""
+msgstr "Trasbordo: fermata di contenitori->fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4672
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4590
 msgid "Tranship: edges"
-msgstr ""
+msgstr "Trasbordo: archi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4696
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5626
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4613
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5480
 msgid "Stop: edge"
-msgstr ""
+msgstr "Fermata: arco"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4711
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
 msgid "Stop: containerStop"
-msgstr ""
+msgstr "Fermata: fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4735
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4650
