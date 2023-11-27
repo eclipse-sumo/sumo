@@ -1849,8 +1849,6 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // update objects in the current junction position
-    myNet->getViewNet()->updateObjectsUnderCursor(moveResult.shapeToUpdate.front());
     // check if there is another junction in the same position
     GNEJunction* secondJunction = nullptr;
     const auto& clickedJunctions = myNet->getViewNet()->getObjectsUnderCursor().getClickedJunctions();

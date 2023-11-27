@@ -505,12 +505,6 @@ GNEViewNet::getObjectsUnderCursor() const {
 }
 
 
-void
-GNEViewNet::updateObjectsUnderCursor(const Position& pos) {
-    //myObjectsUnderCursor.updateObjectUnderCursor(/*getGUIGlObjectsAtPosition(pos, 0.1)*/);
-}
-
-
 const GNEViewNetHelper::MoveMultipleElementValues&
 GNEViewNet::getMoveMultipleElementValues() const {
     return myMoveMultipleElementValues;
@@ -1301,8 +1295,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
-    // first step: obtain all objects under cursor
-    updateObjectsUnderCursor();
+    // first step: update objects under cursor
+    updateObjectsUnderCursor(myNet->getViewNet()->getPositionInformation());
     // check if force drawing for rectangle selection
     if (myVisualizationSettings->forceDrawForRectangleSelection) {
         myVisualizationSettings->drawForRectangleSelection = true;
@@ -3315,7 +3309,7 @@ GNEViewNet::updateCursor() {
 
 
 void
-GNEViewNet::updateObjectsUnderCursor() {
+GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
     // clear post drawing elements
     gPostDrawing.clearElements();
     // push matrix
@@ -3326,7 +3320,7 @@ GNEViewNet::updateObjectsUnderCursor() {
     myVisualizationSettings->drawForRectangleSelection = true;
     // create an small boundary
     Boundary cursorBoundary;
-    cursorBoundary.add(myNet->getViewNet()->getPositionInformation());
+    cursorBoundary.add(pos);
     cursorBoundary.grow(POSITION_EPS);
     // draw all GL elements within the small boundary
     drawGLElements(cursorBoundary);

@@ -86,9 +86,6 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
-    /// @brief Update objects under cursor in the given position
-    void updateObjectsUnderCursor(const Position& pos);
-
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
 
@@ -784,8 +781,8 @@ private:
     /// @brief draw functions
     /// @{
 
-    /// @brief get objects under cursor
-    void updateObjectsUnderCursor();
+    /// @brief get objects under given position
+    void updateObjectsUnderCursor(const Position &pos);
 
     /// @brief draw all gl elements of netedit
     int drawGLElements(const Boundary& bound) const;
