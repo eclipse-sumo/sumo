@@ -195,7 +195,7 @@ public:
      * @param[in,out] from The coordinate to be transformed
      * @param[in] includeInBoundary Whether to patch the convex boundary of the GeoConvHelper default instance
      * @param[in] from_srs The spatial reference system of the input coordinate
-     * @notde These methods are located outside of GeoConvHelper to avoid linker-dependencies on GDAL for libgeom
+     * @note These methods are located outside of GeoConvHelper to avoid linker-dependencies on GDAL for libgeom
      */
     static bool transformCoordinate(Position& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);
     static bool transformCoordinates(PositionVector& from, bool includeInBoundary = true, GeoConvHelper* from_srs = nullptr);

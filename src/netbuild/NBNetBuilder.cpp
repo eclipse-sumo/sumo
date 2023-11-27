@@ -609,7 +609,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (myEdgeCont.getNumEdgeSplits() > 0 && !oc.getBool("no-internal-links")) {
         // edges with custom lengths were split, this has to take into account
-        // internal edge lengts (after geometry computation)
+        // internal edge lengths (after geometry computation)
         myEdgeCont.fixSplitCustomLength();
     }
     // recheck phases for large junctions
