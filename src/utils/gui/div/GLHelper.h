@@ -371,7 +371,7 @@ public:
     static void debugVertices(const PositionVector& shape, const GUIVisualizationTextSettings& settings, double scale, double layer = 1024);
 
     /// @brief Draw a boundary (used for debugging)
-    static void drawBoundary(const Boundary& b);
+    static void drawBoundary(const GUIVisualizationSettings& s, const Boundary& b);
 
     /// @brief to be called when the font context is invalidated
     static void resetFont();

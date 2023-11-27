@@ -148,10 +148,6 @@ GNEWalkingArea::getNBWalkingArea() const {
 
 void
 GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // declare variables
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape

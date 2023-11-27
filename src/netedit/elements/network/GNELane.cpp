@@ -583,10 +583,10 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
+    // get lane drawing constants
+    const LaneDrawingConstants laneDrawingConstants(s, this);
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
     if (!s.drawForObjectUnderCursor) {
-        // get lane drawing constants
-        const LaneDrawingConstants laneDrawingConstants(s, this);
         // get lane color
         const RGBColor color = setLaneColor(s);
         // get flag for draw lane as railway
@@ -681,14 +681,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
-        // draw children
-        drawChildren(s);
-        // draw path additional elements
-        myNet->getPathManager()->drawLanePathElements(s, this);
-        // draw dotted geometry
-        myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
-                                            s.dottedContourSettings.segmentWidth);
     }
+    // draw children
+    drawChildren(s);
+    // draw path additional elements
+    myNet->getPathManager()->drawLanePathElements(s, this);
+    // draw dotted geometry
+    myContour.drawDottedContourExtruded(s, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true,
+                                        s.dottedContourSettings.segmentWidth);
 }
 
 

@@ -583,10 +583,8 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // get junction exaggeration
     const double junctionExaggeration = getExaggeration(s);
     // check if draw junction as shape

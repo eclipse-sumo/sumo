@@ -199,6 +199,8 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // Set initial values
     const double parkingAreaExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
@@ -207,10 +209,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // get angle
             const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
             // get contour color

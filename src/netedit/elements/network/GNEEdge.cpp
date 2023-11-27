@@ -547,29 +547,24 @@ GNEEdge::getOppositeEdges() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForObjectUnderCursor) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // first draw draw lanes
-        for (const auto& lane : myLanes) {
-            lane->drawGL(s);
-        }
-        // draw geometry points
-        drawEdgeGeometryPoints(s);
-        // draw edge shape (a red line only visible if lane shape is strange)
-        drawEdgeShape(s);
-        // draw edge stopOffset
-        drawLaneStopOffset(s);
-        // draw childrens
-        drawChildrens(s);
-        // draw edge name
-        drawEdgeName(s);
+    // first draw draw lanes
+    for (const auto& lane : myLanes) {
+        lane->drawGL(s);
     }
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
+    // draw geometry points
+    drawEdgeGeometryPoints(s);
+    // draw edge shape (a red line only visible if lane shape is strange)
+    drawEdgeShape(s);
+    // draw edge stopOffset
+    drawLaneStopOffset(s);
+    // draw edge name
+    drawEdgeName(s);
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+    // draw childrens
+    drawChildrens(s);
     // draw dotted geometry
     myContour.drawDottedContourEdge(s, this, true, true, s.dottedContourSettings.segmentWidth);
 }
@@ -2606,7 +2601,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
 void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
     // check  if we can draw it
-    if (!s.drawForRectangleSelection) {
+    if (!s.drawForObjectUnderCursor && !s.drawForRectangleSelection) {
         // draw the name and/or the street name
         const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
         const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
@@ -2671,21 +2666,24 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 
 void
 GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
-    // Push stopOffset matrix
-    GLHelper::pushMatrix();
-    // translate to front (note: Special case)
-    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        glTranslated(0, 0, GLO_FRONTELEMENT);
-    } else {
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
-    }
-    if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-        for (const auto& lane : getLanes()) {
-            lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
+    // draw geometry only if we'rent in drawForObjectUnderCursor mode
+    if (!s.drawForObjectUnderCursor) {
+        // Push stopOffset matrix
+        GLHelper::pushMatrix();
+        // translate to front (note: Special case)
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            glTranslated(0, 0, GLO_FRONTELEMENT);
+        } else {
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
         }
+        if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+            for (const auto& lane : getLanes()) {
+                lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
+            }
+        }
+        // Push stopOffset matrix
+        GLHelper::popMatrix();
     }
-    // Push stopOffset matrix
-    GLHelper::popMatrix();
 }
 
 
@@ -2805,7 +2803,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
     // avoid draw for railways
-    if ((gPostDrawing.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
+    if (!s.drawForObjectUnderCursor && (gPostDrawing.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
         // push draw matrix
         GLHelper::pushMatrix();
         // translate to front depending of big points

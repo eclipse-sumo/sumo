@@ -894,16 +894,18 @@ GLHelper::debugVertices(const PositionVector& shape, const GUIVisualizationTextS
 
 
 void
-GLHelper::drawBoundary(const Boundary& b) {
-    GLHelper::pushMatrix();
-    GLHelper::setColor(RGBColor::MAGENTA);
-    // draw on top
-    glTranslated(0, 0, 1024);
-    drawLine(Position(b.xmin(), b.ymax()), Position(b.xmax(), b.ymax()));
-    drawLine(Position(b.xmax(), b.ymax()), Position(b.xmax(), b.ymin()));
-    drawLine(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
-    drawLine(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
-    GLHelper::popMatrix();
+GLHelper::drawBoundary(const GUIVisualizationSettings& s, const Boundary& b) {
+    if (s.drawBoundaries) {
+        GLHelper::pushMatrix();
+        GLHelper::setColor(RGBColor::MAGENTA);
+        // draw on top
+        glTranslated(0, 0, 1024);
+        drawLine(Position(b.xmin(), b.ymax()), Position(b.xmax(), b.ymax()));
+        drawLine(Position(b.xmax(), b.ymax()), Position(b.xmax(), b.ymin()));
+        drawLine(Position(b.xmax(), b.ymin()), Position(b.xmin(), b.ymin()));
+        drawLine(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()));
+        GLHelper::popMatrix();
+    }
 }
 
 

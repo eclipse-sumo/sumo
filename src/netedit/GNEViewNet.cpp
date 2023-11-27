@@ -3316,16 +3316,16 @@ GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
     GLHelper::pushMatrix();
     // draw back (to avoid overlapping)
     glTranslated(0, 0, -10);
-    // force draw for rectangle selection
-    myVisualizationSettings->drawForRectangleSelection = true;
+    // enable draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = true;
     // create an small boundary
     Boundary cursorBoundary;
     cursorBoundary.add(pos);
     cursorBoundary.grow(POSITION_EPS);
     // draw all GL elements within the small boundary
     drawGLElements(cursorBoundary);
-    // restore draw for rectangle selection
-    myVisualizationSettings->drawForRectangleSelection = false;
+    // restore draw for object under cursor
+    myVisualizationSettings->drawForObjectUnderCursor = false;
     // pop matrix
     GLHelper::popMatrix();
     // after draw elements, update objects under cursor

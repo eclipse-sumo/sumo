@@ -677,14 +677,12 @@ GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
 
 void
 GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // Obtain drawing exaggeration
     const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             // Start drawing adding an gl identificator
@@ -728,6 +726,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 void
 GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Position& parentPosition, const double offsetX, const double extraOffsetY,
                                     const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // declare offsets
@@ -752,10 +752,6 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         if (!s.drawForObjectUnderCursor) {
             // set position depending of indexes
             signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // Start drawing adding an gl identifier
             GLHelper::pushName(getGlID());
             // calculate colors

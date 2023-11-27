@@ -441,10 +441,6 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // Set color depending of the link state
                 connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
             }
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // Push name
             if (pushGLID) {
                 GLHelper::pushName(getGlID());

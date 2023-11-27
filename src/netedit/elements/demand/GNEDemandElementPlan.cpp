@@ -1110,10 +1110,6 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(myPlanElement->getCenteringBoundary());
-            }
             // push GL ID
             GLHelper::pushName(myPlanElement->getGlID());
             // push matrix

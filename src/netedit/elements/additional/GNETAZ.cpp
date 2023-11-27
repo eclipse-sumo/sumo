@@ -287,10 +287,8 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
         // get exaggeration

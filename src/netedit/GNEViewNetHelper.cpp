@@ -252,11 +252,11 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLanes() {
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter) {
-    // get all lanes to filter
     std::vector<const GUIGlObject*> GUIGlObjects;
+    // get all locked elements
     for (const auto &GUIGlObject : myObjects.GUIGlObjects) {
         if (GUIGlObject->isGLObjectLocked()) {
-            GUIGlObjects;
+            GUIGlObjects.push_back(GUIGlObject);
         }
     }
     // apply ignore filter

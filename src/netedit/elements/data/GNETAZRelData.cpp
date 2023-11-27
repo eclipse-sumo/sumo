@@ -251,15 +251,13 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // draw TAZRels
     if (drawTAZRel()) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
             const auto& color = setColor(s);
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // get flag for only draw contour
             const bool onlyDrawContour = !isGenericDataVisible();
             // push name (needed for getGUIGlObjectsUnderCursor(...)

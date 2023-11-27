@@ -336,12 +336,10 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
+    // draw boundaries
+    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if POI can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(myAdditionalBoundary);
-        }
         // check if POI can be drawn
         if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration

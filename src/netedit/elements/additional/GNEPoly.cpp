@@ -293,10 +293,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             GUIPolygon::checkDraw(s, this, this)) {
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForObjectUnderCursor) {
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(myAdditionalBoundary);
-            }
+            // draw boundaries
+            GLHelper::drawBoundary(s, getCenteringBoundary());
             // check if draw start und end
             const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                                             myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
