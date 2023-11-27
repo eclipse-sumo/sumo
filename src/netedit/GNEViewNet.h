@@ -784,6 +784,9 @@ private:
     /// @brief draw functions
     /// @{
 
+    /// @brief get objects under cursor
+    void updateObjectsUnderCursor();
+
     /// @brief draw all gl elements of netedit
     int drawGLElements(const Boundary& bound) const;
 

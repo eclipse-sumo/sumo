@@ -397,6 +397,7 @@ GUISUMOAbstractView::getObjectsUnderCursor() {
 }
 
 
+
 std::vector<GUIGlObject*>
 GUISUMOAbstractView::getGUIGlObjectsUnderCursor() {
     return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);

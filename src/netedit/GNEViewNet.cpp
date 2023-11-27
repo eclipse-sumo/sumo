@@ -1289,10 +1289,6 @@ GNEViewNet::getRelDataAttrs() const {
 
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
-    // first check if force drawing for rectangle selection
-    if (myVisualizationSettings->forceDrawForRectangleSelection) {
-        myVisualizationSettings->drawForRectangleSelection = true;
-    }
     // set lefthand and laneIcons
     myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
     myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
@@ -1305,6 +1301,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
+    // first step: obtain all objects under cursor
+    updateObjectsUnderCursor();
+    // check if force drawing for rectangle selection
+    if (myVisualizationSettings->forceDrawForRectangleSelection) {
+        myVisualizationSettings->drawForRectangleSelection = true;
+    }
     // visualize rectangular selection
     mySelectingArea.drawRectangleSelection(myVisualizationSettings->colorSettings.selectionColor);
     // draw certain elements only if we aren't in rectangle selection mode
@@ -3327,6 +3329,29 @@ GNEViewNet::updateCursor() {
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
         }
     }
+}
+
+
+void
+GNEViewNet::updateObjectsUnderCursor() {
+    // push matrix
+    GLHelper::pushMatrix();
+    // draw back (to avoid overlapping)
+    glTranslated(0, 0, -10);
+    // force draw for rectangle selction
+    myVisualizationSettings->forceDrawForRectangleSelection = true;
+    // create an small boundary
+    Boundary cursorBoundary;
+    cursorBoundary.add(myNet->getViewNet()->getPositionInformation());
+    cursorBoundary.grow(POSITION_EPS);
+    // draw all GL elements within the small boundary
+    drawGLElements(cursorBoundary);
+    // after draw elements, update objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
+    // restore draw for rectangle selection
+    myVisualizationSettings->forceDrawForRectangleSelection = false;
+    // pop matrix
+    GLHelper::popMatrix();
 }
 
 
