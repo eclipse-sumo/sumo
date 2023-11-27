@@ -222,11 +222,14 @@ protected:
     /// @brief check if vehicle stop can be draw
     bool canDrawVehicleStop() const;
 
-    /// @brief draw vehicle stop
-    void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
-
     /// @brief draw index
     bool drawIndex() const;
+
+    /// @brief draw stop over lane
+    void drawStopOverLane(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const;
+
+    /// @brief draw stop over stoppingPlace
+    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const RGBColor &color, const double width, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
