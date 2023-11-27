@@ -1353,8 +1353,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myNet->getPathManager()->getPathDraw()->clearPathDraw();
     // draw all GL elements
     int hits = drawGLElements(bound);
-    // after draw elements, update objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
     // begin post drawing
     myVisualizationSettings->postDrawing = true;
     // force draw inspected and front elements (due parent/child lines)
@@ -1985,10 +1983,6 @@ GNEViewNet::checkDrawOverContour(const GUIGlObject* GLObject) const {
 
 bool
 GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSelected) const {
-    // avoid draw in rectangle selection
-    if (myVisualizationSettings->drawForRectangleSelection) {
-        return false;
-    }
     // check if elemet is blocked
     if (myLockManager.isObjectLocked(GLObject->getType(), isSelected)) {
         return false;
@@ -1997,19 +1991,7 @@ GNEViewNet::checkDrawDeleteContour(const GUIGlObject* GLObject, const bool isSel
     if (!gPostDrawing.isElementUnderCursor(GLObject)) {
         return false;
     }
-    // check if we're in post drawing
-    if (myVisualizationSettings->postDrawing) {
-        // in post-drawing, draw always
-        return true;
-    } else {
-        // check if set as markedElementDeleteContour
-        if ((gPostDrawing.markedElementDeleteContour == nullptr) ||
-                (GLObject->getType() > gPostDrawing.markedElementDeleteContour->getType())) {
-            gPostDrawing.markedElementDeleteContour = GLObject;
-        }
-        // we wan't to draw select contour in this moment
-        return false;
-    }
+    return true;
 }
 
 
@@ -3334,24 +3316,26 @@ GNEViewNet::updateCursor() {
 
 void
 GNEViewNet::updateObjectsUnderCursor() {
+    // clear post drawing elements
+    gPostDrawing.clearElements();
     // push matrix
     GLHelper::pushMatrix();
     // draw back (to avoid overlapping)
     glTranslated(0, 0, -10);
-    // force draw for rectangle selction
-    myVisualizationSettings->forceDrawForRectangleSelection = true;
+    // force draw for rectangle selection
+    myVisualizationSettings->drawForRectangleSelection = true;
     // create an small boundary
     Boundary cursorBoundary;
     cursorBoundary.add(myNet->getViewNet()->getPositionInformation());
     cursorBoundary.grow(POSITION_EPS);
     // draw all GL elements within the small boundary
     drawGLElements(cursorBoundary);
-    // after draw elements, update objects under cursor
-    myObjectsUnderCursor.updateObjectUnderCursor();
     // restore draw for rectangle selection
-    myVisualizationSettings->forceDrawForRectangleSelection = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // pop matrix
     GLHelper::popMatrix();
+    // after draw elements, update objects under cursor
+    myObjectsUnderCursor.updateObjectUnderCursor();
 }
 
 
@@ -3368,8 +3352,6 @@ GNEViewNet::drawGLElements(const Boundary& bound) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
-    // clear post drawing elements
-    gPostDrawing.clearElements();
     // draw all elements between minB and maxB, obtain objects included in minB and maxB
     return myGrid->Search(minB, maxB, *myVisualizationSettings);
 }

@@ -69,8 +69,10 @@ GNEContour::drawDottedContourClosed(const GUIVisualizationSettings& s, const Pos
                                     const double scale, const bool addOffset, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourClosed(s, shape, scale);
-    // check if mouse is within geometry
-    gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
+    // check if mouse is within geometry (only in rectangle selection mode)
+    if (s.drawForRectangleSelection) {
+        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
+    }
     // draw dotted contours
     drawDottedContours(s, s.drawDottedContour(scale), addOffset, lineWidth);
 }
@@ -82,8 +84,10 @@ GNEContour::drawDottedContourExtruded(const GUIVisualizationSettings& s, const P
                                       const bool drawLastExtrem, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourExtruded(s, shape, extrusionWidth, scale, drawFirstExtrem, drawLastExtrem);
-    // check if mouse is within two lines
-    gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(1));
+    // check if mouse is within two lines (only in rectangle selection mode)
+    if (s.drawForRectangleSelection) {
+        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(1));
+    }
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -95,8 +99,10 @@ GNEContour::drawDottedContourRectangle(const GUIVisualizationSettings& s, const 
                                        const double scale, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourRectangle(s, pos, width, height, offsetX, offsetY, rot, scale);
-    // check if mouse is within geometry
-    gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
+    // check if mouse is within geometry (only in rectangle selection mode)
+    if (s.drawForRectangleSelection) {
+        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(0));
+    }
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -107,8 +113,10 @@ GNEContour::drawDottedContourCircle(const GUIVisualizationSettings& s, const Pos
                                     const double scale, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourCircle(s, pos, radius, scale);
-    // check if mouse is within geometry
-    gPostDrawing.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
+    // check if mouse is within geometry (only in rectangle selection mode)
+    if (s.drawForRectangleSelection) {
+        gPostDrawing.positionWithinCircle(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), pos, (radius * scale));
+    }
     // draw dotted contours
     drawDottedContours(s, scale, true, lineWidth);
 }
@@ -119,8 +127,10 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEd
                                   const bool drawLastExtrem, const double lineWidth) const {
     // first build dotted contour
     buildDottedContourEdge(s, edge, drawFirstExtrem, drawLastExtrem);
-    // check if mouse is within two lines
-    gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(2));
+    // check if mouse is within two lines (only in rectangle selection mode)
+    if (s.drawForRectangleSelection) {
+        gPostDrawing.positionWithinShape(myAC->getGUIGlObject(), myAC->getNet()->getViewNet()->getPositionInformation(), myCachedShapes->at(2));
+    }
     // draw dotted contours
     drawDottedContours(s, 1, true, lineWidth);
 }
@@ -129,7 +139,7 @@ GNEContour::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEd
 void
 GNEContour::drawDottedContourEdges(const GUIVisualizationSettings& s, const GNEEdge* fromEdge, const GNEEdge* toEdge,
                                    const double lineWidth) const {
-    // first build dotted contour
+    // first build dotted contour (only in rectangle selection mode)
     buildDottedContourEdges(s, fromEdge, toEdge);
     // draw dotted contours
     drawDottedContours(s, 1, true, lineWidth);
