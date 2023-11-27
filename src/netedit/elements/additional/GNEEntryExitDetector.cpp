@@ -148,117 +148,21 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
                 color = s.detectorSettings.E3ExitColor;
             }
-            GLHelper::setColor(color);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            // Push polygon matrix
-            GLHelper::pushMatrix();
-            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-            // rotate over lane
-            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
-            // scale
-            glScaled(entryExitExaggeration, entryExitExaggeration, 1);
-            // draw details if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection) {
-                // Draw polygon
-                glBegin(GL_LINES);
-                glVertex2d(1.7, 0);
-                glVertex2d(-1.7, 0);
-                glEnd();
-                glBegin(GL_QUADS);
-                glVertex2d(-1.7, .5);
-                glVertex2d(-1.7, -.5);
-                glVertex2d(1.7, -.5);
-                glVertex2d(1.7, .5);
-                glEnd();
-                // first Arrow
-                glTranslated(1.5, 0, 0);
-                GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-                // second Arrow
-                glTranslated(-3, 0, 0);
-                GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
-                GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-            } else {
-                // Draw square in drawy for selecting mode
-                glBegin(GL_QUADS);
-                glVertex2d(-1.7, 4.3);
-                glVertex2d(-1.7, -.5);
-                glVertex2d(1.7, -.5);
-                glVertex2d(1.7, 4.3);
-                glEnd();
-            }
-            // Pop polygon matrix
-            GLHelper::popMatrix();
+            // draw body
+            drawBody(s, color, entryExitExaggeration);
             // Check if the distance is enought to draw details
             if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
-                // Push matrix
-                GLHelper::pushMatrix();
-                // Traslate to center of detector
-                glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
-                // rotate over lane
-                GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
-                //move to logo position
-                glTranslated(1.9, 0, 0);
-                // scale
-                glScaled(entryExitExaggeration, entryExitExaggeration, 1);
-                // draw Entry or Exit logo if isn't being drawn for selecting
-                if (s.drawForRectangleSelection) {
-                    GLHelper::setColor(s.detectorSettings.E3EntryColor);
-                    GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                }
-                //move to logo position
-                glTranslated(1.7, 0, 0);
-                // rotate 90 degrees lane
-                glRotated(90, 0, 0, 1);
-                // draw Entry or Exit text if isn't being drawn for selecting
-                if (s.drawForRectangleSelection) {
-                    GLHelper::setColor(s.detectorSettings.E3EntryColor);
-                    GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                } else if (drawUsingSelectColor()) {
-                    if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                        GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor, 180);
-                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                        GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor, 180);
-                    }
-                } else {
-                    if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                        GLHelper::drawText("Entry", Position(), .1, 1, s.detectorSettings.E3EntryColor, 180);
-                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                        GLHelper::drawText("Exit", Position(), .1, 1, s.detectorSettings.E3ExitColor, 180);
-                    }
-                }
-                // pop matrix
-                GLHelper::popMatrix();
-                // check if draw E3
-                if (!s.drawForRectangleSelection) {
-                    // Push matrix
-                    GLHelper::pushMatrix();
-                    // Traslate to center of detector
-                    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
-                    // rotate over lane
-                    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
-                    //move to logo position
-                    glTranslated(1.9, 0, 0);
-                    // scale
-                    glScaled(entryExitExaggeration, entryExitExaggeration, 1);
-                    // draw depending of color
-                    if (drawUsingSelectColor()) {
-                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.colorSettings.selectedAdditionalColor);
-                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.detectorSettings.E3EntryColor);
-                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.detectorSettings.E3ExitColor);
-                    }
-                    // pop matrix
-                    GLHelper::popMatrix();
-                }
-                // pop gl identificator
-                GLHelper::popName();
-                // draw additional name
-                drawAdditionalName(s);
-                // draw lock icon
-                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
+                drawEntryLogo(s, color, entryExitExaggeration);
+                drawE3Logo(s, color, entryExitExaggeration);
             }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop gl identificator
+            GLHelper::popName();
+            // draw additional name
+            drawAdditionalName(s);
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), entryExitExaggeration);
         }
         // draw dotted contour
         myContour.drawDottedContourRectangle(s, myAdditionalGeometry.getShape().front(), 2.7, 1.6, 2, 0,
@@ -340,6 +244,109 @@ GNEEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void
+GNEEntryExitDetector::drawBody(const GUIVisualizationSettings& s, const RGBColor &color, const double exaggeration) const {
+    // Push polygon matrix
+    GLHelper::pushMatrix();
+    // set color
+    GLHelper::setColor(color);
+    // set polygon mode
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // move to position
+    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+    // rotate over lane
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
+    // scale
+    glScaled(exaggeration, exaggeration, 1);
+    // draw details if isn't being drawn for selecting
+    if (!s.drawForRectangleSelection) {
+        // Draw polygon
+        glBegin(GL_LINES);
+        glVertex2d(1.7, 0);
+        glVertex2d(-1.7, 0);
+        glEnd();
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, .5);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, .5);
+        glEnd();
+        // first Arrow
+        glTranslated(1.5, 0, 0);
+        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+        // second Arrow
+        glTranslated(-3, 0, 0);
+        GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
+        GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+    } else {
+        // Draw square in drawy for selecting mode
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, 4.3);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, 4.3);
+        glEnd();
+    }
+    // Pop polygon matrix
+    GLHelper::popMatrix();
+}
+
+
+void
+GNEEntryExitDetector::drawEntryLogo(const GUIVisualizationSettings& s, const RGBColor &color, const double exaggeration) const {
+    // Push matrix
+    GLHelper::pushMatrix();
+    // set color
+    GLHelper::setColor(color);
+    // Traslate to center of detector
+    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
+    // rotate over lane
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+    //move to logo position
+    glTranslated(1.9, 0, 0);
+    // scale
+    glScaled(exaggeration, exaggeration, 1);
+    //move to logo position
+    glTranslated(1.7, 0, 0);
+    // rotate 90 degrees lane
+    glRotated(90, 0, 0, 1);
+    // draw Entry or Exit text if isn't being drawn for selecting
+    if (s.drawForRectangleSelection) {
+        GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+    } else {
+        if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+            GLHelper::drawText("Entry", Position(), .1, 1, color, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+            GLHelper::drawText("Exit", Position(), .1, 1, color, 180);
+        }
+    }
+    // pop matrix
+    GLHelper::popMatrix();
+}
+
+
+void
+GNEEntryExitDetector::drawE3Logo(const GUIVisualizationSettings& s, const RGBColor &color, const double exaggeration) const {
+    // Push matrix
+    GLHelper::pushMatrix();
+    // set color
+    GLHelper::setColor(color);
+    // Traslate to center of detector
+    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
+    // rotate over lane
+    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+    //move to logo position
+    glTranslated(1.9, 0, 0);
+    // scale
+    glScaled(exaggeration, exaggeration, 1);
+    // draw E3 logo
+    GLHelper::drawText("E3", Position(0, 0), .1, 2.8, color);
+    // pop matrix
+    GLHelper::popMatrix();
 }
 
 
